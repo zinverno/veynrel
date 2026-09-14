@@ -1,0 +1,198 @@
+{
+  "commit": "edace7ec45295a03c92db8bed4e5b9491e764995",
+  "status": "## main...origin/main; no tracked or untracked changes",
+  "node": "v24.14.1",
+  "npm": "11.11.0",
+  "packageManager": "npm",
+  "lockfiles": {
+    "package-lock.json": {
+      "lockfileVersion": 3,
+      "sha256": "004e928feea2171fac481132d08734c70a25883ccd9fcf9f413bcb3437036b23"
+    },
+    "companion/package-lock.json": {
+      "lockfileVersion": 3,
+      "sha256": "bf670641cd5ed7b53790556e806d64fc9bbf79324eca2cd24195e908ee7b7815"
+    }
+  },
+  "configuration": {
+    "esbuild.config.mjs": "import esbuild from 'esbuild';\n\nconst production = process.argv.includes('production');\n\nasync function main() {\n  await esbuild.build({\n    entryPoints: ['main.ts'],\n    tsconfig: 'tsconfig.json',\n    bundle: true,\n    external: ['obsidian'],\n    keepNames: true,\n    minifyWhitespace: production,\n    minifySyntax: production,\n    minifyIdentifiers: production,\n    platform: 'browser',\n    format: 'cjs',\n    sourcemap: production ? false : 'inline',\n    outfile: 'main.js',\n    target: 'ES2020',\n    define: {\n      'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),\n    },\n  });\n}\n\nmain().catch(() => process.exit(1));\n",
+    "eslint.config.mjs": "import obsidianmd from 'eslint-plugin-obsidianmd';\nimport globals from 'globals';\nimport { defineConfig, globalIgnores } from 'eslint/config';\n\nexport default defineConfig(\n  globalIgnores([\n    'node_modules',\n    'companion',\n    'dist',\n    'esbuild.config.mjs',\n    'version-bump.mjs',\n    'versions.json',\n    '*.js',\n    'package-lock.json',\n    'tsconfig.json',\n  ]),\n  {\n    languageOptions: {\n      globals: {\n        ...globals.browser,\n      },\n      parserOptions: {\n        projectService: {\n          allowDefaultProject: ['eslint.config.mjs', 'manifest.json'],\n        },\n        tsconfigRootDir: import.meta.dirname,\n        extraFileExtensions: ['.json'],\n      },\n    },\n  },\n  ...obsidianmd.configs.recommended,\n  {\n    files: ['**/*.ts'],\n    rules: {\n      'obsidianmd/ui/sentence-case': [\n        'warn',\n        {\n          enforceCamelCaseLower: true,\n          ignoreRegex: [\n            '^AI Hub$',\n            '^tag1, tag2$',\n            '^(?:openrouter\\\\.ai|platform\\\\.openai\\\\.com|console\\\\.groq\\\\.com)/',\n            '^sk-\\\\.\\\\.\\\\.$',\n            '^AI-Responses$',\n            '^MOCs/$',\n          ],\n        },\n      ],\n    },\n  },\n  {\n    // These files execute only in Vitest/Node and are never bundled by the\n    // plugin. Keep type-safety rules enabled while excluding mobile runtime\n    // checks that do not apply to test fixtures and Node test utilities.\n    files: ['**/*.test.ts', '**/*.integration.test.ts'],\n    languageOptions: {\n      globals: {\n        ...globals.node,\n      },\n    },\n    rules: {\n      'obsidianmd/hardcoded-config-path': 'off',\n      'obsidianmd/no-nodejs-modules': 'off',\n      'obsidianmd/no-tfile-tfolder-cast': 'off',\n      'obsidianmd/prefer-window-timers': 'off',\n    },\n  },\n);\n",
+    "tsconfig.json": {
+      "compilerOptions": {
+        "target": "ES2020",
+        "module": "ESNext",
+        "lib": [
+          "DOM",
+          "ES5",
+          "ES6",
+          "ES2020"
+        ],
+        "moduleResolution": "node",
+        "types": [
+          "node"
+        ],
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "strictNullChecks": true,
+        "strictBindCallApply": true,
+        "noImplicitAny": false,
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "useUnknownInCatchVariables": true
+      },
+      "include": [
+        "**/*.ts"
+      ],
+      "exclude": [
+        "node_modules",
+        "companion",
+        "*.js"
+      ]
+    },
+    "package.json": {
+      "name": "obsidian-ai-hub",
+      "version": "1.7.0",
+      "description": "AI Hub for Obsidian",
+      "main": "main.js",
+      "scripts": {
+        "dev": "node esbuild.config.mjs",
+        "build": "node esbuild.config.mjs production",
+        "lint": "eslint . --max-warnings 2",
+        "test": "vitest run --exclude 'companion/**'",
+        "version": "node version-bump.mjs && git add manifest.json versions.json"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "MIT",
+      "devDependencies": {
+        "@eslint/js": "^9.39.5",
+        "@types/node": "^20.11.0",
+        "esbuild": "0.19.11",
+        "eslint": "^9.39.5",
+        "eslint-plugin-obsidianmd": "^0.4.1",
+        "globals": "^17.11.0",
+        "obsidian": "latest",
+        "tslib": "2.6.2",
+        "typescript": "5.3.3",
+        "typescript-eslint": "^8.67.0",
+        "vitest": "^4.1.10"
+      }
+    },
+    "manifest.json": {
+      "id": "ai-knowledge-hub",
+      "name": "Vault Audit AI",
+      "version": "1.7.0",
+      "minAppVersion": "1.8.7",
+      "description": "AI-powered vault audit: find orphan notes, cluster topics, get tag and link suggestions, batch-process notes with filters. Works with OpenRouter, OpenAI, Groq or locally via Ollama.",
+      "author": "Zinvernix",
+      "isDesktopOnly": false
+    },
+    "companion/eslint.config.mjs": "import eslint from \"@eslint/js\";\nimport tseslint from \"typescript-eslint\";\n\nexport default tseslint.config(\n  {\n    ignores: [\"dist/**\", \"coverage/**\"],\n  },\n  eslint.configs.recommended,\n  ...tseslint.configs.recommended,\n  {\n    files: [\"**/*.ts\"],\n    languageOptions: {\n      parserOptions: {\n        project: [\"./tsconfig.json\", \"./tsconfig.test.json\"],\n        tsconfigRootDir: import.meta.dirname,\n      },\n    },\n    rules: {\n      \"@typescript-eslint/explicit-function-return-type\": \"error\",\n      \"@typescript-eslint/no-explicit-any\": \"error\"\n    },\n  },\n);\n",
+    "companion/tsconfig.test.json": {
+      "extends": "./tsconfig.json",
+      "compilerOptions": {
+        "noEmit": true,
+        "rootDir": "."
+      },
+      "include": [
+        "src/**/*.ts",
+        "tests/**/*.ts"
+      ],
+      "exclude": []
+    },
+    "companion/tsconfig.json": {
+      "compilerOptions": {
+        "target": "ES2023",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "lib": [
+          "ES2023"
+        ],
+        "types": [
+          "node"
+        ],
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitOverride": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "declaration": true,
+        "sourceMap": true,
+        "skipLibCheck": true
+      },
+      "include": [
+        "src/**/*.ts"
+      ],
+      "exclude": [
+        "dist",
+        "tests"
+      ]
+    },
+    "companion/package.json": {
+      "name": "vault-audit-ai-companion",
+      "version": "0.1.0",
+      "private": true,
+      "type": "module",
+      "description": "Standalone persistent semantic mirror for Vault Audit AI",
+      "engines": {
+        "node": ">=24.0.0"
+      },
+      "scripts": {
+        "audit:mutations": "node scripts/mutation-audit.mjs",
+        "smoke:mcp": "npm run build && node scripts/mcp-smoke.mjs",
+        "build": "tsc -p tsconfig.json",
+        "lint": "eslint . --max-warnings 0",
+        "start": "node --env-file-if-exists=.env dist/server.js",
+        "test": "vitest run",
+        "typecheck": "tsc -p tsconfig.json --noEmit"
+      },
+      "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@modelcontextprotocol/client": "2.0.0",
+        "@types/node": "^24.10.0",
+        "eslint": "^10.10.0",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.69.0",
+        "vitest": "^4.1.10"
+      },
+      "dependencies": {
+        "@modelcontextprotocol/node": "2.0.0",
+        "@modelcontextprotocol/server": "2.0.0",
+        "@qdrant/js-client-rest": "1.19.0",
+        "zod": "4.2.0"
+      }
+    }
+  },
+  "release": {
+    "tag": "1.7.0",
+    "tagObject": "19e113211d19d7bcd8ab12b60d02779a0c59b816",
+    "sourceCommit": "0641932369d84aa5bcab40a473aa896ca5335810",
+    "publishedAt": "2026-09-03T17:41:01Z",
+    "assets": [
+      {
+        "name": "main.js",
+        "bytes": 389883,
+        "sha256": "9bc35a9ced3d0588e542917f1aeca407bfb74d6058b2f151d39794e914f7d3c5"
+      },
+      {
+        "name": "manifest.json",
+        "bytes": 355,
+        "sha256": "e780bcfc96864dc6dafef007a9df1f5d3545eadb133376fd5f5fd142cec8ec51"
+      },
+      {
+        "name": "styles.css",
+        "bytes": 44718,
+        "sha256": "bc5fe2c33a15ed48b76e3dcb90f329bc2851a89384c6a172b83c89a01845621d"
+      }
+    ]
+  }
+}

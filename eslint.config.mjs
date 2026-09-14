@@ -5,7 +5,17 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 export default defineConfig(
   globalIgnores([
     'node_modules',
-    'companion',
+    // Two browser-safe proposal modules also ship in main.js. Everything else
+    // in this standalone package is checked by companion/eslint.config.mjs.
+    'companion/*',
+    '!companion/src/',
+    'companion/src/*',
+    '!companion/src/proposals/',
+    'companion/src/proposals/*',
+    '!companion/src/proposals/types.ts',
+    '!companion/src/proposals/contentHash.ts',
+    '.esbuild',
+    'scripts',
     'dist',
     'esbuild.config.mjs',
     'version-bump.mjs',

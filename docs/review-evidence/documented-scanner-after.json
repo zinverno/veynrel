@@ -1,0 +1,188 @@
+[
+  {
+    "file": "api.ts",
+    "line": 413,
+    "rule": "no-restricted-globals",
+    "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian."
+  },
+  {
+    "file": "companion/src/auth.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/config.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:net\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/config.ts",
+    "line": 2,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:path\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/mcp/queryEmbedding.ts",
+    "line": 76,
+    "rule": "no-restricted-globals",
+    "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian."
+  },
+  {
+    "file": "companion/src/proposals/storage.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/proposals/storage.ts",
+    "line": 2,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:sqlite\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/proposals/types.ts",
+    "line": 28,
+    "rule": "obsidianmd/hardcoded-config-path",
+    "message": "Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value"
+  },
+  {
+    "file": "companion/src/proposals/types.ts",
+    "line": 33,
+    "rule": "obsidianmd/hardcoded-config-path",
+    "message": "Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value"
+  },
+  {
+    "file": "companion/src/search/qdrantBackend.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/search/qdrantBackend.ts",
+    "line": 42,
+    "rule": "obsidianmd/prefer-window-timers",
+    "message": "Use 'window.setTimeout()' instead of 'setTimeout()' for popout window compatibility."
+  },
+  {
+    "file": "companion/src/search/qdrantBackend.ts",
+    "line": 51,
+    "rule": "obsidianmd/prefer-window-timers",
+    "message": "Use 'window.clearTimeout()' instead of 'clearTimeout()' for popout window compatibility."
+  },
+  {
+    "file": "companion/src/search/qdrantBackend.ts",
+    "line": 92,
+    "rule": "obsidianmd/prefer-window-timers",
+    "message": "Use 'window.clearTimeout()' instead of 'clearTimeout()' for popout window compatibility."
+  },
+  {
+    "file": "companion/src/search/qdrantBackend.ts",
+    "line": 171,
+    "rule": "obsidianmd/prefer-window-timers",
+    "message": "Use 'window.clearTimeout()' instead of 'clearTimeout()' for popout window compatibility."
+  },
+  {
+    "file": "companion/src/search/qdrantIndex.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/server.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:http\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/server.ts",
+    "line": 2,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:http\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/server.ts",
+    "line": 3,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:url\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/storage/migrations.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:sqlite\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/storage/sqliteCompanionStorage.ts",
+    "line": 1,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:fs/promises\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/storage/sqliteCompanionStorage.ts",
+    "line": 2,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:fs\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/storage/sqliteCompanionStorage.ts",
+    "line": 3,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:path\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "companion/src/storage/sqliteCompanionStorage.ts",
+    "line": 4,
+    "rule": "obsidianmd/no-nodejs-modules",
+    "message": "Do not import Node.js built-in module \"node:sqlite\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead."
+  },
+  {
+    "file": "main.ts",
+    "line": 2039,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Tag1, tag2'"
+  },
+  {
+    "file": "settings.ts",
+    "line": 108,
+    "rule": "obsidianmd/settings-tab/prefer-setting-definitions",
+    "message": "This PluginSettingTab does not implement getSettingDefinitions(); its settings will not appear in Obsidian's settings search for users on 1.13.0 or later. Consider adopting the declarative settings API."
+  },
+  {
+    "file": "settings.ts",
+    "line": 317,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Openrouter.ai/keys'"
+  },
+  {
+    "file": "settings.ts",
+    "line": 326,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Platform.OpenAI.com/API-keys'"
+  },
+  {
+    "file": "settings.ts",
+    "line": 334,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Console.groq.com/keys'"
+  },
+  {
+    "file": "settings.ts",
+    "line": 718,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Sk-...'"
+  },
+  {
+    "file": "settings.ts",
+    "line": 1123,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Ai-responses'"
+  },
+  {
+    "file": "settings.ts",
+    "line": 1140,
+    "rule": "obsidianmd/ui/sentence-case",
+    "message": "Use sentence case for UI text. Expected: 'Mocs/'"
+  }
+]

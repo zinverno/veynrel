@@ -204,6 +204,7 @@ The initial indexing step is intentionally explicit and is never started automat
 Vault Audit AI separates local storage from provider-side processing so you can choose the setup that fits your privacy requirements.
 
 - Plugin settings and API keys are saved locally through Obsidian plugin data storage.
+- The plugin has no telemetry or analytics. Provider accounts, API keys, charges, and retention rules depend on the endpoint you choose; no Vault Audit AI account is required.
 - Semantic features are opt-in and disabled by default.
 - The semantic vector index is stored in:
 
@@ -225,9 +226,14 @@ Vault Audit AI separates local storage from provider-side processing so you can 
 - Changing Companion enablement, endpoint, token, timeout, or identity invalidates obsolete queued synchronization. An old plan cannot start later batches or retries, and disabling synchronization does not delete either the local semantic index or already mirrored Companion data.
 - Companion optionally exposes MCP reads and change proposals for one configured Vault using a separate MCP token. Clients can retrieve mirrored content and queue proposals while Obsidian is closed. Proposals contain Markdown stored on Companion, including on a remote server; they trigger no embeddings or Qdrant operations. Only explicit approval in Obsidian allows the plugin to write a note. Semantic search sends the query to the configured Companion embedding provider.
 - Writing, batch, and audit operations send the content required for the requested action to the configured language-model provider.
+- **Test connection**, **Test embeddings**, and model-list buttons also make explicit network requests. Buffered chat, model discovery, embeddings, and Companion use Obsidian's `requestUrl`; streamed chat uses browser `fetch` because `requestUrl` does not expose a response stream. Streaming therefore depends on the endpoint's CORS support, including for local Ollama and custom endpoints.
+- Generated Markdown uses Obsidian's renderer. As with other notes, external images and installed Markdown processors can have their own network behavior.
+- Batch replacement saves the original note under a hidden `.ai-backup-.../` folder inside the Vault, preserving the note's relative path. Backups contain full note text and remain until you remove them. A failed backup or a note changed during generation stops that replacement. Flashcard generation also refuses to overwrite a changed note.
 - Clipboard insertion writes generated output to the system clipboard.
 
 > A locally stored vector index does not automatically make remote-provider requests local. Review the selected provider's privacy policy, retention rules, limits, and pricing before sending sensitive notes.
+
+Optional Companion Qdrant acceleration sends vectors, identifiers, hashes, revision numbers, and embedding-space metadata (including provider, model, and endpoint) to the operator-configured Qdrant service; it does not send note text or paths. SQLite remains the authoritative mirror. See [Companion persistence and recovery](companion/README.md#optional-qdrant-acceleration).
 
 ## Semantic index behavior
 
@@ -327,13 +333,20 @@ Clear and rebuild are explicit operations and do not modify source notes.
 ## Development
 
 ```bash
-npm install
+npm ci
+npm ci --prefix companion
 npm test
-npm run build
-npx tsc --noEmit --module ES2020 --ignoreDeprecations 5.0
+npm run lint
+npm --prefix companion run typecheck
+npm --prefix companion test
+npm --prefix companion run build
 ```
 
-The TypeScript command includes the module and deprecation overrides required by the current project configuration.
+`npm run lint` runs both lint environments. `npm run lint:obsidian` runs plugin TypeScript validation, the production build, and the current official recommended Obsidian rules, including every TypeScript module emitted into `main.js`. Build metadata is written to ignored `.esbuild/meta.json`; the build rejects standalone server code and unexpected external dependencies. Companion retains its own strict Node/TypeScript environment and type-aware safety rules.
+
+The four reviewed plugin advisories remain visible and are checked by file, rule, and count; new warnings fail CI. See the [forensic review report](docs/obsidian-review-audit.md) for rationale, public-scorecard evidence, and the scanner scope limitation. No Obsidian runtime rules have been disabled to make the review pass. `npm run typecheck` also runs the standalone `tsc --noEmit --module ES2020 --ignoreDeprecations 5.0` check.
+
+CI validates plugin and Companion on Node 24 and saves the plugin bundle plus dependency metadata. A separate workflow verifies and attests the assets of a future manually published release against a build from its tag; it does not create a release or replace assets. Before releasing, test the affected note writes and menus in desktop, mobile, and a popout window, and check the Community scorecard after its next scan.
 
 ## Contributing
 
