@@ -78,8 +78,12 @@ export class CompanionClient {
     }
   }
 
-  status(signal?: AbortSignal): Promise<CompanionServerStatus> {
-    return this.request("/v1/status", "GET", undefined, signal);
+  async status(signal?: AbortSignal): Promise<CompanionServerStatus> {
+    const result = await this.request<CompanionServerStatus>("/v1/status", "GET", undefined, signal);
+    if (result.status !== "ok" || !Number.isSafeInteger(result.vaultCount) || result.vaultCount < 0) {
+      throw new CompanionClientError("INVALID_RESPONSE");
+    }
+    return result;
   }
 
   plan(vaultId: string, snapshot: CompanionSnapshotLike, signal?: AbortSignal): Promise<CompanionReconciliationPlan> {
