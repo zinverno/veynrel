@@ -6,9 +6,8 @@ vi.mock("obsidian", () => ({
   TFile: class {}, TFolder: class {},
   getLanguage: () => "en",
 }));
-import AIHubPlugin from "./main";
-
-it("keeps all six context actions using only public menu methods", () => {
+it("keeps all six context actions using only public menu methods", async () => {
+  const { default: AIHubPlugin } = await vi.importActual<typeof import("./main")>("./main.ts");
   const items: Array<{ title: string; section: string; click?: unknown }> = [];
   const menu = {
     addSeparator: vi.fn(),
