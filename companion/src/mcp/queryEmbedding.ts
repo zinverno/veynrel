@@ -56,7 +56,7 @@ function vectorFromPayload(payload: unknown, providerId: string): Float32Array {
   if (!Array.isArray(raw) || raw.length === 0) throw semanticSearchUnavailable();
   const vector = new Float32Array(raw.length);
   for (let index = 0; index < raw.length; index++) {
-    const value = raw[index];
+    const value: unknown = raw[index];
     if (typeof value !== "number" || !Number.isFinite(value) || Math.abs(value) > 3.4028234663852886e38) {
       throw semanticSearchUnavailable();
     }
@@ -112,7 +112,9 @@ export class DescriptorQueryEmbeddingProvider implements QueryEmbeddingProvider 
       const chunks: Uint8Array[] = [];
       let bytes = 0;
       if (!response.body) throw semanticSearchUnavailable();
-      for await (const chunk of response.body) {
+      for await (const rawChunk of response.body) {
+        const chunk: unknown = rawChunk;
+        if (!(chunk instanceof Uint8Array)) throw semanticSearchUnavailable();
         bytes += chunk.byteLength;
         if (bytes > 2 * 1024 * 1024) throw semanticSearchUnavailable();
         chunks.push(chunk);

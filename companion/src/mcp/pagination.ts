@@ -46,7 +46,7 @@ export function parseNotesCursor(cursor: string | undefined, prefix: string): st
   if (value.version !== 1 || value.kind !== "notes" || value.prefix !== prefix || typeof value.path !== "string") {
     invalidCursor();
   }
-  return value.path as string;
+  return value.path;
 }
 
 export function chunksCursor(path: string, ordinal: number, chunkId: string): string {
@@ -70,5 +70,5 @@ export function parseChunksCursor(
   ) {
     invalidCursor();
   }
-  return { ordinal: value.ordinal, chunkId: value.chunkId } as { ordinal: number; chunkId: string };
+  return { ordinal: value.ordinal, chunkId: value.chunkId };
 }

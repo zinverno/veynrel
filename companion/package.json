@@ -14,7 +14,7 @@
     "lint": "eslint . --max-warnings 0",
     "start": "node --env-file-if-exists=.env dist/server.js",
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.test.json --noEmit"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

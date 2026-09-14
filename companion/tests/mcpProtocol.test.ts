@@ -52,10 +52,10 @@ describe("MCP Streamable HTTP endpoint", () => {
     };
     logEntries = [];
     logger = {
-      debug: vi.fn((message, context) => logEntries.push({ message, context })),
-      info: vi.fn((message, context) => logEntries.push({ message, context })),
-      warn: vi.fn((message, context) => logEntries.push({ message, context })),
-      error: vi.fn((message, context) => logEntries.push({ message, context })),
+      debug: vi.fn<Logger["debug"]>((message, context) => logEntries.push({ message, context })),
+      info: vi.fn<Logger["info"]>((message, context) => logEntries.push({ message, context })),
+      warn: vi.fn<Logger["warn"]>((message, context) => logEntries.push({ message, context })),
+      error: vi.fn<Logger["error"]>((message, context) => logEntries.push({ message, context })),
     };
     providerCalls = 0;
     const provider: QueryEmbeddingProvider = {

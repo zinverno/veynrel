@@ -14,7 +14,7 @@ const input = z.union([
 const output = z.strictObject({
   dataTrust: z.literal("untrusted-vault-data"),
   proposal: z.strictObject({
-    proposalId: z.string().uuid(), operation: z.enum(["CREATE_NOTE", "UPDATE_NOTE", "DELETE_NOTE"]),
+    proposalId: z.uuid(), operation: z.enum(["CREATE_NOTE", "UPDATE_NOTE", "DELETE_NOTE"]),
     path: z.string(), summary: z.string(), status: z.enum(["PENDING", "CLAIMED", "APPLIED", "REJECTED", "CONFLICT", "FAILED", "EXPIRED"]),
     createdAt: z.number(), updatedAt: z.number(), claimedAt: z.number().nullable(), claimExpiresAt: z.number().nullable(),
     appliedAt: z.number().nullable(), statusCode: z.string().nullable(),
@@ -29,7 +29,7 @@ export function registerProposalTools(server: McpServer, capability: McpProposal
   }, (value) => execute("propose_change", async () => ({ dataTrust: "untrusted-vault-data", proposal: capability.create(value) })));
   server.registerTool("get_proposal", {
     description: "Read the status of one proposal in the configured Vault. This tool cannot claim, approve, complete or apply proposals. APPLIED means the Obsidian write succeeded; mirror AutoSync may still be pending.",
-    inputSchema: z.strictObject({ proposalId: z.string().uuid() }), outputSchema: output,
+    inputSchema: z.strictObject({ proposalId: z.uuid() }), outputSchema: output,
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   }, ({ proposalId }) => execute("get_proposal", async () => ({ dataTrust: "untrusted-vault-data", proposal: capability.get(proposalId) })));
 }

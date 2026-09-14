@@ -117,7 +117,8 @@ describe("official Qdrant SDK adapter", () => {
     const fetch = stub(); const actual = await new QdrantClientIndex(config).search(spec, new Float32Array([1, 0, 0]), 1);
     expect(actual).toEqual([{ chunkId: record.chunkId, score: 1 }]);
     const count = fetch.mock.calls.filter(([url]) => String(url).endsWith("/count"));
-    expect(count).toHaveLength(2); expect(count.every(([, init]) => JSON.parse(init!.body as string).exact === true)).toBe(true);
+    expect(count).toHaveLength(2);
+    for (const [, init] of count) expect(JSON.parse(init!.body as string)).toMatchObject({ exact: true });
     const body = JSON.parse(fetch.mock.calls.at(-1)![1]!.body as string) as { filter: unknown; with_vector: boolean };
     expect(body.with_vector).toBe(false); expect(JSON.stringify(body.filter)).toContain("test-build");
   });
@@ -136,9 +137,15 @@ describe("official Qdrant SDK adapter", () => {
     const fetch = stub();
     fetch.mockImplementation(async (input, init) => {
       if (String(input).endsWith("/count")) return response({ count: 300 });
-      if (String(input).endsWith("/query")) return response({ points: Array.from({ length: JSON.parse(init!.body as string).limit as number }, (_, i) => {
-        const chunkId = `id-${i}`; return { id: pointId(VAULT_A, chunkId), score: 1, payload: { ...point.payload, chunkId } };
-      }) });
+      if (String(input).endsWith("/query")) {
+        const body: unknown = JSON.parse(init!.body as string);
+        if (!body || typeof body !== "object" || !("limit" in body) || typeof body.limit !== "number") {
+          throw new Error("Expected a numeric query limit");
+        }
+        return response({ points: Array.from({ length: body.limit }, (_, i) => {
+          const chunkId = `id-${i}`; return { id: pointId(VAULT_A, chunkId), score: 1, payload: { ...point.payload, chunkId } };
+        }) });
+      }
       return response({ status: "green", config: { params: { vectors: { size: 3, distance: "Cosine" } }, metadata: { vaultAuditOwner: spec.owner } } });
     });
     await expect(new QdrantClientIndex(config).search({ ...spec, count: 300 }, new Float32Array([1, 0, 0]), 1)).rejects.toBeInstanceOf(QdrantIndexError);

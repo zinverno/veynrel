@@ -26,10 +26,10 @@ describe("Companion HTTP API", () => {
     await storage.initialize();
     logMessages = [];
     logger = {
-      debug: vi.fn((message) => logMessages.push(message)),
-      info: vi.fn((message) => logMessages.push(message)),
-      warn: vi.fn((message) => logMessages.push(message)),
-      error: vi.fn((message, context) => logMessages.push(`${message}${JSON.stringify(context ?? {})}`)),
+      debug: vi.fn<Logger["debug"]>((message) => logMessages.push(message)),
+      info: vi.fn<Logger["info"]>((message) => logMessages.push(message)),
+      warn: vi.fn<Logger["warn"]>((message) => logMessages.push(message)),
+      error: vi.fn<Logger["error"]>((message, context) => logMessages.push(`${message}${JSON.stringify(context ?? {})}`)),
     };
     const config: CompanionConfig = {
       host: "127.0.0.1",

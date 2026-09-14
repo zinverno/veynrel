@@ -127,6 +127,19 @@ describe("Companion query embedding provider", () => {
     await expect(malformed.embedQuery(descriptor(), "query")).rejects.toMatchObject({ code: "SEMANTIC_SEARCH_UNAVAILABLE" });
   });
 
+  it("rejects a non-byte response stream without exposing its content", async () => {
+    const body = new ReadableStream<string>({
+      start(controller): void { controller.enqueue("private malformed response"); controller.close(); },
+    });
+    const response = new Response();
+    Object.defineProperty(response, "body", { value: body });
+    const provider = new DescriptorQueryEmbeddingProvider({ apiKey: "", timeoutMs: 1000,
+      fetch: (): Promise<Response> => Promise.resolve(response),
+    });
+    await expect(provider.embedQuery(descriptor(), "query"))
+      .rejects.toMatchObject({ code: "SEMANTIC_SEARCH_UNAVAILABLE" });
+  });
+
   it("aborts provider requests at the configured timeout", async () => {
     const performFetch = (_input: string | URL | Request, init?: RequestInit): Promise<Response> => new Promise((_resolve, reject) => {
       init?.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
