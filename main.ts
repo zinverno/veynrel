@@ -79,6 +79,7 @@ export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
+  private atomizationTasks = new Map<TFile, Promise<void>>();
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
 
@@ -1442,7 +1443,17 @@ export default class AIHubPlugin extends Plugin {
   }
 
   // === Атомизация заметки (Zettelkasten) ===
-  async atomizeNote(file: TFile) {
+  atomizeNote(file: TFile): Promise<void> {
+    const existing = this.atomizationTasks.get(file);
+    if (existing) return existing;
+    // Share generation as well as the append so concurrent requests cannot
+    // create a second set of notes whose links are then skipped.
+    const pending = this.createAtomicNotes(file).finally(() => this.atomizationTasks.delete(file));
+    this.atomizationTasks.set(file, pending);
+    return pending;
+  }
+
+  private async createAtomicNotes(file: TFile) {
     const err = validateSettings(this.settings);
     if (err) {
       new Notice(err);
