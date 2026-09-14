@@ -338,7 +338,7 @@ export async function callOpenRouter(
   }
 
   const content = json.choices?.[0]?.message?.content;
-  if (content === undefined) {
+  if (content === undefined || !content.trim()) {
     throw new Error(tr("API вернул ответ неверного формата."));
   }
   return content;
@@ -424,7 +424,7 @@ export async function streamOpenRouter(
     let buffer = "";
     let generated = ""; // накопленный текст для проверки петель
 
-    while (true) {
+    stream: while (true) {
       const { done, value } = await readStreamChunk(
         reader,
         controller.signal,
@@ -444,7 +444,7 @@ export async function streamOpenRouter(
         if (!trimmed.startsWith("data: ")) continue;
 
         const jsonStr = trimmed.slice(6);
-        if (jsonStr === "[DONE]") return;
+        if (jsonStr === "[DONE]") break stream;
 
         let json: OpenRouterResponse;
         try {
@@ -454,12 +454,12 @@ export async function streamOpenRouter(
           continue;
         }
 
-        // Проверяем finish_reason
         const finishReason = json.choices?.[0]?.finish_reason;
-        if (finishReason && finishReason !== "null") return;
-
         const content = json.choices?.[0]?.delta?.content;
-        if (!content) continue;
+        if (!content) {
+          if (finishReason && finishReason !== "null") break stream;
+          continue;
+        }
 
         // ── Детектор петли ──────────────────────────────
         generated += content;
@@ -471,8 +471,10 @@ export async function streamOpenRouter(
         // ────────────────────────────────────────────────
 
         onToken(content);
+        if (finishReason && finishReason !== "null") break stream;
       }
     }
+    if (!generated.trim()) throw new Error(tr("API вернул ответ неверного формата."));
   } catch (error) {
     if (termination !== "active") {
       throw streamTerminationError(termination);
