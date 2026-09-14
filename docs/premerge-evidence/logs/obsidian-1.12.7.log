@@ -1,0 +1,47 @@
+2026-09-14 08:33:53 Loaded main app package /usr/lib/obsidian/obsidian.asar
+
+DevTools listening on ws://127.0.0.1:19221/devtools/browser/1fd35ecc-777a-48dd-bcd4-70a0e89536ae
+Ignored: Error: ENOENT: no such file or directory, open '/tmp/vault-audit-smoke/config/obsidian/0123456789abcdef.json'
+2026-09-14 08:33:54 Checking for update using Github
+2026-09-14 08:33:54 Success.
+2026-09-14 08:33:54 Latest version is 1.13.7
+2026-09-14 08:33:54 Downloading update from https://github.com/obsidianmd/obsidian-releases/releases/download/v1.13.7/obsidian-1.13.7.asar.gz
+2026-09-14 08:33:56 Verifying hash & signature. Size= 8773048
+2026-09-14 08:33:56 Saving file
+2026-09-14 08:33:57 Update complete.
+2026-09-14 09:35:26 Checking for update using Github
+2026-09-14 09:35:27 Success.
+2026-09-14 09:35:27 Latest version is 1.13.7
+2026-09-14 09:35:27 An update is already downloaded.
+2026-09-14 10:35:26 Checking for update using Github
+2026-09-14 10:35:27 Success.
+2026-09-14 10:35:27 Latest version is 1.13.7
+2026-09-14 10:35:27 An update is already downloaded.
+2026-09-14 11:35:26 Checking for update using Github
+2026-09-14 11:35:27 Success.
+2026-09-14 11:35:27 Latest version is 1.13.7
+2026-09-14 11:35:27 An update is already downloaded.
+2026-09-14 12:35:27 Checking for update using Github
+2026-09-14 12:35:28 Success.
+2026-09-14 12:35:28 Latest version is 1.13.7
+2026-09-14 12:35:28 An update is already downloaded.
+2026-09-14 13:35:27 Checking for update using Github
+2026-09-14 13:35:27 Success.
+2026-09-14 13:35:27 Latest version is 1.13.7
+2026-09-14 13:35:27 An update is already downloaded.
+2026-09-14 14:35:27 Checking for update using Github
+2026-09-14 14:35:28 Success.
+2026-09-14 14:35:28 Latest version is 1.13.7
+2026-09-14 14:35:28 An update is already downloaded.
+2026-09-14 15:35:27 Checking for update using Github
+2026-09-14 15:35:28 Success.
+2026-09-14 15:35:28 Latest version is 1.13.7
+2026-09-14 15:35:28 An update is already downloaded.
+2026-09-14 16:35:27 Checking for update using Github
+2026-09-14 16:35:27 Success.
+2026-09-14 16:35:27 Latest version is 1.13.7
+2026-09-14 16:35:27 An update is already downloaded.
+2026-09-14 17:35:27 Checking for update using Github
+2026-09-14 17:35:27 Success.
+2026-09-14 17:35:27 Latest version is 1.13.7
+2026-09-14 17:35:27 An update is already downloaded.

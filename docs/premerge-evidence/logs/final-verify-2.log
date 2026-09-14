@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@1.7.0 test
+> vitest run --exclude 'companion/**'
+
+
+ RUN  v4.1.10 /tmp/vault-audit-smoke/rc-repo
+
+
+ Test Files  28 passed (28)
+      Tests  792 passed (792)
+   Start at  21:44:22
+   Duration  2.99s (transform 10.07s, setup 0ms, import 15.05s, tests 3.22s, environment 5ms)

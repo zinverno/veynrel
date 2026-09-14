@@ -1,0 +1,42 @@
+
+> vault-audit-ai-companion@0.1.0 test
+> vitest run tests/server.test.ts
+
+
+ RUN  v4.1.11 /tmp/vault-audit-smoke/repo/companion
+
+(node:3414919) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ❯ tests/server.test.ts (13 tests | 3 failed) 200ms
+     × rejects vectors that become non-finite or zero in Float32 storage: 1e+40 74ms
+     × rejects vectors that become non-finite or zero in Float32 storage: 0 11ms
+     × rejects vectors that become non-finite or zero in Float32 storage: 1e-50 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/server.test.ts > Companion HTTP API > rejects vectors that become non-finite or zero in Float32 storage: 1e+40
+ FAIL  tests/server.test.ts > Companion HTTP API > rejects vectors that become non-finite or zero in Float32 storage: 0
+ FAIL  tests/server.test.ts > Companion HTTP API > rejects vectors that become non-finite or zero in Float32 storage: 1e-50
+AssertionError: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ tests/server.test.ts:81:29
+     79|       }),
+     80|     });
+     81|     expect(response.status).toBe(400);
+       |                             ^
+     82|     expect(await storage.readVault(VAULT_A)).toBeNull();
+     83|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 10 passed (13)
+   Start at  20:28:56
+   Duration  1.08s (transform 357ms, setup 0ms, import 721ms, tests 200ms, environment 0ms)

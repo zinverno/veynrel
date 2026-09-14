@@ -1,5 +1,7 @@
 # Obsidian Community review audit — 2026-09-14
 
+Subsequent release-candidate verification, native desktop/popout/Android evidence, and additional focused fixes are recorded in [the final pre-merge smoke report](obsidian-premerge-smoke.md). The forensic measurements below remain the historical audit snapshot.
+
 The public **Review: Risks** result is reproducible as an Obsidian-type-resolution failure. It was not caused by Companion: the reviewed 1.7.0 release predates that package. Current source has a separate, reproducible scanner-scope problem affecting standalone server code. This branch fixes real note-write/API issues, strengthens local checks, and preserves all remaining warnings. A clean public scorecard is **not established** by these changes.
 
 ## Baseline and provenance

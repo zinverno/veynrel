@@ -1,0 +1,202 @@
+--------- beginning of main
+09-14 22:14:16.265  1804  1804 I md.obsidian: Using CollectorTypeCMC GC.
+09-14 22:14:16.267  1804  1804 W md.obsidian: Unexpected CPU variant for x86: x86_64.
+09-14 22:14:16.267  1804  1804 W md.obsidian: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, default
+09-14 22:14:16.268  1804  1804 E md.obsidian: Not starting debugger since process cannot load the jdwp agent.
+09-14 22:14:16.284  1804  1804 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+09-14 22:14:16.599  1804  1804 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+09-14 22:14:16.600  1804  1804 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+09-14 22:14:16.652  1804  1804 D nativeloader: Configuring clns-7 for other apk /data/app/~~vCf_32-s038s0XqVtOb8DA==/md.obsidian-peJzFg2UIThQqJAt5yhYqw==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~vCf_32-s038s0XqVtOb8DA==/md.obsidian-peJzFg2UIThQqJAt5yhYqw==/lib/x86_64:/data/app/~~vCf_32-s038s0XqVtOb8DA==/md.obsidian-peJzFg2UIThQqJAt5yhYqw==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/md.obsidian
+09-14 22:14:16.666  1804  1804 V GraphicsEnvironment: Currently set values for:
+09-14 22:14:16.666  1804  1804 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+09-14 22:14:16.666  1804  1804 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+09-14 22:14:16.666  1804  1804 V GraphicsEnvironment: Global.Settings values are invalid: number of packages: 0, number of values: 0
+09-14 22:14:16.666  1804  1804 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+09-14 22:14:16.676  1804  1804 D WM-WrkMgrInitializer: Initializing WorkManager with default configuration.
+09-14 22:14:16.785  1804  1804 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+09-14 22:14:16.847  1804  1804 I WebViewFactory: Loading com.android.webview version 124.0.6367.219 (code 636771907)
+--------- beginning of system
+09-14 22:14:16.849  1804  1804 V ResourcesManager: The following library key has been added: ResourcesKey{ mHash=a1a5c735 mResDir=null mSplitDirs=[] mOverlayDirs=[/data/resource-cache/com.android.systemui-neutral-Ffwz.frro,/data/resource-cache/com.android.systemui-accent-FhjU.frro,/data/resource-cache/com.android.systemui-dynamic-8ZFw.frro] mLibDirs=[/product/app/webview/webview.apk,/system_ext/framework/androidx.window.extensions.jar] mDisplayId=0 mOverrideConfig=v35 mCompatInfo={320dpi always-compat} mLoaders=[]}
+09-14 22:14:16.851  1804  1804 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+09-14 22:14:16.856  1804  1804 D nativeloader: InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libapexsupport.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libcom.android.tethering.connectivity_native.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvendorsupport.so:libvndksupport.so:libvulkan.so
+09-14 22:14:16.857  1804  1804 D nativeloader: Configuring product-clns-8 for unbundled product apk /product/app/webview/webview.apk. target_sdk_version=34, uses_libraries=, library_path=/product/app/webview/lib/x86_64:/product/app/webview/webview.apk!/lib/x86_64:/product/lib64:/system/product/lib64, permitted_path=/data:/mnt/expand:/product/lib64:/system/product/lib64
+09-14 22:14:16.857  1804  1804 D nativeloader: InitVndkspLibrariesProduct: VNDK is deprecated with product
+09-14 22:14:16.991  1804  1804 I cr_WVCFactoryProvider: Loaded version=124.0.6367.219 minSdkVersion=1 isBundle=false multiprocess=true packageId=2
+09-14 22:14:16.996  1804  1804 D nativeloader: Load /product/app/webview/webview.apk!/lib/x86_64/libwebviewchromium.so using ns product-clns-8 from class loader (caller=/product/app/webview/webview.apk): ok
+09-14 22:14:17.025  1804  1804 D nativeloader: Load /system/lib64/libwebviewchromium_plat_support.so using ns product-clns-8 from class loader (caller=/product/app/webview/webview.apk): ok
+09-14 22:14:17.053  1804  1829 E chromium: [0914/221417.049828:ERROR:variations_seed_loader.cc(37)] Seed missing signature.
+09-14 22:14:17.055  1804  1829 I cr_VariationsUtils: Failed reading seed file "/data/user/0/md.obsidian/app_webview/variations_seed_new"
+09-14 22:14:17.055  1804  1829 I chromium: [0914/221417.055291:INFO:variations_seed_loader.cc(66)] Failed to open file for reading.: No such file or directory (2)
+09-14 22:14:17.055  1804  1829 I cr_VariationsUtils: Failed reading seed file "/data/user/0/md.obsidian/app_webview/variations_seed"
+09-14 22:14:17.074  1804  1804 I cr_LibraryLoader: Successfully loaded native library
+09-14 22:14:17.079  1804  1804 I cr_CachingUmaRecorder: Flushed 6 samples from 6 histograms, 0 samples were dropped.
+09-14 22:14:17.089  1804  1804 I cr_CombinedPProvider: #registerProvider() provider:WV.o7@6387753 isPolicyCacheEnabled:false policyProvidersSize:0
+09-14 22:14:17.090  1804  1804 I cr_PolicyProvider: #setManagerAndSource() 0
+09-14 22:14:17.173  1804  1804 I cr_CombinedPProvider: #linkNativeInternal() 1
+09-14 22:14:17.174  1804  1804 I cr_AppResProvider: #getApplicationRestrictionsFromUserManager() Bundle[EMPTY_PARCEL]
+09-14 22:14:17.174  1804  1804 I cr_PolicyProvider: #notifySettingsAvailable() 0
+09-14 22:14:17.174  1804  1804 I cr_CombinedPProvider: #onSettingsAvailable() 0
+09-14 22:14:17.174  1804  1804 I cr_CombinedPProvider: #flushPolicies()
+09-14 22:14:17.570  1804  1804 D nativeloader: Load /data/app/~~vCf_32-s038s0XqVtOb8DA==/md.obsidian-peJzFg2UIThQqJAt5yhYqw==/lib/x86_64/libfs.so using ns clns-7 from class loader (caller=/data/app/~~vCf_32-s038s0XqVtOb8DA==/md.obsidian-peJzFg2UIThQqJAt5yhYqw==/base.apk): ok
+09-14 22:14:17.571  1804  1804 D Capacitor: Native FS loaded.
+09-14 22:14:17.586  1804  1804 D Capacitor: Starting BridgeActivity
+09-14 22:14:17.737  1804  1849 W cr_media: BLUETOOTH_CONNECT permission is missing.
+09-14 22:14:17.753  1804  1849 W cr_media: registerBluetoothIntentsIfNeeded: Requires BLUETOOTH permission
+09-14 22:14:17.770  1804  1804 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+09-14 22:14:17.770  1804  1804 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+09-14 22:14:17.774  1804  1804 W CustomTabsClient: Unable to find any Custom Tabs packages, you may need to add a <queries> element to your manifest. See the docs for CustomTabsClient#getPackageName.
+09-14 22:14:17.778  1804  1876 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+09-14 22:14:17.780  1804  1876 I EGL_emulation: Opening libGLESv2_emulation.so
+09-14 22:14:17.811  1804  1804 W HWUI    : Unknown dataspace 0
+09-14 22:14:17.829  1804  1876 E EGL_emulation: eglCreateContext: EGL_BAD_CONFIG: no ES 3.2 support
+09-14 22:14:17.833  1804  1876 E EGL_emulation: tid 1876: eglCreateContext(1830): error 0x3005 (EGL_BAD_CONFIG)
+09-14 22:14:17.833  1804  1876 E EGL_emulation: eglCreateContext: EGL_BAD_CONFIG: no ES 3.1 support
+09-14 22:14:17.833  1804  1876 E EGL_emulation: tid 1876: eglCreateContext(1824): error 0x3005 (EGL_BAD_CONFIG)
+09-14 22:14:17.983  1804  1820 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+09-14 22:14:18.010  1804  1820 I Gralloc4: mapper 4.x is not supported
+09-14 22:14:20.044  1804  1868 W chromium: [WARNING:display_webview.cc(32)] WebView overlays are enabled!
+09-14 22:14:21.027  1804  1900 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#0) as ready
+09-14 22:14:21.027  1804  1900 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#1) as ready
+09-14 22:14:21.713  1804  1804 I Choreographer: Skipped 100 frames!  The application may be doing too much work on its main thread.
+09-14 22:14:21.715  1804  1813 I HWUI    : Davey! duration=1678ms; Flags=1, FrameTimelineVsyncId=13728, IntendedVsync=71565513435, Vsync=71565513435, InputEventId=0, HandleInputStart=71565767686, AnimationStart=71565768337, PerformTraversalsStart=71565913419, DrawStart=71566783501, FrameDeadline=71582180101, FrameInterval=71565764169, FrameStartTime=16666666, SyncQueued=71569685615, SyncStart=71569911288, IssueDrawCommandsStart=71570288746, SwapBuffers=72858017197, FrameCompleted=73243786639, DequeueBufferDuration=5441, QueueBufferDuration=10446455, GpuCompleted=73243685229, SwapBuffersCompleted=73243786639, DisplayPresentTime=16960825855817, CommandSubmissionCompleted=72858017197,
+09-14 22:14:25.175  1804  1804 I Choreographer: Skipped 202 frames!  The application may be doing too much work on its main thread.
+09-14 22:14:25.199  1804  1903 I HWUI    : Davey! duration=5133ms; Flags=0, FrameTimelineVsyncId=13735, IntendedVsync=71582180101, Vsync=73248846701, InputEventId=0, HandleInputStart=73258670808, AnimationStart=73258671719, PerformTraversalsStart=73273998648, DrawStart=73274040066, FrameDeadline=73265513367, FrameInterval=73258282840, FrameStartTime=16666666, SyncQueued=73274219102, SyncStart=73276275750, IssueDrawCommandsStart=73276310745, SwapBuffers=76506717325, FrameCompleted=76717753719, DequeueBufferDuration=5479, QueueBufferDuration=188711279, GpuCompleted=76717674791, SwapBuffersCompleted=76717753719, DisplayPresentTime=20611548058296, CommandSubmissionCompleted=76506717325,
+09-14 22:14:25.318  1804  1907 D ProfileInstaller: Skipping profile installation for md.obsidian
+09-14 22:14:25.456  1804  1817 I HWUI    : Davey! duration=3585ms; Flags=0, FrameTimelineVsyncId=13899, IntendedVsync=73348846697, Vsync=76715513229, InputEventId=0, HandleInputStart=76721132777, AnimationStart=76721133579, PerformTraversalsStart=76728597208, DrawStart=76728638436, FrameDeadline=76798846559, FrameInterval=76720604626, FrameStartTime=16666666, SyncQueued=76728872364, SyncStart=76780970556, IssueDrawCommandsStart=76781018706, SwapBuffers=76965422805, FrameCompleted=76986895292, DequeueBufferDuration=4639, QueueBufferDuration=3315369, GpuCompleted=76986795625, SwapBuffersCompleted=76986895292, DisplayPresentTime=0, CommandSubmissionCompleted=76965422805,
+09-14 22:14:26.173  1804  1820 D EGL_emulation: app_time_stats: avg=263.24ms min=40.87ms max=3473.96ms count=17
+09-14 22:14:27.272  1804  1820 D EGL_emulation: app_time_stats: avg=61.04ms min=35.91ms max=162.79ms count=18
+09-14 22:14:27.389  1804  1909 D TrafficStats: tagSocket(225) with statsTag=0xffffffff, statsUid=-1
+09-14 22:14:27.699  1804  1808 I md.obsidian: Background concurrent mark compact GC freed 4309KB AllocSpace bytes, 56(6328KB) LOS objects, 49% free, 4559KB/9119KB, paused 148us,880us total 1.356s
+09-14 22:14:27.712  1804  1810 W md.obsidian: ApkAssets: Deleting an ApkAssets object '<empty> and /product/app/webview/webview.apk' with 2 weak references
+09-14 22:14:27.712  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:27.712  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:27.712  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:27.715  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:27.715  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:27.715  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:27.715  1804  1810 W System  : A resource failed to call close.
+09-14 22:14:28.480  1804  1820 D EGL_emulation: app_time_stats: avg=92.82ms min=40.32ms max=345.92ms count=13
+09-14 22:14:45.628  1804  1820 D EGL_emulation: app_time_stats: avg=17148.02ms min=17148.02ms max=17148.02ms count=1
+09-14 22:14:45.631  1804  1804 I Choreographer: Skipped 63 frames!  The application may be doing too much work on its main thread.
+09-14 22:14:45.640  1804  1908 I HWUI    : Davey! duration=1100ms; Flags=0, FrameTimelineVsyncId=14754, IntendedVsync=96082179121, Vsync=96082179121, InputEventId=0, HandleInputStart=96083869306, AnimationStart=96083870559, PerformTraversalsStart=96085687897, DrawStart=96085784208, FrameDeadline=96098845787, FrameInterval=96083866761, FrameStartTime=16666666, SyncQueued=96085919742, SyncStart=96085943937, IssueDrawCommandsStart=96085986107, SwapBuffers=97172675595, FrameCompleted=97182300950, DequeueBufferDuration=5781, QueueBufferDuration=392146, GpuCompleted=97182300950, SwapBuffersCompleted=97174043461, DisplayPresentTime=0, CommandSubmissionCompleted=97172675595,
+09-14 22:14:45.779  1804  1916 D TrafficStats: tagSocket(234) with statsTag=0xffffffff, statsUid=-1
+09-14 22:14:45.942  1804  1908 I HWUI    : Davey! duration=1234ms; Flags=0, FrameTimelineVsyncId=14769, IntendedVsync=96115512453, Vsync=97165512411, InputEventId=0, HandleInputStart=97176780666, AnimationStart=97176781577, PerformTraversalsStart=97180713523, DrawStart=97180738249, FrameDeadline=97332179071, FrameInterval=97176464733, FrameStartTime=16666666, SyncQueued=97180816826, SyncStart=97312814356, IssueDrawCommandsStart=97312849782, SwapBuffers=97480204021, FrameCompleted=97482394630, DequeueBufferDuration=3176, QueueBufferDuration=524113, GpuCompleted=97482394630, SwapBuffersCompleted=97481419721, DisplayPresentTime=0, CommandSubmissionCompleted=97480204021,
+09-14 22:14:46.653  1804  1820 D EGL_emulation: app_time_stats: avg=73.20ms min=43.85ms max=220.30ms count=14
+09-14 22:14:47.674  1804  1820 D EGL_emulation: app_time_stats: avg=48.59ms min=41.35ms max=56.10ms count=21
+09-14 22:14:48.830  1804  1820 D EGL_emulation: app_time_stats: avg=82.54ms min=48.17ms max=224.86ms count=14
+09-14 22:14:49.839  1804  1820 D EGL_emulation: app_time_stats: avg=50.40ms min=45.21ms max=62.33ms count=20
+09-14 22:14:50.842  1804  1820 D EGL_emulation: app_time_stats: avg=55.69ms min=47.78ms max=68.52ms count=18
+09-14 22:14:51.877  1804  1820 D EGL_emulation: app_time_stats: avg=94.07ms min=47.69ms max=278.17ms count=11
+09-14 22:14:53.062  1804  1918 D TrafficStats: tagSocket(234) with statsTag=0xffffffff, statsUid=-1
+09-14 22:14:53.210  1804  1820 D EGL_emulation: app_time_stats: avg=444.20ms min=32.62ms max=1243.84ms count=3
+09-14 22:14:54.212  1804  1820 D EGL_emulation: app_time_stats: avg=62.62ms min=47.74ms max=95.58ms count=16
+09-14 22:14:55.258  1804  1820 D EGL_emulation: app_time_stats: avg=52.28ms min=45.96ms max=67.79ms count=20
+09-14 22:14:56.308  1804  1820 D EGL_emulation: app_time_stats: avg=61.75ms min=47.83ms max=92.63ms count=17
+09-14 22:14:57.354  1804  1820 D EGL_emulation: app_time_stats: avg=58.05ms min=48.38ms max=80.02ms count=18
+09-14 22:14:58.380  1804  1820 D EGL_emulation: app_time_stats: avg=54.00ms min=48.09ms max=63.53ms count=19
+09-14 22:14:59.464  1804  1820 D EGL_emulation: app_time_stats: avg=67.70ms min=40.18ms max=137.78ms count=16
+09-14 22:15:00.511  1804  1820 D EGL_emulation: app_time_stats: avg=74.71ms min=40.02ms max=109.75ms count=14
+09-14 22:15:01.528  1804  1820 D EGL_emulation: app_time_stats: avg=67.79ms min=53.25ms max=116.59ms count=15
+09-14 22:15:04.181  1804  1820 D EGL_emulation: app_time_stats: avg=176.83ms min=39.09ms max=1747.81ms count=15
+09-14 22:15:04.189  1804  1908 I HWUI    : Davey! duration=1749ms; Flags=0, FrameTimelineVsyncId=17149, IntendedVsync=113982178405, Vsync=113982178405, InputEventId=0, HandleInputStart=113984388263, AnimationStart=113984389225, PerformTraversalsStart=113992943280, DrawStart=113992973357, FrameDeadline=113998845071, FrameInterval=113984385007, FrameStartTime=16666666, SyncQueued=113993083793, SyncStart=113993500565, IssueDrawCommandsStart=113993522266, SwapBuffers=115724932617, FrameCompleted=115732271112, DequeueBufferDuration=7124, QueueBufferDuration=469221, GpuCompleted=115732271112, SwapBuffersCompleted=115726759804, DisplayPresentTime=0, CommandSubmissionCompleted=115724932617,
+09-14 22:15:04.195  1804  1804 I Choreographer: Skipped 103 frames!  The application may be doing too much work on its main thread.
+09-14 22:15:04.459  1804  1817 I HWUI    : Davey! duration=1873ms; Flags=0, FrameTimelineVsyncId=17163, IntendedVsync=114015511737, Vsync=115732178335, InputEventId=0, HandleInputStart=115741127855, AnimationStart=115741128656, PerformTraversalsStart=115741937233, DrawStart=115741966938, FrameDeadline=115865511663, FrameInterval=115740738785, FrameStartTime=16666666, SyncQueued=115742100259, SyncStart=115836566620, IssueDrawCommandsStart=115836602418, SwapBuffers=115982444926, FrameCompleted=115983595415, DequeueBufferDuration=3116, QueueBufferDuration=452268, GpuCompleted=115983532165, SwapBuffersCompleted=115983595415, DisplayPresentTime=0, CommandSubmissionCompleted=115982444926,
+09-14 22:15:05.307  1804  1820 D EGL_emulation: app_time_stats: avg=112.58ms min=32.70ms max=383.66ms count=10
+09-14 22:15:06.392  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.395  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.396  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.397  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.400  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.401  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.401  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.403  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.406  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.409  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.409  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.409  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.409  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.409  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.409  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.410  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.412  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.413  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.414  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.414  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.415  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.415  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.415  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.415  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.416  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.418  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.418  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.419  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.421  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.422  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.422  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.424  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.426  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.426  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.426  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.426  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.428  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.429  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.429  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.429  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.430  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.537  1804  1820 D EGL_emulation: app_time_stats: avg=87.86ms min=35.35ms max=273.13ms count=14
+09-14 22:15:06.983  1804  1808 I md.obsidian: Background concurrent mark compact GC freed 1344KB AllocSpace bytes, 58(5588KB) LOS objects, 49% free, 9147KB/17MB, paused 513us,800us total 164.295ms
+09-14 22:15:06.996  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.996  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.996  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.997  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.997  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.998  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.998  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:06.999  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:07.170  1804  1804 I ImeTracker: md.obsidian:4cea128: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+09-14 22:15:07.173  1804  1804 D InputMethodManager: showSoftInput() view=com.getcapacitor.CapacitorWebView{42722f5 VFEDHVC.. .F...... 0,0-720,1280 #7f08026a app:id/webview aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+09-14 22:15:09.330  1804  1808 I md.obsidian: Background concurrent mark compact GC freed 556KB AllocSpace bytes, 54(14MB) LOS objects, 49% free, 5211KB/10MB, paused 116us,2.820ms total 1.579s
+09-14 22:15:09.350  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:09.351  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:09.351  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:09.351  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:09.351  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:09.351  1804  1810 W System  : A resource failed to call close.
+09-14 22:15:10.279  1804  1820 D EGL_emulation: app_time_stats: avg=415.70ms min=39.28ms max=3046.40ms count=9
+09-14 22:15:10.299  1804  1817 I HWUI    : Davey! duration=2566ms; Flags=0, FrameTimelineVsyncId=18141, IntendedVsync=119265511527, Vsync=119265511527, InputEventId=0, HandleInputStart=119265645672, AnimationStart=119265646625, PerformTraversalsStart=119266065650, DrawStart=119266091379, FrameDeadline=119282178193, FrameInterval=119265642727, FrameStartTime=16666666, SyncQueued=119266165748, SyncStart=119266527306, IssueDrawCommandsStart=119266549227, SwapBuffers=121735533796, FrameCompleted=121832272220, DequeueBufferDuration=11532, QueueBufferDuration=1154456, GpuCompleted=121832272220, SwapBuffersCompleted=121826938946, DisplayPresentTime=0, CommandSubmissionCompleted=121735533796,
+09-14 22:15:10.313  1804  1804 I Choreographer: Skipped 141 frames!  The application may be doing too much work on its main thread.
+09-14 22:15:10.414  1804  1804 I ImeTracker: md.obsidian:480ee367: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+09-14 22:15:10.452  1804  1804 D InsetsController: show(ime(), fromIme=true)
+09-14 22:15:10.547  1804  1804 W InteractionJankMonitor: Initializing without READ_DEVICE_CONFIG permission. enabled=true, interval=1, missedFrameThreshold=3, frameTimeThreshold=64, package=md.obsidian
+09-14 22:15:10.834  1804  1817 I HWUI    : Davey! duration=2776ms; Flags=0, FrameTimelineVsyncId=18247, IntendedVsync=119498844851, Vsync=121848844757, InputEventId=0, HandleInputStart=121860315121, AnimationStart=121860316433, PerformTraversalsStart=121861721228, DrawStart=121861904151, FrameDeadline=121982178085, FrameInterval=121858735848, FrameStartTime=16666666, SyncQueued=121862092234, SyncStart=121958412894, IssueDrawCommandsStart=121964293264, SwapBuffers=122325883354, FrameCompleted=122371191239, DequeueBufferDuration=5190, QueueBufferDuration=5529953, GpuCompleted=122365431074, SwapBuffersCompleted=122371191239, DisplayPresentTime=0, CommandSubmissionCompleted=122325883354,
+09-14 22:15:11.360  1804  1820 D EGL_emulation: app_time_stats: avg=359.61ms min=131.34ms max=540.31ms count=3
+09-14 22:15:11.366  1804  1804 D InsetsController: hide(ime(), fromIme=true)
+09-14 22:15:11.367  1804  1804 I ImeTracker: md.obsidian:4cea128: onCancelled at PHASE_CLIENT_ANIMATION_CANCEL
+09-14 22:15:11.377  1804  1817 I HWUI    : Davey! duration=777ms; Flags=0, FrameTimelineVsyncId=18445, IntendedVsync=121865511423, Vsync=122015511417, InputEventId=0, HandleInputStart=122035381004, AnimationStart=122035382166, PerformTraversalsStart=122041537743, DrawStart=122107073779, FrameDeadline=122382178069, FrameInterval=122032112003, FrameStartTime=16666666, SyncQueued=122108622675, SyncStart=122371257733, IssueDrawCommandsStart=122377951258, SwapBuffers=122904210881, FrameCompleted=122906042075, DequeueBufferDuration=7314, QueueBufferDuration=731893, GpuCompleted=122905760507, SwapBuffersCompleted=122906042075, DisplayPresentTime=0, CommandSubmissionCompleted=122904210881,
+09-14 22:15:11.378  1804  1804 I Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread.
+09-14 22:15:11.746  1804  1804 I ImeTracker: md.obsidian:2b06db4c: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT_ON_ANIMATION_STATE_CHANGED fromUser false
+09-14 22:15:11.747  1804  1804 I ImeTracker: md.obsidian:480ee367: onHidden
+09-14 22:15:16.530  1804  1820 D EGL_emulation: app_time_stats: avg=397.67ms min=40.41ms max=4401.21ms count=13
+09-14 22:15:21.992  1804  1804 E FrameTracker: force finish cuj, time out: J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed App frame:UNKNOWN: 88, 18746, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed SF frame:UNKNOWN: 88, 18746, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed App frame:UNKNOWN: 88, 18769, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed SF frame:UNKNOWN: 88, 18769, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed App frame:UNKNOWN: 88, 18778, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed SF frame:UNKNOWN: 88, 18778, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed App frame:UNKNOWN: 88, 18786, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed SF frame:UNKNOWN: 88, 18786, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed App frame:UNKNOWN: 88, 18794, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed SF frame:UNKNOWN: 88, 18794, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed App frame:UNKNOWN: 88, 18802, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.992  1804  1804 W FrameTracker: Missed SF frame:UNKNOWN: 88, 18802, 0, CUJ=J<IME_INSETS_HIDE_ANIMATION::1@1@md.obsidian>
+09-14 22:15:21.994  1804  1937 V PerfettoTrigger: Not triggering com.android.telemetry.interaction-jank-monitor-81 - not enough time since last trigger
+09-14 22:15:22.739  1804  1820 D EGL_emulation: app_time_stats: avg=886.84ms min=37.53ms max=5909.51ms count=7
+09-14 22:15:39.091  1804  1820 D EGL_emulation: app_time_stats: avg=16350.03ms min=16350.03ms max=16350.03ms count=1
+09-14 22:15:39.168  1804  1940 D TrafficStats: tagSocket(234) with statsTag=0xffffffff, statsUid=-1
+09-14 22:15:40.142  1804  1820 D EGL_emulation: app_time_stats: avg=65.65ms min=47.04ms max=159.98ms count=16
+09-14 22:15:41.158  1804  1820 D EGL_emulation: app_time_stats: avg=48.35ms min=44.67ms max=57.97ms count=21
+09-14 22:15:42.200  1804  1820 D EGL_emulation: app_time_stats: avg=52.11ms min=43.83ms max=74.11ms count=20
+09-14 22:15:43.230  1804  1820 D EGL_emulation: app_time_stats: avg=54.16ms min=48.84ms max=62.99ms count=19
+09-14 22:15:44.239  1804  1820 D EGL_emulation: app_time_stats: avg=53.06ms min=48.51ms max=63.14ms count=19
+09-14 22:15:45.281  1804  1820 D EGL_emulation: app_time_stats: avg=65.12ms min=40.90ms max=179.51ms count=16

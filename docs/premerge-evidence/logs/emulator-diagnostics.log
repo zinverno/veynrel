@@ -1,0 +1,8 @@
+INFO         | Boot completed in 43748 ms
+ERROR        | Failed to find ColorBuffer: 104
+ERROR        | detected a hanging thread 'QEMU2 CPU1 thread'. No response for 15188 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU1 thread'. No response for 15837 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU1 thread'. No response for 15402 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU0 thread'. No response for 16976 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU1 thread'. No response for 18161 ms
+[3451734:3451734:20260914,215000.347196:WARNING process_reader_linux.cc:146] no stack mapping
