@@ -123,11 +123,14 @@ function chunk(value: unknown, notePath: string, dimensions: number): MirroredCh
     invalid(`chunk.embedding must contain exactly ${dimensions} values.`);
   }
   const embedding = input.embedding.map((item) => {
-    if (typeof item !== "number" || !Number.isFinite(item)) {
-      invalid("chunk.embedding values must be finite numbers.");
+    if (typeof item !== "number" || !Number.isFinite(Math.fround(item))) {
+      invalid("chunk.embedding values must be finite Float32 numbers.");
     }
     return item;
   });
+  if (!embedding.some((item) => Math.fround(item) !== 0)) {
+    invalid("chunk.embedding must have a nonzero Float32 norm.");
+  }
   const actualPath = validateVaultPath(input.notePath, "chunk.notePath");
   if (actualPath !== notePath) invalid("chunk.notePath must match note.path.");
   return {

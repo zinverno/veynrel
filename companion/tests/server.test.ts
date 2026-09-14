@@ -69,6 +69,19 @@ describe("Companion HTTP API", () => {
     };
   }
 
+  it.each([1e40, 0, 1e-50])("rejects vectors that become non-finite or zero in Float32 storage: %s", async (value) => {
+    const fixture = note();
+    fixture.chunks[0]!.embedding = Array.from({ length: descriptor().dimensions }, () => value);
+    const response = await fetch(`${baseUrl}/v1/vaults/${VAULT_A}/sync/batch`, {
+      method: "POST", headers: headers(), body: JSON.stringify({
+        protocolVersion: 1, generation: 1, descriptor: descriptor(),
+        operations: [{ type: "UPSERT", note: fixture }],
+      }),
+    });
+    expect(response.status).toBe(400);
+    expect(await storage.readVault(VAULT_A)).toBeNull();
+  });
+
   it("exposes only minimal unauthenticated health data", async () => {
     const response = await fetch(`${baseUrl}/health`);
     expect(response.status).toBe(200);
