@@ -26,4 +26,3 @@
   108:14  warning  This PluginSettingTab does not implement getSettingDefinitions(); its settings will not appear in Obsidian's settings search for users on 1.13.0 or later. Consider adopting the declarative settings API  obsidianmd/settings-tab/prefer-setting-definitions
 
 ✖ 4 problems (0 errors, 4 warnings)
-
