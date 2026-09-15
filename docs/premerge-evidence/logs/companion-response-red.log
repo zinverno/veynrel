@@ -1,0 +1,89 @@
+
+> obsidian-ai-hub@1.7.0 test
+> vitest run --exclude 'companion/**' companionSync/client.test.ts
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD
+
+ ❯ companionSync/client.test.ts (9 tests | 3 failed) 22ms
+     × rejects malformed successful status responses 6ms
+     × rejects malformed successful status responses 1ms
+     × rejects malformed successful status responses 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  companionSync/client.test.ts > CompanionClient > rejects malformed successful status responses
+AssertionError: promise resolved "{ protocolVersion: 1 }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "protocolVersion": 1,
+  }
+
+ ❯ companionSync/client.test.ts:58:57
+     56|   ])("rejects malformed successful status responses", async (body) => {
+     57|     obsidianMocks.requestUrl.mockResolvedValue(response(200, body));
+     58|     await expect(new CompanionClient(settings).status()).rejects.toMat…
+       |                                                         ^
+     59|   });
+     60|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  companionSync/client.test.ts > CompanionClient > rejects malformed successful status responses
+AssertionError: promise resolved "{ protocolVersion: 1, …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "protocolVersion": 1,
++   "status": "ok",
++   "vaultCount": -1,
+  }
+
+ ❯ companionSync/client.test.ts:58:57
+     56|   ])("rejects malformed successful status responses", async (body) => {
+     57|     obsidianMocks.requestUrl.mockResolvedValue(response(200, body));
+     58|     await expect(new CompanionClient(settings).status()).rejects.toMat…
+       |                                                         ^
+     59|   });
+     60|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  companionSync/client.test.ts > CompanionClient > rejects malformed successful status responses
+AssertionError: promise resolved "{ protocolVersion: 1, …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "protocolVersion": 1,
++   "status": "broken",
++   "vaultCount": 0,
+  }
+
+ ❯ companionSync/client.test.ts:58:57
+     56|   ])("rejects malformed successful status responses", async (body) => {
+     57|     obsidianMocks.requestUrl.mockResolvedValue(response(200, body));
+     58|     await expect(new CompanionClient(settings).status()).rejects.toMat…
+       |                                                         ^
+     59|   });
+     60|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 6 passed (9)
+   Start at  20:20:23
+   Duration  267ms (transform 61ms, setup 0ms, import 85ms, tests 22ms, environment 0ms)

@@ -186,6 +186,13 @@ describe("API request boundaries", () => {
     expect(error.message).not.toContain(payload);
   });
 
+  it.each(["", " \n\t"])("rejects empty buffered AI output before callers can write it", async (content) => {
+    obsidianMocks.requestUrl.mockResolvedValueOnce(response(200, JSON.stringify({
+      choices: [{ message: { content } }],
+    })));
+    await expect(callOpenRouter(settings(), "system", "user")).rejects.toThrow();
+  });
+
   it("redacts provider bodies from buffered HTTP errors", async () => {
     obsidianMocks.requestUrl.mockResolvedValueOnce(
       response(401, "api-key=sk-private provider-body"),
@@ -353,6 +360,26 @@ describe("API request boundaries", () => {
     expect(tokens).toEqual(["one ", "two"]);
     expect(fetchMock).toHaveBeenCalledOnce();
     expect(obsidianMocks.requestUrl).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    "",
+    "data: {malformed}\n",
+    "data: {\"choices\":42}\n",
+    "data: [DONE]\n",
+    'data: {"choices":[{"delta":{},"finish_reason":"stop"}]}\n',
+  ])("rejects a stream without usable output", async (body) => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body)));
+    await expect(streamOpenRouter(settings(), "system", "user", () => undefined)).rejects.toThrow();
+  });
+
+  it("delivers content in the final event before honoring finish_reason", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(
+      'data: {"choices":[{"delta":{"content":"final"},"finish_reason":"stop"}]}\n',
+    )));
+    const tokens: string[] = [];
+    await streamOpenRouter(settings(), "system", "user", (token) => tokens.push(token));
+    expect(tokens).toEqual(["final"]);
   });
 
   it("redacts streaming HTTP response bodies", async () => {

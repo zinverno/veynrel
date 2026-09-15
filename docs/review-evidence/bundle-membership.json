@@ -1,0 +1,625 @@
+{
+  "release": {
+    "bytes": 389883,
+    "inputs": {
+      "main.ts": {
+        "bytesInOutput": 57516
+      },
+      "i18n.ts": {
+        "bytesInOutput": 113387
+      },
+      "settings.ts": {
+        "bytesInOutput": 33308
+      },
+      "constants.ts": {
+        "bytesInOutput": 7207
+      },
+      "api.ts": {
+        "bytesInOutput": 10907
+      },
+      "embeddings/shared.ts": {
+        "bytesInOutput": 8500
+      },
+      "embeddings/providers.ts": {
+        "bytesInOutput": 791
+      },
+      "embeddings/types.ts": {
+        "bytesInOutput": 1482
+      },
+      "embeddings/factory.ts": {
+        "bytesInOutput": 1743
+      },
+      "semantic/semanticSettingsActionRunner.ts": {
+        "bytesInOutput": 642
+      },
+      "deepAudit.ts": {
+        "bytesInOutput": 22341
+      },
+      "noteIndex.ts": {
+        "bytesInOutput": 1807
+      },
+      "semantic/errors.ts": {
+        "bytesInOutput": 1104
+      },
+      "semantic/index.ts": {
+        "bytesInOutput": 0
+      },
+      "chunking/hash.ts": {
+        "bytesInOutput": 250
+      },
+      "chunking/types.ts": {
+        "bytesInOutput": 57
+      },
+      "chunking/markdownChunker.ts": {
+        "bytesInOutput": 11218
+      },
+      "chunking/index.ts": {
+        "bytesInOutput": 0
+      },
+      "indexing/errors.ts": {
+        "bytesInOutput": 964
+      },
+      "indexing/index.ts": {
+        "bytesInOutput": 0
+      },
+      "indexing/embeddingSpace.ts": {
+        "bytesInOutput": 1065
+      },
+      "vectorStore/errors.ts": {
+        "bytesInOutput": 567
+      },
+      "indexing/indexingService.ts": {
+        "bytesInOutput": 10824
+      },
+      "indexing/obsidianDocumentSource.ts": {
+        "bytesInOutput": 1110
+      },
+      "vectorStore/binaryCodec.ts": {
+        "bytesInOutput": 2015
+      },
+      "vectorStore/index.ts": {
+        "bytesInOutput": 0
+      },
+      "vectorStore/localVectorStore.ts": {
+        "bytesInOutput": 20620
+      },
+      "vectorStore/obsidianPersistence.ts": {
+        "bytesInOutput": 822
+      },
+      "rag/errors.ts": {
+        "bytesInOutput": 751
+      },
+      "rag/ragContextBuilder.ts": {
+        "bytesInOutput": 4442
+      },
+      "semantic/semanticDiscoveryService.ts": {
+        "bytesInOutput": 5201
+      },
+      "semantic/semanticRuntime.ts": {
+        "bytesInOutput": 2835
+      },
+      "semantic/semanticSearchService.ts": {
+        "bytesInOutput": 3603
+      },
+      "semantic/obsidianSemanticRuntime.ts": {
+        "bytesInOutput": 1301
+      },
+      "semantic/obsidianSemanticController.ts": {
+        "bytesInOutput": 31305
+      },
+      "rag/index.ts": {
+        "bytesInOutput": 0
+      },
+      "rag/ragPrompt.ts": {
+        "bytesInOutput": 992
+      },
+      "rag/ragService.ts": {
+        "bytesInOutput": 1674
+      },
+      "rag/ragModal.ts": {
+        "bytesInOutput": 6884
+      },
+      "semantic/semanticSearchModal.ts": {
+        "bytesInOutput": 5302
+      },
+      "semantic/asyncReadWriteBarrier.ts": {
+        "bytesInOutput": 1264
+      },
+      "semantic/semanticAutoSync.ts": {
+        "bytesInOutput": 3564
+      },
+      "semantic/semanticConfirmModal.ts": {
+        "bytesInOutput": 1026
+      },
+      "semantic/semanticIndexProbe.ts": {
+        "bytesInOutput": 153
+      },
+      "semantic/semanticDiscoveryModal.ts": {
+        "bytesInOutput": 6938
+      },
+      "semantic/semanticStorageMaintenance.ts": {
+        "bytesInOutput": 585
+      },
+      "semantic/semanticStoreRegistry.ts": {
+        "bytesInOutput": 1337
+      }
+    },
+    "externals": [
+      "obsidian"
+    ],
+    "freeGlobals": [
+      "AbortController",
+      "AbortSignal",
+      "Array",
+      "ArrayBuffer",
+      "Boolean",
+      "DataView",
+      "Date",
+      "Error",
+      "Float32Array",
+      "Float64Array",
+      "JSON",
+      "Map",
+      "Math",
+      "Number",
+      "Object",
+      "Promise",
+      "RangeError",
+      "Set",
+      "String",
+      "Symbol",
+      "TextDecoder",
+      "TypeError",
+      "URL",
+      "Uint8Array",
+      "activeDocument",
+      "console",
+      "encodeURIComponent",
+      "fetch",
+      "module",
+      "navigator",
+      "require",
+      "window"
+    ],
+    "sha256": "9bc35a9ced3d0588e542917f1aeca407bfb74d6058b2f151d39794e914f7d3c5"
+  },
+  "baseline": {
+    "bytes": 419989,
+    "inputs": {
+      "main.ts": {
+        "bytesInOutput": 58163
+      },
+      "i18n.ts": {
+        "bytesInOutput": 113387
+      },
+      "settings.ts": {
+        "bytesInOutput": 37023
+      },
+      "constants.ts": {
+        "bytesInOutput": 7207
+      },
+      "api.ts": {
+        "bytesInOutput": 10903
+      },
+      "embeddings/shared.ts": {
+        "bytesInOutput": 8500
+      },
+      "embeddings/providers.ts": {
+        "bytesInOutput": 791
+      },
+      "embeddings/types.ts": {
+        "bytesInOutput": 1482
+      },
+      "embeddings/factory.ts": {
+        "bytesInOutput": 1743
+      },
+      "semantic/semanticSettingsActionRunner.ts": {
+        "bytesInOutput": 642
+      },
+      "companionSync/client.ts": {
+        "bytesInOutput": 3230
+      },
+      "companionSync/types.ts": {
+        "bytesInOutput": 38
+      },
+      "companionSync/settings.ts": {
+        "bytesInOutput": 1018
+      },
+      "companionSync/index.ts": {
+        "bytesInOutput": 0
+      },
+      "companionSync/service.ts": {
+        "bytesInOutput": 3436
+      },
+      "deepAudit.ts": {
+        "bytesInOutput": 22341
+      },
+      "noteIndex.ts": {
+        "bytesInOutput": 1807
+      },
+      "semantic/errors.ts": {
+        "bytesInOutput": 1104
+      },
+      "semantic/index.ts": {
+        "bytesInOutput": 0
+      },
+      "companion/src/proposals/contentHash.ts": {
+        "bytesInOutput": 248
+      },
+      "chunking/hash.ts": {
+        "bytesInOutput": 0
+      },
+      "chunking/types.ts": {
+        "bytesInOutput": 57
+      },
+      "chunking/markdownChunker.ts": {
+        "bytesInOutput": 11216
+      },
+      "chunking/index.ts": {
+        "bytesInOutput": 0
+      },
+      "indexing/errors.ts": {
+        "bytesInOutput": 964
+      },
+      "indexing/index.ts": {
+        "bytesInOutput": 0
+      },
+      "indexing/embeddingSpace.ts": {
+        "bytesInOutput": 1065
+      },
+      "vectorStore/errors.ts": {
+        "bytesInOutput": 567
+      },
+      "indexing/indexingService.ts": {
+        "bytesInOutput": 10824
+      },
+      "indexing/obsidianDocumentSource.ts": {
+        "bytesInOutput": 1110
+      },
+      "vectorStore/binaryCodec.ts": {
+        "bytesInOutput": 2015
+      },
+      "vectorStore/index.ts": {
+        "bytesInOutput": 0
+      },
+      "vectorStore/localVectorStore.ts": {
+        "bytesInOutput": 20628
+      },
+      "vectorStore/obsidianPersistence.ts": {
+        "bytesInOutput": 832
+      },
+      "rag/errors.ts": {
+        "bytesInOutput": 751
+      },
+      "rag/ragContextBuilder.ts": {
+        "bytesInOutput": 4442
+      },
+      "semantic/semanticDiscoveryService.ts": {
+        "bytesInOutput": 5201
+      },
+      "semantic/semanticRuntime.ts": {
+        "bytesInOutput": 4363
+      },
+      "semantic/semanticSearchService.ts": {
+        "bytesInOutput": 3603
+      },
+      "semantic/obsidianSemanticRuntime.ts": {
+        "bytesInOutput": 1468
+      },
+      "semantic/obsidianSemanticController.ts": {
+        "bytesInOutput": 34908
+      },
+      "rag/index.ts": {
+        "bytesInOutput": 0
+      },
+      "rag/ragPrompt.ts": {
+        "bytesInOutput": 992
+      },
+      "rag/ragService.ts": {
+        "bytesInOutput": 1674
+      },
+      "rag/ragModal.ts": {
+        "bytesInOutput": 6884
+      },
+      "semantic/semanticSearchModal.ts": {
+        "bytesInOutput": 5302
+      },
+      "semantic/asyncReadWriteBarrier.ts": {
+        "bytesInOutput": 1264
+      },
+      "semantic/semanticAutoSync.ts": {
+        "bytesInOutput": 3564
+      },
+      "semantic/semanticConfirmModal.ts": {
+        "bytesInOutput": 1026
+      },
+      "semantic/semanticIndexProbe.ts": {
+        "bytesInOutput": 153
+      },
+      "semantic/semanticDiscoveryModal.ts": {
+        "bytesInOutput": 6945
+      },
+      "semantic/semanticStorageMaintenance.ts": {
+        "bytesInOutput": 586
+      },
+      "semantic/semanticStoreRegistry.ts": {
+        "bytesInOutput": 1337
+      },
+      "companion/src/proposals/types.ts": {
+        "bytesInOutput": 1546
+      },
+      "proposals/application.ts": {
+        "bytesInOutput": 2307
+      },
+      "proposals/obsidianVault.ts": {
+        "bytesInOutput": 798
+      },
+      "proposals/reviewModal.ts": {
+        "bytesInOutput": 7622
+      },
+      "proposals/diff.ts": {
+        "bytesInOutput": 433
+      }
+    },
+    "externals": [
+      "obsidian"
+    ],
+    "freeGlobals": [
+      "AbortController",
+      "AbortSignal",
+      "Array",
+      "ArrayBuffer",
+      "Boolean",
+      "DataView",
+      "Date",
+      "Error",
+      "Float32Array",
+      "Float64Array",
+      "JSON",
+      "Map",
+      "Math",
+      "Number",
+      "Object",
+      "Promise",
+      "RangeError",
+      "Set",
+      "String",
+      "Symbol",
+      "TextDecoder",
+      "TypeError",
+      "URL",
+      "Uint8Array",
+      "activeDocument",
+      "console",
+      "encodeURIComponent",
+      "fetch",
+      "module",
+      "navigator",
+      "performance",
+      "require",
+      "window"
+    ],
+    "sha256": "c0fddae84b999839073be141d6a456c912d03c8c3dd11ea2ddff2e36eccd0df2"
+  },
+  "final": {
+    "bytes": 420432,
+    "inputs": {
+      "main.ts": {
+        "bytesInOutput": 57976
+      },
+      "i18n.ts": {
+        "bytesInOutput": 113387
+      },
+      "settings.ts": {
+        "bytesInOutput": 37023
+      },
+      "constants.ts": {
+        "bytesInOutput": 7207
+      },
+      "api.ts": {
+        "bytesInOutput": 10903
+      },
+      "embeddings/shared.ts": {
+        "bytesInOutput": 8500
+      },
+      "embeddings/providers.ts": {
+        "bytesInOutput": 791
+      },
+      "embeddings/types.ts": {
+        "bytesInOutput": 1482
+      },
+      "embeddings/factory.ts": {
+        "bytesInOutput": 1743
+      },
+      "semantic/semanticSettingsActionRunner.ts": {
+        "bytesInOutput": 642
+      },
+      "companionSync/client.ts": {
+        "bytesInOutput": 3230
+      },
+      "companionSync/types.ts": {
+        "bytesInOutput": 38
+      },
+      "companionSync/settings.ts": {
+        "bytesInOutput": 1018
+      },
+      "companionSync/index.ts": {
+        "bytesInOutput": 0
+      },
+      "companionSync/service.ts": {
+        "bytesInOutput": 3436
+      },
+      "deepAudit.ts": {
+        "bytesInOutput": 22341
+      },
+      "noteIndex.ts": {
+        "bytesInOutput": 1807
+      },
+      "noteWrites.ts": {
+        "bytesInOutput": 630
+      },
+      "semantic/errors.ts": {
+        "bytesInOutput": 1104
+      },
+      "semantic/index.ts": {
+        "bytesInOutput": 0
+      },
+      "companion/src/proposals/contentHash.ts": {
+        "bytesInOutput": 248
+      },
+      "chunking/hash.ts": {
+        "bytesInOutput": 0
+      },
+      "chunking/types.ts": {
+        "bytesInOutput": 57
+      },
+      "chunking/markdownChunker.ts": {
+        "bytesInOutput": 11216
+      },
+      "chunking/index.ts": {
+        "bytesInOutput": 0
+      },
+      "indexing/errors.ts": {
+        "bytesInOutput": 964
+      },
+      "indexing/index.ts": {
+        "bytesInOutput": 0
+      },
+      "indexing/embeddingSpace.ts": {
+        "bytesInOutput": 1065
+      },
+      "vectorStore/errors.ts": {
+        "bytesInOutput": 567
+      },
+      "indexing/indexingService.ts": {
+        "bytesInOutput": 10824
+      },
+      "indexing/obsidianDocumentSource.ts": {
+        "bytesInOutput": 1110
+      },
+      "vectorStore/binaryCodec.ts": {
+        "bytesInOutput": 2015
+      },
+      "vectorStore/index.ts": {
+        "bytesInOutput": 0
+      },
+      "vectorStore/localVectorStore.ts": {
+        "bytesInOutput": 20628
+      },
+      "vectorStore/obsidianPersistence.ts": {
+        "bytesInOutput": 832
+      },
+      "rag/errors.ts": {
+        "bytesInOutput": 751
+      },
+      "rag/ragContextBuilder.ts": {
+        "bytesInOutput": 4442
+      },
+      "semantic/semanticDiscoveryService.ts": {
+        "bytesInOutput": 5201
+      },
+      "semantic/semanticRuntime.ts": {
+        "bytesInOutput": 4363
+      },
+      "semantic/semanticSearchService.ts": {
+        "bytesInOutput": 3603
+      },
+      "semantic/obsidianSemanticRuntime.ts": {
+        "bytesInOutput": 1468
+      },
+      "semantic/obsidianSemanticController.ts": {
+        "bytesInOutput": 34908
+      },
+      "rag/index.ts": {
+        "bytesInOutput": 0
+      },
+      "rag/ragPrompt.ts": {
+        "bytesInOutput": 992
+      },
+      "rag/ragService.ts": {
+        "bytesInOutput": 1674
+      },
+      "rag/ragModal.ts": {
+        "bytesInOutput": 6884
+      },
+      "semantic/semanticSearchModal.ts": {
+        "bytesInOutput": 5302
+      },
+      "semantic/asyncReadWriteBarrier.ts": {
+        "bytesInOutput": 1264
+      },
+      "semantic/semanticAutoSync.ts": {
+        "bytesInOutput": 3564
+      },
+      "semantic/semanticConfirmModal.ts": {
+        "bytesInOutput": 1026
+      },
+      "semantic/semanticIndexProbe.ts": {
+        "bytesInOutput": 153
+      },
+      "semantic/semanticDiscoveryModal.ts": {
+        "bytesInOutput": 6945
+      },
+      "semantic/semanticStorageMaintenance.ts": {
+        "bytesInOutput": 586
+      },
+      "semantic/semanticStoreRegistry.ts": {
+        "bytesInOutput": 1337
+      },
+      "companion/src/proposals/types.ts": {
+        "bytesInOutput": 1546
+      },
+      "proposals/application.ts": {
+        "bytesInOutput": 2307
+      },
+      "proposals/obsidianVault.ts": {
+        "bytesInOutput": 798
+      },
+      "proposals/reviewModal.ts": {
+        "bytesInOutput": 7622
+      },
+      "proposals/diff.ts": {
+        "bytesInOutput": 433
+      }
+    },
+    "externals": [
+      "obsidian"
+    ],
+    "freeGlobals": [
+      "AbortController",
+      "AbortSignal",
+      "Array",
+      "ArrayBuffer",
+      "Boolean",
+      "DataView",
+      "Date",
+      "Error",
+      "Float32Array",
+      "Float64Array",
+      "JSON",
+      "Map",
+      "Math",
+      "Number",
+      "Object",
+      "Promise",
+      "RangeError",
+      "Set",
+      "String",
+      "Symbol",
+      "TextDecoder",
+      "TypeError",
+      "URL",
+      "Uint8Array",
+      "activeDocument",
+      "console",
+      "encodeURIComponent",
+      "fetch",
+      "module",
+      "navigator",
+      "performance",
+      "require",
+      "window"
+    ],
+    "sha256": "5824d44b1d0aff75a9f906aa81a611e59bca7a68bb205af6af2de9a409082c9a"
+  }
+}

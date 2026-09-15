@@ -1,0 +1,39 @@
+name: Verify plugin and Companion
+
+on:
+  pull_request:
+  push:
+    branches: [main, fix/obsidian-review-scorecard]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            companion/package-lock.json
+      - run: npm ci
+      - run: npm ci --prefix companion
+      - run: npm test
+      - run: npm run lint # includes plugin typecheck, production build, and both lint environments
+      - run: npm --prefix companion run typecheck
+      - run: npm --prefix companion test
+      - run: npm --prefix companion run build
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: plugin-review-build
+          path: |
+            main.js
+            manifest.json
+            styles.css
+            .esbuild/meta.json
+          include-hidden-files: true
+          if-no-files-found: error

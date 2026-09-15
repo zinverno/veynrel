@@ -1,0 +1,48 @@
+(node:3405752) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"time":"2026-09-14T17:16:51.917Z","level":"info","message":"Vault Audit AI Companion started.","context":{"host":"127.0.0.1","port":41953,"protocolVersion":1}}
+{"time":"2026-09-14T17:24:50.428Z","level":"info","message":"MCP tool completed.","context":{"toolName":"vault_status","success":true,"latencyMs":1}}
+{"time":"2026-09-14T17:24:50.444Z","level":"info","message":"MCP tool completed.","context":{"toolName":"get_note","success":true,"latencyMs":0}}
+{"time":"2026-09-14T17:24:50.500Z","level":"info","message":"MCP tool completed.","context":{"toolName":"search_vault","success":true,"latencyMs":43}}
+{"time":"2026-09-14T17:24:50.517Z","level":"info","message":"MCP tool completed.","context":{"toolName":"propose_change","success":true,"latencyMs":3}}
+{"time":"2026-09-14T17:24:50.530Z","level":"info","message":"MCP tool completed.","context":{"toolName":"propose_change","success":true,"latencyMs":1}}
+{"time":"2026-09-14T17:24:50.542Z","level":"info","message":"MCP tool completed.","context":{"toolName":"propose_change","success":true,"latencyMs":0}}
+{"time":"2026-09-14T17:25:30.959Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:25:30.978Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:25:30.990Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:25:31.001Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:25:31.014Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:25:31.027Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:25:31.131Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":4}}
+{"time":"2026-09-14T17:25:31.151Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":3}}
+{"time":"2026-09-14T17:25:31.167Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":3}}
+{"time":"2026-09-14T17:25:31.187Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":6}}
+{"time":"2026-09-14T17:25:31.228Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":12}}
+{"time":"2026-09-14T17:25:31.246Z","level":"info","message":"MCP tool completed.","context":{"toolName":"search_vault","success":true,"latencyMs":7}}
+(node:3425920) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"time":"2026-09-14T17:41:33.268Z","level":"info","message":"Vault Audit AI Companion started.","context":{"host":"127.0.0.1","port":41953,"protocolVersion":1}}
+{"time":"2026-09-14T17:41:46.238Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":1}}
+{"time":"2026-09-14T17:41:46.257Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:41:46.271Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":1}}
+{"time":"2026-09-14T17:41:46.286Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:41:46.309Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:41:46.327Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T17:41:46.466Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":16}}
+{"time":"2026-09-14T17:41:46.482Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":3}}
+{"time":"2026-09-14T17:41:46.498Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":3}}
+{"time":"2026-09-14T17:41:46.517Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":3}}
+{"time":"2026-09-14T17:41:46.560Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":13}}
+{"time":"2026-09-14T17:41:46.592Z","level":"info","message":"MCP tool completed.","context":{"toolName":"search_vault","success":true,"latencyMs":13}}
+{"time":"2026-09-14T19:18:29.984Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":1}}
+{"time":"2026-09-14T19:18:30.016Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T19:18:30.031Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":1}}
+{"time":"2026-09-14T19:18:30.042Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T19:18:30.054Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T19:18:30.128Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"propose_change","success":false,"code":"TOOL_ERROR","latencyMs":0}}
+{"time":"2026-09-14T19:18:30.306Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":9}}
+{"time":"2026-09-14T19:18:30.319Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":2}}
+{"time":"2026-09-14T19:18:30.332Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":2}}
+{"time":"2026-09-14T19:18:30.348Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":2}}
+{"time":"2026-09-14T19:18:30.397Z","level":"warn","message":"MCP tool failed.","context":{"toolName":"search_vault","success":false,"code":"SEMANTIC_SEARCH_UNAVAILABLE","latencyMs":21}}
+{"time":"2026-09-14T19:18:30.424Z","level":"info","message":"MCP tool completed.","context":{"toolName":"search_vault","success":true,"latencyMs":16}}

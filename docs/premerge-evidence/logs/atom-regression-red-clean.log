@@ -1,0 +1,25 @@
+
+ RUN  v4.1.10 /tmp/vault-audit-smoke/final-repo
+
+ ❯ mainMenus.test.ts (2 tests | 1 failed) 1475ms
+   × shares concurrent atomization work and permits a later attempt 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  mainMenus.test.ts > shares concurrent atomization work and permits a later attempt
+AssertionError: expected "vi.fn()" to be called 1 times, but got 2 times
+ ❯ mainMenus.test.ts:51:16
+     49|   finishRead("## Atomic notes\n\n- [[Existing atom]]");
+     50|   await Promise.all([first, second]);
+     51|   expect(read).toHaveBeenCalledTimes(1);
+       |                ^
+     52|   await plugin.atomizeNote(file);
+     53|   expect(read).toHaveBeenCalledTimes(2);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  21:41:59
+   Duration  1.81s (transform 1.34s, setup 0ms, import 86ms, tests 1.48s, environment 0ms)

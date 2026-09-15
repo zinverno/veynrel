@@ -1,0 +1,2043 @@
+{
+  "date": "2026-09-14",
+  "pr": "https://github.com/zinverno/vault-audit-AI/pull/21",
+  "branch": "fix/obsidian-review-scorecard",
+  "initialHead": "c9826495ef8f9a2a268489ecc0ff036a2aabab2e",
+  "testedCodeHead": "4a0418ad8ff38c5bb308b85327225ee4551af781",
+  "mainAtBaseline": "edace7ec45295a03c92db8bed4e5b9491e764995",
+  "environment": {
+    "os": "Manjaro Linux 6.12.95 x86_64",
+    "node": "24.14.1",
+    "npm": "11.11.0",
+    "desktopVersions": [
+      "1.12.7",
+      "1.13.7"
+    ],
+    "electron": "39.8.10",
+    "chromium": "142.0.7444.265",
+    "embeddedNode": "22.22.1",
+    "display": "Wayland with Xwayland/X11 :0; no Xvfb needed",
+    "mobileApp": "Obsidian 1.13.8",
+    "android": "15 / API 35 / AE3A.240806.019",
+    "emulator": "37.1.11 / KVM x86_64 / headless SwiftShader",
+    "webview": "124.0.6367.219"
+  },
+  "fixtures": {
+    "notes": 70,
+    "largeBytes": 389898,
+    "vault": "/tmp/vault-audit-smoke/vault"
+  },
+  "artifacts": {
+    "main.js": {
+      "sha256": "56ce72a3f986cad29cede18331b38d0a1f049f707d08eaade608f4f5fa2d5fd6",
+      "bytes": 421023
+    },
+    "manifest.json": {
+      "sha256": "e780bcfc96864dc6dafef007a9df1f5d3545eadb133376fd5f5fd142cec8ec51",
+      "bytes": 355
+    },
+    "styles.css": {
+      "sha256": "ea9eb63e24921f0e34965ffcafcf91d4067728b83980fb0143adcd108782dcfd",
+      "bytes": 52025
+    }
+  },
+  "initialArtifacts": {
+    "main.js": {
+      "built": "5824d44b1d0aff75a9f906aa81a611e59bca7a68bb205af6af2de9a409082c9a",
+      "installed": "5824d44b1d0aff75a9f906aa81a611e59bca7a68bb205af6af2de9a409082c9a",
+      "bytes": 420432
+    },
+    "manifest.json": {
+      "built": "e780bcfc96864dc6dafef007a9df1f5d3545eadb133376fd5f5fd142cec8ec51",
+      "installed": "e780bcfc96864dc6dafef007a9df1f5d3545eadb133376fd5f5fd142cec8ec51",
+      "bytes": 355
+    },
+    "styles.css": {
+      "built": "ea9eb63e24921f0e34965ffcafcf91d4067728b83980fb0143adcd108782dcfd",
+      "installed": "ea9eb63e24921f0e34965ffcafcf91d4067728b83980fb0143adcd108782dcfd",
+      "bytes": 52025
+    },
+    "head": "c9826495ef8f9a2a268489ecc0ff036a2aabab2e"
+  },
+  "bundle": {
+    "bytes": 421023,
+    "inputCount": 59,
+    "externalImports": [
+      "obsidian"
+    ],
+    "companionContributors": [
+      "companion/src/proposals/contentHash.ts",
+      "companion/src/proposals/types.ts"
+    ]
+  },
+  "desktopFinal": {
+    "version": "AI Batch Report 1789411959135 - vault - Obsidian 1.13.7",
+    "electron": "39.8.10",
+    "chromium": "142.0.7444.265",
+    "node": "22.22.1",
+    "errors": [],
+    "hash": "56ce72a3f986cad29cede18331b38d0a1f049f707d08eaade608f4f5fa2d5fd6",
+    "commands": 20
+  },
+  "desktopHistory": [
+    {
+      "name": "startup",
+      "status": "PASS",
+      "version": "1.12.7",
+      "vault": "/tmp/vault-audit-smoke/vault",
+      "commands": [
+        "ai-knowledge-hub:ai-semantic-search",
+        "ai-knowledge-hub:ai-rag-ask-vault",
+        "ai-knowledge-hub:ai-semantic-find-similar-notes",
+        "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+        "ai-knowledge-hub:ai-semantic-index-vault",
+        "ai-knowledge-hub:ai-semantic-index-current-note",
+        "ai-knowledge-hub:ai-semantic-clear-index",
+        "ai-knowledge-hub:ai-semantic-rebuild-index",
+        "ai-knowledge-hub:review-ai-change-proposals",
+        "ai-knowledge-hub:ai-hub-open-panel",
+        "ai-knowledge-hub:ai-deep-vault-audit",
+        "ai-knowledge-hub:ai-simple-append",
+        "ai-knowledge-hub:ai-vault-append",
+        "ai-knowledge-hub:ai-selection",
+        "ai-knowledge-hub:ai-dataview-generate",
+        "ai-knowledge-hub:ai-flashcards-note",
+        "ai-knowledge-hub:ai-vault-audit",
+        "ai-knowledge-hub:ai-batch-process",
+        "ai-knowledge-hub:ai-generate-mocs",
+        "ai-knowledge-hub:ai-atomize-note"
+      ],
+      "defaults": {
+        "provider": "openrouter",
+        "semantic": false,
+        "companion": false
+      },
+      "errors": []
+    },
+    {
+      "name": "settings",
+      "status": "PASS",
+      "providers": [
+        "openrouter",
+        "ollama",
+        "openai",
+        "groq",
+        "custom"
+      ],
+      "controls": 39,
+      "toggleControls": 4
+    },
+    {
+      "name": "settings-persistence",
+      "status": "PASS",
+      "commands": 20,
+      "errors": []
+    },
+    {
+      "name": "normal-replacement-nested-backups",
+      "status": "PASS",
+      "backups": [
+        ".ai-backup-1789375813225-9a7070ee-63ad-488a-8cbb-0d70ed908ecc/Archive/Alpha.md",
+        ".ai-backup-1789375813225-9a7070ee-63ad-488a-8cbb-0d70ed908ecc/Projects/Alpha.md"
+      ],
+      "frontmatterPreserved": true,
+      "sameBasenameSeparate": true
+    },
+    {
+      "name": "backup-failure-preserves-original",
+      "status": "PASS",
+      "injected": 1,
+      "unchanged": true
+    },
+    {
+      "name": "concurrent-edit",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-rename",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-replacement",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-deletion",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "flashcard-replacement",
+      "status": "PASS",
+      "originalPreserved": true
+    },
+    {
+      "name": "flashcard-conflict",
+      "status": "PASS",
+      "survived": true
+    },
+    {
+      "name": "atomic-atom-append",
+      "status": "PASS",
+      "content": "# Atoms\nOriginal.\n\nIndependent append.\n\n## Atomic notes\n\n- [[Smoke/Atomic One|Atomic One]]\n",
+      "oneSection": true,
+      "concurrentUserAppendPreserved": true
+    },
+    {
+      "name": "empty-response-safety",
+      "status": "FAIL",
+      "error": "Empty AI response destructively replaced note",
+      "stack": "Error: Empty AI response destructively replaced note\n    at Object.check (<anonymous>:6:36)\n    at <anonymous>:54:152\n    at async run (<anonymous>:4:45)\n    at async <anonymous>:53:1"
+    },
+    {
+      "name": "provider-openai",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "provider-openrouter",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "repetition_penalty": 1.15,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present",
+        "referer": "https://obsidian.md",
+        "title": "Obsidian AI Hub"
+      }
+    },
+    {
+      "name": "provider-groq",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "provider-custom",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "provider-ollama",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "http-400",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-401",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-403",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-429",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-500",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "malformed-json",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "stream-success",
+      "status": "PASS",
+      "error": "",
+      "content": "# Stream\nStream result — проверено."
+    },
+    {
+      "name": "stream-malformed",
+      "status": "FAIL",
+      "error": "Malformed/disconnected stream silently succeeded"
+    },
+    {
+      "name": "stream-disconnect",
+      "status": "PASS",
+      "error": "Failed to fetch",
+      "content": "# Stream\nStream result — проверено."
+    },
+    {
+      "name": "buffered-timeout",
+      "status": "PASS",
+      "seconds": 31.54789999997616,
+      "unchanged": true
+    },
+    {
+      "name": "semantic-index",
+      "status": "PASS",
+      "seconds": 0.753699999988079,
+      "disclosure": "Update the Vault semantic index\n\nMarkdown files: 105\n\nChunk content will be sent to OpenAI-compatible.\n\nThis operation may take some time.\n\nThe index is stored locally inside the plugin directory.\n\nCancel\nUpdate index",
+      "state": {
+        "kind": "ready",
+        "vectorCount": 567,
+        "vectorGeneration": 1,
+        "dimensions": 3,
+        "providerLabel": "OpenAI-compatible",
+        "model": "smoke-embedding"
+      }
+    },
+    {
+      "name": "semantic-search",
+      "status": "PASS",
+      "results": [
+        {
+          "path": "AI Batch Report 1789375819756.md",
+          "score": 1,
+          "matches": [
+            {
+              "id": "chunk-56c551b23accf08e",
+              "path": "AI Batch Report 1789375819756.md",
+              "headingPath": [
+                "AI Batch Report"
+              ],
+              "ordinal": 0,
+              "contentHash": "f41397847335425c",
+              "source": {
+                "startOffset": 19,
+                "endOffset": 134,
+                "startLine": 2,
+                "endLine": 5
+              },
+              "score": 1,
+              "preview": "AI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375818221-33815a23-4a5c-4fd4-b266-aa30002e9542/`"
+            },
+            {
+              "id": "chunk-8571c29ec17a4227",
+              "path": "AI Batch Report 1789375819756.md",
+              "headingPath": [
+                "AI Batch Report",
+                "⚠️ Errors"
+              ],
+              "ordinal": 1,
+              "contentHash": "55b3b2865aa5f579",
+              "source": {
+                "startOffset": 149,
+                "endOffset": 201,
+                "startLine": 8,
+                "endLine": 8
+              },
+              "score": 1,
+              "preview": "AI Batch Report > ⚠️ Errors - Backup failure.md: Controlled smoke backup failure"
+            }
+          ]
+        },
+        {
+          "path": "AI Batch Report 1789375821476.md",
+          "score": 1,
+          "matches": [
+            {
+              "id": "chunk-b32b74522f8024e4",
+              "path": "AI Batch Report 1789375821476.md",
+              "headingPath": [
+                "AI Batch Report",
+                "⚠️ Errors"
+              ],
+              "ordinal": 1,
+              "contentHash": "00db7935e2c6a4cb",
+              "source": {
+                "startOffset": 149,
+                "endOffset": 248,
+                "startLine": 8,
+                "endLine": 8
+              },
+              "score": 1,
+              "preview": "AI Batch Report > ⚠️ Errors - Race edit.md: The note changed while AI was running. No changes were saved; run the action again."
+            },
+            {
+              "id": "chunk-b9c6b1f174d9a20c",
+              "path": "AI Batch Report 1789375821476.md",
+              "headingPath": [
+                "AI Batch Report"
+              ],
+              "ordinal": 0,
+              "contentHash": "8a80d2c3b02896c0",
+              "source": {
+                "startOffset": 19,
+                "endOffset": 134,
+                "startLine": 2,
+                "endLine": 5
+              },
+              "score": 1,
+              "preview": "AI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375819909-d1a634e4-2c8e-43dc-963c-fa9027d44e9f/`"
+            }
+          ]
+        },
+        {
+          "path": "AI Batch Report 1789375823104.md",
+          "score": 1,
+          "matches": [
+            {
+              "id": "chunk-4e3773c52f94fae2",
+              "path": "AI Batch Report 1789375823104.md",
+              "headingPath": [
+                "AI Batch Report"
+              ],
+              "ordinal": 0,
+              "contentHash": "8dfa03a42b8ec8f8",
+              "source": {
+                "startOffset": 19,
+                "endOffset": 134,
+                "startLine": 2,
+                "endLine": 5
+              },
+              "score": 1,
+              "preview": "AI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375821537-6fd4bed7-621e-48c1-a192-c5dab98d08e1/`"
+            },
+            {
+              "id": "chunk-a7a8a71b028867a5",
+              "path": "AI Batch Report 1789375823104.md",
+              "headingPath": [
+                "AI Batch Report",
+                "⚠️ Errors"
+              ],
+              "ordinal": 1,
+              "contentHash": "9efe32d22bea113b",
+              "source": {
+                "startOffset": 149,
+                "endOffset": 253,
+                "startLine": 8,
+                "endLine": 8
+              },
+              "score": 1,
+              "preview": "AI Batch Report > ⚠️ Errors - Renamed safely.md: The note changed while AI was running. No changes were saved; run the action again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "similar-notes",
+      "status": "PASS",
+      "count": 10
+    },
+    {
+      "name": "duplicates",
+      "status": "PASS",
+      "count": 100
+    },
+    {
+      "name": "semantic-search-ui",
+      "status": "PASS",
+      "text": "AI Batch Report 1789375819756\n1.000\nAI Batch Report 1789375819756.md\nAI Batch Report\nAI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375818221-33815a23-4a5c-4fd4-b266-aa30002e9542/`\nAI Batch Report › ⚠️ Errors\nAI Batch Report > ⚠️ Errors - Backup failure.md: Controlled smoke backup failure\nAI Batch Report 1789375821476\n1.000\nAI Batch Report 1789375821476.md\nAI Batch Report › ⚠️ Errors\nAI Batch Report > ⚠️ Errors - Race edit.md: The note changed while AI was running. No changes were saved; run the action again.\nAI Batch Report\nAI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375819909-d1a634e4-2c8e-43dc-963c-fa9027d44e9f/`\nAI Batch Report 1789375823104\n1.000\nAI Batch Report 1789375823104.md\nAI Batch Report\nAI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375821537-6fd4bed7-621e-48c1-a192-c5dab98d08e1/`\nAI Batch Report › ⚠️ Errors\nAI Batch Report > ⚠️ Errors - Renamed safely.md: The not"
+    },
+    {
+      "name": "ask-vault-ui",
+      "status": "PASS",
+      "answer": "Answer\n\nSafe Markdown.\n\nunsafe",
+      "sources": 0,
+      "unsafeScriptElements": 0
+    },
+    {
+      "name": "ask-vault-cancel",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "companion-missing-status-fields",
+      "status": "FAIL",
+      "state": {
+        "kind": "ready",
+        "lastSuccessAt": 1789406352766
+      }
+    },
+    {
+      "name": "auto-sync",
+      "status": "PASS",
+      "path": "Smoke/AutoSync.md",
+      "generation": 2
+    },
+    {
+      "name": "plugin-companion-sync",
+      "status": "PASS",
+      "state": {
+        "kind": "ready",
+        "lastSuccessAt": 1789406398872
+      },
+      "snapshotNotes": 97
+    },
+    {
+      "name": "six-context-actions",
+      "status": "FAIL",
+      "actions": [
+        {
+          "title": "Improve style",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Shorten",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Rephrase",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Create Dataview",
+          "handler": "generateDataview",
+          "status": "FAIL",
+          "error": "Missing menu Create Dataview; available: Search for “Menu selection”,Extract current selection...,New base,Improve style,Shorten,Rephrase,Generate Dataview,Flashcards,Split note into atomic notes"
+        },
+        {
+          "title": "Flashcards",
+          "handler": "generateFlashcardsForNote",
+          "status": "PASS",
+          "result": "Menu selection\n\n## Flashcards\n#flashcards\n\nMenu question::Menu answer\n"
+        },
+        {
+          "title": "Split into atomic notes",
+          "handler": "atomizeNote",
+          "status": "FAIL",
+          "error": "Missing menu Split into atomic notes; available: Search for “Menu selection”,Extract current selection...,New base,Improve style,Shorten,Rephrase,Generate Dataview,Flashcards,Split note into atomic notes"
+        }
+      ]
+    },
+    {
+      "name": "six-context-actions",
+      "status": "PASS",
+      "actions": [
+        {
+          "title": "Improve style",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Shorten",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Rephrase",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Generate Dataview",
+          "handler": "generateDataview",
+          "status": "PASS",
+          "result": "\n```dataview\nLIST FROM \"Projects\"\n```\n"
+        },
+        {
+          "title": "Flashcards",
+          "handler": "generateFlashcardsForNote",
+          "status": "PASS",
+          "result": "Menu selection\n\n## Flashcards\n#flashcards\n\nMenu question::Menu answer\n\n## Flashcards\n#flashcards\n\nMenu question::Menu answer\n"
+        },
+        {
+          "title": "Split note into atomic notes",
+          "handler": "atomizeNote",
+          "status": "PASS",
+          "result": "Menu selection\n\n## Atomic notes\n\n- [[Smoke/Context Atom|Context Atom]]\n"
+        }
+      ]
+    },
+    {
+      "name": "proposal-approved",
+      "status": "PASS",
+      "id": "efd9829f-6bf0-41fa-96ab-12782883c3ff",
+      "explicitNativeButton": true,
+      "previewReadOnly": true
+    },
+    {
+      "name": "proposal-rejected",
+      "status": "PASS",
+      "id": "f10b68b2-d260-42b3-9745-663b4eda0659",
+      "explicitNativeButton": true,
+      "previewReadOnly": true
+    },
+    {
+      "name": "proposal-duplicate",
+      "status": "PASS",
+      "id": "372fe2b8-606f-4388-8e37-8db2f81cbde2",
+      "explicitNativeButton": true,
+      "previewReadOnly": true
+    },
+    {
+      "name": "proposal-replay",
+      "status": "PASS",
+      "rejectedOrAcknowledgedOnly": true,
+      "rejected": false
+    },
+    {
+      "name": "native-popout",
+      "status": "PASS",
+      "nativeDocument": true,
+      "note": "Projects/Alpha.md",
+      "contextTitles": [
+        "Rename this heading...",
+        "Bookmark this heading...",
+        "Extract this heading...",
+        "New base",
+        "Improve style",
+        "Shorten",
+        "Rephrase",
+        "Generate Dataview",
+        "Flashcards",
+        "Split note into atomic notes"
+      ],
+      "insertion": [
+        "At the end",
+        "At the beginning",
+        "Replace selection",
+        "After the selection",
+        "Into a new note",
+        "To clipboard",
+        "At cursor position"
+      ],
+      "selected": "end",
+      "commandsBefore": 20,
+      "commandsDisabled": 0,
+      "errors": []
+    },
+    {
+      "name": "lifecycle-8-cycles",
+      "status": "PASS",
+      "initial": {
+        "commands": 20,
+        "vaultEvents": {
+          "closed": 1,
+          "config-changed": 3,
+          "create": 10,
+          "rename": 13,
+          "raw": 6,
+          "delete": 13,
+          "modify": 8
+        },
+        "workspaceEvents": {
+          "file-menu": 13,
+          "files-menu": 2,
+          "markdown-viewport-menu": 1,
+          "quit": 1,
+          "editor-menu": 7,
+          "swipe": 2,
+          "file-open": 10,
+          "active-leaf-change": 2,
+          "window-frame-change": 1,
+          "receive-text-menu": 2,
+          "receive-files-menu": 2,
+          "layout-ready": 8,
+          "hover-link": 1,
+          "layout-change": 2,
+          "leaf-menu": 1,
+          "search:results-menu": 1,
+          "tab-group-menu": 1,
+          "quick-preview": 1,
+          "editor-selection-change": 2,
+          "markdown-scroll": 1
+        },
+        "ribbons": 1
+      },
+      "final": {
+        "commands": 20,
+        "vaultEvents": {
+          "closed": 1,
+          "config-changed": 3,
+          "create": 10,
+          "rename": 13,
+          "raw": 6,
+          "delete": 13,
+          "modify": 8
+        },
+        "workspaceEvents": {
+          "file-menu": 13,
+          "files-menu": 2,
+          "markdown-viewport-menu": 1,
+          "quit": 1,
+          "editor-menu": 7,
+          "swipe": 2,
+          "file-open": 10,
+          "active-leaf-change": 2,
+          "window-frame-change": 1,
+          "receive-text-menu": 2,
+          "receive-files-menu": 2,
+          "layout-ready": 8,
+          "hover-link": 1,
+          "layout-change": 2,
+          "leaf-menu": 1,
+          "search:results-menu": 1,
+          "tab-group-menu": 1,
+          "quick-preview": 1,
+          "editor-selection-change": 2,
+          "markdown-scroll": 1
+        },
+        "ribbons": 1
+      },
+      "cycles": [
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 79.60000002384186
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 80.69999998807907
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 81.19999998807907
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 38.60000002384186
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 64.19999998807907
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 46.80000001192093
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 48
+        },
+        {
+          "disabled": 0,
+          "commands": 20,
+          "ms": 37
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "vault-audit-medium",
+      "status": "PASS",
+      "seconds": 0.8910999999642372,
+      "notes": 116,
+      "outputs": [
+        "Audit-Map-9-14-2026, 8-35-04 PM.canvas",
+        "Audit-Dashboard-9-14-2026, 8-35-04 PM.md"
+      ]
+    },
+    {
+      "name": "invalid-provider-endpoint",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "invalid-companion-endpoint",
+      "status": "PASS",
+      "rejected": 3
+    },
+    {
+      "name": "huge-hostile-markdown",
+      "status": "PASS",
+      "characters": 384099,
+      "executed": false
+    },
+    {
+      "name": "atom-title-traversal",
+      "status": "PASS",
+      "text": "# Source\n\n## Atomic notes\n\n- [[Smoke/.. .. outside Кириллица|.. .. outside Кириллица]]\n"
+    },
+    {
+      "name": "commands-start-and-cancel",
+      "status": "PASS",
+      "commands": [
+        {
+          "id": "ai-knowledge-hub:ai-semantic-search",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-rag-ask-vault",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-semantic-find-similar-notes",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-semantic-index-vault",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-semantic-index-current-note",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-semantic-clear-index",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-semantic-rebuild-index",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:review-ai-change-proposals",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-hub-open-panel",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-deep-vault-audit",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-simple-append",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-vault-append",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-selection",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-dataview-generate",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-flashcards-note",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-vault-audit",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-batch-process",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-generate-mocs",
+          "started": true,
+          "eligible": true
+        },
+        {
+          "id": "ai-knowledge-hub:ai-atomize-note",
+          "started": true,
+          "eligible": true
+        }
+      ]
+    },
+    {
+      "name": "fixed-build-installed",
+      "status": "PASS",
+      "built": "f150467615fbd32428c970375210abd9bb0d4348ddf924018fa608669cba0ef0",
+      "installed": "f150467615fbd32428c970375210abd9bb0d4348ddf924018fa608669cba0ef0",
+      "errors": []
+    },
+    {
+      "name": "normal-replacement-nested-backups",
+      "status": "PASS",
+      "backups": [
+        ".ai-backup-1789407647252-150d8614-b26c-4397-8545-8f1b4a8398be/Archive/Alpha.md",
+        ".ai-backup-1789407647252-150d8614-b26c-4397-8545-8f1b4a8398be/Projects/Alpha.md"
+      ],
+      "frontmatterPreserved": true,
+      "sameBasenameSeparate": true
+    },
+    {
+      "name": "backup-failure-preserves-original",
+      "status": "PASS",
+      "injected": 1,
+      "unchanged": true
+    },
+    {
+      "name": "concurrent-edit",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-rename",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-replacement",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "companion-missing-status-fields-retest",
+      "status": "PASS",
+      "state": {
+        "kind": "error",
+        "code": "INVALID_RESPONSE"
+      }
+    },
+    {
+      "name": "concurrent-deletion",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "flashcard-replacement",
+      "status": "PASS",
+      "originalPreserved": true
+    },
+    {
+      "name": "flashcard-conflict",
+      "status": "PASS",
+      "survived": true
+    },
+    {
+      "name": "atomic-atom-append",
+      "status": "PASS",
+      "content": "# Atoms\nOriginal.\n\nIndependent append.\n\n## Atomic notes\n\n- [[Smoke/Atomic One-2|Atomic One-2]]\n",
+      "oneSection": true,
+      "concurrentUserAppendPreserved": true
+    },
+    {
+      "name": "empty-response-safety",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "companion-disconnect-restart",
+      "status": "PASS",
+      "offline": {
+        "kind": "error",
+        "code": "SERVER_ERROR"
+      },
+      "online": {
+        "kind": "ready",
+        "lastSuccessAt": 1789407693382
+      }
+    },
+    {
+      "name": "provider-openai",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "provider-openrouter",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "repetition_penalty": 1.15,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present",
+        "referer": "https://obsidian.md",
+        "title": "Obsidian AI Hub"
+      }
+    },
+    {
+      "name": "provider-groq",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "provider-custom",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000,
+          "frequency_penalty": 0.1
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "provider-ollama",
+      "status": "PASS",
+      "request": {
+        "url": "/v1/chat/completions",
+        "method": "POST",
+        "body": {
+          "model": "smoke-model",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an editor. Return ONLY the modified text, no explanations."
+            },
+            {
+              "role": "user",
+              "content": "Текст заметки:\n# Network\n\n\nИнструкция: change\n\nВерни полный изменённый текст."
+            }
+          ],
+          "temperature": 0.65,
+          "max_tokens": 2000
+        },
+        "authorization": "placeholder-present"
+      }
+    },
+    {
+      "name": "http-400",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-401",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-403",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-429",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "http-500",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "malformed-json",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "stream-success",
+      "status": "PASS",
+      "error": "",
+      "content": "# Stream\nStream result — проверено."
+    },
+    {
+      "name": "stream-malformed",
+      "status": "PASS",
+      "error": "API вернул ответ неверного формата.",
+      "content": "# Stream\n"
+    },
+    {
+      "name": "stream-disconnect",
+      "status": "PASS",
+      "error": "Failed to fetch",
+      "content": "# Stream\n"
+    },
+    {
+      "name": "buffered-timeout",
+      "status": "PASS",
+      "seconds": 31.53819999998808,
+      "unchanged": true
+    },
+    {
+      "name": "stream-final-event-retest",
+      "status": "PASS",
+      "content": "# Final chunk\nfinal token"
+    },
+    {
+      "name": "current-desktop-settings-embeddings",
+      "status": "PASS",
+      "version": "1.13.7",
+      "results": [
+        {
+          "provider": "openrouter",
+          "text": "\nEnable semantic features\nSemantic features are opt-in. The first Vault index is started manually.\nAutomatic semantic index synchronization\nAfter the first index exists, Markdown note changes are synchronized automatically. Changed chunks may be sent to the selected remote embedding provider; Ollama can generate embeddings locally. The vector index remains local and Markdown files are not modified. An incompatible embedding space requires an explicit rebuild.\nEmbedding provider\nWorks independently from the language model above.\nOpenRouter\nOpenAI-compatible\nOllama\nEmbedding model\nProvider embedding model ID.\nEmbeddings base URL\nBase HTTP(S) URL without query or fragment. The endpoint is appended automatically.\n",
+          "lastRequest": "/v1/embeddings"
+        },
+        {
+          "provider": "openai-compatible",
+          "text": "\nEnable semantic features\nSemantic features are opt-in. The first Vault index is started manually.\nAutomatic semantic index synchronization\nAfter the first index exists, Markdown note changes are synchronized automatically. Changed chunks may be sent to the selected remote embedding provider; Ollama can generate embeddings locally. The vector index remains local and Markdown files are not modified. An incompatible embedding space requires an explicit rebuild.\nEmbedding provider\nWorks independently from the language model above.\nOpenRouter\nOpenAI-compatible\nOllama\nEmbedding model\nProvider embedding model ID.\nEmbeddings base URL\nBase HTTP(S) URL without query or fragment. The endpoint is appended automatically.\n",
+          "lastRequest": "/v1/embeddings"
+        },
+        {
+          "provider": "ollama",
+          "text": "\nEnable semantic features\nSemantic features are opt-in. The first Vault index is started manually.\nAutomatic semantic index synchronization\nAfter the first index exists, Markdown note changes are synchronized automatically. Changed chunks may be sent to the selected remote embedding provider; Ollama can generate embeddings locally. The vector index remains local and Markdown files are not modified. An incompatible embedding space requires an explicit rebuild.\nEmbedding provider\nWorks independently from the language model above.\nOpenRouter\nOpenAI-compatible\nOllama\nEmbedding model\nEmbedding model name as shown in Ollama.\nEmbeddings base URL\nBase HTTP(S) URL without query or fragment. The endpoint is appended automatically.\nTest embeddings\nConnection successful\nProvider: Ollama\nModel: smoke-embedding\nDimensions: 3\nSemantic index\nStatus: Not initialized\nProvider: Ollama\nModel: smoke-embedding\nSemantic index controls\nThe initial update, Clear, and Rebuild are explicit operations; ordinary M",
+          "lastRequest": "/api/embed"
+        }
+      ],
+      "settingsSearchAvailable": true,
+      "declarativeDefinitions": "function",
+      "errors": []
+    },
+    {
+      "name": "six-context-actions",
+      "status": "PASS",
+      "actions": [
+        {
+          "title": "Improve style",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Shorten",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Rephrase",
+          "handler": "quickAction",
+          "status": "PASS",
+          "result": "Menu output"
+        },
+        {
+          "title": "Generate Dataview",
+          "handler": "generateDataview",
+          "status": "PASS",
+          "result": "\n```dataview\nLIST FROM \"Projects\"\n```\n"
+        },
+        {
+          "title": "Flashcards",
+          "handler": "generateFlashcardsForNote",
+          "status": "PASS",
+          "result": "Menu selection\n## Flashcards\n#flashcards\n\nMenu question::Menu answer\n\n## Flashcards\n#flashcards\n\nMenu question::Menu answer\n"
+        },
+        {
+          "title": "Split note into atomic notes",
+          "handler": "atomizeNote",
+          "status": "PASS",
+          "result": "Menu selection\n\n## Atomic notes\n\n- [[Smoke/Context Atom|Context Atom]]\n"
+        }
+      ]
+    },
+    {
+      "name": "current-desktop-empty-output",
+      "status": "PASS",
+      "version": "1.13.7",
+      "errors": []
+    },
+    {
+      "name": "atom-unlinked-output-reproduction",
+      "status": "FAIL",
+      "text": "# Source\nUser append.\n\n## Atomic notes\n\n- [[Smoke/Race proof one|Race proof one]]\n",
+      "files": [
+        "Smoke/Race proof two.md",
+        "Smoke/Race proof one.md"
+      ],
+      "unlinked": [
+        "Smoke/Race proof two.md"
+      ]
+    },
+    {
+      "name": "atom-concurrency-final",
+      "status": "PASS",
+      "sharedRequest": true,
+      "atoms": [
+        "Final shared atom.md"
+      ],
+      "text": "# Original\nUser append survives.\n\n## Atomic notes\n\n- [[Final shared atom]]\n",
+      "replaySafe": true
+    },
+    {
+      "name": "normal-replacement-nested-backups",
+      "status": "PASS",
+      "backups": [
+        ".ai-backup-1789411943142-7154f094-c33c-43ba-af2e-dd79ef8acc70/Archive/Alpha.md",
+        ".ai-backup-1789411943142-7154f094-c33c-43ba-af2e-dd79ef8acc70/Projects/Alpha.md"
+      ],
+      "frontmatterPreserved": true,
+      "sameBasenameSeparate": true
+    },
+    {
+      "name": "backup-failure-preserves-original",
+      "status": "PASS",
+      "injected": 1,
+      "unchanged": true
+    },
+    {
+      "name": "concurrent-edit",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-rename",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-replacement",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "concurrent-deletion",
+      "status": "PASS",
+      "barrier": "HTTP request received before mutation; explicit release afterward",
+      "survived": true
+    },
+    {
+      "name": "flashcard-replacement",
+      "status": "PASS",
+      "originalPreserved": true
+    },
+    {
+      "name": "flashcard-conflict",
+      "status": "PASS",
+      "survived": true
+    },
+    {
+      "name": "atomic-atom-append",
+      "status": "PASS",
+      "content": "# Atoms\nOriginal.\n\nIndependent append.\n\n## Atomic notes\n\n- [[Smoke/Atomic One-3|Atomic One-3]]\n",
+      "oneSection": true,
+      "concurrentUserAppendPreserved": true
+    },
+    {
+      "name": "empty-response-safety",
+      "status": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "semantic-index",
+      "status": "PASS",
+      "seconds": 1.229800000011921,
+      "disclosure": "Update the Vault semantic index\n\nMarkdown files: 157\n\nChunk content will be sent to OpenAI-compatible.\n\nThis operation may take some time.\n\nThe index is stored locally inside the plugin directory.\n\nCancel\nUpdate index",
+      "state": {
+        "kind": "ready",
+        "vectorCount": 652,
+        "vectorGeneration": 20,
+        "dimensions": 3,
+        "providerLabel": "OpenAI-compatible",
+        "model": "smoke-embedding"
+      }
+    },
+    {
+      "name": "semantic-search",
+      "status": "PASS",
+      "results": [
+        {
+          "path": "AI Batch Report 1789375819756.md",
+          "score": 1,
+          "matches": [
+            {
+              "id": "chunk-56c551b23accf08e",
+              "path": "AI Batch Report 1789375819756.md",
+              "headingPath": [
+                "AI Batch Report"
+              ],
+              "ordinal": 0,
+              "contentHash": "f41397847335425c",
+              "source": {
+                "startOffset": 19,
+                "endOffset": 134,
+                "startLine": 2,
+                "endLine": 5
+              },
+              "score": 1,
+              "preview": "AI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375818221-33815a23-4a5c-4fd4-b266-aa30002e9542/`"
+            },
+            {
+              "id": "chunk-8571c29ec17a4227",
+              "path": "AI Batch Report 1789375819756.md",
+              "headingPath": [
+                "AI Batch Report",
+                "⚠️ Errors"
+              ],
+              "ordinal": 1,
+              "contentHash": "55b3b2865aa5f579",
+              "source": {
+                "startOffset": 149,
+                "endOffset": 201,
+                "startLine": 8,
+                "endLine": 8
+              },
+              "score": 1,
+              "preview": "AI Batch Report > ⚠️ Errors - Backup failure.md: Controlled smoke backup failure"
+            }
+          ]
+        },
+        {
+          "path": "AI Batch Report 1789375821476.md",
+          "score": 1,
+          "matches": [
+            {
+              "id": "chunk-b32b74522f8024e4",
+              "path": "AI Batch Report 1789375821476.md",
+              "headingPath": [
+                "AI Batch Report",
+                "⚠️ Errors"
+              ],
+              "ordinal": 1,
+              "contentHash": "00db7935e2c6a4cb",
+              "source": {
+                "startOffset": 149,
+                "endOffset": 248,
+                "startLine": 8,
+                "endLine": 8
+              },
+              "score": 1,
+              "preview": "AI Batch Report > ⚠️ Errors - Race edit.md: The note changed while AI was running. No changes were saved; run the action again."
+            },
+            {
+              "id": "chunk-b9c6b1f174d9a20c",
+              "path": "AI Batch Report 1789375821476.md",
+              "headingPath": [
+                "AI Batch Report"
+              ],
+              "ordinal": 0,
+              "contentHash": "8a80d2c3b02896c0",
+              "source": {
+                "startOffset": 19,
+                "endOffset": 134,
+                "startLine": 2,
+                "endLine": 5
+              },
+              "score": 1,
+              "preview": "AI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375819909-d1a634e4-2c8e-43dc-963c-fa9027d44e9f/`"
+            }
+          ]
+        },
+        {
+          "path": "AI Batch Report 1789375823104.md",
+          "score": 1,
+          "matches": [
+            {
+              "id": "chunk-4e3773c52f94fae2",
+              "path": "AI Batch Report 1789375823104.md",
+              "headingPath": [
+                "AI Batch Report"
+              ],
+              "ordinal": 0,
+              "contentHash": "8dfa03a42b8ec8f8",
+              "source": {
+                "startOffset": 19,
+                "endOffset": 134,
+                "startLine": 2,
+                "endLine": 5
+              },
+              "score": 1,
+              "preview": "AI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375821537-6fd4bed7-621e-48c1-a192-c5dab98d08e1/`"
+            },
+            {
+              "id": "chunk-a7a8a71b028867a5",
+              "path": "AI Batch Report 1789375823104.md",
+              "headingPath": [
+                "AI Batch Report",
+                "⚠️ Errors"
+              ],
+              "ordinal": 1,
+              "contentHash": "9efe32d22bea113b",
+              "source": {
+                "startOffset": 149,
+                "endOffset": 253,
+                "startLine": 8,
+                "endLine": 8
+              },
+              "score": 1,
+              "preview": "AI Batch Report > ⚠️ Errors - Renamed safely.md: The note changed while AI was running. No changes were saved; run the action again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "similar-notes",
+      "status": "PASS",
+      "count": 10
+    },
+    {
+      "name": "duplicates",
+      "status": "PASS",
+      "count": 100
+    },
+    {
+      "name": "semantic-search-ui",
+      "status": "PASS",
+      "text": "AI Batch Report 1789375819756\n1.000\nAI Batch Report 1789375819756.md\nAI Batch Report\nAI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375818221-33815a23-4a5c-4fd4-b266-aa30002e9542/`\nAI Batch Report › ⚠️ Errors\nAI Batch Report > ⚠️ Errors - Backup failure.md: Controlled smoke backup failure\nAI Batch Report 1789375821476\n1.000\nAI Batch Report 1789375821476.md\nAI Batch Report › ⚠️ Errors\nAI Batch Report > ⚠️ Errors - Race edit.md: The note changed while AI was running. No changes were saved; run the action again.\nAI Batch Report\nAI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375819909-d1a634e4-2c8e-43dc-963c-fa9027d44e9f/`\nAI Batch Report 1789375823104\n1.000\nAI Batch Report 1789375823104.md\nAI Batch Report\nAI Batch Report 📊 **Result** - Succeeded: 0 - Errors: 1 - Backup: `.ai-backup-1789375821537-6fd4bed7-621e-48c1-a192-c5dab98d08e1/`\nAI Batch Report › ⚠️ Errors\nAI Batch Report > ⚠️ Errors - Renamed safely.md: The not"
+    },
+    {
+      "name": "ask-vault-ui",
+      "status": "PASS",
+      "answer": "Answer\n\nSafe Markdown.\n\nunsafe",
+      "sources": 11,
+      "unsafeScriptElements": 0
+    },
+    {
+      "name": "ask-vault-cancel",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "final-popout",
+      "status": "PASS",
+      "separateDocument": true,
+      "note": "Projects/Alpha.md",
+      "items": [
+        "Rename this heading...",
+        "Bookmark this heading...",
+        "Extract this heading...",
+        "New base",
+        "Improve style",
+        "Shorten",
+        "Rephrase",
+        "Generate Dataview",
+        "Flashcards",
+        "Split note into atomic notes"
+      ]
+    },
+    {
+      "name": "final-popout-unload",
+      "status": "PASS",
+      "disabled": 0,
+      "enabled": 20,
+      "errors": []
+    }
+  ],
+  "mobileInitial": {
+    "results": [
+      {
+        "name": "mobile-normal-write-backup",
+        "status": "PASS",
+        "backup": ".ai-backup-1789410916590-e5b589e4-bd6b-4d7f-9371-8013ef074c84/Projects/Alpha.md"
+      },
+      {
+        "name": "mobile-concurrent-edit",
+        "status": "PASS",
+        "preserved": true
+      },
+      {
+        "name": "mobile-empty-output",
+        "status": "PASS"
+      },
+      {
+        "name": "mobile-command",
+        "status": "PASS"
+      },
+      {
+        "name": "mobile-audit",
+        "status": "PASS",
+        "outputs": [
+          "Audit-Map-9-14-2026, 9-35-39 PM.canvas",
+          "Audit-Dashboard-9-14-2026, 9-35-39 PM.md"
+        ]
+      },
+      {
+        "name": "mobile-stream",
+        "status": "PASS",
+        "content": "# Stream\nStream result — проверено."
+      },
+      {
+        "name": "mobile-semantic-analysis",
+        "status": "PASS",
+        "state": {
+          "kind": "ready",
+          "vectorCount": 18,
+          "vectorGeneration": 1,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "smoke-embedding"
+        },
+        "results": 9
+      },
+      {
+        "name": "mobile-lifecycle",
+        "status": "PASS",
+        "cycles": [
+          {
+            "disabled": 0,
+            "enabled": 20
+          },
+          {
+            "disabled": 0,
+            "enabled": 20
+          },
+          {
+            "disabled": 0,
+            "enabled": 20
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "hash": "f150467615fbd32428c970375210abd9bb0d4348ddf924018fa608669cba0ef0",
+    "ua": "Mozilla/5.0 (Linux; Android 15; Android SDK built for x86_64 Build/AE3A.240806.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/124.0.6367.219 Mobile Safari/537.36",
+    "settingsControls": 38
+  },
+  "mobileFinal": {
+    "results": [
+      {
+        "name": "mobile-normal-write-backup",
+        "status": "PASS",
+        "backup": ".ai-backup-1789413339083-f8b7a1fb-8d31-4f43-bf95-711b23b4a191/Projects/Alpha.md"
+      },
+      {
+        "name": "mobile-concurrent-edit",
+        "status": "PASS",
+        "preserved": true
+      },
+      {
+        "name": "mobile-empty-output",
+        "status": "PASS"
+      },
+      {
+        "name": "mobile-command",
+        "status": "PASS"
+      },
+      {
+        "name": "mobile-audit",
+        "status": "PASS",
+        "outputs": [
+          "Audit-Map-9-14-2026, 10-15-55 PM.canvas",
+          "Audit-Dashboard-9-14-2026, 10-15-55 PM.md"
+        ]
+      },
+      {
+        "name": "mobile-stream",
+        "status": "PASS",
+        "content": "# Stream\nStream result — проверено."
+      },
+      {
+        "name": "mobile-semantic-analysis",
+        "status": "PASS",
+        "state": {
+          "kind": "ready",
+          "vectorCount": 39,
+          "vectorGeneration": 3,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "smoke-embedding"
+        },
+        "results": 10
+      },
+      {
+        "name": "mobile-lifecycle",
+        "status": "PASS",
+        "cycles": [
+          {
+            "disabled": 0,
+            "enabled": 20
+          },
+          {
+            "disabled": 0,
+            "enabled": 20
+          },
+          {
+            "disabled": 0,
+            "enabled": 20
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "hash": "56ce72a3f986cad29cede18331b38d0a1f049f707d08eaade608f4f5fa2d5fd6",
+    "ua": "Mozilla/5.0 (Linux; Android 15; Android SDK built for x86_64 Build/AE3A.240806.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/124.0.6367.219 Mobile Safari/537.36",
+    "settingsControls": 38
+  },
+  "mobileFinalAtomConcurrency": {
+    "status": "PASS",
+    "sharedRequest": true,
+    "atoms": [
+      "Final shared atom.md"
+    ],
+    "text": "# Original\nUser append survives.\n\n## Atomic notes\n\n- [[Final shared atom]]\n",
+    "replaySafe": true
+  },
+  "mcpNegative": [
+    {
+      "name": "proposal-deny-../Escape.md",
+      "status": "PASS"
+    },
+    {
+      "name": "proposal-deny-/tmp/Escape.md",
+      "status": "PASS"
+    },
+    {
+      "name": "proposal-deny-.obsidian/secret.md",
+      "status": "PASS"
+    },
+    {
+      "name": "proposal-deny-Smoke//bad.md",
+      "status": "PASS"
+    },
+    {
+      "name": "proposal-deny-Smoke\\bad.md",
+      "status": "PASS"
+    },
+    {
+      "name": "proposal-deny-javascript:evil.md",
+      "status": "PASS"
+    },
+    {
+      "name": "malformed-proposal",
+      "status": "PASS"
+    },
+    {
+      "name": "no-auth",
+      "status": "PASS",
+      "http": 401
+    },
+    {
+      "name": "mcp-cannot-sync",
+      "status": "PASS",
+      "http": 401
+    },
+    {
+      "name": "sync-cannot-mcp",
+      "status": "PASS",
+      "http": 401
+    },
+    {
+      "name": "sync-vector-dimension",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "sync-vector-null",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "sync-vector-overflow",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "sync-vector-zero",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "sync-vector-huge",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "sync-vector-NaN",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "sync-vector-Infinity",
+      "status": "PASS",
+      "http": 400
+    },
+    {
+      "name": "mcp-query-vector-dimension",
+      "status": "PASS"
+    },
+    {
+      "name": "mcp-query-vector-non-finite",
+      "status": "PASS"
+    },
+    {
+      "name": "mcp-query-vector-nan-json",
+      "status": "PASS"
+    },
+    {
+      "name": "mcp-query-vector-missing",
+      "status": "PASS"
+    },
+    {
+      "name": "mcp-query-vector-huge",
+      "status": "PASS"
+    },
+    {
+      "name": "valid-query-after-errors",
+      "status": "PASS"
+    }
+  ],
+  "automatedVerification": [
+    {
+      "command": "npm ci",
+      "exit": 0,
+      "seconds": 3.62,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-0.log"
+    },
+    {
+      "command": "npm ci --prefix companion",
+      "exit": 0,
+      "seconds": 1.92,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-1.log"
+    },
+    {
+      "command": "npm test",
+      "exit": 0,
+      "seconds": 3.56,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-2.log"
+    },
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "seconds": 0.3,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-3.log"
+    },
+    {
+      "command": "npx tsc --noEmit --module ES2020 --ignoreDeprecations 5.0",
+      "exit": 0,
+      "seconds": 5.07,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-4.log"
+    },
+    {
+      "command": "npm run lint",
+      "exit": 0,
+      "seconds": 470.34,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-5.log"
+    },
+    {
+      "command": "npm --prefix companion run typecheck",
+      "exit": 0,
+      "seconds": 3.45,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-6.log"
+    },
+    {
+      "command": "npm --prefix companion test",
+      "exit": 0,
+      "seconds": 4.61,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-7.log"
+    },
+    {
+      "command": "npm --prefix companion run lint",
+      "exit": 0,
+      "seconds": 9.05,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-8.log"
+    },
+    {
+      "command": "npm --prefix companion run build",
+      "exit": 0,
+      "seconds": 2.5,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-9.log"
+    },
+    {
+      "command": "npm --prefix companion run smoke:mcp",
+      "exit": 0,
+      "seconds": 4.99,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-10.log"
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "seconds": 0.1,
+      "log": "/tmp/vault-audit-smoke/logs/final-verify-11.log"
+    }
+  ],
+  "logInspection": {
+    "sentinelMatches": {
+      "obsidian-1.12.7.log": [],
+      "obsidian.log": [],
+      "companion.log": [],
+      "cdp-events.jsonl": [],
+      "mobile-cdp-events.jsonl": [],
+      "mobile-logcat.log": [],
+      "mock.log": [],
+      "mobile-mock.log": []
+    },
+    "companionRequestsInspected": 57,
+    "providerKeyLeak": false,
+    "uncaughtPluginErrors": 0,
+    "desktopExit": 0,
+    "mobileFinalUnloadCommands": 0,
+    "mobileEmulatorRecoveryExit": 0,
+    "companionShutdowns": [
+      {
+        "code": 0,
+        "signal": null
+      },
+      {
+        "code": 0,
+        "signal": null
+      }
+    ],
+    "classifiedDiagnostics": [
+      "Expected Electron application CSP unsafe-eval warning; no security headers changed.",
+      "Expected Node experimental SQLite warning.",
+      "Expected denied MCP proposal and invalid-vector query warnings.",
+      "Android WebView variation-seed and EGL fallback/overlay diagnostics, without plugin errors.",
+      "First Android emulator host process exited -11 after QEMU virtual CPU stall warnings; recovered with one virtual CPU, reran full final suite, shut down with exit 0. Resource contention is suspected, not established.",
+      "Harness corrections: localized labels, wrong source-card selector, tied mock search ranking, modal document/stack targeting, stale editor fixture, identical-content mobile repeat fixture. All affected assertions were corrected and rerun.",
+      "Local cross-device git hardlinks and SDK package-discovery setup failures were environmental; independent clone used --no-hardlinks and the official image booted successfully.",
+      "Android logcat also contains x86 CPU-variant/JDWP, Bluetooth permission, predictive-back and missing Custom Tabs capability diagnostics; these are native app/emulator capabilities, not plugin JavaScript failures.",
+      "Android native app logged 62 resource-close warnings in two bursts and rendering/frame/IME timeouts. Logs provide no allocation owner or stack, so their cause is unproven. Functional cases complete, but these observations are retained as a limitation on native leak/performance claims."
+    ],
+    "androidUnattributedResourceCloseWarnings": 62
+  },
+  "limitations": [
+    "Mock embeddings are identical deterministic vectors: request, storage, retrieval and UI smoke only; no retrieval-quality claim.",
+    "Twenty command registrations and start/cancel paths were checked; the full Deep Audit and MOC generation workflows were not exhaustively evaluated.",
+    "No paid provider endpoints, external Qdrant deployment, iOS, Windows/macOS or physical Android device was tested.",
+    "No heap/handle profiler or exhaustive long-duration leak proof. Event/command/ribbon counts remained stable in the measured cycles.",
+    "Streaming uses fetch and requires provider CORS; buffered requestUrl timeout does not guarantee physical network cancellation. Existing incremental streaming can leave partial output on cancellation.",
+    "Hosted Obsidian rescan and release attestations were not executed.",
+    "Original forensic evidence remains historical. This file records subsequent runtime verification.",
+    "Android native resource-close warnings and rendering delays were not attributed to an allocation owner; no claim of leak-free native framework behavior or smooth physical-device performance."
+  ],
+  "mobileRecoveryHarnessFailure": {
+    "results": [
+      {
+        "name": "mobile-normal-write-backup",
+        "status": "PASS",
+        "backup": ".ai-backup-1789413284466-c499b7e7-2ace-42d4-997b-0572207ba614/Projects/Alpha.md"
+      },
+      {
+        "name": "mobile-concurrent-edit",
+        "status": "FAIL",
+        "error": "Mobile user edit lost"
+      },
+      {
+        "name": "mobile-empty-output",
+        "status": "PASS"
+      },
+      {
+        "name": "mobile-command",
+        "status": "PASS"
+      },
+      {
+        "name": "mobile-audit",
+        "status": "PASS",
+        "outputs": [
+          "Audit-Map-9-14-2026, 10-15-04 PM.canvas",
+          "Audit-Dashboard-9-14-2026, 10-15-04 PM.md"
+        ]
+      },
+      {
+        "name": "mobile-stream",
+        "status": "PASS",
+        "content": "# Stream\nStream result — проверено."
+      },
+      {
+        "name": "mobile-semantic-analysis",
+        "status": "PASS",
+        "state": {
+          "kind": "ready",
+          "vectorCount": 30,
+          "vectorGeneration": 2,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "smoke-embedding"
+        },
+        "results": 10
+      },
+      {
+        "name": "mobile-lifecycle",
+        "status": "PASS",
+        "cycles": [
+          {
+            "disabled": 0,
+            "enabled": 20
+          },
+          {
+            "disabled": 0,
+            "enabled": 20
+          },
+          {
+            "disabled": 0,
+            "enabled": 20
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "hash": "56ce72a3f986cad29cede18331b38d0a1f049f707d08eaade608f4f5fa2d5fd6",
+    "ua": "Mozilla/5.0 (Linux; Android 15; Android SDK built for x86_64 Build/AE3A.240806.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/124.0.6367.219 Mobile Safari/537.36",
+    "settingsControls": 38
+  }
+}

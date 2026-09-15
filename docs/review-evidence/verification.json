@@ -1,0 +1,115 @@
+{
+  "cleanSourceCopy": true,
+  "pluginTests": 780,
+  "companionTests": 213,
+  "commands": [
+    {
+      "command": "npm ci",
+      "exitCode": 0,
+      "seconds": 3.89
+    },
+    {
+      "command": "npm ci --prefix companion",
+      "exitCode": 0,
+      "seconds": 1.92
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "seconds": 3.49
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 0.27
+    },
+    {
+      "command": "npx tsc --noEmit --module ES2020 --ignoreDeprecations 5.0",
+      "exitCode": 0,
+      "seconds": 4.46
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "seconds": 27.88
+    },
+    {
+      "command": "Companion typecheck (source and tests)",
+      "exitCode": 0,
+      "seconds": 2.69
+    },
+    {
+      "command": "Companion tests",
+      "exitCode": 0,
+      "seconds": 4.09
+    },
+    {
+      "command": "Companion build",
+      "exitCode": 0,
+      "seconds": 2.1
+    }
+  ],
+  "negativeProbes": [
+    {
+      "probe": "lint rejects another streaming warning",
+      "exitCode": 1,
+      "detected": true
+    },
+    {
+      "probe": "build rejects server code",
+      "exitCode": 1,
+      "detected": true
+    },
+    {
+      "probe": "note-write test detects lost-update regression",
+      "exitCode": 1,
+      "detected": true
+    },
+    {
+      "probe": "restored clean production build",
+      "exitCode": 0,
+      "passed": true
+    }
+  ],
+  "npmAudit": {
+    "pluginDevelopmentDependencies": {
+      "info": 0,
+      "low": 0,
+      "moderate": 4,
+      "high": 3,
+      "critical": 0,
+      "total": 7
+    },
+    "companion": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "minimumApiCheck": {
+    "obsidian": "1.8.7",
+    "pluginSourceTypecheckExitCode": 0,
+    "method": "Replace only obsidian.d.ts in disposable installed source copy; exclude test fixtures; run TypeScript; restore original types."
+  },
+  "publicFingerprint": {
+    "publicWarnings": 2654,
+    "healthyReleaseWarnings": 2,
+    "missingObsidianTypesWarningsExcludingTests": 2654,
+    "matchingRuleFileLineMultiset": 2654,
+    "extraOrMissing": 0
+  },
+  "companionStricterRulesComparison": {
+    "baselineErrors": 24,
+    "finalErrors": 0,
+    "baselineRules": {
+      "@typescript-eslint/no-unsafe-assignment": 9,
+      "@typescript-eslint/no-unsafe-argument": 4,
+      "@typescript-eslint/no-unsafe-member-access": 3,
+      "@typescript-eslint/no-unnecessary-type-assertion": 6,
+      "@typescript-eslint/no-deprecated": 2
+    }
+  }
+}

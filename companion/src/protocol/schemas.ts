@@ -123,11 +123,14 @@ function chunk(value: unknown, notePath: string, dimensions: number): MirroredCh
     invalid(`chunk.embedding must contain exactly ${dimensions} values.`);
   }
   const embedding = input.embedding.map((item) => {
-    if (typeof item !== "number" || !Number.isFinite(item)) {
-      invalid("chunk.embedding values must be finite numbers.");
+    if (typeof item !== "number" || !Number.isFinite(Math.fround(item))) {
+      invalid("chunk.embedding values must be finite Float32 numbers.");
     }
     return item;
   });
+  if (!embedding.some((item) => Math.fround(item) !== 0)) {
+    invalid("chunk.embedding must have a nonzero Float32 norm.");
+  }
   const actualPath = validateVaultPath(input.notePath, "chunk.notePath");
   if (actualPath !== notePath) invalid("chunk.notePath must match note.path.");
   return {
@@ -146,7 +149,7 @@ function note(value: unknown, dimensions: number): MirroredNote {
   const input = record(value, "note");
   const path = validateVaultPath(input.path, "note.path");
   if (typeof input.content !== "string") invalid("note.content must be a string.");
-  if (Buffer.byteLength(input.content as string, "utf8") > MAX_NOTE_CONTENT_BYTES) {
+  if (Buffer.byteLength(input.content, "utf8") > MAX_NOTE_CONTENT_BYTES) {
     invalid(`note.content exceeds ${MAX_NOTE_CONTENT_BYTES} bytes.`);
   }
   const metadata = record(input.metadata, "note.metadata");
@@ -159,7 +162,7 @@ function note(value: unknown, dimensions: number): MirroredNote {
   for (const item of chunks) {
     if (ids.has(item.chunkId)) invalid("note.chunks contains duplicate chunkId values.");
     if (ordinals.has(item.ordinal)) invalid("note.chunks contains duplicate ordinal values.");
-    if (item.source.endOffset > (input.content as string).length) {
+    if (item.source.endOffset > input.content.length) {
       invalid("chunk.source must be within note.content.");
     }
     ids.add(item.chunkId);
@@ -167,7 +170,7 @@ function note(value: unknown, dimensions: number): MirroredNote {
   }
   return {
     path,
-    content: input.content as string,
+    content: input.content,
     contentHash: stringValue(input.contentHash, "note.contentHash", 1024),
     metadata,
     chunks,

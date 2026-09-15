@@ -49,6 +49,15 @@ describe("CompanionClient", () => {
     }));
   });
 
+  it.each([
+    { protocolVersion: 1 },
+    { protocolVersion: 1, status: "ok", vaultCount: -1 },
+    { protocolVersion: 1, status: "broken", vaultCount: 0 },
+  ])("rejects malformed successful status responses", async (body) => {
+    obsidianMocks.requestUrl.mockResolvedValue(response(200, body));
+    await expect(new CompanionClient(settings).status()).rejects.toMatchObject({ code: "INVALID_RESPONSE" });
+  });
+
   it("maps authentication failure without exposing the token", async () => {
     const noteContent = "private note body";
     obsidianMocks.requestUrl.mockResolvedValue(response(401, { error: { code: "AUTH_REQUIRED", message: `${settings.token}: ${noteContent}` } }));

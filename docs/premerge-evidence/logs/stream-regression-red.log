@@ -1,0 +1,68 @@
+
+> obsidian-ai-hub@1.7.0 test
+> vitest run --exclude 'companion/**' api.test.ts
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD
+
+ ❯ api.test.ts (36 tests | 6 failed) 333ms
+     × rejects a stream without usable output 4ms
+     × rejects a stream without usable output 1ms
+     × rejects a stream without usable output 1ms
+     × rejects a stream without usable output 1ms
+     × rejects a stream without usable output 1ms
+     × delivers content in the final event before honoring finish_reason 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  api.test.ts > API request boundaries > rejects a stream without usable output
+ FAIL  api.test.ts > API request boundaries > rejects a stream without usable output
+ FAIL  api.test.ts > API request boundaries > rejects a stream without usable output
+ FAIL  api.test.ts > API request boundaries > rejects a stream without usable output
+ FAIL  api.test.ts > API request boundaries > rejects a stream without usable output
+AssertionError: promise resolved "undefined" instead of rejecting
+
+- Expected:
+Error {
+  "message": "rejected promise",
+}
+
++ Received:
+undefined
+
+ ❯ api.test.ts:373:82
+    371|   ])("rejects a stream without usable output", async (body) => {
+    372|     vi.stubGlobal("fetch", vi.fn(async () => new Response(body)));
+    373|     await expect(streamOpenRouter(settings(), "system", "user", () => …
+       |                                                                                  ^
+    374|   });
+    375|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  api.test.ts > API request boundaries > delivers content in the final event before honoring finish_reason
+AssertionError: expected [] to deeply equal [ 'final' ]
+
+- Expected
++ Received
+
+- [
+-   "final",
+- ]
++ []
+
+ ❯ api.test.ts:382:20
+    380|     const tokens: string[] = [];
+    381|     await streamOpenRouter(settings(), "system", "user", (token) => to…
+    382|     expect(tokens).toEqual(["final"]);
+       |                    ^
+    383|   });
+    384|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 30 passed (36)
+   Start at  11:52:43
+   Duration  758ms (transform 244ms, setup 0ms, import 277ms, tests 333ms, environment 0ms)

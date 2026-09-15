@@ -50,6 +50,7 @@ import {
   withRetry,
 } from "./deepAudit";
 import { NoteIndexManager } from "./noteIndex";
+import { backupAndReplaceNote, replaceNoteIfUnchanged } from "./noteWrites";
 import { mergeEmbeddingSettings } from "./embeddings/types";
 import type { StoredEmbeddingSettings } from "./embeddings/types";
 import {
@@ -78,6 +79,7 @@ export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
+  private atomizationTasks = new Map<TFile, Promise<void>>();
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
 
@@ -728,7 +730,7 @@ export default class AIHubPlugin extends Plugin {
   }
 
   async awaitInsertionMenu(
-    editor: Editor,
+    _editor: Editor,
     mode: Mode,
   ): Promise<InsertionType | null> {
     const opts =
@@ -756,20 +758,6 @@ export default class AIHubPlugin extends Plugin {
       menu.onHide(() => {
         if (!resolved) resolve(null);
       });
-
-      try {
-        const cursor = editor.getCursor("from");
-        const ed = editor as unknown as {
-          coordsAtPos(ch: number): { left: number; top: number } | null;
-        };
-        const pos = ed.coordsAtPos(cursor.ch);
-        if (pos) {
-          menu.showAtPosition({ x: pos.left, y: pos.top });
-          return;
-        }
-      } catch {
-        /* fallback ниже */
-      }
 
       const rect = activeDocument.body.getBoundingClientRect();
       menu.showAtPosition({ x: rect.width / 2, y: rect.height / 3 });
@@ -845,56 +833,54 @@ export default class AIHubPlugin extends Plugin {
     const sel = editor.getSelection() || "";
 
     menu.addSeparator();
-    menu.addItem((item) => {
-      const submenu = (
-        item.setTitle("AI Hub").setIcon("sparkles") as unknown as {
-          setSubmenu(): Menu;
-        }
-      ).setSubmenu();
-
-      submenu.addItem((sub) =>
-        sub
-          .setTitle(tr("Улучшить стиль"))
-          .setIcon("sparkles")
-          .onClick(() => this.quickAction(editor, sel, tr("Улучши стиль"))),
-      );
-      submenu.addItem((sub) =>
-        sub
-          .setTitle(tr("Сократить"))
-          .setIcon("minimize-2")
-          .onClick(() => this.quickAction(editor, sel, tr("Сократи"))),
-      );
-      submenu.addItem((sub) =>
-        sub
-          .setTitle(tr("Перефразировать"))
-          .setIcon("refresh-cw")
-          .onClick(() => this.quickAction(editor, sel, tr("Перефразируй"))),
-      );
-      submenu.addItem((sub) =>
-        sub
-          .setTitle(tr("Создать Dataview"))
-          .setIcon("table")
-          .onClick(() => this.generateDataview(editor)),
-      );
-      submenu.addItem((sub) =>
-        sub
-          .setTitle(tr("Флешкарты"))
-          .setIcon("layers")
-          .onClick(() => {
-            const file = this.app.workspace.getActiveFile();
-            if (file) void this.generateFlashcardsForNote(file);
-          }),
-      );
-      submenu.addItem((sub) =>
-        sub
-          .setTitle(tr("Разбить заметку на атомарные"))
-          .setIcon("git-fork")
-          .onClick(() => {
-            const file = this.app.workspace.getActiveFile();
-            if (file) void this.atomizeNote(file);
-          }),
-      );
-    });
+    menu.addItem((sub) =>
+      sub
+        .setSection("ai-hub")
+        .setTitle(tr("Улучшить стиль"))
+        .setIcon("sparkles")
+        .onClick(() => this.quickAction(editor, sel, tr("Улучши стиль"))),
+    );
+    menu.addItem((sub) =>
+      sub
+        .setSection("ai-hub")
+        .setTitle(tr("Сократить"))
+        .setIcon("minimize-2")
+        .onClick(() => this.quickAction(editor, sel, tr("Сократи"))),
+    );
+    menu.addItem((sub) =>
+      sub
+        .setSection("ai-hub")
+        .setTitle(tr("Перефразировать"))
+        .setIcon("refresh-cw")
+        .onClick(() => this.quickAction(editor, sel, tr("Перефразируй"))),
+    );
+    menu.addItem((sub) =>
+      sub
+        .setSection("ai-hub")
+        .setTitle(tr("Создать Dataview"))
+        .setIcon("table")
+        .onClick(() => this.generateDataview(editor)),
+    );
+    menu.addItem((sub) =>
+      sub
+        .setSection("ai-hub")
+        .setTitle(tr("Флешкарты"))
+        .setIcon("layers")
+        .onClick(() => {
+          const file = this.app.workspace.getActiveFile();
+          if (file) void this.generateFlashcardsForNote(file);
+        }),
+    );
+    menu.addItem((sub) =>
+      sub
+        .setSection("ai-hub")
+        .setTitle(tr("Разбить заметку на атомарные"))
+        .setIcon("git-fork")
+        .onClick(() => {
+          const file = this.app.workspace.getActiveFile();
+          if (file) void this.atomizeNote(file);
+        }),
+    );
   }
 
   async quickAction(editor: Editor, sel: string, action: string) {
@@ -1167,10 +1153,7 @@ export default class AIHubPlugin extends Plugin {
 
   // === Батч-обработка ===
   async runBatchProcessing(files: TFile[], query: string, append = false) {
-    const backupFolder = normalizePath(`.ai-backup-${Date.now()}`);
-    await this.app.vault.createFolder(backupFolder).catch(() => {
-      /* уже есть */
-    });
+    const backupFolder = normalizePath(`.ai-backup-${Date.now()}-${window.crypto.randomUUID()}`);
 
     new Notice(`📦 Начало обработки ${files.length} заметок...`);
     const progress = new BatchProgressModal(this.app, files.length);
@@ -1185,6 +1168,7 @@ export default class AIHubPlugin extends Plugin {
 
       try {
         progress.logPending(file.name);
+        const originalPath = file.path;
         const content = await this.app.vault.read(file);
 
         let newContent: string;
@@ -1201,11 +1185,7 @@ export default class AIHubPlugin extends Plugin {
           );
         }
 
-        const backupPath = normalizePath(`${backupFolder}/${file.name}`);
-        await this.app.vault.create(backupPath, content).catch(() => {
-          /* skip */
-        });
-        await this.app.vault.modify(file, newContent);
+        await backupAndReplaceNote(this.app.vault, file, originalPath, content, newContent, backupFolder);
 
         processed++;
         progress.update(processed, errorCount);
@@ -1283,12 +1263,13 @@ export default class AIHubPlugin extends Plugin {
 
     const notice = notify("loading", tr("Генерирую флешкарты..."));
     try {
+      const originalPath = file.path;
       const content = await this.app.vault.read(file);
       const { newContent, cardCount } = await this.buildFlashcardsContent(
         content,
         tr("@flashcards_prompt"),
       );
-      await this.app.vault.modify(file, newContent);
+      await replaceNoteIfUnchanged(this.app.vault, file, originalPath, content, newContent);
       notice.hide();
       notify("success", tr("✅ Создано флешкарт: {n}", { n: cardCount }));
     } catch (err) {
@@ -1462,7 +1443,17 @@ export default class AIHubPlugin extends Plugin {
   }
 
   // === Атомизация заметки (Zettelkasten) ===
-  async atomizeNote(file: TFile) {
+  atomizeNote(file: TFile): Promise<void> {
+    const existing = this.atomizationTasks.get(file);
+    if (existing) return existing;
+    // Share generation as well as the append so concurrent requests cannot
+    // create a second set of notes whose links are then skipped.
+    const pending = this.createAtomicNotes(file).finally(() => this.atomizationTasks.delete(file));
+    this.atomizationTasks.set(file, pending);
+    return pending;
+  }
+
+  private async createAtomicNotes(file: TFile) {
     const err = validateSettings(this.settings);
     if (err) {
       new Notice(err);
@@ -1559,18 +1550,11 @@ export default class AIHubPlugin extends Plugin {
       }
 
       if (createdPaths.length > 0) {
-        // Дописываем секцию ссылок в конец оригинала; текст не трогаем.
-        // Перечитываем файл — пользователь мог править его, пока думал LLM
-        const fresh = await this.app.vault.read(file);
-        if (!hasAtomSection(fresh)) {
-          const links = createdPaths
-            .map((p) => `- ${noteToWikiLink(p)}`)
-            .join("\n");
-          await this.app.vault.modify(
-            file,
-            appendSection(fresh, `${tr("## Атомарные заметки")}\n\n${links}`),
-          );
-        }
+        const links = createdPaths.map((p) => `- ${noteToWikiLink(p)}`).join("\n");
+        // Read and append atomically, preserving edits made during generation.
+        await this.app.vault.process(file, (fresh) => hasAtomSection(fresh)
+          ? fresh
+          : appendSection(fresh, `${tr("## Атомарные заметки")}\n\n${links}`));
       }
 
       notice.hide();

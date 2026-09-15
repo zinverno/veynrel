@@ -26,10 +26,10 @@ describe("Companion HTTP API", () => {
     await storage.initialize();
     logMessages = [];
     logger = {
-      debug: vi.fn((message) => logMessages.push(message)),
-      info: vi.fn((message) => logMessages.push(message)),
-      warn: vi.fn((message) => logMessages.push(message)),
-      error: vi.fn((message, context) => logMessages.push(`${message}${JSON.stringify(context ?? {})}`)),
+      debug: vi.fn<Logger["debug"]>((message) => logMessages.push(message)),
+      info: vi.fn<Logger["info"]>((message) => logMessages.push(message)),
+      warn: vi.fn<Logger["warn"]>((message) => logMessages.push(message)),
+      error: vi.fn<Logger["error"]>((message, context) => logMessages.push(`${message}${JSON.stringify(context ?? {})}`)),
     };
     const config: CompanionConfig = {
       host: "127.0.0.1",
@@ -68,6 +68,19 @@ describe("Companion HTTP API", () => {
       ...overrides,
     };
   }
+
+  it.each([1e40, 0, 1e-50])("rejects vectors that become non-finite or zero in Float32 storage: %s", async (value) => {
+    const fixture = note();
+    fixture.chunks[0]!.embedding = Array.from({ length: descriptor().dimensions }, () => value);
+    const response = await fetch(`${baseUrl}/v1/vaults/${VAULT_A}/sync/batch`, {
+      method: "POST", headers: headers(), body: JSON.stringify({
+        protocolVersion: 1, generation: 1, descriptor: descriptor(),
+        operations: [{ type: "UPSERT", note: fixture }],
+      }),
+    });
+    expect(response.status).toBe(400);
+    expect(await storage.readVault(VAULT_A)).toBeNull();
+  });
 
   it("exposes only minimal unauthenticated health data", async () => {
     const response = await fetch(`${baseUrl}/health`);
