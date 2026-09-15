@@ -1,7 +1,7 @@
 import { Modal } from "obsidian";
 import type { App } from "obsidian";
-import { validProposalDetail } from "../companion/src/proposals/types";
-import type { ProposalDetail, ProposalSummary } from "../companion/src/proposals/types";
+import { validProposalDetail } from "../companionSync/proposalTypes";
+import type { ProposalDetail, ProposalSummary } from "../companionSync/proposalTypes";
 import { ProposalApplication } from "./application";
 import { proposalDiff } from "./diff";
 

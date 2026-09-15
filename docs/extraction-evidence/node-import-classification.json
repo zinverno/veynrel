@@ -1,0 +1,362 @@
+[
+  {
+    "file": "companionSync/protocolContract.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 50,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 92,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 103,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 187,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 198,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 293,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 407,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 449,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 460,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 471,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 513,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 555,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 566,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 577,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/extraction-evidence/source-scope-before.json",
+    "line": 588,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 31,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 32,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 33,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 34,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 35,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 36,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-hosted-scanner-repro.md",
+    "line": 37,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/obsidian-review-audit.md",
+    "line": 61,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 12,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 18,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 24,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 36,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 42,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 60,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 90,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 96,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 102,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 108,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 114,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 120,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 126,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 132,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-after.json",
+    "line": 138,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 12,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 18,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 24,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 66,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 72,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 108,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 138,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 144,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 150,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 156,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 162,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 168,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 174,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 180,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/review-evidence/documented-scanner-before.json",
+    "line": 186,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "docs/upstream/obsidian-scanner-scope-comment.md",
+    "line": 7,
+    "category": "documentation/evidence"
+  },
+  {
+    "file": "esbuild.config.mjs",
+    "line": 3,
+    "category": "development script"
+  },
+  {
+    "file": "indexing/indexingService.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "proposals/obsidianVault.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "proposals/reviewModal.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "rag/ragModal.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "scripts/companion-smoke-sibling.mjs",
+    "line": 4,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/companion-smoke-sibling.mjs",
+    "line": 5,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/companion-smoke-sibling.mjs",
+    "line": 8,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/companion-smoke-sibling.mjs",
+    "line": 9,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/lint-obsidian.mjs",
+    "line": 2,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/lint-obsidian.mjs",
+    "line": 3,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/proposal-mutation-audit.mjs",
+    "line": 3,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/proposal-mutation-audit.mjs",
+    "line": 5,
+    "category": "development script"
+  },
+  {
+    "file": "scripts/proposal-mutation-audit.mjs",
+    "line": 6,
+    "category": "development script"
+  },
+  {
+    "file": "semantic/semanticDiscoveryService.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "semantic/semanticSearchModal.test.ts",
+    "line": 1,
+    "category": "test"
+  },
+  {
+    "file": "vectorStore/localVectorStore.test.ts",
+    "line": 1,
+    "category": "test"
+  }
+]

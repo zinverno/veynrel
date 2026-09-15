@@ -1,0 +1,131 @@
+[
+  {
+    "name": "startup",
+    "result": "PASS",
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "vault": "/tmp/vault-audit-extract/native/vault",
+    "commands": 20
+  },
+  {
+    "name": "settings",
+    "result": "PASS",
+    "controls": 34,
+    "companionVisible": true
+  },
+  {
+    "name": "native-requestUrl-connection",
+    "result": "PASS",
+    "status": {
+      "kind": "ready",
+      "lastSuccessAt": 1789461416164
+    }
+  },
+  {
+    "name": "native-sync",
+    "result": "PASS",
+    "semantic": {
+      "kind": "ready",
+      "vectorCount": 3,
+      "vectorGeneration": 1,
+      "dimensions": 3,
+      "providerLabel": "OpenAI-compatible",
+      "model": "smoke-embedding"
+    },
+    "companion": {
+      "kind": "ready",
+      "lastSuccessAt": 1789461416587
+    }
+  },
+  {
+    "name": "semantic-read",
+    "result": "PASS",
+    "matches": 3
+  },
+  {
+    "name": "proposal-approved",
+    "result": "PASS",
+    "status": "PASS",
+    "id": "7a2e9bfa-ed65-47c9-b07c-49cace04c95e",
+    "explicitNativeButton": true,
+    "previewReadOnly": true
+  },
+  {
+    "name": "proposal-rejected",
+    "result": "PASS",
+    "status": "PASS",
+    "id": "525ac6cd-98a3-4cd8-99b3-9fca4728e0ba",
+    "explicitNativeButton": true,
+    "previewReadOnly": true
+  },
+  {
+    "name": "proposal-duplicate",
+    "result": "PASS",
+    "status": "PASS",
+    "id": "28f4ecf3-85ed-460a-bbda-4ea25c530528",
+    "explicitNativeButton": true,
+    "previewReadOnly": true
+  },
+  {
+    "name": "proposal-replay",
+    "result": "PASS",
+    "status": "PASS",
+    "rejectedOrAcknowledgedOnly": true,
+    "rejected": false
+  },
+  {
+    "name": "lifecycle",
+    "result": "PASS",
+    "cycles": [
+      {
+        "disabled": 0,
+        "enabled": 20
+      },
+      {
+        "disabled": 0,
+        "enabled": 20
+      },
+      {
+        "disabled": 0,
+        "enabled": 20
+      },
+      {
+        "disabled": 0,
+        "enabled": 20
+      }
+    ],
+    "workspaceEventsStable": true,
+    "errors": []
+  },
+  {
+    "name": "native-server-restart-reconnect",
+    "result": "PASS",
+    "status": {
+      "kind": "ready",
+      "lastSuccessAt": 1789463616650
+    }
+  },
+  {
+    "name": "companion-settings-button",
+    "result": "PASS",
+    "invoked": true
+  },
+  {
+    "name": "final-disable",
+    "result": "PASS",
+    "commands": 0,
+    "errors": []
+  },
+  {
+    "name": "plugin-state-disk-barrier",
+    "result": "PASS",
+    "milliseconds": 1014
+  },
+  {
+    "name": "vault-reload",
+    "result": "PASS",
+    "obsidian": "1.12.7",
+    "commands": 20,
+    "connection": "ready"
+  }
+]

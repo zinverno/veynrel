@@ -1,0 +1,132 @@
+{
+  "protocolVersion": 1,
+  "header": "x-companion-protocol-version",
+  "vaultId": "11111111-1111-4111-8111-111111111111",
+  "status": {
+    "status": "ok",
+    "protocolVersion": 1,
+    "vaultCount": 0
+  },
+  "batch": {
+    "protocolVersion": 1,
+    "generation": 1,
+    "descriptor": {
+      "providerId": "openai-compatible",
+      "model": "text-embedding-test",
+      "baseUrl": "https://embed.example/v1",
+      "dimensions": 3,
+      "embeddingSpaceId": "embedding-space:v1|provider=openai-compatible|model=text-embedding-test|endpoint=https%3A%2F%2Fembed.example%2Fv1|dimensions=3",
+      "normalized": true
+    },
+    "replaceVault": true,
+    "operations": [
+      {
+        "type": "UPSERT",
+        "note": {
+          "path": "Projects/Альфа.md",
+          "content": "# Alpha\r\n\r\nПривет 😀\n",
+          "contentHash": "c82a861935d71f4b",
+          "metadata": {
+            "tags": [
+              "fixture"
+            ],
+            "aliases": [
+              "Alpha"
+            ]
+          },
+          "chunks": [
+            {
+              "chunkId": "fixture-alpha-0",
+              "notePath": "Projects/Альфа.md",
+              "ordinal": 0,
+              "headingPath": [
+                "Alpha"
+              ],
+              "text": "# Alpha\r\n\r\nПривет 😀\n",
+              "contentHash": "c82a861935d71f4b",
+              "source": {
+                "startOffset": 0,
+                "endOffset": 21,
+                "startLine": 0,
+                "endLine": 3
+              },
+              "embedding": [
+                1,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "batchResult": {
+    "protocolVersion": 1,
+    "generation": 1,
+    "applied": true,
+    "stale": false,
+    "operationsApplied": 1
+  },
+  "proposal": {
+    "proposalId": "22222222-2222-4222-8222-222222222222",
+    "operation": "UPDATE_NOTE",
+    "path": "Projects/Альфа.md",
+    "summary": "Protocol v1 approval fixture",
+    "status": "PENDING",
+    "createdAt": 1,
+    "updatedAt": 1,
+    "claimedAt": null,
+    "claimExpiresAt": null,
+    "appliedAt": null,
+    "statusCode": null,
+    "baseContent": "# Alpha\r\n\r\nПривет 😀\n",
+    "baseContentHash": "c82a861935d71f4b",
+    "proposedContent": "# Alpha\r\n\r\nПривет 😀\nApproved change\n",
+    "proposedContentHash": "983651ac0735246e"
+  },
+  "hashes": [
+    {
+      "text": "",
+      "hash": "811c9dc59e3779b9"
+    },
+    {
+      "text": "Привет 😀",
+      "hash": "209c243cc27a9835"
+    },
+    {
+      "text": "a\r\nb",
+      "hash": "c40663db9cae7903"
+    },
+    {
+      "text": "a\nb",
+      "hash": "28e4c710c7a974bc"
+    },
+    {
+      "text": "é",
+      "hash": "941955331261408a"
+    },
+    {
+      "text": "é",
+      "hash": "6c0b6c440e031b8b"
+    },
+    {
+      "text": "\ud800",
+      "hash": "0481d51f839f9d71"
+    }
+  ],
+  "allowedPaths": [
+    "A.md",
+    "Projects/Альфа.md",
+    "Archive/Alpha.md"
+  ],
+  "deniedPaths": [
+    "../Escape.md",
+    "/tmp/Escape.md",
+    ".obsidian/X.md",
+    "A//B.md",
+    "A\\B.md",
+    "javascript:evil.md"
+  ],
+  "claimLeaseMs": 120000
+}

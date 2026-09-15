@@ -119,7 +119,7 @@ Approval obtains a two-minute claim, checks the real note against the immutable 
 
 `APPLIED` confirms the Vault write, while normal semantic AutoSync and Companion synchronization may still be running. Those integrations must be enabled for the mirror to catch up. Proposal creation and rejection use **zero embedding calls and zero Qdrant operations**. Approved content may later reach your existing embedding provider through ordinary AutoSync.
 
-When Obsidian is closed, proposals remain on Companion and no notes change. If Companion cannot grant a claim, approval fails safely. A crashed client's claim expires; a write whose acknowledgement was lost may appear pending again, but the immutable base/absence checks prevent blindly repeating the completed operation. Inspect the real note before proposing another change. See [proposal storage, retention and privacy](companion/README.md#safe-change-proposals).
+When Obsidian is closed, proposals remain on Companion and no notes change. If Companion cannot grant a claim, approval fails safely. A crashed client's claim expires; a write whose acknowledgement was lost may appear pending again, but the immutable base/absence checks prevent blindly repeating the completed operation. Inspect the real note before proposing another change. See [proposal storage, retention and privacy](https://github.com/zinverno/vault-audit-ai-companion#safe-change-proposals).
 
 ### Vault audit
 
@@ -233,7 +233,7 @@ Vault Audit AI separates local storage from provider-side processing so you can 
 
 > A locally stored vector index does not automatically make remote-provider requests local. Review the selected provider's privacy policy, retention rules, limits, and pricing before sending sensitive notes.
 
-Optional Companion Qdrant acceleration sends vectors, identifiers, hashes, revision numbers, and embedding-space metadata (including provider, model, and endpoint) to the operator-configured Qdrant service; it does not send note text or paths. SQLite remains the authoritative mirror. See [Companion persistence and recovery](companion/README.md#optional-qdrant-acceleration).
+Optional Companion Qdrant acceleration sends vectors, identifiers, hashes, revision numbers, and embedding-space metadata (including provider, model, and endpoint) to the operator-configured Qdrant service; it does not send note text or paths. SQLite remains the authoritative mirror. See [Companion persistence and recovery](https://github.com/zinverno/vault-audit-ai-companion#optional-qdrant-acceleration).
 
 ## Semantic index behavior
 
@@ -301,9 +301,9 @@ Chunk search + document representations
 
 Stable chunk hashes drive incremental deltas so unchanged chunks are reused.
 
-An optional standalone [Companion service](companion/README.md) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
+An optional standalone [Companion service](https://github.com/zinverno/vault-audit-ai-companion#readme) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
 
-Companion exposes an opt-in [MCP endpoint](companion/README.md#mcp) for bounded retrieval, semantic search and [change proposals](companion/README.md#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
+Companion exposes an opt-in [MCP endpoint](https://github.com/zinverno/vault-audit-ai-companion#mcp) for bounded retrieval, semantic search and [change proposals](https://github.com/zinverno/vault-audit-ai-companion#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
 
 A debounced event coordinator coalesces Markdown path changes, while startup reconciliation catches offline changes. Manual and automatic indexing share one mutation queue. Rename batches reach the vector store as one durable mutation.
 
@@ -334,19 +334,20 @@ Clear and rebuild are explicit operations and do not modify source notes.
 
 ```bash
 npm ci
-npm ci --prefix companion
 npm test
 npm run lint
-npm --prefix companion run typecheck
-npm --prefix companion test
-npm --prefix companion run build
+npm run audit:proposals
 ```
 
-`npm run lint` runs both lint environments. `npm run lint:obsidian` runs plugin TypeScript validation, the production build, and the current official recommended Obsidian rules, including every TypeScript module emitted into `main.js`. Build metadata is written to ignored `.esbuild/meta.json`; the build rejects standalone server code and unexpected external dependencies. Companion retains its own strict Node/TypeScript environment and type-aware safety rules.
+`npm run lint` checks this plugin independently. `npm run lint:obsidian` runs plugin TypeScript validation, the production build, and the current official recommended Obsidian rules, including every TypeScript module emitted into `main.js`. Build metadata is written to ignored `.esbuild/meta.json`; the build rejects standalone server code and unexpected external dependencies. Companion retains its own strict Node/TypeScript environment and type-aware safety rules.
 
 The four reviewed plugin advisories remain visible and are checked by file, rule, and count; new warnings fail CI. See the [forensic review report](docs/obsidian-review-audit.md) for rationale, public-scorecard evidence, and the scanner scope limitation. No Obsidian runtime rules have been disabled to make the review pass. `npm run typecheck` also runs the standalone `tsc --noEmit --module ES2020 --ignoreDeprecations 5.0` check.
 
-CI validates plugin and Companion on Node 24 and saves the plugin bundle plus dependency metadata. A separate workflow verifies and attests the assets of a future manually published release against a build from its tag; it does not create a release or replace assets. Before releasing, test the affected note writes and menus in desktop, mobile, and a popout window, and check the Community scorecard after its next scan.
+Independent CI in each repository validates its own package on Node 24 and saves the plugin bundle plus dependency metadata. A separate workflow verifies and attests the assets of a future manually published release against a build from its tag; it does not create a release or replace assets. Before releasing, test the affected note writes and menus in desktop, mobile, and a popout window, and check the Community scorecard after its next scan.
+
+For optional joint development, clone [Companion](https://github.com/zinverno/vault-audit-ai-companion) next to this checkout as `../vault-audit-ai-companion`. In that repository run `npm ci`, `npm run typecheck`, `npm test`, `npm run lint`, `npm run build`, and `npm run smoke:mcp`. Then, in this plugin repository, run `npm run companion:smoke-sibling`. Set `VAULT_AUDIT_COMPANION_DIR` to override the sibling location. The helper starts an ephemeral server with disposable data and synthetic credentials; ordinary plugin checks never require a sibling. It does not install dependencies, change Git state, or read `.env` files.
+
+Both sides speak HTTP protocol **v1** (`x-companion-protocol-version`). See [extraction, ownership and compatibility](docs/companion-extraction.md), [protocol fixtures](tests/fixtures/companion-protocol-v1.json), and the [separate hosted-scanner findings](docs/obsidian-hosted-scanner-repro.md). Companion previously lived under `companion/`; historical audit reports retain that original location.
 
 ## Contributing
 

@@ -1,9 +1,9 @@
-name: Verify plugin and Companion
+name: Verify plugin
 
 on:
   pull_request:
   push:
-    branches: [main, fix/obsidian-review-scorecard]
+    branches: [main, refactor/extract-companion-repository]
 
 permissions:
   contents: read
@@ -17,16 +17,10 @@ jobs:
         with:
           node-version: '24'
           cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            companion/package-lock.json
       - run: npm ci
-      - run: npm ci --prefix companion
       - run: npm test
-      - run: npm run lint # includes plugin typecheck, production build, and both lint environments
-      - run: npm --prefix companion run typecheck
-      - run: npm --prefix companion test
-      - run: npm --prefix companion run build
+      - run: npm run lint # includes plugin typecheck, production build, and plugin lint
+      - run: npm run audit:proposals
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: plugin-review-build

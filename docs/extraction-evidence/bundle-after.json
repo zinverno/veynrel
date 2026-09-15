@@ -1,0 +1,1520 @@
+{
+  "externalImports": [
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    }
+  ],
+  "inputs": {
+    "i18n.ts": {
+      "bytes": 62654,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "constants.ts": {
+      "bytes": 8546,
+      "imports": [],
+      "format": "esm"
+    },
+    "api.ts": {
+      "bytes": 22394,
+      "imports": [
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "./i18n"
+        },
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "constants.ts",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "constants.ts",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "embeddings/shared.ts": {
+      "bytes": 10437,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "embeddings/providers.ts": {
+      "bytes": 2085,
+      "imports": [
+        {
+          "path": "embeddings/shared.ts",
+          "kind": "import-statement",
+          "original": "./shared"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "embeddings/types.ts": {
+      "bytes": 3875,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "embeddings/factory.ts": {
+      "bytes": 2829,
+      "imports": [
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "embeddings/providers.ts",
+          "kind": "import-statement",
+          "original": "./providers"
+        },
+        {
+          "path": "embeddings/shared.ts",
+          "kind": "import-statement",
+          "original": "./shared"
+        },
+        {
+          "path": "embeddings/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticSettingsActionRunner.ts": {
+      "bytes": 2100,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "companionSync/types.ts": {
+      "bytes": 2340,
+      "imports": [],
+      "format": "esm"
+    },
+    "companionSync/settings.ts": {
+      "bytes": 1750,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "companionSync/client.ts": {
+      "bytes": 7435,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "companionSync/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        },
+        {
+          "path": "companionSync/settings.ts",
+          "kind": "import-statement",
+          "original": "./settings"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "companionSync/service.ts": {
+      "bytes": 8979,
+      "imports": [
+        {
+          "path": "companionSync/client.ts",
+          "kind": "import-statement",
+          "original": "./client"
+        },
+        {
+          "path": "companionSync/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "companionSync/index.ts": {
+      "bytes": 106,
+      "imports": [
+        {
+          "path": "companionSync/client.ts",
+          "kind": "import-statement",
+          "original": "./client"
+        },
+        {
+          "path": "companionSync/service.ts",
+          "kind": "import-statement",
+          "original": "./service"
+        },
+        {
+          "path": "companionSync/settings.ts",
+          "kind": "import-statement",
+          "original": "./settings"
+        },
+        {
+          "path": "companionSync/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "settings.ts": {
+      "bytes": 48637,
+      "imports": [
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "./i18n"
+        },
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "./main",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "constants.ts",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "api.ts",
+          "kind": "import-statement",
+          "original": "./api"
+        },
+        {
+          "path": "embeddings/factory.ts",
+          "kind": "import-statement",
+          "original": "./embeddings/factory"
+        },
+        {
+          "path": "embeddings/types.ts",
+          "kind": "import-statement",
+          "original": "./embeddings/types"
+        },
+        {
+          "path": "semantic/semanticSettingsActionRunner.ts",
+          "kind": "import-statement",
+          "original": "./semantic/semanticSettingsActionRunner"
+        },
+        {
+          "path": "companionSync/index.ts",
+          "kind": "import-statement",
+          "original": "./companionSync"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "deepAudit.ts": {
+      "bytes": 39426,
+      "imports": [
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "./i18n"
+        },
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "./settings",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "api.ts",
+          "kind": "import-statement",
+          "original": "./api"
+        },
+        {
+          "path": "./noteIndex",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "constants.ts",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "noteIndex.ts": {
+      "bytes": 9002,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "./i18n"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "noteWrites.ts": {
+      "bytes": 1773,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/errors.ts": {
+      "bytes": 1424,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "chunking/hash.ts": {
+      "bytes": 716,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "chunking/types.ts": {
+      "bytes": 950,
+      "imports": [],
+      "format": "esm"
+    },
+    "chunking/markdownChunker.ts": {
+      "bytes": 28039,
+      "imports": [
+        {
+          "path": "chunking/hash.ts",
+          "kind": "import-statement",
+          "original": "./hash"
+        },
+        {
+          "path": "chunking/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "chunking/index.ts": {
+      "bytes": 268,
+      "imports": [
+        {
+          "path": "chunking/markdownChunker.ts",
+          "kind": "import-statement",
+          "original": "./markdownChunker"
+        },
+        {
+          "path": "chunking/hash.ts",
+          "kind": "import-statement",
+          "original": "./hash"
+        },
+        {
+          "path": "chunking/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "indexing/errors.ts": {
+      "bytes": 1342,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "indexing/embeddingSpace.ts": {
+      "bytes": 1959,
+      "imports": [
+        {
+          "path": "indexing/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "vectorStore/errors.ts": {
+      "bytes": 689,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "indexing/indexingService.ts": {
+      "bytes": 23559,
+      "imports": [
+        {
+          "path": "vectorStore/errors.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore/errors"
+        },
+        {
+          "path": "indexing/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "indexing/embeddingSpace.ts",
+          "kind": "import-statement",
+          "original": "./embeddingSpace"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "indexing/obsidianDocumentSource.ts": {
+      "bytes": 2751,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "indexing/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "vectorStore/binaryCodec.ts": {
+      "bytes": 4691,
+      "imports": [
+        {
+          "path": "vectorStore/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "vectorStore/localVectorStore.ts": {
+      "bytes": 43759,
+      "imports": [
+        {
+          "path": "vectorStore/binaryCodec.ts",
+          "kind": "import-statement",
+          "original": "./binaryCodec"
+        },
+        {
+          "path": "vectorStore/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "vectorStore/nullVectorStore.ts": {
+      "bytes": 1368,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "vectorStore/obsidianPersistence.ts": {
+      "bytes": 1903,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "vectorStore/index.ts": {
+      "bytes": 1272,
+      "imports": [
+        {
+          "path": "vectorStore/binaryCodec.ts",
+          "kind": "import-statement",
+          "original": "./binaryCodec"
+        },
+        {
+          "path": "vectorStore/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "vectorStore/localVectorStore.ts",
+          "kind": "import-statement",
+          "original": "./localVectorStore"
+        },
+        {
+          "path": "vectorStore/nullVectorStore.ts",
+          "kind": "import-statement",
+          "original": "./nullVectorStore"
+        },
+        {
+          "path": "vectorStore/obsidianPersistence.ts",
+          "kind": "import-statement",
+          "original": "./obsidianPersistence"
+        }
+      ],
+      "format": "esm"
+    },
+    "indexing/obsidianFactory.ts": {
+      "bytes": 1479,
+      "imports": [
+        {
+          "path": "vectorStore/index.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore"
+        },
+        {
+          "path": "indexing/indexingService.ts",
+          "kind": "import-statement",
+          "original": "./indexingService"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "indexing/index.ts": {
+      "bytes": 979,
+      "imports": [
+        {
+          "path": "indexing/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "indexing/embeddingSpace.ts",
+          "kind": "import-statement",
+          "original": "./embeddingSpace"
+        },
+        {
+          "path": "indexing/indexingService.ts",
+          "kind": "import-statement",
+          "original": "./indexingService"
+        },
+        {
+          "path": "indexing/obsidianDocumentSource.ts",
+          "kind": "import-statement",
+          "original": "./obsidianDocumentSource"
+        },
+        {
+          "path": "indexing/obsidianFactory.ts",
+          "kind": "import-statement",
+          "original": "./obsidianFactory"
+        }
+      ],
+      "format": "esm"
+    },
+    "rag/errors.ts": {
+      "bytes": 965,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "rag/ragContextBuilder.ts": {
+      "bytes": 10666,
+      "imports": [
+        {
+          "path": "rag/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticDiscoveryService.ts": {
+      "bytes": 13825,
+      "imports": [
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticRuntime.ts": {
+      "bytes": 10387,
+      "imports": [
+        {
+          "path": "chunking/hash.ts",
+          "kind": "import-statement",
+          "original": "../chunking/hash"
+        },
+        {
+          "path": "indexing/errors.ts",
+          "kind": "import-statement",
+          "original": "../indexing/errors"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "semantic/semanticDiscoveryService.ts",
+          "kind": "import-statement",
+          "original": "./semanticDiscoveryService"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticSearchService.ts": {
+      "bytes": 8213,
+      "imports": [
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/obsidianSemanticRuntime.ts": {
+      "bytes": 4951,
+      "imports": [
+        {
+          "path": "chunking/index.ts",
+          "kind": "import-statement",
+          "original": "../chunking"
+        },
+        {
+          "path": "embeddings/factory.ts",
+          "kind": "import-statement",
+          "original": "../embeddings/factory"
+        },
+        {
+          "path": "indexing/index.ts",
+          "kind": "import-statement",
+          "original": "../indexing"
+        },
+        {
+          "path": "vectorStore/index.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore"
+        },
+        {
+          "path": "rag/ragContextBuilder.ts",
+          "kind": "import-statement",
+          "original": "../rag/ragContextBuilder"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "semantic/semanticRuntime.ts",
+          "kind": "import-statement",
+          "original": "./semanticRuntime"
+        },
+        {
+          "path": "semantic/semanticSearchService.ts",
+          "kind": "import-statement",
+          "original": "./semanticSearchService"
+        },
+        {
+          "path": "semantic/semanticDiscoveryService.ts",
+          "kind": "import-statement",
+          "original": "./semanticDiscoveryService"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "rag/ragPrompt.ts": {
+      "bytes": 1429,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "rag/ragService.ts": {
+      "bytes": 3542,
+      "imports": [
+        {
+          "path": "rag/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "rag/ragPrompt.ts",
+          "kind": "import-statement",
+          "original": "./ragPrompt"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "rag/index.ts": {
+      "bytes": 778,
+      "imports": [
+        {
+          "path": "rag/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "rag/ragPrompt.ts",
+          "kind": "import-statement",
+          "original": "./ragPrompt"
+        },
+        {
+          "path": "rag/ragContextBuilder.ts",
+          "kind": "import-statement",
+          "original": "./ragContextBuilder"
+        },
+        {
+          "path": "rag/ragService.ts",
+          "kind": "import-statement",
+          "original": "./ragService"
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticSearchModal.ts": {
+      "bytes": 7410,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "rag/ragModal.ts": {
+      "bytes": 10162,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "semantic/semanticSearchModal.ts",
+          "kind": "import-statement",
+          "original": "../semantic/semanticSearchModal"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/asyncReadWriteBarrier.ts": {
+      "bytes": 2599,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticAutoSync.ts": {
+      "bytes": 7882,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticConfirmModal.ts": {
+      "bytes": 1841,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticIndexProbe.ts": {
+      "bytes": 844,
+      "imports": [
+        {
+          "path": "vectorStore/index.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticDiscoveryModal.ts": {
+      "bytes": 9595,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "semantic/semanticSearchModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticSearchModal"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticStorageMaintenance.ts": {
+      "bytes": 1811,
+      "imports": [
+        {
+          "path": "vectorStore/index.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/semanticStoreRegistry.ts": {
+      "bytes": 3979,
+      "imports": [
+        {
+          "path": "vectorStore/localVectorStore.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore/localVectorStore"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/obsidianSemanticController.ts": {
+      "bytes": 51534,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "api.ts",
+          "kind": "import-statement",
+          "original": "../api"
+        },
+        {
+          "path": "constants.ts",
+          "kind": "import-statement",
+          "original": "../constants"
+        },
+        {
+          "path": "rag/index.ts",
+          "kind": "import-statement",
+          "original": "../rag"
+        },
+        {
+          "path": "rag/ragModal.ts",
+          "kind": "import-statement",
+          "original": "../rag/ragModal"
+        },
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "../i18n"
+        },
+        {
+          "path": "embeddings/types.ts",
+          "kind": "import-statement",
+          "original": "../embeddings/types"
+        },
+        {
+          "path": "indexing/index.ts",
+          "kind": "import-statement",
+          "original": "../indexing"
+        },
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "semantic/asyncReadWriteBarrier.ts",
+          "kind": "import-statement",
+          "original": "./asyncReadWriteBarrier"
+        },
+        {
+          "path": "semantic/semanticAutoSync.ts",
+          "kind": "import-statement",
+          "original": "./semanticAutoSync"
+        },
+        {
+          "path": "semantic/obsidianSemanticRuntime.ts",
+          "kind": "import-statement",
+          "original": "./obsidianSemanticRuntime"
+        },
+        {
+          "path": "semantic/semanticConfirmModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticConfirmModal"
+        },
+        {
+          "path": "semantic/semanticIndexProbe.ts",
+          "kind": "import-statement",
+          "original": "./semanticIndexProbe"
+        },
+        {
+          "path": "semantic/semanticSearchModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticSearchModal"
+        },
+        {
+          "path": "semantic/semanticDiscoveryModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticDiscoveryModal"
+        },
+        {
+          "path": "semantic/semanticStorageMaintenance.ts",
+          "kind": "import-statement",
+          "original": "./semanticStorageMaintenance"
+        },
+        {
+          "path": "semantic/semanticStoreRegistry.ts",
+          "kind": "import-statement",
+          "original": "./semanticStoreRegistry"
+        },
+        {
+          "path": "vectorStore/index.ts",
+          "kind": "import-statement",
+          "original": "../vectorStore"
+        },
+        {
+          "path": "companionSync/index.ts",
+          "kind": "import-statement",
+          "original": "../companionSync"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "semantic/index.ts": {
+      "bytes": 2766,
+      "imports": [
+        {
+          "path": "semantic/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "semantic/obsidianSemanticRuntime.ts",
+          "kind": "import-statement",
+          "original": "./obsidianSemanticRuntime"
+        },
+        {
+          "path": "semantic/obsidianSemanticController.ts",
+          "kind": "import-statement",
+          "original": "./obsidianSemanticController"
+        },
+        {
+          "path": "semantic/semanticDiscoveryService.ts",
+          "kind": "import-statement",
+          "original": "./semanticDiscoveryService"
+        },
+        {
+          "path": "semantic/semanticConfirmModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticConfirmModal"
+        },
+        {
+          "path": "semantic/semanticSearchModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticSearchModal"
+        },
+        {
+          "path": "semantic/semanticDiscoveryModal.ts",
+          "kind": "import-statement",
+          "original": "./semanticDiscoveryModal"
+        },
+        {
+          "path": "semantic/semanticRuntime.ts",
+          "kind": "import-statement",
+          "original": "./semanticRuntime"
+        },
+        {
+          "path": "semantic/semanticSearchService.ts",
+          "kind": "import-statement",
+          "original": "./semanticSearchService"
+        },
+        {
+          "path": "semantic/asyncReadWriteBarrier.ts",
+          "kind": "import-statement",
+          "original": "./asyncReadWriteBarrier"
+        },
+        {
+          "path": "semantic/semanticAutoSync.ts",
+          "kind": "import-statement",
+          "original": "./semanticAutoSync"
+        },
+        {
+          "path": "semantic/semanticStoreRegistry.ts",
+          "kind": "import-statement",
+          "original": "./semanticStoreRegistry"
+        },
+        {
+          "path": "semantic/semanticStorageMaintenance.ts",
+          "kind": "import-statement",
+          "original": "./semanticStorageMaintenance"
+        },
+        {
+          "path": "semantic/semanticIndexProbe.ts",
+          "kind": "import-statement",
+          "original": "./semanticIndexProbe"
+        }
+      ],
+      "format": "esm"
+    },
+    "companionSync/proposalTypes.ts": {
+      "bytes": 4088,
+      "imports": [
+        {
+          "path": "chunking/hash.ts",
+          "kind": "import-statement",
+          "original": "../chunking/hash"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "proposals/application.ts": {
+      "bytes": 5351,
+      "imports": [
+        {
+          "path": "chunking/hash.ts",
+          "kind": "import-statement",
+          "original": "../chunking/hash"
+        },
+        {
+          "path": "companionSync/proposalTypes.ts",
+          "kind": "import-statement",
+          "original": "../companionSync/proposalTypes"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "proposals/obsidianVault.ts": {
+      "bytes": 1641,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "proposals/application.ts",
+          "kind": "import-statement",
+          "original": "./application"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "proposals/diff.ts": {
+      "bytes": 1048,
+      "imports": [
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "proposals/reviewModal.ts": {
+      "bytes": 11793,
+      "imports": [
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "companionSync/proposalTypes.ts",
+          "kind": "import-statement",
+          "original": "../companionSync/proposalTypes"
+        },
+        {
+          "path": "./application",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "proposals/diff.ts",
+          "kind": "import-statement",
+          "original": "./diff"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "main.ts": {
+      "bytes": 88802,
+      "imports": [
+        {
+          "path": "i18n.ts",
+          "kind": "import-statement",
+          "original": "./i18n"
+        },
+        {
+          "path": "obsidian",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "settings.ts",
+          "kind": "import-statement",
+          "original": "./settings"
+        },
+        {
+          "path": "api.ts",
+          "kind": "import-statement",
+          "original": "./api"
+        },
+        {
+          "path": "constants.ts",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "deepAudit.ts",
+          "kind": "import-statement",
+          "original": "./deepAudit"
+        },
+        {
+          "path": "noteIndex.ts",
+          "kind": "import-statement",
+          "original": "./noteIndex"
+        },
+        {
+          "path": "noteWrites.ts",
+          "kind": "import-statement",
+          "original": "./noteWrites"
+        },
+        {
+          "path": "embeddings/types.ts",
+          "kind": "import-statement",
+          "original": "./embeddings/types"
+        },
+        {
+          "path": "companionSync/index.ts",
+          "kind": "import-statement",
+          "original": "./companionSync"
+        },
+        {
+          "path": "semantic/index.ts",
+          "kind": "import-statement",
+          "original": "./semantic"
+        },
+        {
+          "path": "companionSync/client.ts",
+          "kind": "import-statement",
+          "original": "./companionSync/client"
+        },
+        {
+          "path": "proposals/application.ts",
+          "kind": "import-statement",
+          "original": "./proposals/application"
+        },
+        {
+          "path": "proposals/obsidianVault.ts",
+          "kind": "import-statement",
+          "original": "./proposals/obsidianVault"
+        },
+        {
+          "path": "proposals/reviewModal.ts",
+          "kind": "import-statement",
+          "original": "./proposals/reviewModal"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "bundleSha256": "6d6eb44d033672dae94c1b8a0b15158c905b07fe4e38aee20dc6d244ab2fdcdd",
+  "bytes": 421023
+}

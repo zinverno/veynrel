@@ -1,0 +1,104 @@
+[
+  {
+    "name": "proposal-deny-../Escape.md",
+    "status": "PASS"
+  },
+  {
+    "name": "proposal-deny-/tmp/Escape.md",
+    "status": "PASS"
+  },
+  {
+    "name": "proposal-deny-.obsidian/secret.md",
+    "status": "PASS"
+  },
+  {
+    "name": "proposal-deny-Smoke//bad.md",
+    "status": "PASS"
+  },
+  {
+    "name": "proposal-deny-Smoke\\bad.md",
+    "status": "PASS"
+  },
+  {
+    "name": "proposal-deny-javascript:evil.md",
+    "status": "PASS"
+  },
+  {
+    "name": "malformed-proposal",
+    "status": "PASS"
+  },
+  {
+    "name": "no-auth",
+    "status": "PASS",
+    "http": 401
+  },
+  {
+    "name": "mcp-cannot-sync",
+    "status": "PASS",
+    "http": 401
+  },
+  {
+    "name": "sync-cannot-mcp",
+    "status": "PASS",
+    "http": 401
+  },
+  {
+    "name": "sync-vector-dimension",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "sync-vector-null",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "sync-vector-overflow",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "sync-vector-zero",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "sync-vector-huge",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "sync-vector-NaN",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "sync-vector-Infinity",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "name": "mcp-query-vector-dimension",
+    "status": "PASS"
+  },
+  {
+    "name": "mcp-query-vector-non-finite",
+    "status": "PASS"
+  },
+  {
+    "name": "mcp-query-vector-nan-json",
+    "status": "PASS"
+  },
+  {
+    "name": "mcp-query-vector-missing",
+    "status": "PASS"
+  },
+  {
+    "name": "mcp-query-vector-huge",
+    "status": "PASS"
+  },
+  {
+    "name": "valid-query-after-errors",
+    "status": "PASS"
+  }
+]

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { stableHash } from "../chunking/hash";
-import type { ProposalDetail, ProposalPage } from "../companion/src/proposals/types";
+import type { ProposalDetail, ProposalPage } from "../companionSync/proposalTypes";
 
 const mocks = vi.hoisted(() => {
   class Element {

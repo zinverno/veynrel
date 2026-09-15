@@ -1,0 +1,136 @@
+{
+  "sourceHead": "1a978e3046a8032db8afbe421c9203d0caedd095",
+  "sourceTree": "8e285e8ec81abe63a529aaeb9e21930e4460a9f0",
+  "splitTree": "8e285e8ec81abe63a529aaeb9e21930e4460a9f0",
+  "splitHead": "a3375c1049fe17e17011140165f1b8f8377fc4ee",
+  "commits": [
+    {
+      "sha": "16019d305728acd47d51354c4afdb002782f7205",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-04T20:23:27+03:00",
+      "committerTime": "2026-09-04T20:23:27+03:00",
+      "subject": "feat(companion): add standalone persistent mirror service"
+    },
+    {
+      "sha": "a5d9b3d6369c86c9f3cb736c2116117fac2cc516",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-04T20:33:09+03:00",
+      "committerTime": "2026-09-04T20:33:09+03:00",
+      "subject": "chore(companion): refresh lint toolchain"
+    },
+    {
+      "sha": "4c3c5d38fe6491a811e0d670ec02fe110e22d7f9",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T02:02:12+03:00",
+      "committerTime": "2026-09-05T02:02:12+03:00",
+      "subject": "feat(companion): add scoped read-only MCP retrieval"
+    },
+    {
+      "sha": "c4e034edfaae8271bb9910a9209c0a65e10cfd2d",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T02:02:12+03:00",
+      "committerTime": "2026-09-05T02:02:12+03:00",
+      "subject": "test(companion): add MCP smoke and mutation audits"
+    },
+    {
+      "sha": "a8edbf5ae795d1ca250d48b191394107c403c9fd",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T02:05:49+03:00",
+      "committerTime": "2026-09-05T02:05:49+03:00",
+      "subject": "docs(companion): document Stage 9 deployment and verification"
+    },
+    {
+      "sha": "95a3fe28336970611f33edc3cc5cba7df1fc761f",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T06:51:18+03:00",
+      "committerTime": "2026-09-05T06:51:18+03:00",
+      "subject": "fix(companion): accept narrow OpenRouter embedding model aliases"
+    },
+    {
+      "sha": "08818b4194da9987d95bf1ab00a01c8a5c07f043",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T06:53:54+03:00",
+      "committerTime": "2026-09-05T06:53:54+03:00",
+      "subject": "docs(companion): record live OpenRouter compatibility verification"
+    },
+    {
+      "sha": "95ac5cd0a93b5af43b97f8ff299f83c955cf9ad4",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T07:26:37+03:00",
+      "committerTime": "2026-09-05T07:26:37+03:00",
+      "subject": "docs(companion): remove Stage 9 verification report"
+    },
+    {
+      "sha": "eda3e9d0abcf59f59d4e47ce1ce98567fd1349c2",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T07:57:50+03:00",
+      "committerTime": "2026-09-05T07:57:50+03:00",
+      "subject": "feat(companion): add optional derived Qdrant search adapter"
+    },
+    {
+      "sha": "f6d46089552149dc6aea25bfa5d6bbb9e0c26790",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T07:57:50+03:00",
+      "committerTime": "2026-09-05T07:57:50+03:00",
+      "subject": "test(companion): audit Qdrant authority and fallback invariants"
+    },
+    {
+      "sha": "dd2f0d7c3a7d5ff0c05974519802a571caea35a4",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-05T07:57:50+03:00",
+      "committerTime": "2026-09-05T07:57:50+03:00",
+      "subject": "docs(companion): explain optional Qdrant operation and recovery"
+    },
+    {
+      "sha": "fb9a17c98cbf991bf4832199540ae8fc56dde9f4",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-06T12:26:22+03:00",
+      "committerTime": "2026-09-06T12:26:22+03:00",
+      "subject": "feat(companion): persist scoped MCP change proposals with claim leases"
+    },
+    {
+      "sha": "b656f7fb325a5987533b9e17dc4b05600e11debc",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-06T12:26:22+03:00",
+      "committerTime": "2026-09-06T12:26:22+03:00",
+      "subject": "test: audit proposal safety boundaries and document review workflow"
+    },
+    {
+      "sha": "75cc24145d4fc510b9e315109188c253dfab3ac6",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-06T12:32:47+03:00",
+      "committerTime": "2026-09-06T12:32:47+03:00",
+      "subject": "test: detect duplicate Vault writes in proposal mutation audit"
+    },
+    {
+      "sha": "c875491b2b5ef9d5ed06e63d76ef749b61316e17",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-14T10:51:17+03:00",
+      "committerTime": "2026-09-14T10:51:17+03:00",
+      "subject": "fix(companion): enforce type-aware server safety checks"
+    },
+    {
+      "sha": "a3375c1049fe17e17011140165f1b8f8377fc4ee",
+      "author": "zinverno",
+      "email": "ziverix.yxy@gmail.com",
+      "authorTime": "2026-09-14T20:51:22+03:00",
+      "committerTime": "2026-09-14T20:51:22+03:00",
+      "subject": "fix: reject vectors unusable in Float32 storage"
+    }
+  ]
+}

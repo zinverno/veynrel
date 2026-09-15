@@ -1,0 +1,99 @@
+[
+  {
+    "filePath": "main.ts",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unsafe-call",
+        "severity": 2,
+        "message": "Unsafe call of a type that could not be resolved.",
+        "line": 5,
+        "column": 5,
+        "nodeType": "MemberExpression",
+        "messageId": "errorCall",
+        "endLine": 5,
+        "endColumn": 20
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unsafe-assignment",
+        "severity": 2,
+        "message": "Unsafe assignment of an error typed value.",
+        "line": 9,
+        "column": 15,
+        "nodeType": "VariableDeclarator",
+        "messageId": "anyAssignment",
+        "endLine": 9,
+        "endColumn": 56
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unsafe-call",
+        "severity": 2,
+        "message": "Unsafe call of a type that could not be resolved.",
+        "line": 9,
+        "column": 22,
+        "nodeType": "MemberExpression",
+        "messageId": "errorCall",
+        "endLine": 9,
+        "endColumn": 54
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "message": "Unsafe member access .workspace on a type that cannot be resolved.",
+        "line": 9,
+        "column": 31,
+        "nodeType": "Identifier",
+        "messageId": "errorMemberExpression",
+        "endLine": 9,
+        "endColumn": 40
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unsafe-call",
+        "severity": 2,
+        "message": "Unsafe construction of a type that could not be resolved.",
+        "line": 10,
+        "column": 19,
+        "nodeType": "NewExpression",
+        "messageId": "errorNew",
+        "endLine": 10,
+        "endColumn": 44
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unsafe-member-access",
+        "severity": 2,
+        "message": "Unsafe member access .basename on an `any` value.",
+        "line": 10,
+        "column": 35,
+        "nodeType": "Identifier",
+        "messageId": "unsafeMemberExpression",
+        "endLine": 10,
+        "endColumn": 43
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 6,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  }
+]

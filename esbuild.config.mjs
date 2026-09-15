@@ -26,13 +26,9 @@ async function main() {
   });
   const output = result.metafile.outputs['main.js'];
   assert(output.imports.every(({ path }) => path === 'obsidian'), 'Unexpected plugin runtime dependency');
-  const sharedProposalCode = new Set([
-    'companion/src/proposals/types.ts',
-    'companion/src/proposals/contentHash.ts',
-  ]);
   for (const [path, { bytesInOutput }] of Object.entries(output.inputs)) {
     if (!bytesInOutput) continue;
-    assert(!path.startsWith('companion/') || sharedProposalCode.has(path), `Server code in plugin bundle: ${path}`);
+    assert(!path.startsWith('companion/') && !path.startsWith('../'), `Server code in plugin bundle: ${path}`);
     assert(!/(?:\.test\.|\/(?:tests|scripts)\/)/u.test(path), `Test/tooling code in plugin bundle: ${path}`);
   }
   await mkdir('.esbuild', { recursive: true });

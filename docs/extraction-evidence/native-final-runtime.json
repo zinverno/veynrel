@@ -1,0 +1,8 @@
+{
+  "installedSha256": "6d6eb44d033672dae94c1b8a0b15158c905b07fe4e38aee20dc6d244ab2fdcdd",
+  "obsidian": "1.12.7",
+  "electron": "39.8.10",
+  "chrome": "142.0.7444.265",
+  "node": "22.22.1",
+  "commands": 20
+}
