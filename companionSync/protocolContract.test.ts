@@ -24,10 +24,10 @@ describe("frozen Companion protocol v1", () => {
     expect(COMPANION_PROTOCOL_HEADER).toBe(fixture.header);
     expect(CLAIM_LEASE_MS).toBe(fixture.claimLeaseMs);
     for (const { text, hash } of fixture.hashes) expect(stableHash(text)).toBe(hash);
-    for (const path of fixture.allowedPaths) expect(validProposalPath(path)).toBe(true);
-    for (const path of fixture.deniedPaths) expect(validProposalPath(path)).toBe(false);
-    expect(validProposalDetail(fixture.proposal)).toBe(true);
-    expect(validProposalDetail({ ...fixture.proposal, proposedContent: "tampered" })).toBe(false);
+    for (const path of fixture.allowedPaths) expect(validProposalPath(path, ".obsidian")).toBe(true);
+    for (const path of fixture.deniedPaths) expect(validProposalPath(path, ".obsidian")).toBe(false);
+    expect(validProposalDetail(fixture.proposal, ".obsidian")).toBe(true);
+    expect(validProposalDetail({ ...fixture.proposal, proposedContent: "tampered" }, ".obsidian")).toBe(false);
   });
 
   it("emits v1 auth/header/batch and accepts the frozen server response", async () => {

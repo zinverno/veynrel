@@ -129,7 +129,7 @@ export { validProposalDetail } from './companionSync/proposalTypes';`, resolveDi
     const page = await client.listProposals(fixture.vaultId);
     assert.equal(page.proposals.length, 1);
     proposal = await client.getProposal(fixture.vaultId, page.proposals[0].proposalId);
-    assert(validProposalDetail(proposal)); assert.equal(writes, 0);
+    assert(validProposalDetail(proposal, application.vault.configDir)); assert.equal(writes, 0);
     assert.equal((await application.approve(proposal)).status, 'APPLIED');
     assert.equal(files.get(note.path), fixture.proposal.proposedContent); assert.equal(writes, 1);
     await application.approve(proposal); assert.equal(writes, 1);
@@ -142,7 +142,7 @@ export { validProposalDetail } from './companionSync/proposalTypes';`, resolveDi
     assert(!files.has('Rejected.md')); assert.equal(writes, 1);
     for (const path of fixture.deniedPaths) assert.equal((await call('propose_change', { operation: 'CREATE_NOTE', path, proposedContent: 'inert' })).isError, true);
     assert.equal((await call('propose_change', { operation: 'SHELL', path: 'X.md', command: 'inert' })).isError, true);
-    assert(!validProposalDetail({ ...proposal, proposedContent: 'tampered' }));
+    assert(!validProposalDetail({ ...proposal, proposedContent: 'tampered' }, application.vault.configDir));
   });
   await check('invalid vectors and malformed JSON rejected', async () => {
     for (const vector of [[1, 0], [null, 0, 0], [1e40, 0, 0], [0, 0, 0], Array(200000).fill(1)]) {

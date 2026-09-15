@@ -107,7 +107,7 @@ export class ProposalReviewModal extends Modal {
     this.button(footer, "Close", () => this.close(), "ai-proposal-quiet");
     try {
       const proposal = await this.application.api.getProposal(this.application.vaultId, id);
-      if (!validProposalDetail(proposal)) throw new Error("Invalid proposal");
+      if (!validProposalDetail(proposal, this.application.vault.configDir)) throw new Error("Invalid proposal");
       const current = await this.application.vault.read(proposal.path);
       if (epoch !== this.openEpoch) return;
       this.render(proposal, current);
