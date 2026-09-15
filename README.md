@@ -1,11 +1,9 @@
-# Vault Audit AI
+# Veynrel
+
+Formerly Vault Audit AI. Same plugin, settings, data, semantic index, and Community Plugin ID. Existing users do not need to reinstall.
 
 <p align="center">
-  <img src="assets/vault-audit-ai-cover.png" alt="Vault Audit AI — semantic search and AI tools for Obsidian" width="100%">
-</p>
-
-<p align="center">
-  <strong>Turn your Obsidian vault into an AI-searchable knowledge base.</strong>
+  <strong>Turn your Obsidian vault into a searchable, connected knowledge system.</strong>
 </p>
 
 <p align="center">
@@ -13,30 +11,20 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/zinverno/obsidian-ai-hub/stargazers">⭐ Star</a>
+  <a href="https://github.com/zinverno/vault-audit-AI/stargazers">⭐ Star</a>
   ·
-  <a href="https://github.com/zinverno/obsidian-ai-hub/releases">Releases</a>
+  <a href="https://github.com/zinverno/vault-audit-AI/releases">Releases</a>
   ·
-  <a href="https://github.com/zinverno/obsidian-ai-hub/blob/main/LICENSE">MIT License</a>
+  <a href="https://github.com/zinverno/vault-audit-AI/blob/main/LICENSE">MIT License</a>
 </p>
 
-Vault Audit AI is an open-source Obsidian Community Plugin for searching notes by meaning, discovering related ideas, auditing vault structure, and working with notes through configurable AI providers.
+Veynrel is an open-source Obsidian Community Plugin for searching notes by meaning, discovering related ideas, auditing vault structure, and working with notes through configurable AI providers.
 
 Instead of relying only on filenames and exact keywords, it adds a semantic layer to your vault. You can recover forgotten ideas, surface hidden connections, review possible duplicates, and keep a persistent vector index synchronized as your notes evolve.
 
-**Version:** 1.7.0 · **Requires Obsidian:** 1.8.7 or later · **License:** [MIT](LICENSE)
+**Version:** 1.8.0 · **Requires Obsidian:** 1.8.7 or later · **License:** [MIT](LICENSE)
 
-## See it in action
-
-<p align="center">
-  <img src="assets/vault-audit-semantic-search-demo.gif" alt="Vault Audit AI semantic search demo" width="900">
-</p>
-
-<p align="center">
-  <em>Search your vault by meaning, review the strongest matches, and jump to the relevant note.</em>
-</p>
-
-## Why Vault Audit AI?
+## Why Veynrel?
 
 - 🔎 **Search by meaning** instead of remembering the exact wording.
 - 🧠 **Rediscover related notes** from the document you are already working on.
@@ -53,7 +41,7 @@ Semantic features are opt-in and disabled by default. The first semantic index i
 
 ### Semantic search
 
-Vault Audit AI builds a persistent semantic index from your Markdown notes and lets you retrieve content by meaning rather than exact keyword overlap.
+Veynrel builds a persistent semantic index from your Markdown notes and lets you retrieve content by meaning rather than exact keyword overlap.
 
 - Markdown-aware chunking that preserves heading context and source locations.
 - Persistent vector index stored locally in the plugin directory.
@@ -113,7 +101,7 @@ Batch actions include style improvement, examples, summarization, automatic tags
 
 An MCP client can call `get_note`, construct exact whole-note content, and call `propose_change` with `CREATE_NOTE`, `UPDATE_NOTE`, or `DELETE_NOTE`. **A proposal does not change the Vault.** Companion stores it until you review it in Obsidian.
 
-Enable Companion integration, then run **Vault Audit AI: Review AI change proposals** in the command palette. Use **Refresh**, open **Review**, inspect the operation, path, summary, state and text diff, then explicitly click **Approve** or **Reject**. Added, removed and context lines are distinct; Markdown/HTML is displayed as inert text. Large previews have page controls. Opening the modal never approves anything, and there is no background approval mode.
+Enable Companion integration, then run **Veynrel: Review AI change proposals** in the command palette. Use **Refresh**, open **Review**, inspect the operation, path, summary, state and text diff, then explicitly click **Approve** or **Reject**. Added, removed and context lines are distinct; Markdown/HTML is displayed as inert text. Large previews have page controls. Opening the modal never approves anything, and there is no background approval mode.
 
 Approval obtains a two-minute claim, checks the real note against the immutable proposal base, performs one Obsidian API write, and verifies the result. An edited or missing UPDATE/DELETE target, or an existing CREATE target, produces `CONFLICT` without overwriting the current note. Create a fresh proposal after synchronizing the new base. Rejection records `REJECTED` without changing notes. CREATE requires existing parent folders; DELETE uses Obsidian's configured trash handling.
 
@@ -165,13 +153,13 @@ Model availability, pricing, rate limits, and retention policies are controlled 
 
 1. Open **Settings → Community plugins**.
 2. Select **Browse**.
-3. Search for **Vault Audit AI**.
+3. Search for **Veynrel**.
 4. Select **Install**.
 5. Enable the plugin.
 
 ### Manual installation from a GitHub Release
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the same [GitHub Release](https://github.com/zinverno/obsidian-ai-hub/releases).
+1. Download `main.js`, `manifest.json`, and `styles.css` from the same [GitHub Release](https://github.com/zinverno/vault-audit-AI/releases).
 2. Create:
 
    ```text
@@ -180,7 +168,7 @@ Model availability, pricing, rate limits, and retention policies are controlled 
 
 3. Copy the three release assets into that directory.
 4. Reload Obsidian.
-5. Enable **Vault Audit AI** under **Community plugins**.
+5. Enable **Veynrel** under **Community plugins**.
 
 Do not copy the source TypeScript files into the plugin directory.
 
@@ -201,10 +189,10 @@ The initial indexing step is intentionally explicit and is never started automat
 
 ## Privacy and data flow
 
-Vault Audit AI separates local storage from provider-side processing so you can choose the setup that fits your privacy requirements.
+Veynrel separates local storage from provider-side processing so you can choose the setup that fits your privacy requirements.
 
 - Plugin settings and API keys are saved locally through Obsidian plugin data storage.
-- The plugin has no telemetry or analytics. Provider accounts, API keys, charges, and retention rules depend on the endpoint you choose; no Vault Audit AI account is required.
+- The plugin has no telemetry or analytics. Provider accounts, API keys, charges, and retention rules depend on the endpoint you choose; no Veynrel account is required.
 - Semantic features are opt-in and disabled by default.
 - The semantic vector index is stored in:
 
@@ -301,7 +289,7 @@ Chunk search + document representations
 
 Stable chunk hashes drive incremental deltas so unchanged chunks are reused.
 
-An optional standalone [Companion service](https://github.com/zinverno/vault-audit-ai-companion#readme) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
+An optional standalone [Veynrel Companion service](https://github.com/zinverno/vault-audit-ai-companion#readme) (formerly Vault Audit AI Companion) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
 
 Companion exposes an opt-in [MCP endpoint](https://github.com/zinverno/vault-audit-ai-companion#mcp) for bounded retrieval, semantic search and [change proposals](https://github.com/zinverno/vault-audit-ai-companion#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
 
@@ -341,7 +329,7 @@ npm run audit:proposals
 
 `npm run lint` checks this plugin independently. `npm run lint:obsidian` runs plugin TypeScript validation, the production build, and the current official recommended Obsidian rules, including every TypeScript module emitted into `main.js`. Build metadata is written to ignored `.esbuild/meta.json`; the build rejects standalone server code and unexpected external dependencies. Companion retains its own strict Node/TypeScript environment and type-aware safety rules.
 
-The four reviewed plugin advisories remain visible and are checked by file, rule, and count; new warnings fail CI. See the [forensic review report](docs/obsidian-review-audit.md) for rationale, public-scorecard evidence, and the scanner scope limitation. No Obsidian runtime rules have been disabled to make the review pass. `npm run typecheck` also runs the standalone `tsc --noEmit --module ES2020 --ignoreDeprecations 5.0` check.
+The intentional streaming `fetch` advisory remains visible and is checked by file, rule, and count; new warnings fail CI. See the [review advisory report](docs/remaining-review-advisories.md) for the streaming rationale and settings compatibility evidence. No Obsidian runtime rules have been disabled to make the review pass. `npm run typecheck` also runs the standalone `tsc --noEmit --module ES2020 --ignoreDeprecations 5.0` check.
 
 Independent CI in each repository validates its own package on Node 24 and saves the plugin bundle plus dependency metadata. A separate workflow verifies and attests the assets of a future manually published release against a build from its tag; it does not create a release or replace assets. Before releasing, test the affected note writes and menus in desktop, mobile, and a popout window, and check the Community scorecard after its next scan.
 
@@ -353,7 +341,13 @@ Both sides speak HTTP protocol **v1** (`x-companion-protocol-version`). See [ext
 
 Issues, bug reports, feature ideas, and pull requests are welcome.
 
-If you find Vault Audit AI useful, consider [starring the repository](https://github.com/zinverno/obsidian-ai-hub). It helps more Obsidian users discover the project.
+If you find Veynrel useful, consider [starring the repository](https://github.com/zinverno/vault-audit-AI). It helps more Obsidian users discover the project.
+
+## Support Veynrel
+
+Veynrel is free and open source. If it saves you time and you want to support continued development, you can support the project on Boosty.
+
+[Support Veynrel on Boosty](https://boosty.to/veynrel)
 
 ## License
 

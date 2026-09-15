@@ -181,7 +181,7 @@ export class AIHubSettingTab extends PluginSettingTab {
     const sections: SettingsSection[] = [
       {
         type: "group", heading: "", icon: "brain", items: [
-          { ...row([], "Vault Audit Ai", tr("Настройки плагина"), (setting) => this.renderHero(this.customContainer(setting))), searchable: false }
+          { ...row([], "Veynrel", tr("Настройки плагина"), (setting) => this.renderHero(this.customContainer(setting))), searchable: false }
         ]
       },
       {
@@ -635,7 +635,7 @@ export class AIHubSettingTab extends PluginSettingTab {
                   });
               });
           }),
-          row(["showContextMenu"], tr("Контекстное меню"), tr("Пункт AI Hub при правом клике (требует перезагрузки)"), (setting) => {
+          row(["showContextMenu"], tr("Контекстное меню"), tr("Действия Veynrel при правом клике (требует перезагрузки)"), (setting) => {
             this.addIcon(
               setting
                 .addToggle((t) =>
@@ -722,7 +722,7 @@ export class AIHubSettingTab extends PluginSettingTab {
     const heroIcon = hero.createDiv({ cls: "ai-hub-hero-icon" });
     setIcon(heroIcon, "brain");
     const heroText = hero.createDiv();
-    heroText.createDiv({ text: "Vault Audit Ai", cls: "ai-hub-hero-title" });
+    heroText.createDiv({ text: "Veynrel", cls: "ai-hub-hero-title" });
     heroText.createDiv({
       text: tr("Настройки плагина"),
       cls: "ai-hub-hero-sub",

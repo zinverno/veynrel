@@ -1,4 +1,4 @@
-// Авто-генерируемый модуль локализации AI Hub / Vault Audit AI
+// Авто-генерируемый модуль локализации Veynrel
 // Ключ = русская строка (или @named для длинных шаблонов).
 
 import { getLanguage } from "obsidian";
@@ -137,7 +137,7 @@ const EN: Record<string, string> = {
   "## Итог": "## Summary",
   "0 заметок": "0 notes",
   "100+ моделей, есть бесплатные": "100+ models, free ones included",
-  "AI Hub: Панель управления": "AI Hub: Control panel",
+  "Veynrel: Панель управления": "Veynrel: Control panel",
   "AI Запрос": "AI Request",
   "AI думает и пишет...": "AI is thinking and writing...",
   "AI: Обработать выделение": "AI: Process selection",
@@ -311,7 +311,7 @@ const EN: Record<string, string> = {
   "Проверяю...": "Testing...",
   "Прогресс обработки заметок": "Note processing progress",
   "Прогресс операции": "Operation progress",
-  "Пункт AI Hub при правом клике (требует перезагрузки)": "AI Hub item in the right-click menu (requires reload)",
+  "Действия Veynrel при правом клике (требует перезагрузки)": "Veynrel actions in the right-click menu (requires reload)",
   "Пусто = корень хранилища": "Empty = vault root",
   "Рекомендуется": "Recommended",
   "Рекомендуется 3-7. Больше = быстрее, но риск превышения контекста": "Recommended 3-7. More = faster, but risks exceeding the context",
@@ -395,7 +395,7 @@ const EN: Record<string, string> = {
   "🔬 Глубокий аудит хранилища": "🔬 Deep vault audit",
   "🗺️ Анализ батчей (Map)": "🗺️ Batch analysis (Map)",
   "🤖 Думаю...": "🤖 Thinking...",
-  "❌ Ошибка загрузки AI Hub: {msg}": "❌ AI Hub failed to load: {msg}",
+  "❌ Ошибка загрузки Veynrel: {msg}": "❌ Veynrel failed to load: {msg}",
   "✅ Глубокий аудит завершён за {s}с": "✅ Deep audit finished in {s}s",
   "❌ Ошибка аудита: {msg}": "❌ Audit error: {msg}",
   "✅ Single аудит завершён!": "✅ Single audit complete!",
