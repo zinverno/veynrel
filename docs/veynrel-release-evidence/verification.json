@@ -1,0 +1,177 @@
+{
+  "verifiedCommit": "c0505d196dbf97088d4e9b461de20fdb0b541236",
+  "cleanCheckout": true,
+  "commands": [
+    {
+      "name": "install",
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 4.05
+    },
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 3.8
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.24
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "seconds": 3.94
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 18.97
+    },
+    {
+      "name": "proposals",
+      "command": [
+        "npm",
+        "run",
+        "audit:proposals"
+      ],
+      "exitCode": 0,
+      "seconds": 10.22
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 0.05
+    }
+  ],
+  "tests": 849,
+  "testFiles": 32,
+  "lint": {
+    "errors": 0,
+    "warnings": 1,
+    "file": "api.ts",
+    "line": 413,
+    "column": 22,
+    "rule": "no-restricted-globals"
+  },
+  "mutationsKilled": 5,
+  "mutationsTotal": 5,
+  "bundle": {
+    "emittedSourceCount": 52,
+    "emittedSources": [
+      "main.ts",
+      "i18n.ts",
+      "settings.ts",
+      "constants.ts",
+      "api.ts",
+      "embeddings/shared.ts",
+      "embeddings/providers.ts",
+      "embeddings/types.ts",
+      "embeddings/factory.ts",
+      "semantic/semanticSettingsActionRunner.ts",
+      "companionSync/client.ts",
+      "companionSync/types.ts",
+      "companionSync/settings.ts",
+      "companionSync/service.ts",
+      "deepAudit.ts",
+      "noteIndex.ts",
+      "noteWrites.ts",
+      "semantic/errors.ts",
+      "chunking/hash.ts",
+      "chunking/types.ts",
+      "chunking/markdownChunker.ts",
+      "indexing/errors.ts",
+      "indexing/embeddingSpace.ts",
+      "vectorStore/errors.ts",
+      "indexing/indexingService.ts",
+      "indexing/obsidianDocumentSource.ts",
+      "vectorStore/binaryCodec.ts",
+      "vectorStore/localVectorStore.ts",
+      "vectorStore/obsidianPersistence.ts",
+      "rag/errors.ts",
+      "rag/ragContextBuilder.ts",
+      "semantic/semanticDiscoveryService.ts",
+      "semantic/semanticRuntime.ts",
+      "semantic/semanticSearchService.ts",
+      "semantic/obsidianSemanticRuntime.ts",
+      "semantic/obsidianSemanticController.ts",
+      "rag/ragPrompt.ts",
+      "rag/ragService.ts",
+      "rag/ragModal.ts",
+      "semantic/semanticSearchModal.ts",
+      "semantic/asyncReadWriteBarrier.ts",
+      "semantic/semanticAutoSync.ts",
+      "semantic/semanticConfirmModal.ts",
+      "semantic/semanticIndexProbe.ts",
+      "semantic/semanticDiscoveryModal.ts",
+      "semantic/semanticStorageMaintenance.ts",
+      "semantic/semanticStoreRegistry.ts",
+      "companionSync/proposalTypes.ts",
+      "proposals/application.ts",
+      "proposals/obsidianVault.ts",
+      "proposals/reviewModal.ts",
+      "proposals/diff.ts"
+    ],
+    "externalModuleNames": [
+      "obsidian"
+    ],
+    "externalImportOccurrences": 17,
+    "standaloneCompanion": false
+  },
+  "metadata": {
+    "pluginId": "ai-knowledge-hub",
+    "name": "Veynrel",
+    "version": "1.8.0",
+    "minimumObsidian": "1.8.7",
+    "descriptionCharacters": 139,
+    "fundingUrl": "https://boosty.to/veynrel",
+    "packageIdentity": "obsidian-ai-hub"
+  },
+  "assets": {
+    "main.js": {
+      "bytes": 424254,
+      "sha256": "38be6b935c04a77a3bc3ca0518e14a33db95635b676eb7436160669439fe7d34"
+    },
+    "manifest.json": {
+      "bytes": 350,
+      "sha256": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39"
+    },
+    "styles.css": {
+      "bytes": 52071,
+      "sha256": "cb0cce5a3f2232473580ad878b493d18bbd12297b58353d80efaaefcbc8b788f"
+    }
+  },
+  "localAssetComparison": "PASS: byte-identical clean build and native-tested candidate",
+  "streamingSourceUnchanged": true,
+  "lockfileDependencyEntriesUnchanged": true,
+  "releaseProvenanceWorkflowUnchanged": true,
+  "releaseAssetSentinelScan": "PASS",
+  "sourceMaps": false
+}

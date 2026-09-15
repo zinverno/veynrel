@@ -1,0 +1,293 @@
+{
+  "publishedReleaseCommit": "0641932369d84aa5bcab40a473aa896ca5335810",
+  "mergedBaselineCommit": "2124c7ebf4229958528a1759c79302e636ab5ec5",
+  "companionCommit": "6d31ccacbace36533568cddb6624e386fc8c3eb5",
+  "provider": "deterministic loopback HTTP fixture, 3-dimensional embeddings",
+  "companion": "actual standalone server with disposable SQLite data, Qdrant disabled",
+  "runs": [
+    {
+      "cohort": "published",
+      "runtime": "1.12.7",
+      "from": "1.7.0",
+      "to": "1.8.0",
+      "checks": [
+        "same installed plugin now Veynrel 1.8.0",
+        "same plugin directory",
+        "stored settings, provider credentials, index bytes, audit cache, enabled list and hotkeys preserved",
+        "all old command IDs retained and host prefixes Veynrel exactly once",
+        "semantic search uses old vectors",
+        "settings hero displays Veynrel",
+        "native settings navigation uses Veynrel",
+        "settings current presentation contains no old brand",
+        "ribbon tooltip displays Veynrel",
+        "provider connection control available",
+        "saved provider configuration makes real loopback HTTP request",
+        "native command palette displays Veynrel",
+        "native disable unloads plugin",
+        "disable unregisters commands",
+        "native re-enable restores one set of commands and unchanged stored state",
+        "one settings instance after lifecycle"
+      ],
+      "status": {
+        "kind": "ready",
+        "vectorCount": 2,
+        "vectorGeneration": 1,
+        "dimensions": 3,
+        "providerLabel": "OpenAI-compatible",
+        "model": "fixture-embedding"
+      },
+      "commands": 20,
+      "legacyCommands": 19,
+      "companionPreviouslyConfigured": false,
+      "reload": {
+        "name": "Veynrel",
+        "version": "1.8.0",
+        "runtime": "1.12.7",
+        "status": {
+          "kind": "ready",
+          "vectorCount": 2,
+          "vectorGeneration": 1,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "fixture-embedding"
+        },
+        "commands": 20
+      },
+      "originalIndexSHA256": {
+        "vector-index.bin": "43ea81da2fc3640f4621e48e107fe593a2cebf9876d52244fe1c8b216d6d823d",
+        "vector-manifest.json": "f5a6729f7a7ab75ed98361b121db9138653b76739946b1e3daa18e1e91403a2c"
+      },
+      "originalAuditCacheSHA256": "5c9e9b218835fc759db77e021cc752b6c86c6cecd11b7c2ef75f4b0ab5992821"
+    },
+    {
+      "cohort": "published",
+      "runtime": "1.13.7",
+      "from": "1.7.0",
+      "to": "1.8.0",
+      "checks": [
+        "same installed plugin now Veynrel 1.8.0",
+        "same plugin directory",
+        "stored settings, provider credentials, index bytes, audit cache, enabled list and hotkeys preserved",
+        "all old command IDs retained and host prefixes Veynrel exactly once",
+        "semantic search uses old vectors",
+        "settings hero displays Veynrel",
+        "native settings navigation uses Veynrel",
+        "settings current presentation contains no old brand",
+        "ribbon tooltip displays Veynrel",
+        "provider connection control available",
+        "saved provider configuration makes real loopback HTTP request",
+        "native command palette displays Veynrel",
+        "native disable unloads plugin",
+        "disable unregisters commands",
+        "native re-enable restores one set of commands and unchanged stored state",
+        "one settings instance after lifecycle"
+      ],
+      "status": {
+        "kind": "ready",
+        "vectorCount": 2,
+        "vectorGeneration": 1,
+        "dimensions": 3,
+        "providerLabel": "OpenAI-compatible",
+        "model": "fixture-embedding"
+      },
+      "commands": 20,
+      "legacyCommands": 19,
+      "companionPreviouslyConfigured": false,
+      "reload": {
+        "name": "Veynrel",
+        "version": "1.8.0",
+        "runtime": "1.13.7",
+        "status": {
+          "kind": "ready",
+          "vectorCount": 2,
+          "vectorGeneration": 1,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "fixture-embedding"
+        },
+        "commands": 20
+      },
+      "originalIndexSHA256": {
+        "vector-index.bin": "43ea81da2fc3640f4621e48e107fe593a2cebf9876d52244fe1c8b216d6d823d",
+        "vector-manifest.json": "f5a6729f7a7ab75ed98361b121db9138653b76739946b1e3daa18e1e91403a2c"
+      },
+      "originalAuditCacheSHA256": "25f20619552db121bf235a9a7a47f4660b389bd9199009f01d78871d72b5beb2"
+    },
+    {
+      "cohort": "merged",
+      "runtime": "1.12.7",
+      "from": "1.7.0",
+      "to": "1.8.0",
+      "checks": [
+        "same installed plugin now Veynrel 1.8.0",
+        "same plugin directory",
+        "stored settings, provider credentials, index bytes, audit cache, enabled list and hotkeys preserved",
+        "all old command IDs retained and host prefixes Veynrel exactly once",
+        "semantic search uses old vectors",
+        "settings hero displays Veynrel",
+        "native settings navigation uses Veynrel",
+        "settings current presentation contains no old brand",
+        "ribbon tooltip displays Veynrel",
+        "provider connection control available",
+        "saved provider configuration makes real loopback HTTP request",
+        "native command palette displays Veynrel",
+        "retained Companion endpoint, token and vault connect and sync",
+        "proposal review UI opens with retained settings",
+        "native disable unloads plugin",
+        "disable unregisters commands",
+        "native re-enable restores one set of commands and unchanged stored state",
+        "one settings instance after lifecycle"
+      ],
+      "status": {
+        "kind": "ready",
+        "vectorCount": 2,
+        "vectorGeneration": 1,
+        "dimensions": 3,
+        "providerLabel": "OpenAI-compatible",
+        "model": "fixture-embedding"
+      },
+      "commands": 20,
+      "legacyCommands": 20,
+      "companionPreviouslyConfigured": true,
+      "reload": {
+        "name": "Veynrel",
+        "version": "1.8.0",
+        "runtime": "1.12.7",
+        "status": {
+          "kind": "ready",
+          "vectorCount": 2,
+          "vectorGeneration": 1,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "fixture-embedding"
+        },
+        "commands": 20
+      },
+      "originalIndexSHA256": {
+        "vector-index.bin": "43ea81da2fc3640f4621e48e107fe593a2cebf9876d52244fe1c8b216d6d823d",
+        "vector-manifest.json": "f5a6729f7a7ab75ed98361b121db9138653b76739946b1e3daa18e1e91403a2c"
+      },
+      "originalAuditCacheSHA256": "1c8af1ac08ca4c42a283c8051f86871b67c94f6ecaf4019e8f306e279be695eb",
+      "proposal": {
+        "runtime": "1.12.7",
+        "pendingProposalSurvived": true,
+        "reviewReadOnly": true,
+        "explicitApproval": true,
+        "status": "APPLIED",
+        "contentVerified": true
+      },
+      "ui": {
+        "runtime": "1.12.7",
+        "semanticSearchModal": true,
+        "results": 3,
+        "installedEntry": "Veynrel\nVersion: 1.8.0\nBy Zinvernix\nSearch your vault by meaning, discover related notes, audit structure, and use AI-assisted knowledge workflows with local or remote models.",
+        "settingsWindow": "main",
+        "fundingUrl": "https://boosty.to/veynrel"
+      }
+    },
+    {
+      "cohort": "merged",
+      "runtime": "1.13.7",
+      "from": "1.7.0",
+      "to": "1.8.0",
+      "checks": [
+        "same installed plugin now Veynrel 1.8.0",
+        "same plugin directory",
+        "stored settings, provider credentials, index bytes, audit cache, enabled list and hotkeys preserved",
+        "all old command IDs retained and host prefixes Veynrel exactly once",
+        "semantic search uses old vectors",
+        "settings hero displays Veynrel",
+        "native settings navigation uses Veynrel",
+        "settings current presentation contains no old brand",
+        "ribbon tooltip displays Veynrel",
+        "provider connection control available",
+        "saved provider configuration makes real loopback HTTP request",
+        "native command palette displays Veynrel",
+        "retained Companion endpoint, token and vault connect and sync",
+        "proposal review UI opens with retained settings",
+        "native disable unloads plugin",
+        "disable unregisters commands",
+        "native re-enable restores one set of commands and unchanged stored state",
+        "one settings instance after lifecycle"
+      ],
+      "status": {
+        "kind": "ready",
+        "vectorCount": 2,
+        "vectorGeneration": 1,
+        "dimensions": 3,
+        "providerLabel": "OpenAI-compatible",
+        "model": "fixture-embedding"
+      },
+      "commands": 20,
+      "legacyCommands": 20,
+      "companionPreviouslyConfigured": true,
+      "reload": {
+        "name": "Veynrel",
+        "version": "1.8.0",
+        "runtime": "1.13.7",
+        "status": {
+          "kind": "ready",
+          "vectorCount": 2,
+          "vectorGeneration": 1,
+          "dimensions": 3,
+          "providerLabel": "OpenAI-compatible",
+          "model": "fixture-embedding"
+        },
+        "commands": 20
+      },
+      "originalIndexSHA256": {
+        "vector-index.bin": "43ea81da2fc3640f4621e48e107fe593a2cebf9876d52244fe1c8b216d6d823d",
+        "vector-manifest.json": "f5a6729f7a7ab75ed98361b121db9138653b76739946b1e3daa18e1e91403a2c"
+      },
+      "originalAuditCacheSHA256": "2974b04b522ce807fbcbdba745b4cfd3137b49f11f6426f69c8fadbd10e719a9",
+      "proposal": {
+        "runtime": "1.13.7",
+        "pendingProposalSurvived": true,
+        "reviewReadOnly": true,
+        "explicitApproval": true,
+        "status": "APPLIED",
+        "contentVerified": true
+      },
+      "ui": {
+        "runtime": "1.13.7",
+        "semanticSearchModal": true,
+        "results": 3,
+        "installedEntry": "Veynrel v1.8.0 By Zinvernix\nSearch your vault by meaning, discover related notes, audit structure, and use AI-assisted knowledge workflows with local or remote models.",
+        "settingsWindow": "native popout",
+        "fundingUrl": "https://boosty.to/veynrel"
+      }
+    }
+  ],
+  "originalNotesReembeddedAfterMergedUpgrade": 0,
+  "postApprovalIndexing": "The newly approved proposal note was normally indexed by enabled AutoSync; this is separate from rename compatibility.",
+  "mcp": {
+    "toolNames": [
+      "vault_status",
+      "list_notes",
+      "get_note",
+      "get_chunks",
+      "search_vault",
+      "propose_change",
+      "get_proposal"
+    ],
+    "getNote": true,
+    "semanticSearch": true,
+    "pendingProposalsCreatedBeforeUpgrade": 2
+  },
+  "console": [
+    {
+      "runtime": "1.12.7",
+      "unhandledOrErrorConsoleEvents": 0,
+      "hostWarningTypes": [
+        "Electron CSP development-runtime warning"
+      ]
+    },
+    {
+      "runtime": "1.13.7",
+      "unhandledOrErrorConsoleEvents": 0,
+      "hostWarningTypes": [
+        "Electron CSP development-runtime warning"
+      ]
+    }
+  ]
+}

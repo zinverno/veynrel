@@ -22,7 +22,7 @@ Veynrel is an open-source Obsidian Community Plugin for searching notes by meani
 
 Instead of relying only on filenames and exact keywords, it adds a semantic layer to your vault. You can recover forgotten ideas, surface hidden connections, review possible duplicates, and keep a persistent vector index synchronized as your notes evolve.
 
-**Version:** 1.8.0 · **Requires Obsidian:** 1.8.7 or later · **License:** [MIT](LICENSE)
+**Version:** [1.8.0](docs/releases/1.8.0.md) · **Requires Obsidian:** 1.8.7 or later · **License:** [MIT](LICENSE)
 
 ## Why Veynrel?
 

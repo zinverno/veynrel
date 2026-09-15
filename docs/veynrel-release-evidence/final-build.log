@@ -1,0 +1,4 @@
+
+> obsidian-ai-hub@1.8.0 build
+> node esbuild.config.mjs production
+
