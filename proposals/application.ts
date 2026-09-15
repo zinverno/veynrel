@@ -1,6 +1,6 @@
 import { stableHash } from "../chunking/hash";
-import { CLAIM_LEASE_MS, validProposalDetail, validProposalId, validProposalPath } from "../companion/src/proposals/types";
-import type { ProposalClaim, ProposalCompletion, ProposalDetail, ProposalPage, ProposalSummary } from "../companion/src/proposals/types";
+import { CLAIM_LEASE_MS, validProposalDetail, validProposalId, validProposalPath } from "../companionSync/proposalTypes";
+import type { ProposalClaim, ProposalCompletion, ProposalDetail, ProposalPage, ProposalSummary } from "../companionSync/proposalTypes";
 
 export interface ProposalApi {
   listProposals(vaultId: string, cursor?: string): Promise<ProposalPage>;

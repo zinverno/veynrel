@@ -1,0 +1,247 @@
+[
+  {
+    "filePath": "api.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 413,
+        "column": 22,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 413,
+        "endColumn": 27
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companionSync/proposalTypes.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/hardcoded-config-path",
+        "severity": 1,
+        "message": "Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value",
+        "line": 28,
+        "column": 63,
+        "nodeType": "Literal",
+        "messageId": "configPath",
+        "endLine": 28,
+        "endColumn": 74
+      },
+      {
+        "ruleId": "obsidianmd/hardcoded-config-path",
+        "severity": 1,
+        "message": "Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value",
+        "line": 33,
+        "column": 28,
+        "nodeType": "Literal",
+        "messageId": "configPath",
+        "endLine": 33,
+        "endColumn": 39
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 2,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "main.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Tag1, tag2'",
+        "line": 2050,
+        "column": 25,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 2050,
+        "endColumn": 37
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "settings.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/settings-tab/prefer-setting-definitions",
+        "severity": 1,
+        "message": "This PluginSettingTab does not implement getSettingDefinitions(); its settings will not appear in Obsidian's settings search for users on 1.13.0 or later. Consider adopting the declarative settings API.",
+        "line": 108,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "missingSettingDefinitions",
+        "endLine": 108,
+        "endColumn": 29
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Openrouter.ai/keys'",
+        "line": 317,
+        "column": 15,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 317,
+        "endColumn": 35
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Platform.OpenAI.com/API-keys'",
+        "line": 326,
+        "column": 15,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 326,
+        "endColumn": 45
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Console.groq.com/keys'",
+        "line": 334,
+        "column": 15,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 334,
+        "endColumn": 38
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Sk-...'",
+        "line": 718,
+        "column": 29,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 718,
+        "endColumn": 37
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Ai-responses'",
+        "line": 1123,
+        "column": 29,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 1123,
+        "endColumn": 43
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Mocs/'",
+        "line": 1140,
+        "column": 29,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 1140,
+        "endColumn": 36
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 7,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  }
+]

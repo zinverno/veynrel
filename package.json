@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "node esbuild.config.mjs production",
-    "lint": "npm run lint:obsidian && npm --prefix companion run lint",
+    "lint": "npm run lint:obsidian",
     "lint:obsidian": "npm run typecheck && npm run build && node scripts/lint-obsidian.mjs",
     "typecheck": "tsc --noEmit --module ES2020 --ignoreDeprecations 5.0",
-    "test": "vitest run --exclude 'companion/**'",
-    "version": "node version-bump.mjs && git add manifest.json versions.json"
+    "test": "vitest run",
+    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "audit:proposals": "node scripts/proposal-mutation-audit.mjs",
+    "companion:smoke-sibling": "node scripts/companion-smoke-sibling.mjs"
   },
   "keywords": [],
   "author": "",

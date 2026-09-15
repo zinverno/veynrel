@@ -3,9 +3,8 @@ import { describe, expect, it, vi } from "vitest";
 import { ProposalApplication, ProposalConflict } from "./application";
 import type { ProposalApi, ProposalVault } from "./application";
 import { stableHash } from "../chunking/hash";
-import { stableHash as companionHash } from "../companion/src/proposals/contentHash";
-import { CLAIM_LEASE_MS } from "../companion/src/proposals/types";
-import type { ProposalDetail, ProposalOperation } from "../companion/src/proposals/types";
+import { CLAIM_LEASE_MS } from "../companionSync/proposalTypes";
+import type { ProposalDetail, ProposalOperation } from "../companionSync/proposalTypes";
 
 const id = "11111111-1111-4111-8111-111111111111";
 const claimId = "22222222-2222-4222-8222-222222222222";
@@ -125,11 +124,7 @@ describe("explicit plugin proposal application", () => {
     await expect(f.app.approve({ ...f.proposal, path: "private-config/settings.md" })).rejects.toThrow();
     expect(f.api.claimProposal).not.toHaveBeenCalled();
   });
-  it("plugin and Companion use one identical Unicode/line-ending hash implementation", () => {
-    expect(stableHash).toBe(companionHash);
-    for (const text of ["", "Привет 😀", "a\r\nb", "a\nb", "e\u0301", "é", "\ud800"]) expect(stableHash(text)).toBe(companionHash(text));
-    expect(stableHash("a\r\nb")).not.toBe(stableHash("a\nb"));
-  });
+
 });
 
 /* eslint-enable @typescript-eslint/unbound-method -- End mock-only assertions. */

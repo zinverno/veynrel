@@ -13,7 +13,7 @@ import type {
 } from "./types";
 import { isLocalCompanionEndpoint } from "./settings";
 
-import type { ProposalClaim, ProposalCompletion, ProposalDetail, ProposalPage, ProposalSummary } from "../companion/src/proposals/types";
+import type { ProposalClaim, ProposalCompletion, ProposalDetail, ProposalPage, ProposalSummary } from "../companionSync/proposalTypes";
 
 export type CompanionClientErrorCode =
   | "CONFIGURATION_ERROR"

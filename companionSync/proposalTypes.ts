@@ -1,4 +1,4 @@
-import { stableHash } from "./contentHash.js";
+import { stableHash } from "../chunking/hash";
 
 export const MAX_PROPOSAL_CONTENT = 250_000;
 export const MAX_PROPOSAL_SUMMARY = 2000;
@@ -24,7 +24,7 @@ export interface ProposalClaim { proposal: ProposalDetail; claimId: string; leas
 export interface ProposalCompletion { claimId: string; status: CompletionStatus; statusCode?: ProposalStatusCode }
 export interface ProposalPage { proposals: ProposalSummary[]; nextCursor: string | null }
 
-/** Stricter than Stage 8 paths; shared by server and final Obsidian application. */
+/** Stricter than Stage 8 paths; kept compatible with the server by v1 contract tests. */
 export function validProposalPath(value: unknown, configDir = ".obsidian"): value is string {
   if (typeof value !== "string" || !value || value.length > 4096 || value !== value.trim() ||
       (/[\\:]/u.test(value) || Array.from(value).some((char) => char.charCodeAt(0) < 32 || char.charCodeAt(0) === 127)) || value.startsWith("/") || !/\.md$/iu.test(value)) return false;
