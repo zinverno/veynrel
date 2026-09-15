@@ -1,5 +1,7 @@
 # Veynrel
 
+![Veynrel — turn your vault into a connected knowledge system.](assets/brand/veynrel-readme-cover.png)
+
 Formerly Vault Audit AI. Same plugin, settings, data, semantic index, and Community Plugin ID. Existing users do not need to reinstall.
 
 <p align="center">
