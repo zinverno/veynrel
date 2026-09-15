@@ -89,7 +89,7 @@ The scanner commands were exactly `npx --yes --package npm@10.9.2 npm ci --ignor
 
 The one lint warning is `api.ts:413:22`, `no-restricted-globals`: streaming `fetch` instead of buffered `requestUrl`. Entire `api.ts` is byte-identical to baseline. No rule, allowlist, streaming parser, cancellation or timeout handling was changed.
 
-[Machine-readable verification and hashes](veynrel-release-evidence/verification.json). Command stdout/stderr is retained alongside it. Final clean checkout remained clean. Review found no real credentials or private vault content in the diff. Synthetic fixture sentinels are confined to tests; the release assets were scanned for those sentinels and contain none. No dedicated external secret-scanning service was run.
+[Machine-readable verification and hashes](veynrel-release-evidence/verification.json). Command stdout/stderr is retained alongside it, with trailing blank lines normalized. Final clean checkout remained clean. Review found no real credentials or private vault content in the diff. Synthetic fixture sentinels are confined to tests; the release assets were scanned for those sentinels and contain none. No dedicated external secret-scanning service was run.
 
 ## Release assets and provenance
 
