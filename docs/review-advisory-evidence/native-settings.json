@@ -1,0 +1,469 @@
+{
+  "baseline": "3f2eab66e73ee4aaaf898a369bebc9242b61c10c",
+  "node": "24.14.1",
+  "npm": "11.11.0",
+  "electron": "39.8.10",
+  "chromium": "142.0.7444.265",
+  "display": "X11 via Xwayland; isolated vault/config/cache/runtime directories",
+  "bundleSHA256": "4b2b59578f1bc00d09b8cdc4c16ac7f734e31f3bc49fbafb9fab625a594d3989",
+  "runtimes": [
+    {
+      "version": "1.12.7",
+      "native": true,
+      "settingsChecks": [
+        "Host selected correct rendering path",
+        "Credential visibility custom",
+        "Credential visibility openrouter",
+        "Credential visibility openai",
+        "Credential visibility groq",
+        "Credential visibility ollama",
+        "Action available: Load available models",
+        "Local Ollama model list rendered",
+        "Local provider test succeeded",
+        "Embedding credential visibility openrouter",
+        "Embedding credential visibility openai-compatible",
+        "Embedding credential visibility ollama",
+        "Embedding test succeeded",
+        "Action available: Update vault index",
+        "Semantic index has vectors",
+        "Action available: Проверить соединение",
+        "Action available: Sync now",
+        "Companion test and sync actions completed",
+        "Action available: Проверить соединение",
+        "Invalid Companion endpoint controlled error",
+        "Remote Companion disclosure visible",
+        "Language refresh in both directions",
+        "Native controls saved durable values",
+        "Modern refresh never invokes legacy display"
+      ],
+      "providers": [
+        {
+          "provider": "custom",
+          "baseUrl": "",
+          "model": "smoke-model",
+          "keyVisible": true
+        },
+        {
+          "provider": "openrouter",
+          "baseUrl": "https://openrouter.ai/api/v1",
+          "model": "openrouter/free",
+          "keyVisible": true
+        },
+        {
+          "provider": "openai",
+          "baseUrl": "https://api.openai.com/v1",
+          "model": "gpt-4o-mini",
+          "keyVisible": true
+        },
+        {
+          "provider": "groq",
+          "baseUrl": "https://api.groq.com/openai/v1",
+          "model": "llama-3.1-8b-instant",
+          "keyVisible": true
+        },
+        {
+          "provider": "ollama",
+          "baseUrl": "http://localhost:11434/v1",
+          "model": "llama3.2",
+          "keyVisible": false
+        }
+      ],
+      "search": [],
+      "rendering": {
+        "display": 27,
+        "definitions": 105
+      },
+      "lifecycleChecks": [
+        "refreshSemanticStatus enabled",
+        "refreshSemanticStatus completed",
+        "clearIndex enabled",
+        "clearIndex completed",
+        "Clear removed only semantic vectors",
+        "rebuildIndex enabled",
+        "rebuildIndex completed",
+        "Rebuild restored semantic vectors",
+        "Semantic mutations disabled when feature off",
+        "Disabled 0",
+        "Commands removed 0",
+        "Commands restored without duplication 0",
+        "Single settings registration 0",
+        "Values survived reload 0",
+        "Single provider grid 0",
+        "Disabled 1",
+        "Commands removed 1",
+        "Commands restored without duplication 1",
+        "Single settings registration 1",
+        "Values survived reload 1",
+        "Single provider grid 1",
+        "Disabled 2",
+        "Commands removed 2",
+        "Commands restored without duplication 2",
+        "Single settings registration 2",
+        "Values survived reload 2",
+        "Single provider grid 2"
+      ],
+      "cycles": [
+        {
+          "cycle": 1,
+          "commands": 20,
+          "settingTabs": 1,
+          "providerGrids": 1,
+          "persisted": true
+        },
+        {
+          "cycle": 2,
+          "commands": 20,
+          "settingTabs": 1,
+          "providerGrids": 1,
+          "persisted": true
+        },
+        {
+          "cycle": 3,
+          "commands": 20,
+          "settingTabs": 1,
+          "providerGrids": 1,
+          "persisted": true
+        }
+      ],
+      "vaultReload": {
+        "version": "1.12.7",
+        "template": "  {{topic}}-native  ",
+        "batch": 6,
+        "notify": false,
+        "grid": 1,
+        "templateLabel": "Filename template"
+      },
+      "definitionCount": 34,
+      "customRenderCount": 31,
+      "nativeControlCount": 2,
+      "baselineRowsCompared": 129,
+      "baselineFunctionalDifferences": [],
+      "nativeSizingCopyDifferences": [],
+      "installedBundleSHA256": "4b2b59578f1bc00d09b8cdc4c16ac7f734e31f3bc49fbafb9fab625a594d3989",
+      "console": {
+        "uncaughtPluginExceptions": 0,
+        "pluginErrors": 0,
+        "hostWarning": "Electron Insecure Content-Security-Policy warning on vault reload, from node:electron/js2c/renderer_init. No CSP changes or disabling of security controls."
+      }
+    },
+    {
+      "version": "1.13.7",
+      "native": true,
+      "settingsChecks": [
+        "Host selected correct rendering path",
+        "Credential visibility custom",
+        "Credential visibility openrouter",
+        "Credential visibility openai",
+        "Credential visibility groq",
+        "Credential visibility ollama",
+        "Action available: Load available models",
+        "Local Ollama model list rendered",
+        "Local provider test succeeded",
+        "Embedding credential visibility openrouter",
+        "Embedding credential visibility openai-compatible",
+        "Embedding credential visibility ollama",
+        "Embedding test succeeded",
+        "Action available: Update vault index",
+        "Semantic index has vectors",
+        "Action available: Проверить соединение",
+        "Action available: Sync now",
+        "Companion test and sync actions completed",
+        "Action available: Проверить соединение",
+        "Invalid Companion endpoint controlled error",
+        "Remote Companion disclosure visible",
+        "Language refresh in both directions",
+        "Native controls saved durable values",
+        "Search result and navigation OpenAI",
+        "Search result and navigation OpenRouter",
+        "Search result and navigation Groq",
+        "Search result and navigation Ollama",
+        "Search result and navigation embedding",
+        "Search result and navigation semantic",
+        "Search result and navigation Companion",
+        "Search result and navigation batch",
+        "Search result and navigation language",
+        "Modern refresh never invokes legacy display"
+      ],
+      "providers": [
+        {
+          "provider": "custom",
+          "baseUrl": "",
+          "model": "smoke-model",
+          "keyVisible": true
+        },
+        {
+          "provider": "openrouter",
+          "baseUrl": "https://openrouter.ai/api/v1",
+          "model": "openrouter/free",
+          "keyVisible": true
+        },
+        {
+          "provider": "openai",
+          "baseUrl": "https://api.openai.com/v1",
+          "model": "gpt-4o-mini",
+          "keyVisible": true
+        },
+        {
+          "provider": "groq",
+          "baseUrl": "https://api.groq.com/openai/v1",
+          "model": "llama-3.1-8b-instant",
+          "keyVisible": true
+        },
+        {
+          "provider": "ollama",
+          "baseUrl": "http://localhost:11434/v1",
+          "model": "llama3.2",
+          "keyVisible": false
+        }
+      ],
+      "search": [
+        {
+          "term": "OpenAI",
+          "results": [
+            "Language model",
+            "Embedding provider",
+            "Свой API",
+            "Base URL"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "OpenRouter",
+          "results": [
+            "Language model",
+            "Embedding provider"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "Groq",
+          "results": [
+            "Language model"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "Ollama",
+          "results": [
+            "Language model",
+            "Embedding provider",
+            "Embedding model",
+            "Automatic semantic index synchronization"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "embedding",
+          "results": [
+            "Enable semantic features",
+            "Automatic semantic index synchronization",
+            "Embedding provider",
+            "Embedding model",
+            "Embeddings base URL",
+            "Test embeddings",
+            "Semantic index controls"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "semantic",
+          "results": [
+            "Enable semantic features",
+            "Embedding model",
+            "Semantic index controls",
+            "Embeddings base URL",
+            "Embedding provider",
+            "Automatic semantic index synchronization",
+            "Включить Companion"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "Companion",
+          "results": [
+            "Включить Companion",
+            "Companion endpoint",
+            "Companion token",
+            "Companion connection"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "batch",
+          "results": [
+            "Files per request"
+          ],
+          "navigated": true,
+          "controls": 38
+        },
+        {
+          "term": "language",
+          "results": [
+            "Interface language",
+            "Language model",
+            "Свой API",
+            "API key",
+            "Model",
+            "Base URL",
+            "Temperature",
+            "Test connection",
+            "Embedding provider"
+          ],
+          "navigated": true,
+          "controls": 38
+        }
+      ],
+      "rendering": {
+        "display": 0,
+        "definitions": 115
+      },
+      "lifecycleChecks": [
+        "refreshSemanticStatus enabled",
+        "refreshSemanticStatus completed",
+        "clearIndex enabled",
+        "clearIndex completed",
+        "Clear removed only semantic vectors",
+        "rebuildIndex enabled",
+        "rebuildIndex completed",
+        "Rebuild restored semantic vectors",
+        "Semantic mutations disabled when feature off",
+        "Disabled 0",
+        "Commands removed 0",
+        "Commands restored without duplication 0",
+        "Single settings registration 0",
+        "Values survived reload 0",
+        "Single provider grid 0",
+        "Disabled 1",
+        "Commands removed 1",
+        "Commands restored without duplication 1",
+        "Single settings registration 1",
+        "Values survived reload 1",
+        "Single provider grid 1",
+        "Disabled 2",
+        "Commands removed 2",
+        "Commands restored without duplication 2",
+        "Single settings registration 2",
+        "Values survived reload 2",
+        "Single provider grid 2"
+      ],
+      "cycles": [
+        {
+          "cycle": 1,
+          "commands": 20,
+          "settingTabs": 1,
+          "providerGrids": 1,
+          "persisted": true
+        },
+        {
+          "cycle": 2,
+          "commands": 20,
+          "settingTabs": 1,
+          "providerGrids": 1,
+          "persisted": true
+        },
+        {
+          "cycle": 3,
+          "commands": 20,
+          "settingTabs": 1,
+          "providerGrids": 1,
+          "persisted": true
+        }
+      ],
+      "vaultReload": {
+        "version": "1.13.7",
+        "template": "  {{topic}}-native  ",
+        "batch": 6,
+        "notify": false,
+        "grid": 1,
+        "templateLabel": null
+      },
+      "definitionCount": 34,
+      "customRenderCount": 31,
+      "nativeControlCount": 2,
+      "baselineRowsCompared": 129,
+      "baselineFunctionalDifferences": [],
+      "nativeSizingCopyDifferences": [
+        {
+          "provider": "custom",
+          "row": "Default insertion point",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "custom",
+          "row": "Where to put atomic notes",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "openrouter",
+          "row": "Default insertion point",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "openrouter",
+          "row": "Where to put atomic notes",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "openai",
+          "row": "Default insertion point",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "openai",
+          "row": "Where to put atomic notes",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "groq",
+          "row": "Default insertion point",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "groq",
+          "row": "Where to put atomic notes",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "ollama",
+          "row": "Default insertion point",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        },
+        {
+          "provider": "ollama",
+          "row": "Where to put atomic notes",
+          "reason": "Host dropdown.is-measuring aria-hidden copy reflects the intentionally changed persisted selection. Primary dropdown options are identical."
+        }
+      ],
+      "installedBundleSHA256": "4b2b59578f1bc00d09b8cdc4c16ac7f734e31f3bc49fbafb9fab625a594d3989",
+      "console": {
+        "uncaughtPluginExceptions": 0,
+        "pluginErrors": 0,
+        "hostWarning": "Electron Insecure Content-Security-Policy warning on vault reload, from node:electron/js2c/renderer_init. No CSP changes or disabling of security controls."
+      }
+    }
+  ],
+  "network": {
+    "actualHTTPRequests": true,
+    "server": "deterministic loopback mock; no standalone Companion server used",
+    "routes": [
+      "/api/embed",
+      "/api/tags",
+      "/v1/chat/completions",
+      "/v1/status",
+      "/v1/vaults/:id/reconcile/plan",
+      "/v1/vaults/:id/sync/batch"
+    ],
+    "companionProtocolHeaders": [
+      "1"
+    ],
+    "providerKeyInCompanion": false,
+    "credentials": "local placeholders only; raw Authorization values omitted from logs"
+  }
+}
