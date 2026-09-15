@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@1.8.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/node_modules/.cache/veynrel-release/final
+
+
+ Test Files  32 passed (32)
+      Tests  849 passed (849)
+   Start at  20:08:52
+   Duration  3.26s (transform 10.17s, setup 0ms, import 16.69s, tests 3.20s, environment 6ms)

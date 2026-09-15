@@ -120,7 +120,7 @@ export default class AIHubPlugin extends Plugin {
       this.semanticController.registerAutomaticSync();
       this.register(() => void this.semanticController.dispose());
 
-      this.addRibbonIcon("sparkles", tr("AI Hub: Панель управления"), () => {
+      this.addRibbonIcon("sparkles", tr("Veynrel: Панель управления"), () => {
         new BatchProcessModal(this.app, this).open();
       });
 
@@ -221,7 +221,7 @@ export default class AIHubPlugin extends Plugin {
       this.addSettingTab(new AIHubSettingTab(this.app, this));
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      new Notice(tr("❌ Ошибка загрузки AI Hub: {msg}", { msg }));
+      new Notice(tr("❌ Ошибка загрузки Veynrel: {msg}", { msg }));
     }
   }
   async loadSettings() {
@@ -1055,7 +1055,7 @@ export default class AIHubPlugin extends Plugin {
         {
           id: "center",
           type: "text",
-          text: `# 📊 Vault Audit\n${new Date().toLocaleDateString()}`,
+          text: `# 📊 Veynrel vault audit\n${new Date().toLocaleDateString()}`,
           x: 0,
           y: 0,
           width: 400,
@@ -1436,7 +1436,7 @@ export default class AIHubPlugin extends Plugin {
           err: errors.length,
         }),
       );
-      console.warn("[AI Hub] MOC errors:", errors);
+      console.warn("[Veynrel] MOC errors:", errors);
     } else {
       notify("success", tr("✅ Создано MOC: {n}", { n: created }));
     }
@@ -1566,7 +1566,7 @@ export default class AIHubPlugin extends Plugin {
             err: errors.length,
           }),
         );
-        console.warn("[AI Hub] Atomize errors:", errors);
+        console.warn("[Veynrel] Atomize errors:", errors);
       } else {
         notify("success", tr("✅ Создано атомов: {n}", { n: createdPaths.length }));
       }

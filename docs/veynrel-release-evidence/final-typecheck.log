@@ -1,0 +1,3 @@
+
+> obsidian-ai-hub@1.8.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0
