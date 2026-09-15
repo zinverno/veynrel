@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "generation": 1,
+  "dimensions": 3,
+  "embeddingSpaceId": "embedding-space:v1|provider=openai-compatible|model=fixture-embedding|endpoint=http%3A%2F%2F127.0.0.1%3A19443%2Fv1|dimensions=3",
+  "normalized": true,
+  "count": 2,
+  "binaryFile": "vector-index.bin",
+  "records": [
+    {
+      "id": "chunk-41cdc4767e6abaad",
+      "path": "Projects/Бета.md",
+      "headingPath": [
+        "Бета"
+      ],
+      "ordinal": 0,
+      "contentHash": "48bfff42d088441f",
+      "source": {
+        "startOffset": 8,
+        "endOffset": 125,
+        "startLine": 2,
+        "endLine": 2
+      },
+      "preview": "Бета Связанные заметки помогают находить идеи по смыслу. Поиск в базе знаний сохраняет индекс и настройки пользователя. 😀"
+    },
+    {
+      "id": "chunk-a7846bbefc2ddc4f",
+      "path": "Projects/Alpha.md",
+      "headingPath": [
+        "Alpha"
+      ],
+      "ordinal": 0,
+      "contentHash": "50686c4039073221",
+      "source": {
+        "startOffset": 9,
+        "endOffset": 147,
+        "startLine": 2,
+        "endLine": 2
+      },
+      "preview": "Alpha Meaning-based search connects ideas across a personal knowledge vault. Old settings and stored vectors must survive a display name change."
+    }
+  ]
+}
