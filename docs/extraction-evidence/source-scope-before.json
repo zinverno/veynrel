@@ -1,0 +1,3144 @@
+[
+  {
+    "filePath": "api.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 413,
+        "column": 22,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 413,
+        "endColumn": 27
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "chunking/hash.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "chunking/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "chunking/markdownChunker.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "chunking/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/auth.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 59
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/config.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:net\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 33
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:path\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 2,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 2,
+        "endColumn": 37
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 2,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/logging/logger.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/bounds.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/descriptor.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/errors.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/mcpServer.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/pagination.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/queryEmbedding.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 76,
+        "column": 42,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 76,
+        "endColumn": 47
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/semanticSearch.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/mcp/service.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/proposals/contentHash.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/proposals/mcpTools.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/proposals/storage.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 42
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:sqlite\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 2,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 2,
+        "endColumn": 49
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 2,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/proposals/types.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/hardcoded-config-path",
+        "severity": 1,
+        "message": "Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value",
+        "line": 28,
+        "column": 63,
+        "nodeType": "Literal",
+        "messageId": "configPath",
+        "endLine": 28,
+        "endColumn": 74
+      },
+      {
+        "ruleId": "obsidianmd/hardcoded-config-path",
+        "severity": 1,
+        "message": "Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value",
+        "line": 33,
+        "column": 28,
+        "nodeType": "Literal",
+        "messageId": "configPath",
+        "endLine": 33,
+        "endColumn": 39
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 2,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/protocol/errors.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/protocol/schemas.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/protocol/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/search/qdrantBackend.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 42
+      },
+      {
+        "ruleId": "obsidianmd/prefer-window-timers",
+        "severity": 1,
+        "message": "Use 'window.setTimeout()' instead of 'setTimeout()' for popout window compatibility.",
+        "line": 42,
+        "column": 18,
+        "nodeType": "Identifier",
+        "messageId": "preferWindowTimer",
+        "endLine": 42,
+        "endColumn": 28,
+        "fix": {
+          "range": [
+            2225,
+            2235
+          ],
+          "text": "window.setTimeout"
+        }
+      },
+      {
+        "ruleId": "obsidianmd/prefer-window-timers",
+        "severity": 1,
+        "message": "Use 'window.clearTimeout()' instead of 'clearTimeout()' for popout window compatibility.",
+        "line": 51,
+        "column": 21,
+        "nodeType": "Identifier",
+        "messageId": "preferWindowTimer",
+        "endLine": 51,
+        "endColumn": 33,
+        "fix": {
+          "range": [
+            2685,
+            2697
+          ],
+          "text": "window.clearTimeout"
+        }
+      },
+      {
+        "ruleId": "obsidianmd/prefer-window-timers",
+        "severity": 1,
+        "message": "Use 'window.clearTimeout()' instead of 'clearTimeout()' for popout window compatibility.",
+        "line": 92,
+        "column": 21,
+        "nodeType": "Identifier",
+        "messageId": "preferWindowTimer",
+        "endLine": 92,
+        "endColumn": 33,
+        "fix": {
+          "range": [
+            4685,
+            4697
+          ],
+          "text": "window.clearTimeout"
+        }
+      },
+      {
+        "ruleId": "obsidianmd/prefer-window-timers",
+        "severity": 1,
+        "message": "Use 'window.clearTimeout()' instead of 'clearTimeout()' for popout window compatibility.",
+        "line": 171,
+        "column": 21,
+        "nodeType": "Identifier",
+        "messageId": "preferWindowTimer",
+        "endLine": 171,
+        "endColumn": 33,
+        "fix": {
+          "range": [
+            8134,
+            8146
+          ],
+          "text": "window.clearTimeout"
+        }
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 5,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 4,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/search/qdrantIndex.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:crypto\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 42
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/search/sqliteVectorBackend.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/search/vectorBackend.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/search/vectorMath.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/server.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:http\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 42
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:http\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 2,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 2,
+        "endColumn": 74
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:url\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 3,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 3,
+        "endColumn": 42
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 3,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/storage/companionStorage.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/storage/mcpReadStorage.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/storage/migrations.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:sqlite\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 49
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/storage/sqliteCompanionStorage.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:fs/promises\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 1,
+        "endColumn": 50
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:fs\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 2,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 2,
+        "endColumn": 37
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:path\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 3,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 3,
+        "endColumn": 34
+      },
+      {
+        "ruleId": "obsidianmd/no-nodejs-modules",
+        "severity": 1,
+        "message": "Do not import Node.js built-in module \"node:sqlite\". Node.js APIs are not available on mobile. Use a dynamic import() or require() guarded by Platform.isDesktop instead.",
+        "line": 4,
+        "column": 1,
+        "nodeType": "ImportDeclaration",
+        "messageId": "noNodejs",
+        "endLine": 4,
+        "endColumn": 44
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 4,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companion/src/sync/reconciliation.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companionSync/client.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companionSync/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companionSync/service.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companionSync/settings.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "companionSync/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "constants.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "deepAudit.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "embeddings/factory.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "embeddings/providers.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "embeddings/shared.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "embeddings/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "i18n.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/embeddingSpace.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/errors.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/indexingService.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/obsidianDocumentSource.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/obsidianFactory.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "indexing/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "main.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Tag1, tag2'",
+        "line": 2050,
+        "column": 25,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 2050,
+        "endColumn": 37
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "noteIndex.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "noteWrites.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "proposals/application.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "proposals/diff.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "proposals/obsidianVault.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "proposals/reviewModal.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/errors.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/ragContextBuilder.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/ragModal.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/ragPrompt.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/ragService.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "rag/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/asyncReadWriteBarrier.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/errors.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/obsidianSemanticController.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/obsidianSemanticRuntime.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticAutoSync.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticConfirmModal.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticDiscoveryModal.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticDiscoveryService.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticIndexProbe.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticRuntime.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticSearchModal.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticSearchService.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticSettingsActionRunner.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticStorageMaintenance.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/semanticStoreRegistry.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "semantic/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "settings.ts",
+    "messages": [
+      {
+        "ruleId": "obsidianmd/settings-tab/prefer-setting-definitions",
+        "severity": 1,
+        "message": "This PluginSettingTab does not implement getSettingDefinitions(); its settings will not appear in Obsidian's settings search for users on 1.13.0 or later. Consider adopting the declarative settings API.",
+        "line": 108,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "missingSettingDefinitions",
+        "endLine": 108,
+        "endColumn": 29
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Openrouter.ai/keys'",
+        "line": 317,
+        "column": 15,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 317,
+        "endColumn": 35
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Platform.OpenAI.com/API-keys'",
+        "line": 326,
+        "column": 15,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 326,
+        "endColumn": 45
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Console.groq.com/keys'",
+        "line": 334,
+        "column": 15,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 334,
+        "endColumn": 38
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Sk-...'",
+        "line": 718,
+        "column": 29,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 718,
+        "endColumn": 37
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Ai-responses'",
+        "line": 1123,
+        "column": 29,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 1123,
+        "endColumn": 43
+      },
+      {
+        "ruleId": "obsidianmd/ui/sentence-case",
+        "severity": 1,
+        "message": "Use sentence case for UI text. Expected: 'Mocs/'",
+        "line": 1140,
+        "column": 29,
+        "nodeType": "Literal",
+        "messageId": "useSentenceCase",
+        "endLine": 1140,
+        "endColumn": 36
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 7,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/binaryCodec.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/errors.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/localVectorStore.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/nullVectorStore.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/obsidianPersistence.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  },
+  {
+    "filePath": "vectorStore/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  }
+]

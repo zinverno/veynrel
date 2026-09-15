@@ -1,0 +1,162 @@
+{
+  "sourceCommit": "1a978e3046a8032db8afbe421c9203d0caedd095",
+  "bundleSha256": "56ce72a3f986cad29cede18331b38d0a1f049f707d08eaade608f4f5fa2d5fd6",
+  "externalImports": [
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    },
+    {
+      "path": "obsidian",
+      "kind": "require-call",
+      "external": true
+    }
+  ],
+  "contributingCompanionModules": {
+    "companion/src/proposals/contentHash.ts": {
+      "bytesInOutput": 248
+    },
+    "companion/src/proposals/types.ts": {
+      "bytesInOutput": 1546
+    }
+  },
+  "inputPaths": [
+    "i18n.ts",
+    "constants.ts",
+    "api.ts",
+    "embeddings/shared.ts",
+    "embeddings/providers.ts",
+    "embeddings/types.ts",
+    "embeddings/factory.ts",
+    "semantic/semanticSettingsActionRunner.ts",
+    "companionSync/types.ts",
+    "companionSync/settings.ts",
+    "companionSync/client.ts",
+    "companionSync/service.ts",
+    "companionSync/index.ts",
+    "settings.ts",
+    "deepAudit.ts",
+    "noteIndex.ts",
+    "noteWrites.ts",
+    "semantic/errors.ts",
+    "companion/src/proposals/contentHash.ts",
+    "chunking/hash.ts",
+    "chunking/types.ts",
+    "chunking/markdownChunker.ts",
+    "chunking/index.ts",
+    "indexing/errors.ts",
+    "indexing/embeddingSpace.ts",
+    "vectorStore/errors.ts",
+    "indexing/indexingService.ts",
+    "indexing/obsidianDocumentSource.ts",
+    "vectorStore/binaryCodec.ts",
+    "vectorStore/localVectorStore.ts",
+    "vectorStore/nullVectorStore.ts",
+    "vectorStore/obsidianPersistence.ts",
+    "vectorStore/index.ts",
+    "indexing/obsidianFactory.ts",
+    "indexing/index.ts",
+    "rag/errors.ts",
+    "rag/ragContextBuilder.ts",
+    "semantic/semanticDiscoveryService.ts",
+    "semantic/semanticRuntime.ts",
+    "semantic/semanticSearchService.ts",
+    "semantic/obsidianSemanticRuntime.ts",
+    "rag/ragPrompt.ts",
+    "rag/ragService.ts",
+    "rag/index.ts",
+    "semantic/semanticSearchModal.ts",
+    "rag/ragModal.ts",
+    "semantic/asyncReadWriteBarrier.ts",
+    "semantic/semanticAutoSync.ts",
+    "semantic/semanticConfirmModal.ts",
+    "semantic/semanticIndexProbe.ts",
+    "semantic/semanticDiscoveryModal.ts",
+    "semantic/semanticStorageMaintenance.ts",
+    "semantic/semanticStoreRegistry.ts",
+    "semantic/obsidianSemanticController.ts",
+    "semantic/index.ts",
+    "companion/src/proposals/types.ts",
+    "proposals/application.ts",
+    "proposals/obsidianVault.ts",
+    "proposals/diff.ts",
+    "proposals/reviewModal.ts",
+    "main.ts"
+  ]
+}

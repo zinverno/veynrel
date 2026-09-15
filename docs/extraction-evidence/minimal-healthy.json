@@ -1,0 +1,32 @@
+[
+  {
+    "filePath": "main.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": [
+      {
+        "ruleId": "@typescript-eslint/no-restricted-imports",
+        "replacedBy": [
+          "no-restricted-imports"
+        ],
+        "info": {
+          "deprecatedSince": "8.64.0",
+          "replacedBy": [
+            {
+              "rule": {
+                "name": "no-restricted-imports",
+                "url": "https://eslint.org/docs/latest/rules/no-restricted-imports"
+              }
+            }
+          ],
+          "url": "https://github.com/typescript-eslint/typescript-eslint/pull/12527"
+        }
+      }
+    ]
+  }
+]
