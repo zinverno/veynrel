@@ -24,14 +24,16 @@ export interface ProposalClaim { proposal: ProposalDetail; claimId: string; leas
 export interface ProposalCompletion { claimId: string; status: CompletionStatus; statusCode?: ProposalStatusCode }
 export interface ProposalPage { proposals: ProposalSummary[]; nextCursor: string | null }
 
-/** Stricter than Stage 8 paths; kept compatible with the server by v1 contract tests. */
-export function validProposalPath(value: unknown, configDir = ".obsidian"): value is string {
+/** Vault-relative Markdown only; the authoritative configuration directory is never writable. */
+export function validProposalPath(value: unknown, configDir: string): value is string {
+  if (typeof configDir !== "string" || !configDir) return false;
+  const configPath = configDir.toLowerCase().replace(/\/+$/u, "");
+  if (!configPath) return false;
   if (typeof value !== "string" || !value || value.length > 4096 || value !== value.trim() ||
       (/[\\:]/u.test(value) || Array.from(value).some((char) => char.charCodeAt(0) < 32 || char.charCodeAt(0) === 127)) || value.startsWith("/") || !/\.md$/iu.test(value)) return false;
   const parts = value.split("/");
-  return !parts.some((part) => !part || part === "." || part === ".." || part.endsWith(".") || part !== part.trim() ||
-    part.toLowerCase() === ".obsidian") && value.toLowerCase() !== configDir.toLowerCase() &&
-    !value.toLowerCase().startsWith(`${configDir.toLowerCase()}/`);
+  return !parts.some((part) => !part || part === "." || part === ".." || part.endsWith(".") || part !== part.trim()) &&
+    value.toLowerCase() !== configPath && !value.toLowerCase().startsWith(`${configPath}/`);
 }
 export function validContent(value: unknown): value is string {
   return typeof value === "string" && value.length <= MAX_PROPOSAL_CONTENT * 2 &&
@@ -43,8 +45,8 @@ export function validProposalId(value: unknown): value is string {
 export function validHash(value: unknown): value is string { return typeof value === "string" && /^[0-9a-f]{16}$/u.test(value); }
 
 /** Validate untrusted plugin response before preview or any write. */
-export function validProposalDetail(value: ProposalDetail): boolean {
-  if (!value || !validProposalId(value.proposalId) || !validProposalPath(value.path) ||
+export function validProposalDetail(value: ProposalDetail, configDir: string): boolean {
+  if (!value || !validProposalId(value.proposalId) || !validProposalPath(value.path, configDir) ||
       typeof value.summary !== "string" || Array.from(value.summary).length > MAX_PROPOSAL_SUMMARY ||
       !["PENDING", "CLAIMED", "APPLIED", "REJECTED", "CONFLICT", "FAILED", "EXPIRED"].includes(value.status) ||
       !Number.isFinite(value.createdAt) || !Number.isFinite(value.updatedAt)) return false;

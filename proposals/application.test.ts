@@ -119,6 +119,32 @@ describe("explicit plugin proposal application", () => {
       proposal: { ...f.proposal, status: "CLAIMED", proposedContent: "different", proposedContentHash: stableHash("different") } });
     await expect(f.app.approve(f.proposal)).rejects.toThrow(); expect(f.events).not.toContain("write");
   });
+  describe.each([".obsidian", ".config"])("configuration boundary %s", (configDir) => {
+    it.each(["CREATE_NOTE", "UPDATE_NOTE", "DELETE_NOTE"] as const)("rejects direct and replayed %s before claim", async (operation) => {
+      const f = fixture(operation); f.vault.configDir = configDir;
+      f.proposal.path = `${configDir}/payload.md`;
+      for (let attempt = 0; attempt < 2; attempt++) await expect(f.app.approve(f.proposal)).rejects.toThrow("Invalid proposal");
+      expect(f.events).toEqual([]); expect(f.api.claimProposal).not.toHaveBeenCalled();
+    });
+    it("rechecks configuration after an untrusted claim response", async () => {
+      const f = fixture(); f.proposal.path = `${configDir}/payload.md`; f.vault.configDir = "other-config";
+      f.files.set(f.proposal.path, base);
+      vi.mocked(f.api.claimProposal).mockImplementationOnce(async () => {
+        f.vault.configDir = configDir;
+        return { proposal: { ...f.proposal, status: "CLAIMED" }, claimId, leaseDurationMs: CLAIM_LEASE_MS };
+      });
+      await expect(f.app.approve(f.proposal)).rejects.toThrow("Invalid claim");
+      expect(f.files.get(f.proposal.path)).toBe(base); expect(f.events).not.toContain("write");
+    });
+    it.each(["CREATE_NOTE", "UPDATE_NOTE", "DELETE_NOTE"] as const)("rechecks configuration inside %s write guard", async (operation) => {
+      const f = fixture(operation); f.proposal.path = `${configDir}/payload.md`; f.vault.configDir = "other-config";
+      if (operation !== "CREATE_NOTE") f.files.set(f.proposal.path, base);
+      f.hooks.beforeWrite = () => { f.vault.configDir = configDir; };
+      expect((await f.app.approve(f.proposal)).status).toBe("CONFLICT");
+      expect(f.events).not.toContain("write");
+    });
+  });
+
   it("custom Obsidian config paths are blocked before claiming", async () => {
     const f = fixture(); f.vault.configDir = "private-config";
     await expect(f.app.approve({ ...f.proposal, path: "private-config/settings.md" })).rejects.toThrow();

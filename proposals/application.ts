@@ -45,14 +45,14 @@ export class ProposalApplication {
     } catch { return { status: outcome.status, completionPending: true }; }
   }
   private async apply(reviewed: ProposalDetail): Promise<ApplyResult> {
-    if (!validProposalDetail(reviewed) || !validProposalPath(reviewed.path, this.vault.configDir)) throw new Error("Invalid proposal");
+    if (!validProposalDetail(reviewed, this.vault.configDir)) throw new Error("Invalid proposal");
     const receipt = this.receipts.get(reviewed.proposalId);
     if (receipt) return this.finish(reviewed.proposalId, receipt);
     if (reviewed.status !== "PENDING") throw new Error("Proposal is not pending");
     const began = this.clock();
     const claim = await this.api.claimProposal(this.vaultId, reviewed.proposalId);
     const proposal = claim.proposal;
-    if (!validProposalId(claim.claimId) || claim.leaseDurationMs !== CLAIM_LEASE_MS || !validProposalDetail(proposal) ||
+    if (!validProposalId(claim.claimId) || claim.leaseDurationMs !== CLAIM_LEASE_MS || !validProposalDetail(proposal, this.vault.configDir) ||
         proposal.status !== "CLAIMED" || proposal.proposalId !== reviewed.proposalId ||
         ["operation", "path", "summary", "baseContent", "baseContentHash", "proposedContent", "proposedContentHash"].some(
           (field) => proposal[field as keyof ProposalDetail] !== reviewed[field as keyof ProposalDetail])) throw new Error("Invalid claim");

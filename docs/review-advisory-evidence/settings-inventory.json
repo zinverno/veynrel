@@ -1,0 +1,285 @@
+[
+  {
+    "name": "Vault Audit Ai",
+    "keys": [],
+    "description": "Plugin settings",
+    "control": "render",
+    "searchable": false
+  },
+  {
+    "name": "Language model",
+    "keys": [
+      "provider"
+    ],
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Свой API",
+    "keys": [],
+    "description": "Any OpenAI-compatible",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "API key",
+    "keys": [
+      "apiKey"
+    ],
+    "description": "If your provider requires it",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Model",
+    "keys": [
+      "model"
+    ],
+    "description": "Provider's model ID",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Model — Свой API",
+    "keys": [],
+    "description": "Provider's model ID",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Base URL",
+    "keys": [
+      "baseUrl"
+    ],
+    "description": "URL of your OpenAI-compatible API",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Temperature",
+    "keys": [
+      "temperature"
+    ],
+    "description": "Response creativity: 0.0 = precise, 1.0 = creative",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Test connection",
+    "keys": [],
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Enable semantic features",
+    "keys": [
+      "semantic.enabled"
+    ],
+    "description": "Semantic features are opt-in. The first Vault index is started manually.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Automatic semantic index synchronization",
+    "keys": [],
+    "description": "After the first index exists, Markdown note changes are synchronized automatically. Changed chunks may be sent to the selected remote embedding provider; Ollama can generate embeddings locally. The vector index remains local and Markdown files are not modified. An incompatible embedding space requires an explicit rebuild.",
+    "control": "description",
+    "searchable": true
+  },
+  {
+    "name": "Embedding provider",
+    "keys": [
+      "semantic.embeddingProvider"
+    ],
+    "description": "Works independently from the language model above.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Embedding model",
+    "keys": [
+      "semantic.embeddingModel"
+    ],
+    "description": "Embedding model name as shown in Ollama.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Embeddings base URL",
+    "keys": [
+      "semantic.embeddingBaseUrl"
+    ],
+    "description": "Base HTTP(S) URL without query or fragment. The endpoint is appended automatically.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Embeddings API key",
+    "keys": [
+      "semantic.openRouterApiKey",
+      "semantic.openAICompatibleApiKey"
+    ],
+    "description": "Required for OpenAI; a custom API may not require it.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Test embeddings",
+    "keys": [],
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Semantic index controls",
+    "keys": [],
+    "description": "The initial update, Clear, and Rebuild are explicit operations; ordinary Markdown changes are then synchronized automatically.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Включить Companion",
+    "keys": [
+      "companion.enabled"
+    ],
+    "description": "Опционально передаёт read-only mirror текущего semantic index настроенному Companion endpoint. Первый sync запускается явно.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Companion endpoint",
+    "keys": [
+      "companion.endpoint"
+    ],
+    "description": "Локально: http://127.0.0.1:27124. Remote endpoint должен использовать HTTPS.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Companion token",
+    "keys": [
+      "companion.token"
+    ],
+    "description": "Отдельный Bearer token Companion. Хранится локально в данных плагина и никогда не отправляется AI-провайдерам.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Companion",
+    "keys": [],
+    "description": "Remote Companion получает vault-relative пути, Markdown, chunk text, metadata и embeddings. Используйте только HTTPS и доверенный сервер.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Companion connection",
+    "keys": [],
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Files per request",
+    "keys": [
+      "deepAudit.batchSize"
+    ],
+    "description": "Recommended 3-7. More = faster, but risks exceeding the context",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Parallel requests",
+    "keys": [
+      "deepAudit.maxConcurrent"
+    ],
+    "description": "Free tier: 1-2. Paid: up to 5-6",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Delay between requests (ms)",
+    "keys": [
+      "deepAudit.delayMs"
+    ],
+    "description": "Increase on 429 Rate Limit errors",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Default insertion point",
+    "keys": [
+      "defaultInsertion"
+    ],
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Folder for new notes",
+    "keys": [
+      "newNoteFolder"
+    ],
+    "description": "Empty = vault root",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Folder for MOC notes",
+    "keys": [
+      "mocFolder"
+    ],
+    "description": "Where MOCs generated from audit clusters are stored",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Where to put atomic notes",
+    "keys": [
+      "atomsLocation"
+    ],
+    "description": "Next to the original keeps the folder's thematic context",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Folder for atomic notes",
+    "keys": [
+      "atomsFolder"
+    ],
+    "description": "Used only in the “shared folder” mode",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Filename template",
+    "keys": [
+      "filenameTemplate"
+    ],
+    "description": "Переменные: {{date}}, {{time}}, {{topic}}",
+    "control": "text",
+    "searchable": true
+  },
+  {
+    "name": "Interface language",
+    "keys": [
+      "language"
+    ],
+    "description": "Auto — follow Obsidian. Command names update after the plugin reloads.",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Context menu",
+    "keys": [
+      "showContextMenu"
+    ],
+    "description": "AI Hub item in the right-click menu (requires reload)",
+    "control": "render",
+    "searchable": true
+  },
+  {
+    "name": "Copy notification",
+    "keys": [
+      "notifyOnCopy"
+    ],
+    "control": "toggle",
+    "searchable": true
+  }
+]

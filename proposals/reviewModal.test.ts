@@ -41,13 +41,23 @@ function fixture() {
   const proposal: ProposalDetail = { proposalId: "11111111-1111-4111-8111-111111111111", operation: "UPDATE_NOTE", path: "A.md", summary: "<img onerror=evil>",
     status: "PENDING", createdAt: 1, updatedAt: 1, claimedAt: null, claimExpiresAt: null, appliedAt: null, statusCode: null,
     baseContent: base, baseContentHash: stableHash(base), proposedContent: next, proposedContentHash: stableHash(next) };
-  const app = { vaultId: "vault", vault: { read: vi.fn(async () => base) }, api: {
+  const app = { vaultId: "vault", vault: { configDir: ".obsidian", read: vi.fn(async () => base) }, api: {
     listProposals: vi.fn<() => Promise<ProposalPage>>(async () => ({ proposals: [proposal].filter((p) => p.status === "PENDING" || p.status === "CLAIMED"), nextCursor: null })), getProposal: vi.fn(async () => proposal),
   }, approve: vi.fn(async () => { proposal.status = "APPLIED"; return { status: "APPLIED", completionPending: false }; }), reject: vi.fn(async () => { proposal.status = "REJECTED"; return { ...proposal, status: "REJECTED" }; }) };
   const modal = new ProposalReviewModal({} as never, app as unknown as ProposalApplication);
   const content = modal.contentEl as unknown as InstanceType<typeof mocks.Element>;
   return { app, modal, content, proposal };
 }
+
+describe("proposal preview configuration boundary", () => {
+  it.each([".obsidian", ".config"])("rejects %s before reading or rendering content", async (configDir) => {
+    const f = fixture(); f.app.vault.configDir = configDir; f.proposal.path = `${configDir}/payload.md`;
+    f.modal.open(); await flush(); f.content.button("Review").click(); await flush();
+    expect(f.content.texts()).toContain("Could not load change");
+    expect(f.app.vault.read).not.toHaveBeenCalled(); expect(f.app.approve).not.toHaveBeenCalled();
+    expect(f.content.all().some((e) => e.cls.includes("ai-proposal-diff-panel"))).toBe(false);
+  });
+});
 
 describe("proposal review UI", () => {
   it("shows pending state and inert diff without approving on open, fetch, or review", async () => {

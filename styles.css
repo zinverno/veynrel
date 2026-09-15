@@ -1697,3 +1697,6 @@
     .ai-proposal-line-numbers { flex-basis: 13ch; padding-inline: 4px; }
     .ai-proposal-shell .ai-proposal-line-text { padding-inline: 6px; }
 }
+.ai-hub-custom-setting {
+  display: block;
+}
