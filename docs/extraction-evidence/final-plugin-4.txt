@@ -1,0 +1,29 @@
+
+> obsidian-ai-hub@1.7.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@1.7.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@1.7.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0
+
+
+> obsidian-ai-hub@1.7.0 build
+> node esbuild.config.mjs production
+
+
+/home/zinvernix/projects/obsidian_ai_hub/vault-audit-AI/api.ts
+  413:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+/home/zinvernix/projects/obsidian_ai_hub/vault-audit-AI/companionSync/proposalTypes.ts
+  28:63  warning  Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value  obsidianmd/hardcoded-config-path
+  33:28  warning  Obsidian's configuration folder is not necessarily `.obsidian`, it can be configured by the user. Use `Vault#configDir` to get the current value  obsidianmd/hardcoded-config-path
+
+/home/zinvernix/projects/obsidian_ai_hub/vault-audit-AI/settings.ts
+  108:14  warning  This PluginSettingTab does not implement getSettingDefinitions(); its settings will not appear in Obsidian's settings search for users on 1.13.0 or later. Consider adopting the declarative settings API  obsidianmd/settings-tab/prefer-setting-definitions
+
+✖ 4 problems (0 errors, 4 warnings)
+

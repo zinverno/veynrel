@@ -1,0 +1,57 @@
+{
+  "git": {
+    "plugin": {
+      "head": "32ada48181c5c30923ac730a835ac064d5f4e646",
+      "status": ""
+    },
+    "companion": {
+      "head": "6d31ccacbace36533568cddb6624e386fc8c3eb5",
+      "status": ""
+    }
+  },
+  "protocol": 1,
+  "method": "real Node Companion / actual plugin client with fetch transport / in-memory Vault adapter",
+  "results": [
+    {
+      "name": "startup and authenticated v1 status",
+      "result": "PASS"
+    },
+    {
+      "name": "auth and protocol boundaries",
+      "result": "PASS"
+    },
+    {
+      "name": "reconcile and semantic mirror sync",
+      "result": "PASS"
+    },
+    {
+      "name": "MCP retrieval and semantic search",
+      "result": "PASS"
+    },
+    {
+      "name": "proposal queue and explicit approval boundary",
+      "result": "PASS"
+    },
+    {
+      "name": "rejection and unsafe proposal denial",
+      "result": "PASS"
+    },
+    {
+      "name": "invalid vectors and malformed JSON rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "malformed server response and errors remain controlled",
+      "result": "PASS"
+    },
+    {
+      "name": "disconnect, clean shutdown, restart and persisted reconnect",
+      "result": "PASS"
+    },
+    {
+      "name": "provider credential isolation and sanitized logs",
+      "result": "PASS"
+    }
+  ],
+  "serverLog": "(node:3598126) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n{\"time\":\"2026-09-15T08:31:06.222Z\",\"level\":\"info\",\"message\":\"Vault Audit AI Companion started.\",\"context\":{\"host\":\"127.0.0.1\",\"port\":46327,\"protocolVersion\":1}}\n{\"time\":\"2026-09-15T08:31:06.634Z\",\"level\":\"info\",\"message\":\"MCP tool completed.\",\"context\":{\"toolName\":\"get_note\",\"success\":true,\"latencyMs\":0}}\n{\"time\":\"2026-09-15T08:31:06.678Z\",\"level\":\"info\",\"message\":\"MCP tool completed.\",\"context\":{\"toolName\":\"search_vault\",\"success\":true,\"latencyMs\":27}}\n{\"time\":\"2026-09-15T08:31:06.691Z\",\"level\":\"info\",\"message\":\"MCP tool completed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":true,\"latencyMs\":2}}\n{\"time\":\"2026-09-15T08:31:06.716Z\",\"level\":\"info\",\"message\":\"MCP tool completed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":true,\"latencyMs\":1}}\n{\"time\":\"2026-09-15T08:31:06.731Z\",\"level\":\"warn\",\"message\":\"MCP tool failed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":false,\"code\":\"TOOL_ERROR\",\"latencyMs\":0}}\n{\"time\":\"2026-09-15T08:31:06.740Z\",\"level\":\"warn\",\"message\":\"MCP tool failed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":false,\"code\":\"TOOL_ERROR\",\"latencyMs\":0}}\n{\"time\":\"2026-09-15T08:31:06.749Z\",\"level\":\"warn\",\"message\":\"MCP tool failed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":false,\"code\":\"TOOL_ERROR\",\"latencyMs\":0}}\n{\"time\":\"2026-09-15T08:31:06.759Z\",\"level\":\"warn\",\"message\":\"MCP tool failed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":false,\"code\":\"TOOL_ERROR\",\"latencyMs\":0}}\n{\"time\":\"2026-09-15T08:31:06.769Z\",\"level\":\"warn\",\"message\":\"MCP tool failed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":false,\"code\":\"TOOL_ERROR\",\"latencyMs\":0}}\n{\"time\":\"2026-09-15T08:31:06.780Z\",\"level\":\"warn\",\"message\":\"MCP tool failed.\",\"context\":{\"toolName\":\"propose_change\",\"success\":false,\"code\":\"TOOL_ERROR\",\"latencyMs\":0}}\n(node:3598138) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n{\"time\":\"2026-09-15T08:31:07.113Z\",\"level\":\"info\",\"message\":\"Vault Audit AI Companion started.\",\"context\":{\"host\":\"127.0.0.1\",\"port\":46327,\"protocolVersion\":1}}\n"
+}

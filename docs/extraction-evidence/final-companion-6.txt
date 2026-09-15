@@ -1,0 +1,26 @@
+
+> vault-audit-ai-companion@0.1.0 audit:mutations
+> node scripts/mutation-audit.mjs
+
+A: KILLED — MCP token authenticates sync
+B: KILLED — caller-selected vault
+C: KILLED — get_note writes storage
+D: KILLED — stored note re-embedding
+E: KILLED — double query embedding
+F: KILLED — descriptor check removed
+G: KILLED — raw vectors returned
+H: KILLED — result cap removed
+I: KILLED — query, note, and token logged
+J: KILLED — any OpenRouter response model accepted
+10-A: KILLED — Qdrant error propagates instead of SQLite fallback
+10-B: KILLED — fallback embeds query twice
+10-C: KILLED — stale generation trusted as READY
+10-D: KILLED — descriptor mismatch accepted
+10-E: KILLED — derived update notified before authoritative COMMIT
+10-F: KILLED — secondary failure breaks successful SQLite sync
+10-G: KILLED — old collection queried after descriptor replacement
+10-H: KILLED — Qdrant key leaked through diagnostic status
+10-I: KILLED — full Markdown in point payload
+10-J: KILLED — partial build published READY
+10-K: KILLED — missing authoritative chunk returned as derived content
+21/21 mutations killed; every restored test passed.

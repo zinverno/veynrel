@@ -1,0 +1,11 @@
+
+> vault-audit-ai-companion@0.1.0 audit:proposals
+> node scripts/proposal-mutation-audit.mjs
+
+A: KILLED — proposal writes mirrored note
+C: KILLED — MCP token can acknowledge APPLIED
+G: KILLED — Companion gains direct filesystem capability
+I: KILLED — proposal triggers embedding provider
+J: KILLED — proposal touches Qdrant
+K: KILLED — crashed claims never expire
+6/6 Stage 11 mutations killed; every restored test passed.

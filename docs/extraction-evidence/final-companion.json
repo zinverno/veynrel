@@ -1,0 +1,61 @@
+{
+  "repository": "/home/zinvernix/projects/obsidian_ai_hub/vault-audit-ai-companion",
+  "head": "6d31ccacbace36533568cddb6624e386fc8c3eb5",
+  "commands": [
+    {
+      "command": "npm ci",
+      "exitCode": 0,
+      "seconds": 2.43,
+      "log": "final-companion-0.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "seconds": 3.25,
+      "log": "final-companion-1.log"
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "seconds": 4.43,
+      "log": "final-companion-2.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "seconds": 6.99,
+      "log": "final-companion-3.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 2.9,
+      "log": "final-companion-4.log"
+    },
+    {
+      "command": "npm run smoke:mcp",
+      "exitCode": 0,
+      "seconds": 5.0,
+      "log": "final-companion-5.log"
+    },
+    {
+      "command": "npm run audit:mutations",
+      "exitCode": 0,
+      "seconds": 59.97,
+      "log": "final-companion-6.log"
+    },
+    {
+      "command": "npm run audit:proposals",
+      "exitCode": 0,
+      "seconds": 22.16,
+      "log": "final-companion-7.log"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "seconds": 0.01,
+      "log": "final-companion-8.log"
+    }
+  ],
+  "gitStatus": ""
+}

@@ -1,0 +1,139 @@
+{
+  "requestCount": 39,
+  "providerKeyLeaks": 0,
+  "testLogs": {
+    "final-plugin-0.log": {
+      "sha256": "090e4b1c3e75debc62bcf143f39a259d3371b9f19e5f53f36dd886bdc56b8601",
+      "exitCode": 0,
+      "command": "npm ci"
+    },
+    "final-plugin-1.log": {
+      "sha256": "21b6be53da8f7fabfe92c2a2147a555f525ced7a4a34ce04896a3954275998a0",
+      "exitCode": 0,
+      "command": "npm test"
+    },
+    "final-plugin-2.log": {
+      "sha256": "40c238dbff88f5b0a649a0f62863d1f3946dec57d886b81a59949cbc55ffa24f",
+      "exitCode": 0,
+      "command": "npm run build"
+    },
+    "final-plugin-3.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0,
+      "command": "npx tsc --noEmit --module ES2020 --ignoreDeprecations 5.0"
+    },
+    "final-plugin-4.log": {
+      "sha256": "d2b63de4b66d06af6772270ac12dbf83f4bad274d0cd3332951469c45954211a",
+      "exitCode": 0,
+      "command": "npm run lint"
+    },
+    "final-plugin-5.log": {
+      "sha256": "10cf71c4d5395791c302d169f31b45b9802d1b888e5dca7e1e7d40bc5d3f5498",
+      "exitCode": 0,
+      "command": "npm run audit:proposals"
+    },
+    "final-plugin-6.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0,
+      "command": "git diff --check"
+    },
+    "final-companion-0.log": {
+      "sha256": "4e96c89e0676e2de7550e670eb7b844c7ff185698182173331e3a8feaaa8b925",
+      "exitCode": 0,
+      "command": "npm ci"
+    },
+    "final-companion-1.log": {
+      "sha256": "d3622ccd12526bd9b97c7615c6f45a0e79f9aea314c6c2f4d92d0a5cd25e4e42",
+      "exitCode": 0,
+      "command": "npm run typecheck"
+    },
+    "final-companion-2.log": {
+      "sha256": "cd8b1867c5e212a687a193d6de0ee7714495e698e7dcf110a390bd8e986b1248",
+      "exitCode": 0,
+      "command": "npm test"
+    },
+    "final-companion-3.log": {
+      "sha256": "0b8b3352d4ce1874d0a16ba35325bdc2ae9a36db37ec833a5da6dc31e64d20e0",
+      "exitCode": 0,
+      "command": "npm run lint"
+    },
+    "final-companion-4.log": {
+      "sha256": "01028b57575fbff266a7975d025e97dcee96729db6a95b74077fc715554060ce",
+      "exitCode": 0,
+      "command": "npm run build"
+    },
+    "final-companion-5.log": {
+      "sha256": "53f1dd29a5bb07ebcddd119d643ba31a294c2025d34b68b4344f7c74b3953b5d",
+      "exitCode": 0,
+      "command": "npm run smoke:mcp"
+    },
+    "final-companion-6.log": {
+      "sha256": "e9a529293ba914379b9299b0ed079fab40b31938db6a3bd70b9ae9462c8023a6",
+      "exitCode": 0,
+      "command": "npm run audit:mutations"
+    },
+    "final-companion-7.log": {
+      "sha256": "876d853bf3e1f5b1d5b62c8a5a25d66229fdccdb702aafc4200dfbbfa9d59b5c",
+      "exitCode": 0,
+      "command": "npm run audit:proposals"
+    },
+    "final-companion-8.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0,
+      "command": "git diff --check"
+    }
+  },
+  "nativeWindowExitCode": 0,
+  "classifications": [
+    {
+      "source": "Obsidian main process",
+      "entry": "ENOENT for first-launch disposable window-state JSON",
+      "classification": "Expected absent initial window state; vault opened successfully"
+    },
+    {
+      "source": "Electron renderer",
+      "entry": "Insecure Content-Security-Policy warning",
+      "classification": "Host Electron developer warning; no CSP changes made"
+    },
+    {
+      "source": "Companion",
+      "entry": "ExperimentalWarning node:sqlite",
+      "classification": "Expected Node 24 advisory"
+    },
+    {
+      "source": "Companion",
+      "entry": "MCP tool failed TOOL_ERROR / semantic error",
+      "classification": "Expected controlled denials during hostile-input tests; valid request recovery passed"
+    },
+    {
+      "source": "Initial Companion test run",
+      "entry": "listen EPERM",
+      "classification": "Sandbox denied loopback; rerun with network permission passed 218 tests"
+    },
+    {
+      "source": "Initial mutation audit",
+      "entry": "baseline subprocess terminated, exit 143",
+      "classification": "Interrupted run; clean isolated rerun passed all 21 mutations"
+    },
+    {
+      "source": "New fixture test",
+      "entry": "Vite JSON transform rejects escaped lone surrogate",
+      "classification": "Test tooling fixed to read raw JSON; Unicode contract retained"
+    },
+    {
+      "source": "Initial wire smoke",
+      "entry": "missing protocol version returned PROTOCOL_VERSION_MISMATCH",
+      "classification": "Incorrect test expectation corrected; existing client guard retained"
+    },
+    {
+      "source": "Native lifecycle harness",
+      "entry": "undefined _events property",
+      "classification": "Harness assumed another event registry name; corrected to actual runtime registry and reran"
+    },
+    {
+      "source": "Native reload harness",
+      "entry": "plugin missing after immediate toggle/reload",
+      "classification": "Obsidian requests debounced config save; disk-state barrier observed 1014 ms, subsequent full reload passed"
+    }
+  ]
+}

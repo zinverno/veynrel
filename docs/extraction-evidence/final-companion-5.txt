@@ -1,0 +1,13 @@
+
+> vault-audit-ai-companion@0.1.0 smoke:mcp
+> npm run build && node scripts/mcp-smoke.mjs
+
+
+> vault-audit-ai-companion@0.1.0 build
+> tsc -p tsconfig.json
+
+after sync: modern 2026-07-28 — all 5 tools passed
+after sync: legacy 2025-11-25 — all 5 tools passed
+after process restart (SQLite only): modern 2026-07-28 — all 5 tools passed
+after process restart (SQLite only): legacy 2025-11-25 — all 5 tools passed
+Smoke passed: 4 query HTTP calls, zero stored-note embedding calls.
