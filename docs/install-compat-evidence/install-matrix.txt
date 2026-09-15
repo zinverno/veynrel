@@ -1,0 +1,213 @@
+BEFORE: npx --yes --package npm@10.9.2 npm ci --ignore-scripts
+Exit code: 1
+npm error code EUSAGE
+npm error
+npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm error
+npm error Missing: esbuild@0.28.2 from lock file
+npm error Missing: @esbuild/aix-ppc64@0.28.2 from lock file
+npm error Missing: @esbuild/android-arm@0.28.2 from lock file
+npm error Missing: @esbuild/android-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/android-x64@0.28.2 from lock file
+npm error Missing: @esbuild/darwin-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/darwin-x64@0.28.2 from lock file
+npm error Missing: @esbuild/freebsd-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/freebsd-x64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-arm@0.28.2 from lock file
+npm error Missing: @esbuild/linux-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-ia32@0.28.2 from lock file
+npm error Missing: @esbuild/linux-loong64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-mips64el@0.28.2 from lock file
+npm error Missing: @esbuild/linux-ppc64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-riscv64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-s390x@0.28.2 from lock file
+npm error Missing: @esbuild/linux-x64@0.28.2 from lock file
+npm error Missing: @esbuild/netbsd-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/netbsd-x64@0.28.2 from lock file
+npm error Missing: @esbuild/openbsd-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/openbsd-x64@0.28.2 from lock file
+npm error Missing: @esbuild/openharmony-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/sunos-x64@0.28.2 from lock file
+npm error Missing: @esbuild/win32-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/win32-ia32@0.28.2 from lock file
+npm error Missing: @esbuild/win32-x64@0.28.2 from lock file
+npm error
+npm error Clean install a project
+npm error
+npm error Usage:
+npm error npm ci
+npm error
+npm error Options:
+npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+npm error [--no-bin-links] [--no-fund] [--dry-run]
+npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm error
+npm error aliases: clean-install, ic, install-clean, isntall-clean
+npm error
+npm error Run "npm help ci" for more info
+npm error A complete log of this run can be found in: /home/zinvernix/.npm/_logs/2026-09-15T10_50_23_340Z-debug-0.log
+
+BEFORE: npx --yes --package npm@10.9.2 npm ci
+Exit code: 1
+npm error code EUSAGE
+npm error
+npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm error
+npm error Missing: esbuild@0.28.2 from lock file
+npm error Missing: @esbuild/aix-ppc64@0.28.2 from lock file
+npm error Missing: @esbuild/android-arm@0.28.2 from lock file
+npm error Missing: @esbuild/android-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/android-x64@0.28.2 from lock file
+npm error Missing: @esbuild/darwin-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/darwin-x64@0.28.2 from lock file
+npm error Missing: @esbuild/freebsd-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/freebsd-x64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-arm@0.28.2 from lock file
+npm error Missing: @esbuild/linux-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-ia32@0.28.2 from lock file
+npm error Missing: @esbuild/linux-loong64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-mips64el@0.28.2 from lock file
+npm error Missing: @esbuild/linux-ppc64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-riscv64@0.28.2 from lock file
+npm error Missing: @esbuild/linux-s390x@0.28.2 from lock file
+npm error Missing: @esbuild/linux-x64@0.28.2 from lock file
+npm error Missing: @esbuild/netbsd-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/netbsd-x64@0.28.2 from lock file
+npm error Missing: @esbuild/openbsd-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/openbsd-x64@0.28.2 from lock file
+npm error Missing: @esbuild/openharmony-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/sunos-x64@0.28.2 from lock file
+npm error Missing: @esbuild/win32-arm64@0.28.2 from lock file
+npm error Missing: @esbuild/win32-ia32@0.28.2 from lock file
+npm error Missing: @esbuild/win32-x64@0.28.2 from lock file
+npm error
+npm error Clean install a project
+npm error
+npm error Usage:
+npm error npm ci
+npm error
+npm error Options:
+npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+npm error [--no-bin-links] [--no-fund] [--dry-run]
+npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm error
+npm error aliases: clean-install, ic, install-clean, isntall-clean
+npm error
+npm error Run "npm help ci" for more info
+npm error A complete log of this run can be found in: /home/zinvernix/.npm/_logs/2026-09-15T10_50_26_655Z-debug-0.log
+
+BEFORE: npx --yes --package npm@11.11.0 npm ci --ignore-scripts
+Exit code: 0
+
+added 352 packages, and audited 353 packages in 4s
+
+158 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+BEFORE: npx --yes --package npm@11.11.0 npm ci
+Exit code: 0
+
+added 352 packages, and audited 353 packages in 4s
+
+158 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+AFTER: npx --yes --package npm@10.9.2 npm ci --ignore-scripts
+Exit code: 0
+
+added 356 packages, and audited 357 packages in 4s
+
+159 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+AFTER: npx --yes --package npm@10.9.2 npm ci
+Exit code: 0
+
+added 356 packages, and audited 357 packages in 3s
+
+159 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+AFTER: npx --yes --package npm@11.11.0 npm ci --ignore-scripts
+Exit code: 0
+
+added 356 packages, and audited 357 packages in 4s
+
+159 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+AFTER: npx --yes --package npm@11.11.0 npm ci
+Exit code: 0
+
+added 356 packages, and audited 357 packages in 4s
+
+159 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.

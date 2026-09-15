@@ -9,6 +9,24 @@ permissions:
   contents: read
 
 jobs:
+  scanner-install:
+    name: Scanner install (npm ${{ matrix.npm }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        npm: ['10.9.2', '11.11.0']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+      # npm 11 can accept optional-peer locks that npm 10 rejects before
+      # installing Obsidian declarations. Check both consumers on every PR.
+      - run: npx --yes --package npm@${{ matrix.npm }} npm ci --ignore-scripts
+      - run: npm run typecheck
+
   verify:
     runs-on: ubuntu-latest
     steps:

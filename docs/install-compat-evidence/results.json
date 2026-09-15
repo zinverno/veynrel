@@ -1,0 +1,686 @@
+{
+  "baselineHead": "6df5a5160414ef936603b911be30d7e85f1a8b22",
+  "repairCommit": "5834317858a1f8687ae985f80318e3097fd9a999",
+  "node": "24.14.1",
+  "os": "Linux 6.12.95-1-MANJARO x86_64",
+  "defaultNpm": "11.11.0",
+  "before": [
+    {
+      "npm": "10.9.2",
+      "command": "npx --yes --package npm@10.9.2 npm ci --ignore-scripts",
+      "versionExitCode": 0,
+      "exitCode": 1,
+      "log": "baseline-10.9.2-ignore.log",
+      "seconds": 4.02
+    },
+    {
+      "npm": "10.9.2",
+      "command": "npx --yes --package npm@10.9.2 npm ci",
+      "versionExitCode": 0,
+      "exitCode": 1,
+      "log": "baseline-10.9.2-normal.log",
+      "seconds": 2.13
+    },
+    {
+      "npm": "11.11.0",
+      "command": "npx --yes --package npm@11.11.0 npm ci --ignore-scripts",
+      "versionExitCode": 0,
+      "exitCode": 0,
+      "log": "baseline-11.11.0-ignore.log",
+      "seconds": 8.73
+    },
+    {
+      "npm": "11.11.0",
+      "command": "npx --yes --package npm@11.11.0 npm ci",
+      "versionExitCode": 0,
+      "exitCode": 0,
+      "log": "baseline-11.11.0-normal.log",
+      "seconds": 5.44
+    }
+  ],
+  "after": [
+    {
+      "npm": "10.9.2",
+      "command": "npx --yes --package npm@10.9.2 npm ci --ignore-scripts",
+      "exitCode": 0,
+      "log": "after-10.9.2-ignore.log",
+      "seconds": 5.65,
+      "lockUnchanged": true
+    },
+    {
+      "npm": "10.9.2",
+      "command": "npx --yes --package npm@10.9.2 npm ci",
+      "exitCode": 0,
+      "log": "after-10.9.2-normal.log",
+      "seconds": 4.47,
+      "lockUnchanged": true
+    },
+    {
+      "npm": "11.11.0",
+      "command": "npx --yes --package npm@11.11.0 npm ci --ignore-scripts",
+      "exitCode": 0,
+      "log": "after-11.11.0-ignore.log",
+      "seconds": 4.67,
+      "lockUnchanged": true
+    },
+    {
+      "npm": "11.11.0",
+      "command": "npx --yes --package npm@11.11.0 npm ci",
+      "exitCode": 0,
+      "log": "after-11.11.0-normal.log",
+      "seconds": 4.96,
+      "lockUnchanged": true
+    }
+  ],
+  "generation": [
+    {
+      "npm": "10.9.2",
+      "seededWithBaselineLock": true,
+      "command": "npx --yes --package npm@10.9.2 npm install --package-lock-only --ignore-scripts",
+      "exitCode": 0,
+      "seconds": 2.5,
+      "lockSha256": "4ae8e0fed580bd702fdd8cdf3fb391ba108916151392584649ef706d27493d3c",
+      "addedPackages": 27,
+      "removedPackages": 0,
+      "changedExistingEntries": 10,
+      "changedExistingVersions": 0
+    },
+    {
+      "npm": "10.9.2",
+      "seededWithBaselineLock": false,
+      "command": "npx --yes --package npm@10.9.2 npm install --package-lock-only --ignore-scripts",
+      "exitCode": 1,
+      "seconds": 15.82
+    },
+    {
+      "npm": "11.11.0",
+      "seededWithBaselineLock": true,
+      "command": "npx --yes --package npm@11.11.0 npm install --package-lock-only --ignore-scripts",
+      "exitCode": 0,
+      "seconds": 2.26,
+      "lockSha256": "10e88db9859dd8c299f9164dda200ee33475cb62f451c357da7e38767a61fa6d",
+      "addedPackages": 0,
+      "removedPackages": 0,
+      "changedExistingEntries": 0,
+      "changedExistingVersions": 0
+    },
+    {
+      "npm": "11.11.0",
+      "seededWithBaselineLock": false,
+      "command": "npx --yes --package npm@11.11.0 npm install --package-lock-only --ignore-scripts",
+      "exitCode": 0,
+      "seconds": 8.81,
+      "lockSha256": "93022e226bb265a90720d0419f79d09bbd73b680b18a0a3ea2cafb185255e987",
+      "addedPackages": 29,
+      "removedPackages": 6,
+      "changedExistingEntries": 67,
+      "changedExistingVersions": 66
+    }
+  ],
+  "npm11RegenerationOfNpm10Lock": {
+    "command": "npx --yes --package npm@11.11.0 npm install --package-lock-only --ignore-scripts",
+    "exitCode": 0,
+    "missingPeerEntriesPruned": 27,
+    "sha256": "b003e41101e0f4678215705147bb5713637094adc2ece5d59f888f616df49f32"
+  },
+  "canonicalLock": {
+    "sha256": "4ae8e0fed580bd702fdd8cdf3fb391ba108916151392584649ef706d27493d3c",
+    "lockfileVersion": 3,
+    "addedPackages": {
+      "node_modules/@esbuild/netbsd-arm64": "0.28.2",
+      "node_modules/@esbuild/openbsd-arm64": "0.28.2",
+      "node_modules/@esbuild/openharmony-arm64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/aix-ppc64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/android-arm": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/android-arm64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/android-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/darwin-arm64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/darwin-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/freebsd-arm64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/freebsd-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-arm": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-arm64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-ia32": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-loong64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-mips64el": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-ppc64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-riscv64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-s390x": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/linux-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/netbsd-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/openbsd-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/sunos-x64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/win32-arm64": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/win32-ia32": "0.28.2",
+      "node_modules/vitest/node_modules/@esbuild/win32-x64": "0.28.2",
+      "node_modules/vitest/node_modules/esbuild": "0.28.2"
+    },
+    "allAddedDevOptionalPeer": true,
+    "existingChanges": {
+      "node_modules/@rolldown/binding-linux-arm64-gnu": {
+        "libc": {
+          "before": [
+            "glibc"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/@rolldown/binding-linux-arm64-musl": {
+        "libc": {
+          "before": [
+            "musl"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/@rolldown/binding-linux-ppc64-gnu": {
+        "libc": {
+          "before": [
+            "glibc"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/@rolldown/binding-linux-s390x-gnu": {
+        "libc": {
+          "before": [
+            "glibc"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/@rolldown/binding-linux-x64-gnu": {
+        "libc": {
+          "before": [
+            "glibc"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/@rolldown/binding-linux-x64-musl": {
+        "libc": {
+          "before": [
+            "musl"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/lightningcss-linux-arm64-gnu": {
+        "libc": {
+          "before": [
+            "glibc"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/lightningcss-linux-arm64-musl": {
+        "libc": {
+          "before": [
+            "musl"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/lightningcss-linux-x64-gnu": {
+        "libc": {
+          "before": [
+            "glibc"
+          ],
+          "after": null
+        }
+      },
+      "node_modules/lightningcss-linux-x64-musl": {
+        "libc": {
+          "before": [
+            "musl"
+          ],
+          "after": null
+        }
+      }
+    }
+  },
+  "typeResolution": [
+    {
+      "npm": "10.9.2",
+      "resolution": {
+        "typescript": "5.3.3",
+        "obsidian": "1.12.3",
+        "obsidianDeclarations": "node_modules/obsidian/obsidian.d.ts",
+        "nodeTypes": "20.19.39"
+      },
+      "errors": 0,
+      "warnings": 4,
+      "rules": {
+        "@typescript-eslint/no-unsafe-return": 0,
+        "@typescript-eslint/no-unsafe-call": 0,
+        "@typescript-eslint/no-unsafe-assignment": 0,
+        "@typescript-eslint/no-unsafe-member-access": 0,
+        "@typescript-eslint/no-unsafe-argument": 0,
+        "@typescript-eslint/no-redundant-type-constituents": 0
+      },
+      "retained": {
+        "no-restricted-globals": 1,
+        "obsidianmd/hardcoded-config-path": 2,
+        "obsidianmd/settings-tab/prefer-setting-definitions": 1
+      }
+    },
+    {
+      "npm": "11.11.0",
+      "resolution": {
+        "typescript": "5.3.3",
+        "obsidian": "1.12.3",
+        "obsidianDeclarations": "node_modules/obsidian/obsidian.d.ts",
+        "nodeTypes": "20.19.39"
+      },
+      "errors": 0,
+      "warnings": 4,
+      "rules": {
+        "@typescript-eslint/no-unsafe-return": 0,
+        "@typescript-eslint/no-unsafe-call": 0,
+        "@typescript-eslint/no-unsafe-assignment": 0,
+        "@typescript-eslint/no-unsafe-member-access": 0,
+        "@typescript-eslint/no-unsafe-argument": 0,
+        "@typescript-eslint/no-redundant-type-constituents": 0
+      },
+      "retained": {
+        "no-restricted-globals": 1,
+        "obsidianmd/hardcoded-config-path": 2,
+        "obsidianmd/settings-tab/prefer-setting-definitions": 1
+      }
+    }
+  ],
+  "fixtureResults": [
+    {
+      "state": "healthy",
+      "exitCode": 0,
+      "findings": 0
+    },
+    {
+      "state": "missing",
+      "exitCode": 1,
+      "findings": 6
+    },
+    {
+      "state": "restored",
+      "exitCode": 0,
+      "findings": 0
+    }
+  ],
+  "fixtureFindings": [
+    {
+      "state": "healthy",
+      "findings": []
+    },
+    {
+      "state": "missing",
+      "findings": [
+        {
+          "file": "main.ts",
+          "ruleId": "@typescript-eslint/no-unsafe-call",
+          "severity": 2,
+          "message": "Unsafe call of a type that could not be resolved.",
+          "line": 5,
+          "column": 5,
+          "nodeType": "MemberExpression",
+          "messageId": "errorCall",
+          "endLine": 5,
+          "endColumn": 20
+        },
+        {
+          "file": "main.ts",
+          "ruleId": "@typescript-eslint/no-unsafe-assignment",
+          "severity": 2,
+          "message": "Unsafe assignment of an error typed value.",
+          "line": 9,
+          "column": 15,
+          "nodeType": "VariableDeclarator",
+          "messageId": "anyAssignment",
+          "endLine": 9,
+          "endColumn": 56
+        },
+        {
+          "file": "main.ts",
+          "ruleId": "@typescript-eslint/no-unsafe-call",
+          "severity": 2,
+          "message": "Unsafe call of a type that could not be resolved.",
+          "line": 9,
+          "column": 22,
+          "nodeType": "MemberExpression",
+          "messageId": "errorCall",
+          "endLine": 9,
+          "endColumn": 54
+        },
+        {
+          "file": "main.ts",
+          "ruleId": "@typescript-eslint/no-unsafe-member-access",
+          "severity": 2,
+          "message": "Unsafe member access .workspace on a type that cannot be resolved.",
+          "line": 9,
+          "column": 31,
+          "nodeType": "Identifier",
+          "messageId": "errorMemberExpression",
+          "endLine": 9,
+          "endColumn": 40
+        },
+        {
+          "file": "main.ts",
+          "ruleId": "@typescript-eslint/no-unsafe-call",
+          "severity": 2,
+          "message": "Unsafe construction of a type that could not be resolved.",
+          "line": 10,
+          "column": 19,
+          "nodeType": "NewExpression",
+          "messageId": "errorNew",
+          "endLine": 10,
+          "endColumn": 44
+        },
+        {
+          "file": "main.ts",
+          "ruleId": "@typescript-eslint/no-unsafe-member-access",
+          "severity": 2,
+          "message": "Unsafe member access .basename on an `any` value.",
+          "line": 10,
+          "column": 35,
+          "nodeType": "Identifier",
+          "messageId": "unsafeMemberExpression",
+          "endLine": 10,
+          "endColumn": 43
+        }
+      ]
+    },
+    {
+      "state": "restored",
+      "findings": []
+    }
+  ],
+  "regression": {
+    "head": "5834317858a1f8687ae985f80318e3097fd9a999",
+    "commands": [
+      {
+        "command": "npm ci",
+        "exitCode": 0,
+        "seconds": 4.11,
+        "log": "regression-install.log"
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "seconds": 3.49,
+        "log": "regression-tests.log"
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0,
+        "seconds": 0.24,
+        "log": "regression-build.log"
+      },
+      {
+        "command": "npm run typecheck",
+        "exitCode": 0,
+        "seconds": 4.03,
+        "log": "regression-typecheck.log"
+      },
+      {
+        "command": "npm run lint",
+        "exitCode": 0,
+        "seconds": 18.9,
+        "log": "regression-lint.log"
+      },
+      {
+        "command": "npm run audit:proposals",
+        "exitCode": 0,
+        "seconds": 10.47,
+        "log": "regression-proposals.log"
+      },
+      {
+        "command": "git diff --check",
+        "exitCode": 0,
+        "seconds": 0.1,
+        "log": "regression-diff.log"
+      },
+      {
+        "command": "npm ci --ignore-scripts",
+        "exitCode": 0,
+        "seconds": 3.94,
+        "log": "regression-ignore-install.log"
+      },
+      {
+        "command": "npm audit --json",
+        "exitCode": 1,
+        "seconds": 0.95,
+        "log": "regression-audit.json"
+      }
+    ]
+  },
+  "tests": {
+    "files": 29,
+    "passed": 793
+  },
+  "proposalMutationsKilled": 5,
+  "bundle": {
+    "mainJsSha256": "6d6eb44d033672dae94c1b8a0b15158c905b07fe4e38aee20dc6d244ab2fdcdd",
+    "baselineIdentical": true,
+    "bytes": 421023,
+    "emittedInputs": 52,
+    "externalImports": [
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      },
+      {
+        "path": "obsidian",
+        "kind": "require-call",
+        "external": true
+      }
+    ],
+    "serverOrDependencyInputs": []
+  },
+  "audit": {
+    "before": {
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 4,
+        "high": 3,
+        "critical": 0,
+        "total": 7
+      },
+      "packages": {
+        "@vitest/mocker": {
+          "severity": "moderate",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-82fw-gwwq-j7x9"
+          ]
+        },
+        "esbuild": {
+          "severity": "moderate",
+          "direct": true,
+          "via": [
+            "https://github.com/advisories/GHSA-67mh-4wv8-2f99"
+          ]
+        },
+        "fast-uri": {
+          "severity": "high",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-5jgf-p345-68v8",
+            "https://github.com/advisories/GHSA-f65p-4m7j-42xc",
+            "https://github.com/advisories/GHSA-fph4-wmhf-6fwf",
+            "https://github.com/advisories/GHSA-jqff-g426-hqxp"
+          ]
+        },
+        "js-yaml": {
+          "severity": "high",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-2883-xcg3-v3hh"
+          ]
+        },
+        "nanoid": {
+          "severity": "high",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-2v37-7h3g-55p8"
+          ]
+        },
+        "postcss": {
+          "severity": "moderate",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp"
+          ]
+        },
+        "vitest": {
+          "severity": "moderate",
+          "direct": true,
+          "via": [
+            "@vitest/mocker",
+            "https://github.com/advisories/GHSA-82fw-gwwq-j7x9"
+          ]
+        }
+      }
+    },
+    "after": {
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 4,
+        "high": 3,
+        "critical": 0,
+        "total": 7
+      },
+      "packages": {
+        "@vitest/mocker": {
+          "severity": "moderate",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-82fw-gwwq-j7x9"
+          ]
+        },
+        "esbuild": {
+          "severity": "moderate",
+          "direct": true,
+          "via": [
+            "https://github.com/advisories/GHSA-67mh-4wv8-2f99"
+          ]
+        },
+        "fast-uri": {
+          "severity": "high",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-5jgf-p345-68v8",
+            "https://github.com/advisories/GHSA-f65p-4m7j-42xc",
+            "https://github.com/advisories/GHSA-fph4-wmhf-6fwf",
+            "https://github.com/advisories/GHSA-jqff-g426-hqxp"
+          ]
+        },
+        "js-yaml": {
+          "severity": "high",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-2883-xcg3-v3hh"
+          ]
+        },
+        "nanoid": {
+          "severity": "high",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-2v37-7h3g-55p8"
+          ]
+        },
+        "postcss": {
+          "severity": "moderate",
+          "direct": false,
+          "via": [
+            "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp"
+          ]
+        },
+        "vitest": {
+          "severity": "moderate",
+          "direct": true,
+          "via": [
+            "@vitest/mocker",
+            "https://github.com/advisories/GHSA-82fw-gwwq-j7x9"
+          ]
+        }
+      }
+    }
+  }
+}

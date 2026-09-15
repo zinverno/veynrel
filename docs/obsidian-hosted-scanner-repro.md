@@ -1,5 +1,7 @@
 # Hosted Community scanner: two separate findings
 
+Post-extraction follow-up: [scanner-style install compatibility](community-scanner-install-compat.md) reproduces npm 10 EUSAGE on `main` 6df5a5 and verifies an npm-generated lock repair under npm 10/11. A new hosted Preview is still required. The historical evidence below remains unchanged.
+
 Evidence recorded September 15, 2026, before Companion extraction. Source: `main` at **1a978e3046a8032db8afbe421c9203d0caedd095**, containing merged PR #21. The historical [forensic audit](obsidian-review-audit.md), [native gate](obsidian-premerge-smoke.md), and their evidence directories remain unchanged.
 
 ## Preview provenance
