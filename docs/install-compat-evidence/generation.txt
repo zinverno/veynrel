@@ -1,0 +1,59 @@
+npx --yes --package npm@10.9.2 npm install --package-lock-only --ignore-scripts
+Baseline lock present: True
+Exit code: 0
+
+up to date, audited 432 packages in 1s
+
+169 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+npx --yes --package npm@10.9.2 npm install --package-lock-only --ignore-scripts
+Baseline lock present: False
+Exit code: 1
+npm error Cannot read properties of null (reading 'edgesOut')
+npm error A complete log of this run can be found in: /home/zinvernix/.npm/_logs/2026-09-15T10_51_24_077Z-debug-0.log
+
+npx --yes --package npm@11.11.0 npm install --package-lock-only --ignore-scripts
+Baseline lock present: True
+Exit code: 0
+
+up to date, audited 353 packages in 1s
+
+158 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (4 moderate, 3 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+npx --yes --package npm@11.11.0 npm install --package-lock-only --ignore-scripts
+Baseline lock present: False
+Exit code: 0
+
+up to date, audited 356 packages in 8s
+
+158 packages are looking for funding
+  run `npm fund` for details
+
+1 moderate severity vulnerability
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
