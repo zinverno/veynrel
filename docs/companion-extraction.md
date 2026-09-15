@@ -40,12 +40,12 @@ Relevant authorship and timestamps are retained. Commit IDs change because paths
 
 HTTP protocol remains **1**, header **`x-companion-protocol-version`**. The repositories are independently installable. Fixed v1 JSON/hash/path fixtures and wire tests guard the duplicated contract; an optional sibling smoke exercises the real plugin client against the real built server. Changes to either side must preserve the v1 fixtures or explicitly introduce a negotiated protocol version. No runtime import may reference a sibling directory.
 
-Expected development layout:
+Current development layout (historical extraction names are retained elsewhere in this report):
 
 ```text
 parent/
-  vault-audit-AI/
-  vault-audit-ai-companion/
+  veynrel/
+  veynrel-companion/
 ```
 
 Each repository has ordinary `npm ci`, test, typecheck, lint and build commands that need no sibling checkout. See the root README for the optional two-repository smoke and Companion's README for its independent server workflow. Historical audit/premerge documents intentionally retain the old package paths and counts.

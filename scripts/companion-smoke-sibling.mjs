@@ -12,7 +12,7 @@ import process from 'node:process';
 import { build } from 'esbuild';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const companion = resolve(process.env.VAULT_AUDIT_COMPANION_DIR || join(root, '../vault-audit-ai-companion'));
+const companion = resolve(process.env.VAULT_AUDIT_COMPANION_DIR || join(root, '../veynrel-companion'));
 const fixturePath = 'tests/fixtures/companion-protocol-v1.json';
 const fixtureText = await readFile(join(root, fixturePath), 'utf8');
 assert.equal(await readFile(join(companion, fixturePath), 'utf8'), fixtureText, 'Protocol fixture drift between repositories');
