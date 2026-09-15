@@ -13,11 +13,11 @@ Formerly Vault Audit AI. Same plugin, settings, data, semantic index, and Commun
 </p>
 
 <p align="center">
-  <a href="https://github.com/zinverno/vault-audit-AI/stargazers">⭐ Star</a>
+  <a href="https://github.com/zinverno/veynrel/stargazers">⭐ Star</a>
   ·
-  <a href="https://github.com/zinverno/vault-audit-AI/releases">Releases</a>
+  <a href="https://github.com/zinverno/veynrel/releases">Releases</a>
   ·
-  <a href="https://github.com/zinverno/vault-audit-AI/blob/main/LICENSE">MIT License</a>
+  <a href="https://github.com/zinverno/veynrel/blob/main/LICENSE">MIT License</a>
 </p>
 
 Veynrel is an open-source Obsidian Community Plugin for searching notes by meaning, discovering related ideas, auditing vault structure, and working with notes through configurable AI providers.
@@ -109,7 +109,7 @@ Approval obtains a two-minute claim, checks the real note against the immutable 
 
 `APPLIED` confirms the Vault write, while normal semantic AutoSync and Companion synchronization may still be running. Those integrations must be enabled for the mirror to catch up. Proposal creation and rejection use **zero embedding calls and zero Qdrant operations**. Approved content may later reach your existing embedding provider through ordinary AutoSync.
 
-When Obsidian is closed, proposals remain on Companion and no notes change. If Companion cannot grant a claim, approval fails safely. A crashed client's claim expires; a write whose acknowledgement was lost may appear pending again, but the immutable base/absence checks prevent blindly repeating the completed operation. Inspect the real note before proposing another change. See [proposal storage, retention and privacy](https://github.com/zinverno/vault-audit-ai-companion#safe-change-proposals).
+When Obsidian is closed, proposals remain on Companion and no notes change. If Companion cannot grant a claim, approval fails safely. A crashed client's claim expires; a write whose acknowledgement was lost may appear pending again, but the immutable base/absence checks prevent blindly repeating the completed operation. Inspect the real note before proposing another change. See [proposal storage, retention and privacy](https://github.com/zinverno/veynrel-companion#safe-change-proposals).
 
 ### Vault audit
 
@@ -161,7 +161,7 @@ Model availability, pricing, rate limits, and retention policies are controlled 
 
 ### Manual installation from a GitHub Release
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the same [GitHub Release](https://github.com/zinverno/vault-audit-AI/releases).
+1. Download `main.js`, `manifest.json`, and `styles.css` from the same [GitHub Release](https://github.com/zinverno/veynrel/releases).
 2. Create:
 
    ```text
@@ -223,7 +223,7 @@ Veynrel separates local storage from provider-side processing so you can choose 
 
 > A locally stored vector index does not automatically make remote-provider requests local. Review the selected provider's privacy policy, retention rules, limits, and pricing before sending sensitive notes.
 
-Optional Companion Qdrant acceleration sends vectors, identifiers, hashes, revision numbers, and embedding-space metadata (including provider, model, and endpoint) to the operator-configured Qdrant service; it does not send note text or paths. SQLite remains the authoritative mirror. See [Companion persistence and recovery](https://github.com/zinverno/vault-audit-ai-companion#optional-qdrant-acceleration).
+Optional Companion Qdrant acceleration sends vectors, identifiers, hashes, revision numbers, and embedding-space metadata (including provider, model, and endpoint) to the operator-configured Qdrant service; it does not send note text or paths. SQLite remains the authoritative mirror. See [Companion persistence and recovery](https://github.com/zinverno/veynrel-companion#optional-qdrant-acceleration).
 
 ## Semantic index behavior
 
@@ -291,9 +291,9 @@ Chunk search + document representations
 
 Stable chunk hashes drive incremental deltas so unchanged chunks are reused.
 
-An optional standalone [Veynrel Companion service](https://github.com/zinverno/vault-audit-ai-companion#readme) (formerly Vault Audit AI Companion) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
+An optional standalone [Veynrel Companion service](https://github.com/zinverno/veynrel-companion#readme) (formerly Vault Audit AI Companion) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
 
-Companion exposes an opt-in [MCP endpoint](https://github.com/zinverno/vault-audit-ai-companion#mcp) for bounded retrieval, semantic search and [change proposals](https://github.com/zinverno/vault-audit-ai-companion#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
+Companion exposes an opt-in [MCP endpoint](https://github.com/zinverno/veynrel-companion#mcp) for bounded retrieval, semantic search and [change proposals](https://github.com/zinverno/veynrel-companion#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
 
 A debounced event coordinator coalesces Markdown path changes, while startup reconciliation catches offline changes. Manual and automatic indexing share one mutation queue. Rename batches reach the vector store as one durable mutation.
 
@@ -335,7 +335,7 @@ The intentional streaming `fetch` advisory remains visible and is checked by fil
 
 Independent CI in each repository validates its own package on Node 24 and saves the plugin bundle plus dependency metadata. A separate workflow verifies and attests the assets of a future manually published release against a build from its tag; it does not create a release or replace assets. Before releasing, test the affected note writes and menus in desktop, mobile, and a popout window, and check the Community scorecard after its next scan.
 
-For optional joint development, clone [Companion](https://github.com/zinverno/vault-audit-ai-companion) next to this checkout as `../vault-audit-ai-companion`. In that repository run `npm ci`, `npm run typecheck`, `npm test`, `npm run lint`, `npm run build`, and `npm run smoke:mcp`. Then, in this plugin repository, run `npm run companion:smoke-sibling`. Set `VAULT_AUDIT_COMPANION_DIR` to override the sibling location. The helper starts an ephemeral server with disposable data and synthetic credentials; ordinary plugin checks never require a sibling. It does not install dependencies, change Git state, or read `.env` files.
+For optional joint development, clone [Companion](https://github.com/zinverno/veynrel-companion) next to this checkout with `git clone https://github.com/zinverno/veynrel-companion.git ../veynrel-companion`. In that repository run `npm ci`, `npm run typecheck`, `npm test`, `npm run lint`, `npm run build`, and `npm run smoke:mcp`. Then, in this plugin repository, run `npm run companion:smoke-sibling`. Set `VAULT_AUDIT_COMPANION_DIR` to override the sibling location. The helper starts an ephemeral server with disposable data and synthetic credentials; ordinary plugin checks never require a sibling. It does not install dependencies, change Git state, or read `.env` files.
 
 Both sides speak HTTP protocol **v1** (`x-companion-protocol-version`). See [extraction, ownership and compatibility](docs/companion-extraction.md), [protocol fixtures](tests/fixtures/companion-protocol-v1.json), and the [separate hosted-scanner findings](docs/obsidian-hosted-scanner-repro.md). Companion previously lived under `companion/`; historical audit reports retain that original location.
 
@@ -343,7 +343,7 @@ Both sides speak HTTP protocol **v1** (`x-companion-protocol-version`). See [ext
 
 Issues, bug reports, feature ideas, and pull requests are welcome.
 
-If you find Veynrel useful, consider [starring the repository](https://github.com/zinverno/vault-audit-AI). It helps more Obsidian users discover the project.
+If you find Veynrel useful, consider [starring the repository](https://github.com/zinverno/veynrel). It helps more Obsidian users discover the project.
 
 ## Support Veynrel
 

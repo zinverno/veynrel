@@ -46,7 +46,7 @@ Preparation only. Do not run the release steps until Community Preview is accept
 4. Build from the exact tag in a fresh directory:
 
    ```sh
-   git clone --branch 1.8.0 --single-branch https://github.com/zinverno/vault-audit-AI.git veynrel-1.8.0-tag
+   git clone --branch 1.8.0 --single-branch https://github.com/zinverno/veynrel.git veynrel-1.8.0-tag
    cd veynrel-1.8.0-tag
    git rev-parse 'HEAD^{commit}'
    npm ci
@@ -60,7 +60,7 @@ Preparation only. Do not run the release steps until Community Preview is accept
 5. Create a draft release using the existing tag and public notes, uploading exactly `main.js`, `manifest.json`, and `styles.css` from this tag checkout:
 
    ```sh
-   gh release create 1.8.0 main.js manifest.json styles.css --repo zinverno/vault-audit-AI --verify-tag --draft --title "Veynrel 1.8.0" --notes-file docs/releases/1.8.0.md
+   gh release create 1.8.0 main.js manifest.json styles.css --repo zinverno/veynrel --verify-tag --draft --title "Veynrel 1.8.0" --notes-file docs/releases/1.8.0.md
    ```
 
    Review the draft and its three manually attached assets. GitHub's automatically generated source archives are separate. Do not attach source maps, dependency trees, local data, tokens, test fixtures or `.esbuild/meta.json`.
@@ -70,14 +70,14 @@ Preparation only. Do not run the release steps until Community Preview is accept
 7. Independently download to an empty directory and compare against the tag build:
 
    ```sh
-   gh release download 1.8.0 --repo zinverno/vault-audit-AI --dir published --pattern main.js --pattern manifest.json --pattern styles.css
+   gh release download 1.8.0 --repo zinverno/veynrel --dir published --pattern main.js --pattern manifest.json --pattern styles.css
    for asset in main.js manifest.json styles.css; do cmp "$asset" "published/$asset"; done
-   gh attestation verify main.js --repo zinverno/vault-audit-AI
-   gh attestation verify manifest.json --repo zinverno/vault-audit-AI
-   gh attestation verify styles.css --repo zinverno/vault-audit-AI
+   gh attestation verify main.js --repo zinverno/veynrel
+   gh attestation verify manifest.json --repo zinverno/veynrel
+   gh attestation verify styles.css --repo zinverno/veynrel
    ```
 
-8. Check Community discovery/update metadata: plugin ID stays `ai-knowledge-hub`, repository stays `zinverno/vault-audit-AI`, minimum app version stays `1.8.7`, and the update resolves release `1.8.0`. Update the Directory display name/description and approved icon separately if managed in the authenticated account UI. Do not create a second plugin entry.
+8. Check Community discovery/update metadata: plugin ID stays `ai-knowledge-hub`, repository is `zinverno/veynrel`, minimum app version stays `1.8.7`, and the update resolves release `1.8.0`. Update the Directory display name/description and approved icon separately if managed in the authenticated account UI. Do not create a second plugin entry.
 9. Ensure the manifest support link and GitHub sponsor button point to `https://boosty.to/veynrel`. If the Community Directory profile has a separately managed funding field, set it to that same URL manually. No authenticated Directory automation is part of this preparation.
 10. In an existing installation, use the normal update action and verify Veynrel loads in `.obsidian/plugins/ai-knowledge-hub/` with enabled state, hotkeys, provider/settings, semantic search and optional Companion intact. Confirm no reinstall or brand-triggered reindex. Record the actual hosted/update result separately from the pre-release native smoke tests.
 
