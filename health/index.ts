@@ -1,0 +1,14 @@
+export type { Finding, FindingCandidate, FindingAction, FindingEvidence, FindingState, FindingSource, FindingImpact, FindingConfidence, HealthDimension } from "./domain/finding";
+export type { HealthState, AnalysisDepth } from "./domain/healthState";
+export type { VaultProfile } from "./domain/profile";
+export { DEFAULT_VAULT_PROFILE } from "./domain/profile";
+export type { Recommendation } from "./domain/recommendation";
+export type { ScanRun, ScanType, ScanStatus } from "./domain/scanRun";
+export type { FindingFingerprintInput } from "./domain/identity";
+export { createFindingFingerprint, findingIdFromFingerprint, canonicalFindingPaths } from "./domain/identity";
+export { isFinding, isFindingCandidate, isFindingAction, isFindingEvidence } from "./domain/findingValidation";
+export { isScanRun } from "./domain/scanRunValidation";
+export { FindingStore } from "./store/findingStore";
+export { ObsidianHealthStorage, healthStorageRoot } from "./store/healthStorage";
+export { HEALTH_SCHEMA_VERSION, MAX_SCAN_HISTORY } from "./store/types";
+export type { HealthStoragePort, HealthFile, HealthLoadResult, HealthLoadStatus, FindingsSnapshot, ScanRunsSnapshot, FindingFilter, ReconciliationScope, ReconcileRequest, ReconcileResult } from "./store/types";

@@ -8,7 +8,7 @@
     "build": "node esbuild.config.mjs production",
     "lint": "npm run lint:obsidian",
     "lint:obsidian": "npm run typecheck && npm run build && node scripts/lint-obsidian.mjs",
-    "typecheck": "tsc --noEmit --module ES2020 --ignoreDeprecations 5.0",
+    "typecheck": "tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json",
     "test": "vitest run",
     "version": "node version-bump.mjs && git add manifest.json versions.json",
     "audit:proposals": "node scripts/proposal-mutation-audit.mjs",
