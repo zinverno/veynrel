@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "ignoreDeprecations": "5.0"
+  },
+  "include": ["**/*.ts", "../utils/stableHash.ts"]
+}
