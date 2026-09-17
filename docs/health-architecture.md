@@ -1,5 +1,9 @@
 # Veynrel Health foundation
 
+The dormant local snapshot, analyzer and coordinator layer added in PR 2 is
+documented in [Local Health analysis](local-health-analysis.md). The foundation
+contracts and persistence behavior below remain unchanged; PR 3 will connect them.
+
 Health introduces a shared domain for knowledge-base observations. Future analyzers
 will emit candidates, reconciliation will maintain Findings, and HealthService
 will consume them. This PR contains only domain contracts and persistence. Nothing
