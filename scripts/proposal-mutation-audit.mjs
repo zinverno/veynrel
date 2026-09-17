@@ -34,7 +34,7 @@ function run(item) {
 }
 function passes(result) { assert.equal(result.status, 0, result.stdout + result.stderr); assert.match(result.stdout, /[1-9][0-9]* passed/); }
 try {
-  for (const path of ["package.json", "tsconfig.json", "proposals", "chunking", "companionSync"]) {
+  for (const path of ["package.json", "tsconfig.json", "proposals", "chunking", "companionSync", "utils"]) {
     await cp(join(root, path), join(scratch, path), { recursive: true });
   }
   await symlink(join(root, "node_modules"), join(scratch, "node_modules"), "dir");
