@@ -19,7 +19,6 @@ export interface HealthControllerState {
   savingPreferences: boolean;
   preferencesError: boolean;
   mutatingFindingId?: string;
-  findingMutationError?: boolean;
   outcome?: LocalHealthScanOutcome;
   busy: boolean;
   recovering: boolean;
@@ -42,7 +41,6 @@ export class HealthPluginController {
   private savingPreferences = false;
   private preferencesError = false;
   private mutatingFindingId?: string;
-  private findingMutationError = false;
 
   constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort) {
     this.recovery = new HealthRecovery(app.vault.adapter, healthStorageRoot(app.vault.configDir, pluginId));
@@ -78,7 +76,7 @@ export class HealthPluginController {
     const id = snapshot?.recommendation?.findingId;
     return { snapshot, recommendationFinding: id ? this.service?.getFinding(id) : undefined,
       preferences, savingPreferences: this.savingPreferences, preferencesError: this.preferencesError,
-      mutatingFindingId: this.mutatingFindingId, findingMutationError: this.findingMutationError,
+      mutatingFindingId: this.mutatingFindingId,
       outcome: this.outcome ? structuredClone(this.outcome) : undefined,
       busy: Boolean(this.activeScan) || Boolean(this.service?.isLocalScanRunning()) || this.recovering || Boolean(this.mutatingFindingId),
       recovering: this.recovering, error: this.error };
@@ -120,10 +118,9 @@ export class HealthPluginController {
     const finding = this.getFinding(id);
     if (!finding || !allowed.includes(finding.state)) return false;
     this.mutatingFindingId = id;
-    this.findingMutationError = false;
     this.notify();
     try { await update(this.service); return true; }
-    catch { this.findingMutationError = true; return false; }
+    catch { return false; }
     finally { this.mutatingFindingId = undefined; this.notify(); }
   }
 

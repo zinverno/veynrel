@@ -190,7 +190,8 @@ describe("Finding lifecycle through the controller", () => {
     const success = action === "dismiss" ? await f.controller.dismissFinding(item.id)
       : action === "snooze" ? await f.controller.snoozeFinding(item.id, snoozeDeadline(1)) : await f.controller.reopenFinding(item.id);
     expect(success).toBe(false); expect(f.controller.getFinding(item.id)).toEqual(before); expect(f.files.get(`${root}/findings.json`)).toBe(bytes);
-    expect(f.controller.getState().findingMutationError).toBe(true); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+    expect(f.controller.getState().mutatingFindingId).toBeUndefined(); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+    expect(f.controller.getState()).not.toHaveProperty("findingMutationError");
     expect(findingsInboxViewModel({ findings: f.controller.listFindings(), route: findingsRoute({ state: before.state }) }).rows[0].id).toBe(item.id);
   });
   it.each(SNOOZE_DAYS)("snoozes for %s days, updates recommendation without scan, and reopens", async (days) => {

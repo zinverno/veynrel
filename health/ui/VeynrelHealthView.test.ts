@@ -327,6 +327,68 @@ describe("Findings navigation and lifecycle integration", () => {
     f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.action("finding-dismiss")).toBeUndefined());
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
   });
+  async function failedDismiss() {
+    const f = await scanned(); const id = f.controller.listFindings()[0].id;
+    const bytes = f.files.get(`${root}/findings.json`);
+    f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
+    f.content.action("finding-dismiss").click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
+    expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.files.get(`${root}/findings.json`)).toBe(bytes);
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+    return { ...f, id };
+  }
+  it("leaving a failed Dismiss for Health clears the error and returning to the same Finding never resurrects it", async () => {
+    const f = await failedDismiss(); f.content.action("nav-health").click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.content.texts()).toContain("Vault check complete");
+    f.content.action("nav-findings").click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    f.content.action(`finding-${f.id}`).click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+  });
+  it.each(["state-dismissed", "filter-connections", "another-finding"])("%s ends the failed interaction without resurrecting its status on return", async (destination) => {
+    const f = fixture(); f.vault.getMarkdownFiles.mockReturnValue([f.note, { ...f.note, path: "B.md", basename: "B" }]);
+    await f.view.onOpen(); await f.controller.runLocalScan();
+    const id = f.controller.getState().recommendationFinding!.id;
+    const other = f.controller.listFindings().find((finding) => finding.id !== id)!;
+    f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
+    f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
+    f.content.action(destination === "another-finding" ? `finding-${other.id}` : destination).click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.controller.getFinding(id)?.state).toBe("open");
+  });
+  it("a later scan clears a failed Finding interaction immediately and can publish its own successful status", async () => {
+    const f = await failedDismiss();
+    const pending = f.controller.runLocalScan();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.content.texts()).toContain("Checking your vault…"); await pending;
+    expect(f.content.texts()).toContain("Vault check complete"); expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.controller.getFinding(f.id)?.state).toBe("open"); expect(f.content.action("finding-dismiss")).toBeDefined();
+  });
+  it("a second lifecycle interaction can fail safely and then succeed after leaving the first failure", async () => {
+    const f = await failedDismiss(); f.content.action("findings-back").click(); f.content.action(`finding-${f.id}`).click();
+    f.content.action("finding-snooze").click(); f.adapter.write.mockRejectedValueOnce(new Error("SECOND PRIVATE FAILURE"));
+    f.content.action("snooze-1").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
+    expect(f.controller.getFinding(f.id)?.state).toBe("open");
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+    f.content.action("snooze-1").click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    await vi.waitFor(() => expect(f.controller.getFinding(f.id)?.state).toBe("snoozed"));
+    expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.content.texts()).toContain("Finding updated");
+  });
+  it.each(["navigation", "close"])("a pending failure cannot restore an abandoned interaction after %s and return", async (leave) => {
+    const f = await scanned(); const id = f.controller.listFindings()[0].id; f.content.action("review-finding").click();
+    let reject!: (error: Error) => void; f.adapter.write.mockReturnValueOnce(new Promise((_, rejectWrite) => { reject = rejectWrite; }));
+    f.content.action("finding-dismiss").click(); await flush();
+    if (leave === "navigation") f.content.action("nav-health").click();
+    else { await f.view.onClose(); await f.view.onOpen(); }
+    f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    reject(new Error("PRIVATE LATE FAILURE")); await vi.waitFor(() => expect(f.controller.getState().mutatingFindingId).toBeUndefined()); await flush();
+    expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+  });
   it("reacts to external scan resolution and recurrence, announces it and offers no manual Reopen for history", async () => {
     const f = await scanned(); const item = f.controller.listFindings()[0];
     f.content.action("review-finding").click(); f.vault.getMarkdownFiles.mockReturnValue([]); await f.controller.runLocalScan();

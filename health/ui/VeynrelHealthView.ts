@@ -12,7 +12,7 @@ import { renderHealthOnboarding } from "./renderHealthOnboarding";
 import type { HealthPreferences } from "../preferences";
 import type { VaultProfile } from "../domain/profile";
 import { findingsInboxViewModel, findingsRoute, snoozeDeadline } from "./findingsInboxViewModel";
-import type { VeynrelHealthRoute } from "./findingsInboxViewModel";
+import type { FindingsRoute, VeynrelHealthRoute } from "./findingsInboxViewModel";
 import { renderFindingsInbox } from "./renderFindingsInbox";
 
 export class VeynrelHealthView extends ItemView {
@@ -23,6 +23,7 @@ export class VeynrelHealthView extends ItemView {
   private navigationMessage?: string;
   private changingProfile = false;
   private route: VeynrelHealthRoute = { page: "health" };
+  private findingMutationErrorRoute?: FindingsRoute;
   private expandedPaths = false;
   private expandedSnooze = false;
   private focusDestination?: "heading" | "detail";
@@ -53,6 +54,7 @@ export class VeynrelHealthView extends ItemView {
   async onClose(): Promise<void> {
     this.epoch++; this.unsubscribe?.(); this.unsubscribe = undefined;
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
+    this.findingMutationErrorRoute = undefined;
     this.changingProfile = false;
     this.route = { page: "health" }; this.expandedPaths = false; this.expandedSnooze = false; this.focusDestination = undefined;
     this.contentEl.empty();
@@ -71,6 +73,8 @@ export class VeynrelHealthView extends ItemView {
     const openNote = (): void => { void this.openNote(this.controller.getRecommendationPath()); };
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
     const normal = onboarding.step === "complete";
+    // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
+    if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
     this.body.empty();
     if (normal) {
       const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
@@ -97,9 +101,9 @@ export class VeynrelHealthView extends ItemView {
         select: (id) => this.navigate({ ...route, selectedFindingId: id }),
         back: () => this.navigate({ ...route, selectedFindingId: undefined }),
         openNote: (path) => { void this.openNote(path); }, tools: this.openTools,
-        dismiss: (id) => { this.navigationMessage = undefined; void this.controller.dismissFinding(id); },
-        snooze: (id, days) => { this.navigationMessage = undefined; void this.controller.snoozeFinding(id, snoozeDeadline(days)); },
-        reopen: (id) => { this.navigationMessage = undefined; void this.controller.reopenFinding(id); },
+        dismiss: (id) => { void this.mutateFinding(id, () => this.controller.dismissFinding(id)); },
+        snooze: (id, days) => { void this.mutateFinding(id, () => this.controller.snoozeFinding(id, snoozeDeadline(days))); },
+        reopen: (id) => { void this.mutateFinding(id, () => this.controller.reopenFinding(id)); },
         togglePaths: () => { this.expandedPaths = !this.expandedPaths; this.render(); },
         toggleSnooze: () => { this.expandedSnooze = !this.expandedSnooze; this.render(); },
       }, this.expandedPaths, this.expandedSnooze);
@@ -123,10 +127,11 @@ export class VeynrelHealthView extends ItemView {
       });
     }
     const status = onboarding.step === "scan" ? onboarding.status : model.status;
+    const mutationError = this.findingMutationErrorRoute === this.route;
     this.status.setText(state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
-      : state.findingMutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
+      : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
       : this.navigationMessage ?? status ?? "");
-    this.status.toggleClass("veynrel-health-status-error", state.preferencesError || Boolean(state.findingMutationError) || model.statusError);
+    this.status.toggleClass("veynrel-health-status-error", state.preferencesError || mutationError || model.statusError);
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
@@ -146,8 +151,21 @@ export class VeynrelHealthView extends ItemView {
   private navigate(route: VeynrelHealthRoute): void {
     this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
     this.changingProfile = false; this.navigationMessage = undefined;
+    this.findingMutationErrorRoute = undefined;
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";
     this.render();
+  }
+
+  private async mutateFinding(id: string, update: () => Promise<boolean>): Promise<void> {
+    const route = this.route;
+    if (route.page !== "findings" || route.selectedFindingId !== id || this.controller.getState().busy) return;
+    this.navigationMessage = undefined; this.findingMutationErrorRoute = undefined;
+    const success = await update();
+    // Route identity also rejects late failures after leaving and returning to the same Finding.
+    if (!success && this.route === route && !this.controller.getState().busy) {
+      this.findingMutationErrorRoute = route;
+      this.render();
+    }
   }
 
   private async savePreferences(update: Partial<HealthPreferences>): Promise<void> {

@@ -82,6 +82,12 @@ row/detail, disable lifecycle controls and announce saving. Rejections retain
 previous backend/UI state and show “Couldn't update this finding,” never the
 private exception. No optimistic deletion or rollback implementation is added.
 
+Mutation failures are view-owned and scoped to the initiating Findings route.
+The controller returns success/failure without retaining a global error flag.
+Navigation, filters, selection, scan/mutation activity and close clear the failure;
+returning to the same Finding cannot resurrect it. Late rejected writes from an
+abandoned interaction are ignored by the view. No timer or persisted error is used.
+
 * Open: Dismiss and Snooze. Dismiss is reversible user intent with explanatory copy,
   no confirmation modal, and remains dismissed across later identical scans.
 * Snooze: 1, 7 or 30 elapsed days, calculated at click time by
@@ -125,13 +131,15 @@ AI/network integration, Markdown editing, automatic fixes or scan is introduced.
 
 ## Verification
 
-59 test cases added: Health-related tests 345 -> 404, repository tests 1,194 ->
-1,253. New evidence and Inbox view-model suites cover every local type in EN/RU,
+67 test cases added: Health-related tests 345 -> 412, repository tests 1,194 ->
+1,261. New evidence and Inbox view-model suites cover every local type in EN/RU,
 filter combinations, counts, sorting, unknown IDs, selection invalidation, bounded
 groups, future-type fallback, states, dates and snooze deadlines. Expanded
 controller/view suites cover persist-first failures, duplicate clicks, all
 lifecycle transitions, recommendation updates, partial Health, restart, recurrence,
-no hidden scan, safe navigation, focus, Tools, onboarding and recovery.
+no hidden scan, safe navigation, focus, Tools, onboarding and recovery. Eight
+transient-error regressions cover navigation/filter/selection, later scans,
+retry and late failures after leaving or closing the view.
 
 Passed: `npm ci`, `npm run typecheck`, `npm test -- health`, focused UI/controller
 tests, `npm test`, `npx eslint health`, `npm run lint`, `npm run audit:proposals`
@@ -146,7 +154,9 @@ that review did not independently execute tests or native checks.
 ## Native desktop smoke (2026-09-22)
 
 Real installed Obsidian **1.12.7 / Electron 39.8.10**, isolated profile and three
-synthetic notes, no provider credentials. The installed production bundle and
+synthetic notes, no provider credentials. This smoke records implementation commit
+`11f29a6`, before the transient-error correction, which is verified by automated
+regressions. The installed production bundle and
 styles matched the repository build byte for byte:
 
 * `main.js`: `b9e5376e937a605820fb8c3a6c92d06a4d29020cdc2c5819194d5e32dc421740`
