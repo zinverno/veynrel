@@ -8,7 +8,9 @@ import type { HealthSnapshot, LocalHealthScanOutcome } from "../services/types";
 import { HealthRecovery } from "./healthRecovery";
 import type { HealthRecoveryScope } from "./healthRecovery";
 import type { HealthPreferences, HealthPreferencesPort } from "../preferences";
-import type { Finding } from "../domain/finding";
+import type { Finding, FindingState } from "../domain/finding";
+import type { FindingFilter } from "../store/types";
+import { isFindingId } from "../domain/identity";
 
 export interface HealthControllerState {
   snapshot?: HealthSnapshot;
@@ -16,6 +18,8 @@ export interface HealthControllerState {
   preferences: HealthPreferences;
   savingPreferences: boolean;
   preferencesError: boolean;
+  mutatingFindingId?: string;
+  findingMutationError?: boolean;
   outcome?: LocalHealthScanOutcome;
   busy: boolean;
   recovering: boolean;
@@ -37,6 +41,8 @@ export class HealthPluginController {
   private readonly recovery: HealthRecovery;
   private savingPreferences = false;
   private preferencesError = false;
+  private mutatingFindingId?: string;
+  private findingMutationError = false;
 
   constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort) {
     this.recovery = new HealthRecovery(app.vault.adapter, healthStorageRoot(app.vault.configDir, pluginId));
@@ -72,8 +78,9 @@ export class HealthPluginController {
     const id = snapshot?.recommendation?.findingId;
     return { snapshot, recommendationFinding: id ? this.service?.getFinding(id) : undefined,
       preferences, savingPreferences: this.savingPreferences, preferencesError: this.preferencesError,
+      mutatingFindingId: this.mutatingFindingId, findingMutationError: this.findingMutationError,
       outcome: this.outcome ? structuredClone(this.outcome) : undefined,
-      busy: Boolean(this.activeScan) || Boolean(this.service?.isLocalScanRunning()) || this.recovering,
+      busy: Boolean(this.activeScan) || Boolean(this.service?.isLocalScanRunning()) || this.recovering || Boolean(this.mutatingFindingId),
       recovering: this.recovering, error: this.error };
   }
 
@@ -84,6 +91,40 @@ export class HealthPluginController {
 
   getRecommendationPath(): string | undefined {
     return this.getState().recommendationFinding?.notePaths[0];
+  }
+
+  /** Service reads are deep copies of committed state; no Vault enumeration or reads. */
+  listFindings(filter?: FindingFilter): Finding[] {
+    return this.disposed || this.recovering ? [] : this.service?.listFindings(filter) ?? [];
+  }
+
+  getFinding(id: string): Finding | undefined {
+    return this.disposed || this.recovering || !isFindingId(id) ? undefined : this.service?.getFinding(id);
+  }
+
+  dismissFinding(id: string): Promise<boolean> {
+    return this.mutateFinding(id, ["open"], (service) => service.dismissFinding(id));
+  }
+
+  snoozeFinding(id: string, until: number): Promise<boolean> {
+    return this.mutateFinding(id, ["open"], (service) => service.snoozeFinding(id, until));
+  }
+
+  reopenFinding(id: string): Promise<boolean> {
+    return this.mutateFinding(id, ["dismissed", "snoozed"], (service) => service.reopenFinding(id));
+  }
+
+  private async mutateFinding(id: string, allowed: readonly FindingState[], update: (service: HealthService) => Promise<void>): Promise<boolean> {
+    // Exclude scan/recovery races and stale/double clicks; resolved history stays backend-owned.
+    if (this.disposed || this.getState().busy || !this.service) return false;
+    const finding = this.getFinding(id);
+    if (!finding || !allowed.includes(finding.state)) return false;
+    this.mutatingFindingId = id;
+    this.findingMutationError = false;
+    this.notify();
+    try { await update(this.service); return true; }
+    catch { this.findingMutationError = true; return false; }
+    finally { this.mutatingFindingId = undefined; this.notify(); }
   }
 
   async updatePreferences(update: Partial<HealthPreferences>): Promise<boolean> {
@@ -103,7 +144,7 @@ export class HealthPluginController {
   /** Only explicit user actions call this. The controller consumes every rejection. */
   runLocalScan(): Promise<void> {
     if (this.activeScan) return this.activeScan;
-    if (this.recovering || this.disposed) return Promise.resolve();
+    if (this.recovering || this.disposed || this.mutatingFindingId) return Promise.resolve();
     this.error = undefined;
     this.outcome = undefined;
     this.scanAbort = new AbortController();
@@ -126,11 +167,11 @@ export class HealthPluginController {
 
   /** UI must confirm first. Derive scope again here so history-only cannot reset damaged Findings alone. */
   async recover(scope: HealthRecoveryScope): Promise<boolean> {
-    if (this.activeScan || this.recovering || this.disposed) return false;
+    if (this.activeScan || this.recovering || this.disposed || this.mutatingFindingId) return false;
     let service: HealthService;
     try { service = await this.getHealthService(); }
     catch { this.error = "recovery"; this.notify(); return false; }
-    if (this.activeScan || this.recovering || this.disposed || service.isLocalScanRunning()) return false;
+    if (this.activeScan || this.recovering || this.disposed || this.mutatingFindingId || service.isLocalScanRunning()) return false;
     const state = service.getSnapshot().initialization;
     const required = !state.findingsWritable ? "all" : !state.historyWritable ? "history" : undefined;
     if (!required || required !== scope) return false;

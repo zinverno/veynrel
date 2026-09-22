@@ -32,11 +32,23 @@ describe("Health production dependency boundary", () => {
     }
     expect(visited.has(resolve("health/obsidian/registerHealth.ts"))).toBe(true);
     expect(visited.has(resolve("health/ui/VeynrelHealthView.ts"))).toBe(true);
+    expect(visited.has(resolve("health/ui/renderFindingsInbox.ts"))).toBe(true);
+    expect(visited.has(resolve("health/ui/findingsInboxViewModel.ts"))).toBe(true);
   });
   it("keeps both legacy batch/control command IDs and adds one Health registration", () => {
     const source = readFileSync("main.ts", "utf8");
     expect(source).toMatch(/id: "ai-hub-open-panel",\s*name: [^\n]+\s*callback: \(\) => new BatchProcessModal\(this.app, this\).open\(\)/u);
     expect(source).toContain('id: "ai-batch-process"');
     expect(source.match(/registerHealth\(this,/gu)).toHaveLength(1);
+  });
+  it("keeps Inbox rendering away from storage, scans and arbitrary persisted action execution", () => {
+    for (const file of productionFiles("health/ui")) {
+      const source = readFileSync(file, "utf8");
+      expect(source, file).not.toMatch(/\b(?:FindingStore|HealthService|new HealthPluginController)\b/u);
+      expect(source, file).not.toMatch(/\b(?:finding|selected|detail)\.actions\b|\baction\.kind\b/u);
+      expect(source, file).not.toMatch(/\bvault\.(?:read|getMarkdownFiles)\s*\(/u);
+    }
+    const controller = readFileSync("health/obsidian/healthPluginController.ts", "utf8");
+    expect(controller.match(/new HealthService\(/gu)).toHaveLength(1);
   });
 });
