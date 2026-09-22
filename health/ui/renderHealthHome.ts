@@ -1,10 +1,13 @@
 import { setIcon } from "obsidian";
 import { t } from "../../i18n";
 import type { HealthHomeViewModel, HealthCardModel } from "./healthHomeViewModel";
+import type { VaultProfile } from "../domain/profile";
+import { healthProfileName, renderHealthProfileOptions } from "./healthProfileOptions";
 
-interface HealthHomeActions { scan: () => void; tools: () => void; recover: () => void; openNote: () => void }
+interface HealthHomeActions { scan: () => void; tools: () => void; recover: () => void; openNote: () => void;
+  changeProfile: () => void; chooseProfile: (profile: VaultProfile) => void }
 
-function button(parent: HTMLElement, text: string, action: () => void, key: string, disabled = false, primary = false): void {
+export function healthButton(parent: HTMLElement, text: string, action: () => void, key: string, disabled = false, primary = false): void {
   const element = parent.createEl("button", { text, cls: primary ? "mod-cta veynrel-health-primary" : "",
     attr: { type: "button", "data-health-action": key } });
   element.disabled = disabled;
@@ -22,35 +25,41 @@ function renderHealthCard(parent: HTMLElement, card: HealthCardModel): void {
   if (card.depth) article.createEl("p", { text: card.depth, cls: "veynrel-health-muted" });
 }
 
-export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel, actions: HealthHomeActions): void {
+export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel, actions: HealthHomeActions, changingProfile = false): void {
   parent.empty();
   const home = parent.createDiv({ cls: "veynrel-health-home" });
   const header = home.createEl("header", { cls: "veynrel-health-header" });
   const title = header.createDiv();
-  title.createEl("h1", { text: t("@health.title") });
+  title.createEl("h1", { text: t("@health.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
   title.createEl("p", { text: t("@health.subtitle"), cls: "veynrel-health-muted" });
-  button(header, t("@health.tools"), actions.tools, "tools");
+  healthButton(header, t("@health.tools"), actions.tools, "tools");
   if (model.recovery) {
     const section = home.createEl("section", { cls: "veynrel-health-recovery", attr: { role: "alert" } });
     section.createEl("h2", { text: model.recovery.title });
     section.createEl("p", { text: model.recovery.description });
     section.createEl("p", { text: t("@health.unaffected") });
-    button(section, t(model.recovery.scope === "all" ? "@health.recover-all" : "@health.recover-history"), actions.recover, "recover", model.recoveryDisabled);
+    healthButton(section, t(model.recovery.scope === "all" ? "@health.recover-all" : "@health.recover-history"), actions.recover, "recover", model.recoveryDisabled);
   }
   if (model.recovery?.blocking) return;
+  if (model.profile && !model.recovery) {
+    const profile = home.createDiv({ cls: "veynrel-health-profile-control" });
+    profile.createSpan({ text: t("@health.profile.current", { name: healthProfileName(model.profile.value) }), cls: "veynrel-health-muted" });
+    healthButton(profile, t(changingProfile ? "@health.cancel" : "@health.profile.change"), actions.changeProfile, "change-profile", model.profile.saving);
+    if (changingProfile) renderHealthProfileOptions(home, model.profile.value, model.profile.saving, actions.chooseProfile);
+  }
   const scan = home.createEl("section", { cls: "veynrel-health-scan" });
   if (model.initial) {
     scan.createEl("h2", { text: t("@health.initial-title") });
     scan.createEl("p", { text: t("@health.initial-description") });
   }
   scan.createEl("p", { text: t("@health.private"), cls: "veynrel-health-muted" });
-  button(scan, model.scanLabel, actions.scan, "scan", model.scanDisabled, true);
+  healthButton(scan, model.scanLabel, actions.scan, "scan", model.scanDisabled, true);
   if (model.recommendation) {
     const section = home.createEl("section", { cls: "veynrel-health-recommendation" });
     section.createEl("h2", { text: t("@health.recommended") });
     section.createEl("h3", { text: model.recommendation.title });
     section.createEl("p", { text: model.recommendation.explanation });
-    if (model.recommendation.canOpenNote) button(section, t("@health.open-note"), actions.openNote, "open-note");
+    if (model.recommendation.canOpenNote) healthButton(section, t("@health.open-note"), actions.openNote, "open-note");
   }
   const health = home.createEl("section", { cls: "veynrel-health-dimensions" });
   health.createEl("h2", { text: t("@health.health") });

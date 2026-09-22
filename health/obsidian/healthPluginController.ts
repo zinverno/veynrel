@@ -7,9 +7,15 @@ import { HealthService } from "../services/healthService";
 import type { HealthSnapshot, LocalHealthScanOutcome } from "../services/types";
 import { HealthRecovery } from "./healthRecovery";
 import type { HealthRecoveryScope } from "./healthRecovery";
+import type { HealthPreferences, HealthPreferencesPort } from "../preferences";
+import type { Finding } from "../domain/finding";
 
 export interface HealthControllerState {
   snapshot?: HealthSnapshot;
+  recommendationFinding?: Finding;
+  preferences: HealthPreferences;
+  savingPreferences: boolean;
+  preferencesError: boolean;
   outcome?: LocalHealthScanOutcome;
   busy: boolean;
   recovering: boolean;
@@ -29,8 +35,10 @@ export class HealthPluginController {
   private recovering = false;
   private disposed = false;
   private readonly recovery: HealthRecovery;
+  private savingPreferences = false;
+  private preferencesError = false;
 
-  constructor(private readonly app: App, private readonly pluginId: string) {
+  constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort) {
     this.recovery = new HealthRecovery(app.vault.adapter, healthStorageRoot(app.vault.configDir, pluginId));
   }
 
@@ -59,7 +67,12 @@ export class HealthPluginController {
   }
 
   getState(): HealthControllerState {
-    return { snapshot: this.service?.getSnapshot(), outcome: this.outcome ? structuredClone(this.outcome) : undefined,
+    const preferences = this.preferences.get();
+    const snapshot = this.service?.getSnapshot(preferences.profile);
+    const id = snapshot?.recommendation?.findingId;
+    return { snapshot, recommendationFinding: id ? this.service?.getFinding(id) : undefined,
+      preferences, savingPreferences: this.savingPreferences, preferencesError: this.preferencesError,
+      outcome: this.outcome ? structuredClone(this.outcome) : undefined,
       busy: Boolean(this.activeScan) || Boolean(this.service?.isLocalScanRunning()) || this.recovering,
       recovering: this.recovering, error: this.error };
   }
@@ -70,8 +83,21 @@ export class HealthPluginController {
   }
 
   getRecommendationPath(): string | undefined {
-    const id = this.service?.getSnapshot().recommendation?.findingId;
-    return id ? this.service?.getFinding(id)?.notePaths[0] : undefined;
+    return this.getState().recommendationFinding?.notePaths[0];
+  }
+
+  async updatePreferences(update: Partial<HealthPreferences>): Promise<boolean> {
+    if (this.savingPreferences || this.recovering || this.disposed) return false;
+    this.savingPreferences = true;
+    this.preferencesError = false;
+    this.notify();
+    try {
+      await this.preferences.update(update);
+      return true;
+    } catch {
+      this.preferencesError = true;
+      return false;
+    } finally { this.savingPreferences = false; this.notify(); }
   }
 
   /** Only explicit user actions call this. The controller consumes every rejection. */

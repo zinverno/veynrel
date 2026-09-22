@@ -59,6 +59,8 @@ import {
 } from "./companionSync";
 import type { StoredCompanionSettings } from "./companionSync";
 import { ObsidianSemanticController } from "./semantic";
+import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
+import type { HealthPreferences } from "./health/preferences";
 
 import { CompanionClient } from "./companionSync/client";
 import { ProposalApplication } from "./proposals/application";
@@ -77,6 +79,7 @@ interface VaultAuditStats {
 
 export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
+  private settingsSave: Promise<void> = Promise.resolve();
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
   private atomizationTasks = new Map<TFile, Promise<void>>();
@@ -121,7 +124,8 @@ export default class AIHubPlugin extends Plugin {
       this.register(() => void this.semanticController.dispose());
 
       const { registerHealth } = await import("./health/obsidian/registerHealth");
-      registerHealth(this, () => new BatchProcessModal(this.app, this).open());
+      registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
+        new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)));
 
       this.addCommand({
         id: "ai-hub-open-panel",
@@ -224,15 +228,17 @@ export default class AIHubPlugin extends Plugin {
     }
   }
   async loadSettings() {
-    type StoredAIHubSettings = Omit<Partial<AIHubSettings>, "semantic" | "companion"> & {
+    type StoredAIHubSettings = Omit<Partial<AIHubSettings>, "semantic" | "companion" | "health"> & {
       semantic?: StoredEmbeddingSettings;
       companion?: StoredCompanionSettings;
+      health?: unknown;
     };
     const data = (await this.loadData()) as StoredAIHubSettings | null;
     const needsVaultId = !isVaultId(data?.companion?.vaultId);
     this.settings = Object.assign({}, DEFAULT_SETTINGS, data, {
       semantic: mergeEmbeddingSettings(data?.semantic),
       companion: mergeCompanionSettings(data?.companion),
+      health: mergeHealthPreferences(data?.health),
     });
 
     // Миграция: если provider не задан — определяем по baseUrl
@@ -248,8 +254,15 @@ export default class AIHubPlugin extends Plugin {
     if (needsVaultId) await this.saveData(this.settings);
   }
 
-  async saveSettings() {
-    await this.saveData(this.settings);
+  async saveSettings(health?: HealthPreferences) {
+    const nextHealth = health ? { ...health } : undefined;
+    // Serialize ordinary settings saves too: they must not overwrite a pending Health preference.
+    const save = this.settingsSave.then(async () => {
+      await this.saveData(nextHealth ? { ...this.settings, health: nextHealth } : this.settings);
+      if (nextHealth) this.settings.health = nextHealth;
+    });
+    this.settingsSave = save.catch(() => undefined);
+    return save;
   }
 
   async openAuditModeModal() {

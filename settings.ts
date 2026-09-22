@@ -33,6 +33,8 @@ import {
   isLocalCompanionEndpoint,
 } from "./companionSync";
 import type { CompanionSettings } from "./companionSync";
+import { DEFAULT_HEALTH_PREFERENCES } from "./health/preferences";
+import type { HealthPreferences } from "./health/preferences";
 
 export type InsertionType =
   | "end"
@@ -77,6 +79,7 @@ export interface AIHubSettings {
   semanticAutoSyncSuspended: boolean;
   /** Optional read-only network mirror used by the standalone Companion. */
   companion: CompanionSettings;
+  health: HealthPreferences;
 }
 
 export const DEFAULT_SETTINGS: AIHubSettings = {
@@ -103,6 +106,7 @@ export const DEFAULT_SETTINGS: AIHubSettings = {
   semantic: { ...DEFAULT_EMBEDDING_SETTINGS },
   semanticAutoSyncSuspended: false,
   companion: { ...DEFAULT_COMPANION_SETTINGS },
+  health: { ...DEFAULT_HEALTH_PREFERENCES },
 };
 
 // One inventory and the same custom callbacks serve both host rendering paths.

@@ -2,6 +2,8 @@ import { t } from "../../i18n";
 import type { HealthDimension } from "../domain/finding";
 import type { HealthControllerState } from "../obsidian/healthPluginController";
 import type { HealthRecoveryScope } from "../obsidian/healthRecovery";
+import type { VaultProfile } from "../domain/profile";
+import { findingPresentation } from "./findingPresentation";
 
 export interface HealthCardModel {
   id: HealthDimension; title: string; state: string; count: string; depth: string; icon: string;
@@ -17,6 +19,7 @@ export interface HealthHomeViewModel {
   count: string;
   recommendation?: { title: string; explanation: string; canOpenNote: boolean };
   recovery?: { scope: HealthRecoveryScope; title: string; description: string; blocking: boolean };
+  profile?: { value: VaultProfile; saving: boolean };
 }
 
 const dimensions: HealthDimension[] = ["structure", "connections", "recall", "knowledge"];
@@ -52,7 +55,9 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
     recoveryDisabled: state.busy,
     status, statusError: Boolean(state.error) || outcome?.scan.status === "failed",
     cards, count: t("@health.open-findings", { n: snapshot?.openFindings ?? 0 }),
-    recommendation: snapshot?.recommendation ? { title: snapshot.recommendation.title, explanation: snapshot.recommendation.explanation, canOpenNote } : undefined,
+    recommendation: snapshot?.recommendation ? { ...(state.recommendationFinding ? findingPresentation(state.recommendationFinding)
+      : { title: snapshot.recommendation.title, explanation: snapshot.recommendation.explanation }), canOpenNote } : undefined,
+    profile: state.preferences.onboardingCompleted ? { value: state.preferences.profile, saving: state.savingPreferences } : undefined,
     recovery: scope ? { scope, blocking: scope === "all", title: t(scope === "all" ? "@health.recovery-title" : "@health.history-title"),
       description: t(inaccessible ? "@health.inaccessible" : "@health.damaged") } : undefined,
   };

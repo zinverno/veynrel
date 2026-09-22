@@ -18,7 +18,8 @@ const mocks = vi.hoisted(() => {
     setAttribute(key: string, value: string): void { this.attrs[key] = value; }
     getAttribute(key: string): string | null { return this.attrs[key] ?? null; }
     contains(child: Element): boolean { return this.all().includes(child); }
-    querySelector(selector: string): Element | undefined { return this.all().find((e) => e.attrs["data-health-action"] === selector.match(/="([^"]+)"/u)?.[1]); }
+    querySelector(selector: string): Element | undefined { return selector === "[data-health-heading]" ? this.all().find((e) => e.attrs["data-health-heading"])
+      : this.all().find((e) => e.attrs["data-health-action"] === selector.match(/="([^"]+)"/u)?.[1]); }
     focus(): void { if (!this.disabled) this.ownerDocument.activeElement = this; }
     addEventListener(_type: string, fn: () => void): void { this.listeners.push(fn); }
     click(): void { for (const listener of this.listeners) listener(); }
@@ -39,7 +40,8 @@ const mocks = vi.hoisted(() => {
 vi.mock("obsidian", () => ({ ...mocks, setIcon: vi.fn(), Notice: vi.fn(), getLanguage: () => "en", parseLinktext: (link: string) => ({ path: link, subpath: "" }) }));
 import { setLanguage } from "../../i18n";
 import { HealthPluginController } from "../obsidian/healthPluginController";
-import { appFixture, flush, root } from "../obsidian/testSupport";
+import { appFixture, flush, root, preferencesFixture } from "../obsidian/testSupport";
+import type { HealthPreferences } from "../preferences";
 import { VeynrelHealthView } from "./VeynrelHealthView";
 import { HealthRecoveryModal } from "./healthRecoveryModal";
 import { registerHealth } from "../obsidian/registerHealth";
@@ -47,11 +49,12 @@ import { openHealthView } from "../obsidian/openHealthView";
 import { openHealthNote } from "../obsidian/openHealthNote";
 
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
-function fixture() {
+function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }) {
   const f = appFixture(); const file = new mocks.TFile(); f.vault.getAbstractFileByPath.mockReturnValue(file);
-  const controller = new HealthPluginController(f.app, "ai-knowledge-hub");
+  const p = preferencesFixture(initial);
+  const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences);
   const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools);
-  return { ...f, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
+  return { ...f, ...p, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
 
 describe("native Health view lifecycle", () => {
@@ -111,6 +114,96 @@ describe("native Health view lifecycle", () => {
   });
 });
 
+describe("integrated Health onboarding", () => {
+  it("asks one question, resumes after reopen without reading notes, scans only on click and keeps one live region", async () => {
+    const f = fixture({}); await f.view.onOpen();
+    expect(f.content.texts()).toContain("Welcome to Veynrel");
+    expect(f.content.all().filter((e) => e.tag === "button" && e.attrs["data-health-action"]?.startsWith("profile-"))).toHaveLength(5);
+    expect(f.content.action("scan")).toBeUndefined(); expect(f.vault.read).not.toHaveBeenCalled();
+    const live = f.content.all().find((e) => e.attrs.role === "status");
+    const choice = f.content.action("profile-research"); choice.focus(); choice.click();
+    await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
+    expect(f.preferences.get()).toMatchObject({ profile: "research", profileChosen: true, onboardingCompleted: false });
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.content.all().find((e) => e.attrs.role === "status")).toBe(live);
+    expect(f.content.ownerDocument.activeElement?.tag).toBe("h1");
+    await f.view.onClose(); await f.view.onOpen();
+    expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("scan")).toBeDefined(); expect(f.vault.read).not.toHaveBeenCalled();
+    f.content.action("scan").click(); const pending = f.controller.runLocalScan();
+    expect(f.preferences.get().onboardingCompleted).toBe(false); await pending;
+    expect(f.content.texts()).toContain("Veynrel found something"); expect(f.content.texts()).toContain("Note without connections");
+    expect(f.content.action("continue")).toBeDefined(); expect(f.content.action("tools")).toBeUndefined();
+    expect(f.preferences.get().onboardingCompleted).toBe(false);
+    f.content.action("continue").click(); await vi.waitFor(() => expect(f.content.action("tools")).toBeDefined());
+    expect(f.preferences.get().onboardingCompleted).toBe(true); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("tools")).toBeDefined();
+    expect(f.content.all().filter((e) => e.attrs.role === "status")).toHaveLength(1);
+    expect(f.vault.read).toHaveBeenCalledTimes(1);
+  });
+  it("Skip saves Mixed, permanently exits onboarding and never scans", async () => {
+    const f = fixture({}); await f.view.onOpen(); f.content.action("skip").click();
+    await vi.waitFor(() => expect(f.content.action("tools")).toBeDefined());
+    expect(f.preferences.get()).toEqual({ profile: "mixed", profileChosen: true, onboardingCompleted: true, onboardingVersion: 1 });
+    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("skip")).toBeUndefined();
+    expect(f.vault.read).not.toHaveBeenCalled();
+  });
+  it("migrating an existing scan uses it immediately after profile selection and derives Result after restart", async () => {
+    const f = fixture({}); await f.controller.runLocalScan(); f.controller.dispose(); f.vault.read.mockClear();
+    const controller = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
+    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen();
+    const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
+    expect(content.texts()).toContain("Welcome"); content.action("profile-work").click();
+    await vi.waitFor(() => expect(content.action("continue")).toBeDefined());
+    expect(content.action("scan")).toBeUndefined(); expect(f.vault.read).not.toHaveBeenCalled();
+    await view.onClose(); controller.dispose();
+    const restarted = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
+    const reopened = new VeynrelHealthView({ app: f.app } as never, restarted, f.tools); await reopened.onOpen();
+    expect((reopened.contentEl as unknown as InstanceType<typeof mocks.Element>).action("continue")).toBeDefined();
+    expect(f.vault.read).not.toHaveBeenCalled();
+  });
+  it("safe errors retain Profile or Result when choice, Skip or completion fails", async () => {
+    const f = fixture({}); await f.view.onOpen(); f.save.mockRejectedValue(new Error("private details"));
+    f.content.action("profile-work").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Health preferences"));
+    expect(f.content.action("profile-work")).toBeDefined(); expect(f.preferences.get().profileChosen).toBe(false);
+    f.content.action("skip").click(); await flush(); expect(f.preferences.get().onboardingCompleted).toBe(false);
+    expect(f.content.texts()).not.toContain("private details");
+    const result = fixture({ profileChosen: true }); await result.view.onOpen(); await result.controller.runLocalScan();
+    result.save.mockRejectedValueOnce(new Error("private details")); result.content.action("continue").click();
+    await vi.waitFor(() => expect(result.content.texts()).toContain("Couldn't save Health preferences"));
+    expect(result.content.action("continue")).toBeDefined(); expect(result.content.action("tools")).toBeUndefined();
+    expect(result.preferences.get().onboardingCompleted).toBe(false); expect(result.content.texts()).not.toContain("private details");
+    result.content.action("continue").click(); await vi.waitFor(() => expect(result.content.action("tools")).toBeDefined());
+  });
+  it("Change profile is secondary, shows a non-color selected marker, has no Skip and never scans", async () => {
+    const f = fixture({ profile: "work", profileChosen: true, onboardingCompleted: true }); await f.view.onOpen();
+    f.content.action("change-profile").click();
+    expect(f.content.action("profile-work").attrs["aria-pressed"]).toBe("true");
+    expect(f.content.action("profile-work").texts()).toContain("✓ Selected"); expect(f.content.action("skip")).toBeUndefined();
+    f.save.mockRejectedValueOnce(new Error("private detail")); f.content.action("profile-research").click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Health preferences"));
+    expect(f.content.action("profile-work").attrs["aria-pressed"]).toBe("true");
+    expect(f.content.action("profile-research").attrs["aria-pressed"]).toBe("false");
+    f.content.action("profile-research").click(); await vi.waitFor(() => expect(f.content.action("profile-research")).toBeUndefined());
+    expect(f.content.texts()).toContain("Profile: Research & writing");
+    expect(f.preferences.get().onboardingCompleted).toBe(true); expect(f.vault.read).not.toHaveBeenCalled();
+    f.content.action("tools").click(); expect(f.tools).toHaveBeenCalledTimes(1);
+  });
+  it.each(["findings.json", "scan-runs.json"])("recovery of %s wins before Welcome and preserves preferences", async (file) => {
+    const f = fixture({ profile: "research" }); f.files.set(`${root}/${file}`, "{bad"); await f.view.onOpen();
+    expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("profile-research")).toBeUndefined();
+    const preferences = f.preferences.get(); f.content.action("recover").click();
+    mocks.Modal.opened[0].contentEl.all().find((e) => e.text === "Back up and reset")!.click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Welcome"));
+    expect(f.preferences.get()).toEqual(preferences); expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+  });
+  it("Russian first-result copy localizes the selected Finding while retaining its stored text", async () => {
+    setLanguage("ru"); const f = fixture({ profileChosen: true }); await f.view.onOpen(); await f.controller.runLocalScan();
+    expect(f.content.texts()).toContain("Заметка без связей"); expect(f.content.texts()).not.toContain("Note has no");
+    const finding = f.controller.getState().recommendationFinding!;
+    expect(finding.title).not.toMatch(/[А-Яа-яЁё]/u); expect(f.content.action("continue").text).toBe("Перейти в Health");
+  });
+});
+
 describe("navigation and registration", () => {
   it("reveals deferred existing leaves without inspecting their view", async () => {
     const leaf = { get view(): never { throw new Error("Deferred view accessed"); } };
@@ -131,7 +224,7 @@ describe("navigation and registration", () => {
     Object.assign(f.app, { workspace });
     const plugin = { app: f.app, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), register: vi.fn(),
       addRibbonIcon: vi.fn(), addCommand: vi.fn() };
-    registerHealth(plugin as never, vi.fn());
+    registerHealth(plugin as never, vi.fn(), preferencesFixture().preferences);
     expect(f.adapter.exists).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     const ribbon = plugin.addRibbonIcon.mock.calls[0][2] as () => void;
     const command = plugin.addCommand.mock.calls[0][0] as { id: string; callback: () => void };

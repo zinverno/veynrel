@@ -1,3 +1,4 @@
+import { DEFAULT_HEALTH_PREFERENCES } from "./health/preferences";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { RequestUrlParam, RequestUrlResponse } from "obsidian";
 
@@ -48,6 +49,7 @@ function settings(overrides: Partial<AIHubSettings> = {}): AIHubSettings {
       openAICompatibleApiKey: "",
     },
     semanticAutoSyncSuspended: false,
+    health: { ...DEFAULT_HEALTH_PREFERENCES },
     ...overrides,
     companion: overrides.companion ?? {
       enabled: false,

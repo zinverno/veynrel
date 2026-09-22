@@ -268,6 +268,7 @@ describe("cancellation, subscribers and restart", () => {
     expect(outcome.scan.status).toBe(partial ? "partial" : "completed");
     const restart = new HealthService(new FindingStore(f.storage), f.source); await restart.initialize();
     expect(restart.getSnapshot().dimensions.connections.state).toBe(partial ? "unknown" : "good");
+    expect(restart.getSnapshot().lastLocalScanReconciled).toBe(true);
   });
   it("cannot mistake a stale partial scan for a reconciled receipt after restart", async () => {
     const f = fixture(); await f.service.initialize(); await f.service.runLocalScan(signal());
@@ -276,6 +277,7 @@ describe("cancellation, subscribers and restart", () => {
     const restart = new HealthService(new FindingStore(f.storage), f.source); await restart.initialize();
     expect(restart.getSnapshot().dimensions.connections.state).toBe("unknown");
     expect(restart.getSnapshot().newFindings).toBe(0);
+    expect(restart.getSnapshot().lastLocalScanReconciled).toBe(false);
   });
   it("rejects invalid/colliding scan IDs before capture and uses valid native IDs by default", async () => {
     const f = fixture({ scanIdFactory: () => "same-id" }); await f.service.initialize(); await f.service.runLocalScan(signal());

@@ -31,6 +31,8 @@ export interface HealthSnapshot {
   openFindings: number;
   newFindings: number;
   lastLocalScan?: ScanRun;
+  /** Existing backend receipt check, including partial scans. Not separately persisted. */
+  lastLocalScanReconciled: boolean;
   localScanRunning: boolean;
   initialization: HealthInitializationResult;
 }
