@@ -1700,3 +1700,78 @@
 .ai-hub-custom-setting {
   display: block;
 }
+
+/* Native Health home: scoped to the view, including narrow workspace splits. */
+.veynrel-health-view {
+  container-type: inline-size;
+  overflow-y: auto;
+  color: var(--text-normal);
+  background: var(--background-primary);
+}
+.veynrel-health-view .veynrel-health-home,
+.veynrel-health-view .veynrel-health-status {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: 16px 24px;
+  overflow-wrap: anywhere;
+}
+.veynrel-health-view .veynrel-health-status:empty { display: none; }
+.veynrel-health-view .veynrel-health-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.veynrel-health-view h1 { margin: 0; font-size: var(--h2-size); }
+.veynrel-health-view h2 { font-size: var(--h4-size); }
+.veynrel-health-view h3 { font-size: var(--h5-size); }
+.veynrel-health-view p { line-height: 1.5; }
+.veynrel-health-view .veynrel-health-muted,
+.veynrel-health-view .veynrel-health-summary { color: var(--text-muted); }
+.veynrel-health-view .veynrel-health-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.veynrel-health-view .veynrel-health-card,
+.veynrel-health-view .veynrel-health-recommendation,
+.veynrel-health-view .veynrel-health-recovery {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-l);
+  background: var(--background-secondary);
+}
+.veynrel-health-view .veynrel-health-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0;
+}
+.veynrel-health-view .veynrel-health-card p:last-child { margin-bottom: 0; }
+.veynrel-health-view .veynrel-health-icon { display: inline-flex; color: var(--text-muted); }
+.veynrel-health-view .veynrel-health-state { font-weight: var(--font-semibold); }
+.veynrel-health-view .veynrel-health-recommendation,
+.veynrel-health-view .veynrel-health-recovery,
+.veynrel-health-view .veynrel-health-scan { margin-block: 24px; }
+.veynrel-health-view .veynrel-health-recommendation { border-inline-start: 3px solid var(--interactive-accent); }
+.veynrel-health-view .veynrel-health-recommendation h2 { color: var(--text-muted); margin-top: 0; }
+.veynrel-health-view .veynrel-health-status-error { color: var(--text-error); }
+.veynrel-health-view button { height: auto; min-height: 36px; white-space: normal; }
+.veynrel-health-view button:focus-visible,
+.veynrel-health-confirmation button:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: 3px;
+}
+.veynrel-health-confirmation-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+@container (max-width: 520px) {
+  .veynrel-health-view .veynrel-health-grid { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-health-view .veynrel-health-home,
+  .veynrel-health-view .veynrel-health-status { padding: 12px; }
+  .veynrel-health-view .veynrel-health-header { align-items: flex-start; flex-direction: column; }
+  .veynrel-health-view .veynrel-health-primary { width: 100%; }
+}
+@media (max-width: 600px) {
+  .veynrel-health-view .veynrel-health-grid { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-health-view .veynrel-health-primary { width: 100%; }
+}
