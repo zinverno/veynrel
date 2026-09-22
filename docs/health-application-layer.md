@@ -1,10 +1,10 @@
 # Health application layer (PR 3)
 
 `HealthService` connects the existing local coordinator and durable FindingStore.
-It remains dormant: no import from `main.ts`, startup scan, command, UI, notice,
-AI/network call, telemetry, setting migration, or Markdown note write exists.
-PR 4 owns user-facing presentation and explicit product wiring, including a
-recovery experience before exposing damaged storage to users.
+PR 3 introduced it without production wiring. PR 4 adds the [native Health
+home](health-view.md), lazy plugin ownership and explicit recovery. The application
+layer itself remains UI-neutral: no automatic scan, AI/network call, telemetry,
+settings migration or Markdown note write.
 
 ## Ownership and contracts
 
