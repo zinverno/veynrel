@@ -77,7 +77,7 @@ export class HealthService {
     const reconciled = this.lastAttempt?.reconciled ?? (scan !== undefined &&
       (scan.status === "completed" || scan.status === "partial") && scan.completedAt === this.store.getFindingsUpdatedAt());
     return { ...aggregateHealth({ findings, lastLocalScan: scan, reconciled }), recommendation: selectRecommendation(findings, profile),
-      lastLocalScan: scan ? cloneScanRun(scan) : undefined, localScanRunning: this.running,
+      lastLocalScan: scan ? cloneScanRun(scan) : undefined, lastLocalScanReconciled: reconciled, localScanRunning: this.running,
       initialization: { ...initialization, storage: { ...initialization.storage } },
     };
   }

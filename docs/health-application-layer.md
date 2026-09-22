@@ -180,6 +180,10 @@ and versions in the completed record; custom subsets cannot imply full coverage.
 reconciled scan's observation time. With no trustworthy association it is zero.
 No persisted `isNew` flag exists. `lastLocalScan` includes the latest in-session
 attempt even if recording history failed; otherwise it comes from retained history.
+`lastLocalScanReconciled` exposes the same existing receipt check to onboarding:
+an in-session committed observation or a durable matching Findings timestamp. This
+is a derived snapshot field, not a new storage field. It distinguishes a reconciled
+partial scan from a stale partial attempt after restart.
 
 Recommendation selection returns at most one actionable open Finding. Ranking is
 lexicographic, not an additive Health score: impact (attention, review, info), then
@@ -196,4 +200,6 @@ the Finding's first supported action; profile changes never alter detection.
 | mixed (default) | all equal |
 
 Recommendations are derived copies, never persisted. No actionable open Finding
-means no recommendation. Profiles are API arguments only; settings remain untouched.
+means no recommendation. The plugin controller passes the selected profile from
+the [Health preferences port](health-onboarding.md); standalone service callers
+still default to `mixed`. Profiles never enter the analyzer or vault-source path.

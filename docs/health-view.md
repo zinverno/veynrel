@@ -6,6 +6,10 @@ The main activity ribbon now opens Health. `ai-hub-open-panel`, `ai-batch-proces
 and every other existing command keep their behavior. A secondary **Tools** button
 opens the existing batch/control modal without embedding or changing it.
 
+PR 5 adds optional, integrated [profile onboarding](health-onboarding.md) around
+this same view. Recovery takes precedence, and the normal Home appears after Skip
+or Continue. Opening Health and choosing a profile never trigger a scan.
+
 ## Ownership and lifecycle
 
 `main.ts` delegates registration to `health/obsidian/registerHealth.ts`. Registration
@@ -32,13 +36,15 @@ There is no cancellation button or new progress API in this stage.
 
 A pure `healthHomeViewModel` maps the existing snapshot and typed scan outcome into
 localized copy. New interface copy uses the existing English/Russian `i18n.ts`
-contract. Recommendation title/explanation are the backend's existing explanatory
-text; the view does not re-rank, execute, or localize persisted identity.
+contract. Recommendation ranking remains in the backend. The presentation mapper
+localizes the selected local Finding's title/explanation; unknown types retain
+their stored text. Persisted text and identity are never modified.
 
 Before any scan the home offers **Scan my vault**, explains that the check is local
 and requires no AI, and shows unknown local dimensions. Manual scans retain cached
 cards while showing **Checking your vault…** and disabling Scan. There is no fake
-percentage, polling, Health score, profile chooser, or Findings Inbox.
+percentage, polling, Health score, or Findings Inbox. A secondary inline profile
+chooser appears after onboarding; it reuses the onboarding options and copy.
 
 | Backend / outcome | Presentation |
 | --- | --- |
@@ -127,7 +133,7 @@ free of AI/network/Companion code and Vault Markdown mutation calls. Real deskto
 smoke evidence is recorded in the PR; narrow desktop testing is not native mobile
 validation. Custom themes, mobile and popout windows retain separate platform checks.
 
-PR 5 owns onboarding/profile UX. PR 6 owns the Findings Inbox and lifecycle/action
+PR 5 adds onboarding/profile UX. PR 6 owns the Findings Inbox and lifecycle/action
 UI. Semantic/Deep Health, Recall, automatic scans and settings redesign remain out
 of scope. Existing AI writing, semantic search, RAG, Deep Audit, Companion and proposal
 workflows remain separate and keep their existing behavior.

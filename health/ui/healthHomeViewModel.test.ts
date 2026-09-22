@@ -5,12 +5,13 @@ import { healthHomeViewModel } from "./healthHomeViewModel";
 import type { HealthSnapshot, LocalHealthScanOutcome } from "../services/types";
 import type { HealthControllerState } from "../obsidian/healthPluginController";
 import { scanRun } from "../store/testSupport";
+import { DEFAULT_HEALTH_PREFERENCES } from "../preferences";
 
 function fixture(): HealthControllerState & { snapshot: HealthSnapshot } {
   const dimension = { state: "unknown" as const, analysisDepth: "not-enabled" as const, openFindings: 0, attentionFindings: 0, reviewFindings: 0, analysisComplete: false };
-  return { busy: false, recovering: false, snapshot: {
+  return { busy: false, recovering: false, preferences: { ...DEFAULT_HEALTH_PREFERENCES }, savingPreferences: false, preferencesError: false, snapshot: {
     dimensions: { structure: { ...dimension }, connections: { ...dimension }, recall: { ...dimension }, knowledge: { ...dimension } },
-    openFindings: 0, newFindings: 0, localScanRunning: false,
+    openFindings: 0, newFindings: 0, localScanRunning: false, lastLocalScanReconciled: false,
     initialization: { status: "ready", storage: { findings: "missing", scanRuns: "missing" }, findingsWritable: true, historyWritable: true },
   } };
 }

@@ -1,6 +1,15 @@
 import { vi } from "vitest";
 import type { App } from "obsidian";
 import { healthStorageRoot } from "../store/healthStorage";
+import { HealthPreferencesController, mergeHealthPreferences } from "../preferences";
+import type { HealthPreferences } from "../preferences";
+
+export function preferencesFixture(initial?: Partial<HealthPreferences>) {
+  let persisted = mergeHealthPreferences(initial);
+  const save = vi.fn(async (next: HealthPreferences) => { persisted = { ...next }; });
+  const preferences = new HealthPreferencesController(() => persisted, save);
+  return { preferences, save };
+}
 
 export const root = healthStorageRoot("Private/Config", "ai-knowledge-hub");
 export function adapterFixture() {

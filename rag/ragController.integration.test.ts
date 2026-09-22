@@ -1,3 +1,4 @@
+import { DEFAULT_HEALTH_PREFERENCES } from "../health/preferences";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const obsidianMocks = vi.hoisted(() => {
@@ -55,6 +56,7 @@ const INDEX_RESULT = {
 
 function settings(): AIHubSettings {
   return {
+    health: { ...DEFAULT_HEALTH_PREFERENCES },
     provider: "openrouter",
     apiKey: "llm-key-old",
     model: "llm-model-old",

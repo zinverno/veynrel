@@ -2,9 +2,10 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ parseLinktext: (link: string) => ({ path: link, subpath: "" }) }));
 import { HealthPluginController } from "./healthPluginController";
 import { HealthService } from "../services/healthService";
-import { appFixture, flush, root } from "./testSupport";
+import { appFixture, flush, root, preferencesFixture } from "./testSupport";
+import type { Finding } from "../domain/finding";
 
-function fixture() { const f = appFixture(); return { ...f, controller: new HealthPluginController(f.app, "ai-knowledge-hub") }; }
+function fixture() { const f = appFixture(); const p = preferencesFixture(); return { ...f, ...p, controller: new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences) }; }
 
 describe("plugin-owned lazy Health", () => {
   it("does no I/O on construction, initializes one service once and never scans on open", async () => {
@@ -63,7 +64,7 @@ describe("plugin-owned lazy Health", () => {
     const f = fixture(); await f.controller.runLocalScan(); f.controller.dispose();
     const preserved = f.files.get(`${root}/findings.json`);
     f.files.set(`${root}/scan-runs.json`, "{bad");
-    const controller = new HealthPluginController(f.app, "ai-knowledge-hub"); const old = await controller.getHealthService();
+    const controller = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences); const old = await controller.getHealthService();
     expect(await controller.recover("all")).toBe(false);
     expect(await controller.recover("history")).toBe(true);
     expect(await controller.getHealthService()).not.toBe(old);
@@ -84,5 +85,67 @@ describe("plugin-owned lazy Health", () => {
     expect(await f.controller.recover("all")).toBe(false);
     f.controller.dispose(); await pending;
     expect(f.controller.getState().busy).toBe(false); expect(f.adapter.write).not.toHaveBeenCalled();
+  });
+});
+
+describe("profile intent without analysis side effects", () => {
+  function duplicateVault() {
+    const f = fixture();
+    f.vault.getMarkdownFiles.mockReturnValue([f.note, { ...f.note, path: "B.md", basename: "B" },
+      { ...f.note, path: "Private/Config/Excluded.md" }, { ...f.note, path: ".ai-backup/Excluded.md" }]);
+    return f;
+  }
+  it("work -> research changes only the backend recommendation; findings, scan history and reads stay unchanged", async () => {
+    const f = duplicateVault();
+    await f.controller.updatePreferences({ profile: "work", profileChosen: true, onboardingCompleted: true });
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    await f.controller.runLocalScan(); const service = await f.controller.getHealthService();
+    const findings = service.listFindings(); const files = new Map(f.files); const scan = f.controller.getState().snapshot?.lastLocalScan;
+    expect(f.controller.getState().recommendationFinding?.dimension).toBe("structure");
+    f.vault.read.mockClear(); f.vault.getMarkdownFiles.mockClear(); f.adapter.write.mockClear();
+    await f.controller.updatePreferences({ profile: "research" });
+    expect(f.controller.getState().recommendationFinding?.dimension).toBe("connections");
+    expect(service.listFindings()).toEqual(findings); expect(f.files).toEqual(files);
+    expect(f.controller.getState().snapshot?.lastLocalScan).toEqual(scan);
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+    f.controller.dispose();
+    const restarted = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences); await restarted.getHealthService();
+    expect(restarted.getState().preferences.profile).toBe("research");
+    expect(restarted.getState().recommendationFinding?.dimension).toBe("connections");
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+  });
+  it("every profile runs identical detection over identical scope with identical Finding identities", async () => {
+    const clock = vi.spyOn(Date, "now").mockReturnValue(1000);
+    let reference: Finding[] | undefined;
+    try {
+      for (const profile of ["learning", "research", "work", "personal", "mixed"] as const) {
+        const f = duplicateVault();
+        await f.controller.updatePreferences({ profile, profileChosen: true }); await f.controller.getHealthService();
+        expect(f.vault.read).not.toHaveBeenCalled();
+        await f.controller.runLocalScan(); const service = await f.controller.getHealthService();
+        const findings = service.listFindings(); reference ??= findings;
+        expect(findings).toEqual(reference);
+        expect(f.vault.read).toHaveBeenCalledTimes(2);
+        expect(f.controller.getState().snapshot?.lastLocalScan?.notesSeen).toBe(2);
+        expect(Object.keys(f.controller.getState().snapshot!.lastLocalScan!.analyzerVersions).sort())
+          .toEqual(["broken-links", "duplicate-titles", "exact-duplicates", "graph-components", "no-incoming-links", "no-outgoing-links", "note-shape", "orphans"]);
+        expect(findings.every((finding) => finding.notePaths.every((path) => path === "A.md" || path === "B.md"))).toBe(true);
+        f.controller.dispose();
+      }
+    } finally { clock.mockRestore(); }
+  });
+  it("preference failures keep the effective recommendation, and recovery preserves all preferences", async () => {
+    const f = duplicateVault(); await f.controller.updatePreferences({ profile: "work", profileChosen: true, onboardingCompleted: true });
+    await f.controller.runLocalScan(); const previous = f.controller.getState();
+    f.save.mockRejectedValueOnce(new Error("private detail"));
+    expect(await f.controller.updatePreferences({ profile: "research" })).toBe(false);
+    const failed = f.controller.getState();
+    expect(failed.preferences).toEqual(previous.preferences); expect(failed.snapshot?.recommendation).toEqual(previous.snapshot?.recommendation);
+    expect(failed.preferencesError).toBe(true); expect(JSON.stringify(failed)).not.toContain("private detail");
+    f.controller.dispose(); f.files.set(`${root}/findings.json`, "{bad");
+    const restarted = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences); await restarted.getHealthService();
+    const saves = f.save.mock.calls.length;
+    expect(await restarted.recover("all")).toBe(true);
+    expect(restarted.getState().preferences).toEqual(previous.preferences); expect(f.save).toHaveBeenCalledTimes(saves);
   });
 });
