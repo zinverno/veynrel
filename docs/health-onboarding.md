@@ -160,3 +160,44 @@ No changes to analyzer IDs/versions, Finding types/fingerprints, FindingStore or
 Health storage schemas, scan algorithms, plugin ID/version, existing commands,
 ribbon leaf reuse/DeferredView semantics, or legacy Tools. Custom exclusions,
 template exclusions, AI unlocks and the Findings Inbox remain later work.
+
+## Native desktop smoke (2026-09-22)
+
+Real installed Obsidian 1.12.7 / Electron 39.8.10, isolated profile and three
+synthetic Markdown notes, no credentials. The installed bundle matched the final
+production build byte-for-byte, SHA-256:
+`b22b6255e41baf4f84574ea1ddf14d46567802b3b4cc38b03f96181284c228ea`.
+
+| Native check | Observed result |
+| --- | --- |
+| Fresh Health / repeated ribbon clicks | Welcome, five buttons, one tab, zero note reads, zero plugin writes, one live region |
+| Keyboard profile selection | Tab reached Work with a visible 2px focus outline; Enter saved and moved focus to the Scan heading |
+| Selection and plugin reload before scanning | Work retained, Scan resumed, zero note reads; only `data.json` saved by selection |
+| Explicit Scan | Three notes read once each; completed result, one localized Finding, zero dashboard cards, completion still false |
+| Continue / plugin reload | Home restored with completed preferences and no new scan |
+| Work -> Research | Backend recommendation changed from Structure to Connections; Findings and history identical; zero additional note reads |
+| Existing result in Russian | Russian duplicate-Finding title/explanation; persisted analyzer title stayed English; no rescan |
+| Open note | Opened the backend-selected `Orphan.md`; Findings unchanged |
+| Full app process restart | Work + completed intent retained; Home opened; settings, Findings and scan-history bytes unchanged |
+| Recovery before onboarding | Recovery replaced Welcome, Cancel preserved damaged bytes, confirmation created a fresh owner, preferences unchanged, zero note reads |
+| Skip / reload | Mixed + chosen + completed; normal Home; zero note reads |
+| Reconciled partial / reload | Limited Result, Continue and Scan again; no positive-baseline claim; reload did not scan |
+| Stale / reload | Scan with stale copy, then unverified-receipt copy after reload; no positive claim |
+| Failed enumeration | Scan with existing failure copy; no private exception text or positive claim |
+| Controlled empty complete scan | Baseline only when both local dimensions reported complete coverage |
+| Completion / profile save failures | Result or previous selected profile retained; safe error, successful retry |
+| Tools / legacy control command | Both opened the original modal; all 21 plugin commands registered |
+| Themes / narrow layout | Dark and light screenshots inspected; 390px viewport, 346px Health pane, no horizontal overflow |
+
+Coverage/failure cases use controlled local fixture overrides (missing metadata,
+changed revision, failed enumeration, empty inventory and rejected saves), not real
+filesystem damage or lost user data. Recovery damage was confined to disposable
+Health metadata. All three note bodies remained unchanged. No runtime errors or
+fetch calls were observed during the instrumented flow. Chromium keyboard events
+included the Enter character event; theme checks verified the actual body theme
+after using Obsidian's theme change API.
+
+This verifies desktop and narrow desktop panes, not native iOS/Android, screen
+reader behavior, popout windows or custom themes. No live provider/Companion
+operation was attempted. Existing tests and dependency audits cover unchanged
+workflow boundaries; this smoke is not end-to-end AI workflow certification.
