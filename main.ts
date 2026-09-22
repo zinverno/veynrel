@@ -120,9 +120,8 @@ export default class AIHubPlugin extends Plugin {
       this.semanticController.registerAutomaticSync();
       this.register(() => void this.semanticController.dispose());
 
-      this.addRibbonIcon("sparkles", tr("Veynrel: Панель управления"), () => {
-        new BatchProcessModal(this.app, this).open();
-      });
+      const { registerHealth } = await import("./health/obsidian/registerHealth");
+      registerHealth(this, () => new BatchProcessModal(this.app, this).open());
 
       this.addCommand({
         id: "ai-hub-open-panel",

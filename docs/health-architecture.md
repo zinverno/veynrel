@@ -3,14 +3,16 @@
 The dormant local snapshot, analyzer and coordinator layer added in PR 2 is
 documented in [Local Health analysis](local-health-analysis.md). PR 3 connects them
 through the [Health application layer](health-application-layer.md), including
-freshness guards, batch reconciliation, aggregation and recommendations. Production
-startup remains untouched. The original foundation contracts are described below;
+freshness guards, batch reconciliation, aggregation and recommendations. PR 4 adds
+the [native Health home](health-view.md) with lazy ownership, manual scans and
+explicit storage recovery. The original foundation contracts are described below;
 the application document explains batch commit receipts and restart behavior.
 
 Health introduces a shared domain for knowledge-base observations. Analyzers emit
 candidates, reconciliation maintains Findings, and HealthService consumes them.
 The foundation PR introduced the domain contracts and persistence described here.
-Nothing imports Health from plugin startup; installation and startup behavior are unchanged.
+PRs 1–3 were dormant. PR 4 registers the view without automatic analysis; opening
+Health initializes metadata lazily.
 
 ## Boundaries
 
@@ -35,8 +37,9 @@ values are limited to 500 UTF-16 code units, labels/titles to 200, explanations 
 are rejected; callers must supply small explanations, never complete note bodies.
 
 VaultProfile defaults to `mixed` without inferring a profile or adding settings.
-HealthState, AnalysisDepth and Recommendation are contracts only: no aggregation,
-ranking, onboarding or recommendations are executed.
+HealthState, AnalysisDepth and Recommendation were initially contracts only. The
+application layer now derives aggregation and recommendations; onboarding remains
+out of scope.
 
 ## Identity and paths
 
@@ -114,7 +117,7 @@ using code-unit comparison. All returned records and nested arrays/maps are copi
 
 ## Storage and failures
 
-Future integration constructs the storage adapter with:
+The plugin controller constructs the storage adapter with:
 
 ```ts
 const storage = new ObsidianHealthStorage(
@@ -125,8 +128,8 @@ const store = new FindingStore(storage);
 const status = await store.load();
 ```
 
-The default clock is optional to override. This snippet is illustrative; plugin
-startup is deliberately not wired in this PR. No directories or files are created
+The default clock is optional to override. The controller creates this owner
+lazily when Health opens. No directories or files are created
 on load. On the first explicit write, validated directories are created recursively,
 with checks for directory-creation races and file/directory collisions.
 
