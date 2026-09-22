@@ -1,4 +1,5 @@
 import type { AnalyzerDiagnostic, AnalyzerResult } from "../types";
+import type { LocalVaultRevision } from "./localVaultRevision";
 
 export interface LocalUnresolvedLink {
   readonly target: string;
@@ -42,6 +43,7 @@ export interface LocalAnalysisContext {
 }
 
 export interface LocalScanAnalysis {
+  revision: LocalVaultRevision;
   notesSeen: number;
   analyzerVersions: Record<string, string>;
   results: AnalyzerResult[];

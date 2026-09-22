@@ -1,13 +1,16 @@
 # Veynrel Health foundation
 
 The dormant local snapshot, analyzer and coordinator layer added in PR 2 is
-documented in [Local Health analysis](local-health-analysis.md). The foundation
-contracts and persistence behavior below remain unchanged; PR 3 will connect them.
+documented in [Local Health analysis](local-health-analysis.md). PR 3 connects them
+through the [Health application layer](health-application-layer.md), including
+freshness guards, batch reconciliation, aggregation and recommendations. Production
+startup remains untouched. The original foundation contracts are described below;
+the application document explains batch commit receipts and restart behavior.
 
-Health introduces a shared domain for knowledge-base observations. Future analyzers
-will emit candidates, reconciliation will maintain Findings, and HealthService
-will consume them. This PR contains only domain contracts and persistence. Nothing
-imports Health from plugin startup; installation and startup behavior are unchanged.
+Health introduces a shared domain for knowledge-base observations. Analyzers emit
+candidates, reconciliation maintains Findings, and HealthService consumes them.
+The foundation PR introduced the domain contracts and persistence described here.
+Nothing imports Health from plugin startup; installation and startup behavior are unchanged.
 
 ## Boundaries
 

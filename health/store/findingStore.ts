@@ -6,7 +6,7 @@ import { cloneScanRun, isScanRun } from "../domain/scanRunValidation";
 import { compareStrings, isArrayOf, isIdentifier, isOneOf, isTimestamp } from "../domain/validation";
 import { compareScanRuns, decodeHealth, isFindingsSnapshot, isScanRunsSnapshot, serializeHealth } from "./codec";
 import { HEALTH_SCHEMA_VERSION, MAX_SCAN_HISTORY } from "./types";
-import type { FindingFilter, HealthFile, HealthLoadResult, HealthLoadStatus, HealthStoragePort, ReconcileRequest, ReconcileResult } from "./types";
+import type { FindingFilter, HealthFile, HealthLoadResult, HealthLoadStatus, HealthStoragePort, ReconcileRequest, ReconcileResult, BatchReconcileResult, ReconcileBatchOptions } from "./types";
 
 function matches<T extends string>(value: T, filter: T | readonly T[] | undefined): boolean {
   return filter === undefined || (typeof filter === "string" ? value === filter : filter.includes(value));
@@ -16,6 +16,7 @@ function matches<T extends string>(value: T, filter: T | readonly T[] | undefine
 export class FindingStore {
   private findings: Record<string, Finding> = {};
   private runs: ScanRun[] = [];
+  private findingsUpdatedAt?: number;
   private loadResult?: HealthLoadResult;
   private tail: Promise<void> = Promise.resolve();
 
@@ -27,6 +28,7 @@ export class FindingStore {
       const findings = await this.read("findings.json", isFindingsSnapshot);
       const scans = await this.read("scan-runs.json", isScanRunsSnapshot);
       this.findings = findings.data?.findings ?? {};
+      this.findingsUpdatedAt = findings.data?.updatedAt;
       this.runs = scans.data?.runs.sort(compareScanRuns) ?? [];
       this.loadResult = { findings: findings.status, scanRuns: scans.status };
       return { ...this.loadResult };
@@ -49,6 +51,49 @@ export class FindingStore {
   }
 
   async reconcile(request: ReconcileRequest): Promise<ReconcileResult> {
+    const { created, updated, resolved } = await this.reconcileBatch([request]);
+    return { created, updated, resolved };
+  }
+
+  /** Disjoint scopes, canonical order, one write; publish nothing on validation/guard/write failure. */
+  async reconcileBatch(requests: readonly ReconcileRequest[], options: ReconcileBatchOptions = {}): Promise<BatchReconcileResult> {
+    if (!Array.isArray(requests)) throw new Error("Invalid reconciliation batch");
+    const prepared = Array.from(requests, (request: ReconcileRequest) => this.prepareReconciliation(request));
+    const owners = new Set<string>();
+    for (const request of prepared) {
+      for (const analyzerId of request.scope.analyzerIds) {
+        const owner = `${request.scope.source}:${analyzerId}`;
+        if (owners.has(owner)) throw new Error("Conflicting reconciliation scopes");
+        owners.add(owner);
+      }
+    }
+    prepared.sort((a, b) => compareStrings(a.scope.source, b.scope.source) ||
+      compareStrings(JSON.stringify(a.scope.analyzerIds), JSON.stringify(b.scope.analyzerIds)));
+    const beforeCommit = options.beforeCommit;
+    return this.enqueue(async () => {
+      this.requireWritable("findings");
+      const result: BatchReconcileResult = { created: 0, updated: 0, resolved: 0 };
+      if (!prepared.length) return result;
+      const next = { ...this.findings };
+      const now = this.now();
+      for (const request of prepared) {
+        const counts = this.applyReconciliation(next, request, now);
+        result.created += counts.created;
+        result.updated += counts.updated;
+        result.resolved += counts.resolved;
+      }
+      await beforeCommit?.();
+      result.updatedAt = await this.saveFindings(next, prepared.reduce((latest, request) => Math.max(latest, request.seenAt), 0));
+      return result;
+    });
+  }
+
+  getFindingsUpdatedAt(): number | undefined {
+    this.requireLoaded();
+    return this.findingsUpdatedAt;
+  }
+
+  private prepareReconciliation(request: ReconcileRequest): ReconcileRequest & { seenAt: number } {
     if (!request || !request.scope || !isOneOf(request.scope.source, ["local", "semantic", "deep-ai", "recall"]) ||
         !isArrayOf(request.scope.analyzerIds, isIdentifier) || request.scope.analyzerIds.length === 0 ||
         typeof request.complete !== "boolean" || !isArrayOf(request.candidates, isFindingCandidate)) {
@@ -59,50 +104,49 @@ export class FindingStore {
     const complete = request.complete;
     const seenAt = request.seenAt ?? this.now();
     if (!isTimestamp(seenAt)) throw new Error("Invalid observation timestamp");
-    return this.enqueue(async () => {
-      this.requireWritable("findings");
-      const now = this.now();
-      const inScope = (finding: FindingCandidate): boolean => finding.source === scope.source && scope.analyzerIds.includes(finding.analyzerId);
-      const next = { ...this.findings };
-      const seen = new Set<string>();
-      const result = { created: 0, updated: 0, resolved: 0 };
+    return { scope: { ...scope, analyzerIds: scope.analyzerIds.sort(compareStrings) }, candidates, complete, seenAt };
+  }
+
+  private applyReconciliation(next: Record<string, Finding>, request: ReconcileRequest & { seenAt: number }, now: number): ReconcileResult {
+    const { scope, candidates, complete, seenAt } = request;
+    const result = { created: 0, updated: 0, resolved: 0 };
+    const inScope = (finding: FindingCandidate): boolean => finding.source === scope.source && scope.analyzerIds.includes(finding.analyzerId);
+    const seen = new Set<string>();
+    for (const finding of Object.values(next)) {
+      if (inScope(finding) && finding.lastSeenAt > seenAt) throw new Error("Stale reconciliation timestamp");
+    }
+    for (const candidate of candidates) {
+      if (!inScope(candidate)) throw new Error("Candidate outside reconciliation scope");
+      const id = findingIdFromFingerprint(candidate.fingerprint);
+      if (seen.has(id)) throw new Error("Duplicate candidate identity");
+      seen.add(id);
+      const previous = next[id];
+      if (previous && (previous.fingerprint !== candidate.fingerprint || previous.source !== candidate.source ||
+          previous.analyzerId !== candidate.analyzerId || previous.type !== candidate.type || previous.dimension !== candidate.dimension)) {
+        throw new Error("Finding identity collision or ownership change");
+      }
+      const finding: Finding = { ...candidate, id, state: previous?.state ?? "open", firstSeenAt: previous?.firstSeenAt ?? seenAt, lastSeenAt: seenAt };
+      if (previous?.state === "snoozed" && previous.snoozedUntil !== undefined && now < previous.snoozedUntil) {
+        finding.snoozedUntil = previous.snoozedUntil;
+      } else if (finding.state === "snoozed" || finding.state === "resolved") {
+        finding.state = "open";
+      }
+      next[id] = finding;
+      if (previous) result.updated++;
+      else result.created++;
+    }
+    if (complete) {
       for (const finding of Object.values(next)) {
-        if (inScope(finding) && finding.lastSeenAt > seenAt) throw new Error("Stale reconciliation timestamp");
-      }
-      for (const candidate of candidates) {
-        if (!inScope(candidate)) throw new Error("Candidate outside reconciliation scope");
-        const id = findingIdFromFingerprint(candidate.fingerprint);
-        if (seen.has(id)) throw new Error("Duplicate candidate identity");
-        seen.add(id);
-        const previous = next[id];
-        if (previous && (previous.fingerprint !== candidate.fingerprint || previous.source !== candidate.source ||
-            previous.analyzerId !== candidate.analyzerId || previous.type !== candidate.type || previous.dimension !== candidate.dimension)) {
-          throw new Error("Finding identity collision or ownership change");
-        }
-        const finding: Finding = { ...candidate, id, state: previous?.state ?? "open", firstSeenAt: previous?.firstSeenAt ?? seenAt, lastSeenAt: seenAt };
-        if (previous?.state === "snoozed" && previous.snoozedUntil !== undefined && now < previous.snoozedUntil) {
-          finding.snoozedUntil = previous.snoozedUntil;
-        } else if (finding.state === "snoozed" || finding.state === "resolved") {
-          finding.state = "open";
-        }
-        next[id] = finding;
-        if (previous) result.updated++;
-        else result.created++;
-      }
-      if (complete) {
-        for (const finding of Object.values(next)) {
-          // Dismissal is durable user intent. Absence resolves open AND snoozed findings.
-          if (inScope(finding) && !seen.has(finding.id) && (finding.state === "open" || finding.state === "snoozed")) {
-            const resolved = { ...finding, state: "resolved" as const };
-            delete resolved.snoozedUntil;
-            next[finding.id] = resolved;
-            result.resolved++;
-          }
+        // Dismissal is durable user intent. Absence resolves open AND snoozed findings.
+        if (inScope(finding) && !seen.has(finding.id) && (finding.state === "open" || finding.state === "snoozed")) {
+          const resolved = { ...finding, state: "resolved" as const };
+          delete resolved.snoozedUntil;
+          next[finding.id] = resolved;
+          result.resolved++;
         }
       }
-      await this.saveFindings(next);
-      return result;
-    });
+    }
+    return result;
   }
 
   dismiss(id: string): Promise<void> {
@@ -156,11 +200,15 @@ export class FindingStore {
     });
   }
 
-  private async saveFindings(findings: Record<string, Finding>): Promise<void> {
-    const snapshot = { version: HEALTH_SCHEMA_VERSION, updatedAt: this.now(), findings };
+  private async saveFindings(findings: Record<string, Finding>, observedAt = 0): Promise<number> {
+    // Strictly advancing receipts distinguish a newer findings commit from older scan history.
+    const updatedAt = Math.max(this.now(), observedAt, (this.findingsUpdatedAt ?? -1) + 1);
+    const snapshot = { version: HEALTH_SCHEMA_VERSION, updatedAt, findings };
     if (!isFindingsSnapshot(snapshot)) throw new Error("Invalid findings snapshot");
     await this.storage.write("findings.json", serializeHealth(snapshot));
     this.findings = findings;
+    this.findingsUpdatedAt = updatedAt;
+    return updatedAt;
   }
 
   private async read<T>(file: HealthFile, validate: (value: unknown) => value is T): Promise<{ status: HealthLoadStatus; data?: T }> {

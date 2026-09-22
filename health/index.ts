@@ -12,3 +12,8 @@ export { FindingStore } from "./store/findingStore";
 export { ObsidianHealthStorage, healthStorageRoot } from "./store/healthStorage";
 export { HEALTH_SCHEMA_VERSION, MAX_SCAN_HISTORY } from "./store/types";
 export type { HealthStoragePort, HealthFile, HealthLoadResult, HealthLoadStatus, FindingsSnapshot, ScanRunsSnapshot, FindingFilter, ReconciliationScope, ReconcileRequest, ReconcileResult } from "./store/types";
+export type { BatchReconcileResult, ReconcileBatchOptions } from "./store/types";
+export { HealthService, HealthNotInitializedError, HealthStorageUnavailableError, LocalHealthScanAlreadyRunningError } from "./services/healthService";
+export type { HealthServiceOptions } from "./services/healthService";
+export type { HealthLocalVaultSource, HealthInitializationResult, HealthSnapshot, DimensionHealth, LocalHealthScanOutcome, HealthScanDiagnosticCode } from "./services/types";
+export type { LocalVaultRevision, LocalVaultFreshnessProbe } from "./analyzers/local/localVaultRevision";

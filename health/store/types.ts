@@ -48,6 +48,16 @@ export interface ReconcileResult {
   resolved: number;
 }
 
+export interface BatchReconcileResult extends ReconcileResult {
+  /** Present only when a findings write committed; also serves as its durable receipt. */
+  updatedAt?: number;
+}
+
+export interface ReconcileBatchOptions {
+  /** Runs inside the write queue after validation. Must not enqueue store mutations. */
+  beforeCommit?: () => Promise<void>;
+}
+
 export interface FindingFilter {
   state?: FindingState | readonly FindingState[];
   dimension?: HealthDimension | readonly HealthDimension[];
