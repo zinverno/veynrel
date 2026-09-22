@@ -3,23 +3,27 @@ import { t } from "../../i18n";
 import type { HealthHomeViewModel, HealthCardModel } from "./healthHomeViewModel";
 import type { VaultProfile } from "../domain/profile";
 import { healthProfileName, renderHealthProfileOptions } from "./healthProfileOptions";
+import type { HealthDimension } from "../domain/finding";
 
 interface HealthHomeActions { scan: () => void; tools: () => void; recover: () => void; openNote: () => void;
-  changeProfile: () => void; chooseProfile: (profile: VaultProfile) => void }
+  changeProfile: () => void; chooseProfile: (profile: VaultProfile) => void;
+  findings?: (dimension?: HealthDimension) => void; reviewFinding?: (id: string) => void }
 
-export function healthButton(parent: HTMLElement, text: string, action: () => void, key: string, disabled = false, primary = false): void {
+export function healthButton(parent: HTMLElement, text: string, action: () => void, key: string, disabled = false, primary = false): HTMLButtonElement {
   const element = parent.createEl("button", { text, cls: primary ? "mod-cta veynrel-health-primary" : "",
     attr: { type: "button", "data-health-action": key } });
   element.disabled = disabled;
   element.addEventListener("click", () => { if (!element.disabled) action(); });
+  return element;
 }
 
-function renderHealthCard(parent: HTMLElement, card: HealthCardModel): void {
+function renderHealthCard(parent: HTMLElement, card: HealthCardModel, findings?: HealthHomeActions["findings"]): void {
   const article = parent.createEl("article", { cls: "veynrel-health-card", attr: { "data-dimension": card.id } });
   const heading = article.createEl("h3");
   const icon = heading.createSpan({ cls: "veynrel-health-icon", attr: { "aria-hidden": "true" } });
   setIcon(icon, card.icon);
-  heading.createSpan({ text: card.title });
+  if (card.actionable && findings) healthButton(heading, card.title, () => findings(card.id), `dimension-${card.id}`);
+  else heading.createSpan({ text: card.title });
   article.createEl("p", { text: card.state, cls: "veynrel-health-state" });
   if (card.count) article.createEl("p", { text: card.count });
   if (card.depth) article.createEl("p", { text: card.depth, cls: "veynrel-health-muted" });
@@ -60,10 +64,14 @@ export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel
     section.createEl("h3", { text: model.recommendation.title });
     section.createEl("p", { text: model.recommendation.explanation });
     if (model.recommendation.canOpenNote) healthButton(section, t("@health.open-note"), actions.openNote, "open-note");
+    const id = model.recommendation.findingId;
+    if (id && actions.reviewFinding) healthButton(section, t("@findings.review"), () => actions.reviewFinding?.(id), "review-finding");
   }
   const health = home.createEl("section", { cls: "veynrel-health-dimensions" });
   health.createEl("h2", { text: t("@health.health") });
   const grid = health.createDiv({ cls: "veynrel-health-grid" });
-  for (const card of model.cards) renderHealthCard(grid, card);
-  home.createEl("p", { text: model.count, cls: "veynrel-health-summary" });
+  for (const card of model.cards) renderHealthCard(grid, card, actions.findings);
+  const summary = home.createDiv({ cls: "veynrel-health-summary" });
+  summary.createEl("p", { text: model.count });
+  if (actions.findings) healthButton(summary, t("@findings.view"), () => actions.findings?.(), "view-findings");
 }

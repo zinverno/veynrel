@@ -1795,3 +1795,68 @@
   .veynrel-health-view .veynrel-health-grid { grid-template-columns: minmax(0, 1fr); }
   .veynrel-health-view .veynrel-health-primary { width: 100%; }
 }
+
+/* Findings shares the Health workspace and native theme; no persisted layout state. */
+.veynrel-health-view .veynrel-findings-navigation,
+.veynrel-health-view .veynrel-findings-inbox {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 16px 24px;
+  overflow-wrap: anywhere;
+}
+.veynrel-health-view .veynrel-findings-navigation,
+.veynrel-health-view .veynrel-findings-filters,
+.veynrel-health-view .veynrel-findings-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.veynrel-health-view .veynrel-findings-navigation { border-bottom: 1px solid var(--background-modifier-border); }
+.veynrel-health-view .veynrel-findings-navigation [aria-current="page"],
+.veynrel-health-view .veynrel-findings-filters [aria-pressed="true"] {
+  font-weight: var(--font-semibold);
+  box-shadow: inset 0 -2px var(--interactive-accent);
+}
+.veynrel-health-view .veynrel-findings-workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 24px; }
+.veynrel-health-view .veynrel-findings-has-detail { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.veynrel-health-view .veynrel-findings-list-pane,
+.veynrel-health-view .veynrel-findings-detail { min-width: 0; }
+.veynrel-health-view .veynrel-findings-detail { padding-inline-start: 24px; border-inline-start: 1px solid var(--background-modifier-border); }
+.veynrel-health-view .veynrel-findings-filters { margin-bottom: 12px; }
+.veynrel-health-view .veynrel-findings-list,
+.veynrel-health-view .veynrel-findings-paths { list-style: none; margin: 0; padding: 0; }
+.veynrel-health-view .veynrel-findings-list > li { border-bottom: 1px solid var(--background-modifier-border); }
+.veynrel-health-view .veynrel-findings-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+  padding: 12px;
+  text-align: start;
+  line-height: 1.5;
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  overflow-wrap: anywhere;
+}
+.veynrel-health-view .veynrel-findings-row:hover,
+.veynrel-health-view .veynrel-findings-row[aria-pressed="true"] { background: var(--background-secondary); }
+.veynrel-health-view .veynrel-findings-row-title,
+.veynrel-health-view .veynrel-findings-selected { font-weight: var(--font-semibold); }
+.veynrel-health-view .veynrel-findings-row-meta,
+.veynrel-health-view .veynrel-findings-row-explanation { color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-health-view .veynrel-findings-row-explanation { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.veynrel-health-view .veynrel-findings-paths button { max-width: 100%; text-align: start; overflow-wrap: anywhere; margin-bottom: 8px; }
+.veynrel-health-view .veynrel-health-recommendation button { margin-inline-end: 8px; margin-bottom: 8px; }
+.veynrel-health-view [data-findings-heading]:focus-visible,
+.veynrel-health-view [data-health-heading]:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+@container (max-width: 700px) {
+  .veynrel-health-view .veynrel-findings-navigation,
+  .veynrel-health-view .veynrel-findings-inbox { padding: 12px; }
+  .veynrel-health-view .veynrel-findings-has-detail { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-health-view .veynrel-findings-has-detail .veynrel-findings-list-pane { display: none; }
+  .veynrel-health-view .veynrel-findings-detail { padding: 0; border: 0; }
+}
+@media (max-width: 600px) {
+  .veynrel-health-view .veynrel-findings-has-detail { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-health-view .veynrel-findings-has-detail .veynrel-findings-list-pane { display: none; }
+  .veynrel-health-view .veynrel-findings-detail { padding: 0; border: 0; }
+}

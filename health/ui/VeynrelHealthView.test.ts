@@ -18,8 +18,12 @@ const mocks = vi.hoisted(() => {
     setAttribute(key: string, value: string): void { this.attrs[key] = value; }
     getAttribute(key: string): string | null { return this.attrs[key] ?? null; }
     contains(child: Element): boolean { return this.all().includes(child); }
-    querySelector(selector: string): Element | undefined { return selector === "[data-health-heading]" ? this.all().find((e) => e.attrs["data-health-heading"])
-      : this.all().find((e) => e.attrs["data-health-action"] === selector.match(/="([^"]+)"/u)?.[1]); }
+    querySelector(selector: string): Element | undefined {
+      const attribute = selector.match(/^\[([\w-]+)\]$/u)?.[1];
+      if (attribute) return this.all().find((e) => e.attrs[attribute] !== undefined);
+      const action = selector.match(/="([^"]+)"/u)?.[1];
+      return action ? this.all().find((e) => e.attrs["data-health-action"] === action) : undefined;
+    }
     focus(): void { if (!this.disabled) this.ownerDocument.activeElement = this; }
     addEventListener(_type: string, fn: () => void): void { this.listeners.push(fn); }
     click(): void { for (const listener of this.listeners) listener(); }
@@ -47,6 +51,8 @@ import { HealthRecoveryModal } from "./healthRecoveryModal";
 import { registerHealth } from "../obsidian/registerHealth";
 import { openHealthView } from "../obsidian/openHealthView";
 import { openHealthNote } from "../obsidian/openHealthNote";
+import { inboxFinding } from "./testSupport";
+import { serializeHealth } from "../store/codec";
 
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
 function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }) {
@@ -118,6 +124,7 @@ describe("integrated Health onboarding", () => {
   it("asks one question, resumes after reopen without reading notes, scans only on click and keeps one live region", async () => {
     const f = fixture({}); await f.view.onOpen();
     expect(f.content.texts()).toContain("Welcome to Veynrel");
+    expect(f.content.action("nav-findings")).toBeUndefined();
     expect(f.content.all().filter((e) => e.tag === "button" && e.attrs["data-health-action"]?.startsWith("profile-"))).toHaveLength(5);
     expect(f.content.action("scan")).toBeUndefined(); expect(f.vault.read).not.toHaveBeenCalled();
     const live = f.content.all().find((e) => e.attrs.role === "status");
@@ -133,9 +140,11 @@ describe("integrated Health onboarding", () => {
     expect(f.preferences.get().onboardingCompleted).toBe(false); await pending;
     expect(f.content.texts()).toContain("Veynrel found something"); expect(f.content.texts()).toContain("Note without connections");
     expect(f.content.action("continue")).toBeDefined(); expect(f.content.action("tools")).toBeUndefined();
+    expect(f.content.action("nav-findings")).toBeUndefined();
     expect(f.preferences.get().onboardingCompleted).toBe(false);
     f.content.action("continue").click(); await vi.waitFor(() => expect(f.content.action("tools")).toBeDefined());
     expect(f.preferences.get().onboardingCompleted).toBe(true); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.content.action("nav-findings")).toBeDefined();
     await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("tools")).toBeDefined();
     expect(f.content.all().filter((e) => e.attrs.role === "status")).toHaveLength(1);
     expect(f.vault.read).toHaveBeenCalledTimes(1);
@@ -245,5 +254,178 @@ describe("navigation and registration", () => {
     expect(confirmed).not.toHaveBeenCalled(); const content = modal.contentEl as unknown as InstanceType<typeof mocks.Element>;
     expect(content.texts()).toContain("Findings will be preserved"); const button = content.all().find((e) => e.text === "Back up and reset")!;
     button.click(); button.click(); expect(confirmed).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("Findings navigation and lifecycle integration", () => {
+  async function scanned() {
+    const f = fixture(); await f.view.onOpen(); await f.controller.runLocalScan();
+    f.vault.read.mockClear(); f.vault.getMarkdownFiles.mockClear(); f.adapter.write.mockClear();
+    return f;
+  }
+  it("Health summary/top navigation, card filters, recommendation detail and Back never scan", async () => {
+    const f = await scanned(); const id = f.controller.getState().recommendationFinding!.id;
+    f.content.action("view-findings").click();
+    expect(f.content.action("nav-findings").attrs["aria-current"]).toBe("page");
+    expect(f.content.action("state-open").attrs["aria-pressed"]).toBe("true");
+    expect(f.content.action("filter-all").attrs["aria-pressed"]).toBe("true");
+    f.content.action("nav-health").click(); f.content.action("dimension-structure").click();
+    expect(f.content.action("filter-structure").attrs["aria-pressed"]).toBe("true");
+    f.content.action("nav-health").click(); f.content.action("dimension-connections").click();
+    expect(f.content.action("filter-connections").attrs["aria-pressed"]).toBe("true");
+    expect(f.content.texts()).toContain("No open findings");
+    f.content.action("nav-health").click();
+    expect(f.content.action("dimension-recall")).toBeUndefined(); expect(f.content.action("dimension-knowledge")).toBeUndefined();
+    expect(f.content.action("open-note")).toBeDefined(); f.content.action("review-finding").click();
+    expect(f.content.texts()).toContain("Why Veynrel found this"); expect(f.content.action(`finding-${id}`).attrs["aria-pressed"]).toBe("true");
+    expect(f.content.ownerDocument.activeElement?.attrs["data-findings-heading"]).toBe("true");
+    f.content.action("findings-back").click(); expect(f.content.action("finding-dismiss")).toBeUndefined();
+    expect(f.content.ownerDocument.activeElement?.tag).toBe("h1");
+    for (const dimension of ["recall", "knowledge", "all"]) f.content.action(`filter-${dimension}`).click();
+    const row = f.content.action(`finding-${id}`); row.focus(); row.click();
+    expect(f.content.ownerDocument.activeElement?.tag).toBe("h2");
+    f.content.action("tools").click(); expect(f.tools).toHaveBeenCalledTimes(1);
+    f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+    expect(f.save).not.toHaveBeenCalled();
+  });
+  it("Dismiss -> Dismissed -> Reopen -> Snooze -> Snoozed -> Reopen updates Home immediately without scans or preference/history writes", async () => {
+    const f = await scanned(); const id = f.controller.listFindings()[0].id;
+    f.content.action("review-finding").click(); f.content.action("finding-dismiss").click();
+    await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("dismissed"));
+    expect(f.content.action("finding-dismiss")).toBeUndefined(); expect(f.content.action(`finding-${id}`)).toBeUndefined();
+    expect(f.content.texts()).toContain("Finding updated");
+    f.content.action("nav-health").click();
+    expect(f.content.texts()).toContain("Open findings: 0"); expect(f.content.action("review-finding")).toBeUndefined();
+    f.content.action("nav-findings").click(); f.content.action("state-dismissed").click(); f.content.action(`finding-${id}`).click();
+    f.content.action("finding-reopen").click(); await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("open"));
+    expect(f.content.action("finding-reopen")).toBeUndefined();
+    f.content.action("state-open").click(); f.content.action(`finding-${id}`).click(); f.content.action("finding-snooze").click();
+    for (const days of [1, 7, 30]) expect(f.content.action(`snooze-${days}`)).toBeDefined();
+    const before = Date.now(); f.content.action("snooze-7").click();
+    await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("snoozed"));
+    expect(f.controller.getFinding(id)!.snoozedUntil).toBeGreaterThanOrEqual(before + 7 * 86_400_000);
+    expect(f.content.action(`finding-${id}`)).toBeUndefined(); expect(f.controller.getState().snapshot?.recommendation).toBeUndefined();
+    f.content.action("state-snoozed").click(); f.content.action(`finding-${id}`).click();
+    expect(f.content.texts()).toContain("Snoozed until"); f.content.action("finding-reopen").click();
+    await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("open"));
+    f.content.action("nav-health").click(); expect(f.content.action("review-finding")).toBeDefined();
+    expect(f.content.texts()).toContain("Open findings: 1");
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+    expect(f.adapter.write.mock.calls.map(([path]) => path)).toEqual(Array(4).fill(`${root}/findings.json`));
+  });
+  it("keeps detail and row until persistence succeeds, disables stale/double clicks and reports safe failure", async () => {
+    const f = await scanned(); const id = f.controller.listFindings()[0].id;
+    f.content.action("review-finding").click();
+    let reject!: (error: Error) => void; f.adapter.write.mockReturnValueOnce(new Promise((_, rejectWrite) => { reject = rejectWrite; }));
+    const dismiss = f.content.action("finding-dismiss"); dismiss.focus(); dismiss.click(); dismiss.click(); await flush();
+    expect(f.content.action(`finding-${id}`)).toBeDefined(); expect(f.content.action("finding-dismiss").disabled).toBe(true);
+    expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.adapter.write).toHaveBeenCalledTimes(1);
+    reject(new Error("PRIVATE FAILURE")); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding"));
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(f.content.action("finding-dismiss").disabled).toBe(false);
+    expect(f.content.action(`finding-${id}`)).toBeDefined(); expect(f.controller.getFinding(id)?.state).toBe("open");
+    f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.action("finding-dismiss")).toBeUndefined());
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+  });
+  async function failedDismiss() {
+    const f = await scanned(); const id = f.controller.listFindings()[0].id;
+    const bytes = f.files.get(`${root}/findings.json`);
+    f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
+    f.content.action("finding-dismiss").click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
+    expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.files.get(`${root}/findings.json`)).toBe(bytes);
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+    return { ...f, id };
+  }
+  it("leaving a failed Dismiss for Health clears the error and returning to the same Finding never resurrects it", async () => {
+    const f = await failedDismiss(); f.content.action("nav-health").click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.content.texts()).toContain("Vault check complete");
+    f.content.action("nav-findings").click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    f.content.action(`finding-${f.id}`).click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+  });
+  it.each(["state-dismissed", "filter-connections", "another-finding"])("%s ends the failed interaction without resurrecting its status on return", async (destination) => {
+    const f = fixture(); f.vault.getMarkdownFiles.mockReturnValue([f.note, { ...f.note, path: "B.md", basename: "B" }]);
+    await f.view.onOpen(); await f.controller.runLocalScan();
+    const id = f.controller.getState().recommendationFinding!.id;
+    const other = f.controller.listFindings().find((finding) => finding.id !== id)!;
+    f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
+    f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
+    f.content.action(destination === "another-finding" ? `finding-${other.id}` : destination).click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.controller.getFinding(id)?.state).toBe("open");
+  });
+  it("a later scan clears a failed Finding interaction immediately and can publish its own successful status", async () => {
+    const f = await failedDismiss();
+    const pending = f.controller.runLocalScan();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.content.texts()).toContain("Checking your vault…"); await pending;
+    expect(f.content.texts()).toContain("Vault check complete"); expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.controller.getFinding(f.id)?.state).toBe("open"); expect(f.content.action("finding-dismiss")).toBeDefined();
+  });
+  it("a second lifecycle interaction can fail safely and then succeed after leaving the first failure", async () => {
+    const f = await failedDismiss(); f.content.action("findings-back").click(); f.content.action(`finding-${f.id}`).click();
+    f.content.action("finding-snooze").click(); f.adapter.write.mockRejectedValueOnce(new Error("SECOND PRIVATE FAILURE"));
+    f.content.action("snooze-1").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
+    expect(f.controller.getFinding(f.id)?.state).toBe("open");
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+    f.content.action("snooze-1").click();
+    expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    await vi.waitFor(() => expect(f.controller.getFinding(f.id)?.state).toBe("snoozed"));
+    expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.content.texts()).toContain("Finding updated");
+  });
+  it.each(["navigation", "close"])("a pending failure cannot restore an abandoned interaction after %s and return", async (leave) => {
+    const f = await scanned(); const id = f.controller.listFindings()[0].id; f.content.action("review-finding").click();
+    let reject!: (error: Error) => void; f.adapter.write.mockReturnValueOnce(new Promise((_, rejectWrite) => { reject = rejectWrite; }));
+    f.content.action("finding-dismiss").click(); await flush();
+    if (leave === "navigation") f.content.action("nav-health").click();
+    else { await f.view.onClose(); await f.view.onOpen(); }
+    f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    reject(new Error("PRIVATE LATE FAILURE")); await vi.waitFor(() => expect(f.controller.getState().mutatingFindingId).toBeUndefined()); await flush();
+    expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.content.texts()).not.toContain("Couldn't update this finding.");
+    expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
+  });
+  it("reacts to external scan resolution and recurrence, announces it and offers no manual Reopen for history", async () => {
+    const f = await scanned(); const item = f.controller.listFindings()[0];
+    f.content.action("review-finding").click(); f.vault.getMarkdownFiles.mockReturnValue([]); await f.controller.runLocalScan();
+    expect(f.content.texts()).toContain("Finding was resolved by the latest scan"); expect(f.content.action("findings-back")).toBeUndefined();
+    f.content.action("state-resolved").click(); f.content.action(`finding-${item.id}`).click();
+    expect(f.content.action("finding-reopen")).toBeUndefined(); expect(f.content.action("finding-dismiss")).toBeUndefined(); expect(f.content.action("finding-snooze")).toBeUndefined();
+    f.vault.getMarkdownFiles.mockReturnValue([f.note]); await f.controller.runLocalScan();
+    expect(f.content.action("findings-back")).toBeUndefined(); f.content.action("state-open").click();
+    expect(f.content.action(`finding-${item.id}`)).toBeDefined(); expect(f.controller.getFinding(item.id)?.firstSeenAt).toBe(item.firstSeenAt);
+  });
+  it("revalidates each path at click time; missing/unsafe notes and persisted actions never mutate Findings", async () => {
+    const f = fixture(); const item = inboxFinding({ notePaths: ["A.md", "Private/Config/Secret.md"],
+      actions: [{ kind: "delete", path: "A.md" }, { kind: "fix-link", path: "A.md" }] });
+    f.files.set(`${root}/findings.json`, serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } }));
+    await f.view.onOpen(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
+    const before = f.controller.listFindings(); f.content.action("finding-note-0").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
+    f.content.action("finding-note-1").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
+    f.vault.getAbstractFileByPath.mockReturnValue(null); f.content.action("finding-note-0").click(); await flush();
+    expect(f.content.texts()).toContain("This note is no longer available"); expect(f.controller.listFindings()).toEqual(before);
+    expect(f.content.texts()).not.toMatch(/fix-link|Delete|Fix automatically/u); expect(f.adapter.write).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+  });
+  it("bounds representative paths to ten, expands/collapses them, resets expansion and route when reopened", async () => {
+    const f = fixture(); const item = inboxFinding({ type: "exact-duplicate-group", notePaths: Array.from({ length: 100 }, (_, i) => `Note${i}.md`),
+      evidence: [{ kind: "member-count", value: 105 }, { kind: "represented-path-count", value: 100 }] });
+    f.files.set(`${root}/findings.json`, serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } }));
+    await f.view.onOpen(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
+    expect(f.content.texts()).toContain("105 notes affected"); expect(f.content.texts()).toContain("Showing 100 representative paths");
+    expect(f.content.action("finding-note-9")).toBeDefined(); expect(f.content.action("finding-note-10")).toBeUndefined();
+    f.content.action("finding-paths").click(); expect(f.content.action("finding-note-99")).toBeDefined();
+    f.content.action("finding-paths").click(); expect(f.content.action("finding-note-10")).toBeUndefined();
+    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("view-findings")).toBeDefined(); expect(f.content.action("finding-dismiss")).toBeUndefined();
+    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+  });
+  it.each(["findings.json", "scan-runs.json"])("%s recovery dominates completed onboarding and prevents Inbox navigation", async (file) => {
+    const f = fixture(); f.files.set(`${root}/${file}`, "invalid"); await f.view.onOpen();
+    expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-findings")).toBeUndefined();
+    expect(f.content.action("view-findings")).toBeUndefined(); expect(f.content.action("dimension-structure")).toBeUndefined();
   });
 });

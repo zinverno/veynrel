@@ -6,7 +6,7 @@ import type { VaultProfile } from "../domain/profile";
 import { findingPresentation } from "./findingPresentation";
 
 export interface HealthCardModel {
-  id: HealthDimension; title: string; state: string; count: string; depth: string; icon: string;
+  id: HealthDimension; title: string; state: string; count: string; depth: string; icon: string; actionable: boolean;
 }
 export interface HealthHomeViewModel {
   initial: boolean;
@@ -17,7 +17,7 @@ export interface HealthHomeViewModel {
   statusError: boolean;
   cards: HealthCardModel[];
   count: string;
-  recommendation?: { title: string; explanation: string; canOpenNote: boolean };
+  recommendation?: { title: string; explanation: string; canOpenNote: boolean; findingId?: string };
   recovery?: { scope: HealthRecoveryScope; title: string; description: string; blocking: boolean };
   profile?: { value: VaultProfile; saving: boolean };
 }
@@ -37,7 +37,7 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
     return { id, title: t(`@health.${id}`), state: t(enabled ? `@health.state.${healthState}` : "@health.not-enabled"),
       count: enabled ? t("@health.findings", { n: card.openFindings }) : "",
       depth: enabled && card.analysisDepth === "basic" ? t(complete ? "@health.basic" : "@health.basic-incomplete") : "",
-      icon: icons[id] };
+      icon: icons[id], actionable: enabled || card.openFindings > 0 };
   }) : [];
   let status: string | undefined;
   if (state.recovering) status = t("@health.recovering");
@@ -49,14 +49,15 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
   const load = snapshot?.initialization;
   const scope = load && (!load.findingsWritable ? "all" : !load.historyWritable ? "history" : undefined);
   const inaccessible = load?.storage.findings === "unavailable" || load?.storage.scanRuns === "unavailable";
-  return { initial, scanLabel: t(state.busy && !state.recovering ? "@health.checking" : state.error === "scan" || outcome?.scan.status === "failed"
+  return { initial, scanLabel: t(state.busy && !state.recovering && !state.mutatingFindingId ? "@health.checking" : state.error === "scan" || outcome?.scan.status === "failed"
     ? "@health.try-again" : initial ? "@health.scan" : "@health.scan-again"),
     scanDisabled: state.busy || !snapshot || !load?.findingsWritable,
     recoveryDisabled: state.busy,
     status, statusError: Boolean(state.error) || outcome?.scan.status === "failed",
     cards, count: t("@health.open-findings", { n: snapshot?.openFindings ?? 0 }),
     recommendation: snapshot?.recommendation ? { ...(state.recommendationFinding ? findingPresentation(state.recommendationFinding)
-      : { title: snapshot.recommendation.title, explanation: snapshot.recommendation.explanation }), canOpenNote } : undefined,
+      : { title: snapshot.recommendation.title, explanation: snapshot.recommendation.explanation }), canOpenNote,
+      ...(snapshot.recommendation.findingId ? { findingId: snapshot.recommendation.findingId } : {}) } : undefined,
     profile: state.preferences.onboardingCompleted ? { value: state.preferences.profile, saving: state.savingPreferences } : undefined,
     recovery: scope ? { scope, blocking: scope === "all", title: t(scope === "all" ? "@health.recovery-title" : "@health.history-title"),
       description: t(inaccessible ? "@health.inaccessible" : "@health.damaged") } : undefined,
