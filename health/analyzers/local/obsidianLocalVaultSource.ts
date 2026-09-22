@@ -7,6 +7,8 @@ import type { AnalyzerDiagnostic } from "../types";
 import { defaultLocalVaultScope } from "./localVaultSource";
 import type { LocalVaultScope, LocalVaultSource } from "./localVaultSource";
 import type { LocalNoteSnapshot, LocalVaultSnapshot } from "./types";
+import { createLocalVaultRevision } from "./localVaultRevision";
+import type { LocalVaultFreshnessProbe, LocalVaultRevision } from "./localVaultRevision";
 
 export const LOCAL_READ_CONCURRENCY = 8;
 export interface ObsidianLocalVaultApp {
@@ -14,10 +16,16 @@ export interface ObsidianLocalVaultApp {
   metadataCache: Pick<MetadataCache, "getFileCache" | "getFirstLinkpathDest">;
 }
 
-export class ObsidianLocalVaultSource implements LocalVaultSource {
+export class ObsidianLocalVaultSource implements LocalVaultSource, LocalVaultFreshnessProbe {
   constructor(private readonly app: ObsidianLocalVaultApp, private readonly additionalScope?: LocalVaultScope) {}
 
-  async capture(signal: AbortSignal): Promise<LocalVaultSnapshot> {
+  /** Shares the exact enumeration and scope path with capture; never reads contents or metadata. */
+  async captureRevision(signal: AbortSignal): Promise<LocalVaultRevision> {
+    const inventory = this.captureInventory(signal);
+    return createLocalVaultRevision(inventory.entries, inventory.noteListComplete);
+  }
+
+  private captureInventory(signal: AbortSignal) {
     throwIfAborted(signal);
     const scope = defaultLocalVaultScope(this.app.vault.configDir);
     const diagnostics: AnalyzerDiagnostic[] = [];
@@ -44,6 +52,11 @@ export class ObsidianLocalVaultSource implements LocalVaultSource {
       entries.push({ file, path, basename, mtime: file.stat.mtime });
     }
     entries.sort((a, b) => compareStrings(a.path, b.path));
+    return { entries, paths, noteListComplete, diagnostics };
+  }
+
+  async capture(signal: AbortSignal): Promise<LocalVaultSnapshot> {
+    const { entries, paths, noteListComplete, diagnostics } = this.captureInventory(signal);
     const notes: LocalNoteSnapshot[] = new Array<LocalNoteSnapshot>(entries.length);
     let nextIndex = 0;
     let stopped = false;

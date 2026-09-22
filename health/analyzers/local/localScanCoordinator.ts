@@ -4,6 +4,7 @@ import type { AnalyzerDiagnostic, AnalyzerResult, HealthAnalyzer } from "../type
 import { checkpoint, isCancellation, LocalAnalysisCancelledError, throwIfAborted, withAbort } from "./cancellation";
 import { boundedDiagnostics, diagnostic, MAX_LOCAL_DIAGNOSTICS } from "./diagnostics";
 import { createLocalAnalysisContext } from "./localNoteGraph";
+import { createLocalVaultRevision } from "./localVaultRevision";
 import type { LocalVaultSource } from "./localVaultSource";
 import { LOCAL_HEALTH_ANALYZERS } from "./registry";
 import type { LocalAnalysisContext, LocalScanAnalysis } from "./types";
@@ -58,7 +59,8 @@ export class LocalScanCoordinator {
     }
     throwIfAborted(signal);
     const summary = boundedDiagnostics(snapshot.diagnostics);
-    return { notesSeen: context.snapshot.notes.length, analyzerVersions: Object.fromEntries(this.analyzers.map((analyzer) => [analyzer.id, analyzer.version])),
+    return { revision: createLocalVaultRevision(context.snapshot.notes, context.snapshot.coverage.noteListComplete),
+      notesSeen: context.snapshot.notes.length, analyzerVersions: Object.fromEntries(this.analyzers.map((analyzer) => [analyzer.id, analyzer.version])),
       results, diagnostics: summary.diagnostics.map((item) => ({ ...item })), diagnosticsTruncated: snapshot.diagnosticsTruncated + summary.diagnosticsTruncated,
     };
   }
