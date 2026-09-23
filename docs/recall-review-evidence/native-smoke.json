@@ -1,0 +1,537 @@
+{
+  "baseline": "3429cb8dd2bd8bbd10504d54fae6ebc9f5398f21",
+  "date": "2026-09-23",
+  "platform": "Linux desktop, isolated synthetic vault/profile",
+  "obsidian": "1.12.7",
+  "electron": "39.8.10",
+  "pluginIds": [
+    "ai-knowledge-hub"
+  ],
+  "artifacts": {
+    "mainJsSha256": "6b89c24603e423189591efc8064803eed97a61749168800fd6e65628d4ee7573",
+    "stylesCssSha256": "5be5bf0eb22e48c5d1ac0f8c8cc859d6b15d79638063f25d66bb00a34965f5e2",
+    "installedMainMatches": true
+  },
+  "fixture": {
+    "markdownNotes": 4,
+    "explicitCards": 4,
+    "credentials": false,
+    "clock": "Injected UTC epoch clock advanced explicitly between native actions",
+    "rendering": "Real Obsidian DOM, native button activation through CDP"
+  },
+  "startup": {
+    "counts": {},
+    "paths": []
+  },
+  "otherPages": {
+    "counts": {},
+    "paths": []
+  },
+  "firstOpen": {
+    "counts": {
+      "recall.exists": 1
+    },
+    "paths": [
+      [
+        "exists",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ]
+    ],
+    "text": "Health\nFindings\nDiscover\nRecall\nRecall\n\nUse Veynrel flashcards for built-in spaced repetition.\n\nVeynrel looks for cards in this format:\n\n## Flashcards\n\nquestion::answer\nFind flashcards\n\nCards are read from ## Flashcards sections in your notes."
+  },
+  "inventory": {
+    "counts": {
+      "vault.getMarkdownFiles": 2,
+      "vault.read": 4,
+      "recall.write": 1,
+      "otherMutation": 1
+    },
+    "paths": [
+      [
+        "write",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ]
+    ],
+    "snapshot": {
+      "loadState": "ready",
+      "firstRun": false,
+      "refreshing": false,
+      "reviewSaving": false,
+      "recovering": false,
+      "canRecover": false,
+      "confirmingRecovery": false,
+      "summary": {
+        "active": 4,
+        "due": 4,
+        "new": 4,
+        "learning": 4,
+        "review": 0,
+        "relearning": 0
+      },
+      "nextDueAt": 1790190075888,
+      "inventoryResult": {
+        "complete": true,
+        "committed": true,
+        "active": 4
+      }
+    }
+  },
+  "reviews": [
+    {
+      "rating": "again",
+      "decisionAt": 1790190076888,
+      "clickedAt": 1790190081888,
+      "intervalMs": 60000,
+      "counts": {
+        "recall.write": 1,
+        "otherMutation": 1
+      },
+      "paths": [
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ]
+    },
+    {
+      "rating": "hard",
+      "decisionAt": 1790190082888,
+      "clickedAt": 1790190087888,
+      "intervalMs": 330000,
+      "counts": {
+        "recall.write": 1,
+        "otherMutation": 1
+      },
+      "paths": [
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ]
+    },
+    {
+      "rating": "good",
+      "decisionAt": 1790190088888,
+      "clickedAt": 1790190093888,
+      "intervalMs": 600000,
+      "counts": {
+        "recall.write": 1,
+        "otherMutation": 1
+      },
+      "paths": [
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ]
+    },
+    {
+      "rating": "easy",
+      "decisionAt": 1790190094888,
+      "clickedAt": 1790190099888,
+      "intervalMs": 691200000,
+      "counts": {
+        "recall.write": 1,
+        "otherMutation": 1
+      },
+      "paths": [
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ]
+    }
+  ],
+  "completed": {
+    "snapshot": {
+      "loadState": "ready",
+      "firstRun": false,
+      "refreshing": false,
+      "reviewSaving": false,
+      "recovering": false,
+      "canRecover": false,
+      "confirmingRecovery": false,
+      "summary": {
+        "active": 4,
+        "due": 0,
+        "new": 0,
+        "learning": 3,
+        "review": 1,
+        "relearning": 0
+      },
+      "nextDueAt": 1790190136888,
+      "inventoryResult": {
+        "complete": true,
+        "committed": true,
+        "active": 4
+      },
+      "session": {
+        "reviewed": 4,
+        "complete": true,
+        "revealed": false
+      }
+    },
+    "text": "You're caught up\nHealth\nFindings\nDiscover\nRecall\nRecall\nYou're caught up\n\nReviewed this session: 4\n\nNext review: Sep 23, 2026, 10:02 PM\n\nBack to Recall"
+  },
+  "reviewIsolation": {
+    "before": {
+      "health/findings.json": "a6a8633f73b9fdb91a4a9b51a869b58507f020945e4b2bc19e662af67343bb2f",
+      "health/scan-runs.json": "f6f1963d81a1d386ac1f3d4d0128f26217263a1199c6aababb8517002490c7ab",
+      "semantic-index/recall-isolation-sentinel.json": "1c203b8f8ad33a88ab24e071c417a9def5e03e49cc479e2c72f09530144e4a3a",
+      "data.json": "f6e9e7479abb36bfbca620aa197dea99e0242c6e67bc40368264f77d4fba251b"
+    },
+    "after": {
+      "health/findings.json": "a6a8633f73b9fdb91a4a9b51a869b58507f020945e4b2bc19e662af67343bb2f",
+      "health/scan-runs.json": "f6f1963d81a1d386ac1f3d4d0128f26217263a1199c6aababb8517002490c7ab",
+      "semantic-index/recall-isolation-sentinel.json": "1c203b8f8ad33a88ab24e071c417a9def5e03e49cc479e2c72f09530144e4a3a",
+      "data.json": "f6e9e7479abb36bfbca620aa197dea99e0242c6e67bc40368264f77d4fba251b"
+    }
+  },
+  "learningReturned": true,
+  "reload": {
+    "preservedCards": 4,
+    "counts": {
+      "recall.exists": 1,
+      "recall.stat": 1,
+      "recall.read": 1
+    },
+    "paths": [
+      [
+        "exists",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ],
+      [
+        "stat",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ],
+      [
+        "read",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ]
+    ]
+  },
+  "retirement": {
+    "schedulePreserved": true,
+    "counts": {
+      "vault.getMarkdownFiles": 2,
+      "vault.read": 4,
+      "recall.write": 1,
+      "otherMutation": 1
+    },
+    "paths": [
+      [
+        "write",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ]
+    ]
+  },
+  "recurrence": {
+    "schedulePreserved": true,
+    "due": true,
+    "counts": {
+      "vault.getMarkdownFiles": 2,
+      "vault.read": 4,
+      "recall.write": 1,
+      "otherMutation": 1
+    },
+    "paths": [
+      [
+        "write",
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ]
+    ]
+  },
+  "failedReview": {
+    "loadState": "unavailable",
+    "sameCard": true,
+    "revealed": true,
+    "reviewed": 0
+  },
+  "layouts": [
+    {
+      "language": "en",
+      "theme": "mod-linux is-frameless is-hidden-frameless obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-dark",
+      "width": 390,
+      "contentWidth": 334,
+      "scrollWidth": 334,
+      "ratings": [
+        {
+          "x": 68,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Again\n1 min"
+        },
+        {
+          "x": 217,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Hard\n10 min"
+        },
+        {
+          "x": 68,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Good\n2 days"
+        },
+        {
+          "x": 217,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Easy\n4 days"
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "theme": "mod-linux is-frameless is-hidden-frameless obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-light",
+      "width": 390,
+      "contentWidth": 334,
+      "scrollWidth": 334,
+      "ratings": [
+        {
+          "x": 68,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Again\n1 min"
+        },
+        {
+          "x": 217,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Hard\n10 min"
+        },
+        {
+          "x": 68,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Good\n2 days"
+        },
+        {
+          "x": 217,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Easy\n4 days"
+        }
+      ]
+    },
+    {
+      "language": "ru",
+      "theme": "mod-linux is-frameless is-hidden-frameless obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-dark",
+      "width": 390,
+      "contentWidth": 334,
+      "scrollWidth": 334,
+      "ratings": [
+        {
+          "x": 68,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Снова\n1 мин"
+        },
+        {
+          "x": 217,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Трудно\n10 мин"
+        },
+        {
+          "x": 68,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Хорошо\n2 дня"
+        },
+        {
+          "x": 217,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Легко\n4 дня"
+        }
+      ]
+    },
+    {
+      "language": "ru",
+      "theme": "mod-linux is-frameless is-hidden-frameless obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-light",
+      "width": 390,
+      "contentWidth": 334,
+      "scrollWidth": 334,
+      "ratings": [
+        {
+          "x": 68,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Снова\n1 мин"
+        },
+        {
+          "x": 217,
+          "y": 649.109375,
+          "width": 137,
+          "text": "Трудно\n10 мин"
+        },
+        {
+          "x": 68,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Хорошо\n2 дня"
+        },
+        {
+          "x": 217,
+          "y": 723.109375,
+          "width": 137,
+          "text": "Легко\n4 дня"
+        }
+      ]
+    }
+  ],
+  "recovery": {
+    "cases": [
+      {
+        "kind": "invalid",
+        "originalSha256": "746a5a947fe96a621278cd8dfc9d859c1af51d5d2147479089bba160071ab696",
+        "backupSha256": "746a5a947fe96a621278cd8dfc9d859c1af51d5d2147479089bba160071ab696",
+        "counts": {
+          "recall.exists": 7,
+          "recall.stat": 4,
+          "recall.rename": 1,
+          "otherMutation": 1
+        },
+        "paths": [
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080571-5c1cc97d-aea3-46ee-aec2-01ac96b9f1f4.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080571-5c1cc97d-aea3-46ee-aec2-01ac96b9f1f4.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "rename",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080571-5c1cc97d-aea3-46ee-aec2-01ac96b9f1f4.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080571-5c1cc97d-aea3-46ee-aec2-01ac96b9f1f4.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ]
+        ]
+      },
+      {
+        "kind": "unsupported",
+        "originalSha256": "c793363ca6e4c9ca400a08a1f64e67b999f3e790bf0883646a7a7052bcac1fcf",
+        "backupSha256": "c793363ca6e4c9ca400a08a1f64e67b999f3e790bf0883646a7a7052bcac1fcf",
+        "counts": {
+          "recall.exists": 7,
+          "recall.stat": 4,
+          "recall.rename": 1,
+          "otherMutation": 1
+        },
+        "paths": [
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080725-8d8e2951-b37c-414c-8c48-b883a9d55627.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080725-8d8e2951-b37c-414c-8c48-b883a9d55627.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "rename",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080725-8d8e2951-b37c-414c-8c48-b883a9d55627.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ],
+          [
+            "stat",
+            ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790190080725-8d8e2951-b37c-414c-8c48-b883a9d55627.recovery.json"
+          ],
+          [
+            "exists",
+            ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+          ]
+        ]
+      }
+    ],
+    "isolation": {
+      "before": {
+        "health/findings.json": "a6a8633f73b9fdb91a4a9b51a869b58507f020945e4b2bc19e662af67343bb2f",
+        "health/scan-runs.json": "f6f1963d81a1d386ac1f3d4d0128f26217263a1199c6aababb8517002490c7ab",
+        "semantic-index/recall-isolation-sentinel.json": "1c203b8f8ad33a88ab24e071c417a9def5e03e49cc479e2c72f09530144e4a3a",
+        "data.json": "f6e9e7479abb36bfbca620aa197dea99e0242c6e67bc40368264f77d4fba251b"
+      },
+      "after": {
+        "health/findings.json": "a6a8633f73b9fdb91a4a9b51a869b58507f020945e4b2bc19e662af67343bb2f",
+        "health/scan-runs.json": "f6f1963d81a1d386ac1f3d4d0128f26217263a1199c6aababb8517002490c7ab",
+        "semantic-index/recall-isolation-sentinel.json": "1c203b8f8ad33a88ab24e071c417a9def5e03e49cc479e2c72f09530144e4a3a",
+        "data.json": "f6e9e7479abb36bfbca620aa197dea99e0242c6e67bc40368264f77d4fba251b"
+      }
+    },
+    "failedRecovery": {
+      "blocked": true,
+      "originalPreserved": true
+    },
+    "errors": []
+  },
+  "final": {
+    "notices": [],
+    "errors": [],
+    "firstRun": true
+  },
+  "counterNotes": "Only Recall paths are recorded in paths arrays; otherMutation also includes native host workspace autosaves. Zero counters are omitted. Review isolation hashes include Health, semantic sentinel, and settings; UI language changes and synthetic note edits occur in separate fixture phases."
+}
