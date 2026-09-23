@@ -3,6 +3,8 @@
 This document records the scheduler stage. The subsequent
 [Recall review experience](recall-review-experience.md) adds the lazy product
 surface and recovery while preserving this algorithm and storage contract.
+[Recall Health](recall-health-integration.md) now displays the same scheduling state;
+the dormant/Not enabled boundaries below describe only the original scheduler stage.
 
 Veynrel owns its Recall domain, scheduling policy, persistence and future review
 experience. FSRS-6 supplies the mathematical memory model. Users do not install

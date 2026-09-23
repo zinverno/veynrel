@@ -8,6 +8,11 @@ the [native Health home](health-view.md) with lazy ownership, manual scans and
 explicit storage recovery. The original foundation contracts are described below;
 the application document explains batch commit receipts and restart behavior.
 
+[Recall Health](recall-health-integration.md) derives a fourth-dimension signal
+from the existing shared Recall product through a Health-owned port. It loads
+metadata only after normal Health entry, creates no Findings or Health writes,
+and leaves Knowledge Not enabled.
+
 The first production Semantic analyzer is documented in
 [Semantic duplicate Health Findings](semantic-health-duplicates.md). It injects
 a Health-owned analysis port into the same HealthService/FindingStore owner.

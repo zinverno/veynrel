@@ -3,7 +3,8 @@
 Recall is Veynrel's built-in spaced-repetition workspace. The existing ItemView
 offers **Health | Findings | Discover | Recall** after onboarding. There is no
 second view type, external review plugin, Markdown scheduling metadata or
-automatic generation. Health's Recall dimension remains **Not enabled**.
+automatic generation. [Recall Health](recall-health-integration.md) now derives
+the Health card from the same native scheduling state, without Recall Findings.
 
 The [card foundation](recall-domain-foundation.md) and
 [native FSRS-6 scheduler](recall-fsrs-scheduler.md) retain their parser, identity,
@@ -15,9 +16,10 @@ batch action and context-menu action are unchanged.
 `registerHealth` composes one `RecallProductController` for the plugin lifetime.
 It holds a factory for one `RecallService`, which owns one `RecallStore`.
 Construction performs zero filesystem operations, enumeration, note reads,
-writes or network calls. Health, Findings and Discover never initialize Recall.
-Only navigating to Recall loads metadata through the dedicated
-`recall/cards.json` adapter. Missing metadata is an empty writable first run.
+writes or network calls. Since PR #40, normal Health entry also initializes Recall
+metadata through the dedicated `recall/cards.json` adapter, after onboarding and
+Health recovery. Subsequent Findings/Discover navigation reuses it. Missing metadata
+is an empty writable first run; no entry path automatically inventories Markdown.
 
 The UI uses the narrow `RecallProductPort` and safe snapshots, never the store,
 source, parser or scheduler implementation. Initialization is single-flight.
@@ -186,7 +188,7 @@ side-effect counts, screenshots, full checks and platform limits.
 
 ## Deferred work
 
-Recall Health aggregation/Findings remain for the next slice. Full history needs
+Recall Health aggregation is now integrated; due cards are not Findings. Full history needs
 a durability strategy before personalized parameter optimization is possible.
 Decks, categories, daily limits, rich Markdown rendering, card editing, rename
 reconciliation, automatic generation/scanning, sync and Connect are outside this

@@ -1,0 +1,325 @@
+{
+  "apiVersion": "1.12.7",
+  "electron": "39.8.10",
+  "plugins": [
+    "ai-knowledge-hub"
+  ],
+  "snapshotKeys": [
+    "active",
+    "due",
+    "firstRun",
+    "loadState",
+    "new"
+  ],
+  "results": {
+    "startup": {
+      "counts": {},
+      "paths": []
+    },
+    "onboarding": {
+      "counts": {},
+      "paths": []
+    },
+    "firstRun": {
+      "counts": {
+        "settingsMutation": 1,
+        "recall.exists": 1
+      },
+      "paths": [
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nNot enabled\n\nSet up Recall to start reviewing flashcards with Veynrel."
+    },
+    "navigation": {
+      "counts": {},
+      "paths": [],
+      "card": "Recall\n\nNot enabled\n\nSet up Recall to start reviewing flashcards with Veynrel."
+    },
+    "inventory": {
+      "counts": {
+        "vault.getMarkdownFiles": 2,
+        "vault.read": 4,
+        "recall.write": 1,
+        "hostOrRecallMutation": 1
+      },
+      "paths": [
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nReview recommended\n\n4 due · 4 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+    },
+    "reviews": {
+      "counts": {
+        "recall.write": 4,
+        "hostOrRecallMutation": 4
+      },
+      "paths": [
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "write",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nGood\n\n0 due · 4 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+    },
+    "againBefore": {
+      "counts": {},
+      "paths": [],
+      "card": "Recall\n\nGood\n\n0 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+    },
+    "againWakeup": {
+      "counts": {},
+      "paths": [],
+      "card": "Recall\n\nReview recommended\n\n1 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes.",
+      "elapsedMs": 60108,
+      "dueAt": 1790197608491
+    },
+    "focus": {
+      "outlineStyle": "solid",
+      "outlineWidth": "2px"
+    },
+    "layouts": [
+      {
+        "language": "en",
+        "theme": "obsidian",
+        "width": 390,
+        "contentWidth": 334,
+        "scrollWidth": 334,
+        "columns": "286px",
+        "card": "Recall\n\nReview recommended\n\n1 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+      },
+      {
+        "language": "en",
+        "theme": "moonstone",
+        "width": 390,
+        "contentWidth": 334,
+        "scrollWidth": 334,
+        "columns": "286px",
+        "card": "Recall\n\nReview recommended\n\n1 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+      },
+      {
+        "language": "ru",
+        "theme": "obsidian",
+        "width": 390,
+        "contentWidth": 334,
+        "scrollWidth": 334,
+        "columns": "286px",
+        "card": "Повторение\n\nПора повторить\n\n1 к повторению · 5 активных\n\nВстроенный FSRS\n\nТолько учтённые карточки. Обновите карточки, чтобы найти изменения в заметках."
+      },
+      {
+        "language": "ru",
+        "theme": "moonstone",
+        "width": 390,
+        "contentWidth": 334,
+        "scrollWidth": 334,
+        "columns": "286px",
+        "card": "Повторение\n\nПора повторить\n\n1 к повторению · 5 активных\n\nВстроенный FSRS\n\nТолько учтённые карточки. Обновите карточки, чтобы найти изменения в заметках."
+      }
+    ],
+    "keyboard": [
+      "Enter",
+      "Space"
+    ],
+    "twoViews": {
+      "counts": {},
+      "paths": [],
+      "card": "Recall\n\nReview recommended\n\n1 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+    },
+    "restartStartup": {
+      "counts": {},
+      "paths": []
+    },
+    "restartHealth": {
+      "counts": {
+        "recall.exists": 1,
+        "recall.stat": 1,
+        "recall.read": 1
+      },
+      "paths": [
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "read",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nReview recommended\n\n1 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+    },
+    "disposal": {
+      "timerCleared": true,
+      "viewClosed": true,
+      "bridgeUnsubscribed": true
+    },
+    "v1Health": {
+      "counts": {
+        "recall.exists": 1,
+        "recall.stat": 1,
+        "recall.read": 1
+      },
+      "paths": [
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "read",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nReview recommended\n\n5 due · 5 active\n\nNative FSRS\n\nTracked cards only. Refresh flashcards to discover changes in your notes."
+    },
+    "invalidHealth": {
+      "counts": {
+        "recall.exists": 1,
+        "recall.stat": 1,
+        "recall.read": 1
+      },
+      "paths": [
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "read",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nRecall data needs recovery\n\nOpen Recall to continue."
+    },
+    "invalidOtherHealth": {
+      "localScanSucceeded": true,
+      "findingsAvailable": true,
+      "discoverAvailable": true
+    },
+    "recovery": {
+      "counts": {
+        "recall.exists": 7,
+        "recall.stat": 4,
+        "recall.mkdir": 1,
+        "recall.rename": 1,
+        "hostOrRecallMutation": 1
+      },
+      "paths": [
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790197784479-5e45d6b3-5fd9-47cc-a699-b3748426093b.recovery.json"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+        ],
+        [
+          "mkdir",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790197784479-5e45d6b3-5fd9-47cc-a699-b3748426093b.recovery.json"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "rename",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790197784479-5e45d6b3-5fd9-47cc-a699-b3748426093b.recovery.json"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/recovery/cards-1790197784479-5e45d6b3-5fd9-47cc-a699-b3748426093b.recovery.json"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nNot enabled\n\nSet up Recall to start reviewing flashcards with Veynrel."
+    },
+    "unavailableHealth": {
+      "counts": {
+        "recall.exists": 2,
+        "recall.stat": 2
+      },
+      "paths": [
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "exists",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ],
+        [
+          "stat",
+          ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+        ]
+      ],
+      "card": "Recall\n\nRecall data unavailable\n\nOpen Recall to continue."
+    },
+    "retrySucceeded": true
+  },
+  "errors": [],
+  "baseline": "24e64e82479ac8cc32aa21b6f80b79b7e07f9a26",
+  "implementationCommit": "fb8f855",
+  "verifiedAt": "2026-09-24 Europe/Moscow",
+  "artifacts": {
+    "main.js": "3111b36947517a55de8c8af5396771ef732b8351a05c54f6b31f8de7069e87a5",
+    "styles.css": "5be5bf0eb22e48c5d1ac0f8c8cc859d6b15d79638063f25d66bb00a34965f5e2",
+    "manifest.json": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39"
+  }
+}
