@@ -13,6 +13,7 @@ describe("Recall local-only domain boundary", () => {
   it("audits every production module and its runtime imports for network, semantic, external-plugin or Markdown-write dependencies", () => {
     const allowed = new Set([...productionFiles("recall"), "utils/stableHash.ts", "health/domain/validation.ts"]);
     const writes: string[] = [];
+    const recoveryMoves: string[] = [];
     for (const file of allowed) {
       const raw = readFileSync(file, "utf8"), ast = ts.createSourceFile(file, raw, ts.ScriptTarget.Latest, true);
       function visit(node: ts.Node): void {
@@ -30,7 +31,10 @@ describe("Recall local-only domain boundary", () => {
           const callee = ts.isPropertyAccessExpression(node.expression) ? node.expression.name.text : call;
           expect(call, file).not.toBe("Math.random");
           if (file.startsWith("recall/scheduler/")) expect(call, file).not.toMatch(/(?:Date|performance|document|window|localStorage)/u);
-          expect(callee, file).not.toMatch(/^(?:require|fetch|requestUrl|request|callOpenRouter|XMLHttpRequest|WebSocket|embed|embeddings|modify|create|delete|rename|process|cachedRead|loadData|saveData)$/u);
+          if (file === "recall/product/recallRecovery.ts" && call === "this.adapter.rename") recoveryMoves.push(call);
+          else if (!(file === "recall/product/recallProductController.ts" && call === "this.listeners.delete")) {
+            expect(callee, file).not.toMatch(/^(?:require|fetch|requestUrl|request|callOpenRouter|XMLHttpRequest|WebSocket|embed|embeddings|modify|create|delete|rename|process|cachedRead|loadData|saveData)$/u);
+          }
           if (/\.write$/u.test(call)) writes.push(`${file}:${call}`);
         }
         ts.forEachChild(node, visit);
@@ -38,16 +42,19 @@ describe("Recall local-only domain boundary", () => {
       visit(ast);
     }
     expect(writes.sort()).toEqual(["recall/store/obsidianRecallStorage.ts:this.adapter.write", "recall/store/recallStore.ts:this.storage.write"]);
+    expect(recoveryMoves).toHaveLength(2); // Dedicated backup move and best-effort rollback only; tested against fixed Recall paths.
     const storage = readFileSync("recall/store/obsidianRecallStorage.ts", "utf8");
     expect(storage).toContain('this.path = `${this.root}/cards.json`');
     expect(storage).toContain('return `${configDir}/plugins/${pluginId}/recall`');
   });
 
-  it("leaves startup, Health Recall and navigation dormant", () => {
+  it("keeps Health Recall disabled and UI behind the product port", () => {
     const main = readFileSync("main.ts", "utf8");
     expect(main).not.toMatch(/(?:from|import\()\s*["'][^"']*recall/iu);
     const aggregation = readFileSync("health/services/healthAggregator.ts", "utf8");
     expect(aggregation).toContain('const enabled = id === "structure" || id === "connections"');
-    expect(readFileSync("health/ui/VeynrelHealthView.ts", "utf8")).not.toContain('page: "recall"');
+    const view = readFileSync("health/ui/VeynrelHealthView.ts", "utf8");
+    expect(view).toContain("RecallProductPort");
+    expect(view).not.toMatch(/RecallStore|ObsidianRecallSource/u);
   });
 });

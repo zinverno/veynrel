@@ -7,12 +7,16 @@ import { VeynrelHealthView } from "../ui/VeynrelHealthView";
 import type { HealthPreferencesPort } from "../preferences";
 import type { SemanticIntelligencePort } from "../semanticIntelligencePort";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
+import { createObsidianRecallProduct } from "../../recall/product/obsidianRecallProduct";
+import { openHealthNote } from "./openHealthNote";
 
 export function registerHealth(plugin: Plugin, openTools: () => void, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort,
   semanticAnalysis?: SemanticHealthAnalysisPort): void {
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools, semantic));
+  const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools, semantic, recall));
   plugin.register(() => controller.dispose());
+  plugin.register(() => recall.dispose());
   let opening: Promise<void> | undefined;
   const open = (): void => {
     opening ??= openHealthView(plugin.app.workspace).catch(() => { new Notice(t("@health.open-failed")); }).finally(() => { opening = undefined; });
