@@ -3,17 +3,18 @@ import { decodeRecall, serializeRecall } from "./codec";
 import type { RecallCardsSnapshot } from "./types";
 import { RecallStore } from "./recallStore";
 import { candidate, memoryStorage, request } from "../testSupport";
+import { createInitialSchedule } from "../scheduler/fsrs6";
 
 function snapshot(): RecallCardsSnapshot {
   const card = candidate();
-  return { version: 1, updatedAt: 100, cards: { [card.id]: { ...card, firstSeenAt: 50, lastSeenAt: 100, state: "active" } } };
+  return { version: 2, updatedAt: 100, cards: { [card.id]: { ...card, firstSeenAt: 50, lastSeenAt: 100, state: "active", schedule: createInitialSchedule(50) } } };
 }
 
-describe("Recall v1 codec and poisoning", () => {
+describe("Recall v2 codec and poisoning", () => {
   it("round trips with canonical object-key order and final newline", () => {
-    const one = snapshot(); const card = candidate("Other"); one.cards[card.id] = { ...card, firstSeenAt: 100, lastSeenAt: 100, state: "retired" };
+    const one = snapshot(); const card = candidate("Other"); one.cards[card.id] = { ...card, firstSeenAt: 100, lastSeenAt: 100, state: "retired", schedule: createInitialSchedule(100) };
     const two = { cards: Object.fromEntries(Object.entries(one.cards).reverse().map(([key, value]) =>
-      [key, Object.fromEntries(Object.entries(value).reverse())])), updatedAt: 100, version: 1 } as unknown as RecallCardsSnapshot;
+      [key, Object.fromEntries(Object.entries(value).reverse())])), updatedAt: 100, version: 2 } as unknown as RecallCardsSnapshot;
     expect(serializeRecall(one)).toBe(serializeRecall(two));
     expect(serializeRecall(one).endsWith("\n")).toBe(true);
     expect(decodeRecall(serializeRecall(one))).toEqual({ status: "loaded", data: one });
@@ -23,7 +24,7 @@ describe("Recall v1 codec and poisoning", () => {
     expect(decodeRecall(raw)).toEqual({ status: "invalid" });
   });
 
-  it.each([2, 99])("refuses unknown future version %s without coercion", (version) => {
+  it.each([3, 99])("refuses unknown future version %s without coercion", (version) => {
     expect(decodeRecall(JSON.stringify({ ...snapshot(), version }))).toEqual({ status: "unsupported" });
   });
 

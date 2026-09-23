@@ -1,3 +1,5 @@
+import type { RecallSchedule } from "../scheduler/types";
+
 export interface RecallCardSource {
   readonly path: string;
   readonly question: string;
@@ -14,6 +16,11 @@ export interface RecallCard extends RecallCardCandidate {
   readonly firstSeenAt: number;
   readonly lastSeenAt: number;
   readonly state: "active" | "retired";
+  readonly schedule: RecallSchedule;
+}
+
+export function copyRecallCard(card: RecallCard): RecallCard {
+  return { ...card, schedule: { ...card.schedule } };
 }
 
 export const MAX_QUESTION_LENGTH = 2000;

@@ -20,11 +20,16 @@ describe("Recall local-only domain boundary", () => {
           const target = node.moduleSpecifier.text;
           if (target === "obsidian") expect(ts.isImportDeclaration(node) && node.importClause?.isTypeOnly).toBe(true);
           else expect(allowed.has(normalize(join(dirname(file), `${target}.ts`))), `${file}: unexpected dependency ${target}`).toBe(true);
+          if (file.startsWith("recall/scheduler/")) {
+            expect(normalize(join(dirname(file), `${target}.ts`))).toMatch(/^(?:recall\/scheduler\/|health\/domain\/validation\.ts$)/u);
+          }
         }
         if (ts.isCallExpression(node) || ts.isNewExpression(node)) {
           expect(node.expression.kind).not.toBe(ts.SyntaxKind.ImportKeyword);
           const call = node.expression.getText(ast);
           const callee = ts.isPropertyAccessExpression(node.expression) ? node.expression.name.text : call;
+          expect(call, file).not.toBe("Math.random");
+          if (file.startsWith("recall/scheduler/")) expect(call, file).not.toMatch(/(?:Date|performance|document|window|localStorage)/u);
           expect(callee, file).not.toMatch(/^(?:require|fetch|requestUrl|request|callOpenRouter|XMLHttpRequest|WebSocket|embed|embeddings|modify|create|delete|rename|process|cachedRead|loadData|saveData)$/u);
           if (/\.write$/u.test(call)) writes.push(`${file}:${call}`);
         }
