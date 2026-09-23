@@ -12,6 +12,7 @@ function fixture(): HealthControllerState & { snapshot: HealthSnapshot } {
   return { busy: false, recovering: false, preferences: { ...DEFAULT_HEALTH_PREFERENCES }, savingPreferences: false, preferencesError: false, snapshot: {
     dimensions: { structure: { ...dimension }, connections: { ...dimension }, recall: { ...dimension }, knowledge: { ...dimension } },
     openFindings: 0, newFindings: 0, localScanRunning: false, lastLocalScanReconciled: false,
+    semanticScanRunning: false, lastSemanticScanReconciled: false,
     initialization: { status: "ready", storage: { findings: "missing", scanRuns: "missing" }, findingsWritable: true, historyWritable: true },
   } };
 }
@@ -21,6 +22,15 @@ function outcome(status: "completed" | "partial" | "failed" = "completed"): Loca
 beforeEach(() => setLanguage("en"));
 
 describe("Health home copy and state", () => {
+  it.each(["en", "ru"] as const)("localizes complete/incomplete semantic depth in %s without upgrading Structure", (language) => {
+    setLanguage(language); const f = fixture();
+    for (const complete of [true, false]) {
+      f.snapshot.dimensions.connections = { ...f.snapshot.dimensions.connections, analysisDepth: "semantic", analysisComplete: complete };
+      expect(healthHomeViewModel(f).cards[1].depth).toBe(language === "en"
+        ? `Semantic analysis${complete ? "" : " · incomplete"}` : `Семантический анализ${complete ? "" : " · неполный"}`);
+      expect(healthHomeViewModel(f).cards[0].depth).toBe("");
+    }
+  });
   it("starts with an explicit Scan action, unknown local health and honest disabled dimensions", () => {
     const model = healthHomeViewModel(fixture());
     expect(model.initial).toBe(true); expect(model.scanLabel).toBe("Scan my vault"); expect(model.scanDisabled).toBe(false);

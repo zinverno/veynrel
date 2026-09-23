@@ -11,6 +11,8 @@ import type { HealthPreferences, HealthPreferencesPort } from "../preferences";
 import type { Finding, FindingState } from "../domain/finding";
 import type { FindingFilter } from "../store/types";
 import { isFindingId } from "../domain/identity";
+import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
+import type { SemanticHealthScanOutcome } from "../services/types";
 
 export interface HealthControllerState {
   snapshot?: HealthSnapshot;
@@ -20,6 +22,9 @@ export interface HealthControllerState {
   preferencesError: boolean;
   mutatingFindingId?: string;
   outcome?: LocalHealthScanOutcome;
+  semanticOutcome?: SemanticHealthScanOutcome;
+  semanticScanRunning?: boolean;
+  semanticError?: boolean;
   busy: boolean;
   recovering: boolean;
   error?: "load" | "scan" | "recovery";
@@ -34,6 +39,9 @@ export class HealthPluginController {
   private activeScan?: Promise<void>;
   private scanAbort?: AbortController;
   private outcome?: LocalHealthScanOutcome;
+  private semanticOutcome?: SemanticHealthScanOutcome;
+  private activeScanType?: "local" | "semantic";
+  private semanticError = false;
   private error?: HealthControllerState["error"];
   private recovering = false;
   private disposed = false;
@@ -42,7 +50,8 @@ export class HealthPluginController {
   private preferencesError = false;
   private mutatingFindingId?: string;
 
-  constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort) {
+  constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort,
+    private readonly semanticAnalysis?: SemanticHealthAnalysisPort) {
     this.recovery = new HealthRecovery(app.vault.adapter, healthStorageRoot(app.vault.configDir, pluginId));
   }
 
@@ -54,7 +63,7 @@ export class HealthPluginController {
 
   private async createService(): Promise<HealthService> {
     const storage = new ObsidianHealthStorage(this.app.vault.adapter, healthStorageRoot(this.app.vault.configDir, this.pluginId));
-    const service = new HealthService(new FindingStore(storage), new ObsidianLocalVaultSource(this.app));
+    const service = new HealthService(new FindingStore(storage), new ObsidianLocalVaultSource(this.app), { semanticAnalysis: this.semanticAnalysis });
     try {
       await service.initialize();
       if (!this.disposed) {
@@ -78,7 +87,9 @@ export class HealthPluginController {
       preferences, savingPreferences: this.savingPreferences, preferencesError: this.preferencesError,
       mutatingFindingId: this.mutatingFindingId,
       outcome: this.outcome ? structuredClone(this.outcome) : undefined,
-      busy: Boolean(this.activeScan) || Boolean(this.service?.isLocalScanRunning()) || this.recovering || Boolean(this.mutatingFindingId),
+      semanticOutcome: this.semanticOutcome ? structuredClone(this.semanticOutcome) : undefined,
+      semanticScanRunning: this.activeScanType === "semantic" || Boolean(this.service?.isSemanticScanRunning()), semanticError: this.semanticError,
+      busy: Boolean(this.activeScan) || Boolean(this.service?.isScanRunning()) || this.recovering || Boolean(this.mutatingFindingId),
       recovering: this.recovering, error: this.error };
   }
 
@@ -139,21 +150,30 @@ export class HealthPluginController {
   }
 
   /** Only explicit user actions call this. The controller consumes every rejection. */
-  runLocalScan(): Promise<void> {
+  runLocalScan(): Promise<void> { return this.runScan("local"); }
+  runSemanticScan(): Promise<void> { return this.runScan("semantic"); }
+
+  private runScan(type: "local" | "semantic"): Promise<void> {
     if (this.activeScan) return this.activeScan;
     if (this.recovering || this.disposed || this.mutatingFindingId) return Promise.resolve();
-    this.error = undefined;
-    this.outcome = undefined;
+    if (type === "local") { this.error = undefined; this.outcome = undefined; }
+    else { this.semanticError = false; this.semanticOutcome = undefined; }
+    this.activeScanType = type;
     this.scanAbort = new AbortController();
     const signal = this.scanAbort.signal;
     this.activeScan = (async () => {
       try {
         const service = await this.getHealthService();
-        this.outcome = await service.runLocalScan(signal);
+        if (type === "local") this.outcome = await service.runLocalScan(signal);
+        else this.semanticOutcome = await service.runSemanticScan(signal);
       } catch (error) {
-        if (!isCancellation(error)) this.error = "scan";
+        if (!isCancellation(error)) {
+          if (type === "local") this.error = "scan";
+          else this.semanticError = true;
+        }
       } finally {
         this.activeScan = undefined;
+        this.activeScanType = undefined;
         this.scanAbort = undefined;
         this.notify();
       }
@@ -168,7 +188,7 @@ export class HealthPluginController {
     let service: HealthService;
     try { service = await this.getHealthService(); }
     catch { this.error = "recovery"; this.notify(); return false; }
-    if (this.activeScan || this.recovering || this.disposed || this.mutatingFindingId || service.isLocalScanRunning()) return false;
+    if (this.activeScan || this.recovering || this.disposed || this.mutatingFindingId || service.isScanRunning()) return false;
     const state = service.getSnapshot().initialization;
     const required = !state.findingsWritable ? "all" : !state.historyWritable ? "history" : undefined;
     if (!required || required !== scope) return false;
@@ -179,6 +199,7 @@ export class HealthPluginController {
       await this.recovery.recover(required);
       this.serviceUnsubscribe?.(); this.serviceUnsubscribe = undefined;
       this.service = undefined; this.servicePromise = undefined; this.outcome = undefined;
+      this.semanticOutcome = undefined; this.semanticError = false;
       // Still exclusive while the replacement initializes; no callers can start another owner.
       this.servicePromise = this.createService();
       await this.servicePromise;

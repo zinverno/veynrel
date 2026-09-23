@@ -1,5 +1,12 @@
 # Discover v1
 
+Current addition: Ready Discover separates **Explore** (the same three workflows)
+from **Semantic Health**, whose explicit **Check semantic duplicates** action
+persists Findings through HealthService. See
+[Semantic duplicate Health Findings](semantic-health-duplicates.md). The original
+v1 implementation and its historical verification are recorded below; its three
+exploratory workflows still do not persist Findings.
+
 Baseline: clean, fast-forwarded `main` at
 `f565e494e200b66225886a00dc6a5d6a9c800585`, the actual PR #33 merge commit.
 Branch: `feat/discover-surface`. No version bump, tag, release or merge.

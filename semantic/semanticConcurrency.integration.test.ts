@@ -69,6 +69,11 @@ import { AsyncReadWriteBarrier } from "./asyncReadWriteBarrier";
 import type { CompanionSyncPort } from "../companionSync";
 import type { SemanticControllerDependencies } from "./obsidianSemanticController";
 import { SemanticIntelligenceController } from "./product/semanticIntelligenceController";
+import { SemanticHealthAnalysisAdapter } from "./health/semanticHealthAnalysisAdapter";
+import { HealthService } from "../health/services/healthService";
+import { FindingStore } from "../health/store/findingStore";
+import { MemoryHealthStorage } from "../health/store/testSupport";
+import * as embeddingFactory from "../embeddings/factory";
 
 const BASE_PATH = semanticIndexBasePath(".obsidian", "ai-knowledge-hub");
 
@@ -480,6 +485,70 @@ beforeEach(() => {
 });
 
 describe("semantic read/write barrier with real services and store", () => {
+  it("Semantic Health reuses real discovery with zero provider calls, Markdown reads/writes or preview persistence", async () => {
+    const harness = createHarness();
+    harness.setContent("# Alpha\n\nalpha synthetic PRIVATE_PREVIEW content with enough detail for duplicate discovery");
+    harness.createFile("Near.md", "# Near\n\nalpha synthetic PRIVATE_PREVIEW content with enough detail for duplicate discovery");
+    await harness.controller.indexVault(); // Fixture preparation uses the mocked provider; analysis below must not.
+    const adapter = new SemanticHealthAnalysisAdapter(harness.controller);
+    const storage = new MemoryHealthStorage();
+    const source = { capture: vi.fn(), captureRevision: vi.fn() };
+    const service = new HealthService(new FindingStore(storage), source, { semanticAnalysis: adapter }); await service.initialize();
+    const mutations = { modify: vi.fn(), create: vi.fn(), delete: vi.fn(), rename: vi.fn() };
+    Object.assign(harness.plugin.app.vault, mutations);
+    const embed = vi.spyOn(BaseEmbeddingProvider.prototype, "embed");
+    const dimensions = vi.spyOn(BaseEmbeddingProvider.prototype, "dimensions");
+    const test = vi.spyOn(embeddingFactory, "testEmbeddingConnection");
+    const discovery = vi.spyOn(activeSlot(harness.controller).runtime, "findPotentialDuplicates");
+    const markdown = harness.plugin.app.vault.cachedRead; markdown.mockClear();
+    harness.plugin.app.vault.getMarkdownFiles.mockClear(); obsidianMocks.requestUrl.mockClear(); embeddingCalls = [];
+    const write = vi.spyOn(harness.adapter, "write"); const writeBinary = vi.spyOn(harness.adapter, "writeBinary");
+    try {
+      const outcome = await service.runSemanticScan(new AbortController().signal);
+      expect(outcome).toMatchObject({ findingsCommitted: true, historyRecorded: true, scan: { status: "completed", notesSeen: 0, findingsCreated: 1 } });
+      expect(discovery).toHaveBeenCalledExactlyOnceWith({ limit: 100, matchesPerDocument: 3 });
+      expect(service.listFindings()[0]).toMatchObject({ source: "semantic", notePaths: ["Alpha.md", "Near.md"], evidence: [{ kind: "similarity-score", value: 1 }] });
+      expect(obsidianMocks.requestUrl).not.toHaveBeenCalled(); expect(embed).not.toHaveBeenCalled(); expect(dimensions).not.toHaveBeenCalled(); expect(test).not.toHaveBeenCalled();
+      expect(embeddingCalls).toEqual([]); expect(markdown).not.toHaveBeenCalled(); expect(harness.plugin.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+      for (const mutation of Object.values(mutations)) expect(mutation).not.toHaveBeenCalled();
+      expect(write).not.toHaveBeenCalled(); expect(writeBinary).not.toHaveBeenCalled(); expect(source.capture).not.toHaveBeenCalled();
+      expect(storage.files.get("findings.json")).not.toMatch(/PRIVATE_PREVIEW|preview|content|vectors|embedding/iu);
+    } finally { embed.mockRestore(); dimensions.mockRestore(); test.mockRestore(); }
+  });
+
+  it("cached semantic revisions reject settings/rebuilt runtime changes even when vector counters match", async () => {
+    const harness = createHarness(); await harness.controller.indexVault();
+    const adapter = new SemanticHealthAnalysisAdapter(harness.controller);
+    const signal = new AbortController().signal;
+    const before = (await adapter.analyzeDuplicates(signal)).revision;
+    await harness.controller.rebuildIndex();
+    const after = (await adapter.analyzeDuplicates(signal)).revision;
+    expect(after.vectorCount).toBe(before.vectorCount); expect(after.vectorGeneration).toBe(before.vectorGeneration);
+    expect(after.runtimeRevision).toBeGreaterThan(before.runtimeRevision);
+    await expect(adapter.verifyCurrent(before, signal)).rejects.toMatchObject({ code: "semantic-index-changed" });
+    obsidianMocks.requestUrl.mockClear();
+    harness.plugin.settings.semantic.embeddingBaseUrl = "https://changed.example.test/v1";
+    expect(harness.controller.getCachedIndexState().kind).not.toBe("ready");
+    await expect(adapter.verifyCurrent(after, signal)).rejects.toMatchObject({ code: "semantic-index-changed" });
+    harness.controller.notifySettingsChanged({ reconcile: false });
+    expect(harness.controller.getCachedIndexState().configurationRevision).toBeGreaterThan(after.configurationRevision);
+    expect(obsidianMocks.requestUrl).not.toHaveBeenCalled();
+  });
+
+  it("cached semantic revisions reject an ongoing reinspection of an already initialized runtime", async () => {
+    const harness = createHarness(); await harness.controller.indexVault();
+    const adapter = new SemanticHealthAnalysisAdapter(harness.controller); const signal = new AbortController().signal;
+    const revision = (await adapter.analyzeDuplicates(signal)).revision;
+    const hold = manualGate();
+    const initialize = vi.spyOn(activeSlot(harness.controller).runtime, "initialize").mockImplementationOnce(async () => { hold.markEntered(); await hold.wait; });
+    const checking = harness.controller.refreshSemanticStatus(); await hold.entered;
+    try {
+      expect(harness.controller.getSemanticStatus().kind).toBe("initializing");
+      await expect(adapter.verifyCurrent(revision, signal)).rejects.toMatchObject({ code: "semantic-index-changed" });
+    } finally { hold.release(); await checking; initialize.mockRestore(); }
+    await expect(adapter.verifyCurrent(revision, signal)).resolves.toBeUndefined();
+  });
+
   it("keeps duplicate discovery on one committed snapshot during indexing", async () => {
     const harness = createHarness();
     harness.setContent(

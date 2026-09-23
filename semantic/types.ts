@@ -120,3 +120,10 @@ export interface SemanticStatus {
   providerLabel: string;
   model: string;
 }
+
+/** Cached technical identity. Counters are in-session and contain no configuration secrets. */
+export interface SemanticIndexState extends SemanticStatus {
+  provider: string;
+  configurationRevision: number;
+  runtimeRevision: number;
+}

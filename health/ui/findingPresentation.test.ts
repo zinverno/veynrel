@@ -12,6 +12,13 @@ function finding(type: string): Finding {
 }
 
 describe("Finding presentation without identity changes", () => {
+  it("localizes semantic duplicates in EN/RU while preserving persisted fields and future fallback", () => {
+    const item = { ...finding("semantic-duplicate"), source: "semantic" as const }; const before = structuredClone(item);
+    setLanguage("en"); expect(findingPresentation(item)).toEqual({ title: "Possible semantic duplicate", explanation: "These notes are unusually similar in meaning." });
+    setLanguage("ru"); expect(findingPresentation(item)).toEqual({ title: "Возможный смысловой дубликат", explanation: "Эти заметки необычно близки по смыслу." });
+    expect(item).toEqual(before);
+    expect(findingPresentation({ ...item, type: "future-semantic-type" })).toEqual({ title: item.title, explanation: item.explanation });
+  });
   it.each(types)("localizes %s in English and Russian and preserves the entire Finding", (type) => {
     const item = finding(type); const before = structuredClone(item);
     setLanguage("en"); const en = findingPresentation(item);

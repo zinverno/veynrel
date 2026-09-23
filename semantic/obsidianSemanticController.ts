@@ -71,6 +71,7 @@ import type {
   SemanticRuntime,
   SemanticRuntimeStats,
   SemanticStatus,
+  SemanticIndexState,
 } from "./types";
 import { normalizeVectorStoreBasePath } from "../vectorStore";
 import { CompanionClientError, CompanionSyncService } from "../companionSync";
@@ -269,6 +270,7 @@ export class ObsidianSemanticController {
   private runtimeSlot: RuntimeSlot | null = null;
   private operationBusy = false;
   private settingsEpoch = 0;
+  private runtimeRevision = 0;
   private indexingQueue: Promise<void> = Promise.resolve();
   private autoSyncRegistered = false;
   private autoSyncFailureNoticed = false;
@@ -442,6 +444,12 @@ export class ObsidianSemanticController {
   getSemanticStatus(): SemanticStatus {
     this.reconcileCachedStatus();
     return { ...this.status };
+  }
+
+  /** Read cached status/settings only. Does not initialize, probe, test or build an index. */
+  getCachedIndexState(): SemanticIndexState {
+    return { ...this.getSemanticStatus(), provider: this.plugin.settings.semantic.embeddingProvider,
+      configurationRevision: this.settingsEpoch, runtimeRevision: this.runtimeRevision };
   }
 
   getCompanionStatus(): CompanionConnectionStatus {
@@ -1333,6 +1341,7 @@ export class ObsidianSemanticController {
         snapshot: { ...snapshot },
         epoch,
       };
+      this.runtimeRevision++;
       this.status = this.defaultStatus("not-initialized", snapshot);
     }
     return runtime;
@@ -1445,7 +1454,9 @@ export class ObsidianSemanticController {
       return;
     }
     const stats = this.runtimeSlot.runtime.getStats();
-    if (stats.initialized) this.updateReadyStatus(this.runtimeSlot.runtime);
+    // A cached read must not turn an in-flight reinspection into Ready.
+    // Its initiating operation publishes Ready when initialization completes.
+    if (stats.initialized && this.status.kind !== "initializing") this.updateReadyStatus(this.runtimeSlot.runtime);
     if (this.operationBusy) this.status.kind = "indexing";
   }
 

@@ -8,6 +8,12 @@ the [native Health home](health-view.md) with lazy ownership, manual scans and
 explicit storage recovery. The original foundation contracts are described below;
 the application document explains batch commit receipts and restart behavior.
 
+The first production Semantic analyzer is documented in
+[Semantic duplicate Health Findings](semantic-health-duplicates.md). It injects
+a Health-owned analysis port into the same HealthService/FindingStore owner.
+Explicit Local and Semantic scans share exclusion; semantic-engine imports stay
+outside Health. Scope receipts independently associate both sources after restart.
+
 Health introduces a shared domain for knowledge-base observations. Analyzers emit
 candidates, reconciliation maintains Findings, and HealthService consumes them.
 The foundation PR introduced the domain contracts and persistence described here.

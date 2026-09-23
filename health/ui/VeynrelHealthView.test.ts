@@ -59,12 +59,16 @@ import { SemanticIntelligenceController } from "../../semantic/product/semanticI
 import { DEFAULT_EMBEDDING_SETTINGS } from "../../embeddings/types";
 import type { EmbeddingSettings } from "../../embeddings/types";
 import type { SemanticStatus } from "../../semantic/types";
+import type { SemanticDuplicatePair } from "../../semantic/types";
+import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
+import { SemanticHealthAnalysisAdapter } from "../../semantic/health/semanticHealthAnalysisAdapter";
 
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
-function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort) {
+function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort,
+  semanticAnalysis?: SemanticHealthAnalysisPort) {
   const f = appFixture(); const file = new mocks.TFile(); f.vault.getAbstractFileByPath.mockReturnValue(file);
   const p = preferencesFixture(initial);
-  const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences);
+  const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences, semanticAnalysis);
   const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic);
   return { ...f, ...p, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
@@ -132,12 +136,15 @@ describe("inline Semantic Intelligence boundaries", () => {
     let status: SemanticStatus = { kind, vectorCount, vectorGeneration: 0, dimensions: 3, providerLabel: "OpenRouter", model: effective.embeddingModel };
     const settings = { get: () => ({ ...effective }), update: vi.fn(async (next: EmbeddingSettings) => { effective = { ...next }; return { ...next }; }) };
     const engine = { getSemanticStatus: () => ({ ...status }), refreshSemanticStatus: vi.fn(async () => ({ ...status })),
+      getCachedIndexState: () => ({ ...status, provider: effective.embeddingProvider, configurationRevision: 0, runtimeRevision: 1 }),
+      findPotentialDuplicates: vi.fn(async (): Promise<SemanticDuplicatePair[]> => []),
       indexVault: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }),
       rebuildIndex: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }),
       openSearch: vi.fn(), openSimilarNotes: vi.fn(), openPotentialDuplicates: vi.fn() };
     const semantic = new SemanticIntelligenceController(settings, engine);
-    const f = fixture(undefined, semantic); const scan = vi.spyOn(f.controller, "runLocalScan");
-    return { ...f, semantic, engine, settings, scan };
+    const f = fixture(undefined, semantic, new SemanticHealthAnalysisAdapter(engine)); const scan = vi.spyOn(f.controller, "runLocalScan");
+    const semanticScan = vi.spyOn(f.controller, "runSemanticScan");
+    return { ...f, semantic, engine, settings, scan, semanticScan };
   }
   beforeEach(() => {
     vi.stubGlobal("window", { setTimeout, clearTimeout }); mocks.requestUrl.mockReset();
@@ -165,9 +172,77 @@ describe("inline Semantic Intelligence boundaries", () => {
     expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
     expect(f.engine.openSearch).not.toHaveBeenCalled(); expect(f.engine.openSimilarNotes).not.toHaveBeenCalled();
     expect(f.engine.openPotentialDuplicates).not.toHaveBeenCalled();
+    expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled(); expect(f.semanticScan).not.toHaveBeenCalled();
+    expect(Boolean(f.content.action("semantic-health-scan"))).toBe(false); // Reopened on Health, never auto-run.
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
     expect(f.scan).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled(); expect(f.settings.update.mock.calls.length).toBe(0);
     expect(f.adapter.write).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+
+  it.each(["en", "ru"] as const)("explicit Semantic Health scan produces localized Inbox Findings in %s and preserves dismissal on repeat", async (language) => {
+    setLanguage(language); const f = semanticFixture(true, "ready", 8);
+    const pair: SemanticDuplicatePair = { leftPath: "B.md", rightPath: "A.md", score: 0.971, leftMatches: [], rightMatches: [] };
+    f.engine.findPotentialDuplicates.mockResolvedValue([pair]);
+    await f.view.onOpen(); f.content.action("nav-discover").click();
+    const section = f.content.all().find((element) => element.cls === "veynrel-discover-health")!;
+    expect(section).toBeDefined(); expect(section.action("discover-duplicates")).toBeUndefined();
+    expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled();
+    const button = f.content.action("semantic-health-scan"); button.focus(); button.click(); button.click();
+    await vi.waitFor(() => expect(f.controller.getState().semanticOutcome?.historyRecorded).toBe(true));
+    expect(f.engine.findPotentialDuplicates).toHaveBeenCalledTimes(1);
+    expect(f.content.texts()).toContain(language === "en" ? "Semantic duplicate check complete" : "Проверка смысловых дубликатов завершена");
+    const finding = f.controller.listFindings()[0]; expect(finding.notePaths).toEqual(["A.md", "B.md"]);
+    f.content.action("nav-health").click();
+    expect(f.content.texts()).toContain(language === "en" ? "Review recommended" : "Рекомендуется проверить");
+    expect(f.content.texts()).toContain(language === "en" ? "Possible semantic duplicate" : "Возможный смысловой дубликат");
+    f.content.action("nav-findings").click();
+    expect(f.content.texts()).toContain(language === "en" ? "2 notes" : "Заметок: 2");
+    f.content.action(`finding-${finding.id}`).click();
+    expect(f.content.texts()).toContain(language === "en" ? "Semantic analysis" : "Семантический анализ");
+    expect(f.content.texts()).toContain(language === "en" ? "Semantic similarity: 97%" : "Сходство по смыслу: 97%");
+    expect(f.content.action("finding-note-0").text).toBe("A.md"); expect(f.content.action("finding-note-1").text).toBe("B.md");
+    f.content.action("finding-note-0").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
+    f.content.action("finding-dismiss").click();
+    await vi.waitFor(() => expect(f.controller.getFinding(finding.id)?.state).toBe("dismissed"));
+    expect(f.content.action(`finding-${finding.id}`)).toBeUndefined();
+    f.content.action("nav-discover").click(); f.content.action("semantic-health-scan").click();
+    await vi.waitFor(() => expect(f.engine.findPotentialDuplicates).toHaveBeenCalledTimes(2)); await flush();
+    expect(f.controller.getFinding(finding.id)?.state).toBe("dismissed");
+    expect(f.engine.openPotentialDuplicates).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.adapter.write.mock.calls.every(([path]) => path.startsWith(`${root}/`))).toBe(true);
+    await f.view.onClose();
+  });
+
+  it("shows semantic busy state across close/reopen, excludes Local scans and leaves exploratory workflows usable", async () => {
+    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-discover").click();
+    let release!: (pairs: SemanticDuplicatePair[]) => void;
+    f.engine.findPotentialDuplicates.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
+    const button = f.content.action("semantic-health-scan"); button.click(); button.click(); await flush();
+    expect(f.content.action("semantic-health-scan").disabled).toBe(true);
+    expect(f.content.texts()).toContain("Checking semantic duplicates…");
+    expect(f.content.texts()).not.toContain("%");
+    f.content.action("discover-duplicates").click(); expect(f.engine.openPotentialDuplicates).toHaveBeenCalledTimes(1);
+    await f.view.onClose(); await f.view.onOpen();
+    expect(f.content.action("scan").disabled).toBe(true); expect(f.content.action("scan").text).not.toBe("Checking your vault…");
+    f.content.action("nav-discover").click(); expect(f.content.action("semantic-health-scan").disabled).toBe(true);
+    release([]); await vi.waitFor(() => expect(f.controller.getState().busy).toBe(false));
+    expect(f.engine.findPotentialDuplicates).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.content.action("semantic-health-scan").disabled).toBe(false); await f.view.onClose();
+  });
+
+  it("reports partial/failure safely and never starts Health analysis after Build", async () => {
+    const f = semanticFixture(true, "not-initialized"); await f.view.onOpen(); f.content.action("nav-discover").click();
+    expect(f.content.action("semantic-health-scan")).toBeUndefined();
+    f.content.action("discover-build").click(); await flush();
+    expect(f.content.action("semantic-health-scan")).toBeDefined(); expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled();
+    f.engine.findPotentialDuplicates.mockResolvedValueOnce(Array.from({ length: 100 }, (_, i) => ({ leftPath: `${i}.md`, rightPath: "Z.md", score: 0.97, leftMatches: [], rightMatches: [] })));
+    f.content.action("semantic-health-scan").click(); await vi.waitFor(() => expect(f.controller.getState().busy).toBe(false));
+    expect(f.content.texts()).toContain("Semantic duplicate check had limited results");
+    f.engine.findPotentialDuplicates.mockRejectedValueOnce(new Error("PRIVATE_RESPONSE"));
+    f.content.action("semantic-health-scan").click(); await vi.waitFor(() => expect(f.controller.getState().busy).toBe(false));
+    expect(f.content.texts()).toContain("Semantic duplicate check could not be completed"); expect(f.content.texts()).not.toContain("PRIVATE_RESPONSE");
+    await f.view.onClose();
   });
 
   it("Discover's three Ready workflows delegate once through the port and preserve Finding bytes, lifecycle and Health", async () => {

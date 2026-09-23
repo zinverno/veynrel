@@ -1809,6 +1809,7 @@
 /* Discover reuses native workflow buttons and stacks in narrow workspace panes. */
 .veynrel-health-view .veynrel-discover-workflows { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; margin-block: 24px; }
 .veynrel-health-view .veynrel-discover-workflows button { min-width: 0; }
+.veynrel-health-view .veynrel-discover-health { border-top: 1px solid var(--background-modifier-border); margin-block: 24px; padding-block-start: 16px; }
 
 /* Findings shares the Health workspace and native theme; no persisted layout state. */
 .veynrel-health-view .veynrel-findings-navigation,

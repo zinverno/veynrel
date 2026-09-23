@@ -54,6 +54,19 @@ export function t(key: string, vars?: Record<string, string | number>): string {
 }
 
 const RU: Record<string, string> = {
+  "@discover.explore": "Исследование",
+  "@semantic-health.title": "Семантическая проверка",
+  "@semantic-health.description": "Сохраняйте пары заметок с очень близким смыслом как находки для последующего разбора.",
+  "@semantic-health.check": "Проверить смысловые дубликаты",
+  "@semantic-health.checking": "Проверяем смысловые дубликаты…",
+  "@semantic-health.completed": "Проверка смысловых дубликатов завершена",
+  "@semantic-health.partial": "Проверка смысловых дубликатов дала неполные результаты",
+  "@semantic-health.failed": "Не удалось завершить проверку смысловых дубликатов",
+  "@health.semantic": "Семантический анализ",
+  "@health.semantic-incomplete": "Семантический анализ · неполный",
+  "@health.finding.semantic-duplicate.title": "Возможный смысловой дубликат",
+  "@health.finding.semantic-duplicate.explanation": "Эти заметки необычно близки по смыслу.",
+  "@findings.evidence.similarity-score": "Сходство по смыслу: {n}%",
   "@discover.title": "Открытия",
   "@discover.introduction": "Находите знания по смыслу, даже если заметки не связаны ссылками.",
   "@discover.required": "Нужны семантические возможности",
@@ -298,6 +311,19 @@ const RU: Record<string, string> = {
 };
 
 const EN: Record<string, string> = {
+  "@discover.explore": "Explore",
+  "@semantic-health.title": "Semantic Health",
+  "@semantic-health.description": "Turn highly similar note pairs into reviewable Findings.",
+  "@semantic-health.check": "Check semantic duplicates",
+  "@semantic-health.checking": "Checking semantic duplicates…",
+  "@semantic-health.completed": "Semantic duplicate check complete",
+  "@semantic-health.partial": "Semantic duplicate check had limited results",
+  "@semantic-health.failed": "Semantic duplicate check could not be completed",
+  "@health.semantic": "Semantic analysis",
+  "@health.semantic-incomplete": "Semantic analysis · incomplete",
+  "@health.finding.semantic-duplicate.title": "Possible semantic duplicate",
+  "@health.finding.semantic-duplicate.explanation": "These notes are unusually similar in meaning.",
+  "@findings.evidence.similarity-score": "Semantic similarity: {n}%",
   "@discover.title": "Discover",
   "@discover.introduction": "Find knowledge by meaning, not only by explicit links.",
   "@discover.required": "Semantic Intelligence required",

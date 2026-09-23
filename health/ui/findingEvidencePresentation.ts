@@ -27,6 +27,12 @@ export function findingEvidencePresentation(finding: Finding): FindingEvidencePr
     facts.push(t(`@findings.evidence.${kind}`, { value: text + (truncated ? "…" : "") }));
   };
   let affectedCount = finding.notePaths.length;
+  if (finding.source === "semantic" && finding.type === "semantic-duplicate") {
+    const score = value("similarity-score");
+    if (typeof score === "number" && Number.isFinite(score) && score >= -1 && score <= 1) {
+      facts.push(t("@findings.evidence.similarity-score", { n: Math.round(score * 100) }));
+    }
+  }
   if (finding.source === "local") {
     switch (finding.type) {
       case "broken-link":

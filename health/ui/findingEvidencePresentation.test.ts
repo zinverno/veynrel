@@ -22,6 +22,14 @@ const cases: Array<[string, FindingEvidence[], string[], string[]]> = [
 ];
 
 describe("localized evidence allowlist", () => {
+  it.each([[0.971, 97], [0.975, 98], [1, 100], [-1, -100]] as const)("presents score %s as rounded similarity %s, not probability", (score, percentage) => {
+    const finding = inboxFinding({ source: "semantic", type: "semantic-duplicate", notePaths: ["A.md", "B.md"], evidence: [{ kind: "similarity-score", value: score }] });
+    setLanguage("en"); expect(findingEvidencePresentation(finding)).toMatchObject({ facts: [`Semantic similarity: ${percentage}%`], affectedCount: 2 });
+    setLanguage("ru"); expect(findingEvidencePresentation(finding).facts).toEqual([`Сходство по смыслу: ${percentage}%`]);
+  });
+  it.each([NaN, Infinity, 1.1, -1.1, "0.97"])("does not clamp invalid persisted score %s into a plausible percentage", (value) => {
+    expect(findingEvidencePresentation(inboxFinding({ source: "semantic", type: "semantic-duplicate", evidence: [{ kind: "similarity-score", value }] })).facts).toEqual([]);
+  });
   it.each(cases)("presents every current %s fact in EN/RU without changing identity or evidence", (type, evidence, en, ru) => {
     const finding = inboxFinding({ type, evidence }); const before = structuredClone(finding);
     setLanguage("en"); expect(findingEvidencePresentation(finding).facts).toEqual(en);

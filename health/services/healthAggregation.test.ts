@@ -14,6 +14,29 @@ function finding(overrides: Partial<Finding> = {}): Finding {
 const completed = scanRun({ analyzerVersions: Object.fromEntries(LOCAL_HEALTH_ANALYZERS.map((analyzer) => [analyzer.id, analyzer.version])) });
 
 describe("Health aggregation", () => {
+  const semantic = scanRun({ type: "semantic", analyzerVersions: { "semantic-duplicates": "1" },
+    reconciliationReceipts: { "semantic:semantic-duplicates": 200 } });
+  it.each([
+    [undefined, false, "basic", true, "good"],
+    [semantic, true, "semantic", true, "good"],
+    [{ ...semantic, status: "partial" as const }, true, "semantic", false, "unknown"],
+    [semantic, false, "basic", true, "good"],
+    [{ ...semantic, status: "failed" as const }, true, "basic", true, "good"],
+    [{ ...semantic, reconciliationReceipts: {} }, true, "basic", true, "good"],
+    [{ ...semantic, analyzerVersions: { "semantic-duplicates": "older" } }, true, "basic", true, "good"],
+  ] as const)("combines semantic coverage conservatively (%j, trusted %s)", (lastSemanticScan, semanticReconciled, depth, complete, state) => {
+    const result = aggregateHealth({ findings: [], lastLocalScan: completed, reconciled: true, lastSemanticScan, semanticReconciled });
+    expect(result.dimensions.connections).toMatchObject({ analysisDepth: depth, analysisComplete: complete, state });
+    expect(result.dimensions.structure).toMatchObject({ analysisDepth: "basic", analysisComplete: true, state: "good" });
+    expect(result.dimensions.recall.analysisDepth).toBe("not-enabled");
+    expect(result.dimensions.knowledge.analysisDepth).toBe("not-enabled");
+  });
+  it("semantic coverage alone cannot prove complete Connections; open review still drives state", () => {
+    const input = { findings: [], reconciled: false, lastSemanticScan: semantic, semanticReconciled: true };
+    expect(aggregateHealth(input).dimensions.connections).toMatchObject({ analysisDepth: "semantic", analysisComplete: false, state: "unknown" });
+    expect(aggregateHealth({ ...input, findings: [finding({ source: "semantic", dimension: "connections", impact: "review", confidence: "high" })] })
+      .dimensions.connections).toMatchObject({ analysisDepth: "semantic", state: "review-recommended", openFindings: 1 });
+  });
   it.each([
     { impact: "attention", status: "completed", state: "needs-attention" },
     { impact: "review", status: "completed", state: "review-recommended" },
