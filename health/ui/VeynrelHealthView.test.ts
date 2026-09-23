@@ -133,7 +133,8 @@ describe("inline Semantic Intelligence boundaries", () => {
     const settings = { get: () => ({ ...effective }), update: vi.fn(async (next: EmbeddingSettings) => { effective = { ...next }; return { ...next }; }) };
     const engine = { getSemanticStatus: () => ({ ...status }), refreshSemanticStatus: vi.fn(async () => ({ ...status })),
       indexVault: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }),
-      rebuildIndex: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }), openSearch: vi.fn() };
+      rebuildIndex: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }),
+      openSearch: vi.fn(), openSimilarNotes: vi.fn(), openPotentialDuplicates: vi.fn() };
     const semantic = new SemanticIntelligenceController(settings, engine);
     const f = fixture(undefined, semantic); const scan = vi.spyOn(f.controller, "runLocalScan");
     return { ...f, semantic, engine, settings, scan };
@@ -143,6 +144,109 @@ describe("inline Semantic Intelligence boundaries", () => {
     mocks.requestUrl.mockResolvedValue({ status: 200, text: '{"embeddings":[[1,0,0]],"data":[{"embedding":[1,0,0]}]}' });
   });
   afterEach(() => vi.unstubAllGlobals());
+
+  it.each([
+    [false, "not-initialized", 0], [true, "not-initialized", 0], [true, "ready", 4],
+    [true, "incompatible", 4], [true, "error", 0], [true, "ready", 0], [true, "indexing", 4],
+  ] as const)("Discover navigation is passive (enabled %s, %s, %s vectors)", async (enabled, kind, count) => {
+    const f = semanticFixture(enabled, kind, count); await f.view.onOpen();
+    expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.text))
+      .toEqual(["Health", "Findings", "Discover"]);
+    f.content.action("nav-discover").click();
+    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Discover");
+    expect(f.content.ownerDocument.activeElement?.text).toBe("Discover");
+    expect(f.content.all().find((e) => e.tag === "nav")?.attrs["aria-label"]).toBe("Veynrel navigation");
+    f.content.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
+    f.content.action("nav-discover").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
+    f.content.action("nav-discover").click(); await f.view.onClose(); await f.view.onOpen();
+    expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
+    expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
+    expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
+    expect(f.engine.openSearch).not.toHaveBeenCalled(); expect(f.engine.openSimilarNotes).not.toHaveBeenCalled();
+    expect(f.engine.openPotentialDuplicates).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.scan).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled(); expect(f.settings.update.mock.calls.length).toBe(0);
+    expect(f.adapter.write).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+
+  it("Discover's three Ready workflows delegate once through the port and preserve Finding bytes, lifecycle and Health", async () => {
+    const f = semanticFixture(true, "ready", 8); const item = inboxFinding({ state: "dismissed" });
+    const bytes = serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } });
+    f.files.set(`${root}/findings.json`, bytes); await f.view.onOpen();
+    const findings = f.controller.listFindings(); const health = f.controller.getState().snapshot;
+    const actions = [["search", "openSearch"], ["related", "openSimilarNotes"], ["duplicates", "openPotentialDuplicates"]] as const;
+    const delegates = actions.map(([, method]) => vi.spyOn(f.semantic, method));
+    f.content.action("nav-discover").click();
+    expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("discover-")).map((e) => e.attrs["data-health-action"]))
+      .toEqual(["discover-search", "discover-related", "discover-duplicates"]);
+    for (const [id, method] of actions) {
+      const button = f.content.action(`discover-${id}`); expect(button.tag).toBe("button"); button.focus(); button.click();
+      expect(f.engine[method]).toHaveBeenCalledExactlyOnceWith();
+    }
+    for (const delegate of delegates) expect(delegate).toHaveBeenCalledExactlyOnceWith();
+    f.content.action("nav-findings").click(); f.content.action("state-dismissed").click();
+    expect(f.content.action(`finding-${item.id}`)).toBeDefined();
+    expect(f.files.get(`${root}/findings.json`)).toBe(bytes); expect(f.controller.listFindings()).toEqual(findings);
+    expect(f.controller.getState().snapshot).toEqual(health); expect(f.adapter.write).not.toHaveBeenCalled();
+    expect(f.scan).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled(); expect(f.settings.update.mock.calls.length).toBe(0);
+    expect(f.content.texts()).not.toContain("Ask your Vault"); await f.view.onClose();
+  });
+
+  it("disabled Discover reuses Health setup and Back discards edits without network or saves", async () => {
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-discover").click();
+    expect(f.content.texts()).toContain("Local Health continues to work without it");
+    f.content.action("discover-enable").click();
+    expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
+    f.content.action("semantic-mode-cloud").click(); f.content.action("semantic-field-apiKey").input("synthetic-discarded-draft");
+    f.content.action("semantic-back").click(); expect(f.content.action("scan")).toBeDefined();
+    f.content.action("nav-discover").click(); f.content.action("discover-enable").click(); f.content.action("semantic-mode-cloud").click();
+    expect(f.content.action("semantic-field-apiKey").value === "synthetic-discarded-draft").toBe(false);
+    expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.settings.update.mock.calls.length).toBe(0);
+    expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled(); expect(f.engine.indexVault).not.toHaveBeenCalled();
+    expect(f.scan).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+    await f.view.onClose();
+  });
+
+  it.each(["not-initialized", "ready"] as const)("%s without vectors builds only on click and updates Discover to Ready", async (kind) => {
+    const f = semanticFixture(true, kind); await f.view.onOpen(); f.content.action("nav-discover").click();
+    expect(f.content.action("discover-search")).toBeUndefined(); expect(f.engine.indexVault).not.toHaveBeenCalled();
+    expect(Boolean(f.content.action("discover-check"))).toBe(kind === "not-initialized");
+    f.content.action("discover-build").click(); await flush();
+    expect(f.engine.indexVault).toHaveBeenCalledExactlyOnceWith(); expect(f.content.action("discover-search")).toBeDefined();
+    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page"); await f.view.onClose();
+  });
+
+  it("incompatible Discover rebuilds only on click; Change reuses Health setup", async () => {
+    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-discover").click();
+    expect(f.content.texts()).toContain("Index needs rebuilding"); expect(f.content.action("discover-search")).toBeUndefined();
+    expect(f.engine.rebuildIndex).not.toHaveBeenCalled(); f.content.action("discover-change").click();
+    expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page"); expect(f.content.action("semantic-mode-local")).toBeDefined();
+    f.content.action("semantic-back").click(); f.content.action("nav-discover").click(); f.content.action("discover-rebuild").click();
+    await flush(); expect(f.engine.rebuildIndex).toHaveBeenCalledExactlyOnceWith(); await f.view.onClose();
+  });
+
+  it("error and busy Discover show safe status, prevent duplicate checks and leave Local Health browsable", async () => {
+    const f = semanticFixture(true, "error"); await f.view.onOpen(); f.content.action("nav-discover").click();
+    expect(f.content.texts()).toContain("Semantic Intelligence needs attention");
+    expect(f.content.action("discover-change")).toBeDefined(); expect(f.content.action("discover-search")).toBeUndefined();
+    let reject!: (error: Error) => void;
+    f.engine.refreshSemanticStatus.mockReturnValueOnce(new Promise((_, rejectOperation) => { reject = rejectOperation; }));
+    const check = f.content.action("discover-check"); check.click(); check.click();
+    expect(f.engine.refreshSemanticStatus).toHaveBeenCalledTimes(1); expect(f.content.action("discover-check")).toBeUndefined();
+    expect(f.content.all().find((e) => e.attrs.role === "status")?.text).toBe("Checking Semantic Intelligence…");
+    f.content.action("nav-health").click(); expect(f.content.action("scan").disabled).toBe(false);
+    f.content.action("nav-discover").click(); reject(new Error("synthetic-private-provider-response")); await flush();
+    expect(f.content.texts()).toContain("Semantic Intelligence needs attention"); expect(f.content.texts()).not.toContain("synthetic-private");
+    expect(f.scan).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+
+  it("Russian Discover localizes navigation/workflows and preserves provider/model identifiers", async () => {
+    setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-discover").click();
+    expect(f.content.action("nav-discover").text).toBe("Открытия"); expect(f.content.texts()).toContain("Связанные заметки");
+    expect(f.content.texts()).toContain("Возможные дубликаты"); expect(f.content.texts()).toContain(f.settings.get().embeddingModel);
+    expect(f.content.texts()).not.toMatch(/@discover|@semantic/u); await f.view.onClose();
+  });
 
   it.each([false, true])("opening Health (enabled %s) never tests, reads notes, indexes or changes the four local dimensions", async (enabled) => {
     const f = semanticFixture(enabled); await f.view.onOpen();
@@ -246,6 +350,7 @@ describe("integrated Health onboarding", () => {
     const f = fixture({}); await f.view.onOpen();
     expect(f.content.texts()).toContain("Welcome to Veynrel");
     expect(f.content.action("nav-findings")).toBeUndefined();
+    expect(f.content.action("nav-discover")).toBeUndefined();
     expect(f.content.all().filter((e) => e.tag === "button" && e.attrs["data-health-action"]?.startsWith("profile-"))).toHaveLength(5);
     expect(f.content.action("scan")).toBeUndefined(); expect(f.vault.read).not.toHaveBeenCalled();
     const live = f.content.all().find((e) => e.attrs.role === "status");
@@ -547,6 +652,7 @@ describe("Findings navigation and lifecycle integration", () => {
   it.each(["findings.json", "scan-runs.json"])("%s recovery dominates completed onboarding and prevents Inbox navigation", async (file) => {
     const f = fixture(); f.files.set(`${root}/${file}`, "invalid"); await f.view.onOpen();
     expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-findings")).toBeUndefined();
+    expect(f.content.action("nav-discover")).toBeUndefined();
     expect(f.content.action("view-findings")).toBeUndefined(); expect(f.content.action("dimension-structure")).toBeUndefined();
   });
 });

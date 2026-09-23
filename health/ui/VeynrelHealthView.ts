@@ -18,7 +18,9 @@ import type { SemanticIntelligencePort } from "../semanticIntelligencePort";
 import { renderSemanticIntelligence } from "./renderSemanticIntelligence";
 import type { SemanticSetupState } from "./renderSemanticIntelligence";
 import { semanticIntelligenceViewModel, semanticSetupError } from "./semanticIntelligenceViewModel";
-import type { SemanticAction } from "./semanticIntelligenceViewModel";
+import { discoverViewModel } from "./discoverViewModel";
+import type { DiscoverAction } from "./discoverViewModel";
+import { renderDiscover } from "./renderDiscover";
 
 export class VeynrelHealthView extends ItemView {
   private unsubscribe?: () => void;
@@ -90,15 +92,19 @@ export class VeynrelHealthView extends ItemView {
     this.body.empty();
     if (normal) {
       const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
-      for (const page of ["health", "findings"] as const) {
-        const button = healthButton(nav, t(page === "health" ? "@findings.health" : "@findings.title"),
-          () => this.navigate(page === "health" ? { page } : findingsRoute()), `nav-${page}`);
+      for (const page of ["health", "findings", "discover"] as const) {
+        const button = healthButton(nav, t(page === "health" ? "@findings.health" : page === "findings" ? "@findings.title" : "@discover.title"),
+          () => this.navigate(page === "findings" ? findingsRoute() : { page }), `nav-${page}`);
         button.setAttribute("aria-pressed", String(this.route.page === page));
         if (this.route.page === page) button.setAttribute("aria-current", "page");
       }
     }
     const surface = this.body.createDiv();
-    if (normal && this.route.page === "findings") {
+    const semanticSnapshot = normal && this.route.page !== "findings" ? this.semantic?.getSnapshot() : undefined;
+    const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot) : undefined;
+    if (discover) {
+      renderDiscover(surface, discover, (action) => this.semanticAction(action));
+    } else if (normal && this.route.page === "findings") {
       const route = this.route;
       const inbox = findingsInboxViewModel({ findings: this.controller.listFindings(), route,
         busy: state.busy, mutatingFindingId: state.mutatingFindingId });
@@ -143,11 +149,10 @@ export class VeynrelHealthView extends ItemView {
     }
     const status = onboarding.step === "scan" ? onboarding.status : model.status;
     const mutationError = this.findingMutationErrorRoute === this.route;
-    const semanticSnapshot = normal && this.route.page === "health" ? this.semantic?.getSnapshot() : undefined;
     const semanticError = this.semanticSetup?.step === "form"
       ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
-    const semanticStatus = semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
-      : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined;
+    const semanticStatus = discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
+      : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined);
     this.status.setText(state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
       : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "");
@@ -197,15 +202,23 @@ export class VeynrelHealthView extends ItemView {
     });
   }
 
-  private semanticAction(action: SemanticAction): void {
+  private openSemanticSetup(): void {
+    this.route = { page: "health" }; this.semanticSetup = { step: "choose" };
+    this.changingProfile = false; this.navigationMessage = undefined;
+    this.focusDestination = "heading"; this.render();
+  }
+
+  private semanticAction(action: DiscoverAction): void {
     const semantic = this.semantic;
     if (!semantic || semantic.getSnapshot().busy) return;
     if (action === "enable" || action === "change") {
-      this.semanticSetup = { step: "choose" }; this.focusDestination = "heading"; this.render();
+      this.openSemanticSetup();
     } else if (action === "check") void semantic.checkCurrentSetup();
     else if (action === "build") void semantic.buildIndex();
     else if (action === "rebuild") void semantic.rebuildIndex();
-    else semantic.openSearch();
+    else if (action === "search") semantic.openSearch();
+    else if (action === "related") semantic.openSimilarNotes();
+    else semantic.openPotentialDuplicates();
   }
 
   private async connectSemantic(): Promise<void> {

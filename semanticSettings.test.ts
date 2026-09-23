@@ -22,7 +22,8 @@ async function fixture() {
   const save = vi.fn(async (data: typeof stored) => { disk = structuredClone(data); }); plugin.saveData = save;
   await plugin.loadSettings();
   const engine = { notifySettingsChanged: vi.fn(), getSemanticStatus: () => ({ kind: "not-initialized", vectorCount: 0 } as SemanticStatus),
-    refreshSemanticStatus: vi.fn(async () => ({} as SemanticStatus)), indexVault: vi.fn(), rebuildIndex: vi.fn(), openSearch: vi.fn() };
+    refreshSemanticStatus: vi.fn(async () => ({} as SemanticStatus)), indexVault: vi.fn(), rebuildIndex: vi.fn(),
+    openSearch: vi.fn(), openSimilarNotes: vi.fn(), openPotentialDuplicates: vi.fn() };
   Object.assign(plugin, { semanticController: engine });
   const port = plugin.getSemanticSettingsPort();
   const next = { ...port.get(), enabled: true, embeddingModel: "new-model", openRouterApiKey: "synthetic-embedding-key" };
