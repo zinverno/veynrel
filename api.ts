@@ -10,19 +10,8 @@ import {
   REPETITION_THRESHOLD,
 } from "./constants";
 
-export function validateSettings(settings: AIHubSettings): string | null {
-  if (!settings.model.trim()) return tr("⚠️ Укажите название модели!");
-  if (!settings.baseUrl.trim()) return tr("⚠️ Укажите Base URL!");
-  if (settings.temperature < 0 || settings.temperature > 1) {
-    return tr("⚠️ Temperature должен быть 0.0–1.0");
-  }
-  // API key нужен не всем провайдерам
-  const profile = PROVIDER_PROFILES[settings.provider ?? "openrouter"];
-  if (profile.requiresApiKey && !settings.apiKey.trim()) {
-    return tr("⚠️ Введите API Key для {p}!", { p: profile.label });
-  }
-  return null;
-}
+import { validateLanguageModelSettings as validateSettings } from "./deep/product/validateLanguageModelSettings";
+export { validateSettings };
 
 // ─────────────────────────────────────────────
 //  Построение заголовков запроса по провайдеру

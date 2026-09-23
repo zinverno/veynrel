@@ -1823,14 +1823,14 @@
 }
 
 /* Semantic capability is secondary to local Health and uses the same native controls. */
-.veynrel-health-view .veynrel-semantic { border-top: 1px solid var(--background-modifier-border); margin-top: 24px; }
-.veynrel-health-view .veynrel-semantic-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-block: 20px; }
-.veynrel-health-view .veynrel-semantic-field { display: flex; flex-direction: column; gap: 8px; margin-block: 16px; }
-.veynrel-health-view .veynrel-semantic-field input { width: 100%; min-width: 0; }
-.veynrel-health-view .veynrel-semantic-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.veynrel-health-view [data-health-action="semantic-back"] { margin-block: 16px; }
-.veynrel-health-view [data-health-action="semantic-connect"] { margin-inline-end: 12px; }
-.veynrel-health-view .veynrel-semantic-field input:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+.veynrel-health-view :is(.veynrel-semantic, .veynrel-deep) { border-top: 1px solid var(--background-modifier-border); margin-top: 24px; }
+.veynrel-health-view :is(.veynrel-semantic-choices, .veynrel-deep-choices) { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-block: 20px; }
+.veynrel-health-view :is(.veynrel-semantic-field, .veynrel-deep-field) { display: flex; flex-direction: column; gap: 8px; margin-block: 16px; }
+.veynrel-health-view :is(.veynrel-semantic-field, .veynrel-deep-field) input { width: 100%; min-width: 0; }
+.veynrel-health-view :is(.veynrel-semantic-actions, .veynrel-deep-actions) { display: flex; flex-wrap: wrap; gap: 12px; }
+.veynrel-health-view :is([data-health-action="semantic-back"], [data-health-action="deep-back"]) { margin-block: 16px; }
+.veynrel-health-view :is([data-health-action="semantic-connect"], [data-health-action="deep-connect"]) { margin-inline-end: 12px; }
+.veynrel-health-view :is(.veynrel-semantic-field, .veynrel-deep-field) input:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
 
 /* Discover reuses native workflow buttons and stacks in narrow workspace panes. */
 .veynrel-health-view .veynrel-discover-workflows { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; margin-block: 24px; }

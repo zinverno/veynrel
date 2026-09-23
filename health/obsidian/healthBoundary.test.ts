@@ -17,11 +17,12 @@ describe("Health production dependency boundary", () => {
       FindingStore: "health/obsidian/healthPluginController.ts",
       ObsidianSemanticController: "main.ts",
       SemanticIntelligenceController: "main.ts",
+      DeepIntelligenceController: "main.ts",
       RecallProductController: "recall/product/obsidianRecallProduct.ts",
       RecallService: "recall/product/obsidianRecallProduct.ts",
       RecallStore: "recall/services/recallService.ts",
     };
-    const files = ["main.ts", ...["health", "semantic", "recall"].flatMap(productionFiles)];
+    const files = ["main.ts", ...["health", "semantic", "recall", "deep"].flatMap(productionFiles)];
     for (const [owner, expected] of Object.entries(owners)) {
       const sites = files.flatMap((file) => [...readFileSync(file, "utf8").matchAll(new RegExp(`new ${owner}\\(`, "gu"))].map(() => file));
       expect(sites, owner).toEqual([expected]);
