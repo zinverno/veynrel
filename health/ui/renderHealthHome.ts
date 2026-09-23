@@ -7,7 +7,7 @@ import type { HealthDimension } from "../domain/finding";
 
 interface HealthHomeActions { scan: () => void; tools: () => void; recover: () => void; openNote: () => void;
   changeProfile: () => void; chooseProfile: (profile: VaultProfile) => void;
-  findings?: (dimension?: HealthDimension) => void; reviewFinding?: (id: string) => void }
+  findings?: (dimension?: HealthDimension) => void; recall?: () => void; reviewFinding?: (id: string) => void }
 
 export function healthButton(parent: HTMLElement, text: string, action: () => void, key: string, disabled = false, primary = false): HTMLButtonElement {
   const element = parent.createEl("button", { text, cls: primary ? "mod-cta veynrel-health-primary" : "",
@@ -17,16 +17,18 @@ export function healthButton(parent: HTMLElement, text: string, action: () => vo
   return element;
 }
 
-function renderHealthCard(parent: HTMLElement, card: HealthCardModel, findings?: HealthHomeActions["findings"]): void {
+function renderHealthCard(parent: HTMLElement, card: HealthCardModel, actions: HealthHomeActions): void {
   const article = parent.createEl("article", { cls: "veynrel-health-card", attr: { "data-dimension": card.id } });
   const heading = article.createEl("h3");
   const icon = heading.createSpan({ cls: "veynrel-health-icon", attr: { "aria-hidden": "true" } });
   setIcon(icon, card.icon);
-  if (card.actionable && findings) healthButton(heading, card.title, () => findings(card.id), `dimension-${card.id}`);
+  const action = card.action === "recall" ? actions.recall : card.action === "findings" && actions.findings ? () => actions.findings?.(card.id) : undefined;
+  if (action) healthButton(heading, card.title, action, `dimension-${card.id}`);
   else heading.createSpan({ text: card.title });
   article.createEl("p", { text: card.state, cls: "veynrel-health-state" });
   if (card.count) article.createEl("p", { text: card.count });
   if (card.depth) article.createEl("p", { text: card.depth, cls: "veynrel-health-muted" });
+  if (card.description) article.createEl("p", { text: card.description, cls: "veynrel-health-muted" });
 }
 
 export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel, actions: HealthHomeActions, changingProfile = false): void {
@@ -70,7 +72,7 @@ export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel
   const health = home.createEl("section", { cls: "veynrel-health-dimensions" });
   health.createEl("h2", { text: t("@health.health") });
   const grid = health.createDiv({ cls: "veynrel-health-grid" });
-  for (const card of model.cards) renderHealthCard(grid, card, actions.findings);
+  for (const card of model.cards) renderHealthCard(grid, card, actions);
   const summary = home.createDiv({ cls: "veynrel-health-summary" });
   summary.createEl("p", { text: model.count });
   if (actions.findings) healthButton(summary, t("@findings.view"), () => actions.findings?.(), "view-findings");

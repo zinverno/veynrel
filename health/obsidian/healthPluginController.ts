@@ -13,6 +13,7 @@ import type { FindingFilter } from "../store/types";
 import { isFindingId } from "../domain/identity";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
 import type { SemanticHealthScanOutcome } from "../services/types";
+import type { RecallHealthPort } from "../recallHealthPort";
 
 export interface HealthControllerState {
   snapshot?: HealthSnapshot;
@@ -49,10 +50,19 @@ export class HealthPluginController {
   private savingPreferences = false;
   private preferencesError = false;
   private mutatingFindingId?: string;
+  private readonly recallUnsubscribe?: () => void;
 
   constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort,
-    private readonly semanticAnalysis?: SemanticHealthAnalysisPort) {
+    private readonly semanticAnalysis?: SemanticHealthAnalysisPort, private readonly recall?: RecallHealthPort) {
     this.recovery = new HealthRecovery(app.vault.adapter, healthStorageRoot(app.vault.configDir, pluginId));
+    this.recallUnsubscribe = recall?.subscribe(() => this.notify());
+  }
+
+  /** Called only once normal Health navigation is available, never by startup or a scan. */
+  initializeRecall(): void {
+    if (this.disposed || this.recovering || !this.preferences.get().onboardingCompleted || this.recall?.getSnapshot().loadState !== "uninitialized") return;
+    const load = this.service?.getSnapshot().initialization;
+    if (load?.findingsWritable && load.historyWritable) void this.recall.initialize();
   }
 
   getHealthService(): Promise<HealthService> {
@@ -81,7 +91,7 @@ export class HealthPluginController {
 
   getState(): HealthControllerState {
     const preferences = this.preferences.get();
-    const snapshot = this.service?.getSnapshot(preferences.profile);
+    const snapshot = this.service?.getSnapshot(preferences.profile, this.recall?.getSnapshot());
     const id = snapshot?.recommendation?.findingId;
     return { snapshot, recommendationFinding: id ? this.service?.getFinding(id) : undefined,
       preferences, savingPreferences: this.savingPreferences, preferencesError: this.preferencesError,
@@ -214,6 +224,7 @@ export class HealthPluginController {
     this.disposed = true;
     this.scanAbort?.abort();
     this.serviceUnsubscribe?.();
+    this.recallUnsubscribe?.();
     this.listeners.clear();
   }
 

@@ -17,6 +17,7 @@ import { LocalHealthFreshnessUnavailableError, LocalHealthStaleScanError, verify
 import type { HealthInitializationResult, HealthLocalVaultSource, HealthSnapshot, LocalHealthScanOutcome, SemanticHealthScanOutcome } from "./types";
 import { SEMANTIC_DUPLICATES_ANALYZER, SemanticHealthAnalysisError } from "../semanticHealthAnalysisPort";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
+import type { RecallHealthSnapshot } from "../recallHealthPort";
 
 export class HealthNotInitializedError extends Error {
   constructor() { super("Health is not initialized."); this.name = "HealthNotInitializedError"; }
@@ -77,7 +78,7 @@ export class HealthService {
     return () => { this.listeners.delete(listener); };
   }
 
-  getSnapshot(profile: VaultProfile = DEFAULT_VAULT_PROFILE): HealthSnapshot {
+  getSnapshot(profile: VaultProfile = DEFAULT_VAULT_PROFILE, recall?: RecallHealthSnapshot): HealthSnapshot {
     const initialization = this.requireInitialized();
     const findings = this.store.list();
     const runs = this.store.listScanRuns();
@@ -86,7 +87,8 @@ export class HealthService {
     const current = (run?: ScanRun): boolean => run !== undefined && (run.status === "completed" || run.status === "partial") &&
       reconciliationIsCurrent(run.reconciliationReceipts, this.store.getReconciliationReceipts());
     const reconciled = current(scan); const semanticReconciled = current(semanticScan);
-    return { ...aggregateHealth({ findings, lastLocalScan: scan, reconciled, lastSemanticScan: semanticScan, semanticReconciled }),
+    return { ...aggregateHealth({ findings, lastLocalScan: scan, reconciled, lastSemanticScan: semanticScan, semanticReconciled, recall }),
+      recall: recall ? { ...recall } : undefined,
       recommendation: selectRecommendation(findings, profile),
       lastLocalScan: scan ? cloneScanRun(scan) : undefined, lastLocalScanReconciled: reconciled, localScanRunning: this.isLocalScanRunning(),
       lastSemanticScan: semanticScan ? cloneScanRun(semanticScan) : undefined,

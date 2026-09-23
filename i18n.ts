@@ -54,6 +54,18 @@ export function t(key: string, vars?: Record<string, string | number>): string {
 }
 
 const RU: Record<string, string> = {
+  "@health.recall-native": "Встроенный FSRS",
+  "@health.recall-due": "{n} к повторению",
+  "@health.recall-active.one": "{n} активная",
+  "@health.recall-active.few": "{n} активные",
+  "@health.recall-active.many": "{n} активных",
+  "@health.recall-active.other": "{n} активных",
+  "@health.recall-empty": "Нет активных карточек",
+  "@health.recall-review": "Пора повторить",
+  "@health.recall-unavailable": "Данные повторения недоступны",
+  "@health.recall-open": "Откройте «Повторение», чтобы продолжить.",
+  "@health.recall-setup": "Настройте «Повторение», чтобы повторять карточки с Veynrel.",
+  "@health.recall-tracked": "Только учтённые карточки. Обновите карточки, чтобы найти изменения в заметках.",
   "@recall.title": "Повторение",
   "@recall.introduction": "Помните то, что важно.",
   "@recall.loading": "Загружаем карточки…",
@@ -381,6 +393,16 @@ const RU: Record<string, string> = {
 };
 
 const EN: Record<string, string> = {
+  "@health.recall-native": "Native FSRS",
+  "@health.recall-due": "{n} due",
+  "@health.recall-active.one": "{n} active",
+  "@health.recall-active.other": "{n} active",
+  "@health.recall-empty": "No active cards",
+  "@health.recall-review": "Review recommended",
+  "@health.recall-unavailable": "Recall data unavailable",
+  "@health.recall-open": "Open Recall to continue.",
+  "@health.recall-setup": "Set up Recall to start reviewing flashcards with Veynrel.",
+  "@health.recall-tracked": "Tracked cards only. Refresh flashcards to discover changes in your notes.",
   "@recall.title": "Recall",
   "@recall.introduction": "Remember what matters.",
   "@recall.loading": "Loading Recall…",

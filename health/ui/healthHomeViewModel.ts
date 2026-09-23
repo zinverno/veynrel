@@ -1,4 +1,4 @@
-import { t } from "../../i18n";
+import { currentLanguage, t } from "../../i18n";
 import type { HealthDimension } from "../domain/finding";
 import type { HealthControllerState } from "../obsidian/healthPluginController";
 import type { HealthRecoveryScope } from "../obsidian/healthRecovery";
@@ -6,7 +6,9 @@ import type { VaultProfile } from "../domain/profile";
 import { findingPresentation } from "./findingPresentation";
 
 export interface HealthCardModel {
-  id: HealthDimension; title: string; state: string; count: string; depth: string; icon: string; actionable: boolean;
+  id: HealthDimension; title: string; state: string; count: string; depth: string; icon: string;
+  action: "findings" | "recall" | "none";
+  description?: string;
 }
 export interface HealthHomeViewModel {
   initial: boolean;
@@ -31,6 +33,20 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
   const limited = outcome?.scan.status === "partial" || outcome?.scan.status === "failed" || state.error === "scan";
   const cards = snapshot ? dimensions.map((id): HealthCardModel => {
     const card = snapshot.dimensions[id];
+    const recall = snapshot.recall;
+    if (id === "recall" && recall) {
+      const ready = card.analysisComplete;
+      const blocked = recall.loadState === "invalid" || recall.loadState === "unsupported" || recall.loadState === "unavailable";
+      const active = t(`@health.recall-active.${new Intl.PluralRules(currentLanguage()).select(recall.active)}`, { n: recall.active });
+      return { id, title: t("@health.recall"), icon: icons.recall, action: "recall",
+        state: blocked ? t(recall.loadState === "unavailable" ? "@health.recall-unavailable" : "@recall.recovery-title")
+          : !ready ? t("@health.not-enabled") : recall.active === 0 ? t("@health.recall-empty")
+            : t(card.state === "review-recommended" ? "@health.recall-review" : `@health.state.${card.state}`),
+        count: ready ? `${t("@health.recall-due", { n: recall.due })} · ${active}` : "",
+        depth: ready ? t("@health.recall-native") : "",
+        description: blocked ? t("@health.recall-open") : ready ? t("@health.recall-tracked") : t("@health.recall-setup"),
+      };
+    }
     const enabled = id === "structure" || id === "connections";
     const complete = card.analysisComplete && !limited;
     const healthState = card.state === "good" && !complete ? "unknown" : card.state;
@@ -38,7 +54,7 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
       count: enabled ? t("@health.findings", { n: card.openFindings }) : "",
       depth: enabled && (card.analysisDepth === "basic" || card.analysisDepth === "semantic")
         ? t(`@health.${card.analysisDepth}${complete ? "" : "-incomplete"}`) : "",
-      icon: icons[id], actionable: enabled || card.openFindings > 0 };
+      icon: icons[id], action: enabled || card.openFindings > 0 ? "findings" : "none" };
   }) : [];
   let status: string | undefined;
   if (state.recovering) status = t("@health.recovering");

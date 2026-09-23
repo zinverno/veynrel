@@ -18,6 +18,13 @@ export function aggregateHealth(input: HealthAggregationInput): {
     semanticScan.analyzerVersions[SEMANTIC_DUPLICATES_ANALYZER.id] === SEMANTIC_DUPLICATES_ANALYZER.version &&
     semanticScan.reconciliationReceipts[reconciliationOwnerKey("semantic", SEMANTIC_DUPLICATES_ANALYZER.id)] !== undefined;
   const dimension = (id: HealthDimension): DimensionHealth => {
+    if (id === "recall" && input.recall) {
+      const recall = input.recall;
+      const ready = recall.loadState === "ready" && !recall.firstRun;
+      return { state: !ready || recall.active === 0 ? "unknown" : recall.due > 0 ? "review-recommended" : "good",
+        analysisDepth: ready ? "basic" : "not-enabled", analysisComplete: ready,
+        openFindings: 0, attentionFindings: 0, reviewFindings: 0 };
+    }
     const findings = open.filter((finding) => finding.dimension === id);
     const attentionFindings = findings.filter((finding) => finding.impact === "attention").length;
     const reviewFindings = findings.filter((finding) => finding.impact === "review").length;
