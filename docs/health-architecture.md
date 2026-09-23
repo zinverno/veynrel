@@ -16,6 +16,12 @@ from the existing shared Recall product through a Health-owned port. It loads
 metadata only after normal Health entry, creates no Findings or Health writes,
 and leaves Knowledge Not enabled.
 
+[Deep Intelligence setup](deep-intelligence-setup.md) adds an inline capability
+section through a Health-owned product port. One plugin-lifetime Deep controller
+uses the existing language-model settings and connection test. Health imports no
+LLM transport, settings implementation or Deep engine. Configuring this capability
+does not enable the Knowledge dimension or create Findings/scan receipts.
+
 The first production Semantic analyzer is documented in
 [Semantic duplicate Health Findings](semantic-health-duplicates.md). It injects
 a Health-owned analysis port into the same HealthService/FindingStore owner.
