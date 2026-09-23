@@ -3,8 +3,10 @@
 This document records the PR #37 foundation and its schema v1. The subsequent
 [native FSRS scheduler](recall-fsrs-scheduler.md) adds scheduling and a read-only
 v1 → v2 migration. The [Recall review experience](recall-review-experience.md)
-then adds the lazy workspace and recovery. The parser, identity and inventory
-contracts below are unchanged.
+then adds the lazy workspace and recovery; [Recall Health](recall-health-integration.md)
+connects the shared scheduling state to Health with metadata-only initialization.
+The stage-specific dormant boundaries below are historical; parser, identity and
+inventory contracts are unchanged.
 
 Recall is Veynrel's native spaced-repetition domain. Veynrel owns card discovery,
 identity and the active/retired inventory in this stage. Future stages will own

@@ -30,7 +30,6 @@ export class VeynrelHealthView extends ItemView {
   private static readonly recallViews = new WeakMap<RecallProductPort, VeynrelHealthView>();
   private unsubscribe?: () => void;
   private unsubscribeSemantic?: () => void;
-  private unsubscribeRecall?: () => void;
   private cleanupRecall?: () => void;
   private recallFocusKey?: string;
   private dueWakeup?: number;
@@ -133,8 +132,7 @@ export class VeynrelHealthView extends ItemView {
       this.recallFocusKey = focusKey;
       // One wakeup for an idle overview, never polling or an automatically waiting review session.
       if (!recallSnapshot?.session && !recallSnapshot?.summary?.due && recallSnapshot?.nextDueAt !== undefined) {
-        const delay = recallSnapshot.nextDueAt - Date.now();
-        if (delay > 0) this.dueWakeup = window.setTimeout(() => this.render(), Math.min(delay, 2_147_483_647));
+        this.wakeAt(recallSnapshot.nextDueAt);
       }
     } else if (discover) {
       renderDiscover(surface, discover, (action) => this.semanticAction(action));
@@ -171,8 +169,13 @@ export class VeynrelHealthView extends ItemView {
         },
         changeProfile: () => { this.changingProfile = !this.changingProfile; this.render(); }, chooseProfile: choose,
         findings: normal ? (dimension) => this.navigate(findingsRoute({ dimension: dimension ?? "all" })) : undefined,
+        recall: normal && this.recall ? () => this.navigate({ page: "recall" }) : undefined,
         reviewFinding: normal ? (selectedFindingId) => this.navigate(findingsRoute({ selectedFindingId })) : undefined,
       }, this.changingProfile);
+      const recallHealth = state.snapshot?.recall;
+      if (normal && recallHealth?.loadState === "ready" && recallHealth.active > 0 && recallHealth.due === 0 && recallHealth.nextDueAt !== undefined) {
+        this.wakeAt(recallHealth.nextDueAt);
+      }
       if (normal && this.semantic) this.renderSemantic(surface);
     } else {
       renderHealthOnboarding(surface, onboarding, model, state, {
@@ -206,6 +209,13 @@ export class VeynrelHealthView extends ItemView {
       if (target && !target.disabled) target.focus();
       else heading()?.focus();
     }
+    // Metadata only, after onboarding/recovery. Product notifications flow through the Health controller.
+    if (normal) this.controller.initializeRecall();
+  }
+
+  private wakeAt(dueAt: number): void {
+    // A deadline crossed during rendering still gets a wakeup; long delays are bounded and rechecked.
+    this.dueWakeup = window.setTimeout(() => this.render(), Math.max(0, Math.min(dueAt - Date.now(), 2_147_483_647)));
   }
 
   /** Transient product navigation only; never persisted and never starts analysis. */
@@ -222,13 +232,11 @@ export class VeynrelHealthView extends ItemView {
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";
     this.render();
     if (route.page === "recall" && this.recall) {
-      this.unsubscribeRecall = this.recall.subscribe(() => { if (this.route.page === "recall") this.render(); });
       void this.recall.initialize();
     }
   }
 
   private leaveRecall(): void {
-    this.unsubscribeRecall?.(); this.unsubscribeRecall = undefined;
     this.cleanupRecall?.(); this.cleanupRecall = undefined; this.recallFocusKey = undefined;
     if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;

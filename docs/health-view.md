@@ -53,7 +53,8 @@ chooser appears after onboarding; it reuses the onboarding options and copy.
 | `review-recommended` | Review recommended |
 | `unknown` | Not fully analyzed |
 | Basic depth, incomplete coverage | Basic analysis · incomplete |
-| Knowledge / Recall | Not enabled, no dead CTA |
+| Knowledge | Not enabled, no dead CTA |
+| Recall | [Native scheduling state](recall-health-integration.md), always opens Recall when available |
 | Completed scan | Vault check complete |
 | Partial scan | Check completed with limited coverage; some areas could not be fully verified |
 | Stale scan | Vault changed; no scan results were applied; Scan again |
@@ -134,8 +135,10 @@ smoke evidence is recorded in the PR; narrow desktop testing is not native mobil
 validation. Custom themes, mobile and popout windows retain separate platform checks.
 
 PR 5 adds onboarding/profile UX. PR 6 owns the Findings Inbox and lifecycle/action
-UI. Semantic/Deep Health, Recall, automatic scans and settings redesign remain out
-of scope. Existing AI writing, semantic search, RAG, Deep Audit, Companion and proposal
+UI. [Recall Health](recall-health-integration.md) now observes the shared native
+Recall owner; normal Health entry may read Recall metadata after onboarding.
+Deep Health, automatic Recall scans and settings redesign remain out of scope.
+Existing AI writing, semantic search, RAG, Deep Audit, Companion and proposal
 workflows remain separate and keep their existing behavior.
 
 ### Desktop smoke recorded 2026-09-22

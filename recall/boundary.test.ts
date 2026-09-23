@@ -11,7 +11,7 @@ function productionFiles(directory: string): string[] {
 
 describe("Recall local-only domain boundary", () => {
   it("audits every production module and its runtime imports for network, semantic, external-plugin or Markdown-write dependencies", () => {
-    const allowed = new Set([...productionFiles("recall"), "utils/stableHash.ts", "health/domain/validation.ts"]);
+    const allowed = new Set([...productionFiles("recall"), "utils/stableHash.ts", "health/domain/validation.ts", "health/recallHealthPort.ts"]);
     const writes: string[] = [];
     const recoveryMoves: string[] = [];
     for (const file of allowed) {
@@ -48,11 +48,14 @@ describe("Recall local-only domain boundary", () => {
     expect(storage).toContain('return `${configDir}/plugins/${pluginId}/recall`');
   });
 
-  it("keeps Health Recall disabled and UI behind the product port", () => {
+  it("keeps Health scheduling behind its own port and Recall UI behind the product port", () => {
     const main = readFileSync("main.ts", "utf8");
     expect(main).not.toMatch(/(?:from|import\()\s*["'][^"']*recall/iu);
     const aggregation = readFileSync("health/services/healthAggregator.ts", "utf8");
-    expect(aggregation).toContain('const enabled = id === "structure" || id === "connections"');
+    expect(aggregation).not.toMatch(/from ["'][^"']*recall\//u);
+    for (const file of ["health/recallHealthPort.ts", "health/services/healthService.ts", "health/obsidian/healthPluginController.ts", "health/ui/healthHomeViewModel.ts"]) {
+      expect(readFileSync(file, "utf8"), file).not.toMatch(/from ["'][^"']*recall\//u);
+    }
     const view = readFileSync("health/ui/VeynrelHealthView.ts", "utf8");
     expect(view).toContain("RecallProductPort");
     expect(view).not.toMatch(/RecallStore|ObsidianRecallSource/u);

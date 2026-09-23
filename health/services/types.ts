@@ -6,6 +6,7 @@ import type { HealthLoadResult } from "../store/types";
 import type { LocalVaultSource } from "../analyzers/local/localVaultSource";
 import type { LocalVaultFreshnessProbe } from "../analyzers/local/localVaultRevision";
 import type { SemanticHealthErrorCode } from "../semanticHealthAnalysisPort";
+import type { RecallHealthSnapshot } from "../recallHealthPort";
 
 /** One configured object supplies BOTH capture methods with identical, stable scope policy. */
 export interface HealthLocalVaultSource extends LocalVaultSource, LocalVaultFreshnessProbe {}
@@ -28,6 +29,7 @@ export interface DimensionHealth {
 
 export interface HealthSnapshot {
   dimensions: Record<HealthDimension, DimensionHealth>;
+  recall?: RecallHealthSnapshot;
   recommendation?: Recommendation;
   openFindings: number;
   newFindings: number;
@@ -57,6 +59,7 @@ export type SemanticHealthScanOutcome = LocalHealthScanOutcome;
 
 export interface HealthAggregationInput {
   findings: readonly Finding[];
+  recall?: RecallHealthSnapshot;
   lastLocalScan?: ScanRun;
   /** True only when the scan's nonempty scope receipts match the current store. */
   reconciled: boolean;

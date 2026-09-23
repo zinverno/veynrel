@@ -170,7 +170,9 @@ or partial status, and the current analyzer ID/version. Connections aggregation:
 
 Open attention/review Findings still determine Needs attention / Review recommended
 regardless of source. Semantic Intelligence merely being Ready does not change
-Health. Structure remains Local/basic; Recall and Knowledge remain disabled.
+Health. Structure remains Local/basic; Knowledge remains disabled.
+[Recall Health](recall-health-integration.md) derives its state independently from
+the shared native Recall owner and does not affect semantic Findings or ranking.
 Cards localize **Semantic analysis** and **Semantic analysis · incomplete**.
 
 The existing subscription updates the snapshot, Inbox counts, Connections and

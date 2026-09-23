@@ -8,12 +8,13 @@ import type { HealthPreferencesPort } from "../preferences";
 import type { SemanticIntelligencePort } from "../semanticIntelligencePort";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
 import { createObsidianRecallProduct } from "../../recall/product/obsidianRecallProduct";
+import { RecallHealthAdapter } from "../../recall/product/recallHealthAdapter";
 import { openHealthNote } from "./openHealthNote";
 
 export function registerHealth(plugin: Plugin, openTools: () => void, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort,
   semanticAnalysis?: SemanticHealthAnalysisPort): void {
-  const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis);
   const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
+  const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall));
   plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools, semantic, recall));
   plugin.register(() => controller.dispose());
   plugin.register(() => recall.dispose());
