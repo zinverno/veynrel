@@ -1,8 +1,12 @@
-import type { Finding, FindingAction, FindingCandidate, FindingEvidence } from "./finding";
+import type { Finding, FindingAction, FindingCandidate, FindingEvidence, FindingSource } from "./finding";
 import { findingIdFromFingerprint, isFindingId } from "./identity";
 import { hasOnlyKeys, isFingerprint, isIdentifier, isOneOf, isRecord, isText, isTimestamp, isVaultPath, MAX_EVIDENCE_SNIPPET } from "./validation";
 
 const CANDIDATE_KEYS = ["fingerprint", "analyzerId", "dimension", "type", "source", "impact", "confidence", "title", "explanation", "notePaths", "evidence", "actions"];
+
+export function isFindingSource(value: unknown): value is FindingSource {
+  return isOneOf(value, ["local", "semantic", "deep-ai", "recall"]);
+}
 
 export function isFindingAction(value: unknown): value is FindingAction {
   return isRecord(value) && hasOnlyKeys(value, ["kind", "label", "path", "relatedPath"]) &&
@@ -24,7 +28,7 @@ export function isFindingEvidence(value: unknown): value is FindingEvidence {
 function candidateFields(value: Record<string, unknown>): boolean {
   return isFingerprint(value.fingerprint) && isIdentifier(value.analyzerId) && isIdentifier(value.type) &&
     isOneOf(value.dimension, ["structure", "connections", "recall", "knowledge"]) &&
-    isOneOf(value.source, ["local", "semantic", "deep-ai", "recall"]) &&
+    isFindingSource(value.source) &&
     isOneOf(value.impact, ["info", "review", "attention"]) &&
     isOneOf(value.confidence, ["deterministic", "high", "medium"]) &&
     isText(value.title, 200) && isText(value.explanation, 2000) &&

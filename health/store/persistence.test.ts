@@ -49,7 +49,7 @@ describe("Health persistence", () => {
   });
 
   it.each([
-    ["{", "invalid"], ["null", "invalid"], ["[]", "invalid"], ['{"version":2,"findings":{}}', "unsupported"],
+    ["{", "invalid"], ["null", "invalid"], ["[]", "invalid"], ['{"version":3,"findings":{}}', "unsupported"],
     ['{"version":1,"updatedAt":100,"findings":[]}', "invalid"],
     ['{"version":1,"updatedAt":100,"findings":{"bad":{}}}', "invalid"],
     ['{"version":1,"updatedAt":-1,"findings":{}}', "invalid"],
@@ -132,6 +132,42 @@ describe("Health persistence", () => {
     await expect(store.recordScanRun(scanRun({ status: "running", completedAt: undefined }))).rejects.toThrow("backward");
   });
 
+  it("allows running-to-final receipts, then locks terminal receipt identity including empty maps", async () => {
+    const { store } = await populated();
+    const running = scanRun({ id: "in-progress", status: "running", completedAt: undefined });
+    await store.recordScanRun(running);
+    await store.recordScanRun({ ...running, notesSeen: 3 });
+    const final = { ...running, status: "completed" as const, completedAt: 200, notesSeen: 3,
+      reconciliationReceipts: { "local:broken-links": 200, "local:orphans": 200 } };
+    await store.recordScanRun(final);
+    await store.recordScanRun({ ...final, findingsUpdated: 1, reconciliationReceipts: { "local:orphans": 200, "local:broken-links": 200 } });
+    const replacements: Record<string, number>[] = [{}, { "local:broken-links": 200 }, { ...final.reconciliationReceipts, "local:orphans": 201 },
+      { ...final.reconciliationReceipts, "semantic:x": 200 }];
+    for (const reconciliationReceipts of replacements) {
+      await expect(store.recordScanRun({ ...final, findingsUpdated: 1, reconciliationReceipts })).rejects.toThrow("identity");
+    }
+    await expect(store.recordScanRun(scanRun({ reconciliationReceipts: { "local:broken-links": 200 } }))).rejects.toThrow("identity");
+    expect(store.listScanRuns().find((run) => run.id === final.id)?.reconciliationReceipts).toEqual(final.reconciliationReceipts);
+  });
+
+  it("validates receipts before recording history and copies input/returned receipt maps", async () => {
+    const { store, storage } = await populated();
+    const before = storage.files.get("scan-runs.json");
+    const invalid: Record<string, number>[] = [{ "bad:key:extra": 1 }, { "local:a": -1 }, { "local:a": Infinity }];
+    for (const reconciliationReceipts of invalid) {
+      await expect(store.recordScanRun(scanRun({ id: "invalid", reconciliationReceipts }))).rejects.toThrow("Invalid scan");
+    }
+    expect(storage.files.get("scan-runs.json")).toBe(before);
+    const run = scanRun({ id: "copy", reconciliationReceipts: { "local:broken-links": 200 } });
+    const pending = store.recordScanRun(run);
+    run.reconciliationReceipts["local:broken-links"] = 999;
+    await pending;
+    store.listScanRuns().find((item) => item.id === "copy")!.reconciliationReceipts["local:broken-links"] = 888;
+    expect(store.listScanRuns().find((item) => item.id === "copy")?.reconciliationReceipts).toEqual({ "local:broken-links": 200 });
+    const reload = new FindingStore(storage); await reload.load();
+    expect(reload.listScanRuns()).toEqual(store.listScanRuns());
+  });
+
   it("serializes deterministically across input/object-key/path order", async () => {
     const left = await populated();
     const right = await populated();
@@ -202,7 +238,7 @@ describe("untrusted domain validation", () => {
   it("validates all scan statuses, bounded history and duplicate IDs", () => {
     for (const status of ["completed", "partial", "failed"] as const) expect(isScanRun(scanRun({ status }))).toBe(true);
     expect(isScanRun(scanRun({ status: "running", completedAt: undefined }))).toBe(true);
-    expect(isScanRunsSnapshot({ version: 1, updatedAt: 200, runs: [scanRun(), scanRun()] })).toBe(false);
-    expect(isScanRunsSnapshot({ version: 1, updatedAt: 200, runs: Array.from({ length: 51 }, (_, i) => scanRun({ id: `run-${i}` })) })).toBe(false);
+    expect(isScanRunsSnapshot({ version: 2, updatedAt: 200, runs: [scanRun(), scanRun()] })).toBe(false);
+    expect(isScanRunsSnapshot({ version: 2, updatedAt: 200, runs: Array.from({ length: 51 }, (_, i) => scanRun({ id: `run-${i}` })) })).toBe(false);
   });
 });

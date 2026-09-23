@@ -1,7 +1,8 @@
 import type { Finding, FindingCandidate, FindingSource, FindingState, HealthDimension } from "../domain/finding";
-import type { ScanRun } from "../domain/scanRun";
+import type { ScanRun, ScanRunV1 } from "../domain/scanRun";
+import type { ReconciliationReceipts } from "../domain/reconciliation";
 
-export const HEALTH_SCHEMA_VERSION = 1 as const;
+export const HEALTH_SCHEMA_VERSION = 2 as const;
 export const MAX_SCAN_HISTORY = 50;
 export type HealthFile = "findings.json" | "scan-runs.json";
 
@@ -13,7 +14,9 @@ export interface HealthStoragePort {
 
 export interface FindingsSnapshot {
   version: typeof HEALTH_SCHEMA_VERSION;
+  /** Latest durable file write, including user lifecycle transitions. */
   updatedAt: number;
+  reconciliationReceipts: ReconciliationReceipts;
   findings: Record<string, Finding>;
 }
 
@@ -22,6 +25,9 @@ export interface ScanRunsSnapshot {
   updatedAt: number;
   runs: ScanRun[];
 }
+
+export type FindingsSnapshotV1 = Omit<FindingsSnapshot, "version" | "reconciliationReceipts"> & { version: 1 };
+export type ScanRunsSnapshotV1 = Omit<ScanRunsSnapshot, "version" | "runs"> & { version: 1; runs: ScanRunV1[] };
 
 export type HealthLoadStatus = "loaded" | "missing" | "invalid" | "unsupported" | "unavailable";
 export interface HealthLoadResult {
@@ -49,8 +55,10 @@ export interface ReconcileResult {
 }
 
 export interface BatchReconcileResult extends ReconcileResult {
-  /** Present only when a findings write committed; also serves as its durable receipt. */
+  /** Global write marker, present only when a findings write committed. */
   updatedAt?: number;
+  /** Actual committed owners only; empty when no write occurred. */
+  reconciliationReceipts: ReconciliationReceipts;
 }
 
 export interface ReconcileBatchOptions {

@@ -8,6 +8,8 @@ export type { FindingFingerprintInput } from "./domain/identity";
 export { createFindingFingerprint, findingIdFromFingerprint, canonicalFindingPaths } from "./domain/identity";
 export { isFinding, isFindingCandidate, isFindingAction, isFindingEvidence } from "./domain/findingValidation";
 export { isScanRun } from "./domain/scanRunValidation";
+export type { ReconciliationOwnerKey, ReconciliationReceipts } from "./domain/reconciliation";
+export { reconciliationOwnerKey, parseReconciliationOwnerKey, isReconciliationOwnerKey, isReconciliationReceipts, reconciliationIsCurrent } from "./domain/reconciliation";
 export { FindingStore } from "./store/findingStore";
 export { ObsidianHealthStorage, healthStorageRoot } from "./store/healthStorage";
 export { HEALTH_SCHEMA_VERSION, MAX_SCAN_HISTORY } from "./store/types";

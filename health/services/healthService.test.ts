@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { HealthService, HealthNotInitializedError, HealthStorageUnavailableError, LocalHealthScanAlreadyRunningError } from "./healthService";
 import { FindingStore } from "../store/findingStore";
-import { candidate, MemoryHealthStorage } from "../store/testSupport";
+import { candidate, MemoryHealthStorage, scanRun } from "../store/testSupport";
+import { reconciliationIsCurrent } from "../domain/reconciliation";
 import { findingIdFromFingerprint } from "../domain/identity";
 import { isScanRun } from "../domain/scanRunValidation";
 import { note, snapshot } from "../analyzers/local/testFixtures";
@@ -77,6 +78,8 @@ describe("local scan orchestration", () => {
     expect(isScanRun(outcome.scan)).toBe(true);
     expect(f.source.capture).toHaveBeenCalledTimes(1); expect(f.source.captureRevision).toHaveBeenCalledTimes(1);
     expect(batch).toHaveBeenCalledTimes(1);
+    expect(outcome.scan.reconciliationReceipts).toEqual(f.store.getReconciliationReceipts());
+    expect(outcome.scan.reconciliationReceipts).toEqual(Object.fromEntries(LOCAL_HEALTH_ANALYZERS.map((item) => [`local:${item.id}`, 100])));
     const requests = batch.mock.calls[0][0];
     expect(requests).toHaveLength(8);
     expect(requests.map((request) => request.scope.analyzerIds[0])).toEqual(LOCAL_HEALTH_ANALYZERS.map((item) => item.id));
@@ -99,12 +102,21 @@ describe("local scan orchestration", () => {
     const batch = vi.spyOn(f.store, "reconcileBatch"); f.write.mockClear(); f.time(200);
     const outcome = await f.service.runLocalScan(signal());
     expect(outcome.scan).toMatchObject({ status: "partial", findingsCreated: 1, findingsResolved: 1, findingsUpdated: 0 });
+    expect(outcome.scan.reconciliationReceipts).toEqual({ "local:complete": 200, "local:partial": 200 });
+    expect(f.store.getReconciliationReceipts()["local:failed"]).toBe(102);
     expect(f.store.get(completeId)?.state).toBe("resolved");
     expect(f.store.get(partialId)).toMatchObject({ state: "open", lastSeenAt: 50 });
     expect(f.store.get(failedId)).toMatchObject({ state: "open", lastSeenAt: 50 });
     expect(batch.mock.calls[0][0].map((request) => request.scope.analyzerIds[0])).toEqual(["complete", "partial"]);
     expect(f.write.mock.calls.filter(([file]) => file === "findings.json")).toHaveLength(1);
     expect(JSON.stringify(outcome)).not.toContain("private note text");
+    const restart = new HealthService(new FindingStore(f.storage), f.source); await restart.initialize();
+    expect(restart.getSnapshot()).toMatchObject({ lastLocalScanReconciled: true, newFindings: 1,
+      dimensions: { connections: { analysisComplete: false, state: "unknown" } } });
+    for (const finding of restart.listFindings({ state: "open" })) await restart.dismissFinding(finding.id);
+    const afterDismiss = new HealthService(new FindingStore(f.storage), f.source); await afterDismiss.initialize();
+    expect(afterDismiss.getSnapshot()).toMatchObject({ lastLocalScanReconciled: true, openFindings: 0,
+      dimensions: { structure: { state: "unknown", analysisComplete: false }, connections: { state: "unknown", analysisComplete: false } } });
   });
   it("rejects stale results without publishing positives or resolving previous findings", async () => {
     const f = fixture({ analyzers: [analyzer("broken-links")] }); await f.service.initialize();
@@ -117,6 +129,7 @@ describe("local scan orchestration", () => {
     expect(f.service.getSnapshot().newFindings).toBe(0);
     expect(f.service.getSnapshot().dimensions.connections.state).toBe("unknown");
     expect(f.write.mock.calls.map(([file]) => file)).toEqual(["scan-runs.json"]);
+    expect(outcome.scan.reconciliationReceipts).toEqual({});
   });
   it("does not publish stale positive candidates", async () => {
     const f = fixture(); await f.service.initialize();
@@ -131,18 +144,20 @@ describe("local scan orchestration", () => {
     if (kind === "snapshot-incomplete") f.source.capture.mockResolvedValue(snapshot(f.captured.notes, { noteListComplete: false }));
     const outcome = await f.service.runLocalScan(signal());
     expect(outcome).toMatchObject({ freshness: "unknown", findingsCommitted: false, scan: { status: "failed", findingsCreated: 0 }, diagnostics: ["freshness-unavailable"] });
+    expect(outcome.scan.reconciliationReceipts).toEqual({});
     expect(f.service.listFindings()).toEqual([]); expect(f.service.isLocalScanRunning()).toBe(false);
   });
   it("records snapshot capture failure safely", async () => {
     const f = fixture(); await f.service.initialize(); f.source.capture.mockRejectedValue(new Error("secret"));
     const outcome = await f.service.runLocalScan(signal());
     expect(outcome).toMatchObject({ findingsCommitted: false, historyRecorded: true, diagnostics: ["analysis-failed"], scan: { status: "failed" } });
+    expect(outcome.scan.reconciliationReceipts).toEqual({});
     expect(f.service.isLocalScanRunning()).toBe(false);
   });
   it("records all-analyzer failure without reconciliation", async () => {
     const f = fixture({ analyzers: [analyzer("a", { successful: false, complete: false }), analyzer("b", { successful: false, complete: false })] });
     await f.service.initialize();
-    expect(await f.service.runLocalScan(signal())).toMatchObject({ findingsCommitted: false, diagnostics: ["analyzers-failed"], scan: { status: "failed" } });
+    expect(await f.service.runLocalScan(signal())).toMatchObject({ findingsCommitted: false, diagnostics: ["analyzers-failed"], scan: { status: "failed", reconciliationReceipts: {} } });
     expect(f.write.mock.calls.map(([file]) => file)).toEqual(["scan-runs.json"]);
   });
   it("leaves committed state unchanged and records zero counters if the findings write fails", async () => {
@@ -150,6 +165,7 @@ describe("local scan orchestration", () => {
     const before = f.store.list(); f.write.mockRejectedValueOnce(new Error("secret disk error"));
     const outcome = await f.service.runLocalScan(signal());
     expect(outcome).toMatchObject({ findingsCommitted: false, historyRecorded: true, diagnostics: ["reconciliation-failed"], scan: { status: "failed", findingsCreated: 0, findingsUpdated: 0, findingsResolved: 0 } });
+    expect(outcome.scan.reconciliationReceipts).toEqual({});
     expect(f.store.list()).toEqual(before); expect(f.store.get(id)?.state).toBe("open");
     expect(f.service.isLocalScanRunning()).toBe(false);
   });
@@ -157,6 +173,9 @@ describe("local scan orchestration", () => {
     const f = fixture(); await f.service.initialize();
     await f.service.runLocalScan(signal());
     expect(f.service.getSnapshot().dimensions.connections.state).toBe("good");
+    const semantic = await f.store.reconcileBatch([{ scope: { source: "semantic", analyzerIds: ["synthetic-semantic"] }, candidates: [], complete: true }]);
+    await f.store.recordScanRun(scanRun({ id: "semantic-before", type: "semantic", completedAt: semantic.updatedAt,
+      analyzerVersions: { "synthetic-semantic": "1" }, reconciliationReceipts: semantic.reconciliationReceipts }));
     const write = f.write.getMockImplementation();
     f.write.mockImplementation(async (file, contents) => {
       if (file === "scan-runs.json") throw new Error("history unavailable");
@@ -165,9 +184,13 @@ describe("local scan orchestration", () => {
     const outcome = await f.service.runLocalScan(signal());
     expect(outcome).toMatchObject({ findingsCommitted: true, historyRecorded: false, scan: { status: "completed", findingsUpdated: 1 }, diagnostics: ["history-not-recorded"] });
     expect(f.service.listFindings()[0].lastSeenAt).toBe(outcome.scan.startedAt);
-    const restart = new HealthService(new FindingStore(f.storage), f.source); await restart.initialize();
+    const restartedStore = new FindingStore(f.storage);
+    const restart = new HealthService(restartedStore, f.source); await restart.initialize();
     expect(restart.getSnapshot().dimensions.connections.state).toBe("unknown");
+    expect(restart.getSnapshot().lastLocalScanReconciled).toBe(false);
     expect(restart.getSnapshot().newFindings).toBe(0);
+    const semanticRun = restartedStore.listScanRuns().find((run) => run.id === "semantic-before")!;
+    expect(reconciliationIsCurrent(semanticRun.reconciliationReceipts, restartedStore.getReconciliationReceipts())).toBe(true);
   });
   it("rejects overlapping scans immediately and becomes idle after the first finishes", async () => {
     const f = fixture(); await f.service.initialize();
@@ -202,6 +225,15 @@ describe("local scan orchestration", () => {
     expect(second.scan.startedAt).toBeGreaterThan(first.scan.startedAt);
     expect(f.service.getSnapshot().newFindings).toBe(0);
     expect(f.service.listFindings()[0].firstSeenAt).toBe(first.scan.startedAt);
+  });
+  it("records the store's committed receipts when commit time differs from observation time", async () => {
+    const f = fixture(); await f.service.initialize();
+    f.source.captureRevision.mockImplementation(async () => { f.time(500); return createLocalVaultRevision(f.captured.notes); });
+    const outcome = await f.service.runLocalScan(signal());
+    expect(outcome.scan).toMatchObject({ startedAt: 100, completedAt: 500 });
+    expect(outcome.scan.reconciliationReceipts).toEqual(Object.fromEntries(LOCAL_HEALTH_ANALYZERS.map((analyzer) => [`local:${analyzer.id}`, 500])));
+    expect(outcome.scan.reconciliationReceipts).toEqual(f.store.getReconciliationReceipts());
+    expect(f.store.list()[0].lastSeenAt).toBe(100);
   });
   it("forwards the profile to recommendation selection without altering findings", async () => {
     const structure = candidate({ analyzerId: "a", dimension: "structure", impact: "review" });
@@ -255,9 +287,13 @@ describe("cancellation, subscribers and restart", () => {
     expect(listener).toHaveBeenCalledTimes(7);
     const snap = f.service.getSnapshot(); snap.dimensions.structure.state = "needs-attention";
     snap.lastLocalScan!.analyzerVersions.orphans = "mutated"; outcome.scan.status = "failed";
+    snap.lastLocalScan!.reconciliationReceipts["local:orphans"] = 999;
+    outcome.scan.reconciliationReceipts["local:broken-links"] = 999;
     f.service.listFindings()[0].title = "Mutated";
     expect(f.service.getSnapshot().lastLocalScan?.status).toBe("completed");
     expect(f.service.getSnapshot().lastLocalScan?.analyzerVersions.orphans).toBe("1");
+    expect(f.service.getSnapshot().lastLocalScan?.reconciliationReceipts["local:orphans"]).toBe(100);
+    expect(f.service.getSnapshot().lastLocalScanReconciled).toBe(true);
     expect(f.service.getFinding(id)?.title).not.toBe("Mutated");
     unsubscribe(); await f.service.reopenFinding(id); expect(listener).toHaveBeenCalledTimes(7);
   });
@@ -287,5 +323,84 @@ describe("cancellation, subscribers and restart", () => {
     await expect(invalid.service.runLocalScan(signal())).rejects.toThrow("identifier");
     const native = new HealthService(new FindingStore(new MemoryHealthStorage()), f.source); await native.initialize();
     expect((await native.runLocalScan(signal())).scan.id).toMatch(/^local-[a-f0-9-]{36}$/u);
+  });
+});
+
+describe("scope receipt restart isolation", () => {
+  it.each(["dismiss", "snooze", "reopen"] as const)("preserves completed local coverage across %s and restart", async (action) => {
+    const f = fixture(); await f.service.initialize();
+    const scan = (await f.service.runLocalScan(signal())).scan;
+    const finding = f.service.listFindings()[0];
+    expect(f.service.getSnapshot().dimensions.structure.state).toBe("review-recommended");
+    if (action === "reopen") await f.service.dismissFinding(finding.id);
+    const before = f.store.getFindingsUpdatedAt()!;
+    const history = f.storage.files.get("scan-runs.json");
+    const receipts = f.store.getReconciliationReceipts();
+    if (action === "dismiss") await f.service.dismissFinding(finding.id);
+    if (action === "snooze") await f.service.snoozeFinding(finding.id, 1000);
+    if (action === "reopen") await f.service.reopenFinding(finding.id);
+    expect(f.store.getFindingsUpdatedAt()).toBeGreaterThan(before);
+    expect(f.store.getReconciliationReceipts()).toEqual(receipts);
+    expect(f.storage.files.get("scan-runs.json")).toBe(history);
+    const store = new FindingStore(f.storage); const restart = new HealthService(store, f.source);
+    f.write.mockClear(); await restart.initialize();
+    expect(f.write).not.toHaveBeenCalled();
+    const state = action === "dismiss" ? "dismissed" : action === "snooze" ? "snoozed" : "open";
+    expect(restart.listFindings({ state }).map((item) => item.id)).toEqual([finding.id]);
+    expect(restart.getSnapshot()).toMatchObject({ lastLocalScanReconciled: true, lastLocalScan: scan,
+      dimensions: { structure: { state: action === "reopen" ? "review-recommended" : "good", analysisComplete: true },
+        connections: { state: "good", analysisComplete: true } } });
+    expect(store.getReconciliationReceipts()).toEqual(receipts);
+  });
+
+  it.each([false, true])("unrelated semantic reconciliation preserves local coverage, including failed semantic history (%s)", async (failHistory) => {
+    const f = fixture(); await f.service.initialize();
+    const local = (await f.service.runLocalScan(signal())).scan;
+    const localReceipts = f.store.getReconciliationReceipts();
+    const before = f.store.getFindingsUpdatedAt()!;
+    const candidateFinding = candidate({ source: "semantic", analyzerId: "synthetic-semantic", impact: "info", dimension: "knowledge" });
+    const result = await f.store.reconcileBatch([{ scope: { source: "semantic", analyzerIds: ["synthetic-semantic"] }, candidates: [candidateFinding], complete: true }]);
+    const semanticRun = scanRun({ id: "semantic-later", type: "semantic", completedAt: result.updatedAt,
+      analyzerVersions: { "synthetic-semantic": "1" }, reconciliationReceipts: result.reconciliationReceipts });
+    if (failHistory) {
+      f.write.mockRejectedValueOnce(new Error("history unavailable"));
+      await expect(f.store.recordScanRun(semanticRun)).rejects.toThrow("history unavailable");
+    } else await f.store.recordScanRun(semanticRun);
+    expect(f.store.getFindingsUpdatedAt()).toBeGreaterThan(before);
+    expect(f.store.getReconciliationReceipts()).toEqual({ ...localReceipts, ...result.reconciliationReceipts });
+    expect(f.service.getSnapshot().lastLocalScanReconciled).toBe(true);
+    const store = new FindingStore(f.storage); const restart = new HealthService(store, f.source); await restart.initialize();
+    expect(restart.getSnapshot()).toMatchObject({ lastLocalScanReconciled: true, lastLocalScan: local,
+      dimensions: { structure: { analysisComplete: true }, connections: { state: "good", analysisComplete: true } } });
+    expect(restart.listFindings({ source: "semantic" })).toHaveLength(1);
+    expect(store.listScanRuns().some((run) => run.id === "semantic-later")).toBe(!failHistory);
+  });
+
+  it("a newer reconciliation of one local owner invalidates the old scan in session and after restart", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.runLocalScan(signal());
+    const receipts = f.store.getReconciliationReceipts();
+    const result = await f.store.reconcileBatch([{ scope: { source: "local", analyzerIds: ["orphans"] }, candidates: [], complete: true }]);
+    expect(result.reconciliationReceipts["local:orphans"]).toBeGreaterThan(receipts["local:orphans"]);
+    expect(f.store.getReconciliationReceipts()).toEqual({ ...receipts, ...result.reconciliationReceipts });
+    expect(f.service.getSnapshot().lastLocalScanReconciled).toBe(false);
+    const restart = new HealthService(new FindingStore(f.storage), f.source); await restart.initialize();
+    expect(restart.getSnapshot()).toMatchObject({ lastLocalScanReconciled: false,
+      dimensions: { structure: { state: "unknown", analysisComplete: false }, connections: { state: "unknown", analysisComplete: false } } });
+  });
+
+  it("semantic Dismiss/Snooze/Reopen preserve both local and semantic analysis receipts", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.runLocalScan(signal());
+    await f.store.reconcile({ scope: { source: "semantic", analyzerIds: ["x"] }, candidates: [candidate({ source: "semantic", analyzerId: "x" })], complete: true });
+    const id = f.store.list({ source: "semantic" })[0].id;
+    const receipts = f.store.getReconciliationReceipts();
+    for (const transition of [() => f.store.dismiss(id), () => f.store.snooze(id, 1000), () => f.store.reopen(id)]) {
+      const before = f.store.getFindingsUpdatedAt()!;
+      await transition();
+      expect(f.store.getFindingsUpdatedAt()).toBeGreaterThan(before);
+      expect(f.store.getReconciliationReceipts()).toEqual(receipts);
+      const store = new FindingStore(f.storage); const restart = new HealthService(store, f.source); await restart.initialize();
+      expect(store.getReconciliationReceipts()).toEqual(receipts);
+      expect(restart.getSnapshot().lastLocalScanReconciled).toBe(true);
+    }
   });
 });

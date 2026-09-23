@@ -31,7 +31,7 @@ export interface HealthSnapshot {
   openFindings: number;
   newFindings: number;
   lastLocalScan?: ScanRun;
-  /** Existing backend receipt check, including partial scans. Not separately persisted. */
+  /** Matching analyzer scope receipts, including partial scans. Not separately persisted. */
   lastLocalScanReconciled: boolean;
   localScanRunning: boolean;
   initialization: HealthInitializationResult;
@@ -52,6 +52,6 @@ export interface LocalHealthScanOutcome {
 export interface HealthAggregationInput {
   findings: readonly Finding[];
   lastLocalScan?: ScanRun;
-  /** True only for a matching durable receipt or a known in-session reconciliation. */
+  /** True only when the scan's nonempty scope receipts match the current store. */
   reconciled: boolean;
 }

@@ -3,6 +3,7 @@ import { DEFAULT_VAULT_PROFILE } from "../domain/profile";
 import type { VaultProfile } from "../domain/profile";
 import type { ScanRun } from "../domain/scanRun";
 import { cloneScanRun } from "../domain/scanRunValidation";
+import { reconciliationIsCurrent } from "../domain/reconciliation";
 import { isIdentifier, isTimestamp } from "../domain/validation";
 import { FindingStore } from "../store/findingStore";
 import type { FindingFilter, HealthLoadStatus } from "../store/types";
@@ -42,7 +43,7 @@ export class HealthService {
   private initializing?: Promise<HealthInitializationResult>;
   private running = false;
   private readonly listeners = new Set<() => void>();
-  private lastAttempt?: { scan: ScanRun; reconciled: boolean };
+  private lastAttempt?: ScanRun;
   private lastObservation = -1;
 
   constructor(private readonly store: FindingStore, private readonly source: HealthLocalVaultSource, options: HealthServiceOptions = {}) {
@@ -73,9 +74,9 @@ export class HealthService {
   getSnapshot(profile: VaultProfile = DEFAULT_VAULT_PROFILE): HealthSnapshot {
     const initialization = this.requireInitialized();
     const findings = this.store.list();
-    const scan = this.lastAttempt?.scan ?? this.store.listScanRuns().find((run) => run.type === "local");
-    const reconciled = this.lastAttempt?.reconciled ?? (scan !== undefined &&
-      (scan.status === "completed" || scan.status === "partial") && scan.completedAt === this.store.getFindingsUpdatedAt());
+    const scan = this.lastAttempt ?? this.store.listScanRuns().find((run) => run.type === "local");
+    const reconciled = scan !== undefined && (scan.status === "completed" || scan.status === "partial") &&
+      reconciliationIsCurrent(scan.reconciliationReceipts, this.store.getReconciliationReceipts());
     return { ...aggregateHealth({ findings, lastLocalScan: scan, reconciled }), recommendation: selectRecommendation(findings, profile),
       lastLocalScan: scan ? cloneScanRun(scan) : undefined, lastLocalScanReconciled: reconciled, localScanRunning: this.running,
       initialization: { ...initialization, storage: { ...initialization.storage } },
@@ -94,7 +95,7 @@ export class HealthService {
     throwIfAborted(signal);
     if (!initialization.findingsWritable) throw new HealthStorageUnavailableError();
     const id = this.scanIdFactory();
-    if (!isIdentifier(id) || this.store.listScanRuns().some((run) => run.id === id) || this.lastAttempt?.scan.id === id) {
+    if (!isIdentifier(id) || this.store.listScanRuns().some((run) => run.id === id) || this.lastAttempt?.id === id) {
       throw new Error("Invalid or duplicate local scan identifier.");
     }
     // Avoid ambiguous 'new' counts when the clock repeats or moves backward.
@@ -103,7 +104,7 @@ export class HealthService {
     if (!isTimestamp(startedAt)) throw new Error("Invalid local scan observation time.");
     this.lastObservation = startedAt;
     const scan: ScanRun = { id, type: "local", startedAt, notesSeen: 0, findingsCreated: 0, findingsUpdated: 0, findingsResolved: 0,
-      analyzerVersions: {}, status: "failed" };
+      analyzerVersions: {}, reconciliationReceipts: {}, status: "failed" };
     const outcome: LocalHealthScanOutcome = { scan, freshness: "not-checked", findingsCommitted: false, historyRecorded: false, diagnostics: [] };
     this.running = true;
     this.notify();
@@ -120,7 +121,7 @@ export class HealthService {
       // Once findings are committed, finish recording truth even if cancellation arrives late.
       if (!outcome.findingsCommitted) throwIfAborted(signal);
       scan.completedAt ??= Math.max(startedAt, this.now());
-      this.lastAttempt = { scan: cloneScanRun(scan), reconciled: outcome.findingsCommitted };
+      this.lastAttempt = cloneScanRun(scan);
       try {
         await this.store.recordScanRun(scan);
         outcome.historyRecorded = true;
@@ -153,9 +154,10 @@ export class HealthService {
       outcome.findingsCommitted = true;
       scan.findingsCreated = counts.created; scan.findingsUpdated = counts.updated; scan.findingsResolved = counts.resolved;
       scan.completedAt = counts.updatedAt;
+      scan.reconciliationReceipts = counts.reconciliationReceipts;
       scan.status = analysis.results.every((result) => result.successful && result.complete) ? "completed" : "partial";
       if (scan.status === "partial") outcome.diagnostics.push("analysis-partial");
-      this.lastAttempt = { scan: cloneScanRun(scan), reconciled: true };
+      this.lastAttempt = cloneScanRun(scan);
       this.notify();
     } catch (error) {
       this.propagateCancellation(error, signal);
