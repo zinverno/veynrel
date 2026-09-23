@@ -85,6 +85,7 @@ export class SemanticAutoSync {
   private flushRequested = false;
   private epoch = 0;
   private paused = false;
+  private deferredUntilActivity = false;
   private disposed = false;
 
   constructor(options: SemanticAutoSyncOptions) {
@@ -126,7 +127,8 @@ export class SemanticAutoSync {
     this.pending.reconcileAll = true;
     this.pending.upsertPaths.clear();
     this.pending.deletePaths.clear();
-    this.scheduleAfterActivity();
+    // Startup reconciliation is not a new Markdown event and must not undo setup's deferral.
+    if (!this.deferredUntilActivity) this.scheduleAfterActivity();
   }
 
   /**
@@ -137,6 +139,8 @@ export class SemanticAutoSync {
     paused: boolean;
     preservePending?: boolean;
     reconcile?: boolean;
+    /** Retain pending work without starting it as a side effect of provider setup. */
+    deferUntilActivity?: boolean;
   }): void {
     if (this.disposed) return;
     const preservePending = options.preservePending !== false;
@@ -152,6 +156,7 @@ export class SemanticAutoSync {
     this.pending = nextPending;
     this.epoch++;
     this.paused = options.paused;
+    this.deferredUntilActivity = options.deferUntilActivity === true;
     this.flushRequested = false;
     this.cancelTimer();
     if (options.reconcile) {
@@ -181,13 +186,14 @@ export class SemanticAutoSync {
   }
 
   private scheduleAfterActivity(): void {
+    this.deferredUntilActivity = false;
     if (this.paused || !hasChanges(this.pending)) return;
     this.cancelTimer();
     this.armTimer();
   }
 
   private armTimer(): void {
-    if (this.disposed || this.paused || this.timer !== null) return;
+    if (this.disposed || this.paused || this.deferredUntilActivity || this.timer !== null) return;
     this.timer = this.setTimer(() => {
       this.timer = null;
       if (this.activeBatch) {

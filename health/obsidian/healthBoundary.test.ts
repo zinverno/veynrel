@@ -24,7 +24,10 @@ describe("Health production dependency boundary", () => {
         if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
           const specifier = node.moduleSpecifier.text;
           if (specifier.startsWith(".")) queue.push(resolve(dirname(path), `${specifier}.ts`));
-          else expect(specifier, name).toBe("obsidian");
+          else {
+            expect(specifier, name).toBe("obsidian");
+            expect(node.getText(source), name).not.toMatch(/\b(?:requestUrl|request)\b/u);
+          }
         }
         ts.forEachChild(node, visit);
       }

@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   class Element {
-    children: Element[] = []; text = ""; cls = ""; tag = "div"; disabled = false;
+    children: Element[] = []; text = ""; cls = ""; tag = "div"; disabled = false; value = "";
     attrs: Record<string, string> = {}; listeners: Array<() => void> = [];
     ownerDocument: { activeElement: Element | null } = { activeElement: null };
     private append(tag: string, opts: { text?: string; cls?: string; attr?: Record<string, string> } = {}): Element {
@@ -27,6 +27,7 @@ const mocks = vi.hoisted(() => {
     focus(): void { if (!this.disabled) this.ownerDocument.activeElement = this; }
     addEventListener(_type: string, fn: () => void): void { this.listeners.push(fn); }
     click(): void { for (const listener of this.listeners) listener(); }
+    input(value: string): void { this.value = value; for (const listener of this.listeners) listener(); }
     all(): Element[] { return [this, ...this.children.flatMap((child) => child.all())]; }
     action(key: string): Element { return this.all().find((e) => e.attrs["data-health-action"] === key)!; }
     texts(): string { return this.all().map((e) => e.text).join("\n"); }
@@ -39,7 +40,7 @@ const mocks = vi.hoisted(() => {
   }
   class ItemView { contentEl = new Element(); app: unknown; constructor(leaf: { app: unknown }) { this.app = leaf.app; } }
   class TFile { path = "A.md"; basename = "A"; extension = "md"; stat = { mtime: 1 }; }
-  return { Element, Modal, ItemView, TFile };
+  return { Element, Modal, ItemView, TFile, requestUrl: vi.fn() };
 });
 vi.mock("obsidian", () => ({ ...mocks, setIcon: vi.fn(), Notice: vi.fn(), getLanguage: () => "en", parseLinktext: (link: string) => ({ path: link, subpath: "" }) }));
 import { setLanguage } from "../../i18n";
@@ -53,13 +54,18 @@ import { openHealthView } from "../obsidian/openHealthView";
 import { openHealthNote } from "../obsidian/openHealthNote";
 import { inboxFinding } from "./testSupport";
 import { serializeHealth } from "../store/codec";
+import type { SemanticIntelligencePort } from "../semanticIntelligencePort";
+import { SemanticIntelligenceController } from "../../semantic/product/semanticIntelligenceController";
+import { DEFAULT_EMBEDDING_SETTINGS } from "../../embeddings/types";
+import type { EmbeddingSettings } from "../../embeddings/types";
+import type { SemanticStatus } from "../../semantic/types";
 
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
-function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }) {
+function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort) {
   const f = appFixture(); const file = new mocks.TFile(); f.vault.getAbstractFileByPath.mockReturnValue(file);
   const p = preferencesFixture(initial);
   const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences);
-  const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools);
+  const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic);
   return { ...f, ...p, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
 
@@ -117,6 +123,121 @@ describe("native Health view lifecycle", () => {
     confirmation.contentEl.all().find((e) => e.text === "Back up and reset")!.click();
     await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
     expect(f.content.texts()).toContain("Check your vault"); expect(f.vault.read).not.toHaveBeenCalled();
+  });
+});
+
+describe("inline Semantic Intelligence boundaries", () => {
+  function semanticFixture(enabled = false, kind: SemanticStatus["kind"] = "not-initialized", vectorCount = 0) {
+    let effective = { ...DEFAULT_EMBEDDING_SETTINGS, enabled };
+    let status: SemanticStatus = { kind, vectorCount, vectorGeneration: 0, dimensions: 3, providerLabel: "OpenRouter", model: effective.embeddingModel };
+    const settings = { get: () => ({ ...effective }), update: vi.fn(async (next: EmbeddingSettings) => { effective = { ...next }; return { ...next }; }) };
+    const engine = { getSemanticStatus: () => ({ ...status }), refreshSemanticStatus: vi.fn(async () => ({ ...status })),
+      indexVault: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }),
+      rebuildIndex: vi.fn(async () => { status = { ...status, kind: "ready", vectorCount: 3 }; }), openSearch: vi.fn() };
+    const semantic = new SemanticIntelligenceController(settings, engine);
+    const f = fixture(undefined, semantic); const scan = vi.spyOn(f.controller, "runLocalScan");
+    return { ...f, semantic, engine, settings, scan };
+  }
+  beforeEach(() => {
+    vi.stubGlobal("window", { setTimeout, clearTimeout }); mocks.requestUrl.mockReset();
+    mocks.requestUrl.mockResolvedValue({ status: 200, text: '{"embeddings":[[1,0,0]],"data":[{"embedding":[1,0,0]}]}' });
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  it.each([false, true])("opening Health (enabled %s) never tests, reads notes, indexes or changes the four local dimensions", async (enabled) => {
+    const f = semanticFixture(enabled); await f.view.onOpen();
+    expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
+    expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.scan).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.content.all().filter((e) => e.attrs["data-dimension"])).toHaveLength(4);
+    expect(f.content.action(enabled ? "semantic-check" : "semantic-enable")).toBeDefined();
+    expect(f.content.action("scan").disabled).toBe(false);
+    if (enabled) { f.content.action("semantic-check").click(); await flush(); expect(f.engine.refreshSemanticStatus).toHaveBeenCalledTimes(1); }
+    await f.view.onClose();
+  });
+
+  it.each(["local", "cloud", "custom"] as const)("choosing/editing %s is transient; Back discards it without side effects", async (mode) => {
+    const f = semanticFixture(); await f.view.onOpen(); const previous = JSON.stringify(f.settings.get());
+    f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
+    const selected = f.content.action(`semantic-mode-${mode}`); expect(selected.tag).toBe("button");
+    expect(selected.attrs["aria-pressed"]).toBe("true"); expect(selected.texts()).toContain("✓ Selected");
+    if (mode !== "local") {
+      const key = f.content.action("semantic-field-apiKey"); expect(key.attrs.type).toBe("password"); expect(key.attrs.autocomplete).toBe("off");
+      key.input("synthetic-draft-key");
+    }
+    if (mode === "custom") { f.content.action("semantic-field-baseUrl").input("http://localhost:4321/v1"); f.content.action("semantic-field-model").input("edited-model"); }
+    f.content.action("semantic-back").click();
+    expect(f.content.action("semantic-enable")).toBeDefined(); expect(JSON.stringify(f.settings.get()) === previous).toBe(true);
+    expect(f.settings.update.mock.calls.length).toBe(0); expect(mocks.requestUrl).not.toHaveBeenCalled();
+    expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled(); expect(f.engine.indexVault).not.toHaveBeenCalled();
+    expect(f.scan).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
+    if (mode === "custom") expect(f.content.action("semantic-field-model").value).not.toBe("edited-model");
+    await f.view.onClose();
+  });
+
+  it.each(["local", "cloud", "custom"] as const)("%s Connect reads no notes, says Index required, and waits for a separate Build action", async (mode) => {
+    const f = semanticFixture(); await f.view.onOpen();
+    f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
+    if (mode !== "local") f.content.action("semantic-field-apiKey").input("synthetic-key");
+    f.content.action("semantic-connect").click();
+    expect(f.content.action("semantic-connect").disabled).toBe(true); expect(f.content.action("semantic-mode-cloud").disabled).toBe(true);
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Index required"));
+    expect(f.content.texts()).not.toContain("Semantic Intelligence ready"); expect(f.content.action("semantic-search")).toBeUndefined();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.scan).not.toHaveBeenCalled();
+    expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.settings.update).toHaveBeenCalledTimes(1);
+    expect(f.controller.listFindings()).toEqual([]);
+    f.content.action("semantic-build").click(); await vi.waitFor(() => expect(f.content.action("semantic-search")).toBeDefined());
+    expect(f.engine.indexVault).toHaveBeenCalledTimes(1); f.content.action("semantic-search").click();
+    expect(f.engine.openSearch).toHaveBeenCalledTimes(1); expect(f.scan).not.toHaveBeenCalled();
+    await f.view.onClose();
+  });
+
+  it("existing Ready users search immediately; Change setup and Back retain Ready; Advanced edits are reread", async () => {
+    const f = semanticFixture(true, "ready", 8); await f.view.onOpen();
+    expect(f.content.texts()).toContain("Semantic Intelligence ready"); expect(f.content.texts()).toContain("8 vectors");
+    expect(f.content.action("semantic-mode-local")).toBeUndefined(); f.content.action("semantic-search").click();
+    f.content.action("semantic-change").click(); f.content.action("semantic-mode-cloud").click(); f.content.action("semantic-back").click();
+    expect(f.content.action("semantic-search")).toBeDefined(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
+    await f.settings.update({ ...f.settings.get(), embeddingModel: "advanced-model" });
+    f.content.action("nav-findings").click(); f.content.action("nav-health").click();
+    expect(f.content.texts()).toContain("advanced-model"); expect(f.scan).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
+    await f.view.onClose();
+  });
+
+  it("incompatible status offers only explicit rebuild, without Clear or semantic Findings", async () => {
+    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen();
+    expect(f.content.texts()).toContain("Index needs rebuilding"); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
+    expect(f.content.action("semantic-build")).toBeUndefined(); expect(f.content.texts()).not.toContain("Clear index");
+    f.content.action("semantic-rebuild").click(); await flush(); expect(f.engine.rebuildIndex).toHaveBeenCalledTimes(1);
+    expect(f.controller.listFindings()).toEqual([]); expect(f.scan).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+
+  it("failed tests and saves retain drafts for retry with fixed safe copy", async () => {
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
+    mocks.requestUrl.mockRejectedValueOnce(new Error("private-provider-response")); f.content.action("semantic-connect").click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't connect to Ollama"));
+    f.settings.update.mockRejectedValueOnce(new Error("private-save-response")); f.content.action("semantic-connect").click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Semantic Intelligence settings"));
+    expect(f.content.texts()).not.toContain("private-"); expect(f.settings.get().enabled).toBe(false);
+    expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+
+  it("closing discards the route and subscription; a late Connect cannot reopen it", async () => {
+    const f = semanticFixture(); const remove = vi.fn(); const subscribe = f.semantic.subscribe.bind(f.semantic);
+    vi.spyOn(f.semantic, "subscribe").mockImplementation((listener) => { const unsubscribe = subscribe(listener); return () => { remove(); unsubscribe(); }; });
+    await f.view.onOpen(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
+    let release!: (value: unknown) => void; mocks.requestUrl.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
+    f.content.action("semantic-connect").click(); await flush(); await f.view.onClose(); expect(remove).toHaveBeenCalledTimes(1);
+    release({ status: 200, text: '{"embeddings":[[1,0,0]]}' }); await flush(); await f.view.onOpen();
+    expect(f.content.action("semantic-mode-local")).toBeUndefined(); expect(f.content.action("semantic-check")).toBeDefined();
+    expect(f.content.texts()).not.toContain("Semantic Intelligence connected"); await f.view.onClose();
+  });
+
+  it("Russian setup uses localized copy while preserving provider/model identifiers", async () => {
+    setLanguage("ru"); const f = semanticFixture(); await f.view.onOpen();
+    expect(f.content.texts()).toContain("Семантические возможности"); f.content.action("semantic-enable").click();
+    for (const mode of ["local", "cloud", "custom"] as const) { f.content.action(`semantic-mode-${mode}`).click(); expect(f.content.texts()).not.toContain("@semantic"); }
+    expect(f.content.texts()).toContain("Базовый URL"); expect(f.content.texts()).toContain("OpenAI"); await f.view.onClose();
   });
 });
 

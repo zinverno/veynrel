@@ -14,9 +14,16 @@ import type { VaultProfile } from "../domain/profile";
 import { findingsInboxViewModel, findingsRoute, snoozeDeadline } from "./findingsInboxViewModel";
 import type { FindingsRoute, VeynrelHealthRoute } from "./findingsInboxViewModel";
 import { renderFindingsInbox } from "./renderFindingsInbox";
+import type { SemanticIntelligencePort } from "../semanticIntelligencePort";
+import { renderSemanticIntelligence } from "./renderSemanticIntelligence";
+import type { SemanticSetupState } from "./renderSemanticIntelligence";
+import { semanticIntelligenceViewModel, semanticSetupError } from "./semanticIntelligenceViewModel";
+import type { SemanticAction } from "./semanticIntelligenceViewModel";
 
 export class VeynrelHealthView extends ItemView {
   private unsubscribe?: () => void;
+  private unsubscribeSemantic?: () => void;
+  private semanticSetup?: SemanticSetupState;
   private epoch = 0;
   private body?: HTMLElement;
   private status?: HTMLElement;
@@ -28,7 +35,8 @@ export class VeynrelHealthView extends ItemView {
   private expandedSnooze = false;
   private focusDestination?: "heading" | "detail";
 
-  constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly openTools: () => void) { super(leaf); }
+  constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly openTools: () => void,
+    private readonly semantic?: SemanticIntelligencePort) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -45,6 +53,8 @@ export class VeynrelHealthView extends ItemView {
       if (epoch !== this.epoch) return;
       this.unsubscribe?.();
       this.unsubscribe = this.controller.subscribe(() => this.render());
+      this.unsubscribeSemantic?.();
+      this.unsubscribeSemantic = this.semantic?.subscribe(() => this.render());
       this.render();
     } catch {
       if (epoch === this.epoch) this.status?.setText(t("@health.error.load"));
@@ -53,6 +63,7 @@ export class VeynrelHealthView extends ItemView {
 
   async onClose(): Promise<void> {
     this.epoch++; this.unsubscribe?.(); this.unsubscribe = undefined;
+    this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.changingProfile = false;
@@ -73,6 +84,7 @@ export class VeynrelHealthView extends ItemView {
     const openNote = (): void => { void this.openNote(this.controller.getRecommendationPath()); };
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
     const normal = onboarding.step === "complete";
+    if (!normal) this.semanticSetup = undefined;
     // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
     if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
     this.body.empty();
@@ -107,6 +119,8 @@ export class VeynrelHealthView extends ItemView {
         togglePaths: () => { this.expandedPaths = !this.expandedPaths; this.render(); },
         toggleSnooze: () => { this.expandedSnooze = !this.expandedSnooze; this.render(); },
       }, this.expandedPaths, this.expandedSnooze);
+    } else if (normal && this.semanticSetup && this.semantic) {
+      this.renderSemantic(surface);
     } else if (normal || onboarding.step === "recovery") {
       renderHealthHome(surface, model, {
         scan, openNote, tools: this.openTools,
@@ -119,6 +133,7 @@ export class VeynrelHealthView extends ItemView {
         findings: normal ? (dimension) => this.navigate(findingsRoute({ dimension: dimension ?? "all" })) : undefined,
         reviewFinding: normal ? (selectedFindingId) => this.navigate(findingsRoute({ selectedFindingId })) : undefined,
       }, this.changingProfile);
+      if (normal && this.semantic) this.renderSemantic(surface);
     } else {
       renderHealthOnboarding(surface, onboarding, model, state, {
         scan, openNote, choose,
@@ -128,10 +143,15 @@ export class VeynrelHealthView extends ItemView {
     }
     const status = onboarding.step === "scan" ? onboarding.status : model.status;
     const mutationError = this.findingMutationErrorRoute === this.route;
+    const semanticSnapshot = normal && this.route.page === "health" ? this.semantic?.getSnapshot() : undefined;
+    const semanticError = this.semanticSetup?.step === "form"
+      ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
+    const semanticStatus = semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
+      : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined;
     this.status.setText(state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
-      : this.navigationMessage ?? status ?? "");
-    this.status.toggleClass("veynrel-health-status-error", state.preferencesError || mutationError || model.statusError);
+      : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "");
+    this.status.toggleClass("veynrel-health-status-error", state.preferencesError || mutationError || model.statusError || Boolean(semanticError));
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
@@ -149,11 +169,52 @@ export class VeynrelHealthView extends ItemView {
 
   /** Transient product navigation only; never persisted and never starts analysis. */
   private navigate(route: VeynrelHealthRoute): void {
+    this.semanticSetup = undefined;
     this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
     this.changingProfile = false; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";
     this.render();
+  }
+
+  private renderSemantic(surface: HTMLElement): void {
+    const semantic = this.semantic;
+    if (!semantic) return;
+    renderSemanticIntelligence(surface, semantic.getSnapshot(), this.semanticSetup, {
+      action: (action) => this.semanticAction(action),
+      choose: (mode) => {
+        if (semantic.getSnapshot().busy) return;
+        this.semanticSetup = { step: "form", draft: semantic.createDraft(mode) }; this.render();
+      },
+      edit: (field, value) => {
+        if (this.semanticSetup?.step === "form" && !semantic.getSnapshot().busy) this.semanticSetup.draft[field] = value;
+      },
+      connect: () => { void this.connectSemantic(); },
+      back: () => {
+        if (semantic.getSnapshot().busy) return;
+        this.semanticSetup = undefined; this.focusDestination = "heading"; this.render();
+      },
+    });
+  }
+
+  private semanticAction(action: SemanticAction): void {
+    const semantic = this.semantic;
+    if (!semantic || semantic.getSnapshot().busy) return;
+    if (action === "enable" || action === "change") {
+      this.semanticSetup = { step: "choose" }; this.focusDestination = "heading"; this.render();
+    } else if (action === "check") void semantic.checkCurrentSetup();
+    else if (action === "build") void semantic.buildIndex();
+    else if (action === "rebuild") void semantic.rebuildIndex();
+    else semantic.openSearch();
+  }
+
+  private async connectSemantic(): Promise<void> {
+    const setup = this.semanticSetup; const epoch = this.epoch;
+    if (!this.semantic || setup?.step !== "form" || this.semantic.getSnapshot().busy) return;
+    const result = await this.semantic.connect({ ...setup.draft });
+    if (epoch !== this.epoch || this.semanticSetup !== setup) return;
+    this.semanticSetup = result.ok ? { step: "connected", dimensions: result.dimensions } : { ...setup, result };
+    this.focusDestination = "heading"; this.render();
   }
 
   private async mutateFinding(id: string, update: () => Promise<boolean>): Promise<void> {
