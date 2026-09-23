@@ -23,7 +23,9 @@ describe("Recall dedicated DataAdapter storage", () => {
     expect(await f.store.load()).toEqual({ status: "missing", writable: true }); expect(f.adapter.write).not.toHaveBeenCalled();
     expect(f.adapter.mkdir).not.toHaveBeenCalled();
     await f.store.reconcile(request([candidate()]));
+    await f.store.reviewCard(candidate().id, "good", 200);
     expect([...f.files.keys()]).toEqual([f.path]);
+    expect(f.adapter.write.mock.calls.map(([path]) => path)).toEqual([f.path, f.path]);
     const restarted = new RecallStore(f.storage); await restarted.load(); expect(restarted.listCards()).toEqual(f.store.listCards());
     expect(f.adapter.read.mock.calls.map(([path]) => path)).toEqual([f.path]);
   });

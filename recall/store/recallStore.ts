@@ -1,9 +1,11 @@
 import { compareStrings, isTimestamp } from "../../health/domain/validation";
 import type { RecallCard, RecallCardCandidate } from "../domain/card";
-import { MAX_RECALL_CARDS } from "../domain/card";
+import { copyRecallCard, MAX_RECALL_CARDS } from "../domain/card";
 import { isRecallId, isRecallPath } from "../domain/identity";
 import { isRecallCandidate } from "../domain/validation";
 import { throwIfAborted } from "../cancellation";
+import { createInitialSchedule, rateSchedule } from "../scheduler/fsrs6";
+import type { RecallRating, RecallRatingOutcome } from "../scheduler/types";
 import { decodeRecall, serializeRecall } from "./codec";
 import { RECALL_SCHEMA_VERSION, RecallStorageBlockedError, RecallStorageWriteError } from "./types";
 import type { RecallCardsSnapshot, RecallCardFilter, RecallCommitOptions, RecallLoadResult, RecallReconcileRequest,
@@ -40,7 +42,7 @@ export class RecallStore {
     this.getLoadResult();
     if (!isRecallId(id)) throw new Error("Invalid Recall ID.");
     const card = this.snapshot.cards[id];
-    return card ? { ...card } : undefined;
+    return card ? copyRecallCard(card) : undefined;
   }
 
   /** Code-unit ID order, independent of locale or original Markdown line order. */
@@ -49,7 +51,22 @@ export class RecallStore {
     if ((filter.state !== undefined && filter.state !== "active" && filter.state !== "retired") ||
         (filter.path !== undefined && !isRecallPath(filter.path))) throw new Error("Invalid Recall filter.");
     return Object.values(this.snapshot.cards).filter((card) => (filter.state === undefined || card.state === filter.state) &&
-      (filter.path === undefined || card.path === filter.path)).sort((a, b) => compareStrings(a.id, b.id)).map((card) => ({ ...card }));
+      (filter.path === undefined || card.path === filter.path)).sort((a, b) => compareStrings(a.id, b.id)).map(copyRecallCard);
+  }
+
+  reviewCard(id: string, rating: RecallRating, reviewedAt: number): Promise<RecallRatingOutcome> {
+    return this.enqueue(async () => {
+      this.requireWritable();
+      const card = this.getCard(id);
+      if (!card) throw new Error("Recall card does not exist.");
+      if (card.state !== "active") throw new Error("Retired Recall cards cannot be reviewed.");
+      // Compute inside the shared queue against the latest durable memory state, including double-review validation.
+      const outcome = rateSchedule(card.schedule, rating, reviewedAt);
+      const next: RecallCardsSnapshot = { version: RECALL_SCHEMA_VERSION, updatedAt: Math.max(this.snapshot.updatedAt, reviewedAt),
+        cards: { ...this.snapshot.cards, [id]: { ...card, schedule: { ...outcome.schedule } } } };
+      await this.persist(next);
+      return outcome;
+    });
   }
 
   async reconcile(request: RecallReconcileRequest, options: RecallCommitOptions = {}): Promise<RecallReconcileResult> {
@@ -61,8 +78,7 @@ export class RecallStore {
     const { complete, observedAt } = request;
     const { beforeCommit, signal } = options;
     return this.enqueue(async () => {
-      const load = this.getLoadResult();
-      if (!load.writable) throw new RecallStorageBlockedError(load.status);
+      this.requireWritable();
       throwIfAborted(signal);
       if (observedAt < this.snapshot.updatedAt) throw new Error("Stale Recall observation.");
       const cards = { ...this.snapshot.cards };
@@ -73,7 +89,8 @@ export class RecallStore {
         if (previous && previous.fingerprint !== candidate.fingerprint) throw new Error("Recall identity collision.");
         if (seen.has(candidate.id)) continue;
         seen.add(candidate.id);
-        cards[candidate.id] = { ...candidate, state: "active", firstSeenAt: previous?.firstSeenAt ?? observedAt, lastSeenAt: observedAt };
+        cards[candidate.id] = { ...candidate, state: "active", firstSeenAt: previous?.firstSeenAt ?? observedAt, lastSeenAt: observedAt,
+          schedule: previous?.schedule ?? createInitialSchedule(observedAt) };
         if (previous) result.updated++;
         else result.created++;
       }
@@ -82,21 +99,29 @@ export class RecallStore {
           if (card.state === "active" && !seen.has(card.id)) { cards[card.id] = { ...card, state: "retired" }; result.retired++; }
         }
       }
-      const next = { version: RECALL_SCHEMA_VERSION, updatedAt: observedAt, cards };
-      const raw = serializeRecall(next);
-      await beforeCommit?.();
-      throwIfAborted(signal);
-      try { await this.storage.write(raw); }
-      catch {
-        // A failed adapter write may have truncated bytes. Block this owner until metadata is reloaded by a new owner.
-        this.loaded = { status: "unavailable", writable: false };
-        throw new RecallStorageWriteError();
-      }
-      // The issued write cannot be rolled back by AbortSignal; publish committed truth even after late cancellation.
-      this.snapshot = next;
-      this.loaded = { status: "loaded", writable: true };
+      await this.persist({ version: RECALL_SCHEMA_VERSION, updatedAt: observedAt, cards }, { beforeCommit, signal });
       return result;
     });
+  }
+
+  private requireWritable(): void {
+    const load = this.getLoadResult();
+    if (!load.writable) throw new RecallStorageBlockedError(load.status);
+  }
+
+  private async persist(next: RecallCardsSnapshot, options: RecallCommitOptions = {}): Promise<void> {
+    const raw = serializeRecall(next);
+    await options.beforeCommit?.();
+    throwIfAborted(options.signal);
+    try { await this.storage.write(raw); }
+    catch {
+      // A failed adapter write may have truncated bytes. Block this owner until metadata is reloaded by a new owner.
+      this.loaded = { status: "unavailable", writable: false };
+      throw new RecallStorageWriteError();
+    }
+    // The issued write cannot be rolled back by AbortSignal; publish committed truth even after late cancellation.
+    this.snapshot = next;
+    this.loaded = { status: "loaded", writable: true };
   }
 
   private enqueue<T>(operation: () => Promise<T>): Promise<T> {

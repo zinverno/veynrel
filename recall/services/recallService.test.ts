@@ -107,6 +107,7 @@ describe("Recall explicit inventory service", () => {
   it.each([["{", "invalid"], ['{"version":200}', "unsupported"]])("does not scan or overwrite poisoned metadata %j", async (raw, status) => {
     const f = fixture(raw); expect(await f.service.initialize()).toEqual({ status, writable: false });
     await expect(f.service.scan(signal())).rejects.toBeInstanceOf(RecallStorageBlockedError);
+    await expect(f.service.reviewCard(candidate().id, "good", 200)).rejects.toBeInstanceOf(RecallStorageBlockedError);
     expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.storage.write).not.toHaveBeenCalled(); expect(f.storage.bytes()).toBe(raw);
   });
@@ -130,7 +131,9 @@ describe("Recall explicit inventory service", () => {
   it("is independent of installed external review plugins and their metadata", async () => {
     const absent = fixture(), installed = fixture();
     installed.files.push({ path: ".private/plugins/external-review/notes.md", stat: { mtime: 900, size: 100 } } as TFile);
-    for (const f of [absent, installed]) { await f.service.initialize(); await f.service.scan(signal()); }
+    for (const f of [absent, installed]) {
+      await f.service.initialize(); await f.service.scan(signal()); await f.service.reviewCard(candidate().id, "easy", 200);
+    }
     expect(absent.service.listCards()).toEqual(installed.service.listCards());
     expect(absent.storage.bytes()).toBe(installed.storage.bytes());
     expect(installed.vault.read.mock.calls.map(([file]) => file.path)).toEqual(["A.md"]);
@@ -147,5 +150,107 @@ describe("Recall explicit inventory service", () => {
     const card = f.service.getCard(candidate().id)!; (card as { answer: string }).answer = "Tampered";
     const list = f.service.listCards(); (list[0] as { question: string }).question = "Changed"; list.length = 0;
     expect(f.service.getCard(candidate().id)?.answer).toBe("A"); expect(f.service.listCards()).toHaveLength(1); expect(f.storage.bytes()).toBe(bytes);
+  });
+});
+
+describe("Recall review service APIs", () => {
+  it("previews all four ratings without IO and commits exactly the selected preview", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.scan(signal());
+    const id = candidate().id, before = f.service.getCard(id), bytes = f.storage.bytes();
+    const previews = f.service.previewCard(id, 200);
+    expect(Object.keys(previews)).toEqual(["again", "hard", "good", "easy"]);
+    expect(f.service.getRetrievability(id, 200)).toBeUndefined();
+    expect(f.service.getCard(id)).toEqual(before); expect(f.storage.bytes()).toBe(bytes);
+    expect(f.storage.write).toHaveBeenCalledTimes(1);
+    expect(await f.service.reviewCard(id, "good", 200)).toEqual(previews.good);
+    expect(f.service.getRetrievability(id, 201)).toBe(1);
+    expect(f.vault.read).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns due cards in due-time then ID order, excludes retired cards and reports active phase counts", async () => {
+    const f = fixture(); f.vault.read.mockResolvedValue("## Flashcards\nQ::A\nLearning::A\nReview::A\nLapse::A\nRetired::A");
+    await f.service.initialize(); await f.service.scan(signal());
+    expect(f.service.listDue(99)).toEqual([]);
+    expect(f.service.listDue(100).map((card) => card.id)).toEqual(f.service.listCards().map((card) => card.id).sort());
+    await f.service.reviewCard(candidate("Learning").id, "good", 200);
+    for (const question of ["Review", "Lapse", "Retired"]) await f.service.reviewCard(candidate(question).id, "easy", 200);
+    await f.service.reviewCard(candidate("Lapse").id, "again", 300);
+    f.time(400); f.vault.read.mockResolvedValue("## Flashcards\nQ::A\nLearning::A\nReview::A\nLapse::A"); await f.service.scan(signal());
+    expect(f.service.getSummary(500)).toEqual({ active: 4, due: 1, new: 1, learning: 2, review: 1, relearning: 1 });
+    expect(f.service.listDue(500).map((card) => card.id)).toEqual([candidate().id]);
+    expect(f.service.listDue(1e12).map((card) => card.question)).toEqual(["Q", "Learning", "Lapse", "Review"]);
+    expect(f.service.listDue(1e12, 2).map((card) => card.question)).toEqual(["Q", "Learning"]);
+    expect(f.service.listDue(1e12, 0)).toEqual([]);
+    const summary = f.service.getSummary(500); summary.active = 90; expect(f.service.getSummary(500).active).toBe(4);
+  });
+
+  it("rejects stale inventory captured before a committed review without losing memory or retiring absence", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.scan(signal()); f.time(150);
+    const entered = gate(), hold = gate();
+    f.vault.read.mockImplementationOnce(async () => { entered.release(); await hold.promise; return "## Flashcards\nNew::A"; });
+    const scan = f.service.scan(signal()); await entered.promise;
+    const review = await f.service.reviewCard(candidate().id, "easy", 200), bytes = f.storage.bytes();
+    hold.release(); await expect(scan).rejects.toThrow("Stale Recall observation");
+    expect(f.service.listCards()).toHaveLength(1);
+    expect(f.service.getCard(candidate().id)).toMatchObject({ state: "active", schedule: review.schedule, lastSeenAt: 100 });
+    expect(f.storage.bytes()).toBe(bytes); expect(f.storage.write).toHaveBeenCalledTimes(2);
+  });
+
+  it("preserves a review committed during capture when the inventory observation is not older", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.scan(signal()); f.time(300);
+    const entered = gate(), hold = gate();
+    f.vault.read.mockImplementationOnce(async () => { entered.release(); await hold.promise; return "## Flashcards\nQ::A"; });
+    const scan = f.service.scan(signal()); await entered.promise;
+    const review = await f.service.reviewCard(candidate().id, "easy", 200);
+    hold.release(); expect(await scan).toMatchObject({ committed: true, updated: 1 });
+    expect(f.service.getCard(candidate().id)).toMatchObject({ lastSeenAt: 300, schedule: review.schedule });
+  });
+
+  it("excludes retirement without discarding overdue memory, then restores due status on recurrence", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.scan(signal());
+    const id = candidate().id, outcome = await f.service.reviewCard(id, "again", 200);
+    f.time(300); f.vault.read.mockResolvedValue("No cards"); await f.service.scan(signal());
+    expect(f.service.listDue(1e12)).toEqual([]); expect(f.service.getSummary(1e12).active).toBe(0);
+    expect(() => f.service.previewCard(id, 1e12)).toThrow("Retired");
+    await expect(f.service.reviewCard(id, "good", 1e12)).rejects.toThrow("Retired");
+    f.time(100_000); f.vault.read.mockResolvedValue("## Flashcards\nQ::A"); await f.service.scan(signal());
+    expect(f.service.listDue(100_000)).toHaveLength(1); expect(f.service.getCard(id)?.schedule).toEqual(outcome.schedule);
+    await f.service.reviewCard(id, "good", 100_001);
+    expect(f.service.getCard(id)?.schedule.reviewCount).toBe(2);
+  });
+
+  it("returns independent nested schedules from queues, getters and previews", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.scan(signal()); const id = candidate().id, before = f.service.getCard(id);
+    Object.assign(f.service.listDue(100)[0].schedule, { dueAt: 0 });
+    Object.assign(f.service.listCards()[0].schedule, { reviewCount: 80 });
+    Object.assign(f.service.getCard(id)!.schedule, { phase: "review" });
+    const previews = f.service.previewCard(id, 200); Object.assign(previews.easy.schedule, { stability: 900 });
+    expect(f.service.getCard(id)).toEqual(before); expect(f.service.previewCard(id, 200).easy.schedule.stability).toBe(8.2956);
+  });
+
+  it("runs preview, review and queue queries with zero network or Markdown reads/writes", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.scan(signal());
+    f.vault.read.mockClear(); f.vault.getMarkdownFiles.mockClear();
+    const network = vi.fn().mockRejectedValue(new Error("Unexpected network"));
+    vi.stubGlobal("fetch", network);
+    try {
+      f.service.previewCard(candidate().id, 200); await f.service.reviewCard(candidate().id, "good", 200);
+      f.service.getRetrievability(candidate().id, 300); f.service.listDue(300); f.service.getSummary(300);
+      expect(network).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+      for (const method of ["modify", "create", "delete", "rename", "process"] as const) expect(f.vault[method]).not.toHaveBeenCalled();
+      expect(f.storage.write).toHaveBeenCalledTimes(2);
+    } finally { vi.unstubAllGlobals(); }
+  });
+
+  it("validates query times, queue limits and missing IDs", async () => {
+    const f = fixture(); await f.service.initialize();
+    for (const at of [NaN, Infinity, -1, 0.5]) {
+      expect(() => f.service.listDue(at)).toThrow(); expect(() => f.service.getSummary(at)).toThrow();
+    }
+    for (const limit of [-1, 0.5, NaN, Infinity, 10001]) expect(() => f.service.listDue(100, limit)).toThrow();
+    expect(() => f.service.previewCard(candidate().id, 100)).toThrow("does not exist");
+    expect(() => f.service.getRetrievability(candidate().id, 100)).toThrow("does not exist");
+    expect(() => f.service.previewCard("__proto__", 100)).toThrow("Invalid Recall ID");
+    expect(f.storage.write).not.toHaveBeenCalled();
   });
 });

@@ -1,5 +1,9 @@
 # Veynrel Recall domain foundation
 
+This document records the PR #37 foundation and its schema v1. The subsequent
+[native FSRS scheduler](recall-fsrs-scheduler.md) adds scheduling and a read-only
+v1 → v2 migration; the parser, identity and inventory contracts below are unchanged.
+
 Recall is Veynrel's native spaced-repetition domain. Veynrel owns card discovery,
 identity and the active/retired inventory in this stage. Future stages will own
 review state, history, ratings, FSRS scheduling, queues and sessions. There is no

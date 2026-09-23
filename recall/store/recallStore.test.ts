@@ -3,6 +3,7 @@ import { RecallStore } from "./recallStore";
 import { RecallStorageBlockedError } from "./types";
 import { candidate, gate, memoryStorage, request } from "../testSupport";
 import type { RecallCard, RecallCardCandidate } from "../domain/card";
+import { createInitialSchedule } from "../scheduler/fsrs6";
 
 async function fixture() {
   const storage = memoryStorage();
@@ -24,7 +25,7 @@ describe("Recall persist-first store", () => {
   it("creates, updates at one observation, retires absence and reactivates recurrence durably", async () => {
     const { store, storage } = await fixture(); const card = candidate(); const other = candidate("Other");
     expect(await store.reconcile(request([card, other]))).toEqual({ created: 2, updated: 0, retired: 0 });
-    expect(store.getCard(card.id)).toEqual({ ...card, firstSeenAt: 100, lastSeenAt: 100, state: "active" });
+    expect(store.getCard(card.id)).toEqual({ ...card, firstSeenAt: 100, lastSeenAt: 100, state: "active", schedule: createInitialSchedule(100) });
     expect(await store.reconcile(request([card], 200))).toEqual({ created: 0, updated: 1, retired: 1 });
     expect(store.getCard(other.id)).toMatchObject({ state: "retired", firstSeenAt: 100, lastSeenAt: 100 });
     expect(await store.reconcile(request([], 300))).toEqual({ created: 0, updated: 0, retired: 1 });

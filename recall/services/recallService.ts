@@ -1,8 +1,11 @@
-import { isTimestamp } from "../../health/domain/validation";
+import { compareStrings, isTimestamp } from "../../health/domain/validation";
 import { throwIfAborted } from "../cancellation";
 import { RecallDiagnostics } from "../diagnostics";
 import type { RecallCardCandidate, RecallDiagnostic } from "../domain/card";
+import { MAX_RECALL_CARDS } from "../domain/card";
 import { isRecallCandidate } from "../domain/validation";
+import { getRetrievability, previewRatings } from "../scheduler/fsrs6";
+import type { RecallRating } from "../scheduler/types";
 import type { RecallCoverage, RecallSource } from "../source/types";
 import { RecallStore } from "../store/recallStore";
 import { RecallStorageBlockedError } from "../store/types";
@@ -40,6 +43,47 @@ export class RecallService {
   initialize(): Promise<RecallLoadResult> { return this.store.load(); }
   listCards(filter?: RecallCardFilter) { return this.store.listCards(filter); }
   getCard(id: string) { return this.store.getCard(id); }
+
+  /** No daily limits yet. The inventory/storage bound also bounds an unpaginated queue. */
+  listDue(at: number, limit = MAX_RECALL_CARDS) {
+    this.validateQueryTime(at);
+    if (!Number.isSafeInteger(limit) || limit < 0 || limit > MAX_RECALL_CARDS) throw new Error("Invalid Recall queue limit.");
+    return this.store.listCards({ state: "active" }).filter((card) => card.schedule.dueAt <= at)
+      .sort((a, b) => a.schedule.dueAt - b.schedule.dueAt || compareStrings(a.id, b.id)).slice(0, limit);
+  }
+
+  previewCard(id: string, at: number) {
+    const card = this.requireCard(id);
+    if (card.state !== "active") throw new Error("Retired Recall cards cannot be reviewed.");
+    return previewRatings(card.schedule, at);
+  }
+
+  reviewCard(id: string, rating: RecallRating, reviewedAt: number) { return this.store.reviewCard(id, rating, reviewedAt); }
+
+  getRetrievability(id: string, at: number) { return getRetrievability(this.requireCard(id).schedule, at); }
+
+  /** New is a subset of Learning; phase counts include all active cards in that phase. */
+  getSummary(at: number) {
+    this.validateQueryTime(at);
+    const summary = { active: 0, due: 0, new: 0, learning: 0, review: 0, relearning: 0 };
+    for (const card of this.store.listCards({ state: "active" })) {
+      summary.active++;
+      summary[card.schedule.phase]++;
+      if (card.schedule.reviewCount === 0) summary.new++;
+      if (card.schedule.dueAt <= at) summary.due++;
+    }
+    return summary;
+  }
+
+  private requireCard(id: string) {
+    const card = this.store.getCard(id);
+    if (!card) throw new Error("Recall card does not exist.");
+    return card;
+  }
+
+  private validateQueryTime(at: number): void {
+    if (!isTimestamp(at)) throw new Error("Invalid Recall query time.");
+  }
 
   async scan(signal: AbortSignal): Promise<RecallInventoryResult> {
     if (this.running) throw new RecallScanAlreadyRunningError();
