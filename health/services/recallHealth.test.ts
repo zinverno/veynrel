@@ -22,11 +22,15 @@ describe("Recall Health pure aggregation", () => {
     [{ ...ready, loadState: "unavailable" }, "unknown", "not-enabled", false],
   ] as const)("maps %j without changing the other dimensions", (recall, state, analysisDepth, analysisComplete) => {
     for (const lastLocalScan of [undefined, local, { ...local, status: "partial" as const }]) {
-      const input = { findings: [], reconciled: true, lastLocalScan };
-      const before = aggregateHealth(input), after = aggregateHealth({ ...input, recall });
-      expect(after.dimensions.recall).toEqual({ state, analysisDepth, analysisComplete, openFindings: 0, attentionFindings: 0, reviewFindings: 0 });
-      for (const id of ["structure", "connections", "knowledge"] as const) expect(after.dimensions[id]).toEqual(before.dimensions[id]);
-      expect(after.openFindings).toBe(before.openFindings); expect(after.newFindings).toBe(before.newFindings);
+      for (const semanticStatus of [undefined, "completed", "partial", "failed"] as const) {
+        const lastSemanticScan = semanticStatus ? scanRun({ type: "semantic", status: semanticStatus,
+          analyzerVersions: { "semantic-duplicates": "1" }, reconciliationReceipts: { "semantic:semantic-duplicates": 200 } }) : undefined;
+        const input = { findings: [], reconciled: true, lastLocalScan, lastSemanticScan, semanticReconciled: true };
+        const before = aggregateHealth(input), after = aggregateHealth({ ...input, recall });
+        expect(after.dimensions.recall).toEqual({ state, analysisDepth, analysisComplete, openFindings: 0, attentionFindings: 0, reviewFindings: 0 });
+        for (const id of ["structure", "connections", "knowledge"] as const) expect(after.dimensions[id]).toEqual(before.dimensions[id]);
+        expect(after.openFindings).toBe(before.openFindings); expect(after.newFindings).toBe(before.newFindings);
+      }
     }
   });
 

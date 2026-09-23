@@ -41,6 +41,8 @@ Semantic features are opt-in and disabled by default. The first semantic index i
 
 ## Features
 
+The [integrated MVP baseline](docs/mvp-hardening.md) documents Local Health, Findings, Semantic Intelligence, Discover, native Recall/FSRS and Recall Health, including their IO and recovery boundaries. Knowledge Health and Deep Intelligence remain future work.
+
 ### Semantic search
 
 Veynrel builds a persistent semantic index from your Markdown notes and lets you retrieve content by meaning rather than exact keyword overlap.
@@ -51,7 +53,7 @@ Veynrel builds a persistent semantic index from your Markdown notes and lets you
 - Manual full-vault reconciliation through the command palette.
 - Manual indexing of the current Markdown note.
 - Debounced automatic synchronization for Markdown create, modify, delete, and rename events after the initial index exists.
-- Quiet incremental reconciliation after startup for compatible existing indexes.
+- Offline-change reconciliation for compatible existing indexes, deferred until the next Markdown event or explicit indexing action.
 - Search results grouped by note, with the strongest matching sections shown first.
 - Exact vault-relative paths for opening the selected note.
 - Best-effort navigation to the most relevant source section.
@@ -236,7 +238,7 @@ The semantic index is designed to avoid unnecessary reprocessing.
 - Unchanged chunks reuse existing vectors and are not embedded again.
 - Delete removes every indexed chunk for that path without an embedding request.
 - Rename deletes the old path and indexes the new path in one logical mutation.
-- On startup, a compatible existing index is incrementally reconciled with changes made while Obsidian or the plugin was closed.
+- Startup performs no Markdown reconciliation or provider/Companion request. Offline changes to an existing index are reconciled after the next real Markdown event or explicit indexing action.
 - A missing index is not created automatically.
 - The index persists across plugin and Obsidian restarts.
 - Changing only an API key does not change the embedding space and does not require a rebuild.
@@ -295,7 +297,7 @@ An optional standalone [Veynrel Companion service](https://github.com/zinverno/v
 
 Companion exposes an opt-in [MCP endpoint](https://github.com/zinverno/veynrel-companion#mcp) for bounded retrieval, semantic search and [change proposals](https://github.com/zinverno/veynrel-companion#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
 
-A debounced event coordinator coalesces Markdown path changes, while startup reconciliation catches offline changes. Manual and automatic indexing share one mutation queue. Rename batches reach the vector store as one durable mutation.
+A debounced event coordinator coalesces Markdown path changes. Startup queues offline reconciliation without starting a timer; the next real Markdown event or explicit indexing action performs the work. Manual and automatic indexing share one mutation queue. Rename batches reach the vector store as one durable mutation.
 
 The vector store uses guarded temporary-file replacement, backup-aware recovery, and one shared store per semantic index path in the plugin runtime. Document discovery reads a defensive committed snapshot from that same store.
 

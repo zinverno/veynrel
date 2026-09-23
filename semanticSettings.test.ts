@@ -31,6 +31,20 @@ async function fixture() {
 }
 
 describe("transactional semantic settings in the plugin save queue", () => {
+  it("preserves Health, Semantic, Deep Audit, Companion and ordinary preferences in the same save queue", async () => {
+    const f = await fixture();
+    f.plugin.settings.deepAudit.batchSize = 3;
+    f.plugin.settings.notifyOnCopy = false;
+    const health = { ...f.plugin.settings.health, profile: "research" as const, profileChosen: true, onboardingCompleted: true };
+    await Promise.all([f.plugin.saveSettings(health), f.port.update(f.next), f.plugin.saveSettings()]);
+    expect(f.disk().health).toEqual(health);
+    expect(f.disk().semantic).toEqual(f.next);
+    expect(f.disk().deepAudit.batchSize).toBe(3);
+    expect(f.disk().notifyOnCopy).toBe(false);
+    expect(f.disk().companion).toEqual(f.stored.companion);
+    expect(f.disk().model).toBe(f.stored.model);
+    expect(f.disk().temperature).toBe(f.stored.temperature);
+  });
   it.each([false, true])("preserves an Advanced edit made during the setup disk write (corrective write failure: %s)", async (correctionFails) => {
     const f = await fixture(); let release!: () => void; const persist = f.save.getMockImplementation()!;
     f.save.mockImplementationOnce(async (data) => { await new Promise<void>((resolve) => { release = resolve; }); await persist(data); });
