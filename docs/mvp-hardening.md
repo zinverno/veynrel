@@ -286,7 +286,7 @@ not the readable response stream required here. A switch to `requestUrl` would
 change streaming/cancellation behavior. The pre-existing warning remains visible.
 
 Verification: `npm ci`, typecheck, Health (**728 / 35 files**), Recall (**427 / 18**),
-Semantic (**344 / 17**), full suite (**1,983 / 84**), focused MVP integration
+Semantic (**345 / 17**), full suite (**1,983 / 84**), focused MVP integration
 (**8**) and boundary/aggregation/settings checks (**23 / 3**), targeted ESLint,
 full lint, proposal mutation audit (**5/5**), production build and diff whitespace
 check. Seven tests were added; existing startup expectations were deliberately
