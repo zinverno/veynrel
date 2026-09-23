@@ -36,11 +36,13 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
     const healthState = card.state === "good" && !complete ? "unknown" : card.state;
     return { id, title: t(`@health.${id}`), state: t(enabled ? `@health.state.${healthState}` : "@health.not-enabled"),
       count: enabled ? t("@health.findings", { n: card.openFindings }) : "",
-      depth: enabled && card.analysisDepth === "basic" ? t(complete ? "@health.basic" : "@health.basic-incomplete") : "",
+      depth: enabled && (card.analysisDepth === "basic" || card.analysisDepth === "semantic")
+        ? t(`@health.${card.analysisDepth}${complete ? "" : "-incomplete"}`) : "",
       icon: icons[id], actionable: enabled || card.openFindings > 0 };
   }) : [];
   let status: string | undefined;
   if (state.recovering) status = t("@health.recovering");
+  else if (state.semanticScanRunning) status = t("@semantic-health.checking");
   else if (state.busy) status = t("@health.checking");
   else if (state.error) status = t(`@health.error.${state.error}`);
   else if (outcome?.findingsCommitted && !outcome.historyRecorded) status = t("@health.history-unsaved");
@@ -49,7 +51,7 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
   const load = snapshot?.initialization;
   const scope = load && (!load.findingsWritable ? "all" : !load.historyWritable ? "history" : undefined);
   const inaccessible = load?.storage.findings === "unavailable" || load?.storage.scanRuns === "unavailable";
-  return { initial, scanLabel: t(state.busy && !state.recovering && !state.mutatingFindingId ? "@health.checking" : state.error === "scan" || outcome?.scan.status === "failed"
+  return { initial, scanLabel: t(state.busy && !state.semanticScanRunning && !state.recovering && !state.mutatingFindingId ? "@health.checking" : state.error === "scan" || outcome?.scan.status === "failed"
     ? "@health.try-again" : initial ? "@health.scan" : "@health.scan-again"),
     scanDisabled: state.busy || !snapshot || !load?.findingsWritable,
     recoveryDisabled: state.busy,

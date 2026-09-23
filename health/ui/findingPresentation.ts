@@ -10,7 +10,8 @@ const localTypes = new Set([
 
 /** Localize presentation only. Persisted text and every identity/action field stay untouched. */
 export function findingPresentation(finding: Finding): FindingPresentation {
-  return finding.source === "local" && localTypes.has(finding.type)
+  return (finding.source === "local" && localTypes.has(finding.type)) ||
+    (finding.source === "semantic" && finding.type === "semantic-duplicate")
     ? { title: t(`@health.finding.${finding.type}.title`), explanation: t(`@health.finding.${finding.type}.explanation`) }
     : { title: finding.title, explanation: finding.explanation };
 }

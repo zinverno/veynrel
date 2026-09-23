@@ -7,6 +7,7 @@ export function renderDiscover(parent: HTMLElement, model: DiscoverViewModel, ac
   section.createEl("h1", { text: model.title, attr: { tabindex: "-1", "data-health-heading": "true" } });
   section.createEl("p", { text: model.introduction });
   if (model.workflows.length) {
+    section.createEl("h2", { text: model.exploreTitle });
     const workflows = section.createDiv({ cls: "veynrel-discover-workflows" });
     for (const workflow of model.workflows) {
       const button = healthButton(workflows, "", () => action(workflow.id), `discover-${workflow.id}`, model.busy);
@@ -15,6 +16,13 @@ export function renderDiscover(parent: HTMLElement, model: DiscoverViewModel, ac
       button.createSpan({ text: workflow.description });
     }
   }
+  if (model.healthAnalysis) {
+    const health = section.createEl("section", { cls: "veynrel-discover-health", attr: { "aria-label": model.healthAnalysis.title } });
+    health.createEl("h2", { text: model.healthAnalysis.title });
+    health.createEl("p", { text: model.healthAnalysis.description });
+    healthButton(health, model.healthAnalysis.label, () => action("semantic-duplicates"), "semantic-health-scan", model.healthAnalysis.disabled);
+  }
+  if (model.healthStatus) section.createEl("p", { text: model.healthStatus });
   section.createEl("h2", { text: model.capabilityTitle });
   section.createEl("p", { text: model.status, cls: "veynrel-health-state" });
   section.createEl("p", { text: model.description });

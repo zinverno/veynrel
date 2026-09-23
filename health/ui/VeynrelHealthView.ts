@@ -101,7 +101,7 @@ export class VeynrelHealthView extends ItemView {
     }
     const surface = this.body.createDiv();
     const semanticSnapshot = normal && this.route.page !== "findings" ? this.semantic?.getSnapshot() : undefined;
-    const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot) : undefined;
+    const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot, state) : undefined;
     if (discover) {
       renderDiscover(surface, discover, (action) => this.semanticAction(action));
     } else if (normal && this.route.page === "findings") {
@@ -151,7 +151,7 @@ export class VeynrelHealthView extends ItemView {
     const mutationError = this.findingMutationErrorRoute === this.route;
     const semanticError = this.semanticSetup?.step === "form"
       ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
-    const semanticStatus = discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
+    const semanticStatus = discover?.healthStatus ?? discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
       : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined);
     this.status.setText(state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
@@ -218,6 +218,12 @@ export class VeynrelHealthView extends ItemView {
     else if (action === "rebuild") void semantic.rebuildIndex();
     else if (action === "search") semantic.openSearch();
     else if (action === "related") semantic.openSimilarNotes();
+    else if (action === "semantic-duplicates") {
+      if (semantic.getSnapshot().state === "ready" && !this.controller.getState().busy) {
+        this.navigationMessage = undefined;
+        void this.controller.runSemanticScan();
+      }
+    }
     else semantic.openPotentialDuplicates();
   }
 

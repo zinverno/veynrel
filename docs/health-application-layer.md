@@ -1,6 +1,13 @@
 # Health application layer (PR 3)
 
 `HealthService` connects the existing local coordinator and durable FindingStore.
+It also accepts an optional `semanticAnalysis: SemanticHealthAnalysisPort` and
+exposes explicit `runSemanticScan(signal)`. See
+[Semantic duplicate Findings](semantic-health-duplicates.md) for revision,
+completeness and Connections depth rules. Both scan types share one running guard;
+`HealthScanAlreadyRunningError` retains the old Local error export as an alias.
+Snapshots now include `lastSemanticScan`, `lastSemanticScanReconciled` and
+`semanticScanRunning`; no engine or provider internals enter the snapshot.
 PR 3 introduced it without production wiring. PR 4 adds the [native Health
 home](health-view.md), lazy plugin ownership and explicit recovery. The application
 layer itself remains UI-neutral: no automatic scan, AI/network call, telemetry,

@@ -1,0 +1,148 @@
+{
+  "environment": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "platform": "Linux desktop",
+    "fixture": "Isolated vault/profile; 17 synthetic notes and locally seeded vectors; no credentials or provider requests",
+    "viewport": [
+      1200,
+      390
+    ]
+  },
+  "artifacts": {
+    "main.js": "7d7f644c12ee0f0ce3a3b858d116fd65be9a7e23e468846c214766a8f985f719",
+    "manifest.json": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39",
+    "styles.css": "dc4ea1674b00a390906317424e663bcd3abf06248105fe42c36786d957b8cab2"
+  },
+  "passiveOpen": true,
+  "passiveDiscover": true,
+  "explicitScan": {
+    "findings": 1,
+    "notesSeen": 0,
+    "counters": {
+      "requestUrl": 0,
+      "embed": 0,
+      "providerDimensions": 0,
+      "markdownReads": 0,
+      "markdownWrites": 0,
+      "semanticIndexWrites": 0,
+      "otherPluginWrites": 0,
+      "findPotentialDuplicates": 1,
+      "hostWrites": 1,
+      "healthWrites": 2
+    },
+    "writePaths": [
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+      ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+    ],
+    "hostWrites": "Obsidian workspace persistence is separate from plugin Health writes"
+  },
+  "connections": {
+    "state": "review-recommended",
+    "analysisDepth": "semantic",
+    "openFindings": 1,
+    "attentionFindings": 0,
+    "reviewFindings": 1,
+    "analysisComplete": true
+  },
+  "structure": {
+    "state": "good",
+    "analysisDepth": "basic",
+    "openFindings": 0,
+    "attentionFindings": 0,
+    "reviewFindings": 0,
+    "analysisComplete": true
+  },
+  "dismissRepeat": "dismissed",
+  "completeAbsence": "resolved",
+  "recurrence": {
+    "sameId": true,
+    "sameFirstSeenAt": true,
+    "state": "open"
+  },
+  "exactly100": {
+    "status": "partial",
+    "created": 100,
+    "resolved": 0,
+    "absentPreviousState": "open",
+    "complete": false
+  },
+  "indexChangesDoNotWriteHealth": true,
+  "locales": [
+    "en",
+    "ru"
+  ],
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "narrow": {
+    "viewport": 390,
+    "contentWidth": 334,
+    "enOverflow": false,
+    "ruOverflow": false,
+    "discoverOverflow": false,
+    "sidebars": "collapsed"
+  },
+  "keyboard": {
+    "enterStartsExactlyOneScan": true,
+    "tabReachesFindings": true,
+    "focusOutline": "2px"
+  },
+  "noteNavigation": {
+    "a": "Architecture.md",
+    "b": "System Design.md"
+  },
+  "noPreviewPersistence": true,
+  "reload": {
+    "kind": "plugin disable/enable with new service/store owner",
+    "beforeLocal": "local-3e2fa4e7-0c88-46c8-9697-93fda65de591",
+    "afterLocal": "local-3e2fa4e7-0c88-46c8-9697-93fda65de591",
+    "beforeSemantic": "semantic-275da1f7-6bee-48a0-970f-f6040aae82c0",
+    "afterSemantic": "semantic-275da1f7-6bee-48a0-970f-f6040aae82c0",
+    "localReconciled": true,
+    "semanticReconciled": true,
+    "dimensions": {
+      "structure": {
+        "state": "good",
+        "analysisDepth": "basic",
+        "openFindings": 0,
+        "attentionFindings": 0,
+        "reviewFindings": 0,
+        "analysisComplete": true
+      },
+      "connections": {
+        "state": "review-recommended",
+        "analysisDepth": "semantic",
+        "openFindings": 1,
+        "attentionFindings": 0,
+        "reviewFindings": 1,
+        "analysisComplete": true
+      },
+      "recall": {
+        "state": "unknown",
+        "analysisDepth": "not-enabled",
+        "openFindings": 0,
+        "attentionFindings": 0,
+        "reviewFindings": 0,
+        "analysisComplete": false
+      },
+      "knowledge": {
+        "state": "unknown",
+        "analysisDepth": "not-enabled",
+        "openFindings": 0,
+        "attentionFindings": 0,
+        "reviewFindings": 0,
+        "analysisComplete": false
+      }
+    },
+    "errors": [],
+    "findingsEqual": true
+  },
+  "errors": [],
+  "limits": [
+    "No native iOS/Android, popout, screen reader or custom theme verification",
+    "No live provider needed; vectors are synthetic"
+  ]
+}

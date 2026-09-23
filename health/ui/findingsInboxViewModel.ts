@@ -50,7 +50,8 @@ export function findingsInboxViewModel({ findings, route, mutatingFindingId, bus
     dimensionFilters: FINDING_DIMENSIONS.map((value) => ({ value, label: t(value === "all" ? "@findings.all" : `@health.${value}`), selected: route.dimension === value })),
     selected: selected && evidence ? {
       id: selected.id, ...findingPresentation(selected), dimension: t(`@health.${selected.dimension}`), state: t(`@findings.state.${selected.state}`),
-      source: selected.source === "local" ? t("@findings.local-check") : undefined,
+      source: selected.source === "local" ? t("@findings.local-check")
+        : selected.source === "semantic" ? t("@health.semantic") : undefined,
       notes: [...selected.notePaths], affectedSummary: t("@findings.affected-count", { n: evidence.affectedCount }),
       representativeSummary: evidence.representativeSummary, facts: evidence.facts,
       snoozedUntil: selected.state === "snoozed" && selected.snoozedUntil !== undefined

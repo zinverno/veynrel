@@ -62,6 +62,7 @@ import { ObsidianSemanticController } from "./semantic";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
 import { SemanticIntelligenceController } from "./semantic/product/semanticIntelligenceController";
+import { SemanticHealthAnalysisAdapter } from "./semantic/health/semanticHealthAnalysisAdapter";
 import type { SemanticSettingsPort } from "./semantic/product/semanticSettingsPort";
 
 import { CompanionClient } from "./companionSync/client";
@@ -128,7 +129,8 @@ export default class AIHubPlugin extends Plugin {
       const { registerHealth } = await import("./health/obsidian/registerHealth");
       registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
-        new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController));
+        new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
+        new SemanticHealthAnalysisAdapter(this.semanticController));
 
       this.addCommand({
         id: "ai-hub-open-panel",
