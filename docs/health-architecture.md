@@ -140,12 +140,17 @@ Exact paths for the existing manifest ID:
 <app.vault.configDir>/plugins/ai-knowledge-hub/health/scan-runs.json
 ```
 
-Both envelopes use schema version `1` and numeric `updatedAt` epoch milliseconds:
+Both current envelopes use schema version `2` and numeric `updatedAt` epoch
+milliseconds:
 
 ```ts
-{ version: 1, updatedAt: number, findings: Record<FindingId, Finding> }
-{ version: 1, updatedAt: number, runs: ScanRun[] }
+{ version: 2, updatedAt: number, reconciliationReceipts: Record<ReconciliationOwnerKey, number>, findings: Record<FindingId, Finding> }
+{ version: 2, updatedAt: number, runs: ScanRun[] }
 ```
+
+Every ScanRun includes `reconciliationReceipts`. Global Findings `updatedAt`
+tracks file writes; scope receipts identify source/analyzer reconciliation.
+Lifecycle changes preserve them. See [receipt semantics and v1 migration](health-reconciliation-receipts.md).
 
 All object keys are serialized deterministically; note path sets are deduplicated
 and sorted on reconciliation. Evidence/action array order is meaningful and kept.
@@ -155,7 +160,8 @@ The findings map key must equal the validated deterministic ID.
 `invalid`, `unsupported`, or `unavailable`. Missing is a writable empty store.
 Malformed JSON, invalid entries (including a single invalid Finding), unsupported
 versions and read errors produce empty **write-blocked** state for the affected
-file. No silent salvage, coercion, overwrite or auto-migration occurs. The other
+file. No silent salvage, coercion or overwrite occurs. Supported v1 loads and
+migrates in memory without writes; the next actual mutation writes v2. The other
 file remains usable. Recovery requires external repair and a new store instance;
 `load` is idempotent and cannot reload stale disk over committed in-memory changes.
 
@@ -175,14 +181,16 @@ future orchestration must handle failure between reconciliation and scan recordi
 Scan history retains at most `MAX_SCAN_HISTORY = 50` unique run IDs, ordered by
 `startedAt DESC, id ASC`. Upserting running progress does not duplicate a run;
 identity and counters cannot move backward. Terminal runs require `completedAt >=
-startedAt`; running runs omit it. An oversized persisted history is invalid rather
-than silently truncated; normal writes enforce the bound before saving.
+startedAt`; running runs omit it and have empty receipts. Running-to-final upserts
+may add committed receipts; terminal receipt identity cannot change. An oversized
+persisted history is invalid rather than silently truncated; normal writes enforce
+the bound before saving.
 
 Health storage is separate from `data.json`, `note-index.json` and `semantic-index/`:
 Findings are observations and lifecycle state, not note metadata or vector data.
 Existing user settings, note-index schema, vector format, commands, Deep Audit,
-Companion/MCP and proposal approval semantics remain unchanged. No user migration,
-version bump, new runtime dependency or AI/network permission is needed.
+Companion/MCP and proposal approval semantics remain unchanged. No manual data
+migration, plugin version bump, new runtime dependency or AI/network permission is needed.
 
 ## Extension points and verification
 

@@ -48,7 +48,7 @@ There is no implicit reset or recovery operation.
 4. Queue one batch transaction. Validate every request against a temporary state.
    Inside that queue, immediately before writing, probe current vault revision.
 5. If fresh, save `findings.json` once and publish the new in-memory state. All
-   counters come from this committed transaction, never candidate counts.
+   counters and scope reconciliation receipts come from this committed transaction.
 6. Record one final ScanRun in `scan-runs.json`. No durable `running` record exists.
 7. Return the typed outcome and restore idle state, including on failure/abort.
 
@@ -123,17 +123,17 @@ failure reports zero counters and attempts to record a failed ScanRun independen
 Underlying single-file writes retain the existing storage adapter's crash limits;
 this is an in-instance logical transaction, not a journaled database.
 
-No schema extension is needed for conservative restart association. Findings
-`updatedAt` now advances strictly on every successful write, even at a repeated or
-backward clock, and batch results return that receipt. A reconciled ScanRun's
-`completedAt` uses the receipt: the logical Findings commit time, before the separate
-history write. On restart, only a completed/partial record whose `completedAt`
-matches the current Findings receipt can establish that association. A newer
-Findings commit with missing history cannot borrow an older completed scan's
-absence claim. This also conservatively invalidates absence after a later manual
-Finding transition and restart until the next full scan. In-session explicit
-transitions retain the known analysis coverage. Older records without a matching
-receipt likewise remain conservative; no migration is required.
+Schema v2 uses [scope reconciliation receipts](health-reconciliation-receipts.md)
+for restart association. Global Findings `updatedAt` still advances strictly on
+every successful write, even with a repeated/backward clock. A reconciled ScanRun's
+`completedAt` remains the logical Findings commit time, before the separate history
+write; coverage identity is its nonempty `reconciliationReceipts` map. Every
+recorded owner must match the current store; unrelated extra owners are ignored.
+A newer reconciliation with missing history invalidates only affected owners.
+Dismiss/Snooze/Reopen preserve all analysis receipts, including after restart.
+Valid v1 files migrate in memory without load-time writes; legacy partial or
+mismatched completed runs remain conservative. See the receipt document for
+completed-v1 trust and mixed-file rules.
 
 ## Outcomes and cancellation
 
@@ -180,9 +180,9 @@ and versions in the completed record; custom subsets cannot imply full coverage.
 reconciled scan's observation time. With no trustworthy association it is zero.
 No persisted `isNew` flag exists. `lastLocalScan` includes the latest in-session
 attempt even if recording history failed; otherwise it comes from retained history.
-`lastLocalScanReconciled` exposes the same existing receipt check to onboarding:
-an in-session committed observation or a durable matching Findings timestamp. This
-is a derived snapshot field, not a new storage field. It distinguishes a reconciled
+`lastLocalScanReconciled` exposes matching scope receipts to onboarding, both in
+session and after restart. This is a derived snapshot field, not a new storage
+field. It distinguishes a reconciled
 partial scan from a stale partial attempt after restart.
 
 Recommendation selection returns at most one actionable open Finding. Ranking is
