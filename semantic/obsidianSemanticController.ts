@@ -486,7 +486,7 @@ export class ObsidianSemanticController {
     }
   }
 
-  notifySettingsChanged(): void {
+  notifySettingsChanged(options: { reconcile?: boolean } = {}): void {
     this.settingsEpoch++;
     this.runtimeSlot = null;
     if (this.autoSyncPolicy !== "disposed") {
@@ -506,7 +506,9 @@ export class ObsidianSemanticController {
         this.autoSync.reconfigure({
           paused: !this.autoSyncRegistered,
           preservePending: true,
-          reconcile: this.autoSyncRegistered,
+          // Simple Setup only connects; existing Advanced callers retain reconciliation.
+          reconcile: this.autoSyncRegistered && options.reconcile !== false,
+          deferUntilActivity: options.reconcile === false,
         });
       }
     }

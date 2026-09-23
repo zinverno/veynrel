@@ -68,6 +68,7 @@ import type { SemanticRuntime } from "./types";
 import { AsyncReadWriteBarrier } from "./asyncReadWriteBarrier";
 import type { CompanionSyncPort } from "../companionSync";
 import type { SemanticControllerDependencies } from "./obsidianSemanticController";
+import { SemanticIntelligenceController } from "./product/semanticIntelligenceController";
 
 const BASE_PATH = semanticIndexBasePath(".obsidian", "ai-knowledge-hub");
 
@@ -1102,6 +1103,90 @@ async function drainAutomaticSync(): Promise<void> {
 describe("automatic semantic index synchronization", () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
+
+  function product(harness: ReturnType<typeof createHarness>) {
+    return new SemanticIntelligenceController({
+      get: () => ({ ...harness.plugin.settings.semantic }),
+      update: async (next) => {
+        harness.plugin.settings.semantic = { ...next };
+        harness.controller.notifySettingsChanged({ reconcile: false });
+        return { ...next };
+      },
+    }, harness.controller);
+  }
+
+  it.each(["local", "cloud", "custom"] as const)("Simple %s Connect never enumerates or reads notes and never creates an index", async (mode) => {
+    const harness = createHarness(semantic({ enabled: false })); harness.registerAutomaticSync(); harness.fireLayoutReady();
+    const read = harness.plugin.app.vault.cachedRead; const enumerate = harness.plugin.app.vault.getMarkdownFiles;
+    if (mode === "local") obsidianMocks.requestUrl.mockResolvedValueOnce({ status: 200, text: '{"embeddings":[[1,0,0]]}' } as RequestUrlResponse);
+    const setup = product(harness); expect((await setup.connect(setup.createDraft(mode))).ok).toBe(true);
+    await drainAutomaticSync();
+    expect(read).not.toHaveBeenCalled(); expect(enumerate).not.toHaveBeenCalled();
+    expect(harness.adapter.files.size).toBe(0); expect(harness.resetStorage).not.toHaveBeenCalled();
+    expect(setup.getSnapshot().state).toBe("configured");
+    if (mode !== "local") expect(embeddingCalls.flatMap((call) => call.texts)).toEqual(["Vault Audit AI embedding test"]);
+    await harness.controller.dispose();
+  });
+
+  it("reconnecting a compatible existing index inspects without scheduling indexing; future edits still sync", async () => {
+    const harness = createHarness(); harness.registerAutomaticSync(); await harness.controller.indexVault(); await drainAutomaticSync();
+    const read = harness.plugin.app.vault.cachedRead; const enumerate = harness.plugin.app.vault.getMarkdownFiles;
+    read.mockClear(); enumerate.mockClear(); embeddingCalls = [];
+    const setup = product(harness); const before = durableSnapshot(harness.adapter).manifest.generation;
+    expect((await setup.connect(setup.createDraft("custom"))).ok).toBe(true); await drainAutomaticSync();
+    expect(read).not.toHaveBeenCalled(); expect(enumerate).not.toHaveBeenCalled();
+    expect(embeddingCalls.flatMap((call) => call.texts)).toEqual(["Vault Audit AI embedding test"]);
+    expect(durableSnapshot(harness.adapter).manifest.generation).toBe(before);
+    expect(setup.getSnapshot().state).toBe("ready");
+    harness.modifyFile("Alpha.md", "beta explicit later Markdown edit"); await drainAutomaticSync();
+    expect(read).toHaveBeenCalled(); expect(durableSnapshot(harness.adapter).manifest.generation).toBeGreaterThan(before);
+    await harness.controller.dispose();
+  });
+
+  it.each([false, true])("Connect defers queued disabled-index edits, including late layout-ready (%s)", async (lateLayoutReady) => {
+    const harness = createHarness(); harness.registerAutomaticSync(); await harness.controller.indexVault(); await drainAutomaticSync();
+    harness.plugin.settings.semantic.enabled = false; harness.controller.notifySettingsChanged();
+    harness.modifyFile("Alpha.md", "beta queued while disabled"); await drainAutomaticSync();
+    const read = harness.plugin.app.vault.cachedRead; const enumerate = harness.plugin.app.vault.getMarkdownFiles;
+    read.mockClear(); enumerate.mockClear(); embeddingCalls = [];
+    const setup = product(harness); const before = durableSnapshot(harness.adapter).manifest.generation;
+    expect((await setup.connect(setup.createDraft("custom"))).ok).toBe(true);
+    if (lateLayoutReady) harness.fireLayoutReady();
+    await drainAutomaticSync();
+    expect(read).not.toHaveBeenCalled(); expect(enumerate).not.toHaveBeenCalled();
+    expect(embeddingCalls.flatMap((call) => call.texts)).toEqual(["Vault Audit AI embedding test"]);
+    expect(durableSnapshot(harness.adapter).manifest.generation).toBe(before);
+    // Retained work joins the next real Markdown event, rather than being discarded by setup.
+    harness.createFile("Later.md", "gamma subsequent edit"); await drainAutomaticSync();
+    expect(embeddingCalls.some((call) => call.texts.some((text) => text.includes("beta queued while disabled")))).toBe(true);
+    await harness.controller.dispose();
+  });
+
+  it("changed setup preserves the old index; only explicit rebuild reaches the existing destructive confirmation", async () => {
+    const confirm = vi.fn<NonNullable<SemanticControllerDependencies["confirm"]>>(async () => true);
+    const harness = createHarness(semantic(), undefined, false, { confirm });
+    harness.registerAutomaticSync(); await harness.controller.indexVault(); await drainAutomaticSync(); confirm.mockClear();
+    const setup = product(harness); const draft = setup.createDraft("custom"); draft.model = "new-model";
+    const before = durableSnapshot(harness.adapter).manifest;
+    expect((await setup.connect(draft)).ok).toBe(true); await drainAutomaticSync();
+    expect(setup.getSnapshot().state).toBe("incompatible"); expect(harness.resetStorage).not.toHaveBeenCalled();
+    expect(durableSnapshot(harness.adapter).manifest).toEqual(before); expect(confirm).not.toHaveBeenCalled();
+    confirm.mockResolvedValueOnce(false); await setup.rebuildIndex();
+    expect(confirm).toHaveBeenCalledTimes(1); expect(confirm.mock.calls[0][1].danger).toBe(true);
+    expect(harness.resetStorage).not.toHaveBeenCalled(); expect(durableSnapshot(harness.adapter).manifest).toEqual(before);
+    await harness.controller.dispose();
+  });
+
+  it("the separate Build action preserves remote indexing consent and cancellation", async () => {
+    const confirm = vi.fn<NonNullable<SemanticControllerDependencies["confirm"]>>(async () => false);
+    const harness = createHarness(semantic(), undefined, false, { confirm });
+    const setup = product(harness); expect((await setup.connect(setup.createDraft("cloud"))).ok).toBe(true);
+    expect(confirm).not.toHaveBeenCalled(); await setup.buildIndex();
+    expect(confirm).toHaveBeenCalledTimes(1);
+    expect(confirm.mock.calls[0][1].paragraphs.join(" ")).toContain("OpenRouter");
+    expect(harness.plugin.app.vault.cachedRead).not.toHaveBeenCalled(); expect(harness.adapter.files.size).toBe(0);
+    await harness.controller.dispose();
+  });
 
   it("does no provider or storage work while semantic features are disabled", async () => {
     const harness = createHarness(semantic({ enabled: false }));

@@ -1,0 +1,284 @@
+{
+  "date": "2026-09-23 Europe/Moscow",
+  "baseline": "7acc6f99bd9ee385955777691f5acbdcc664988b",
+  "environment": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "platform": "Linux desktop",
+    "viewportWidth": 390,
+    "vault": "disposable /tmp/simple-semantic-smoke/vault",
+    "personalCredentials": false
+  },
+  "instrumentation": "Plugin module requestUrl proxy; fetch, vault.read/cachedRead/getMarkdownFiles, saveData and existing semantic controller method counters. Request capture stores only fixedPhraseOnly booleans, never credentials or request bodies.",
+  "artifacts": {
+    "main.js": {
+      "sha256": "46ba77fad371d4bb2b58d64dd6d7ce112d44253dae2e58925636df269de31c1b",
+      "installedMatches": true
+    },
+    "styles.css": {
+      "sha256": "c795051900243800d72e8904b041220627e3ea1984fffdab0ec3a2a5129d275f",
+      "installedMatches": true
+    },
+    "manifest.json": {
+      "sha256": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39",
+      "installedMatches": true
+    }
+  },
+  "fixtureMarkdownUnchanged": {
+    "A.md": true,
+    "B.md": true,
+    "Orphan.md": true
+  },
+  "disabledHealthOpen": {
+    "requestUrl": 0,
+    "fetch": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "getMarkdownFiles": 0,
+    "indexVault": 0,
+    "rebuildIndex": 0,
+    "saveData": 0,
+    "notifySettingsChanged": 0,
+    "refreshSemanticStatus": 0
+  },
+  "configuredHealthOpen": {
+    "requestUrl": 0,
+    "fetch": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "getMarkdownFiles": 0,
+    "indexVault": 0,
+    "rebuildIndex": 0,
+    "saveData": 0,
+    "notifySettingsChanged": 0,
+    "refreshSemanticStatus": 0
+  },
+  "draftModeSelectionEditingBack": {
+    "counts": {
+      "requestUrl": 0,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 0,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 0,
+      "notifySettingsChanged": 0,
+      "refreshSemanticStatus": 0
+    },
+    "backDiscardsDraft": true,
+    "newLeafCount": 0
+  },
+  "keyboard": {
+    "modes": [
+      {
+        "mode": "local",
+        "selected": "true",
+        "marker": true,
+        "labels": true,
+        "outline": "2px",
+        "focused": "semantic-mode-local"
+      },
+      {
+        "mode": "cloud",
+        "selected": "true",
+        "marker": true,
+        "password": "password",
+        "autocomplete": "off",
+        "labels": true,
+        "outline": "2px",
+        "focused": "semantic-mode-cloud"
+      },
+      {
+        "mode": "custom",
+        "selected": "true",
+        "marker": true,
+        "password": "password",
+        "autocomplete": "off",
+        "labels": true,
+        "outline": "2px",
+        "focused": "semantic-mode-custom"
+      }
+    ],
+    "tabOrder": [
+      "semantic-mode-local",
+      "semantic-mode-cloud",
+      "semantic-mode-custom",
+      "semantic-field-baseUrl",
+      "semantic-field-model",
+      "semantic-field-apiKey",
+      "semantic-connect",
+      "semantic-back"
+    ],
+    "counts": {
+      "requestUrl": 0,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 0,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 0,
+      "notifySettingsChanged": 0,
+      "refreshSemanticStatus": 0
+    }
+  },
+  "realLocalConnect": {
+    "success": false,
+    "safeFailure": true,
+    "counts": {
+      "requestUrl": 1,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 0,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 0,
+      "notifySettingsChanged": 0,
+      "refreshSemanticStatus": 0
+    },
+    "requests": [
+      {
+        "fixedPhraseOnly": true
+      }
+    ]
+  },
+  "explicitCheck": {
+    "requestUrl": 0,
+    "fetch": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "getMarkdownFiles": 0,
+    "indexVault": 0,
+    "rebuildIndex": 0,
+    "saveData": 0,
+    "notifySettingsChanged": 0,
+    "refreshSemanticStatus": 1
+  },
+  "cloudBuildCancelled": {
+    "existingConfirmation": "Update the Vault semantic index\n\nMarkdown files: 3\n\nChunk content will be sent to OpenRouter.\n\nThis operation may take some time.\n\nThe index is stored locally inside the plugin directory.\n\nCancel\nUpdate index",
+    "cumulativeCountsIncludingCheck": {
+      "requestUrl": 0,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 1,
+      "indexVault": 1,
+      "rebuildIndex": 0,
+      "saveData": 0,
+      "notifySettingsChanged": 0,
+      "refreshSemanticStatus": 1
+    }
+  },
+  "localHealthScan": {
+    "counts": {
+      "requestUrl": 0,
+      "fetch": 0,
+      "read": 3,
+      "cachedRead": 0,
+      "getMarkdownFiles": 2,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 0,
+      "notifySettingsChanged": 0,
+      "refreshSemanticStatus": 0
+    },
+    "localFindings": 4
+  },
+  "fixtureTransport": {
+    "description": "Synthetic embedding vectors returned at the existing requestUrl boundary. Real native UI, controller, runtime and vector store. These are not successful real provider calls.",
+    "connect": {
+      "requestUrl": 1,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 0,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 1,
+      "notifySettingsChanged": 1,
+      "refreshSemanticStatus": 1
+    },
+    "buildCumulativeIncludingConnect": {
+      "requestUrl": 3,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 3,
+      "getMarkdownFiles": 2,
+      "indexVault": 1,
+      "rebuildIndex": 0,
+      "saveData": 1,
+      "notifySettingsChanged": 1,
+      "refreshSemanticStatus": 1
+    },
+    "existingPrivacyConfirmation": "Update the Vault semantic index\n\nMarkdown files: 3\n\nChunk content will be sent to OpenAI-compatible.\n\nThis operation may take some time.\n\nThe index is stored locally inside the plugin directory.\n\nCancel\nUpdate index",
+    "vectorsAfterExplicitBuild": 3,
+    "existingSearchModal": true,
+    "existingSimilarModal": "Similar notes",
+    "existingDuplicatesModal": "Highly similar notes",
+    "changedModelConnect": {
+      "requestUrl": 1,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 0,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 1,
+      "notifySettingsChanged": 1,
+      "refreshSemanticStatus": 1
+    },
+    "existingRebuildConfirmationCancelled": "Rebuild the semantic index\n\nThe existing semantic index will be explicitly removed.\n\nAfter clearing, 3 Markdown files will be processed again.\n\nChunk content will be sent to the selected embedding provider.\n\nThis cannot be undone for the current local semantic index.\nCancel\nRebuild index",
+    "compatibleIndexReusedConnect": {
+      "requestUrl": 1,
+      "fetch": 0,
+      "read": 0,
+      "cachedRead": 0,
+      "getMarkdownFiles": 0,
+      "indexVault": 0,
+      "rebuildIndex": 0,
+      "saveData": 1,
+      "notifySettingsChanged": 1,
+      "refreshSemanticStatus": 1
+    }
+  },
+  "advancedSettings": {
+    "embeddings": true,
+    "manual": true,
+    "clear": true,
+    "rebuild": true,
+    "commandCount": 21
+  },
+  "layout": {
+    "customWidth": 334,
+    "customOverflow": false,
+    "findingsWidth": 346,
+    "findingsOverflow": false,
+    "russianCloudLight": {
+      "theme": "mod-linux is-frameless is-hidden-frameless obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-light is-focused",
+      "width": 334,
+      "scrollWidth": 334,
+      "password": "password"
+    },
+    "onboarding": {
+      "width": 334,
+      "scroll": 334,
+      "semantic": false
+    },
+    "recovery": {
+      "width": 346,
+      "scroll": 346,
+      "semantic": false
+    }
+  },
+  "readyHomeHidesDimensions": true,
+  "runtimeErrors": [],
+  "limitations": [
+    "No live Cloud success; no credentials used.",
+    "Ollama unavailable; safe failure verified, no installation attempted.",
+    "Desktop 390px is not a native Android/iOS test.",
+    "No native popout or screen-reader audit."
+  ],
+  "pass": true
+}

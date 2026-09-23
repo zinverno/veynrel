@@ -5,10 +5,11 @@ import { HealthPluginController } from "./healthPluginController";
 import { openHealthView, VEYNREL_HEALTH_VIEW_TYPE } from "./openHealthView";
 import { VeynrelHealthView } from "../ui/VeynrelHealthView";
 import type { HealthPreferencesPort } from "../preferences";
+import type { SemanticIntelligencePort } from "../semanticIntelligencePort";
 
-export function registerHealth(plugin: Plugin, openTools: () => void, preferences: HealthPreferencesPort): void {
+export function registerHealth(plugin: Plugin, openTools: () => void, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort): void {
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools, semantic));
   plugin.register(() => controller.dispose());
   let opening: Promise<void> | undefined;
   const open = (): void => {

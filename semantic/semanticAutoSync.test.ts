@@ -46,6 +46,25 @@ describe("SemanticAutoSync coalescing state machine", () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
+  it("setup retains pending work and a stale active batch without starting either until new activity", async () => {
+    const active = deferred(); const harness = createHarness(async () => { if (harness.batches.length === 1) await active.promise; });
+    harness.scheduler.upsert("A.md"); await elapse(1500);
+    harness.scheduler.upsert("B.md");
+    harness.scheduler.reconfigure({ paused: false, preservePending: true, deferUntilActivity: true });
+    active.resolve(); await vi.runAllTimersAsync();
+    expect(harness.batches).toHaveLength(1); expect(vi.getTimerCount()).toBe(0);
+    harness.scheduler.upsert("C.md"); await elapse(1500);
+    expect(harness.batches).toHaveLength(2); expect(harness.batches[1].upsertPaths).toEqual(["A.md", "B.md", "C.md"]);
+  });
+
+  it("explicit index activation can resume work deferred by setup without dropping it", async () => {
+    const harness = createHarness(); harness.scheduler.upsert("A.md");
+    harness.scheduler.reconfigure({ paused: false, deferUntilActivity: true }); await elapse(10000);
+    expect(harness.batches).toHaveLength(0);
+    harness.scheduler.reconfigure({ paused: false, preservePending: true }); await elapse(1500);
+    expect(harness.batches[0].upsertPaths).toEqual(["A.md"]);
+  });
+
   it("debounces a modify-style upsert", async () => {
     const harness = createHarness();
     harness.scheduler.upsert("A.md");

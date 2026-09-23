@@ -52,7 +52,7 @@ import {
 import { NoteIndexManager } from "./noteIndex";
 import { backupAndReplaceNote, replaceNoteIfUnchanged } from "./noteWrites";
 import { mergeEmbeddingSettings } from "./embeddings/types";
-import type { StoredEmbeddingSettings } from "./embeddings/types";
+import type { EmbeddingSettings, StoredEmbeddingSettings } from "./embeddings/types";
 import {
   isVaultId,
   mergeCompanionSettings,
@@ -61,6 +61,8 @@ import type { StoredCompanionSettings } from "./companionSync";
 import { ObsidianSemanticController } from "./semantic";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
+import { SemanticIntelligenceController } from "./semantic/product/semanticIntelligenceController";
+import type { SemanticSettingsPort } from "./semantic/product/semanticSettingsPort";
 
 import { CompanionClient } from "./companionSync/client";
 import { ProposalApplication } from "./proposals/application";
@@ -125,7 +127,8 @@ export default class AIHubPlugin extends Plugin {
 
       const { registerHealth } = await import("./health/obsidian/registerHealth");
       registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
-        new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)));
+        new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
+        new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController));
 
       this.addCommand({
         id: "ai-hub-open-panel",
@@ -254,12 +257,44 @@ export default class AIHubPlugin extends Plugin {
     if (needsVaultId) await this.saveData(this.settings);
   }
 
-  async saveSettings(health?: HealthPreferences) {
+  getSemanticSettingsPort(): SemanticSettingsPort {
+    return {
+      get: () => ({ ...this.settings.semantic }),
+      update: async (next, expected) => {
+        try { await this.saveSettings(undefined, next, expected); }
+        catch { throw new Error("Could not save semantic settings."); }
+        return { ...this.settings.semantic };
+      },
+    };
+  }
+
+  async saveSettings(health?: HealthPreferences, semantic?: EmbeddingSettings, expectedSemantic?: EmbeddingSettings) {
     const nextHealth = health ? { ...health } : undefined;
-    // Serialize ordinary settings saves too: they must not overwrite a pending Health preference.
+    const nextSemantic = semantic ? { ...semantic } : undefined;
+    const expected = expectedSemantic ? { ...expectedSemantic } : undefined;
+    // Read ordinary settings inside the same queue, so neither transaction loses concurrent edits.
     const save = this.settingsSave.then(async () => {
-      await this.saveData(nextHealth ? { ...this.settings, health: nextHealth } : this.settings);
+      const matches = (previous: EmbeddingSettings): boolean => Object.entries(previous)
+        .every(([key, value]) => this.settings.semantic[key as keyof EmbeddingSettings] === value);
+      // An Advanced edit during the connection test must not be overwritten by its older candidate.
+      if (expected && !matches(expected)) {
+        throw new Error("Semantic settings changed during connection.");
+      }
+      const previousSemantic = nextSemantic ? { ...this.settings.semantic } : undefined;
+      await this.saveData({ ...this.settings, ...(nextHealth ? { health: nextHealth } : {}),
+        ...(nextSemantic ? { semantic: nextSemantic } : {}) });
+      if (previousSemantic && !matches(previousSemantic)) {
+        // Legacy controls mutate before saving. If they changed during I/O, restore their current
+        // configuration on disk inside this queue and reject the obsolete setup without publishing it.
+        await this.saveData({ ...this.settings, semantic: { ...this.settings.semantic } });
+        throw new Error("Semantic settings changed during persistence.");
+      }
       if (nextHealth) this.settings.health = nextHealth;
+      if (nextSemantic) {
+        // Preserve the reference captured by existing Advanced Settings controls.
+        Object.assign(this.settings.semantic, nextSemantic);
+        this.semanticController.notifySettingsChanged({ reconcile: false });
+      }
     });
     this.settingsSave = save.catch(() => undefined);
     return save;
