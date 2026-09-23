@@ -1,5 +1,9 @@
 # Native Recall FSRS scheduler
 
+This document records the scheduler stage. The subsequent
+[Recall review experience](recall-review-experience.md) adds the lazy product
+surface and recovery while preserving this algorithm and storage contract.
+
 Veynrel owns its Recall domain, scheduling policy, persistence and future review
 experience. FSRS-6 supplies the mathematical memory model. Users do not install
 an external review plugin, Anki or a scheduler package. Production code has no

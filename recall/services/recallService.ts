@@ -31,7 +31,7 @@ class RecallFreshnessError extends Error {
   constructor(readonly code: "stale-inventory" | "inventory-unavailable") { super(code); }
 }
 
-/** Dormant until explicitly constructed/initialized by a future consumer. Exactly one private store. */
+/** Explicit metadata initialization and inventory only. Exactly one private store. */
 export class RecallService {
   private readonly store: RecallStore;
   private running = false;
@@ -41,8 +41,14 @@ export class RecallService {
   }
 
   initialize(): Promise<RecallLoadResult> { return this.store.load(); }
+  getLoadResult(): RecallLoadResult { return this.store.getLoadResult(); }
   listCards(filter?: RecallCardFilter) { return this.store.listCards(filter); }
   getCard(id: string) { return this.store.getCard(id); }
+
+  getNextDueAt(): number | undefined {
+    const cards = this.store.listCards({ state: "active" });
+    return cards.length ? cards.reduce((earliest, card) => Math.min(earliest, card.schedule.dueAt), Infinity) : undefined;
+  }
 
   /** No daily limits yet. The inventory/storage bound also bounds an unpaginated queue. */
   listDue(at: number, limit = MAX_RECALL_CARDS) {

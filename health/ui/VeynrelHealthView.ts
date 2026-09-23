@@ -21,10 +21,19 @@ import { semanticIntelligenceViewModel, semanticSetupError } from "./semanticInt
 import { discoverViewModel } from "./discoverViewModel";
 import type { DiscoverAction } from "./discoverViewModel";
 import { renderDiscover } from "./renderDiscover";
+import type { RecallProductPort } from "../../recall/product/types";
+import { recallViewModel } from "./recallViewModel";
+import { renderRecall } from "./renderRecall";
 
 export class VeynrelHealthView extends ItemView {
+  // One transient review surface per plugin owner, including duplicated workspace tabs.
+  private static readonly recallViews = new WeakMap<RecallProductPort, VeynrelHealthView>();
   private unsubscribe?: () => void;
   private unsubscribeSemantic?: () => void;
+  private unsubscribeRecall?: () => void;
+  private cleanupRecall?: () => void;
+  private recallFocusKey?: string;
+  private dueWakeup?: number;
   private semanticSetup?: SemanticSetupState;
   private epoch = 0;
   private body?: HTMLElement;
@@ -35,10 +44,10 @@ export class VeynrelHealthView extends ItemView {
   private findingMutationErrorRoute?: FindingsRoute;
   private expandedPaths = false;
   private expandedSnooze = false;
-  private focusDestination?: "heading" | "detail";
+  private focusDestination?: "heading" | "detail" | "recall-question" | "recall-answer";
 
   constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly openTools: () => void,
-    private readonly semantic?: SemanticIntelligencePort) { super(leaf); }
+    private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -65,6 +74,7 @@ export class VeynrelHealthView extends ItemView {
 
   async onClose(): Promise<void> {
     this.epoch++; this.unsubscribe?.(); this.unsubscribe = undefined;
+    this.leaveRecall();
     this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
@@ -86,23 +96,47 @@ export class VeynrelHealthView extends ItemView {
     const openNote = (): void => { void this.openNote(this.controller.getRecommendationPath()); };
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
     const normal = onboarding.step === "complete";
+    if (!normal && this.route.page === "recall") { this.leaveRecall(); this.route = { page: "health" }; }
     if (!normal) this.semanticSetup = undefined;
     // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
     if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
+    this.cleanupRecall?.(); this.cleanupRecall = undefined;
+    if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
+    this.dueWakeup = undefined;
     this.body.empty();
     if (normal) {
       const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
-      for (const page of ["health", "findings", "discover"] as const) {
-        const button = healthButton(nav, t(page === "health" ? "@findings.health" : page === "findings" ? "@findings.title" : "@discover.title"),
+      const pages = this.recall ? ["health", "findings", "discover", "recall"] as const : ["health", "findings", "discover"] as const;
+      for (const page of pages) {
+        const button = healthButton(nav, t(page === "health" ? "@findings.health" : page === "findings" ? "@findings.title" : page === "recall" ? "@recall.title" : "@discover.title"),
           () => this.navigate(page === "findings" ? findingsRoute() : { page }), `nav-${page}`);
         button.setAttribute("aria-pressed", String(this.route.page === page));
         if (this.route.page === page) button.setAttribute("aria-current", "page");
       }
     }
     const surface = this.body.createDiv();
-    const semanticSnapshot = normal && this.route.page !== "findings" ? this.semantic?.getSnapshot() : undefined;
+    const semanticSnapshot = normal && (this.route.page === "health" || this.route.page === "discover") ? this.semantic?.getSnapshot() : undefined;
     const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot, state) : undefined;
-    if (discover) {
+    const recallSnapshot = normal && this.route.page === "recall" ? this.recall?.getSnapshot() : undefined;
+    const recall = recallSnapshot ? recallViewModel(recallSnapshot) : undefined;
+    if (recall && this.recall) {
+      const port = this.recall;
+      this.cleanupRecall = renderRecall(surface, recall, {
+        refresh: () => { void port.refreshCards(); }, start: () => port.startSession(), reveal: () => port.revealAnswer(),
+        rate: (rating) => { void port.rate(rating); }, back: () => port.endSession(), source: () => { void port.openSourceNote(); },
+        retry: () => { void port.retryLoad(); }, recover: () => port.requestRecovery(), cancelRecovery: () => port.cancelRecovery(),
+        confirmRecovery: () => { void port.recoverStorage(); },
+      });
+      const card = recallSnapshot?.session?.card;
+      const focusKey = card ? `${card.id}:${recallSnapshot?.session?.reviewed}:${recallSnapshot?.session?.revealed}` : undefined;
+      if (focusKey && focusKey !== this.recallFocusKey) this.focusDestination = recallSnapshot?.session?.revealed ? "recall-answer" : "recall-question";
+      this.recallFocusKey = focusKey;
+      // One wakeup for an idle overview, never polling or an automatically waiting review session.
+      if (!recallSnapshot?.session && !recallSnapshot?.summary?.due && recallSnapshot?.nextDueAt !== undefined) {
+        const delay = recallSnapshot.nextDueAt - Date.now();
+        if (delay > 0) this.dueWakeup = window.setTimeout(() => this.render(), Math.min(delay, 2_147_483_647));
+      }
+    } else if (discover) {
       renderDiscover(surface, discover, (action) => this.semanticAction(action));
     } else if (normal && this.route.page === "findings") {
       const route = this.route;
@@ -153,16 +187,18 @@ export class VeynrelHealthView extends ItemView {
       ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
     const semanticStatus = discover?.healthStatus ?? discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
       : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined);
-    this.status.setText(state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
+    this.status.setText(recall ? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
       : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "");
-    this.status.toggleClass("veynrel-health-status-error", state.preferencesError || mutationError || model.statusError || Boolean(semanticError));
+    this.status.toggleClass("veynrel-health-status-error", recall ? recall.error : state.preferencesError || mutationError || model.statusError || Boolean(semanticError));
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
       ?? this.body?.querySelector<HTMLElement>("[data-health-heading]") ?? null;
     if (this.focusDestination) {
-      const target = this.focusDestination === "detail" ? heading() : this.body.querySelector<HTMLElement>("[data-health-heading]");
+      const target = this.focusDestination === "recall-question" ? this.body.querySelector<HTMLElement>("[data-recall-question]")
+        : this.focusDestination === "recall-answer" ? this.body.querySelector<HTMLElement>("[data-recall-answer]")
+        : this.focusDestination === "detail" ? heading() : this.body.querySelector<HTMLElement>("[data-health-heading]");
       target?.focus(); this.focusDestination = undefined;
     } else if (hadFocus) {
       const target = focusKey ? this.body.querySelector<HTMLButtonElement>(`[data-health-action="${focusKey}"]`) : null;
@@ -174,12 +210,32 @@ export class VeynrelHealthView extends ItemView {
 
   /** Transient product navigation only; never persisted and never starts analysis. */
   private navigate(route: VeynrelHealthRoute): void {
+    if (this.route.page === "recall") this.leaveRecall();
+    if (route.page === "recall" && this.recall) {
+      VeynrelHealthView.recallViews.get(this.recall)?.navigate({ page: "health" });
+      VeynrelHealthView.recallViews.set(this.recall, this);
+    }
     this.semanticSetup = undefined;
     this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
     this.changingProfile = false; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";
     this.render();
+    if (route.page === "recall" && this.recall) {
+      this.unsubscribeRecall = this.recall.subscribe(() => { if (this.route.page === "recall") this.render(); });
+      void this.recall.initialize();
+    }
+  }
+
+  private leaveRecall(): void {
+    this.unsubscribeRecall?.(); this.unsubscribeRecall = undefined;
+    this.cleanupRecall?.(); this.cleanupRecall = undefined; this.recallFocusKey = undefined;
+    if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
+    this.dueWakeup = undefined;
+    if (this.recall && VeynrelHealthView.recallViews.get(this.recall) === this) {
+      VeynrelHealthView.recallViews.delete(this.recall);
+      this.recall.endSession();
+    }
   }
 
   private renderSemantic(surface: HTMLElement): void {

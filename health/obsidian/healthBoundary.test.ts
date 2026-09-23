@@ -15,7 +15,7 @@ describe("Health production dependency boundary", () => {
     while (queue.length) {
       const path = queue.pop()!; if (visited.has(path)) continue; visited.add(path);
       const name = relative(process.cwd(), path);
-      expect(name.startsWith("health/") || name.startsWith("utils/") || name === "i18n.ts", name).toBe(true);
+      expect(name.startsWith("health/") || name.startsWith("recall/") || name.startsWith("utils/") || name === "i18n.ts", name).toBe(true);
       const text = readFileSync(path, "utf8");
       expect(text, name).not.toMatch(/\b(?:fetch|callOpenRouter|streamOpenRouter|XMLHttpRequest|WebSocket)\s*\(/u);
       expect(text, name).not.toMatch(/\bvault\.(?:modify|create|delete|trash|process|rename)\s*\(/u);
@@ -39,6 +39,8 @@ describe("Health production dependency boundary", () => {
     expect(visited.has(resolve("health/ui/findingsInboxViewModel.ts"))).toBe(true);
     expect(visited.has(resolve("health/ui/renderDiscover.ts"))).toBe(true);
     expect(visited.has(resolve("health/ui/discoverViewModel.ts"))).toBe(true);
+    expect(visited.has(resolve("health/ui/renderRecall.ts"))).toBe(true);
+    expect(visited.has(resolve("recall/product/obsidianRecallProduct.ts"))).toBe(true);
   });
   it("keeps both legacy batch/control command IDs and adds one Health registration", () => {
     const source = readFileSync("main.ts", "utf8");
@@ -46,10 +48,10 @@ describe("Health production dependency boundary", () => {
     expect(source).toContain('id: "ai-batch-process"');
     expect(source.match(/registerHealth\(this,/gu)).toHaveLength(1);
   });
-  it("keeps Inbox and Discover rendering away from storage, scans and arbitrary persisted action execution", () => {
+  it("keeps Inbox, Discover and Recall rendering away from storage, scans and arbitrary persisted action execution", () => {
     for (const file of productionFiles("health/ui")) {
       const source = readFileSync(file, "utf8");
-      expect(source, file).not.toMatch(/\b(?:FindingStore|HealthService|new HealthPluginController)\b/u);
+      expect(source, file).not.toMatch(/\b(?:FindingStore|HealthService|new HealthPluginController|RecallStore|ObsidianRecallSource|rateSchedule|previewRatings)\b/u);
       expect(source, file).not.toMatch(/\b(?:finding|selected|detail)\.actions\b|\baction\.kind\b/u);
       expect(source, file).not.toMatch(/\bvault\.(?:read|cachedRead|getMarkdownFiles)\s*\(/u);
       expect(source, file).not.toMatch(/\b(?:SemanticRuntime|VectorStore|SemanticDiscoveryService|ObsidianSemanticController)\b/u);
