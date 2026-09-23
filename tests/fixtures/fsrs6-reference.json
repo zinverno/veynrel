@@ -1,0 +1,3569 @@
+{
+  "reference": {
+    "repository": "https://github.com/open-spaced-repetition/py-fsrs",
+    "version": "6.3.2",
+    "commit": "9446cb06605c597a063aeee49f7d188d42e34dc2",
+    "schedulerSha256": "dd04d86ba98ee22106f6bbdb7eede00fa3c848dbf15d18e33db4584f333bac46",
+    "specification": "https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm#fsrs-6",
+    "generator": "scripts/generate-fsrs6-reference.py",
+    "python": "3.14.6"
+  },
+  "parameters": [
+    0.212,
+    1.2931,
+    2.3065,
+    8.2956,
+    6.4133,
+    0.8334,
+    3.0194,
+    0.001,
+    1.8722,
+    0.1666,
+    0.796,
+    1.4835,
+    0.0614,
+    0.2629,
+    1.6483,
+    0.6014,
+    1.8729,
+    0.5425,
+    0.0912,
+    0.0658,
+    0.1542
+  ],
+  "policy": {
+    "desiredRetention": 0.9,
+    "learningStepsMs": [
+      60000,
+      600000
+    ],
+    "relearningStepsMs": [
+      600000
+    ],
+    "maximumIntervalDays": 36500,
+    "fuzzing": false,
+    "elapsedDays": "floor UTC duration / 86400000",
+    "intervalRounding": "nearest integer, ties to even"
+  },
+  "scenarios": [
+    {
+      "name": "new-again",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773014400000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014460000,
+              "lastReviewAt": 1773014400000,
+              "stability": 0.212,
+              "difficulty": 6.4133,
+              "reviewCount": 1,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-again-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015060000,
+              "lastReviewAt": 1773015000000,
+              "stability": 0.08335671711031604,
+              "difficulty": 8.806304468856837,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-again-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773298860000,
+              "lastReviewAt": 1773298800000,
+              "stability": 0.12028336828244025,
+              "difficulty": 8.806304468856837,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 0.6595032117265339
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-again-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015060000,
+              "lastReviewAt": 1773015000000,
+              "stability": 0.7750839828558984,
+              "difficulty": 7.394502741279718,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-again-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773298860000,
+              "lastReviewAt": 1773298800000,
+              "stability": 0.6368506992409603,
+              "difficulty": 7.394502741279718,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 0.8809479557659419
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-again-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773015600000,
+              "lastReviewAt": 1773015000000,
+              "stability": 2.5625081682260777,
+              "difficulty": 7.0269895692968385,
+              "reviewCount": 2,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-again-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773299400000,
+              "lastReviewAt": 1773298800000,
+              "stability": 1.2749638921696915,
+              "difficulty": 7.0269895692968385,
+              "reviewCount": 2,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.9542852058192565
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-again-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773706200000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773706800000,
+              "lastReviewAt": 1773706200000,
+              "stability": 0.4824837699764583,
+              "difficulty": 9.008020057195637,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-again-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773990000000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773990600000,
+              "lastReviewAt": 1773990000000,
+              "stability": 0.4413232900763469,
+              "difficulty": 9.008020057195637,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.8391616032287923
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86399999-again",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773100799999,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773101399999,
+              "lastReviewAt": 1773100799999,
+              "stability": 2.5625081682260777,
+              "difficulty": 7.0269895692968385,
+              "reviewCount": 2,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400000-again",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773100800000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773101400000,
+              "lastReviewAt": 1773100800000,
+              "stability": 1.2161783702767177,
+              "difficulty": 7.0269895692968385,
+              "reviewCount": 2,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400001-again",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773100800001,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773101400001,
+              "lastReviewAt": 1773100800001,
+              "stability": 1.2161783702767177,
+              "difficulty": 7.0269895692968385,
+              "reviewCount": 2,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "new-hard",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773014400000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014730000,
+              "lastReviewAt": 1773014400000,
+              "stability": 1.2931,
+              "difficulty": 5.112170705601056,
+              "reviewCount": 1,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 330000
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-hard-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015330000,
+              "lastReviewAt": 1773015000000,
+              "stability": 0.212,
+              "difficulty": 7.604209769076838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 330000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-hard-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773299130000,
+              "lastReviewAt": 1773298800000,
+              "stability": 1.7449478299839527,
+              "difficulty": 7.604209769076838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 330000,
+            "retrievabilityBefore": 0.6595032117265339
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-hard-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015600000,
+              "lastReviewAt": 1773015000000,
+              "stability": 2.3065,
+              "difficulty": 4.752858488532557,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-hard-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773299400000,
+              "lastReviewAt": 1773298800000,
+              "stability": 9.234870781784839,
+              "difficulty": 4.752858488532557,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.8809479557659419
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-hard-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773706200000,
+              "lastReviewAt": 1773015000000,
+              "stability": 8.2956,
+              "difficulty": 4.010608969296839,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-hard-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774767600000,
+              "lastReviewAt": 1773298800000,
+              "stability": 16.746692889284255,
+              "difficulty": 4.010608969296839,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard"
+            },
+            "intervalMs": 1468800000,
+            "retrievabilityBefore": 0.9542852058192565
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-hard-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773706200000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773707100000,
+              "lastReviewAt": 1773706200000,
+              "stability": 1.3886324609821161,
+              "difficulty": 8.011605503110008,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 900000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-hard-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773990000000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773990900000,
+              "lastReviewAt": 1773990000000,
+              "stability": 4.1786162605128085,
+              "difficulty": 8.011605503110008,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 900000,
+            "retrievabilityBefore": 0.8391616032287923
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86399999-hard",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773100799999,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773791999999,
+              "lastReviewAt": 1773100799999,
+              "stability": 8.2956,
+              "difficulty": 4.010608969296839,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400000-hard",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773100800000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774051200000,
+              "lastReviewAt": 1773100800000,
+              "stability": 11.416542814538671,
+              "difficulty": 4.010608969296839,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard"
+            },
+            "intervalMs": 950400000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400001-hard",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "hard",
+          "reviewedAt": 1773100800001,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774051200001,
+              "lastReviewAt": 1773100800001,
+              "stability": 11.416542814538671,
+              "difficulty": 4.010608969296839,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard"
+            },
+            "intervalMs": 950400000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "new-good",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773014400000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015000000,
+              "lastReviewAt": 1773014400000,
+              "stability": 2.3065,
+              "difficulty": 2.118103970459016,
+              "reviewCount": 1,
+              "lapseCount": 0,
+              "lastRating": "good",
+              "step": 1
+            },
+            "intervalMs": 600000
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-good-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015600000,
+              "lastReviewAt": 1773015000000,
+              "stability": 0.24668918777567272,
+              "difficulty": 6.402115069296838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-good-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773299400000,
+              "lastReviewAt": 1773298800000,
+              "stability": 2.760965463890842,
+              "difficulty": 6.402115069296838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.6595032117265339
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-good-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773187800000,
+              "lastReviewAt": 1773015000000,
+              "stability": 2.3065,
+              "difficulty": 2.111214235785395,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 172800000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-good-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774508400000,
+              "lastReviewAt": 1773298800000,
+              "stability": 13.826903694354568,
+              "difficulty": 2.111214235785395,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 1209600000,
+            "retrievabilityBefore": 0.8809479557659419
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-good-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773706200000,
+              "lastReviewAt": 1773015000000,
+              "stability": 8.2956,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-good-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1775199600000,
+              "lastReviewAt": 1773298800000,
+              "stability": 22.347965961563446,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 1900800000,
+            "retrievabilityBefore": 0.9542852058192565
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-good-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773706200000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773792600000,
+              "lastReviewAt": 1773706200000,
+              "stability": 1.427881680763876,
+              "difficulty": 7.0151909490243805,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "good"
+            },
+            "intervalMs": 86400000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-good-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773990000000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774508400000,
+              "lastReviewAt": 1773990000000,
+              "stability": 6.027780780787059,
+              "difficulty": 7.0151909490243805,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "good"
+            },
+            "intervalMs": 518400000,
+            "retrievabilityBefore": 0.8391616032287923
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86399999-good",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773100799999,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773791999999,
+              "lastReviewAt": 1773100799999,
+              "stability": 8.2956,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400000-good",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773100800000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774224000000,
+              "lastReviewAt": 1773100800000,
+              "stability": 13.485062611471017,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 1123200000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400001-good",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773100800001,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774224000001,
+              "lastReviewAt": 1773100800001,
+              "stability": 13.485062611471017,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 1123200000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "new-easy",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773014400000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773705600000,
+              "lastReviewAt": 1773014400000,
+              "stability": 8.2956,
+              "difficulty": 1.0,
+              "reviewCount": 1,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 691200000
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-easy-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773101400000,
+              "lastReviewAt": 1773015000000,
+              "stability": 0.42437996387663374,
+              "difficulty": 5.200020369516838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 86400000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step0-easy-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773730800000,
+              "lastReviewAt": 1773298800000,
+              "stability": 4.985957417321158,
+              "difficulty": 5.200020369516838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 432000000,
+            "retrievabilityBefore": 0.6595032117265339
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-easy-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773360600000,
+              "lastReviewAt": 1773015000000,
+              "stability": 3.946054067969477,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 345600000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-step1-easy-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773015000000,
+        "lastReviewAt": 1773014400000,
+        "stability": 2.3065,
+        "difficulty": 2.118103970459016,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "good",
+        "step": 1
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1775372400000,
+              "lastReviewAt": 1773298800000,
+              "stability": 23.88306407915667,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 2073600000,
+            "retrievabilityBefore": 0.8809479557659419
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-easy-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774138200000,
+              "lastReviewAt": 1773015000000,
+              "stability": 13.046064691177454,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 1123200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "review-easy-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773298800000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1776322800000,
+              "lastReviewAt": 1773298800000,
+              "stability": 34.614276209412175,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 3024000000,
+            "retrievabilityBefore": 0.9542852058192565
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-easy-same-day",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773706200000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773879000000,
+              "lastReviewAt": 1773706200000,
+              "stability": 2.4563880629163024,
+              "difficulty": 6.018776394938751,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "easy"
+            },
+            "intervalMs": 172800000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "relearning-easy-delayed",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "relearning",
+        "dueAt": 1773706200000,
+        "lastReviewAt": 1773705600000,
+        "stability": 1.3886324609821161,
+        "difficulty": 7.0269895692968385,
+        "reviewCount": 2,
+        "lapseCount": 1,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773990000000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774854000000,
+              "lastReviewAt": 1773990000000,
+              "stability": 10.077293349144792,
+              "difficulty": 6.018776394938751,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "easy"
+            },
+            "intervalMs": 864000000,
+            "retrievabilityBefore": 0.8391616032287923
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86399999-easy",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773100799999,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774223999999,
+              "lastReviewAt": 1773100799999,
+              "stability": 13.046064691177454,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 1123200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400000-easy",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773100800000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774656000000,
+              "lastReviewAt": 1773100800000,
+              "stability": 18.014944525024067,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 1555200000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "24h-boundary-86400001-easy",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773100800001,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774656000001,
+              "lastReviewAt": 1773100800001,
+              "stability": 18.014944525024067,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 1555200000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-again-hard-good-progression",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773014400000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014460000,
+              "lastReviewAt": 1773014400000,
+              "stability": 0.212,
+              "difficulty": 6.4133,
+              "reviewCount": 1,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000
+          }
+        },
+        {
+          "rating": "hard",
+          "reviewedAt": 1773014460000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014790000,
+              "lastReviewAt": 1773014460000,
+              "stability": 0.212,
+              "difficulty": 7.604209769076838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 330000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "good",
+          "reviewedAt": 1773014820000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015420000,
+              "lastReviewAt": 1773014820000,
+              "stability": 0.24668918777567272,
+              "difficulty": 7.5918339286046,
+              "reviewCount": 3,
+              "lapseCount": 0,
+              "lastRating": "good",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "hard",
+          "reviewedAt": 1773015420000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016020000,
+              "lastReviewAt": 1773015420000,
+              "stability": 0.24668918777567272,
+              "difficulty": 8.386575510565644,
+              "reviewCount": 4,
+              "lapseCount": 0,
+              "lastRating": "hard",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016020000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016080000,
+              "lastReviewAt": 1773016020000,
+              "stability": 0.09603383636195935,
+              "difficulty": 9.454906710906291,
+              "reviewCount": 5,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "good",
+          "reviewedAt": 1773016080000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016680000,
+              "lastReviewAt": 1773016080000,
+              "stability": 0.11772478736294154,
+              "difficulty": 9.440680173492222,
+              "reviewCount": 6,
+              "lapseCount": 0,
+              "lastRating": "good",
+              "step": 1
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "good",
+          "reviewedAt": 1773016680000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773103080000,
+              "lastReviewAt": 1773016680000,
+              "stability": 0.142394088425543,
+              "difficulty": 9.426467862615567,
+              "reviewCount": 7,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 86400000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "learning-easy-graduation",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773014400000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014460000,
+              "lastReviewAt": 1773014400000,
+              "stability": 0.212,
+              "difficulty": 6.4133,
+              "reviewCount": 1,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773014460000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773100860000,
+              "lastReviewAt": 1773014460000,
+              "stability": 0.42437996387663374,
+              "difficulty": 5.200020369516838,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 86400000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "lapse-and-relearning",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773705600000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773706200000,
+              "lastReviewAt": 1773705600000,
+              "stability": 1.3886324609821161,
+              "difficulty": 7.0269895692968385,
+              "reviewCount": 2,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 0.9024733005284542
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773706200000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773706800000,
+              "lastReviewAt": 1773706200000,
+              "stability": 0.4824837699764583,
+              "difficulty": 9.008020057195637,
+              "reviewCount": 3,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "hard",
+          "reviewedAt": 1773706800000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773707700000,
+              "lastReviewAt": 1773706800000,
+              "stability": 0.4824837699764583,
+              "difficulty": 9.326705856997966,
+              "reviewCount": 4,
+              "lapseCount": 1,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 900000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "good",
+          "reviewedAt": 1773707700000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773794100000,
+              "lastReviewAt": 1773707700000,
+              "stability": 0.5318592299677587,
+              "difficulty": 9.312607520437806,
+              "reviewCount": 5,
+              "lapseCount": 1,
+              "lastRating": "good"
+            },
+            "intervalMs": 86400000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "multiple-early-same-day-reviews",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773018000000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773709200000,
+              "lastReviewAt": 1773018000000,
+              "stability": 8.2956,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "hard",
+          "reviewedAt": 1773021600000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773712800000,
+              "lastReviewAt": 1773021600000,
+              "stability": 8.2956,
+              "difficulty": 4.010608969296839,
+              "reviewCount": 3,
+              "lapseCount": 0,
+              "lastRating": "hard"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773025200000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774148400000,
+              "lastReviewAt": 1773025200000,
+              "stability": 13.046064691177454,
+              "difficulty": 1.994461961754711,
+              "reviewCount": 4,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 1123200000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773028800000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773029400000,
+              "lastReviewAt": 1773028800000,
+              "stability": 3.911637632880187,
+              "difficulty": 7.353862453784273,
+              "reviewCount": 5,
+              "lapseCount": 1,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 600000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "hard",
+          "reviewedAt": 1773032400000,
+          "expected": {
+            "rating": "hard",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "relearning",
+              "dueAt": 1773033300000,
+              "lastReviewAt": 1773032400000,
+              "stability": 3.911637632880187,
+              "difficulty": 8.228598956109185,
+              "reviewCount": 6,
+              "lapseCount": 1,
+              "lastRating": "hard",
+              "step": 0
+            },
+            "intervalMs": 900000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773036000000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773554400000,
+              "lastReviewAt": 1773036000000,
+              "stability": 6.4635829849412,
+              "difficulty": 7.621907643826358,
+              "reviewCount": 7,
+              "lapseCount": 1,
+              "lastRating": "easy"
+            },
+            "intervalMs": 518400000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "minimum-stability-and-maximum-difficulty",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "dueAt": 1773014460000,
+        "lastReviewAt": 1773014400000,
+        "stability": 0.212,
+        "difficulty": 6.4133,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "again",
+        "step": 0
+      },
+      "reviews": [
+        {
+          "rating": "again",
+          "reviewedAt": 1773014460000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014520000,
+              "lastReviewAt": 1773014460000,
+              "stability": 0.08335671711031604,
+              "difficulty": 8.806304468856837,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014520000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014580000,
+              "lastReviewAt": 1773014520000,
+              "stability": 0.03485140985964798,
+              "difficulty": 9.592868765339693,
+              "reviewCount": 3,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014580000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014640000,
+              "lastReviewAt": 1773014580000,
+              "stability": 0.01543191751473265,
+              "difficulty": 9.85140710095639,
+              "reviewCount": 4,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014640000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014700000,
+              "lastReviewAt": 1773014640000,
+              "stability": 0.007209406358391926,
+              "difficulty": 9.936386893812918,
+              "reviewCount": 5,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014700000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014760000,
+              "lastReviewAt": 1773014700000,
+              "stability": 0.003541011675383867,
+              "difficulty": 9.964319173862265,
+              "reviewCount": 6,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014760000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014820000,
+              "lastReviewAt": 1773014760000,
+              "stability": 0.00182252048908479,
+              "difficulty": 9.973500324374982,
+              "reviewCount": 7,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014820000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014880000,
+              "lastReviewAt": 1773014820000,
+              "stability": 0.001,
+              "difficulty": 9.976518106116687,
+              "reviewCount": 8,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014880000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773014940000,
+              "lastReviewAt": 1773014880000,
+              "stability": 0.001,
+              "difficulty": 9.977510030454273,
+              "reviewCount": 9,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773014940000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015000000,
+              "lastReviewAt": 1773014940000,
+              "stability": 0.001,
+              "difficulty": 9.97783606923895,
+              "reviewCount": 10,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015000000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015060000,
+              "lastReviewAt": 1773015000000,
+              "stability": 0.001,
+              "difficulty": 9.97794323597041,
+              "reviewCount": 11,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015060000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015120000,
+              "lastReviewAt": 1773015060000,
+              "stability": 0.001,
+              "difficulty": 9.977978460946307,
+              "reviewCount": 12,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015120000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015180000,
+              "lastReviewAt": 1773015120000,
+              "stability": 0.001,
+              "difficulty": 9.977990039156355,
+              "reviewCount": 13,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015180000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015240000,
+              "lastReviewAt": 1773015180000,
+              "stability": 0.001,
+              "difficulty": 9.977993844835266,
+              "reviewCount": 14,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015240000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015300000,
+              "lastReviewAt": 1773015240000,
+              "stability": 0.001,
+              "difficulty": 9.977995095736045,
+              "reviewCount": 15,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015300000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015360000,
+              "lastReviewAt": 1773015300000,
+              "stability": 0.001,
+              "difficulty": 9.977995506898624,
+              "reviewCount": 16,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015360000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015420000,
+              "lastReviewAt": 1773015360000,
+              "stability": 0.001,
+              "difficulty": 9.977995642044968,
+              "reviewCount": 17,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015420000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015480000,
+              "lastReviewAt": 1773015420000,
+              "stability": 0.001,
+              "difficulty": 9.977995686466652,
+              "reviewCount": 18,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015480000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015540000,
+              "lastReviewAt": 1773015480000,
+              "stability": 0.001,
+              "difficulty": 9.977995701067757,
+              "reviewCount": 19,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015540000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015600000,
+              "lastReviewAt": 1773015540000,
+              "stability": 0.001,
+              "difficulty": 9.977995705867041,
+              "reviewCount": 20,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015600000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015660000,
+              "lastReviewAt": 1773015600000,
+              "stability": 0.001,
+              "difficulty": 9.977995707444533,
+              "reviewCount": 21,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015660000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015720000,
+              "lastReviewAt": 1773015660000,
+              "stability": 0.001,
+              "difficulty": 9.977995707963045,
+              "reviewCount": 22,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015720000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015780000,
+              "lastReviewAt": 1773015720000,
+              "stability": 0.001,
+              "difficulty": 9.977995708133477,
+              "reviewCount": 23,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015780000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015840000,
+              "lastReviewAt": 1773015780000,
+              "stability": 0.001,
+              "difficulty": 9.977995708189496,
+              "reviewCount": 24,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015840000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015900000,
+              "lastReviewAt": 1773015840000,
+              "stability": 0.001,
+              "difficulty": 9.97799570820791,
+              "reviewCount": 25,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015900000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773015960000,
+              "lastReviewAt": 1773015900000,
+              "stability": 0.001,
+              "difficulty": 9.977995708213962,
+              "reviewCount": 26,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773015960000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016020000,
+              "lastReviewAt": 1773015960000,
+              "stability": 0.001,
+              "difficulty": 9.97799570821595,
+              "reviewCount": 27,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016020000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016080000,
+              "lastReviewAt": 1773016020000,
+              "stability": 0.001,
+              "difficulty": 9.977995708216604,
+              "reviewCount": 28,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016080000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016140000,
+              "lastReviewAt": 1773016080000,
+              "stability": 0.001,
+              "difficulty": 9.97799570821682,
+              "reviewCount": 29,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016140000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016200000,
+              "lastReviewAt": 1773016140000,
+              "stability": 0.001,
+              "difficulty": 9.977995708216891,
+              "reviewCount": 30,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016200000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016260000,
+              "lastReviewAt": 1773016200000,
+              "stability": 0.001,
+              "difficulty": 9.977995708216914,
+              "reviewCount": 31,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016260000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016320000,
+              "lastReviewAt": 1773016260000,
+              "stability": 0.001,
+              "difficulty": 9.977995708216921,
+              "reviewCount": 32,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        },
+        {
+          "rating": "again",
+          "reviewedAt": 1773016320000,
+          "expected": {
+            "rating": "again",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "learning",
+              "dueAt": 1773016380000,
+              "lastReviewAt": 1773016320000,
+              "stability": 0.001,
+              "difficulty": 9.977995708216923,
+              "reviewCount": 33,
+              "lapseCount": 0,
+              "lastRating": "again",
+              "step": 0
+            },
+            "intervalMs": 60000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "minimum-difficulty",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 1773100800000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1774656000000,
+              "lastReviewAt": 1773100800000,
+              "stability": 18.014944525024067,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 1555200000,
+            "retrievabilityBefore": 0.9829234388308534
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773187200000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1775520000000,
+              "lastReviewAt": 1773187200000,
+              "stability": 26.82272027846485,
+              "difficulty": 1.0,
+              "reviewCount": 3,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 2332800000,
+            "retrievabilityBefore": 0.9918623196143486
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773273600000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1776297600000,
+              "lastReviewAt": 1773273600000,
+              "stability": 35.13890233772006,
+              "difficulty": 1.0,
+              "reviewCount": 4,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 3024000000,
+            "retrievabilityBefore": 0.9944799696047718
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773360000000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1777075200000,
+              "lastReviewAt": 1773360000000,
+              "stability": 43.12383947785117,
+              "difficulty": 1.0,
+              "reviewCount": 5,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 3715200000,
+            "retrievabilityBefore": 0.9957658546480883
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773446400000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1777852800000,
+              "lastReviewAt": 1773446400000,
+              "stability": 50.86113652144884,
+              "difficulty": 1.0,
+              "reviewCount": 6,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 4406400000,
+            "retrievabilityBefore": 0.9965397796834312
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773532800000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1778544000000,
+              "lastReviewAt": 1773532800000,
+              "stability": 58.401819221657995,
+              "difficulty": 1.0,
+              "reviewCount": 7,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 5011200000,
+            "retrievabilityBefore": 0.9970604115458847
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773619200000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1779321600000,
+              "lastReviewAt": 1773619200000,
+              "stability": 65.78013431011809,
+              "difficulty": 1.0,
+              "reviewCount": 8,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 5702400000,
+            "retrievabilityBefore": 0.9974363397605615
+          }
+        },
+        {
+          "rating": "easy",
+          "reviewedAt": 1773705600000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1780012800000,
+              "lastReviewAt": 1773705600000,
+              "stability": 73.02058362954331,
+              "difficulty": 1.0,
+              "reviewCount": 9,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 6307200000,
+            "retrievabilityBefore": 0.9977214547498856
+          }
+        }
+      ]
+    },
+    {
+      "name": "long-overdue",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 2637014400000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 2660515200000,
+              "lastReviewAt": 2637014400000,
+              "stability": 272.4560519182246,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 23500800000,
+            "retrievabilityBefore": 0.33586051760700075
+          }
+        }
+      ]
+    },
+    {
+      "name": "maximum-interval",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 100000,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "easy",
+          "reviewedAt": 2205014400000,
+          "expected": {
+            "rating": "easy",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 5358614400000,
+              "lastReviewAt": 2205014400000,
+              "stability": 110499.89676383365,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "easy"
+            },
+            "intervalMs": 3153600000000,
+            "retrievabilityBefore": 0.9926480955829713
+          }
+        }
+      ]
+    },
+    {
+      "name": "across-UTC-midnight-under-24h",
+      "initial": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014340000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "reviews": [
+        {
+          "rating": "good",
+          "reviewedAt": 1773014460000,
+          "expected": {
+            "rating": "good",
+            "schedule": {
+              "algorithm": "fsrs-6",
+              "policyVersion": 1,
+              "phase": "review",
+              "dueAt": 1773705660000,
+              "lastReviewAt": 1773014460000,
+              "stability": 8.2956,
+              "difficulty": 1.0,
+              "reviewCount": 2,
+              "lapseCount": 0,
+              "lastRating": "good"
+            },
+            "intervalMs": 691200000,
+            "retrievabilityBefore": 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "retrievability": [
+    {
+      "name": "unreviewed",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "learning",
+        "step": 0,
+        "dueAt": 1773014400000,
+        "reviewCount": 0,
+        "lapseCount": 0
+      },
+      "at": 1773014400000,
+      "expected": null
+    },
+    {
+      "name": "elapsed--1",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1773014399999,
+      "expected": 1.0
+    },
+    {
+      "name": "elapsed-0",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1773014400000,
+      "expected": 1.0
+    },
+    {
+      "name": "elapsed-600000",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1773015000000,
+      "expected": 1.0
+    },
+    {
+      "name": "elapsed-86399999",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1773100799999,
+      "expected": 1.0
+    },
+    {
+      "name": "elapsed-86400000",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1773100800000,
+      "expected": 0.9829234388308534
+    },
+    {
+      "name": "elapsed-864000000",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1773878400000,
+      "expected": 0.8866572196242765
+    },
+    {
+      "name": "elapsed-86400000000",
+      "schedule": {
+        "algorithm": "fsrs-6",
+        "policyVersion": 1,
+        "phase": "review",
+        "dueAt": 1773705600000,
+        "lastReviewAt": 1773014400000,
+        "stability": 8.2956,
+        "difficulty": 1.0,
+        "reviewCount": 1,
+        "lapseCount": 0,
+        "lastRating": "easy"
+      },
+      "at": 1859414400000,
+      "expected": 0.478466242659276
+    }
+  ],
+  "intervals": [
+    {
+      "stability": 0.001,
+      "days": 1
+    },
+    {
+      "stability": 0.212,
+      "days": 1
+    },
+    {
+      "stability": 1,
+      "days": 1
+    },
+    {
+      "stability": 1.5,
+      "days": 2
+    },
+    {
+      "stability": 2.5,
+      "days": 2
+    },
+    {
+      "stability": 3.5,
+      "days": 4
+    },
+    {
+      "stability": 10.25,
+      "days": 10
+    },
+    {
+      "stability": 36500,
+      "days": 36500
+    },
+    {
+      "stability": 100000,
+      "days": 36500
+    }
+  ]
+}
