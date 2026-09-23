@@ -1,5 +1,8 @@
 # Simple Semantic Intelligence (PR #33)
 
+This is the implementation record for setup. The current integrated product and
+passive-IO contract are documented in [MVP hardening](mvp-hardening.md).
+
 Baseline: clean, fast-forwarded `main` at
 `7acc6f99bd9ee385955777691f5acbdcc664988b`, the actual PR #32 merge commit.
 Branch: `feat/simple-semantic-intelligence`. No version bump, tag, release or merge.
@@ -24,7 +27,8 @@ Back perform no provider checks, index work, settings saves or local scans.
 Snapshots contain enabled/state/provider label/model/vector count/busy information;
 they contain no credentials, full settings, endpoint, raw error or index identity.
 The pure view-model derives localized text and available actions. A small
-subscription emits around explicit operations; there is no polling.
+subscription emits around explicit product operations and observes the shared
+engine for Advanced-command and automatic-sync updates; there is no polling.
 
 | Existing cached status | Product presentation |
 | --- | --- |
@@ -62,8 +66,8 @@ Connect copies the draft, validates through `validateEmbeddingSettings`, then ca
 API-key rules remain authoritative. Custom endpoints can omit a key where the
 existing validator allows it. The existing test embeds only the fixed phrase
 `Vault Audit AI embedding test`; it does not enumerate or read Markdown. Status
-inspection after commit can also probe provider dimensions for an existing index,
-using the existing engine's fixed-phrase path, never note content.
+inspection after commit reuses the persisted embedding descriptor. It does not
+probe provider dimensions, enumerate notes, or read note content.
 
 One product operation runs at a time. Mode switching, fields, Connect, Build and
 Rebuild cannot queue duplicate work. Errors are safe localized categories: invalid
@@ -115,7 +119,8 @@ Changing the embedding configuration preserves the old index and displays the
 engine's Incompatible state. Ready search opens the existing semantic search
 modal; existing users are not forced through setup. Uninspected configurations
 offer explicit Check setup; reading/rendering their cached status does not refresh
-or contact providers. Advanced changes are reflected on the next state read.
+or contact providers. Advanced changes notify mounted product views through the shared engine status
+subscription. View close detaches that subscription; engine disposal clears it.
 
 A bounded notification option suppresses reconciliation for a Simple Setup commit.
 The existing auto-sync queue retains pending work but defers it until a real
@@ -124,8 +129,11 @@ index with pending edits and a late startup layout-ready reconciliation. Without
 that deferral, enabling an existing index could read notes as a side effect of
 Connect. Advanced callers keep the original default reconciliation behavior;
 pending work is not discarded and subsequent real Markdown changes still sync.
-Existing automatic operations already in flight are not attributed to opening
-Health. There is no new automatic first-index operation.
+Plugin startup also defers offline reconciliation until real Markdown activity.
+It performs no Markdown/provider work and no Companion mirror request. Explicit
+indexing and post-commit Companion synchronization remain available. Existing
+automatic operations already in flight are not attributed to opening Health.
+There is no automatic first-index operation.
 
 Local copy states that Ollama generates embeddings on this device and stores the
 index locally. Cloud/Custom copy distinguishes the fixed test phrase from note

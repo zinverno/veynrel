@@ -39,6 +39,7 @@ vi.mock("obsidian", () => ({
   },
   ButtonComponent: class {},
   MarkdownView: class {},
+  parseLinktext: (path: string) => ({ path, subpath: "" }),
   normalizePath: (value: string) => value.replace(/\/{2,}/g, "/"),
   getLanguage: () => "ru",
   requestUrl: obsidianMocks.requestUrl,
@@ -70,6 +71,11 @@ import type { CompanionSyncPort } from "../companionSync";
 import type { SemanticControllerDependencies } from "./obsidianSemanticController";
 import { SemanticIntelligenceController } from "./product/semanticIntelligenceController";
 import { SemanticHealthAnalysisAdapter } from "./health/semanticHealthAnalysisAdapter";
+import { HealthPluginController } from "../health/obsidian/healthPluginController";
+import { preferencesFixture } from "../health/obsidian/testSupport";
+import { createObsidianRecallProduct } from "../recall/product/obsidianRecallProduct";
+import { RecallHealthAdapter } from "../recall/product/recallHealthAdapter";
+import { candidate as recallCandidate } from "../recall/testSupport";
 import { HealthService } from "../health/services/healthService";
 import { FindingStore } from "../health/store/findingStore";
 import { MemoryHealthStorage } from "../health/store/testSupport";
@@ -87,6 +93,12 @@ class MemoryDataAdapter {
 
   async exists(path: string): Promise<boolean> {
     return this.files.has(path) || this.directories.has(path);
+  }
+
+  async stat(path: string) {
+    const entry = this.files.get(path);
+    return this.directories.has(path) ? { type: "folder", size: 0, mtime: 0, ctime: 0 }
+      : entry ? { type: "file", size: entry.kind === "text" ? entry.value.length : entry.value.byteLength, mtime: 0, ctime: 0 } : null;
   }
 
   async read(path: string): Promise<string> {
@@ -1184,6 +1196,29 @@ describe("automatic semantic index synchronization", () => {
     }, harness.controller);
   }
 
+  it("MVP product subscribers observe legacy commands and automatic sync, and detach independently", async () => {
+    const harness = createHarness(); harness.registerAutomaticSync();
+    const setup = product(harness), first: string[] = [], second: string[] = [];
+    const stopFirst = setup.subscribe(() => { first.push(setup.getSnapshot().state); });
+    const stopSecond = setup.subscribe(() => { second.push(setup.getSnapshot().state); });
+    const stopThrowing = setup.subscribe(() => { throw new Error("detached render"); });
+    const gate = manualGate();
+    const exists = vi.spyOn(harness.adapter, "exists").mockImplementationOnce(async () => { gate.markEntered(); await gate.wait; return false; });
+    const check = harness.controller.refreshSemanticStatus(); await gate.entered; await flushMicrotasks();
+    expect(setup.getSnapshot().busy).toBe(true); // A cached read cannot hide metadata inspection before its runtime exists.
+    gate.release(); await check; exists.mockRestore(); first.length = 0; second.length = 0;
+    await harness.controller.indexVault(); // Advanced command, outside the product controller.
+    expect(first).toContain("busy"); expect(first.at(-1)).toBe("ready"); expect(second).toEqual(first);
+    stopFirst(); const before = [...first]; second.length = 0;
+    harness.modifyFile("Alpha.md", "# Alpha\n\nbeta automatic update"); await drainAutomaticSync();
+    expect(second).toContain("busy"); expect(second.at(-1)).toBe("ready"); expect(first).toEqual(before);
+    second.length = 0; harness.plugin.settings.semantic.enabled = false; harness.controller.notifySettingsChanged(); await flushMicrotasks();
+    expect(second.at(-1)).toBe("disabled");
+    stopSecond(); stopThrowing(); second.length = 0;
+    harness.plugin.settings.semantic.enabled = true; harness.controller.notifySettingsChanged({ reconcile: false }); await flushMicrotasks();
+    expect(second).toEqual([]); await harness.controller.dispose();
+  });
+
   it.each(["local", "cloud", "custom"] as const)("Simple %s Connect never enumerates or reads notes and never creates an index", async (mode) => {
     const harness = createHarness(semantic({ enabled: false })); harness.registerAutomaticSync(); harness.fireLayoutReady();
     const read = harness.plugin.app.vault.cachedRead; const enumerate = harness.plugin.app.vault.getMarkdownFiles;
@@ -1291,7 +1326,7 @@ describe("automatic semantic index synchronization", () => {
     );
   });
 
-  it("startup reconciliation of an unchanged index is a provider-free no-op", async () => {
+  it("MVP startup leaves an existing index untouched until explicit metadata inspection", async () => {
     const first = createHarness();
     await first.controller.indexVault();
     const generation = durableSnapshot(first.adapter).manifest.generation;
@@ -1303,6 +1338,14 @@ describe("automatic semantic index synchronization", () => {
     await drainAutomaticSync();
     expect(embeddingCalls).toEqual([]);
     expect(durableSnapshot(first.adapter).manifest.generation).toBe(generation);
+    expect(restarted.plugin.app.vault.cachedRead).not.toHaveBeenCalled();
+    expect(restarted.plugin.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(restarted.controller.getSemanticStatus().kind).toBe("not-initialized");
+    const setup = product(restarted), observed: string[] = [];
+    const unsubscribe = setup.subscribe(() => { observed.push(setup.getSnapshot().state); });
+    await restarted.controller.refreshSemanticStatus(); await flushMicrotasks();
+    expect(observed).toEqual(["busy", "ready"]); unsubscribe();
+    expect(restarted.plugin.app.vault.cachedRead).not.toHaveBeenCalled();
     expect(restarted.controller.getSemanticStatus()).toMatchObject({
       kind: "ready",
       vectorCount: 1,
@@ -1310,14 +1353,21 @@ describe("automatic semantic index synchronization", () => {
     });
   });
 
-  it("startup reconciliation catches changes made while the plugin was closed", async () => {
+  it("MVP startup defers offline changes until real Markdown activity", async () => {
     const first = createHarness();
     await first.controller.indexVault();
     embeddingCalls = [];
     const restarted = createHarness(semantic(), first.adapter);
     restarted.setContent("# Alpha\n\nbeta changed while closed");
+    const bytes = [...first.adapter.files];
     restarted.registerAutomaticSync();
     restarted.fireLayoutReady();
+    await drainAutomaticSync();
+    expect(embeddingCalls).toEqual([]);
+    expect(restarted.plugin.app.vault.cachedRead).not.toHaveBeenCalled();
+    expect(restarted.plugin.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect([...first.adapter.files]).toEqual(bytes);
+    restarted.createFile("Activity.md", "# Activity\n\nA real edit after startup");
     await drainAutomaticSync();
     expect(
       embeddingCalls.some((call) =>
@@ -1918,7 +1968,7 @@ describe("automatic semantic index synchronization", () => {
     expect(observed).toEqual([false, false]);
   });
 
-  it("quietly reconciles Companion on startup only when a usable index already exists", async () => {
+  it("MVP startup does not contact Companion even with an existing usable index", async () => {
     const first = createHarness();
     await first.controller.indexVault();
     const companion: CompanionSyncPort = {
@@ -1939,7 +1989,8 @@ describe("automatic semantic index synchronization", () => {
     await vi.advanceTimersByTimeAsync(20);
     await flushMicrotasks();
 
-    expect(companion.reconcile).toHaveBeenCalled();
+    expect(companion.reconcile).not.toHaveBeenCalled();
+    expect(restarted.plugin.app.vault.cachedRead).not.toHaveBeenCalled();
     expect(embeddingCalls).toEqual([]);
   });
 
@@ -1965,5 +2016,116 @@ describe("automatic semantic index synchronization", () => {
     expect(companion.reconcile).not.toHaveBeenCalled();
     expect(embeddingCalls).toEqual([]);
     expect(harness.registry.size).toBe(0);
+  });
+});
+
+
+describe("MVP integrated durable domains", () => {
+  const pluginRoot = ".obsidian/plugins/ai-knowledge-hub";
+  const cardsPath = `${pluginRoot}/recall/cards.json`;
+  const findingsPath = `${pluginRoot}/health/findings.json`;
+  const historyPath = `${pluginRoot}/health/scan-runs.json`;
+  const settingsPath = `${pluginRoot}/data.json`;
+  const note = "# Alpha\n\nA synthetic concept with enough text for Health and semantic analysis.\n\n## Flashcards\nQuestion::PRIVATE RECALL ANSWER";
+  function integrated(adapter = new MemoryDataAdapter()) {
+    const h = createHarness(semantic(), adapter);
+    h.setContent(note); h.createFile("Twin.md", note.replace("## Flashcards", "## Ordinary section"));
+    for (const file of h.plugin.app.vault.getMarkdownFiles()) Object.assign(file, { basename: file.path.slice(0, -3), stat: { mtime: 1, size: note.length } });
+    h.plugin.app.vault.getMarkdownFiles.mockClear();
+    Object.assign(h.plugin.app.vault, { read: h.plugin.app.vault.cachedRead });
+    Object.assign(h.plugin.app.metadataCache, { getFileCache: () => ({}), getFirstLinkpathDest: () => null });
+    const app = h.plugin.app as unknown as import("obsidian").App;
+    const prefs = preferencesFixture({ profileChosen: true, onboardingCompleted: true });
+    const recall = createObsidianRecallProduct(app, "ai-knowledge-hub", async () => true);
+    const health = new HealthPluginController(app, "ai-knowledge-hub", prefs.preferences,
+      new SemanticHealthAnalysisAdapter(h.controller), new RecallHealthAdapter(recall));
+    const read = vi.spyOn(adapter, "read").mockClear(), write = vi.spyOn(adapter, "write").mockClear();
+    const bytes = (prefix: string) => structuredClone([...adapter.files].filter(([path]) => path.startsWith(prefix)));
+    const passive = () => {
+      expect(h.plugin.app.vault.cachedRead).not.toHaveBeenCalled();
+      expect(h.plugin.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+      expect(write).not.toHaveBeenCalled(); expect(embeddingCalls).toEqual([]);
+    };
+    const dispose = async () => { health.dispose(); recall.dispose(); await h.controller.dispose(); };
+    return { ...h, health, recall, bytes, read, write, passive, dispose };
+  }
+
+  it("consolidates passive entry, explicit action IO, cross-domain bytes, lifecycle receipts and restart", async () => {
+    const f = integrated(); f.adapter.files.set(settingsPath, { kind: "text", value: '{"language":"ru","legacySetting":"preserved"}' });
+    f.registerAutomaticSync(); f.fireLayoutReady(); f.passive(); expect(f.read).not.toHaveBeenCalled();
+    await f.health.getHealthService(); f.health.initializeRecall(); await f.recall.initialize();
+    f.health.listFindings(); f.controller.getSemanticStatus(); f.recall.getSnapshot(); f.passive();
+    expect(f.recall.getSnapshot().firstRun).toBe(true);
+    const settings = f.bytes(settingsPath);
+    await f.health.runLocalScan(); expect(f.health.getState().outcome?.scan.status).toBe("completed");
+    expect(f.bytes(BASE_PATH)).toEqual([]); expect(f.bytes(cardsPath)).toEqual([]); expect(embeddingCalls).toEqual([]);
+    const localBytes = f.bytes(`${pluginRoot}/health/`);
+    await f.controller.indexVault(); expect(embeddingCalls.length).toBeGreaterThan(0);
+    expect(f.bytes(`${pluginRoot}/health/`)).toEqual(localBytes); expect(f.bytes(cardsPath)).toEqual([]);
+    const vectors = f.bytes(BASE_PATH); embeddingCalls = []; f.plugin.app.vault.cachedRead.mockClear();
+    await f.health.runSemanticScan(); expect(f.health.getState().semanticOutcome?.scan.status).toBe("completed");
+    expect(f.plugin.app.vault.cachedRead).not.toHaveBeenCalled(); expect(embeddingCalls).toEqual([]);
+    expect(f.bytes(BASE_PATH)).toEqual(vectors); expect(f.bytes(cardsPath)).toEqual([]);
+    const local = f.health.listFindings().find(finding => finding.source === "local")!;
+    const semanticFinding = f.health.listFindings().find(finding => finding.source === "semantic")!;
+    expect(local).toBeDefined(); expect(semanticFinding).toBeDefined();
+    const history = f.bytes(historyPath);
+    await f.health.dismissFinding(local.id); await f.health.snoozeFinding(semanticFinding.id, Date.now() + 86_400_000);
+    expect(f.bytes(historyPath)).toEqual(history);
+    const healthBytes = f.bytes(`${pluginRoot}/health/`), before = f.health.getState().snapshot!;
+    await f.recall.refreshCards(); expect(f.recall.getSnapshot().summary?.active).toBe(1);
+    expect(f.bytes(`${pluginRoot}/health/`)).toEqual(healthBytes); expect(f.bytes(BASE_PATH)).toEqual(vectors);
+    f.plugin.app.vault.cachedRead.mockClear(); f.plugin.app.vault.getMarkdownFiles.mockClear(); f.write.mockClear();
+    f.recall.startSession(); expect(JSON.stringify(f.recall.getSnapshot())).not.toContain("PRIVATE RECALL ANSWER");
+    expect(JSON.stringify(f.health.getState())).not.toContain("PRIVATE RECALL ANSWER");
+    f.recall.revealAnswer(); await f.recall.rate("again"); f.recall.endSession();
+    expect(f.write.mock.calls.map(([path]) => path)).toEqual([cardsPath]);
+    expect(f.plugin.app.vault.cachedRead).not.toHaveBeenCalled(); expect(embeddingCalls).toEqual([]);
+    expect(f.health.getState().snapshot?.dimensions.recall.state).toBe("good");
+    expect(f.health.getState().snapshot?.recommendation).toEqual(before.recommendation);
+    expect(f.bytes(`${pluginRoot}/health/`)).toEqual(healthBytes); expect(f.bytes(BASE_PATH)).toEqual(vectors); expect(f.bytes(settingsPath)).toEqual(settings);
+    const snapshot = f.health.getState().snapshot!, cards = f.recall.getSnapshot().summary, allBytes = f.bytes(pluginRoot);
+    await f.dispose(); const next = integrated(f.adapter);
+    next.registerAutomaticSync(); next.fireLayoutReady(); await next.health.getHealthService(); next.health.initializeRecall(); await next.recall.initialize();
+    await next.controller.refreshSemanticStatus(); // Existing explicit Check; metadata only.
+    expect(next.controller.getSemanticStatus().kind).toBe("ready");
+    expect(next.health.getState().snapshot?.dimensions).toEqual(snapshot.dimensions);
+    expect(next.health.listFindings().find(finding => finding.id === local.id)?.state).toBe("dismissed");
+    expect(next.health.listFindings().find(finding => finding.id === semanticFinding.id)?.state).toBe("snoozed");
+    expect(next.recall.getSnapshot().summary).toEqual(cards); expect(next.recall.getSnapshot().summary?.learning).toBe(1);
+    expect(next.recall.getSnapshot().nextDueAt).toBeGreaterThan(Date.now()); next.passive(); expect(next.bytes(pluginRoot)).toEqual(allBytes);
+    await next.dispose();
+  });
+
+  it.each(["findings", "history"] as const)("isolates simultaneous damaged Health %s and Recall, leaving semantic/settings bytes intact", async (damage) => {
+    const f = integrated(); await f.controller.indexVault(); embeddingCalls = [];
+    await f.adapter.write(settingsPath, '{"language":"ru"}');
+    await f.adapter.write(findingsPath, damage === "findings" ? "{broken health" : '{"version":1,"updatedAt":0,"findings":{}}');
+    await f.adapter.write(historyPath, damage === "history" ? "{broken history" : '{"version":1,"updatedAt":0,"runs":[]}');
+    await f.adapter.write(cardsPath, "{broken recall");
+    const vectors = f.bytes(BASE_PATH), settings = f.bytes(settingsPath), recallBytes = f.bytes(cardsPath);
+    await f.health.getHealthService(); f.health.initializeRecall(); expect(f.recall.getSnapshot().loadState).toBe("uninitialized");
+    expect(await f.health.recover(damage === "findings" ? "all" : "history")).toBe(true);
+    expect(f.bytes(cardsPath)).toEqual(recallBytes); expect(f.bytes(BASE_PATH)).toEqual(vectors); expect(f.bytes(settingsPath)).toEqual(settings);
+    f.health.initializeRecall(); await f.recall.initialize(); expect(f.recall.getSnapshot().loadState).toBe("invalid");
+    await f.health.runLocalScan(); expect(f.health.getState().outcome?.scan.status).toBe("completed");
+    const healthBytes = f.bytes(`${pluginRoot}/health/`); f.recall.requestRecovery(); await f.recall.recoverStorage();
+    expect(f.recall.getSnapshot()).toMatchObject({ loadState: "ready", firstRun: true });
+    expect(f.bytes(`${pluginRoot}/health/`)).toEqual(healthBytes); expect(f.bytes(BASE_PATH)).toEqual(vectors); expect(f.bytes(settingsPath)).toEqual(settings);
+    expect(embeddingCalls).toEqual([]); await f.dispose();
+  });
+
+  it("reads supported Health v1 plus Recall v1 alongside an existing semantic index without migration writes", async () => {
+    const first = integrated(); await first.controller.indexVault(); await first.dispose(); embeddingCalls = [];
+    const card = recallCandidate();
+    await first.adapter.write(findingsPath, '{"version":1,"updatedAt":0,"findings":{}}');
+    await first.adapter.write(historyPath, '{"version":1,"updatedAt":0,"runs":[]}');
+    await first.adapter.write(cardsPath, JSON.stringify({ version: 1, updatedAt: 100, cards: { [card.id]: { ...card, state: "active", firstSeenAt: 10, lastSeenAt: 100 } } }));
+    const f = integrated(first.adapter), before = f.bytes(pluginRoot);
+    await f.health.getHealthService(); f.health.initializeRecall(); await f.recall.initialize(); await f.controller.refreshSemanticStatus();
+    expect(f.health.getState().snapshot?.initialization).toMatchObject({ findingsWritable: true, historyWritable: true });
+    expect(f.health.getState().snapshot?.dimensions.recall.state).toBe("review-recommended");
+    expect(f.recall.getSnapshot().summary?.new).toBe(1); expect(f.controller.getSemanticStatus().kind).toBe("ready");
+    f.passive(); expect(f.bytes(pluginRoot)).toEqual(before); await f.dispose();
   });
 });

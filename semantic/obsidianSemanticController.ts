@@ -276,7 +276,29 @@ export class ObsidianSemanticController {
   private autoSyncFailureNoticed = false;
   private autoSyncPolicy: AutomaticSyncPolicy;
   private disposePromise: Promise<void> | null = null;
-  private status: SemanticStatus;
+  private cachedStatus!: SemanticStatus;
+  private readonly statusListeners = new Set<() => void>();
+  private statusNotificationPending = false;
+
+  private get status(): SemanticStatus { return this.cachedStatus; }
+  private set status(next: SemanticStatus) {
+    const previous = this.cachedStatus;
+    this.cachedStatus = next;
+    if (JSON.stringify(previous) === JSON.stringify(next) || this.statusNotificationPending || !this.statusListeners.size) return;
+    // Coalesce synchronous status transitions. Cached reads during rendering must not recurse into rendering.
+    this.statusNotificationPending = true;
+    queueMicrotask(() => {
+      this.statusNotificationPending = false;
+      for (const listener of [...this.statusListeners]) {
+        try { listener(); } catch { /* Views cannot fail an index commit or settings update. */ }
+      }
+    });
+  }
+
+  subscribeStatus(listener: () => void): () => void {
+    this.statusListeners.add(listener);
+    return () => { this.statusListeners.delete(listener); };
+  }
 
   constructor(
     private readonly plugin: SemanticPluginHost,
@@ -413,17 +435,12 @@ export class ObsidianSemanticController {
     this.autoSync.reconfigure({
       paused: this.autoSyncPolicy !== "active",
       preservePending: true,
+      deferUntilActivity: true,
     });
+    // Remember offline changes without reading notes or contacting providers at startup.
+    // The next real Markdown event (or explicit index action) owns that work.
     this.plugin.app.workspace.onLayoutReady(() => {
-      if (
-        this.autoSyncPolicy === "active" &&
-        this.plugin.settings.semantic.enabled
-      ) {
-        this.autoSync.reconcile();
-      }
-      if (this.plugin.settings.companion.enabled) {
-        void this.reconcileCompanionQuietly();
-      }
+      if (this.autoSyncPolicy === "active") this.autoSync.reconcile();
     });
   }
 
@@ -432,6 +449,7 @@ export class ObsidianSemanticController {
     if (this.autoSyncPolicy !== "disposed") {
       this.autoSyncPolicy = "disposed";
       this.autoSync.dispose();
+      this.statusListeners.clear();
       this.runtimeSlot = null;
     }
     this.disposePromise = Promise.all([
@@ -1236,15 +1254,6 @@ export class ObsidianSemanticController {
     });
   }
 
-  private async reconcileCompanionQuietly(): Promise<void> {
-    try {
-      const snapshot = await this.captureCompanionSnapshot();
-      if (snapshot) this.queueCompanionReconciliation(snapshot);
-    } catch {
-      // Startup reconciliation is best effort and never initializes an absent index.
-    }
-  }
-
   private companionErrorMessage(error: unknown): string {
     if (error instanceof CompanionClientError) {
       if (error.code === "AUTH_REQUIRED") return tr("Companion rejected the Bearer token.");
@@ -1342,7 +1351,7 @@ export class ObsidianSemanticController {
         epoch,
       };
       this.runtimeRevision++;
-      this.status = this.defaultStatus("not-initialized", snapshot);
+      if (this.status.kind !== "initializing") this.status = this.defaultStatus("not-initialized", snapshot);
     }
     return runtime;
   }
@@ -1440,7 +1449,7 @@ export class ObsidianSemanticController {
     }
     if (
       !this.operationBusy &&
-      (this.status.kind === "error" || this.status.kind === "incompatible")
+      (this.status.kind === "error" || this.status.kind === "incompatible" || this.status.kind === "initializing")
     ) {
       return;
     }
@@ -1450,7 +1459,7 @@ export class ObsidianSemanticController {
       this.runtimeSlot.signature !== currentSignature ||
       this.runtimeSlot.epoch !== this.settingsEpoch
     ) {
-      this.status = this.defaultStatus("not-initialized");
+      this.status = this.defaultStatus(this.operationBusy ? "indexing" : "not-initialized");
       return;
     }
     const stats = this.runtimeSlot.runtime.getStats();

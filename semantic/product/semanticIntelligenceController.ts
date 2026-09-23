@@ -9,6 +9,7 @@ import type { SemanticSettingsPort } from "./semanticSettingsPort";
 /** Structural subset keeps product tests independent of the Obsidian plugin host. */
 interface SemanticEngine {
   getSemanticStatus(): SemanticStatus;
+  subscribeStatus?(listener: () => void): () => void;
   refreshSemanticStatus(): Promise<SemanticStatus>;
   indexVault(): Promise<void>;
   rebuildIndex(): Promise<void>;
@@ -94,7 +95,8 @@ export class SemanticIntelligenceController implements SemanticIntelligencePort 
 
   subscribe(listener: () => void): () => void {
     this.listeners.add(listener);
-    return () => { this.listeners.delete(listener); };
+    const unsubscribe = this.engine.subscribeStatus?.(listener);
+    return () => { this.listeners.delete(listener); unsubscribe?.(); };
   }
 
   private async run<T>(operation: SemanticOperation, action: () => Promise<T>): Promise<T | undefined> {

@@ -1,5 +1,8 @@
 # Veynrel Health foundation
 
+The [integrated MVP audit](mvp-hardening.md) consolidates current ownership, passive
+IO, migration/recovery contracts, native evidence and remaining limitations.
+
 The dormant local snapshot, analyzer and coordinator layer added in PR 2 is
 documented in [Local Health analysis](local-health-analysis.md). PR 3 connects them
 through the [Health application layer](health-application-layer.md), including
