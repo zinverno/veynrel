@@ -105,8 +105,10 @@ Resolution from Open announces “Finding was resolved by the latest scan.” Co
 recommendation and Home update through existing service notifications. The UI
 never derives Good from an empty Inbox: HealthAggregator remains authoritative.
 In particular, dismissing the last Finding after partial analysis leaves Health
-Not fully analyzed. Existing conservative durable scan-receipt semantics after
-restart remain unchanged.
+Not fully analyzed. With [scope reconciliation receipts](health-reconciliation-receipts.md),
+Dismiss/Snooze/Reopen preserve completed analysis coverage across restart. Health
+can remain Good when all open review/attention Findings have been dismissed; a
+partial scan still cannot prove healthy absence.
 
 ## Layout, accessibility and boundaries
 

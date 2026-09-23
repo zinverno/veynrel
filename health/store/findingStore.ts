@@ -1,10 +1,13 @@
 import type { Finding, FindingCandidate } from "../domain/finding";
-import { cloneCandidate, isFindingCandidate } from "../domain/findingValidation";
+import { cloneCandidate, isFindingCandidate, isFindingSource } from "../domain/findingValidation";
 import { canonicalFindingPaths, findingIdFromFingerprint, isFindingId } from "../domain/identity";
 import type { ScanRun } from "../domain/scanRun";
 import { cloneScanRun, isScanRun } from "../domain/scanRunValidation";
-import { compareStrings, isArrayOf, isIdentifier, isOneOf, isTimestamp } from "../domain/validation";
-import { compareScanRuns, decodeHealth, isFindingsSnapshot, isScanRunsSnapshot, serializeHealth } from "./codec";
+import { reconciliationOwnerKey } from "../domain/reconciliation";
+import type { ReconciliationOwnerKey, ReconciliationReceipts } from "../domain/reconciliation";
+import { compareStrings, isArrayOf, isIdentifier, isTimestamp } from "../domain/validation";
+import { compareScanRuns, decodeHealth, isFindingsSnapshot, isSupportedFindingsSnapshot, isSupportedScanRunsSnapshot, serializeHealth } from "./codec";
+import { migrateHealthReceipts } from "./migration";
 import { HEALTH_SCHEMA_VERSION, MAX_SCAN_HISTORY } from "./types";
 import type { FindingFilter, HealthFile, HealthLoadResult, HealthLoadStatus, HealthStoragePort, ReconcileRequest, ReconcileResult, BatchReconcileResult, ReconcileBatchOptions } from "./types";
 
@@ -17,6 +20,7 @@ export class FindingStore {
   private findings: Record<string, Finding> = {};
   private runs: ScanRun[] = [];
   private findingsUpdatedAt?: number;
+  private reconciliationReceipts: ReconciliationReceipts = {};
   private loadResult?: HealthLoadResult;
   private tail: Promise<void> = Promise.resolve();
 
@@ -25,11 +29,13 @@ export class FindingStore {
   load(): Promise<HealthLoadResult> {
     return this.enqueue(async () => {
       if (this.loadResult) return { ...this.loadResult };
-      const findings = await this.read("findings.json", isFindingsSnapshot);
-      const scans = await this.read("scan-runs.json", isScanRunsSnapshot);
+      const findings = await this.read("findings.json", isSupportedFindingsSnapshot);
+      const scans = await this.read("scan-runs.json", isSupportedScanRunsSnapshot);
+      const migrated = migrateHealthReceipts(findings.data, scans.data);
       this.findings = findings.data?.findings ?? {};
       this.findingsUpdatedAt = findings.data?.updatedAt;
-      this.runs = scans.data?.runs.sort(compareScanRuns) ?? [];
+      this.reconciliationReceipts = migrated.reconciliationReceipts;
+      this.runs = migrated.runs.sort(compareScanRuns);
       this.loadResult = { findings: findings.status, scanRuns: scans.status };
       return { ...this.loadResult };
     });
@@ -59,10 +65,10 @@ export class FindingStore {
   async reconcileBatch(requests: readonly ReconcileRequest[], options: ReconcileBatchOptions = {}): Promise<BatchReconcileResult> {
     if (!Array.isArray(requests)) throw new Error("Invalid reconciliation batch");
     const prepared = Array.from(requests, (request: ReconcileRequest) => this.prepareReconciliation(request));
-    const owners = new Set<string>();
+    const owners = new Set<ReconciliationOwnerKey>();
     for (const request of prepared) {
       for (const analyzerId of request.scope.analyzerIds) {
-        const owner = `${request.scope.source}:${analyzerId}`;
+        const owner = reconciliationOwnerKey(request.scope.source, analyzerId);
         if (owners.has(owner)) throw new Error("Conflicting reconciliation scopes");
         owners.add(owner);
       }
@@ -72,7 +78,7 @@ export class FindingStore {
     const beforeCommit = options.beforeCommit;
     return this.enqueue(async () => {
       this.requireWritable("findings");
-      const result: BatchReconcileResult = { created: 0, updated: 0, resolved: 0 };
+      const result: BatchReconcileResult = { created: 0, updated: 0, resolved: 0, reconciliationReceipts: {} };
       if (!prepared.length) return result;
       const next = { ...this.findings };
       const now = this.now();
@@ -83,7 +89,8 @@ export class FindingStore {
         result.resolved += counts.resolved;
       }
       await beforeCommit?.();
-      result.updatedAt = await this.saveFindings(next, prepared.reduce((latest, request) => Math.max(latest, request.seenAt), 0));
+      result.updatedAt = await this.saveFindings(next, prepared.reduce((latest, request) => Math.max(latest, request.seenAt), 0), owners);
+      result.reconciliationReceipts = Object.fromEntries([...owners].map((owner) => [owner, this.reconciliationReceipts[owner]]));
       return result;
     });
   }
@@ -93,8 +100,13 @@ export class FindingStore {
     return this.findingsUpdatedAt;
   }
 
+  getReconciliationReceipts(): ReconciliationReceipts {
+    this.requireLoaded();
+    return { ...this.reconciliationReceipts };
+  }
+
   private prepareReconciliation(request: ReconcileRequest): ReconcileRequest & { seenAt: number } {
-    if (!request || !request.scope || !isOneOf(request.scope.source, ["local", "semantic", "deep-ai", "recall"]) ||
+    if (!request || !request.scope || !isFindingSource(request.scope.source) ||
         !isArrayOf(request.scope.analyzerIds, isIdentifier) || request.scope.analyzerIds.length === 0 ||
         typeof request.complete !== "boolean" || !isArrayOf(request.candidates, isFindingCandidate)) {
       throw new Error("Invalid reconciliation request");
@@ -175,6 +187,8 @@ export class FindingStore {
       const previous = this.runs.find((item) => item.id === copy.id);
       if (previous && (previous.startedAt !== copy.startedAt || previous.type !== copy.type ||
           (previous.status !== "running" && copy.status !== previous.status) ||
+          (previous.status !== "running" && (Object.keys(previous.reconciliationReceipts).length !== Object.keys(copy.reconciliationReceipts).length ||
+            Object.entries(previous.reconciliationReceipts).some(([owner, receipt]) => copy.reconciliationReceipts[owner] !== receipt))) ||
           copy.notesSeen < previous.notesSeen || copy.findingsCreated < previous.findingsCreated ||
           copy.findingsUpdated < previous.findingsUpdated || copy.findingsResolved < previous.findingsResolved)) {
         throw new Error("Scan identity or progress cannot move backward");
@@ -200,14 +214,17 @@ export class FindingStore {
     });
   }
 
-  private async saveFindings(findings: Record<string, Finding>, observedAt = 0): Promise<number> {
-    // Strictly advancing receipts distinguish a newer findings commit from older scan history.
+  private async saveFindings(findings: Record<string, Finding>, observedAt = 0, owners: ReadonlySet<ReconciliationOwnerKey> = new Set()): Promise<number> {
+    // The global marker advances even for lifecycle-only writes and backward clocks.
     const updatedAt = Math.max(this.now(), observedAt, (this.findingsUpdatedAt ?? -1) + 1);
-    const snapshot = { version: HEALTH_SCHEMA_VERSION, updatedAt, findings };
+    const reconciliationReceipts = { ...this.reconciliationReceipts };
+    for (const owner of owners) reconciliationReceipts[owner] = updatedAt;
+    const snapshot = { version: HEALTH_SCHEMA_VERSION, updatedAt, reconciliationReceipts, findings };
     if (!isFindingsSnapshot(snapshot)) throw new Error("Invalid findings snapshot");
     await this.storage.write("findings.json", serializeHealth(snapshot));
     this.findings = findings;
     this.findingsUpdatedAt = updatedAt;
+    this.reconciliationReceipts = reconciliationReceipts;
     return updatedAt;
   }
 

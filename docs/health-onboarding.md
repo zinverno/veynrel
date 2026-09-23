@@ -59,8 +59,8 @@ and recommendations are not persisted:
 
 A usable result requires `lastLocalScanReconciled` and a completed/partial scan.
 If an in-session outcome exists it must match the scan, be fresh and committed.
-That flag uses the service's existing reconciliation/receipt semantics, including
-matching durable timestamps after restart; the scan algorithm is unchanged.
+That flag uses the service's [scope reconciliation receipts](health-reconciliation-receipts.md),
+including after restart; the scan algorithm is unchanged.
 
 * Complete Structure and Connections, both `good`, with no open review/attention
   Findings: **Baseline check complete** and the narrow structural-attention claim.

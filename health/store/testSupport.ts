@@ -21,5 +21,5 @@ export function candidate(overrides: Partial<FindingCandidate> = {}): FindingCan
 
 export function scanRun(overrides: Partial<ScanRun> = {}): ScanRun {
   return { id: "scan-1", type: "local", startedAt: 100, completedAt: 200, notesSeen: 2,
-    findingsCreated: 1, findingsUpdated: 0, findingsResolved: 0, analyzerVersions: { "broken-links": "1" }, status: "completed", ...overrides };
+    findingsCreated: 1, findingsUpdated: 0, findingsResolved: 0, analyzerVersions: { "broken-links": "1" }, reconciliationReceipts: {}, status: "completed", ...overrides };
 }
