@@ -37,6 +37,8 @@ describe("Health production dependency boundary", () => {
     expect(visited.has(resolve("health/ui/VeynrelHealthView.ts"))).toBe(true);
     expect(visited.has(resolve("health/ui/renderFindingsInbox.ts"))).toBe(true);
     expect(visited.has(resolve("health/ui/findingsInboxViewModel.ts"))).toBe(true);
+    expect(visited.has(resolve("health/ui/renderDiscover.ts"))).toBe(true);
+    expect(visited.has(resolve("health/ui/discoverViewModel.ts"))).toBe(true);
   });
   it("keeps both legacy batch/control command IDs and adds one Health registration", () => {
     const source = readFileSync("main.ts", "utf8");
@@ -44,12 +46,13 @@ describe("Health production dependency boundary", () => {
     expect(source).toContain('id: "ai-batch-process"');
     expect(source.match(/registerHealth\(this,/gu)).toHaveLength(1);
   });
-  it("keeps Inbox rendering away from storage, scans and arbitrary persisted action execution", () => {
+  it("keeps Inbox and Discover rendering away from storage, scans and arbitrary persisted action execution", () => {
     for (const file of productionFiles("health/ui")) {
       const source = readFileSync(file, "utf8");
       expect(source, file).not.toMatch(/\b(?:FindingStore|HealthService|new HealthPluginController)\b/u);
       expect(source, file).not.toMatch(/\b(?:finding|selected|detail)\.actions\b|\baction\.kind\b/u);
-      expect(source, file).not.toMatch(/\bvault\.(?:read|getMarkdownFiles)\s*\(/u);
+      expect(source, file).not.toMatch(/\bvault\.(?:read|cachedRead|getMarkdownFiles)\s*\(/u);
+      expect(source, file).not.toMatch(/\b(?:SemanticRuntime|VectorStore|SemanticDiscoveryService|ObsidianSemanticController)\b/u);
     }
     const controller = readFileSync("health/obsidian/healthPluginController.ts", "utf8");
     expect(controller.match(/new HealthService\(/gu)).toHaveLength(1);

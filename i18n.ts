@@ -54,6 +54,16 @@ export function t(key: string, vars?: Record<string, string | number>): string {
 }
 
 const RU: Record<string, string> = {
+  "@discover.title": "Открытия",
+  "@discover.introduction": "Находите знания по смыслу, даже если заметки не связаны ссылками.",
+  "@discover.required": "Нужны семантические возможности",
+  "@discover.disabled": "Включите семантические возможности, чтобы искать заметки и связи по смыслу. Локальная проверка состояния хранилища работает и без них.",
+  "@discover.search": "Поиск по смыслу",
+  "@discover.search-description": "Ищите в хранилище по понятиям и смыслу.",
+  "@discover.related": "Связанные заметки",
+  "@discover.related-description": "Найдите заметки, связанные по смыслу с текущей заметкой.",
+  "@discover.duplicates": "Возможные дубликаты",
+  "@discover.duplicates-description": "Просмотрите заметки с необычно близким смыслом.",
   "@semantic.title": "Семантические возможности",
   "@semantic.choose": "Как Veynrel должен понимать смысл ваших заметок?",
   "@semantic.mode.local": "Локально и приватно",
@@ -288,6 +298,16 @@ const RU: Record<string, string> = {
 };
 
 const EN: Record<string, string> = {
+  "@discover.title": "Discover",
+  "@discover.introduction": "Find knowledge by meaning, not only by explicit links.",
+  "@discover.required": "Semantic Intelligence required",
+  "@discover.disabled": "Veynrel can search and connect notes by meaning after Semantic Intelligence is enabled. Local Health continues to work without it.",
+  "@discover.search": "Search by meaning",
+  "@discover.search-description": "Search your vault using concepts and meaning.",
+  "@discover.related": "Related notes",
+  "@discover.related-description": "Find notes related to the note you are currently viewing.",
+  "@discover.duplicates": "Potential duplicates",
+  "@discover.duplicates-description": "Review notes whose meaning is unusually similar.",
   "@semantic.title": "Semantic Intelligence",
   "@semantic.choose": "How should Veynrel understand your notes?",
   "@semantic.mode.local": "Local & private",

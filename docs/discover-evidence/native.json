@@ -1,0 +1,339 @@
+{
+  "date": "2026-09-23",
+  "baseline": "f565e494e200b66225886a00dc6a5d6a9c800585",
+  "environment": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "platform": "Linux desktop",
+    "personalCredentials": false,
+    "vault": "disposable /tmp/discover-smoke/vault"
+  },
+  "instrumentation": "Existing requestUrl transport proxy, fetch, Vault read/cachedRead/getMarkdownFiles, Health runLocalScan, saveData, Findings write and semantic controller method counters. Native successful indexing uses synthetic vectors at the existing requestUrl boundary, with real UI/controller/runtime/store.",
+  "artifacts": {
+    "main.js": {
+      "sha256": "43ca97b211a6c0f7529b79a9fb95a212456d7d7cef6c7007148a0b84ceb8491a",
+      "installedMatches": true
+    },
+    "styles.css": {
+      "sha256": "a30dc5a8a5f84fef28d3aedf0bd1a9925b5c12cacdf1a95857de26e1940c79f1",
+      "installedMatches": true
+    },
+    "manifest.json": {
+      "sha256": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39",
+      "installedMatches": true
+    }
+  },
+  "navigation": [
+    "Health",
+    "Findings",
+    "Discover"
+  ],
+  "disabledOpen": {
+    "requestUrl": 0,
+    "fetch": 0,
+    "refreshSemanticStatus": 0,
+    "indexVault": 0,
+    "rebuildIndex": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "getMarkdownFiles": 0,
+    "runLocalScan": 0,
+    "saveData": 0,
+    "findingWrite": 0
+  },
+  "configuredOpen": {
+    "requestUrl": 0,
+    "fetch": 0,
+    "refreshSemanticStatus": 0,
+    "indexVault": 0,
+    "rebuildIndex": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "getMarkdownFiles": 0,
+    "runLocalScan": 0,
+    "saveData": 0,
+    "findingWrite": 0
+  },
+  "readyOpen": {
+    "requestUrl": 0,
+    "fetch": 0,
+    "refreshSemanticStatus": 0,
+    "indexVault": 0,
+    "rebuildIndex": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "getMarkdownFiles": 0,
+    "runLocalScan": 0,
+    "saveData": 0,
+    "findingWrite": 0
+  },
+  "setupReuse": {
+    "discarded": true,
+    "counts": {},
+    "leaves": 1
+  },
+  "explicitLocalScan": {
+    "runLocalScan": 1,
+    "getMarkdownFiles": 2,
+    "read": 3,
+    "findingWrite": 1
+  },
+  "explicitBuild": {
+    "counts": {
+      "indexVault": 1,
+      "getMarkdownFiles": 2,
+      "requestUrl": 2,
+      "cachedRead": 3
+    },
+    "existingConfirmation": "Update the Vault semantic index\n\nMarkdown files: 3\n\nChunk content will be sent to OpenAI-compatible.\n\nThis operation may take some time.\n\nThe index is stored locally inside the plugin directory.\n\nCancel\nUpdate index"
+  },
+  "keyboard": [
+    {
+      "id": "discover-search",
+      "outline": "2px",
+      "modal": "Semantic search"
+    },
+    {
+      "id": "discover-related",
+      "outline": "2px",
+      "modal": "Similar notes"
+    },
+    {
+      "id": "discover-duplicates",
+      "outline": "2px",
+      "modal": "Highly similar notes"
+    }
+  ],
+  "relatedActiveMarkdown": "A.md",
+  "relatedDelegation": {
+    "openSimilarNotes": 1
+  },
+  "duplicatesModal": "Highly similar notes",
+  "usageFindingsBytesUnchanged": true,
+  "usageFindingWrites": 0,
+  "findingsRestoredAfterRecoveryCheck": true,
+  "markdownBytesUnchanged": {
+    "A.md": true,
+    "B.md": true,
+    "Orphan.md": true
+  },
+  "snapshotStateFixtures": {
+    "source": "Temporary cached product snapshot overrides for presentation only; original method restored. These states do not claim provider faults or index corruption. Earlier direct engine-status overrides that returned Ready from runtime were discarded.",
+    "states": [
+      {
+        "state": "disabled",
+        "indexRequired": false,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": [
+          "discover-enable"
+        ]
+      },
+      {
+        "state": "configured",
+        "indexRequired": false,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": [
+          "discover-check",
+          "discover-build",
+          "discover-change"
+        ]
+      },
+      {
+        "state": "configured",
+        "indexRequired": true,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": [
+          "discover-build",
+          "discover-change"
+        ]
+      },
+      {
+        "state": "ready",
+        "indexRequired": false,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": [
+          "discover-search",
+          "discover-related",
+          "discover-duplicates"
+        ]
+      },
+      {
+        "state": "incompatible",
+        "indexRequired": false,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": [
+          "discover-rebuild",
+          "discover-change"
+        ]
+      },
+      {
+        "state": "error",
+        "indexRequired": false,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": [
+          "discover-check",
+          "discover-change"
+        ]
+      },
+      {
+        "state": "busy",
+        "indexRequired": false,
+        "counts": {
+          "requestUrl": 0,
+          "fetch": 0,
+          "refreshSemanticStatus": 0,
+          "indexVault": 0,
+          "rebuildIndex": 0,
+          "read": 0,
+          "cachedRead": 0,
+          "getMarkdownFiles": 0,
+          "runLocalScan": 0,
+          "saveData": 0,
+          "findingWrite": 0
+        },
+        "actions": []
+      }
+    ]
+  },
+  "rebuildConfirmationCancelled": "Rebuild the semantic index\n\nThe existing semantic index will be explicitly removed.\n\nAfter clearing, 3 Markdown files will be processed again.\n\nChunk content will be sent to the selected embedding provider.\n\nThis cannot be undone for the current local semantic index.\nCancel\nRebuild index",
+  "layouts": [
+    {
+      "viewport": 320,
+      "width": 264,
+      "scrollWidth": 264,
+      "columns": "216px"
+    },
+    {
+      "viewport": 390,
+      "width": 334,
+      "scrollWidth": 334,
+      "columns": "286px"
+    },
+    {
+      "viewport": 768,
+      "width": 724,
+      "scrollWidth": 724,
+      "columns": "320px 320px"
+    },
+    {
+      "viewport": 1024,
+      "width": 980,
+      "scrollWidth": 980,
+      "columns": "269.328px 269.328px 269.344px"
+    },
+    {
+      "viewport": 1440,
+      "width": 1396,
+      "scrollWidth": 1396,
+      "columns": "269.328px 269.328px 269.344px"
+    }
+  ],
+  "russianLight390": {
+    "width": 334,
+    "scrollWidth": 334
+  },
+  "profile390": {
+    "width": 334,
+    "scrollWidth": 334
+  },
+  "findings390": {
+    "width": 334,
+    "scrollWidth": 334
+  },
+  "onboardingNarrowSplit": {
+    "layout": {
+      "width": 161,
+      "scrollWidth": 161,
+      "columns": "none"
+    },
+    "discoverNav": false
+  },
+  "recoveryNarrowSplit": {
+    "layout": {
+      "width": 161,
+      "scrollWidth": 161,
+      "columns": "none"
+    },
+    "discoverNav": false
+  },
+  "runtimeErrors": [],
+  "limitations": [
+    "No live provider success or real credentials.",
+    "Empty/busy/error/incompatible native presentation includes explicit cached-state fixtures.",
+    "Desktop narrow layout is not native Android/iOS coverage.",
+    "No screen-reader or popout audit."
+  ],
+  "pass": true
+}

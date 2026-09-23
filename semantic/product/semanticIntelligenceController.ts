@@ -13,6 +13,8 @@ interface SemanticEngine {
   indexVault(): Promise<void>;
   rebuildIndex(): Promise<void>;
   openSearch(): void;
+  openSimilarNotes(): void;
+  openPotentialDuplicates(): void;
 }
 
 const PROVIDERS: Record<SemanticSetupMode, EmbeddingProviderId> = {
@@ -87,6 +89,8 @@ export class SemanticIntelligenceController implements SemanticIntelligencePort 
     await this.run("rebuild", () => this.engine.rebuildIndex());
   }
   openSearch(): void { if (this.getSnapshot().state === "ready") this.engine.openSearch(); }
+  openSimilarNotes(): void { if (this.getSnapshot().state === "ready") this.engine.openSimilarNotes(); }
+  openPotentialDuplicates(): void { if (this.getSnapshot().state === "ready") this.engine.openPotentialDuplicates(); }
 
   subscribe(listener: () => void): () => void {
     this.listeners.add(listener);

@@ -17,7 +17,7 @@ function fixture(initial: Partial<EmbeddingSettings> = {}) {
   }) };
   const engine = { getSemanticStatus: vi.fn(() => ({ ...status })),
     refreshSemanticStatus: vi.fn(async () => ({ ...status })), indexVault: vi.fn(async () => undefined),
-    rebuildIndex: vi.fn(async () => undefined), openSearch: vi.fn() };
+    rebuildIndex: vi.fn(async () => undefined), openSearch: vi.fn(), openSimilarNotes: vi.fn(), openPotentialDuplicates: vi.fn() };
   const controller = new SemanticIntelligenceController(settings, engine);
   return { controller, engine, settings, setStatus: (next: Partial<SemanticStatus>) => { status = { ...status, ...next }; } };
 }
@@ -142,5 +142,18 @@ describe("Semantic Intelligence product adapter", () => {
     f.controller.openSearch(); expect(f.engine.openSearch).not.toHaveBeenCalled();
     f.setStatus({ kind: "ready", vectorCount: 10 }); f.controller.openSearch();
     expect(f.engine.openSearch).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["openSearch", "openSimilarNotes", "openPotentialDuplicates"] as const)("Discover %s delegates once only for a usable cached index", (action) => {
+    const f = fixture({ enabled: true });
+    for (const kind of ["not-initialized", "initializing", "indexing", "incompatible", "error", "ready"] as const) {
+      f.setStatus({ kind, vectorCount: 0 }); f.controller[action]();
+    }
+    expect(f.engine[action]).not.toHaveBeenCalled();
+    f.setStatus({ kind: "ready", vectorCount: 7 }); f.controller[action]();
+    expect(f.engine[action]).toHaveBeenCalledExactlyOnceWith();
+    expect(request).not.toHaveBeenCalled(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
+    expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
+    expect(f.settings.update.mock.calls.length).toBe(0);
   });
 });
