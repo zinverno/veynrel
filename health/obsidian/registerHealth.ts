@@ -12,12 +12,16 @@ import type { DeepHealthAnalysisPort } from "../deepHealthAnalysisPort";
 import { createObsidianRecallProduct } from "../../recall/product/obsidianRecallProduct";
 import { RecallHealthAdapter } from "../../recall/product/recallHealthAdapter";
 import { openHealthNote } from "./openHealthNote";
+import type { RecallProductPort } from "../../recall/product/types";
+import type { RecallAuthoringPort } from "../../recall/product/recallAuthoringPort";
 
 export function registerHealth(plugin: Plugin, openTools: () => void, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort,
-  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort): void {
+  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort,
+  createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort): void {
   const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
+  const authoring = createAuthoring?.(recall);
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall), deepAnalysis);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools, semantic, recall, deep));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, openTools, semantic, recall, deep, authoring));
   plugin.register(() => controller.dispose());
   plugin.register(() => recall.dispose());
   let opening: Promise<void> | undefined;

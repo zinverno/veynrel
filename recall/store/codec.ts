@@ -7,8 +7,9 @@ import { MAX_RECALL_STORAGE_LENGTH, RECALL_SCHEMA_VERSION } from "./types";
 import type { RecallCardsSnapshot, RecallLoadStatus } from "./types";
 
 export function isRecallSnapshot(value: unknown): value is RecallCardsSnapshot {
-  if (!isRecord(value) || !hasOnlyKeys(value, ["version", "updatedAt", "cards"]) ||
+  if (!isRecord(value) || !hasOnlyKeys(value, ["version", "updatedAt", "cards", "inventoryCompletedAt"]) ||
       value.version !== RECALL_SCHEMA_VERSION || !isTimestamp(value.updatedAt) || !isRecord(value.cards)) return false;
+  if (value.inventoryCompletedAt !== undefined && (!isTimestamp(value.inventoryCompletedAt) || value.inventoryCompletedAt > value.updatedAt)) return false;
   const updatedAt = value.updatedAt;
   return Object.keys(value.cards).length <= MAX_RECALL_CARDS && Object.entries(value.cards).every(([id, card]) =>
     isRecallCard(card) && id === card.id && card.lastSeenAt <= updatedAt &&

@@ -13,6 +13,7 @@ export interface RecallInventory extends RecallExtraction {
 export interface RecallSource {
   capture(signal: AbortSignal): Promise<RecallInventory>;
   captureRevision(signal: AbortSignal): Promise<string>;
+  captureNote(path: string, signal: AbortSignal): Promise<{ cards: RecallExtraction["cards"]; isCurrent(): boolean }>;
 }
 export class RecallSourceUnavailableError extends Error {
   constructor() { super("Recall Markdown inventory is unavailable."); }

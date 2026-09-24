@@ -91,5 +91,6 @@ export function renderRecall(parent: HTMLElement, model: RecallViewModel, action
   const controls = section.createDiv({ cls: "veynrel-recall-actions" });
   healthButton(controls, t(model.mode === "first-run" ? "@recall.find" : "@recall.refresh"), actions.refresh, "recall-refresh", model.busy, model.mode === "first-run");
   section.createEl("p", { text: t("@recall.source-help"), cls: "veynrel-health-muted" });
+  if (!model.inventoryEstablished && model.mode !== "first-run") section.createEl("p", { text: t("@recall.inventory-not-established"), cls: "veynrel-health-muted" });
   return () => {};
 }

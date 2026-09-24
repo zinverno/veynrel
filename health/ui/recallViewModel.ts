@@ -14,7 +14,7 @@ export function formatRecallInterval(intervalMs: number): string {
 
 export function recallViewModel(snapshot: RecallProductSnapshot) {
   const blocked = ["invalid", "unsupported", "unavailable"].includes(snapshot.loadState);
-  const busy = snapshot.refreshing || snapshot.reviewSaving || snapshot.recovering || snapshot.loadState === "loading";
+  const busy = snapshot.refreshing || snapshot.reviewSaving || snapshot.recovering || snapshot.ingesting || snapshot.loadState === "loading";
   const session = snapshot.session;
   const mode = blocked ? snapshot.confirmingRecovery ? "confirm" : "recovery"
     : snapshot.loadState !== "ready" ? "loading" : session ? session.complete ? "complete" : "session"
@@ -31,6 +31,7 @@ export function recallViewModel(snapshot: RecallProductSnapshot) {
     recoveryTitle: t(snapshot.loadState === "unavailable" ? "@recall.unavailable" : "@recall.recovery-title"),
     emptyTitle: t(snapshot.inventoryResult?.complete && snapshot.inventoryResult.committed ? "@recall.empty" : "@recall.no-active"),
     start: Boolean(snapshot.summary?.due),
+    inventoryEstablished: snapshot.inventoryEstablished,
     stats: snapshot.summary ? [
       { label: t("@recall.due"), value: snapshot.summary.due },
       { label: t("@recall.active"), value: snapshot.summary.active },

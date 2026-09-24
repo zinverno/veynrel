@@ -5,6 +5,9 @@ import { describe, expect, it, vi } from "vitest";
 import { parseMarkdownFlashcards } from "./parser/markdownFlashcards";
 import { RecallService } from "./services/recallService";
 import { memoryStorage, signal } from "./testSupport";
+import { MAX_FLASHCARD_INPUT_LENGTH } from "../recallAuthoring";
+
+vi.mock("obsidian", () => ({ MarkdownView: class {}, TFile: class {}, normalizePath: (path: string) => path, getLanguage: () => "en" }));
 
 const main = readFileSync("main.ts", "utf8");
 const ast = ts.createSourceFile("main.ts", main, ts.ScriptTarget.Latest, true);
@@ -21,7 +24,7 @@ describe("Recall consumes the unchanged legacy flashcard producer", () => {
     const code = `${helpers}\nclass Producer { ${method("buildFlashcardsContent")} }\nnew Producer()`;
     const callOpenRouter = vi.fn(async () => "What is X::Y\nWhy Z::Because Q");
     const producer = runInNewContext(ts.transpileModule(code, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText,
-      { callOpenRouter, tr: (value: string) => value }) as { buildFlashcardsContent(content: string, prompt: string): Promise<{ newContent: string; cardCount: number }> };
+      { callOpenRouter, MAX_FLASHCARD_INPUT_LENGTH, tr: (value: string) => value }) as { buildFlashcardsContent(content: string, prompt: string): Promise<{ newContent: string; cardCount: number }> };
     const body = "# Example note\n\nThis body is preserved by the legacy generator. Prose::not a card\n";
     const generated = await producer.buildFlashcardsContent(body, "existing prompt");
     expect(generated).toEqual({ newContent: readFileSync("tests/fixtures/recall-generated.md", "utf8"), cardCount: 2 });
@@ -31,6 +34,7 @@ describe("Recall consumes the unchanged legacy flashcard producer", () => {
     const service = new RecallService(memoryStorage(), {
       capture: async () => ({ ...extracted, revision: "fixture", coverage: { notesSeen: 1, notesRead: 1, noteListComplete: true } }),
       captureRevision: async () => "fixture",
+      captureNote: async () => ({ cards: extracted.cards, isCurrent: () => true }),
     }, () => 100);
     await service.initialize(); await service.scan(signal());
     expect(service.listCards({ state: "active" })).toHaveLength(2);
@@ -43,8 +47,34 @@ describe("Recall consumes the unchanged legacy flashcard producer", () => {
     expect(method("runBatchProcessing")).toMatch(/if \(append\)[\s\S]*?this\.buildFlashcardsContent\(content, query\)/u);
     expect(readFileSync("constants.ts", "utf8")).toMatch(/title: "Флешкарты",[\s\S]*?prompt: "@flashcards_prompt",\s*append: true/u);
     expect(main).toContain("this.plugin.runBatchProcessing(files, prompt, append)");
-    expect(method("generateFlashcardsForNote")).toContain('tr("@flashcards_prompt")');
+    expect(method("generateFlashcardsForNote")).toContain('this.recallAuthoring?.generateForNote(file)');
+    expect(method("onload")).toContain('this.buildFlashcardsContent(content, tr("@flashcards_prompt")');
+    expect(method("runBatchProcessing")).toContain('this.recallAuthoring?.ingestNote(path)');
     expect(readFileSync("i18n.ts", "utf8")).toContain('question text::answer text');
     expect(main).not.toMatch(/from ["'][^"']*recall\//iu);
+  });
+
+  it("batch imports only successfully modified unique paths after all Markdown writes, retaining backups/report behavior", async () => {
+    const files = ["A.md", "Failed.md", "B.md"].map((path) => ({ path, name: path }));
+    const order: string[] = [], reports: string[] = [];
+    const backupAndReplaceNote = vi.fn(async (_vault: unknown, file: { path: string }) => { order.push(`write:${file.path}`); });
+    const build = vi.fn(async (content: string) => { if (content === "Failed.md") throw new Error("PRIVATE_PROVIDER_BODY"); return { newContent: "cards", cardCount: 1 }; });
+    const ingestNote = vi.fn(async (path: string) => { order.push(`ingest:${path}`); return path === "B.md" ? "failed" : "updated"; });
+    class BatchProgressModal { isCancelled = false; open() {} close() {} logPending() {} logSuccess() {} update() {} logError() {} }
+    const code = `class Producer { ${method("runBatchProcessing")} }\nnew Producer()`;
+    const producer = runInNewContext(ts.transpileModule(code, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText,
+      { backupAndReplaceNote, resolveFlashcardNote: (_app: unknown, path: string) => files.find((file) => file.path === path),
+        normalizePath: (path: string) => path, Notice: class {}, BatchProgressModal, BATCH_DELAY_MS: 0,
+        window: { crypto: { randomUUID: () => "fixture" }, setTimeout: (callback: () => void) => { callback(); } },
+        tr: (key: string, values: unknown) => `${key} ${JSON.stringify(values ?? {})}` }) as {
+        app: unknown; recallAuthoring: unknown; buildFlashcardsContent: typeof build; runBatchProcessing(files: unknown[], query: string, append: boolean): Promise<void>;
+      };
+    producer.app = { vault: { read: async (file: { path: string }) => file.path,
+      create: async (_path: string, body: string) => { reports.push(body); return {}; } }, workspace: { getLeaf: () => ({ openFile: vi.fn() }) } };
+    producer.recallAuthoring = { ingestNote }; producer.buildFlashcardsContent = build;
+    await producer.runBatchProcessing(files, "existing flashcards prompt", true);
+    expect(order).toEqual(["write:A.md", "write:B.md", "ingest:A.md", "ingest:B.md"]);
+    expect(backupAndReplaceNote).toHaveBeenCalledTimes(2); expect(build).toHaveBeenCalledTimes(3);
+    expect(reports[0]).toContain("@recall.authoring.recall-update-failed"); expect(reports[0]).not.toContain("PRIVATE_PROVIDER_BODY");
   });
 });

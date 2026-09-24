@@ -18,6 +18,8 @@ export class RecallProductController implements RecallProductPort {
   private loadState: RecallProductSnapshot["loadState"] = "uninitialized";
   private firstRun = false;
   private refreshing = false;
+  private ingestions = 0;
+  private readonly admissionAbort = new AbortController();
   private reviewSaving = false;
   private recovering = false;
   private canRecover = false;
@@ -59,6 +61,7 @@ export class RecallProductController implements RecallProductPort {
     const session = this.session;
     const ready = this.loadState === "ready" && this.service;
     return { loadState: this.loadState, firstRun: this.firstRun, refreshing: this.refreshing, reviewSaving: this.reviewSaving,
+      inventoryEstablished: Boolean(ready && ready.hasFullInventory()), ingesting: this.ingestions > 0,
       recovering: this.recovering, canRecover: this.canRecover, confirmingRecovery: this.confirmingRecovery,
       summary: ready ? ready.getSummary(this.clock()) : undefined, nextDueAt: ready ? ready.getNextDueAt() : undefined,
       inventoryResult: this.inventoryResult ? { ...this.inventoryResult } : undefined, error: this.error,
@@ -68,8 +71,22 @@ export class RecallProductController implements RecallProductPort {
         previews: session.previews?.map((preview) => ({ ...preview })) } : undefined };
   }
 
-  private get busy(): boolean { return this.loadState === "loading" || this.refreshing || this.reviewSaving || this.recovering; }
+  private get busy(): boolean { return this.loadState === "loading" || this.refreshing || this.reviewSaving || this.recovering || this.ingestions > 0; }
   private get ready(): boolean { return !this.disposed && this.loadState === "ready" && !this.busy; }
+
+  async refreshNote(path: string): Promise<"updated" | "blocked" | "failed"> {
+    await this.initialize();
+    if (this.disposed || this.recovering || this.loadState !== "ready") return "blocked";
+    this.ingestions++; this.notify();
+    try {
+      await this.service!.refreshNote(path, this.admissionAbort.signal);
+      await this.updateLoadState();
+      return "updated";
+    } catch {
+      await this.updateLoadState();
+      return "failed";
+    } finally { this.ingestions--; this.notify(); }
+  }
 
   async refreshCards(): Promise<void> {
     if (!this.ready || this.session) return;
@@ -161,7 +178,7 @@ export class RecallProductController implements RecallProductPort {
   subscribe(listener: () => void): () => void {
     this.listeners.add(listener); return () => { this.listeners.delete(listener); };
   }
-  dispose(): void { this.disposed = true; this.session = undefined; this.abort?.abort(); this.listeners.clear(); }
+  dispose(): void { this.disposed = true; this.session = undefined; this.abort?.abort(); this.admissionAbort.abort(); this.listeners.clear(); }
   private notify(): void {
     if (!this.disposed) for (const listener of [...this.listeners]) { try { listener(); } catch { /* Subscribers cannot fail durable operations. */ } }
   }

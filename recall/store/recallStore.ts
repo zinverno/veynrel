@@ -37,6 +37,7 @@ export class RecallStore {
   }
 
   getUpdatedAt(): number { this.getLoadResult(); return this.snapshot.updatedAt; }
+  hasFullInventory(): boolean { this.getLoadResult(); return this.snapshot.inventoryCompletedAt !== undefined; }
 
   getCard(id: string): RecallCard | undefined {
     this.getLoadResult();
@@ -62,7 +63,7 @@ export class RecallStore {
       if (card.state !== "active") throw new Error("Retired Recall cards cannot be reviewed.");
       // Compute inside the shared queue against the latest durable memory state, including double-review validation.
       const outcome = rateSchedule(card.schedule, rating, reviewedAt);
-      const next: RecallCardsSnapshot = { version: RECALL_SCHEMA_VERSION, updatedAt: Math.max(this.snapshot.updatedAt, reviewedAt),
+      const next: RecallCardsSnapshot = { ...this.snapshot, updatedAt: Math.max(this.snapshot.updatedAt, reviewedAt),
         cards: { ...this.snapshot.cards, [id]: { ...card, schedule: { ...outcome.schedule } } } };
       await this.persist(next);
       return outcome;
@@ -70,16 +71,26 @@ export class RecallStore {
   }
 
   async reconcile(request: RecallReconcileRequest, options: RecallCommitOptions = {}): Promise<RecallReconcileResult> {
+    return this.reconcileCandidates(request, options, false);
+  }
+
+  /** Append-only observation: merge against the latest schedule even when queued behind a review. */
+  async admit(candidates: readonly RecallCardCandidate[], observedAt: number, options: RecallCommitOptions = {}): Promise<RecallReconcileResult> {
+    return this.reconcileCandidates({ candidates, observedAt, complete: false }, options, true);
+  }
+
+  private async reconcileCandidates(request: RecallReconcileRequest, options: RecallCommitOptions, admission: boolean): Promise<RecallReconcileResult> {
     if (!request || !Array.isArray(request.candidates) || request.candidates.length > MAX_RECALL_CARDS ||
         !Array.from(request.candidates).every(isRecallCandidate) || typeof request.complete !== "boolean" || !isTimestamp(request.observedAt)) {
       throw new Error("Invalid Recall reconciliation.");
     }
     const candidates = request.candidates.map((card: RecallCardCandidate) => ({ ...card }));
-    const { complete, observedAt } = request;
+    const { complete, observedAt: requestedAt } = request;
     const { beforeCommit, signal } = options;
     return this.enqueue(async () => {
       this.requireWritable();
       throwIfAborted(signal);
+      const observedAt = admission ? Math.max(requestedAt, this.snapshot.updatedAt) : requestedAt;
       if (observedAt < this.snapshot.updatedAt) throw new Error("Stale Recall observation.");
       const cards = { ...this.snapshot.cards };
       const seen = new Set<string>();
@@ -99,7 +110,8 @@ export class RecallStore {
           if (card.state === "active" && !seen.has(card.id)) { cards[card.id] = { ...card, state: "retired" }; result.retired++; }
         }
       }
-      await this.persist({ version: RECALL_SCHEMA_VERSION, updatedAt: observedAt, cards }, { beforeCommit, signal });
+      await this.persist({ ...this.snapshot, updatedAt: observedAt, cards,
+        ...(complete ? { inventoryCompletedAt: observedAt } : {}) }, { beforeCommit, signal });
       return result;
     });
   }

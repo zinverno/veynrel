@@ -48,10 +48,11 @@ const mocks = vi.hoisted(() => {
   class ItemView { contentEl = new Element(); app: unknown; constructor(leaf: { app: unknown }) { this.app = leaf.app; } }
   class Modal { contentEl = new Element(); titleEl = new Element(); open(): void {} close(): void {} }
   class TFile { path = "A.md"; basename = "A"; extension = "md"; stat = { mtime: 1, size: 100 }; }
-  return { Element, ItemView, Modal, TFile, requestUrl: vi.fn(), setIcon: vi.fn(), Notice: vi.fn(),
+  class MarkdownView { file: unknown; }
+  return { Element, ItemView, Modal, TFile, MarkdownView, requestUrl: vi.fn(), setIcon: vi.fn(), Notice: vi.fn(),
     setTimeout: vi.fn<(callback: () => void, delay: number) => number>(() => 1), clearTimeout: vi.fn() };
 });
-vi.mock("obsidian", () => ({ ...mocks, getLanguage: () => "en", parseLinktext: (path: string) => ({ path, subpath: "" }) }));
+vi.mock("obsidian", () => ({ ...mocks, getLanguage: () => "en", normalizePath: (path: string) => path, parseLinktext: (path: string) => ({ path, subpath: "" }) }));
 import { setLanguage } from "../../i18n";
 import { productFixture, cardsPath } from "../../recall/product/testSupport";
 import { candidate, gate } from "../../recall/testSupport";
@@ -63,6 +64,7 @@ import { openHealthNote } from "../obsidian/openHealthNote";
 import { formatRecallInterval, recallViewModel } from "./recallViewModel";
 import type { RecallRating } from "../../recall/scheduler/types";
 import { RecallHealthAdapter } from "../../recall/product/recallHealthAdapter";
+import { RecallAuthoringAdapter } from "../../recallAuthoring";
 
 beforeEach(() => {
   setLanguage("en"); mocks.requestUrl.mockClear();
@@ -70,12 +72,23 @@ beforeEach(() => {
   vi.stubGlobal("window", { setTimeout: mocks.setTimeout, clearTimeout: mocks.clearTimeout });
 });
 afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
-function fixture(raw?: string, onboarded = true) {
+function fixture(raw?: string, onboarded = true, withAuthoring = false) {
   const f = productFixture(raw), p = preferencesFixture({ profileChosen: onboarded, onboardingCompleted: onboarded });
   const health = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences, undefined, new RecallHealthAdapter(f.product));
-  const view = new VeynrelHealthView({ app: f.app } as never, health, vi.fn(), undefined, f.product);
+  const settings = { provider: "ollama" as const, model: "synthetic", apiKey: "", baseUrl: "http://localhost:11434/v1", temperature: 0.5, topK: 5 };
+  const build = vi.fn(async (content: string) => ({ newContent: `${content}\n\n## Flashcards\n#flashcards\nGenerated::PRIVATE ANSWER`, cardCount: 1 }));
+  const processNote = vi.fn(async (_file: unknown, transform: (content: string) => string) => {
+    const next = transform(await f.vault.read()); f.vault.read.mockResolvedValue(next); return next;
+  });
+  if (withAuthoring) {
+    Object.setPrototypeOf(f.note, mocks.TFile.prototype);
+    Object.assign(f.workspace, { getActiveFile: () => f.note, getLeavesOfType: () => [{ view: Object.assign(new mocks.MarkdownView(), { file: f.note }) }], on: vi.fn(), offref: vi.fn() });
+    Object.assign(f.vault, { process: processNote });
+  }
+  const authoring = withAuthoring ? new RecallAuthoringAdapter(f.app, { get: () => settings, update: vi.fn(), subscribe: () => vi.fn() }, f.product, build) : undefined;
+  const view = new VeynrelHealthView({ app: f.app } as never, health, vi.fn(), undefined, f.product, undefined, authoring);
   const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-  return { ...f, view, content, health, action: (key: string) => content.action(key)! };
+  return { ...f, view, content, health, authoring, build, settings, processNote, action: (key: string) => content.action(key)! };
 }
 async function reviewFixture() {
   const f = fixture(); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
@@ -85,6 +98,49 @@ async function reviewFixture() {
 
 const recallCard = (f: ReturnType<typeof fixture>) => f.content.querySelector('[data-dimension="recall"]')!;
 const healthBytes = (f: ReturnType<typeof fixture>) => [...f.files].filter(([path]) => path.startsWith(`${root}/`));
+
+describe("Recall authoring presentation", () => {
+  it.each(["cancel", "navigate", "close"])("keeps overview and confirmation passive, including %s", async (action) => {
+    const f = fixture(undefined, true, true); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    f.action("recall-authoring-create").click();
+    expect(f.content.ownerDocument.activeElement?.attrs["data-recall-authoring-confirmation"]).toBe("true");
+    expect(f.content.texts()).toContain("A.md"); expect(f.content.texts()).toContain("32000");
+    expect(f.content.texts()).toContain("configured Ollama endpoint"); expect(f.content.texts()).toContain("This note will be modified");
+    expect(f.content.texts()).not.toContain("PRIVATE ANSWER");
+    if (action === "cancel") f.action("recall-authoring-cancel").click();
+    if (action === "navigate") f.action("nav-health").click();
+    if (action === "close") await f.view.onClose();
+    await f.authoring!.generate();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.build).not.toHaveBeenCalled(); expect(f.processNote).not.toHaveBeenCalled();
+    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.authoring!.getSnapshot().state).toBe("idle");
+  });
+
+  it.each(["en", "ru"] as const)("renders localized authoring progress, first-run truth and immediate review in %s", async (language) => {
+    setLanguage(language); const f = fixture(undefined, true, true); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    f.action("recall-authoring-create").click(); f.action("recall-authoring-generate").click();
+    expect(f.content.all().find((element) => element.cls.includes("veynrel-recall-authoring"))?.attrs["aria-busy"]).toBe("true");
+    await vi.waitFor(() => expect(f.authoring!.getSnapshot().state).toBe("success"));
+    expect(f.content.texts()).not.toMatch(/@recall\.|PRIVATE ANSWER/u);
+    expect(f.content.texts()).toContain(language === "en" ? "Created 1 flashcard." : "Создана 1 карточка.");
+    expect(f.content.texts()).toContain(language === "en" ? "full flashcard inventory is not yet established" : "Полный поиск карточек ещё не подтверждён");
+    expect(f.action("recall-start").cls).toContain("mod-cta"); expect(f.action("recall-authoring-create").cls).not.toContain("mod-cta");
+    f.action("recall-start").click(); expect(f.content.action("recall-authoring-create")).toBeUndefined();
+    f.action("recall-back").click(); expect(f.content.action("recall-authoring-create")).toBeDefined();
+    f.action("nav-health").click(); expect(recallCard(f).texts()).toContain(language === "en" ? "Review recommended" : "Пора повторить");
+    expect(healthBytes(f)).toEqual([]);
+  });
+
+  it("directs unconfigured setup to Deep without note IO and keeps blocked Recall authoring available", async () => {
+    const f = fixture("{broken", true, true); f.settings.model = "";
+    await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    expect(f.content.texts()).toContain("Configure Deep Intelligence to generate flashcards");
+    expect(f.content.action("recall-authoring-create")).toBeUndefined();
+    f.settings.model = "synthetic"; f.action("nav-health").click(); f.action("nav-recall").click();
+    f.action("recall-authoring-create").click(); f.action("recall-authoring-generate").click();
+    await vi.waitFor(() => expect(f.content.texts()).toContain("Cards were added to the note. Recover Recall"));
+    expect(f.files.get(cardsPath)).toBe("{broken"); expect(f.adapter.write).not.toHaveBeenCalled();
+  });
+});
 
 describe("Recall Health integration", () => {
   it("keeps construction/onboarding dormant, then makes first-run Recall actionable without IO beyond metadata", async () => {

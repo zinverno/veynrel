@@ -11,6 +11,16 @@ function snapshot(): RecallCardsSnapshot {
 }
 
 describe("Recall v2 codec and poisoning", () => {
+  it("validates the additive full-inventory marker without inventing evidence in legacy metadata", async () => {
+    const legacy = snapshot(), storage = memoryStorage(serializeRecall(legacy)), store = new RecallStore(storage);
+    await store.load(); expect(store.hasFullInventory()).toBe(false); expect(storage.write).not.toHaveBeenCalled();
+    const marked = { ...legacy, inventoryCompletedAt: 100 };
+    expect(decodeRecall(serializeRecall(marked))).toEqual({ status: "loaded", data: marked });
+    for (const inventoryCompletedAt of [-1, 101, 0.5, "100", null]) {
+      expect(decodeRecall(JSON.stringify({ ...legacy, inventoryCompletedAt })).status).toBe("invalid");
+    }
+  });
+
   it("round trips with canonical object-key order and final newline", () => {
     const one = snapshot(); const card = candidate("Other"); one.cards[card.id] = { ...card, firstSeenAt: 100, lastSeenAt: 100, state: "retired", schedule: createInitialSchedule(100) };
     const two = { cards: Object.fromEntries(Object.entries(one.cards).reverse().map(([key, value]) =>

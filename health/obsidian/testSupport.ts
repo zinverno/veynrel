@@ -36,6 +36,7 @@ export function appFixture() {
     getMarkdownFiles: vi.fn(() => [note]),
     read: vi.fn(async () => "A sufficiently long note for testing the local health check."),
     getAbstractFileByPath: vi.fn((path: string) => path === note.path ? note : null),
+    getFileByPath: vi.fn((path: string) => path === note.path ? note : null),
   };
   const metadataCache = { getFileCache: vi.fn(() => ({})), getFirstLinkpathDest: vi.fn(() => null) };
   const openFile = vi.fn(async () => undefined);
