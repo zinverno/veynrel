@@ -170,7 +170,11 @@ their own asynchronous failures. No event framework or progress model is added.
 ## Aggregation and recommendations
 
 Structure and Connections have `basic` depth once a local scan has been attempted.
-Knowledge remains `unknown` with `not-enabled` depth. No score is created.
+Knowledge uses `deep` depth after a trusted completed/partial Deep scan. A completed
+nonempty clean scope can be Good; empty and partial clean scopes remain Unknown.
+Without trusted coverage or open Findings, it remains Not enabled. See
+[Knowledge Health](knowledge-health.md) for confirmation, validation, freshness
+and independent receipt semantics. No score is created.
 [Recall Health](recall-health-integration.md) accepts an optional sanitized scheduling
 signal: tracked active cards with no due work are Good, due work is Review
 recommended, and empty/first-run/blocked states remain neutral. It creates no Findings.

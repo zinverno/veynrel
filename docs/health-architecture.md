@@ -11,10 +11,10 @@ the [native Health home](health-view.md) with lazy ownership, manual scans and
 explicit storage recovery. The original foundation contracts are described below;
 the application document explains batch commit receipts and restart behavior.
 
-[Recall Health](recall-health-integration.md) derives a fourth-dimension signal
+[Recall Health](recall-health-integration.md) derives a native review signal
 from the existing shared Recall product through a Health-owned port. It loads
 metadata only after normal Health entry, creates no Findings or Health writes,
-and leaves Knowledge Not enabled.
+and does not trigger Knowledge analysis.
 
 [Deep Intelligence setup](deep-intelligence-setup.md) adds an inline capability
 section through a Health-owned product port. One plugin-lifetime Deep controller
@@ -22,11 +22,17 @@ uses the existing language-model settings and connection test. Health imports no
 LLM transport, settings implementation or Deep engine. Configuring this capability
 does not enable the Knowledge dimension or create Findings/scan receipts.
 
+[Knowledge Health](knowledge-health.md) enables Knowledge after an explicit,
+confirmed MAP-only Deep analysis. A Health-owned port injects the existing Deep
+engine without an index; the same HealthService/FindingStore owns reconciliation.
+Deep scope receipts, version checks and vault/configuration freshness protect
+coverage. Only draft-quality notes create medium-confidence review Findings.
+
 The first production Semantic analyzer is documented in
 [Semantic duplicate Health Findings](semantic-health-duplicates.md). It injects
 a Health-owned analysis port into the same HealthService/FindingStore owner.
-Explicit Local and Semantic scans share exclusion; semantic-engine imports stay
-outside Health. Scope receipts independently associate both sources after restart.
+Explicit Local, Semantic and Deep scans share exclusion; engine imports stay
+outside Health. Scope receipts independently associate all three sources after restart.
 
 Health introduces a shared domain for knowledge-base observations. Analyzers emit
 candidates, reconciliation maintains Findings, and HealthService consumes them.

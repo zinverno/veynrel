@@ -4,16 +4,18 @@ Baseline: PR #40 merged at `06fad75ea6ca0d4b85df57ca12cefc6325aeb40e`.
 Audit branch: `chore/mvp-hardening`. This establishes a release candidate baseline;
 it is not a release, feature expansion, or dependency upgrade.
 
-The current MVP is **Local Health + Findings + Semantic Intelligence + Discover +
+The PR #41 MVP is **Local Health + Findings + Semantic Intelligence + Discover +
 Semantic duplicate Health + native Recall/FSRS-6 + Recall Health**, with onboarding,
-scoped recovery, EN/RU and durable restart behavior. Knowledge remains Not enabled.
+scoped recovery, EN/RU and durable restart behavior. At this baseline Knowledge
+was Not enabled; [Knowledge Health](knowledge-health.md) now adds explicit,
+confirmed Deep MAP analysis without changing those existing owners.
 Deep Audit remains a legacy/Advanced tool. Knowledge Health, Deep Intelligence,
-Hidden Connections, Connect productization, Recall history and optimization are
-not complete and are not added here.
+Hidden Connections, Connect productization, Recall history and optimization were
+outside the scope of that audit.
 
 Subsequent roadmap work adds [Deep Intelligence setup](deep-intelligence-setup.md)
-for the existing language-model configuration. This audit remains the historical
-PR #41 baseline; Knowledge Health analysis remains unimplemented.
+for the existing language-model configuration and [Knowledge Health](knowledge-health.md)
+for confirmed MAP-only review signals. This audit remains the historical PR #41 baseline.
 
 ## Architecture and authoritative ownership
 

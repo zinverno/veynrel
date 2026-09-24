@@ -7,9 +7,10 @@ Deep Intelligence is the simple Health-page setup path for Veynrel's existing
 language-model tools. It configures deeper reasoning for Deep Audit, Single Audit,
 Ask Vault, writing/transformations, batch tools, flashcards and MOC workflows.
 Those tools retain their existing command IDs and read the same shared settings.
-Setup does not run them. Knowledge Health remains **Not enabled**; no Knowledge
-analyzer, Findings, ScanRun or reconciliation receipt is added. The next roadmap
-step is Knowledge Health analysis and Findings.
+Setup does not run them. Setup alone leaves Knowledge Health **Not enabled**; no Knowledge
+analyzer, Findings, ScanRun or reconciliation receipt is added by setup. The
+subsequent [Knowledge Health](knowledge-health.md) path adds explicit, confirmed
+analysis and Findings through a separate Health-owned analysis port.
 
 ## Ownership and boundaries
 

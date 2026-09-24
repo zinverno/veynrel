@@ -1,0 +1,431 @@
+{
+  "baseline": "40a61443ee19c495ba6bf225c7039b4e282d9464",
+  "verifiedAt": "2026-09-24T11:59:54.510Z",
+  "runtime": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "platform": "Linux desktop",
+    "isolated": true,
+    "syntheticOnly": true
+  },
+  "transport": "Unmodified bundled callOpenRouter and Deep MAP; deterministic responses injected at Obsidian requestUrl. No personal credentials or live model requests.",
+  "bundleSha256": {
+    "main.js": "2a96a854e8b205295a9d9f3f509d0c7d2e661cf4b072628b2be3d0dcef85a1b2",
+    "manifest.json": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39",
+    "styles.css": "f8094eb7efb52c58be977f0bed3f58596a3fc9b7b68e2a7ee313f52879a4bf85"
+  },
+  "phases": {
+    "startup": {
+      "counts": {},
+      "requests": []
+    },
+    "passive-open": {
+      "counts": {},
+      "requests": []
+    },
+    "confirmation-zero-work": {
+      "passed": true
+    },
+    "confirmation": {
+      "counts": {},
+      "requests": []
+    },
+    "confirmation-focus": {
+      "passed": true
+    },
+    "cancel-confirmation-zero-work": {
+      "passed": true
+    },
+    "cancel-confirmation": {
+      "counts": {},
+      "requests": []
+    },
+    "navigation-dismisses-consent": {
+      "passed": true
+    },
+    "complete-mixed": {
+      "passed": true
+    },
+    "mixed-scan": {
+      "counts": {
+        "getMarkdownFiles": 3,
+        "cachedRead": 3,
+        "provider": 3,
+        "healthWrite": 2
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 228
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "B.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 227
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        }
+      ]
+    },
+    "draft-only": {
+      "passed": true
+    },
+    "knowledge-review-deep": {
+      "passed": true
+    },
+    "knowledge-filter": {
+      "passed": true
+    },
+    "detail-evidence": {
+      "passed": true
+    },
+    "detail-source": {
+      "passed": true
+    },
+    "dismissed": {
+      "passed": true
+    },
+    "dismissed-rerun": {
+      "counts": {
+        "getMarkdownFiles": 3,
+        "cachedRead": 3,
+        "provider": 3,
+        "healthWrite": 2
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 228
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "B.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 227
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        }
+      ]
+    },
+    "dismissal-survives": {
+      "passed": true
+    },
+    "improved-after-reopen": {
+      "counts": {
+        "getMarkdownFiles": 3,
+        "cachedRead": 3,
+        "provider": 3,
+        "healthWrite": 2
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 228
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "B.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 227
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        }
+      ]
+    },
+    "improvement-resolves": {
+      "passed": true
+    },
+    "clean-good": {
+      "passed": true
+    },
+    "recurrence-identity": {
+      "passed": true
+    },
+    "partial": {
+      "counts": {
+        "getMarkdownFiles": 3,
+        "cachedRead": 3,
+        "provider": 5,
+        "healthWrite": 2
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 228
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "B.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 227
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        }
+      ]
+    },
+    "partial-preserves-absence": {
+      "passed": true
+    },
+    "partial-depth": {
+      "passed": true
+    },
+    "cancel-running": {
+      "counts": {
+        "getMarkdownFiles": 1,
+        "cachedRead": 3,
+        "provider": 1,
+        "healthWrite": 1
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 228
+        }
+      ]
+    },
+    "cancel-keeps-findings": {
+      "passed": true
+    },
+    "cancel-failed-truthful-count": {
+      "passed": true
+    },
+    "cancel-no-late-requests": {
+      "passed": true
+    },
+    "stale-config": {
+      "counts": {
+        "getMarkdownFiles": 1,
+        "cachedRead": 3,
+        "provider": 3,
+        "otherWrite": 1,
+        "healthWrite": 1
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 228
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "B.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 227
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-knowledge",
+          "chars": 213
+        }
+      ]
+    },
+    "stale-config-zero-findings": {
+      "passed": true
+    },
+    "stale-config-safe-code": {
+      "passed": true
+    },
+    "fixed-settings-snapshot": {
+      "passed": true
+    },
+    "new-settings-preserved": {
+      "passed": true
+    },
+    "restart-startup": {
+      "counts": {},
+      "requests": []
+    },
+    "restart-open": {
+      "counts": {},
+      "requests": []
+    },
+    "restart-zero-analysis-work": {
+      "passed": true
+    },
+    "restart-association": {
+      "passed": true
+    },
+    "configured-can-run": {
+      "passed": true
+    },
+    "ru-restart-open": {
+      "counts": {},
+      "requests": []
+    },
+    "ru-deep-copy": {
+      "passed": true
+    },
+    "ru-local-privacy": {
+      "passed": true
+    },
+    "390-no-overflow": {
+      "passed": true
+    },
+    "all-markdown-bytes-unchanged": {
+      "passed": true
+    },
+    "note-index-bytes-unchanged": {
+      "passed": true
+    },
+    "no-report-canvas-moc-files": {
+      "passed": true
+    },
+    "no-content-in-health": {
+      "passed": true
+    },
+    "no-semantic-or-recall-storage": {
+      "passed": true
+    },
+    "final-bundle-passive-reload": {
+      "counts": {},
+      "requests": []
+    },
+    "final-bundle-passive": {
+      "passed": true
+    },
+    "final-bundle-confirmed-map": {
+      "counts": {
+        "getMarkdownFiles": 3,
+        "cachedRead": 3,
+        "provider": 3,
+        "healthWrite": 2
+      },
+      "requests": [
+        {
+          "kind": "map",
+          "paths": [
+            "C.md"
+          ],
+          "model": "synthetic-model-b",
+          "chars": 240
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "B.md"
+          ],
+          "model": "synthetic-model-b",
+          "chars": 239
+        },
+        {
+          "kind": "map",
+          "paths": [
+            "A.md"
+          ],
+          "model": "synthetic-model-b",
+          "chars": 225
+        }
+      ]
+    },
+    "final-bundle-map-completed": {
+      "passed": true
+    },
+    "final-bundle-cancel-count": {
+      "passed": true
+    }
+  },
+  "lifecycle": "Dismissal remains durable under existing FindingStore policy. Native improvement/resolution is tested after explicit Reopen.",
+  "gaps": [
+    "Android/iOS",
+    "popout windows",
+    "screen reader",
+    "custom themes",
+    "live provider quality/cost"
+  ],
+  "files": [
+    ".hidden.md",
+    ".obsidian/app.json",
+    ".obsidian/appearance.json",
+    ".obsidian/community-plugins.json",
+    ".obsidian/core-plugins.json",
+    ".obsidian/plugins/ai-knowledge-hub/data.json",
+    ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+    ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+    ".obsidian/plugins/ai-knowledge-hub/main.js",
+    ".obsidian/plugins/ai-knowledge-hub/manifest.json",
+    ".obsidian/plugins/ai-knowledge-hub/note-index.json",
+    ".obsidian/plugins/ai-knowledge-hub/styles.css",
+    ".obsidian/workspace.json",
+    "A.md",
+    "B.md",
+    "C.md",
+    "Templates/Ignored.md"
+  ]
+}
