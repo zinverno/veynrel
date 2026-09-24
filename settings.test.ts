@@ -1,15 +1,18 @@
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import ts from "typescript";
 import { describe, expect, it, vi } from "vitest";
 import type { App } from "obsidian";
 import type AIHubPlugin from "./main";
 
 vi.mock("obsidian", () => ({
-  PluginSettingTab: class {}, Setting: class {}, Notice: class {},
+  PluginSettingTab: class {}, Setting: class { setName() { return this; } setDesc() { return this; } }, Notice: class {},
   requireApiVersion: vi.fn(() => false), setIcon: vi.fn(), requestUrl: vi.fn(),
 }));
 vi.mock("./api", () => ({ testConnection: vi.fn(), fetchOllamaModels: vi.fn(), fetchOpenRouterFreeModels: vi.fn() }));
 import { AIHubSettingTab, DEFAULT_SETTINGS } from "./settings";
+import baseline from "./tests/fixtures/settings-ia-baseline.json";
+import { setLanguage } from "./i18n";
 
 const exposedKeys = [
   "provider", "apiKey", "model", "baseUrl", "temperature", "language", "showContextMenu", "notifyOnCopy",
@@ -32,7 +35,8 @@ describe("shared legacy and declarative settings inventory", () => {
   it("covers every existing durable UI binding without registration-time side effects", () => {
     const f = fixture(); const snapshot = structuredClone(f.settings);
     const rows = f.tab.getSettingDefinitions().flatMap((section) => section.items);
-    expect(rows).toHaveLength(35);
+    expect(rows).toHaveLength(baseline.rowCount);
+    expect(rows.flatMap((row) => row.keys).sort()).toEqual(baseline.keys);
     expect(rows.flatMap((row) => row.keys).sort()).toEqual(exposedKeys);
     expect(f.settings).toEqual(snapshot);
     expect(f.saveSettings).not.toHaveBeenCalled(); expect(f.getSemanticController).not.toHaveBeenCalled();
@@ -98,4 +102,55 @@ describe("shared legacy and declarative settings inventory", () => {
     expect(constructors).toBe(1); expect(sharedReads).toBe(1);
     expect([...writes].sort()).toEqual(exposedKeys);
   });
+});
+
+it.each(["en", "ru"] as const)("keeps product and technical search aliases and both renderer inventories in %s", (language) => {
+  setLanguage(language); const f = fixture(); const groups = f.tab.getSettingDefinitions();
+  const aliases = new Map([
+    ["cpu", ["Deep Intelligence", "Language model", "LLM"]],
+    ["binary", ["Semantic Intelligence", "Embeddings", "Semantic"]],
+    ["server", ["Veynrel Connect", "Connect", "Companion", "endpoint", "token", "timeout", "MCP"]],
+    ["microscope", ["Deep Analysis", "Deep Audit"]],
+    ["arrow-down-to-line", ["Writing & Output", "MOC", "Atoms", "Insertion"]],
+  ]);
+  expect(groups.map((group) => group.icon)).toEqual(["brain", "cpu", "binary", "server", "microscope", "arrow-down-to-line", "layout-dashboard"]);
+  expect(groups.map((group) => group.heading).join(" ")).not.toMatch(/@settings|AI Hub|Vault Audit AI/u);
+  for (const group of groups) for (const row of group.items) expect(row.aliases).toEqual(expect.arrayContaining(aliases.get(group.icon) ?? []));
+  const output = groups.find((group) => group.icon === "arrow-down-to-line")!;
+  expect(output.items.flatMap((row) => row.keys).sort()).toEqual(["atomsFolder", "atomsLocation", "defaultInsertion", "filenameTemplate", "mocFolder", "newNoteFolder"]);
+  expect(groups.find((group) => group.icon === "microscope")!.items[0].desc).toContain(language === "en" ? "not Knowledge Health thresholds" : "Не задают пороги");
+  const settingsBefore = structuredClone(f.settings);
+  // Run legacy display with recording host controls: it must forward the same visible definitions.
+  const rendered: string[] = [];
+  const visible = groups.flatMap((group) => group.items).filter((row) => row.visible !== false && (typeof row.visible !== "function" || row.visible()));
+  const definitions = groups.map((group) => ({ ...group, items: group.items.map((row) => ({ ...row,
+    control: undefined, render: () => { rendered.push(row.name); } })) }));
+  vi.spyOn(f.tab, "getSettingDefinitions").mockReturnValue(definitions);
+  const element = { createDiv: () => element, createSpan: () => element, empty: vi.fn() };
+  Object.assign(f.tab, { containerEl: element });
+  f.tab.display();
+  expect(rendered).toEqual(visible.map((row) => row.name));
+  expect(f.settings).toEqual(settingsBefore); expect(f.saveSettings).not.toHaveBeenCalled();
+  setLanguage("en");
+});
+
+// Freeze the baseline behavior, not the visible labels. Regrouping must not change
+// any existing control callback, helper, default or durable schema.
+it("preserves baseline custom control behavior, helpers, defaults and schema exactly", () => {
+  const source = ts.createSourceFile("settings.ts", readFileSync("settings.ts", "utf8"), ts.ScriptTarget.Latest, true);
+  const printer = ts.createPrinter({ removeComments: true });
+  const hash = (node: ts.Node) => createHash("sha256").update(printer.printNode(ts.EmitHint.Unspecified, node, source)).digest("hex");
+  const callbacks: Record<string, string> = {};
+  function visit(node: ts.Node): void {
+    if (ts.isCallExpression(node) && node.expression.getText(source) === "row" && ts.isArrayLiteralExpression(node.arguments[0]) && node.arguments[0].elements.length) {
+      const keys = node.arguments[0].elements.map((key) => ts.isStringLiteral(key) ? key.text : "invalid");
+      callbacks[keys.join(",")] = hash(node.arguments[3]);
+    }
+    if (ts.isVariableDeclaration(node) && node.name.getText(source) === "DEFAULT_SETTINGS") callbacks.DEFAULT_SETTINGS = hash(node.initializer!);
+    if (ts.isInterfaceDeclaration(node) && node.name.text === "AIHubSettings") callbacks.AIHubSettings = hash(node);
+    if (ts.isMethodDeclaration(node) && node.name.getText(source) !== "getSettingDefinitions") callbacks[`method:${node.name.getText(source)}`] = hash(node);
+    ts.forEachChild(node, visit);
+  }
+  visit(source);
+  expect(callbacks).toEqual(baseline.controlCallbacks);
 });
