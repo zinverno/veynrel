@@ -62,6 +62,7 @@ import type { CompanionSettings, StoredCompanionSettings } from "./companionSync
 import { ObsidianSemanticController } from "./semantic";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
+import type { VeynrelToolsPort } from "./health/toolsPort";
 import { SemanticIntelligenceController } from "./semantic/product/semanticIntelligenceController";
 import { SemanticHealthAnalysisAdapter } from "./semantic/health/semanticHealthAnalysisAdapter";
 import type { SemanticSettingsPort } from "./semantic/product/semanticSettingsPort";
@@ -108,6 +109,16 @@ export default class AIHubPlugin extends Plugin {
     return this.semanticController;
   }
 
+  getToolsPort(): VeynrelToolsPort {
+    return {
+      openAskVault: () => this.semanticController.openAskVault(),
+      openDeepAudit: () => this.openAuditModeModal(),
+      generateMocs: () => this.generateMOCsFromClusters(),
+      openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
+      runLegacyVaultAudit: () => this.runVaultAudit(),
+    };
+  }
+
   /**
    * Единственный на плагин экземпляр индекса: загружается с диска один раз,
    * лениво. Кэширование промиса даёт single-flight — параллельные вызовы
@@ -151,7 +162,7 @@ export default class AIHubPlugin extends Plugin {
         openProposalReview: () => this.openProposalReview(),
       });
       this.register(() => connect.dispose());
-      registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
+      registerHealth(this, this.getToolsPort(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
         new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
         new SemanticHealthAnalysisAdapter(this.semanticController), deep,

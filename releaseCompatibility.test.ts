@@ -66,7 +66,7 @@ it("opens and searches bytes written by published 1.7.0 without rewriting the in
 
 it("retains every published command ID used by hotkeys and automation", () => {
   const commands: string[] = [];
-  for (const name of ["main.ts", "semantic/obsidianSemanticController.ts"]) {
+  for (const name of ["main.ts", "semantic/obsidianSemanticController.ts", "health/obsidian/registerHealth.ts"]) {
     const source = ts.createSourceFile(name, readFileSync(new URL(name, import.meta.url), "utf8"), ts.ScriptTarget.Latest, true);
     const visit = (node: ts.Node): void => {
       if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression) && node.expression.name.text === "addCommand") {
@@ -82,5 +82,6 @@ it("retains every published command ID used by hotkeys and automation", () => {
   }
   expect(commands).toEqual(expect.arrayContaining(oldCommands));
   expect(commands).toContain("ai-knowledge-hub:review-ai-change-proposals");
+  expect(commands).toContain("ai-knowledge-hub:veynrel-open-health");
   expect(new Set(commands).size).toBe(commands.length);
 });

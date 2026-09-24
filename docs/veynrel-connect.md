@@ -2,10 +2,10 @@
 
 Connect productizes the existing Veynrel Companion integration. It does not add a
 server, protocol, MCP tool, mirror, or proposal application. The normal workspace
-navigation is **Health | Findings | Discover | Recall | Connect**. All five routes
+navigation is **Health | Findings | Discover | Recall | Connect | Tools | Settings**. All seven routes
 use `VeynrelHealthView`; `{ page: "connect" }`, forms and confirmations are
-transient. Reopening Veynrel starts on Health. Advanced/legacy Tools remain
-separate for the next roadmap PR.
+transient. Reopening Veynrel starts on Health. The [final product IA](product-ia.md)
+organizes existing manual tools and configuration without duplicating Connect.
 
 Connect is an integration surface, not a Health dimension. Structure,
 Connections, Recall and Knowledge remain the four Health dimensions.

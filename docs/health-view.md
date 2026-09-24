@@ -3,8 +3,9 @@
 This is the first user-visible Health migration stage (PR 4). The plugin registers
 `veynrel-health`, a native Obsidian `ItemView`, and the `veynrel-open-health` command.
 The main activity ribbon now opens Health. `ai-hub-open-panel`, `ai-batch-process`
-and every other existing command keep their behavior. A secondary **Tools** button
-opens the existing batch/control modal without embedding or changing it.
+and every other existing command keep their behavior. The secondary **Tools**
+button now navigates to the [Tools catalog](product-ia.md) in this same view.
+Batch processing remains the existing modal, launched explicitly from that catalog.
 
 PR 5 adds optional, integrated [profile onboarding](health-onboarding.md) around
 this same view. Recovery takes precedence, and the normal Home appears after Skip

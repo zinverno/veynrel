@@ -182,7 +182,7 @@ export class AIHubSettingTab extends PluginSettingTab {
         ]
       },
       {
-        type: "group", heading: tr("Языковая модель"), icon: "cpu", items: [
+        type: "group", heading: tr("@settings.group.deep"), icon: "cpu", items: [
           row(["provider"], tr("Языковая модель"), undefined, (setting) => this.renderProviderCards(this.customContainer(setting), save)),
           row([], profile.label, tr(profile.description), (setting) => this.renderProviderInfo(this.customContainer(setting))),
           {
@@ -299,7 +299,7 @@ export class AIHubSettingTab extends PluginSettingTab {
         ]
       },
       {
-        type: "group", heading: tr("Embeddings"), icon: "binary", items: [
+        type: "group", heading: tr("@settings.group.semantic"), icon: "binary", items: [
           row(["semantic.enabled"], tr("Включить semantic-функции"), tr("Semantic-функции работают только после включения. Первый индекс Vault запускается вручную."), (setting) => {
             this.addIcon(
               setting
@@ -423,7 +423,7 @@ export class AIHubSettingTab extends PluginSettingTab {
         ]
       },
       {
-        type: "group", heading: tr("Companion"), icon: "server", items: [
+        type: "group", heading: tr("@settings.group.connect"), icon: "server", items: [
           row(["companion.enabled"], tr("Включить Companion"), tr("Опционально передаёт read-only mirror текущего semantic index настроенному Companion endpoint. Первый sync запускается явно."), (setting) => {
             this.addIcon(
               setting
@@ -482,8 +482,8 @@ export class AIHubSettingTab extends PluginSettingTab {
         ]
       },
       {
-        type: "group", heading: tr("Глубокий аудит"), icon: "microscope", items: [
-          row(["deepAudit.batchSize"], tr("Файлов в одном запросе"), tr("Рекомендуется 3-7. Больше = быстрее, но риск превышения контекста"), (setting) => {
+        type: "group", heading: tr("@settings.group.audit"), icon: "microscope", items: [
+          row(["deepAudit.batchSize"], tr("Файлов в одном запросе"), `${tr("@settings.audit.description")} ${tr("Рекомендуется 3-7. Больше = быстрее, но риск превышения контекста")}`, (setting) => {
             this.addIcon(
               setting
                 .addSlider((s) =>
@@ -534,7 +534,7 @@ export class AIHubSettingTab extends PluginSettingTab {
         ]
       },
       {
-        type: "group", heading: tr("Вставка ответа"), icon: "arrow-down-to-line", items: [
+        type: "group", heading: tr("@settings.group.output"), icon: "arrow-down-to-line", items: [
           row(["defaultInsertion"], tr("Место вставки по умолчанию"), undefined, (setting) => {
             this.addIcon(
               setting.addDropdown((d) =>
@@ -661,8 +661,15 @@ export class AIHubSettingTab extends PluginSettingTab {
     ];
     // Search names/descriptions remain the visible row metadata. Aliases also
     // expose stable English keys and provider choices when the UI is translated.
+    const legacyAliases: Record<string, string[]> = {
+      cpu: ["Deep Intelligence", "Language model", "LLM", "Языковая модель"],
+      binary: ["Semantic Intelligence", "Semantic", "Embeddings"],
+      server: ["Veynrel Connect", "Connect", "Companion", "endpoint", "token", "timeout", "MCP"],
+      microscope: ["Deep Analysis", "Deep Audit", "Глубокий аудит"],
+      "arrow-down-to-line": ["Writing & Output", "MOC", "Atoms", "Insertion", "Вставка ответа"],
+    };
     for (const section of sections) for (const item of section.items) {
-      item.aliases = [...item.keys, section.heading ?? ""];
+      item.aliases = [...item.keys, section.heading, ...(legacyAliases[section.icon] ?? [])];
       if (item.keys.includes("provider")) {
         item.aliases.push("OpenAI", "OpenRouter", "Groq", "Ollama", "Custom");
       } else if (item.keys.includes("semantic.embeddingProvider")) {

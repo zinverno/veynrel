@@ -1,0 +1,198 @@
+{
+  "runtime": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10"
+  },
+  "navigation": [
+    "Health",
+    "Findings",
+    "Discover",
+    "Recall",
+    "Connect",
+    "Tools",
+    "Settings"
+  ],
+  "summaries": {
+    "deep": "configured",
+    "semantic": "ready",
+    "connect": "configured"
+  },
+  "assertions": [
+    "seven final workspace routes",
+    "tools entry has zero IO or work",
+    "settings entry has zero IO or work",
+    "Settings shows committed Deep provider and model",
+    "Settings shows Connect",
+    "Settings explains native local Recall",
+    "Settings provides native Advanced instructions",
+    "Settings hides credentials",
+    "Settings reuses deep setup chooser",
+    "Settings reuses semantic setup chooser",
+    "Settings opens existing Connect route",
+    "Tools opens exact BatchProcessModal",
+    "Batch open processes no notes",
+    "Tools opens exact AuditModeModal including Single Audit",
+    "Audit selector creates no Health scan or receipt",
+    "Tools opens existing AskVaultModal",
+    "Ask Vault opens without a query",
+    "synthetic semantic index is ready",
+    "Settings uses cached Ready semantic snapshot",
+    "Settings shows semantic model",
+    "Settings summarizes two indexed vectors",
+    "MOCs action creates a generated note from saved cluster",
+    "saved cluster MOC requires no provider request",
+    "second MOCs action updates generated note",
+    "Health and proposal command IDs present",
+    "compatible command executes ai-hub-open-panel",
+    "compatible command executes ai-batch-process",
+    "compatible command executes ai-deep-vault-audit",
+    "compatible command executes ai-rag-ask-vault",
+    "warm Settings shows Ready from existing index owner",
+    "Settings shows committed Configured Connect",
+    "warm tools entry has zero IO",
+    "warm settings entry has zero IO",
+    "all six context menu actions remain in native menu",
+    "two views share existing owners and host port",
+    "two independent transient routes",
+    "close and reopen returns to Health",
+    "existing saved index supplies Ready summary in en",
+    "existing saved index supplies Ready summary in ru",
+    "native Advanced Settings retains 35 rows",
+    "native Advanced Settings retains 27 keys",
+    "all regrouped sections render in native legacy Settings",
+    "native Advanced Settings branding and localization",
+    "following native Advanced Settings instructions performs no save or connection test",
+    "existing saved index supplies Ready summary in en",
+    "existing saved index supplies Ready summary in ru",
+    "native command palette entry available",
+    "native command palette lists Veynrel actions",
+    "command palette has no stale or doubled product prefix",
+    "final artifact tools entry has zero IO or work",
+    "final artifact settings entry has zero IO or work",
+    "final Settings summaries are Configured / Ready / Configured",
+    "final BatchProcessModal open starts no processing",
+    "final AuditModeModal open starts no processing",
+    "final AskVaultModal open starts no processing",
+    "final MOC action creates one generated note from saved clusters",
+    "final MOC action updates existing generated note without provider"
+  ],
+  "evidence": {
+    "passive-tools": {},
+    "passive-settings": {},
+    "batch-open": {
+      "getMarkdownFiles": 2
+    },
+    "audit-mode-open": {
+      "getMarkdownFiles": 1
+    },
+    "ask-vault-open": {},
+    "moc-create": {
+      "adapter.mkdir": 1,
+      "create": 1,
+      "adapter.write": 1
+    },
+    "moc-update": {
+      "modify": 1,
+      "adapter.write": 1
+    },
+    "warm-passive-tools": {},
+    "warm-passive-settings": {},
+    "final-passive-tools": {},
+    "final-passive-settings": {},
+    "final-openBatchProcessing": {
+      "getMarkdownFiles": 2
+    },
+    "final-openDeepAudit": {
+      "getMarkdownFiles": 1
+    },
+    "final-openAskVault": {},
+    "final-moc-create": {
+      "create": 1,
+      "adapter.write": 2
+    },
+    "final-moc-update": {
+      "modify": 1,
+      "adapter.write": 1
+    }
+  },
+  "commands": [
+    "ai-knowledge-hub:ai-atomize-note",
+    "ai-knowledge-hub:ai-batch-process",
+    "ai-knowledge-hub:ai-dataview-generate",
+    "ai-knowledge-hub:ai-deep-vault-audit",
+    "ai-knowledge-hub:ai-flashcards-note",
+    "ai-knowledge-hub:ai-generate-mocs",
+    "ai-knowledge-hub:ai-hub-open-panel",
+    "ai-knowledge-hub:ai-rag-ask-vault",
+    "ai-knowledge-hub:ai-selection",
+    "ai-knowledge-hub:ai-semantic-clear-index",
+    "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+    "ai-knowledge-hub:ai-semantic-find-similar-notes",
+    "ai-knowledge-hub:ai-semantic-index-current-note",
+    "ai-knowledge-hub:ai-semantic-index-vault",
+    "ai-knowledge-hub:ai-semantic-rebuild-index",
+    "ai-knowledge-hub:ai-semantic-search",
+    "ai-knowledge-hub:ai-simple-append",
+    "ai-knowledge-hub:ai-vault-append",
+    "ai-knowledge-hub:ai-vault-audit",
+    "ai-knowledge-hub:review-ai-change-proposals",
+    "ai-knowledge-hub:veynrel-open-health"
+  ],
+  "context": [
+    "New base",
+    "Improve style",
+    "Shorten",
+    "Rephrase",
+    "Generate Dataview",
+    "Flashcards",
+    "Split note into atomic notes"
+  ],
+  "advanced": {
+    "headings": [
+      "Deep Intelligence — расширенные настройки",
+      "Semantic Intelligence — расширенные настройки",
+      "Veynrel Connect — расширенные настройки",
+      "Глубокий анализ — настройка Deep Audit",
+      "Написание и сохранение",
+      "Интерфейс"
+    ],
+    "rows": 35,
+    "keys": 27,
+    "counts": {}
+  },
+  "palette": {
+    "count": 15,
+    "labels": [
+      "VeynrelСпросить Vault",
+      "VeynrelСемантический поиск",
+      "VeynrelНайти похожие заметки",
+      "VeynrelОткрыть Veynrel Health",
+      "VeynrelОткрыть панель управления",
+      "VeynrelReview AI change proposals",
+      "VeynrelГлубокий аудит — выбор режима",
+      "VeynrelОчистить семантический индекс",
+      "VeynrelСгенерировать MOC из кластеров",
+      "VeynrelAI: Обработать несколько заметок",
+      "VeynrelПерестроить семантический индекс",
+      "VeynrelОбновить семантический индекс Vault",
+      "VeynrelПроанализировать структуру хранилища",
+      "VeynrelНайти потенциальные semantic-дубликаты",
+      "VeynrelОбновить текущую заметку в семантическом индексе"
+    ]
+  },
+  "baseline": "4bd9f5048a9ef605c4d2396eb00bb7842b8568a7",
+  "implementationCommit": "14741697819b6893d5c8582a8025cb4e72cb9c33",
+  "artifactSha256": {
+    "main.js": "c328274a8ee629cbf0f5a0f533198bb1bdd13316ae09a3b146dc9788c8074872",
+    "styles.css": "16ca3bf971baf678a13302ab66c47c938ba6c8928fe5af96d16e31b92660247e",
+    "manifest.json": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39"
+  },
+  "fixture": {
+    "path": "/tmp/product-ia-smoke",
+    "syntheticOnly": true,
+    "personalCredentials": false,
+    "liveProviderRequests": false,
+    "transport": "injected offline vectors only during explicit index preparation; other requests rejected",
+    "automaticSync": "existing automatic sync after generated-note writes settled before passive measurements; suspended in final MOC verification"
+  }
+}

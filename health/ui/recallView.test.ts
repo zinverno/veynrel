@@ -53,6 +53,7 @@ const mocks = vi.hoisted(() => {
     setTimeout: vi.fn<(callback: () => void, delay: number) => number>(() => 1), clearTimeout: vi.fn() };
 });
 vi.mock("obsidian", () => ({ ...mocks, getLanguage: () => "en", normalizePath: (path: string) => path, parseLinktext: (path: string) => ({ path, subpath: "" }) }));
+import { toolsFixture } from "./testSupport";
 import { setLanguage } from "../../i18n";
 import { productFixture, cardsPath } from "../../recall/product/testSupport";
 import { candidate, gate } from "../../recall/testSupport";
@@ -86,7 +87,7 @@ function fixture(raw?: string, onboarded = true, withAuthoring = false) {
     Object.assign(f.vault, { process: processNote });
   }
   const authoring = withAuthoring ? new RecallAuthoringAdapter(f.app, { get: () => settings, update: vi.fn(), subscribe: () => vi.fn() }, f.product, build) : undefined;
-  const view = new VeynrelHealthView({ app: f.app } as never, health, vi.fn(), undefined, f.product, undefined, authoring);
+  const view = new VeynrelHealthView({ app: f.app } as never, health, toolsFixture(), undefined, f.product, undefined, authoring);
   const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
   return { ...f, view, content, health, authoring, build, settings, processNote, action: (key: string) => content.action(key)! };
 }
@@ -274,7 +275,7 @@ describe("Recall Health integration", () => {
 
   it("two Health views share one owner; close removes each subscriber/timer and plugin disposal unsubscribes the bridge", async () => {
     const f = fixture(); vi.spyOn(Date, "now").mockReturnValue(200);
-    const other = new VeynrelHealthView({ app: f.app } as never, f.health, vi.fn(), undefined, f.product);
+    const other = new VeynrelHealthView({ app: f.app } as never, f.health, toolsFixture(), undefined, f.product);
     const content = other.contentEl as unknown as InstanceType<typeof mocks.Element>;
     await Promise.all([f.view.onOpen(), other.onOpen()]); await flush();
     await f.product.refreshCards(); expect(recallCard(f).texts()).toContain("1 due · 1 active"); expect(content.texts()).toContain("1 due · 1 active");
@@ -292,7 +293,7 @@ describe("Recall Health integration", () => {
 describe("Recall workspace route and lazy composition", () => {
   it("registers without Recall IO, loads metadata on normal Health entry and reuses it across routes", async () => {
     const f = fixture(), plugin = { app: f.app, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), register: vi.fn(), addRibbonIcon: vi.fn(), addCommand: vi.fn() };
-    registerHealth(plugin as never, vi.fn(), preferencesFixture().preferences);
+    registerHealth(plugin as never, toolsFixture(), preferencesFixture().preferences);
     expect(plugin.registerView).toHaveBeenCalledTimes(1); expect(f.adapter.exists).not.toHaveBeenCalled();
     await f.view.onOpen(); f.action("nav-findings").click(); f.action("nav-discover").click(); f.action("nav-health").click();
     await flush(); expect(f.factory).toHaveBeenCalledTimes(1);
@@ -313,7 +314,7 @@ describe("Recall workspace route and lazy composition", () => {
 
   it("closing another workspace tab preserves the session; entering Recall transfers surface ownership", async () => {
     const f = await reviewFixture(); f.action("recall-reveal").click();
-    const other = new VeynrelHealthView({ app: f.app } as never, f.health, vi.fn(), undefined, f.product);
+    const other = new VeynrelHealthView({ app: f.app } as never, f.health, toolsFixture(), undefined, f.product);
     const content = other.contentEl as unknown as InstanceType<typeof mocks.Element>;
     await other.onOpen(); await other.onClose();
     expect(f.product.getSnapshot().session?.revealed).toBe(true); expect(f.content.texts()).toContain("SECRET ANSWER");

@@ -1916,3 +1916,21 @@
 .veynrel-health-view .veynrel-connect-capabilities { padding-inline-start: 20px; }
 .veynrel-health-view .veynrel-connect-capabilities li { margin-block: 10px; }
 .veynrel-health-view .veynrel-connect-confirmation { border: 1px solid var(--background-modifier-border); border-radius: 8px; padding: 16px; margin-top: 16px; }
+
+/* Tools and configuration overview share the workspace's native theme and focus rules. */
+.veynrel-health-view :is(.veynrel-tools-group, .veynrel-product-settings > section) { border-top: 1px solid var(--background-modifier-border); margin-top: 24px; padding-top: 8px; }
+.veynrel-health-view .veynrel-tools-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-block: 12px; }
+.veynrel-health-view .veynrel-tools-row > div { flex: 1 1 320px; min-width: 0; }
+.veynrel-health-view .veynrel-tools-row h3 { margin: 0; }
+.veynrel-health-view .veynrel-tools-row p { margin-bottom: 0; }
+.veynrel-health-view .veynrel-tools-row button { max-width: 100%; }
+.veynrel-health-view .veynrel-tools-editor dt { font-weight: var(--font-semibold); margin-top: 16px; }
+.veynrel-health-view .veynrel-tools-editor dd { margin: 4px 0 0; }
+.veynrel-health-view .veynrel-tools-references { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 24px; }
+.veynrel-health-view .veynrel-tools-references button { max-width: 100%; text-align: start; }
+@container (max-width: 520px) {
+  .veynrel-health-view .veynrel-tools-row button { width: 100%; }
+}
+@media (max-width: 520px) {
+  .veynrel-health-view .veynrel-tools-row button { width: 100%; }
+}
