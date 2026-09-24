@@ -58,7 +58,7 @@ import {
   isVaultId,
   mergeCompanionSettings,
 } from "./companionSync";
-import type { StoredCompanionSettings } from "./companionSync";
+import type { CompanionSettings, StoredCompanionSettings } from "./companionSync";
 import { ObsidianSemanticController } from "./semantic";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
@@ -71,6 +71,9 @@ import type { DeepKnowledgeConfiguration, DeepKnowledgeSettings } from "./deep/h
 import { languageModelSettingsSnapshot, sameLanguageModelConnection } from "./deep/product/languageModelSettingsPort";
 import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from "./deep/product/languageModelSettingsPort";
 
+import { ConnectController } from "./connect/product/connectController";
+import type { CompanionSettingsPort, CompanionSettingsUpdate } from "./connect/product/companionSettingsPort";
+import { companionConfigurationSignature } from "./connect/product/companionSettingsPort";
 import { CompanionClient } from "./companionSync/client";
 import { ProposalApplication } from "./proposals/application";
 import { ObsidianProposalVault } from "./proposals/obsidianVault";
@@ -90,6 +93,8 @@ export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   private settingsSave: Promise<void> = Promise.resolve();
   private readonly languageModelListeners = new Set<() => void>();
+  private readonly companionListeners = new Set<() => void>();
+  private companionConfiguration?: string;
   private committedDeepKnowledge?: DeepKnowledgeSettings;
   private deepKnowledgeConfigurationRevision = 0;
   lastPrompt = "";
@@ -123,16 +128,7 @@ export default class AIHubPlugin extends Plugin {
       setLanguage(this.settings.language ?? "auto");
       this.semanticController = new ObsidianSemanticController(this);
       this.semanticController.registerCommands();
-      this.addCommand({ id: "review-ai-change-proposals", name: "Review AI change proposals", callback: () => {
-        const settings = this.settings.companion;
-        if (!settings.enabled) { new Notice("Enable companion integration to review proposals."); return; }
-        const signature = JSON.stringify(settings);
-        try {
-          if (this.proposalApplication?.signature !== signature) this.proposalApplication = { signature,
-            value: new ProposalApplication(new CompanionClient({ ...settings }), settings.vaultId, new ObsidianProposalVault(this.app)) };
-          new ProposalReviewModal(this.app, this.proposalApplication.value).open();
-        } catch { new Notice("Check the companion configuration before reviewing proposals."); }
-      } });
+      this.addCommand({ id: "review-ai-change-proposals", name: "Review AI change proposals", callback: () => this.openProposalReview() });
       this.semanticController.registerAutomaticSync();
       this.register(() => void this.semanticController.dispose());
 
@@ -141,6 +137,20 @@ export default class AIHubPlugin extends Plugin {
         test: async (settings) => { await testConnection({ ...this.settings, ...settings }); },
       });
       this.register(() => deep.dispose());
+      const connect = new ConnectController(this.getCompanionSettingsPort(), {
+        getStatus: () => this.semanticController.getCompanionStatus(),
+        subscribeStatus: (listener) => {
+          const companion = this.semanticController.subscribeCompanionStatus(listener);
+          const semantic = this.semanticController.subscribeStatus(listener);
+          return () => { companion(); semantic(); };
+        },
+        test: (settings, signal) => this.semanticController.rawTestCompanion(settings, signal, false),
+        syncCurrent: (signal) => this.semanticController.rawSyncCompanion(signal),
+        getSemanticMirrorState: () => ({ enabled: this.settings.semantic.enabled,
+          cachedReady: this.semanticController.getCachedIndexState().kind === "ready" }),
+        openProposalReview: () => this.openProposalReview(),
+      });
+      this.register(() => connect.dispose());
       registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
         new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
@@ -151,7 +161,7 @@ export default class AIHubPlugin extends Plugin {
           this.recallAuthoring = authoring;
           this.register(() => authoring.dispose());
           return authoring;
-        });
+        }, connect);
 
       this.addCommand({
         id: "ai-hub-open-panel",
@@ -280,6 +290,7 @@ export default class AIHubPlugin extends Plugin {
     if (needsVaultId) await this.saveData(this.settings);
     this.publishDeepKnowledgeSettings(this.settings);
     this.notifyLanguageModelSettingsChanged();
+    this.notifyCompanionSettingsChanged();
   }
 
   getDeepKnowledgeConfiguration(): DeepKnowledgeConfiguration {
@@ -326,13 +337,54 @@ export default class AIHubPlugin extends Plugin {
     };
   }
 
+  /** Command and Connect reuse the same cached application and guarded approval implementation. */
+  openProposalReview(): void {
+    const settings = this.settings.companion;
+    if (!settings.enabled) { new Notice(tr("@connect.review-disabled")); return; }
+    const signature = companionConfigurationSignature(settings);
+    try {
+      if (this.proposalApplication?.signature !== signature) this.proposalApplication = { signature,
+        value: new ProposalApplication(new CompanionClient({ ...settings }), settings.vaultId, new ObsidianProposalVault(this.app)) };
+      new ProposalReviewModal(this.app, this.proposalApplication.value).open();
+    } catch { new Notice(tr("@connect.error.invalid")); }
+  }
+
+  getCompanionSettingsPort(): CompanionSettingsPort {
+    return {
+      get: () => ({ ...this.settings.companion }),
+      update: async (next, expected) => {
+        try { await this.saveSettings(undefined, undefined, undefined, undefined, { next, expected }); }
+        catch { throw new Error("Could not save Companion settings."); }
+        return { ...this.settings.companion };
+      },
+      subscribe: (listener) => {
+        this.companionListeners.add(listener);
+        return () => { this.companionListeners.delete(listener); };
+      },
+    };
+  }
+
+  notifyCompanionSettingsChanged(): void {
+    const signature = companionConfigurationSignature(this.settings.companion);
+    if (signature === this.companionConfiguration) return;
+    this.companionConfiguration = signature;
+    this.semanticController?.notifyCompanionSettingsChanged();
+    for (const listener of this.companionListeners) {
+      try { listener(); } catch { /* Observers cannot fail settings persistence. */ }
+    }
+  }
+
   async saveSettings(health?: HealthPreferences, semantic?: EmbeddingSettings, expectedSemantic?: EmbeddingSettings,
-    languageModel?: { next: LanguageModelSettingsSnapshot; expected?: LanguageModelSettingsSnapshot }) {
+    languageModel?: { next: LanguageModelSettingsSnapshot; expected?: LanguageModelSettingsSnapshot },
+    companion?: { next: CompanionSettingsUpdate; expected?: CompanionSettings }) {
     const nextHealth = health ? { ...health } : undefined;
     const nextSemantic = semantic ? { ...semantic } : undefined;
     const expected = expectedSemantic ? { ...expectedSemantic } : undefined;
     const nextLanguageModel = languageModel ? languageModelSettingsSnapshot(languageModel.next) : undefined;
     const expectedLanguageModel = languageModel?.expected ? languageModelSettingsSnapshot(languageModel.expected) : undefined;
+    const nextCompanion = companion ? { ...companion.next } : undefined;
+    const expectedCompanion = companion?.expected ? { ...companion.expected } : undefined;
+    this.notifyCompanionSettingsChanged();
     // Read ordinary settings inside the same queue, so neither transaction loses concurrent edits.
     const save = this.settingsSave.then(async () => {
       const matches = (previous: EmbeddingSettings): boolean => Object.entries(previous)
@@ -344,22 +396,30 @@ export default class AIHubPlugin extends Plugin {
       if (expectedLanguageModel && !sameLanguageModelConnection(this.settings, expectedLanguageModel)) {
         throw new Error("Language model settings changed during connection.");
       }
+      const matchesCompanion = (value: CompanionSettings): boolean => companionConfigurationSignature(value) === companionConfigurationSignature(this.settings.companion);
+      if (expectedCompanion && !matchesCompanion(expectedCompanion)) throw new Error("Companion settings changed during connection.");
+      const previousCompanion = nextCompanion ? { ...this.settings.companion } : undefined;
+      // The Simple surface owns only these three fields; Advanced retains timeout and stable identity.
+      const companionConnection = nextCompanion ? { ...this.settings.companion, enabled: nextCompanion.enabled,
+        endpoint: nextCompanion.endpoint ?? this.settings.companion.endpoint,
+        token: nextCompanion.token ?? this.settings.companion.token } : undefined;
       const previousSemantic = nextSemantic ? { ...this.settings.semantic } : undefined;
       const previousLanguageModel = nextLanguageModel ? languageModelSettingsSnapshot(this.settings) : undefined;
       // Simple setup owns only connection fields. Never roll back newer Advanced tuning.
       const connection = nextLanguageModel ? { provider: nextLanguageModel.provider, apiKey: nextLanguageModel.apiKey,
         model: nextLanguageModel.model, baseUrl: nextLanguageModel.baseUrl } : undefined;
       const savedSettings = { ...this.settings, deepAudit: { ...this.settings.deepAudit }, ...(nextHealth ? { health: nextHealth } : {}),
-        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection };
+        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection, companion: companionConnection ?? { ...this.settings.companion } };
       const savedDeep = deepKnowledgeSettingsSnapshot(savedSettings);
       await this.saveData(savedSettings);
       this.publishDeepKnowledgeSettings(savedDeep);
       if ((previousSemantic && !matches(previousSemantic)) ||
-        (previousLanguageModel && !sameLanguageModelConnection(this.settings, previousLanguageModel))) {
+        (previousLanguageModel && !sameLanguageModelConnection(this.settings, previousLanguageModel)) ||
+        (previousCompanion && !matchesCompanion(previousCompanion))) {
         // Legacy controls mutate before saving. If they changed during I/O, restore their current
         // configuration on disk inside this queue and reject the obsolete setup without publishing it.
         const correctedDeep = deepKnowledgeSettingsSnapshot(this.settings);
-        await this.saveData({ ...this.settings, semantic: { ...this.settings.semantic } });
+        await this.saveData({ ...this.settings, semantic: { ...this.settings.semantic }, companion: { ...this.settings.companion } });
         this.publishDeepKnowledgeSettings(correctedDeep);
         throw new Error("Settings changed during persistence.");
       }
@@ -370,6 +430,8 @@ export default class AIHubPlugin extends Plugin {
         this.semanticController.notifySettingsChanged({ reconcile: false });
       }
       if (connection) Object.assign(this.settings, connection);
+      if (companionConnection) Object.assign(this.settings.companion, companionConnection);
+      this.notifyCompanionSettingsChanged();
       this.notifyLanguageModelSettingsChanged();
     });
     this.settingsSave = save.catch(() => undefined);

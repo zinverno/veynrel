@@ -32,6 +32,11 @@ import { renderDeepIntelligence } from "./renderDeepIntelligence";
 import type { DeepSetupState } from "./renderDeepIntelligence";
 import { canCheckKnowledge, deepIntelligenceViewModel, deepSetupError, knowledgeScanStatus } from "./deepIntelligenceViewModel";
 
+import type { ConnectPort, ConnectResult, ConnectSyncConfirmation } from "../connectPort";
+import { renderConnect } from "./renderConnect";
+import type { ConnectSetupState } from "./renderConnect";
+import { connectResultMessage, connectViewModel } from "./connectViewModel";
+
 export class VeynrelHealthView extends ItemView {
   // One transient review surface per plugin owner, including duplicated workspace tabs.
   private static readonly recallViews = new WeakMap<RecallProductPort, VeynrelHealthView>();
@@ -39,6 +44,10 @@ export class VeynrelHealthView extends ItemView {
   private unsubscribeSemantic?: () => void;
   private unsubscribeDeep?: () => void;
   private unsubscribeAuthoring?: () => void;
+  private unsubscribeConnect?: () => void;
+  private connectSetup?: ConnectSetupState;
+  private connectConfirmation?: ConnectSyncConfirmation;
+  private connectResult?: ConnectResult;
   private deepSetup?: DeepSetupState;
   private knowledgeConfirmation?: DeepKnowledgeConsent;
   private cleanupRecall?: () => void;
@@ -54,11 +63,11 @@ export class VeynrelHealthView extends ItemView {
   private findingMutationErrorRoute?: FindingsRoute;
   private expandedPaths = false;
   private expandedSnooze = false;
-  private focusDestination?: "heading" | "detail" | "recall-question" | "recall-answer" | "knowledge-confirmation" | "recall-authoring";
+  private focusDestination?: "heading" | "detail" | "recall-question" | "recall-answer" | "knowledge-confirmation" | "recall-authoring" | "connect-confirmation";
 
   constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly openTools: () => void,
     private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort,
-    private readonly deep?: DeepIntelligencePort, private readonly authoring?: RecallAuthoringPort) { super(leaf); }
+    private readonly deep?: DeepIntelligencePort, private readonly authoring?: RecallAuthoringPort, private readonly connect?: ConnectPort) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -81,6 +90,8 @@ export class VeynrelHealthView extends ItemView {
       this.unsubscribeDeep = this.deep?.subscribe(() => this.render());
       this.unsubscribeAuthoring?.();
       this.unsubscribeAuthoring = this.authoring?.subscribe(() => this.render());
+      this.unsubscribeConnect?.();
+      this.unsubscribeConnect = this.connect?.subscribe(() => { this.connectResult = undefined; this.render(); });
       this.render();
     } catch {
       if (epoch === this.epoch) this.status?.setText(t("@health.error.load"));
@@ -93,6 +104,8 @@ export class VeynrelHealthView extends ItemView {
     this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
     this.unsubscribeDeep?.(); this.unsubscribeDeep = undefined; this.deepSetup = undefined;
     this.unsubscribeAuthoring?.(); this.unsubscribeAuthoring = undefined;
+    this.unsubscribeConnect?.(); this.unsubscribeConnect = undefined;
+    this.connectSetup = undefined; this.connectConfirmation = undefined; this.connectResult = undefined;
     this.knowledgeConfirmation = undefined;
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
@@ -115,7 +128,7 @@ export class VeynrelHealthView extends ItemView {
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
     const normal = onboarding.step === "complete";
     if (!normal && this.route.page === "recall") { this.leaveRecall(); this.route = { page: "health" }; }
-    if (!normal) { this.semanticSetup = undefined; this.deepSetup = undefined; this.knowledgeConfirmation = undefined; }
+    if (!normal) { this.connectSetup = undefined; this.connectConfirmation = undefined; this.semanticSetup = undefined; this.deepSetup = undefined; this.knowledgeConfirmation = undefined; }
     // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
     if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
     this.cleanupRecall?.(); this.cleanupRecall = undefined;
@@ -124,9 +137,9 @@ export class VeynrelHealthView extends ItemView {
     this.body.empty();
     if (normal) {
       const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
-      const pages = this.recall ? ["health", "findings", "discover", "recall"] as const : ["health", "findings", "discover"] as const;
+      const pages: Array<VeynrelHealthRoute["page"]> = ["health", "findings", "discover", ...(this.recall ? ["recall" as const] : []), ...(this.connect ? ["connect" as const] : [])];
       for (const page of pages) {
-        const button = healthButton(nav, t(page === "health" ? "@findings.health" : page === "findings" ? "@findings.title" : page === "recall" ? "@recall.title" : "@discover.title"),
+        const button = healthButton(nav, t(page === "health" ? "@findings.health" : page === "findings" ? "@findings.title" : page === "recall" ? "@recall.title" : page === "connect" ? "@connect.nav" : "@discover.title"),
           () => this.navigate(page === "findings" ? findingsRoute() : { page }), `nav-${page}`);
         button.setAttribute("aria-pressed", String(this.route.page === page));
         if (this.route.page === page) button.setAttribute("aria-current", "page");
@@ -139,7 +152,10 @@ export class VeynrelHealthView extends ItemView {
     const recallSnapshot = normal && this.route.page === "recall" ? this.recall?.getSnapshot() : undefined;
     const recall = recallSnapshot ? recallViewModel(recallSnapshot) : undefined;
     const authoring = recall && !recallSnapshot?.session ? this.authoring?.getSnapshot() : undefined;
-    if (recall && this.recall) {
+    const connectSnapshot = normal && this.route.page === "connect" ? this.connect?.getSnapshot() : undefined;
+    if (connectSnapshot) {
+      this.renderConnect(surface);
+    } else if (recall && this.recall) {
       const port = this.recall;
       this.cleanupRecall = renderRecall(surface, recall, {
         refresh: () => { void port.refreshCards(); }, start: () => { this.authoring?.cancelConfirmation(); port.startSession(); }, reveal: () => port.revealAnswer(),
@@ -225,18 +241,19 @@ export class VeynrelHealthView extends ItemView {
     const deepError = this.deepSetup?.step === "form" ? deepSetupError(this.deepSetup.result) : undefined;
     const deepStatus = deepSnapshot && (deepSnapshot.busy || deepSnapshot.state === "error" || deepSnapshot.state === "ready")
       ? deepIntelligenceViewModel(deepSnapshot).status : undefined;
-    const primaryStatus = recall ? (authoring ? recallAuthoringStatus(authoring) : undefined) ?? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
+    const primaryStatus = connectSnapshot ? connectResultMessage(this.connectSetup?.step === "form" ? this.connectSetup.result : this.connectResult) ?? connectViewModel(connectSnapshot).error ?? connectViewModel(connectSnapshot).status : recall ? (authoring ? recallAuthoringStatus(authoring) : undefined) ?? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
       : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "";
     // A connection result must not hide a later Health scan, recovery or navigation message.
     this.status.setText([primaryStatus, deepError ?? (deepSnapshot ? knowledgeScanStatus(state) ?? deepStatus : undefined)].filter(Boolean).join(" · "));
-    this.status.toggleClass("veynrel-health-status-error", recall ? recall.error || Boolean(authoring?.result && authoring.result.status !== "success") : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
+    this.status.toggleClass("veynrel-health-status-error", connectSnapshot ? Boolean(connectSnapshot.error || (this.connectResult && !this.connectResult.ok) || (this.connectSetup?.step === "form" && this.connectSetup.result && !this.connectSetup.result.ok)) : recall ? recall.error || Boolean(authoring?.result && authoring.result.status !== "success") : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
     // Leave the sibling live region available to announce the running state.
-    this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences));
+    this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences || connectSnapshot?.busy));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
       ?? this.body?.querySelector<HTMLElement>("[data-health-heading]") ?? null;
     if (this.focusDestination) {
-      const target = this.focusDestination === "recall-question" ? this.body.querySelector<HTMLElement>("[data-recall-question]")
+      const target = this.focusDestination === "connect-confirmation" ? this.body.querySelector<HTMLElement>("[data-connect-confirmation]")
+        : this.focusDestination === "recall-question" ? this.body.querySelector<HTMLElement>("[data-recall-question]")
         : this.focusDestination === "recall-authoring" ? this.body.querySelector<HTMLElement>("[data-recall-authoring-confirmation]")
         : this.focusDestination === "knowledge-confirmation" ? this.body.querySelector<HTMLElement>("[data-knowledge-confirmation]")
         : this.focusDestination === "recall-answer" ? this.body.querySelector<HTMLElement>("[data-recall-answer]")
@@ -249,7 +266,7 @@ export class VeynrelHealthView extends ItemView {
       else heading()?.focus();
     }
     // Metadata only, after onboarding/recovery. Product notifications flow through the Health controller.
-    if (normal) this.controller.initializeRecall();
+    if (normal && this.route.page === "health") this.controller.initializeRecall();
   }
 
   private wakeAt(dueAt: number): void {
@@ -267,6 +284,7 @@ export class VeynrelHealthView extends ItemView {
     this.semanticSetup = undefined;
     this.deepSetup = undefined;
     this.knowledgeConfirmation = undefined;
+    this.connectSetup = undefined; this.connectConfirmation = undefined; this.connectResult = undefined;
     this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
     this.changingProfile = false; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
@@ -392,6 +410,68 @@ export class VeynrelHealthView extends ItemView {
     if (epoch !== this.epoch || this.deepSetup !== setup) return;
     this.deepSetup = result.ok ? undefined : { ...setup, result };
     this.focusDestination = "heading"; this.render();
+  }
+
+  private renderConnect(surface: HTMLElement): void {
+    const connect = this.connect;
+    if (!connect) return;
+    renderConnect(surface, connect.getSnapshot(), this.connectSetup, this.connectConfirmation, this.connectResult, {
+      setup: () => {
+        if (connect.getSnapshot().busy) return;
+        this.connectSetup = { step: "choose" }; this.connectConfirmation = undefined; this.connectResult = undefined;
+        this.focusDestination = "heading"; this.render();
+      },
+      choose: (mode) => {
+        if (connect.getSnapshot().busy) return;
+        this.connectSetup = { step: "form", draft: connect.createDraft(mode) }; this.render();
+      },
+      edit: (field, value) => {
+        if (this.connectSetup?.step !== "form" || connect.getSnapshot().busy) return;
+        const draft = this.connectSetup.draft;
+        if (field === "endpoint" && draft.endpoint !== value) {
+          draft.token = "";
+          const password = this.body?.querySelector<HTMLInputElement>('[data-health-action="connect-field-token"]');
+          if (password) password.value = "";
+        }
+        draft[field] = value; this.connectSetup.result = undefined;
+      },
+      connect: () => { void this.connectCompanion(); },
+      back: () => { this.connectSetup = undefined; this.focusDestination = "heading"; this.render(); },
+      check: () => { void this.connectAction(() => connect.check()); },
+      requestSync: () => {
+        this.connectConfirmation = connect.createSyncConfirmation(); this.connectResult = undefined;
+        this.focusDestination = "connect-confirmation"; this.render();
+      },
+      confirmSync: () => {
+        const confirmation = this.connectConfirmation;
+        if (!confirmation || this.route.page !== "connect") return;
+        this.connectConfirmation = undefined;
+        void this.connectAction(() => connect.sync(confirmation));
+      },
+      cancelSync: () => { this.connectConfirmation = undefined; this.focusDestination = "heading"; this.render(); },
+      disable: () => { this.connectConfirmation = undefined; void this.connectAction(() => connect.disable()); },
+      review: () => connect.openProposalReview(),
+      discover: () => this.navigate({ page: "discover" }),
+    });
+  }
+
+  private async connectCompanion(): Promise<void> {
+    const setup = this.connectSetup; const epoch = this.epoch;
+    if (!this.connect || setup?.step !== "form" || this.connect.getSnapshot().busy) return;
+    setup.result = undefined;
+    const result = await this.connect.connect(setup.draft);
+    if (epoch !== this.epoch || this.connectSetup !== setup) return;
+    this.connectSetup = result.ok ? undefined : { ...setup, result };
+    this.focusDestination = "heading"; this.render();
+  }
+
+  private async connectAction(action: () => Promise<ConnectResult>): Promise<void> {
+    const route = this.route; const epoch = this.epoch;
+    this.connectResult = undefined;
+    const result = await action();
+    if (epoch !== this.epoch || this.route !== route) return;
+    this.connectResult = result;
+    this.render();
   }
 
   private async mutateFinding(id: string, update: () => Promise<boolean>): Promise<void> {

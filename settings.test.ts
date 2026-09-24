@@ -16,7 +16,7 @@ const exposedKeys = [
   "defaultInsertion", "newNoteFolder", "filenameTemplate", "mocFolder", "atomsLocation", "atomsFolder",
   "deepAudit.batchSize", "deepAudit.maxConcurrent", "deepAudit.delayMs",
   "semantic.enabled", "semantic.embeddingProvider", "semantic.embeddingModel", "semantic.embeddingBaseUrl",
-  "semantic.openRouterApiKey", "semantic.openAICompatibleApiKey", "companion.enabled", "companion.endpoint", "companion.token",
+  "semantic.openRouterApiKey", "semantic.openAICompatibleApiKey", "companion.enabled", "companion.endpoint", "companion.token", "companion.timeoutMs",
 ].sort();
 
 function fixture() {
@@ -32,7 +32,7 @@ describe("shared legacy and declarative settings inventory", () => {
   it("covers every existing durable UI binding without registration-time side effects", () => {
     const f = fixture(); const snapshot = structuredClone(f.settings);
     const rows = f.tab.getSettingDefinitions().flatMap((section) => section.items);
-    expect(rows).toHaveLength(34);
+    expect(rows).toHaveLength(35);
     expect(rows.flatMap((row) => row.keys).sort()).toEqual(exposedKeys);
     expect(f.settings).toEqual(snapshot);
     expect(f.saveSettings).not.toHaveBeenCalled(); expect(f.getSemanticController).not.toHaveBeenCalled();

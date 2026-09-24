@@ -102,7 +102,7 @@ describe("CompanionSyncService", () => {
     expect(service.getStatus(true).mirrorKnownReady).not.toBe(true);
     service.enqueueIncremental(settings, { snapshot: snapshot(), deletePaths: [] });
     await service.drain();
-    expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    expect(service.getStatus(true).mirrorKnownReady).not.toBe(true);
     vi.mocked(client.applyBatch).mockRejectedValueOnce(new CompanionClientError("AUTH_REQUIRED"));
     service.enqueueIncremental(settings, { snapshot: snapshot(), deletePaths: [] });
     await service.drain();
@@ -110,6 +110,23 @@ describe("CompanionSyncService", () => {
     service.invalidateConfiguration(); expect(statuses.at(-1)).toBe("idle");
     remove(); await service.testConnection(settings); expect(statuses).toHaveLength(7);
     await service.dispose();
+  });
+
+  it("only full reconciliation establishes mirror readiness; incremental success preserves it and failure clears it", async () => {
+    const client = fakeClient(); const service = new CompanionSyncService({ clientFactory: () => client });
+    const partial = snapshot(); partial.notes = partial.notes.slice(0, 1);
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true)).toMatchObject({ kind: "ready", mirrorKnownReady: false });
+    await service.reconcile(settings, snapshot()); expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    vi.mocked(client.applyBatch).mockRejectedValueOnce(new CompanionClientError("AUTH_REQUIRED"));
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true)).toMatchObject({ kind: "error", mirrorKnownReady: false });
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true)).toMatchObject({ kind: "ready", mirrorKnownReady: false });
+    await service.reconcile(settings, snapshot()); expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    service.invalidateConfiguration(); expect(service.getStatus(true).mirrorKnownReady).not.toBe(true);
   });
 
   it("candidate tests reuse the client but cannot publish candidate-only status", async () => {

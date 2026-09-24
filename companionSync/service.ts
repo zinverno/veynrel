@@ -137,6 +137,8 @@ export class CompanionSyncService implements CompanionSyncPort {
     const frozenSettings = { ...settings };
     this.tail = this.tail.then(async () => {
       if (!this.isCurrent(epoch)) return;
+      // A partial batch cannot establish that the rest of an existing index is mirrored.
+      const mirrorKnownReady = this.status.mirrorKnownReady === true;
       this.status = { kind: "syncing", operation: "sync", mirrorKnownReady: false };
       try {
         const client = this.clientFactory(frozenSettings);
@@ -166,7 +168,7 @@ export class CompanionSyncService implements CompanionSyncPort {
           false,
         );
         if (!applied || !this.isCurrent(epoch)) return;
-        this.status = { kind: "ready", mirrorKnownReady: true, lastSuccessAt: Date.now() };
+        this.status = { kind: "ready", mirrorKnownReady, lastSuccessAt: Date.now() };
       } catch (error) {
         if (!this.isCurrent(epoch)) return;
         this.recordError(error);

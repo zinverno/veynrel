@@ -8,7 +8,7 @@ export const FINDING_STATES: readonly FindingState[] = ["open", "snoozed", "dism
 export const FINDING_DIMENSIONS = ["all", "structure", "connections", "recall", "knowledge"] as const;
 export interface FindingsFilter { state: FindingState; dimension: HealthDimension | "all" }
 export type FindingsRoute = { page: "findings"; selectedFindingId?: string } & FindingsFilter;
-export type VeynrelHealthRoute = { page: "health" } | FindingsRoute | { page: "discover" } | { page: "recall" };
+export type VeynrelHealthRoute = { page: "health" } | FindingsRoute | { page: "discover" } | { page: "recall" } | { page: "connect" };
 
 export function findingsRoute(options: Partial<Omit<FindingsRoute, "page">> = {}): FindingsRoute {
   return { page: "findings", state: "open", dimension: "all", ...options };
