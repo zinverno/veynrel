@@ -1,0 +1,20 @@
+{
+  "release": "https://github.com/zinverno/veynrel/releases/tag/1.8.0",
+  "tagCommit": "21a1b83afd0ddf4650ebbeced947fb0d424c3f6e",
+  "releaseAssets": {
+    "manifest.json": {
+      "bytes": 350,
+      "sha256": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39"
+    },
+    "main.js": {
+      "bytes": 424254,
+      "sha256": "38be6b935c04a77a3bc3ca0518e14a33db95635b676eb7436160669439fe7d34"
+    },
+    "styles.css": {
+      "bytes": 52071,
+      "sha256": "cb0cce5a3f2232473580ad878b493d18bbd12297b58353d80efaaefcbc8b788f"
+    }
+  },
+  "state": "Written by actual published 1.8.0 in isolated native Obsidian with synthetic independent credentials and injected deterministic responses. Source.md Flashcards section produced by published generateFlashcardsForNote; semantic index written by explicit indexVault; Deep cache persisted by published NoteIndexManager. No personal data.",
+  "host": "1.13.7"
+}

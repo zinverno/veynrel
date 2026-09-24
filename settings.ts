@@ -184,7 +184,7 @@ export class AIHubSettingTab extends PluginSettingTab {
       {
         type: "group", heading: tr("@settings.group.deep"), icon: "cpu", items: [
           row(["provider"], tr("Языковая модель"), undefined, (setting) => this.renderProviderCards(this.customContainer(setting), save)),
-          row([], profile.label, tr(profile.description), (setting) => this.renderProviderInfo(this.customContainer(setting))),
+          row([], tr(profile.label), tr(profile.description), (setting) => this.renderProviderInfo(this.customContainer(setting))),
           {
             ...row(["apiKey"], "API key", profile.requiresApiKey
               ? tr("Хранится локально")
@@ -194,7 +194,7 @@ export class AIHubSettingTab extends PluginSettingTab {
                   .addText((t) => {
                     t.inputEl.type = "password";
                     t.inputEl.setAttribute("autocomplete", "off");
-                    t.setPlaceholder(profile.apiKeyPlaceholder)
+                    t.setPlaceholder(tr(profile.apiKeyPlaceholder))
                       .setValue(this.plugin.settings.apiKey)
                       .onChange(async (v) => {
                         this.plugin.settings.apiKey = v.trim();
@@ -260,7 +260,7 @@ export class AIHubSettingTab extends PluginSettingTab {
               this.addIcon(modelSetting, "bot");
             }),
           {
-            ...row([], `${tr("Модель")} — ${profile.label}`, tr("ID модели провайдера"), (setting) => this.renderModelOptions(this.customContainer(setting), save)),
+            ...row([], `${tr("Модель")} — ${tr(profile.label)}`, tr("ID модели провайдера"), (setting) => this.renderModelOptions(this.customContainer(setting), save)),
             visible: profile.popularModels.length > 0 || provider === "ollama" || provider === "openrouter"
           },
           row(["baseUrl"], "Base URL", provider === "custom"
@@ -306,8 +306,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                 .addToggle((toggle) =>
                   toggle.setValue(semantic.enabled).onChange(async (value) => {
                     semantic.enabled = value;
-                    this.plugin.getSemanticController().notifySettingsChanged();
+                    this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                     await save();
+                    this.plugin.reconcileSemanticSettings();
                   }),
                 ),
               "power",
@@ -331,8 +332,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                       semantic.embeddingProvider = provider;
                       semantic.embeddingBaseUrl = profile.defaultBaseUrl;
                       semantic.embeddingModel = profile.defaultModel;
-                      this.plugin.getSemanticController().notifySettingsChanged();
+                      this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                       await save();
+                      this.plugin.reconcileSemanticSettings();
                       this.refreshSettings();
                     });
                 }),
@@ -353,8 +355,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                       .setValue(semantic.embeddingModel)
                       .onChange(async (value) => {
                         semantic.embeddingModel = value.trim();
-                        this.plugin.getSemanticController().notifySettingsChanged();
+                        this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                         await save();
+                        this.plugin.reconcileSemanticSettings();
                       }),
                   ),
                 "scan-search",
@@ -372,8 +375,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                     .setValue(semantic.embeddingBaseUrl)
                     .onChange(async (value) => {
                       semantic.embeddingBaseUrl = value.trim();
-                      this.plugin.getSemanticController().notifySettingsChanged();
+                      this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                       await save();
+                      this.plugin.reconcileSemanticSettings();
                     }),
                 ),
               "link",
@@ -400,8 +404,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                         } else {
                           semantic.openAICompatibleApiKey = value.trim();
                         }
-                        this.plugin.getSemanticController().notifySettingsChanged();
+                        this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                         await save();
+                        this.plugin.reconcileSemanticSettings();
                       });
                   })
                   .addButton((button) =>
@@ -619,7 +624,7 @@ export class AIHubSettingTab extends PluginSettingTab {
               "atom",
             );
           }),
-          { keys: ["filenameTemplate"], name: tr("Шаблон имени файла"), desc: "Переменные: {{date}}, {{time}}, {{topic}}", control: { type: "text", key: "filenameTemplate", placeholder: "AI-{{date}}-{{topic}}" } }
+          { keys: ["filenameTemplate"], name: tr("Шаблон имени файла"), desc: tr("Переменные: {{date}}, {{time}}, {{topic}}"), control: { type: "text", key: "filenameTemplate", placeholder: "AI-{{date}}-{{topic}}" } }
         ]
       },
       {
@@ -770,7 +775,7 @@ export class AIHubSettingTab extends PluginSettingTab {
       const card = grid.createDiv({ cls: "ai-hub-provider-card" });
       card.setAttribute("tabindex", "0");
       card.setAttribute("role", "button");
-      card.setAttribute("aria-label", tr("Провайдер: {p}", { p: profile.label }));
+      card.setAttribute("aria-label", tr("Провайдер: {p}", { p: tr(profile.label) }));
       cards.set(p, card);
 
       const iconWrap = card.createDiv({ cls: "ai-hub-provider-icon" });

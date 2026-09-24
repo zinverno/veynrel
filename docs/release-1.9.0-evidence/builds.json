@@ -1,0 +1,61 @@
+{
+  "exactHead": "b06315cbf579f027a74ed1b44a9f933e96cd97c2",
+  "builds": [
+    {
+      "cleanClone": 1,
+      "node": "v24.14.1",
+      "npmCi": "passed",
+      "productionBuild": "passed",
+      "scannerNpm": "10.9.2",
+      "scannerInstallAndTypecheck": "passed",
+      "workingTreeClean": true,
+      "artifacts": {
+        "main.js": {
+          "bytes": 765344,
+          "sha256": "ef5a1deff49120e1fa730c5bcf75d6399f773730523d69ac9392ac841e078c32"
+        },
+        "manifest.json": {
+          "bytes": 349,
+          "sha256": "b018c1d54c7a94044007f80e25a330f20e0ebdea9597e3bd56e3a8570489ac9f"
+        },
+        "styles.css": {
+          "bytes": 66344,
+          "sha256": "16ca3bf971baf678a13302ab66c47c938ba6c8928fe5af96d16e31b92660247e"
+        }
+      }
+    },
+    {
+      "cleanClone": 2,
+      "node": "v24.14.1",
+      "npmCi": "passed",
+      "productionBuild": "passed",
+      "scannerNpm": "11.11.0",
+      "scannerInstallAndTypecheck": "passed",
+      "workingTreeClean": true,
+      "artifacts": {
+        "main.js": {
+          "bytes": 765344,
+          "sha256": "ef5a1deff49120e1fa730c5bcf75d6399f773730523d69ac9392ac841e078c32"
+        },
+        "manifest.json": {
+          "bytes": 349,
+          "sha256": "b018c1d54c7a94044007f80e25a330f20e0ebdea9597e3bd56e3a8570489ac9f"
+        },
+        "styles.css": {
+          "bytes": 66344,
+          "sha256": "16ca3bf971baf678a13302ab66c47c938ba6c8928fe5af96d16e31b92660247e"
+        }
+      }
+    }
+  ],
+  "byteReproducible": true,
+  "recordingNote": "These checks ran at the source candidate commit below. The evidence-only commit that records this file is followed by two further clean builds on exact final HEAD; the final SHA/results and CI run are recorded in the PR handoff to avoid a self-referential evidence commit.",
+  "sibling": {
+    "pluginHead": "b06315cbf579f027a74ed1b44a9f933e96cd97c2",
+    "companionHead": "62ff1b6ed0fd04290e6ab00216d5c6b51d94db5c",
+    "bothWorkingTreesClean": true,
+    "protocol": 1,
+    "passed": 10,
+    "method": "Existing companion:smoke-sibling; real Node server and plugin client with deterministic providers and in-memory Vault adapter"
+  }
+}

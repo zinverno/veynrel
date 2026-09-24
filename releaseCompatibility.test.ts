@@ -10,6 +10,7 @@ import currentManifest from "./manifest.json";
 import oldManifest from "./tests/fixtures/upgrade-1.7.0/manifest.json";
 import oldCommands from "./tests/fixtures/upgrade-1.7.0/commands.json";
 import descriptor from "./tests/fixtures/upgrade-1.7.0/semantic-index/vector-manifest.json";
+import publishedCommands from "./tests/fixtures/upgrade-1.8.0/commands.json";
 
 vi.mock("obsidian", () => ({
   Plugin: class { constructor(public app: App, public manifest: PluginManifest) {} },
@@ -81,7 +82,46 @@ it("retains every published command ID used by hotkeys and automation", () => {
     visit(source);
   }
   expect(commands).toEqual(expect.arrayContaining(oldCommands));
+  expect(commands).toEqual(expect.arrayContaining(publishedCommands));
   expect(commands).toContain("ai-knowledge-hub:review-ai-change-proposals");
   expect(commands).toContain("ai-knowledge-hub:veynrel-open-health");
   expect(new Set(commands).size).toBe(commands.length);
+});
+
+it("loads the actual published 1.8.0 fixture without rewriting settings or a compatible index", async () => {
+  const fixture = new URL("./tests/fixtures/upgrade-1.8.0/", import.meta.url);
+  const stored = JSON.parse(readFileSync(new URL("data.json", fixture), "utf8")) as AIHubSettings;
+  const { default: Plugin } = await vi.importActual<typeof import("./main")>("./main.ts");
+  const plugin = new Plugin({} as App, currentManifest);
+  plugin.loadData = vi.fn(async () => structuredClone(stored));
+  const saveData = vi.fn(async () => { throw new Error("Passive upgrade must not save settings"); });
+  plugin.saveData = saveData;
+  await plugin.loadSettings();
+  expect(plugin.settings).toMatchObject(stored);
+  expect(plugin.settings.health).toMatchObject({ profileChosen: false, onboardingCompleted: false });
+  expect(saveData).not.toHaveBeenCalled();
+
+  const basePath = semanticIndexBasePath(".obsidian", currentManifest.id);
+  const manifest = JSON.parse(readFileSync(new URL("semantic-index/vector-manifest.json", fixture), "utf8")) as typeof descriptor;
+  const files = new Map(["vector-manifest.json", "vector-index.bin"].map((name) =>
+    [`${basePath}/${name}`, readFileSync(new URL(`semantic-index/${name}`, fixture))]));
+  const unchanged = new Map([...files].map(([path, bytes]) => [path, Buffer.from(bytes)]));
+  const mutate = vi.fn(async () => { throw new Error("Published index must not be rewritten"); });
+  const store = new LocalVectorStore({ basePath, dimensions: manifest.dimensions, embeddingSpaceId: manifest.embeddingSpaceId,
+    persistence: { exists: async (path) => files.has(path), readText: async (path) => files.get(path)!.toString("utf8"),
+      readBinary: async (path) => Uint8Array.from(files.get(path)!).buffer,
+      writeText: mutate, writeBinary: mutate, createDirectory: mutate, rename: mutate,
+      remove: async (path) => { expect(files.has(path)).toBe(false); } } });
+  await store.initialize();
+  expect(store.listMetadata()).toEqual(manifest.records);
+  expect((await store.search(new Float32Array([1, 0, 0]), { limit: 10 })).map(({ path }) => path)).toContain("Source.md");
+  expect(files).toEqual(unchanged); expect(mutate).not.toHaveBeenCalled();
+});
+
+it("prepares a consistent 1.9.0 candidate with the existing plugin identity and minimum", () => {
+  const pkg = JSON.parse(readFileSync(new URL("package.json", import.meta.url), "utf8")) as { version: string };
+  const versions = JSON.parse(readFileSync(new URL("versions.json", import.meta.url), "utf8")) as Record<string, string>;
+  expect(pkg.version).toBe("1.9.0"); expect(currentManifest.version).toBe(pkg.version);
+  expect(versions[pkg.version]).toBe("1.8.7"); expect(currentManifest.minAppVersion).toBe("1.8.7");
+  expect(currentManifest).toMatchObject({ id: "ai-knowledge-hub", name: "Veynrel", isDesktopOnly: false });
 });

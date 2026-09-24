@@ -1,9 +1,9 @@
 {
 	"id": "ai-knowledge-hub",
 	"name": "Veynrel",
-	"version": "1.8.0",
+	"version": "1.9.0",
 	"minAppVersion": "1.8.7",
-	"description": "Search your vault by meaning, discover related notes, audit structure, and use AI-assisted knowledge workflows with local or remote models.",
+	"description": "Review vault health, discover related notes, practice native spaced repetition, and use explicit AI workflows with local or remote models.",
 	"author": "Zinvernix",
 	"fundingUrl": "https://boosty.to/veynrel",
 	"isDesktopOnly": false
