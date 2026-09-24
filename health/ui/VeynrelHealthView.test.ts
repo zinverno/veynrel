@@ -1115,4 +1115,14 @@ describe("final Tools and Settings IA", () => {
     stale.click(); expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
     await view.onClose(); controller.dispose(); f.controller.dispose(); f.recall.dispose();
   });
+  it("onboarding taking over a mounted Tools view invalidates actions and cannot resurrect its route", async () => {
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
+    const stale = f.content.action("tool-openAskVault");
+    await f.controller.updatePreferences({ onboardingCompleted: false, profileChosen: false });
+    stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled(); expect(f.content.action("nav-tools")).toBeUndefined();
+    await f.controller.updatePreferences({ onboardingCompleted: true, profileChosen: true });
+    expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
+    stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled();
+    await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
+  });
 });
