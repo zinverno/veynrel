@@ -33,15 +33,18 @@ async function fixture(storedPatch: Partial<AIHubSettings> = {}) {
 }
 
 describe("shared language-model settings transactions", () => {
-  it("failed cloud-to-local Advanced save cannot offer local consent or send notes to the committed cloud", async () => {
+  it("failed cloud-to-local Advanced save restores durable settings and invalidates existing consent", async () => {
     const f = await fixture(); const getMarkdownFiles = vi.fn();
     const adapter = new DeepHealthAnalysisAdapter({ vault: { getMarkdownFiles } } as unknown as App, () => f.plugin.getDeepKnowledgeConfiguration());
     const cloudConsent = adapter.getConsent()!; expect(cloudConsent.providerKind).toBe("cloud");
     f.plugin.settings.provider = "ollama"; f.plugin.settings.baseUrl = "http://localhost:11434/v1";
     f.save.mockRejectedValueOnce(new Error("PRIVATE_DISK")); await expect(f.plugin.saveSettings()).rejects.toThrow();
-    expect(f.controller.getSnapshot().provider).toBe("ollama"); expect(adapter.getConsent()).toBeUndefined();
+    expect(f.controller.getSnapshot().provider).toBe("openrouter");
+    expect(adapter.getConsent()?.providerKind).toBe("cloud");
+    expect(f.plugin.settings).toEqual(f.disk());
     await expect(adapter.analyzeKnowledge(new AbortController().signal, cloudConsent)).rejects.toMatchObject({ code: "deep-config-changed" });
     expect(getMarkdownFiles).not.toHaveBeenCalled(); expect(requestUrl).not.toHaveBeenCalled();
+    f.plugin.settings.provider = "ollama"; f.plugin.settings.baseUrl = "http://localhost:11434/v1";
     await f.plugin.saveSettings(); expect(adapter.getConsent()?.providerKind).toBe("local");
     await expect(adapter.analyzeKnowledge(new AbortController().signal, cloudConsent)).rejects.toMatchObject({ code: "deep-config-changed" });
     expect(getMarkdownFiles).not.toHaveBeenCalled(); expect(requestUrl).not.toHaveBeenCalled();
@@ -53,7 +56,10 @@ describe("shared language-model settings transactions", () => {
     f.plugin.settings.model = "unsaved";
     expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual({ ...initial, current: false });
     f.save.mockRejectedValueOnce(new Error("PRIVATE_DISK"));
-    await expect(f.plugin.saveSettings()).rejects.toThrow(); expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual({ ...initial, current: false });
+    await expect(f.plugin.saveSettings()).rejects.toThrow();
+    expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual({ ...initial, revision: initial.revision + 1 });
+    expect(f.plugin.settings.model).toBe(initial.settings.model);
+    f.plugin.settings.model = "unsaved";
     await f.plugin.saveSettings(); const changed = f.plugin.getDeepKnowledgeConfiguration();
     expect(changed.settings.model).toBe("unsaved"); expect(changed.revision).toBeGreaterThan(initial.revision);
     f.plugin.settings.model = initial.settings.model; await f.plugin.saveSettings();

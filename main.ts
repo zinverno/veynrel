@@ -93,6 +93,7 @@ interface VaultAuditStats {
 export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   private settingsSave: Promise<void> = Promise.resolve();
+  private committedSettings?: AIHubSettings;
   private readonly languageModelListeners = new Set<() => void>();
   private readonly companionListeners = new Set<() => void>();
   private companionConfiguration?: string;
@@ -107,6 +108,13 @@ export default class AIHubPlugin extends Plugin {
 
   getSemanticController(): ObsidianSemanticController {
     return this.semanticController;
+  }
+
+  reconcileSemanticSettings(): void {
+    // An earlier callback may finish while a newer Advanced edit is still saving.
+    if (this.committedSettings && JSON.stringify(this.settings.semantic) === JSON.stringify(this.committedSettings.semantic)) {
+      this.semanticController.notifySettingsChanged();
+    }
   }
 
   getToolsPort(): VeynrelToolsPort {
@@ -299,6 +307,7 @@ export default class AIHubPlugin extends Plugin {
       else this.settings.provider = "custom";
     }
     if (needsVaultId) await this.saveData(this.settings);
+    this.committedSettings = structuredClone(this.settings);
     this.publishDeepKnowledgeSettings(this.settings);
     this.notifyLanguageModelSettingsChanged();
     this.notifyCompanionSettingsChanged();
@@ -395,6 +404,7 @@ export default class AIHubPlugin extends Plugin {
     const expectedLanguageModel = languageModel?.expected ? languageModelSettingsSnapshot(languageModel.expected) : undefined;
     const nextCompanion = companion ? { ...companion.next } : undefined;
     const expectedCompanion = companion?.expected ? { ...companion.expected } : undefined;
+    const rollback = structuredClone(this.settings);
     this.notifyCompanionSettingsChanged();
     // Read ordinary settings inside the same queue, so neither transaction loses concurrent edits.
     const save = this.settingsSave.then(async () => {
@@ -422,7 +432,7 @@ export default class AIHubPlugin extends Plugin {
       const savedSettings = { ...this.settings, deepAudit: { ...this.settings.deepAudit }, ...(nextHealth ? { health: nextHealth } : {}),
         ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection, companion: companionConnection ?? { ...this.settings.companion } };
       const savedDeep = deepKnowledgeSettingsSnapshot(savedSettings);
-      await this.saveData(savedSettings);
+      await this.persistSettings(savedSettings, rollback);
       this.publishDeepKnowledgeSettings(savedDeep);
       if ((previousSemantic && !matches(previousSemantic)) ||
         (previousLanguageModel && !sameLanguageModelConnection(this.settings, previousLanguageModel)) ||
@@ -430,7 +440,7 @@ export default class AIHubPlugin extends Plugin {
         // Legacy controls mutate before saving. If they changed during I/O, restore their current
         // configuration on disk inside this queue and reject the obsolete setup without publishing it.
         const correctedDeep = deepKnowledgeSettingsSnapshot(this.settings);
-        await this.saveData({ ...this.settings, semantic: { ...this.settings.semantic }, companion: { ...this.settings.companion } });
+        await this.persistSettings({ ...this.settings, semantic: { ...this.settings.semantic }, companion: { ...this.settings.companion } });
         this.publishDeepKnowledgeSettings(correctedDeep);
         throw new Error("Settings changed during persistence.");
       }
@@ -447,6 +457,39 @@ export default class AIHubPlugin extends Plugin {
     });
     this.settingsSave = save.catch(() => undefined);
     return save;
+  }
+
+  /** Roll back failed legacy pre-mutations before the next queued save can persist them. */
+  private async persistSettings(candidate: AIHubSettings, rollback?: AIHubSettings): Promise<void> {
+    const attempted = structuredClone(candidate);
+    try {
+      await this.saveData(attempted);
+      this.committedSettings = attempted;
+    } catch (error) {
+      const committed = this.committedSettings;
+      if (committed && rollback) {
+        const semanticBefore = JSON.stringify(this.settings.semantic);
+        const deepBefore = JSON.stringify(deepKnowledgeSettingsSnapshot(this.settings));
+        const languageBefore = this.settings.language;
+        const restore = <T extends object>(live: T, failed: T, durable: T): void => {
+          for (const key of Object.keys(failed) as (keyof T)[]) {
+            // A newer Advanced edit owns its value. Keep nested control references intact.
+            if (live[key] === failed[key]) live[key] = durable[key];
+          }
+        };
+        restore(this.settings, rollback, committed);
+        for (const key of ["semantic", "companion", "deepAudit", "health"] as const) {
+          restore(this.settings[key], rollback[key], committed[key]);
+        }
+        if (semanticBefore !== JSON.stringify(this.settings.semantic)) this.semanticController?.notifySettingsChanged({ reconcile: false });
+        if (languageBefore !== this.settings.language) setLanguage(this.settings.language ?? "auto");
+        // An already-open consent cannot survive an attempted provider change, even after rollback.
+        if (deepBefore !== JSON.stringify(deepKnowledgeSettingsSnapshot(this.settings))) this.deepKnowledgeConfigurationRevision++;
+        this.notifyLanguageModelSettingsChanged();
+        this.notifyCompanionSettingsChanged();
+      }
+      throw error;
+    }
   }
 
   async openAuditModeModal() {

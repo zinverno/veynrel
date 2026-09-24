@@ -194,7 +194,7 @@ export class AIHubSettingTab extends PluginSettingTab {
                   .addText((t) => {
                     t.inputEl.type = "password";
                     t.inputEl.setAttribute("autocomplete", "off");
-                    t.setPlaceholder(profile.apiKeyPlaceholder)
+                    t.setPlaceholder(tr(profile.apiKeyPlaceholder))
                       .setValue(this.plugin.settings.apiKey)
                       .onChange(async (v) => {
                         this.plugin.settings.apiKey = v.trim();
@@ -306,8 +306,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                 .addToggle((toggle) =>
                   toggle.setValue(semantic.enabled).onChange(async (value) => {
                     semantic.enabled = value;
-                    this.plugin.getSemanticController().notifySettingsChanged();
+                    this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                     await save();
+                    this.plugin.reconcileSemanticSettings();
                   }),
                 ),
               "power",
@@ -331,8 +332,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                       semantic.embeddingProvider = provider;
                       semantic.embeddingBaseUrl = profile.defaultBaseUrl;
                       semantic.embeddingModel = profile.defaultModel;
-                      this.plugin.getSemanticController().notifySettingsChanged();
+                      this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                       await save();
+                      this.plugin.reconcileSemanticSettings();
                       this.refreshSettings();
                     });
                 }),
@@ -353,8 +355,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                       .setValue(semantic.embeddingModel)
                       .onChange(async (value) => {
                         semantic.embeddingModel = value.trim();
-                        this.plugin.getSemanticController().notifySettingsChanged();
+                        this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                         await save();
+                        this.plugin.reconcileSemanticSettings();
                       }),
                   ),
                 "scan-search",
@@ -372,8 +375,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                     .setValue(semantic.embeddingBaseUrl)
                     .onChange(async (value) => {
                       semantic.embeddingBaseUrl = value.trim();
-                      this.plugin.getSemanticController().notifySettingsChanged();
+                      this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                       await save();
+                      this.plugin.reconcileSemanticSettings();
                     }),
                 ),
               "link",
@@ -400,8 +404,9 @@ export class AIHubSettingTab extends PluginSettingTab {
                         } else {
                           semantic.openAICompatibleApiKey = value.trim();
                         }
-                        this.plugin.getSemanticController().notifySettingsChanged();
+                        this.plugin.getSemanticController().notifySettingsChanged({ reconcile: false });
                         await save();
+                        this.plugin.reconcileSemanticSettings();
                       });
                   })
                   .addButton((button) =>

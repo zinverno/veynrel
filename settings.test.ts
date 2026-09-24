@@ -12,6 +12,7 @@ vi.mock("obsidian", () => ({
 vi.mock("./api", () => ({ testConnection: vi.fn(), fetchOllamaModels: vi.fn(), fetchOpenRouterFreeModels: vi.fn() }));
 import { AIHubSettingTab, DEFAULT_SETTINGS } from "./settings";
 import baseline from "./tests/fixtures/settings-ia-baseline.json";
+import releaseSafety from "./tests/fixtures/settings-1.9-safety.json";
 import { setLanguage } from "./i18n";
 
 const exposedKeys = [
@@ -135,8 +136,10 @@ it.each(["en", "ru"] as const)("keeps product and technical search aliases and b
 });
 
 // Freeze the baseline behavior, not the visible labels. Regrouping must not change
-// any existing control callback, helper, default or durable schema.
-it("preserves baseline custom control behavior, helpers, defaults and schema exactly", () => {
+// any existing control callback, helper, default or durable schema. Release fixes
+// localize the custom key placeholder and defer semantic reconciliation until persistence; the latter has
+// separate pending/failure regressions in releaseSettingsDurability.test.ts.
+it("preserves baseline controls except the verified release fixes", () => {
   const source = ts.createSourceFile("settings.ts", readFileSync("settings.ts", "utf8"), ts.ScriptTarget.Latest, true);
   const printer = ts.createPrinter({ removeComments: true });
   const hash = (node: ts.Node) => createHash("sha256").update(printer.printNode(ts.EmitHint.Unspecified, node, source)).digest("hex");
@@ -152,5 +155,5 @@ it("preserves baseline custom control behavior, helpers, defaults and schema exa
     ts.forEachChild(node, visit);
   }
   visit(source);
-  expect(callbacks).toEqual(baseline.controlCallbacks);
+  expect(callbacks).toEqual({ ...baseline.controlCallbacks, ...releaseSafety });
 });
