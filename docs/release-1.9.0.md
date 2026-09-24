@@ -188,9 +188,9 @@ Required checks were rerun on the candidate:
 
 Affected development packages: `@vitest/mocker`, `vitest`, `esbuild`, `fast-uri`, `js-yaml`, `nanoid`, `postcss`. They are tooling-only and do not appear in the plugin bundle. No blind dependency upgrades were made. The reviewed browser `fetch` exception remains necessary for streaming; buffered requests continue using `requestUrl`.
 
-Clean-clone reproduction and scanner install results are recorded in `release-1.9.0-evidence/builds.json` after final-head verification. The two CI-owned scanner consumers are npm **10.9.2** and **11.11.0**, with Node 24. Independent clean `npm ci` / production builds must match the asset hashes above. Final PR checks must be green on the exact submitted HEAD; the handoff records that SHA and CI URLs.
+Two independent clean clones passed `npm ci` and production builds with identical hashes for all three assets above. Both CI-owned scanner consumers, npm **10.9.2** and **11.11.0**, passed clean `npm ci --ignore-scripts` and typecheck with Node 24.14.1. Results are recorded in [build evidence](release-1.9.0-evidence/builds.json). After committing that evidence, the exact final HEAD is checked again with two clean builds; the final SHA and CI URLs belong in the PR handoff to avoid a self-referential evidence commit. Final PR checks must be green on that exact HEAD.
 
-Sibling compatibility uses the clean current Companion checkout at `62ff1b6ed0fd04290e6ab00216d5c6b51d94db5c`, with `VAULT_AUDIT_COMPANION_DIR` pointing to its existing local directory. The existing ten-case wire smoke covers protocol/authentication, mirror reconciliation, MCP retrieval/search, proposal approval/rejection, unsafe vectors, errors, disconnect/restart and credential separation. No new server deployment is required solely for plugin 1.9.0.
+Sibling compatibility uses the clean current Companion checkout at `62ff1b6ed0fd04290e6ab00216d5c6b51d94db5c`, with `VAULT_AUDIT_COMPANION_DIR` pointing to its existing local directory. The existing ten-case wire smoke passed against the committed candidate and covers protocol/authentication, mirror reconciliation, MCP retrieval/search, proposal approval/rejection, unsafe vectors, errors, disconnect/restart and credential separation. No new server deployment is required solely for plugin 1.9.0.
 
 ## Release disposition
 
