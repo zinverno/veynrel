@@ -1,185 +1,360 @@
 # Veynrel
 
-![Veynrel — turn your vault into a connected knowledge system.](assets/brand/veynrel-readme-cover.png)
-
-Formerly Vault Audit AI. Same plugin, settings, data, semantic index, and Community Plugin ID. Existing users do not need to reinstall.
+![Veynrel](assets/brand/veynrel-readme-cover.png)
 
 <p align="center">
-  <strong>Turn your Obsidian vault into a searchable, connected knowledge system.</strong>
+  <strong>Your notes. Deeper connections.</strong>
 </p>
 
 <p align="center">
-  Vault health, semantic discovery, native spaced repetition, and explicit AI workflows for Obsidian.
+  Turn your Obsidian vault into a healthier, searchable, connected knowledge system.
 </p>
 
 <p align="center">
-  <a href="https://github.com/zinverno/veynrel/stargazers">⭐ Star</a>
-  ·
   <a href="https://github.com/zinverno/veynrel/releases">Releases</a>
+  ·
+  <a href="https://github.com/zinverno/veynrel/stargazers">Star Veynrel</a>
   ·
   <a href="https://github.com/zinverno/veynrel/blob/main/LICENSE">MIT License</a>
 </p>
 
-Veynrel is an open-source Obsidian Community Plugin for understanding your vault, finding related notes, practicing recall, and working with notes through configurable AI providers.
+---
 
-Open Veynrel from its ribbon icon or **Open Veynrel Health** command. The workspace is organized around **Health · Findings · Discover · Recall · Connect · Tools**, with a **Settings** overview for the services behind them.
+## What is Veynrel?
 
-**Release candidate:** [1.9.0](docs/releases/1.9.0.md) — not yet published · **Latest published:** [1.8.0](docs/releases/1.8.0.md) · **Requires Obsidian:** 1.8.7 or later · **License:** [MIT](LICENSE)
+Veynrel is an open-source knowledge system for Obsidian.
 
-## Why Veynrel?
+It helps you answer three simple questions:
 
-- 🔎 **Search by meaning** instead of remembering the exact wording.
-- 🧠 **Rediscover related notes** from the document you are already working on.
-- 🧹 **Review potential semantic duplicates** and overlapping ideas.
-- 💬 **Ask your Vault** and receive a streamed, source-backed answer from indexed notes.
-- 🛰️ **Mirror semantic state to an optional Companion** running locally or behind HTTPS on your own VPS.
-- 🗺️ **Audit your vault** for clusters, orphan notes, tags, folders, and structural issues.
-- ✍️ **Use AI inside Obsidian** for writing, transformations, flashcards, Dataview, and batch processing.
-- 🔒 **Choose local-first options** with Ollama, or connect remote AI providers when you want them.
+- **What in my vault needs attention?**
+- **What knowledge am I missing, forgetting, or duplicating?**
+- **How can AI help without taking control away from me?**
 
-Semantic features are opt-in and disabled by default. The first semantic index is built only after an explicit user action. Once an index exists, ordinary Markdown changes can be synchronized automatically.
+Instead of being a collection of unrelated AI commands, Veynrel brings vault analysis, semantic discovery, spaced repetition, AI-assisted workflows, and external agent integration into one workspace.
 
-## Features
+```text
+Health → Findings → Discover → Recall → Connect → Tools → Settings
+```
 
-### Health and Findings
+AI is explicit. Local features stay local. External agents cannot silently rewrite your vault.
 
-Health brings together four dimensions: **Structure, Connections, Recall, and Knowledge**. Run local checks explicitly to find structural and linking issues. Semantic duplicate checks reuse your compatible local index. Knowledge Health is an explicit, confirmed **LLM-assisted signal for underdeveloped notes**, not a fact checker or a knowledge score. Incomplete coverage is shown as incomplete.
+---
 
-Findings is the shared Inbox: inspect evidence and affected notes, filter by dimension or state, dismiss, snooze, or reopen an item. Findings do not edit your notes. Recall Health summarizes the existing native inventory and due schedule; it does not automatically discover cards or start a review.
+## The Veynrel workspace
 
-### Native Recall
+### Health
 
-Veynrel includes local spaced repetition with **FSRS-6** scheduling. No third-party review plugin is required. Choose **Find flashcards** or **Refresh** to discover supported Markdown explicitly, then reveal an answer and rate it Again, Hard, Good, or Easy.
+**See what needs your attention.**
 
-Supported cards use one `Question::Answer` pair per line under an ATX heading named `Flashcards`, for example:
+Veynrel looks at your vault through four dimensions:
+
+- **Structure** — broken links, orphan notes, weak note structure, disconnected areas.
+- **Connections** — graph issues, exact duplicates, semantic duplicates and relationship quality.
+- **Recall** — what is due for review in native spaced repetition.
+- **Knowledge** — explicit LLM-assisted signals for notes that may be underdeveloped.
+
+Health is not a mysterious score.
+
+You see concrete states, evidence, and actions.
+
+---
+
+### Findings
+
+**Your action inbox.**
+
+Every meaningful issue can become a Finding.
+
+Findings can be:
+
+- reviewed,
+- opened in context,
+- dismissed,
+- snoozed,
+- reopened,
+- automatically resolved when the underlying issue disappears.
+
+Veynrel keeps the observation separate from your decision about it.
+
+---
+
+### Discover
+
+**Explore your vault by meaning.**
+
+Discover brings semantic exploration into one place:
+
+- semantic search,
+- related notes,
+- potential semantic duplicates,
+- explicit Semantic Health checks.
+
+Veynrel reuses one persistent semantic index rather than building separate indexes for every feature.
+
+> Semantic similarity is a discovery signal, not proof that two notes are identical.
+
+---
+
+### Recall
+
+**Remember what matters.**
+
+Veynrel includes native spaced repetition powered by **FSRS-6**.
+
+No third-party review plugin is required.
+
+Supported cards use simple Markdown:
 
 ```markdown
 ## Flashcards
 
-What helps learning::Retrieval practice
+What is retrieval practice::Actively recalling information instead of rereading it
+Why use spaced repetition::It schedules reviews near the point of forgetting
 ```
 
-Bare pairs outside these sections, cloze cards, and other plugins' metadata are not imported. Existing Markdown is untouched by discovery and review. **Create flashcards with AI** is a separate, confirmed action on a selected note; it appends cards and makes them available to native Recall. Full-vault discovery remains explicit. See [Recall authoring and its two-step write boundary](docs/recall-authoring-bridge.md).
+Recall gives you:
 
-### Connect, Tools, and Settings
+- explicit flashcard discovery,
+- local scheduling,
+- due queues,
+- Question → Reveal answer,
+- **Again / Hard / Good / Easy**,
+- preserved scheduling across restarts,
+- Recall Health on the main dashboard.
 
-**Connect** configures the optional [Veynrel Companion](https://github.com/zinverno/veynrel-companion), tests its connection, synchronizes a disclosed mirror, and opens proposal review. External MCP clients read/search that mirror and propose changes. Every proposed Vault mutation still requires explicit approval in Obsidian. This uses the existing protocol version 1.
+You can also explicitly generate flashcards for the current note with your configured language model. Generated cards are appended to Markdown and immediately become available to native Recall.
 
-**Tools** keeps the established Ask your Vault, Deep Audit / Single Audit, batch processing, MOC generation, and legacy dashboard workflows available. Existing commands, hotkeys, and editor context actions remain compatible.
+---
 
-**Settings** summarizes Deep Intelligence, Semantic Intelligence, Connect, and local Recall. Simple setup reuses the existing provider settings. The native Advanced tab retains provider, output, interface, and Deep Audit controls, grouped by product area. Language-model and embedding credentials remain separate.
+### Connect
 
-### Discover
+**Bridge your knowledge to external tools and agents.**
 
-Discover brings search by meaning, related notes, potential duplicates, and explicit Semantic Health into one workspace. These search and comparison engines already shipped in 1.8.0; 1.9.0 adds their integrated product entry and Health workflow.
+Veynrel Connect is the product surface for the optional
+[Veynrel Companion](https://github.com/zinverno/veynrel-companion).
 
-### Semantic search
+It can expose a synchronized mirror of your vault to external MCP clients for:
 
-Veynrel builds a persistent semantic index from your Markdown notes and lets you retrieve content by meaning rather than exact keyword overlap.
+- vault status,
+- note listing and reading,
+- chunk retrieval,
+- semantic search,
+- proposed note changes.
 
-- Markdown-aware chunking that preserves heading context and source locations.
-- Persistent vector index stored locally in the plugin directory.
-- Chunk-level incremental indexing based on stable content and metadata hashes.
-- Manual full-vault reconciliation through the command palette.
-- Manual indexing of the current Markdown note.
-- Debounced automatic synchronization for Markdown create, modify, delete, and rename events after the initial index exists.
-- Offline-change reconciliation for compatible existing indexes, deferred until the next Markdown event or explicit indexing action.
-- Search results grouped by note, with the strongest matching sections shown first.
-- Exact vault-relative paths for opening the selected note.
-- Best-effort navigation to the most relevant source section.
-- Explicit clear and rebuild operations with confirmation.
-- Compatibility detection when the embedding provider, model, endpoint, or vector dimensions change.
+External agents **cannot directly write your Obsidian vault** through this workflow.
 
-### Semantic discovery
+They may submit a proposal. You inspect it in Obsidian and explicitly choose **Approve** or **Reject**.
 
-Search starts with a query. Discovery starts with a note and asks what else in the vault is conceptually close to it.
+```text
+External agent
+      ↓
+Veynrel Companion
+      ↓
+Proposed change
+      ↓
+Review in Obsidian
+      ↓
+Approve / Reject
+```
 
-- **Find similar notes** builds a document representation for the active indexed Markdown note and ranks other indexed notes by document-level cosine similarity.
-- **Find potential semantic duplicates** conservatively reports highly similar note pairs for human review.
-- Both commands reuse vectors already stored in the existing local semantic index.
-- Similar-note and duplicate comparisons do not call the embedding provider while comparing existing indexed notes.
-- Results include exact vault paths and the strongest matching indexed sections for navigation.
-- Empty and near-empty notes are excluded with a deterministic minimum-content rule to reduce false positives.
+The plugin remains the authoritative vault writer.
 
-> High semantic similarity is a review signal, not proof that two notes are identical or safe to merge.
+---
 
-### Ask your Vault
+### Tools
 
-**Ask your Vault** is a one-shot retrieval-augmented question flow over the existing semantic index.
+**Advanced workflows without cluttering the main product loops.**
 
-- Reuses the configured embedding provider and the same persistent vector store; it does not create a second index.
-- Embeds the question once, retrieves diverse candidate chunks, and reconstructs their current full text from Markdown notes.
-- Rejects missing, stale, or hash-mismatched chunks instead of sending outdated indexed previews to the language model.
-- Applies deterministic per-document limits and a 12,000 Unicode code-point context budget.
-- Streams the answer and presents trusted source cards with exact paths and best-effort source-line navigation.
-- Treats retrieved note text as untrusted data and assigns citation IDs such as `[S1]` in plugin code.
-- Never builds or rebuilds an index implicitly and never edits source notes.
+Tools keeps existing power-user workflows available:
 
-> Ask your Vault requires a compatible, non-empty semantic index and valid language-model settings.
+- Ask your Vault,
+- Deep Audit / Single Audit,
+- batch processing,
+- MOC generation,
+- legacy vault reports.
 
-### AI writing tools
+Editor-specific workflows such as AI writing, selection transforms, Dataview generation, and atomization remain available through the command palette and editor context menu.
 
-Use AI on the note or selection you are already working with.
+---
 
-- Simple text continuation.
-- Vault-aware text continuation.
-- Selected-text processing.
-- Dataview query generation.
-- Flashcard generation for the current note.
-- Note atomization into separate atomic notes.
-- Batch processing with folder, tag, and date filters.
+### Settings
 
-Batch actions include style improvement, examples, summarization, automatic tags, conclusions, grammar correction, flashcards, and a custom prompt.
+**Understand what powers Veynrel.**
 
-### Review AI change proposals
+The product Settings page summarizes:
 
-An MCP client can call `get_note`, construct exact whole-note content, and call `propose_change` with `CREATE_NOTE`, `UPDATE_NOTE`, or `DELETE_NOTE`. **A proposal does not change the Vault.** Companion stores it until you review it in Obsidian.
+- Deep Intelligence,
+- Semantic Intelligence,
+- Veynrel Connect,
+- native Recall.
 
-Enable Companion integration, then run **Veynrel: Review AI change proposals** in the command palette. Use **Refresh**, open **Review**, inspect the operation, path, summary, state and text diff, then explicitly click **Approve** or **Reject**. Added, removed and context lines are distinct; Markdown/HTML is displayed as inert text. Large previews have page controls. Opening the modal never approves anything, and there is no background approval mode.
+Advanced configuration remains available through Obsidian Settings for:
 
-Approval obtains a two-minute claim, checks the real note against the immutable proposal base, performs one Obsidian API write, and verifies the result. An edited or missing UPDATE/DELETE target, or an existing CREATE target, produces `CONFLICT` without overwriting the current note. Create a fresh proposal after synchronizing the new base. Rejection records `REJECTED` without changing notes. CREATE requires existing parent folders; DELETE uses Obsidian's configured trash handling.
+- providers and models,
+- embedding configuration,
+- Companion endpoint and timeout,
+- Deep Audit tuning,
+- output folders,
+- insertion behavior,
+- interface preferences.
 
-`APPLIED` confirms the Vault write, while normal semantic AutoSync and Companion synchronization may still be running. Those integrations must be enabled for the mirror to catch up. Proposal creation and rejection use **zero embedding calls and zero Qdrant operations**. Approved content may later reach your existing embedding provider through ordinary AutoSync.
+Language-model, embedding, and Companion credentials remain separate.
 
-When Obsidian is closed, proposals remain on Companion and no notes change. If Companion cannot grant a claim, approval fails safely. A crashed client's claim expires; a write whose acknowledgement was lost may appear pending again, but the immutable base/absence checks prevent blindly repeating the completed operation. Inspect the real note before proposing another change. See [proposal storage, retention and privacy](https://github.com/zinverno/veynrel-companion#safe-change-proposals).
+---
 
-### Vault audit
+## Why Veynrel is different
 
-Analyze your vault as a knowledge system rather than as a collection of isolated files.
+### Local-first where it matters
 
-- Vault structure analysis with orphan detection.
-- Folder and tag statistics.
-- Markdown dashboard generation.
-- Canvas map generation.
-- Deep MapReduce-style audit with note summaries.
-- Thematic clustering.
-- Quality analysis and global findings.
-- Action-plan generation.
-- Incremental Single audit mode that can skip notes whose cached source has not changed.
-- Full Single audit mode for explicitly reprocessing every eligible note.
-- MOC generation from saved audit clusters.
+Local Health checks and Recall scheduling do not require an AI provider.
+
+Your semantic vector index is stored inside your Obsidian plugin data.
+
+Ollama can keep language-model and embedding work local when configured against a local endpoint.
+
+### AI only when you ask for it
+
+Opening Veynrel does not automatically:
+
+- scan your vault,
+- build an index,
+- call a language model,
+- contact Companion,
+- generate flashcards,
+- rewrite notes.
+
+Network work and note mutations belong to explicit user actions.
+
+### No opaque “knowledge score”
+
+Veynrel does not compress your vault into one meaningless 0–100 number.
+
+Health shows concrete dimensions, coverage, findings, and evidence.
+
+### Human approval stays in the loop
+
+Knowledge Health is a review signal, not a truth detector.
+
+Semantic duplicates are suggestions, not automatic merges.
+
+External MCP clients can propose changes, but they cannot bypass explicit approval in Obsidian.
+
+---
+
+## Quick start
+
+### 1. Open Veynrel
+
+Use the ribbon icon or run:
+
+**Open Veynrel Health**
+
+Start with the local Health scan. It requires no AI provider.
+
+### 2. Enable Semantic Intelligence
+
+From the Veynrel workspace or Advanced Settings:
+
+1. choose an embedding provider,
+2. choose a model,
+3. test the connection,
+4. explicitly build the first semantic index.
+
+After the first index exists, normal Markdown edits can be synchronized incrementally.
+
+### 3. Configure Deep Intelligence
+
+Choose your language-model provider:
+
+- Ollama,
+- OpenRouter,
+- OpenAI,
+- Groq,
+- custom OpenAI-compatible endpoint.
+
+Deep Intelligence powers Knowledge Health and the existing AI-assisted workflows.
+
+### 4. Try Recall
+
+Create or find cards under a `Flashcards` heading and choose **Find flashcards**.
+
+Review them directly inside Veynrel.
+
+### 5. Optional: Connect
+
+If you run Veynrel Companion, open **Connect** to configure the endpoint, test the connection, synchronize the mirror, and review proposed changes.
+
+---
 
 ## Supported providers
 
 ### Language models
 
-- OpenRouter
 - Ollama
+- OpenRouter
 - OpenAI
 - Groq
 - Custom OpenAI-compatible endpoints
 
-Language-model actions send their configured context to the selected provider. Ollama can run these requests locally when connected to a local Ollama instance.
-
 ### Embeddings
 
-- OpenRouter
 - Ollama
-- OpenAI-compatible APIs, including the official OpenAI endpoint
+- OpenRouter
+- OpenAI-compatible endpoints
 
-The default OpenRouter example is `openai/text-embedding-3-small`.
+Provider availability, pricing, retention, and rate limits are controlled by the provider you choose.
 
-Model availability, pricing, rate limits, and retention policies are controlled by each provider and may change.
+---
+
+## Privacy model
+
+Veynrel separates local state from explicit provider-side processing.
+
+| Feature | What happens |
+| --- | --- |
+| Health — local checks | Local vault analysis, no provider required |
+| Recall discovery/review | Local inventory and FSRS scheduling |
+| Semantic indexing | Note chunks go to the configured embedding provider when remote |
+| Semantic search | Query goes to the configured embedding provider when remote |
+| Knowledge Health | Confirmed eligible note content goes to the configured language model |
+| AI writing / authoring | Only the content required for the explicit action is sent |
+| Connect | A disclosed mirror is sent to the configured Companion endpoint |
+| MCP proposals | Stored on Companion; no vault write until explicit Obsidian approval |
+
+Veynrel has no telemetry or analytics.
+
+Provider API keys are not sent to Companion. The Companion token is not sent to AI providers. MCP authentication is configured separately on the Companion server.
+
+A local vector index does not make a remote embedding provider local. Review the privacy policy of any remote service before sending sensitive notes.
+
+For the full data-flow and durability model, see the project documentation in [`docs/`](docs/).
+
+---
+
+## Local data
+
+Veynrel keeps feature state inside the existing plugin directory:
+
+```text
+<your-vault>/<configDir>/plugins/ai-knowledge-hub/
+```
+
+Main locations:
+
+| Path | Purpose |
+| --- | --- |
+| `data.json` | Plugin settings and provider configuration |
+| `semantic-index/` | Persistent semantic vectors |
+| `note-index.json` | Legacy Deep Audit cache and saved clusters |
+| `health/` | Findings, scan receipts and Health recovery data |
+| `recall/cards.json` | Native Recall inventory and FSRS scheduling |
+| `recall/recovery/` | Explicit Recall recovery backups |
+
+Not every file exists in every setup.
+
+The historical plugin ID remains `ai-knowledge-hub` for update compatibility.
+
+---
 
 ## Installation
 
@@ -188,237 +363,159 @@ Model availability, pricing, rate limits, and retention policies are controlled 
 1. Open **Settings → Community plugins**.
 2. Select **Browse**.
 3. Search for **Veynrel**.
-4. Select **Install**.
-5. Enable the plugin.
+4. Install and enable it.
 
-### Manual installation from a GitHub Release
+### Manual installation
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the same [GitHub Release](https://github.com/zinverno/veynrel/releases).
-2. Create:
+Download these three files from the same
+[GitHub Release](https://github.com/zinverno/veynrel/releases):
 
-   ```text
-   <your-vault>/.obsidian/plugins/ai-knowledge-hub/
-   ```
+```text
+main.js
+manifest.json
+styles.css
+```
 
-3. Copy the three release assets into that directory.
-4. Reload Obsidian.
-5. Enable **Veynrel** under **Community plugins**.
+Place them in:
 
-Do not copy the source TypeScript files into the plugin directory.
+```text
+<your-vault>/.obsidian/plugins/ai-knowledge-hub/
+```
 
-### Updating from 1.8.0
+Reload Obsidian and enable Veynrel.
 
-Use the normal Community Plugin update when 1.9.0 is published. For a manual update, replace only the same three release assets in your existing `ai-knowledge-hub` folder, then reload. Keep `data.json` and all existing data directories; no reinstall, new plugin folder, provider reset, or compatible-index rebuild is required. This branch prepares a candidate and does not publish an update.
+### Updating from an older version
 
-Health and Recall storage are additive and may initially be absent. Existing users see the optional Health profile introduction when first opening the new workspace; **Skip** opens it without scanning. Native Recall does not scan automatically: **Find flashcards** establishes the inventory explicitly. Existing flashcard Markdown stays unchanged.
+Veynrel keeps the same Community Plugin ID.
 
-### Local data locations
+Update normally. Do not create a second plugin folder.
 
-Paths below are relative to `<vault>/<configDir>/plugins/ai-knowledge-hub/`; the default configuration directory is `.obsidian`.
+Existing compatible settings, semantic index data, Companion identity, notes, and legacy Deep Audit data are preserved.
 
-| Location | Owner and purpose |
-| --- | --- |
-| `data.json` | Provider/settings credentials, independent embedding settings, Companion identity, Health preferences |
-| `semantic-index/` | Optional persistent semantic vectors and descriptor metadata |
-| `note-index.json` | Existing Deep Audit note summaries and saved clusters; also used by legacy MOC workflows |
-| `health/findings.json`, `health/scan-runs.json` | Local Findings lifecycle and analysis receipts/history |
-| `health/recovery/` | Backups created only by explicit Health recovery |
-| `recall/cards.json` | Native inventory, FSRS schedules, and explicit inventory coverage marker |
-| `recall/recovery/` | Backups created only by explicit Recall recovery |
+Newer Health and Recall storage is additive.
 
-These files are created as their features need them; they are not all required for plugin startup. Recovery is scoped to the affected feature. Back up the vault and plugin data before removing files manually. See [release verification and durability limits](docs/release-1.9.0.md).
+---
 
-## Semantic search setup
+## Existing commands stay available
 
-1. Open the plugin settings.
-2. Enable **Enable semantic features**.
-3. Select an embedding provider.
-4. Configure the model, Base URL, and API key when required.
-5. Select **Test embeddings** to verify the connection.
-6. Run **Update the Vault semantic index** from the command palette.
-7. Open **Semantic search** from the command palette.
-8. Configure a language-model provider, then open **Ask your Vault** for a source-backed answer.
+Veynrel still supports the fast command-palette and editor workflows that existed before the new workspace.
 
-After the active note is indexed, **Find similar notes** can compare it with the rest of the index. **Find potential semantic duplicates** scans the existing document representations without re-embedding the vault.
+Examples include:
 
-The initial indexing step is intentionally explicit and is never started automatically. After it succeeds, normal Markdown edits are synchronized in the background.
+- Semantic search
+- Ask your Vault
+- Find similar notes
+- Find potential semantic duplicates
+- Update / rebuild semantic index
+- AI writing
+- Process selection
+- Generate Dataview
+- Generate flashcards
+- Batch processing
+- Atomize note
+- Deep Audit
+- Generate MOCs
+- Review AI change proposals
 
-## Privacy and data flow
+Existing command IDs remain compatible with old hotkeys and automation.
 
-Veynrel separates local storage from provider-side processing so you can choose the setup that fits your privacy requirements.
-
-| Action | Local work and explicit transmission |
-| --- | --- |
-| Startup and opening workspace routes | Saved settings and bounded feature metadata; no automatic scan, note enumeration, AI request, or Companion sync |
-| Local Health | Explicit deterministic local checks; no provider and no note edits |
-| Semantic Health | Explicit comparison of existing local vectors; no LLM verification or automatic note mutation |
-| Knowledge Health | Confirmed Deep analysis sends eligible bounded note content to the configured language model; Findings are review signals, not truth verification |
-| Recall discovery and review | Explicit local inventory and local scheduling; no AI or third-party review plugin |
-| Recall AI authoring | After confirmation, only the selected note's bounded input goes to the language model; Markdown append and Recall ingestion are separate commits |
-| Connect | Explicit test/sync and existing enabled post-index synchronization; disclosed mirror and proposal traffic to Companion |
-| Tools | The requested legacy writing, batch, audit, RAG, or report workflow controls its content, network calls, confirmations, and writes |
-
-- Plugin settings and API keys are saved locally through Obsidian plugin data storage.
-- The plugin has no telemetry or analytics. Provider accounts, API keys, charges, and retention rules depend on the endpoint you choose; no Veynrel account is required.
-- Semantic features are opt-in and disabled by default.
-- The semantic vector index is stored in:
-
-  ```text
-  .obsidian/plugins/ai-knowledge-hub/semantic-index/
-  ```
-
-- Stored vectors and index metadata remain local unless the optional Companion integration is explicitly enabled and synchronized.
-- When OpenRouter or another remote embedding API is selected, note chunks are sent to that endpoint during indexing and synchronization.
-- Semantic search queries are sent to the selected embedding provider for query embedding.
-- **Ask your Vault** performs one query embedding for retrieval. When the embedding provider is remote, the question is sent to that provider; retrieved source chunks are not re-embedded during Ask.
-- When the configured language-model provider is remote, **Ask your Vault** sends it the question plus only the selected, reconstructed source chunks and required metadata. The whole vault, unused candidate notes, and vector index files are not sent to the language-model provider.
-- **Find similar notes** and potential duplicate detection operate on vectors already present in the local index and do not make an embedding-provider request for the comparison itself.
-- Ollama allows embedding generation to remain local when connected to a local Ollama instance.
-- Automatic semantic synchronization never edits Markdown files. It reads the latest Markdown content and changes only the local vector index.
-- Companion is disabled by default. Entering an endpoint alone does not upload Vault data.
-- When Companion sync is enabled, the configured endpoint receives a stable random Vault ID, vault-relative paths, current Markdown, full chunk text, chunk/source metadata, embeddings, and semantic descriptor metadata. Localhost keeps that mirror on the same machine; a remote endpoint transmits and persists it on that server.
-- Remote Companion endpoints must use HTTPS. The Companion bearer token is independent of embedding and language-model credentials; provider API keys are never sent to Companion.
-- The Companion token is not sent to AI providers. MCP authentication is configured server-side; Veynrel does not manage the MCP token.
-- Changing Companion enablement, endpoint, token, timeout, or identity invalidates obsolete queued synchronization. An old plan cannot start later batches or retries, and disabling synchronization does not delete either the local semantic index or already mirrored Companion data.
-- Companion optionally exposes MCP reads and change proposals for one configured Vault using a separate MCP token. Clients can retrieve mirrored content and queue proposals while Obsidian is closed. Proposals contain Markdown stored on Companion, including on a remote server; they trigger no embeddings or Qdrant operations. Only explicit approval in Obsidian allows the plugin to write a note. Semantic search sends the query to the configured Companion embedding provider.
-- Writing, batch, and audit operations send the content required for the requested action to the configured language-model provider.
-- **Test connection**, **Test embeddings**, and model-list buttons also make explicit network requests. Buffered chat, model discovery, embeddings, and Companion use Obsidian's `requestUrl`; streamed chat uses browser `fetch` because `requestUrl` does not expose a response stream. Streaming therefore depends on the endpoint's CORS support, including for local Ollama and custom endpoints.
-- Generated Markdown uses Obsidian's renderer. As with other notes, external images and installed Markdown processors can have their own network behavior.
-- Batch replacement saves the original note under a hidden `.ai-backup-.../` folder inside the Vault, preserving the note's relative path. Backups contain full note text and remain until you remove them. A failed backup or a note changed during generation stops that replacement. Flashcard generation also refuses to overwrite a changed note.
-- Clipboard insertion writes generated output to the system clipboard.
-
-> A locally stored vector index does not automatically make remote-provider requests local. Review the selected provider's privacy policy, retention rules, limits, and pricing before sending sensitive notes.
-
-Optional Companion Qdrant acceleration sends vectors, identifiers, hashes, revision numbers, and embedding-space metadata (including provider, model, and endpoint) to the operator-configured Qdrant service; it does not send note text or paths. SQLite remains the authoritative mirror. See [Companion persistence and recovery](https://github.com/zinverno/veynrel-companion#optional-qdrant-acceleration).
-
-## Semantic index behavior
-
-The semantic index is designed to avoid unnecessary reprocessing.
-
-- The first indexing run chunks selected Markdown notes and generates embeddings.
-- Create and modify events are debounced and coalesced.
-- File content is read at flush time so the latest saved version is indexed.
-- Modify synchronization compares chunk metadata and content hashes.
-- Unchanged chunks reuse existing vectors and are not embedded again.
-- Delete removes every indexed chunk for that path without an embedding request.
-- Rename deletes the old path and indexes the new path in one logical mutation.
-- Startup performs no Markdown reconciliation or provider/Companion request. Offline changes to an existing index are reconciled after the next real Markdown event or explicit indexing action.
-- A missing index is not created automatically.
-- The index persists across plugin and Obsidian restarts.
-- Changing only an API key does not change the embedding space and does not require a rebuild.
-- Changing the provider, model, normalized endpoint, or vector dimensions can make the existing index incompatible and require **Rebuild the semantic index**.
-- **Clear the semantic index** replaces the current compatible index with an empty compatible index.
-- After Clear, automatic synchronization remains suspended across restarts until an explicit index or rebuild operation succeeds.
-- **Rebuild the semantic index** explicitly removes semantic index artifacts and regenerates the full index after confirmation.
-- Clear and rebuild affect only semantic index files. They never delete or modify Markdown notes.
-
-## Commands
-
-| Command | Purpose |
-| --- | --- |
-| **Open Veynrel Health** | Open Health, Findings, Discover, Recall, Connect, Tools, and Settings. |
-| **Open control panel** | Keep the historical batch-processing panel and its hotkey available. |
-| **Review AI change proposals** | Inspect external proposals and explicitly approve or reject them. |
-| **Semantic search** | Search the local vector index and open a grouped note result. |
-| **Ask your Vault** | Retrieve current indexed source chunks and stream a cited answer from the configured language model. |
-| **Find similar notes** | Compare the active indexed Markdown note with other indexed notes using existing local vectors. |
-| **Find potential semantic duplicates** | Review conservative, highly similar note pairs; similarity is not proof of identity. |
-| **Update the Vault semantic index** | Reconcile all eligible Markdown notes with the persistent semantic index. |
-| **Update the current note in the semantic index** | Incrementally index the active Markdown note. |
-| **Clear the semantic index** | Replace the current compatible semantic index with an empty one. |
-| **Rebuild the semantic index** | Delete semantic index artifacts and regenerate the full index after confirmation. |
-| **AI: Simple completion** | Continue text using the current editor context. |
-| **AI: Smart completion (Vault)** | Continue text with additional vault context. |
-| **AI: Process selection** | Transform the selected editor text with an AI prompt. |
-| **AI: Generate Dataview** | Generate and insert a Dataview query. |
-| **Generate flashcards for the current note** | Append flashcards for the active note. |
-| **AI: Process multiple notes** | Open filtered batch processing. |
-| **Split note into atomic notes** | Create atomic notes from the current note. |
-| **Deep audit — choose mode** | Choose incremental Single, full Single, or Batch plus report. |
-| **Analyze vault structure** | Create a vault structure dashboard and Canvas map. |
-| **Generate MOCs from clusters** | Create MOC notes from the latest saved audit clusters. |
+---
 
 ## Architecture
 
+At a high level:
+
 ```text
-Markdown notes
-    ↓
-Markdown-aware chunker
-    ↓
-Embedding provider
-    ↓
-Local persistent vector store
-    ↓
-Chunk search + document representations
-    ├─ Semantic Search / Similar Notes / Duplicate Candidates
-    └─ Ask your Vault context reconstruction + budget
-           ↓
-       Configured language model
-           ↓
-       Streamed answer + trusted source cards
+                    ┌─────────────────────┐
+                    │      Obsidian       │
+                    │    Markdown vault   │
+                    └──────────┬──────────┘
+                               │
+             ┌─────────────────┼─────────────────┐
+             │                 │                 │
+             ▼                 ▼                 ▼
+      Local Health       Semantic Index      Native Recall
+             │                 │                 │
+             ▼                 ▼                 ▼
+         Findings          Discover           FSRS-6
+             │                 │                 │
+             └────────────┬────┴────────────┬────┘
+                          │                 │
+                          ▼                 ▼
+                     Veynrel UI      Deep Intelligence
+                          │                 │
+                          └────────┬────────┘
+                                   ▼
+                               Knowledge
+                                   │
+                                   ▼
+                               Findings
+
+Optional:
+
+Semantic mirror → Veynrel Companion → MCP clients → proposals → explicit approval
 ```
 
-Stable chunk hashes drive incremental deltas so unchanged chunks are reused.
+The main design principle is simple:
 
-An optional standalone [Veynrel Companion service](https://github.com/zinverno/veynrel-companion#readme) (formerly Vault Audit AI Companion) receives versioned JSON over HTTP(S) after local semantic commits. Snapshot capture reuses the committed vectors and releases the semantic barrier before network I/O. Deterministic manifest reconciliation avoids retransmitting unchanged Markdown or embeddings and repairs events missed while either process was offline.
+> **Analysis may suggest. Veynrel shows evidence. The user decides.**
 
-Companion exposes an opt-in [MCP endpoint](https://github.com/zinverno/veynrel-companion#mcp) for bounded retrieval, semantic search and [change proposals](https://github.com/zinverno/veynrel-companion#safe-change-proposals). Its separate MCP credential cannot claim or apply proposals, acknowledge application, or synchronize the mirror. The plugin remains the only authoritative Vault writer.
-
-A debounced event coordinator coalesces Markdown path changes. Startup queues offline reconciliation without starting a timer; the next real Markdown event or explicit indexing action performs the work. Manual and automatic indexing share one mutation queue. Rename batches reach the vector store as one durable mutation.
-
-The vector store uses guarded temporary-file replacement, backup-aware recovery, and one shared store per semantic index path in the plugin runtime. Document discovery reads a defensive committed snapshot from that same store.
-
-Clear and rebuild are explicit operations and do not modify source notes.
+---
 
 ## Current limitations
 
-- The initial semantic index, Clear, and Rebuild remain explicit user operations.
-- Ask your Vault is a one-shot question flow; it does not keep a multi-turn conversation history.
-- Automatic synchronization covers Markdown notes only; attachments, Canvas files, images, and other file types are ignored.
-- The vector store does not use an ANN or HNSW index.
-- Companion is a self-hosted mirror with optional MCP reads and proposals scoped to one configured Vault. It provides no dashboard, accounts, OAuth server, TLS termination, or direct Vault writes. Semantic retrieval uses SQLite or the optional Qdrant accelerator.
-- Companion requires Node.js 24 or newer and uses Node's built-in SQLite API, which Node 24 currently labels experimental.
-- Obsidian `requestUrl` cannot physically cancel a transport already handed off. Timeout, abort, disable, or configuration invalidation prevents subsequent queued requests, plan-to-batch transitions, batches, and retries, but the already-started HTTP transport may still finish.
-- Similarity search performs a local linear scan and is intended for small and medium personal vaults.
-- Similar Notes represents a document as the normalized mean of its chunk vectors; broad or multi-topic notes may therefore receive less intuitive rankings.
-- Potential duplicate detection compares exact document-vector pairs in quadratic time and is intended for small and medium personal vaults.
-- Duplicate detection does not run LLM verification and never merges, links, edits, or deletes notes.
-- Very short notes are excluded from document discovery to reduce high-similarity false positives.
-- Semantic similarity indicates related meaning or overlap, not factual equivalence or duplicate identity.
-- Search quality depends on the selected embedding model and the language and structure of the notes.
-- Remote embedding providers may impose request limits, data-retention policies, or costs.
-- Changing the embedding space requires an explicit index rebuild.
+- Semantic indexing is explicit for the first build and after incompatible embedding-space changes.
+- Similarity search currently uses a local linear scan.
+- Potential duplicate detection performs pairwise document comparison and is intended for personal vault sizes.
+- Ask your Vault is currently a one-shot flow rather than a persistent chat.
+- Knowledge Health is an LLM-assisted quality signal, not factual verification.
+- Native Recall currently focuses on a single built-in review workflow rather than decks, daily limits, or optimizer analytics.
+- Companion is self-hosted and does not provide a hosted Veynrel account service.
+- Some multi-file operations are deliberately not crash-atomic; recovery behavior is documented separately.
+
+---
 
 ## Development
 
 ```bash
 npm ci
 npm test
+npm run typecheck
 npm run lint
 npm run audit:proposals
+npm run build
 ```
 
-`npm run lint` checks this plugin independently. `npm run lint:obsidian` runs plugin TypeScript validation, the production build, and the current official recommended Obsidian rules, including every TypeScript module emitted into `main.js`. Build metadata is written to ignored `.esbuild/meta.json`; the build rejects standalone server code and unexpected external dependencies. Companion retains its own strict Node/TypeScript environment and type-aware safety rules.
+Veynrel and Veynrel Companion are developed as separate repositories with a stable protocol boundary.
 
-The intentional streaming `fetch` advisory remains visible and is checked by file, rule, and count; new warnings fail CI. See the [review advisory report](docs/remaining-review-advisories.md) for the streaming rationale and settings compatibility evidence. No Obsidian runtime rules have been disabled to make the review pass. `npm run typecheck` also runs the standalone `tsc --noEmit --module ES2020 --ignoreDeprecations 5.0` check.
+For Companion integration development:
 
-Independent CI in each repository validates its own package on Node 24 and saves the plugin bundle plus dependency metadata. A separate workflow verifies and attests the assets of a future manually published release against a build from its tag; it does not create a release or replace assets. Before releasing, test the affected note writes and menus in desktop, mobile, and a popout window, and check the Community scorecard after its next scan.
+```bash
+git clone https://github.com/zinverno/veynrel-companion.git ../veynrel-companion
+npm run companion:smoke-sibling
+```
 
-For optional joint development, clone [Companion](https://github.com/zinverno/veynrel-companion) next to this checkout with `git clone https://github.com/zinverno/veynrel-companion.git ../veynrel-companion`. In that repository run `npm ci`, `npm run typecheck`, `npm test`, `npm run lint`, `npm run build`, and `npm run smoke:mcp`. Then, in this plugin repository, run `npm run companion:smoke-sibling`. Set `VAULT_AUDIT_COMPANION_DIR` to override the sibling location. The helper starts an ephemeral server with disposable data and synthetic credentials; ordinary plugin checks never require a sibling. It does not install dependencies, change Git state, or read `.env` files.
+See [`docs/`](docs/) for architecture, storage contracts, release verification, Recall scheduling, Health semantics, Connect, and migration details.
 
-Both sides speak HTTP protocol **v1** (`x-companion-protocol-version`). See [extraction, ownership and compatibility](docs/companion-extraction.md), [protocol fixtures](tests/fixtures/companion-protocol-v1.json), and the [separate hosted-scanner findings](docs/obsidian-hosted-scanner-repro.md). Companion previously lived under `companion/`; historical audit reports retain that original location.
+---
 
 ## Contributing
 
-Issues, bug reports, feature ideas, and pull requests are welcome.
+Issues, bug reports, architecture discussions, feature ideas, and pull requests are welcome.
 
-If you find Veynrel useful, consider [starring the repository](https://github.com/zinverno/veynrel). It helps more Obsidian users discover the project.
+If Veynrel is useful to you, consider starring the repository. It helps other Obsidian users discover the project.
+
+---
 
 ## Support Veynrel
 
-Veynrel is free and open source. If it saves you time and you want to support continued development, you can support the project on Boosty.
+Veynrel is free and open source.
+
+If you want to support continued development:
 
 [Support Veynrel on Boosty](https://boosty.to/veynrel)
+
+---
 
 ## License
 
