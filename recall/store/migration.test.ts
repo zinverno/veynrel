@@ -39,7 +39,7 @@ describe("Recall v1 to v2 read-only migration", () => {
   });
 
   it("initializes the service with metadata only and makes migrated active cards due", async () => {
-    const storage = memoryStorage(JSON.stringify(v1())), vault = { configDir: ".private", getMarkdownFiles: vi.fn(() => []), read: vi.fn() };
+    const storage = memoryStorage(JSON.stringify(v1())), vault = { configDir: ".private", getMarkdownFiles: vi.fn(() => []), getFileByPath: vi.fn(), read: vi.fn() };
     const service = new RecallService(storage, new ObsidianRecallSource(vault));
     await service.initialize();
     expect(service.listDue(100).map((card) => card.id)).toEqual([candidate().id]);
@@ -90,7 +90,7 @@ describe("Recall v2 scheduler validation and poisoning", () => {
   it.each([{ algorithm: "fsrs-7" }, { policyVersion: 2 }, { policyVersion: 99 }])("write-blocks unsupported scheduler %j and preserves exact bytes", async (change) => {
     const data = v2(), id = candidate().id;
     const raw = JSON.stringify({ ...data, cards: { [id]: { ...data.cards[id], schedule: { ...data.cards[id].schedule, ...change } } } });
-    const storage = memoryStorage(raw), vault = { configDir: ".private", getMarkdownFiles: vi.fn(() => []), read: vi.fn() };
+    const storage = memoryStorage(raw), vault = { configDir: ".private", getMarkdownFiles: vi.fn(() => []), getFileByPath: vi.fn(), read: vi.fn() };
     const service = new RecallService(storage, new ObsidianRecallSource(vault));
     expect(await service.initialize()).toEqual({ status: "unsupported", writable: false });
     await expect(service.reviewCard(id, "good", 200)).rejects.toThrow("write-blocked");

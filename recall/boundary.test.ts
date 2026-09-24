@@ -50,7 +50,11 @@ describe("Recall local-only domain boundary", () => {
 
   it("keeps Health scheduling behind its own port and Recall UI behind the product port", () => {
     const main = readFileSync("main.ts", "utf8");
-    expect(main).not.toMatch(/(?:from|import\()\s*["'][^"']*recall/iu);
+    expect(main).not.toMatch(/(?:from|import\()\s*["'][^"']*recall\//iu);
+    // The host may wire the authoring adapter; it still cannot construct/access a second Recall owner.
+    expect(main).not.toMatch(/new Recall(?:Store|Service|ProductController)\(/u);
+    const bridge = readFileSync("recallAuthoring.ts", "utf8");
+    expect(bridge).not.toMatch(/new Recall(?:Store|Service|ProductController)\(|callOpenRouter|FindingStore|ScanRun|semanticController|embed\(/u);
     const aggregation = readFileSync("health/services/healthAggregator.ts", "utf8");
     expect(aggregation).not.toMatch(/from ["'][^"']*recall\//u);
     for (const file of ["health/recallHealthPort.ts", "health/services/healthService.ts", "health/obsidian/healthPluginController.ts", "health/ui/healthHomeViewModel.ts"]) {

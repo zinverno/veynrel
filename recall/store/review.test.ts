@@ -12,6 +12,18 @@ async function fixture() {
 }
 
 describe("Recall persist-first reviews", () => {
+  it("queues targeted admission behind a review, preserves its exact schedule and never retires other notes", async () => {
+    const { store, storage, id } = await fixture(), entered = gate(), hold = gate(), write = storage.write;
+    storage.write = vi.fn(async (raw) => { entered.release(); await hold.promise; await write(raw); });
+    const pendingReview = store.reviewCard(id, "easy", 200); await entered.promise;
+    // Read completed before the queued review published. Merge against durable latest state.
+    const pendingImport = store.admit([candidate(), candidate("New"), candidate("Other", "Other.md")], 100);
+    hold.release(); const reviewed = await pendingReview; await pendingImport;
+    expect(store.getCard(id)?.schedule).toEqual(reviewed.schedule);
+    expect(store.getUpdatedAt()).toBe(200); expect(store.listCards({ state: "active" })).toHaveLength(3);
+    await store.admit([candidate("New")], 300); expect(store.listCards({ state: "active" })).toHaveLength(3);
+  });
+
   it.each(RECALL_RATINGS)("commits %s exactly as previewed and reloads durable memory", async (rating) => {
     const { store, storage, id } = await fixture();
     const preview = previewRatings(store.getCard(id)!.schedule, 200)[rating];

@@ -7,11 +7,36 @@ import { signal } from "../testSupport";
 function fixture(paths = ["B.md", "A.md"]) {
   const files = paths.map((path) => ({ path, stat: { mtime: 100, size: 30 } } as TFile));
   const vault = { configDir: ".custom", getMarkdownFiles: vi.fn(() => files),
+    getFileByPath: vi.fn((path: string) => files.find((file) => file.path === path) ?? null),
     read: vi.fn(async (_file: TFile) => "PRIVATE BODY\n## Flashcards\nQ::A") };
   return { files, vault, source: new ObsidianRecallSource(vault) };
 }
 
 describe("Recall Obsidian read source", () => {
+  it("captures exactly one selected note with final identity/stat revalidation, without listing the vault", async () => {
+    const f = fixture(); const note = await f.source.captureNote("A.md", signal());
+    expect(note.cards.map((card) => card.path)).toEqual(["A.md"]);
+    expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).toHaveBeenCalledExactlyOnceWith(f.files[1]);
+    expect(note.isCurrent()).toBe(true); f.files[1].stat.mtime++; expect(note.isCurrent()).toBe(false);
+  });
+
+  it.each(["../A.md", "/A.md", "A.canvas", ".custom/A.md", "Nested/.ai-backup-123/A.md", "Missing.md"])("never reads inadmissible targeted source %s", async (path) => {
+    const f = fixture(["A.md"]);
+    await expect(f.source.captureNote(path, signal())).rejects.toThrow("unavailable");
+    expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+  });
+
+  it.each(["replace", "delete", "rename"])("rejects targeted source %s while reading", async (change) => {
+    const f = fixture(["A.md"]);
+    f.vault.read.mockImplementationOnce(async () => {
+      if (change === "replace") f.files[0] = { ...f.files[0] };
+      if (change === "delete") f.files.pop();
+      if (change === "rename") f.files[0].path = "Renamed.md";
+      return "## Flashcards\nQ::A";
+    });
+    await expect(f.source.captureNote("A.md", signal())).rejects.toThrow("unavailable");
+  });
+
   it("does no work on construction, reads each note once, retains only immutable cards and a revision", async () => {
     const f = fixture(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     const result = await f.source.capture(signal());

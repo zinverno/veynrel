@@ -1715,6 +1715,9 @@
 .veynrel-recall-rating-label { font-weight: var(--font-semibold); }
 .veynrel-recall-interval { font-size: var(--font-ui-small); color: var(--text-muted); }
 .veynrel-recall-back { margin-top: 20px; }
+.veynrel-recall-authoring { border-top: 1px solid var(--background-modifier-border); margin-top: 24px; }
+.veynrel-recall-authoring p { overflow-wrap: anywhere; }
+.veynrel-recall-authoring [data-recall-authoring-confirmation]:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 4px; }
 .veynrel-recall [data-recall-question]:focus-visible,
 .veynrel-recall [data-recall-answer]:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 4px; }
 .veynrel-recall pre { white-space: pre-wrap; overflow-wrap: anywhere; }

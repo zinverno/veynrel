@@ -24,6 +24,8 @@ import { renderDiscover } from "./renderDiscover";
 import type { RecallProductPort } from "../../recall/product/types";
 import { recallViewModel } from "./recallViewModel";
 import { renderRecall } from "./renderRecall";
+import type { RecallAuthoringPort } from "../../recall/product/recallAuthoringPort";
+import { recallAuthoringStatus, renderRecallAuthoring } from "./renderRecallAuthoring";
 import type { DeepIntelligencePort } from "../deepIntelligencePort";
 import type { DeepKnowledgeConsent } from "../deepHealthAnalysisPort";
 import { renderDeepIntelligence } from "./renderDeepIntelligence";
@@ -36,6 +38,7 @@ export class VeynrelHealthView extends ItemView {
   private unsubscribe?: () => void;
   private unsubscribeSemantic?: () => void;
   private unsubscribeDeep?: () => void;
+  private unsubscribeAuthoring?: () => void;
   private deepSetup?: DeepSetupState;
   private knowledgeConfirmation?: DeepKnowledgeConsent;
   private cleanupRecall?: () => void;
@@ -51,11 +54,11 @@ export class VeynrelHealthView extends ItemView {
   private findingMutationErrorRoute?: FindingsRoute;
   private expandedPaths = false;
   private expandedSnooze = false;
-  private focusDestination?: "heading" | "detail" | "recall-question" | "recall-answer" | "knowledge-confirmation";
+  private focusDestination?: "heading" | "detail" | "recall-question" | "recall-answer" | "knowledge-confirmation" | "recall-authoring";
 
   constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly openTools: () => void,
     private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort,
-    private readonly deep?: DeepIntelligencePort) { super(leaf); }
+    private readonly deep?: DeepIntelligencePort, private readonly authoring?: RecallAuthoringPort) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -76,6 +79,8 @@ export class VeynrelHealthView extends ItemView {
       this.unsubscribeSemantic = this.semantic?.subscribe(() => this.render());
       this.unsubscribeDeep?.();
       this.unsubscribeDeep = this.deep?.subscribe(() => this.render());
+      this.unsubscribeAuthoring?.();
+      this.unsubscribeAuthoring = this.authoring?.subscribe(() => this.render());
       this.render();
     } catch {
       if (epoch === this.epoch) this.status?.setText(t("@health.error.load"));
@@ -87,6 +92,7 @@ export class VeynrelHealthView extends ItemView {
     this.leaveRecall();
     this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
     this.unsubscribeDeep?.(); this.unsubscribeDeep = undefined; this.deepSetup = undefined;
+    this.unsubscribeAuthoring?.(); this.unsubscribeAuthoring = undefined;
     this.knowledgeConfirmation = undefined;
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
@@ -132,14 +138,23 @@ export class VeynrelHealthView extends ItemView {
     const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot, state) : undefined;
     const recallSnapshot = normal && this.route.page === "recall" ? this.recall?.getSnapshot() : undefined;
     const recall = recallSnapshot ? recallViewModel(recallSnapshot) : undefined;
+    const authoring = recall && !recallSnapshot?.session ? this.authoring?.getSnapshot() : undefined;
     if (recall && this.recall) {
       const port = this.recall;
       this.cleanupRecall = renderRecall(surface, recall, {
-        refresh: () => { void port.refreshCards(); }, start: () => port.startSession(), reveal: () => port.revealAnswer(),
+        refresh: () => { void port.refreshCards(); }, start: () => { this.authoring?.cancelConfirmation(); port.startSession(); }, reveal: () => port.revealAnswer(),
         rate: (rating) => { void port.rate(rating); }, back: () => port.endSession(), source: () => { void port.openSourceNote(); },
         retry: () => { void port.retryLoad(); }, recover: () => port.requestRecovery(), cancelRecovery: () => port.cancelRecovery(),
         confirmRecovery: () => { void port.recoverStorage(); },
       });
+      if (authoring && this.authoring && recall.mode !== "confirm" && recall.mode !== "loading") {
+        const author = this.authoring;
+        renderRecallAuthoring(surface, authoring, {
+          request: () => { this.focusDestination = "recall-authoring"; author.requestGeneration(); },
+          generate: () => { void author.generate(); }, cancel: () => author.cancelConfirmation(),
+          configure: () => this.navigate({ page: "health" }),
+        });
+      }
       const card = recallSnapshot?.session?.card;
       const focusKey = card ? `${card.id}:${recallSnapshot?.session?.reviewed}:${recallSnapshot?.session?.revealed}` : undefined;
       if (focusKey && focusKey !== this.recallFocusKey) this.focusDestination = recallSnapshot?.session?.revealed ? "recall-answer" : "recall-question";
@@ -210,18 +225,19 @@ export class VeynrelHealthView extends ItemView {
     const deepError = this.deepSetup?.step === "form" ? deepSetupError(this.deepSetup.result) : undefined;
     const deepStatus = deepSnapshot && (deepSnapshot.busy || deepSnapshot.state === "error" || deepSnapshot.state === "ready")
       ? deepIntelligenceViewModel(deepSnapshot).status : undefined;
-    const primaryStatus = recall ? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
+    const primaryStatus = recall ? (authoring ? recallAuthoringStatus(authoring) : undefined) ?? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
       : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "";
     // A connection result must not hide a later Health scan, recovery or navigation message.
     this.status.setText([primaryStatus, deepError ?? (deepSnapshot ? knowledgeScanStatus(state) ?? deepStatus : undefined)].filter(Boolean).join(" · "));
-    this.status.toggleClass("veynrel-health-status-error", recall ? recall.error : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
+    this.status.toggleClass("veynrel-health-status-error", recall ? recall.error || Boolean(authoring?.result && authoring.result.status !== "success") : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
       ?? this.body?.querySelector<HTMLElement>("[data-health-heading]") ?? null;
     if (this.focusDestination) {
       const target = this.focusDestination === "recall-question" ? this.body.querySelector<HTMLElement>("[data-recall-question]")
+        : this.focusDestination === "recall-authoring" ? this.body.querySelector<HTMLElement>("[data-recall-authoring-confirmation]")
         : this.focusDestination === "knowledge-confirmation" ? this.body.querySelector<HTMLElement>("[data-knowledge-confirmation]")
         : this.focusDestination === "recall-answer" ? this.body.querySelector<HTMLElement>("[data-recall-answer]")
         : this.focusDestination === "detail" ? heading() : this.body.querySelector<HTMLElement>("[data-health-heading]");
@@ -262,6 +278,7 @@ export class VeynrelHealthView extends ItemView {
   }
 
   private leaveRecall(): void {
+    this.authoring?.cancelConfirmation();
     this.cleanupRecall?.(); this.cleanupRecall = undefined; this.recallFocusKey = undefined;
     if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;

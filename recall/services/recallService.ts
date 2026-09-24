@@ -44,6 +44,18 @@ export class RecallService {
   getLoadResult(): RecallLoadResult { return this.store.getLoadResult(); }
   listCards(filter?: RecallCardFilter) { return this.store.listCards(filter); }
   getCard(id: string) { return this.store.getCard(id); }
+  hasFullInventory(): boolean { return this.store.hasFullInventory(); }
+
+  /** Explicit post-write admission through the same serialized store; never retire absence. */
+  async refreshNote(path: string, signal: AbortSignal = new AbortController().signal): Promise<void> {
+    throwIfAborted(signal);
+    const load = this.store.getLoadResult();
+    if (!load.writable) throw new RecallStorageBlockedError(load.status);
+    const note = await this.source.captureNote(path, signal);
+    await this.store.admit(note.cards, this.clock(), { signal, beforeCommit: async () => {
+      if (!note.isCurrent()) throw new RecallFreshnessError("stale-inventory");
+    } });
+  }
 
   getNextDueAt(): number | undefined {
     const cards = this.store.listCards({ state: "active" });

@@ -1,6 +1,10 @@
 import { normalizePath } from "obsidian";
 import type { DataAdapter, TFile, Vault } from "obsidian";
 
+export class NoteWriteConflictError extends Error {
+  constructor() { super("The note changed while AI was running. No changes were saved; run the action again."); }
+}
+
 /** Commit AI output only if the note still has the exact input sent to the model. */
 export async function replaceNoteIfUnchanged(
   vault: Pick<Vault, "process" | "getAbstractFileByPath">,
@@ -9,9 +13,10 @@ export async function replaceNoteIfUnchanged(
   original: string,
   replacement: string,
 ): Promise<void> {
+  if (file.path !== originalPath || vault.getAbstractFileByPath(originalPath) !== file) throw new NoteWriteConflictError();
   await vault.process(file, (current) => {
     if (file.path !== originalPath || vault.getAbstractFileByPath(originalPath) !== file || current !== original) {
-      throw new Error("The note changed while AI was running. No changes were saved; run the action again.");
+      throw new NoteWriteConflictError();
     }
     return replacement;
   });

@@ -11,6 +11,8 @@ export interface RecallSessionSnapshot {
 export interface RecallProductSnapshot {
   readonly loadState: "uninitialized" | "loading" | "ready" | "invalid" | "unsupported" | "unavailable";
   readonly firstRun: boolean;
+  readonly inventoryEstablished: boolean;
+  readonly ingesting: boolean;
   readonly refreshing: boolean;
   readonly reviewSaving: boolean;
   readonly recovering: boolean;
@@ -29,6 +31,7 @@ export interface RecallProductPort {
   initialize(): Promise<void>;
   getSnapshot(): RecallProductSnapshot;
   refreshCards(): Promise<void>;
+  refreshNote(path: string): Promise<"updated" | "blocked" | "failed">;
   startSession(): void;
   revealAnswer(): void;
   rate(rating: RecallRating): Promise<void>;

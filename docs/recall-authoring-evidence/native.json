@@ -1,0 +1,621 @@
+{
+  "checkedAt": "2026-09-24T14:50:44.485Z",
+  "runtime": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "platform": "linux"
+  },
+  "installedPlugins": [
+    "ai-knowledge-hub"
+  ],
+  "fixture": {
+    "synthetic": true,
+    "personalCredentials": false,
+    "deterministicRequestUrl": true,
+    "realProducerParserStoreAndUI": true,
+    "externalReviewPlugin": false
+  },
+  "assertions": [
+    "selected current open Markdown note",
+    "final bundle startup/open passive",
+    "confirmation heading focused",
+    "exact source and local endpoint wording",
+    "Cancel performs zero generation IO",
+    "navigation cancels consent with zero IO",
+    "successful validated count",
+    "one generation and targeted persistence, no full scan",
+    "original prompt and selected note only",
+    "first-run generated cards due without full coverage",
+    "truthful partial-inventory overview",
+    "no generated answer leaked to status",
+    "Recall Health updates immediately",
+    "no authoring action during review",
+    "provider pending does not lock review owner",
+    "duplicate identity admitted once",
+    "reviewed schedule byte-for-byte preserved",
+    "review during provider request preserved",
+    "new identity initial due schedule",
+    "stale edit returns conflict",
+    "stale edit and Recall bytes preserved",
+    "provider failure safe category",
+    "provider failure leaves both stores unchanged",
+    "provider failure private text excluded",
+    "Recall write failure truthful partial success",
+    "partial success keeps generated Markdown",
+    "failed Recall write preserves old published state",
+    "partial-success copy visible",
+    "explicit Refresh recovers Markdown and establishes inventory",
+    "no Health scan side effects",
+    "existing Health Findings, receipts and ScanRuns exact bytes unchanged",
+    "no Health writes",
+    "legacy command ID remains executable",
+    "command generation automatically admitted",
+    "command targets one note without full inventory",
+    "existing context menu Flashcards title retained",
+    "context menu generation automatically admitted",
+    "context targets one note without full inventory",
+    "restart preserves schedules and full-inventory marker without writes",
+    "restart does not generate or rewrite Recall",
+    "corrupt Recall is blocked",
+    "blocked metadata generation reports recovery",
+    "corrupt bytes remain untouched",
+    "blocked Recall recovery direction visible",
+    "restored synthetic fixture retains reviewed schedules",
+    "unconfigured Deep hides generation",
+    "unconfigured Deep safe guidance",
+    "unconfigured authoring passive",
+    "en cloud/custom cost wording",
+    "en credentials absent from confirmation",
+    "en cloud confirmation passive",
+    "ru cloud/custom cost wording",
+    "ru credentials absent from confirmation",
+    "ru cloud confirmation passive",
+    "24 EN/RU dark/light overview/confirmation layouts at 320/390/960px without overflow",
+    "all final native scenarios preserve existing Health files"
+  ],
+  "scenarios": {
+    "startup-and-open": {
+      "counts": {},
+      "requests": []
+    },
+    "cancel": {
+      "counts": {},
+      "requests": []
+    },
+    "navigation-cancel": {
+      "counts": {},
+      "requests": []
+    },
+    "generated-first-run": {
+      "counts": {
+        "read": 3,
+        "provider": 1,
+        "process": 1,
+        "cachedRead": 1,
+        "recallWrite": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 84,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "review-concurrency-and-duplicate": {
+      "counts": {
+        "read": 3,
+        "provider": 1,
+        "recallWrite": 2,
+        "process": 1,
+        "cachedRead": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 180,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "stale-edit": {
+      "counts": {
+        "read": 1,
+        "provider": 1,
+        "markdownWrite": 1,
+        "cachedRead": 1,
+        "process": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 277,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "provider-failure": {
+      "counts": {
+        "read": 1,
+        "provider": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 298,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "recall-write-failure": {
+      "counts": {
+        "read": 3,
+        "provider": 1,
+        "process": 1,
+        "cachedRead": 1,
+        "recallWrite": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 298,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "legacy-command": {
+      "counts": {
+        "read": 3,
+        "provider": 1,
+        "process": 1,
+        "cachedRead": 1,
+        "recallWrite": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 363,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "legacy-context": {
+      "counts": {
+        "read": 3,
+        "provider": 1,
+        "process": 1,
+        "cachedRead": 1,
+        "recallWrite": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 424,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "entrypoints-complete": {
+      "counts": {
+        "read": 3,
+        "provider": 1,
+        "process": 1,
+        "cachedRead": 1,
+        "recallWrite": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 424,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "restart-valid": {
+      "counts": {},
+      "requests": []
+    },
+    "blocked-recall": {
+      "counts": {
+        "read": 2,
+        "provider": 1,
+        "process": 1,
+        "cachedRead": 1
+      },
+      "requests": [
+        {
+          "model": "synthetic-flashcards",
+          "chars": 485,
+          "onlySelected": true,
+          "originalPrompt": true
+        }
+      ]
+    },
+    "unconfigured": {
+      "counts": {},
+      "requests": []
+    }
+  },
+  "protectedHealthFiles": [
+    {
+      "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+      "beforeSha256": "fb51bfb5891fa0ac9d9ed614a92403dbead112c41d9bb6dde9cdb71298a07433",
+      "afterSha256": "fb51bfb5891fa0ac9d9ed614a92403dbead112c41d9bb6dde9cdb71298a07433",
+      "identical": true
+    },
+    {
+      "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+      "beforeSha256": "0592456ab172c06cd432d011e5b63c2769a2aad13d11398c1ff3e7b50955420a",
+      "afterSha256": "0592456ab172c06cd432d011e5b63c2769a2aad13d11398c1ff3e7b50955420a",
+      "identical": true
+    }
+  ],
+  "presentation": [
+    {
+      "language": "en",
+      "theme": "dark",
+      "viewport": 320,
+      "state": "overview",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "viewport": 320,
+      "state": "confirmation",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "viewport": 390,
+      "state": "overview",
+      "width": 346,
+      "scrollWidth": 346,
+      "sectionWidth": 322,
+      "sectionScroll": 322,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "viewport": 390,
+      "state": "confirmation",
+      "width": 334,
+      "scrollWidth": 334,
+      "sectionWidth": 310,
+      "sectionScroll": 310,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "viewport": 960,
+      "state": "overview",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "en",
+      "theme": "dark",
+      "viewport": 960,
+      "state": "confirmation",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "viewport": 320,
+      "state": "overview",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "viewport": 320,
+      "state": "confirmation",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "viewport": 390,
+      "state": "overview",
+      "width": 346,
+      "scrollWidth": 346,
+      "sectionWidth": 322,
+      "sectionScroll": 322,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "viewport": 390,
+      "state": "confirmation",
+      "width": 334,
+      "scrollWidth": 334,
+      "sectionWidth": 310,
+      "sectionScroll": 310,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "viewport": 960,
+      "state": "overview",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "en",
+      "theme": "light",
+      "viewport": 960,
+      "state": "confirmation",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "ru",
+      "theme": "dark",
+      "viewport": 320,
+      "state": "overview",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "ru",
+      "theme": "dark",
+      "viewport": 320,
+      "state": "confirmation",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "ru",
+      "theme": "dark",
+      "viewport": 390,
+      "state": "overview",
+      "width": 346,
+      "scrollWidth": 346,
+      "sectionWidth": 322,
+      "sectionScroll": 322,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "ru",
+      "theme": "dark",
+      "viewport": 390,
+      "state": "confirmation",
+      "width": 334,
+      "scrollWidth": 334,
+      "sectionWidth": 310,
+      "sectionScroll": 310,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "ru",
+      "theme": "dark",
+      "viewport": 960,
+      "state": "overview",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "ru",
+      "theme": "dark",
+      "viewport": 960,
+      "state": "confirmation",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "ru",
+      "theme": "light",
+      "viewport": 320,
+      "state": "overview",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "ru",
+      "theme": "light",
+      "viewport": 320,
+      "state": "confirmation",
+      "width": 264,
+      "scrollWidth": 264,
+      "sectionWidth": 240,
+      "sectionScroll": 240,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "ru",
+      "theme": "light",
+      "viewport": 390,
+      "state": "overview",
+      "width": 346,
+      "scrollWidth": 346,
+      "sectionWidth": 322,
+      "sectionScroll": 322,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "ru",
+      "theme": "light",
+      "viewport": 390,
+      "state": "confirmation",
+      "width": 334,
+      "scrollWidth": 334,
+      "sectionWidth": 310,
+      "sectionScroll": 310,
+      "localized": true,
+      "source": true,
+      "focus": true
+    },
+    {
+      "language": "ru",
+      "theme": "light",
+      "viewport": 960,
+      "state": "overview",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": false
+    },
+    {
+      "language": "ru",
+      "theme": "light",
+      "viewport": 960,
+      "state": "confirmation",
+      "width": 916,
+      "scrollWidth": 916,
+      "sectionWidth": 880,
+      "sectionScroll": 880,
+      "localized": true,
+      "source": true,
+      "focus": true
+    }
+  ],
+  "limitations": [
+    "Native Linux desktop with default themes only.",
+    "Deterministic transport; no live provider, credentials or paid inference.",
+    "Narrow desktop viewports are not native mobile verification.",
+    "Popout windows, screen readers and custom themes were not tested."
+  ],
+  "counterNotes": [
+    "Missing counter keys mean zero observed calls.",
+    "Successful one-note flow has three Vault.read calls: original generation read, Obsidian Vault.process internal read, and one targeted Recall read. Editor cachedRead is an independent Markdown observer.",
+    "The stale-edit scenario markdownWrite is the deliberate user edit, not generated content.",
+    "recallWrite counts attempts: the forced persistence failure leaves old bytes and published state unchanged.",
+    "Fixture setup and explicit recovery/Refresh occur outside recorded generation counters.",
+    "The selected note is opened before startup/overview measurement so ordinary editor navigation reads are excluded."
+  ],
+  "baseline": "50af303014f7eddacb29d1756af5324bf2c79681",
+  "branch": "feat/recall-authoring-bridge",
+  "artifacts": {
+    "main.js": {
+      "sha256": "4bb989768a04fd0114b1cf1fd983b75aee00d4f2c77f9eaf2a6ff528ae9e10e2",
+      "bytes": 697357,
+      "installedIdentical": true
+    },
+    "styles.css": {
+      "sha256": "22b1725cf0cf3d7149a38ccb236fe252bbc229cac33651bcd591eb39921fae43",
+      "bytes": 63877,
+      "installedIdentical": true
+    },
+    "manifest.json": {
+      "sha256": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39",
+      "bytes": 350,
+      "installedIdentical": true
+    }
+  },
+  "automatedVerification": {
+    "npmCi": "passed",
+    "typecheck": "passed",
+    "recallTests": 472,
+    "deepTests": 103,
+    "healthTests": 813,
+    "allTests": 2164,
+    "testFiles": 90,
+    "focusedEslint": "passed",
+    "lint": "passed with one pre-existing api.ts:402 streaming-fetch warning",
+    "proposalMutationAudit": "5/5 mutations rejected",
+    "build": "passed"
+  }
+}

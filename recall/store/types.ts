@@ -12,6 +12,8 @@ export interface RecallStoragePort {
 export interface RecallCardsSnapshot {
   version: typeof RECALL_SCHEMA_VERSION;
   updatedAt: number;
+  /** Absent in legacy/targeted-only inventories. Only a complete vault scan establishes coverage. */
+  inventoryCompletedAt?: number;
   cards: Record<string, RecallCard>;
 }
 

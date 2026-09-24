@@ -8,6 +8,7 @@ import { candidate, gate, memoryStorage, signal } from "../testSupport";
 function fixture(initial: string | null = null) {
   const files = [{ path: "A.md", stat: { mtime: 100, size: 100 } } as TFile];
   const vault = { configDir: ".private", getMarkdownFiles: vi.fn(() => files),
+    getFileByPath: vi.fn((path: string) => files.find((file) => file.path === path) ?? null),
     read: vi.fn(async (_file: TFile) => "PRIVATE NOTE BODY\n## Flashcards\n#flashcards\n\nQ::A\n\n## Private\nSECRET::BODY"),
     modify: vi.fn(), create: vi.fn(), delete: vi.fn(), rename: vi.fn(), process: vi.fn() };
   const storage = memoryStorage(initial); const source = new ObsidianRecallSource(vault); let now = 100;
@@ -17,6 +18,40 @@ function fixture(initial: string | null = null) {
 }
 
 describe("Recall explicit inventory service", () => {
+  it("admits one note without unrelated retirement and preserves missing full-inventory evidence through restart/review", async () => {
+    const f = fixture(); await f.service.initialize();
+    await f.service.refreshNote("A.md");
+    expect(f.service.getSummary(100)).toMatchObject({ active: 1, new: 1, due: 1 }); expect(f.service.hasFullInventory()).toBe(false);
+    expect(f.vault.read).toHaveBeenCalledTimes(1); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    const restarted = new RecallService(f.storage, f.source, () => 200); await restarted.initialize();
+    expect(restarted.hasFullInventory()).toBe(false); await restarted.reviewCard(candidate().id, "easy", 200);
+    const schedule = restarted.getCard(candidate().id)!.schedule;
+    f.files.push({ path: "B.md", stat: { mtime: 100, size: 100 } } as TFile);
+    await restarted.refreshNote("B.md");
+    expect(restarted.listCards({ state: "active" })).toHaveLength(2);
+    expect(restarted.getCard(candidate().id)?.schedule).toEqual(schedule); expect(restarted.hasFullInventory()).toBe(false);
+    await restarted.scan(signal()); expect(restarted.hasFullInventory()).toBe(true);
+    const again = new RecallService(f.storage, f.source, () => 300); await again.initialize(); expect(again.hasFullInventory()).toBe(true);
+  });
+
+  it("rechecks the target immediately before serialized persistence and preserves state if it was replaced", async () => {
+    const f = fixture(); await f.service.initialize(); await f.service.refreshNote("A.md");
+    const bytes = f.storage.bytes(), capture = f.source.captureNote.bind(f.source);
+    vi.spyOn(f.source, "captureNote").mockImplementationOnce(async (path, abort) => {
+      const note = await capture(path, abort); f.files[0] = { ...f.files[0] }; return note;
+    });
+    await expect(f.service.refreshNote("A.md")).rejects.toThrow("stale-inventory");
+    expect(f.storage.bytes()).toBe(bytes); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+  });
+
+  it("does not establish full coverage from partial full-vault inventory or targeted-only metadata", async () => {
+    const f = fixture(); await f.service.initialize(); f.vault.read.mockResolvedValueOnce("## Flashcards\nQ::A\nBroken::");
+    await f.service.scan(signal()); expect(f.service.hasFullInventory()).toBe(false);
+    await f.service.refreshNote("A.md"); expect(f.service.hasFullInventory()).toBe(false);
+    await f.service.scan(signal()); expect(f.service.hasFullInventory()).toBe(true);
+    await f.service.refreshNote("A.md"); expect(f.service.hasFullInventory()).toBe(true);
+  });
+
   it("constructs with zero IO, initializes metadata only and scans only on explicit request", async () => {
     const f = fixture(); expect(f.storage.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
     await expect(f.service.scan(signal())).rejects.toThrow("not initialized");

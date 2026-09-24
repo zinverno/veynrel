@@ -11,8 +11,19 @@ import type { RecallInventory, RecallSource } from "./types";
 
 export const RECALL_READ_CONCURRENCY = 8;
 export const MAX_RECALL_NOTES = 10000;
-type RecallVault = Pick<Vault, "configDir" | "getMarkdownFiles" | "read">;
+type RecallVault = Pick<Vault, "configDir" | "getMarkdownFiles" | "getFileByPath" | "read">;
 interface Entry { file: TFile; path: string; mtime: number; size: number }
+
+/** Shared admission boundary for explicit generation and Recall reads. */
+export function isRecallSourcePath(path: unknown, configDir: string): path is string {
+  return isRecallPath(path) && isVaultPath(configDir) && outsideRecallStorage(path, configDir);
+}
+
+function outsideRecallStorage(path: string, configDir: string): boolean {
+  const lower = path.toLowerCase(), config = configDir.toLowerCase();
+  return lower !== config && !lower.startsWith(`${config}/`) &&
+    !lower.split("/").slice(0, -1).some((part) => part === ".ai-backup" || part.startsWith(".ai-backup-"));
+}
 
 /** Read-only public Obsidian APIs. No metadata cache, plugin registry, index or provider. */
 export class ObsidianRecallSource implements RecallSource {
@@ -21,10 +32,7 @@ export class ObsidianRecallSource implements RecallSource {
   }
 
   private includes(path: string): boolean {
-    const lower = path.toLowerCase();
-    const config = this.vault.configDir.toLowerCase();
-    return lower !== config && !lower.startsWith(`${config}/`) &&
-      !lower.split("/").slice(0, -1).some((part) => part === ".ai-backup" || part.startsWith(".ai-backup-"));
+    return outsideRecallStorage(path, this.vault.configDir);
   }
 
   private inventory(signal: AbortSignal) {
@@ -53,6 +61,22 @@ export class ObsidianRecallSource implements RecallSource {
   }
 
   async captureRevision(signal: AbortSignal): Promise<string> { return this.inventory(signal).revision; }
+
+  /** Exactly one selected file; no enumeration and no claim of vault-wide coverage. */
+  async captureNote(path: string, signal: AbortSignal) {
+    throwIfAborted(signal);
+    if (!isRecallSourcePath(path, this.vault.configDir)) throw new RecallSourceUnavailableError();
+    const file = this.vault.getFileByPath(path);
+    if (!file || file.path !== path || !isTimestamp(file.stat.mtime) || !Number.isSafeInteger(file.stat.size) || file.stat.size < 0) {
+      throw new RecallSourceUnavailableError();
+    }
+    const entry = { file, path, mtime: file.stat.mtime, size: file.stat.size };
+    const isCurrent = () => this.vault.getFileByPath(path) === file && file.path === path &&
+      file.stat.mtime === entry.mtime && file.stat.size === entry.size;
+    const note = await this.readNote(entry, signal);
+    if (!note.read || !note.complete || !isCurrent()) throw new RecallSourceUnavailableError();
+    return { cards: note.cards, isCurrent };
+  }
 
   async capture(signal: AbortSignal): Promise<RecallInventory> {
     const inventory = this.inventory(signal);

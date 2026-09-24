@@ -50,7 +50,8 @@ import {
   withRetry,
 } from "./deepAudit";
 import { NoteIndexManager } from "./noteIndex";
-import { backupAndReplaceNote, replaceNoteIfUnchanged } from "./noteWrites";
+import { backupAndReplaceNote } from "./noteWrites";
+import { MAX_FLASHCARD_INPUT_LENGTH, RecallAuthoringAdapter, resolveFlashcardNote } from "./recallAuthoring";
 import { mergeEmbeddingSettings } from "./embeddings/types";
 import type { EmbeddingSettings, StoredEmbeddingSettings } from "./embeddings/types";
 import {
@@ -94,6 +95,7 @@ export default class AIHubPlugin extends Plugin {
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
   private atomizationTasks = new Map<TFile, Promise<void>>();
+  private recallAuthoring?: RecallAuthoringAdapter;
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
 
@@ -143,7 +145,13 @@ export default class AIHubPlugin extends Plugin {
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
         new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
         new SemanticHealthAnalysisAdapter(this.semanticController), deep,
-        new DeepHealthAnalysisAdapter(this.app, () => this.getDeepKnowledgeConfiguration()));
+        new DeepHealthAnalysisAdapter(this.app, () => this.getDeepKnowledgeConfiguration()), (recall) => {
+          const authoring = new RecallAuthoringAdapter(this.app, this.getLanguageModelSettingsPort(), recall,
+            (content, settings) => this.buildFlashcardsContent(content, tr("@flashcards_prompt"), { ...this.settings, ...settings }));
+          this.recallAuthoring = authoring;
+          this.register(() => authoring.dispose());
+          return authoring;
+        });
 
       this.addCommand({
         id: "ai-hub-open-panel",
@@ -1277,12 +1285,14 @@ export default class AIHubPlugin extends Plugin {
     let processed = 0;
     let errorCount = 0;
     const errors: string[] = [];
+    const flashcardPaths: string[] = [];
 
     for (const file of files) {
       if (progress.isCancelled) break;
 
       try {
         progress.logPending(file.name);
+        if (append && resolveFlashcardNote(this.app, file.path) !== file) throw new Error("Invalid flashcard source.");
         const originalPath = file.path;
         const content = await this.app.vault.read(file);
 
@@ -1301,6 +1311,7 @@ export default class AIHubPlugin extends Plugin {
         }
 
         await backupAndReplaceNote(this.app.vault, file, originalPath, content, newContent, backupFolder);
+        if (append) flashcardPaths.push(originalPath);
 
         processed++;
         progress.update(processed, errorCount);
@@ -1309,13 +1320,17 @@ export default class AIHubPlugin extends Plugin {
         await new Promise((r) => window.setTimeout(r, BATCH_DELAY_MS));
       } catch (err) {
         errorCount++;
-        const msg = err instanceof Error ? err.message : String(err);
+        const msg = append ? tr("@recall.authoring.generation-failed") : err instanceof Error ? err.message : String(err);
         errors.push(`${file.name}: ${msg}`);
         progress.update(processed, errorCount);
         progress.logError(file.name, msg);
       }
     }
 
+    let recallUpdatesFailed = 0;
+    for (const path of new Set(flashcardPaths)) {
+      if (await this.recallAuthoring?.ingestNote(path) !== "updated") recallUpdatesFailed++;
+    }
     await new Promise((r) => window.setTimeout(r, 1500));
     progress.close();
 
@@ -1332,6 +1347,7 @@ export default class AIHubPlugin extends Plugin {
           .join("\n"),
       });
     }
+    if (recallUpdatesFailed) report += `\n\n${tr("@recall.authoring.recall-update-failed")}\n`;
 
     const reportPath = normalizePath(
       `AI Batch Report ${new Date().toISOString().slice(0, 10)}.md`,
@@ -1358,8 +1374,9 @@ export default class AIHubPlugin extends Plugin {
   async buildFlashcardsContent(
     content: string,
     prompt: string,
+    settings: AIHubSettings = this.settings,
   ): Promise<{ newContent: string; cardCount: number }> {
-    const raw = await callOpenRouter(this.settings, prompt, content);
+    const raw = await callOpenRouter(settings, prompt, content.slice(0, MAX_FLASHCARD_INPUT_LENGTH));
     const cards = extractFlashcards(raw);
     if (!cards) throw new Error(tr("Некорректный ответ AI"));
     const newContent = appendSection(
@@ -1370,28 +1387,14 @@ export default class AIHubPlugin extends Plugin {
   }
 
   async generateFlashcardsForNote(file: TFile) {
-    const err = validateSettings(this.settings);
-    if (err) {
-      new Notice(err);
-      return;
-    }
-
     const notice = notify("loading", tr("Генерирую флешкарты..."));
     try {
-      const originalPath = file.path;
-      const content = await this.app.vault.read(file);
-      const { newContent, cardCount } = await this.buildFlashcardsContent(
-        content,
-        tr("@flashcards_prompt"),
-      );
-      await replaceNoteIfUnchanged(this.app.vault, file, originalPath, content, newContent);
-      notice.hide();
-      notify("success", tr("✅ Создано флешкарт: {n}", { n: cardCount }));
-    } catch (err) {
-      notice.hide();
-      const msg = err instanceof Error ? err.message : String(err);
-      new Notice(`❌ Ошибка: ${msg}`);
-    }
+      const result = await this.recallAuthoring?.generateForNote(file);
+      if (!result) return;
+      if (result.status === "success") notify("success", tr("✅ Создано флешкарт: {n}", { n: result.cardCount }));
+      else new Notice(tr(`@recall.authoring.${result.status === "partial" && result.needsRecovery ? "recall-blocked" : result.reason}`));
+    } catch { new Notice(tr("@recall.authoring.generation-failed")); }
+    finally { notice.hide(); }
   }
 
   // === Общие хелперы создания файлов (MOC, атомы) ===
