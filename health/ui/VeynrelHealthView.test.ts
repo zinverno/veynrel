@@ -62,14 +62,18 @@ import type { SemanticStatus } from "../../semantic/types";
 import type { SemanticDuplicatePair } from "../../semantic/types";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
 import { SemanticHealthAnalysisAdapter } from "../../semantic/health/semanticHealthAnalysisAdapter";
+import { DeepIntelligenceController } from "../../deep/product/deepIntelligenceController";
+import type { LanguageModelSettingsSnapshot } from "../../deep/product/languageModelSettingsPort";
+import type { DeepIntelligencePort } from "../deepIntelligencePort";
+import { deepIntelligenceViewModel, deepSetupError } from "./deepIntelligenceViewModel";
 
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
 function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort,
-  semanticAnalysis?: SemanticHealthAnalysisPort) {
+  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort) {
   const f = appFixture(); const file = new mocks.TFile(); f.vault.getAbstractFileByPath.mockReturnValue(file);
   const p = preferencesFixture(initial);
   const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences, semanticAnalysis);
-  const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic);
+  const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic, undefined, deep);
   return { ...f, ...p, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
 
@@ -127,6 +131,121 @@ describe("native Health view lifecycle", () => {
     confirmation.contentEl.all().find((e) => e.text === "Back up and reset")!.click();
     await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
     expect(f.content.texts()).toContain("Check your vault"); expect(f.vault.read).not.toHaveBeenCalled();
+  });
+});
+
+describe("inline Deep Intelligence boundaries", () => {
+  function deepFixture(configured = true) {
+    let current: LanguageModelSettingsSnapshot = { provider: "openrouter", model: "legacy-model", baseUrl: "https://llm.example/v1",
+      apiKey: configured ? "synthetic-DO-NOT-EXPOSE-key" : "", temperature: 0.5, topK: 8 };
+    const listeners = new Set<() => void>(); const emit = () => { for (const listener of listeners) listener(); };
+    const settings = { get: () => ({ ...current }), update: vi.fn(async (next: LanguageModelSettingsSnapshot) => { current = { ...next }; emit(); return { ...current }; }),
+      subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; } };
+    const connection = { test: vi.fn(async (_settings: LanguageModelSettingsSnapshot) => {}) };
+    const deep = new DeepIntelligenceController(settings, connection);
+    const f = fixture(undefined, undefined, undefined, deep); const cachedRead = vi.fn(); Object.assign(f.vault, { cachedRead });
+    const second = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, deep);
+    const secondContent = second.contentEl as unknown as InstanceType<typeof mocks.Element>;
+    return { ...f, second, secondContent, deep, settings, connection, cachedRead,
+      change: (patch: Partial<LanguageModelSettingsSnapshot>) => { current = { ...current, ...patch }; emit(); } };
+  }
+  function noWork(f: ReturnType<typeof deepFixture>) {
+    expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.cachedRead).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+  }
+  it.each([true, false])("passive legacy configuration is safe and does no work (configured: %s)", async (configured) => {
+    const f = deepFixture(configured); await f.view.onOpen();
+    expect(f.content.texts()).toContain(configured ? "Configured" : "Not configured");
+    const publicValues = JSON.stringify([f.deep.getSnapshot(), f.controller.getState(), deepIntelligenceViewModel(f.deep.getSnapshot()),
+      f.content.all().map((element) => ({ text: element.text, value: element.value, attrs: element.attrs }))]);
+    expect(publicValues.includes("synthetic-DO-NOT-EXPOSE-key")).toBe(false);
+    expect(f.content.all().find((element) => element.attrs["data-dimension"] === "knowledge")?.texts()).toContain("Not enabled");
+    f.content.action("nav-findings").click(); f.content.action("nav-discover").click(); f.content.action("nav-health").click();
+    expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
+  });
+  it.each(["en", "ru"] as const)("localizes chooser/forms/errors and keeps all inputs labelled in %s", async (language) => {
+    setLanguage(language); const f = deepFixture(false); await f.view.onOpen();
+    f.content.action("deep-setup").click();
+    for (const provider of ["ollama", "openrouter", "openai", "groq", "custom"]) {
+      const choice = f.content.action(`deep-provider-${provider}`); expect(choice.tag).toBe("button"); choice.click();
+      expect(f.content.action(`deep-provider-${provider}`).attrs["aria-pressed"]).toBe("true");
+      expect(f.content.action("deep-field-model").tag).toBe("input");
+      expect(Boolean(f.content.action("deep-field-baseUrl"))).toBe(provider === "custom");
+      const key = f.content.action("deep-field-apiKey");
+      expect(Boolean(key)).toBe(provider !== "ollama");
+      if (key) expect(key.attrs).toMatchObject({ type: "password", autocomplete: "off" });
+      for (const field of f.content.all().filter((element) => element.tag === "input")) {
+        expect(f.content.all().some((element) => element.tag === "label" && element.children.includes(field) && element.children[0].text.length > 0)).toBe(true);
+      }
+    }
+    f.content.action("deep-connect").click(); await flush();
+    expect(f.content.texts()).toContain(language === "en" ? "Enter a model" : "Укажите модель");
+    expect(f.content.texts()).not.toContain("@deep.");
+    for (const reason of ["connection", "save", "busy", "invalid"] as const) expect(deepSetupError({ ok: false, reason })).not.toContain("@deep.");
+    expect(f.connection.test).not.toHaveBeenCalled(); noWork(f);
+  });
+  it("keys appear only in intentional password editing and drafts are discarded on Back", async () => {
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("deep-change").click(); f.content.action("deep-provider-openrouter").click();
+    const key = f.content.action("deep-field-apiKey"); expect(key.value === f.settings.get().apiKey).toBe(true);
+    expect(key.attrs.type).toBe("password"); expect(f.content.texts().includes(key.value)).toBe(false);
+    key.input("synthetic-discarded-draft"); f.content.action("deep-back").click();
+    f.content.action("deep-change").click(); f.content.action("deep-provider-openrouter").click();
+    expect(f.content.action("deep-field-apiKey").value === "synthetic-discarded-draft").toBe(false);
+    expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
+  });
+  it("an already-open form cannot overwrite a newer Advanced edit", async () => {
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
+    f.change({ model: "new-advanced-model" }); f.content.action("deep-connect").click(); await flush();
+    expect(f.settings.get().model).toBe("new-advanced-model"); expect(f.content.texts()).toContain("Couldn't save");
+    expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
+  });
+  it.each([false, true])("Deep status never hides subsequent Health scan feedback (failed check: %s)", async (failed) => {
+    const f = deepFixture(); await f.view.onOpen();
+    if (failed) f.connection.test.mockRejectedValueOnce(new Error("fixture"));
+    await f.deep.checkCurrentSetup(); await f.controller.runLocalScan();
+    const status = f.content.all().find((element) => element.attrs.role === "status")!.text;
+    expect(status).toContain("Vault check complete"); expect(status).toContain(failed ? "Connection failed" : "Connected");
+  });
+  it("two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription", async () => {
+    const f = deepFixture(); await f.view.onOpen(); await f.second.onOpen(); let release!: () => void;
+    f.connection.test.mockImplementationOnce(() => new Promise<void>((resolve) => { release = resolve; }));
+    f.content.action("deep-check").click();
+    expect(f.content.texts()).toContain("Checking…"); expect(f.secondContent.texts()).toContain("Checking…");
+    expect(f.secondContent.action("deep-check").disabled).toBe(true); expect(f.secondContent.action("deep-change").disabled).toBe(true);
+    expect(f.secondContent.action("scan").disabled).toBe(false); expect(f.secondContent.action("nav-findings").disabled).toBe(false);
+    release(); await flush(); expect(f.secondContent.texts()).toContain("Connected"); expect(f.settings.update).not.toHaveBeenCalled();
+    f.connection.test.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
+    f.secondContent.action("deep-check").click(); await flush();
+    expect(f.content.texts()).toContain("Connection failed"); expect(f.secondContent.texts()).toContain("Connection failed");
+    expect(f.content.texts()).not.toContain("synthetic-DO-NOT-EXPOSE-key");
+    await f.view.onClose(); f.change({ model: "advanced-model" });
+    expect(f.content.children).toHaveLength(0); expect(f.secondContent.texts()).toContain("OpenRouter · advanced-model");
+    expect(f.secondContent.texts()).toContain("Configured"); expect(f.connection.test).toHaveBeenCalledTimes(2); noWork(f);
+  });
+  it.each(["navigate", "close", "back"] as const)("late Connect may save but cannot resurrect a form after %s", async (action) => {
+    const f = deepFixture(false); await f.view.onOpen(); await f.second.onOpen(); let release!: () => void;
+    f.connection.test.mockImplementationOnce(() => new Promise<void>((resolve) => { release = resolve; }));
+    f.content.action("deep-setup").click(); f.content.action("deep-provider-ollama").click();
+    f.content.action("deep-field-model").input("chosen-model"); f.content.action("deep-connect").click();
+    expect(f.content.action("deep-connect").disabled).toBe(true); expect(f.secondContent.texts()).toContain("Connecting…");
+    if (action === "navigate") f.content.action("nav-findings").click();
+    else if (action === "close") await f.view.onClose();
+    else f.content.action("deep-back").click();
+    release(); await flush(); expect(f.settings.get().model).toBe("chosen-model"); expect(f.settings.update).toHaveBeenCalledTimes(1);
+    expect(f.content.action("deep-field-model")).toBeUndefined(); expect(f.secondContent.texts()).toContain("Connected");
+    if (action === "close") expect(f.content.children).toHaveLength(0);
+    if (action === "navigate") expect(f.content.action("nav-findings").attrs["aria-current"]).toBe("page");
+    noWork(f);
+  });
+  it.each(["connection", "save"] as const)("failed %s keeps the form and committed configuration with safe feedback", async (failure) => {
+    const f = deepFixture(); await f.view.onOpen(); const before = f.settings.get();
+    if (failure === "connection") f.connection.test.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
+    else f.settings.update.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
+    f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
+    f.content.action("deep-connect").click(); await flush();
+    expect(f.settings.get()).toEqual(before); expect(f.content.action("deep-field-model")).toBeDefined();
+    expect(f.content.texts()).toContain(failure === "connection" ? "Couldn't connect" : "Couldn't save");
+    expect(f.content.texts()).not.toContain("synthetic-DO-NOT-EXPOSE-key"); expect(f.content.action("deep-connect").disabled).toBe(false); noWork(f);
   });
 });
 

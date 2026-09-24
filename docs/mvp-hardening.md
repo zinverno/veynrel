@@ -11,6 +11,10 @@ Deep Audit remains a legacy/Advanced tool. Knowledge Health, Deep Intelligence,
 Hidden Connections, Connect productization, Recall history and optimization are
 not complete and are not added here.
 
+Subsequent roadmap work adds [Deep Intelligence setup](deep-intelligence-setup.md)
+for the existing language-model configuration. This audit remains the historical
+PR #41 baseline; Knowledge Health analysis remains unimplemented.
+
 ## Architecture and authoritative ownership
 
 ```text

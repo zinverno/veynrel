@@ -1,0 +1,402 @@
+{
+  "baseline": "f5104ab17d67006f9d8f4ace390b5178a983368f",
+  "verifiedAt": "2026-09-23T22:51:42.619Z",
+  "runtime": {
+    "obsidian": "1.12.7",
+    "electron": "39.8.10",
+    "platform": "Linux desktop",
+    "isolated": true,
+    "syntheticOnly": true
+  },
+  "transport": "Real testConnection; deterministic fixture at Obsidian requestUrl boundary; no live provider inference or external network.",
+  "bundleSha256": {
+    "main.js": "92c0ba55b69da7a4460a9aeef381f3924a9810fa9c841b4d84227c9c6628c886",
+    "manifest.json": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39",
+    "styles.css": "f8094eb7efb52c58be977f0bed3f58596a3fc9b7b68e2a7ee313f52879a4bf85"
+  },
+  "phases": {
+    "startup": {
+      "counts": {},
+      "requests": []
+    },
+    "legacy-passive": {
+      "counts": {},
+      "requests": [],
+      "state": "configured"
+    },
+    "chooser-passive": {
+      "counts": {},
+      "requests": [],
+      "state": "configured"
+    },
+    "ollama-connect": {
+      "counts": {
+        "requestUrl": 1,
+        "settingsMutation": 1
+      },
+      "requests": [
+        {
+          "kind": "ollama-tags",
+          "method": "GET",
+          "minimal": true
+        }
+      ],
+      "state": "ready"
+    },
+    "advanced-live-update": {
+      "counts": {
+        "settingsMutation": 3
+      },
+      "requests": [],
+      "state": "configured"
+    },
+    "custom-check": {
+      "counts": {
+        "requestUrl": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "ready"
+    },
+    "failed-connect": {
+      "counts": {
+        "requestUrl": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "ready"
+    },
+    "custom-connect-and-advanced-reflection": {
+      "counts": {
+        "requestUrl": 1,
+        "settingsMutation": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "ready"
+    },
+    "late-navigation": {
+      "counts": {
+        "requestUrl": 1,
+        "hostMutation": 1,
+        "settingsMutation": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "ready"
+    },
+    "remaining-view-check": {
+      "counts": {
+        "requestUrl": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "ready"
+    },
+    "restart-passive": {
+      "counts": {},
+      "requests": []
+    },
+    "restart-configured": {
+      "counts": {},
+      "requests": [],
+      "state": "configured"
+    },
+    "failed-check": {
+      "counts": {
+        "requestUrl": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "error"
+    },
+    "advanced-during-test": {
+      "counts": {
+        "requestUrl": 1,
+        "settingsMutation": 1
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "configured"
+    },
+    "advanced-during-persistence": {
+      "counts": {
+        "requestUrl": 1,
+        "settingsMutation": 3
+      },
+      "requests": [
+        {
+          "kind": "minimal-chat",
+          "method": "POST",
+          "minimal": true
+        }
+      ],
+      "state": "configured"
+    }
+  },
+  "storage": {
+    "health/findings.json": {
+      "unchanged": true,
+      "sha256": "a6a8633f73b9fdb91a4a9b51a869b58507f020945e4b2bc19e662af67343bb2f"
+    },
+    "health/scan-runs.json": {
+      "unchanged": true,
+      "sha256": "f6f1963d81a1d386ac1f3d4d0128f26217263a1199c6aababb8517002490c7ab"
+    },
+    "semantic-index/recall-isolation-sentinel.json": {
+      "unchanged": true,
+      "sha256": "1c203b8f8ad33a88ab24e071c417a9def5e03e49cc479e2c72f09530144e4a3a"
+    },
+    "recall/cards.json": {
+      "absentBeforeAndAfter": true
+    }
+  },
+  "layout": {
+    "cases": 84,
+    "horizontalOverflow": 0,
+    "missingLabels": 0,
+    "focusFailures": 0,
+    "matrix": [
+      {
+        "width": 1280,
+        "language": "en",
+        "theme": "obsidian",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 1224,
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "language": "en",
+        "theme": "moonstone",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 1224,
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "language": "ru",
+        "theme": "obsidian",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 1224,
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "language": "ru",
+        "theme": "moonstone",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 1224,
+        "passed": true
+      },
+      {
+        "width": 390,
+        "language": "en",
+        "theme": "obsidian",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 334,
+        "passed": true
+      },
+      {
+        "width": 390,
+        "language": "en",
+        "theme": "moonstone",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 334,
+        "passed": true
+      },
+      {
+        "width": 390,
+        "language": "ru",
+        "theme": "obsidian",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 334,
+        "passed": true
+      },
+      {
+        "width": 390,
+        "language": "ru",
+        "theme": "moonstone",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 334,
+        "passed": true
+      },
+      {
+        "width": 320,
+        "language": "en",
+        "theme": "obsidian",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 264,
+        "passed": true
+      },
+      {
+        "width": 320,
+        "language": "en",
+        "theme": "moonstone",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 264,
+        "passed": true
+      },
+      {
+        "width": 320,
+        "language": "ru",
+        "theme": "obsidian",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 264,
+        "passed": true
+      },
+      {
+        "width": 320,
+        "language": "ru",
+        "theme": "moonstone",
+        "surfaces": [
+          "health",
+          "choose",
+          "ollama",
+          "openrouter",
+          "openai",
+          "groq",
+          "custom"
+        ],
+        "viewWidth": 264,
+        "passed": true
+      }
+    ]
+  },
+  "privacy": {
+    "publicSnapshotAndHealthStateKeyAbsent": true,
+    "normalDOMKeyAbsent": true,
+    "intentionalEditingPasswordOnly": true,
+    "evidenceContainsNoKeys": true
+  },
+  "knowledgeHealth": "Not enabled",
+  "runtimeErrors": [],
+  "limitations": [
+    "Native mobile/popout not tested",
+    "Full screen-reader and custom-theme coverage not tested",
+    "Live cloud providers and Ollama inference not tested"
+  ]
+}

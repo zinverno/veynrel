@@ -24,12 +24,18 @@ import { renderDiscover } from "./renderDiscover";
 import type { RecallProductPort } from "../../recall/product/types";
 import { recallViewModel } from "./recallViewModel";
 import { renderRecall } from "./renderRecall";
+import type { DeepIntelligencePort } from "../deepIntelligencePort";
+import { renderDeepIntelligence } from "./renderDeepIntelligence";
+import type { DeepSetupState } from "./renderDeepIntelligence";
+import { deepIntelligenceViewModel, deepSetupError } from "./deepIntelligenceViewModel";
 
 export class VeynrelHealthView extends ItemView {
   // One transient review surface per plugin owner, including duplicated workspace tabs.
   private static readonly recallViews = new WeakMap<RecallProductPort, VeynrelHealthView>();
   private unsubscribe?: () => void;
   private unsubscribeSemantic?: () => void;
+  private unsubscribeDeep?: () => void;
+  private deepSetup?: DeepSetupState;
   private cleanupRecall?: () => void;
   private recallFocusKey?: string;
   private dueWakeup?: number;
@@ -46,7 +52,8 @@ export class VeynrelHealthView extends ItemView {
   private focusDestination?: "heading" | "detail" | "recall-question" | "recall-answer";
 
   constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly openTools: () => void,
-    private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort) { super(leaf); }
+    private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort,
+    private readonly deep?: DeepIntelligencePort) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -65,6 +72,8 @@ export class VeynrelHealthView extends ItemView {
       this.unsubscribe = this.controller.subscribe(() => this.render());
       this.unsubscribeSemantic?.();
       this.unsubscribeSemantic = this.semantic?.subscribe(() => this.render());
+      this.unsubscribeDeep?.();
+      this.unsubscribeDeep = this.deep?.subscribe(() => this.render());
       this.render();
     } catch {
       if (epoch === this.epoch) this.status?.setText(t("@health.error.load"));
@@ -75,6 +84,7 @@ export class VeynrelHealthView extends ItemView {
     this.epoch++; this.unsubscribe?.(); this.unsubscribe = undefined;
     this.leaveRecall();
     this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
+    this.unsubscribeDeep?.(); this.unsubscribeDeep = undefined; this.deepSetup = undefined;
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.changingProfile = false;
@@ -96,7 +106,7 @@ export class VeynrelHealthView extends ItemView {
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
     const normal = onboarding.step === "complete";
     if (!normal && this.route.page === "recall") { this.leaveRecall(); this.route = { page: "health" }; }
-    if (!normal) this.semanticSetup = undefined;
+    if (!normal) { this.semanticSetup = undefined; this.deepSetup = undefined; }
     // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
     if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
     this.cleanupRecall?.(); this.cleanupRecall = undefined;
@@ -114,6 +124,7 @@ export class VeynrelHealthView extends ItemView {
       }
     }
     const surface = this.body.createDiv();
+    const deepSnapshot = normal && this.route.page === "health" ? this.deep?.getSnapshot() : undefined;
     const semanticSnapshot = normal && (this.route.page === "health" || this.route.page === "discover") ? this.semantic?.getSnapshot() : undefined;
     const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot, state) : undefined;
     const recallSnapshot = normal && this.route.page === "recall" ? this.recall?.getSnapshot() : undefined;
@@ -157,6 +168,8 @@ export class VeynrelHealthView extends ItemView {
         togglePaths: () => { this.expandedPaths = !this.expandedPaths; this.render(); },
         toggleSnooze: () => { this.expandedSnooze = !this.expandedSnooze; this.render(); },
       }, this.expandedPaths, this.expandedSnooze);
+    } else if (normal && this.deepSetup && this.deep) {
+      this.renderDeep(surface);
     } else if (normal && this.semanticSetup && this.semantic) {
       this.renderSemantic(surface);
     } else if (normal || onboarding.step === "recovery") {
@@ -177,6 +190,7 @@ export class VeynrelHealthView extends ItemView {
         this.wakeAt(recallHealth.nextDueAt);
       }
       if (normal && this.semantic) this.renderSemantic(surface);
+      if (normal && this.deep) this.renderDeep(surface);
     } else {
       renderHealthOnboarding(surface, onboarding, model, state, {
         scan, openNote, choose,
@@ -190,10 +204,15 @@ export class VeynrelHealthView extends ItemView {
       ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
     const semanticStatus = discover?.healthStatus ?? discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
       : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined);
-    this.status.setText(recall ? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
+    const deepError = this.deepSetup?.step === "form" ? deepSetupError(this.deepSetup.result) : undefined;
+    const deepStatus = deepSnapshot && (deepSnapshot.busy || deepSnapshot.state === "error" || deepSnapshot.state === "ready")
+      ? deepIntelligenceViewModel(deepSnapshot).status : undefined;
+    const primaryStatus = recall ? recall.status ?? "" : state.preferencesError ? t("@health.profile.save-failed") : state.savingPreferences ? t("@health.profile.saving")
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
-      : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "");
-    this.status.toggleClass("veynrel-health-status-error", recall ? recall.error : state.preferencesError || mutationError || model.statusError || Boolean(semanticError));
+      : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "";
+    // A connection result must not hide a later Health scan, recovery or navigation message.
+    this.status.setText([primaryStatus, deepError ?? deepStatus].filter(Boolean).join(" · "));
+    this.status.toggleClass("veynrel-health-status-error", recall ? recall.error : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
@@ -226,6 +245,7 @@ export class VeynrelHealthView extends ItemView {
       VeynrelHealthView.recallViews.set(this.recall, this);
     }
     this.semanticSetup = undefined;
+    this.deepSetup = undefined;
     this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
     this.changingProfile = false; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
@@ -267,6 +287,7 @@ export class VeynrelHealthView extends ItemView {
   }
 
   private openSemanticSetup(): void {
+    this.deepSetup = undefined;
     this.route = { page: "health" }; this.semanticSetup = { step: "choose" };
     this.changingProfile = false; this.navigationMessage = undefined;
     this.focusDestination = "heading"; this.render();
@@ -297,6 +318,40 @@ export class VeynrelHealthView extends ItemView {
     const result = await this.semantic.connect({ ...setup.draft });
     if (epoch !== this.epoch || this.semanticSetup !== setup) return;
     this.semanticSetup = result.ok ? { step: "connected", dimensions: result.dimensions } : { ...setup, result };
+    this.focusDestination = "heading"; this.render();
+  }
+
+  private renderDeep(surface: HTMLElement): void {
+    const deep = this.deep;
+    if (!deep) return;
+    renderDeepIntelligence(surface, deep.getSnapshot(), deep.getProviders(), this.deepSetup, {
+      action: (action) => {
+        if (deep.getSnapshot().busy) return;
+        if (action === "check") { void deep.checkCurrentSetup(); return; }
+        this.semanticSetup = undefined; this.deepSetup = { step: "choose" };
+        this.focusDestination = "heading"; this.render();
+      },
+      choose: (provider) => {
+        if (deep.getSnapshot().busy) return;
+        this.deepSetup = { step: "form", draft: deep.createDraft(provider) }; this.render();
+      },
+      edit: (field, value) => {
+        if (this.deepSetup?.step === "form" && !deep.getSnapshot().busy) {
+          this.deepSetup.draft[field] = value; this.deepSetup.result = undefined;
+        }
+      },
+      connect: () => { void this.connectDeep(); },
+      back: () => { this.deepSetup = undefined; this.focusDestination = "heading"; this.render(); },
+    });
+  }
+
+  private async connectDeep(): Promise<void> {
+    const setup = this.deepSetup; const epoch = this.epoch;
+    if (!this.deep || setup?.step !== "form" || this.deep.getSnapshot().busy) return;
+    setup.result = undefined;
+    const result = await this.deep.connect(setup.draft);
+    if (epoch !== this.epoch || this.deepSetup !== setup) return;
+    this.deepSetup = result.ok ? undefined : { ...setup, result };
     this.focusDestination = "heading"; this.render();
   }
 

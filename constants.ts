@@ -1,4 +1,11 @@
-import type { InsertionType } from "./settings";
+export type InsertionType =
+  | "end"
+  | "beginning"
+  | "replace"
+  | "after"
+  | "new"
+  | "clipboard"
+  | "cursor";
 
 // ─────────────────────────────────────────────────────────────────────
 //  ПРОВАЙДЕРЫ LLM

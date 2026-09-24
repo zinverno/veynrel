@@ -10,6 +10,8 @@ import {
 } from "obsidian";
 import AIHubPlugin from "./main";
 import { LLMProvider, PROVIDER_PROFILES } from "./constants";
+import type { InsertionType } from "./constants";
+export type { InsertionType } from "./constants";
 import {
   testConnection,
   fetchOllamaModels,
@@ -35,15 +37,6 @@ import {
 import type { CompanionSettings } from "./companionSync";
 import { DEFAULT_HEALTH_PREFERENCES } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
-
-export type InsertionType =
-  | "end"
-  | "beginning"
-  | "replace"
-  | "after"
-  | "new"
-  | "clipboard"
-  | "cursor";
 
 export interface AIHubSettings {
   // ── Провайдер ─────────────────────────────────────────────────────

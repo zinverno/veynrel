@@ -20,7 +20,7 @@ import {
   DEFAULT_SETTINGS,
   InsertionType,
 } from "./settings";
-import { validateSettings, callOpenRouter, streamOpenRouter } from "./api";
+import { validateSettings, callOpenRouter, streamOpenRouter, testConnection } from "./api";
 import {
   SELECTION_INSERTION_OPTIONS,
   INSERTION_OPTIONS,
@@ -64,6 +64,9 @@ import type { HealthPreferences } from "./health/preferences";
 import { SemanticIntelligenceController } from "./semantic/product/semanticIntelligenceController";
 import { SemanticHealthAnalysisAdapter } from "./semantic/health/semanticHealthAnalysisAdapter";
 import type { SemanticSettingsPort } from "./semantic/product/semanticSettingsPort";
+import { DeepIntelligenceController } from "./deep/product/deepIntelligenceController";
+import { languageModelSettingsSnapshot, sameLanguageModelConnection } from "./deep/product/languageModelSettingsPort";
+import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from "./deep/product/languageModelSettingsPort";
 
 import { CompanionClient } from "./companionSync/client";
 import { ProposalApplication } from "./proposals/application";
@@ -83,6 +86,7 @@ interface VaultAuditStats {
 export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   private settingsSave: Promise<void> = Promise.resolve();
+  private readonly languageModelListeners = new Set<() => void>();
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
   private atomizationTasks = new Map<TFile, Promise<void>>();
@@ -127,10 +131,14 @@ export default class AIHubPlugin extends Plugin {
       this.register(() => void this.semanticController.dispose());
 
       const { registerHealth } = await import("./health/obsidian/registerHealth");
+      const deep = new DeepIntelligenceController(this.getLanguageModelSettingsPort(), {
+        test: async (settings) => { await testConnection({ ...this.settings, ...settings }); },
+      });
+      this.register(() => deep.dispose());
       registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
         new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
-        new SemanticHealthAnalysisAdapter(this.semanticController));
+        new SemanticHealthAnalysisAdapter(this.semanticController), deep);
 
       this.addCommand({
         id: "ai-hub-open-panel",
@@ -257,6 +265,28 @@ export default class AIHubPlugin extends Plugin {
       else this.settings.provider = "custom";
     }
     if (needsVaultId) await this.saveData(this.settings);
+    this.notifyLanguageModelSettingsChanged();
+  }
+
+  getLanguageModelSettingsPort(): LanguageModelSettingsPort {
+    return {
+      get: () => languageModelSettingsSnapshot(this.settings),
+      update: async (next, expected) => {
+        try { await this.saveSettings(undefined, undefined, undefined, { next, expected }); }
+        catch { throw new Error("Could not save language model settings."); }
+        return languageModelSettingsSnapshot(this.settings);
+      },
+      subscribe: (listener) => {
+        this.languageModelListeners.add(listener);
+        return () => { this.languageModelListeners.delete(listener); };
+      },
+    };
+  }
+
+  private notifyLanguageModelSettingsChanged(): void {
+    for (const listener of this.languageModelListeners) {
+      try { listener(); } catch { /* Observers cannot fail settings persistence. */ }
+    }
   }
 
   getSemanticSettingsPort(): SemanticSettingsPort {
@@ -270,10 +300,13 @@ export default class AIHubPlugin extends Plugin {
     };
   }
 
-  async saveSettings(health?: HealthPreferences, semantic?: EmbeddingSettings, expectedSemantic?: EmbeddingSettings) {
+  async saveSettings(health?: HealthPreferences, semantic?: EmbeddingSettings, expectedSemantic?: EmbeddingSettings,
+    languageModel?: { next: LanguageModelSettingsSnapshot; expected?: LanguageModelSettingsSnapshot }) {
     const nextHealth = health ? { ...health } : undefined;
     const nextSemantic = semantic ? { ...semantic } : undefined;
     const expected = expectedSemantic ? { ...expectedSemantic } : undefined;
+    const nextLanguageModel = languageModel ? languageModelSettingsSnapshot(languageModel.next) : undefined;
+    const expectedLanguageModel = languageModel?.expected ? languageModelSettingsSnapshot(languageModel.expected) : undefined;
     // Read ordinary settings inside the same queue, so neither transaction loses concurrent edits.
     const save = this.settingsSave.then(async () => {
       const matches = (previous: EmbeddingSettings): boolean => Object.entries(previous)
@@ -282,14 +315,22 @@ export default class AIHubPlugin extends Plugin {
       if (expected && !matches(expected)) {
         throw new Error("Semantic settings changed during connection.");
       }
+      if (expectedLanguageModel && !sameLanguageModelConnection(this.settings, expectedLanguageModel)) {
+        throw new Error("Language model settings changed during connection.");
+      }
       const previousSemantic = nextSemantic ? { ...this.settings.semantic } : undefined;
+      const previousLanguageModel = nextLanguageModel ? languageModelSettingsSnapshot(this.settings) : undefined;
+      // Simple setup owns only connection fields. Never roll back newer Advanced tuning.
+      const connection = nextLanguageModel ? { provider: nextLanguageModel.provider, apiKey: nextLanguageModel.apiKey,
+        model: nextLanguageModel.model, baseUrl: nextLanguageModel.baseUrl } : undefined;
       await this.saveData({ ...this.settings, ...(nextHealth ? { health: nextHealth } : {}),
-        ...(nextSemantic ? { semantic: nextSemantic } : {}) });
-      if (previousSemantic && !matches(previousSemantic)) {
+        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection });
+      if ((previousSemantic && !matches(previousSemantic)) ||
+        (previousLanguageModel && !sameLanguageModelConnection(this.settings, previousLanguageModel))) {
         // Legacy controls mutate before saving. If they changed during I/O, restore their current
         // configuration on disk inside this queue and reject the obsolete setup without publishing it.
         await this.saveData({ ...this.settings, semantic: { ...this.settings.semantic } });
-        throw new Error("Semantic settings changed during persistence.");
+        throw new Error("Settings changed during persistence.");
       }
       if (nextHealth) this.settings.health = nextHealth;
       if (nextSemantic) {
@@ -297,6 +338,8 @@ export default class AIHubPlugin extends Plugin {
         Object.assign(this.settings.semantic, nextSemantic);
         this.semanticController.notifySettingsChanged({ reconcile: false });
       }
+      if (connection) Object.assign(this.settings, connection);
+      this.notifyLanguageModelSettingsChanged();
     });
     this.settingsSave = save.catch(() => undefined);
     return save;
