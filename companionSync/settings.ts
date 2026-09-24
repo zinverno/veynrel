@@ -1,4 +1,5 @@
 import type { CompanionSettings } from "./types";
+import { CompanionClientError } from "./errors";
 
 export const DEFAULT_COMPANION_SETTINGS: Readonly<CompanionSettings> = {
   enabled: false,
@@ -45,4 +46,30 @@ export function isLocalCompanionEndpoint(value: string): boolean {
   } catch {
     return false;
   }
+}
+
+export function companionEndpoint(value: string): string {
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new CompanionClientError("CONFIGURATION_ERROR");
+  }
+  if ((url.protocol !== "http:" && url.protocol !== "https:") || url.username || url.password || url.search || url.hash) {
+    throw new CompanionClientError("CONFIGURATION_ERROR");
+  }
+  if (!isLocalCompanionEndpoint(url.toString()) && url.protocol !== "https:") {
+    throw new CompanionClientError("CONFIGURATION_ERROR");
+  }
+  url.pathname = url.pathname.replace(/\/+$/u, "");
+  return url.toString().replace(/\/$/u, "");
+}
+
+/** The same validation used by the existing HTTP client; no network or credentials in errors. */
+export function validateCompanionSettings(settings: CompanionSettings): string {
+  const baseUrl = companionEndpoint(settings.endpoint);
+  if (!settings.token.trim() || !Number.isSafeInteger(settings.timeoutMs) || settings.timeoutMs < 500) {
+    throw new CompanionClientError("CONFIGURATION_ERROR");
+  }
+  return baseUrl;
 }

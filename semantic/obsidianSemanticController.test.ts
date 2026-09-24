@@ -261,6 +261,7 @@ describe("ObsidianSemanticController commands and lazy behavior", () => {
   it("invalidates pending Companion work when connection settings change", () => {
     const companion: CompanionSyncPort = {
       getStatus: vi.fn(() => ({ kind: "idle" as const })),
+      subscribeStatus: vi.fn(() => () => undefined),
       invalidateConfiguration: vi.fn(),
       testConnection: vi.fn(async () => undefined),
       reconcile: vi.fn(async () => undefined),

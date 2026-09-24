@@ -88,6 +88,8 @@ export interface CompanionServerStatus {
 export interface CompanionConnectionStatus {
   kind: "disabled" | "idle" | "syncing" | "ready" | "error";
   code?: string;
+  operation?: "check" | "sync";
+  mirrorKnownReady?: boolean;
   lastSuccessAt?: number;
 }
 

@@ -26,8 +26,9 @@ export interface CompanionClientPort {
 
 export interface CompanionSyncPort {
   getStatus: (enabled: boolean) => CompanionConnectionStatus;
+  subscribeStatus: (listener: () => void) => () => void;
   invalidateConfiguration: () => void;
-  testConnection: (settings: CompanionSettings, signal?: AbortSignal) => Promise<void>;
+  testConnection: (settings: CompanionSettings, signal?: AbortSignal, publishStatus?: boolean) => Promise<void>;
   reconcile: (settings: CompanionSettings, snapshot: CompanionSnapshot, signal?: AbortSignal) => Promise<void>;
   enqueueIncremental: (settings: CompanionSettings, change: CompanionIncrementalChange) => void;
   dispose: () => Promise<void>;
@@ -37,7 +38,21 @@ export class CompanionSyncService implements CompanionSyncPort {
   private readonly clientFactory: (settings: CompanionSettings) => CompanionClientPort;
   private readonly delay: (milliseconds: number) => Promise<void>;
   private tail: Promise<void> = Promise.resolve();
-  private status: CompanionConnectionStatus = { kind: "idle" };
+  private cachedStatus: CompanionConnectionStatus = { kind: "idle" };
+  private readonly listeners = new Set<() => void>();
+
+  private get status(): CompanionConnectionStatus { return this.cachedStatus; }
+  private set status(next: CompanionConnectionStatus) {
+    this.cachedStatus = next;
+    for (const listener of this.listeners) {
+      try { listener(); } catch { /* A mounted view cannot fail synchronization. */ }
+    }
+  }
+
+  subscribeStatus(listener: () => void): () => void {
+    this.listeners.add(listener);
+    return () => { this.listeners.delete(listener); };
+  }
   private configurationEpoch = 0;
   private disposed = false;
 
@@ -55,13 +70,19 @@ export class CompanionSyncService implements CompanionSyncPort {
     this.status = { kind: "idle" };
   }
 
-  async testConnection(settings: CompanionSettings, signal?: AbortSignal): Promise<void> {
+  async testConnection(settings: CompanionSettings, signal?: AbortSignal, publishStatus = true): Promise<void> {
+    // Product candidates are not committed configuration. Test through this same owner,
+    // but leave committed/background status untouched until the product saves successfully.
+    if (!publishStatus) {
+      await this.clientFactory(settings).status(signal);
+      return;
+    }
     const epoch = this.configurationEpoch;
-    this.status = { kind: "syncing" };
+    this.status = { ...this.status, kind: "syncing", operation: "check" };
     try {
       await this.clientFactory(settings).status(signal);
       if (!this.isCurrent(epoch)) return;
-      this.status = { kind: "ready", lastSuccessAt: Date.now() };
+      this.status = { kind: "ready", mirrorKnownReady: this.status.mirrorKnownReady, lastSuccessAt: Date.now() };
     } catch (error) {
       if (!this.isCurrent(epoch)) return;
       this.recordError(error);
@@ -75,7 +96,7 @@ export class CompanionSyncService implements CompanionSyncPort {
     const frozenSettings = { ...settings };
     const pending = this.tail.then(async () => {
       if (!this.isCurrent(epoch)) return;
-      this.status = { kind: "syncing" };
+      this.status = { kind: "syncing", operation: "sync", mirrorKnownReady: false };
       try {
         const client = this.clientFactory(frozenSettings);
         const plan = await this.withRetry(epoch, () => client.plan(frozenSettings.vaultId, snapshot, signal));
@@ -99,7 +120,7 @@ export class CompanionSyncService implements CompanionSyncPort {
           signal,
         );
         if (!applied || !this.isCurrent(epoch)) return;
-        this.status = { kind: "ready", lastSuccessAt: Date.now() };
+        this.status = { kind: "ready", mirrorKnownReady: true, lastSuccessAt: Date.now() };
       } catch (error) {
         if (!this.isCurrent(epoch)) return;
         this.recordError(error);
@@ -116,7 +137,7 @@ export class CompanionSyncService implements CompanionSyncPort {
     const frozenSettings = { ...settings };
     this.tail = this.tail.then(async () => {
       if (!this.isCurrent(epoch)) return;
-      this.status = { kind: "syncing" };
+      this.status = { kind: "syncing", operation: "sync", mirrorKnownReady: false };
       try {
         const client = this.clientFactory(frozenSettings);
         const notes = new Map(change.snapshot.notes.map((note) => [note.path, note]));
@@ -145,7 +166,7 @@ export class CompanionSyncService implements CompanionSyncPort {
           false,
         );
         if (!applied || !this.isCurrent(epoch)) return;
-        this.status = { kind: "ready", lastSuccessAt: Date.now() };
+        this.status = { kind: "ready", mirrorKnownReady: true, lastSuccessAt: Date.now() };
       } catch (error) {
         if (!this.isCurrent(epoch)) return;
         this.recordError(error);
@@ -159,6 +180,7 @@ export class CompanionSyncService implements CompanionSyncPort {
 
   async dispose(): Promise<void> {
     this.disposed = true;
+    this.listeners.clear();
     this.configurationEpoch++;
     await this.tail;
   }
@@ -226,6 +248,7 @@ export class CompanionSyncService implements CompanionSyncPort {
   private recordError(error: unknown): void {
     this.status = {
       kind: "error",
+      mirrorKnownReady: this.status.mirrorKnownReady,
       code: error instanceof CompanionClientError ? error.code : "SERVER_ERROR",
     };
   }
