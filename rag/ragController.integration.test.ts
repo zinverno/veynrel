@@ -502,6 +502,7 @@ describe("Ask your Vault controller integration", () => {
     const gate = manualGate();
     const companion: CompanionSyncPort = {
       getStatus: vi.fn(() => ({ kind: "syncing" as const })),
+      subscribeStatus: vi.fn(() => () => undefined),
       invalidateConfiguration: vi.fn(),
       testConnection: vi.fn(async () => undefined),
       reconcile: vi.fn(async () => { await gate.wait; }),

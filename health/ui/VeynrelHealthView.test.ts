@@ -70,13 +70,17 @@ import type { DeepHealthAnalysisPort, DeepKnowledgeAnalysis } from "../deepHealt
 import { candidate } from "../store/testSupport";
 import { withAbort } from "../analyzers/local/cancellation";
 
+import { ConnectController } from "../../connect/product/connectController";
+import type { CompanionSettings, CompanionConnectionStatus } from "../../companionSync/types";
+import type { ConnectPort } from "../connectPort";
+
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
 function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort,
-  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort) {
+  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort, connect?: ConnectPort) {
   const f = appFixture(); const file = new mocks.TFile(); f.vault.getAbstractFileByPath.mockReturnValue(file);
   const p = preferencesFixture(initial);
   const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences, semanticAnalysis, undefined, deepAnalysis);
-  const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic, undefined, deep);
+  const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic, undefined, deep, undefined, connect);
   return { ...f, ...p, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
 
@@ -908,5 +912,99 @@ describe("Findings navigation and lifecycle integration", () => {
     expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-findings")).toBeUndefined();
     expect(f.content.action("nav-discover")).toBeUndefined();
     expect(f.content.action("view-findings")).toBeUndefined(); expect(f.content.action("dimension-structure")).toBeUndefined();
+  });
+});
+
+
+describe("Connect view boundaries", () => {
+  function connectFixture(enabled = true) {
+    let current: CompanionSettings = { enabled, endpoint: "http://127.0.0.1:27124", token: "PRIVATE_CONNECT_TOKEN",
+      timeoutMs: 5000, vaultId: "22222222-2222-4222-8222-222222222222" };
+    let status: CompanionConnectionStatus = { kind: "idle" };
+    const listeners = new Set<() => void>(), engineListeners = new Set<() => void>();
+    const settings = { get: () => ({ ...current }), update: vi.fn(async (next: Pick<CompanionSettings, "enabled"> & Partial<CompanionSettings>) => {
+      current = { ...current, ...next }; for (const listener of listeners) listener(); return { ...current };
+    }), subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; } };
+    const engine = { getStatus: () => ({ ...status }), test: vi.fn(async (_settings: CompanionSettings) => {}),
+      syncCurrent: vi.fn(async () => "synced" as const), getSemanticMirrorState: () => ({ enabled: true, cachedReady: true }),
+      openProposalReview: vi.fn(), subscribeStatus: (listener: () => void) => { engineListeners.add(listener); return () => { engineListeners.delete(listener); }; } };
+    const connect = new ConnectController(settings, engine);
+    const f = fixture(undefined, undefined, undefined, undefined, undefined, connect);
+    const second = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, connect);
+    return { ...f, settings, engine, connect, second, secondContent: second.contentEl as unknown as InstanceType<typeof mocks.Element>,
+      publish: (next: CompanionConnectionStatus) => { status = next; for (const listener of engineListeners) listener(); } };
+  }
+  function passive(f: ReturnType<typeof connectFixture>) {
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+    expect(f.engine.syncCurrent).not.toHaveBeenCalled(); expect(f.engine.openProposalReview).not.toHaveBeenCalled();
+  }
+  it.each(["en", "ru"] as const)("Connect opens passively with localized capabilities, credential distinction and no direct writes in %s", async (language) => {
+    setLanguage(language); const f = connectFixture(); await f.view.onOpen();
+    f.content.action("nav-connect").click(); passive(f); expect(f.engine.test).not.toHaveBeenCalled();
+    expect(f.content.action("nav-connect").attrs["aria-current"]).toBe("page");
+    expect(f.content.texts()).not.toMatch(/@connect|PRIVATE_CONNECT_TOKEN|22222222/u);
+    expect(f.content.texts()).toContain(language === "en" ? "They do not read live Obsidian memory" : "не имеют доступа к текущему состоянию Obsidian");
+    expect(f.content.texts()).toContain(language === "en" ? "does not delete data already stored" : "не удаляет уже сохранённые");
+    expect(f.content.texts()).toContain(language === "en" ? "Only explicit review and approval" : "только после явного просмотра и одобрения");
+    expect(f.content.texts()).toContain(language === "en" ? "MCP clients authenticate to Companion separately" : "MCP-клиенты проходят отдельную аутентификацию");
+    f.content.action("connect-review").click(); expect(f.engine.openProposalReview).toHaveBeenCalledTimes(1);
+    await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
+  });
+  it("Sync now discloses exact data, Cancel/navigation/detached confirm do no work, and confirmation is single flight", async () => {
+    const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-connect").click();
+    f.content.action("connect-sync").click(); passive(f);
+    expect(f.content.ownerDocument.activeElement?.attrs["data-connect-confirmation"]).toBe("true");
+    for (const text of ["Stable Vault identity", "Vault-relative", "Markdown content", "Chunk text", "source metadata", "Embeddings", "Semantic descriptor"])
+      expect(f.content.texts()).toContain(text);
+    const stale = f.content.action("connect-sync-confirm"); f.content.action("connect-sync-cancel").click(); stale.click(); passive(f);
+    f.content.action("connect-sync").click(); const detached = f.content.action("connect-sync-confirm");
+    f.content.action("nav-findings").click(); detached.click(); passive(f);
+    f.content.action("nav-connect").click(); expect(f.content.action("connect-sync-confirm")).toBeUndefined();
+    f.content.action("connect-sync").click(); const confirm = f.content.action("connect-sync-confirm"); confirm.click(); confirm.click(); await flush();
+    expect(f.engine.syncCurrent).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
+    await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
+  });
+  it("Remote form discloses storage before enabling, uses password-only token and clears token on server changes", async () => {
+    const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-connect").click(); f.content.action("connect-setup").click();
+    f.content.action("connect-mode-remote").click();
+    expect(f.content.action("connect-field-token").value).toBe("");
+    expect(f.content.texts()).toContain("transmitted to and stored by the configured remote Companion server");
+    f.content.action("connect-field-endpoint").input("https://remote.example");
+    const password = f.content.action("connect-field-token");
+    expect(password.attrs).toMatchObject({ type: "password", autocomplete: "off" });
+    password.input("candidate-private");
+    f.content.action("connect-field-endpoint").input("https://another.example"); expect(password.value).toBe("");
+    password.input("candidate-private"); f.content.action("connect-submit").click(); await flush();
+    expect(f.engine.test).toHaveBeenCalledTimes(1); expect(f.content.texts()).toContain("Connected");
+    expect(f.content.all().some((element) => element.value.includes("private"))).toBe(false);
+    f.content.action("connect-sync").click(); expect(f.content.texts()).toContain("transmitted to and stored"); passive(f);
+    await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
+  });
+  it("failed setup retains the form and safe error; late success after navigation never restores it", async () => {
+    const f = connectFixture(false); await f.view.onOpen(); f.content.action("nav-connect").click();
+    f.content.action("connect-setup").click(); f.content.action("connect-mode-local").click();
+    expect(f.content.action("connect-field-endpoint")).toBeUndefined();
+    f.engine.test.mockRejectedValueOnce(new Error("PRIVATE_CONNECT_TOKEN raw response"));
+    f.content.action("connect-submit").click(); await flush();
+    expect(f.content.action("connect-field-token").value).toBe("PRIVATE_CONNECT_TOKEN");
+    expect(f.content.texts()).not.toMatch(/PRIVATE_CONNECT_TOKEN|raw response/u); expect(f.settings.update).not.toHaveBeenCalled();
+    let release!: () => void; f.engine.test.mockImplementationOnce(() => new Promise((resolve) => { release = resolve; }));
+    f.content.action("connect-submit").click(); f.content.action("nav-health").click(); release(); await flush();
+    expect(f.content.action("connect-field-token")).toBeUndefined();
+    f.content.action("nav-connect").click(); expect(f.content.texts()).toContain("Connected");
+    expect(f.content.action("connect-field-token")).toBeUndefined();
+    await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
+  });
+  it("two views share status and one Check; closing one leaves the other subscribed", async () => {
+    const f = connectFixture(); await Promise.all([f.view.onOpen(), f.second.onOpen()]);
+    f.content.action("nav-connect").click(); f.secondContent.action("nav-connect").click(); passive(f);
+    let release!: () => void; f.engine.test.mockImplementationOnce(() => new Promise((resolve) => { release = resolve; }));
+    f.content.action("connect-check").click(); expect(f.secondContent.action("connect-check").disabled).toBe(true);
+    release(); await flush(); expect(f.content.texts()).toContain("Connected"); expect(f.secondContent.texts()).toContain("Connected");
+    expect(f.engine.test).toHaveBeenCalledTimes(1); await f.view.onClose();
+    f.publish({ kind: "syncing", operation: "sync" }); expect(f.secondContent.texts()).toContain("Synchronizing…");
+    f.publish({ kind: "error", code: "AUTH_REQUIRED" }); expect(f.secondContent.texts()).toContain("Companion rejected the token");
+    expect(f.content.children).toHaveLength(0); await f.second.onClose(); f.connect.dispose(); f.controller.dispose();
   });
 });

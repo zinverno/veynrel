@@ -24,7 +24,7 @@ async function fixture(storedPatch: Partial<AIHubSettings> = {}) {
   plugin.loadData = vi.fn(async () => structuredClone(disk));
   const save = vi.fn(async (data: AIHubSettings) => { disk = structuredClone(data); }); plugin.saveData = save;
   await plugin.loadSettings();
-  const engine = { notifySettingsChanged: vi.fn() }; Object.assign(plugin, { semanticController: engine });
+  const engine = { notifyCompanionSettingsChanged: vi.fn(), notifySettingsChanged: vi.fn() }; Object.assign(plugin, { semanticController: engine });
   const port = plugin.getLanguageModelSettingsPort();
   const connection = { test: vi.fn(async (_settings: ReturnType<typeof port.get>) => {}) };
   const controller = new DeepIntelligenceController(port, connection);

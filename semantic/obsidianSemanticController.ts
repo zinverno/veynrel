@@ -77,6 +77,7 @@ import { normalizeVectorStoreBasePath } from "../vectorStore";
 import { CompanionClientError, CompanionSyncService } from "../companionSync";
 import type {
   CompanionConnectionStatus,
+  CompanionSettings,
   CompanionIncrementalChange,
   CompanionSnapshot,
   CompanionSyncPort,
@@ -266,6 +267,7 @@ export class ObsidianSemanticController {
   private readonly ragService: RagService;
   private readonly autoSync: SemanticAutoSync;
   private readonly companionService: CompanionSyncPort;
+  private companionConfigurationRevision = 0;
   private readonly pendingCompanionRenames = new Map<string, string>();
   private runtimeSlot: RuntimeSlot | null = null;
   private operationBusy = false;
@@ -474,16 +476,36 @@ export class ObsidianSemanticController {
     return this.companionService.getStatus(this.plugin.settings.companion.enabled);
   }
 
+  subscribeCompanionStatus(listener: () => void): () => void {
+    return this.companionService.subscribeStatus(listener);
+  }
+
   notifyCompanionSettingsChanged(): void {
+    this.companionConfigurationRevision++;
     this.companionService.invalidateConfiguration();
+  }
+
+  rawTestCompanion(settings: CompanionSettings, signal?: AbortSignal, publishStatus = true): Promise<void> {
+    return this.companionService.testConnection({ ...settings }, signal, publishStatus);
+  }
+
+  async rawSyncCompanion(signal?: AbortSignal): Promise<"synced" | "semantic-required" | "disabled" | "obsolete"> {
+    const settings = { ...this.plugin.settings.companion };
+    if (!settings.enabled) return "disabled";
+    const revision = this.companionConfigurationRevision;
+    const semanticRevision = this.settingsEpoch;
+    const snapshot = await this.captureCompanionSnapshot();
+    // A trust-boundary edit during capture must never upload that snapshot to a new server.
+    if (revision !== this.companionConfigurationRevision || semanticRevision !== this.settingsEpoch) return "obsolete";
+    if (!snapshot) return "semantic-required";
+    if (signal?.aborted) throw new CompanionClientError("ABORTED");
+    await this.companionService.reconcile(settings, snapshot, signal);
+    return revision === this.companionConfigurationRevision ? "synced" : "obsolete";
   }
 
   async testCompanionConnection(signal?: AbortSignal): Promise<void> {
     try {
-      await this.companionService.testConnection(
-        { ...this.plugin.settings.companion },
-        signal,
-      );
+      await this.rawTestCompanion(this.plugin.settings.companion, signal);
       this.notice(tr("Companion connection successful."));
     } catch (error) {
       this.notice(this.companionErrorMessage(error), 8000);
@@ -496,16 +518,12 @@ export class ObsidianSemanticController {
       return;
     }
     try {
-      const snapshot = await this.captureCompanionSnapshot();
-      if (!snapshot) {
+      const result = await this.rawSyncCompanion(signal);
+      if (result === "semantic-required") {
         this.notice(tr("A usable semantic index is required before Companion sync."));
         return;
       }
-      await this.companionService.reconcile(
-        { ...this.plugin.settings.companion },
-        snapshot,
-        signal,
-      );
+      if (result !== "synced") return;
       this.notice(tr("Companion mirror synchronized."));
     } catch (error) {
       this.notice(this.companionErrorMessage(error), 8000);

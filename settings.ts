@@ -425,12 +425,11 @@ export class AIHubSettingTab extends PluginSettingTab {
       {
         type: "group", heading: tr("Companion"), icon: "server", items: [
           row(["companion.enabled"], tr("Включить Companion"), tr("Опционально передаёт read-only mirror текущего semantic index настроенному Companion endpoint. Первый sync запускается явно."), (setting) => {
-            const controller = this.plugin.getSemanticController();
             this.addIcon(
               setting
                 .addToggle((toggle) => toggle.setValue(companion.enabled).onChange(async (value) => {
                   companion.enabled = value;
-                  controller.notifyCompanionSettingsChanged();
+                  this.plugin.notifyCompanionSettingsChanged();
                   await save();
                   this.refreshSettings();
                 })),
@@ -438,7 +437,6 @@ export class AIHubSettingTab extends PluginSettingTab {
             );
           }),
           row(["companion.endpoint"], tr("Companion endpoint"), tr("Локально: http://127.0.0.1:27124. Remote endpoint должен использовать HTTPS."), (setting) => {
-            const controller = this.plugin.getSemanticController();
             this.addIcon(
               setting
                 .addText((text) => text
@@ -446,14 +444,13 @@ export class AIHubSettingTab extends PluginSettingTab {
                   .setValue(companion.endpoint)
                   .onChange(async (value) => {
                     companion.endpoint = value.trim();
-                    controller.notifyCompanionSettingsChanged();
+                    this.plugin.notifyCompanionSettingsChanged();
                     await save();
                   })),
               "link",
             );
           }),
           row(["companion.token"], tr("Companion token"), tr("Отдельный Bearer token Companion. Хранится локально в данных плагина и никогда не отправляется AI-провайдерам."), (setting) => {
-            const controller = this.plugin.getSemanticController();
             this.addIcon(
               setting
                 .addText((text) => {
@@ -461,12 +458,24 @@ export class AIHubSettingTab extends PluginSettingTab {
                   text.inputEl.setAttribute("autocomplete", "off");
                   return text.setPlaceholder("••••••••••••").setValue(companion.token).onChange(async (value) => {
                     companion.token = value.trim();
-                    controller.notifyCompanionSettingsChanged();
+                    this.plugin.notifyCompanionSettingsChanged();
                     await save();
                   });
                 }),
               "key",
             );
+          }),
+          row(["companion.timeoutMs"], tr("@connect.timeout"), tr("@connect.timeout-description"), (setting) => {
+            setting.addText((text) => {
+              text.inputEl.type = "number"; text.inputEl.min = "500"; text.inputEl.max = "60000"; text.inputEl.step = "100";
+              return text.setValue(String(companion.timeoutMs)).onChange(async (value) => {
+                const timeout = Number(value);
+                if (!Number.isSafeInteger(timeout) || timeout < 500 || timeout > 60_000) return;
+                companion.timeoutMs = timeout;
+                this.plugin.notifyCompanionSettingsChanged();
+                await save();
+              });
+            });
           }),
           { ...row([], tr("Companion"), tr("Remote Companion получает vault-relative пути, Markdown, chunk text, metadata и embeddings. Используйте только HTTPS и доверенный сервер."), (setting) => { const warning = this.customContainer(setting).createDiv({ cls: "ai-hub-info-card" }); warning.setText(tr("Remote Companion получает vault-relative пути, Markdown, chunk text, metadata и embeddings. Используйте только HTTPS и доверенный сервер.")); }), visible: () => !!companion.endpoint && !isLocalCompanionEndpoint(companion.endpoint) },
           row([], tr("Companion connection"), undefined, (setting) => this.renderCompanionConnection(setting))

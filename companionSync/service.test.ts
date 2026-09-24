@@ -90,6 +90,58 @@ function deferred<T>(): {
 beforeEach(() => vi.stubGlobal("window", { setTimeout, clearTimeout }));
 
 describe("CompanionSyncService", () => {
+  it("publishes explicit and background status safely and distinguishes tests from mirror work", async () => {
+    const client = fakeClient();
+    const service = new CompanionSyncService({ clientFactory: () => client, delay: async () => undefined });
+    const statuses: string[] = [];
+    service.subscribeStatus(() => { throw new Error("private view failure"); });
+    const remove = service.subscribeStatus(() => { statuses.push(service.getStatus(true).kind); });
+    expect(statuses).toEqual([]); expect(client.status).not.toHaveBeenCalled();
+    await service.testConnection(settings);
+    expect(statuses).toEqual(["syncing", "ready"]);
+    expect(service.getStatus(true).mirrorKnownReady).not.toBe(true);
+    service.enqueueIncremental(settings, { snapshot: snapshot(), deletePaths: [] });
+    await service.drain();
+    expect(service.getStatus(true).mirrorKnownReady).not.toBe(true);
+    vi.mocked(client.applyBatch).mockRejectedValueOnce(new CompanionClientError("AUTH_REQUIRED"));
+    service.enqueueIncremental(settings, { snapshot: snapshot(), deletePaths: [] });
+    await service.drain();
+    expect(statuses).toEqual(["syncing", "ready", "syncing", "ready", "syncing", "error"]);
+    service.invalidateConfiguration(); expect(statuses.at(-1)).toBe("idle");
+    remove(); await service.testConnection(settings); expect(statuses).toHaveLength(7);
+    await service.dispose();
+  });
+
+  it("only full reconciliation establishes mirror readiness; incremental success preserves it and failure clears it", async () => {
+    const client = fakeClient(); const service = new CompanionSyncService({ clientFactory: () => client });
+    const partial = snapshot(); partial.notes = partial.notes.slice(0, 1);
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true)).toMatchObject({ kind: "ready", mirrorKnownReady: false });
+    await service.reconcile(settings, snapshot()); expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    vi.mocked(client.applyBatch).mockRejectedValueOnce(new CompanionClientError("AUTH_REQUIRED"));
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true)).toMatchObject({ kind: "error", mirrorKnownReady: false });
+    service.enqueueIncremental(settings, { snapshot: partial, deletePaths: [] }); await service.drain();
+    expect(service.getStatus(true)).toMatchObject({ kind: "ready", mirrorKnownReady: false });
+    await service.reconcile(settings, snapshot()); expect(service.getStatus(true).mirrorKnownReady).toBe(true);
+    service.invalidateConfiguration(); expect(service.getStatus(true).mirrorKnownReady).not.toBe(true);
+  });
+
+  it("candidate tests reuse the client but cannot publish candidate-only status", async () => {
+    const client = fakeClient(); const factory = vi.fn(() => client);
+    const service = new CompanionSyncService({ clientFactory: factory });
+    const listener = vi.fn(); service.subscribeStatus(listener);
+    await service.testConnection(settings, undefined, false);
+    expect(factory).toHaveBeenCalledWith(settings); expect(client.status).toHaveBeenCalledOnce();
+    expect(client.plan).not.toHaveBeenCalled(); expect(client.applyBatch).not.toHaveBeenCalled();
+    expect(listener).not.toHaveBeenCalled(); expect(service.getStatus(true)).toEqual({ kind: "idle" });
+    vi.mocked(client.status).mockRejectedValueOnce(new CompanionClientError("AUTH_REQUIRED"));
+    await expect(service.testConnection(settings, undefined, false)).rejects.toMatchObject({ code: "AUTH_REQUIRED" });
+    expect(listener).not.toHaveBeenCalled(); expect(service.getStatus(true)).toEqual({ kind: "idle" });
+  });
+
   it("uploads only paths requested by reconciliation and deletes stale paths", async () => {
     const client = fakeClient();
     vi.mocked(client.plan).mockResolvedValue(plan({ uploadPaths: ["B.md"], deletePaths: ["Stale.md"], unchangedPaths: ["A.md"] }));

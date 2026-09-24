@@ -11,47 +11,16 @@ import type {
   CompanionSyncBatch,
   CompanionSyncBatchResult,
 } from "./types";
-import { isLocalCompanionEndpoint } from "./settings";
+import { validateCompanionSettings } from "./settings";
+import type { CompanionClientErrorCode } from "./errors";
 
 import type { ProposalClaim, ProposalCompletion, ProposalDetail, ProposalPage, ProposalSummary } from "../companionSync/proposalTypes";
 
-export type CompanionClientErrorCode =
-  | "CONFIGURATION_ERROR"
-  | "AUTH_REQUIRED"
-  | "PROTOCOL_VERSION_MISMATCH"
-  | "DESCRIPTOR_MISMATCH"
-  | "STALE_GENERATION"
-  | "INVALID_RESPONSE"
-  | "TIMEOUT"
-  | "ABORTED"
-  | "UNREACHABLE"
-  | "SERVER_ERROR";
-
-export class CompanionClientError extends Error {
-  constructor(readonly code: CompanionClientErrorCode, readonly status = 0) {
-    super(`Companion request failed (${code}).`);
-    this.name = code === "TIMEOUT" ? "TimeoutError" : "CompanionClientError";
-  }
-}
+import { CompanionClientError } from "./errors";
+export { CompanionClientError } from "./errors";
+export type { CompanionClientErrorCode } from "./errors";
 
 export type CompanionRequest = (request: RequestUrlParam | string) => Promise<RequestUrlResponse>;
-
-function endpoint(value: string): string {
-  let url: URL;
-  try {
-    url = new URL(value);
-  } catch {
-    throw new CompanionClientError("CONFIGURATION_ERROR");
-  }
-  if ((url.protocol !== "http:" && url.protocol !== "https:") || url.username || url.password || url.search || url.hash) {
-    throw new CompanionClientError("CONFIGURATION_ERROR");
-  }
-  if (!isLocalCompanionEndpoint(url.toString()) && url.protocol !== "https:") {
-    throw new CompanionClientError("CONFIGURATION_ERROR");
-  }
-  url.pathname = url.pathname.replace(/\/+$/u, "");
-  return url.toString().replace(/\/$/u, "");
-}
 
 function errorCode(status: number, body: unknown): CompanionClientErrorCode {
   const code = body && typeof body === "object" && "error" in body &&
@@ -72,10 +41,7 @@ export class CompanionClient {
     private readonly settings: CompanionSettings,
     private readonly performRequest: CompanionRequest = requestUrl,
   ) {
-    this.baseUrl = endpoint(settings.endpoint);
-    if (!settings.token.trim() || !Number.isSafeInteger(settings.timeoutMs) || settings.timeoutMs < 500) {
-      throw new CompanionClientError("CONFIGURATION_ERROR");
-    }
+    this.baseUrl = validateCompanionSettings(settings);
   }
 
   async status(signal?: AbortSignal): Promise<CompanionServerStatus> {

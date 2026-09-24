@@ -1904,3 +1904,15 @@
   .veynrel-health-view .veynrel-findings-has-detail .veynrel-findings-list-pane { display: none; }
   .veynrel-health-view .veynrel-findings-detail { padding: 0; border: 0; }
 }
+
+/* Connect shares the native Health view and its navigation/focus conventions. */
+.veynrel-health-view .veynrel-connect { min-width: 0; }
+.veynrel-health-view .veynrel-connect > section { border-top: 1px solid var(--background-modifier-border); margin-top: 24px; padding-top: 8px; }
+.veynrel-health-view :is(.veynrel-connect-actions, .veynrel-connect-choices) { display: flex; flex-wrap: wrap; gap: 12px; margin-block: 12px; }
+.veynrel-health-view .veynrel-connect-field { display: flex; flex-direction: column; gap: 8px; margin-block: 16px; }
+.veynrel-health-view .veynrel-connect-field input { width: 100%; min-width: 0; }
+.veynrel-health-view .veynrel-connect-field input:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+.veynrel-health-view .veynrel-connect-endpoint { overflow-wrap: anywhere; color: var(--text-muted); }
+.veynrel-health-view .veynrel-connect-capabilities { padding-inline-start: 20px; }
+.veynrel-health-view .veynrel-connect-capabilities li { margin-block: 10px; }
+.veynrel-health-view .veynrel-connect-confirmation { border: 1px solid var(--background-modifier-border); border-radius: 8px; padding: 16px; margin-top: 16px; }

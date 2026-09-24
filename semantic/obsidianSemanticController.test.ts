@@ -261,6 +261,7 @@ describe("ObsidianSemanticController commands and lazy behavior", () => {
   it("invalidates pending Companion work when connection settings change", () => {
     const companion: CompanionSyncPort = {
       getStatus: vi.fn(() => ({ kind: "idle" as const })),
+      subscribeStatus: vi.fn(() => () => undefined),
       invalidateConfiguration: vi.fn(),
       testConnection: vi.fn(async () => undefined),
       reconcile: vi.fn(async () => undefined),
@@ -272,6 +273,35 @@ describe("ObsidianSemanticController commands and lazy behavior", () => {
     harness.controller.notifyCompanionSettingsChanged();
 
     expect(companion.invalidateConfiguration).toHaveBeenCalledOnce();
+  });
+
+  it("Connect raw sync needs Semantic and never builds an index or reads Markdown when disabled", async () => {
+    const h = createHarness(semantic({ enabled: false }));
+    h.plugin.settings.companion.enabled = true;
+    expect(await h.controller.rawSyncCompanion()).toBe("semantic-required");
+    expect(h.runtimeFactory).not.toHaveBeenCalled(); expect(h.app.vault.cachedRead).not.toHaveBeenCalled();
+    expect(h.notices).toEqual([]);
+  });
+
+  it("Connect raw sync rejects a trust-boundary edit while mirror capture is pending", async () => {
+    const gate = deferred<void>(); const entered = deferred<void>();
+    const companion: CompanionSyncPort = {
+      getStatus: () => ({ kind: "idle" }), subscribeStatus: () => () => undefined,
+      invalidateConfiguration: vi.fn(), testConnection: vi.fn(async () => {}),
+      reconcile: vi.fn(async () => {}), enqueueIncremental: vi.fn(), dispose: vi.fn(async () => {}),
+    };
+    const runtime = fakeRuntime({ captureCompanionSnapshot: vi.fn(async () => {
+      entered.resolve(); await gate.promise;
+      return { generation: 1, notes: [], descriptor: { providerId: "openai-compatible", model: "model-a",
+        baseUrl: "https://example.test/v1", dimensions: 3, normalized: true as const, embeddingSpaceId: "space" } };
+    }) });
+    const h = createHarness(semantic(), { companionService: companion, runtimeFactory: () => runtime });
+    await h.controller.indexVault(); h.plugin.settings.companion.enabled = true;
+    const pending = h.controller.rawSyncCompanion(); await entered.promise;
+    h.plugin.settings.companion.endpoint = "https://another-server.example";
+    h.controller.notifyCompanionSettingsChanged(); gate.resolve();
+    expect(await pending).toBe("obsolete"); expect(companion.reconcile).not.toHaveBeenCalled();
+    expect(runtime.indexVault).toHaveBeenCalledTimes(1);
   });
 
   it("registers all semantic commands without runtime or Vault reads", () => {
