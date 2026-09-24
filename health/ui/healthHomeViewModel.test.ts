@@ -12,7 +12,7 @@ function fixture(): HealthControllerState & { snapshot: HealthSnapshot } {
   return { busy: false, recovering: false, preferences: { ...DEFAULT_HEALTH_PREFERENCES }, savingPreferences: false, preferencesError: false, snapshot: {
     dimensions: { structure: { ...dimension }, connections: { ...dimension }, recall: { ...dimension }, knowledge: { ...dimension } },
     openFindings: 0, newFindings: 0, localScanRunning: false, lastLocalScanReconciled: false,
-    semanticScanRunning: false, lastSemanticScanReconciled: false,
+    semanticScanRunning: false, deepScanRunning: false, lastDeepScanReconciled: false, lastSemanticScanReconciled: false,
     initialization: { status: "ready", storage: { findings: "missing", scanRuns: "missing" }, findingsWritable: true, historyWritable: true },
   } };
 }
@@ -22,6 +22,18 @@ function outcome(status: "completed" | "partial" | "failed" = "completed"): Loca
 beforeEach(() => setLanguage("en"));
 
 describe("Health home copy and state", () => {
+  it.each(["en", "ru"] as const)("Knowledge uses Deep depth, neutral empty copy and Findings navigation in %s", (language) => {
+    setLanguage(language); const f = fixture();
+    expect(healthHomeViewModel(f).cards[3].action).toBe("none");
+    f.snapshot.dimensions.knowledge = { ...f.snapshot.dimensions.knowledge, state: "good", analysisDepth: "deep", analysisComplete: true };
+    f.snapshot.lastDeepScan = scanRun({ type: "deep", notesSeen: 3 }); f.outcome = outcome("failed");
+    expect(healthHomeViewModel(f).cards[3]).toMatchObject({ action: "findings", state: language === "en" ? "Good" : "Всё в порядке",
+      depth: language === "en" ? "Deep analysis" : "Глубокий анализ" });
+    f.snapshot.lastDeepScan.notesSeen = 0;
+    expect(healthHomeViewModel(f).cards[3].state).toBe(language === "en" ? "No notes to analyze" : "Нет заметок для анализа");
+    f.snapshot.dimensions.knowledge.analysisComplete = false;
+    expect(healthHomeViewModel(f).cards[3].depth).toBe(language === "en" ? "Deep analysis · incomplete" : "Глубокий анализ · неполный");
+  });
   it.each(["en", "ru"] as const)("localizes complete/incomplete semantic depth in %s without upgrading Structure", (language) => {
     setLanguage(language); const f = fixture();
     for (const complete of [true, false]) {

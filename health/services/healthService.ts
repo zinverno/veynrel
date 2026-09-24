@@ -18,6 +18,11 @@ import type { HealthInitializationResult, HealthLocalVaultSource, HealthSnapshot
 import { SEMANTIC_DUPLICATES_ANALYZER, SemanticHealthAnalysisError } from "../semanticHealthAnalysisPort";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
 import type { RecallHealthSnapshot } from "../recallHealthPort";
+import { KNOWLEDGE_QUALITY_ANALYZER, DeepHealthAnalysisError } from "../deepHealthAnalysisPort";
+import type { DeepHealthAnalysisPort, DeepKnowledgeConsent } from "../deepHealthAnalysisPort";
+import type { DeepHealthScanOutcome } from "./types";
+
+type HealthScanType = "local" | "semantic" | "deep";
 
 export class HealthNotInitializedError extends Error {
   constructor() { super("Health is not initialized."); this.name = "HealthNotInitializedError"; }
@@ -35,6 +40,7 @@ export interface HealthServiceOptions {
   scanIdFactory?: () => string;
   analyzers?: readonly HealthAnalyzer<LocalAnalysisContext>[];
   semanticAnalysis?: SemanticHealthAnalysisPort;
+  deepAnalysis?: DeepHealthAnalysisPort;
 }
 
 const writable = (status: HealthLoadStatus): boolean => status === "loaded" || status === "missing";
@@ -43,12 +49,12 @@ const writable = (status: HealthLoadStatus): boolean => status === "loaded" || s
 export class HealthService {
   private readonly coordinator: LocalScanCoordinator;
   private readonly clock: () => number;
-  private readonly scanIdFactory: (type: "local" | "semantic") => string;
+  private readonly scanIdFactory: (type: HealthScanType) => string;
   private initialization?: HealthInitializationResult;
   private initializing?: Promise<HealthInitializationResult>;
-  private running?: "local" | "semantic";
+  private running?: HealthScanType;
   private readonly listeners = new Set<() => void>();
-  private readonly lastAttempts: Partial<Record<"local" | "semantic", ScanRun>> = {};
+  private readonly lastAttempts: Partial<Record<HealthScanType, ScanRun>> = {};
   private lastObservation = -1;
 
   constructor(private readonly store: FindingStore, private readonly source: HealthLocalVaultSource, private readonly options: HealthServiceOptions = {}) {
@@ -71,6 +77,7 @@ export class HealthService {
 
   isLocalScanRunning(): boolean { return this.running === "local"; }
   isSemanticScanRunning(): boolean { return this.running === "semantic"; }
+  isDeepScanRunning(): boolean { return this.running === "deep"; }
   isScanRunning(): boolean { return this.running !== undefined; }
 
   subscribe(listener: () => void): () => void {
@@ -84,15 +91,20 @@ export class HealthService {
     const runs = this.store.listScanRuns();
     const scan = this.lastAttempts.local ?? runs.find((run) => run.type === "local");
     const semanticScan = this.lastAttempts.semantic ?? runs.find((run) => run.type === "semantic");
+    const deepScan = this.lastAttempts.deep ?? runs.find((run) => run.type === "deep");
     const current = (run?: ScanRun): boolean => run !== undefined && (run.status === "completed" || run.status === "partial") &&
       reconciliationIsCurrent(run.reconciliationReceipts, this.store.getReconciliationReceipts());
     const reconciled = current(scan); const semanticReconciled = current(semanticScan);
-    return { ...aggregateHealth({ findings, lastLocalScan: scan, reconciled, lastSemanticScan: semanticScan, semanticReconciled, recall }),
+    const deepReconciled = current(deepScan);
+    return { ...aggregateHealth({ findings, lastLocalScan: scan, reconciled, lastSemanticScan: semanticScan, semanticReconciled,
+      lastDeepScan: deepScan, deepReconciled, recall }),
       recall: recall ? { ...recall } : undefined,
       recommendation: selectRecommendation(findings, profile),
       lastLocalScan: scan ? cloneScanRun(scan) : undefined, lastLocalScanReconciled: reconciled, localScanRunning: this.isLocalScanRunning(),
       lastSemanticScan: semanticScan ? cloneScanRun(semanticScan) : undefined,
       lastSemanticScanReconciled: semanticReconciled, semanticScanRunning: this.isSemanticScanRunning(),
+      lastDeepScan: deepScan ? cloneScanRun(deepScan) : undefined,
+      lastDeepScanReconciled: deepReconciled, deepScanRunning: this.isDeepScanRunning(),
       initialization: { ...initialization, storage: { ...initialization.storage } },
     };
   }
@@ -105,8 +117,9 @@ export class HealthService {
 
   runLocalScan(signal: AbortSignal): Promise<LocalHealthScanOutcome> { return this.runScan("local", signal); }
   runSemanticScan(signal: AbortSignal): Promise<SemanticHealthScanOutcome> { return this.runScan("semantic", signal); }
+  runDeepScan(signal: AbortSignal, consent: DeepKnowledgeConsent): Promise<DeepHealthScanOutcome> { return this.runScan("deep", signal, consent); }
 
-  private async runScan(type: "local" | "semantic", signal: AbortSignal): Promise<LocalHealthScanOutcome> {
+  private async runScan(type: HealthScanType, signal: AbortSignal, consent?: DeepKnowledgeConsent): Promise<LocalHealthScanOutcome> {
     const initialization = this.requireInitialized();
     if (this.running) throw new HealthScanAlreadyRunningError();
     throwIfAborted(signal);
@@ -127,6 +140,7 @@ export class HealthService {
     this.notify();
     try {
       if (type === "semantic") await this.reconcileSemanticAnalysis(outcome, signal);
+      else if (type === "deep") await this.reconcileDeepAnalysis(outcome, signal, consent);
       else {
         let analysis: LocalScanAnalysis | undefined;
         try {
@@ -139,7 +153,11 @@ export class HealthService {
         if (analysis) await this.reconcileAnalysis(analysis, outcome, signal);
       }
       // Once findings are committed, finish recording truth even if cancellation arrives late.
-      if (!outcome.findingsCommitted) throwIfAborted(signal);
+      if (!outcome.findingsCommitted) {
+        if (type === "deep" && signal.aborted) {
+          if (!outcome.diagnostics.includes("deep-cancelled")) outcome.diagnostics.push("deep-cancelled");
+        } else throwIfAborted(signal);
+      }
       scan.completedAt ??= Math.max(startedAt, this.now());
       this.lastAttempts[type] = cloneScanRun(scan);
       try {
@@ -153,6 +171,45 @@ export class HealthService {
     } finally {
       this.running = undefined;
       this.notify();
+    }
+  }
+
+  private async reconcileDeepAnalysis(outcome: DeepHealthScanOutcome, signal: AbortSignal, consent?: DeepKnowledgeConsent): Promise<void> {
+    const { scan } = outcome;
+    scan.analyzerVersions = { [KNOWLEDGE_QUALITY_ANALYZER.id]: KNOWLEDGE_QUALITY_ANALYZER.version };
+    let analyzed = false;
+    try {
+      const port = this.options.deepAnalysis;
+      if (!port || !consent) throw new DeepHealthAnalysisError("deep-unavailable");
+      // The Deep port bridges abort into MAP and retains the captured count on cancellation.
+      const analysis = await port.analyzeKnowledge(signal, consent);
+      scan.notesSeen = analysis.totalFiles;
+      throwIfAborted(signal);
+      if (analysis.totalFiles > 0 && analysis.analyzedFiles === 0) throw new DeepHealthAnalysisError("deep-analysis-failed");
+      analyzed = true;
+      const counts = await this.store.reconcileBatch([{
+        scope: { source: "deep-ai", analyzerIds: [KNOWLEDGE_QUALITY_ANALYZER.id] },
+        candidates: analysis.candidates, complete: analysis.complete, seenAt: scan.startedAt,
+      }], { beforeCommit: async () => {
+        await withAbort(port.verifyCurrent(analysis.revision, signal), signal);
+        throwIfAborted(signal);
+        outcome.freshness = "verified";
+      } });
+      outcome.findingsCommitted = true;
+      scan.findingsCreated = counts.created; scan.findingsUpdated = counts.updated; scan.findingsResolved = counts.resolved;
+      scan.completedAt = counts.updatedAt;
+      scan.reconciliationReceipts = counts.reconciliationReceipts;
+      scan.status = analysis.complete ? "completed" : "partial";
+      if (!analysis.complete) outcome.diagnostics.push("deep-partial");
+      this.lastAttempts.deep = cloneScanRun(scan);
+      this.notify();
+    } catch (error) {
+      if (error instanceof DeepHealthAnalysisError) scan.notesSeen = error.totalFiles ?? scan.notesSeen;
+      if (signal.aborted || isCancellation(error)) { outcome.diagnostics.push("deep-cancelled"); return; }
+      if (error instanceof DeepHealthAnalysisError) {
+        outcome.diagnostics.push(error.code);
+        if (error.code === "deep-vault-changed" || error.code === "deep-config-changed") outcome.freshness = "stale";
+      } else outcome.diagnostics.push(analyzed ? "deep-reconciliation-failed" : "deep-analysis-failed");
     }
   }
 

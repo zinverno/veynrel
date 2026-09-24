@@ -65,6 +65,8 @@ import { SemanticIntelligenceController } from "./semantic/product/semanticIntel
 import { SemanticHealthAnalysisAdapter } from "./semantic/health/semanticHealthAnalysisAdapter";
 import type { SemanticSettingsPort } from "./semantic/product/semanticSettingsPort";
 import { DeepIntelligenceController } from "./deep/product/deepIntelligenceController";
+import { DeepHealthAnalysisAdapter, deepKnowledgeSettingsSnapshot } from "./deep/health/deepHealthAnalysisAdapter";
+import type { DeepKnowledgeConfiguration, DeepKnowledgeSettings } from "./deep/health/deepHealthAnalysisAdapter";
 import { languageModelSettingsSnapshot, sameLanguageModelConnection } from "./deep/product/languageModelSettingsPort";
 import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from "./deep/product/languageModelSettingsPort";
 
@@ -87,6 +89,8 @@ export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   private settingsSave: Promise<void> = Promise.resolve();
   private readonly languageModelListeners = new Set<() => void>();
+  private committedDeepKnowledge?: DeepKnowledgeSettings;
+  private deepKnowledgeConfigurationRevision = 0;
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
   private atomizationTasks = new Map<TFile, Promise<void>>();
@@ -138,7 +142,8 @@ export default class AIHubPlugin extends Plugin {
       registerHealth(this, () => new BatchProcessModal(this.app, this).open(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
         new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
-        new SemanticHealthAnalysisAdapter(this.semanticController), deep);
+        new SemanticHealthAnalysisAdapter(this.semanticController), deep,
+        new DeepHealthAnalysisAdapter(this.app, () => this.getDeepKnowledgeConfiguration()));
 
       this.addCommand({
         id: "ai-hub-open-panel",
@@ -265,7 +270,20 @@ export default class AIHubPlugin extends Plugin {
       else this.settings.provider = "custom";
     }
     if (needsVaultId) await this.saveData(this.settings);
+    this.publishDeepKnowledgeSettings(this.settings);
     this.notifyLanguageModelSettingsChanged();
+  }
+
+  getDeepKnowledgeConfiguration(): DeepKnowledgeConfiguration {
+    if (!this.committedDeepKnowledge) throw new Error("Language model settings are not loaded.");
+    return { settings: deepKnowledgeSettingsSnapshot(this.committedDeepKnowledge), revision: this.deepKnowledgeConfigurationRevision,
+      current: JSON.stringify(deepKnowledgeSettingsSnapshot(this.settings)) === JSON.stringify(this.committedDeepKnowledge) };
+  }
+
+  private publishDeepKnowledgeSettings(settings: DeepKnowledgeSettings): void {
+    const next = deepKnowledgeSettingsSnapshot(settings);
+    if (JSON.stringify(next) !== JSON.stringify(this.committedDeepKnowledge)) this.deepKnowledgeConfigurationRevision++;
+    this.committedDeepKnowledge = next;
   }
 
   getLanguageModelSettingsPort(): LanguageModelSettingsPort {
@@ -323,13 +341,18 @@ export default class AIHubPlugin extends Plugin {
       // Simple setup owns only connection fields. Never roll back newer Advanced tuning.
       const connection = nextLanguageModel ? { provider: nextLanguageModel.provider, apiKey: nextLanguageModel.apiKey,
         model: nextLanguageModel.model, baseUrl: nextLanguageModel.baseUrl } : undefined;
-      await this.saveData({ ...this.settings, ...(nextHealth ? { health: nextHealth } : {}),
-        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection });
+      const savedSettings = { ...this.settings, deepAudit: { ...this.settings.deepAudit }, ...(nextHealth ? { health: nextHealth } : {}),
+        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection };
+      const savedDeep = deepKnowledgeSettingsSnapshot(savedSettings);
+      await this.saveData(savedSettings);
+      this.publishDeepKnowledgeSettings(savedDeep);
       if ((previousSemantic && !matches(previousSemantic)) ||
         (previousLanguageModel && !sameLanguageModelConnection(this.settings, previousLanguageModel))) {
         // Legacy controls mutate before saving. If they changed during I/O, restore their current
         // configuration on disk inside this queue and reject the obsolete setup without publishing it.
+        const correctedDeep = deepKnowledgeSettingsSnapshot(this.settings);
         await this.saveData({ ...this.settings, semantic: { ...this.settings.semantic } });
+        this.publishDeepKnowledgeSettings(correctedDeep);
         throw new Error("Settings changed during persistence.");
       }
       if (nextHealth) this.settings.health = nextHealth;

@@ -12,7 +12,7 @@ function model(recall: RecallHealthSnapshot) {
     preferences: { ...DEFAULT_HEALTH_PREFERENCES, onboardingCompleted: true },
     // Local scan failure must never downgrade independently available Recall scheduling state.
     error: "scan", snapshot: { ...aggregateHealth({ findings: [], reconciled: false, recall }), recall,
-      localScanRunning: false, semanticScanRunning: false, lastLocalScanReconciled: false, lastSemanticScanReconciled: false,
+      localScanRunning: false, semanticScanRunning: false, deepScanRunning: false, lastDeepScanReconciled: false, lastLocalScanReconciled: false, lastSemanticScanReconciled: false,
       initialization: { status: "ready", storage: { findings: "missing", scanRuns: "missing" }, findingsWritable: true, historyWritable: true } },
   }).cards[2];
 }
