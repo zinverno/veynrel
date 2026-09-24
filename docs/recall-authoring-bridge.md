@@ -132,17 +132,57 @@ reviewable tracked cards, while the new product `inventoryEstablished` remains
 false. The overview explicitly says that a full inventory is not established;
 the rest of the vault remains undiscovered until Find/Refresh.
 
-An additive optional `inventoryCompletedAt` field in v2 `recall/cards.json` records
-only a committed, complete full-vault inventory. Partial scans and targeted imports
-cannot establish it; reviews and later imports preserve it. Legacy v1/v2 files
-without the marker remain readable and their schedules are preserved, but their
-past full coverage is conservatively unknown until the next complete Refresh.
-Loading performs no migration write. Older builds with strict v2 field validation
-will block an extended snapshot rather than silently dropping this evidence.
+The optional `inventoryCompletedAt` field records only a committed, complete
+full-vault inventory. Partial scans and targeted imports cannot establish it;
+reviews and later imports preserve it exactly. Files without the marker remain
+readable, but their past full coverage is conservatively unknown until the next
+complete Refresh.
 
 The marker means a complete inventory occurred, not that coverage stays fresh
 forever. Recall Health reports the actual workload of **tracked** cards. Known
 targeted cards can make it recommend review without implying vault-wide coverage.
+
+## Storage v3 compatibility
+
+Current `recall/cards.json` uses the strict schema:
+
+```typescript
+{ version: 3, updatedAt: number, inventoryCompletedAt?: number, cards: Record<string, RecallCard> }
+```
+
+No other top-level keys are accepted. The optional marker must be a valid
+timestamp no later than `updatedAt`. All existing identity, lifecycle and native
+FSRS schedule validation remains unchanged.
+
+| Stored input | In-memory v3 result |
+| --- | --- |
+| v1: `version`, `updatedAt`, `cards` | Existing identity/lifecycle retained; initial native schedules created; marker absent |
+| Pre-#44 v2: `version`, `updatedAt`, `cards` | Every card and schedule preserved exactly; marker absent |
+| Merged-#44 transitional v2: those keys plus `inventoryCompletedAt` | Every card and schedule preserved exactly; valid marker preserved exactly |
+
+Both accepted v2 shapes are strict: unknown keys and malformed coverage markers
+remain invalid. Loading any valid legacy shape migrates **only in memory, with
+zero storage writes**. The next real review, targeted admission or inventory
+mutation persists v3. Review and targeted admission neither invent nor clear
+coverage. Only a successful complete inventory sets the marker to `observedAt`;
+a partial scan does not establish it.
+
+Valid merged-#44 files load normally without recovery. Unknown scheduler
+algorithms/policies in v2 or v3 remain `unsupported`, as do future storage versions
+(4 and above). Malformed v1/v2/v3 remains `invalid`. Blocked files are never
+migrated into writable state or overwritten.
+
+PR #44 briefly wrote the coverage extension under version 2. New writes use v3,
+so pre-v3 readers encounter a future version instead of a falsely labelled v2
+extension. This cannot change how an already-existing old reader treats a
+transitional v2 file. Current code accepts that exact valid transitional shape
+and writes v3 on its next mutation; no downgrade rewrite or recovery is needed.
+
+`recall/store/schemaV3.test.ts` covers the migration/mutation/restart matrix. Its
+`fixtures/pr44-v2-cards.json` is the exact synthetic seven-card file saved by
+PR #44's isolated native smoke build (`89d8966`, merged as `89d10ad`), including
+reviewed FSRS schedules and the established inventory marker. The fixture verifies
+normal load without recovery or writes, exact preservation, and a first v3 write.
 
 ## Isolation and product boundary
 
@@ -159,6 +199,19 @@ index. The existing independent Markdown-change observer may run normal automati
 semantic sync when the user has enabled it.
 
 ## Verification
+
+### Schema v3 follow-up
+
+Baseline: `89d10ad4bdde792bfbb9408e82d3c66f5a861fb2` (PR #44 merged).
+`npm ci`, typecheck, Recall ESLint, full lint, proposal mutation audit (5/5) and
+build passed. Focused Recall: **556 tests in 20 files**. Full suite: **2,248 tests
+in 91 files**. Lint retains the pre-existing streaming `fetch` warning at
+`api.ts:402`. Runtime changes are confined to the schema constant and decoder;
+the authoring, inventory, scheduler, review, Health and UI implementations are
+unchanged. The prior native file below is now also a durable regression fixture;
+this storage-only follow-up does not claim a new native smoke run.
+
+### PR #44 authoring bridge
 
 Regression tests cover passive/cancel/navigation behavior, real producer/prompt
 reuse, bounded selected-note input, exact stale-write protection, provider/invalid

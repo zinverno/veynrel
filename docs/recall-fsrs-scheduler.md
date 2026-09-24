@@ -203,7 +203,11 @@ does not require `dueAt <= reviewedAt`. A future default UI will offer due cards
 
 ## Storage v2, migration and durability
 
-The same dedicated `<configDir>/plugins/<manifest.id>/recall/cards.json` now uses:
+This section records the original scheduler schema. The current format is
+[v3 with read-only v1/v2 migration](recall-authoring-bridge.md#storage-v3-compatibility);
+the scheduler and durability behavior below is unchanged.
+
+The dedicated `<configDir>/plugins/<manifest.id>/recall/cards.json` originally used:
 
 ```typescript
 { version: 2, updatedAt: number, cards: Record<string, RecallCard> }

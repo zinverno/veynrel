@@ -1,6 +1,6 @@
 import type { RecallCard, RecallCardCandidate } from "../domain/card";
 
-export const RECALL_SCHEMA_VERSION = 2 as const;
+export const RECALL_SCHEMA_VERSION = 3 as const;
 export const MAX_RECALL_STORAGE_LENGTH = 32 * 1024 * 1024;
 
 /** The only file is recall/cards.json. Null means missing; read errors must throw. */
