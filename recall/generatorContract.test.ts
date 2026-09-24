@@ -6,6 +6,7 @@ import { parseMarkdownFlashcards } from "./parser/markdownFlashcards";
 import { RecallService } from "./services/recallService";
 import { memoryStorage, signal } from "./testSupport";
 import { MAX_FLASHCARD_INPUT_LENGTH } from "../recallAuthoring";
+import { t, setLanguage } from "../i18n";
 
 vi.mock("obsidian", () => ({ MarkdownView: class {}, TFile: class {}, normalizePath: (path: string) => path, getLanguage: () => "en" }));
 
@@ -17,7 +18,13 @@ function method(name: string): string {
 }
 
 describe("Recall consumes the unchanged legacy flashcard producer", () => {
-  it("executes the real buildFlashcardsContent and its real helpers against the checked-in output fixture", async () => {
+  it.each(["en", "ru"] as const)("executes the real producer with the native Recall prompt in %s and consumes the unchanged fixture", async (language) => {
+    setLanguage(language);
+    const prompt = t("@flashcards_prompt");
+    expect(prompt).toContain("Veynrel Recall");
+    expect(prompt).not.toMatch(/st3v3nmw|Spaced Repetition/iu);
+    expect(prompt).toContain(language === "en" ? "ON THE SAME LINE" : "НА ОДНОЙ СТРОКЕ");
+    expect(prompt).toContain(language === "en" ? "are FORBIDDEN" : "писать ЗАПРЕЩЕНО");
     // Extract unchanged source, mock only the LLM transport. No import of the host/plugin startup is needed.
     const helpers = ["extractFlashcards", "appendSection"].map((name) => ast.statements.find((node) =>
       ts.isFunctionDeclaration(node) && node.name?.text === name)!.getText(ast)).join("\n");
@@ -26,9 +33,9 @@ describe("Recall consumes the unchanged legacy flashcard producer", () => {
     const producer = runInNewContext(ts.transpileModule(code, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText,
       { callOpenRouter, MAX_FLASHCARD_INPUT_LENGTH, tr: (value: string) => value }) as { buildFlashcardsContent(content: string, prompt: string): Promise<{ newContent: string; cardCount: number }> };
     const body = "# Example note\n\nThis body is preserved by the legacy generator. Prose::not a card\n";
-    const generated = await producer.buildFlashcardsContent(body, "existing prompt");
+    const generated = await producer.buildFlashcardsContent(body, prompt);
     expect(generated).toEqual({ newContent: readFileSync("tests/fixtures/recall-generated.md", "utf8"), cardCount: 2 });
-    expect(callOpenRouter).toHaveBeenCalledExactlyOnceWith(undefined, "existing prompt", body);
+    expect(callOpenRouter).toHaveBeenCalledExactlyOnceWith(undefined, prompt, body);
     const extracted = await parseMarkdownFlashcards("Example.md", generated.newContent);
     expect(extracted.cards.map(({ question, answer }) => [question, answer])).toEqual([["What is X", "Y"], ["Why Z", "Because Q"]]);
     const service = new RecallService(memoryStorage(), {

@@ -5,7 +5,7 @@ import type { VaultProfile } from "../domain/profile";
 import { healthProfileName, renderHealthProfileOptions } from "./healthProfileOptions";
 import type { HealthDimension } from "../domain/finding";
 
-interface HealthHomeActions { scan: () => void; tools: () => void; recover: () => void; openNote: () => void;
+interface HealthHomeActions { scan: () => void; tools?: () => void; recover: () => void; openNote: () => void;
   changeProfile: () => void; chooseProfile: (profile: VaultProfile) => void;
   findings?: (dimension?: HealthDimension) => void; recall?: () => void; reviewFinding?: (id: string) => void }
 
@@ -38,7 +38,7 @@ export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel
   const title = header.createDiv();
   title.createEl("h1", { text: t("@health.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
   title.createEl("p", { text: t("@health.subtitle"), cls: "veynrel-health-muted" });
-  healthButton(header, t("@health.tools"), actions.tools, "tools");
+  if (actions.tools) healthButton(header, t("@health.tools"), actions.tools, "tools");
   if (model.recovery) {
     const section = home.createEl("section", { cls: "veynrel-health-recovery", attr: { role: "alert" } });
     section.createEl("h2", { text: model.recovery.title });
