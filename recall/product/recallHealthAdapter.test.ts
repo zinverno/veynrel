@@ -23,7 +23,7 @@ describe("Recall Health adapter", () => {
     await adapter.initialize(); await f.product.refreshCards();
     f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("again");
     expect(listener).toHaveBeenCalled(); expect(adapter.getSnapshot()).toMatchObject({ active: 1, due: 0, new: 0, nextDueAt: 60200 });
-    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 2,
+    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 3,
       cards: { [f.service().listCards()[0].id]: { schedule: { reviewCount: 1 } } } });
     expect(f.product.getSnapshot().error).toBeUndefined();
     off(); listener.mockClear(); f.product.endSession(); expect(listener).not.toHaveBeenCalled();

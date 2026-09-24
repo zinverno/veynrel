@@ -440,7 +440,7 @@ describe("Recall keyboard boundaries", () => {
 });
 
 describe("Recall recovery and presentation", () => {
-  it("opens migrated v1 cards as due/new without writing, then writes v2 on the first UI rating", async () => {
+  it("opens migrated v1 cards as due/new without writing, then writes v3 on the first UI rating", async () => {
     const card = candidate();
     const f = fixture(JSON.stringify({ version: 1, updatedAt: 10,
       cards: { [card.id]: { ...card, firstSeenAt: 10, lastSeenAt: 10, state: "active" } } }));
@@ -449,7 +449,7 @@ describe("Recall recovery and presentation", () => {
     expect(f.content.action("recall-recover")).toBeUndefined(); expect(f.adapter.write).not.toHaveBeenCalled();
     f.action("recall-start").click(); f.action("recall-reveal").click(); f.action("recall-easy").click();
     await vi.waitFor(() => expect(f.content.texts()).toContain("You're caught up"));
-    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 2 });
+    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 3 });
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
   });
 

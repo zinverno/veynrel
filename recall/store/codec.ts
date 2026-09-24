@@ -26,10 +26,13 @@ export function decodeRecall(raw: string | null): { status: RecallLoadStatus; da
     return { status: "unsupported" };
   }
   if (isRecord(value) && value.version === 1) return migrateV1(value);
-  if (isRecord(value) && value.version === 2 && isRecord(value.cards) && Object.keys(value.cards).length <= MAX_RECALL_CARDS &&
+  if (isRecord(value) && (value.version === 2 || value.version === RECALL_SCHEMA_VERSION) && isRecord(value.cards) && Object.keys(value.cards).length <= MAX_RECALL_CARDS &&
       Object.values(value.cards).some((card) => isRecord(card) && isRecord(card.schedule) && unsupportedScheduler(card.schedule))) {
     return { status: "unsupported" };
   }
+  // Both canonical v2 and PR #44's transitional v2 use the same strict fields as v3.
+  // Change only the version in memory; keep every card, schedule and optional coverage marker.
+  if (isRecord(value) && value.version === 2) value = { ...value, version: RECALL_SCHEMA_VERSION };
   return isRecallSnapshot(value) ? { status: "loaded", data: value } : { status: "invalid" };
 }
 

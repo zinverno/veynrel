@@ -162,12 +162,13 @@ describe("Recall product recovery and migrated inventory", () => {
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
   });
 
-  it("loads v1 as due/new with no migration write and writes v2 on the first rating", async () => {
+  it("loads v1 as due/new with no migration write and writes v3 on the first rating", async () => {
     const card = createRecallCandidate({ path: "A.md", question: "Old Q", answer: "Old A" });
     const f = productFixture(JSON.stringify({ version: 1, updatedAt: 10, cards: { [card.id]: { ...card, firstSeenAt: 10, lastSeenAt: 10, state: "active" } } }));
     await f.product.initialize(); expect(f.product.getSnapshot().summary).toMatchObject({ due: 1, new: 1 });
+    expect(f.product.getSnapshot().inventoryEstablished).toBe(false);
     expect(f.adapter.write).not.toHaveBeenCalled(); f.product.startSession(); f.product.revealAnswer(); await f.product.rate("easy");
-    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 2 });
+    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 3 });
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
   });
 });
