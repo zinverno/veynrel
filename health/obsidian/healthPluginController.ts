@@ -14,6 +14,8 @@ import { isFindingId } from "../domain/identity";
 import type { SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
 import type { SemanticHealthScanOutcome } from "../services/types";
 import type { RecallHealthPort } from "../recallHealthPort";
+import type { DeepHealthAnalysisPort, DeepKnowledgeConsent } from "../deepHealthAnalysisPort";
+import type { DeepHealthScanOutcome } from "../services/types";
 
 export interface HealthControllerState {
   snapshot?: HealthSnapshot;
@@ -26,6 +28,10 @@ export interface HealthControllerState {
   semanticOutcome?: SemanticHealthScanOutcome;
   semanticScanRunning?: boolean;
   semanticError?: boolean;
+  deepOutcome?: DeepHealthScanOutcome;
+  deepScanRunning?: boolean;
+  deepError?: boolean;
+  deepCancelled?: boolean;
   busy: boolean;
   recovering: boolean;
   error?: "load" | "scan" | "recovery";
@@ -41,7 +47,10 @@ export class HealthPluginController {
   private scanAbort?: AbortController;
   private outcome?: LocalHealthScanOutcome;
   private semanticOutcome?: SemanticHealthScanOutcome;
-  private activeScanType?: "local" | "semantic";
+  private activeScanType?: "local" | "semantic" | "deep";
+  private deepOutcome?: DeepHealthScanOutcome;
+  private deepError = false;
+  private deepCancelled = false;
   private semanticError = false;
   private error?: HealthControllerState["error"];
   private recovering = false;
@@ -53,7 +62,8 @@ export class HealthPluginController {
   private readonly recallUnsubscribe?: () => void;
 
   constructor(private readonly app: App, private readonly pluginId: string, private readonly preferences: HealthPreferencesPort,
-    private readonly semanticAnalysis?: SemanticHealthAnalysisPort, private readonly recall?: RecallHealthPort) {
+    private readonly semanticAnalysis?: SemanticHealthAnalysisPort, private readonly recall?: RecallHealthPort,
+    private readonly deepAnalysis?: DeepHealthAnalysisPort) {
     this.recovery = new HealthRecovery(app.vault.adapter, healthStorageRoot(app.vault.configDir, pluginId));
     this.recallUnsubscribe = recall?.subscribe(() => this.notify());
   }
@@ -73,7 +83,8 @@ export class HealthPluginController {
 
   private async createService(): Promise<HealthService> {
     const storage = new ObsidianHealthStorage(this.app.vault.adapter, healthStorageRoot(this.app.vault.configDir, this.pluginId));
-    const service = new HealthService(new FindingStore(storage), new ObsidianLocalVaultSource(this.app), { semanticAnalysis: this.semanticAnalysis });
+    const service = new HealthService(new FindingStore(storage), new ObsidianLocalVaultSource(this.app), {
+      semanticAnalysis: this.semanticAnalysis, deepAnalysis: this.deepAnalysis });
     try {
       await service.initialize();
       if (!this.disposed) {
@@ -99,6 +110,9 @@ export class HealthPluginController {
       outcome: this.outcome ? structuredClone(this.outcome) : undefined,
       semanticOutcome: this.semanticOutcome ? structuredClone(this.semanticOutcome) : undefined,
       semanticScanRunning: this.activeScanType === "semantic" || Boolean(this.service?.isSemanticScanRunning()), semanticError: this.semanticError,
+      deepOutcome: this.deepOutcome ? structuredClone(this.deepOutcome) : undefined,
+      deepScanRunning: this.activeScanType === "deep" || Boolean(this.service?.isDeepScanRunning()),
+      deepError: this.deepError, deepCancelled: this.deepCancelled,
       busy: Boolean(this.activeScan) || Boolean(this.service?.isScanRunning()) || this.recovering || Boolean(this.mutatingFindingId),
       recovering: this.recovering, error: this.error };
   }
@@ -162,12 +176,18 @@ export class HealthPluginController {
   /** Only explicit user actions call this. The controller consumes every rejection. */
   runLocalScan(): Promise<void> { return this.runScan("local"); }
   runSemanticScan(): Promise<void> { return this.runScan("semantic"); }
+  getKnowledgeConsent(): DeepKnowledgeConsent | undefined { return this.deepAnalysis?.getConsent(); }
+  runDeepScan(consent: DeepKnowledgeConsent): Promise<void> { return this.runScan("deep", consent); }
+  cancelDeepScan(): void {
+    if (this.activeScanType === "deep") this.scanAbort?.abort();
+  }
 
-  private runScan(type: "local" | "semantic"): Promise<void> {
+  private runScan(type: "local" | "semantic" | "deep", consent?: DeepKnowledgeConsent): Promise<void> {
     if (this.activeScan) return this.activeScan;
-    if (this.recovering || this.disposed || this.mutatingFindingId) return Promise.resolve();
+    if (this.recovering || this.disposed || this.mutatingFindingId || type === "deep" && !consent) return Promise.resolve();
     if (type === "local") { this.error = undefined; this.outcome = undefined; }
-    else { this.semanticError = false; this.semanticOutcome = undefined; }
+    else if (type === "semantic") { this.semanticError = false; this.semanticOutcome = undefined; }
+    else { this.deepError = false; this.deepOutcome = undefined; this.deepCancelled = false; }
     this.activeScanType = type;
     this.scanAbort = new AbortController();
     const signal = this.scanAbort.signal;
@@ -175,12 +195,18 @@ export class HealthPluginController {
       try {
         const service = await this.getHealthService();
         if (type === "local") this.outcome = await service.runLocalScan(signal);
-        else this.semanticOutcome = await service.runSemanticScan(signal);
+        else if (type === "semantic") this.semanticOutcome = await service.runSemanticScan(signal);
+        else {
+          this.deepOutcome = await service.runDeepScan(signal, consent!);
+          this.deepCancelled = this.deepOutcome.diagnostics.includes("deep-cancelled");
+        }
       } catch (error) {
         if (!isCancellation(error)) {
           if (type === "local") this.error = "scan";
-          else this.semanticError = true;
+          else if (type === "semantic") this.semanticError = true;
+          else this.deepError = true;
         }
+        else if (type === "deep") this.deepCancelled = true;
       } finally {
         this.activeScan = undefined;
         this.activeScanType = undefined;
@@ -210,6 +236,7 @@ export class HealthPluginController {
       this.serviceUnsubscribe?.(); this.serviceUnsubscribe = undefined;
       this.service = undefined; this.servicePromise = undefined; this.outcome = undefined;
       this.semanticOutcome = undefined; this.semanticError = false;
+      this.deepOutcome = undefined; this.deepError = false; this.deepCancelled = false;
       // Still exclusive while the replacement initializes; no callers can start another owner.
       this.servicePromise = this.createService();
       await this.servicePromise;

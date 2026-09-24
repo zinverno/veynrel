@@ -53,7 +53,7 @@ chooser appears after onboarding; it reuses the onboarding options and copy.
 | `review-recommended` | Review recommended |
 | `unknown` | Not fully analyzed |
 | Basic depth, incomplete coverage | Basic analysis · incomplete |
-| Knowledge | Not enabled, no dead CTA |
+| Knowledge | Not enabled before analysis; trusted Deep coverage or open Knowledge Findings enable the existing Knowledge-filtered Inbox |
 | Recall | [Native scheduling state](recall-health-integration.md), always opens Recall when available |
 | Completed scan | Vault check complete |
 | Partial scan | Check completed with limited coverage; some areas could not be fully verified |

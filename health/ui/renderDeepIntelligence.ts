@@ -3,6 +3,8 @@ import type { DeepIntelligenceSnapshot, DeepProvider, DeepProviderOption, DeepSe
 import { healthButton } from "./renderHealthHome";
 import { deepIntelligenceViewModel, deepProviderKind, deepSetupError } from "./deepIntelligenceViewModel";
 import type { DeepAction } from "./deepIntelligenceViewModel";
+import { canCheckKnowledge } from "./deepIntelligenceViewModel";
+import type { DeepKnowledgeConsent } from "../deepHealthAnalysisPort";
 
 export type DeepSetupState = { step: "choose" } | { step: "form"; draft: DeepSetupDraft; result?: DeepSetupResult };
 
@@ -12,13 +14,18 @@ interface Actions {
   edit(field: "baseUrl" | "model" | "apiKey", value: string): void;
   connect: () => void;
   back: () => void;
+  startKnowledge: () => void;
+  cancelKnowledge: () => void;
+  dismissConfirmation: () => void;
 }
 
+export interface KnowledgeCheckState { consent?: DeepKnowledgeConsent; available: boolean; running: boolean; busy: boolean; status?: string }
+
 export function renderDeepIntelligence(parent: HTMLElement, snapshot: DeepIntelligenceSnapshot, providers: DeepProviderOption[],
-  setup: DeepSetupState | undefined, actions: Actions): void {
+  setup: DeepSetupState | undefined, actions: Actions, knowledge: KnowledgeCheckState): void {
   const model = deepIntelligenceViewModel(snapshot);
   const section = parent.createEl("section", { cls: "veynrel-health-home veynrel-deep",
-    attr: { "aria-label": model.title, "aria-busy": String(snapshot.busy) } });
+    attr: { "aria-label": model.title, "aria-busy": String(snapshot.busy || knowledge.running) } });
   const heading = section.createEl(setup ? "h1" : "h2", { text: model.title });
   if (setup) { heading.setAttribute("tabindex", "-1"); heading.setAttribute("data-health-heading", "true"); }
   section.createEl("p", { text: model.status, cls: "veynrel-health-state" });
@@ -61,6 +68,21 @@ export function renderDeepIntelligence(parent: HTMLElement, snapshot: DeepIntell
   } else {
     if (model.details) section.createEl("p", { text: model.details, cls: "veynrel-health-muted" });
     const buttons = section.createDiv({ cls: "veynrel-deep-actions" });
-    for (const action of model.actions) healthButton(buttons, action.label, () => actions.action(action.id), `deep-${action.id}`, snapshot.busy);
+    for (const action of model.actions) {
+      if (action.id === "knowledge" && !knowledge.available) continue;
+      healthButton(buttons, action.label, () => actions.action(action.id), `deep-${action.id}`, snapshot.busy || knowledge.busy || Boolean(knowledge.consent));
+    }
+    if (knowledge.status) section.createEl("p", { text: knowledge.status });
+    if (knowledge.running) healthButton(section, t("@health.cancel"), actions.cancelKnowledge, "knowledge-cancel");
+    else if (knowledge.consent) {
+      const confirmation = section.createEl("section", { attr: { "aria-label": t("@knowledge.confirm") } });
+      confirmation.createEl("h3", { text: t("@knowledge.confirm"), attr: { tabindex: "-1", "data-knowledge-confirmation": "true" } });
+      const kind = knowledge.consent.providerKind;
+      confirmation.createEl("p", { text: t(`@knowledge.privacy.${kind}`) });
+      confirmation.createEl("p", { text: t(kind === "local" ? "@knowledge.requests" : "@knowledge.cost") });
+      confirmation.createEl("p", { text: t("@knowledge.meaning"), cls: "veynrel-health-muted" });
+      healthButton(confirmation, t("@health.cancel"), actions.dismissConfirmation, "knowledge-back");
+      healthButton(confirmation, t("@knowledge.start"), actions.startKnowledge, "knowledge-start", knowledge.busy || !knowledge.available || !canCheckKnowledge(snapshot), true);
+    }
   }
 }

@@ -15,7 +15,7 @@ function state(scanned = false): HealthControllerState & { snapshot: HealthSnaps
     preferences: { ...DEFAULT_HEALTH_PREFERENCES, profileChosen: true }, snapshot: {
       dimensions: { structure: { ...dimension }, connections: { ...dimension }, recall: { ...dimension, analysisComplete: false }, knowledge: { ...dimension, analysisComplete: false } },
       openFindings: 0, newFindings: 0, lastLocalScan: scanned ? scanRun() : undefined, lastLocalScanReconciled: scanned, localScanRunning: false,
-      semanticScanRunning: false, lastSemanticScanReconciled: false,
+      semanticScanRunning: false, deepScanRunning: false, lastDeepScanReconciled: false, lastSemanticScanReconciled: false,
       initialization: { status: "ready", storage: { findings: "loaded", scanRuns: "loaded" }, findingsWritable: true, historyWritable: true },
     } };
 }

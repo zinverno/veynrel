@@ -1,4 +1,4 @@
-import { t as tr } from "./i18n";
+import { t as tr, currentLanguage } from "./i18n";
 import {
   App,
   TFile,
@@ -11,6 +11,9 @@ import { AIHubSettings } from "./settings";
 import { callOpenRouter } from "./api";
 import { NoteIndexManager, NoteRecord } from "./noteIndex";
 import { MAX_TOKENS_BATCH, MAX_TOKENS_AUDIT } from "./constants";
+import { collectDeepAuditFiles } from "./deep/deepScope";
+import { validateDeepMapSummaries } from "./deep/mapValidation";
+import type { DeepQualitySummary } from "./deep/mapValidation";
 
 // === НАСТРОЙКИ ГЛУБОКОГО АУДИТА ===
 export interface DeepAuditConfig {
@@ -50,6 +53,15 @@ export interface BatchSummary {
   files: FileSummary[];
   batchIndex: number;
   error?: string;
+  complete?: boolean;
+}
+
+export interface DeepMapAnalysisResult {
+  totalFiles: number;
+  analyzedFiles: number;
+  failedFiles: number;
+  summaries: DeepQualitySummary[];
+  complete: boolean;
 }
 
 export interface ClusterSummary {
@@ -206,6 +218,17 @@ export class DeepAuditEngine {
     return this.abortController.signal;
   }
 
+  /** Bounded Health reuse: full supplied scope, strict results, no index or later audit phases. */
+  async runMapOnly(files: TFile[] = collectDeepAuditFiles(this.app)): Promise<DeepMapAnalysisResult> {
+    if (this.index) throw new Error("MAP-only analysis requires an unindexed engine.");
+    const language = this.settings.language === "en" || this.settings.language === "ru" ? this.settings.language : currentLanguage();
+    const batches = await this.buildBatches(files);
+    const results = await this.runMapPhase(batches, { language });
+    const summaries = results.flatMap((batch) => batch.files.map(({ path, quality }) => ({ path, quality })));
+    return { totalFiles: files.length, analyzedFiles: summaries.length, failedFiles: files.length - summaries.length,
+      summaries, complete: summaries.length === files.length && results.every((batch) => batch.complete === true && !batch.error) };
+  }
+
   // === ГЛАВНЫЙ МЕТОД ===
   async run(): Promise<FinalAuditReport> {
     const startTime = Date.now();
@@ -274,15 +297,7 @@ export class DeepAuditEngine {
 
   // === 1. Сбор файлов ===
   private collectFiles(): TFile[] {
-    return this.app.vault.getMarkdownFiles().filter((f) => {
-      const path = f.path.toLowerCase();
-      return (
-        !path.startsWith(this.app.vault.configDir.toLowerCase() + "/") &&
-        !path.startsWith("templates/") &&
-        !path.startsWith(".ai-backup") &&
-        !f.basename.startsWith(".")
-      );
-    });
+    return collectDeepAuditFiles(this.app);
   }
 
   // === 2. Формирование батчей ===
@@ -364,6 +379,7 @@ export class DeepAuditEngine {
   // === 3. MAP-фаза с параллелизмом ===
   private async runMapPhase(
     batches: Array<{ index: number; payload: string; files: TFile[] }>,
+    strict?: { language: "en" | "ru" },
   ): Promise<BatchSummary[]> {
     const results: BatchSummary[] = new Array<BatchSummary>(batches.length);
     let completed = 0;
@@ -380,7 +396,7 @@ export class DeepAuditEngine {
 
         try {
           const summary = await withRetry(
-            () => this.analyzeBatch(batch),
+            () => this.analyzeBatch(batch, strict),
             this.config.maxRetries,
             this.signal,
           );
@@ -430,12 +446,12 @@ export class DeepAuditEngine {
     index: number;
     payload: string;
     files: TFile[];
-  }): Promise<BatchSummary> {
-    const user = tr("@map_user", { payload: batch.payload, n: batch.files.length });
+  }, strict?: { language: "en" | "ru" }): Promise<BatchSummary> {
+    const user = tr("@map_user", { payload: batch.payload, n: batch.files.length }, strict?.language);
 
     const response = await callOpenRouter(
       this.settings,
-      MAP_SYSTEM_PROMPT(),
+      strict ? tr("@map_sys", undefined, strict.language) : MAP_SYSTEM_PROMPT(),
       user,
       { maxTokens: MAX_TOKENS_BATCH, signal: this.signal },
     );
@@ -448,6 +464,14 @@ export class DeepAuditEngine {
       throw new Error(
         tr("Невалидный JSON от ЛЛМ: {err}", { err: err instanceof Error ? err.message : String(err) }),
       );
+    }
+
+    if (strict) {
+      const result = validateDeepMapSummaries(parsed, batch.files.map((file) => file.path));
+      // Only classification is needed. Discard every generated summary field at this boundary.
+      return { batchIndex: batch.index, complete: result.complete, files: result.summaries.map((summary) => ({
+        ...summary, basename: "", topics: [], keyIdeas: "", entities: [], suggestedTags: [], suggestedLinks: [], orphan: false,
+      })) };
     }
 
     // Дополняем информацией о сиротах

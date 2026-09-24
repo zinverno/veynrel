@@ -27,6 +27,9 @@ export function findingEvidencePresentation(finding: Finding): FindingEvidencePr
     facts.push(t(`@findings.evidence.${kind}`, { value: text + (truncated ? "…" : "") }));
   };
   let affectedCount = finding.notePaths.length;
+  if (finding.source === "deep-ai" && finding.type === "knowledge-draft" && value("deep-quality") === "draft") {
+    facts.push(t("@findings.evidence.deep-draft"));
+  }
   if (finding.source === "semantic" && finding.type === "semantic-duplicate") {
     const score = value("similarity-score");
     if (typeof score === "number" && Number.isFinite(score) && score >= -1 && score <= 1) {

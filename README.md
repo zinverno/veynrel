@@ -41,7 +41,7 @@ Semantic features are opt-in and disabled by default. The first semantic index i
 
 ## Features
 
-The [integrated MVP baseline](docs/mvp-hardening.md) documents Local Health, Findings, Semantic Intelligence, Discover, native Recall/FSRS and Recall Health, including their IO and recovery boundaries. [Deep Intelligence setup](docs/deep-intelligence-setup.md) configures the existing language-model tools from Health. Knowledge Health remains Not enabled; its analysis and Findings are the next roadmap step.
+The [integrated MVP baseline](docs/mvp-hardening.md) documents Local Health, Findings, Semantic Intelligence, Discover, native Recall/FSRS and Recall Health, including their IO and recovery boundaries. [Deep Intelligence setup](docs/deep-intelligence-setup.md) configures the existing language-model tools from Health. [Knowledge Health](docs/knowledge-health.md) uses an explicit, confirmed Deep MAP analysis to flag notes that may need development, with no note modifications or generated reports.
 
 ### Semantic search
 

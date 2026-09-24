@@ -36,9 +36,9 @@ export function tAll(key: string): string[] {
   return [...variants];
 }
 
-export function t(key: string, vars?: Record<string, string | number>): string {
+export function t(key: string, vars?: Record<string, string | number>, language = resolved): string {
   let s: string;
-  if (resolved === "ru") {
+  if (language === "ru") {
     s = RU[key] ?? key;
   } else {
     s = EN[key] ?? RU[key] ?? key;
@@ -63,6 +63,27 @@ const RU: Record<string, string> = {
   "@deep.action.setup": "Настроить",
   "@deep.action.change": "Изменить",
   "@deep.action.check": "Проверить подключение",
+  "@deep.action.knowledge": "Проверить знания",
+  "@knowledge.confirm": "Проверить заметки с помощью модели?",
+  "@knowledge.start": "Начать анализ",
+  "@knowledge.privacy.cloud": "Veynrel прочитает подходящие заметки и отправит ограниченный объём их содержимого настроенному провайдеру языковой модели. Заметки не будут изменены.",
+  "@knowledge.privacy.local": "Veynrel прочитает подходящие заметки и отправит ограниченный объём их содержимого на настроенный сервер Ollama. Заметки не будут изменены.",
+  "@knowledge.privacy.custom": "Veynrel прочитает подходящие заметки и отправит ограниченный объём их содержимого на указанный вами сервер. Заметки не будут изменены.",
+  "@knowledge.cost": "Анализ может потребовать нескольких запросов. Провайдер может взимать плату; стоимость зависит от провайдера и модели.",
+  "@knowledge.requests": "Анализ может потребовать нескольких запросов к серверу.",
+  "@knowledge.meaning": "Модель отметит заметки, которые выглядят недоработанными. Это повод для проверки, а не проверка достоверности фактов.",
+  "@knowledge.checking": "Проверка знаний…",
+  "@knowledge.completed": "Проверка знаний завершена.",
+  "@knowledge.partial": "Проверка знаний неполная. Ранее найденные замечания сохранены.",
+  "@knowledge.failed": "Не удалось проверить знания. Проверьте подключение и повторите попытку.",
+  "@knowledge.stale": "Заметки или настройки изменились во время анализа. Результаты не сохранены; запустите проверку заново.",
+  "@knowledge.cancelled": "Проверка знаний отменена.",
+  "@knowledge.empty": "Нет заметок для анализа",
+  "@health.deep": "Глубокий анализ",
+  "@health.deep-incomplete": "Глубокий анализ · неполный",
+  "@health.finding.knowledge-draft.title": "Заметку стоит доработать",
+  "@health.finding.knowledge-draft.explanation": "По оценке модели, заметка может быть неполной или недостаточно проработанной.",
+  "@findings.evidence.deep-draft": "Оценка глубокого анализа: черновик",
   "@deep.connect": "Подключить",
   "@deep.connecting": "Подключение…",
   "@deep.checking": "Проверка подключения…",
@@ -432,6 +453,27 @@ const EN: Record<string, string> = {
   "@deep.action.setup": "Set up",
   "@deep.action.change": "Change",
   "@deep.action.check": "Check connection",
+  "@deep.action.knowledge": "Check Knowledge",
+  "@knowledge.confirm": "Review notes with your language model?",
+  "@knowledge.start": "Start analysis",
+  "@knowledge.privacy.cloud": "Veynrel will read eligible notes and send bounded note content to your configured language-model provider for analysis. Your notes will not be modified.",
+  "@knowledge.privacy.local": "Veynrel will read eligible notes and send bounded note content to your configured Ollama endpoint. Your notes will not be modified.",
+  "@knowledge.privacy.custom": "Veynrel will read eligible notes and send bounded note content to the endpoint you configured. Your notes will not be modified.",
+  "@knowledge.cost": "Analysis may make multiple provider requests. Usage may incur costs, depending on your provider and model.",
+  "@knowledge.requests": "Analysis may make multiple requests to your endpoint.",
+  "@knowledge.meaning": "The model flags notes that appear underdeveloped. This is a review signal, not factual verification.",
+  "@knowledge.checking": "Checking knowledge…",
+  "@knowledge.completed": "Knowledge check completed.",
+  "@knowledge.partial": "Knowledge check is incomplete. Earlier findings have been preserved.",
+  "@knowledge.failed": "Couldn't check knowledge. Check the connection and try again.",
+  "@knowledge.stale": "Notes or settings changed during analysis. Results were not saved; run the check again.",
+  "@knowledge.cancelled": "Knowledge check cancelled.",
+  "@knowledge.empty": "No notes to analyze",
+  "@health.deep": "Deep analysis",
+  "@health.deep-incomplete": "Deep analysis · incomplete",
+  "@health.finding.knowledge-draft.title": "Knowledge note may need development",
+  "@health.finding.knowledge-draft.explanation": "Deep analysis suggests this note may be incomplete or underdeveloped.",
+  "@findings.evidence.deep-draft": "Deep assessment: Draft",
   "@deep.connect": "Connect",
   "@deep.connecting": "Connecting…",
   "@deep.checking": "Checking…",

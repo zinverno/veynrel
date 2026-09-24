@@ -3,6 +3,7 @@ import type { DimensionHealth, HealthAggregationInput } from "./types";
 import { LOCAL_HEALTH_ANALYZERS } from "../analyzers/local/registry";
 import { SEMANTIC_DUPLICATES_ANALYZER } from "../semanticHealthAnalysisPort";
 import { reconciliationOwnerKey } from "../domain/reconciliation";
+import { KNOWLEDGE_QUALITY_ANALYZER } from "../deepHealthAnalysisPort";
 
 export function aggregateHealth(input: HealthAggregationInput): {
   dimensions: Record<HealthDimension, DimensionHealth>; openFindings: number; newFindings: number;
@@ -13,6 +14,11 @@ export function aggregateHealth(input: HealthAggregationInput): {
   const complete = reconciled && scan?.status === "completed" &&
     LOCAL_HEALTH_ANALYZERS.every((analyzer) => scan.analyzerVersions[analyzer.id] === analyzer.version);
   const semanticScan = input.lastSemanticScan;
+  const deepScan = input.lastDeepScan;
+  const deepAnalyzed = input.deepReconciled && deepScan?.type === "deep" &&
+    (deepScan.status === "completed" || deepScan.status === "partial") &&
+    deepScan.analyzerVersions[KNOWLEDGE_QUALITY_ANALYZER.id] === KNOWLEDGE_QUALITY_ANALYZER.version &&
+    deepScan.reconciliationReceipts[reconciliationOwnerKey("deep-ai", KNOWLEDGE_QUALITY_ANALYZER.id)] !== undefined;
   const semanticAnalyzed = input.semanticReconciled && semanticScan?.type === "semantic" &&
     (semanticScan.status === "completed" || semanticScan.status === "partial") &&
     semanticScan.analyzerVersions[SEMANTIC_DUPLICATES_ANALYZER.id] === SEMANTIC_DUPLICATES_ANALYZER.version &&
@@ -28,6 +34,13 @@ export function aggregateHealth(input: HealthAggregationInput): {
     const findings = open.filter((finding) => finding.dimension === id);
     const attentionFindings = findings.filter((finding) => finding.impact === "attention").length;
     const reviewFindings = findings.filter((finding) => finding.impact === "review").length;
+    if (id === "knowledge") {
+      const analysisComplete = Boolean(deepAnalyzed && deepScan?.status === "completed");
+      return { state: attentionFindings ? "needs-attention" : reviewFindings ? "review-recommended"
+        : analysisComplete && deepScan && deepScan.notesSeen > 0 ? "good" : "unknown",
+        analysisDepth: deepAnalyzed ? "deep" : "not-enabled", analysisComplete,
+        openFindings: findings.length, attentionFindings, reviewFindings };
+    }
     const enabled = id === "structure" || id === "connections";
     const semantic = id === "connections" && semanticAnalyzed;
     const dimensionComplete = complete && (!semantic || semanticScan?.status === "completed");

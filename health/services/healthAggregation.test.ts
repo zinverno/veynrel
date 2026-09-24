@@ -14,6 +14,29 @@ function finding(overrides: Partial<Finding> = {}): Finding {
 const completed = scanRun({ analyzerVersions: Object.fromEntries(LOCAL_HEALTH_ANALYZERS.map((analyzer) => [analyzer.id, analyzer.version])) });
 
 describe("Health aggregation", () => {
+  const deep = scanRun({ type: "deep", analyzerVersions: { "knowledge-quality": "1" }, notesSeen: 3,
+    reconciliationReceipts: { "deep-ai:knowledge-quality": 200 } });
+  it.each([
+    [undefined, false, false, "unknown", "not-enabled", false],
+    [deep, true, false, "good", "deep", true],
+    [deep, true, true, "review-recommended", "deep", true],
+    [{ ...deep, status: "partial" as const }, true, false, "unknown", "deep", false],
+    [{ ...deep, status: "partial" as const }, true, true, "review-recommended", "deep", false],
+    [{ ...deep, notesSeen: 0 }, true, false, "unknown", "deep", true],
+    [{ ...deep, status: "failed" as const }, true, false, "unknown", "not-enabled", false],
+    [deep, false, false, "unknown", "not-enabled", false],
+    [deep, false, true, "review-recommended", "not-enabled", false],
+    [{ ...deep, analyzerVersions: { "knowledge-quality": "old" } }, true, false, "unknown", "not-enabled", false],
+    [{ ...deep, reconciliationReceipts: {} }, true, false, "unknown", "not-enabled", false],
+  ] as const)("Knowledge coverage %j trusted %s positive %s", (lastDeepScan, deepReconciled, positive, state, analysisDepth, analysisComplete) => {
+    const item = finding({ source: "deep-ai", dimension: "knowledge", analyzerId: "knowledge-quality", type: "knowledge-draft", impact: "review", confidence: "medium" });
+    const baseline = aggregateHealth({ findings: [], reconciled: true, lastLocalScan: completed });
+    const result = aggregateHealth({ findings: positive ? [item] : [], reconciled: true, lastLocalScan: completed, lastDeepScan, deepReconciled });
+    expect(result.dimensions.knowledge).toMatchObject({ state, analysisDepth, analysisComplete, openFindings: positive ? 1 : 0 });
+    for (const dimension of ["structure", "connections", "recall"] as const) expect(result.dimensions[dimension]).toEqual(baseline.dimensions[dimension]);
+    expect(result.openFindings).toBe(positive ? 1 : 0);
+    if (positive) expect(selectRecommendation([item])?.findingId).toBe(item.id);
+  });
   const semantic = scanRun({ type: "semantic", analyzerVersions: { "semantic-duplicates": "1" },
     reconciliationReceipts: { "semantic:semantic-duplicates": 200 } });
   it.each([

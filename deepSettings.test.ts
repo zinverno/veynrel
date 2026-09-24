@@ -5,6 +5,7 @@ import manifest from "./manifest.json";
 import { DeepIntelligenceController } from "./deep/product/deepIntelligenceController";
 import { testConnection, callOpenRouter } from "./api";
 import type { AIHubSettings } from "./settings";
+import { DeepHealthAnalysisAdapter } from "./deep/health/deepHealthAnalysisAdapter";
 
 vi.mock("obsidian", () => ({
   Plugin: class { constructor(public app: App, public manifest: PluginManifest) {} },
@@ -32,6 +33,43 @@ async function fixture(storedPatch: Partial<AIHubSettings> = {}) {
 }
 
 describe("shared language-model settings transactions", () => {
+  it("failed cloud-to-local Advanced save cannot offer local consent or send notes to the committed cloud", async () => {
+    const f = await fixture(); const getMarkdownFiles = vi.fn();
+    const adapter = new DeepHealthAnalysisAdapter({ vault: { getMarkdownFiles } } as unknown as App, () => f.plugin.getDeepKnowledgeConfiguration());
+    const cloudConsent = adapter.getConsent()!; expect(cloudConsent.providerKind).toBe("cloud");
+    f.plugin.settings.provider = "ollama"; f.plugin.settings.baseUrl = "http://localhost:11434/v1";
+    f.save.mockRejectedValueOnce(new Error("PRIVATE_DISK")); await expect(f.plugin.saveSettings()).rejects.toThrow();
+    expect(f.controller.getSnapshot().provider).toBe("ollama"); expect(adapter.getConsent()).toBeUndefined();
+    await expect(adapter.analyzeKnowledge(new AbortController().signal, cloudConsent)).rejects.toMatchObject({ code: "deep-config-changed" });
+    expect(getMarkdownFiles).not.toHaveBeenCalled(); expect(requestUrl).not.toHaveBeenCalled();
+    await f.plugin.saveSettings(); expect(adapter.getConsent()?.providerKind).toBe("local");
+    await expect(adapter.analyzeKnowledge(new AbortController().signal, cloudConsent)).rejects.toMatchObject({ code: "deep-config-changed" });
+    expect(getMarkdownFiles).not.toHaveBeenCalled(); expect(requestUrl).not.toHaveBeenCalled();
+  });
+  it("Knowledge captures only committed settings, increments an opaque revision for relevant changes, and preserves copies", async () => {
+    const f = await fixture(); const initial = f.plugin.getDeepKnowledgeConfiguration();
+    const copy = f.plugin.getDeepKnowledgeConfiguration(); copy.settings.model = "discarded"; copy.settings.deepAudit.batchSize = 99;
+    expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual(initial);
+    f.plugin.settings.model = "unsaved";
+    expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual({ ...initial, current: false });
+    f.save.mockRejectedValueOnce(new Error("PRIVATE_DISK"));
+    await expect(f.plugin.saveSettings()).rejects.toThrow(); expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual({ ...initial, current: false });
+    await f.plugin.saveSettings(); const changed = f.plugin.getDeepKnowledgeConfiguration();
+    expect(changed.settings.model).toBe("unsaved"); expect(changed.revision).toBeGreaterThan(initial.revision);
+    f.plugin.settings.model = initial.settings.model; await f.plugin.saveSettings();
+    expect(f.plugin.getDeepKnowledgeConfiguration().revision).toBeGreaterThan(changed.revision);
+    const before = f.plugin.getDeepKnowledgeConfiguration();
+    await f.plugin.saveSettings({ ...f.plugin.settings.health, profile: "research" });
+    expect(f.plugin.getDeepKnowledgeConfiguration()).toEqual(before);
+    for (const edit of [() => { f.plugin.settings.apiKey = "changed"; }, () => { f.plugin.settings.baseUrl = "https://other.example/v1"; },
+      () => { f.plugin.settings.temperature = 0.5; }, () => { f.plugin.settings.topK++; },
+      () => { f.plugin.settings.deepAudit.batchSize++; }, () => { f.plugin.settings.deepAudit.maxConcurrent++; },
+      () => { f.plugin.settings.deepAudit.delayMs++; }]) {
+      const revision = f.plugin.getDeepKnowledgeConfiguration().revision; edit(); await f.plugin.saveSettings();
+      expect(f.plugin.getDeepKnowledgeConfiguration().revision).toBeGreaterThan(revision);
+    }
+    expect(f.connection.test).not.toHaveBeenCalled();
+  });
   it("loads legacy provider inference without extra writes or testing", async () => {
     const f = await fixture({ provider: undefined, baseUrl: "http://localhost:11434/v1", apiKey: "" });
     expect(f.port.get().provider).toBe("ollama"); expect(f.controller.getSnapshot().state).toBe("configured");

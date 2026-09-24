@@ -66,13 +66,16 @@ import { DeepIntelligenceController } from "../../deep/product/deepIntelligenceC
 import type { LanguageModelSettingsSnapshot } from "../../deep/product/languageModelSettingsPort";
 import type { DeepIntelligencePort } from "../deepIntelligencePort";
 import { deepIntelligenceViewModel, deepSetupError } from "./deepIntelligenceViewModel";
+import type { DeepHealthAnalysisPort, DeepKnowledgeAnalysis } from "../deepHealthAnalysisPort";
+import { candidate } from "../store/testSupport";
+import { withAbort } from "../analyzers/local/cancellation";
 
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
 function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort,
-  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort) {
+  semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort) {
   const f = appFixture(); const file = new mocks.TFile(); f.vault.getAbstractFileByPath.mockReturnValue(file);
   const p = preferencesFixture(initial);
-  const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences, semanticAnalysis);
+  const controller = new HealthPluginController(f.app, "ai-knowledge-hub", p.preferences, semanticAnalysis, undefined, deepAnalysis);
   const tools = vi.fn(); const view = new VeynrelHealthView({ app: f.app } as never, controller, tools, semantic, undefined, deep);
   return { ...f, ...p, controller, tools, view, content: view.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
@@ -135,7 +138,7 @@ describe("native Health view lifecycle", () => {
 });
 
 describe("inline Deep Intelligence boundaries", () => {
-  function deepFixture(configured = true) {
+  function deepFixture(configured = true, deepAnalysis?: DeepHealthAnalysisPort) {
     let current: LanguageModelSettingsSnapshot = { provider: "openrouter", model: "legacy-model", baseUrl: "https://llm.example/v1",
       apiKey: configured ? "synthetic-DO-NOT-EXPOSE-key" : "", temperature: 0.5, topK: 8 };
     const listeners = new Set<() => void>(); const emit = () => { for (const listener of listeners) listener(); };
@@ -143,7 +146,7 @@ describe("inline Deep Intelligence boundaries", () => {
       subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; } };
     const connection = { test: vi.fn(async (_settings: LanguageModelSettingsSnapshot) => {}) };
     const deep = new DeepIntelligenceController(settings, connection);
-    const f = fixture(undefined, undefined, undefined, deep); const cachedRead = vi.fn(); Object.assign(f.vault, { cachedRead });
+    const f = fixture(undefined, undefined, undefined, deep, deepAnalysis); const cachedRead = vi.fn(); Object.assign(f.vault, { cachedRead });
     const second = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, deep);
     const secondContent = second.contentEl as unknown as InstanceType<typeof mocks.Element>;
     return { ...f, second, secondContent, deep, settings, connection, cachedRead,
@@ -153,6 +156,63 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.cachedRead).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
   }
+  function knowledgeFixture() {
+    const result: DeepKnowledgeAnalysis = { revision: { token: "opaque" }, complete: true, totalFiles: 1, analyzedFiles: 1,
+      candidates: [candidate({ analyzerId: "knowledge-quality", dimension: "knowledge", source: "deep-ai", type: "knowledge-draft", impact: "review", confidence: "medium",
+        notePaths: ["A.md"], title: "Knowledge note may need development", explanation: "Deep analysis suggests this note may be incomplete or underdeveloped.",
+        evidence: [{ kind: "deep-quality", value: "draft", path: "A.md" }], actions: [{ kind: "open-note", path: "A.md" }] })] };
+    const analysis = { getConsent: () => ({ configurationRevision: 1, providerKind: "cloud" as const }), analyzeKnowledge: vi.fn(async (_signal: AbortSignal) => {
+      f.vault.getMarkdownFiles(); await f.cachedRead(); mocks.requestUrl(); return result;
+    }), verifyCurrent: vi.fn(async () => {}) };
+    const f = deepFixture(true, analysis); return { ...f, analysis, result };
+  }
+  it.each(["en", "ru"] as const)("Knowledge confirmation, cancel and navigation perform zero work in %s", async (language) => {
+    setLanguage(language); const f = knowledgeFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen();
+    f.content.action("deep-knowledge").click();
+    expect(f.content.texts()).toContain(language === "en" ? "bounded note content" : "ограниченный объём");
+    expect(f.content.texts()).toContain(language === "en" ? "costs" : "плату");
+    expect(f.content.ownerDocument.activeElement?.attrs["data-knowledge-confirmation"]).toBe("true");
+    noWork(f); expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled();
+    const staleStart = f.content.action("knowledge-start");
+    f.content.action("knowledge-back").click(); staleStart.click(); noWork(f);
+    f.content.action("deep-knowledge").click(); f.content.action("nav-findings").click(); f.content.action("nav-health").click();
+    expect(f.content.action("knowledge-start")).toBeUndefined(); staleStart.click(); noWork(f);
+    await f.view.onClose(); expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled();
+  });
+  it.each(["en", "ru"] as const)("confirmed Knowledge creates one localized Finding and card filter in %s", async (language) => {
+    setLanguage(language); const f = knowledgeFixture(); await f.view.onOpen();
+    f.content.action("deep-knowledge").click(); const start = f.content.action("knowledge-start"); start.click(); start.click();
+    await vi.waitFor(() => expect(f.controller.getState().deepOutcome?.historyRecorded).toBe(true));
+    expect(f.analysis.analyzeKnowledge).toHaveBeenCalledTimes(1); expect(f.connection.test).not.toHaveBeenCalled();
+    expect(f.controller.getState().snapshot?.dimensions.knowledge).toMatchObject({ state: "review-recommended", analysisDepth: "deep" });
+    f.content.action("dimension-knowledge").click(); expect(f.content.action("filter-knowledge").attrs["aria-pressed"]).toBe("true");
+    const id = f.controller.listFindings()[0].id; f.content.action(`finding-${id}`).click();
+    expect(f.content.texts()).toContain(language === "en" ? "Deep assessment: Draft" : "Оценка глубокого анализа: черновик");
+    expect(f.content.texts()).not.toContain("deep-ai"); expect(f.content.texts()).not.toContain("@knowledge");
+    f.content.action("finding-note-0").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
+  });
+  it("running Knowledge exposes cancel, excludes other Health scans, and late work cannot resurrect closed UI", async () => {
+    const f = knowledgeFixture(); await f.view.onOpen(); await f.second.onOpen(); let release!: (value: DeepKnowledgeAnalysis) => void;
+    f.analysis.analyzeKnowledge.mockImplementationOnce((signal) => withAbort(new Promise<DeepKnowledgeAnalysis>((resolve) => { release = resolve; }), signal));
+    f.content.action("deep-knowledge").click(); f.content.action("knowledge-start").click(); await flush();
+    expect(f.content.texts()).toContain("Checking knowledge…"); expect(f.secondContent.action("knowledge-cancel")).toBeDefined();
+    expect(f.content.action("scan").disabled).toBe(true); expect(f.content.action("deep-check").disabled).toBe(true);
+    f.content.action("knowledge-cancel").click(); await flush();
+    expect(f.controller.getState().deepScanRunning).toBe(false); expect(f.content.texts()).toContain("Knowledge check cancelled");
+    expect(f.controller.listFindings()).toEqual([]); expect(f.controller.getState().deepOutcome?.scan.status).toBe("failed");
+    await f.view.onClose(); release(f.result); await flush(); expect(f.content.children).toHaveLength(0);
+    expect(f.controller.listFindings()).toEqual([]); expect(f.connection.test).not.toHaveBeenCalled();
+  });
+  it("Configured can analyze after restart, while Unconfigured/Busy/Error cannot; Check and Connect never analyze", async () => {
+    const f = knowledgeFixture(); await f.view.onOpen();
+    expect(f.content.action("deep-knowledge")).toBeDefined();
+    f.connection.test.mockRejectedValueOnce(new Error("PRIVATE_PROVIDER_BODY"));
+    f.content.action("deep-check").click(); await flush(); expect(f.content.action("deep-knowledge")).toBeUndefined();
+    await f.deep.checkCurrentSetup(); expect(f.content.action("deep-knowledge")).toBeDefined();
+    const draft = f.deep.createDraft("ollama"); await f.deep.connect(draft);
+    expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled(); expect(f.controller.listFindings()).toEqual([]);
+    noWork(f); f.change({ model: "" }); expect(f.content.action("deep-knowledge")).toBeUndefined();
+  });
   it.each([true, false])("passive legacy configuration is safe and does no work (configured: %s)", async (configured) => {
     const f = deepFixture(configured); await f.view.onOpen();
     expect(f.content.texts()).toContain(configured ? "Configured" : "Not configured");

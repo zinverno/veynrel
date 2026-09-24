@@ -47,17 +47,20 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
         description: blocked ? t("@health.recall-open") : ready ? t("@health.recall-tracked") : t("@health.recall-setup"),
       };
     }
-    const enabled = id === "structure" || id === "connections";
-    const complete = card.analysisComplete && !limited;
+    const knowledge = id === "knowledge";
+    const enabled = id === "structure" || id === "connections" || knowledge && (card.analysisDepth === "deep" || card.openFindings > 0);
+    const complete = card.analysisComplete && (knowledge || !limited);
     const healthState = card.state === "good" && !complete ? "unknown" : card.state;
-    return { id, title: t(`@health.${id}`), state: t(enabled ? `@health.state.${healthState}` : "@health.not-enabled"),
+    const emptyKnowledge = knowledge && complete && snapshot.lastDeepScan?.notesSeen === 0;
+    return { id, title: t(`@health.${id}`), state: t(emptyKnowledge ? "@knowledge.empty" : enabled ? `@health.state.${healthState}` : "@health.not-enabled"),
       count: enabled ? t("@health.findings", { n: card.openFindings }) : "",
-      depth: enabled && (card.analysisDepth === "basic" || card.analysisDepth === "semantic")
+      depth: enabled && (card.analysisDepth === "basic" || card.analysisDepth === "semantic" || card.analysisDepth === "deep")
         ? t(`@health.${card.analysisDepth}${complete ? "" : "-incomplete"}`) : "",
       icon: icons[id], action: enabled || card.openFindings > 0 ? "findings" : "none" };
   }) : [];
   let status: string | undefined;
   if (state.recovering) status = t("@health.recovering");
+  else if (state.deepScanRunning) status = t("@knowledge.checking");
   else if (state.semanticScanRunning) status = t("@semantic-health.checking");
   else if (state.busy) status = t("@health.checking");
   else if (state.error) status = t(`@health.error.${state.error}`);
@@ -67,7 +70,7 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
   const load = snapshot?.initialization;
   const scope = load && (!load.findingsWritable ? "all" : !load.historyWritable ? "history" : undefined);
   const inaccessible = load?.storage.findings === "unavailable" || load?.storage.scanRuns === "unavailable";
-  return { initial, scanLabel: t(state.busy && !state.semanticScanRunning && !state.recovering && !state.mutatingFindingId ? "@health.checking" : state.error === "scan" || outcome?.scan.status === "failed"
+  return { initial, scanLabel: t(state.busy && !state.semanticScanRunning && !state.deepScanRunning && !state.recovering && !state.mutatingFindingId ? "@health.checking" : state.error === "scan" || outcome?.scan.status === "failed"
     ? "@health.try-again" : initial ? "@health.scan" : "@health.scan-again"),
     scanDisabled: state.busy || !snapshot || !load?.findingsWritable,
     recoveryDisabled: state.busy,

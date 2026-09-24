@@ -7,6 +7,7 @@ import type { LocalVaultSource } from "../analyzers/local/localVaultSource";
 import type { LocalVaultFreshnessProbe } from "../analyzers/local/localVaultRevision";
 import type { SemanticHealthErrorCode } from "../semanticHealthAnalysisPort";
 import type { RecallHealthSnapshot } from "../recallHealthPort";
+import type { DeepHealthErrorCode } from "../deepHealthAnalysisPort";
 
 /** One configured object supplies BOTH capture methods with identical, stable scope policy. */
 export interface HealthLocalVaultSource extends LocalVaultSource, LocalVaultFreshnessProbe {}
@@ -40,11 +41,14 @@ export interface HealthSnapshot {
   lastSemanticScan?: ScanRun;
   lastSemanticScanReconciled: boolean;
   semanticScanRunning: boolean;
+  lastDeepScan?: ScanRun;
+  lastDeepScanReconciled: boolean;
+  deepScanRunning: boolean;
   initialization: HealthInitializationResult;
 }
 
 export type HealthScanDiagnosticCode = "analysis-failed" | "analyzers-failed" | "analysis-partial" |
-  "vault-changed-during-scan" | "freshness-unavailable" | "reconciliation-failed" | "history-not-recorded" | SemanticHealthErrorCode;
+  "vault-changed-during-scan" | "freshness-unavailable" | "reconciliation-failed" | "history-not-recorded" | SemanticHealthErrorCode | DeepHealthErrorCode;
 
 export interface LocalHealthScanOutcome {
   scan: ScanRun;
@@ -56,6 +60,7 @@ export interface LocalHealthScanOutcome {
 }
 
 export type SemanticHealthScanOutcome = LocalHealthScanOutcome;
+export type DeepHealthScanOutcome = LocalHealthScanOutcome;
 
 export interface HealthAggregationInput {
   findings: readonly Finding[];
@@ -65,4 +70,6 @@ export interface HealthAggregationInput {
   reconciled: boolean;
   lastSemanticScan?: ScanRun;
   semanticReconciled?: boolean;
+  lastDeepScan?: ScanRun;
+  deepReconciled?: boolean;
 }

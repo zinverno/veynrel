@@ -118,7 +118,8 @@ derived, with no Health persistence: reviews/inventory/recovery do not write
 and scoped recovery paths are authoritative. Markdown is never mutated.
 
 Structure and Connections retain their existing local/semantic policies, and
-Knowledge stays Not enabled. Health local scan completeness/failure does not
+Recall does not enable Knowledge; [Knowledge Health](knowledge-health.md) has its
+own explicit Deep analysis. Health local scan completeness/failure does not
 downgrade a valid Recall schedule.
 
 ## Verification
