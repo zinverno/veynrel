@@ -15,7 +15,9 @@ outside the scope of that audit.
 
 Subsequent roadmap work adds [Deep Intelligence setup](deep-intelligence-setup.md)
 for the existing language-model configuration and [Knowledge Health](knowledge-health.md)
-for confirmed MAP-only review signals. This audit remains the historical PR #41 baseline.
+for confirmed MAP-only review signals. [Veynrel Connect](veynrel-connect.md) and
+the [final Tools/Settings IA](product-ia.md) complete the original functional roadmap.
+This audit remains the historical PR #41 baseline.
 
 ## Architecture and authoritative ownership
 
