@@ -4,5 +4,6 @@
   "semantic.embeddingModel": "836946eb33baedd07fea12e4092088bec86bc1e509e957099e3c8c39672450e1",
   "semantic.embeddingBaseUrl": "6c9b7491c097807871389ce3c618037d01b57f589264b4b9f7a5f0dac1a905d7",
   "semantic.openRouterApiKey,semantic.openAICompatibleApiKey": "7a5c5b2649155a661ac7b7bd3d100fee2302c808b739738aef7318bedd4bf873",
-  "apiKey": "5bb77e5f7718bb4a3624afd4e306f157bf67b20109e95d0c39c6a5b552ae4e2f"
+  "apiKey": "5bb77e5f7718bb4a3624afd4e306f157bf67b20109e95d0c39c6a5b552ae4e2f",
+  "method:renderProviderCards": "adcc4578ac3945cbdce42879e5868b4c82ef3a40c2de7ea166e0e1c021acec83"
 }

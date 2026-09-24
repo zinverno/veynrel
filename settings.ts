@@ -184,7 +184,7 @@ export class AIHubSettingTab extends PluginSettingTab {
       {
         type: "group", heading: tr("@settings.group.deep"), icon: "cpu", items: [
           row(["provider"], tr("Языковая модель"), undefined, (setting) => this.renderProviderCards(this.customContainer(setting), save)),
-          row([], profile.label, tr(profile.description), (setting) => this.renderProviderInfo(this.customContainer(setting))),
+          row([], tr(profile.label), tr(profile.description), (setting) => this.renderProviderInfo(this.customContainer(setting))),
           {
             ...row(["apiKey"], "API key", profile.requiresApiKey
               ? tr("Хранится локально")
@@ -260,7 +260,7 @@ export class AIHubSettingTab extends PluginSettingTab {
               this.addIcon(modelSetting, "bot");
             }),
           {
-            ...row([], `${tr("Модель")} — ${profile.label}`, tr("ID модели провайдера"), (setting) => this.renderModelOptions(this.customContainer(setting), save)),
+            ...row([], `${tr("Модель")} — ${tr(profile.label)}`, tr("ID модели провайдера"), (setting) => this.renderModelOptions(this.customContainer(setting), save)),
             visible: profile.popularModels.length > 0 || provider === "ollama" || provider === "openrouter"
           },
           row(["baseUrl"], "Base URL", provider === "custom"
@@ -624,7 +624,7 @@ export class AIHubSettingTab extends PluginSettingTab {
               "atom",
             );
           }),
-          { keys: ["filenameTemplate"], name: tr("Шаблон имени файла"), desc: "Переменные: {{date}}, {{time}}, {{topic}}", control: { type: "text", key: "filenameTemplate", placeholder: "AI-{{date}}-{{topic}}" } }
+          { keys: ["filenameTemplate"], name: tr("Шаблон имени файла"), desc: tr("Переменные: {{date}}, {{time}}, {{topic}}"), control: { type: "text", key: "filenameTemplate", placeholder: "AI-{{date}}-{{topic}}" } }
         ]
       },
       {
@@ -775,7 +775,7 @@ export class AIHubSettingTab extends PluginSettingTab {
       const card = grid.createDiv({ cls: "ai-hub-provider-card" });
       card.setAttribute("tabindex", "0");
       card.setAttribute("role", "button");
-      card.setAttribute("aria-label", tr("Провайдер: {p}", { p: profile.label }));
+      card.setAttribute("aria-label", tr("Провайдер: {p}", { p: tr(profile.label) }));
       cards.set(p, card);
 
       const iconWrap = card.createDiv({ cls: "ai-hub-provider-icon" });

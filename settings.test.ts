@@ -49,8 +49,10 @@ describe("shared legacy and declarative settings inventory", () => {
   });
 
   it.each(["openrouter", "openai", "groq", "ollama", "custom"] as const)("retains conditional credentials and searchable choices for %s", (provider) => {
+    setLanguage("en");
     const f = fixture(); f.settings.provider = provider;
     const rows = f.tab.getSettingDefinitions().flatMap((section) => section.items);
+    expect(rows.map((row) => `${row.name} ${row.desc ?? ""}`).join("\n")).not.toMatch(/[А-Яа-яЁё]/u);
     const key = rows.find((row) => row.keys.includes("apiKey"))!;
     // Obsidian keys custom rows by name, so duplicate names break reconciliation.
     const renderKeys = rows.map((row) => row.control ? `key:${row.control.key}` : `name:${row.name}`);
