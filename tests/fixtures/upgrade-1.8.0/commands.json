@@ -1,0 +1,22 @@
+[
+  "ai-knowledge-hub:ai-atomize-note",
+  "ai-knowledge-hub:ai-batch-process",
+  "ai-knowledge-hub:ai-dataview-generate",
+  "ai-knowledge-hub:ai-deep-vault-audit",
+  "ai-knowledge-hub:ai-flashcards-note",
+  "ai-knowledge-hub:ai-generate-mocs",
+  "ai-knowledge-hub:ai-hub-open-panel",
+  "ai-knowledge-hub:ai-rag-ask-vault",
+  "ai-knowledge-hub:ai-selection",
+  "ai-knowledge-hub:ai-semantic-clear-index",
+  "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+  "ai-knowledge-hub:ai-semantic-find-similar-notes",
+  "ai-knowledge-hub:ai-semantic-index-current-note",
+  "ai-knowledge-hub:ai-semantic-index-vault",
+  "ai-knowledge-hub:ai-semantic-rebuild-index",
+  "ai-knowledge-hub:ai-semantic-search",
+  "ai-knowledge-hub:ai-simple-append",
+  "ai-knowledge-hub:ai-vault-append",
+  "ai-knowledge-hub:ai-vault-audit",
+  "ai-knowledge-hub:review-ai-change-proposals"
+]

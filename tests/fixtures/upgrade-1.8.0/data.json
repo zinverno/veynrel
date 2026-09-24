@@ -1,0 +1,38 @@
+{
+  "provider": "custom",
+  "apiKey": "synthetic-llm-key-not-a-secret",
+  "model": "release-llm",
+  "baseUrl": "https://release-provider.invalid/v1",
+  "temperature": 0.37,
+  "topK": 7,
+  "defaultInsertion": "end",
+  "newNoteFolder": "",
+  "filenameTemplate": "AI-{{date}}-{{topic}}",
+  "mocFolder": "Custom MOCs",
+  "atomsLocation": "same",
+  "atomsFolder": "Custom Atoms",
+  "showContextMenu": true,
+  "notifyOnCopy": true,
+  "language": "en",
+  "deepAudit": {
+    "batchSize": 5,
+    "maxConcurrent": 3,
+    "delayMs": 1000
+  },
+  "semantic": {
+    "enabled": true,
+    "embeddingProvider": "openai-compatible",
+    "embeddingModel": "release-embedding",
+    "embeddingBaseUrl": "https://release-embedding.invalid/v1",
+    "openRouterApiKey": "",
+    "openAICompatibleApiKey": "synthetic-embedding-key-not-a-secret"
+  },
+  "semanticAutoSyncSuspended": false,
+  "companion": {
+    "enabled": true,
+    "endpoint": "http://127.0.0.1:27124",
+    "token": "synthetic-companion-token-not-a-secret",
+    "timeoutMs": 7139,
+    "vaultId": "66666666-6666-4666-8666-666666666666"
+  }
+}

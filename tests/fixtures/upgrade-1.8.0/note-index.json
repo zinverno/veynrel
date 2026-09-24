@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "updatedAt": "2026-09-24T18:42:22.184Z",
+  "notes": {
+    "Projects/Alpha.md": {
+      "mtime": 1790274663437,
+      "analyzedAt": 1700000000000,
+      "mainIdea": "Release fixture",
+      "keyPoints": [
+        "Preserve this cache"
+      ],
+      "entities": [],
+      "quality": "draft",
+      "suggestedTags": [
+        "fixture"
+      ],
+      "wordCount": 20,
+      "mode": "single"
+    }
+  },
+  "clusters": {
+    "createdAt": "2026-09-24T18:42:22.181Z",
+    "items": [
+      {
+        "name": "Published fixture",
+        "description": "Saved 1.8.0 cluster",
+        "filePaths": [
+          "Projects/Alpha.md",
+          "Projects/Beta.md"
+        ]
+      }
+    ]
+  }
+}

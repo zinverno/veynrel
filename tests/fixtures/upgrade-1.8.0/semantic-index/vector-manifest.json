@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "generation": 2,
+  "dimensions": 3,
+  "embeddingSpaceId": "embedding-space:v1|provider=openai-compatible|model=release-embedding|endpoint=https%3A%2F%2Frelease-embedding.invalid%2Fv1|dimensions=3",
+  "normalized": true,
+  "count": 6,
+  "binaryFile": "vector-index.bin",
+  "records": [
+    {
+      "id": "chunk-1dc628e3c4d6a780",
+      "path": "Orphan.md",
+      "headingPath": [
+        "Orphan"
+      ],
+      "ordinal": 0,
+      "contentHash": "b56299ad3c16891f",
+      "source": {
+        "startOffset": 10,
+        "endOffset": 58,
+        "startLine": 2,
+        "endLine": 2
+      },
+      "preview": "Orphan This synthetic isolated note has no connections."
+    },
+    {
+      "id": "chunk-6174ebd50bae3a6f",
+      "path": "Archive/Бета.md",
+      "headingPath": [
+        "Бета"
+      ],
+      "ordinal": 0,
+      "contentHash": "7fda813a9692b8f3",
+      "source": {
+        "startOffset": 8,
+        "endOffset": 82,
+        "startLine": 2,
+        "endLine": 3
+      },
+      "preview": "Бета Изолированная синтетическая заметка для проверки обновления. Вопрос::Ответ"
+    },
+    {
+      "id": "chunk-95f440d570f9acab",
+      "path": "Source.md",
+      "headingPath": [
+        "Source"
+      ],
+      "ordinal": 0,
+      "contentHash": "8c40cceb5509f860",
+      "source": {
+        "startOffset": 10,
+        "endOffset": 73,
+        "startLine": 2,
+        "endLine": 2
+      },
+      "preview": "Source Neurons carry signals between connected cells through synapses."
+    },
+    {
+      "id": "chunk-9b729de21de3a3bc",
+      "path": "Projects/Alpha.md",
+      "headingPath": [
+        "Alpha"
+      ],
+      "ordinal": 0,
+      "contentHash": "99e5a41322b1c7af",
+      "source": {
+        "startOffset": 9,
+        "endOffset": 165,
+        "startLine": 2,
+        "endLine": 5
+      },
+      "preview": "Alpha Synthetic release fixture, connected notes and learning. [[Beta]] [[Missing]] What supports learning::Repeated retrieval Why use notes::To preserve context"
+    },
+    {
+      "id": "chunk-b4f0331504099a62",
+      "path": "Projects/Beta.md",
+      "headingPath": [
+        "Beta"
+      ],
+      "ordinal": 0,
+      "contentHash": "89eda7343454e3e8",
+      "source": {
+        "startOffset": 8,
+        "endOffset": 115,
+        "startLine": 2,
+        "endLine": 4
+      },
+      "preview": "Beta Synthetic release fixture about gardens and growing plants. [[Alpha]] What do plants need::Water and light"
+    },
+    {
+      "id": "chunk-cc6a7c7dc5199f45",
+      "path": "Source.md",
+      "headingPath": [
+        "Source",
+        "Flashcards"
+      ],
+      "ordinal": 1,
+      "contentHash": "1e61986996f4ea84",
+      "source": {
+        "startOffset": 89,
+        "endOffset": 242,
+        "startLine": 5,
+        "endLine": 10
+      },
+      "preview": "Source > Flashcards #flashcards What carries signals::A neuron Where do signals pass::Across synapses What links cells::Connections What supports recall::Retrieval practice"
+    }
+  ]
+}

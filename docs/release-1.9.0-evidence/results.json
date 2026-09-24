@@ -1,0 +1,2407 @@
+{
+  "baseline": {
+    "repository": "zinverno/veynrel",
+    "head": "9818f2a1dc1df4fe744f9edc3c53717e6ca5232c",
+    "pr47MergedAt": "2026-09-24T18:23:23Z",
+    "publishedTag": "1.8.0",
+    "tagCommit": "21a1b83afd0ddf4650ebbeced947fb0d424c3f6e",
+    "candidateTagAbsent": true
+  },
+  "upgrade": {
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "39.8.10"
+    },
+    "assertions": [
+      "candidate version loaded",
+      "candidate startup metadata only",
+      "preserved setting provider",
+      "preserved setting apiKey",
+      "preserved setting model",
+      "preserved setting baseUrl",
+      "preserved setting temperature",
+      "preserved setting topK",
+      "preserved setting defaultInsertion",
+      "preserved setting newNoteFolder",
+      "preserved setting filenameTemplate",
+      "preserved setting mocFolder",
+      "preserved setting atomsLocation",
+      "preserved setting atomsFolder",
+      "preserved setting showContextMenu",
+      "preserved setting notifyOnCopy",
+      "preserved setting language",
+      "preserved setting deepAudit",
+      "preserved setting semantic",
+      "preserved setting semanticAutoSyncSuspended",
+      "preserved setting companion",
+      "all 20 published commands retained",
+      "current command IDs unique",
+      "hotkeys byte identical",
+      "enabled state byte identical",
+      "existing user gets optional Health profile onboarding",
+      "first Health open modifies no notes or settings",
+      "first upgrade Recall file remains absent",
+      "skip completes optional Health onboarding",
+      "health passive metadata only",
+      "findings passive metadata only",
+      "discover passive metadata only",
+      "recall passive metadata only",
+      "connect passive metadata only",
+      "tools passive metadata only",
+      "settings passive metadata only",
+      "native Recall missing store is valid first run",
+      "passive routes do not create Recall storage",
+      "compatible published index recognized without rebuild",
+      "Discover recognizes Ready index",
+      "index load does not rewrite bytes or contact provider",
+      "candidate searches published index",
+      "Deep Audit cached record preserved",
+      "old Deep cache is not trusted Knowledge Health coverage",
+      "explicit Find discovers four cards produced by published 1.8.0",
+      "Recall Find never mutates notes or uses network",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "all four ratings durably persisted"
+    ],
+    "passive": {
+      "candidate-startup": {
+        "counts": {
+          "adapter.read": 3,
+          "plugin.read": 3,
+          "adapter.exists": 1,
+          "plugin.exists": 1
+        },
+        "requests": []
+      },
+      "first-health-open": {
+        "counts": {
+          "adapter.exists": 2,
+          "plugin.exists": 2
+        },
+        "requests": []
+      },
+      "passive-health": {
+        "counts": {},
+        "requests": []
+      },
+      "passive-findings": {
+        "counts": {},
+        "requests": []
+      },
+      "passive-discover": {
+        "counts": {},
+        "requests": []
+      },
+      "passive-recall": {
+        "counts": {},
+        "requests": []
+      },
+      "passive-connect": {
+        "counts": {
+          "adapter.write": 1
+        },
+        "requests": []
+      },
+      "passive-tools": {
+        "counts": {},
+        "requests": []
+      },
+      "passive-settings": {
+        "counts": {},
+        "requests": []
+      },
+      "semantic-metadata-load": {
+        "counts": {
+          "adapter.exists": 8,
+          "plugin.exists": 8,
+          "adapter.read": 2,
+          "plugin.read": 2,
+          "adapter.readBinary": 1,
+          "plugin.readBinary": 1,
+          "adapter.remove": 4,
+          "plugin.remove": 4
+        },
+        "requests": []
+      },
+      "semantic-search": {
+        "counts": {
+          "adapter.exists": 8,
+          "plugin.exists": 8,
+          "adapter.read": 2,
+          "plugin.read": 2,
+          "adapter.readBinary": 1,
+          "plugin.readBinary": 1,
+          "adapter.remove": 4,
+          "plugin.remove": 4,
+          "requestUrl": 1
+        },
+        "requests": [
+          {
+            "kind": "embedding",
+            "model": "release-embedding",
+            "inputCount": 1,
+            "chars": 76,
+            "credentialsCorrect": true
+          }
+        ]
+      },
+      "explicit-recall-find": {
+        "counts": {
+          "getMarkdownFiles": 2,
+          "read": 6,
+          "adapter.read": 6,
+          "adapter.exists": 4,
+          "plugin.exists": 1,
+          "adapter.mkdir": 1,
+          "plugin.mkdir": 1,
+          "adapter.write": 1,
+          "plugin.write": 1
+        },
+        "requests": []
+      }
+    },
+    "commands": [
+      "ai-knowledge-hub:ai-atomize-note",
+      "ai-knowledge-hub:ai-batch-process",
+      "ai-knowledge-hub:ai-dataview-generate",
+      "ai-knowledge-hub:ai-deep-vault-audit",
+      "ai-knowledge-hub:ai-flashcards-note",
+      "ai-knowledge-hub:ai-generate-mocs",
+      "ai-knowledge-hub:ai-hub-open-panel",
+      "ai-knowledge-hub:ai-rag-ask-vault",
+      "ai-knowledge-hub:ai-selection",
+      "ai-knowledge-hub:ai-semantic-clear-index",
+      "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+      "ai-knowledge-hub:ai-semantic-find-similar-notes",
+      "ai-knowledge-hub:ai-semantic-index-current-note",
+      "ai-knowledge-hub:ai-semantic-index-vault",
+      "ai-knowledge-hub:ai-semantic-rebuild-index",
+      "ai-knowledge-hub:ai-semantic-search",
+      "ai-knowledge-hub:ai-simple-append",
+      "ai-knowledge-hub:ai-vault-append",
+      "ai-knowledge-hub:ai-vault-audit",
+      "ai-knowledge-hub:review-ai-change-proposals",
+      "ai-knowledge-hub:veynrel-open-health"
+    ],
+    "bytePreservation": [
+      {
+        "path": "Empty.md",
+        "sameBytes": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "Orphan.md",
+        "sameBytes": true,
+        "sha256": "77e4e041e5a88a2a04489c3ac1b27db7147e88f83fafcf6882d8fcb9efd25d0d"
+      },
+      {
+        "path": "Source.md",
+        "sameBytes": true,
+        "sha256": "5b07facaf001e50e1f227b7856fdd938f7884ea9c524cc93a0c28ba9d81eba1d"
+      },
+      {
+        "path": ".obsidian/community-plugins.json",
+        "sameBytes": true,
+        "sha256": "6de396053fe5c4ad109b35e4e3351d0a3de674f1a2beed069ac84fa0ea07583d"
+      },
+      {
+        "path": ".obsidian/core-plugins.json",
+        "sameBytes": true,
+        "sha256": "aae288d8a9005fbb58bd172444153bd207da4eefae4976047427646f0e668fcd"
+      },
+      {
+        "path": ".obsidian/appearance.json",
+        "sameBytes": true,
+        "sha256": "d00244879367fa48b6e32f6af9bbd4318846b3f5b8ad8d3783c7d9a0d14f26e1"
+      },
+      {
+        "path": ".obsidian/hotkeys.json",
+        "sameBytes": true,
+        "sha256": "30a7c39f3ff9eeaa9e84506c3820258b1b7953dca6e404ec0b452a96a4fefc9c"
+      },
+      {
+        "path": ".obsidian/app.json",
+        "sameBytes": true,
+        "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      {
+        "path": "Projects/Alpha.md",
+        "sameBytes": true,
+        "sha256": "9969a6e7ba14a8fbaae8a9ac15028914c594c5906c8805c99749a86eb48eff06"
+      },
+      {
+        "path": "Projects/Beta.md",
+        "sameBytes": true,
+        "sha256": "10c65c312af0a99ffe61198ff9a3d5f927a2a9b29c44e33ba321a0c93f20e784"
+      },
+      {
+        "path": "Archive/Бета.md",
+        "sameBytes": true,
+        "sha256": "a2c92b18a4175e6dddaf094e74a5201dd631f878cbee4142daa327e8d26c352c"
+      },
+      {
+        "path": "User data/keep.bin",
+        "sameBytes": true,
+        "sha256": "4f1f63db33a2d798e19c44f5196893b056837fef80b9b58e54ccc7b134c4cfee"
+      },
+      {
+        "path": ".obsidian/plugins/ai-knowledge-hub/note-index.json",
+        "sameBytes": true,
+        "sha256": "03511e10267413870304e9279b369d81660f5b2c7f49bd39f417b448192e0598"
+      },
+      {
+        "path": ".obsidian/plugins/ai-knowledge-hub/semantic-index/vector-index.bin",
+        "sameBytes": true,
+        "sha256": "2f0914b9aedbbaac688fac063dac2d2047356fe3c6581485bbb65cacd3bafec4"
+      }
+    ]
+  },
+  "productActions": {
+    "native": {
+      "results": {
+        "local": {
+          "snapshot": {
+            "dimensions": {
+              "structure": {
+                "state": "needs-attention",
+                "analysisDepth": "basic",
+                "openFindings": 6,
+                "attentionFindings": 1,
+                "reviewFindings": 5,
+                "analysisComplete": true
+              },
+              "connections": {
+                "state": "good",
+                "analysisDepth": "basic",
+                "openFindings": 0,
+                "attentionFindings": 0,
+                "reviewFindings": 0,
+                "analysisComplete": true
+              },
+              "recall": {
+                "state": "good",
+                "analysisDepth": "basic",
+                "analysisComplete": true,
+                "openFindings": 0,
+                "attentionFindings": 0,
+                "reviewFindings": 0
+              },
+              "knowledge": {
+                "state": "unknown",
+                "analysisDepth": "not-enabled",
+                "analysisComplete": false,
+                "openFindings": 0,
+                "attentionFindings": 0,
+                "reviewFindings": 0
+              }
+            },
+            "openFindings": 6,
+            "newFindings": 6,
+            "recall": {
+              "loadState": "ready",
+              "firstRun": false,
+              "active": 4,
+              "due": 0,
+              "new": 0,
+              "nextDueAt": 1790278634310
+            },
+            "recommendation": {
+              "id": "recommendation-finding-2e7ba3355100d4c2",
+              "findingId": "finding-2e7ba3355100d4c2",
+              "title": "Unresolved internal link",
+              "explanation": "Obsidian could not resolve this internal link to a vault file.",
+              "action": {
+                "kind": "open-note",
+                "path": "Projects/Alpha.md"
+              }
+            },
+            "lastLocalScan": {
+              "id": "local-4f627d1a-5db1-4776-a159-2078f3cf739f",
+              "type": "local",
+              "startedAt": 1790278617046,
+              "notesSeen": 6,
+              "findingsCreated": 6,
+              "findingsUpdated": 0,
+              "findingsResolved": 0,
+              "analyzerVersions": {
+                "broken-links": "1",
+                "duplicate-titles": "1",
+                "exact-duplicates": "1",
+                "graph-components": "1",
+                "no-incoming-links": "1",
+                "no-outgoing-links": "1",
+                "note-shape": "1",
+                "orphans": "1"
+              },
+              "reconciliationReceipts": {
+                "local:broken-links": 1790278617546,
+                "local:duplicate-titles": 1790278617546,
+                "local:exact-duplicates": 1790278617546,
+                "local:graph-components": 1790278617546,
+                "local:no-incoming-links": 1790278617546,
+                "local:no-outgoing-links": 1790278617546,
+                "local:note-shape": 1790278617546,
+                "local:orphans": 1790278617546
+              },
+              "status": "completed",
+              "completedAt": 1790278617546
+            },
+            "lastLocalScanReconciled": true,
+            "localScanRunning": false,
+            "lastSemanticScanReconciled": false,
+            "semanticScanRunning": false,
+            "lastDeepScanReconciled": false,
+            "deepScanRunning": false,
+            "initialization": {
+              "storage": {
+                "findings": "missing",
+                "scanRuns": "missing"
+              },
+              "findingsWritable": true,
+              "historyWritable": true,
+              "status": "ready"
+            }
+          },
+          "recommendationFinding": {
+            "analyzerId": "broken-links",
+            "dimension": "structure",
+            "type": "broken-link",
+            "impact": "attention",
+            "title": "Unresolved internal link",
+            "explanation": "Obsidian could not resolve this internal link to a vault file.",
+            "notePaths": [
+              "Projects/Alpha.md"
+            ],
+            "evidence": [
+              {
+                "kind": "source-path",
+                "path": "Projects/Alpha.md"
+              },
+              {
+                "kind": "target",
+                "value": "Missing"
+              },
+              {
+                "kind": "target-length",
+                "value": 7
+              },
+              {
+                "kind": "target-truncated",
+                "value": false
+              },
+              {
+                "kind": "occurrence-count",
+                "value": 1
+              }
+            ],
+            "actions": [
+              {
+                "kind": "open-note",
+                "path": "Projects/Alpha.md"
+              }
+            ],
+            "source": "local",
+            "confidence": "deterministic",
+            "fingerprint": "v1:[\"local\",\"broken-links\",\"structure\",\"broken-link\",[\"Projects/Alpha.md\"],\"Missing\"]",
+            "id": "finding-2e7ba3355100d4c2",
+            "state": "open",
+            "firstSeenAt": 1790278617046,
+            "lastSeenAt": 1790278617046
+          },
+          "preferences": {
+            "profile": "mixed",
+            "profileChosen": true,
+            "onboardingCompleted": true,
+            "onboardingVersion": 1
+          },
+          "savingPreferences": false,
+          "preferencesError": false,
+          "outcome": {
+            "scan": {
+              "id": "local-4f627d1a-5db1-4776-a159-2078f3cf739f",
+              "type": "local",
+              "startedAt": 1790278617046,
+              "notesSeen": 6,
+              "findingsCreated": 6,
+              "findingsUpdated": 0,
+              "findingsResolved": 0,
+              "analyzerVersions": {
+                "broken-links": "1",
+                "duplicate-titles": "1",
+                "exact-duplicates": "1",
+                "graph-components": "1",
+                "no-incoming-links": "1",
+                "no-outgoing-links": "1",
+                "note-shape": "1",
+                "orphans": "1"
+              },
+              "reconciliationReceipts": {
+                "local:broken-links": 1790278617546,
+                "local:duplicate-titles": 1790278617546,
+                "local:exact-duplicates": 1790278617546,
+                "local:graph-components": 1790278617546,
+                "local:no-incoming-links": 1790278617546,
+                "local:no-outgoing-links": 1790278617546,
+                "local:note-shape": 1790278617546,
+                "local:orphans": 1790278617546
+              },
+              "status": "completed",
+              "completedAt": 1790278617546
+            },
+            "freshness": "verified",
+            "findingsCommitted": true,
+            "historyRecorded": true,
+            "diagnostics": []
+          },
+          "semanticScanRunning": false,
+          "semanticError": false,
+          "deepScanRunning": false,
+          "deepError": false,
+          "deepCancelled": false,
+          "busy": false,
+          "recovering": false
+        },
+        "semantic": {
+          "snapshot": {
+            "dimensions": {
+              "structure": {
+                "state": "needs-attention",
+                "analysisDepth": "basic",
+                "openFindings": 6,
+                "attentionFindings": 1,
+                "reviewFindings": 5,
+                "analysisComplete": true
+              },
+              "connections": {
+                "state": "review-recommended",
+                "analysisDepth": "semantic",
+                "openFindings": 6,
+                "attentionFindings": 0,
+                "reviewFindings": 6,
+                "analysisComplete": true
+              },
+              "recall": {
+                "state": "good",
+                "analysisDepth": "basic",
+                "analysisComplete": true,
+                "openFindings": 0,
+                "attentionFindings": 0,
+                "reviewFindings": 0
+              },
+              "knowledge": {
+                "state": "unknown",
+                "analysisDepth": "not-enabled",
+                "analysisComplete": false,
+                "openFindings": 0,
+                "attentionFindings": 0,
+                "reviewFindings": 0
+              }
+            },
+            "openFindings": 12,
+            "newFindings": 6,
+            "recall": {
+              "loadState": "ready",
+              "firstRun": false,
+              "active": 4,
+              "due": 0,
+              "new": 0,
+              "nextDueAt": 1790278634310
+            },
+            "recommendation": {
+              "id": "recommendation-finding-2e7ba3355100d4c2",
+              "findingId": "finding-2e7ba3355100d4c2",
+              "title": "Unresolved internal link",
+              "explanation": "Obsidian could not resolve this internal link to a vault file.",
+              "action": {
+                "kind": "open-note",
+                "path": "Projects/Alpha.md"
+              }
+            },
+            "lastLocalScan": {
+              "id": "local-4f627d1a-5db1-4776-a159-2078f3cf739f",
+              "type": "local",
+              "startedAt": 1790278617046,
+              "notesSeen": 6,
+              "findingsCreated": 6,
+              "findingsUpdated": 0,
+              "findingsResolved": 0,
+              "analyzerVersions": {
+                "broken-links": "1",
+                "duplicate-titles": "1",
+                "exact-duplicates": "1",
+                "graph-components": "1",
+                "no-incoming-links": "1",
+                "no-outgoing-links": "1",
+                "note-shape": "1",
+                "orphans": "1"
+              },
+              "reconciliationReceipts": {
+                "local:broken-links": 1790278617546,
+                "local:duplicate-titles": 1790278617546,
+                "local:exact-duplicates": 1790278617546,
+                "local:graph-components": 1790278617546,
+                "local:no-incoming-links": 1790278617546,
+                "local:no-outgoing-links": 1790278617546,
+                "local:note-shape": 1790278617546,
+                "local:orphans": 1790278617546
+              },
+              "status": "completed",
+              "completedAt": 1790278617546
+            },
+            "lastLocalScanReconciled": true,
+            "localScanRunning": false,
+            "lastSemanticScan": {
+              "id": "semantic-1254dfcb-d050-42a4-af76-07b301f61c48",
+              "type": "semantic",
+              "startedAt": 1790278617720,
+              "notesSeen": 0,
+              "findingsCreated": 6,
+              "findingsUpdated": 0,
+              "findingsResolved": 0,
+              "analyzerVersions": {
+                "semantic-duplicates": "1"
+              },
+              "reconciliationReceipts": {
+                "semantic:semantic-duplicates": 1790278617744
+              },
+              "status": "completed",
+              "completedAt": 1790278617744
+            },
+            "lastSemanticScanReconciled": true,
+            "semanticScanRunning": false,
+            "lastDeepScanReconciled": false,
+            "deepScanRunning": false,
+            "initialization": {
+              "storage": {
+                "findings": "missing",
+                "scanRuns": "missing"
+              },
+              "findingsWritable": true,
+              "historyWritable": true,
+              "status": "ready"
+            }
+          },
+          "recommendationFinding": {
+            "analyzerId": "broken-links",
+            "dimension": "structure",
+            "type": "broken-link",
+            "impact": "attention",
+            "title": "Unresolved internal link",
+            "explanation": "Obsidian could not resolve this internal link to a vault file.",
+            "notePaths": [
+              "Projects/Alpha.md"
+            ],
+            "evidence": [
+              {
+                "kind": "source-path",
+                "path": "Projects/Alpha.md"
+              },
+              {
+                "kind": "target",
+                "value": "Missing"
+              },
+              {
+                "kind": "target-length",
+                "value": 7
+              },
+              {
+                "kind": "target-truncated",
+                "value": false
+              },
+              {
+                "kind": "occurrence-count",
+                "value": 1
+              }
+            ],
+            "actions": [
+              {
+                "kind": "open-note",
+                "path": "Projects/Alpha.md"
+              }
+            ],
+            "source": "local",
+            "confidence": "deterministic",
+            "fingerprint": "v1:[\"local\",\"broken-links\",\"structure\",\"broken-link\",[\"Projects/Alpha.md\"],\"Missing\"]",
+            "id": "finding-2e7ba3355100d4c2",
+            "state": "open",
+            "firstSeenAt": 1790278617046,
+            "lastSeenAt": 1790278617046
+          },
+          "preferences": {
+            "profile": "mixed",
+            "profileChosen": true,
+            "onboardingCompleted": true,
+            "onboardingVersion": 1
+          },
+          "savingPreferences": false,
+          "preferencesError": false,
+          "outcome": {
+            "scan": {
+              "id": "local-4f627d1a-5db1-4776-a159-2078f3cf739f",
+              "type": "local",
+              "startedAt": 1790278617046,
+              "notesSeen": 6,
+              "findingsCreated": 6,
+              "findingsUpdated": 0,
+              "findingsResolved": 0,
+              "analyzerVersions": {
+                "broken-links": "1",
+                "duplicate-titles": "1",
+                "exact-duplicates": "1",
+                "graph-components": "1",
+                "no-incoming-links": "1",
+                "no-outgoing-links": "1",
+                "note-shape": "1",
+                "orphans": "1"
+              },
+              "reconciliationReceipts": {
+                "local:broken-links": 1790278617546,
+                "local:duplicate-titles": 1790278617546,
+                "local:exact-duplicates": 1790278617546,
+                "local:graph-components": 1790278617546,
+                "local:no-incoming-links": 1790278617546,
+                "local:no-outgoing-links": 1790278617546,
+                "local:note-shape": 1790278617546,
+                "local:orphans": 1790278617546
+              },
+              "status": "completed",
+              "completedAt": 1790278617546
+            },
+            "freshness": "verified",
+            "findingsCommitted": true,
+            "historyRecorded": true,
+            "diagnostics": []
+          },
+          "semanticOutcome": {
+            "scan": {
+              "id": "semantic-1254dfcb-d050-42a4-af76-07b301f61c48",
+              "type": "semantic",
+              "startedAt": 1790278617720,
+              "notesSeen": 0,
+              "findingsCreated": 6,
+              "findingsUpdated": 0,
+              "findingsResolved": 0,
+              "analyzerVersions": {
+                "semantic-duplicates": "1"
+              },
+              "reconciliationReceipts": {
+                "semantic:semantic-duplicates": 1790278617744
+              },
+              "status": "completed",
+              "completedAt": 1790278617744
+            },
+            "freshness": "verified",
+            "findingsCommitted": true,
+            "historyRecorded": true,
+            "diagnostics": []
+          },
+          "semanticScanRunning": false,
+          "semanticError": false,
+          "deepScanRunning": false,
+          "deepError": false,
+          "deepCancelled": false,
+          "busy": false,
+          "recovering": false
+        },
+        "knowledge": {
+          "scan": {
+            "id": "deep-f95ce2fe-929d-4771-9a13-4dc7afcc068e",
+            "type": "deep",
+            "startedAt": 1790278617904,
+            "notesSeen": 6,
+            "findingsCreated": 1,
+            "findingsUpdated": 0,
+            "findingsResolved": 0,
+            "analyzerVersions": {
+              "knowledge-quality": "1"
+            },
+            "reconciliationReceipts": {
+              "deep-ai:knowledge-quality": 1790278618928
+            },
+            "status": "completed",
+            "completedAt": 1790278618928
+          },
+          "freshness": "verified",
+          "findingsCommitted": true,
+          "historyRecorded": true,
+          "diagnostics": []
+        },
+        "authoring": {
+          "state": "success",
+          "configured": true,
+          "sourcePath": "Source.md",
+          "local": false,
+          "providerLabel": "Свой API",
+          "inputLimit": 32000,
+          "result": {
+            "status": "success",
+            "cardCount": 2
+          }
+        }
+      },
+      "evidence": {
+        "candidate-startup": {
+          "counts": {
+            "adapter.read": 3,
+            "plugin.read": 3,
+            "adapter.exists": 1,
+            "plugin.exists": 1
+          },
+          "requests": []
+        },
+        "first-health-open": {
+          "counts": {
+            "adapter.exists": 2,
+            "plugin.exists": 2
+          },
+          "requests": []
+        },
+        "passive-health": {
+          "counts": {},
+          "requests": []
+        },
+        "passive-findings": {
+          "counts": {},
+          "requests": []
+        },
+        "passive-discover": {
+          "counts": {},
+          "requests": []
+        },
+        "passive-recall": {
+          "counts": {},
+          "requests": []
+        },
+        "passive-connect": {
+          "counts": {
+            "adapter.write": 1
+          },
+          "requests": []
+        },
+        "passive-tools": {
+          "counts": {},
+          "requests": []
+        },
+        "passive-settings": {
+          "counts": {},
+          "requests": []
+        },
+        "semantic-metadata-load": {
+          "counts": {
+            "adapter.exists": 8,
+            "plugin.exists": 8,
+            "adapter.read": 2,
+            "plugin.read": 2,
+            "adapter.readBinary": 1,
+            "plugin.readBinary": 1,
+            "adapter.remove": 4,
+            "plugin.remove": 4
+          },
+          "requests": []
+        },
+        "semantic-search": {
+          "counts": {
+            "adapter.exists": 8,
+            "plugin.exists": 8,
+            "adapter.read": 2,
+            "plugin.read": 2,
+            "adapter.readBinary": 1,
+            "plugin.readBinary": 1,
+            "adapter.remove": 4,
+            "plugin.remove": 4,
+            "requestUrl": 1
+          },
+          "requests": [
+            {
+              "kind": "embedding",
+              "model": "release-embedding",
+              "inputCount": 1,
+              "chars": 76,
+              "credentialsCorrect": true
+            }
+          ]
+        },
+        "explicit-recall-find": {
+          "counts": {
+            "getMarkdownFiles": 2,
+            "read": 6,
+            "adapter.read": 6,
+            "adapter.exists": 4,
+            "plugin.exists": 1,
+            "adapter.mkdir": 1,
+            "plugin.mkdir": 1,
+            "adapter.write": 1,
+            "plugin.write": 1
+          },
+          "requests": []
+        },
+        "action-local": {
+          "counts": {
+            "getMarkdownFiles": 2,
+            "read": 6,
+            "adapter.read": 6,
+            "adapter.exists": 8,
+            "plugin.exists": 2,
+            "adapter.mkdir": 1,
+            "plugin.mkdir": 1,
+            "adapter.write": 2,
+            "plugin.write": 2
+          },
+          "requests": []
+        },
+        "action-semantic-health": {
+          "counts": {
+            "adapter.exists": 8,
+            "plugin.exists": 2,
+            "adapter.write": 2,
+            "plugin.write": 2
+          },
+          "requests": []
+        },
+        "action-deep-check": {
+          "counts": {
+            "requestUrl": 1
+          },
+          "requests": [
+            {
+              "kind": "llm",
+              "model": "release-llm",
+              "inputCount": 1,
+              "chars": 82,
+              "credentialsCorrect": true
+            }
+          ]
+        },
+        "action-knowledge": {
+          "counts": {
+            "requestUrl": 3,
+            "getMarkdownFiles": 3,
+            "cachedRead": 6,
+            "adapter.exists": 8,
+            "plugin.exists": 2,
+            "adapter.write": 2,
+            "plugin.write": 2
+          },
+          "requests": [
+            {
+              "kind": "llm",
+              "model": "release-llm",
+              "inputCount": 1,
+              "chars": 82,
+              "credentialsCorrect": true
+            },
+            {
+              "kind": "llm",
+              "model": "release-llm",
+              "inputCount": 1,
+              "chars": 2204,
+              "credentialsCorrect": true
+            },
+            {
+              "kind": "llm",
+              "model": "release-llm",
+              "inputCount": 1,
+              "chars": 1273,
+              "credentialsCorrect": true
+            }
+          ]
+        },
+        "action-authoring": {
+          "counts": {
+            "read": 3,
+            "adapter.read": 3,
+            "requestUrl": 1,
+            "process": 1,
+            "cachedRead": 1,
+            "adapter.readBinary": 1,
+            "adapter.exists": 4,
+            "plugin.exists": 1,
+            "adapter.write": 1,
+            "plugin.write": 1
+          },
+          "requests": [
+            {
+              "kind": "llm",
+              "model": "release-llm",
+              "inputCount": 1,
+              "chars": 1879,
+              "credentialsCorrect": true
+            }
+          ]
+        },
+        "action-openBatchProcessing": {
+          "counts": {
+            "getMarkdownFiles": 2
+          },
+          "requests": []
+        },
+        "action-openDeepAudit": {
+          "counts": {
+            "getMarkdownFiles": 1
+          },
+          "requests": []
+        },
+        "action-openAskVault": {
+          "counts": {},
+          "requests": []
+        },
+        "action-moc": {
+          "counts": {
+            "adapter.exists": 2,
+            "adapter.mkdir": 1,
+            "create": 1,
+            "adapter.write": 1,
+            "adapter.readBinary": 1
+          },
+          "requests": []
+        },
+        "action-batch": {
+          "counts": {
+            "read": 2,
+            "adapter.read": 6,
+            "adapter.write": 5,
+            "requestUrl": 4,
+            "adapter.exists": 19,
+            "adapter.mkdir": 1,
+            "process": 1,
+            "adapter.readBinary": 6,
+            "getMarkdownFiles": 2,
+            "cachedRead": 13,
+            "plugin.exists": 13,
+            "adapter.writeBinary": 2,
+            "plugin.writeBinary": 2,
+            "plugin.write": 2,
+            "plugin.read": 4,
+            "plugin.readBinary": 4,
+            "adapter.remove": 6,
+            "plugin.remove": 6,
+            "adapter.rename": 2,
+            "plugin.rename": 2,
+            "create": 1
+          },
+          "requests": [
+            {
+              "kind": "llm",
+              "model": "release-llm",
+              "inputCount": 1,
+              "chars": 366,
+              "credentialsCorrect": true
+            },
+            {
+              "kind": "embedding",
+              "model": "release-embedding",
+              "inputCount": 4,
+              "chars": 378,
+              "credentialsCorrect": true
+            },
+            {
+              "kind": "companion",
+              "inputCount": 1,
+              "chars": 1426,
+              "credentialsCorrect": true
+            },
+            {
+              "kind": "companion",
+              "inputCount": 1,
+              "chars": 1426,
+              "credentialsCorrect": true
+            }
+          ]
+        }
+      },
+      "assertions": [
+        "candidate version loaded",
+        "candidate startup metadata only",
+        "preserved setting provider",
+        "preserved setting apiKey",
+        "preserved setting model",
+        "preserved setting baseUrl",
+        "preserved setting temperature",
+        "preserved setting topK",
+        "preserved setting defaultInsertion",
+        "preserved setting newNoteFolder",
+        "preserved setting filenameTemplate",
+        "preserved setting mocFolder",
+        "preserved setting atomsLocation",
+        "preserved setting atomsFolder",
+        "preserved setting showContextMenu",
+        "preserved setting notifyOnCopy",
+        "preserved setting language",
+        "preserved setting deepAudit",
+        "preserved setting semantic",
+        "preserved setting semanticAutoSyncSuspended",
+        "preserved setting companion",
+        "all 20 published commands retained",
+        "current command IDs unique",
+        "hotkeys byte identical",
+        "enabled state byte identical",
+        "existing user gets optional Health profile onboarding",
+        "first Health open modifies no notes or settings",
+        "first upgrade Recall file remains absent",
+        "skip completes optional Health onboarding",
+        "health passive metadata only",
+        "findings passive metadata only",
+        "discover passive metadata only",
+        "recall passive metadata only",
+        "connect passive metadata only",
+        "tools passive metadata only",
+        "settings passive metadata only",
+        "native Recall missing store is valid first run",
+        "passive routes do not create Recall storage",
+        "compatible published index recognized without rebuild",
+        "Discover recognizes Ready index",
+        "index load does not rewrite bytes or contact provider",
+        "candidate searches published index",
+        "Deep Audit cached record preserved",
+        "old Deep cache is not trusted Knowledge Health coverage",
+        "explicit Find discovers four cards produced by published 1.8.0",
+        "Recall Find never mutates notes or uses network",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "all four ratings durably persisted",
+        "Local Health completes",
+        "Semantic Health completes",
+        "Deep setup check passes",
+        "Knowledge confirmation shown",
+        "Knowledge Health completes with deterministic MAP responses",
+        "explicit native Recall authoring succeeds",
+        "opening BatchProcessModal makes no provider request",
+        "opening AuditModeModal makes no provider request",
+        "opening AskVaultModal makes no provider request",
+        "MOC retains saved published cluster without model call",
+        "single-note Tools batch executes"
+      ]
+    },
+    "extra": {
+      "assertions": [
+        "native Connect test passes through protocol 1 transport",
+        "Connect sync requires explicit confirmation",
+        "native Connect sync reuses compatible 1.8 index",
+        "mirror sync sends no provider request",
+        "Ask Vault uses configured language model endpoint",
+        "streaming provider receives only its credential",
+        "Ask Vault has retrieved source context",
+        "native Ask Vault retrieves and streams deterministic answer",
+        "Tools single-note Deep Audit writes actual cache",
+        "Tools Deep Audit writes legacy report"
+      ],
+      "wire": [
+        {
+          "path": "/v1/status",
+          "method": "GET",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/reconcile/plan",
+          "method": "POST",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/sync/batch",
+          "method": "POST",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        }
+      ],
+      "ask": {
+        "sources": 8,
+        "answer": "Synthetic answer [S1]."
+      },
+      "reports": [
+        "Deep-Audit-9-24-2026 10-45-50 PM.md"
+      ],
+      "counts": {
+        "requestUrl": 15,
+        "adapter.exists": 10,
+        "plugin.exists": 8,
+        "adapter.read": 14,
+        "plugin.read": 4,
+        "adapter.readBinary": 3,
+        "plugin.readBinary": 1,
+        "adapter.remove": 4,
+        "plugin.remove": 4,
+        "getMarkdownFiles": 11,
+        "cachedRead": 15,
+        "read": 10,
+        "adapter.mkdir": 10,
+        "adapter.write": 13,
+        "plugin.write": 10,
+        "modify": 1,
+        "create": 2
+      }
+    },
+    "proposal": {
+      "assertions": [
+        "proposal listing and preview never write Markdown",
+        "approval is an explicit native control",
+        "explicit approval applies exactly once using Vault.process",
+        "approved bytes match proposal exactly",
+        "Companion requests isolate credentials"
+      ],
+      "counts": {
+        "requestUrl": 5,
+        "adapter.readBinary": 2,
+        "adapter.write": 1,
+        "read": 3,
+        "adapter.read": 3,
+        "process": 1
+      },
+      "wire": [
+        {
+          "path": "/v1/status",
+          "method": "GET",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/reconcile/plan",
+          "method": "POST",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/sync/batch",
+          "method": "POST",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/proposals",
+          "method": "GET",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/proposals/22222222-2222-4222-8222-222222222222",
+          "method": "GET",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/proposals/22222222-2222-4222-8222-222222222222/claim",
+          "method": "POST",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/proposals/22222222-2222-4222-8222-222222222222/complete",
+          "method": "POST",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        },
+        {
+          "path": "/v1/vaults/66666666-6666-4666-8666-666666666666/proposals",
+          "method": "GET",
+          "credentialsCorrect": true,
+          "noProviderKeys": true
+        }
+      ]
+    }
+  },
+  "largeVault": {
+    "measurement": "Native DOM construction and synchronous layout; no requestAnimationFrame wait in the headless display",
+    "host": "1.13.7",
+    "notes": 1008,
+    "findings": 1016,
+    "rendered": 1016,
+    "domNodes": 5109,
+    "cards": 4006,
+    "times": {
+      "localHealthMs": 925,
+      "findingsRenderMs": 222,
+      "filterMs": 212,
+      "detailMs": 211,
+      "recallRefreshMs": 392,
+      "recallReviewSaveMs": 190
+    },
+    "maxEventLoopGapMs": 684,
+    "heapBytes": 63370814,
+    "counts": {
+      "getMarkdownFiles": 5,
+      "read": 2016,
+      "adapter.read": 2016,
+      "adapter.exists": 16,
+      "plugin.exists": 4,
+      "adapter.write": 4,
+      "plugin.write": 4
+    }
+  },
+  "popout": {
+    "assertions": [
+      "positive cards produced by actual published 1.8.0",
+      "published generator creates supported Flashcards section",
+      "published artifact installed",
+      "published release wrote usable index",
+      "published release search works",
+      "new stores absent in published fixture",
+      "candidate version loaded",
+      "candidate startup metadata only",
+      "preserved setting provider",
+      "preserved setting apiKey",
+      "preserved setting model",
+      "preserved setting baseUrl",
+      "preserved setting temperature",
+      "preserved setting topK",
+      "preserved setting defaultInsertion",
+      "preserved setting newNoteFolder",
+      "preserved setting filenameTemplate",
+      "preserved setting mocFolder",
+      "preserved setting atomsLocation",
+      "preserved setting atomsFolder",
+      "preserved setting showContextMenu",
+      "preserved setting notifyOnCopy",
+      "preserved setting language",
+      "preserved setting deepAudit",
+      "preserved setting semantic",
+      "preserved setting semanticAutoSyncSuspended",
+      "preserved setting companion",
+      "all 20 published commands retained",
+      "current command IDs unique",
+      "hotkeys byte identical",
+      "enabled state byte identical",
+      "existing user gets optional Health profile onboarding",
+      "first Health open modifies no notes or settings",
+      "first upgrade Recall file remains absent",
+      "skip completes optional Health onboarding",
+      "health passive metadata only",
+      "findings passive metadata only",
+      "discover passive metadata only",
+      "recall passive metadata only",
+      "connect passive metadata only",
+      "tools passive metadata only",
+      "settings passive metadata only",
+      "native Recall missing store is valid first run",
+      "passive routes do not create Recall storage",
+      "compatible published index recognized without rebuild",
+      "Discover recognizes Ready index",
+      "index load does not rewrite bytes or contact provider",
+      "candidate searches published index",
+      "Deep Audit cached record preserved",
+      "old Deep cache is not trusted Knowledge Health coverage",
+      "explicit Find discovers four cards produced by published 1.8.0",
+      "Recall Find never mutates notes or uses network",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "answer initially hidden",
+      "answer revealed",
+      "four real rating controls",
+      "all four ratings durably persisted",
+      "Local Health completes",
+      "Semantic Health completes",
+      "Deep setup check passes",
+      "Knowledge confirmation shown",
+      "Knowledge Health completes with deterministic MAP responses",
+      "explicit native Recall authoring succeeds",
+      "opening BatchProcessModal makes no provider request",
+      "opening AuditModeModal makes no provider request",
+      "opening AskVaultModal makes no provider request",
+      "MOC retains saved published cluster without model call",
+      "single-note Tools batch executes",
+      "modern host retains all 35 rows and 27 settings",
+      "modern product group labels rendered",
+      "one native settings tab",
+      "all three secrets use password controls",
+      "modern Settings open is passive",
+      "native declarative callback persists",
+      "modern language switch uses update callback",
+      "modern native Settings search discovers product and technical aliases",
+      "large Local Health reconciled completely",
+      "large Local Health reconciled completely",
+      "large fixture produces at least 1000 findings",
+      "large filters deterministic",
+      "large Finding details open",
+      "large Recall inventory respects cap",
+      "large checks send no provider request and modify no notes",
+      "real workspace popout uses separate native document",
+      "popout shares controller owner",
+      "popout shares recall owner",
+      "popout shares semantic owner",
+      "popout shares connect owner",
+      "one shared Recall session in both views",
+      "rating in popout updates shared session once",
+      "real workspace popout uses separate native document",
+      "popout shares controller owner",
+      "popout shares recall owner",
+      "popout shares semantic owner",
+      "popout shares connect owner",
+      "one shared Recall session in both views",
+      "rating in popout updates shared session once",
+      "routes remain view local",
+      "popout close clears route DOM",
+      "popout subscriptions cleaned",
+      "final bundle preserves data.json",
+      "final bundle preserves recall/cards.json",
+      "final health fits",
+      "final findings fits",
+      "final discover fits",
+      "final recall fits",
+      "final connect fits",
+      "final tools fits",
+      "final settings fits",
+      "final load/routes passive",
+      "large Local Health reconciled completely",
+      "large fixture produces at least 1000 findings",
+      "large filters deterministic",
+      "large Finding details open",
+      "large Recall inventory respects cap",
+      "large checks send no provider request and modify no notes",
+      "large Local Health reconciled completely",
+      "large fixture produces at least 1000 findings",
+      "large filters deterministic",
+      "large Finding details open",
+      "large Recall inventory respects cap",
+      "large checks send no provider request and modify no notes",
+      "large Local Health reconciled completely",
+      "large fixture produces at least 1000 findings",
+      "large filters deterministic",
+      "large Finding details open",
+      "real workspace popout uses separate native document",
+      "popout shares controller owner",
+      "popout shares recall owner",
+      "popout shares semantic owner",
+      "popout shares connect owner",
+      "one shared Recall session in both views",
+      "large Recall inventory respects cap",
+      "large checks send no provider request and modify no notes",
+      "real workspace popout uses separate native document",
+      "popout shares controller owner",
+      "popout shares recall owner",
+      "popout shares semantic owner",
+      "popout shares connect owner",
+      "one shared Recall session in both views",
+      "rating in popout updates shared session once",
+      "routes remain view local",
+      "popout close clears route DOM",
+      "popout subscriptions cleaned"
+    ],
+    "sharedOwners": true,
+    "separateDocument": true
+  },
+  "cycles": {
+    "assertions": [
+      "registrations once per cycle",
+      "registrations once per cycle",
+      "registrations once per cycle",
+      "commands events ribbon settings view stable across cycles",
+      "all six editor actions exactly once",
+      "showContextMenu false hides legacy actions"
+    ],
+    "cycles": [
+      {
+        "commands": 21,
+        "ribbon": 1,
+        "settings": 1,
+        "view": true,
+        "workspace": {
+          "editor-menu": 5,
+          "file-open": 3,
+          "active-leaf-change": 2,
+          "layout-change": 2
+        },
+        "vault": {
+          "create": 4,
+          "rename": 10,
+          "delete": 7,
+          "modify": 6
+        },
+        "registered": 36
+      },
+      {
+        "commands": 21,
+        "ribbon": 1,
+        "settings": 1,
+        "view": true,
+        "workspace": {
+          "editor-menu": 5,
+          "file-open": 3,
+          "active-leaf-change": 2,
+          "layout-change": 2
+        },
+        "vault": {
+          "create": 4,
+          "rename": 10,
+          "delete": 7,
+          "modify": 6
+        },
+        "registered": 36
+      },
+      {
+        "commands": 21,
+        "ribbon": 1,
+        "settings": 1,
+        "view": true,
+        "workspace": {
+          "editor-menu": 5,
+          "file-open": 3,
+          "active-leaf-change": 2,
+          "layout-change": 2
+        },
+        "vault": {
+          "create": 4,
+          "rename": 10,
+          "delete": 7,
+          "modify": 6
+        },
+        "registered": 36
+      }
+    ],
+    "context": [
+      "Improve style",
+      "Shorten",
+      "Rephrase",
+      "Generate Dataview",
+      "Flashcards",
+      "Split note into atomic notes"
+    ],
+    "hotkeys": [
+      {
+        "modifiers": [
+          "Mod",
+          "Shift"
+        ],
+        "key": "Y"
+      }
+    ]
+  },
+  "unload": {
+    "assertions": [
+      "local unload removes commands",
+      "local only native inactive-plugin placeholder remains",
+      "local no product DOM resurrection",
+      "local re-enable one settings tab",
+      "semantic unload removes commands",
+      "semantic only native inactive-plugin placeholder remains",
+      "semantic no product DOM resurrection",
+      "semantic re-enable one settings tab",
+      "knowledge unload removes commands",
+      "knowledge only native inactive-plugin placeholder remains",
+      "knowledge no product DOM resurrection",
+      "knowledge re-enable one settings tab",
+      "recall-save unload removes commands",
+      "recall-save only native inactive-plugin placeholder remains",
+      "recall-save no product DOM resurrection",
+      "recall-save re-enable one settings tab",
+      "authoring unload removes commands",
+      "authoring only native inactive-plugin placeholder remains",
+      "authoring no product DOM resurrection",
+      "authoring re-enable one settings tab",
+      "connect-test unload removes commands",
+      "connect-test only native inactive-plugin placeholder remains",
+      "connect-test no product DOM resurrection",
+      "connect-test re-enable one settings tab",
+      "connect-sync unload removes commands",
+      "connect-sync only native inactive-plugin placeholder remains",
+      "connect-sync no product DOM resurrection",
+      "connect-sync re-enable one settings tab"
+    ],
+    "operations": [
+      {
+        "kind": "local",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      },
+      {
+        "kind": "semantic",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      },
+      {
+        "kind": "knowledge",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      },
+      {
+        "kind": "recall-save",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      },
+      {
+        "kind": "authoring",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      },
+      {
+        "kind": "connect-test",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      },
+      {
+        "kind": "connect-sync",
+        "entered": true,
+        "completedWithoutUiResurrection": true
+      }
+    ]
+  },
+  "recovery": {
+    "assertions": [
+      "Health corrupt metadata shows recovery",
+      "explicit recovery confirmation",
+      "Cancel initially focused",
+      "cancel preserves corrupt bytes",
+      "scoped Health recovery succeeds",
+      "recovery preserves data.json",
+      "recovery preserves health/findings.json",
+      "recovery preserves recall/cards.json",
+      "recovery preserves semantic-index/vector-manifest.json",
+      "recovery preserves semantic-index/vector-index.bin",
+      "recovery preserves note-index.json",
+      "Health corrupt metadata shows recovery",
+      "explicit recovery confirmation",
+      "Cancel initially focused",
+      "cancel preserves corrupt bytes",
+      "scoped Health recovery succeeds",
+      "recovery preserves data.json",
+      "recovery preserves recall/cards.json",
+      "recovery preserves semantic-index/vector-manifest.json",
+      "recovery preserves semantic-index/vector-index.bin",
+      "recovery preserves note-index.json",
+      "Recall explicit recovery confirmation",
+      "recovery preserves data.json",
+      "recovery preserves health/findings.json",
+      "recovery preserves health/scan-runs.json",
+      "recovery preserves semantic-index/vector-manifest.json",
+      "recovery preserves semantic-index/vector-index.bin",
+      "recovery preserves note-index.json",
+      "semantic corrupt state is visible",
+      "semantic passive load preserves bad bytes",
+      "recovery preserves data.json",
+      "recovery preserves health/findings.json",
+      "recovery preserves health/scan-runs.json",
+      "recovery preserves recall/cards.json",
+      "recovery preserves semantic-index/vector-index.bin",
+      "recovery preserves note-index.json"
+    ],
+    "evidence": [
+      {
+        "file": "health/scan-runs.json",
+        "scope": "history",
+        "backup": true
+      },
+      {
+        "file": "health/findings.json",
+        "scope": "all",
+        "backup": true
+      },
+      {
+        "file": "recall/cards.json",
+        "scope": "recall",
+        "backup": true
+      },
+      {
+        "file": "semantic-index/vector-manifest.json",
+        "scope": "blocked-preserved"
+      }
+    ]
+  },
+  "keyboard": {
+    "hotkey": true,
+    "reveal": true,
+    "focus": {
+      "tag": "BUTTON",
+      "text": "Again1 min",
+      "outline": "solid",
+      "live": true
+    }
+  },
+  "presentationCases": 112,
+  "desktop": {
+    "minimum": {
+      "runtime": "1.8.7",
+      "isMobile": false,
+      "viewport": {
+        "width": 1024,
+        "height": 800
+      },
+      "routes": [
+        {
+          "route": "health",
+          "width": 968,
+          "scrollWidth": 968
+        },
+        {
+          "route": "findings",
+          "width": 968,
+          "scrollWidth": 968
+        },
+        {
+          "route": "discover",
+          "width": 980,
+          "scrollWidth": 980
+        },
+        {
+          "route": "recall",
+          "width": 980,
+          "scrollWidth": 980
+        },
+        {
+          "route": "connect",
+          "width": 968,
+          "scrollWidth": 968
+        },
+        {
+          "route": "tools",
+          "width": 968,
+          "scrollWidth": 968
+        },
+        {
+          "route": "settings",
+          "width": 968,
+          "scrollWidth": 968
+        }
+      ],
+      "commands": [
+        "ai-knowledge-hub:ai-atomize-note",
+        "ai-knowledge-hub:ai-batch-process",
+        "ai-knowledge-hub:ai-dataview-generate",
+        "ai-knowledge-hub:ai-deep-vault-audit",
+        "ai-knowledge-hub:ai-flashcards-note",
+        "ai-knowledge-hub:ai-generate-mocs",
+        "ai-knowledge-hub:ai-hub-open-panel",
+        "ai-knowledge-hub:ai-rag-ask-vault",
+        "ai-knowledge-hub:ai-selection",
+        "ai-knowledge-hub:ai-semantic-clear-index",
+        "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+        "ai-knowledge-hub:ai-semantic-find-similar-notes",
+        "ai-knowledge-hub:ai-semantic-index-current-note",
+        "ai-knowledge-hub:ai-semantic-index-vault",
+        "ai-knowledge-hub:ai-semantic-rebuild-index",
+        "ai-knowledge-hub:ai-semantic-search",
+        "ai-knowledge-hub:ai-simple-append",
+        "ai-knowledge-hub:ai-vault-append",
+        "ai-knowledge-hub:ai-vault-audit",
+        "ai-knowledge-hub:review-ai-change-proposals",
+        "ai-knowledge-hub:veynrel-open-health"
+      ],
+      "counts": {
+        "adapter.read": 6,
+        "plugin.read": 6,
+        "adapter.exists": 4,
+        "plugin.exists": 4
+      },
+      "assertionsPassed": 53
+    },
+    "minimumSettings": {
+      "host": "1.8.7",
+      "modernDocument": false,
+      "rows": 35,
+      "keys": 27,
+      "passwordCount": 3,
+      "searchInputs": [],
+      "assertionsPassed": 60
+    },
+    "modernSettings": {
+      "assertions": [
+        "candidate version loaded",
+        "candidate startup metadata only",
+        "preserved setting provider",
+        "preserved setting apiKey",
+        "preserved setting model",
+        "preserved setting baseUrl",
+        "preserved setting temperature",
+        "preserved setting topK",
+        "preserved setting defaultInsertion",
+        "preserved setting newNoteFolder",
+        "preserved setting filenameTemplate",
+        "preserved setting mocFolder",
+        "preserved setting atomsLocation",
+        "preserved setting atomsFolder",
+        "preserved setting showContextMenu",
+        "preserved setting notifyOnCopy",
+        "preserved setting language",
+        "preserved setting deepAudit",
+        "preserved setting semantic",
+        "preserved setting semanticAutoSyncSuspended",
+        "preserved setting companion",
+        "all 20 published commands retained",
+        "current command IDs unique",
+        "hotkeys byte identical",
+        "enabled state byte identical",
+        "existing user gets optional Health profile onboarding",
+        "first Health open modifies no notes or settings",
+        "first upgrade Recall file remains absent",
+        "skip completes optional Health onboarding",
+        "health passive metadata only",
+        "findings passive metadata only",
+        "discover passive metadata only",
+        "recall passive metadata only",
+        "connect passive metadata only",
+        "tools passive metadata only",
+        "settings passive metadata only",
+        "native Recall missing store is valid first run",
+        "passive routes do not create Recall storage",
+        "compatible published index recognized without rebuild",
+        "Discover recognizes Ready index",
+        "index load does not rewrite bytes or contact provider",
+        "candidate searches published index",
+        "Deep Audit cached record preserved",
+        "old Deep cache is not trusted Knowledge Health coverage",
+        "explicit Find discovers four cards produced by published 1.8.0",
+        "Recall Find never mutates notes or uses network",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "answer initially hidden",
+        "answer revealed",
+        "four real rating controls",
+        "all four ratings durably persisted",
+        "Local Health completes",
+        "Semantic Health completes",
+        "Deep setup check passes",
+        "Knowledge confirmation shown",
+        "Knowledge Health completes with deterministic MAP responses",
+        "explicit native Recall authoring succeeds",
+        "opening BatchProcessModal makes no provider request",
+        "opening AuditModeModal makes no provider request",
+        "opening AskVaultModal makes no provider request",
+        "MOC retains saved published cluster without model call",
+        "single-note Tools batch executes",
+        "native search result rows for Deep Intelligence",
+        "native search result rows for Semantic",
+        "native search result rows for Companion",
+        "native search result rows for Connect",
+        "native search result rows for MCP",
+        "native search result rows for MOC",
+        "native search result rows for Atoms",
+        "native search result rows for Insertion",
+        "native search selection opens Veynrel settings",
+        "modern host retains all 35 rows and 27 settings",
+        "modern product group labels rendered",
+        "one native settings tab",
+        "all three secrets use password controls",
+        "modern Settings open is passive",
+        "native declarative callback persists",
+        "modern language switch uses update callback"
+      ],
+      "host": "1.13.7",
+      "modernDocument": true,
+      "rows": 35,
+      "keys": 27,
+      "passwordCount": 3,
+      "groupsRu": [
+        "",
+        "Deep Intelligence — расширенные настройки",
+        "Semantic Intelligence — расширенные настройки",
+        "Veynrel Connect — расширенные настройки",
+        "Глубокий анализ — настройка Deep Audit",
+        "Написание и сохранение",
+        "Интерфейс"
+      ],
+      "inputs": [
+        {
+          "placeholder": "Search settings...",
+          "type": "search",
+          "cls": ""
+        },
+        {
+          "placeholder": "API key (if required)",
+          "type": "password",
+          "cls": ""
+        },
+        {
+          "placeholder": "model-name",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "https://your-api/v1",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "",
+          "type": "range",
+          "cls": "slider"
+        },
+        {
+          "placeholder": "",
+          "type": "checkbox",
+          "cls": ""
+        },
+        {
+          "placeholder": "text-embedding-3-small",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "https://api.openai.com/v1",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "sk-...",
+          "type": "password",
+          "cls": ""
+        },
+        {
+          "placeholder": "",
+          "type": "checkbox",
+          "cls": ""
+        },
+        {
+          "placeholder": "http://127.0.0.1:27124",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "••••••••••••",
+          "type": "password",
+          "cls": ""
+        },
+        {
+          "placeholder": "",
+          "type": "number",
+          "cls": ""
+        },
+        {
+          "placeholder": "",
+          "type": "range",
+          "cls": "slider"
+        },
+        {
+          "placeholder": "",
+          "type": "range",
+          "cls": "slider"
+        },
+        {
+          "placeholder": "",
+          "type": "range",
+          "cls": "slider"
+        },
+        {
+          "placeholder": "AI-Responses",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "MOCs/",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "Atoms/",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "AI-{{date}}-{{topic}}",
+          "type": "text",
+          "cls": ""
+        },
+        {
+          "placeholder": "",
+          "type": "checkbox",
+          "cls": ""
+        },
+        {
+          "placeholder": "",
+          "type": "checkbox",
+          "cls": ""
+        }
+      ],
+      "text": "Settings - vault - Obsidian 1.13.7\nVeynrel\nЯзыковая модель\nСвой API\nAPI key\n4 more\nVeynrel\nНастройки плагина\nDeep Intelligence — расширенные настройки\nOpenRouter\n100+ моделей, есть бесплатные\nOllama\nЛокально, приватно, бесплатно\nOpenAI\nGPT-4o, o1 и другие\nGroq\nСверхбыстрый inference\nСвой API\nЛюбой OpenAI-совместимый\nCustom OpenAI-совместимый API\nУкажи Base URL и при необходимости API ключ. Модель — как требует провайдер.\nAPI key\nЕсли требуется провайдером\nМодель\nID модели провайдера\nBase URL\nURL",
+      "searchInputs": [
+        {
+          "placeholder": "Search settings...",
+          "cls": ""
+        }
+      ]
+    },
+    "modernSearch": {
+      "host": "1.13.7",
+      "results": [
+        {
+          "term": "Deep Intelligence",
+          "active": true,
+          "found": true,
+          "items": [
+            "Language model",
+            "Custom API",
+            "API key",
+            "Model",
+            "Base URL",
+            "Temperature",
+            "Test connection"
+          ]
+        },
+        {
+          "term": "Semantic",
+          "active": true,
+          "found": true,
+          "items": [
+            "Enable semantic features",
+            "Automatic semantic index synchronization",
+            "Embedding provider",
+            "Embedding model",
+            "Embeddings base URL",
+            "Embeddings API key",
+            "Test embeddings",
+            "Semantic index controls",
+            "Enable Companion"
+          ]
+        },
+        {
+          "term": "Companion",
+          "active": true,
+          "found": true,
+          "items": [
+            "Enable Companion",
+            "Companion endpoint",
+            "Companion token",
+            "Companion timeout (ms)",
+            "Companion connection"
+          ]
+        },
+        {
+          "term": "Connect",
+          "active": true,
+          "found": true,
+          "items": [
+            "Enable Companion",
+            "Companion endpoint",
+            "Companion token",
+            "Companion timeout (ms)",
+            "Companion connection",
+            "Test connection"
+          ]
+        },
+        {
+          "term": "MCP",
+          "active": true,
+          "found": true,
+          "items": [
+            "Enable Companion",
+            "Companion endpoint",
+            "Companion token",
+            "Companion timeout (ms)",
+            "Companion connection"
+          ]
+        },
+        {
+          "term": "MOC",
+          "active": true,
+          "found": true,
+          "items": [
+            "Default insertion point",
+            "Folder for new notes",
+            "Folder for MOC notes",
+            "Where to put atomic notes",
+            "Folder for atomic notes",
+            "Filename template"
+          ]
+        },
+        {
+          "term": "Atoms",
+          "active": true,
+          "found": true,
+          "items": [
+            "Default insertion point",
+            "Folder for new notes",
+            "Folder for MOC notes",
+            "Where to put atomic notes",
+            "Folder for atomic notes",
+            "Filename template"
+          ]
+        },
+        {
+          "term": "Insertion",
+          "active": true,
+          "found": true,
+          "items": [
+            "Default insertion point",
+            "Folder for new notes",
+            "Folder for MOC notes",
+            "Where to put atomic notes",
+            "Folder for atomic notes",
+            "Filename template"
+          ]
+        },
+        {
+          "term": "Recall",
+          "active": true,
+          "found": false,
+          "items": []
+        }
+      ],
+      "selectedTab": "ai-knowledge-hub"
+    },
+    "englishMetadata": {
+      "rows": []
+    },
+    "minimumFinalReload": {
+      "runtime": "1.8.7",
+      "routes": [
+        "health",
+        "findings",
+        "discover",
+        "recall",
+        "connect",
+        "tools",
+        "settings"
+      ],
+      "commands": 21,
+      "preserved": [
+        "data.json",
+        "recall/cards.json"
+      ],
+      "recall": {
+        "active": 8,
+        "due": 6,
+        "new": 0,
+        "learning": 6,
+        "review": 2,
+        "relearning": 0
+      },
+      "viewport": 1024
+    }
+  },
+  "mobile": {
+    "width390": {
+      "runtime": "1.13.8",
+      "isMobile": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "routes": [
+        {
+          "route": "health",
+          "width": 385,
+          "scrollWidth": 385
+        },
+        {
+          "route": "findings",
+          "width": 390,
+          "scrollWidth": 390
+        },
+        {
+          "route": "discover",
+          "width": 390,
+          "scrollWidth": 390
+        },
+        {
+          "route": "recall",
+          "width": 385,
+          "scrollWidth": 385
+        },
+        {
+          "route": "connect",
+          "width": 385,
+          "scrollWidth": 385
+        },
+        {
+          "route": "tools",
+          "width": 385,
+          "scrollWidth": 385
+        },
+        {
+          "route": "settings",
+          "width": 385,
+          "scrollWidth": 385
+        }
+      ],
+      "commands": [
+        "ai-knowledge-hub:ai-atomize-note",
+        "ai-knowledge-hub:ai-batch-process",
+        "ai-knowledge-hub:ai-dataview-generate",
+        "ai-knowledge-hub:ai-deep-vault-audit",
+        "ai-knowledge-hub:ai-flashcards-note",
+        "ai-knowledge-hub:ai-generate-mocs",
+        "ai-knowledge-hub:ai-hub-open-panel",
+        "ai-knowledge-hub:ai-rag-ask-vault",
+        "ai-knowledge-hub:ai-selection",
+        "ai-knowledge-hub:ai-semantic-clear-index",
+        "ai-knowledge-hub:ai-semantic-find-potential-duplicates",
+        "ai-knowledge-hub:ai-semantic-find-similar-notes",
+        "ai-knowledge-hub:ai-semantic-index-current-note",
+        "ai-knowledge-hub:ai-semantic-index-vault",
+        "ai-knowledge-hub:ai-semantic-rebuild-index",
+        "ai-knowledge-hub:ai-semantic-search",
+        "ai-knowledge-hub:ai-simple-append",
+        "ai-knowledge-hub:ai-vault-append",
+        "ai-knowledge-hub:ai-vault-audit",
+        "ai-knowledge-hub:review-ai-change-proposals",
+        "ai-knowledge-hub:veynrel-open-health"
+      ],
+      "counts": {
+        "adapter.read": 6,
+        "plugin.read": 6,
+        "adapter.exists": 4,
+        "plugin.exists": 4
+      },
+      "assertionsPassed": 53
+    },
+    "width320": {
+      "runtime": "1.13.8",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "routes": [
+        {
+          "route": "health",
+          "width": 315,
+          "scroll": 315
+        },
+        {
+          "route": "findings",
+          "width": 320,
+          "scroll": 320
+        },
+        {
+          "route": "discover",
+          "width": 320,
+          "scroll": 320
+        },
+        {
+          "route": "recall",
+          "width": 315,
+          "scroll": 315
+        },
+        {
+          "route": "connect",
+          "width": 315,
+          "scroll": 315
+        },
+        {
+          "route": "tools",
+          "width": 315,
+          "scroll": 315
+        },
+        {
+          "route": "settings",
+          "width": 315,
+          "scroll": 315
+        }
+      ],
+      "summary": {
+        "active": 12,
+        "due": 2,
+        "new": 2,
+        "learning": 9,
+        "review": 3,
+        "relearning": 0
+      },
+      "assertionsPassed": 11
+    },
+    "finalReload": {
+      "runtime": "1.13.8",
+      "routes": [
+        "health",
+        "findings",
+        "discover",
+        "recall",
+        "connect",
+        "tools",
+        "settings"
+      ],
+      "commands": 21,
+      "preserved": [
+        "data.json",
+        "recall/cards.json"
+      ],
+      "recall": {
+        "active": 12,
+        "due": 9,
+        "new": 2,
+        "learning": 9,
+        "review": 3,
+        "relearning": 0
+      },
+      "viewport": 320
+    }
+  },
+  "bundle": {
+    "artifacts": {
+      "main.js": {
+        "bytes": 765344,
+        "sha256": "ef5a1deff49120e1fa730c5bcf75d6399f773730523d69ac9392ac841e078c32"
+      },
+      "manifest.json": {
+        "bytes": 349,
+        "sha256": "b018c1d54c7a94044007f80e25a330f20e0ebdea9597e3bd56e3a8570489ac9f"
+      },
+      "styles.css": {
+        "bytes": 66344,
+        "sha256": "16ca3bf971baf678a13302ab66c47c938ba6c8928fe5af96d16e31b92660247e"
+      }
+    },
+    "inputs": 162,
+    "disallowedInputs": [],
+    "externalImports": [
+      "obsidian"
+    ]
+  },
+  "tests": {
+    "health": 828,
+    "semantic": 347,
+    "recall": 557,
+    "connect": 50,
+    "deep": 103,
+    "full": 2335,
+    "files": 96
+  },
+  "dependencies": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 4,
+      "high": 3,
+      "critical": 0,
+      "total": 7
+    },
+    "dependencies": {
+      "prod": 1,
+      "dev": 431,
+      "optional": 82,
+      "peer": 33,
+      "peerOptional": 0,
+      "total": 431
+    }
+  },
+  "limitations": [
+    "Synthetic deterministic providers only; live providers unverified",
+    "Linux desktop and Android emulator only; iOS, physical devices, macOS and Windows unverified",
+    "No screen-reader certification or custom-theme coverage",
+    "Existing direct/multi-file storage boundaries are not crash-atomic"
+  ],
+  "setupRecoveryPresentationCases": 64,
+  "nativeArtifactScope": {
+    "finalMainSha256": "ef5a1deff49120e1fa730c5bcf75d6399f773730523d69ac9392ac841e078c32",
+    "finalBundle": [
+      "published-asset upgrade and passive routes",
+      "product actions and proposal approval",
+      "modern settings and search/localization",
+      "112 route and 64 setup/recovery layouts",
+      "7 active-operation unloads and 3 enable cycles",
+      "scoped recovery",
+      "popout",
+      "large-vault correctness and DOM/layout timings",
+      "desktop keyboard",
+      "minimum desktop and Android final asset reload/navigation"
+    ],
+    "earlierBundle": {
+      "mainSha256": "5e3397b5471ed80456bfce5fefe1118b92b82b9e9adcf1a5371c613b50191606",
+      "checks": [
+        "14-file upgrade hash comparison",
+        "full minimum-desktop action and legacy-settings matrix",
+        "full Android inventory/reveal/four-ratings/persistence at 320 and 390"
+      ],
+      "subsequentChange": "Only existing Advanced control translations and their regressions changed. Final asset replacement retained saved settings/cards and all seven routes on both platforms."
+    }
+  },
+  "automated": [
+    {
+      "command": "npm run typecheck",
+      "exit": 0,
+      "seconds": 10.31,
+      "log": "/tmp/veynrel-1.9-release/logs/00.log"
+    },
+    {
+      "command": "npm test -- health",
+      "exit": 0,
+      "seconds": 6.56,
+      "log": "/tmp/veynrel-1.9-release/logs/01.log"
+    },
+    {
+      "command": "npm test -- semantic",
+      "exit": 0,
+      "seconds": 2.69,
+      "log": "/tmp/veynrel-1.9-release/logs/02.log"
+    },
+    {
+      "command": "npm test -- recall",
+      "exit": 0,
+      "seconds": 4.71,
+      "log": "/tmp/veynrel-1.9-release/logs/03.log"
+    },
+    {
+      "command": "npm test -- connect",
+      "exit": 0,
+      "seconds": 2.15,
+      "log": "/tmp/veynrel-1.9-release/logs/04.log"
+    },
+    {
+      "command": "npm test -- deep",
+      "exit": 0,
+      "seconds": 2.38,
+      "log": "/tmp/veynrel-1.9-release/logs/05.log"
+    },
+    {
+      "command": "npm test",
+      "exit": 0,
+      "seconds": 10.4,
+      "log": "/tmp/veynrel-1.9-release/logs/06.log"
+    },
+    {
+      "command": "npx eslint health semantic recall connect deep companionSync proposals",
+      "exit": 0,
+      "seconds": 21.74,
+      "log": "/tmp/veynrel-1.9-release/logs/07.log"
+    },
+    {
+      "command": "npm run lint",
+      "exit": 0,
+      "seconds": 48.06,
+      "log": "/tmp/veynrel-1.9-release/logs/08.log"
+    },
+    {
+      "command": "npm run audit:proposals",
+      "exit": 0,
+      "seconds": 8.99,
+      "log": "/tmp/veynrel-1.9-release/logs/09.log"
+    },
+    {
+      "command": "npm audit --json",
+      "exit": 1,
+      "seconds": 1.66,
+      "log": "/tmp/veynrel-1.9-release/logs/10.log"
+    },
+    {
+      "command": "npm audit --omit=dev --json",
+      "exit": 0,
+      "seconds": 0.34,
+      "log": "/tmp/veynrel-1.9-release/logs/11.log"
+    },
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "seconds": 0.26,
+      "log": "/tmp/veynrel-1.9-release/logs/12.log"
+    }
+  ]
+}
