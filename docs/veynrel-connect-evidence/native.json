@@ -1,0 +1,1293 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-09-24T17:03:43.532Z",
+  "baseline": "9ae480c601a77c67be2ae43296d70bee925444ff",
+  "implementationCommit": "77313bb675919d0f01138d1aa0a385ae3a0043e4",
+  "finalBundleSha256": {
+    "main.js": "3afc4fd16408618d067efd2361340d61249148303c45e54c7d79cd0bf07370e8",
+    "styles.css": "9982d2f03a235cb8ad29fa26c6183bf0ef51a196329459e3fccdcd3d50f3ea77",
+    "manifest.json": "2722c7d38ec37e1faebf5f7e84d8443f4aa6f2cd793eb5761ce9f7c5fd92cd39"
+  },
+  "syntheticDisposableDataOnly": true,
+  "companion": {
+    "repository": "zinverno/veynrel-companion",
+    "checkout": "../vault-audit-ai-companion",
+    "head": "62ff1b6ed0fd04290e6ab00216d5c6b51d94db5c",
+    "unmodified": true,
+    "protocolVersion": 1,
+    "qdrantEnabled": false
+  },
+  "method": "Real isolated Obsidian Desktop, existing real sibling Companion, real MCP client, synthetic deterministic local embeddings.",
+  "limitations": [
+    "Remote HTTPS-address fixture redirected only its test transport to the disposable local Companion; no live Internet TLS or remote deployment certification.",
+    "Initial end-to-end coverage preceded the two final review fixes; final-build replay includes restart, connection, full sync, Disable race, automatic incremental sync, MCP retrieval/search, Reject and exact Approve.",
+    "Obsidian updated its disposable profile from 1.12.7 to 1.13.7 on process restart; final build ran on 1.13.7 / Electron 39.8.10.",
+    "No native mobile, popout, screen-reader, custom-theme or Qdrant certification."
+  ],
+  "initial": {
+    "runtime": {
+      "obsidian": "1.12.7",
+      "electron": "39.8.10"
+    },
+    "phases": {
+      "startup": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "open-connect": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "local-connect": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 1
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "disable": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 1
+        },
+        "requests": []
+      },
+      "explicit-semantic-build": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 2,
+          "cachedRead": 2,
+          "read": 0,
+          "getMarkdownFiles": 2,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 3
+        },
+        "requests": [
+          {
+            "path": "/v1/embeddings",
+            "method": "POST",
+            "bodyKeys": [
+              "model",
+              "input",
+              "encoding_format"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/embeddings",
+            "method": "POST",
+            "bodyKeys": [
+              "model",
+              "input",
+              "encoding_format"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "sync-disclosure": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "confirmed-sync": {
+        "counts": {
+          "companionRequest": 2,
+          "embeddingRequest": 0,
+          "cachedRead": 2,
+          "read": 0,
+          "getMarkdownFiles": 1,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/reconcile/plan",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "notes"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/sync/batch",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "operations"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "queued-proposals-passive": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "proposal-rejected": {
+        "counts": {
+          "companionRequest": 4,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/reject",
+            "method": "POST",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "proposal-approved": {
+        "counts": {
+          "companionRequest": 3,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 1,
+          "getMarkdownFiles": 0,
+          "process": 1,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/claim",
+            "method": "POST",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/complete",
+            "method": "POST",
+            "bodyKeys": [
+              "claimId",
+              "status"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "post-approval-auto-sync": {
+        "counts": {
+          "companionRequest": 5,
+          "embeddingRequest": 1,
+          "cachedRead": 4,
+          "read": 1,
+          "getMarkdownFiles": 2,
+          "process": 1,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 2
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/claim",
+            "method": "POST",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/complete",
+            "method": "POST",
+            "bodyKeys": [
+              "claimId",
+              "status"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/embeddings",
+            "method": "POST",
+            "bodyKeys": [
+              "model",
+              "input",
+              "encoding_format"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/reconcile/plan",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "notes"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/sync/batch",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "operations"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "two-views-check": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "close-one-view": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "advanced-live-edits": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 4
+        },
+        "requests": []
+      },
+      "remote-https-fixture": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 1
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": true
+          }
+        ]
+      },
+      "remote-sync-cancel": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "late-connect": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 1
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "presentation": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 13
+        },
+        "requests": []
+      },
+      "reload-check": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      }
+    }
+  },
+  "final": {
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "39.8.10"
+    },
+    "phases": {
+      "startup": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "open-connect": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "restart-configured": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "restart-check": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "semantic-prerequisite": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "final-disable-during-save": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 2
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": true
+          }
+        ]
+      },
+      "final-local-connect": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 1
+        },
+        "requests": [
+          {
+            "path": "/v1/status",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "final-full-reconciliation": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 0,
+          "cachedRead": 2,
+          "read": 0,
+          "getMarkdownFiles": 1,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/reconcile/plan",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "notes"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "presentation": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 13
+        },
+        "requests": []
+      },
+      "final-background-1": {
+        "counts": {
+          "companionRequest": 2,
+          "embeddingRequest": 1,
+          "cachedRead": 4,
+          "read": 0,
+          "getMarkdownFiles": 2,
+          "process": 1,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 3
+        },
+        "requests": [
+          {
+            "path": "/v1/embeddings",
+            "method": "POST",
+            "bodyKeys": [
+              "model",
+              "input",
+              "encoding_format"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/reconcile/plan",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "notes"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/sync/batch",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "operations"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "final-background-2": {
+        "counts": {
+          "companionRequest": 1,
+          "embeddingRequest": 1,
+          "cachedRead": 2,
+          "read": 0,
+          "getMarkdownFiles": 2,
+          "process": 1,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 2
+        },
+        "requests": [
+          {
+            "path": "/v1/embeddings",
+            "method": "POST",
+            "bodyKeys": [
+              "model",
+              "input",
+              "encoding_format"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/sync/batch",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "operations"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "queued-proposals-passive": {
+        "counts": {
+          "companionRequest": 0,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": []
+      },
+      "proposal-rejected": {
+        "counts": {
+          "companionRequest": 4,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 0,
+          "getMarkdownFiles": 0,
+          "process": 0,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/reject",
+            "method": "POST",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "proposal-approved": {
+        "counts": {
+          "companionRequest": 3,
+          "embeddingRequest": 0,
+          "cachedRead": 0,
+          "read": 1,
+          "getMarkdownFiles": 0,
+          "process": 1,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 0
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/claim",
+            "method": "POST",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/complete",
+            "method": "POST",
+            "bodyKeys": [
+              "claimId",
+              "status"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      },
+      "post-approval-auto-sync": {
+        "counts": {
+          "companionRequest": 4,
+          "embeddingRequest": 1,
+          "cachedRead": 2,
+          "read": 1,
+          "getMarkdownFiles": 2,
+          "process": 1,
+          "modify": 0,
+          "create": 0,
+          "delete": 0,
+          "rename": 0,
+          "healthWrite": 0,
+          "recallWrite": 0,
+          "markdownWrite": 0,
+          "otherWrite": 2
+        },
+        "requests": [
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/claim",
+            "method": "POST",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals/[id]/complete",
+            "method": "POST",
+            "bodyKeys": [
+              "claimId",
+              "status"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/proposals",
+            "method": "GET",
+            "bodyKeys": [],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/embeddings",
+            "method": "POST",
+            "bodyKeys": [
+              "model",
+              "input",
+              "encoding_format"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          },
+          {
+            "path": "/v1/vaults/[id]/sync/batch",
+            "method": "POST",
+            "bodyKeys": [
+              "protocolVersion",
+              "generation",
+              "descriptor",
+              "operations"
+            ],
+            "forbidden": false,
+            "remoteFixture": false
+          }
+        ]
+      }
+    }
+  },
+  "mcp": {
+    "tools": [
+      "vault_status",
+      "list_notes",
+      "get_note",
+      "get_chunks",
+      "search_vault",
+      "propose_change",
+      "get_proposal"
+    ],
+    "getNote": true,
+    "search": true,
+    "proposalsQueued": 2
+  },
+  "assertionCount": 98,
+  "assertions": [
+    "Plugin loaded",
+    "startup has zero Companion/proposal/mirror/Markdown/provider work",
+    "Connect adapts the existing Semantic-owned Companion service",
+    "opening Connect is passive",
+    "initial state Disabled",
+    "five main navigation tabs",
+    "local setup needs no endpoint input",
+    "token uses password input with autocomplete off",
+    "explicit local Connect reaches Connected",
+    "Connect makes one bodyless status request",
+    "Connect sends no Vault data and touches no Health or Recall storage",
+    "token absent from snapshot and normal DOM",
+    "Simple setup shares authoritative settings and preserves timeout",
+    "Disable makes no network or Vault changes",
+    "Disable preserves Companion token",
+    "Disable explains retained server data",
+    "explicit Semantic indexing produces usable index",
+    "Semantic index built with Connect disabled performs no mirror sync",
+    "first Sync now click does no network or Markdown work",
+    "sync disclosure heading receives keyboard focus",
+    "sync disclosure includes Stable Vault identity",
+    "sync disclosure includes Vault-relative note paths",
+    "sync disclosure includes Markdown content",
+    "sync disclosure includes Chunk text",
+    "sync disclosure includes Note, chunk and source metadata",
+    "sync disclosure includes Embeddings",
+    "sync disclosure includes Semantic descriptor metadata",
+    "Cancel sync does no work",
+    "navigation cancels sync without work",
+    "explicit confirmed sync reaches mirror synchronized",
+    "sync uses existing plan and batch endpoints",
+    "sync neither embeds nor writes notes, Health or Recall",
+    "Opening Connect with queued proposals makes no requests or writes",
+    "Review proposed changes listing does not write Vault",
+    "Proposal card present Rejected.md",
+    "Preview performs zero writes",
+    "Explicit Reject is remote only",
+    "Connect and unchanged proposal command reuse the same application",
+    "Proposal card present Alpha.md",
+    "Update preview performs zero writes",
+    "Explicit Approve uses guarded Vault.process exactly once",
+    "Approve produces exact expected Vault bytes",
+    "Rejected note was never created",
+    "existing automatic Semantic synchronization publishes syncing and ready",
+    "actual post-approval Semantic activity uses existing incremental Companion batch",
+    "two views share exactly one Connect owner",
+    "two views retain exactly one Companion service",
+    "one Check is visible in both views",
+    "two views issue exactly one status request",
+    "both views receive successful Check",
+    "Check writes no settings and sends no Vault/provider data",
+    "remaining view functional after closing sibling",
+    "Advanced Companion endpoint control remains available",
+    "Advanced endpoint invalidates Ready immediately",
+    "Advanced endpoint edit causes no network",
+    "Advanced token remains password field",
+    "Advanced timeout remains configurable",
+    "Advanced token and timeout edits cause no network",
+    "switching servers does not carry token",
+    "Remote plain HTTP rejected before network",
+    "Remote HTTPS fixture can connect",
+    "remote fixture tests only status",
+    "remote confirmation explicitly discloses transmission and storage",
+    "remote disclosure is passive",
+    "late Connect completion does not navigate",
+    "detached form does not reappear",
+    "plugin reload remains passive in en",
+    "restart shows Configured without a request in en",
+    "plugin reload remains passive in ru",
+    "restart shows Configured without a request in ru",
+    "explicit Check after reload is Connected",
+    "actual Obsidian restart shows Configured without testing",
+    "restart does not fabricate mirror readiness",
+    "explicit Check after actual restart reaches Connected with one request",
+    "restart Check has zero settings, Markdown and provider work",
+    "Semantic-disabled confirmation stays passive",
+    "missing Semantic index does not invalidate reachability",
+    "missing Semantic index has a specific mirror prerequisite",
+    "missing Semantic index starts no network, embedding or Markdown work",
+    "final build two views share one Connect owner",
+    "Disable during an actual candidate save wins in memory and disk",
+    "Disable preserves the newest committed endpoint and token",
+    "Disable preserves stable identity and Advanced timeout",
+    "obsolete Connect completion cannot leave Ready",
+    "Disable race performs only the candidate status request and settings writes",
+    "final build re-enables local Connect explicitly",
+    "connection success alone does not establish a full mirror",
+    "final build sync confirmation performs zero work",
+    "final build full reconciliation establishes mirror readiness",
+    "final build uses existing server reconciliation",
+    "explicit mirror sync changes no notes or other product stores and starts no embedding",
+    "actual Semantic activity publishes syncing then Connected, pass 1",
+    "second view observes actual background completion, pass 1",
+    "automatic mirror creates no Health or Recall writes, pass 1",
+    "actual Semantic activity publishes syncing then Connected, pass 2",
+    "second view observes actual background completion, pass 2",
+    "automatic mirror creates no Health or Recall writes, pass 2",
+    "second actual Markdown change uses the existing incremental batch without full reconciliation"
+  ],
+  "presentation": {
+    "passed": 60,
+    "languages": [
+      "en",
+      "ru"
+    ],
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "widths": [
+      320,
+      390,
+      960
+    ],
+    "states": [
+      "overview",
+      "confirmation",
+      "local-setup",
+      "remote-setup",
+      "remote-confirmation"
+    ],
+    "checks": [
+      "no horizontal overflow",
+      "real input labels",
+      "password token input and autocomplete off",
+      "token absent from normal text and snapshot",
+      "localized copy",
+      "aria-current",
+      "polite live status",
+      "confirmation keyboard focus"
+    ],
+    "failures": []
+  },
+  "automated": {
+    "fullSuite": {
+      "files": 94,
+      "tests": 2309
+    },
+    "companion": {
+      "files": 5,
+      "tests": 57
+    },
+    "proposals": {
+      "files": 3,
+      "tests": 58
+    },
+    "semantic": {
+      "files": 17,
+      "tests": 347
+    },
+    "health": {
+      "files": 37,
+      "tests": 819
+    },
+    "connect": {
+      "files": 3,
+      "tests": 50
+    },
+    "proposalMutationAudit": "5/5 killed",
+    "siblingCompatibility": "10/10 passed",
+    "checks": [
+      "npm ci",
+      "npm run typecheck",
+      "npm test -- companion",
+      "npm test -- proposals",
+      "npm test -- semantic",
+      "npm test -- health",
+      "npm test",
+      "npx eslint companionSync proposals connect health semantic",
+      "npm run lint",
+      "npm run audit:proposals",
+      "npm run build"
+    ],
+    "notes": [
+      "One Health cold-import timeout under concurrent full-suite/lint load; unchanged Health suite passed alone.",
+      "Lint: zero errors, one existing streaming fetch warning in api.ts:402.",
+      "npm ci reported seven existing development audit findings; no dependency or lockfile change."
+    ]
+  }
+}

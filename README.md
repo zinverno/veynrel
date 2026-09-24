@@ -43,6 +43,8 @@ Semantic features are opt-in and disabled by default. The first semantic index i
 
 The [integrated MVP baseline](docs/mvp-hardening.md) documents Local Health, Findings, Semantic Intelligence, Discover, native Recall/FSRS and Recall Health, including their IO and recovery boundaries. [Deep Intelligence setup](docs/deep-intelligence-setup.md) configures the existing language-model tools from Health. [Knowledge Health](docs/knowledge-health.md) uses an explicit, confirmed Deep MAP analysis to flag notes that may need development, with no note modifications or generated reports.
 
+[Veynrel Connect](docs/veynrel-connect.md) adds **Connect** to Health | Findings | Discover | Recall. It configures the existing Companion bridge, separates connection testing from disclosed mirror synchronization, and opens the existing proposal review. External agents read the mirror and propose changes; applying a change still requires explicit Obsidian approval.
+
 [Native Recall authoring](docs/recall-authoring-bridge.md) connects explicit flashcard generation to native Recall: confirm a selected note, append Markdown cards, and review them immediately. Existing schedules are preserved; no external flashcard plugin is needed.
 
 ### Semantic search

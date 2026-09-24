@@ -16,4 +16,3 @@ export class CompanionClientError extends Error {
     this.name = code === "TIMEOUT" ? "TimeoutError" : "CompanionClientError";
   }
 }
-
