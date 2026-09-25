@@ -12,6 +12,11 @@ The [final product IA](product-ia.md) adds a passive Tools catalog over existing
 host operations and a Settings overview over cached capability snapshots. No new
 view type, engine, owner or durable route is added.
 
+The post-1.9 [Health visual dashboard](health-visual-dashboard.md) projects the
+same snapshots into Vault Pulse, proportional Findings bars and compact current
+metrics. Its model/renderers live in `health/ui`; all ownership, aggregation,
+recommendation, persistence and passive-entry boundaries below remain unchanged.
+
 The dormant local snapshot, analyzer and coordinator layer added in PR 2 is
 documented in [Local Health analysis](local-health-analysis.md). PR 3 connects them
 through the [Health application layer](health-application-layer.md), including

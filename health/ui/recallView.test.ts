@@ -8,6 +8,7 @@ const mocks = vi.hoisted(() => {
       const child = new Element(); Object.assign(child, { tag, text: opts.text ?? "", cls: opts.cls ?? "", attrs: opts.attr ?? {}, parent: this, ownerDocument: this.ownerDocument });
       this.children.push(child); return child;
     }
+    createSvg(tag: string, opts: { cls?: string; attr?: Record<string, string> } = {}): Element { return this.append(tag, opts); }
     createEl(tag: string, opts: { text?: string; cls?: string; attr?: Record<string, string> } = {}): Element { return this.append(tag, opts); }
     createDiv(opts: { cls?: string; attr?: Record<string, string> } = {}): Element { return this.append("div", opts); }
     createSpan(opts: { text?: string; cls?: string; attr?: Record<string, string> } = {}): Element { return this.append("span", opts); }
@@ -143,6 +144,14 @@ describe("Recall authoring presentation", () => {
   });
 });
 
+function expectRecallCounts(content: InstanceType<typeof mocks.Element>, due: number, active: number): void {
+  const panel = content.all().find((e) => e.attrs["data-insight"] === "recall")!;
+  const metrics = panel.all().filter((e) => e.cls === "veynrel-dashboard-metric").map((e) => e.children.map((c) => c.text));
+  expect(metrics.slice(0, 2)).toEqual([[String(due), "Due"], [String(active), "Active"]]);
+  const card = content.all().find((e) => e.attrs["data-dimension"] === "recall")!;
+  expect(card.all().find((e) => e.cls === "veynrel-dashboard-number")?.text).toBe(String(due));
+}
+
 describe("Recall Health integration", () => {
   it("keeps construction/onboarding dormant, then makes first-run Recall actionable without IO beyond metadata", async () => {
     const f = fixture(undefined, false);
@@ -164,14 +173,14 @@ describe("Recall Health integration", () => {
     const before = f.health.getState().snapshot!, bytes = healthBytes(f);
     expect(recallCard(f).texts()).toContain("Not enabled");
     await f.product.refreshCards(); expect(recallCard(f).texts()).toContain("Review recommended");
-    expect(recallCard(f).texts()).toContain("1 due · 1 active");
+    expectRecallCounts(f.content, 1, 1);
     f.product.startSession(); f.time(200); f.product.revealAnswer();
     const entered = gate(), hold = gate(), write = f.adapter.write;
     f.adapter.write = vi.fn(async (path, raw) => { entered.release(); await hold.promise; await write(path, raw); });
     const review = f.product.rate(rating); await entered.promise;
     expect(recallCard(f).texts()).toContain("Review recommended"); // No optimistic success before persistence.
     hold.release(); await review;
-    expect(recallCard(f).texts()).toContain("Good"); expect(recallCard(f).texts()).toContain("0 due · 1 active");
+    expect(recallCard(f).texts()).toContain("Good"); expectRecallCounts(f.content, 0, 1);
     const after = f.health.getState().snapshot!;
     expect(after.openFindings).toBe(before.openFindings); expect(after.newFindings).toBe(before.newFindings);
     expect(after.recommendation).toEqual(before.recommendation); expect(after.lastLocalScan).toBeUndefined();
@@ -222,7 +231,7 @@ describe("Recall Health integration", () => {
     const card = candidate(); const raw = JSON.stringify({ version: 1, updatedAt: 10,
       cards: { [card.id]: { ...card, firstSeenAt: 10, lastSeenAt: 10, state: "active" } } });
     const f = fixture(raw); await f.view.onOpen(); await flush();
-    expect(recallCard(f).texts()).toContain("Review recommended"); expect(recallCard(f).texts()).toContain("1 due · 1 active");
+    expect(recallCard(f).texts()).toContain("Review recommended"); expectRecallCounts(f.content, 1, 1);
     expect(f.health.getState().snapshot?.recall?.new).toBe(1); expect(f.files.get(cardsPath)).toBe(raw);
     expect(f.adapter.read.mock.calls.filter(([path]) => path === cardsPath)).toHaveLength(1);
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
@@ -242,9 +251,9 @@ describe("Recall Health integration", () => {
     const f = fixture(); await f.view.onOpen(); await flush(); f.vault.read.mockResolvedValue("No cards"); await f.product.refreshCards();
     expect(recallCard(f).texts()).toContain("No active cards"); expect(recallCard(f).texts()).not.toContain("Good");
     f.vault.read.mockResolvedValue("## Flashcards\nOne::Answer\nTwo::Answer"); f.time(200); await f.product.refreshCards();
-    expect(recallCard(f).texts()).toContain("2 due · 2 active");
+    expectRecallCounts(f.content, 2, 2);
     f.vault.read.mockResolvedValue("## Flashcards\nTwo::Answer"); f.time(300); await f.product.refreshCards();
-    expect(recallCard(f).texts()).toContain("1 due · 1 active"); expect(healthBytes(f)).toEqual([]);
+    expectRecallCounts(f.content, 1, 1); expect(healthBytes(f)).toEqual([]);
   });
 
   it.each(["{broken", '{"version":99}'])("isolates %s, keeps Health scan/Findings/Discover usable, and resets to Not enabled", async (raw) => {
@@ -278,12 +287,12 @@ describe("Recall Health integration", () => {
     const other = new VeynrelHealthView({ app: f.app } as never, f.health, toolsFixture(), undefined, f.product);
     const content = other.contentEl as unknown as InstanceType<typeof mocks.Element>;
     await Promise.all([f.view.onOpen(), other.onOpen()]); await flush();
-    await f.product.refreshCards(); expect(recallCard(f).texts()).toContain("1 due · 1 active"); expect(content.texts()).toContain("1 due · 1 active");
+    await f.product.refreshCards(); expectRecallCounts(f.content, 1, 1); expectRecallCounts(content, 1, 1);
     expect(f.factory).toHaveBeenCalledTimes(1); expect(f.vault.read).toHaveBeenCalledTimes(1);
     f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("again"); f.product.endSession();
-    await f.view.onClose(); expect(content.texts()).toContain("0 due · 1 active");
+    await f.view.onClose(); expectRecallCounts(content, 0, 1);
     f.time(60200); vi.spyOn(Date, "now").mockReturnValue(60200); mocks.setTimeout.mock.calls.at(-1)![0]();
-    expect(content.texts()).toContain("1 due · 1 active"); expect(f.content.children).toEqual([]);
+    expectRecallCounts(content, 1, 1); expect(f.content.children).toEqual([]);
     await other.onClose();
     expect((f.health as unknown as { listeners: Set<unknown> }).listeners.size).toBe(0);
     f.health.dispose(); expect((f.product as unknown as { listeners: Set<unknown> }).listeners.size).toBe(0);

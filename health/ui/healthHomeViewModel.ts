@@ -4,11 +4,17 @@ import type { HealthControllerState } from "../obsidian/healthPluginController";
 import type { HealthRecoveryScope } from "../obsidian/healthRecovery";
 import type { VaultProfile } from "../domain/profile";
 import { findingPresentation } from "./findingPresentation";
+import { healthDashboardModel } from "./healthDashboardModel";
+import type { HealthDashboardModel } from "./healthDashboardModel";
+import type { HealthState } from "../domain/healthState";
 
 export interface HealthCardModel {
   id: HealthDimension; title: string; state: string; count: string; depth: string; icon: string;
   action: "findings" | "recall" | "none";
   description?: string;
+  signal: HealthState;
+  complete: boolean;
+  metric?: { value: number; label: string };
 }
 export interface HealthHomeViewModel {
   initial: boolean;
@@ -22,6 +28,7 @@ export interface HealthHomeViewModel {
   recommendation?: { title: string; explanation: string; canOpenNote: boolean; findingId?: string };
   recovery?: { scope: HealthRecoveryScope; title: string; description: string; blocking: boolean };
   profile?: { value: VaultProfile; saving: boolean };
+  dashboard: HealthDashboardModel;
 }
 
 const dimensions: HealthDimension[] = ["structure", "connections", "recall", "knowledge"];
@@ -39,6 +46,8 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
       const blocked = recall.loadState === "invalid" || recall.loadState === "unsupported" || recall.loadState === "unavailable";
       const active = t(`@health.recall-active.${new Intl.PluralRules(currentLanguage()).select(recall.active)}`, { n: recall.active });
       return { id, title: t("@health.recall"), icon: icons.recall, action: "recall",
+        signal: card.state, complete: ready,
+        metric: ready ? { value: recall.due, label: t("@dashboard.due") } : undefined,
         state: blocked ? t(recall.loadState === "unavailable" ? "@health.recall-unavailable" : "@recall.recovery-title")
           : !ready ? t("@health.not-enabled") : recall.active === 0 ? t("@health.recall-empty")
             : t(card.state === "review-recommended" ? "@health.recall-review" : `@health.state.${card.state}`),
@@ -53,6 +62,8 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
     const healthState = card.state === "good" && !complete ? "unknown" : card.state;
     const emptyKnowledge = knowledge && complete && snapshot.lastDeepScan?.notesSeen === 0;
     return { id, title: t(`@health.${id}`), state: t(emptyKnowledge ? "@knowledge.empty" : enabled ? `@health.state.${healthState}` : "@health.not-enabled"),
+      signal: healthState, complete,
+      metric: enabled ? { value: card.openFindings, label: t("@dashboard.findings") } : undefined,
       count: enabled ? t("@health.findings", { n: card.openFindings }) : "",
       depth: enabled && (card.analysisDepth === "basic" || card.analysisDepth === "semantic" || card.analysisDepth === "deep")
         ? t(`@health.${card.analysisDepth}${complete ? "" : "-incomplete"}`) : "",
@@ -75,7 +86,7 @@ export function healthHomeViewModel(state: HealthControllerState, canOpenNote = 
     scanDisabled: state.busy || !snapshot || !load?.findingsWritable,
     recoveryDisabled: state.busy,
     status, statusError: Boolean(state.error) || outcome?.scan.status === "failed",
-    cards, count: t("@health.open-findings", { n: snapshot?.openFindings ?? 0 }),
+    cards, count: t("@health.open-findings", { n: snapshot?.openFindings ?? 0 }), dashboard: healthDashboardModel(state),
     recommendation: snapshot?.recommendation ? { ...(state.recommendationFinding ? findingPresentation(state.recommendationFinding)
       : { title: snapshot.recommendation.title, explanation: snapshot.recommendation.explanation }), canOpenNote,
       ...(snapshot.recommendation.findingId ? { findingId: snapshot.recommendation.findingId } : {}) } : undefined,

@@ -8,6 +8,7 @@ const mocks = vi.hoisted(() => {
       const child = new Element(); Object.assign(child, { tag, text: opts.text ?? "", cls: opts.cls ?? "", attrs: opts.attr ?? {}, ownerDocument: this.ownerDocument });
       this.children.push(child); return child;
     }
+    createSvg(tag: string, opts: { cls?: string; attr?: Record<string, string> } = {}): Element { return this.append(tag, opts); }
     createEl(tag: string, opts: { text?: string; cls?: string; attr?: Record<string, string> } = {}): Element { return this.append(tag, opts); }
     createDiv(opts: { cls?: string; attr?: Record<string, string> } = {}): Element { return this.append("div", opts); }
     createSpan(opts: { text?: string; cls?: string; attr?: Record<string, string> } = {}): Element { return this.append("span", opts); }
@@ -90,7 +91,7 @@ describe("native Health view lifecycle", () => {
   it("opening only initializes storage; a click scans once and notifications update the dashboard", async () => {
     const f = fixture(); await f.view.onOpen();
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    expect(f.content.texts()).toContain("Check your vault");
+    expect(f.content.texts()).toContain("Coverage not established");
     let release!: (body: string) => void; f.vault.read.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
     const oldButton = f.content.action("scan"); oldButton.click(); oldButton.click(); await flush();
     expect(f.vault.read).toHaveBeenCalledTimes(1); expect(f.content.action("scan").disabled).toBe(true);
@@ -140,7 +141,7 @@ describe("native Health view lifecycle", () => {
     f.content.action("recover").click(); const confirmation = mocks.Modal.opened[1];
     confirmation.contentEl.all().find((e) => e.text === "Back up and reset")!.click();
     await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
-    expect(f.content.texts()).toContain("Check your vault"); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.content.texts()).toContain("Coverage not established"); expect(f.vault.read).not.toHaveBeenCalled();
   });
 });
 
@@ -785,7 +786,7 @@ describe("Findings navigation and lifecycle integration", () => {
     expect(f.content.action("finding-dismiss")).toBeUndefined(); expect(f.content.action(`finding-${id}`)).toBeUndefined();
     expect(f.content.texts()).toContain("Finding updated");
     f.content.action("nav-health").click();
-    expect(f.content.texts()).toContain("Open findings: 0"); expect(f.content.action("review-finding")).toBeUndefined();
+    expect(f.content.texts()).toContain("No open findings"); expect(f.content.action("review-finding")).toBeUndefined();
     f.content.action("nav-findings").click(); f.content.action("state-dismissed").click(); f.content.action(`finding-${id}`).click();
     f.content.action("finding-reopen").click(); await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("open"));
     expect(f.content.action("finding-reopen")).toBeUndefined();
@@ -1124,5 +1125,63 @@ describe("final Tools and Settings IA", () => {
     expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
     stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled();
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
+  });
+});
+
+describe("visual Health dashboard", () => {
+  it.each(["en", "ru"] as const)("renders exact current metrics and decorative SVG in %s with passive repeated entry", async (language) => {
+    setLanguage(language); const f = fixture(); await f.controller.getHealthService();
+    const state = f.controller.getState(), snapshot = state.snapshot!;
+    Object.assign(snapshot.dimensions.structure, { state: "needs-attention", openFindings: 78, attentionFindings: 50, reviewFindings: 20 });
+    Object.assign(snapshot.dimensions.connections, { state: "review-recommended", openFindings: 1, reviewFindings: 1 });
+    Object.assign(snapshot.dimensions.knowledge, { state: "review-recommended", analysisDepth: "deep", openFindings: 7, reviewFindings: 7, analysisComplete: true });
+    snapshot.openFindings = 86;
+    snapshot.recall = { loadState: "ready", firstRun: false, active: 143, due: 12, new: 4, nextDueAt: 1790362200000 };
+    const scan = { id: "dashboard-fixture", type: "local" as const, status: "partial" as const, startedAt: 1790362000000, completedAt: 1790362080000,
+      notesSeen: 312, findingsCreated: 8, findingsUpdated: 14, findingsResolved: 3, analyzerVersions: {}, reconciliationReceipts: {} };
+    snapshot.lastLocalScan = scan; snapshot.lastLocalScanReconciled = true;
+    snapshot.lastDeepScan = { ...scan, id: "deep-fixture", type: "deep", status: "completed", notesSeen: 148 }; snapshot.lastDeepScanReconciled = true;
+    vi.spyOn(f.controller, "getState").mockReturnValue(state);
+    const localScan = vi.spyOn(f.controller, "runLocalScan"), deepScan = vi.spyOn(f.controller, "runDeepScan"), semanticScan = vi.spyOn(f.controller, "runSemanticScan");
+    const recallInit = vi.spyOn(f.controller, "initializeRecall");
+    await f.view.onOpen();
+    const metrics = (id: string) => f.content.all().find((e) => e.attrs["data-insight"] === id)!.all()
+      .filter((e) => e.cls === "veynrel-dashboard-number").map((e) => e.text);
+    expect(metrics("recall")).toEqual(["12", "143", "4"]);
+    expect(metrics("knowledge")).toEqual(["148", "7"]);
+    expect(metrics("local")).toEqual(["312", "8", "14", "3"]);
+    const rows = f.content.all().filter((e) => e.attrs["data-area"]);
+    expect(rows.map((e) => e.all().find((c) => c.cls === "veynrel-dashboard-area-total")?.text)).toEqual(["78", "1", "0", "7"]);
+    expect(rows[2].all().filter((e) => e.cls === "veynrel-dashboard-bar-segment").every((e) => e.attrs.style === "width: 0%")).toBe(true);
+    const svg = f.content.all().find((e) => e.tag === "svg")!;
+    expect(svg.attrs["aria-hidden"]).toBe("true"); expect(svg.children.map((e) => e.tag)).toEqual(["path", "path"]);
+    expect(f.content.texts()).toContain(language === "en" ? "Partial · limited coverage" : "Частичная · ограниченный охват");
+    expect(f.content.texts()).not.toMatch(/@dashboard\.|retention|workload|polished|developed/iu);
+    f.content.action("area-structure").focus();
+    f.content.action("change-profile").click();
+    expect(f.content.ownerDocument.activeElement?.attrs["data-health-action"]).toBe("area-structure");
+    const readCount = f.adapter.read.mock.calls.length;
+    await f.view.onClose(); await f.view.onOpen();
+    expect(f.adapter.read).toHaveBeenCalledTimes(readCount);
+    for (const effect of [f.vault.getMarkdownFiles, f.vault.read, f.adapter.write, f.save, mocks.requestUrl, localScan, deepScan, semanticScan]) expect(effect).not.toHaveBeenCalled();
+    // The existing metadata initialization entry is retained; it has no inventory capability.
+    expect(recallInit).toHaveBeenCalled();
+    await f.view.onClose();
+  });
+  it.each(["structure", "connections", "knowledge"])("area %s opens the existing Findings filter", async (id) => {
+    const f = fixture(); await f.view.onOpen();
+    expect(f.content.action(`area-${id}`).tag).toBe("button"); f.content.action(`area-${id}`).click();
+    expect(f.content.action(`filter-${id}`).attrs["aria-pressed"]).toBe("true");
+    expect(f.content.ownerDocument.activeElement?.attrs["data-health-heading"]).toBe("true");
+  });
+  it("blocking recovery and onboarding render no pulse or charts; history degradation keeps real current counts", async () => {
+    const onboarding = fixture({ profileChosen: false, onboardingCompleted: false }); await onboarding.view.onOpen();
+    expect(onboarding.content.all().some((e) => e.attrs["data-pulse-state"])).toBe(false);
+    const broken = fixture(); broken.files.set(`${root}/findings.json`, "{broken"); await broken.view.onOpen();
+    expect(broken.content.action("recover")).toBeDefined(); expect(broken.content.all().some((e) => e.attrs["data-area"])).toBe(false);
+    const history = fixture(); history.files.set(`${root}/scan-runs.json`, "{broken"); await history.view.onOpen();
+    expect(history.content.action("recover")).toBeDefined();
+    expect(history.content.all().find((e) => e.attrs["data-pulse-state"])?.attrs["data-pulse-state"]).toBe("unknown");
+    expect(history.content.texts()).toContain("Coverage not established");
   });
 });

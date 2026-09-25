@@ -35,6 +35,11 @@ There is no cancellation button or new progress API in this stage.
 
 ## Presentation
 
+The post-1.9 home presentation is now the [visual Health dashboard](health-visual-dashboard.md):
+Vault Pulse, recommendation, compact dimensions, real current metrics, then
+secondary controls. That document supersedes the original card/footer layout
+description below; this view's lifecycle, actions and recovery contracts remain.
+
 A pure `healthHomeViewModel` maps the existing snapshot and typed scan outcome into
 localized copy. New interface copy uses the existing English/Russian `i18n.ts`
 contract. Recommendation ranking remains in the backend. The presentation mapper
