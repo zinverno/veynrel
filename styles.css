@@ -1965,7 +1965,13 @@
 .veynrel-vault-pulse-base { opacity: 0.55; }
 .veynrel-vault-pulse-accent { stroke: var(--interactive-accent-hover); }
 .veynrel-vault-pulse[data-pulse-state="unknown"] .veynrel-vault-pulse-wave { stroke: var(--text-muted); }
-.veynrel-vault-pulse[data-pulse-state="unknown"] .veynrel-vault-pulse-accent { display: none; }
+.veynrel-vault-pulse[data-pulse-state="unknown"] .veynrel-vault-pulse-accent { display: none; animation: none; }
+/* Shared presentation cadence, independent of Health counts or severity. */
+.veynrel-vault-pulse:is([data-pulse-state="good"], [data-pulse-state="review"], [data-pulse-state="attention"]) .veynrel-vault-pulse-accent {
+  opacity: 0.65;
+  stroke-dasharray: 10 90;
+  animation: veynrel-vault-pulse-sweep 7s linear infinite;
+}
 .veynrel-vault-pulse[data-pulse-state="scanning"] .veynrel-vault-pulse-accent {
   stroke-dasharray: 16 84;
   animation: veynrel-vault-pulse-sweep 4s linear infinite;
@@ -2066,9 +2072,10 @@
   .veynrel-dashboard-insight { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .veynrel-vault-pulse[data-pulse-state="scanning"] .veynrel-vault-pulse-accent {
+  .veynrel-vault-pulse[data-pulse-state] .veynrel-vault-pulse-accent {
     animation: none;
     stroke-dasharray: none;
+    opacity: 1;
   }
   .veynrel-health-home .veynrel-health-card { transition: none; }
 }

@@ -119,10 +119,13 @@ Pulse and primary highlights use `--interactive-accent` and
 Obsidian tokens. No brand palette is imposed. A user's yellow accent remains yellow.
 Typography uses the existing UI/heading/font-weight variables.
 
-Normal states are static. Checking uses a restrained four-second CSS travelling
-highlight over a visible base path. There are no JS animation loops, polling,
+Good, Review and Attention share a restrained seven-second CSS travelling
+highlight at reduced opacity over a visible base path. Cadence never depends on
+counts or severity; geometry and adjacent text identify the discrete state.
+Unknown remains static. Checking uses a distinct four-second sweep with a longer,
+brighter highlight. There are no JS animation loops, polling,
 per-frame measurements or ResizeObservers. `prefers-reduced-motion: reduce`
-disables that animation and removes dashes, leaving a static emphasized signal
+disables both continuous animations and removes dashes, leaving a static emphasized signal
 and identical adjacent text. The optional scan-completion sweep is deferred: this
 version needs no new transient view state, cleanup timer or replay guard.
 
