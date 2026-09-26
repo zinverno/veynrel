@@ -27,6 +27,7 @@ const mocks = vi.hoisted(() => {
     }
     focus(): void { if (!this.disabled) this.ownerDocument.activeElement = this; }
     addEventListener(_type: string, fn: () => void): void { this.listeners.push(fn); }
+    removeEventListener(_type: string, fn: () => void): void { this.listeners = this.listeners.filter((item) => item !== fn); }
     click(): void { for (const listener of this.listeners) listener(); }
     input(value: string): void { this.value = value; for (const listener of this.listeners) listener(); }
     all(): Element[] { return [this, ...this.children.flatMap((child) => child.all())]; }
@@ -70,6 +71,8 @@ import { deepIntelligenceViewModel, deepSetupError } from "./deepIntelligenceVie
 import type { DeepHealthAnalysisPort, DeepKnowledgeAnalysis } from "../deepHealthAnalysisPort";
 import { candidate } from "../store/testSupport";
 import { withAbort } from "../analyzers/local/cancellation";
+import { VaultTopologyController } from "../topology/vaultTopologyController";
+import { ObsidianLocalVaultSource } from "../analyzers/local/obsidianLocalVaultSource";
 
 import { ConnectController } from "../../connect/product/connectController";
 import type { CompanionSettings, CompanionConnectionStatus } from "../../companionSync/types";
@@ -1183,5 +1186,36 @@ describe("visual Health dashboard", () => {
     expect(history.content.action("recover")).toBeDefined();
     expect(history.content.all().find((e) => e.attrs["data-pulse-state"])?.attrs["data-pulse-state"]).toBe("unknown");
     expect(history.content.texts()).toContain("Coverage not established");
+  });
+});
+
+describe("real topology child route", () => {
+  it("Health stays passive, explicit loading reads metadata only, navigation retains map and Open note reuses safe navigation", async () => {
+    const f = fixture(); const topology = new VaultTopologyController(new ObsidianLocalVaultSource(f.app));
+    const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
+    const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
+    const capture = vi.spyOn(f.vault, "getMarkdownFiles");
+    await view.onOpen();
+    expect(content.texts()).toContain("See how your notes connect.");
+    expect(content.action("topology-refresh").text).toBe("Load map");
+    expect(capture).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    content.action("topology-refresh").click(); await topology.load();
+    expect(topology.getSnapshot().state).toBe("ready"); expect(capture).toHaveBeenCalledTimes(2);
+    expect(f.metadataCache.getFileCache).toHaveBeenCalledTimes(1);
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+    expect(mocks.requestUrl).not.toHaveBeenCalled();
+    content.action("topology-open").click();
+    expect(content.action("nav-health").attrs["aria-current"]).toBe("page");
+    expect(content.action("nav-topology")).toBeUndefined();
+    content.action("topology-search").input("a.MD");
+    content.action("topology-result-0").click();
+    expect(content.texts()).toContain("Orphan note");
+    content.action("topology-open-note").click(); await flush();
+    expect(f.openFile).toHaveBeenCalledTimes(1);
+    content.action("topology-back").click(); expect(capture).toHaveBeenCalledTimes(2);
+    topology.markStale(); expect(content.texts()).toContain("Map may be outdated");
+    content.action("topology-refresh").click(); await topology.load(); expect(capture).toHaveBeenCalledTimes(4);
+    await view.onClose(); await view.onOpen(); expect(capture).toHaveBeenCalledTimes(4);
+    await view.onClose(); topology.dispose(); f.controller.dispose();
   });
 });
