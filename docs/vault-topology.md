@@ -168,8 +168,37 @@ screen-reader-tested spatial graph.
 
 At narrow/intermediate widths the map precedes the inspector; wide layouts place
 them side by side. Summary metrics collapse from six to three to two columns.
-The shared navigation spans the content width as one segmented surface, wrapping
-at narrow widths. Health stays selected on the topology child route.
+The shared workspace navigation is a flat, full-width tab rail with a shared
+bottom divider, short separators and an accent underline for the current section.
+Native buttons keep keyboard focus and current/pressed semantics. Narrow panes
+scroll the single row horizontally with CSS instead of wrapping; Health stays
+selected on the topology child route.
+
+Health's topology preview uses dashboard spacing and a subtle bottom divider,
+without an outer card surface. The loaded map keeps its own neutral canvas.
+Same-route async rerenders preserve the native view's scroll position and restore
+controls with `preventScroll`. A temporarily disabled action parks focus on its
+nearby parent; completion restores the action only if focus stayed there. The
+persistent live region announces loading. Deliberate route/step navigation keeps
+its existing heading or explicit destination focus. No scroll state is persisted.
+
+The focused native regression is reproducible with
+`node scripts/workspace-ui-native.mjs http://127.0.0.1:9252 /tmp/vault-topology-smoke/vault`.
+Use an isolated Obsidian profile with the current build installed, onboarding
+complete, and a scanned synthetic vault yielding a long Health dashboard. The
+script checks the vault path, reloads the plugin, holds metadata capture during
+pointer/keyboard load and refresh, and checks scroll/focus before releasing it.
+It covers 390/768/1280px, default dark/light and a custom yellow accent, route
+heading focus, overflow tab access and reduced motion; it needs no dependencies.
+
+Workspace polish verification (2026-09-26): native Linux Obsidian 1.12.7 / Electron
+39.8.10 reproduced the old disabled-action heading fallback (`scrollTop` 1537 → 0).
+The corrected EN/RU matrix preserved scroll through loading/ready for load,
+refresh and stale refresh; the maximum observed scroll delta was 0px (test
+tolerance: 96px). The 13-note synthetic vault had nine real local findings.
+Native Chromium touch input scrolled the narrow tab rail without page overflow.
+Live-region availability was checked; screen-reader speech and mobile OS behavior
+were not exercised. Screenshots were inspected for dark/light/yellow presentation.
 
 Coverage sits with the page title, including the observed-only explanation for
 partial maps. Its persistent live announcement is visually hidden on this route

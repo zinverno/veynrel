@@ -140,7 +140,7 @@ export class VeynrelHealthView extends ItemView {
     const onboarding = healthOnboardingViewModel(state, model);
     const active = this.contentEl.ownerDocument.activeElement;
     const hadFocus = active && this.contentEl.contains(active);
-    const focusKey = hadFocus ? active.getAttribute("data-health-action") : null;
+    const focusKey = hadFocus ? active.getAttribute("data-health-action") ?? active.getAttribute("data-health-focus-action") : null;
     const scan = (): void => { this.navigationMessage = undefined; if (!this.controller.getState().busy) void this.controller.runLocalScan(); };
     const openNote = (): void => { void this.openNote(this.controller.getRecommendationPath()); };
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
@@ -155,6 +155,8 @@ export class VeynrelHealthView extends ItemView {
     if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;
     const enteringPage = this.body.getAttribute("data-page") !== this.route.page;
+    const scrollTop = this.contentEl.scrollTop;
+    const scrollLeft = this.contentEl.scrollLeft;
     this.body.setAttribute("data-page", this.route.page);
     this.body.empty();
     if (normal) {
@@ -290,6 +292,8 @@ export class VeynrelHealthView extends ItemView {
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences || connectSnapshot?.busy));
     const heading = (): HTMLElement | null => this.body?.querySelector<HTMLElement>("[data-findings-heading]")
       ?? this.body?.querySelector<HTMLElement>("[data-health-heading]") ?? null;
+    // Explicit navigation/step destinations retain their intentional focus behavior.
+    const preserveViewport = normal && !enteringPage && !this.focusDestination;
     if (this.focusDestination) {
       const target = this.focusDestination === "connect-confirmation" ? this.body.querySelector<HTMLElement>("[data-connect-confirmation]")
         : this.focusDestination === "recall-question" ? this.body.querySelector<HTMLElement>("[data-recall-question]")
@@ -300,9 +304,22 @@ export class VeynrelHealthView extends ItemView {
       target?.focus(); this.focusDestination = undefined;
     } else if (hadFocus) {
       const target = focusKey ? this.body.querySelector<HTMLButtonElement>(`[data-health-action="${focusKey}"]`) : null;
-      // When a step disappears or its button is disabled, keep keyboard focus in this view.
-      if (target && !target.disabled) target.focus();
-      else heading()?.focus();
+      if (enteringPage || !normal) heading()?.focus();
+      else if (target && !target.disabled) target.focus({ preventScroll: true });
+      else if (!focusKey && (active.getAttribute("data-health-heading") || active.getAttribute("data-findings-heading"))) heading()?.focus({ preventScroll: true });
+      else {
+        // Keep the keyboard near a temporarily disabled action. Carry its key on
+        // the replacement parent so completion restores it only if focus stayed here.
+        const nearby = target?.parentElement ?? this.body;
+        nearby.setAttribute("tabindex", "-1");
+        if (target && focusKey) nearby.setAttribute("data-health-focus-action", focusKey);
+        nearby.focus({ preventScroll: true });
+      }
+    }
+    if (preserveViewport) {
+      // contentEl is the native ItemView scroll owner; DOM replacement can clamp it.
+      this.contentEl.scrollTop = scrollTop;
+      this.contentEl.scrollLeft = scrollLeft;
     }
     // Metadata only, after onboarding/recovery. Product notifications flow through the Health controller.
     if (normal && this.route.page === "health") this.controller.initializeRecall();
