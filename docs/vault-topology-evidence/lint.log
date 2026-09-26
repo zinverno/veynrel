@@ -1,4 +1,3 @@
-
 > obsidian-ai-hub@1.9.0 lint
 > npm run lint:obsidian
 
@@ -19,4 +18,3 @@
   402:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
 
 ✖ 1 problem (0 errors, 1 warning)
-

@@ -1,4 +1,3 @@
-
 > obsidian-ai-hub@1.9.0 test
 > vitest run health
 
@@ -10,4 +9,3 @@
       Tests  876 passed (876)
    Start at  04:12:35
    Duration  5.92s (transform 9.57s, setup 0ms, import 16.46s, tests 12.54s, environment 6ms)
-
