@@ -45,7 +45,7 @@ const mocks = vi.hoisted(() => {
   return { Element, Modal, ItemView, TFile, requestUrl: vi.fn() };
 });
 vi.mock("obsidian", () => ({ ...mocks, setIcon: vi.fn(), Notice: vi.fn(), getLanguage: () => "en", parseLinktext: (link: string) => ({ path: link, subpath: "" }) }));
-import { setLanguage } from "../../i18n";
+import { setLanguage, t } from "../../i18n";
 import { HealthPluginController } from "../obsidian/healthPluginController";
 import { appFixture, flush, root, preferencesFixture } from "../obsidian/testSupport";
 import type { HealthPreferences } from "../preferences";
@@ -73,6 +73,10 @@ import { candidate } from "../store/testSupport";
 import { withAbort } from "../analyzers/local/cancellation";
 import { VaultTopologyController } from "../topology/vaultTopologyController";
 import { ObsidianLocalVaultSource } from "../analyzers/local/obsidianLocalVaultSource";
+import { note, snapshot } from "../analyzers/local/testFixtures";
+import { deriveTopology } from "../topology/deriveTopology";
+import { renderTopology } from "../topology/renderTopology";
+import { newTopologyViewState } from "../topology/renderTopologyMap";
 
 import { ConnectController } from "../../connect/product/connectController";
 import type { CompanionSettings, CompanionConnectionStatus } from "../../companionSync/types";
@@ -1207,15 +1211,63 @@ describe("real topology child route", () => {
     content.action("topology-open").click();
     expect(content.action("nav-health").attrs["aria-current"]).toBe("page");
     expect(content.action("nav-topology")).toBeUndefined();
+    expect(content.all().find((e) => e.attrs["aria-live"] === "polite")?.attrs["data-topology-contextual"]).toBe("true");
+    expect(content.all().some((e) => e.cls === "veynrel-health-page-enter")).toBe(true);
     content.action("topology-search").input("a.MD");
     content.action("topology-result-0").click();
     expect(content.texts()).toContain("Orphan note");
     content.action("topology-open-note").click(); await flush();
     expect(f.openFile).toHaveBeenCalledTimes(1);
+    f.vault.getAbstractFileByPath.mockReturnValue(null);
+    content.action("topology-open-note").click(); await flush();
+    expect(content.all().find((e) => e.attrs["aria-live"] === "polite")?.attrs["data-topology-contextual"]).toBe("false");
+    expect(content.texts()).toContain("This note is no longer available");
+    expect(content.all().some((e) => e.cls === "veynrel-health-page-enter")).toBe(false);
     content.action("topology-back").click(); expect(capture).toHaveBeenCalledTimes(2);
     topology.markStale(); expect(content.texts()).toContain("Map may be outdated");
     content.action("topology-refresh").click(); await topology.load(); expect(capture).toHaveBeenCalledTimes(4);
     await view.onClose(); await view.onOpen(); expect(capture).toHaveBeenCalledTimes(4);
     await view.onClose(); topology.dispose(); f.controller.dispose();
+  });
+  it.each(["en", "ru"] as const)("groups partial coverage, exact metrics and bounded relationships without loading in %s", async (language) => {
+    setLanguage(language);
+    const paths = Array.from({ length: 22 }, (_, i) => `Folder/Note-${i}.md`);
+    const map = await deriveTopology(snapshot([
+      note("Hub.md", { resolvedOutgoing: paths, unresolvedLinks: paths.map((target) => ({ target: `Missing/${target}`, count: 2 })) }),
+      ...paths.map((path) => note(path, { resolvedOutgoing: ["Hub.md"] })),
+      note("Unknown.md", { linksAvailable: false }),
+    ]), 100, new AbortController().signal);
+    const port = { getSnapshot: () => ({ state: "ready" as const, map }), subscribe: vi.fn(), load: vi.fn(), refresh: vi.fn(), dispose: vi.fn() };
+    const parent = new mocks.Element(); const state = newTopologyViewState(); state.selected = "Hub.md";
+    const openNote = vi.fn(); const back = vi.fn();
+    const cleanup = renderTopology(parent as unknown as HTMLElement, port, state, { back, openNote });
+    const find = (cls: string) => parent.all().find((e) => e.cls === cls)!;
+    const header = find("veynrel-topology-header");
+    expect(header.texts()).toContain(t("@topology.partial"));
+    expect(header.texts()).toContain(t("@topology.partial-explanation"));
+    expect(header.all().filter((e) => e.tag === "button").map((e) => e.attrs["data-health-action"])).toEqual(["topology-refresh"]);
+    expect(parent.action("topology-refresh").cls).toContain("mod-cta");
+    const metrics = find("veynrel-topology-metrics");
+    expect(metrics.all().filter((e) => e.tag === "dd").map((e) => e.text)).toEqual(["24", "44", "2", t("@topology.unknown"), t("@topology.unknown"), "44"]);
+    expect(metrics.children.filter((e) => e.attrs["data-unknown"] === "true")).toHaveLength(2);
+    expect(find("veynrel-topology-map-panel").action("topology-fit").tag).toBe("button");
+    expect(find("veynrel-topology-search").tag).toBe("label");
+    expect(find("veynrel-topology-legend").tag).toBe("details");
+    const inspector = find("veynrel-topology-inspector");
+    expect(inspector.all().find((e) => e.tag === "h2")?.text).toBe("Hub");
+    expect(find("veynrel-topology-path").text).toBe("Hub.md");
+    expect(find("veynrel-topology-facts").all().filter((e) => e.tag === "dd").map((e) => e.text)).toEqual(["22", "22", "44", "23", t("@topology.unknown"), t("@topology.unknown"), "22", "44"]);
+    const groups = inspector.all().filter((e) => e.cls === "veynrel-topology-relationships");
+    expect(groups.map((e) => e.all().filter((item) => item.tag === "li").length)).toEqual([20, 20, 20]);
+    expect(groups.every((e) => e.texts().includes(t("@topology.showing-items", { shown: 20, total: 22 })))).toBe(true);
+    expect(groups[2].texts()).toContain("Missing/Folder/Note-0.md (2)");
+    parent.action("topology-open-note").click(); expect(openNote).toHaveBeenCalledWith("Hub.md");
+    parent.action("topology-incoming-0").focus(); parent.action("topology-incoming-0").click();
+    expect(state.selected).toBe(paths[0]);
+    expect(parent.ownerDocument.activeElement?.tag).toBe("h2");
+    parent.action("topology-outgoing-0").click(); expect(state.selected).toBe("Hub.md");
+    parent.action("topology-back").click(); expect(back).toHaveBeenCalledOnce();
+    expect(port.load).not.toHaveBeenCalled(); expect(port.refresh).not.toHaveBeenCalled();
+    cleanup();
   });
 });

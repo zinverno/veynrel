@@ -154,6 +154,8 @@ export class VeynrelHealthView extends ItemView {
     this.cleanupTopology?.(); this.cleanupTopology = undefined;
     if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;
+    const enteringPage = this.body.getAttribute("data-page") !== this.route.page;
+    this.body.setAttribute("data-page", this.route.page);
     this.body.empty();
     if (normal) {
       const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
@@ -167,7 +169,7 @@ export class VeynrelHealthView extends ItemView {
         if (current) button.setAttribute("aria-current", "page");
       }
     }
-    const surface = this.body.createDiv();
+    const surface = this.body.createDiv({ cls: enteringPage ? "veynrel-health-page-enter" : "" });
     const deepSnapshot = normal && this.route.page === "health" ? this.deep?.getSnapshot() : undefined;
     const semanticSnapshot = normal && (this.route.page === "health" || this.route.page === "discover") ? this.semantic?.getSnapshot() : undefined;
     const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot, state) : undefined;
@@ -281,6 +283,8 @@ export class VeynrelHealthView extends ItemView {
     // A connection result must not hide a later Health scan, recovery or navigation message.
     const mapStatus = normal && (this.route.page === "health" || this.route.page === "topology") && this.topology ? topologyStatus(this.topology.getSnapshot()) : undefined;
     this.status.setText([this.route.page === "topology" ? this.navigationMessage : primaryStatus, deepError ?? (deepSnapshot ? knowledgeScanStatus(state) ?? deepStatus : undefined), mapStatus].filter(Boolean).join(" · "));
+    // Coverage is visible beside the topology title; retain the mounted live announcement.
+    this.status.setAttribute("data-topology-contextual", String(this.route.page === "topology" && !this.navigationMessage && !deepError));
     this.status.toggleClass("veynrel-health-status-error", connectSnapshot ? Boolean(connectSnapshot.error || (this.connectResult && !this.connectResult.ok) || (this.connectSetup?.step === "form" && this.connectSetup.result && !this.connectSetup.result.ok)) : recall ? recall.error || Boolean(authoring?.result && authoring.result.status !== "success") : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences || connectSnapshot?.busy));

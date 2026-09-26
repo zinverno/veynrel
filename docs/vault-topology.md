@@ -168,14 +168,30 @@ screen-reader-tested spatial graph.
 
 At narrow/intermediate widths the map precedes the inspector; wide layouts place
 them side by side. Summary metrics collapse from six to three to two columns.
-Topology has no transitions or required animation. PR #50's existing Vault Pulse
-reduced-motion behavior is unchanged. English and Russian use the shared i18n
-system, including partial/unknown/stale/error states.
+The shared navigation spans the content width as one segmented surface, wrapping
+at narrow widths. Health stays selected on the topology child route.
 
-## Verification
+Coverage sits with the page title, including the observed-only explanation for
+partial maps. Its persistent live announcement is visually hidden on this route
+to avoid duplicate status copy; note-opening errors remain visible. Refresh is
+the primary action, Back is a quiet navigation button, and search/Fit belong to
+the canvas toolbar. The full legend remains available in a native disclosure.
+The inspector separates note identity, numeric facts, classifications and bounded
+relationship lists. Selecting a relationship with keyboard focus moves focus to
+the new inspector title. All original values, limits and safe note actions remain.
+
+Page/content appearances take 160ms; inspector updates and control transitions
+take 120ms. Graph geometry never animates. Reduced motion disables these effects
+entirely; PR #50's Vault Pulse behavior is unchanged. Primary action text uses
+normal theme ink over a lightly tinted surface for readability with yellow accents.
+English and Russian use the shared i18n system, including partial/unknown/stale/error
+states and the legend disclosure.
+
+## Original topology verification — PR #51 (merged)
 
 Baseline: `c746d3b096c444d0ae398e1df217f83e73f96892` (merged PR #50).
-Branch: `feat/vault-topology`. No dependency, version, tag or release changes.
+Original branch: `feat/vault-topology`, merged into `main` in PR #51.
+No dependency, version, tag or release changes.
 
 Automated tests cover chain, cycle, linked clusters, DFS-root articulation, empty,
 singleton, multiple/weak components, reciprocal and self-link behavior, broken
@@ -275,4 +291,48 @@ theme compatibility are not claimed.
 
 No semantic edges, fabricated graph, automatic Health-entry topology scan, note
 body reads, AI, topology persistence, new Findings, Health state changes, version
-bump, tag or release. The topology PR is left open and unmerged.
+bump, tag or release. The original topology work was merged in PR #51.
+
+## UI refinement verification — 2026-09-26
+
+Follow-up branch: `feat/topology-ui-polish`, based on merged topology PR #51.
+
+The presentation refinement preserves the source, controller, layout algorithm,
+graph renderer and contracts. Two added EN/RU UI cases verify header/action
+grouping, exact partial metrics, unknown classifications, all three 20-item list
+limits, safe action forwarding and focus after relationship navigation. The
+existing lifecycle test also checks contextual live announcements, visible
+note-opening errors and entrance animation only when the page changes.
+
+- Focused UI/topology tests: **128 passed**; full suite: **2,385 / 99 files passed**.
+- Typecheck, production build, focused ESLint and `git diff --check` passed.
+  Full lint passed with the existing `api.ts:402` fetch advisory only.
+- Final native build: isolated Linux **Obsidian 1.12.7 / Electron 39.8.10**.
+  Eight metadata fixtures × EN/RU × dark/light × 320/390/768/1024/1440 widths:
+  **160 passed cases**, including selected inspectors wherever notes exist.
+  No horizontal overflow or native JavaScript exceptions occurred.
+- **20 additional yellow-accent cases / 89 assertions** passed: full-width
+  seven-button navigation, selected-note layouts, primary text contrast
+  (9.67:1 dark, 14.70:1 light), native keyboard navigation, visible focus,
+  inspector focus transfer, legend disclosure, short entrance/update motion,
+  immediate reduced-motion changes and no interpolated graph geometry.
+- **33 native interaction checks** passed: search, pointer selection, pan/zoom,
+  Fit, capture cleanup, keyboard selection, safe note opening, explicit refresh,
+  stale events/races, disposal and session-only state. Passive entry and explicit
+  capture retained their zero-body-read/zero-plugin-write/network boundaries.
+
+The reused profile initially auto-loaded Obsidian 1.13.7 and produced host
+`getZoomFactor`/`illegal access` errors. Final verification used its bundled
+1.12.7 runtime; no product checks were removed to accommodate the host errors.
+Native mobile OS, screen-reader output and third-party themes were not tested.
+
+Final screenshots: [desktop](vault-topology-evidence/ui-refinement-desktop.png),
+[390px Russian/light](vault-topology-evidence/ui-refinement-narrow.png).
+The native scripts and detailed results are retained under
+`/tmp/vault-topology-smoke/polish-{native,checks,interactions}.{mjs,json}`.
+
+Final heading-focus correction: `tabindex="-1"` h1/h2 destinations keep DOM focus
+without a control-style outline. Native EN/RU × dark/light × 1280/390px checks
+passed all eight cases (97 assertions), including visible keyboard focus on
+buttons, inputs, navigation and disclosures. The screenshots above were refreshed;
+focused-heading evidence is retained in `/tmp/vault-topology-smoke/heading-focus.json`.
