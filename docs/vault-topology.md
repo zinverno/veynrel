@@ -187,10 +187,11 @@ normal theme ink over a lightly tinted surface for readability with yellow accen
 English and Russian use the shared i18n system, including partial/unknown/stale/error
 states and the legend disclosure.
 
-## Verification
+## Original topology verification — PR #51 (merged)
 
 Baseline: `c746d3b096c444d0ae398e1df217f83e73f96892` (merged PR #50).
-Branch: `feat/vault-topology`. No dependency, version, tag or release changes.
+Original branch: `feat/vault-topology`, merged into `main` in PR #51.
+No dependency, version, tag or release changes.
 
 Automated tests cover chain, cycle, linked clusters, DFS-root articulation, empty,
 singleton, multiple/weak components, reciprocal and self-link behavior, broken
@@ -290,9 +291,11 @@ theme compatibility are not claimed.
 
 No semantic edges, fabricated graph, automatic Health-entry topology scan, note
 body reads, AI, topology persistence, new Findings, Health state changes, version
-bump, tag or release. The topology PR is left open and unmerged.
+bump, tag or release. The original topology work was merged in PR #51.
 
 ## UI refinement verification — 2026-09-26
+
+Follow-up branch: `feat/topology-ui-polish`, based on merged topology PR #51.
 
 The presentation refinement preserves the source, controller, layout algorithm,
 graph renderer and contracts. Two added EN/RU UI cases verify header/action
@@ -327,3 +330,9 @@ Final screenshots: [desktop](vault-topology-evidence/ui-refinement-desktop.png),
 [390px Russian/light](vault-topology-evidence/ui-refinement-narrow.png).
 The native scripts and detailed results are retained under
 `/tmp/vault-topology-smoke/polish-{native,checks,interactions}.{mjs,json}`.
+
+Final heading-focus correction: `tabindex="-1"` h1/h2 destinations keep DOM focus
+without a control-style outline. Native EN/RU × dark/light × 1280/390px checks
+passed all eight cases (97 assertions), including visible keyboard focus on
+buttons, inputs, navigation and disclosures. The screenshots above were refreshed;
+focused-heading evidence is retained in `/tmp/vault-topology-smoke/heading-focus.json`.

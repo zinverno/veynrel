@@ -2203,7 +2203,9 @@
 .veynrel-topology-legend { padding: var(--size-4-3) var(--size-4-1) var(--size-4-1); line-height: 1.5; }
 .veynrel-topology-legend summary { cursor: pointer; width: fit-content; max-width: 100%; }
 .veynrel-topology-legend p { margin-block-end: 0; }
-.veynrel-health-view .veynrel-topology-detail :is(button, input, summary, h1, h2):focus-visible { outline: 2px solid var(--text-normal); outline-offset: 3px; }
+.veynrel-health-view .veynrel-topology-detail :is(button, input, summary):focus-visible { outline: 2px solid var(--text-normal); outline-offset: 3px; }
+/* Headings are programmatic focus destinations, not interactive controls. */
+.veynrel-health-view .veynrel-topology-detail :is(h1, h2)[tabindex="-1"]:focus { outline: none; }
 .veynrel-topology-empty { padding-block: var(--size-4-6); color: var(--text-muted); }
 .veynrel-health-view .veynrel-health-status[data-topology-contextual="true"] {
   position: absolute;
