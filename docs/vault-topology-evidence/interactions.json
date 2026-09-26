@@ -1,0 +1,44 @@
+{
+  "checks": [
+    "Isolated 1000-note fixture",
+    "Case-insensitive basename search selects exact real node",
+    "Search results bounded to 20",
+    "Case-insensitive path search selects exact real node",
+    "Native wheel zoom clamps at 4x",
+    "Native wheel zoom clamps at 0.4x",
+    "Fit restores full bounds",
+    "Real pointer click selects a node and updates inspector",
+    "Drag above threshold pans without selecting",
+    "Native pointer capture acquired",
+    "Pointercancel releases capture",
+    "Cancelled pointer no longer pans",
+    "Lost capture clears pointer ownership",
+    "Navigation during drag releases detached SVG capture",
+    "Tab reaches a search-result button without graph-node tab stops",
+    "Keyboard Enter selects search result",
+    "Node selection follows custom theme accent",
+    "Topology requires no animation under reduced motion",
+    "Vault Pulse reduced motion unchanged",
+    "Native modify marks stale without capture",
+    "Explicit refresh after modify commits current map",
+    "Native create marks stale without capture",
+    "Explicit refresh after create commits current map",
+    "Native rename marks stale without capture",
+    "Explicit refresh after rename commits current map",
+    "Native delete marks stale without capture",
+    "Explicit refresh after delete commits current map",
+    "Native revision race rejects the newly captured map",
+    "Navigation retains the same transient map",
+    "Open note uses native Markdown navigation",
+    "Plugin disposal aborts capture and prevents late publication",
+    "Plugin restart starts idle without topology persistence",
+    "No native interaction JS exceptions"
+  ],
+  "details": {
+    "keyboard": {
+      "fill": "rgb(224, 182, 30)",
+      "focus": "solid"
+    }
+  },
+  "errors": []
+}

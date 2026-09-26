@@ -42,6 +42,10 @@ import { renderTools } from "./renderTools";
 import { settingsViewModel } from "./settingsViewModel";
 import type { ProductSettingsAction } from "./settingsViewModel";
 import { renderProductSettings } from "./renderProductSettings";
+import type { VaultTopologyPort } from "../topology/types";
+import { renderTopology, renderTopologyPreview } from "../topology/renderTopology";
+import { newTopologyViewState } from "../topology/renderTopologyMap";
+import { topologyStatus } from "../topology/topologyPresentation";
 
 export class VeynrelHealthView extends ItemView {
   // One transient review surface per plugin owner, including duplicated workspace tabs.
@@ -51,6 +55,9 @@ export class VeynrelHealthView extends ItemView {
   private unsubscribeDeep?: () => void;
   private unsubscribeAuthoring?: () => void;
   private unsubscribeConnect?: () => void;
+  private unsubscribeTopology?: () => void;
+  private cleanupTopology?: () => void;
+  private topologyView = newTopologyViewState();
   private connectSetup?: ConnectSetupState;
   private connectConfirmation?: ConnectSyncConfirmation;
   private connectResult?: ConnectResult;
@@ -73,7 +80,8 @@ export class VeynrelHealthView extends ItemView {
 
   constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly tools: VeynrelToolsPort,
     private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort,
-    private readonly deep?: DeepIntelligencePort, private readonly authoring?: RecallAuthoringPort, private readonly connect?: ConnectPort) { super(leaf); }
+    private readonly deep?: DeepIntelligencePort, private readonly authoring?: RecallAuthoringPort, private readonly connect?: ConnectPort,
+    private readonly topology?: VaultTopologyPort) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -98,6 +106,8 @@ export class VeynrelHealthView extends ItemView {
       this.unsubscribeAuthoring = this.authoring?.subscribe(() => this.render());
       this.unsubscribeConnect?.();
       this.unsubscribeConnect = this.connect?.subscribe(() => { this.connectResult = undefined; this.render(); });
+      this.unsubscribeTopology?.();
+      this.unsubscribeTopology = this.topology?.subscribe(() => this.render());
       this.render();
     } catch {
       if (epoch === this.epoch) this.status?.setText(t("@health.error.load"));
@@ -106,6 +116,8 @@ export class VeynrelHealthView extends ItemView {
 
   async onClose(): Promise<void> {
     this.epoch++; this.unsubscribe?.(); this.unsubscribe = undefined;
+    this.unsubscribeTopology?.(); this.unsubscribeTopology = undefined;
+    this.cleanupTopology?.(); this.cleanupTopology = undefined; this.topologyView = newTopologyViewState();
     this.leaveRecall();
     this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
     this.unsubscribeDeep?.(); this.unsubscribeDeep = undefined; this.deepSetup = undefined;
@@ -139,18 +151,20 @@ export class VeynrelHealthView extends ItemView {
     // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
     if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
     this.cleanupRecall?.(); this.cleanupRecall = undefined;
+    this.cleanupTopology?.(); this.cleanupTopology = undefined;
     if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;
     this.body.empty();
     if (normal) {
       const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
-      const pages: Array<VeynrelHealthRoute["page"]> = ["health", "findings", "discover", ...(this.recall ? ["recall" as const] : []), ...(this.connect ? ["connect" as const] : []), "tools", "settings"];
+      const pages: Array<Exclude<VeynrelHealthRoute["page"], "topology">> = ["health", "findings", "discover", ...(this.recall ? ["recall" as const] : []), ...(this.connect ? ["connect" as const] : []), "tools", "settings"];
       const labels = { health: "@findings.health", findings: "@findings.title", discover: "@discover.title", recall: "@recall.title", connect: "@connect.nav", tools: "@health.tools", settings: "@settings.title" };
       for (const page of pages) {
         const button = healthButton(nav, t(labels[page]),
           () => this.navigate(page === "findings" ? findingsRoute() : { page }), `nav-${page}`);
-        button.setAttribute("aria-pressed", String(this.route.page === page));
-        if (this.route.page === page) button.setAttribute("aria-current", "page");
+        const current = this.route.page === page || this.route.page === "topology" && page === "health";
+        button.setAttribute("aria-pressed", String(current));
+        if (current) button.setAttribute("aria-current", "page");
       }
     }
     const surface = this.body.createDiv();
@@ -161,7 +175,11 @@ export class VeynrelHealthView extends ItemView {
     const recall = recallSnapshot ? recallViewModel(recallSnapshot) : undefined;
     const authoring = recall && !recallSnapshot?.session ? this.authoring?.getSnapshot() : undefined;
     const connectSnapshot = normal && this.route.page === "connect" ? this.connect?.getSnapshot() : undefined;
-    if (normal && this.route.page === "tools") {
+    if (normal && this.route.page === "topology" && this.topology) {
+      this.cleanupTopology = renderTopology(surface, this.topology, this.topologyView, {
+        back: () => this.navigate({ page: "health" }), openNote: (path) => { void this.openNote(path); },
+      });
+    } else if (normal && this.route.page === "tools") {
       const route = this.route;
       renderTools(surface, toolsViewModel(), (action) => { void this.launchTool(action, route); }, (page) => this.navigate({ page }));
     } else if (normal && this.route.page === "settings") {
@@ -234,6 +252,7 @@ export class VeynrelHealthView extends ItemView {
         recall: normal && this.recall ? () => this.navigate({ page: "recall" }) : undefined,
         reviewFinding: normal ? (selectedFindingId) => this.navigate(findingsRoute({ selectedFindingId })) : undefined,
       }, this.changingProfile);
+      if (normal && this.topology) renderTopologyPreview(surface, this.topology, () => this.navigate({ page: "topology" }));
       const recallHealth = state.snapshot?.recall;
       if (normal && recallHealth?.loadState === "ready" && recallHealth.active > 0 && recallHealth.due === 0 && recallHealth.nextDueAt !== undefined) {
         this.wakeAt(recallHealth.nextDueAt);
@@ -260,7 +279,8 @@ export class VeynrelHealthView extends ItemView {
       : mutationError ? t("@findings.update-failed") : state.mutatingFindingId ? t("@findings.saving")
       : semanticError ?? semanticStatus ?? this.navigationMessage ?? status ?? "";
     // A connection result must not hide a later Health scan, recovery or navigation message.
-    this.status.setText([primaryStatus, deepError ?? (deepSnapshot ? knowledgeScanStatus(state) ?? deepStatus : undefined)].filter(Boolean).join(" · "));
+    const mapStatus = normal && (this.route.page === "health" || this.route.page === "topology") && this.topology ? topologyStatus(this.topology.getSnapshot()) : undefined;
+    this.status.setText([this.route.page === "topology" ? this.navigationMessage : primaryStatus, deepError ?? (deepSnapshot ? knowledgeScanStatus(state) ?? deepStatus : undefined), mapStatus].filter(Boolean).join(" · "));
     this.status.toggleClass("veynrel-health-status-error", connectSnapshot ? Boolean(connectSnapshot.error || (this.connectResult && !this.connectResult.ok) || (this.connectSetup?.step === "form" && this.connectSetup.result && !this.connectSetup.result.ok)) : recall ? recall.error || Boolean(authoring?.result && authoring.result.status !== "success") : state.preferencesError || mutationError || model.statusError || Boolean(semanticError || deepError) || deepSnapshot?.state === "error");
     // Leave the sibling live region available to announce the running state.
     this.body.setAttribute("aria-busy", String(state.busy || state.savingPreferences || connectSnapshot?.busy));

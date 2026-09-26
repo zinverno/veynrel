@@ -25,6 +25,21 @@ export class ObsidianLocalVaultSource implements LocalVaultSource, LocalVaultFre
     return createLocalVaultRevision(inventory.entries, inventory.noteListComplete);
   }
 
+  /** Explicit topology capture. Shares Health's scope/resolver, with no note-content IO. */
+  async captureMetadata(signal: AbortSignal): Promise<LocalVaultSnapshot> {
+    const { entries, paths, noteListComplete, diagnostics } = this.captureInventory(signal);
+    const notes: LocalNoteSnapshot[] = [];
+    for (const [index, entry] of entries.entries()) {
+      await checkpoint(signal, index);
+      const links = this.captureLinks(entry.file, entry.path, paths, signal);
+      if (!links.linksAvailable) diagnostics.push(diagnostic("links-unavailable", entry.path));
+      notes.push({ path: entry.path, basename: entry.basename, mtime: entry.mtime, contentAvailable: false, ...links });
+    }
+    throwIfAborted(signal);
+    return { notes, coverage: { noteListComplete, contentComplete: false,
+      linksComplete: noteListComplete && notes.every((note) => note.linksAvailable) }, ...boundedDiagnostics(diagnostics) };
+  }
+
   private captureInventory(signal: AbortSignal) {
     throwIfAborted(signal);
     const scope = defaultLocalVaultScope(this.app.vault.configDir);

@@ -16,14 +16,17 @@ import type { RecallProductPort } from "../../recall/product/types";
 import type { ConnectPort } from "../connectPort";
 import type { RecallAuthoringPort } from "../../recall/product/recallAuthoringPort";
 import type { VeynrelToolsPort } from "../toolsPort";
+import { createObsidianVaultTopology } from "../topology/obsidianVaultTopology";
 
 export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort,
   semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort,
   createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort): void {
   const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
   const authoring = createAuthoring?.(recall);
+  const topology = createObsidianVaultTopology(plugin.app);
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall), deepAnalysis);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology));
+  plugin.register(() => topology.dispose());
   plugin.register(() => controller.dispose());
   plugin.register(() => recall.dispose());
   let opening: Promise<void> | undefined;

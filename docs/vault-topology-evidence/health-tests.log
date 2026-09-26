@@ -1,0 +1,11 @@
+> obsidian-ai-hub@1.9.0 test
+> vitest run health
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD
+
+
+ Test Files  40 passed (40)
+      Tests  876 passed (876)
+   Start at  04:12:35
+   Duration  5.92s (transform 9.57s, setup 0ms, import 16.46s, tests 12.54s, environment 6ms)
