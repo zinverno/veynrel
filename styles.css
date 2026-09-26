@@ -1841,17 +1841,43 @@
 .veynrel-health-view .veynrel-discover-health { border-top: 1px solid var(--background-modifier-border); margin-block: 24px; padding-block-start: 16px; }
 
 /* Findings shares the Health workspace and native theme; no persisted layout state. */
-.veynrel-health-view .veynrel-findings-navigation,
 .veynrel-health-view .veynrel-findings-inbox {
   max-width: 1120px;
   margin-inline: auto;
   padding: 16px 24px;
   overflow-wrap: anywhere;
 }
-.veynrel-health-view .veynrel-findings-navigation,
 .veynrel-health-view .veynrel-findings-filters,
 .veynrel-health-view .veynrel-findings-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.veynrel-health-view .veynrel-findings-navigation { border-bottom: 1px solid var(--background-modifier-border); }
+.veynrel-health-view .veynrel-findings-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0;
+  margin-block-end: var(--size-4-5);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+}
+.veynrel-health-view .veynrel-findings-navigation button {
+  flex: 1 1 0;
+  min-width: 0;
+  height: auto;
+  min-height: 44px;
+  padding: var(--size-4-3) var(--size-4-2);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--text-muted);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: var(--font-ui-small);
+}
+.veynrel-health-view .veynrel-findings-navigation button + button { border-inline-start: 1px solid var(--background-modifier-border); }
+.veynrel-health-view .veynrel-findings-navigation button:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.veynrel-health-view .veynrel-findings-navigation [aria-current="page"] { background: var(--background-primary); color: var(--text-normal); }
+.veynrel-health-view .veynrel-findings-navigation button:focus-visible { outline: 2px solid var(--text-normal); outline-offset: -4px; }
 .veynrel-health-view .veynrel-findings-navigation [aria-current="page"],
 .veynrel-health-view .veynrel-findings-filters [aria-pressed="true"] {
   font-weight: var(--font-semibold);
@@ -1893,7 +1919,7 @@
 .veynrel-health-view [data-findings-heading]:focus-visible,
 .veynrel-health-view [data-health-heading]:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
 @container (max-width: 700px) {
-  .veynrel-health-view .veynrel-findings-navigation,
+  .veynrel-health-view .veynrel-findings-navigation button { flex-basis: 22%; padding-inline: var(--size-4-1); font-size: var(--font-ui-smaller); }
   .veynrel-health-view .veynrel-findings-inbox { padding: 12px; }
   .veynrel-health-view .veynrel-findings-has-detail { grid-template-columns: minmax(0, 1fr); }
   .veynrel-health-view .veynrel-findings-has-detail .veynrel-findings-list-pane { display: none; }
@@ -1903,6 +1929,9 @@
   .veynrel-health-view .veynrel-findings-has-detail { grid-template-columns: minmax(0, 1fr); }
   .veynrel-health-view .veynrel-findings-has-detail .veynrel-findings-list-pane { display: none; }
   .veynrel-health-view .veynrel-findings-detail { padding: 0; border: 0; }
+}
+@container (max-width: 320px) {
+  .veynrel-health-view .veynrel-findings-navigation button { flex-basis: 30%; }
 }
 
 /* Connect shares the native Health view and its navigation/focus conventions. */
@@ -2080,7 +2109,7 @@
   .veynrel-health-home .veynrel-health-card { transition: none; }
 }
 
-/* Real local topology: session-only geometry, theme-owned ink, no animation. */
+/* Real local topology: theme-owned surfaces; geometry updates remain immediate. */
 .veynrel-topology-preview,
 .veynrel-topology-detail {
   margin-block: var(--size-4-4);
@@ -2094,12 +2123,30 @@
 }
 .veynrel-topology-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--size-4-2); }
 .veynrel-topology-toolbar h2 { flex: 1 1 180px; margin: 0; }
-.veynrel-topology-metrics { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--size-4-3); margin-block: var(--size-4-4); }
-.veynrel-topology-metrics dt { color: var(--text-muted); font-size: var(--font-smallest); overflow-wrap: anywhere; }
-.veynrel-topology-metrics dd { margin: 4px 0 0; font-size: var(--font-ui-large); font-weight: var(--font-semibold); overflow-wrap: anywhere; }
-.veynrel-topology-status { color: var(--text-muted); }
+.veynrel-topology-header { display: flex; align-items: flex-start; flex-wrap: wrap; gap: var(--size-4-4); margin-block: var(--size-4-3) var(--size-4-5); }
+.veynrel-topology-heading { flex: 1 1 320px; min-width: 0; }
+.veynrel-health-view .veynrel-topology-heading h1 { margin: 0 0 var(--size-4-2); font-size: var(--h1-size); letter-spacing: -0.02em; }
+.veynrel-topology-header > button { flex-shrink: 0; max-width: 100%; white-space: normal; height: auto; min-height: 36px; }
+.veynrel-health-view .veynrel-topology-header .veynrel-health-primary {
+  border: 1px solid var(--interactive-accent);
+  box-shadow: none;
+  background: color-mix(in srgb, var(--interactive-accent) 12%, var(--background-primary));
+  color: var(--text-normal);
+  font-weight: var(--font-semibold);
+}
+.veynrel-health-view .veynrel-topology-header .veynrel-health-primary:hover { background: color-mix(in srgb, var(--interactive-accent) 20%, var(--background-primary)); }
+.veynrel-health-view .veynrel-topology-back { padding: var(--size-4-1) 0; height: auto; box-shadow: none; background: transparent; color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-health-view .veynrel-topology-back:hover { color: var(--text-normal); text-decoration: underline; }
+.veynrel-topology-metrics { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; margin: 0 0 var(--size-4-5); padding: 1px; border-radius: var(--radius-m); background: var(--background-modifier-border); overflow: hidden; }
+.veynrel-topology-preview .veynrel-topology-metrics { margin-block-start: var(--size-4-4); }
+.veynrel-topology-metrics > div { display: flex; flex-direction: column; gap: var(--size-4-2); min-width: 0; padding: var(--size-4-4); background: var(--background-primary); }
+.veynrel-topology-metrics dt { color: var(--text-muted); font-size: var(--font-ui-smaller); line-height: 1.4; overflow-wrap: anywhere; }
+.veynrel-topology-metrics dd { order: -1; margin: 0; min-height: calc(var(--h2-size) * 1.25); line-height: 1.25; font-size: var(--h2-size); font-weight: var(--font-semibold); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.veynrel-topology-metrics [data-unknown="true"] dd { font-size: var(--font-ui-medium); color: var(--text-muted); }
+.veynrel-topology-status { color: var(--text-muted); font-size: var(--font-ui-small); line-height: 1.5; }
+.veynrel-topology-status-label { margin: 0; font-weight: var(--font-medium); }
 .veynrel-topology-status[data-topology-status="error"] { color: var(--text-error); }
-.veynrel-topology-partial { border-inline-start: 3px dashed var(--text-muted); padding-inline-start: var(--size-4-3); }
+.veynrel-topology-partial { margin: var(--size-4-1) 0 0; max-width: 72ch; }
 .veynrel-topology-svg { display: block; width: 100%; height: 520px; overflow: hidden; background: var(--background-secondary); border-radius: var(--radius-m); }
 .veynrel-topology-map-panel .veynrel-topology-svg { touch-action: none; cursor: grab; }
 .veynrel-topology-map-panel .veynrel-topology-svg:active { cursor: grabbing; }
@@ -2121,25 +2168,82 @@
 .veynrel-topology-svg .veynrel-topology-edge[data-direction="outgoing"] { opacity: 0.9; stroke: var(--text-normal); stroke-width: 1.5; }
 .veynrel-topology-svg .veynrel-topology-edge[data-direction="both"] { opacity: 0.9; stroke: var(--text-normal); stroke-width: 3; }
 .veynrel-topology-label { fill: var(--text-normal); stroke: var(--background-primary); stroke-width: 3; paint-order: stroke; font-size: 16px; pointer-events: none; }
-.veynrel-topology-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 30%); gap: var(--size-4-4); }
-.veynrel-topology-map-panel, .veynrel-topology-inspector { min-width: 0; }
-.veynrel-topology-inspector { border-inline-start: 1px solid var(--background-modifier-border); padding-inline-start: var(--size-4-4); overflow-wrap: anywhere; }
-.veynrel-topology-facts { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--size-4-2); }
-.veynrel-topology-facts dd { margin: 0; }
-.veynrel-topology-search { display: flex; flex-wrap: wrap; align-items: center; gap: var(--size-4-3); margin-block: var(--size-4-3); }
-.veynrel-topology-search input { flex: 1; min-width: 120px; }
-.veynrel-topology-results { display: flex; flex-wrap: wrap; gap: var(--size-4-2); margin-block-end: var(--size-4-3); }
-.veynrel-topology-results p { flex-basis: 100%; margin: 0; color: var(--text-muted); }
+.veynrel-topology-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 30%); align-items: start; gap: var(--size-4-5); }
+.veynrel-topology-map-panel, .veynrel-topology-inspector { min-width: 0; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-l); }
+.veynrel-topology-map-panel { padding: var(--size-4-3); background: var(--background-secondary); }
+.veynrel-topology-inspector { padding: var(--size-4-5); background: var(--background-primary); overflow-wrap: anywhere; }
+.veynrel-health-view .veynrel-topology-inspector h2 { margin: 0; font-size: var(--h3-size); line-height: 1.3; }
+.veynrel-topology-eyebrow { margin: 0 0 var(--size-4-2); color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.veynrel-topology-path { margin: var(--size-4-2) 0 var(--size-4-4); color: var(--text-muted); font-size: var(--font-ui-small); line-height: 1.5; }
+.veynrel-topology-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--size-4-3); margin-block: var(--size-4-5); }
+.veynrel-topology-facts dt { color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-topology-facts dd { margin: var(--size-4-1) 0 0; font-weight: var(--font-semibold); font-variant-numeric: tabular-nums; }
+.veynrel-topology-facts > div:nth-child(-n+4) dd { font-size: var(--font-ui-large); }
+.veynrel-topology-facts > div:nth-child(n+5) { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; gap: var(--size-4-3); }
+.veynrel-topology-facts > div:nth-child(5) { border-top: 1px solid var(--background-modifier-border); padding-top: var(--size-4-3); }
+.veynrel-topology-facts > div:nth-child(n+5) dd { margin: 0; font-size: var(--font-ui-small); text-align: end; }
+.veynrel-topology-map-toolbar { display: flex; align-items: flex-end; flex-wrap: wrap; gap: var(--size-4-3); padding: var(--size-4-1) var(--size-4-1) var(--size-4-3); }
+.veynrel-topology-search { display: flex; flex: 1 1 180px; min-width: 0; flex-direction: column; gap: var(--size-4-2); color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-topology-search input { width: 100%; min-width: 0; background: var(--background-primary); }
+.veynrel-topology-results { display: flex; flex-direction: column; gap: var(--size-4-1); max-height: 260px; overflow-y: auto; padding: var(--size-4-1); margin-block-end: var(--size-4-3); }
+.veynrel-topology-results:empty { display: none; }
+.veynrel-topology-results p { margin: 0 0 var(--size-4-2); color: var(--text-muted); font-size: var(--font-ui-small); }
 .veynrel-topology-results button, .veynrel-topology-inspector button { max-width: 100%; white-space: normal; height: auto; min-height: 32px; overflow-wrap: anywhere; text-align: start; }
-.veynrel-topology-inspector ul { padding-inline-start: var(--size-4-4); }
+.veynrel-topology-relationships { border-block-start: 1px solid var(--background-modifier-border); padding-block: var(--size-4-4); }
+.veynrel-topology-relationships:last-child { padding-block-end: 0; }
+.veynrel-health-view .veynrel-topology-relationships h3 { margin: 0 0 var(--size-4-2); font-size: var(--font-ui-small); font-weight: var(--font-semibold); }
+.veynrel-topology-relationships ul { list-style: none; padding: 0; margin: 0; }
+.veynrel-topology-relationships li { padding-block: var(--size-4-1); font-size: var(--font-ui-small); }
+.veynrel-topology-relationships p { color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.veynrel-health-view .veynrel-topology-relationships button,
+.veynrel-health-view .veynrel-topology-results button { display: block; width: 100%; box-shadow: none; background: transparent; padding: var(--size-4-2); color: var(--text-normal); }
+.veynrel-health-view .veynrel-topology-relationships button:hover,
+.veynrel-health-view .veynrel-topology-results button:hover { background: var(--background-modifier-hover); }
 .veynrel-topology-legend, .veynrel-topology-private { font-size: var(--font-smallest); color: var(--text-muted); }
+.veynrel-topology-legend { padding: var(--size-4-3) var(--size-4-1) var(--size-4-1); line-height: 1.5; }
+.veynrel-topology-legend summary { cursor: pointer; width: fit-content; max-width: 100%; }
+.veynrel-topology-legend p { margin-block-end: 0; }
+.veynrel-health-view .veynrel-topology-detail :is(button, input, summary, h1, h2):focus-visible { outline: 2px solid var(--text-normal); outline-offset: 3px; }
 .veynrel-topology-empty { padding-block: var(--size-4-6); color: var(--text-muted); }
+.veynrel-health-view .veynrel-health-status[data-topology-contextual="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 @container (max-width: 850px) {
   .veynrel-topology-columns { grid-template-columns: minmax(0, 1fr); }
-  .veynrel-topology-inspector { border-inline-start: 0; border-block-start: 1px solid var(--background-modifier-border); padding-inline-start: 0; }
   .veynrel-topology-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @container (max-width: 480px) {
   .veynrel-topology-svg { height: 360px; }
   .veynrel-topology-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .veynrel-topology-metrics > div { padding: var(--size-4-3); }
+  .veynrel-topology-inspector { padding: var(--size-4-4); }
+}
+/* Only presentation enters; pan, zoom and graph selection never interpolate. */
+@keyframes veynrel-page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes veynrel-content-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .veynrel-health-page-enter { animation: veynrel-page-enter 160ms ease-out; }
+  .veynrel-topology-content { animation: veynrel-content-enter 160ms ease-out; }
+  .veynrel-topology-inspector-content { animation: veynrel-content-enter 120ms ease-out; }
+  .veynrel-findings-navigation button,
+  .veynrel-topology-detail :is(button, input, summary) { transition: background-color 120ms ease-out, color 120ms ease-out, border-color 120ms ease-out; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .veynrel-health-page-enter,
+  .veynrel-topology-detail,
+  .veynrel-topology-detail *,
+  .veynrel-findings-navigation button { animation: none; transition: none; }
 }
