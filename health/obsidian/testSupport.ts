@@ -33,12 +33,13 @@ export function appFixture() {
   // Minimal Vault fake: no Obsidian runtime is needed for controller tests.
   const note = { path: "A.md", basename: "A", extension: "md", stat: { mtime: 1 } };
   const vault = { adapter: f.adapter, configDir: "Private/Config",
+    on: vi.fn(), offref: vi.fn(),
     getMarkdownFiles: vi.fn(() => [note]),
     read: vi.fn(async () => "A sufficiently long note for testing the local health check."),
     getAbstractFileByPath: vi.fn((path: string) => path === note.path ? note : null),
     getFileByPath: vi.fn((path: string) => path === note.path ? note : null),
   };
-  const metadataCache = { getFileCache: vi.fn(() => ({})), getFirstLinkpathDest: vi.fn(() => null) };
+  const metadataCache = { on: vi.fn(), offref: vi.fn(), getFileCache: vi.fn(() => ({})), getFirstLinkpathDest: vi.fn(() => null) };
   const openFile = vi.fn(async () => undefined);
   const workspace = { getLeaf: vi.fn(() => ({ openFile })) };
   return { ...f, note, vault, metadataCache, openFile, workspace, app: { vault, metadataCache, workspace } as unknown as App };
