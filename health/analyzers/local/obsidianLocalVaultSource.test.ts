@@ -162,3 +162,34 @@ describe("Obsidian local vault source", () => {
     expect((await invalid.source.capture(invalid.signal)).coverage.linksComplete).toBe(false);
   });
 });
+
+describe("metadata-only topology capture", () => {
+  it("shares the exact Health resolver and scope without reading any note bodies", async () => {
+    const f = fixture(["A.md", "B.md", "image.png", ".custom/private.md", ".ai-backup/old.md", ".ai-backup-123/old.md", "Archive/old.md", "Templates/example.md"]);
+    f.caches.set("A.md", { ...cache(["B#Heading", "B", "A", "#Local", "image.png", "Missing", " Missing ", "https://example.org", "mailto:a@b.org", "//example.org", ".custom/private.md"]),
+      embeds: cache(["B"]).links, frontmatterLinks: [{ link: "Property", original: "[[Property]]", key: "related" }],
+      referenceLinks: [{ link: "Reference", id: "ref", position: cache(["Reference"]).links![0].position }] });
+    const source = new ObsidianLocalVaultSource(f.app, { includes: (path) => !path.startsWith("Archive/") });
+    const metadata = await source.captureMetadata(f.signal);
+    expect(f.app.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
+    expect(f.app.vault.read).not.toHaveBeenCalled();
+    expect(f.app.metadataCache.getFileCache).toHaveBeenCalledTimes(3);
+    expect(f.app.metadataCache.getFirstLinkpathDest).toHaveBeenCalledWith("B", "A.md");
+    expect(metadata.notes.map((note) => note.path)).toEqual(["A.md", "B.md", "Templates/example.md"]);
+    expect(metadata.notes.every((note) => !("content" in note))).toBe(true);
+    expect(metadata.notes[0].resolvedOutgoing).toEqual(["B.md"]);
+    expect(metadata.notes[0].unresolvedLinks).toEqual([{ target: "Missing", count: 2 }, { target: "Property", count: 1 }, { target: "Reference", count: 1 }]);
+    const health = await source.capture(f.signal);
+    const fields = (snapshot: typeof metadata) => snapshot.notes.map(({ path, resolvedOutgoing, unresolvedLinks, linksAvailable }) => ({ path, resolvedOutgoing, unresolvedLinks, linksAvailable }));
+    expect(fields(metadata)).toEqual(fields(health));
+  });
+  it("treats missing caches as partial, never as broken targets, and supports cancellation", async () => {
+    const f = fixture(); f.caches.delete("A.md");
+    const metadata = await f.source.captureMetadata(f.signal);
+    expect(metadata.coverage.linksComplete).toBe(false);
+    expect(metadata.notes[0]).toMatchObject({ linksAvailable: false, unresolvedLinks: [], resolvedOutgoing: [] });
+    const abort = new AbortController(); abort.abort();
+    await expect(f.source.captureMetadata(abort.signal)).rejects.toMatchObject({ name: "AbortError" });
+    expect(f.app.vault.read).not.toHaveBeenCalled();
+  });
+});
