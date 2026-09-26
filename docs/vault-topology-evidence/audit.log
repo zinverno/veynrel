@@ -1,0 +1,7 @@
+npm run audit:proposals (host execution)
+B: KILLED — approval skips base hash precondition
+D: KILLED — Vault write precedes successful claim
+E: KILLED — approval performs two Vault mutations
+F: KILLED — changed Vault content is applied after claim
+H: KILLED — Reject modifies Vault
+5/5 Stage 11 mutations killed; every restored test passed.

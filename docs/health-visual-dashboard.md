@@ -215,12 +215,13 @@ reported in the handoff, avoiding a self-referential evidence commit.
 
 ## Next visual milestone
 
-**Real Vault topology / relationship visualization**, through an explicit narrow
-local visualization port for nodes, edges, components, orphans, bridges and broken
-targets. Findings counts cannot reconstruct that graph truthfully.
+[**Real Vault topology**](vault-topology.md) now loads from the explicit Health
+**Load map** action. Its compact preview shows actual local Markdown relationships
+and opens a transient Health detail route. Opening Health remains passive; Findings
+counts are never used to reconstruct graph geometry.
 
-**Interactive semantic neighborhood** also waits for a contract describing the
-selected note, related-note similarity and edges/weights. Neither graph is
-implemented or represented by a decorative placeholder here.
+**Interactive semantic neighborhood** remains deferred to a separate Discover
+contract describing the selected note, similarity neighbors and weighted edges.
+Topology draws actual resolved Markdown links only.
 
 No version bump, tag, release or dependency addition. The PR remains open/unmerged.
