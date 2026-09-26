@@ -2,10 +2,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   class Element {
     children: Element[] = []; text = ""; cls = ""; tag = "div"; disabled = false; value = "";
+    parentElement?: Element; scrollTop = 0; scrollLeft = 0; focusOptions?: FocusOptions;
     attrs: Record<string, string> = {}; listeners: Array<() => void> = [];
     ownerDocument: { activeElement: Element | null } = { activeElement: null };
     private append(tag: string, opts: { text?: string; cls?: string; attr?: Record<string, string> } = {}): Element {
-      const child = new Element(); Object.assign(child, { tag, text: opts.text ?? "", cls: opts.cls ?? "", attrs: opts.attr ?? {}, ownerDocument: this.ownerDocument });
+      const child = new Element(); Object.assign(child, { tag, text: opts.text ?? "", cls: opts.cls ?? "", attrs: opts.attr ?? {}, ownerDocument: this.ownerDocument, parentElement: this });
       this.children.push(child); return child;
     }
     createSvg(tag: string, opts: { cls?: string; attr?: Record<string, string> } = {}): Element { return this.append(tag, opts); }
@@ -25,7 +26,7 @@ const mocks = vi.hoisted(() => {
       const action = selector.match(/="([^"]+)"/u)?.[1];
       return action ? this.all().find((e) => e.attrs["data-health-action"] === action) : undefined;
     }
-    focus(): void { if (!this.disabled) this.ownerDocument.activeElement = this; }
+    focus(options?: FocusOptions): void { if (!this.disabled) { this.ownerDocument.activeElement = this; this.focusOptions = options; } }
     addEventListener(_type: string, fn: () => void): void { this.listeners.push(fn); }
     removeEventListener(_type: string, fn: () => void): void { this.listeners = this.listeners.filter((item) => item !== fn); }
     click(): void { for (const listener of this.listeners) listener(); }
@@ -1194,6 +1195,54 @@ describe("visual Health dashboard", () => {
 });
 
 describe("real topology child route", () => {
+  it("preserves inline scroll and nearby focus through held loads, refreshes and stale updates", async () => {
+    const f = fixture(); const source = new ObsidianLocalVaultSource(f.app);
+    const topology = new VaultTopologyController(source);
+    const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
+    const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
+    await view.onOpen();
+    // Model a browser clamping scroll when the view body is replaced. Real layout
+    // and keyboard/viewport bounds are also checked by the native regression.
+    const body = content.action("nav-health").parentElement!.parentElement!;
+    const empty = body.empty.bind(body);
+    vi.spyOn(body, "empty").mockImplementation(() => { empty(); content.scrollTop = 0; });
+    const capture = source.captureMetadata.bind(source);
+    for (const stage of ["load", "refresh", "stale"] as const) {
+      content.scrollTop = 900;
+      if (stage === "stale") { topology.markStale(); expect(content.scrollTop).toBe(900); }
+      let release!: () => void;
+      const held = new Promise<void>((resolve) => { release = resolve; });
+      vi.spyOn(source, "captureMetadata").mockImplementationOnce(async (signal) => { await held; return capture(signal); });
+      const button = content.action("topology-refresh"); button.focus(); button.click();
+      expect(topology.getSnapshot().state).toBe("loading");
+      expect(content.action("topology-refresh").disabled).toBe(true);
+      expect(content.ownerDocument.activeElement).toBe(content.action("topology-refresh").parentElement);
+      expect(content.ownerDocument.activeElement?.focusOptions).toEqual({ preventScroll: true });
+      expect(content.all().find((e) => e.attrs["aria-live"] === "polite")?.text).toContain(t("@topology.loading"));
+      expect(content.scrollTop).toBe(900);
+      release(); await topology.load();
+      expect(topology.getSnapshot().state).toBe("ready");
+      expect(content.ownerDocument.activeElement).toBe(content.action("topology-refresh"));
+      expect(content.ownerDocument.activeElement?.focusOptions).toEqual({ preventScroll: true });
+      expect(content.scrollTop).toBe(900);
+      expect(body.attrs["data-page"]).toBe("health");
+    }
+    // Completion must not take focus back if the user has moved on.
+    let release!: () => void;
+    const held = new Promise<void>((resolve) => { release = resolve; });
+    vi.spyOn(source, "captureMetadata").mockImplementationOnce(async (signal) => { await held; return capture(signal); });
+    content.action("topology-refresh").click(); content.action("topology-open").focus();
+    release(); await topology.load();
+    expect(content.ownerDocument.activeElement).toBe(content.action("topology-open"));
+    // Deliberate navigation still focuses the destination heading.
+    for (const action of ["nav-findings", "nav-discover", "topology-open"]) {
+      content.action(action).click();
+      expect(content.ownerDocument.activeElement?.attrs["data-health-heading"]).toBe("true");
+      expect(content.ownerDocument.activeElement?.focusOptions).toBeUndefined();
+      content.action("nav-health").click();
+    }
+    await view.onClose(); topology.dispose(); f.controller.dispose();
+  });
   it("Health stays passive, explicit loading reads metadata only, navigation retains map and Open note reuses safe navigation", async () => {
     const f = fixture(); const topology = new VaultTopologyController(new ObsidianLocalVaultSource(f.app));
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
