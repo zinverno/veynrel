@@ -6,9 +6,33 @@ Rerank reorders candidates from an explicit **Discover → Semantic search** or 
 
 In Veynrel plugin settings, next to Semantic Intelligence, configure **Search refinement / Rerank**:
 
-1. Read the disclosure, enter an explicit OpenRouter rerank model ID and a separate API key, and enable refinement. It is **off by default**, including upgrades.
+1. Read the disclosure, enter an explicit OpenRouter rerank model ID and a separate API key, and enable refinement. New installations default to **off/manual**. Existing enabled installations keep automatic behavior; see migration below.
 2. `cohere/rerank-v3.5` is a starting example in the official documentation checked on 2026-10-07, not a recommendation or a pricing promise. There is no invented model catalog. Chat/embedding model IDs are not substituted.
 3. **Test rerank** is optional and explicit. It makes a billable API request using only “Which fruit is yellow?” and two fixed synthetic sentences. Opening settings never tests a provider.
+
+### Manual and automatic modes
+
+**When should results be refined?** has two choices: **Manually, with a button** and **Automatically after searching**. In manual mode:
+
+1. Open the existing Semantic Search, enter a query and press **Search**. One query embedding retrieves up to 30 candidates and displays the original top 10. No Rerank or source reconstruction happens yet.
+2. Click **Refine results** under the results. Its disclosure says: “Sends the search query and selected fragments to OpenRouter. The request may incur a charge.” This explicit action prepares current fragments and refines the saved pool without another semantic search or embedding request.
+3. During refinement, originals remain visible; the button is disabled against double clicks, while search and close remain usable. Success reports actual candidate coverage, not a promise of improved relevance.
+4. Switch **Original order / After refinement** locally, with no additional API request. A failure preserves originals and offers another explicit click; the retry disclosure states that it may be charged again. With no model/key, the UI gives the settings path instead of a dead button.
+
+Automatic mode runs the same refinement stage immediately after each explicit search. Disabling Rerank retains the original limit of 10 with no extra source reads. Typing, viewing results, opening Discover/settings and changing modes never launch Rerank. **Test rerank** remains a separate billable action.
+
+The [hard benchmark](rerank-hard-benchmark-v1.md) found 11 improvements, 11 unchanged cases and 2 regressions among 24 positive queries (nDCG@10). Embeddings already placed a relevant document first on 23/24. This motivates user-controlled refinement; no query difficulty heuristic or automatic model substitution is added.
+
+### Settings migration
+
+| Stored settings | Mode after loading |
+| --- | --- |
+| New installation / absent Rerank settings | Off, manual |
+| Enabled, no `triggerMode` | Automatic |
+| Disabled, no `triggerMode` | Manual |
+| Explicit `manual` or `automatic` | Preserved, regardless of enablement |
+
+`triggerMode` does not replace the existing model ID or key. Its writes use the existing settings save queue and nested rollback; a failed save restores the prior value and invalidates pending refinement again. Mode changes never rebuild or invalidate the semantic index.
 
 Before enabling, the UI explains:
 
@@ -29,7 +53,9 @@ flowchart LR
   A[Explicit search] --> B[One query embedding and semantic search]
   B --> C[Show original top 10]
   B --> D[Up to 30 indexed note candidates]
-  D --> E[Read current source and re-chunk]
+  D --> M[Keep pool in current in-memory session]
+  M --> T[Manual: Refine results click / Automatic: after search]
+  T --> E[Read current source and re-chunk]
   E --> F[Match chunk id and contentHash]
   F --> G[Check settings, source and index revisions]
   G --> H[OpenRouter rerank]
@@ -38,15 +64,15 @@ flowchart LR
   H --> K[Safe original-order fallback]
 ```
 
-`rerank/refinedSearch.ts` orchestrates the explicit scenario through `ObsidianSemanticController.searchDiscover`. The ordinary controller/runtime/search-service methods retain their existing behavior. Runtime preparation uses the same `MarkdownDocumentSource` and `MarkdownChunker` as indexing and RAG. `chunking/reconstructChunks.ts` contains the existing RAG validity checks, extracted without changing RAG selection behavior.
+`ObsidianSemanticController.searchDiscover` obtains candidates once. `rerank/refinedSearch.ts::refineCandidates` accepts that saved pool and shares preparation, payload limits, fallback, index mapping and sorting between manual and automatic modes. The existing `refinedSearch` wrapper remains available to evaluation drivers. The manual UI receives a session ID and an action capability, not the 30-document pool or settings/credentials. The ordinary controller/runtime/search-service methods retain their existing behavior. Runtime preparation uses the same `MarkdownDocumentSource` and `MarkdownChunker` as indexing and RAG. `chunking/reconstructChunks.ts` contains the existing RAG validity checks, extracted without changing RAG selection behavior.
 
 The adapter calls the dedicated [OpenRouter rerank endpoint](https://openrouter.ai/docs/api/api-reference/rerank/submit-a-rerank-request): `POST https://openrouter.ai/api/v1/rerank`, using Obsidian `requestUrl`, with no SDK or chat-completions emulation.
 
 Each candidate contributes its highest-scoring usable match among the existing maximum three semantic matches. The current chunk must have the indexed `id` and `contentHash`. The preview is never treated as chunk text; old offsets are never used to reconstruct it. Missing/unreadable/stale chunks are not replaced with the whole note. Existing extra matches remain visible. Successful refinement retains the chosen chunk's current source coordinates for note navigation.
 
-Only the original indexed candidates inside the existing Markdown source are considered. v1 does not introduce or expand processing scope. Deleted/moved notes are filtered from both refinement and fallback. Unreadable or stale fragments may leave an existing note unscored. There is no whole-vault text read for rerank. Revisions are checked across text reads, immediately before HTTP, and before applying its response. Any vault event conservatively invalidates pending refinement, including an unrelated note change; retry with an explicit search.
+Only the original indexed candidates inside the existing Markdown source are considered. v1 does not introduce or expand processing scope. Deleted/moved notes are filtered from both refinement and fallback. Unreadable or stale fragments may leave an existing note unscored. There is no whole-vault text read for rerank. Revisions are checked across text reads, immediately before HTTP, and before applying its response. Any vault event conservatively invalidates the saved session, including an unrelated note change. Its snapshot contains the trimmed query, Rerank settings/revision, semantic configuration, selected runtime, vector generation, source revision and a session ID. Input edits, a new search, close, settings/index/source changes and plugin unload abort waiting and release the pool; nothing is persisted for the session. The UI says “Результаты устарели. Выполните поиск заново” and does not search again automatically.
 
-Rerank settings live separately from embeddings. Changing enablement, key or model does **not** change embedding-space identity, index format, indexing, index bytes or generation, and never requests a rebuild. Health, Recall, maps, neighbors, duplicates, Ask your Vault/RAG, and Companion do not call rerank. Workspace/settings entry, indexing and typing do not call it either.
+Rerank settings live separately from embeddings. Changing enablement, trigger mode, key or model does **not** change embedding-space identity, index format, indexing, index bytes or generation, and never requests a rebuild. Health, Recall, maps, neighbors, duplicates, Ask your Vault/RAG, and Companion do not call rerank. Workspace/settings entry, indexing and typing do not call it either.
 
 ## v1 limits
 
@@ -75,7 +101,7 @@ If rerank is unconfigured, there are fewer than two usable fragments, or the sna
 
 The search fallback message is:
 
-> Уточнение недоступно. Показаны результаты семантического поиска.
+> Не удалось уточнить результаты. Показана исходная выдача.
 
 Connection testing uses fixed localized error categories, never raw error bodies. There are no hidden retries or alternate models/services. The native transport cannot abort HTTP: timeout/cancellation **stops waiting and ignores late replies**, and does not guarantee that the provider stops processing or billing. Changing settings, disabling rerank, closing the search UI and unloading the plugin invalidate active requests. Index revisions also prevent application to another snapshot. No index barrier is held during external rerank HTTP.
 
@@ -83,17 +109,26 @@ Connection testing uses fixed localized error categories, never raw error bodies
 
 Automated tests use fake transports only. Provider-contract tests cover payload bounds/Unicode, index validation, safe errors, timeout/cancellation and synthetic tests. Orchestration/runtime tests cover reconstruction, partial coverage, one embedding, fallback, lifecycle races, index independence and capability boundaries. UI tests cover stages, literal rendering, navigation and old responses. Frozen legacy settings assertions still verify existing defaults and callbacks, projecting out only the additive rerank property.
 
-Native harness: `scripts/rerank-native.mjs`. Run `npm run build`, then `node scripts/rerank-native.mjs prepare /tmp/veynrel-rerank-native`. Launch a separate Obsidian process using `/tmp/veynrel-rerank-native/profile` and `--remote-debugging-port=9261`. Run `node scripts/rerank-native.mjs run /tmp/veynrel-rerank-native`. It uses a localhost synthetic embedding endpoint and replaces the rerank adapter transport in the disposable native process. It never needs real credentials. See [verification evidence](rerank-v1-evidence/verification.md) for actual results and remaining gaps.
+Native fake harness: `scripts/rerank-native.mjs`, with the manual scenario in `scripts/manual-rerank-native.mjs`:
 
-Manual acceptance on a disposable vault:
+```sh
+npm run build
+node scripts/rerank-native.mjs prepare /tmp/veynrel-manual-rerank-v1 manual
+# Launch installed Obsidian with this isolated profile and loopback CDP 9261:
+/usr/bin/electron43 /usr/lib/obsidian/app.asar --user-data-dir=/tmp/veynrel-manual-rerank-v1/profile --remote-debugging-port=9261 --remote-debugging-address=127.0.0.1 --disable-gpu --ozone-platform=x11
+# In another terminal:
+node scripts/rerank-native.mjs run /tmp/veynrel-manual-rerank-v1 manual
+```
 
-1. Load the plugin with an existing semantic index and old settings. Confirm rerank is off, normal search works, and opening Discover/settings makes no rerank request.
-2. Enter an explicit rerank model and your separate OpenRouter key. Read the disclosure and enable. **Only with your own consent to billing**, click Test rerank; confirm its synthetic request succeeds or shows a safe error.
-3. Search from Discover and from the plugin command. Observe original results → refinement → ordered results or fallback. Open a result and verify the selected fragment position. Check English and Russian UI.
-4. Use a wrong key/model, insufficient credits or a controlled transport failure. Confirm original semantic order and the fallback message. Break the embedding configuration separately; confirm that remains a base-search error.
-5. During a delayed request, start a new search, close the modal, disable rerank, change model/key, and modify/delete/rename a candidate. Old replies must not reorder the current results or restore removed notes.
-6. Compare index bytes/identity before and after rerank settings changes; maps, RAG and Companion should behave as before.
+Adjust the installed Obsidian executable path for your system. Use an unused localhost port or stop the previous isolated process before restarting. The driver checks the synthetic vault path before changing settings, substitutes the production adapter's transport, and starts a localhost synthetic embedding server. No real credentials are loaded and no live API is used. Omit `manual` to run the older automatic fake scenario. Historical [v1 evidence](rerank-v1-evidence/verification.md), [live comparison #73](rerank-live-model-comparison.md) and [hard benchmark #74](rerank-hard-benchmark-v1.md) remain separate from [manual UX verification](manual-rerank-ux-v1.md).
 
-The [Russian/English synthetic evaluation set](rerank-v1-evaluation.json) is for later manual live-model evaluation. Record the model/date, original candidates and fragment coverage, semantic order, reranked order, relevance judgment and failures. Include unsuccessful or ambiguous cases. No live quality measurements are claimed by this PR; production behavior is not fitted to this set.
+Manual acceptance in the fake synthetic vault:
 
-Decisions, cloud infrastructure, accounts, quotas and release publication are outside this stage.
+1. With off/manual defaults, enable Rerank using the fake transport and synthetic key; leave the chosen model ID unchanged. Search twice: ten results each time, zero Rerank calls.
+2. Click **Refine results** once: originals remain visible while waiting, one Rerank call receives up to 30 saved candidates, no extra embedding call. Double-clicking must not send again.
+3. Switch both orders with mouse and keyboard; inspect the unchanged semantic score and open the selected note/fragment. No toggle sends a request.
+4. Force a fake failure: retain originals, show the retry-cost disclosure, and retry only on a separate click.
+5. Edit the query during a delayed response, start a new search, close the modal, change mode/key/model, or edit/delete a note. Reject stale replies and require an explicit new search.
+6. Change to automatic, reopen search and verify its previous behavior; switch back to manual. Check RU/EN and 390 px, and confirm index identity is unchanged.
+
+No live-model request is needed for this UX acceptance. Synthetic fake embeddings and rerank scores validate control flow, not ranking quality. See the linked historical experiments for model results; none were repeated for manual UX.

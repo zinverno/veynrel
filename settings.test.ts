@@ -20,7 +20,7 @@ const exposedKeys = [
   "defaultInsertion", "newNoteFolder", "filenameTemplate", "mocFolder", "atomsLocation", "atomsFolder",
   "deepAudit.batchSize", "deepAudit.maxConcurrent", "deepAudit.delayMs",
   "decisions.enabled", "decisions.model", "decisions.apiKey",
-  "rerank.enabled", "rerank.model", "rerank.apiKey",
+  "rerank.enabled", "rerank.triggerMode", "rerank.model", "rerank.apiKey",
   "semantic.enabled", "semantic.embeddingProvider", "semantic.embeddingModel", "semantic.embeddingBaseUrl",
   "semantic.openRouterApiKey", "semantic.openAICompatibleApiKey", "companion.enabled", "companion.endpoint", "companion.token", "companion.timeoutMs",
 ].sort();
@@ -38,7 +38,7 @@ describe("shared legacy and declarative settings inventory", () => {
   it("covers every existing durable UI binding without registration-time side effects", () => {
     const f = fixture(); const snapshot = structuredClone(f.settings);
     const rows = f.tab.getSettingDefinitions().flatMap((section) => section.items);
-    expect(rows).toHaveLength(baseline.rowCount + 10);
+    expect(rows).toHaveLength(baseline.rowCount + 11);
     expect(rows.flatMap((row) => row.keys).filter(key => !key.startsWith("rerank.") && !key.startsWith("decisions.")).sort()).toEqual(baseline.keys);
     expect(rows.flatMap((row) => row.keys).sort()).toEqual(exposedKeys);
     expect(f.settings).toEqual(snapshot);

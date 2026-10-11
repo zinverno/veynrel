@@ -1122,6 +1122,23 @@
     width: min(720px, 100%);
 }
 
+.ai-semantic-search-dialog {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.ai-semantic-search-dialog > .ai-semantic-result-list {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.ai-semantic-search-dialog > .ai-semantic-search-input-row,
+.ai-semantic-search-dialog > .ai-semantic-search-status,
+.ai-semantic-search-dialog > .ai-semantic-refinement {
+    flex-shrink: 0;
+}
+
 .ai-semantic-search-input-row {
     display: flex;
     gap: var(--ai-space-sm, 8px);
@@ -1224,6 +1241,29 @@
 .ai-semantic-duplicate-note:hover {
     border-color: var(--interactive-accent);
     background: var(--background-modifier-hover);
+}
+
+.ai-semantic-refinement-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ai-space-sm, 8px);
+    margin-top: var(--ai-space-md, 12px);
+}
+
+.ai-semantic-refinement-actions button {
+    white-space: normal;
+    height: auto;
+    min-height: 32px;
+}
+
+.ai-semantic-refinement-actions button[aria-pressed="true"] {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+.ai-semantic-refinement-actions button:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
 }
 
 .ai-semantic-result-card {

@@ -54,9 +54,17 @@ describe("transactional semantic settings in the plugin save queue", () => {
     f.plugin.loadData = vi.fn(async () => legacy);
     vi.mocked(requestUrl).mockClear();
     await f.plugin.loadSettings();
-    expect(f.plugin.settings.rerank).toEqual({ enabled: false, provider: "openrouter", model: "cohere/rerank-v3.5", apiKey: "" });
+    expect(f.plugin.settings.rerank).toEqual({ enabled: false, triggerMode: "manual", provider: "openrouter", model: "cohere/rerank-v3.5", apiKey: "" });
     expect(f.plugin.settings.semantic).toEqual(legacy.semantic);
     expect(requestUrl).not.toHaveBeenCalled();
+  });
+  it.each([true, false])("migrates an existing rerank installation enabled=%s in the real loader", async enabled => {
+    const f = await fixture();
+    f.plugin.loadData = vi.fn(async () => ({ ...f.stored,
+      rerank: { enabled, provider: "openrouter", model: "chosen/existing", apiKey: "synthetic-saved-key" } }));
+    await f.plugin.loadSettings();
+    expect(f.plugin.settings.rerank).toEqual({ enabled, triggerMode: enabled ? "automatic" : "manual",
+      provider: "openrouter", model: "chosen/existing", apiKey: "synthetic-saved-key" });
   });
   it("preserves Health, Semantic, Deep Audit, Companion and ordinary preferences in the same save queue", async () => {
     const f = await fixture();

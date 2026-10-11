@@ -4,13 +4,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import http from 'node:http';
 import crypto from 'node:crypto';
-const [mode, root] = process.argv.slice(2);
+const [mode, root, scenario = 'automatic'] = process.argv.slice(2);
+assert(['automatic', 'manual'].includes(scenario));
 assert(['prepare', 'run'].includes(mode));
 assert(root?.startsWith('/tmp/') && !root.includes('..'));
 const vault = root + '/vault', pluginDir = vault + '/.obsidian/plugins/ai-knowledge-hub';
 if (mode === 'prepare') {
   await fs.mkdir(pluginDir, { recursive: true }); await fs.mkdir(root + '/profile', { recursive: true });
-  for (let i = 0; i < 12; i++) await fs.writeFile(`${vault}/Note-${String(i).padStart(2, '0')}.md`,
+  for (let i = 0; i < (scenario === 'manual' ? 34 : 12); i++) await fs.writeFile(`${vault}/Note-${String(i).padStart(2, '0')}.md`,
     (i < 2 ? '' : `# Synthetic ${i}\n\n`) + `Синтетический фрагмент ${i}. A local note about search and fragments.` +
     (i === 0 ? '' : `\n\n## Navigation\n\nSecond section ${i}.`));
   await fs.writeFile(pluginDir + '/data.json', JSON.stringify({ language: 'en', apiKey: '',
@@ -44,10 +45,12 @@ const checks = [];
 const check = (name, value) => { assert(value, name); checks.push(name); };
 const screenshot = async name => { const { data } = await cdp('Page.captureScreenshot', { format: 'png' }); await fs.writeFile(root + '/' + name + '.png', Buffer.from(data, 'base64')); };
 try {
+  await waitFor("!!window.app?.vault && !!app.workspace?.layoutReady");
+  check('isolated synthetic vault selected', await evaluate(`app.vault.adapter.basePath===${JSON.stringify(vault)}`));
+  await evaluate("(async()=>{if(!app.plugins.isEnabled())await app.plugins.setEnable(true);if(!app.plugins.plugins['ai-knowledge-hub'])await app.plugins.enablePlugin('ai-knowledge-hub');})()");
   await evaluate("app.setting.close();for(const el of document.querySelectorAll('.ai-semantic-search-modal'))el.closest('.modal').querySelector('.modal-close-button,.modal-header-button').click();void 0");
   await waitFor("!document.querySelector('.ai-semantic-search-modal')");
   await waitFor("!!app.plugins.plugins['ai-knowledge-hub']?.semanticController");
-  check('isolated synthetic vault selected', await evaluate(`app.vault.adapter.basePath===${JSON.stringify(vault)}`));
   await evaluate(`(async()=>{await new Promise(r=>app.workspace.onLayoutReady(r)); window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;
     window.rerankCalls=[];window.mode='success';window.pendingRerank=[];
     const factory=engine.rerankProvider;engine.rerankProvider=settings=>{const provider=factory(settings);provider.transport=async request=>{
@@ -57,6 +60,10 @@ try {
       return {status:200,text:JSON.stringify({model:body.model,results:body.documents.map((_,index)=>({index,relevance_score:mode==='source-order'?-index:index}))})};};return provider;};
     window.noteReads=0;const read=app.vault.cachedRead;app.vault.cachedRead=function(...args){noteReads++;return read.apply(this,args)};
   })()`);
+  if (scenario === 'manual') {
+    const { manualRerankScenario } = await import('./manual-rerank-native.mjs');
+    await manualRerankScenario({ evaluate, waitFor, check, screenshot, cdp, embeddings: () => embeddings });
+  } else {
   check('legacy settings migrate with rerank off and empty independent key', await evaluate("plugin.settings.rerank.enabled===false && plugin.settings.rerank.apiKey===''") );
   await evaluate("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health')");
   await waitFor("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.contentEl.querySelector('[data-health-action=nav-discover]')");
@@ -78,7 +85,7 @@ try {
   await search('synthetic query'); await stage('ready');
   check('disabled search uses one embedding and no reads/rerank', embeddings - beforeDisabled === 1 && await evaluate(`noteReads===${reads} && rerankCalls.length===0`));
   check('disabled search retains 10 results', await evaluate("document.querySelectorAll('.ai-semantic-result-card').length===10"));
-  await evaluate("document.querySelector('.ai-semantic-search-modal').closest('.modal').querySelector('.modal-close-button,.modal-header-button').click();Object.assign(plugin.settings.rerank,{enabled:true,apiKey:'synthetic-native-key'});engine.notifyRerankSettingsChanged();plugin.saveSettings()");
+  await evaluate("document.querySelector('.ai-semantic-search-modal').closest('.modal').querySelector('.modal-close-button,.modal-header-button').click();Object.assign(plugin.settings.rerank,{enabled:true,triggerMode:'automatic',apiKey:'synthetic-native-key'});engine.notifyRerankSettingsChanged();plugin.saveSettings()");
   await waitFor("!document.querySelector('.ai-semantic-search-modal')");
   const before = embeddings;
   await evaluate("mode='slow';engine.openSearch()"); await search('refine synthetic'); await stage('refining');
@@ -93,7 +100,7 @@ try {
   await waitFor("app.workspace.getActiveFile()?.path==='Note-11.md'"); check('note opens after rerank', true);
   await waitFor("!document.querySelector('.ai-semantic-search-modal')");
   await evaluate("mode='failure';engine.openSearch()"); await search('failure synthetic'); await stage('fallback');
-  check('failure preserves semantic order and safe message', await evaluate("document.querySelector('.ai-semantic-result-title').innerText==='Note-00' && document.querySelector('.ai-semantic-search-status').innerText==='Refinement unavailable. Showing semantic search results.' && !document.body.innerText.includes('synthetic private error')"));
+  check('failure preserves semantic order and safe message', await evaluate("document.querySelector('.ai-semantic-result-title').innerText==='Note-00' && document.querySelector('.ai-semantic-search-status').innerText==='Could not refine results. Showing the original results.' && !document.body.innerText.includes('synthetic private error')"));
   await screenshot('fallback');
   await evaluate("mode='slow'"); await search('old slow query'); await stage('refining'); await waitFor('pendingRerank.length===1');
   await evaluate("mode='success'"); await search('new query'); await stage('reranked');
@@ -124,12 +131,13 @@ try {
     check('navigation targets headerless/introduction body ' + index, await evaluate('app.workspace.activeEditor.editor.getCursor().line===0'));
     await waitFor("!document.querySelector('.ai-semantic-search-modal')");
   }
+  }
   await evaluate("app.setting.open();app.setting.openTabById('about');void 0");
   const observedVersion = await evaluate("app.setting.modalEl.innerText.match(/Version ([0-9.]+)/)?.[1]"); assert(observedVersion);
   await evaluate('app.setting.close()');
   const info = await evaluate("({installer:require('/usr/lib/obsidian/obsidian.asar/package.json').version,electron:process.versions.electron,platform:process.platform})");
   info.obsidian = observedVersion;
-  const report = { ...info, checks, embeddings, rerankRequests: await evaluate('rerankCalls.length'),
+  const report = { ...info, scenario, date: new Date().toISOString(), checks, embeddings, rerankRequests: await evaluate('rerankCalls.length'),
     mainSha256: crypto.createHash('sha256').update(await fs.readFile(pluginDir + '/main.js')).digest('hex'),
     limitations: 'Native Linux Obsidian; fake rerank transport and local synthetic embedding server. No live model quality, paid requests, mobile, other OS, screen reader or custom theme coverage.' };
   await fs.writeFile(root + '/native.json', JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify(report, null, 2));

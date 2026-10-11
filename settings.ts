@@ -444,6 +444,16 @@ export class AIHubSettingTab extends PluginSettingTab {
               await save();
             }));
           }),
+          row(["rerank.triggerMode"], tr("@rerank.settings.triggerMode"), undefined, setting => {
+            setting.addDropdown(dropdown => dropdown
+              .addOption("manual", tr("@rerank.settings.manual"))
+              .addOption("automatic", tr("@rerank.settings.automatic"))
+              .setValue(rerank.triggerMode).onChange(async value => {
+                rerank.triggerMode = value === "automatic" ? "automatic" : "manual";
+                this.rerankSettingsChanged();
+                await save();
+              }));
+          }),
           { keys: [], name: tr("@rerank.settings.providerTitle"), desc: tr("@rerank.settings.provider") },
           row(["rerank.model"], tr("@rerank.settings.model"), tr("@rerank.settings.modelHelp"), setting => {
             setting.addText(text => text.setPlaceholder("cohere/rerank-v3.5").setValue(rerank.model).onChange(async value => {

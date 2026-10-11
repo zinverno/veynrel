@@ -20,7 +20,7 @@ async function fixture(semanticEnabled = false) {
   const saveData = vi.fn(async (next: typeof stored) => { disk = structuredClone(next); });
   plugin.saveData = saveData;
   await plugin.loadSettings();
-  const semanticController = { notifySettingsChanged: vi.fn(), notifyCompanionSettingsChanged: vi.fn() };
+  const semanticController = { notifySettingsChanged: vi.fn(), notifyCompanionSettingsChanged: vi.fn(), notifyRerankSettingsChanged: vi.fn() };
   vi.spyOn(plugin, "getSemanticController").mockReturnValue(semanticController as never);
   Object.assign(plugin, { semanticController });
   const tab = new AIHubSettingTab({} as App, plugin);
@@ -51,12 +51,30 @@ async function fixture(semanticEnabled = false) {
   const toggleSetting = { nameEl: { createSpan: () => ({}), prepend: vi.fn() },
     addToggle(callback: (value: ToggleControl) => unknown) { callback(toggle); return toggleSetting; } };
   enabledRow.render!(toggleSetting as unknown as Setting);
+  let changeTriggerMode!: (value: string) => Promise<void>;
+  const modeRow = tab.getSettingDefinitions().flatMap(section => section.items)
+    .find(item => item.keys.includes("rerank.triggerMode"))!;
+  const dropdown = { addOption: () => dropdown, setValue: () => dropdown,
+    onChange: (callback: typeof changeTriggerMode) => { changeTriggerMode = callback; return dropdown; } };
+  modeRow.render!({ addDropdown: (callback: (value: typeof dropdown) => void) => callback(dropdown) } as unknown as Setting);
   return { plugin, saveData, semanticController, disk: () => disk, changeModel: textChange("model"),
     changeSemanticModel: textChange("semantic.embeddingModel"), changeCompanionToken: textChange("companion.token"),
-    changeSemanticEnabled };
+    changeSemanticEnabled, changeTriggerMode };
 }
 
 describe("Advanced data.json durability", () => {
+  it("rolls back triggerMode in place without invalidating the semantic index or changing model/key", async () => {
+    const f = await fixture();
+    const before = structuredClone(f.plugin.settings.rerank), reference = f.plugin.settings.rerank;
+    f.saveData.mockRejectedValueOnce(new Error("synthetic disk failure"));
+    await expect(f.changeTriggerMode("automatic")).rejects.toThrow("synthetic disk failure");
+    expect(f.plugin.settings.rerank).toBe(reference);
+    expect(f.plugin.settings.rerank).toEqual(before); expect(f.disk().rerank).toEqual(before);
+    expect(f.semanticController.notifyRerankSettingsChanged).toHaveBeenCalledTimes(2);
+    expect(f.semanticController.notifySettingsChanged).not.toHaveBeenCalled();
+    await f.changeTriggerMode("automatic");
+    expect(f.disk().rerank).toEqual({ ...before, triggerMode: "automatic" });
+  });
   it("keeps the committed model effective when its Advanced save fails", async () => {
     const f = await fixture();
     f.saveData.mockRejectedValueOnce(new Error("synthetic disk failure"));

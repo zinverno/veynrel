@@ -18,8 +18,16 @@ export interface RefinedSearchOptions {
 
 /** One semantic search; no provider failure can swallow a base-search failure. */
 export async function refinedSearch(options: RefinedSearchOptions): Promise<RefinedSearchUpdate> {
-  const { query, settings, signal, provider, publish } = options;
+  const { settings } = options;
   const original = await options.search(settings.enabled ? RERANK_LIMITS.candidates : RERANK_LIMITS.results);
+  return refineCandidates({ ...options, original, allowed: path => options.allowed(path) });
+}
+
+/** Refines a saved pool without searching or requesting another query embedding. */
+export async function refineCandidates(options: Omit<RefinedSearchOptions, "search"> & {
+  original: SemanticDocumentResult[];
+}): Promise<RefinedSearchUpdate> {
+  const { query, settings, signal, provider, publish, original } = options;
   const eligible = () => original.filter(item => options.allowed(item.path));
   const fallback = (stage: "fallback" | "skipped", reason?: RefinedSearchUpdate["reason"]): RefinedSearchUpdate =>
     ({ results: eligible().slice(0, RERANK_LIMITS.results), stage, reason });

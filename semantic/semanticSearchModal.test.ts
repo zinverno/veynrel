@@ -239,6 +239,93 @@ function harness(results = [result("safe preview")]) {
   return { modal, content, delegate, app, leaf, view };
 }
 
+describe("manual refinement controls", () => {
+  function manual(configured = true, count = 10) {
+    const f = harness();
+    const original = Array.from({ length: count }, (_, index) => ({ ...result(`preview-${index}`), path: `note-${index}.md` }));
+    let publish!: (update: RefinedSearchUpdate) => void;
+    let signal!: AbortSignal;
+    const refine = vi.fn(async (): Promise<RefinedSearchUpdate> => {
+      publish({ stage: "refining", results: original });
+      return { stage: "reranked", results: [...original].reverse().map(item => ({ ...item, rerankScore: 8 })), evaluated: 28, candidates: 30 };
+    });
+    const discover = vi.fn(async (_query: string, callback: typeof publish, cancellation: AbortSignal) => {
+      publish = callback; signal = cancellation;
+      return { stage: "semantic", results: original, session: { id: 1, configured, refine } };
+    });
+    Object.assign(f.delegate, { searchDiscover: discover });
+    const input = f.content.findByTag("input")[0];
+    const search = async () => { input.value = "query"; input.trigger("keydown", { key: "Enter" }); await flush(); };
+    const action = (name = "refine") => f.content.findByTag("button").find(button => button.attributes.get("data-rerank-action") === name)!;
+    return { ...f, original, refine, discover, input, search, action, signal: () => signal,
+      publish: (update: RefinedSearchUpdate) => publish(update) };
+  }
+
+  it("searches freely, refines only on click and switches both orders locally with original scores", async () => {
+    const f = manual();
+    await f.search(); await f.search();
+    expect(f.refine).not.toHaveBeenCalled(); expect(f.discover).toHaveBeenCalledTimes(2);
+    expect(f.content.findByClass("ai-semantic-result-card")).toHaveLength(10);
+    expect(f.action().text).toBe("Уточнить результаты");
+    f.action().trigger("click"); await flush();
+    expect(f.refine).toHaveBeenCalledOnce(); expect(f.discover).toHaveBeenCalledTimes(2);
+    expect(f.content.findByClass("ai-semantic-result-title")[0].text).toBe("note-9");
+    expect(f.content.findByClass("ai-semantic-result-score")[0].text).toBe("0.842");
+    expect(f.content.findByClass("ai-semantic-search-status")[0].text).toContain("28 из 30");
+    f.action("original").trigger("click");
+    expect(f.action("original").attributes.get("aria-pressed")).toBe("true");
+    expect(f.content.findByClass("ai-semantic-result-title")[0].text).toBe("note-0");
+    f.action("refined").trigger("click");
+    expect(f.content.findByClass("ai-semantic-result-title")[0].text).toBe("note-9");
+    expect(f.refine).toHaveBeenCalledOnce(); expect(f.delegate.search).not.toHaveBeenCalled();
+  });
+
+  it.each(["edit", "search", "close", "source-or-settings"])("rejects double clicks and ignores late manual replies after %s", async change => {
+    const f = manual(); let finish!: (update: RefinedSearchUpdate) => void;
+    f.refine.mockImplementation(() => {
+      f.publish({ stage: "refining", results: f.original });
+      return new Promise(resolve => { finish = resolve; });
+    });
+    await f.search(); const previous = f.signal();
+    const button = f.action(); button.trigger("click"); button.trigger("click"); await flush();
+    expect(f.refine).toHaveBeenCalledOnce(); expect(button.disabled).toBe(true);
+    expect(f.input.disabled).toBe(false); expect(f.content.findByClass("ai-semantic-result-card")).toHaveLength(10);
+    if (change === "edit") { f.input.value = "draft"; f.input.trigger("input"); }
+    if (change === "search") await f.search();
+    if (change === "close") f.modal.close();
+    if (change === "source-or-settings") f.publish({ stage: "skipped", reason: "obsolete", results: f.original });
+    if (change !== "source-or-settings") expect(previous.aborted).toBe(true);
+    if (change !== "search") expect(f.action()).toBeUndefined();
+    finish({ stage: "reranked", results: [result("LATE REPLY")] }); await flush();
+    expect(f.content.findByClass("ai-semantic-result-preview").some(item => item.text === "LATE REPLY")).toBe(false);
+  });
+
+  it("invalidates the button on edits even after a completed search", async () => {
+    const f = manual(); await f.search();
+    f.input.value = "different"; f.input.trigger("input");
+    expect(f.action()).toBeUndefined(); expect(f.signal().aborted).toBe(true);
+    expect(f.content.findByClass("ai-semantic-search-status")[0].text).toBe("Результаты устарели. Выполните поиск заново.");
+    expect(f.refine).not.toHaveBeenCalled();
+  });
+
+  it("keeps originals on failure, discloses a paid retry and retries only on another click", async () => {
+    const f = manual(); f.refine.mockResolvedValueOnce({ stage: "fallback", results: f.original });
+    await f.search(); f.action().trigger("click"); await flush();
+    expect(f.content.findByClass("ai-semantic-result-title")[0].text).toBe("note-0");
+    expect(f.content.findByTag("p").some(item => item.text.includes("тоже может оплачиваться"))).toBe(true);
+    expect(f.refine).toHaveBeenCalledOnce(); expect(f.action().disabled).toBe(false);
+    f.action().trigger("click"); await flush(); expect(f.refine).toHaveBeenCalledTimes(2);
+  });
+
+  it("shows the settings path instead of an unusable action, and blocks fewer than two candidates", async () => {
+    const missing = manual(false); await missing.search();
+    expect(missing.action()).toBeUndefined();
+    expect(missing.content.findByTag("p").some(item => item.text.includes("Настройки → Veynrel"))).toBe(true);
+    const single = manual(true, 1); await single.search(); single.action().trigger("click");
+    expect(single.action().disabled).toBe(true); expect(single.refine).not.toHaveBeenCalled();
+  });
+});
+
 describe("SemanticSearchModal helpers and behavior", () => {
   it("navigates to the current selected rerank fragment while retaining all original previews", async () => {
     const f = harness(); const document = result("original preview");
@@ -305,7 +392,7 @@ describe("SemanticSearchModal helpers and behavior", () => {
     f.content.findByTag("button")[0].trigger("click"); await flush();
     const status = f.content.findByClass("ai-semantic-search-status")[0];
     expect(status.attributes.get("data-state")).toBe(stage);
-    if (stage === "fallback") expect(status.text).toBe("Уточнение недоступно. Показаны результаты семантического поиска.");
+    if (stage === "fallback") expect(status.text).toBe("Не удалось уточнить результаты. Показана исходная выдача.");
     if (stage === "reranked") expect(status.text).toContain("2 из 3");
     expect(f.content.findByClass("ai-semantic-result-preview")[0].text).toBe("<b>local fragment</b>");
     expect(f.content.findByClass("ai-semantic-result-score")[0].text).toBe("0.842");

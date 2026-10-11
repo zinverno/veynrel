@@ -2,18 +2,21 @@ import type { SemanticChunkMatch, SemanticDocumentResult } from "../semantic/typ
 
 export interface RerankSettings {
   enabled: boolean;
+  triggerMode: "manual" | "automatic";
   provider: "openrouter";
   model: string;
   apiKey: string;
 }
 
 export const DEFAULT_RERANK_SETTINGS: RerankSettings = {
-  enabled: false, provider: "openrouter", model: "cohere/rerank-v3.5", apiKey: "",
+  enabled: false, triggerMode: "manual", provider: "openrouter", model: "cohere/rerank-v3.5", apiKey: "",
 };
 
 export function mergeRerankSettings(stored?: Partial<RerankSettings> | null): RerankSettings {
   return {
     enabled: stored?.enabled === true,
+    triggerMode: stored?.triggerMode === "manual" || stored?.triggerMode === "automatic"
+      ? stored.triggerMode : stored?.enabled === true ? "automatic" : "manual",
     provider: "openrouter",
     model: typeof stored?.model === "string" ? stored.model : DEFAULT_RERANK_SETTINGS.model,
     apiKey: typeof stored?.apiKey === "string" ? stored.apiKey : "",
@@ -42,6 +45,14 @@ export interface RefinedSearchUpdate {
   /** Coverage of the candidate pool, before the local display limit. */
   evaluated?: number;
   candidates?: number;
+  /** An in-memory capability; neither credentials nor the candidate pool enter the UI. */
+  session?: ManualRerankSession;
+}
+
+export interface ManualRerankSession {
+  id: number;
+  configured: boolean;
+  refine(): Promise<RefinedSearchUpdate>;
 }
 
 export interface PreparedRerankCandidate {

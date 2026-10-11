@@ -94,19 +94,106 @@ import * as embeddingFactory from "../embeddings/factory";
 const BASE_PATH = semanticIndexBasePath(".obsidian", "ai-knowledge-hub");
 
 describe("Discover rerank with the real semantic runtime", () => {
-  async function setup(enabled = true) {
+  async function setup(enabled = true, triggerMode: "manual" | "automatic" = "automatic") {
     const transport = vi.fn(async (request: RequestUrlParam) => {
       const body = JSON.parse(request.body as string) as { model: string; documents: string[] };
       return { status: 200, text: JSON.stringify({ model: body.model,
         results: body.documents.map((_text: string, index: number) => ({ index, relevance_score: index })) }) };
     });
     const h = createHarness(semantic(), undefined, false, { rerankProvider: settings => new OpenRouterRerankProvider(settings, transport) });
-    Object.assign(h.plugin.settings.rerank, { enabled, apiKey: "synthetic-rerank-key" });
+    Object.assign(h.plugin.settings.rerank, { enabled, triggerMode, apiKey: "synthetic-rerank-key" });
     h.createFile("Beta.md", "# Beta\n\nbeta current text");
     h.createFile("Gamma.md", "# Gamma\n\ngamma current text");
     await h.controller.indexVault();
     return { ...h, transport, run: () => h.controller.searchDiscover("alpha query", vi.fn(), new AbortController().signal) };
   }
+
+  it("manual search saves 30 candidates, shows 10, and refines once without a second embedding", async () => {
+    const h = await setup(true, "manual");
+    for (let i = 0; i < 34; i++) h.createFile(`Neutral-${i}.md`, `Body ${i} without a filename-derived heading.`);
+    await h.controller.indexVault();
+    const reads = h.plugin.app.vault.cachedRead.mock.calls.length;
+    const before = embeddingCalls.length;
+    const update = await h.run();
+    expect(update.stage).toBe("semantic"); expect(update.results).toHaveLength(10);
+    expect(h.transport).not.toHaveBeenCalled(); expect(embeddingCalls.length - before).toBe(1);
+    expect(h.plugin.app.vault.cachedRead).toHaveBeenCalledTimes(reads);
+    expect(Object.keys(update.session!).sort()).toEqual(["configured", "id", "refine"]);
+    const [refined, duplicate] = await Promise.all([update.session!.refine(), update.session!.refine()]);
+    expect(duplicate).toEqual(refined);
+    expect(refined).toMatchObject({ stage: "reranked", evaluated: 30, candidates: 30 });
+    expect(refined.results).toHaveLength(10); expect(h.transport).toHaveBeenCalledOnce();
+    expect(embeddingCalls.length - before).toBe(1);
+    const body = JSON.parse(h.transport.mock.calls[0][0].body as string) as { documents: string[] };
+    expect(body.documents).toHaveLength(30);
+    expect(JSON.stringify(body)).not.toContain("Neutral-");
+    expect(refined.results.every(item => item.score === update.results[0].score)).toBe(true);
+    expect(await update.session!.refine()).toEqual(refined);
+    expect(h.transport).toHaveBeenCalledOnce();
+    await h.controller.dispose();
+  });
+
+  it.each(["model", "key", "mode", "disable", "modify", "delete", "index", "cancel", "unload"])(
+    "blocks a saved manual pool after %s, before any HTTP", async change => {
+      const h = await setup(true, "manual"); h.registerAutomaticSync();
+      const abort = new AbortController(); const publish = vi.fn();
+      const update = await h.controller.searchDiscover("alpha query", publish, abort.signal);
+      if (change === "model") h.plugin.settings.rerank.model = "different/model";
+      if (change === "key") h.plugin.settings.rerank.apiKey = "different-synthetic-key";
+      if (change === "mode") h.plugin.settings.rerank.triggerMode = "automatic";
+      if (change === "disable") h.plugin.settings.rerank.enabled = false;
+      if (["model", "key", "mode", "disable"].includes(change)) h.controller.notifyRerankSettingsChanged();
+      if (change === "modify") h.modifyFile("Alpha.md", "edited after search");
+      if (change === "delete") h.deleteFile("Alpha.md");
+      if (change === "index") await h.controller.clearIndex();
+      if (change === "cancel") abort.abort();
+      if (change === "unload") await h.controller.dispose();
+      expect(await update.session!.refine()).toMatchObject({ stage: "skipped", reason: "obsolete" });
+      expect(h.transport).not.toHaveBeenCalled();
+      if (change !== "cancel") expect(publish).toHaveBeenCalledWith(expect.objectContaining({ reason: "obsolete" }));
+      await h.controller.dispose();
+    });
+
+  it("manual failure retains originals and requires another explicit call to retry", async () => {
+    const h = await setup(true, "manual");
+    h.transport.mockResolvedValueOnce({ status: 429, text: "private error" });
+    const before = embeddingCalls.length;
+    const update = await h.run();
+    expect(await update.session!.refine()).toMatchObject({ stage: "fallback", results: update.results });
+    expect(h.transport).toHaveBeenCalledOnce();
+    expect(await update.session!.refine()).toMatchObject({ stage: "reranked" });
+    expect(h.transport).toHaveBeenCalledTimes(2); expect(embeddingCalls.length - before).toBe(1);
+    await h.controller.dispose();
+  });
+
+  it.each(["key", "mode", "index", "modify", "delete", "unload"])("rejects an in-flight manual reply after %s", async change => {
+    const h = await setup(true, "manual"); h.registerAutomaticSync();
+    const update = await h.run();
+    const gate = manualGate(), normal = h.transport.getMockImplementation()!;
+    h.transport.mockImplementation(async request => { gate.markEntered(); await gate.wait; return normal(request); });
+    const pending = update.session!.refine(); await gate.entered;
+    if (change === "key") h.plugin.settings.rerank.apiKey = "new-synthetic-key";
+    if (change === "mode") h.plugin.settings.rerank.triggerMode = "automatic";
+    if (change === "key" || change === "mode") h.controller.notifyRerankSettingsChanged();
+    if (change === "index") await h.controller.clearIndex(); // The external request must not hold the index barrier.
+    if (change === "modify") h.modifyFile("Alpha.md", "edited while waiting");
+    if (change === "delete") h.deleteFile("Alpha.md");
+    if (change === "unload") await h.controller.dispose();
+    expect(await pending).toMatchObject({ stage: "skipped", reason: "obsolete" });
+    gate.release();
+    expect((await update.session!.refine()).reason).toBe("obsolete");
+    expect(h.transport).toHaveBeenCalledOnce();
+    await h.controller.dispose();
+  });
+
+  it("manual configuration failure reads no source or provider and keeps semantic results", async () => {
+    const h = await setup(true, "manual"); h.plugin.settings.rerank.apiKey = "";
+    const reads = h.plugin.app.vault.cachedRead.mock.calls.length;
+    const update = await h.run(); expect(update.session?.configured).toBe(false);
+    expect(await update.session!.refine()).toMatchObject({ stage: "skipped", reason: "configuration", results: update.results });
+    expect(h.plugin.app.vault.cachedRead).toHaveBeenCalledTimes(reads); expect(h.transport).not.toHaveBeenCalled();
+    await h.controller.dispose();
+  });
 
   it("disabled does not read Markdown or call rerank; enabled uses exactly one query embedding", async () => {
     const h = await setup(false); const reads = h.plugin.app.vault.cachedRead.mock.calls.length;

@@ -24,6 +24,14 @@ describe("OpenRouter rerank boundary", () => {
     expect(mergeRerankSettings({ enabled: "true" as never })).toEqual(DEFAULT_RERANK_SETTINGS);
     expect(mergeRerankSettings({ model: "chosen/id" })).toMatchObject({ enabled: false, apiKey: "", model: "chosen/id" });
   });
+  it.each([
+    [undefined, "manual"], [{ enabled: false }, "manual"], [{ enabled: true }, "automatic"],
+    [{ enabled: true, triggerMode: "manual" }, "manual"], [{ enabled: false, triggerMode: "automatic" }, "automatic"],
+  ] as const)("migrates the trigger without changing credentials or model: %j", (stored, triggerMode) => {
+    expect(mergeRerankSettings(stored)).toMatchObject({ triggerMode });
+    expect(mergeRerankSettings({ ...stored, model: "user/existing-model", apiKey: "synthetic-independent-key" }))
+      .toMatchObject({ triggerMode, model: "user/existing-model", apiKey: "synthetic-independent-key" });
+  });
   it("uses the dedicated endpoint and all indices, without paths or telemetry", async () => {
     const transport = vi.fn<RerankTransport>(async () => response());
     const result = await new OpenRouterRerankProvider(settings, transport).rank("query", ["alpha", "beta"], signal());

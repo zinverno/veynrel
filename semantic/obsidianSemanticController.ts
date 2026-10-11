@@ -4,9 +4,9 @@ import { mergeDecisionsSettings } from "../decisions/types";
 import type { DecisionsProvider, DecisionsSettings } from "../decisions/types";
 import { OverlapSession } from "../decisions/overlapSession";
 import { OverlapModal } from "../decisions/overlapModal";
-import { OpenRouterRerankProvider, testRerankConnection } from "../rerank/openRouterRerank";
-import { refinedSearch } from "../rerank/refinedSearch";
-import { mergeRerankSettings } from "../rerank/types";
+import { OpenRouterRerankProvider, rerankConfigured, testRerankConnection } from "../rerank/openRouterRerank";
+import { refineCandidates } from "../rerank/refinedSearch";
+import { mergeRerankSettings, RERANK_LIMITS } from "../rerank/types";
 import type { RefinedSearchUpdate, RerankProvider, RerankSettings } from "../rerank/types";
 import { EmbeddingError } from "../embeddings/errors";
 import { INDEXING_EMBEDDING_TIMEOUT_MS } from "../indexing/indexingService";
@@ -259,6 +259,8 @@ export class ObsidianSemanticController {
   private rerankRevision = 0;
   private sourceRevision = 0;
   private readonly rerankRequests = new Set<AbortController>();
+  private readonly manualRerankRequests = new Set<AbortController>();
+  private rerankSessionId = 0;
   private readonly rerankProvider: (settings: RerankSettings) => RerankProvider;
   private readonly runtimeFactory: NonNullable<
     SemanticControllerDependencies["runtimeFactory"]
@@ -313,6 +315,7 @@ export class ObsidianSemanticController {
     const previous = this.cachedStatus;
     this.cachedStatus = next;
     if (previous && (previous.vectorGeneration !== next.vectorGeneration || previous.vectorCount !== next.vectorCount)) {
+      for (const request of this.manualRerankRequests) request.abort();
       // Initial preview preparation may itself load the index. There is no shown snapshot to invalidate yet.
       for (const session of this.overlapSessions) if (session.view.preview) session.invalidate();
     }
@@ -826,28 +829,66 @@ export class ObsidianSemanticController {
     let runtime: SemanticRuntime | undefined;
     let generation = 0;
     let indexed = new Set<string>();
+    let original: SemanticDocumentResult[] = [];
+    let retained = false;
+    const cleanup = () => {
+      signal.removeEventListener("abort", cancel);
+      this.rerankRequests.delete(request);
+      this.manualRerankRequests.delete(request);
+    };
     const current = () => !this.isDisposed() && !request.signal.aborted && revision === this.rerankRevision &&
       sources === this.sourceRevision && semantic === settingsSignature(this.plugin.settings.semantic) &&
       Object.entries(settings).every(([key, value]) => this.plugin.settings.rerank[key as keyof RerankSettings] === value) &&
       (!runtime || (runtime === this.runtimeSlot?.runtime && generation === runtime.getStats().vectorGeneration));
     try {
-      return await refinedSearch({ query: query.trim(), settings, signal: request.signal,
-        provider: this.rerankProvider(settings), isCurrent: current,
-        search: async limit => {
-          const results = await this.searchCandidates(query, limit, snapshot => {
-            runtime = snapshot;
-            generation = runtime.getStats().vectorGeneration;
-          });
-          indexed = new Set(results.map(item => item.path));
-          return results;
-        },
-        allowed: path => indexed.has(path) && !!this.plugin.app.vault.getMarkdownFiles().find(file => file.path === path),
-        prepare: results => runtime?.prepareRerankCandidates?.(results, current) ?? Promise.resolve([]),
-        publish: update => { if (!signal.aborted && !this.isDisposed()) publish(update); },
+      original = await this.searchCandidates(query.trim(), RERANK_LIMITS.candidates, snapshot => {
+        runtime = snapshot;
+        generation = runtime.getStats().vectorGeneration;
       });
+      indexed = new Set(original.map(item => item.path));
+      const allowed = (path: string) => indexed.has(path) &&
+        !!this.plugin.app.vault.getMarkdownFiles().find(file => file.path === path);
+      const baseline = (): RefinedSearchUpdate => ({
+        results: original.filter(item => allowed(item.path)).slice(0, RERANK_LIMITS.results), stage: "semantic",
+      });
+      const deliver = (update: RefinedSearchUpdate) => { if (!signal.aborted && !this.isDisposed()) publish(update); };
+      const refine = () => refineCandidates({ query: query.trim(), settings, signal: request.signal, original,
+        provider: this.rerankProvider(settings), isCurrent: current,
+        allowed,
+        prepare: results => runtime?.prepareRerankCandidates?.(results, current) ?? Promise.resolve([]),
+        publish: deliver,
+      });
+      if (settings.triggerMode === "automatic") return await refine();
+      const obsolete = (): RefinedSearchUpdate => ({ ...baseline(), stage: "skipped", reason: "obsolete" });
+      if (!current()) return obsolete();
+      retained = true;
+      this.manualRerankRequests.add(request);
+      let pending: Promise<RefinedSearchUpdate> | undefined;
+      let completed: RefinedSearchUpdate | undefined;
+      request.signal.addEventListener("abort", () => {
+        const update = obsolete();
+        original = [];
+        completed = undefined;
+        indexed.clear();
+        runtime = undefined;
+        cleanup();
+        deliver(update);
+      }, { once: true });
+      return { ...baseline(), session: {
+        id: ++this.rerankSessionId, configured: rerankConfigured(settings),
+        refine: () => {
+          if (!current()) { const update = obsolete(); request.abort(); return Promise.resolve(update); }
+          if (completed) return Promise.resolve(completed);
+          if (pending) return pending;
+          pending = refine().then(update => {
+            if (update.stage === "reranked") completed = update;
+            return update;
+          }).finally(() => { pending = undefined; });
+          return pending;
+        },
+      } };
     } finally {
-      signal.removeEventListener("abort", cancel);
-      this.rerankRequests.delete(request);
+      if (!retained) cleanup();
     }
   }
 
