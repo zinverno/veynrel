@@ -1,0 +1,848 @@
+{
+  "version": "2.1.0",
+  "base": "20560e3072f9927fd92a873d535af3e7b530519f",
+  "candidateSource": "1d3d04d0271583404bb20003efb7dde3155aa078",
+  "recordedAt": "2026-10-11T10:54:08.562268+00:00",
+  "upgrade": {
+    "checks": [
+      "Published 2.0.1 installed with stable identity",
+      "Published Health local scan completes before upgrade",
+      "Existing index and reviewed Recall data exist before upgrade",
+      "Candidate loads as 2.1.0 with existing index ready, without rebuild",
+      "Settings, index, Recall and all existing plugin data bytes preserved",
+      "Notes, enabled state and custom hotkey preserved",
+      "Non-default preferences and provider configuration preserved",
+      "No old rerank configuration becomes off/manual Voyage with empty independent key",
+      "Recall overview and retained review inventory render after upgrade",
+      "Health dashboard renders after upgrade",
+      "Passive Health, Recall, Discover and settings make no embedding HTTP",
+      "Existing index searches after upgrade with one query embedding",
+      "Local note navigation works",
+      "Separate legacy enabled configuration retains automatic and implicit Cohere",
+      "Installed candidate assets match build byte for byte"
+    ],
+    "publishedAssets": {
+      "main.js": "0eb1a12e8415ced10be27342851407c8dd7e41cd513735f6e3728ae2715f17ea",
+      "manifest.json": "3adfa924ce9cbfa749e836c3a05b60ac4f59d3e32b326bdd653c9dea5f7af2cb",
+      "styles.css": "090874f18246ccb5f79403b91b85b5489f43a70ed0b18f3e420bde2b9f0c911d"
+    },
+    "candidateAssets": {
+      "main.js": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+      "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+      "styles.css": "5bfb7a7a8ea3253fcdfff86a1a4c92215047846453b6bd7ad5f45946a15ab3e7"
+    },
+    "preservedFiles": {
+      "data.json": "8292a35d515087e8032b39f49b5ee2be578eb7dfa2e1610453bd6be22a962b9a",
+      "health/findings.json": "c46b1ee41ccd79dd390e0641e26069ba168f69b6ff62d63aef0506dcd303187d",
+      "health/scan-runs.json": "46be30e58f5f439c1daddf7853a22280747fb02d30cdfa0de225d05898b23a6d",
+      "recall/cards.json": "83e64c7d80a00f3e1dc52294c1df53a320a6edceadf8d9cc842a345fa0953872",
+      "semantic-index/vector-index.bin": "151752502f381c361322054267960ef82790da2f5a5e6727ac82411e18a18e19",
+      "semantic-index/vector-manifest.json": "e275992b14e19d121c313e78ffd756c5b93e08fdcfe73be13301b9e32c1cffb0"
+    },
+    "notes": {
+      "note-0.md": "c07e0f439519b42ebfc9acedad0e7a7b7fdc878a2364c2feb5544e6354edcdcb",
+      "note-1.md": "8e10d637831e870af49695cfa40e748e914922657de0e72c64d992ea51419e26",
+      "note-2.md": "8da593f963eb7c0b65da69f17b0a94679c642c505772aa92ed27859f75dfe57d",
+      "note-3.md": "55f7f97ee0b6b87bc88fe20378a4eaa5336f193dd944f045cd27e1b3817d4fd4",
+      "note-4.md": "c986f4d5402044fb481e3947b1f0a968a51e35d34e4b613066a320d06c6af8dc",
+      "note-5.md": "e07191b69ff3df484a7b3f345a16c83b44579412413e786081102d0d7db08967",
+      "note-6.md": "25c61c21c416fb2ac2dada24f328301cc324ad4dbd0d11d1b929816746aa6905",
+      "note-7.md": "4ef098c012d4d1d454a865db9c84ce6fe314b16eb458838efefbb04a9ec61c28"
+    },
+    "embeddings": 3,
+    "environment": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "platform": "linux"
+    }
+  },
+  "nativeManualFake": {
+    "installer": "1.13.7",
+    "electron": "43.6.0",
+    "platform": "linux",
+    "obsidian": "1.13.7",
+    "scenario": "manual",
+    "date": "2026-10-11T08:56:24.408Z",
+    "checks": [
+      "isolated synthetic vault selected",
+      "new installation defaults to off/manual",
+      "Discover and settings do not embed or rerank",
+      "mode selector is next to independent Rerank settings",
+      "indexing never reranks",
+      "opening manual search has no refine button",
+      "two manual searches use two embeddings, zero rerank and no source reconstruction",
+      "manual baseline shows 10 results and paid disclosure",
+      "keyboard refinement preserves originals and rejects double click",
+      "same 30 candidate pool reaches production serializer without filename fallbacks",
+      "keyboard focus returns to the selected order switch",
+      "production validator maps indices and preserves semantic scores",
+      "original order restored with keyboard and pressed state",
+      "toggles do not embed or rerank again",
+      "keyboard activation opens the selected current fragment",
+      "safe fallback keeps originals and discloses explicitly paid retry",
+      "failure is not retried automatically",
+      "separate retry click makes exactly one new call",
+      "late response ignored after edit",
+      "late response ignored after new-search",
+      "late response ignored after close",
+      "late response ignored after mode",
+      "late response ignored after source",
+      "changed settings remove old refine action without HTTP",
+      "missing key shows settings path instead of dead action",
+      "automatic mode still refines after one search embedding",
+      "triggerMode preserves index identity",
+      "mode survives settings reopening",
+      "Russian manual labels and disclosure",
+      "manual controls fit 320px",
+      "paid disclosure is fully visible at 320px",
+      "manual controls fit 390px",
+      "paid disclosure is fully visible at 390px",
+      "manual controls fit 768px",
+      "paid disclosure is fully visible at 768px",
+      "manual controls fit 1024px",
+      "paid disclosure is fully visible at 1024px",
+      "manual controls fit 1440px",
+      "paid disclosure is fully visible at 1440px",
+      "Russian local order switches"
+    ],
+    "embeddings": 18,
+    "rerankRequests": 10,
+    "mainSha256": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+    "limitations": "Native Linux Obsidian; fake rerank transport and local synthetic embedding server. No live model quality, paid requests, mobile, other OS, screen reader or custom theme coverage."
+  },
+  "nativeDecisionsFake": {
+    "installer": "1.13.7",
+    "electron": "43.6.0",
+    "platform": "linux",
+    "obsidian": "1.13.7",
+    "checks": [
+      "isolated synthetic vault selected",
+      "legacy settings default off with independent empty key",
+      "settings and workspace do zero Decisions calls",
+      "masked dedicated key and disclosure",
+      "index and duplicate list do not call Decisions",
+      "disabled comparison shows settings route",
+      "preview has two long exact fragments and no request",
+      "keyboard launches one request with exactly displayed text",
+      "headerless and introduction payloads have no filename-derived context",
+      "note names remain local in comparison",
+      "tentative fragment-only result and no automatic re-run",
+      "index identity remains unchanged",
+      "no new plugin persistent result store",
+      "opens Alpha.md at its selected body fragment",
+      "opens Beta.md at its selected body fragment",
+      "shown assessment marked stale on settings change",
+      "explicit connection test is synthetic only",
+      "Russian localization and narrow long fragments without horizontal overflow",
+      "controlled billing error, no provider body",
+      "closing ignores a slow reply"
+    ],
+    "embeddings": 2,
+    "decisionsRequests": 4,
+    "mainSha256": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+    "limitations": "Linux native desktop with fake Decisions HTTP and synthetic local embeddings. No live provider/quality, mobile, other OS or screen-reader claim."
+  },
+  "nativeE2ERehearsal": {
+    "mode": "native-fake",
+    "date": "2026-10-11T10:36:07.455Z",
+    "assets": {
+      "main.js": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+      "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+      "styles.css": "5bfb7a7a8ea3253fcdfff86a1a4c92215047846453b6bd7ad5f45946a15ab3e7"
+    },
+    "checks": [
+      "isolated synthetic vault",
+      "installed bundle guarded at every Obsidian import; key only in providers",
+      "real production index ready, eight vectors",
+      "indexing sends no rerank",
+      "semantic search interface visible",
+      "eight original results; one query embedding; zero rerank before click",
+      "HTTP 200, installed production validator PASS, exactly one rerank",
+      "semantic scores preserved",
+      "toggles perform no new embedding or rerank",
+      "relevant note opens at its current fragment",
+      "provider receipts reconcile with cumulative key usage",
+      "installed assets match verified build",
+      "no real key in settings or artifacts"
+    ],
+    "status": "PASS",
+    "environment": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "platform": "linux",
+      "plugin": "2.1.0"
+    },
+    "note": "All four transport responses are fake; synthetic budget receipts are not real expenses."
+  },
+  "nativeLive": {
+    "mode": "native-live",
+    "date": "2026-10-11T10:55:53.130Z",
+    "source": "1d3d04d0271583404bb20003efb7dde3155aa078",
+    "assets": {
+      "main.js": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+      "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+      "styles.css": "5bfb7a7a8ea3253fcdfff86a1a4c92215047846453b6bd7ad5f45946a15ab3e7"
+    },
+    "planSha256": "b9465053186f708e1b57497bddb2a112e1f3d27741eddb2fd8564038b161e6bf",
+    "checks": [
+      "isolated synthetic vault",
+      "installed bundle guarded at every Obsidian import; key only in providers",
+      "real production index ready, eight vectors",
+      "indexing sends no rerank",
+      "semantic search interface visible",
+      "eight original results; one query embedding; zero rerank before click",
+      "HTTP 200, installed production validator PASS, exactly one rerank",
+      "semantic scores preserved",
+      "toggles perform no new embedding or rerank",
+      "relevant note opens at its current fragment",
+      "provider receipts reconcile with cumulative key usage",
+      "installed assets match verified build",
+      "no real key in settings or artifacts"
+    ],
+    "keyBefore": {
+      "httpStatus": 200,
+      "checkedAt": "2026-10-11T10:55:53.115Z",
+      "limit": 50,
+      "limit_remaining": 49.991690398,
+      "usage": 0.008309602,
+      "expires_at": "2026-10-14T08:09:40.860Z",
+      "resetIsDisabled": true
+    },
+    "baseline": [
+      {
+        "path": "note-0.md",
+        "score": 0.5994307217386282,
+        "matches": [
+          {
+            "id": "chunk-f4598c73b22bcd97",
+            "path": "note-0.md",
+            "headingPath": [
+              "note-0"
+            ],
+            "ordinal": 0,
+            "contentHash": "61e240522d29a1fc",
+            "source": {
+              "startOffset": 0,
+              "endOffset": 183,
+              "startLine": 0,
+              "endLine": 0
+            },
+            "score": 0.5994307217386282,
+            "preview": "note-0 A retry with exponential backoff increases the delay between attempts after transient failures. Jitter spreads simultaneous clients over time. Stop after a bounded number of attempts."
+          }
+        ]
+      },
+      {
+        "path": "note-5.md",
+        "score": 0.3578682353777004,
+        "matches": [
+          {
+            "id": "chunk-0eb3d4abd412f748",
+            "path": "note-5.md",
+            "headingPath": [
+              "Network timeouts"
+            ],
+            "ordinal": 0,
+            "contentHash": "bd29e95a239fb9f9",
+            "source": {
+              "startOffset": 20,
+              "endOffset": 131,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.3578682353777004,
+            "preview": "Network timeouts A timeout bounds how long a client waits. The server may still finish a request after the client stops waiting."
+          }
+        ]
+      },
+      {
+        "path": "note-4.md",
+        "score": 0.27013291083515767,
+        "matches": [
+          {
+            "id": "chunk-83549d21b5c0cb4f",
+            "path": "note-4.md",
+            "headingPath": [
+              "Cache invalidation"
+            ],
+            "ordinal": 0,
+            "contentHash": "d1851866b9d32a9c",
+            "source": {
+              "startOffset": 22,
+              "endOffset": 149,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.27013291083515767,
+            "preview": "Cache invalidation A cache avoids repeated computation. Expiration limits stale values, while explicit invalidation reacts to changed source data."
+          }
+        ]
+      },
+      {
+        "path": "note-6.md",
+        "score": 0.2155159296403283,
+        "matches": [
+          {
+            "id": "chunk-d94e7d4eca2aea89",
+            "path": "note-6.md",
+            "headingPath": [
+              "Task scheduling"
+            ],
+            "ordinal": 0,
+            "contentHash": "d518b94ce1bfb547",
+            "source": {
+              "startOffset": 19,
+              "endOffset": 152,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.2155159296403283,
+            "preview": "Task scheduling A weekly plan reserves time for deep work and leaves room for unexpected maintenance. Review unfinished tasks at the end of the week."
+          }
+        ]
+      },
+      {
+        "path": "note-2.md",
+        "score": 0.20396130790040307,
+        "matches": [
+          {
+            "id": "chunk-2cdd3c1dc7dd1de9",
+            "path": "note-2.md",
+            "headingPath": [
+              "Local backups"
+            ],
+            "ordinal": 0,
+            "contentHash": "aa42ad6e29f5e403",
+            "source": {
+              "startOffset": 17,
+              "endOffset": 121,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.20396130790040307,
+            "preview": "Local backups Keep a second copy on a separate disk. Verify that a saved archive can be restored before relying on it."
+          }
+        ]
+      },
+      {
+        "path": "note-7.md",
+        "score": 0.1748751882376559,
+        "matches": [
+          {
+            "id": "chunk-3145a19a5e489b46",
+            "path": "note-7.md",
+            "headingPath": [
+              "Document organization"
+            ],
+            "ordinal": 0,
+            "contentHash": "100b4855f21150ae",
+            "source": {
+              "startOffset": 25,
+              "endOffset": 145,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.1748751882376559,
+            "preview": "Document organization Related notes can be connected with links. Clear explanations are more useful than collecting many loosely related tags."
+          }
+        ]
+      },
+      {
+        "path": "note-1.md",
+        "score": 0.16668469593564456,
+        "matches": [
+          {
+            "id": "chunk-387044fb17027c32",
+            "path": "note-1.md",
+            "headingPath": [
+              "Database indexes"
+            ],
+            "ordinal": 0,
+            "contentHash": "27ab5c5dda9925e6",
+            "source": {
+              "startOffset": 20,
+              "endOffset": 123,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.16668469593564456,
+            "preview": "Database indexes A database index speeds up reads by organizing keys. Indexes require disk space and add work to writes."
+          }
+        ]
+      },
+      {
+        "path": "note-3.md",
+        "score": 0.10494962961488291,
+        "matches": [
+          {
+            "id": "chunk-b6d29c2b4c3ab1db",
+            "path": "note-3.md",
+            "headingPath": [
+              "Language practice"
+            ],
+            "ordinal": 0,
+            "contentHash": "cd59d59e65fe8b0f",
+            "source": {
+              "startOffset": 21,
+              "endOffset": 125,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.10494962961488291,
+            "preview": "Language practice Short daily reading and speaking exercises help maintain vocabulary. Review unfamiliar words in context."
+          }
+        ]
+      }
+    ],
+    "poolSha256": "fa81ac12feafc8e888c88d8e6bdfe1535bef87e2e969184776121571c1894f05",
+    "refined": [
+      {
+        "path": "note-0.md",
+        "score": 0.5994307217386282,
+        "matches": [
+          {
+            "id": "chunk-f4598c73b22bcd97",
+            "path": "note-0.md",
+            "headingPath": [
+              "note-0"
+            ],
+            "ordinal": 0,
+            "contentHash": "61e240522d29a1fc",
+            "source": {
+              "startOffset": 0,
+              "endOffset": 183,
+              "startLine": 0,
+              "endLine": 0
+            },
+            "score": 0.5994307217386282,
+            "preview": "note-0 A retry with exponential backoff increases the delay between attempts after transient failures. Jitter spreads simultaneous clients over time. Stop after a bounded number of attempts."
+          }
+        ],
+        "rerankScore": 0.74609375,
+        "rerankMatch": {
+          "id": "chunk-f4598c73b22bcd97",
+          "path": "note-0.md",
+          "headingPath": [
+            "note-0"
+          ],
+          "ordinal": 0,
+          "contentHash": "61e240522d29a1fc",
+          "source": {
+            "startOffset": 0,
+            "endOffset": 183,
+            "startLine": 0,
+            "endLine": 0
+          },
+          "score": 0.5994307217386282,
+          "preview": "note-0 A retry with exponential backoff increases the delay between attempts after transient failures. Jitter spreads simultaneous clients over time. Stop after a bounded number of attempts."
+        }
+      },
+      {
+        "path": "note-5.md",
+        "score": 0.3578682353777004,
+        "matches": [
+          {
+            "id": "chunk-0eb3d4abd412f748",
+            "path": "note-5.md",
+            "headingPath": [
+              "Network timeouts"
+            ],
+            "ordinal": 0,
+            "contentHash": "bd29e95a239fb9f9",
+            "source": {
+              "startOffset": 20,
+              "endOffset": 131,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.3578682353777004,
+            "preview": "Network timeouts A timeout bounds how long a client waits. The server may still finish a request after the client stops waiting."
+          }
+        ],
+        "rerankScore": 0.388671875,
+        "rerankMatch": {
+          "id": "chunk-0eb3d4abd412f748",
+          "path": "note-5.md",
+          "headingPath": [
+            "Network timeouts"
+          ],
+          "ordinal": 0,
+          "contentHash": "bd29e95a239fb9f9",
+          "source": {
+            "startOffset": 20,
+            "endOffset": 131,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.3578682353777004,
+          "preview": "Network timeouts A timeout bounds how long a client waits. The server may still finish a request after the client stops waiting."
+        }
+      },
+      {
+        "path": "note-7.md",
+        "score": 0.1748751882376559,
+        "matches": [
+          {
+            "id": "chunk-3145a19a5e489b46",
+            "path": "note-7.md",
+            "headingPath": [
+              "Document organization"
+            ],
+            "ordinal": 0,
+            "contentHash": "100b4855f21150ae",
+            "source": {
+              "startOffset": 25,
+              "endOffset": 145,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.1748751882376559,
+            "preview": "Document organization Related notes can be connected with links. Clear explanations are more useful than collecting many loosely related tags."
+          }
+        ],
+        "rerankScore": 0.294921875,
+        "rerankMatch": {
+          "id": "chunk-3145a19a5e489b46",
+          "path": "note-7.md",
+          "headingPath": [
+            "Document organization"
+          ],
+          "ordinal": 0,
+          "contentHash": "100b4855f21150ae",
+          "source": {
+            "startOffset": 25,
+            "endOffset": 145,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.1748751882376559,
+          "preview": "Document organization Related notes can be connected with links. Clear explanations are more useful than collecting many loosely related tags."
+        }
+      },
+      {
+        "path": "note-4.md",
+        "score": 0.27013291083515767,
+        "matches": [
+          {
+            "id": "chunk-83549d21b5c0cb4f",
+            "path": "note-4.md",
+            "headingPath": [
+              "Cache invalidation"
+            ],
+            "ordinal": 0,
+            "contentHash": "d1851866b9d32a9c",
+            "source": {
+              "startOffset": 22,
+              "endOffset": 149,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.27013291083515767,
+            "preview": "Cache invalidation A cache avoids repeated computation. Expiration limits stale values, while explicit invalidation reacts to changed source data."
+          }
+        ],
+        "rerankScore": 0.29296875,
+        "rerankMatch": {
+          "id": "chunk-83549d21b5c0cb4f",
+          "path": "note-4.md",
+          "headingPath": [
+            "Cache invalidation"
+          ],
+          "ordinal": 0,
+          "contentHash": "d1851866b9d32a9c",
+          "source": {
+            "startOffset": 22,
+            "endOffset": 149,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.27013291083515767,
+          "preview": "Cache invalidation A cache avoids repeated computation. Expiration limits stale values, while explicit invalidation reacts to changed source data."
+        }
+      },
+      {
+        "path": "note-6.md",
+        "score": 0.2155159296403283,
+        "matches": [
+          {
+            "id": "chunk-d94e7d4eca2aea89",
+            "path": "note-6.md",
+            "headingPath": [
+              "Task scheduling"
+            ],
+            "ordinal": 0,
+            "contentHash": "d518b94ce1bfb547",
+            "source": {
+              "startOffset": 19,
+              "endOffset": 152,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.2155159296403283,
+            "preview": "Task scheduling A weekly plan reserves time for deep work and leaves room for unexpected maintenance. Review unfinished tasks at the end of the week."
+          }
+        ],
+        "rerankScore": 0.291015625,
+        "rerankMatch": {
+          "id": "chunk-d94e7d4eca2aea89",
+          "path": "note-6.md",
+          "headingPath": [
+            "Task scheduling"
+          ],
+          "ordinal": 0,
+          "contentHash": "d518b94ce1bfb547",
+          "source": {
+            "startOffset": 19,
+            "endOffset": 152,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.2155159296403283,
+          "preview": "Task scheduling A weekly plan reserves time for deep work and leaves room for unexpected maintenance. Review unfinished tasks at the end of the week."
+        }
+      },
+      {
+        "path": "note-2.md",
+        "score": 0.20396130790040307,
+        "matches": [
+          {
+            "id": "chunk-2cdd3c1dc7dd1de9",
+            "path": "note-2.md",
+            "headingPath": [
+              "Local backups"
+            ],
+            "ordinal": 0,
+            "contentHash": "aa42ad6e29f5e403",
+            "source": {
+              "startOffset": 17,
+              "endOffset": 121,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.20396130790040307,
+            "preview": "Local backups Keep a second copy on a separate disk. Verify that a saved archive can be restored before relying on it."
+          }
+        ],
+        "rerankScore": 0.291015625,
+        "rerankMatch": {
+          "id": "chunk-2cdd3c1dc7dd1de9",
+          "path": "note-2.md",
+          "headingPath": [
+            "Local backups"
+          ],
+          "ordinal": 0,
+          "contentHash": "aa42ad6e29f5e403",
+          "source": {
+            "startOffset": 17,
+            "endOffset": 121,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.20396130790040307,
+          "preview": "Local backups Keep a second copy on a separate disk. Verify that a saved archive can be restored before relying on it."
+        }
+      },
+      {
+        "path": "note-1.md",
+        "score": 0.16668469593564456,
+        "matches": [
+          {
+            "id": "chunk-387044fb17027c32",
+            "path": "note-1.md",
+            "headingPath": [
+              "Database indexes"
+            ],
+            "ordinal": 0,
+            "contentHash": "27ab5c5dda9925e6",
+            "source": {
+              "startOffset": 20,
+              "endOffset": 123,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.16668469593564456,
+            "preview": "Database indexes A database index speeds up reads by organizing keys. Indexes require disk space and add work to writes."
+          }
+        ],
+        "rerankScore": 0.291015625,
+        "rerankMatch": {
+          "id": "chunk-387044fb17027c32",
+          "path": "note-1.md",
+          "headingPath": [
+            "Database indexes"
+          ],
+          "ordinal": 0,
+          "contentHash": "27ab5c5dda9925e6",
+          "source": {
+            "startOffset": 20,
+            "endOffset": 123,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.16668469593564456,
+          "preview": "Database indexes A database index speeds up reads by organizing keys. Indexes require disk space and add work to writes."
+        }
+      },
+      {
+        "path": "note-3.md",
+        "score": 0.10494962961488291,
+        "matches": [
+          {
+            "id": "chunk-b6d29c2b4c3ab1db",
+            "path": "note-3.md",
+            "headingPath": [
+              "Language practice"
+            ],
+            "ordinal": 0,
+            "contentHash": "cd59d59e65fe8b0f",
+            "source": {
+              "startOffset": 21,
+              "endOffset": 125,
+              "startLine": 2,
+              "endLine": 2
+            },
+            "score": 0.10494962961488291,
+            "preview": "Language practice Short daily reading and speaking exercises help maintain vocabulary. Review unfamiliar words in context."
+          }
+        ],
+        "rerankScore": 0.291015625,
+        "rerankMatch": {
+          "id": "chunk-b6d29c2b4c3ab1db",
+          "path": "note-3.md",
+          "headingPath": [
+            "Language practice"
+          ],
+          "ordinal": 0,
+          "contentHash": "cd59d59e65fe8b0f",
+          "source": {
+            "startOffset": 21,
+            "endOffset": 125,
+            "startLine": 2,
+            "endLine": 2
+          },
+          "score": 0.10494962961488291,
+          "preview": "Language practice Short daily reading and speaking exercises help maintain vocabulary. Review unfamiliar words in context."
+        }
+      }
+    ],
+    "environment": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "platform": "linux",
+      "plugin": "2.1.0"
+    },
+    "receipts": [
+      {
+        "id": "embedding-dimensions",
+        "httpStatus": 200,
+        "requestedModel": "openai/text-embedding-3-small",
+        "resolvedModel": "text-embedding-3-small",
+        "provider": "OpenAI",
+        "generationId": "gen-emb-1791716160-FpR4fiyCpR4tk7wtbhfQ",
+        "usage": {
+          "cost": 1e-07,
+          "total_tokens": 5,
+          "prompt_tokens": 5
+        },
+        "costUSD": 1e-07,
+        "costBasis": "provider-response",
+        "latencyMs": 7432
+      },
+      {
+        "id": "embedding-index",
+        "httpStatus": 200,
+        "requestedModel": "openai/text-embedding-3-small",
+        "resolvedModel": "text-embedding-3-small",
+        "provider": "OpenAI",
+        "generationId": "gen-emb-1791716164-fkslR1hnCbReOCvanKNf",
+        "usage": {
+          "cost": 4.1e-06,
+          "total_tokens": 205,
+          "prompt_tokens": 205
+        },
+        "costUSD": 4.1e-06,
+        "costBasis": "provider-response",
+        "latencyMs": 2149
+      },
+      {
+        "id": "embedding-query",
+        "httpStatus": 200,
+        "requestedModel": "openai/text-embedding-3-small",
+        "resolvedModel": "text-embedding-3-small",
+        "provider": "OpenAI",
+        "generationId": "gen-emb-1791716167-BIX9ZKLPTwS8zIo9TR0c",
+        "usage": {
+          "cost": 2.2e-07,
+          "total_tokens": 11,
+          "prompt_tokens": 11
+        },
+        "costUSD": 2.2e-07,
+        "costBasis": "provider-response",
+        "latencyMs": 2627
+      },
+      {
+        "id": "manual-rerank",
+        "httpStatus": 200,
+        "requestedModel": "voyageai/rerank-3-lite",
+        "resolvedModel": "rerank-3-lite",
+        "provider": "VoyageAI by MongoDB",
+        "generationId": "gen-rerank-1791716170-Boi9PrUbMdGUoUhmlctg",
+        "usage": {
+          "cost": 5.14e-06,
+          "total_tokens": 257
+        },
+        "costUSD": 5.14e-06,
+        "costBasis": "provider-response",
+        "latencyMs": 1331
+      }
+    ],
+    "budget": {
+      "requests": 4,
+      "spentNanodollars": 9560,
+      "unresolvedNanodollars": 0,
+      "committedNanodollars": 9560
+    },
+    "keyAfter": {
+      "httpStatus": 200,
+      "checkedAt": "2026-10-11T10:56:31.095Z",
+      "limit": 50,
+      "limit_remaining": 49.991680838,
+      "usage": 0.008319162,
+      "expires_at": "2026-10-14T08:09:40.860Z",
+      "resetIsDisabled": true
+    },
+    "keyUsageReconciled": true,
+    "status": "PASS",
+    "costUSD": 9.56e-06,
+    "index": {
+      "dimensions": 1536,
+      "vectorCount": 8,
+      "generation": 1
+    },
+    "replayCheck": {
+      "status": "SKIPPED_EXISTING_JOURNAL",
+      "requests": 4,
+      "spentNanodollars": 9560,
+      "unresolvedNanodollars": 0
+    }
+  },
+  "verification": {
+    "tests": 2910,
+    "testFiles": 115,
+    "releaseGuardTests": 6,
+    "priorDriverTests": 10,
+    "proposalMutationsKilled": 5,
+    "lintWarnings": [
+      "Existing allowlisted api.ts:402 streaming fetch"
+    ],
+    "npmAudit": {
+      "dev": {
+        "moderate": 7,
+        "high": 5
+      },
+      "production": 0
+    },
+    "secretScan": "PASS: exact authorized key absent from tracked files, reports and all three build assets; no key value emitted",
+    "bundleScan": "PASS: no test/tooling/server modules; only external Obsidian API"
+  }
+}
