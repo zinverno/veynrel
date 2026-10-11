@@ -456,7 +456,7 @@ export class AIHubSettingTab extends PluginSettingTab {
           }),
           { keys: [], name: tr("@rerank.settings.providerTitle"), desc: tr("@rerank.settings.provider") },
           row(["rerank.model"], tr("@rerank.settings.model"), tr("@rerank.settings.modelHelp"), setting => {
-            setting.addText(text => text.setPlaceholder("cohere/rerank-v3.5").setValue(rerank.model).onChange(async value => {
+            setting.addText(text => text.setPlaceholder(DEFAULT_RERANK_SETTINGS.model).setValue(rerank.model).onChange(async value => {
               rerank.model = value.trim();
               this.rerankSettingsChanged();
               await save();
