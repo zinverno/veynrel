@@ -7,7 +7,7 @@ Rerank reorders candidates from an explicit **Discover → Semantic search** or 
 In Veynrel plugin settings, next to Semantic Intelligence, configure **Search refinement / Rerank**:
 
 1. Read the disclosure, enter an explicit OpenRouter rerank model ID and a separate API key, and enable refinement. New installations default to **off/manual**. Existing enabled installations keep automatic behavior; see migration below.
-2. `cohere/rerank-v3.5` is a starting example in the official documentation checked on 2026-10-07, not a recommendation or a pricing promise. There is no invented model catalog. Chat/embedding model IDs are not substituted.
+2. Since 2.1.0, new settings start with `voyageai/rerank-3-lite`, based on the bounded [live comparison](rerank-live-model-comparison.md) and [hard benchmark](rerank-hard-benchmark-v1.md). This is not evidence of universal superiority or a pricing promise. You can enter any supported OpenRouter rerank model ID; chat/embedding model IDs are not substituted. No connection occurs until you supply a separate key and explicitly request refinement or a connection test.
 3. **Test rerank** is optional and explicit. It makes a billable API request using only “Which fruit is yellow?” and two fixed synthetic sentences. Opening settings never tests a provider.
 
 ### Manual and automatic modes
@@ -31,6 +31,8 @@ The [hard benchmark](rerank-hard-benchmark-v1.md) found 11 improvements, 11 unch
 | Enabled, no `triggerMode` | Automatic |
 | Disabled, no `triggerMode` | Manual |
 | Explicit `manual` or `automatic` | Preserved, regardless of enablement |
+
+Explicitly stored model IDs and keys are preserved, including empty/invalid model strings (which block requests rather than select another provider). An enabled legacy configuration without a model keeps its previous effective `cohere/rerank-v3.5`. Absent Rerank settings and disabled settings without a model receive the new Voyage starting value. This migration does not change the semantic index.
 
 `triggerMode` does not replace the existing model ID or key. Its writes use the existing settings save queue and nested rollback; a failed save restores the prior value and invalidates pending refinement again. Mode changes never rebuild or invalidate the semantic index.
 

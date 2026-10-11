@@ -32,6 +32,29 @@ describe("OpenRouter rerank boundary", () => {
     expect(mergeRerankSettings({ ...stored, model: "user/existing-model", apiKey: "synthetic-independent-key" }))
       .toMatchObject({ triggerMode, model: "user/existing-model", apiKey: "synthetic-independent-key" });
   });
+  it.each([
+    [undefined, false, "manual", "voyageai/rerank-3-lite"],
+    [{}, false, "manual", "voyageai/rerank-3-lite"],
+    [{ enabled: false }, false, "manual", "voyageai/rerank-3-lite"],
+    [{ enabled: true }, true, "automatic", "cohere/rerank-v3.5"],
+    [{ enabled: true, model: "cohere/rerank-v3.5" }, true, "automatic", "cohere/rerank-v3.5"],
+    [{ enabled: true, model: "custom/model" }, true, "automatic", "custom/model"],
+    [{ enabled: false, model: "custom/model" }, false, "manual", "custom/model"],
+    [{ enabled: true, triggerMode: "manual" }, true, "manual", "cohere/rerank-v3.5"],
+    [{ enabled: false, triggerMode: "automatic" }, false, "automatic", "voyageai/rerank-3-lite"],
+    [{ enabled: true, model: "" }, true, "automatic", ""],
+    [{ enabled: true, model: "invalid model" }, true, "automatic", "invalid model"],
+  ] as const)("preserves the effective model while migrating %j", (stored, enabled, triggerMode, model) => {
+    expect(mergeRerankSettings({ ...stored, apiKey: "synthetic-independent" }))
+      .toEqual({ enabled, triggerMode, model, provider: "openrouter", apiKey: "synthetic-independent" });
+  });
+  it.each(["", "invalid model"])("never silently substitutes an invalid stored model: %j", async model => {
+    const transport = vi.fn<RerankTransport>(async () => response());
+    const migrated = mergeRerankSettings({ enabled: true, model, apiKey: "synthetic-only" });
+    await expect(new OpenRouterRerankProvider(migrated, transport).rank("query", ["a", "b"], signal()))
+      .rejects.toMatchObject({ code: "configuration" });
+    expect(transport).not.toHaveBeenCalled();
+  });
   it("uses the dedicated endpoint and all indices, without paths or telemetry", async () => {
     const transport = vi.fn<RerankTransport>(async () => response());
     const result = await new OpenRouterRerankProvider(settings, transport).rank("query", ["alpha", "beta"], signal());

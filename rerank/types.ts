@@ -9,7 +9,7 @@ export interface RerankSettings {
 }
 
 export const DEFAULT_RERANK_SETTINGS: RerankSettings = {
-  enabled: false, triggerMode: "manual", provider: "openrouter", model: "cohere/rerank-v3.5", apiKey: "",
+  enabled: false, triggerMode: "manual", provider: "openrouter", model: "voyageai/rerank-3-lite", apiKey: "",
 };
 
 export function mergeRerankSettings(stored?: Partial<RerankSettings> | null): RerankSettings {
@@ -18,7 +18,9 @@ export function mergeRerankSettings(stored?: Partial<RerankSettings> | null): Re
     triggerMode: stored?.triggerMode === "manual" || stored?.triggerMode === "automatic"
       ? stored.triggerMode : stored?.enabled === true ? "automatic" : "manual",
     provider: "openrouter",
-    model: typeof stored?.model === "string" ? stored.model : DEFAULT_RERANK_SETTINGS.model,
+    // Enabled legacy installations without a model previously used Cohere.
+    model: typeof stored?.model === "string" ? stored.model
+      : stored?.enabled === true ? "cohere/rerank-v3.5" : DEFAULT_RERANK_SETTINGS.model,
     apiKey: typeof stored?.apiKey === "string" ? stored.apiKey : "",
   };
 }

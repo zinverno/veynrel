@@ -10,7 +10,9 @@ export const safeCode = error => ['auth', 'credits', 'rate-limit', 'server', 're
   'timeout', 'cancelled', 'invalid-response', 'configuration'].includes(error?.code) ? error.code : 'internal';
 
 export class BudgetJournal {
-  constructor(directory, fingerprint, baselineUsage) {
+  constructor(directory, fingerprint, baselineUsage, { planning = PLAN, ceiling = CEILING } = {}) {
+    check(Number.isSafeInteger(planning) && planning > 0 && Number.isSafeInteger(ceiling) &&
+      planning <= ceiling && ceiling <= CEILING, 'invalid-limits');
     check(/^[a-f0-9]{64}$/.test(fingerprint) && nanos(baselineUsage) !== null, 'invalid-plan');
     fs.mkdirSync(path.dirname(directory), { recursive: true, mode: 0o700 });
     const established = fs.existsSync(directory);
@@ -20,11 +22,11 @@ export class BudgetJournal {
     fs.closeSync(fs.openSync(this.lock, 'wx', 0o600));
     this.entries = new Map();
     try {
-      if (!established) this.append({ version: 1, fingerprint, ceiling: CEILING, planning: PLAN, baselineUsage }, 'wx');
+      if (!established) this.append({ version: 1, fingerprint, ceiling, planning, baselineUsage }, 'wx');
       const rows = fs.readFileSync(this.file, 'utf8').trimEnd().split('\n').map(line => JSON.parse(line));
       this.header = rows.shift();
-      check(this.header.version === 1 && this.header.fingerprint === fingerprint && this.header.ceiling === CEILING &&
-        this.header.planning === PLAN && nanos(this.header.baselineUsage) !== null, 'journal-plan-mismatch');
+      check(this.header.version === 1 && this.header.fingerprint === fingerprint && this.header.ceiling === ceiling &&
+        this.header.planning === planning && nanos(this.header.baselineUsage) !== null, 'journal-plan-mismatch');
       for (const row of rows) {
         check(typeof row.id === 'string' && Number.isSafeInteger(row.reserve) && row.reserve > 0 &&
           ['reserved', 'settled', 'reconciled'].includes(row.state), 'invalid-journal');
@@ -56,7 +58,7 @@ export class BudgetJournal {
     const observed = nanos(currentUsage - this.header.baselineUsage);
     check(observed !== null, 'accounting-regressed');
     const committed = Math.max(this.summary().committedNanodollars, observed);
-    check(committed + op.reserve <= PLAN && committed + op.reserve <= CEILING, 'money-limit');
+    check(committed + op.reserve <= this.header.planning && committed + op.reserve <= this.header.ceiling, 'money-limit');
     const row = { id: op.id, model: op.model, caseId: op.caseId, requestSha256: op.requestSha256,
       state: 'reserved', reserve: op.reserve, cost: null, startedAt: new Date().toISOString() };
     this.append(row); this.entries.set(op.id, row);

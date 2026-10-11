@@ -54,7 +54,7 @@ describe("transactional semantic settings in the plugin save queue", () => {
     f.plugin.loadData = vi.fn(async () => legacy);
     vi.mocked(requestUrl).mockClear();
     await f.plugin.loadSettings();
-    expect(f.plugin.settings.rerank).toEqual({ enabled: false, triggerMode: "manual", provider: "openrouter", model: "cohere/rerank-v3.5", apiKey: "" });
+    expect(f.plugin.settings.rerank).toEqual({ enabled: false, triggerMode: "manual", provider: "openrouter", model: "voyageai/rerank-3-lite", apiKey: "" });
     expect(f.plugin.settings.semantic).toEqual(legacy.semantic);
     expect(requestUrl).not.toHaveBeenCalled();
   });
@@ -65,6 +65,17 @@ describe("transactional semantic settings in the plugin save queue", () => {
     await f.plugin.loadSettings();
     expect(f.plugin.settings.rerank).toEqual({ enabled, triggerMode: enabled ? "automatic" : "manual",
       provider: "openrouter", model: "chosen/existing", apiKey: "synthetic-saved-key" });
+  });
+  it("retains legacy enabled Rerank's implicit Cohere without touching the semantic index", async () => {
+    const f = await fixture();
+    f.plugin.loadData = vi.fn(async () => ({ ...f.stored, rerank: { enabled: true, apiKey: "synthetic-legacy" } }));
+    vi.mocked(requestUrl).mockClear();
+    await f.plugin.loadSettings();
+    expect(f.plugin.settings.rerank).toEqual({ enabled: true, triggerMode: "automatic", provider: "openrouter",
+      model: "cohere/rerank-v3.5", apiKey: "synthetic-legacy" });
+    expect(f.plugin.settings.semantic).toEqual(f.stored.semantic);
+    expect(f.engine.notifySettingsChanged).not.toHaveBeenCalled();
+    expect(requestUrl).not.toHaveBeenCalled();
   });
   it("preserves Health, Semantic, Deep Audit, Companion and ordinary preferences in the same save queue", async () => {
     const f = await fixture();
