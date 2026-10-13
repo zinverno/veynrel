@@ -1,0 +1,885 @@
+{
+  "experiment": "showcase500-rerank-v1",
+  "date": "2026-10-13",
+  "version": "2.1.0",
+  "productionSha": "6df435f1f1cd1f9421f908b816dcae02df1a4f9e",
+  "buildSha256": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+  "hashes": {
+    "manifest": "0721fd7aab2f3e4debff68bc03636b1cb1c12397842d39c33c65d531e9403ab7",
+    "chunks": "a8da55df59fe3a75e33b4274298eca75ed4b67c2e195b460f1c13e3f7d2de0c9",
+    "queries": "475aaa63a20d73d5e3eae5f9164eb4458d4ed80d72926cd720c74278dfec6aa5",
+    "protocol": "66d057eb01ea6485afe4e26762449b880878485e772d3428f4caf56209c9364f",
+    "qrels": "a198124248d06dbbc682a39ed4a34b30d5ee66ce3778ef6c55ad57503eca39a2",
+    "pricing-snapshot": "59a804c2a26da7ef423e3d16f3e26fa9e4d5daef53032e9d3d0dae7c556843af",
+    "corpus": "6a533c334cd3c44ab7fc7e7813d09131e0ba14b17f28b8987a6e744d7e9bc8f6",
+    "pools": "5e14076e4b9f86edae487a991765a2fb0f4d5ce218bdd4c12020f40fa7cfda8d",
+    "fragmentReview": "bc0159cc76e4f8e4269cadd98a429227825f3a71c6cd02bbc491b2facd50e108"
+  },
+  "corpus": {
+    "regularMarkdown": 500,
+    "indexedDocuments": 500,
+    "chunks": 1600,
+    "uniqueEmbeddingInputs": 1599,
+    "excludedMarkdown": 0,
+    "excludedNonCorpusEntries": 2,
+    "exclusionReasons": [
+      "original Obsidian configuration directory",
+      "non-Markdown instruction file"
+    ],
+    "language": "English (all 500 ASCII)",
+    "thematicGroups": 10,
+    "documentsPerTheme": 50,
+    "domainTopicPairs": 100,
+    "allTemplateBased": true,
+    "technicalAnswerClaimsOutsideTemplates": 0,
+    "prosePatterns": 3,
+    "identicalFlashcardAnswers": 100,
+    "emptyDocuments": 0,
+    "multiSectionDocuments": 500,
+    "multiChunkDocuments": 500,
+    "exactDuplicateGroups": 0,
+    "nearDuplicateMethod": "Full unchanged document, lowercase + whitespace collapse; character 5-gram set Jaccard >= 0.80; connected components (not all pairs within a component need pass)",
+    "nearDuplicatePairs": 2833,
+    "nearDuplicateGroupSizes": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40
+    ],
+    "documentBytes": {
+      "count": 500,
+      "min": 1232,
+      "median": 1384.5,
+      "p95": 1525,
+      "max": 1626,
+      "mean": 1392.154,
+      "total": 696077
+    },
+    "chunkCodePoints": {
+      "count": 1600,
+      "min": 61,
+      "median": 213,
+      "p95": 1020,
+      "max": 1073,
+      "mean": 423.189375,
+      "total": 677103
+    }
+  },
+  "queries": {
+    "target": 100,
+    "actual": 24,
+    "intents": 24,
+    "positives": 4,
+    "diagnostics": 20,
+    "ru": 12,
+    "en": 12,
+    "uncertain": 0,
+    "comparisonCases": [
+      "Q001",
+      "Q002",
+      "Q003",
+      "Q004"
+    ],
+    "limit": "Only four distinct general review-workflow questions are supported; no topic-substitution padding. Positive topic/type balance and twenty-case comparison target cannot be met."
+  },
+  "annotation": {
+    "agent": true,
+    "human": false,
+    "assessedPairs": 12000,
+    "unjudgedPairs": 0,
+    "reviewQueries": 15,
+    "reviewPairs": 7500,
+    "rereviewChanges": 0,
+    "primaryInterpretiveDisagreementsResolvedBeforeModels": 1,
+    "allPositiveDocumentGrades": 3,
+    "method": "Full-content semantic template assessment with exact full-document grammar validation; explicit qrels per document, no unread-zero defaults. Independent agent had no initial grades/ranks/scores. All qrels frozen before embeddings; fragment audit blinded to order and model outcomes.",
+    "nDCGBasis": "fixed frozen agent qrels; full corpus assessed but no independent human ground truth"
+  },
+  "voyage": {
+    "cases": 24,
+    "positives": 4,
+    "diagnostics": 20,
+    "successful": 24,
+    "failures": 0,
+    "notRun": 0,
+    "before": {
+      "hit1": 1,
+      "hit3": 1,
+      "mrr10": 1,
+      "ndcg10": 1
+    },
+    "after": {
+      "hit1": 1,
+      "hit3": 1,
+      "mrr10": 1,
+      "ndcg10": 1
+    },
+    "changes": {
+      "Improved": 0,
+      "Unchanged": 4,
+      "Regressed": 0
+    },
+    "weakGainZero": {
+      "beforeNdcg10": 1,
+      "afterNdcg10": 1
+    },
+    "newlyUsefulFirst": 0,
+    "knownRelevantCoverage30": 0.06,
+    "queryRetrievalMisses": 0,
+    "bootstrap": {
+      "meanDelta": 0,
+      "lower": 0,
+      "upper": 0,
+      "intents": 4,
+      "iterations": 10000
+    },
+    "providerLatencyMs": {
+      "count": 24,
+      "min": 513,
+      "median": 602.5,
+      "p95": 1871,
+      "max": 2436,
+      "mean": 723.25,
+      "total": 17358,
+      "timeouts": 0
+    },
+    "costUSD": 0.0013766800000000004,
+    "retrieved": 720,
+    "sent": 720,
+    "omitted": 0
+  },
+  "commonSubset": {
+    "voyageai/rerank-3-lite": {
+      "cases": 4,
+      "positives": 4,
+      "diagnostics": 0,
+      "successful": 4,
+      "failures": 0,
+      "notRun": 0,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 4,
+        "Regressed": 0
+      },
+      "weakGainZero": {
+        "beforeNdcg10": 1,
+        "afterNdcg10": 1
+      },
+      "newlyUsefulFirst": 0,
+      "knownRelevantCoverage30": 0.06,
+      "queryRetrievalMisses": 0,
+      "bootstrap": {
+        "meanDelta": 0,
+        "lower": 0,
+        "upper": 0,
+        "intents": 4,
+        "iterations": 10000
+      },
+      "providerLatencyMs": {
+        "count": 4,
+        "min": 646,
+        "median": 1291.5,
+        "p95": 2436,
+        "max": 2436,
+        "mean": 1416.25,
+        "total": 5665,
+        "timeouts": 0
+      },
+      "costUSD": 0.0002961,
+      "retrieved": 120,
+      "sent": 120,
+      "omitted": 0
+    },
+    "cohere/rerank-v3.5": {
+      "cases": 4,
+      "positives": 4,
+      "diagnostics": 0,
+      "successful": 4,
+      "failures": 0,
+      "notRun": 0,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 4,
+        "Regressed": 0
+      },
+      "weakGainZero": {
+        "beforeNdcg10": 1,
+        "afterNdcg10": 1
+      },
+      "newlyUsefulFirst": 0,
+      "knownRelevantCoverage30": 0.06,
+      "queryRetrievalMisses": 0,
+      "bootstrap": {
+        "meanDelta": 0,
+        "lower": 0,
+        "upper": 0,
+        "intents": 4,
+        "iterations": 10000
+      },
+      "providerLatencyMs": {
+        "count": 4,
+        "min": 620,
+        "median": 696.5,
+        "p95": 858,
+        "max": 858,
+        "mean": 717.75,
+        "total": 2871,
+        "timeouts": 0
+      },
+      "costUSD": 0.004,
+      "retrieved": 120,
+      "sent": 120,
+      "omitted": 0
+    },
+    "qwen/qwen3-reranker-8b": {
+      "cases": 4,
+      "positives": 4,
+      "diagnostics": 0,
+      "successful": 4,
+      "failures": 0,
+      "notRun": 0,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 4,
+        "Regressed": 0
+      },
+      "weakGainZero": {
+        "beforeNdcg10": 1,
+        "afterNdcg10": 1
+      },
+      "newlyUsefulFirst": 0,
+      "knownRelevantCoverage30": 0.06,
+      "queryRetrievalMisses": 0,
+      "bootstrap": {
+        "meanDelta": 0,
+        "lower": 0,
+        "upper": 0,
+        "intents": 4,
+        "iterations": 10000
+      },
+      "providerLatencyMs": {
+        "count": 4,
+        "min": 670,
+        "median": 836.5,
+        "p95": 1216,
+        "max": 1216,
+        "mean": 889.75,
+        "total": 3559,
+        "timeouts": 0
+      },
+      "costUSD": 0.004785,
+      "retrieved": 120,
+      "sent": 120,
+      "omitted": 0
+    }
+  },
+  "byLanguage": [
+    {
+      "group": "en",
+      "cases": 12,
+      "positives": 2,
+      "diagnostics": 10,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 2,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 751.25,
+      "costUSD": 0.00070452
+    },
+    {
+      "group": "ru",
+      "cases": 12,
+      "positives": 2,
+      "diagnostics": 10,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 2,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 695.25,
+      "costUSD": 0.0006721599999999999
+    }
+  ],
+  "byTopic": [
+    {
+      "group": "review-workflow",
+      "cases": 4,
+      "positives": 4,
+      "diagnostics": 0,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 4,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 1416.25,
+      "costUSD": 0.0002961
+    },
+    {
+      "group": "database",
+      "cases": 2,
+      "positives": 0,
+      "diagnostics": 2,
+      "meanProviderLatencyMs": 678.5,
+      "costUSD": 0.00018140000000000002
+    },
+    {
+      "group": "distributed",
+      "cases": 2,
+      "positives": 0,
+      "diagnostics": 2,
+      "meanProviderLatencyMs": 543,
+      "costUSD": 0.00008853999999999999
+    },
+    {
+      "group": "machine-learning",
+      "cases": 2,
+      "positives": 0,
+      "diagnostics": 2,
+      "meanProviderLatencyMs": 585,
+      "costUSD": 0.00013328
+    },
+    {
+      "group": "cybersecurity",
+      "cases": 2,
+      "positives": 0,
+      "diagnostics": 2,
+      "meanProviderLatencyMs": 625,
+      "costUSD": 0.00010862
+    },
+    {
+      "group": "networking",
+      "cases": 2,
+      "positives": 0,
+      "diagnostics": 2,
+      "meanProviderLatencyMs": 524,
+      "costUSD": 0.00006896
+    },
+    {
+      "group": "architecture",
+      "cases": 2,
+      "positives": 0,
+      "diagnostics": 2,
+      "meanProviderLatencyMs": 602.5,
+      "costUSD": 0.00011308
+    },
+    {
+      "group": "product-ux",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 610,
+      "costUSD": 0.00006612
+    },
+    {
+      "group": "cognition",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 544,
+      "costUSD": 0.00004062
+    },
+    {
+      "group": "statistics",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 591,
+      "costUSD": 0.00005582
+    },
+    {
+      "group": "knowledge-management",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 517,
+      "costUSD": 0.0000365
+    },
+    {
+      "group": "cooking",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 520,
+      "costUSD": 0.00004178
+    },
+    {
+      "group": "astronomy",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 615,
+      "costUSD": 0.00003518
+    },
+    {
+      "group": "gardening",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 637,
+      "costUSD": 0.00005804
+    },
+    {
+      "group": "music",
+      "cases": 1,
+      "positives": 0,
+      "diagnostics": 1,
+      "meanProviderLatencyMs": 543,
+      "costUSD": 0.00005264
+    }
+  ],
+  "byTaskType": [
+    {
+      "group": "late-section",
+      "cases": 1,
+      "positives": 1,
+      "diagnostics": 0,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 1,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 2436,
+      "costUSD": 0.00002548
+    },
+    {
+      "group": "multiple-requirements",
+      "cases": 2,
+      "positives": 1,
+      "diagnostics": 1,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 1,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 1231,
+      "costUSD": 0.00014014
+    },
+    {
+      "group": "constraint",
+      "cases": 3,
+      "positives": 1,
+      "diagnostics": 2,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 1,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 601.3333333333334,
+      "costUSD": 0.00019446000000000003
+    },
+    {
+      "group": "paraphrase",
+      "cases": 1,
+      "positives": 1,
+      "diagnostics": 0,
+      "before": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "after": {
+        "hit1": 1,
+        "hit3": 1,
+        "mrr10": 1,
+        "ndcg10": 1
+      },
+      "changes": {
+        "Improved": 0,
+        "Unchanged": 1,
+        "Regressed": 0
+      },
+      "meanDeltaNdcg10": 0,
+      "meanProviderLatencyMs": 712,
+      "costUSD": 0.00011266
+    },
+    {
+      "group": "missing-condition",
+      "cases": 10,
+      "positives": 0,
+      "diagnostics": 10,
+      "meanProviderLatencyMs": 578.9,
+      "costUSD": 0.0005208200000000001
+    },
+    {
+      "group": "different-operations",
+      "cases": 3,
+      "positives": 0,
+      "diagnostics": 3,
+      "meanProviderLatencyMs": 613.3333333333334,
+      "costUSD": 0.00019548
+    },
+    {
+      "group": "out-of-domain",
+      "cases": 4,
+      "positives": 0,
+      "diagnostics": 4,
+      "meanProviderLatencyMs": 578.75,
+      "costUSD": 0.00018763999999999999
+    }
+  ],
+  "fragments": {
+    "positive_query_count": 4,
+    "relevant_document_query_pairs": 2000,
+    "selected_pairs_semantically_assessed": 120,
+    "not_retrieved_pairs": 1880,
+    "selected_chunk_texts_verified_against_source": 120,
+    "classification_counts": {
+      "answer-present": 93,
+      "partial": 14,
+      "needed-section-not-selected": 13,
+      "requires-multiple-chunks": 0
+    },
+    "selected_pairs_without_complete_answer": 27,
+    "accounting_identity": "2000 = 93 complete selected fragments + 14 partial selected fragments + 13 wrong-section selections + 1880 not-retrieved pairs",
+    "top10ByCase": [
+      {
+        "query_id": "Q001",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q002",
+        "before": {
+          "answer-present": 5,
+          "partial": 5
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q003",
+        "before": {
+          "answer-present": 4,
+          "needed-section-not-selected": 6
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q004",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      }
+    ],
+    "modelComparisons": [
+      {
+        "query_id": "Q001",
+        "model": "voyageai/rerank-3-lite",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q002",
+        "model": "voyageai/rerank-3-lite",
+        "before": {
+          "answer-present": 5,
+          "partial": 5
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q003",
+        "model": "voyageai/rerank-3-lite",
+        "before": {
+          "answer-present": 4,
+          "needed-section-not-selected": 6
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q004",
+        "model": "voyageai/rerank-3-lite",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q001",
+        "model": "cohere/rerank-v3.5",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q002",
+        "model": "cohere/rerank-v3.5",
+        "before": {
+          "answer-present": 5,
+          "partial": 5
+        },
+        "after": {
+          "partial": 1,
+          "answer-present": 9
+        }
+      },
+      {
+        "query_id": "Q003",
+        "model": "cohere/rerank-v3.5",
+        "before": {
+          "answer-present": 4,
+          "needed-section-not-selected": 6
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q004",
+        "model": "cohere/rerank-v3.5",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q001",
+        "model": "qwen/qwen3-reranker-8b",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q002",
+        "model": "qwen/qwen3-reranker-8b",
+        "before": {
+          "answer-present": 5,
+          "partial": 5
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q003",
+        "model": "qwen/qwen3-reranker-8b",
+        "before": {
+          "answer-present": 4,
+          "needed-section-not-selected": 6
+        },
+        "after": {
+          "answer-present": 10
+        }
+      },
+      {
+        "query_id": "Q004",
+        "model": "qwen/qwen3-reranker-8b",
+        "before": {
+          "answer-present": 10
+        },
+        "after": {
+          "answer-present": 10
+        }
+      }
+    ],
+    "note": "Full-document relevance and selected-fragment answer availability differ. Outside-pool equivalent documents are not query-level retrieval failures. No query intrinsically requires multiple chunks."
+  },
+  "cost": {
+    "initialIndexUSD": 0.0024547,
+    "queryEmbeddingsUSD": 0.00001362,
+    "rerankUSD": {
+      "voyageai/rerank-3-lite": 0.00137668,
+      "cohere/rerank-v3.5": 0.004,
+      "qwen/qwen3-reranker-8b": 0.004785
+    },
+    "totalUSD": 0.01263
+  },
+  "accounting": {
+    "planningUSD": 0.08,
+    "absoluteUSD": 0.1,
+    "receiptUSD": 0.01263,
+    "aggregateDeltaUSD": 0.01263,
+    "reconciled": true,
+    "aggregateUsageLagObserved": true
+  },
+  "reliability": {
+    "embeddingCalls": 27,
+    "rerankCalls": 32,
+    "paidRetries": 0,
+    "dimensionProbes": 0,
+    "unresolvedBills": 0,
+    "productionValidatorPass": 32,
+    "providerFailures": 0,
+    "timeouts": 0,
+    "fallbackCases": 0
+  },
+  "native": {
+    "installedVersion": "2.1.0",
+    "uiCase": "Q001",
+    "fullIndex": true,
+    "liveSearchManualRerankAndToggles": "PASS; original live invocation reached only the final cursor assertion failure",
+    "navigation": "PASS in separate free saved-result UI replay; asynchronous cursor wait added only to test driver",
+    "extraPaidCallsForNavigation": 0,
+    "semanticScoresPreserved": true,
+    "realKeyInDataJson": false,
+    "assetsUnchanged": true,
+    "environment": {
+      "obsidian": "1.14.4",
+      "electron": "43.6.0",
+      "platform": "linux"
+    },
+    "limitation": "Cursor positioning was not successfully asserted in the original live session; separately verified with the same real saved result and all HTTP blocked. Query vector replayed from its exact paid cache in installed UI."
+  },
+  "originalMarkdownUnchanged": true,
+  "conclusion": "This template showcase validates the full retrieval/rerank path, cost, latency and fragment exposure. It does not discriminate document ranking quality or establish rerank benefit on substantive user knowledge. No product/default change is justified."
+}
