@@ -1,0 +1,19 @@
+{
+  "id": "connection-opportunities-40-v1",
+  "frozenBeforeCandidateCalculation": true,
+  "sourceCommit": "f09500cbe64c830b77da5b9fba28dc5ace033de1",
+  "corpus": "Public MIT synthetic fixture tests/fixtures/rerank-hard-v1/vault; reliable services and data operations subset",
+  "noteNumbers": [1, 2, 3, 7, 8, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 38, 39, 40, 41, 45, 46, 48, 49, 50, 53, 54, 55, 56, 60, 63],
+  "preexistingDirectedLinks": [[1, 2], [22, 26], [14, 15], [38, 39], [39, 38], [28, 29], [54, 22]],
+  "linkPlacement": "Quoted wikilinks in related frontmatter. Production topology includes frontmatterLinks; production chunker excludes frontmatter. Note body and embedding inputs remain unchanged.",
+  "linkRationales": ["contrast jitter and deterministic backoff", "operation identity after a lost response", "contrast normal concurrency and space reclamation", "restore rehearsal for encrypted backups", "reciprocal restore context", "contrast lexical and semantic lookup", "credential hygiene when testing purchase APIs"],
+  "cohort": {"category": "candidate", "rankFilter": "mutual-top-3", "reviewFilter": "all", "hideExcalidraw": false, "query": "", "take": 10, "fallback": "If fewer than ten mutual-top-3, report shortage without changing filter."},
+  "ordering": ["production rank class", "shared neighbor count descending", "exact cosine descending", "canonical left path ascending", "canonical right path ascending"],
+  "assessment": "Read both complete notes for every selected pair. Record technical rationale, concrete possible action and limitation. All human verdicts remain Requires human review. No precision or global usefulness percentage.",
+  "actionSelection": "First cohort pair in frozen order for which reading both notes supports a specific contextual cross-reference. Add one frontmatter link in the disposable copy, then refresh and inspect classification. Do not change source corpus.",
+  "negativeSelection": "First cohort pair in frozen order whose tasks or constraints differ enough that an unqualified link would mislead; if none, report absence rather than selecting outside cohort.",
+  "incompleteData": "Separate controlled fault injection: withhold link metadata for first cohort endpoint, then restore; report as injected native test, not naturally observed missing data.",
+  "payments": "No credentials and no external embedding/rerank/judge calls. Replay only hash-verified previously computed real vectors. Unknown input fails closed.",
+  "humanReview": "Not performed by the agent. Session verdict controls may be exercised separately and cleared, with no user-quality claims.",
+  "prohibitedConclusions": ["organic personal-vault discovery", "human usefulness from cosine", "global precision from selected ten", "commercial success without receipts"]
+}

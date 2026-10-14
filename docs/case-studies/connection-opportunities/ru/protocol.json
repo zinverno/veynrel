@@ -1,0 +1,319 @@
+{
+  "id": "connection-opportunities-ru-adapted-v1",
+  "frozenBeforeCandidateCalculation": true,
+  "baselineCommit": "2ae9a19e80524131a15bd78dba91ff2b7f34f78f",
+  "approvedSampleCommit": "5bfebec30247d50564cd4c41ecb1774c9cac3e7d",
+  "sourceType": "public MIT synthetic adaptation, not a language-only comparison",
+  "model": {
+    "id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "device": "cpu",
+    "dimensions": 384,
+    "maxSeqLength": 512,
+    "defaultMaxSeqLength": 128,
+    "normalize": true,
+    "batchSize": 8,
+    "torchThreads": 4,
+    "network": "offline; no downloads; no paid requests",
+    "reason": "Existing local model. Token audit: 43/50 chunks exceed default 128; longest 304. Configure supported 512 positions before candidate computation; assert zero truncation. Long-input usefulness is unvalidated."
+  },
+  "chunking": "Production MarkdownChunker defaults: targetChars=1200,maxChars=1800,overlapChars=200; no edits",
+  "vaultNaming": "Source files retain note-NNN IDs. Disposable vault uses NNN - Russian H1 filenames; all seven wikilinks rewritten through this bijection before indexing.",
+  "notes": [
+    {
+      "source": "note-001.md",
+      "title": "После сбоя все клиенты приходят одновременно",
+      "vault": "001 - После сбоя все клиенты приходят одновременно.md",
+      "sha256": "e1aa75fc02c3a07d1f59844b7c837904033d56256155a9069283a0bf93982fdc"
+    },
+    {
+      "source": "note-002.md",
+      "title": "Для одного загрузчика хватит простого backoff",
+      "vault": "002 - Для одного загрузчика хватит простого backoff.md",
+      "sha256": "a0444b381a17754bad1dd7249b2a2568e46db2a4545d817733ad9ebd9871b0ec"
+    },
+    {
+      "source": "note-003.md",
+      "title": "Очередь на GPU: три разных ограничения",
+      "vault": "003 - Очередь на GPU три разных ограничения.md",
+      "sha256": "3021b187bbcd14e02abc5a37cb0e2bf11d80a907b30f6d482bcc1ceb2b6fc9f5"
+    },
+    {
+      "source": "note-007.md",
+      "title": "Что сохранять между эпохами",
+      "vault": "007 - Что сохранять между эпохами.md",
+      "sha256": "92d9ef936361296c34719ba634fc715e9bf32de10c27aa81f42d592c9b2c52f2"
+    },
+    {
+      "source": "note-008.md",
+      "title": "Кеш признаков — сохранять или пересчитывать?",
+      "vault": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "sha256": "864c4c2b286db266b2203ec4b4f9f8aea53052c48d66df72037092c43e7975c7"
+    },
+    {
+      "source": "note-014.md",
+      "title": "Журнал экспериментов на SQLite: чтение во время записи",
+      "vault": "014 - Журнал экспериментов на SQLite чтение во время записи.md",
+      "sha256": "cc91ee3ae8e61484597d537fd37f81d6050968304493e3098b01d73dc5d4cd85"
+    },
+    {
+      "source": "note-015.md",
+      "title": "Удалили старые метрики, а SQLite не уменьшилась",
+      "vault": "015 - Удалили старые метрики, а SQLite не уменьшилась.md",
+      "sha256": "d0562e20dc7428c366285118b7ed2e7e459f3cadb03c5469ef73bcbf917673fb"
+    },
+    {
+      "source": "note-016.md",
+      "title": "Индекс для списка запусков в PostgreSQL",
+      "vault": "016 - Индекс для списка запусков в PostgreSQL.md",
+      "sha256": "a655fed7b4061e2b3032e8d8f0301125e0984645ee20e1643d9a9e0ed6728876"
+    },
+    {
+      "source": "note-019.md",
+      "title": "На каком датасете это обучалось?",
+      "vault": "019 - На каком датасете это обучалось.md",
+      "sha256": "d12c88b3f8b88f0b64a8730656064a1026cd605db8047144f8c41fbed97783a1"
+    },
+    {
+      "source": "note-020.md",
+      "title": "Синхронизация рабочей папки с разметкой",
+      "vault": "020 - Синхронизация рабочей папки с разметкой.md",
+      "sha256": "3d1dff04d2a579d928eddd99d0426774eb2c16e1e402cb7c69071a217b644e0c"
+    },
+    {
+      "source": "note-021.md",
+      "title": "Выносить историю артефактов в объектное хранилище?",
+      "vault": "021 - Выносить историю артефактов в объектное хранилище.md",
+      "sha256": "e5564d88faf5e3be67a7f296dd269b5af8e8ec25f2c9a219e299a8c0f61851c6"
+    },
+    {
+      "source": "note-022.md",
+      "title": "Повтор запроса не должен запускать второе обучение",
+      "vault": "022 - Повтор запроса не должен запускать второе обучение.md",
+      "sha256": "80acdbd075b2ecc99642f40ab1a09d9205c85eaa58d31a2ad0e74e4b164ee82c"
+    },
+    {
+      "source": "note-023.md",
+      "title": "Один blob для одинаковых весов",
+      "vault": "023 - Один blob для одинаковых весов.md",
+      "sha256": "ae8473386b41be1dffa2c1a726b681fbad6c0c15720c5971e1b1d6d4900b4bb2"
+    },
+    {
+      "source": "note-024.md",
+      "title": "Два человека правят конфиг эксперимента",
+      "vault": "024 - Два человека правят конфиг эксперимента.md",
+      "sha256": "9e5787e258c3d9311c2b1cec343cfb5ce8a71da559de3229b60d3e825542ec3f"
+    },
+    {
+      "source": "note-025.md",
+      "title": "Короткое решение под блокировкой строки",
+      "vault": "025 - Короткое решение под блокировкой строки.md",
+      "sha256": "b194b27cae51a21788cafb237ba78c45d2b514c572c36f8535807bcef0b7d353"
+    },
+    {
+      "source": "note-026.md",
+      "title": "Запуск отправлен, ответ потерялся",
+      "vault": "026 - Запуск отправлен, ответ потерялся.md",
+      "sha256": "f284b97eefd40f1f5eef8c9743c6271ec094b8a54704f6e43856c4c7046d96e2"
+    },
+    {
+      "source": "note-027.md",
+      "title": "«Временная ошибка» ещё не разрешение повторить запись",
+      "vault": "027 - «Временная ошибка» ещё не разрешение повторить запись.md",
+      "sha256": "4b90f888799c52fab4ff1d1706ee98823ba5b88f546f0d1bdd060221da854fba"
+    },
+    {
+      "source": "note-028.md",
+      "title": "Найти ровно E_CONN_42",
+      "vault": "028 - Найти ровно E_CONN_42.md",
+      "sha256": "45fd116d2e93764c80a746f73eabbfdb64bd77823f2939caadc469ab646a2be7"
+    },
+    {
+      "source": "note-029.md",
+      "title": "Поиск по смыслу и граница reranker",
+      "vault": "029 - Поиск по смыслу и граница reranker.md",
+      "sha256": "0200608058e4fe4ca0ecbd58df657c0ac58d91a757382b5713ec7aa1cf084a4d"
+    },
+    {
+      "source": "note-030.md",
+      "title": "Endpoint появился, а DNS всё ещё говорит NXDOMAIN",
+      "vault": "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md",
+      "sha256": "8d5b2b678ffd0646dd46eb4e8b78f1fc20f9e4d9d5b3264650f5be1cdeb708d7"
+    },
+    {
+      "source": "note-031.md",
+      "title": "Срок жизни DNS-ответа",
+      "vault": "031 - Срок жизни DNS-ответа.md",
+      "sha256": "dfef62459c3c432d09dfaed671f28dd84be685d2ff030ea6ecc2d84f3f2577af"
+    },
+    {
+      "source": "note-032.md",
+      "title": "Список запусков растёт между страницами",
+      "vault": "032 - Список запусков растёт между страницами.md",
+      "sha256": "efa17cd6d6eba257227fbfe74bec1bf3545c2e6baf115bb6ef5e4a5524571a21"
+    },
+    {
+      "source": "note-033.md",
+      "title": "Номера страниц всё ещё бывают удобны",
+      "vault": "033 - Номера страниц всё ещё бывают удобны.md",
+      "sha256": "02813b500f6bc1277c797199e819acc0d5e3a4082f21eca93864b045871056dd"
+    },
+    {
+      "source": "note-034.md",
+      "title": "Несколько загрузок артефактов в одном соединении",
+      "vault": "034 - Несколько загрузок артефактов в одном соединении.md",
+      "sha256": "162c941cd601dffd05a849902e5e2f04f518988bd9a578e2da8bd656bcb79f96"
+    },
+    {
+      "source": "note-035.md",
+      "title": "Что дают отдельные потоки QUIC",
+      "vault": "035 - Что дают отдельные потоки QUIC.md",
+      "sha256": "933e088978eece0543770e01b20c48abdaeebe9234b29e05bab238d3c2687174"
+    },
+    {
+      "source": "note-038.md",
+      "title": "Копия зашифрована. Получится её открыть?",
+      "vault": "038 - Копия зашифрована. Получится её открыть.md",
+      "sha256": "8116c5db2b7278ab1fcb61d6c197544ecb73fd9eb6c4c6014e9a5c5e330a7d8f"
+    },
+    {
+      "source": "note-039.md",
+      "title": "Попробовать восстановить один старый запуск",
+      "vault": "039 - Попробовать восстановить один старый запуск.md",
+      "sha256": "c06330a278137f982fade9bca890870771adeda63db6965c2d5506defd0a3599"
+    },
+    {
+      "source": "note-040.md",
+      "title": "Реестр моделей и файлы моделей — что потеряется вместе",
+      "vault": "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+      "sha256": "f75b0f15a559199a91799291b946e6e12d3012ed239816b9a7cc205c1958c8f5"
+    },
+    {
+      "source": "note-041.md",
+      "title": "Выгрузить датасет порциями и не смешать версии",
+      "vault": "041 - Выгрузить датасет порциями и не смешать версии.md",
+      "sha256": "5379090e5ddb3a63266baaf0232c2b071d69eb2e13ff065589b13cf1bcfbd085"
+    },
+    {
+      "source": "note-045.md",
+      "title": "Lease истёк, а воркер вернулся",
+      "vault": "045 - Lease истёк, а воркер вернулся.md",
+      "sha256": "a4fbcb90ef895b4c68d74acc7f5e8e8acb34e6a9bdcc1f992e018fcc03238bdb"
+    },
+    {
+      "source": "note-046.md",
+      "title": "Индекс датасета решил, что все файлы удалены",
+      "vault": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "sha256": "6db1aafa7aa74454ad3793a479fca2f15390d6cefcc71488c99144b6f25c2fac"
+    },
+    {
+      "source": "note-048.md",
+      "title": "CSV с разметкой: где испортить данные ещё до обучения",
+      "vault": "048 - CSV с разметкой где испортить данные ещё до обучения.md",
+      "sha256": "7be1756b2b93d295e3aa026b89ea6b7fb41a6e60599c5c40d42c798f28d8f45d"
+    },
+    {
+      "source": "note-049.md",
+      "title": "Как выбрать единственный планировщик",
+      "vault": "049 - Как выбрать единственный планировщик.md",
+      "sha256": "9767c056a9d0a54f6fbae21de8eb11ceb3713ac1f231d34cc03ea32ba55a9bc4"
+    },
+    {
+      "source": "note-050.md",
+      "title": "Подключить ещё один диск для данных",
+      "vault": "050 - Подключить ещё один диск для данных.md",
+      "sha256": "06b9348a7060c8c55ed8c69c62387d9993411cc96a215719a3a5d08a4d10b47b"
+    },
+    {
+      "source": "note-053.md",
+      "title": "Старый расчёт перезаписал свежий кеш",
+      "vault": "053 - Старый расчёт перезаписал свежий кеш.md",
+      "sha256": "2637bff8018a303612b3369ff2bd738c8bc73f85422d9e67170c3ab234103301"
+    },
+    {
+      "source": "note-054.md",
+      "title": "Ключ провайдера не должен попасть в конфиг запуска",
+      "vault": "054 - Ключ провайдера не должен попасть в конфиг запуска.md",
+      "sha256": "a564a3ecfc0e63518413fa9f42e8d2bde3914e5729bbf1e1a6078ec190104cb8"
+    },
+    {
+      "source": "note-055.md",
+      "title": "Восстановить статус экспериментов из журнала",
+      "vault": "055 - Восстановить статус экспериментов из журнала.md",
+      "sha256": "b7e57d32a55082a3e2ab15972e6dcedca17d2408cd429790f317f1cdb31d7dcc"
+    },
+    {
+      "source": "note-056.md",
+      "title": "Упаковать набор изображений для передачи",
+      "vault": "056 - Упаковать набор изображений для передачи.md",
+      "sha256": "c9dd9adb817004f35cca3e72fa9eb9e33371cdbd9fa4f34ab4241f9b1cb80331"
+    },
+    {
+      "source": "note-060.md",
+      "title": "Ссылка на файл не создаёт вторую копию",
+      "vault": "060 - Ссылка на файл не создаёт вторую копию.md",
+      "sha256": "cf628456c26ad7a6d5fc376581d0c31e554682119f5d7c2b2c3c29b1107f82cb"
+    },
+    {
+      "source": "note-063.md",
+      "title": "После JOIN примеров стало больше",
+      "vault": "063 - После JOIN примеров стало больше.md",
+      "sha256": "ae7b3fc354b9c1c29c7d890bfcafb2a0da76cc7e955b0de9a8b073ed694a5f02"
+    }
+  ],
+  "links": [
+    [
+      "note-001.md",
+      "note-002.md"
+    ],
+    [
+      "note-014.md",
+      "note-015.md"
+    ],
+    [
+      "note-022.md",
+      "note-026.md"
+    ],
+    [
+      "note-028.md",
+      "note-029.md"
+    ],
+    [
+      "note-038.md",
+      "note-039.md"
+    ],
+    [
+      "note-039.md",
+      "note-038.md"
+    ],
+    [
+      "note-054.md",
+      "note-022.md"
+    ]
+  ],
+  "cohort": {
+    "category": "candidate",
+    "rankFilter": "mutual-top-3",
+    "reviewFilter": "all",
+    "hideExcalidraw": false,
+    "query": "",
+    "take": 10,
+    "fallback": "If fewer than ten mutual-top-3, report shortage without changing filter."
+  },
+  "ordering": [
+    "production rank class",
+    "shared neighbor count descending",
+    "exact cosine descending",
+    "canonical left path ascending",
+    "canonical right path ascending"
+  ],
+  "humanReview": "First ten distinct Candidate with mutual-top-3 and production sort. Preserve all pairs/order; report shortage without broadening filter. Author reviews in small groups. No verdict assigned by agent. Publish only after author approves public use.",
+  "action": "No Markdown action before author reviews and explicitly approves a concrete action; disposable vault only.",
+  "missingMetadata": "Withhold first selected endpoint metadata in a controlled test, restore, then verify complete counts.",
+  "prohibitedConclusions": [
+    "language effect in isolation",
+    "global usefulness precision",
+    "real personal-vault discovery",
+    "commercial demand or income"
+  ]
+}

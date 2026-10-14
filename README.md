@@ -143,6 +143,9 @@ Review aids include mutual top-3, mutual top-5 and one-sided evidence; shared se
 
 More: [Connection Opportunities](docs/connection-opportunities.md) · [candidate evidence and review](docs/connection-candidate-quality.md).
 
+[Reproducible case study](docs/case-studies/connection-opportunities/index.md): 40 synthetic notes in real Obsidian, ten inspected candidates and one explicitly added link. Includes source data, real screenshots and counterexamples; human usefulness was not assessed in this baseline.
+[Russian continuation](docs/case-studies/connection-opportunities/ru/index.md): local multilingual embeddings, a verified Candidate → Aligned transition, and three native screenshots. Includes the author-approved aggregate assessment and three example paraphrases; individual responses remain private.
+
 ## Remember with Recall
 
 Native spaced repetition uses **FSRS-6**, a due queue and local scheduling. No third-party spaced repetition plugin is required.

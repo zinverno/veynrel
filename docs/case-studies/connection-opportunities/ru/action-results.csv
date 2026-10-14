@@ -1,0 +1,11 @@
+pair_id,before_category,after_category,before_direction,after_direction,semantic_evidence_changed,action,human_verdict,human_would_link,human_reason,publication_approval
+RU01,candidate,candidate,none,none,False,none,,,,
+RU02,candidate,aligned,none,left-to-right,False,native related link 007 -> 008,,,,
+RU03,candidate,candidate,none,none,False,none,,,,
+RU04,candidate,candidate,none,none,False,none,,,,
+RU05,candidate,candidate,none,none,False,none,,,,
+RU06,candidate,candidate,none,none,False,none,,,,
+RU07,candidate,candidate,none,none,False,none,,,,
+RU08,candidate,candidate,none,none,False,none,,,,
+RU09,candidate,candidate,none,none,False,none,,,,
+RU10,candidate,candidate,none,none,False,none,,,,

@@ -1,0 +1,359 @@
+{
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+  "license": "Apache-2.0",
+  "source": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "modelFileSha256": {
+    "1_Pooling/config.json": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23",
+    "README.md": "1e98ea05b0de579fcaad3d625b62ea55647142ed674d5f5ebf1440e4bbbb6f23",
+    "config.json": "6300193cb75e01cf80c96decef7187dfb33094d97cc1490b7ead6ff134476e4e",
+    "config_sentence_transformers.json": "b8c64b5cece00d8424b4896ea75b512b6008576088497609dfeb6bd63e6d36b8",
+    "model.safetensors": "eaa086f0ffee582aeb45b36e34cdd1fe2d6de2bef61f8a559a1bbc9bd955917b",
+    "modules.json": "8f4b264b80206c830bebbdcae377e137925650a433b689343a63bdc9b3145460",
+    "sentence_bert_config.json": "70f4448f31320443fe3557cacea5abf2dcc4915dda8c80646bec9f3bb0aa5a1f",
+    "special_tokens_map.json": "378eb3bf733eb16e65792d7e3fda5b8a4631387ca04d2015199c4d4f22ae554d",
+    "tokenizer.json": "2c3387be76557bd40970cec13153b3bbf80407865484b209e655e5e4729076b8",
+    "tokenizer_config.json": "5036ea374ffedd706e3bef33e2e0d6953cb868ef8a490e76e32ba0faa37a6b9b"
+  },
+  "protocolSha256": "eb93d9e5a41f2a38fba43a506b780f007bc39cd570872efad103038edab29c09",
+  "dimensions": 384,
+  "device": "cpu",
+  "dtype": "float32",
+  "defaultMaxSeqLength": 128,
+  "maxSeqLength": 512,
+  "normalization": "L2",
+  "pooling": "attention-mask mean, model packaged configuration",
+  "batchSize": 8,
+  "torchThreads": 4,
+  "maxInputTokens": 304,
+  "inputsOverDefault128": 43,
+  "truncatedInputs": 0,
+  "probe": {
+    "texts": [
+      "Кот спит на ковре.",
+      "Кошка лежит и спит на коврике.",
+      "Нужно собрать велосипед из деталей."
+    ],
+    "relatedCosine": 0.9541821479797363,
+    "unrelatedCosine": 0.05226986110210419,
+    "scope": "one Russian smoke probe; not a quality benchmark"
+  },
+  "repeatMaxAbsoluteError": 4.470348358154297e-08,
+  "encodingSeconds": 4.059825830016052,
+  "python": "3.14.7",
+  "packages": {
+    "torch": "2.14.0",
+    "transformers": "5.17.0",
+    "sentence-transformers": "6.1.0",
+    "numpy": "2.5.3",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.23.2"
+  },
+  "compressedSha256": "71b166bcf70fbd9b6027e20cb049c2769c8791e4e0c03fe79385c3e5230f242f",
+  "float32Sha256": "1529c203e0e32739c180466e4c1091d871b9af9093c10dd0eeb5a15cd3c1b598",
+  "format": "gzip of row-major little-endian float32",
+  "inputs": [
+    {
+      "path": "001 - После сбоя все клиенты приходят одновременно.md",
+      "ordinal": 0,
+      "sha256": "0bb7a086ddf3284855f0c8940bceb6a93ea7d19c1de92a163b6e66f9fd5fd0f6",
+      "inputTokens": 180
+    },
+    {
+      "path": "002 - Для одного загрузчика хватит простого backoff.md",
+      "ordinal": 0,
+      "sha256": "a1d4c96c9993c6175aed35d697e0bf92a64b0c57ab3ea5804b1ad88d4c9f043f",
+      "inputTokens": 173
+    },
+    {
+      "path": "003 - Очередь на GPU три разных ограничения.md",
+      "ordinal": 0,
+      "sha256": "50bcad84da24df6e5d8595b45b898f6763a4135531fb6fc10d746aea45d31bdc",
+      "inputTokens": 176
+    },
+    {
+      "path": "007 - Что сохранять между эпохами.md",
+      "ordinal": 0,
+      "sha256": "777193b066cf46214fa2620f67c3804720f68a4e492641d2e05eca64646e7de6",
+      "inputTokens": 304
+    },
+    {
+      "path": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "ordinal": 0,
+      "sha256": "82293ce70c018bb740e6df24fbd13aefa31b90e38897b64886ea8c3ddba2a57e",
+      "inputTokens": 257
+    },
+    {
+      "path": "014 - Журнал экспериментов на SQLite чтение во время записи.md",
+      "ordinal": 0,
+      "sha256": "4e1a979bce4a1ed98c178feb0bf23092395fe608e60d1db5b7f4cfc2ee35a67f",
+      "inputTokens": 174
+    },
+    {
+      "path": "015 - Удалили старые метрики, а SQLite не уменьшилась.md",
+      "ordinal": 0,
+      "sha256": "b89e950b048f5073643c806d5b992de34edff08911390049404f587e87bcc232",
+      "inputTokens": 155
+    },
+    {
+      "path": "016 - Индекс для списка запусков в PostgreSQL.md",
+      "ordinal": 0,
+      "sha256": "06fdccf5cb6bec0eaa61d016df84891d2aa3dee50b804a6e68613bb29a722644",
+      "inputTokens": 169
+    },
+    {
+      "path": "019 - На каком датасете это обучалось.md",
+      "ordinal": 0,
+      "sha256": "dd42249ab706d57644c30a3608b1fd7c9dfc841e92aeb628aa9c046301712428",
+      "inputTokens": 258
+    },
+    {
+      "path": "020 - Синхронизация рабочей папки с разметкой.md",
+      "ordinal": 0,
+      "sha256": "91c656b0c6eafabc24c7d5366f74150429a6d8710602cad823efd00d62609422",
+      "inputTokens": 153
+    },
+    {
+      "path": "021 - Выносить историю артефактов в объектное хранилище.md",
+      "ordinal": 0,
+      "sha256": "194cc4aae6d58cb6ccbcb11921566a6665c465858cb9259bc2e9e66b3f73c3ad",
+      "inputTokens": 157
+    },
+    {
+      "path": "022 - Повтор запроса не должен запускать второе обучение.md",
+      "ordinal": 0,
+      "sha256": "6bb8258005c299979bbf35f3dd874b640b337fb5973f90b4bd77e5f8908a8192",
+      "inputTokens": 174
+    },
+    {
+      "path": "023 - Один blob для одинаковых весов.md",
+      "ordinal": 0,
+      "sha256": "6326a6e170a333458f229279e74e90011743bac51b3ed35f2040428e85d30d58",
+      "inputTokens": 173
+    },
+    {
+      "path": "024 - Два человека правят конфиг эксперимента.md",
+      "ordinal": 0,
+      "sha256": "c9fad573f1f0b37030a4d892c0b5ecb4522f94497a3b84d6df38e85f45a91060",
+      "inputTokens": 163
+    },
+    {
+      "path": "025 - Короткое решение под блокировкой строки.md",
+      "ordinal": 0,
+      "sha256": "ff6929c7b4702ed3441ffcbc4fb1aeb11c34c66f11bec326deb93b8b38548ef1",
+      "inputTokens": 166
+    },
+    {
+      "path": "026 - Запуск отправлен, ответ потерялся.md",
+      "ordinal": 0,
+      "sha256": "ef9bbdc6133fce243410161e76921cb03544064b49712d39a788565b97d72ddf",
+      "inputTokens": 188
+    },
+    {
+      "path": "027 - «Временная ошибка» ещё не разрешение повторить запись.md",
+      "ordinal": 0,
+      "sha256": "6cdbb23dac52646e41ba39bde5c2ac43b6e6d0790750e99d536ab95ae87acf89",
+      "inputTokens": 158
+    },
+    {
+      "path": "028 - Найти ровно E_CONN_42.md",
+      "ordinal": 0,
+      "sha256": "a9c196e6ac18c2e46bb0d61e9597049ec6d25364e9129f1d5e6faa6526c144a2",
+      "inputTokens": 156
+    },
+    {
+      "path": "029 - Поиск по смыслу и граница reranker.md",
+      "ordinal": 0,
+      "sha256": "d4b2bf46dd1d94df07fe8f954a1ede4e3cf624260facd2fdb409edd1dd2425d9",
+      "inputTokens": 179
+    },
+    {
+      "path": "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md",
+      "ordinal": 0,
+      "sha256": "679344d25948570048cc9c0c7c4c2814017d708c07309d1b8ec777cd5c47cc4f",
+      "inputTokens": 163
+    },
+    {
+      "path": "031 - Срок жизни DNS-ответа.md",
+      "ordinal": 0,
+      "sha256": "b06bab2617d6c208615e8d123fcc395380885139495ed2b5764c54a177af8be2",
+      "inputTokens": 137
+    },
+    {
+      "path": "032 - Список запусков растёт между страницами.md",
+      "ordinal": 0,
+      "sha256": "de41bfe9905657f81f861c04695d3fb5f055f4e5e207a8bca12cfe18b6ee5e6b",
+      "inputTokens": 150
+    },
+    {
+      "path": "033 - Номера страниц всё ещё бывают удобны.md",
+      "ordinal": 0,
+      "sha256": "dcc5c89ec3592d30d89c909fab15c329616448daeeeb6ea93c8b29c8c7bebaee",
+      "inputTokens": 152
+    },
+    {
+      "path": "034 - Несколько загрузок артефактов в одном соединении.md",
+      "ordinal": 0,
+      "sha256": "99b980c1b6f6227a10a0e0267d7ee6a51715eece058ef781aaf4a928c197ce21",
+      "inputTokens": 171
+    },
+    {
+      "path": "035 - Что дают отдельные потоки QUIC.md",
+      "ordinal": 0,
+      "sha256": "05c476af0e203c9f9e2a0fb7cd182823024d0612afee926b7a384097f6ce0775",
+      "inputTokens": 141
+    },
+    {
+      "path": "038 - Копия зашифрована. Получится её открыть.md",
+      "ordinal": 0,
+      "sha256": "356025dbf7e25eda2da31b819feeb42ebf069fc2d439b94f1f6f50e12217e293",
+      "inputTokens": 167
+    },
+    {
+      "path": "039 - Попробовать восстановить один старый запуск.md",
+      "ordinal": 0,
+      "sha256": "03fe76bda5393c33b007c33ce03e9f15a4b349de8e3d1e07fdf5a4a16e8585a7",
+      "inputTokens": 160
+    },
+    {
+      "path": "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+      "ordinal": 0,
+      "sha256": "2b6383e32d742ac51c96ce971e73078ee6995f6c146c783b726e9e645bd2525a",
+      "inputTokens": 257
+    },
+    {
+      "path": "041 - Выгрузить датасет порциями и не смешать версии.md",
+      "ordinal": 0,
+      "sha256": "6f8166f4aeb26aa4a6bc379ea1431faa091c5132399cd2741bb9712d0f6eec54",
+      "inputTokens": 181
+    },
+    {
+      "path": "045 - Lease истёк, а воркер вернулся.md",
+      "ordinal": 0,
+      "sha256": "0cb136ae60522f7cd5fdd1a3883401e20dc5bd5305730b5456bba8d6480126ca",
+      "inputTokens": 108
+    },
+    {
+      "path": "045 - Lease истёк, а воркер вернулся.md",
+      "ordinal": 1,
+      "sha256": "d9239821128488367bc89931242470bfe9f279459e553c4433317763f74167a1",
+      "inputTokens": 228
+    },
+    {
+      "path": "045 - Lease истёк, а воркер вернулся.md",
+      "ordinal": 2,
+      "sha256": "84ff606ef8e22429cf5c5c16d35ea5d819aecb8a10f89828a9fa471b679f0fff",
+      "inputTokens": 184
+    },
+    {
+      "path": "045 - Lease истёк, а воркер вернулся.md",
+      "ordinal": 3,
+      "sha256": "008ea5f6e05a1ab210eab58f1de8ed041da39df8325dcf6cea5acd5f35322890",
+      "inputTokens": 116
+    },
+    {
+      "path": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "ordinal": 0,
+      "sha256": "cb9c35c551d21a1fb8a77825785ed1e1caae7e80f47f8dcb298180296b730ec1",
+      "inputTokens": 107
+    },
+    {
+      "path": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "ordinal": 1,
+      "sha256": "874da4f145dade15b3b42180dbc3dd63c294cb54c42e8009e5f4c0e09d6d1d6d",
+      "inputTokens": 120
+    },
+    {
+      "path": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "ordinal": 2,
+      "sha256": "9d306afa472c2e901164fc3f78e26f34cec66f36bbd191d9bedcc11ae91fdaaa",
+      "inputTokens": 86
+    },
+    {
+      "path": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "ordinal": 3,
+      "sha256": "4bd1649c7b6a408a58ea1e92ad11c098d427cb0d3df168a26e2b939c574211fd",
+      "inputTokens": 135
+    },
+    {
+      "path": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "ordinal": 4,
+      "sha256": "849033919b1b8bd5fc86dfe359720a8a848bf147e6502b052c470fe9156f1477",
+      "inputTokens": 80
+    },
+    {
+      "path": "048 - CSV с разметкой где испортить данные ещё до обучения.md",
+      "ordinal": 0,
+      "sha256": "373f897971918bf9f954f9b05eb3ea7cc4d7eb23057ac43347e05afa5a8d4b2b",
+      "inputTokens": 169
+    },
+    {
+      "path": "048 - CSV с разметкой где испортить данные ещё до обучения.md",
+      "ordinal": 1,
+      "sha256": "7fc0e4e47204623f65e71d56d28c3fae459223ff4377e3adc804be538b7af27f",
+      "inputTokens": 136
+    },
+    {
+      "path": "048 - CSV с разметкой где испортить данные ещё до обучения.md",
+      "ordinal": 2,
+      "sha256": "70a24c1242b98b67dbb54931151ce333e0d2a9e630b80df88a9ced07ef331eb6",
+      "inputTokens": 153
+    },
+    {
+      "path": "048 - CSV с разметкой где испортить данные ещё до обучения.md",
+      "ordinal": 3,
+      "sha256": "a2bfc938b06c6cd0060ce7baa99622ae8b3ec22bc6e2e499ccf7496a190e1d93",
+      "inputTokens": 93
+    },
+    {
+      "path": "049 - Как выбрать единственный планировщик.md",
+      "ordinal": 0,
+      "sha256": "1a03a739489ce43241f4279018b69f998329a9fc167c392384b50b629fb566ab",
+      "inputTokens": 167
+    },
+    {
+      "path": "050 - Подключить ещё один диск для данных.md",
+      "ordinal": 0,
+      "sha256": "89c527cebfeedd6ad3878f469eba5a0625cf6d48bb4b25a7e49d67275bc3c3e7",
+      "inputTokens": 153
+    },
+    {
+      "path": "053 - Старый расчёт перезаписал свежий кеш.md",
+      "ordinal": 0,
+      "sha256": "7147c4bf6271c19cb65c63e42add06f34c1743a80bb406444d04e06b42e777a8",
+      "inputTokens": 182
+    },
+    {
+      "path": "054 - Ключ провайдера не должен попасть в конфиг запуска.md",
+      "ordinal": 0,
+      "sha256": "c320971eda269c3836982cf0f2b06181ea443088791e9232406ed68a1b24d95e",
+      "inputTokens": 161
+    },
+    {
+      "path": "055 - Восстановить статус экспериментов из журнала.md",
+      "ordinal": 0,
+      "sha256": "7bf3217a43d3dfc4b3fb708a63e16f7674fe53adbc80df3e0408f12001b6b1a7",
+      "inputTokens": 178
+    },
+    {
+      "path": "056 - Упаковать набор изображений для передачи.md",
+      "ordinal": 0,
+      "sha256": "3ae045f09950bb0f5e002d6b3a243c88100a3d9bd3957de03122790789cf026e",
+      "inputTokens": 147
+    },
+    {
+      "path": "060 - Ссылка на файл не создаёт вторую копию.md",
+      "ordinal": 0,
+      "sha256": "7c4da061bdc8a9b83ef42214661e90a8aa52e28d890b64542d135aa6fa8b9069",
+      "inputTokens": 171
+    },
+    {
+      "path": "063 - После JOIN примеров стало больше.md",
+      "ordinal": 0,
+      "sha256": "60c36819a6fddeba48613ff992783f8706bb7f1b5389504a957d05761103d4e4",
+      "inputTokens": 154
+    }
+  ],
+  "networkPolicy": "HF_HUB_OFFLINE=1; TRANSFORMERS_OFFLINE=1; local_files_only=True; no HTTP in script",
+  "downloadPolicy": "disabled; existing snapshot only"
+}

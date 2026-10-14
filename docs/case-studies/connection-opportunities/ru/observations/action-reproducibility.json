@@ -1,0 +1,89 @@
+{
+  "source": "Two actual native Obsidian runs on independently prepared disposable copies",
+  "firstSuccessfulRun": {
+    "file": "native-action-first.json.gz",
+    "uncompressedSha256": "d40e898cd51d1e6979729229385f61ec57295b53d9883efdb94180d71da70b29",
+    "checks": 27
+  },
+  "finalRun": {
+    "file": "native-action.json",
+    "sha256": "4738f3c61d2bc08608b8dabcf363f27f32df3e9fc9773e6a376ce7b9eaf10a24",
+    "checks": 29
+  },
+  "identicalFields": [
+    "counts",
+    "after",
+    "action",
+    "nativeMetadata",
+    "afterCorpusSha256",
+    "chunkComparison",
+    "navigation",
+    "beforeIndex",
+    "afterIndex",
+    "localReplayRequests",
+    "beforeComparison.pairs",
+    "afterComparison.pairs",
+    "beforeSemantic.nodes",
+    "beforeSemantic.edges",
+    "afterSemantic.nodes",
+    "afterSemantic.edges"
+  ],
+  "before": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 148,
+    "candidateCount": 143,
+    "alignedCount": 5,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 23,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 96
+    }
+  },
+  "after": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 148,
+    "candidateCount": 142,
+    "alignedCount": 6,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 22,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 96
+    }
+  },
+  "attempts": [
+    {
+      "attempt": "initial action copy",
+      "outcome": "navigation harness failed before click: Missing native property link",
+      "explanation": "Preview property rendering is asynchronous; added a readiness wait. Link and classification had already changed; incomplete run is not counted as successful."
+    },
+    {
+      "attempt": "first launch of second copy",
+      "outcome": "plugin command registration wait timed out before any screenshots or edits",
+      "explanation": "After initialization completed, reran against still-pristine copy; no product changes."
+    },
+    {
+      "attempt": "second copy, completed",
+      "outcome": "27 checks passed; clicked link opened expected target"
+    },
+    {
+      "attempt": "third copy, completed",
+      "outcome": "29 checks passed; added explicit topology-delta and Aligned-row assertions"
+    }
+  ]
+}

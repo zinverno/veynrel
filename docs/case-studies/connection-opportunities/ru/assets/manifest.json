@@ -1,0 +1,106 @@
+{
+  "screenshots": [
+    {
+      "file": "01-ru02-initial-map.png",
+      "purpose": "Russian map with 40 notes, before any link action",
+      "sha256": "e9793f2c7bd1a3078fbf259d38bf45a6e2ebcf12a548a42cd3e708e43e1d9440",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed",
+      "role": "main",
+      "source": "../observations/native-action.json",
+      "humanVerdicts": "No verdict buttons were used; screenshot counters do not represent the separate author review"
+    },
+    {
+      "file": "02-ru02-before.png",
+      "purpose": "RU02 before the link: Candidate, ranks and shared neighbors",
+      "sha256": "9ef2640acc2a3872e2ba64471210bb463bf327d977d65a2a5301393986eae0d5",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed",
+      "role": "main",
+      "source": "../observations/native-action.json",
+      "humanVerdicts": "No verdict buttons were used; screenshot counters do not represent the separate author review"
+    },
+    {
+      "file": "03-ru02-after.png",
+      "purpose": "After verified native navigation: actual related link and both Russian note bodies",
+      "sha256": "7909fcf0f34ebdb5c3c901604bb4d692fc6502f59c31c9e41d531f728b7d78da",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed",
+      "role": "main",
+      "source": "../observations/native-action.json",
+      "humanVerdicts": "No verdict buttons were used; screenshot counters do not represent the separate author review"
+    }
+  ],
+  "additionalScreenshots": [
+    {
+      "file": "01-russian-map.png",
+      "purpose": "Russian map with 40 notes, before any link action",
+      "sha256": "a9867cd7f8bb300caaa5ba81fc5d25eddc4a883776aa54a0e8c6d394454cb48b",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed"
+    },
+    {
+      "file": "02-russian-candidate.png",
+      "purpose": "First frozen Candidate, ranks, similarity and shared neighbors; unreviewed",
+      "sha256": "eee5e4a89f6fb01f780dfa07e1ef482a8c83eed700062779478135350b3226e7",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed"
+    }
+  ],
+  "sequence": [
+    "Initial Russian map",
+    "RU02 Candidate without Markdown link",
+    "Actual related link and target after verified click"
+  ],
+  "thirdScreenshot": "Captured after native click verification; source note reopened beside target for visibility. Aligned classification is recorded in native-action.json, not visible in this third frame."
+}
