@@ -144,6 +144,7 @@ Review aids include mutual top-3, mutual top-5 and one-sided evidence; shared se
 More: [Connection Opportunities](docs/connection-opportunities.md) · [candidate evidence and review](docs/connection-candidate-quality.md).
 
 [Reproducible case study](docs/case-studies/connection-opportunities/index.md): 40 synthetic notes in real Obsidian, ten inspected candidates and one explicitly added link. Includes source data, real screenshots and counterexamples; human usefulness remains unmeasured.
+[Russian continuation](docs/case-studies/connection-opportunities/ru/index.md): local multilingual embeddings, a verified Candidate → Aligned transition, and three native screenshots. Author assessments await publication permission.
 
 ## Remember with Recall
 
