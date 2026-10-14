@@ -1,0 +1,5542 @@
+{
+  "semantic": {
+    "revision": {
+      "vectorGeneration": 1,
+      "vectorCount": 52,
+      "dimensions": 1536,
+      "provider": "openai-compatible",
+      "model": "openai/text-embedding-3-small",
+      "configurationRevision": 0,
+      "runtimeRevision": 1
+    },
+    "indexedNoteCount": 40,
+    "mappedNoteCount": 40,
+    "nodes": [
+      {
+        "id": "note-001.md",
+        "path": "note-001.md",
+        "basename": "note-001",
+        "coreSimilarity": 0.5902631487741511,
+        "semanticConnectedness": 0.5010566670173808,
+        "neighbors": [
+          {
+            "path": "note-002.md",
+            "score": 0.5352484934316097
+          },
+          {
+            "path": "note-034.md",
+            "score": 0.5108035000099925
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.5029575773031267
+          },
+          {
+            "path": "note-003.md",
+            "score": 0.48401114239893384
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.4722626219432416
+          }
+        ]
+      },
+      {
+        "id": "note-002.md",
+        "path": "note-002.md",
+        "basename": "note-002",
+        "coreSimilarity": 0.5503429649084731,
+        "semanticConnectedness": 0.47785208319315337,
+        "neighbors": [
+          {
+            "path": "note-027.md",
+            "score": 0.6041232885090108
+          },
+          {
+            "path": "note-001.md",
+            "score": 0.5352484934316097
+          },
+          {
+            "path": "note-034.md",
+            "score": 0.4337490921089977
+          },
+          {
+            "path": "note-007.md",
+            "score": 0.4238746159688444
+          },
+          {
+            "path": "note-003.md",
+            "score": 0.3922649259473044
+          }
+        ]
+      },
+      {
+        "id": "note-003.md",
+        "path": "note-003.md",
+        "basename": "note-003",
+        "coreSimilarity": 0.4646070478820763,
+        "semanticConnectedness": 0.4195706088147628,
+        "neighbors": [
+          {
+            "path": "note-001.md",
+            "score": 0.48401114239893384
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.4198174788189624
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.4157065709296285
+          },
+          {
+            "path": "note-002.md",
+            "score": 0.3922649259473044
+          },
+          {
+            "path": "note-034.md",
+            "score": 0.3860529259789853
+          }
+        ]
+      },
+      {
+        "id": "note-007.md",
+        "path": "note-007.md",
+        "basename": "note-007",
+        "coreSimilarity": 0.661568052857774,
+        "semanticConnectedness": 0.5049624417923828,
+        "neighbors": [
+          {
+            "path": "note-041.md",
+            "score": 0.5284028541706227
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.513272474520039
+          },
+          {
+            "path": "note-008.md",
+            "score": 0.5077886689615058
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.5010563936326441
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.47429181767710243
+          }
+        ]
+      },
+      {
+        "id": "note-008.md",
+        "path": "note-008.md",
+        "basename": "note-008",
+        "coreSimilarity": 0.5505175564809313,
+        "semanticConnectedness": 0.44724810512886093,
+        "neighbors": [
+          {
+            "path": "note-007.md",
+            "score": 0.5077886689615058
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.450514438204853
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.43728418506558836
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.4227814008758809
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.4178718325364763
+          }
+        ]
+      },
+      {
+        "id": "note-014.md",
+        "path": "note-014.md",
+        "basename": "note-014",
+        "coreSimilarity": 0.6214173519076217,
+        "semanticConnectedness": 0.49312581229687646,
+        "neighbors": [
+          {
+            "path": "note-025.md",
+            "score": 0.5389106942574817
+          },
+          {
+            "path": "note-015.md",
+            "score": 0.5028968481734485
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.48334538060670434
+          },
+          {
+            "path": "note-024.md",
+            "score": 0.47281924624609495
+          },
+          {
+            "path": "note-016.md",
+            "score": 0.4676568922006529
+          }
+        ]
+      },
+      {
+        "id": "note-015.md",
+        "path": "note-015.md",
+        "basename": "note-015",
+        "coreSimilarity": 0.5649882222612009,
+        "semanticConnectedness": 0.4559228165458273,
+        "neighbors": [
+          {
+            "path": "note-014.md",
+            "score": 0.5028968481734485
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.4858066929791078
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.4377854121480069
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.42736959984520523
+          },
+          {
+            "path": "note-016.md",
+            "score": 0.425755529583368
+          }
+        ]
+      },
+      {
+        "id": "note-016.md",
+        "path": "note-016.md",
+        "basename": "note-016",
+        "coreSimilarity": 0.5239077820058526,
+        "semanticConnectedness": 0.4086576536038672,
+        "neighbors": [
+          {
+            "path": "note-014.md",
+            "score": 0.4676568922006529
+          },
+          {
+            "path": "note-015.md",
+            "score": 0.425755529583368
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.3899946085583548
+          },
+          {
+            "path": "note-063.md",
+            "score": 0.3814759754749926
+          },
+          {
+            "path": "note-025.md",
+            "score": 0.378405262201968
+          }
+        ]
+      },
+      {
+        "id": "note-019.md",
+        "path": "note-019.md",
+        "basename": "note-019",
+        "coreSimilarity": 0.684638522283169,
+        "semanticConnectedness": 0.6056788838121089,
+        "neighbors": [
+          {
+            "path": "note-040.md",
+            "score": 0.7106348067966823
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.5938942420461889
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.5919015901360817
+          },
+          {
+            "path": "note-060.md",
+            "score": 0.5676728516364689
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.5642909284451226
+          }
+        ]
+      },
+      {
+        "id": "note-020.md",
+        "path": "note-020.md",
+        "basename": "note-020",
+        "coreSimilarity": 0.5630226470487494,
+        "semanticConnectedness": 0.4732936118457821,
+        "neighbors": [
+          {
+            "path": "note-019.md",
+            "score": 0.5589979945494551
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.4798614203560464
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.46466995450115595
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.44076307376930607
+          },
+          {
+            "path": "note-060.md",
+            "score": 0.42217561605294696
+          }
+        ]
+      },
+      {
+        "id": "note-021.md",
+        "path": "note-021.md",
+        "basename": "note-021",
+        "coreSimilarity": 0.6336947212525905,
+        "semanticConnectedness": 0.5159665458173096,
+        "neighbors": [
+          {
+            "path": "note-040.md",
+            "score": 0.5928590878345529
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.5642909284451226
+          },
+          {
+            "path": "note-038.md",
+            "score": 0.4862896020781978
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.4732799339533462
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.46311317677532865
+          }
+        ]
+      },
+      {
+        "id": "note-022.md",
+        "path": "note-022.md",
+        "basename": "note-022",
+        "coreSimilarity": 0.550054991991361,
+        "semanticConnectedness": 0.4122665428179049,
+        "neighbors": [
+          {
+            "path": "note-023.md",
+            "score": 0.48624632872621765
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.4525395284919727
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.39699378487130194
+          },
+          {
+            "path": "note-007.md",
+            "score": 0.368393793293932
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.35715927870610004
+          }
+        ]
+      },
+      {
+        "id": "note-023.md",
+        "path": "note-023.md",
+        "basename": "note-023",
+        "coreSimilarity": 0.5936983263056325,
+        "semanticConnectedness": 0.43155946518905974,
+        "neighbors": [
+          {
+            "path": "note-022.md",
+            "score": 0.48624632872621765
+          },
+          {
+            "path": "note-060.md",
+            "score": 0.44339731459517623
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.41807391790117654
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.41207018678245205
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.3980095779402762
+          }
+        ]
+      },
+      {
+        "id": "note-024.md",
+        "path": "note-024.md",
+        "basename": "note-024",
+        "coreSimilarity": 0.6253742320042174,
+        "semanticConnectedness": 0.501768109103205,
+        "neighbors": [
+          {
+            "path": "note-053.md",
+            "score": 0.5727838774643715
+          },
+          {
+            "path": "note-025.md",
+            "score": 0.5536482841653055
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.472824303020639
+          },
+          {
+            "path": "note-014.md",
+            "score": 0.47281924624609495
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.43676483461961396
+          }
+        ]
+      },
+      {
+        "id": "note-025.md",
+        "path": "note-025.md",
+        "basename": "note-025",
+        "coreSimilarity": 0.5370335209870937,
+        "semanticConnectedness": 0.4612035313314915,
+        "neighbors": [
+          {
+            "path": "note-024.md",
+            "score": 0.5536482841653055
+          },
+          {
+            "path": "note-014.md",
+            "score": 0.5389106942574817
+          },
+          {
+            "path": "note-049.md",
+            "score": 0.41341903622081116
+          },
+          {
+            "path": "note-053.md",
+            "score": 0.4053479905689389
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.3946916514449201
+          }
+        ]
+      },
+      {
+        "id": "note-026.md",
+        "path": "note-026.md",
+        "basename": "note-026",
+        "coreSimilarity": 0.5988828899191254,
+        "semanticConnectedness": 0.4651430615722452,
+        "neighbors": [
+          {
+            "path": "note-045.md",
+            "score": 0.528645321724395
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.4998024089330496
+          },
+          {
+            "path": "note-022.md",
+            "score": 0.4525395284919727
+          },
+          {
+            "path": "note-049.md",
+            "score": 0.43283590857692605
+          },
+          {
+            "path": "note-030.md",
+            "score": 0.41189214013488273
+          }
+        ]
+      },
+      {
+        "id": "note-027.md",
+        "path": "note-027.md",
+        "basename": "note-027",
+        "coreSimilarity": 0.6082413112798009,
+        "semanticConnectedness": 0.5055766275343675,
+        "neighbors": [
+          {
+            "path": "note-002.md",
+            "score": 0.6041232885090108
+          },
+          {
+            "path": "note-001.md",
+            "score": 0.5029575773031267
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.4998024089330496
+          },
+          {
+            "path": "note-034.md",
+            "score": 0.47129830534222555
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.4497015575844251
+          }
+        ]
+      },
+      {
+        "id": "note-028.md",
+        "path": "note-028.md",
+        "basename": "note-028",
+        "coreSimilarity": 0.4259801335870512,
+        "semanticConnectedness": 0.32547419234848773,
+        "neighbors": [
+          {
+            "path": "note-029.md",
+            "score": 0.40729158873599003
+          },
+          {
+            "path": "note-048.md",
+            "score": 0.3234484668687169
+          },
+          {
+            "path": "note-023.md",
+            "score": 0.3103746488595007
+          },
+          {
+            "path": "note-060.md",
+            "score": 0.2955698823335196
+          },
+          {
+            "path": "note-063.md",
+            "score": 0.2906863749447112
+          }
+        ]
+      },
+      {
+        "id": "note-029.md",
+        "path": "note-029.md",
+        "basename": "note-029",
+        "coreSimilarity": 0.3477394519297018,
+        "semanticConnectedness": 0.2964474123969679,
+        "neighbors": [
+          {
+            "path": "note-028.md",
+            "score": 0.40729158873599003
+          },
+          {
+            "path": "note-023.md",
+            "score": 0.32194103676549607
+          },
+          {
+            "path": "note-032.md",
+            "score": 0.25360334280308344
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.2516208410076849
+          },
+          {
+            "path": "note-063.md",
+            "score": 0.24778025267258538
+          }
+        ]
+      },
+      {
+        "id": "note-030.md",
+        "path": "note-030.md",
+        "basename": "note-030",
+        "coreSimilarity": 0.5339064999815794,
+        "semanticConnectedness": 0.4510211243910943,
+        "neighbors": [
+          {
+            "path": "note-031.md",
+            "score": 0.6243814120446028
+          },
+          {
+            "path": "note-053.md",
+            "score": 0.48168992545964384
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.41189214013488273
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.3744863008249576
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.36265584349138424
+          }
+        ]
+      },
+      {
+        "id": "note-031.md",
+        "path": "note-031.md",
+        "basename": "note-031",
+        "coreSimilarity": 0.4704790977031206,
+        "semanticConnectedness": 0.40476309834721447,
+        "neighbors": [
+          {
+            "path": "note-030.md",
+            "score": 0.6243814120446028
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.3671877106233006
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.3600987565830091
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.35440709749185556
+          },
+          {
+            "path": "note-053.md",
+            "score": 0.3177405149933043
+          }
+        ]
+      },
+      {
+        "id": "note-032.md",
+        "path": "note-032.md",
+        "basename": "note-032",
+        "coreSimilarity": 0.45975066532646763,
+        "semanticConnectedness": 0.3726036566815378,
+        "neighbors": [
+          {
+            "path": "note-033.md",
+            "score": 0.5142015091486375
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.4711226706552488
+          },
+          {
+            "path": "note-031.md",
+            "score": 0.30691731353026064
+          },
+          {
+            "path": "note-007.md",
+            "score": 0.28690712967713
+          },
+          {
+            "path": "note-035.md",
+            "score": 0.28386966039641187
+          }
+        ]
+      },
+      {
+        "id": "note-033.md",
+        "path": "note-033.md",
+        "basename": "note-033",
+        "coreSimilarity": 0.48859237320236026,
+        "semanticConnectedness": 0.40198461400651714,
+        "neighbors": [
+          {
+            "path": "note-032.md",
+            "score": 0.5142015091486375
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.5049165275766688
+          },
+          {
+            "path": "note-014.md",
+            "score": 0.34684028337990286
+          },
+          {
+            "path": "note-016.md",
+            "score": 0.3233553223479526
+          },
+          {
+            "path": "note-063.md",
+            "score": 0.3206094275794237
+          }
+        ]
+      },
+      {
+        "id": "note-034.md",
+        "path": "note-034.md",
+        "basename": "note-034",
+        "coreSimilarity": 0.5121529440126759,
+        "semanticConnectedness": 0.4849214792649241,
+        "neighbors": [
+          {
+            "path": "note-035.md",
+            "score": 0.6197256257546118
+          },
+          {
+            "path": "note-001.md",
+            "score": 0.5108035000099925
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.47129830534222555
+          },
+          {
+            "path": "note-002.md",
+            "score": 0.4337490921089977
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.3890308731087932
+          }
+        ]
+      },
+      {
+        "id": "note-035.md",
+        "path": "note-035.md",
+        "basename": "note-035",
+        "coreSimilarity": 0.4549353420316923,
+        "semanticConnectedness": 0.4121159662652872,
+        "neighbors": [
+          {
+            "path": "note-034.md",
+            "score": 0.6197256257546118
+          },
+          {
+            "path": "note-001.md",
+            "score": 0.40265389636924126
+          },
+          {
+            "path": "note-002.md",
+            "score": 0.3591437708837874
+          },
+          {
+            "path": "note-003.md",
+            "score": 0.34057643615817734
+          },
+          {
+            "path": "note-027.md",
+            "score": 0.33848010216061825
+          }
+        ]
+      },
+      {
+        "id": "note-038.md",
+        "path": "note-038.md",
+        "basename": "note-038",
+        "coreSimilarity": 0.5142792389070673,
+        "semanticConnectedness": 0.5071888652489597,
+        "neighbors": [
+          {
+            "path": "note-039.md",
+            "score": 0.5725801455194376
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.554474164531959
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.4862896020781978
+          },
+          {
+            "path": "note-056.md",
+            "score": 0.4672588897466247
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.45534152436857944
+          }
+        ]
+      },
+      {
+        "id": "note-039.md",
+        "path": "note-039.md",
+        "basename": "note-039",
+        "coreSimilarity": 0.6379341659055613,
+        "semanticConnectedness": 0.570773329670736,
+        "neighbors": [
+          {
+            "path": "note-040.md",
+            "score": 0.6235598647005588
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.5919015901360817
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.5798628950470045
+          },
+          {
+            "path": "note-038.md",
+            "score": 0.5725801455194376
+          },
+          {
+            "path": "note-055.md",
+            "score": 0.4859621529505971
+          }
+        ]
+      },
+      {
+        "id": "note-040.md",
+        "path": "note-040.md",
+        "basename": "note-040",
+        "coreSimilarity": 0.7361122257155622,
+        "semanticConnectedness": 0.6210479955567262,
+        "neighbors": [
+          {
+            "path": "note-019.md",
+            "score": 0.7106348067966823
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.6237120539198778
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.6235598647005588
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.5928590878345529
+          },
+          {
+            "path": "note-038.md",
+            "score": 0.554474164531959
+          }
+        ]
+      },
+      {
+        "id": "note-041.md",
+        "path": "note-041.md",
+        "basename": "note-041",
+        "coreSimilarity": 0.6506025520263098,
+        "semanticConnectedness": 0.4916382019045714,
+        "neighbors": [
+          {
+            "path": "note-007.md",
+            "score": 0.5284028541706227
+          },
+          {
+            "path": "note-033.md",
+            "score": 0.5049165275766688
+          },
+          {
+            "path": "note-014.md",
+            "score": 0.48334538060670434
+          },
+          {
+            "path": "note-032.md",
+            "score": 0.4711226706552488
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.47040357651361225
+          }
+        ]
+      },
+      {
+        "id": "note-045.md",
+        "path": "note-045.md",
+        "basename": "note-045",
+        "coreSimilarity": 0.6837769126250024,
+        "semanticConnectedness": 0.5274566699945787,
+        "neighbors": [
+          {
+            "path": "note-049.md",
+            "score": 0.6557699436987354
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.528645321724395
+          },
+          {
+            "path": "note-007.md",
+            "score": 0.5010563936326441
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.4789873878964805
+          },
+          {
+            "path": "note-024.md",
+            "score": 0.472824303020639
+          }
+        ]
+      },
+      {
+        "id": "note-046.md",
+        "path": "note-046.md",
+        "basename": "note-046",
+        "coreSimilarity": 0.6736893580804891,
+        "semanticConnectedness": 0.5995918630305644,
+        "neighbors": [
+          {
+            "path": "note-050.md",
+            "score": 0.6608771900930986
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.6237120539198778
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.5938942420461889
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.5798628950470045
+          },
+          {
+            "path": "note-056.md",
+            "score": 0.5396129340466526
+          }
+        ]
+      },
+      {
+        "id": "note-048.md",
+        "path": "note-048.md",
+        "basename": "note-048",
+        "coreSimilarity": 0.5270525680560997,
+        "semanticConnectedness": 0.4159239518054779,
+        "neighbors": [
+          {
+            "path": "note-046.md",
+            "score": 0.461525965033086
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.439572225565149
+          },
+          {
+            "path": "note-007.md",
+            "score": 0.42672575576338145
+          },
+          {
+            "path": "note-056.md",
+            "score": 0.3850023586396991
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.3667934540260737
+          }
+        ]
+      },
+      {
+        "id": "note-049.md",
+        "path": "note-049.md",
+        "basename": "note-049",
+        "coreSimilarity": 0.5802644522887846,
+        "semanticConnectedness": 0.45867989473154624,
+        "neighbors": [
+          {
+            "path": "note-045.md",
+            "score": 0.6557699436987354
+          },
+          {
+            "path": "note-026.md",
+            "score": 0.43283590857692605
+          },
+          {
+            "path": "note-025.md",
+            "score": 0.41341903622081116
+          },
+          {
+            "path": "note-001.md",
+            "score": 0.4028261224480715
+          },
+          {
+            "path": "note-024.md",
+            "score": 0.3885484627131869
+          }
+        ]
+      },
+      {
+        "id": "note-050.md",
+        "path": "note-050.md",
+        "basename": "note-050",
+        "coreSimilarity": 0.5369460190971518,
+        "semanticConnectedness": 0.514303829728842,
+        "neighbors": [
+          {
+            "path": "note-046.md",
+            "score": 0.6608771900930986
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.546721424923706
+          },
+          {
+            "path": "note-060.md",
+            "score": 0.4679310240685034
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.4505609560679966
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.44542855349090565
+          }
+        ]
+      },
+      {
+        "id": "note-053.md",
+        "path": "note-053.md",
+        "basename": "note-053",
+        "coreSimilarity": 0.5722880651886374,
+        "semanticConnectedness": 0.4468936416588803,
+        "neighbors": [
+          {
+            "path": "note-024.md",
+            "score": 0.5727838774643715
+          },
+          {
+            "path": "note-030.md",
+            "score": 0.48168992545964384
+          },
+          {
+            "path": "note-025.md",
+            "score": 0.4053479905689389
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.3911125706427682
+          },
+          {
+            "path": "note-008.md",
+            "score": 0.38353384415867897
+          }
+        ]
+      },
+      {
+        "id": "note-054.md",
+        "path": "note-054.md",
+        "basename": "note-054",
+        "coreSimilarity": 0.48572082392421456,
+        "semanticConnectedness": 0.36217200192843163,
+        "neighbors": [
+          {
+            "path": "note-040.md",
+            "score": 0.39663665963330164
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.3866395875416182
+          },
+          {
+            "path": "note-038.md",
+            "score": 0.3731616898258107
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.33134717954023174
+          },
+          {
+            "path": "note-045.md",
+            "score": 0.3230748931011957
+          }
+        ]
+      },
+      {
+        "id": "note-055.md",
+        "path": "note-055.md",
+        "basename": "note-055",
+        "coreSimilarity": 0.5981870455253147,
+        "semanticConnectedness": 0.44903590792514186,
+        "neighbors": [
+          {
+            "path": "note-039.md",
+            "score": 0.4859621529505971
+          },
+          {
+            "path": "note-001.md",
+            "score": 0.45473617497228447
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.4544885885414931
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.42718765780216394
+          },
+          {
+            "path": "note-041.md",
+            "score": 0.42280496535917067
+          }
+        ]
+      },
+      {
+        "id": "note-056.md",
+        "path": "note-056.md",
+        "basename": "note-056",
+        "coreSimilarity": 0.5150884481504732,
+        "semanticConnectedness": 0.4537966938596222,
+        "neighbors": [
+          {
+            "path": "note-046.md",
+            "score": 0.5396129340466526
+          },
+          {
+            "path": "note-038.md",
+            "score": 0.4672588897466247
+          },
+          {
+            "path": "note-021.md",
+            "score": 0.442187782892206
+          },
+          {
+            "path": "note-019.md",
+            "score": 0.4281188143224684
+          },
+          {
+            "path": "note-039.md",
+            "score": 0.3918050482901594
+          }
+        ]
+      },
+      {
+        "id": "note-060.md",
+        "path": "note-060.md",
+        "basename": "note-060",
+        "coreSimilarity": 0.5113954996712051,
+        "semanticConnectedness": 0.4761359191451109,
+        "neighbors": [
+          {
+            "path": "note-019.md",
+            "score": 0.5676728516364689
+          },
+          {
+            "path": "note-050.md",
+            "score": 0.4679310240685034
+          },
+          {
+            "path": "note-046.md",
+            "score": 0.4600917420447593
+          },
+          {
+            "path": "note-023.md",
+            "score": 0.44339731459517623
+          },
+          {
+            "path": "note-040.md",
+            "score": 0.4415866633806468
+          }
+        ]
+      },
+      {
+        "id": "note-063.md",
+        "path": "note-063.md",
+        "basename": "note-063",
+        "coreSimilarity": 0.425095824518999,
+        "semanticConnectedness": 0.33048712910589984,
+        "neighbors": [
+          {
+            "path": "note-016.md",
+            "score": 0.3814759754749926
+          },
+          {
+            "path": "note-025.md",
+            "score": 0.35515648048766385
+          },
+          {
+            "path": "note-033.md",
+            "score": 0.3206094275794237
+          },
+          {
+            "path": "note-048.md",
+            "score": 0.3022129842700901
+          },
+          {
+            "path": "note-022.md",
+            "score": 0.29298077771732906
+          }
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "left": "note-001.md",
+        "right": "note-002.md",
+        "score": 0.5352484934316097,
+        "mutual": true
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-003.md",
+        "score": 0.48401114239893384,
+        "mutual": true
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-027.md",
+        "score": 0.5029575773031267,
+        "mutual": true
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-034.md",
+        "score": 0.5108035000099925,
+        "mutual": true
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-035.md",
+        "score": 0.40265389636924126,
+        "mutual": false
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-039.md",
+        "score": 0.4722626219432416,
+        "mutual": false
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-049.md",
+        "score": 0.4028261224480715,
+        "mutual": false
+      },
+      {
+        "left": "note-001.md",
+        "right": "note-055.md",
+        "score": 0.45473617497228447,
+        "mutual": false
+      },
+      {
+        "left": "note-002.md",
+        "right": "note-003.md",
+        "score": 0.3922649259473044,
+        "mutual": true
+      },
+      {
+        "left": "note-002.md",
+        "right": "note-007.md",
+        "score": 0.4238746159688444,
+        "mutual": false
+      },
+      {
+        "left": "note-002.md",
+        "right": "note-027.md",
+        "score": 0.6041232885090108,
+        "mutual": true
+      },
+      {
+        "left": "note-002.md",
+        "right": "note-034.md",
+        "score": 0.4337490921089977,
+        "mutual": true
+      },
+      {
+        "left": "note-002.md",
+        "right": "note-035.md",
+        "score": 0.3591437708837874,
+        "mutual": false
+      },
+      {
+        "left": "note-003.md",
+        "right": "note-027.md",
+        "score": 0.4198174788189624,
+        "mutual": false
+      },
+      {
+        "left": "note-003.md",
+        "right": "note-034.md",
+        "score": 0.3860529259789853,
+        "mutual": false
+      },
+      {
+        "left": "note-003.md",
+        "right": "note-035.md",
+        "score": 0.34057643615817734,
+        "mutual": false
+      },
+      {
+        "left": "note-003.md",
+        "right": "note-045.md",
+        "score": 0.4157065709296285,
+        "mutual": false
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-008.md",
+        "score": 0.5077886689615058,
+        "mutual": true
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-019.md",
+        "score": 0.47429181767710243,
+        "mutual": false
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-022.md",
+        "score": 0.368393793293932,
+        "mutual": false
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-032.md",
+        "score": 0.28690712967713,
+        "mutual": false
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-040.md",
+        "score": 0.513272474520039,
+        "mutual": false
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-041.md",
+        "score": 0.5284028541706227,
+        "mutual": true
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-045.md",
+        "score": 0.5010563936326441,
+        "mutual": true
+      },
+      {
+        "left": "note-007.md",
+        "right": "note-048.md",
+        "score": 0.42672575576338145,
+        "mutual": false
+      },
+      {
+        "left": "note-008.md",
+        "right": "note-019.md",
+        "score": 0.43728418506558836,
+        "mutual": false
+      },
+      {
+        "left": "note-008.md",
+        "right": "note-039.md",
+        "score": 0.450514438204853,
+        "mutual": false
+      },
+      {
+        "left": "note-008.md",
+        "right": "note-040.md",
+        "score": 0.4178718325364763,
+        "mutual": false
+      },
+      {
+        "left": "note-008.md",
+        "right": "note-045.md",
+        "score": 0.4227814008758809,
+        "mutual": false
+      },
+      {
+        "left": "note-008.md",
+        "right": "note-053.md",
+        "score": 0.38353384415867897,
+        "mutual": false
+      },
+      {
+        "left": "note-014.md",
+        "right": "note-015.md",
+        "score": 0.5028968481734485,
+        "mutual": true
+      },
+      {
+        "left": "note-014.md",
+        "right": "note-016.md",
+        "score": 0.4676568922006529,
+        "mutual": true
+      },
+      {
+        "left": "note-014.md",
+        "right": "note-024.md",
+        "score": 0.47281924624609495,
+        "mutual": true
+      },
+      {
+        "left": "note-014.md",
+        "right": "note-025.md",
+        "score": 0.5389106942574817,
+        "mutual": true
+      },
+      {
+        "left": "note-014.md",
+        "right": "note-033.md",
+        "score": 0.34684028337990286,
+        "mutual": false
+      },
+      {
+        "left": "note-014.md",
+        "right": "note-041.md",
+        "score": 0.48334538060670434,
+        "mutual": true
+      },
+      {
+        "left": "note-015.md",
+        "right": "note-016.md",
+        "score": 0.425755529583368,
+        "mutual": true
+      },
+      {
+        "left": "note-015.md",
+        "right": "note-019.md",
+        "score": 0.42736959984520523,
+        "mutual": false
+      },
+      {
+        "left": "note-015.md",
+        "right": "note-040.md",
+        "score": 0.4377854121480069,
+        "mutual": false
+      },
+      {
+        "left": "note-015.md",
+        "right": "note-046.md",
+        "score": 0.4858066929791078,
+        "mutual": false
+      },
+      {
+        "left": "note-016.md",
+        "right": "note-025.md",
+        "score": 0.378405262201968,
+        "mutual": false
+      },
+      {
+        "left": "note-016.md",
+        "right": "note-033.md",
+        "score": 0.3233553223479526,
+        "mutual": false
+      },
+      {
+        "left": "note-016.md",
+        "right": "note-041.md",
+        "score": 0.3899946085583548,
+        "mutual": false
+      },
+      {
+        "left": "note-016.md",
+        "right": "note-063.md",
+        "score": 0.3814759754749926,
+        "mutual": true
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-020.md",
+        "score": 0.5589979945494551,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-021.md",
+        "score": 0.5642909284451226,
+        "mutual": true
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-023.md",
+        "score": 0.41207018678245205,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-039.md",
+        "score": 0.5919015901360817,
+        "mutual": true
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-040.md",
+        "score": 0.7106348067966823,
+        "mutual": true
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-041.md",
+        "score": 0.47040357651361225,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-046.md",
+        "score": 0.5938942420461889,
+        "mutual": true
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-050.md",
+        "score": 0.44542855349090565,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-054.md",
+        "score": 0.33134717954023174,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-055.md",
+        "score": 0.42718765780216394,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-056.md",
+        "score": 0.4281188143224684,
+        "mutual": false
+      },
+      {
+        "left": "note-019.md",
+        "right": "note-060.md",
+        "score": 0.5676728516364689,
+        "mutual": true
+      },
+      {
+        "left": "note-020.md",
+        "right": "note-021.md",
+        "score": 0.44076307376930607,
+        "mutual": false
+      },
+      {
+        "left": "note-020.md",
+        "right": "note-040.md",
+        "score": 0.4798614203560464,
+        "mutual": false
+      },
+      {
+        "left": "note-020.md",
+        "right": "note-046.md",
+        "score": 0.46466995450115595,
+        "mutual": false
+      },
+      {
+        "left": "note-020.md",
+        "right": "note-060.md",
+        "score": 0.42217561605294696,
+        "mutual": false
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-023.md",
+        "score": 0.41807391790117654,
+        "mutual": false
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-038.md",
+        "score": 0.4862896020781978,
+        "mutual": true
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-039.md",
+        "score": 0.46311317677532865,
+        "mutual": false
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-040.md",
+        "score": 0.5928590878345529,
+        "mutual": true
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-046.md",
+        "score": 0.4732799339533462,
+        "mutual": false
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-054.md",
+        "score": 0.3866395875416182,
+        "mutual": false
+      },
+      {
+        "left": "note-021.md",
+        "right": "note-056.md",
+        "score": 0.442187782892206,
+        "mutual": false
+      },
+      {
+        "left": "note-022.md",
+        "right": "note-023.md",
+        "score": 0.48624632872621765,
+        "mutual": true
+      },
+      {
+        "left": "note-022.md",
+        "right": "note-026.md",
+        "score": 0.4525395284919727,
+        "mutual": true
+      },
+      {
+        "left": "note-022.md",
+        "right": "note-027.md",
+        "score": 0.39699378487130194,
+        "mutual": false
+      },
+      {
+        "left": "note-022.md",
+        "right": "note-045.md",
+        "score": 0.35715927870610004,
+        "mutual": false
+      },
+      {
+        "left": "note-022.md",
+        "right": "note-063.md",
+        "score": 0.29298077771732906,
+        "mutual": false
+      },
+      {
+        "left": "note-023.md",
+        "right": "note-028.md",
+        "score": 0.3103746488595007,
+        "mutual": false
+      },
+      {
+        "left": "note-023.md",
+        "right": "note-029.md",
+        "score": 0.32194103676549607,
+        "mutual": false
+      },
+      {
+        "left": "note-023.md",
+        "right": "note-040.md",
+        "score": 0.3980095779402762,
+        "mutual": false
+      },
+      {
+        "left": "note-023.md",
+        "right": "note-060.md",
+        "score": 0.44339731459517623,
+        "mutual": true
+      },
+      {
+        "left": "note-024.md",
+        "right": "note-025.md",
+        "score": 0.5536482841653055,
+        "mutual": true
+      },
+      {
+        "left": "note-024.md",
+        "right": "note-041.md",
+        "score": 0.43676483461961396,
+        "mutual": false
+      },
+      {
+        "left": "note-024.md",
+        "right": "note-045.md",
+        "score": 0.472824303020639,
+        "mutual": true
+      },
+      {
+        "left": "note-024.md",
+        "right": "note-049.md",
+        "score": 0.3885484627131869,
+        "mutual": false
+      },
+      {
+        "left": "note-024.md",
+        "right": "note-053.md",
+        "score": 0.5727838774643715,
+        "mutual": true
+      },
+      {
+        "left": "note-025.md",
+        "right": "note-027.md",
+        "score": 0.3946916514449201,
+        "mutual": false
+      },
+      {
+        "left": "note-025.md",
+        "right": "note-049.md",
+        "score": 0.41341903622081116,
+        "mutual": true
+      },
+      {
+        "left": "note-025.md",
+        "right": "note-053.md",
+        "score": 0.4053479905689389,
+        "mutual": true
+      },
+      {
+        "left": "note-025.md",
+        "right": "note-063.md",
+        "score": 0.35515648048766385,
+        "mutual": false
+      },
+      {
+        "left": "note-026.md",
+        "right": "note-027.md",
+        "score": 0.4998024089330496,
+        "mutual": true
+      },
+      {
+        "left": "note-026.md",
+        "right": "note-030.md",
+        "score": 0.41189214013488273,
+        "mutual": true
+      },
+      {
+        "left": "note-026.md",
+        "right": "note-031.md",
+        "score": 0.3671877106233006,
+        "mutual": false
+      },
+      {
+        "left": "note-026.md",
+        "right": "note-034.md",
+        "score": 0.3890308731087932,
+        "mutual": false
+      },
+      {
+        "left": "note-026.md",
+        "right": "note-045.md",
+        "score": 0.528645321724395,
+        "mutual": true
+      },
+      {
+        "left": "note-026.md",
+        "right": "note-049.md",
+        "score": 0.43283590857692605,
+        "mutual": true
+      },
+      {
+        "left": "note-027.md",
+        "right": "note-031.md",
+        "score": 0.35440709749185556,
+        "mutual": false
+      },
+      {
+        "left": "note-027.md",
+        "right": "note-034.md",
+        "score": 0.47129830534222555,
+        "mutual": true
+      },
+      {
+        "left": "note-027.md",
+        "right": "note-035.md",
+        "score": 0.33848010216061825,
+        "mutual": false
+      },
+      {
+        "left": "note-027.md",
+        "right": "note-040.md",
+        "score": 0.4497015575844251,
+        "mutual": false
+      },
+      {
+        "left": "note-028.md",
+        "right": "note-029.md",
+        "score": 0.40729158873599003,
+        "mutual": true
+      },
+      {
+        "left": "note-028.md",
+        "right": "note-048.md",
+        "score": 0.3234484668687169,
+        "mutual": false
+      },
+      {
+        "left": "note-028.md",
+        "right": "note-060.md",
+        "score": 0.2955698823335196,
+        "mutual": false
+      },
+      {
+        "left": "note-028.md",
+        "right": "note-063.md",
+        "score": 0.2906863749447112,
+        "mutual": false
+      },
+      {
+        "left": "note-029.md",
+        "right": "note-032.md",
+        "score": 0.25360334280308344,
+        "mutual": false
+      },
+      {
+        "left": "note-029.md",
+        "right": "note-041.md",
+        "score": 0.2516208410076849,
+        "mutual": false
+      },
+      {
+        "left": "note-029.md",
+        "right": "note-063.md",
+        "score": 0.24778025267258538,
+        "mutual": false
+      },
+      {
+        "left": "note-030.md",
+        "right": "note-031.md",
+        "score": 0.6243814120446028,
+        "mutual": true
+      },
+      {
+        "left": "note-030.md",
+        "right": "note-040.md",
+        "score": 0.3744863008249576,
+        "mutual": false
+      },
+      {
+        "left": "note-030.md",
+        "right": "note-046.md",
+        "score": 0.36265584349138424,
+        "mutual": false
+      },
+      {
+        "left": "note-030.md",
+        "right": "note-053.md",
+        "score": 0.48168992545964384,
+        "mutual": true
+      },
+      {
+        "left": "note-031.md",
+        "right": "note-032.md",
+        "score": 0.30691731353026064,
+        "mutual": false
+      },
+      {
+        "left": "note-031.md",
+        "right": "note-040.md",
+        "score": 0.3600987565830091,
+        "mutual": false
+      },
+      {
+        "left": "note-031.md",
+        "right": "note-053.md",
+        "score": 0.3177405149933043,
+        "mutual": false
+      },
+      {
+        "left": "note-032.md",
+        "right": "note-033.md",
+        "score": 0.5142015091486375,
+        "mutual": true
+      },
+      {
+        "left": "note-032.md",
+        "right": "note-035.md",
+        "score": 0.28386966039641187,
+        "mutual": false
+      },
+      {
+        "left": "note-032.md",
+        "right": "note-041.md",
+        "score": 0.4711226706552488,
+        "mutual": true
+      },
+      {
+        "left": "note-033.md",
+        "right": "note-041.md",
+        "score": 0.5049165275766688,
+        "mutual": true
+      },
+      {
+        "left": "note-033.md",
+        "right": "note-063.md",
+        "score": 0.3206094275794237,
+        "mutual": true
+      },
+      {
+        "left": "note-034.md",
+        "right": "note-035.md",
+        "score": 0.6197256257546118,
+        "mutual": true
+      },
+      {
+        "left": "note-038.md",
+        "right": "note-039.md",
+        "score": 0.5725801455194376,
+        "mutual": true
+      },
+      {
+        "left": "note-038.md",
+        "right": "note-040.md",
+        "score": 0.554474164531959,
+        "mutual": true
+      },
+      {
+        "left": "note-038.md",
+        "right": "note-046.md",
+        "score": 0.45534152436857944,
+        "mutual": false
+      },
+      {
+        "left": "note-038.md",
+        "right": "note-054.md",
+        "score": 0.3731616898258107,
+        "mutual": false
+      },
+      {
+        "left": "note-038.md",
+        "right": "note-056.md",
+        "score": 0.4672588897466247,
+        "mutual": true
+      },
+      {
+        "left": "note-039.md",
+        "right": "note-040.md",
+        "score": 0.6235598647005588,
+        "mutual": true
+      },
+      {
+        "left": "note-039.md",
+        "right": "note-046.md",
+        "score": 0.5798628950470045,
+        "mutual": true
+      },
+      {
+        "left": "note-039.md",
+        "right": "note-050.md",
+        "score": 0.4505609560679966,
+        "mutual": false
+      },
+      {
+        "left": "note-039.md",
+        "right": "note-055.md",
+        "score": 0.4859621529505971,
+        "mutual": true
+      },
+      {
+        "left": "note-039.md",
+        "right": "note-056.md",
+        "score": 0.3918050482901594,
+        "mutual": false
+      },
+      {
+        "left": "note-040.md",
+        "right": "note-046.md",
+        "score": 0.6237120539198778,
+        "mutual": true
+      },
+      {
+        "left": "note-040.md",
+        "right": "note-050.md",
+        "score": 0.546721424923706,
+        "mutual": false
+      },
+      {
+        "left": "note-040.md",
+        "right": "note-054.md",
+        "score": 0.39663665963330164,
+        "mutual": false
+      },
+      {
+        "left": "note-040.md",
+        "right": "note-055.md",
+        "score": 0.4544885885414931,
+        "mutual": false
+      },
+      {
+        "left": "note-040.md",
+        "right": "note-060.md",
+        "score": 0.4415866633806468,
+        "mutual": false
+      },
+      {
+        "left": "note-041.md",
+        "right": "note-048.md",
+        "score": 0.439572225565149,
+        "mutual": false
+      },
+      {
+        "left": "note-041.md",
+        "right": "note-055.md",
+        "score": 0.42280496535917067,
+        "mutual": false
+      },
+      {
+        "left": "note-045.md",
+        "right": "note-046.md",
+        "score": 0.4789873878964805,
+        "mutual": false
+      },
+      {
+        "left": "note-045.md",
+        "right": "note-048.md",
+        "score": 0.3667934540260737,
+        "mutual": false
+      },
+      {
+        "left": "note-045.md",
+        "right": "note-049.md",
+        "score": 0.6557699436987354,
+        "mutual": true
+      },
+      {
+        "left": "note-045.md",
+        "right": "note-053.md",
+        "score": 0.3911125706427682,
+        "mutual": false
+      },
+      {
+        "left": "note-045.md",
+        "right": "note-054.md",
+        "score": 0.3230748931011957,
+        "mutual": false
+      },
+      {
+        "left": "note-046.md",
+        "right": "note-048.md",
+        "score": 0.461525965033086,
+        "mutual": false
+      },
+      {
+        "left": "note-046.md",
+        "right": "note-050.md",
+        "score": 0.6608771900930986,
+        "mutual": true
+      },
+      {
+        "left": "note-046.md",
+        "right": "note-056.md",
+        "score": 0.5396129340466526,
+        "mutual": true
+      },
+      {
+        "left": "note-046.md",
+        "right": "note-060.md",
+        "score": 0.4600917420447593,
+        "mutual": false
+      },
+      {
+        "left": "note-048.md",
+        "right": "note-056.md",
+        "score": 0.3850023586396991,
+        "mutual": false
+      },
+      {
+        "left": "note-048.md",
+        "right": "note-063.md",
+        "score": 0.3022129842700901,
+        "mutual": false
+      },
+      {
+        "left": "note-050.md",
+        "right": "note-060.md",
+        "score": 0.4679310240685034,
+        "mutual": true
+      }
+    ],
+    "capturedAt": 1
+  },
+  "topology": {
+    "revision": {
+      "noteCount": 40,
+      "complete": true,
+      "signature": "v1:721:b3ebf8e8eba647a8:99df8f4f27a05f06"
+    },
+    "capturedAt": 1,
+    "complete": true,
+    "nodes": [
+      {
+        "id": "note-8725052ec0bc8184",
+        "path": "note-001.md",
+        "basename": "note-001",
+        "incoming": 0,
+        "outgoing": 1,
+        "degree": 1,
+        "componentId": "component-8725052ec0bc8184",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-f5ba02f1e0b37e73",
+        "path": "note-002.md",
+        "basename": "note-002",
+        "incoming": 1,
+        "outgoing": 0,
+        "degree": 1,
+        "componentId": "component-8725052ec0bc8184",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-f8350064c60587b8",
+        "path": "note-003.md",
+        "basename": "note-003",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-f8350064c60587b8",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-1e8354702ee1570f",
+        "path": "note-007.md",
+        "basename": "note-007",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-1e8354702ee1570f",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-81a383fb91e64c02",
+        "path": "note-008.md",
+        "basename": "note-008",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-81a383fb91e64c02",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-af1e61a02082e4ce",
+        "path": "note-014.md",
+        "basename": "note-014",
+        "incoming": 0,
+        "outgoing": 1,
+        "degree": 1,
+        "componentId": "component-af1e61a02082e4ce",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-bca1ea5dfdec4e77",
+        "path": "note-015.md",
+        "basename": "note-015",
+        "incoming": 1,
+        "outgoing": 0,
+        "degree": 1,
+        "componentId": "component-af1e61a02082e4ce",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-24908d7ae1ee22a7",
+        "path": "note-016.md",
+        "basename": "note-016",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-24908d7ae1ee22a7",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-806413c9dab24f20",
+        "path": "note-019.md",
+        "basename": "note-019",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-806413c9dab24f20",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-8ddb2d0df4d11ade",
+        "path": "note-020.md",
+        "basename": "note-020",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-8ddb2d0df4d11ade",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-b8c67910eb5b3e76",
+        "path": "note-021.md",
+        "basename": "note-021",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-b8c67910eb5b3e76",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-bd297fcfc7bb7a1f",
+        "path": "note-022.md",
+        "basename": "note-022",
+        "incoming": 1,
+        "outgoing": 1,
+        "degree": 2,
+        "componentId": "component-bd297fcfc7bb7a1f",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": true,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-b52b9aaa3f65dfdd",
+        "path": "note-023.md",
+        "basename": "note-023",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-b52b9aaa3f65dfdd",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-1f1deb11284d8ac0",
+        "path": "note-024.md",
+        "basename": "note-024",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-1f1deb11284d8ac0",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-1f201284050b5660",
+        "path": "note-025.md",
+        "basename": "note-025",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-1f201284050b5660",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-e9673d3358aef92a",
+        "path": "note-026.md",
+        "basename": "note-026",
+        "incoming": 1,
+        "outgoing": 0,
+        "degree": 1,
+        "componentId": "component-bd297fcfc7bb7a1f",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-23e292ce53044f1c",
+        "path": "note-027.md",
+        "basename": "note-027",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-23e292ce53044f1c",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-baf552957e50ec97",
+        "path": "note-028.md",
+        "basename": "note-028",
+        "incoming": 0,
+        "outgoing": 1,
+        "degree": 1,
+        "componentId": "component-baf552957e50ec97",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-aaf760d86a0e7542",
+        "path": "note-029.md",
+        "basename": "note-029",
+        "incoming": 1,
+        "outgoing": 0,
+        "degree": 1,
+        "componentId": "component-baf552957e50ec97",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-8282a346ca45b307",
+        "path": "note-030.md",
+        "basename": "note-030",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-8282a346ca45b307",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-8ad03a4bfda710b8",
+        "path": "note-031.md",
+        "basename": "note-031",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-8ad03a4bfda710b8",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-961d9adc411ce3bd",
+        "path": "note-032.md",
+        "basename": "note-032",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-961d9adc411ce3bd",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-30c6c0e9bd5c921c",
+        "path": "note-033.md",
+        "basename": "note-033",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-30c6c0e9bd5c921c",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-2c292302ce14c5c7",
+        "path": "note-034.md",
+        "basename": "note-034",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-2c292302ce14c5c7",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-f93dca670fd27e19",
+        "path": "note-035.md",
+        "basename": "note-035",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-f93dca670fd27e19",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-9051bb7ee9272ea6",
+        "path": "note-038.md",
+        "basename": "note-038",
+        "incoming": 1,
+        "outgoing": 1,
+        "degree": 2,
+        "componentId": "component-9051bb7ee9272ea6",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-d0c0086305572c13",
+        "path": "note-039.md",
+        "basename": "note-039",
+        "incoming": 1,
+        "outgoing": 1,
+        "degree": 2,
+        "componentId": "component-9051bb7ee9272ea6",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-c5617917c7731013",
+        "path": "note-040.md",
+        "basename": "note-040",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-c5617917c7731013",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-bd6200f2a3870729",
+        "path": "note-041.md",
+        "basename": "note-041",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-bd6200f2a3870729",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-8c2abab679a37ac2",
+        "path": "note-045.md",
+        "basename": "note-045",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-8c2abab679a37ac2",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-c20131d9cbe76c74",
+        "path": "note-046.md",
+        "basename": "note-046",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-c20131d9cbe76c74",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-fa32876fa8918ff4",
+        "path": "note-048.md",
+        "basename": "note-048",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-fa32876fa8918ff4",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-f4af0b4a5b80bfd8",
+        "path": "note-049.md",
+        "basename": "note-049",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-f4af0b4a5b80bfd8",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-f4247be80136a399",
+        "path": "note-050.md",
+        "basename": "note-050",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-f4247be80136a399",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-95fb58073e2ff2cf",
+        "path": "note-053.md",
+        "basename": "note-053",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-95fb58073e2ff2cf",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-3060bf7cc215d23d",
+        "path": "note-054.md",
+        "basename": "note-054",
+        "incoming": 0,
+        "outgoing": 1,
+        "degree": 1,
+        "componentId": "component-bd297fcfc7bb7a1f",
+        "linksAvailable": true,
+        "orphan": false,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-5a2c3c09d3e6eecc",
+        "path": "note-055.md",
+        "basename": "note-055",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-5a2c3c09d3e6eecc",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-1cc5c7e637dc0cda",
+        "path": "note-056.md",
+        "basename": "note-056",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-1cc5c7e637dc0cda",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-89c678410b24fc74",
+        "path": "note-060.md",
+        "basename": "note-060",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-89c678410b24fc74",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      },
+      {
+        "id": "note-143f4e3e5dca9136",
+        "path": "note-063.md",
+        "basename": "note-063",
+        "incoming": 0,
+        "outgoing": 0,
+        "degree": 0,
+        "componentId": "component-143f4e3e5dca9136",
+        "linksAvailable": true,
+        "orphan": true,
+        "connector": false,
+        "unresolvedTargetCount": 0,
+        "unresolvedOccurrenceCount": 0
+      }
+    ],
+    "edges": [
+      {
+        "source": "note-001.md",
+        "target": "note-002.md"
+      },
+      {
+        "source": "note-014.md",
+        "target": "note-015.md"
+      },
+      {
+        "source": "note-022.md",
+        "target": "note-026.md"
+      },
+      {
+        "source": "note-028.md",
+        "target": "note-029.md"
+      },
+      {
+        "source": "note-038.md",
+        "target": "note-039.md"
+      },
+      {
+        "source": "note-039.md",
+        "target": "note-038.md"
+      },
+      {
+        "source": "note-054.md",
+        "target": "note-022.md"
+      }
+    ],
+    "brokenTargets": [],
+    "components": [
+      {
+        "id": "component-bd297fcfc7bb7a1f",
+        "paths": [
+          "note-022.md",
+          "note-026.md",
+          "note-054.md"
+        ],
+        "primary": true
+      },
+      {
+        "id": "component-8725052ec0bc8184",
+        "paths": [
+          "note-001.md",
+          "note-002.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-af1e61a02082e4ce",
+        "paths": [
+          "note-014.md",
+          "note-015.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-baf552957e50ec97",
+        "paths": [
+          "note-028.md",
+          "note-029.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-9051bb7ee9272ea6",
+        "paths": [
+          "note-038.md",
+          "note-039.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-f8350064c60587b8",
+        "paths": [
+          "note-003.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-1e8354702ee1570f",
+        "paths": [
+          "note-007.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-81a383fb91e64c02",
+        "paths": [
+          "note-008.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-24908d7ae1ee22a7",
+        "paths": [
+          "note-016.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-806413c9dab24f20",
+        "paths": [
+          "note-019.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-8ddb2d0df4d11ade",
+        "paths": [
+          "note-020.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-b8c67910eb5b3e76",
+        "paths": [
+          "note-021.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-b52b9aaa3f65dfdd",
+        "paths": [
+          "note-023.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-1f1deb11284d8ac0",
+        "paths": [
+          "note-024.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-1f201284050b5660",
+        "paths": [
+          "note-025.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-23e292ce53044f1c",
+        "paths": [
+          "note-027.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-8282a346ca45b307",
+        "paths": [
+          "note-030.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-8ad03a4bfda710b8",
+        "paths": [
+          "note-031.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-961d9adc411ce3bd",
+        "paths": [
+          "note-032.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-30c6c0e9bd5c921c",
+        "paths": [
+          "note-033.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-2c292302ce14c5c7",
+        "paths": [
+          "note-034.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-f93dca670fd27e19",
+        "paths": [
+          "note-035.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-c5617917c7731013",
+        "paths": [
+          "note-040.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-bd6200f2a3870729",
+        "paths": [
+          "note-041.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-8c2abab679a37ac2",
+        "paths": [
+          "note-045.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-c20131d9cbe76c74",
+        "paths": [
+          "note-046.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-fa32876fa8918ff4",
+        "paths": [
+          "note-048.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-f4af0b4a5b80bfd8",
+        "paths": [
+          "note-049.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-f4247be80136a399",
+        "paths": [
+          "note-050.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-95fb58073e2ff2cf",
+        "paths": [
+          "note-053.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-5a2c3c09d3e6eecc",
+        "paths": [
+          "note-055.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-1cc5c7e637dc0cda",
+        "paths": [
+          "note-056.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-89c678410b24fc74",
+        "paths": [
+          "note-060.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-143f4e3e5dca9136",
+        "paths": [
+          "note-063.md"
+        ],
+        "primary": false
+      }
+    ],
+    "noteCount": 40,
+    "resolvedLinkCount": 7,
+    "componentCount": 34,
+    "orphanCount": 29,
+    "connectorCount": 1,
+    "brokenTargetCount": 0,
+    "brokenOccurrenceCount": 0
+  },
+  "comparison": {
+    "semanticRevision": {
+      "vectorGeneration": 1,
+      "vectorCount": 52,
+      "dimensions": 1536,
+      "provider": "openai-compatible",
+      "model": "openai/text-embedding-3-small",
+      "configurationRevision": 0,
+      "runtimeRevision": 1
+    },
+    "topologyRevision": {
+      "noteCount": 40,
+      "complete": true,
+      "signature": "v1:721:b3ebf8e8eba647a8:99df8f4f27a05f06"
+    },
+    "capturedAt": 1,
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 144,
+    "candidateCount": 139,
+    "alignedCount": 5,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "pairs": [
+      {
+        "id": "[\"note-001.md\",\"note-002.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-002.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-002",
+        "category": "aligned",
+        "semantic": {
+          "score": 0.5352484934316097,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-003.md",
+            "note-027.md",
+            "note-034.md"
+          ]
+        },
+        "markdown": {
+          "direction": "left-to-right"
+        }
+      },
+      {
+        "id": "[\"note-022.md\",\"note-026.md\"]",
+        "leftPath": "note-022.md",
+        "rightPath": "note-026.md",
+        "leftBasename": "note-022",
+        "rightBasename": "note-026",
+        "category": "aligned",
+        "semantic": {
+          "score": 0.4525395284919727,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-027.md",
+            "note-045.md"
+          ]
+        },
+        "markdown": {
+          "direction": "left-to-right"
+        }
+      },
+      {
+        "id": "[\"note-028.md\",\"note-029.md\"]",
+        "leftPath": "note-028.md",
+        "rightPath": "note-029.md",
+        "leftBasename": "note-028",
+        "rightBasename": "note-029",
+        "category": "aligned",
+        "semantic": {
+          "score": 0.40729158873599003,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-023.md",
+            "note-063.md"
+          ]
+        },
+        "markdown": {
+          "direction": "left-to-right"
+        }
+      },
+      {
+        "id": "[\"note-014.md\",\"note-015.md\"]",
+        "leftPath": "note-014.md",
+        "rightPath": "note-015.md",
+        "leftBasename": "note-014",
+        "rightBasename": "note-015",
+        "category": "aligned",
+        "semantic": {
+          "score": 0.5028968481734485,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-016.md"
+          ]
+        },
+        "markdown": {
+          "direction": "left-to-right"
+        }
+      },
+      {
+        "id": "[\"note-038.md\",\"note-039.md\"]",
+        "leftPath": "note-038.md",
+        "rightPath": "note-039.md",
+        "leftBasename": "note-038",
+        "rightBasename": "note-039",
+        "category": "aligned",
+        "semantic": {
+          "score": 0.5725801455194376,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-040.md",
+            "note-046.md"
+          ]
+        },
+        "markdown": {
+          "direction": "reciprocal"
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-040.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.7106348067966823,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-046.md\",\"note-050.md\"]",
+        "leftPath": "note-046.md",
+        "rightPath": "note-050.md",
+        "leftBasename": "note-046",
+        "rightBasename": "note-050",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6608771900930986,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-030.md\",\"note-031.md\"]",
+        "leftPath": "note-030.md",
+        "rightPath": "note-031.md",
+        "leftBasename": "note-030",
+        "rightBasename": "note-031",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6243814120446028,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-026.md",
+            "note-040.md",
+            "note-053.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-039.md\",\"note-040.md\"]",
+        "leftPath": "note-039.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-039",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6235598647005588,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-038.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-034.md\",\"note-035.md\"]",
+        "leftPath": "note-034.md",
+        "rightPath": "note-035.md",
+        "leftBasename": "note-034",
+        "rightBasename": "note-035",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6197256257546118,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-002.md",
+            "note-027.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-008.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-008.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-008",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5077886689615058,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md",
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-038.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-038.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-038",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4862896020781978,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-050.md\",\"note-060.md\"]",
+        "leftPath": "note-050.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-050",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4679310240685034,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-045.md\",\"note-049.md\"]",
+        "leftPath": "note-045.md",
+        "rightPath": "note-049.md",
+        "leftBasename": "note-045",
+        "rightBasename": "note-049",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6557699436987354,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-024.md",
+            "note-026.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-040.md\",\"note-046.md\"]",
+        "leftPath": "note-040.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-040",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6237120539198778,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-002.md\",\"note-027.md\"]",
+        "leftPath": "note-002.md",
+        "rightPath": "note-027.md",
+        "leftBasename": "note-002",
+        "rightBasename": "note-027",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.6041232885090108,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-046.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5938942420461889,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-039.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-039.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-039",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5919015901360817,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-024.md\",\"note-053.md\"]",
+        "leftPath": "note-024.md",
+        "rightPath": "note-053.md",
+        "leftBasename": "note-024",
+        "rightBasename": "note-053",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5727838774643715,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-025.md",
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-024.md\",\"note-025.md\"]",
+        "leftPath": "note-024.md",
+        "rightPath": "note-025.md",
+        "leftBasename": "note-024",
+        "rightBasename": "note-025",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5536482841653055,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-014.md",
+            "note-053.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-034.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-034.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-034",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5108035000099925,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-002.md",
+            "note-027.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-033.md\",\"note-041.md\"]",
+        "leftPath": "note-033.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-033",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5049165275766688,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-014.md",
+            "note-032.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-027.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-027.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-027",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5029575773031267,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-002.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-014.md\",\"note-025.md\"]",
+        "leftPath": "note-014.md",
+        "rightPath": "note-025.md",
+        "leftBasename": "note-014",
+        "rightBasename": "note-025",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5389106942574817,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-024.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-026.md\",\"note-045.md\"]",
+        "leftPath": "note-026.md",
+        "rightPath": "note-045.md",
+        "leftBasename": "note-026",
+        "rightBasename": "note-045",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.528645321724395,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-049.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-041.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5284028541706227,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-019.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-032.md\",\"note-033.md\"]",
+        "leftPath": "note-032.md",
+        "rightPath": "note-033.md",
+        "leftBasename": "note-032",
+        "rightBasename": "note-033",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5142015091486375,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-041.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-025.md\",\"note-049.md\"]",
+        "leftPath": "note-025.md",
+        "rightPath": "note-049.md",
+        "leftBasename": "note-025",
+        "rightBasename": "note-049",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.41341903622081116,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": [
+            "note-024.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-026.md\",\"note-027.md\"]",
+        "leftPath": "note-026.md",
+        "rightPath": "note-027.md",
+        "leftBasename": "note-026",
+        "rightBasename": "note-027",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4998024089330496,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-022.md\",\"note-023.md\"]",
+        "leftPath": "note-022.md",
+        "rightPath": "note-023.md",
+        "leftBasename": "note-022",
+        "rightBasename": "note-023",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.48624632872621765,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 1,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-014.md\",\"note-041.md\"]",
+        "leftPath": "note-014.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-014",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.48334538060670434,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 3,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-030.md\",\"note-053.md\"]",
+        "leftPath": "note-030.md",
+        "rightPath": "note-053.md",
+        "leftBasename": "note-030",
+        "rightBasename": "note-053",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.48168992545964384,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 2,
+          "rankClass": "mutual-top-3",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-040.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5928590878345529,
+          "mutualTopK": true,
+          "leftRank": 1,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-038.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-021.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-021.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-021",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5642909284451226,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 2,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-038.md\",\"note-040.md\"]",
+        "leftPath": "note-038.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-038",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.554474164531959,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 5,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-003.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-003.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-003",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.48401114239893384,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 1,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-002.md",
+            "note-027.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-027.md\",\"note-034.md\"]",
+        "leftPath": "note-027.md",
+        "rightPath": "note-034.md",
+        "leftBasename": "note-027",
+        "rightBasename": "note-034",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.47129830534222555,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 3,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-002.md",
+            "note-026.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-014.md\",\"note-016.md\"]",
+        "leftPath": "note-014.md",
+        "rightPath": "note-016.md",
+        "leftBasename": "note-014",
+        "rightBasename": "note-016",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4676568922006529,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 1,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-015.md",
+            "note-025.md",
+            "note-041.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-038.md\",\"note-056.md\"]",
+        "leftPath": "note-038.md",
+        "rightPath": "note-056.md",
+        "leftBasename": "note-038",
+        "rightBasename": "note-056",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4672588897466247,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 2,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-002.md\",\"note-003.md\"]",
+        "leftPath": "note-002.md",
+        "rightPath": "note-003.md",
+        "leftBasename": "note-002",
+        "rightBasename": "note-003",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3922649259473044,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-027.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-039.md\",\"note-046.md\"]",
+        "leftPath": "note-039.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-039",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5798628950470045,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-060.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5676728516364689,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 1,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-046.md\",\"note-056.md\"]",
+        "leftPath": "note-046.md",
+        "rightPath": "note-056.md",
+        "leftBasename": "note-046",
+        "rightBasename": "note-056",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5396129340466526,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 1,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-039.md\",\"note-055.md\"]",
+        "leftPath": "note-039.md",
+        "rightPath": "note-055.md",
+        "leftBasename": "note-039",
+        "rightBasename": "note-055",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4859621529505971,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 1,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-014.md\",\"note-024.md\"]",
+        "leftPath": "note-014.md",
+        "rightPath": "note-024.md",
+        "leftBasename": "note-014",
+        "rightBasename": "note-024",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.47281924624609495,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-025.md",
+            "note-041.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-032.md\",\"note-041.md\"]",
+        "leftPath": "note-032.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-032",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4711226706552488,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-007.md",
+            "note-033.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-023.md\",\"note-060.md\"]",
+        "leftPath": "note-023.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-023",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.44339731459517623,
+          "mutualTopK": true,
+          "leftRank": 2,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-002.md\",\"note-034.md\"]",
+        "leftPath": "note-002.md",
+        "rightPath": "note-034.md",
+        "leftBasename": "note-002",
+        "rightBasename": "note-034",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4337490921089977,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 4,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-027.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-026.md\",\"note-049.md\"]",
+        "leftPath": "note-026.md",
+        "rightPath": "note-049.md",
+        "leftBasename": "note-026",
+        "rightBasename": "note-049",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.43283590857692605,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 2,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-015.md\",\"note-016.md\"]",
+        "leftPath": "note-015.md",
+        "rightPath": "note-016.md",
+        "leftBasename": "note-015",
+        "rightBasename": "note-016",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.425755529583368,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 2,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-014.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-025.md\",\"note-053.md\"]",
+        "leftPath": "note-025.md",
+        "rightPath": "note-053.md",
+        "leftBasename": "note-025",
+        "rightBasename": "note-053",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4053479905689389,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 3,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-024.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-016.md\",\"note-063.md\"]",
+        "leftPath": "note-016.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-016",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3814759754749926,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 1,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-025.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-033.md\",\"note-063.md\"]",
+        "leftPath": "note-033.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-033",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3206094275794237,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 3,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": [
+            "note-016.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-045.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-045.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-045",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5010563936326441,
+          "mutualTopK": true,
+          "leftRank": 4,
+          "rightRank": 3,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-024.md\",\"note-045.md\"]",
+        "leftPath": "note-024.md",
+        "rightPath": "note-045.md",
+        "leftBasename": "note-024",
+        "rightBasename": "note-045",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.472824303020639,
+          "mutualTopK": true,
+          "leftRank": 3,
+          "rightRank": 5,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-026.md\",\"note-030.md\"]",
+        "leftPath": "note-026.md",
+        "rightPath": "note-030.md",
+        "leftBasename": "note-026",
+        "rightBasename": "note-030",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.41189214013488273,
+          "mutualTopK": true,
+          "leftRank": 5,
+          "rightRank": 3,
+          "rankClass": "mutual-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-020.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-020.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-020",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.5589979945494551,
+          "mutualTopK": false,
+          "rightRank": 1,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-040.md",
+            "note-046.md",
+            "note-060.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-039.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-039.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-039",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.46311317677532865,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-038.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-050.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-050.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-050",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.44542855349090565,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md",
+            "note-046.md",
+            "note-060.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-056.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-056.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-056",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.442187782892206,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-038.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-035.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-035.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-035",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.40265389636924126,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-002.md",
+            "note-003.md",
+            "note-027.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-002.md\",\"note-035.md\"]",
+        "leftPath": "note-002.md",
+        "rightPath": "note-035.md",
+        "leftBasename": "note-002",
+        "rightBasename": "note-035",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3591437708837874,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-003.md",
+            "note-027.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-003.md\",\"note-035.md\"]",
+        "leftPath": "note-003.md",
+        "rightPath": "note-035.md",
+        "leftBasename": "note-003",
+        "rightBasename": "note-035",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.34057643615817734,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-002.md",
+            "note-027.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-040.md\",\"note-050.md\"]",
+        "leftPath": "note-040.md",
+        "rightPath": "note-050.md",
+        "leftBasename": "note-040",
+        "rightBasename": "note-050",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.546721424923706,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-020.md\",\"note-040.md\"]",
+        "leftPath": "note-020.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-020",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4798614203560464,
+          "mutualTopK": false,
+          "leftRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-021.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-046.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4732799339533462,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-046.md\",\"note-060.md\"]",
+        "leftPath": "note-046.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-046",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4600917420447593,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md",
+            "note-050.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-038.md\",\"note-046.md\"]",
+        "leftPath": "note-038.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-038",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.45534152436857944,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md",
+            "note-056.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-039.md\",\"note-050.md\"]",
+        "leftPath": "note-039.md",
+        "rightPath": "note-050.md",
+        "leftBasename": "note-039",
+        "rightBasename": "note-050",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4505609560679966,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-020.md\",\"note-021.md\"]",
+        "leftPath": "note-020.md",
+        "rightPath": "note-021.md",
+        "leftBasename": "note-020",
+        "rightBasename": "note-021",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.44076307376930607,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-056.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-056.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-056",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4281188143224684,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-039.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-020.md\",\"note-060.md\"]",
+        "leftPath": "note-020.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-020",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.42217561605294696,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-003.md\",\"note-027.md\"]",
+        "leftPath": "note-003.md",
+        "rightPath": "note-027.md",
+        "leftBasename": "note-003",
+        "rightBasename": "note-027",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4198174788189624,
+          "mutualTopK": false,
+          "leftRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-002.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-023.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-023.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-023",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.41207018678245205,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-040.md",
+            "note-060.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-040.md\",\"note-054.md\"]",
+        "leftPath": "note-040.md",
+        "rightPath": "note-054.md",
+        "leftBasename": "note-040",
+        "rightBasename": "note-054",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.39663665963330164,
+          "mutualTopK": false,
+          "rightRank": 1,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-021.md",
+            "note-038.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-039.md\",\"note-056.md\"]",
+        "leftPath": "note-039.md",
+        "rightPath": "note-056.md",
+        "leftBasename": "note-039",
+        "rightBasename": "note-056",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3918050482901594,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-038.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-054.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-054.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-054",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3866395875416182,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-038.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-003.md\",\"note-034.md\"]",
+        "leftPath": "note-003.md",
+        "rightPath": "note-034.md",
+        "leftBasename": "note-003",
+        "rightBasename": "note-034",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3860529259789853,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-002.md",
+            "note-027.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-027.md\",\"note-035.md\"]",
+        "leftPath": "note-027.md",
+        "rightPath": "note-035.md",
+        "leftBasename": "note-027",
+        "rightBasename": "note-035",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.33848010216061825,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-001.md",
+            "note-002.md",
+            "note-034.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-016.md\",\"note-033.md\"]",
+        "leftPath": "note-016.md",
+        "rightPath": "note-033.md",
+        "leftBasename": "note-016",
+        "rightBasename": "note-033",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3233553223479526,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-014.md",
+            "note-041.md",
+            "note-063.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-015.md\",\"note-046.md\"]",
+        "leftPath": "note-015.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-015",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4858066929791078,
+          "mutualTopK": false,
+          "leftRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-020.md\",\"note-046.md\"]",
+        "leftPath": "note-020.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-020",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.46466995450115595,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-040.md\",\"note-055.md\"]",
+        "leftPath": "note-040.md",
+        "rightPath": "note-055.md",
+        "leftBasename": "note-040",
+        "rightBasename": "note-055",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4544885885414931,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-008.md\",\"note-039.md\"]",
+        "leftPath": "note-008.md",
+        "rightPath": "note-039.md",
+        "leftBasename": "note-008",
+        "rightBasename": "note-039",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.450514438204853,
+          "mutualTopK": false,
+          "leftRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-040.md\",\"note-060.md\"]",
+        "leftPath": "note-040.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-040",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4415866633806468,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-015.md\",\"note-040.md\"]",
+        "leftPath": "note-015.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-015",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4377854121480069,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-008.md\",\"note-019.md\"]",
+        "leftPath": "note-008.md",
+        "rightPath": "note-019.md",
+        "leftBasename": "note-008",
+        "rightBasename": "note-019",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.43728418506558836,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-015.md\",\"note-019.md\"]",
+        "leftPath": "note-015.md",
+        "rightPath": "note-019.md",
+        "leftBasename": "note-015",
+        "rightBasename": "note-019",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.42736959984520523,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-040.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-055.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-055.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-055",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.42718765780216394,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-039.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-048.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-048.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-048",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.42672575576338145,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-041.md",
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-021.md\",\"note-023.md\"]",
+        "leftPath": "note-021.md",
+        "rightPath": "note-023.md",
+        "leftBasename": "note-021",
+        "rightBasename": "note-023",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.41807391790117654,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-008.md\",\"note-040.md\"]",
+        "leftPath": "note-008.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-008",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4178718325364763,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-039.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-023.md\",\"note-040.md\"]",
+        "leftPath": "note-023.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-023",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3980095779402762,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md",
+            "note-021.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-024.md\",\"note-049.md\"]",
+        "leftPath": "note-024.md",
+        "rightPath": "note-049.md",
+        "leftBasename": "note-024",
+        "rightBasename": "note-049",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3885484627131869,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-025.md",
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-038.md\",\"note-054.md\"]",
+        "leftPath": "note-038.md",
+        "rightPath": "note-054.md",
+        "leftBasename": "note-038",
+        "rightBasename": "note-054",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3731616898258107,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-026.md\",\"note-031.md\"]",
+        "leftPath": "note-026.md",
+        "rightPath": "note-031.md",
+        "leftBasename": "note-026",
+        "rightBasename": "note-031",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3671877106233006,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-027.md",
+            "note-030.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-045.md\",\"note-048.md\"]",
+        "leftPath": "note-045.md",
+        "rightPath": "note-048.md",
+        "leftBasename": "note-045",
+        "rightBasename": "note-048",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3667934540260737,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-007.md",
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-022.md\",\"note-045.md\"]",
+        "leftPath": "note-022.md",
+        "rightPath": "note-045.md",
+        "leftBasename": "note-022",
+        "rightBasename": "note-045",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.35715927870610004,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-007.md",
+            "note-026.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-027.md\",\"note-031.md\"]",
+        "leftPath": "note-027.md",
+        "rightPath": "note-031.md",
+        "leftBasename": "note-027",
+        "rightBasename": "note-031",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.35440709749185556,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-026.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-014.md\",\"note-033.md\"]",
+        "leftPath": "note-014.md",
+        "rightPath": "note-033.md",
+        "leftBasename": "note-014",
+        "rightBasename": "note-033",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.34684028337990286,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-016.md",
+            "note-041.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-054.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-054.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-054",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.33134717954023174,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-021.md",
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-040.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.513272474520039,
+          "mutualTopK": false,
+          "leftRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-019.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-019.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-019",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.47429181767710243,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-046.md\",\"note-048.md\"]",
+        "leftPath": "note-046.md",
+        "rightPath": "note-048.md",
+        "leftBasename": "note-046",
+        "rightBasename": "note-048",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.461525965033086,
+          "mutualTopK": false,
+          "rightRank": 1,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-056.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-055.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-055.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-055",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.45473617497228447,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-039.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-041.md\",\"note-048.md\"]",
+        "leftPath": "note-041.md",
+        "rightPath": "note-048.md",
+        "leftBasename": "note-041",
+        "rightBasename": "note-048",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.439572225565149,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-007.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-024.md\",\"note-041.md\"]",
+        "leftPath": "note-024.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-024",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.43676483461961396,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-014.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-041.md\",\"note-055.md\"]",
+        "leftPath": "note-041.md",
+        "rightPath": "note-055.md",
+        "leftBasename": "note-041",
+        "rightBasename": "note-055",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.42280496535917067,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-019.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-008.md\",\"note-045.md\"]",
+        "leftPath": "note-008.md",
+        "rightPath": "note-045.md",
+        "leftBasename": "note-008",
+        "rightBasename": "note-045",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4227814008758809,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-007.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-022.md\",\"note-027.md\"]",
+        "leftPath": "note-022.md",
+        "rightPath": "note-027.md",
+        "leftBasename": "note-022",
+        "rightBasename": "note-027",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.39699378487130194,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-026.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-045.md\",\"note-053.md\"]",
+        "leftPath": "note-045.md",
+        "rightPath": "note-053.md",
+        "leftBasename": "note-045",
+        "rightBasename": "note-053",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3911125706427682,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-024.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-016.md\",\"note-041.md\"]",
+        "leftPath": "note-016.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-016",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3899946085583548,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-014.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-026.md\",\"note-034.md\"]",
+        "leftPath": "note-026.md",
+        "rightPath": "note-034.md",
+        "leftBasename": "note-026",
+        "rightBasename": "note-034",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3890308731087932,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-027.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-048.md\",\"note-056.md\"]",
+        "leftPath": "note-048.md",
+        "rightPath": "note-056.md",
+        "leftBasename": "note-048",
+        "rightBasename": "note-056",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3850023586396991,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-008.md\",\"note-053.md\"]",
+        "leftPath": "note-008.md",
+        "rightPath": "note-053.md",
+        "leftBasename": "note-008",
+        "rightBasename": "note-053",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.38353384415867897,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-016.md\",\"note-025.md\"]",
+        "leftPath": "note-016.md",
+        "rightPath": "note-025.md",
+        "leftBasename": "note-016",
+        "rightBasename": "note-025",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.378405262201968,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-014.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-030.md\",\"note-040.md\"]",
+        "leftPath": "note-030.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-030",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3744863008249576,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-046.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-022.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-022.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-022",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.368393793293932,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-045.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-030.md\",\"note-046.md\"]",
+        "leftPath": "note-030.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-030",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.36265584349138424,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-040.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-031.md\",\"note-053.md\"]",
+        "leftPath": "note-031.md",
+        "rightPath": "note-053.md",
+        "leftBasename": "note-031",
+        "rightBasename": "note-053",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3177405149933043,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-030.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-023.md\",\"note-028.md\"]",
+        "leftPath": "note-023.md",
+        "rightPath": "note-028.md",
+        "leftBasename": "note-023",
+        "rightBasename": "note-028",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3103746488595007,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-060.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-028.md\",\"note-060.md\"]",
+        "leftPath": "note-028.md",
+        "rightPath": "note-060.md",
+        "leftBasename": "note-028",
+        "rightBasename": "note-060",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.2955698823335196,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-023.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-028.md\",\"note-063.md\"]",
+        "leftPath": "note-028.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-028",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.2906863749447112,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-048.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-007.md\",\"note-032.md\"]",
+        "leftPath": "note-007.md",
+        "rightPath": "note-032.md",
+        "leftBasename": "note-007",
+        "rightBasename": "note-032",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.28690712967713,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-041.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-029.md\",\"note-032.md\"]",
+        "leftPath": "note-029.md",
+        "rightPath": "note-032.md",
+        "leftBasename": "note-029",
+        "rightBasename": "note-032",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.25360334280308344,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-041.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-029.md\",\"note-041.md\"]",
+        "leftPath": "note-029.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-029",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.2516208410076849,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": [
+            "note-032.md"
+          ]
+        }
+      },
+      {
+        "id": "[\"note-045.md\",\"note-046.md\"]",
+        "leftPath": "note-045.md",
+        "rightPath": "note-046.md",
+        "leftBasename": "note-045",
+        "rightBasename": "note-046",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4789873878964805,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-039.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-039.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-039",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4722626219432416,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-019.md\",\"note-041.md\"]",
+        "leftPath": "note-019.md",
+        "rightPath": "note-041.md",
+        "leftBasename": "note-019",
+        "rightBasename": "note-041",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.47040357651361225,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-027.md\",\"note-040.md\"]",
+        "leftPath": "note-027.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-027",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4497015575844251,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-002.md\",\"note-007.md\"]",
+        "leftPath": "note-002.md",
+        "rightPath": "note-007.md",
+        "leftBasename": "note-002",
+        "rightBasename": "note-007",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4238746159688444,
+          "mutualTopK": false,
+          "leftRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-003.md\",\"note-045.md\"]",
+        "leftPath": "note-003.md",
+        "rightPath": "note-045.md",
+        "leftBasename": "note-003",
+        "rightBasename": "note-045",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4157065709296285,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-001.md\",\"note-049.md\"]",
+        "leftPath": "note-001.md",
+        "rightPath": "note-049.md",
+        "leftBasename": "note-001",
+        "rightBasename": "note-049",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.4028261224480715,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-025.md\",\"note-027.md\"]",
+        "leftPath": "note-025.md",
+        "rightPath": "note-027.md",
+        "leftBasename": "note-025",
+        "rightBasename": "note-027",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3946916514449201,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-031.md\",\"note-040.md\"]",
+        "leftPath": "note-031.md",
+        "rightPath": "note-040.md",
+        "leftBasename": "note-031",
+        "rightBasename": "note-040",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3600987565830091,
+          "mutualTopK": false,
+          "leftRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-025.md\",\"note-063.md\"]",
+        "leftPath": "note-025.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-025",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.35515648048766385,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-028.md\",\"note-048.md\"]",
+        "leftPath": "note-028.md",
+        "rightPath": "note-048.md",
+        "leftBasename": "note-028",
+        "rightBasename": "note-048",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3234484668687169,
+          "mutualTopK": false,
+          "leftRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-045.md\",\"note-054.md\"]",
+        "leftPath": "note-045.md",
+        "rightPath": "note-054.md",
+        "leftBasename": "note-045",
+        "rightBasename": "note-054",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3230748931011957,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-023.md\",\"note-029.md\"]",
+        "leftPath": "note-023.md",
+        "rightPath": "note-029.md",
+        "leftBasename": "note-023",
+        "rightBasename": "note-029",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.32194103676549607,
+          "mutualTopK": false,
+          "rightRank": 2,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-031.md\",\"note-032.md\"]",
+        "leftPath": "note-031.md",
+        "rightPath": "note-032.md",
+        "leftBasename": "note-031",
+        "rightBasename": "note-032",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.30691731353026064,
+          "mutualTopK": false,
+          "rightRank": 3,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-048.md\",\"note-063.md\"]",
+        "leftPath": "note-048.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-048",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.3022129842700901,
+          "mutualTopK": false,
+          "rightRank": 4,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-022.md\",\"note-063.md\"]",
+        "leftPath": "note-022.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-022",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.29298077771732906,
+          "mutualTopK": false,
+          "rightRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-032.md\",\"note-035.md\"]",
+        "leftPath": "note-032.md",
+        "rightPath": "note-035.md",
+        "leftBasename": "note-032",
+        "rightBasename": "note-035",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.28386966039641187,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-029.md\",\"note-063.md\"]",
+        "leftPath": "note-029.md",
+        "rightPath": "note-063.md",
+        "leftBasename": "note-029",
+        "rightBasename": "note-063",
+        "category": "candidate",
+        "semantic": {
+          "score": 0.24778025267258538,
+          "mutualTopK": false,
+          "leftRank": 5,
+          "rankClass": "one-sided-top-5",
+          "sharedNeighborPaths": []
+        }
+      },
+      {
+        "id": "[\"note-022.md\",\"note-054.md\"]",
+        "leftPath": "note-022.md",
+        "rightPath": "note-054.md",
+        "leftBasename": "note-022",
+        "rightBasename": "note-054",
+        "category": "explicit-only",
+        "markdown": {
+          "direction": "right-to-left"
+        }
+      }
+    ]
+  }
+}

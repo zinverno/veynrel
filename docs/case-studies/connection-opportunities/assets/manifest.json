@@ -1,0 +1,56 @@
+[
+  {
+    "file": "01-semantic-map.png",
+    "purpose": "Initial map, before comparison or link action",
+    "sha256": "f23c30cb7da8af4cc8835215627e94bcb1a048c99cc0d62fa865f0d0924691a1",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "masks": [],
+    "hidden": [],
+    "capture": "CDP Page.captureScreenshot, native Electron",
+    "privacy": {
+      "password": false,
+      "suspect": false
+    },
+    "visualReview": "passed",
+    "visualReviewScope": "Agent inspected native capture for correct state, legibility and private data; no masks or synthetic UI."
+  },
+  {
+    "file": "02-candidate-evidence.png",
+    "purpose": "First frozen candidate: ranks, similarity and shared neighbors",
+    "sha256": "4f550ae9c7c130de5b8a062694dd31bf5017f6567e7b6cbd351d26549315a7dc",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "masks": [],
+    "hidden": [],
+    "capture": "CDP Page.captureScreenshot, native Electron",
+    "privacy": {
+      "password": false,
+      "suspect": false
+    },
+    "visualReview": "passed",
+    "visualReviewScope": "Agent inspected native capture for correct state, legibility and private data; no masks or synthetic UI."
+  },
+  {
+    "file": "03-linked-notes-clean.png",
+    "purpose": "New frontmatter cross-reference and both note bodies in real Obsidian",
+    "sha256": "675254f20ac27d712bf3bb7d099e5a5ea19319878ba6a9fd3610fa0027456557",
+    "viewport": {
+      "width": 1600,
+      "height": 1100
+    },
+    "masks": [],
+    "hidden": [],
+    "capture": "CDP Page.captureScreenshot, native Electron",
+    "privacy": {
+      "password": false,
+      "suspect": false
+    },
+    "visualReview": "passed",
+    "visualReviewScope": "Agent inspected native capture for correct state, legibility and private data; no masks or synthetic UI."
+  }
+]

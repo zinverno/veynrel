@@ -1,0 +1,450 @@
+{
+  "source": "Real native Obsidian; synthetic text; cached real embeddings",
+  "screenshots": [
+    {
+      "file": "01-semantic-map.png",
+      "purpose": "Initial map, before comparison or link action",
+      "sha256": "f23c30cb7da8af4cc8835215627e94bcb1a048c99cc0d62fa865f0d0924691a1",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "masks": [],
+      "hidden": [],
+      "capture": "CDP Page.captureScreenshot, native Electron",
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed",
+      "visualReviewScope": "Agent inspected native capture for correct state, legibility and private data; no masks or synthetic UI."
+    },
+    {
+      "file": "02-candidate-evidence.png",
+      "purpose": "First frozen candidate: ranks, similarity and shared neighbors",
+      "sha256": "4f550ae9c7c130de5b8a062694dd31bf5017f6567e7b6cbd351d26549315a7dc",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "masks": [],
+      "hidden": [],
+      "capture": "CDP Page.captureScreenshot, native Electron",
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed",
+      "visualReviewScope": "Agent inspected native capture for correct state, legibility and private data; no masks or synthetic UI."
+    },
+    {
+      "file": "03-linked-notes-clean.png",
+      "purpose": "New frontmatter cross-reference and both note bodies in real Obsidian",
+      "sha256": "675254f20ac27d712bf3bb7d099e5a5ea19319878ba6a9fd3610fa0027456557",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "masks": [],
+      "hidden": [],
+      "capture": "CDP Page.captureScreenshot, native Electron",
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed",
+      "visualReviewScope": "Agent inspected native capture for correct state, legibility and private data; no masks or synthetic UI."
+    }
+  ],
+  "checks": [
+    "passive Discover leaves both owners idle",
+    "native map contains 40 notes",
+    "native metadata and cached vectors match offline comparison",
+    "rank filter mutual-top-3",
+    "rank filter mutual-top-5",
+    "rank filter one-sided-top-5",
+    "path filter shows only matching pairs",
+    "Excalidraw toggle preserves this corpus without such files",
+    "map and comparison read no bodies, create no links and call no embedding provider",
+    "session control useful",
+    "session control not-useful",
+    "session control unsure",
+    "unreviewed filter removes control-test label",
+    "injected missing metadata excludes every incident pair",
+    "stale capture retains review and is labelled stale",
+    "new snapshot clears session reviews",
+    "both notes opened for inspection",
+    "action becomes directed Aligned with identical semantic evidence",
+    "new native property link opens its target",
+    "post-edit indexing uses only exact cached inputs over loopback"
+  ],
+  "humanVerdicts": "Requires human review for all 10; control tests are not quality labels",
+  "environment": {
+    "electron": "43.6.0",
+    "platform": "linux",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.13.7 Chrome/150.0.7871.250 Electron/43.6.0 Safari/537.36",
+    "plugin": "2.1.0"
+  },
+  "artifactSha256": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+  "before": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 144,
+    "candidateCount": 139,
+    "alignedCount": 5,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 27,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 88
+    }
+  },
+  "cohort": [
+    {
+      "id": "[\"note-019.md\",\"note-040.md\"]",
+      "leftPath": "note-019.md",
+      "rightPath": "note-040.md",
+      "leftBasename": "note-019",
+      "rightBasename": "note-040",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7106348067966823,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-021.md",
+          "note-039.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-046.md\",\"note-050.md\"]",
+      "leftPath": "note-046.md",
+      "rightPath": "note-050.md",
+      "leftBasename": "note-046",
+      "rightBasename": "note-050",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6608771900930986,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-039.md",
+          "note-040.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-030.md\",\"note-031.md\"]",
+      "leftPath": "note-030.md",
+      "rightPath": "note-031.md",
+      "leftBasename": "note-030",
+      "rightBasename": "note-031",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6243814120446028,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-026.md",
+          "note-040.md",
+          "note-053.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-039.md\",\"note-040.md\"]",
+      "leftPath": "note-039.md",
+      "rightPath": "note-040.md",
+      "leftBasename": "note-039",
+      "rightBasename": "note-040",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6235598647005588,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-038.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-034.md\",\"note-035.md\"]",
+      "leftPath": "note-034.md",
+      "rightPath": "note-035.md",
+      "leftBasename": "note-034",
+      "rightBasename": "note-035",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6197256257546118,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-001.md",
+          "note-002.md",
+          "note-027.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-007.md\",\"note-008.md\"]",
+      "leftPath": "note-007.md",
+      "rightPath": "note-008.md",
+      "leftBasename": "note-007",
+      "rightBasename": "note-008",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.5077886689615058,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-040.md",
+          "note-045.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-021.md\",\"note-038.md\"]",
+      "leftPath": "note-021.md",
+      "rightPath": "note-038.md",
+      "leftBasename": "note-021",
+      "rightBasename": "note-038",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.4862896020781978,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-039.md",
+          "note-040.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-050.md\",\"note-060.md\"]",
+      "leftPath": "note-050.md",
+      "rightPath": "note-060.md",
+      "leftBasename": "note-050",
+      "rightBasename": "note-060",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.4679310240685034,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-040.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-045.md\",\"note-049.md\"]",
+      "leftPath": "note-045.md",
+      "rightPath": "note-049.md",
+      "leftBasename": "note-045",
+      "rightBasename": "note-049",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6557699436987354,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-024.md",
+          "note-026.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-040.md\",\"note-046.md\"]",
+      "leftPath": "note-040.md",
+      "rightPath": "note-046.md",
+      "leftBasename": "note-040",
+      "rightBasename": "note-046",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6237120539198778,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-039.md"
+        ]
+      }
+    }
+  ],
+  "topologyEdges": [
+    {
+      "source": "note-001.md",
+      "target": "note-002.md"
+    },
+    {
+      "source": "note-014.md",
+      "target": "note-015.md"
+    },
+    {
+      "source": "note-022.md",
+      "target": "note-026.md"
+    },
+    {
+      "source": "note-028.md",
+      "target": "note-029.md"
+    },
+    {
+      "source": "note-038.md",
+      "target": "note-039.md"
+    },
+    {
+      "source": "note-039.md",
+      "target": "note-038.md"
+    },
+    {
+      "source": "note-054.md",
+      "target": "note-022.md"
+    }
+  ],
+  "inspectorText": "Candidates\n\nnote-019\n\nnote-019.md\n\nnote-040\n\nnote-040.md\n\nSemantic relationship\n\nSimilarity 0.711\n\nnote-019: the other note ranks 1 in its top-5\n\nnote-040: the other note ranks 1 in its top-5\n\nShared semantic neighbors: 3\n\nnote-021\nnote-039\nnote-046\n\nMutual top-3\n\nMarkdown relationship\n\nNo Markdown link\n\nYour reviews this session\nUseful\nNot useful\nUnsure\nClear review\nOpen pair side by side\nOpen left note\nExplore left neighborhood\nOpen right note\nExplore right neighborhood",
+  "passiveIO": {
+    "embed": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "write": 0
+  },
+  "injectedMissingMetadata": {
+    "path": "note-019.md",
+    "counts": {
+      "semanticMappedNoteCount": 40,
+      "topologyNoteCount": 40,
+      "comparableNoteCount": 39,
+      "semanticNotesMissingTopologyCount": 0,
+      "semanticNotesUnavailableLinksCount": 1,
+      "semanticPairCount": 144,
+      "candidateCount": 124,
+      "alignedCount": 5,
+      "explicitOnlyCount": 1,
+      "unclassifiedSemanticPairCount": 15,
+      "explicitOutsideSemanticMapCount": 0,
+      "unclassifiedExplicitPairCount": 0,
+      "ranks": {
+        "mutual-top-3": 24,
+        "mutual-top-5": 22,
+        "one-sided-top-5": 78
+      }
+    }
+  },
+  "sideBySide": [
+    "note-019.md",
+    "note-040.md"
+  ],
+  "after": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 144,
+    "candidateCount": 138,
+    "alignedCount": 6,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 26,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 88
+    }
+  },
+  "action": {
+    "pair": "[\"note-019.md\",\"note-040.md\"]",
+    "method": "Investigator via Obsidian processFrontMatter",
+    "from": "note-019.md",
+    "to": "note-040.md",
+    "before": {
+      "id": "[\"note-019.md\",\"note-040.md\"]",
+      "leftPath": "note-019.md",
+      "rightPath": "note-040.md",
+      "leftBasename": "note-019",
+      "rightBasename": "note-040",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7106348067966823,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-021.md",
+          "note-039.md",
+          "note-046.md"
+        ]
+      }
+    },
+    "after": {
+      "id": "[\"note-019.md\",\"note-040.md\"]",
+      "leftPath": "note-019.md",
+      "rightPath": "note-040.md",
+      "leftBasename": "note-019",
+      "rightBasename": "note-040",
+      "category": "aligned",
+      "semantic": {
+        "score": 0.7106348067966823,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-021.md",
+          "note-039.md",
+          "note-046.md"
+        ]
+      },
+      "markdown": {
+        "direction": "left-to-right"
+      }
+    }
+  },
+  "changedFiles": [
+    "note-019.md"
+  ],
+  "afterMarkdown": "---\nsynthetic: true\nrelated:\n  - \"[[note-040]]\"\n---\n# Local snapshots that survive a mistaken deletion\n\nKeep dated backup generations on a separate local disk. A snapshot tool can hard-link unchanged files while preserving older directory trees; deleting a source file must not remove its prior generations. Retention removes old snapshots only according to an explicit schedule.\n\nA synchronized mirror usually propagates deletions, so it cannot by itself recover yesterday's accidentally removed file. Verify a restore into another folder and disconnect the backup disk after the job. Hard links save space only for unchanged content; editing files in a snapshot in place can damage shared data. Treat completed generations as immutable.\n",
+  "finalEmbeddingCalls": 1,
+  "localReplayRequests": [
+    [
+      "519746a2a3d0745c88121b3119e807c8b9dcdaddd26ed12e34c2dd35990b3451"
+    ]
+  ],
+  "rejectedLocalRequests": []
+}

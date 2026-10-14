@@ -1,0 +1,301 @@
+{
+  "protocolSha256": "30fa99ba64b6312c9d1a87a75b95a6cb7ea62de41ae25b87a384095beaa92b88",
+  "corpusSha256": {
+    "note-001.md": "9f3d63fc215ac891d3e715fcc39c7be0bf4998277d1cf0d2b0559ee791e094f7",
+    "note-002.md": "4aa80c37bd5ccc9aa1b8c623f013e555f46696a1668946213315c5f403bb2f8d",
+    "note-003.md": "08391ceae9e2c810a4aaf9057fb558b08cc41bbc9d92d347ff5f4137ac0be393",
+    "note-007.md": "df172b9e456e207f687a94b9090cf9d887c77d0df8815d6d3e16f74aeee25b6f",
+    "note-008.md": "bae75285cb2ff1c09757231fb728b9c15f893d8ac006fad08948bc76c5afa584",
+    "note-014.md": "fefffbdf462250cc917cc9b46e1cb528a8be397a4770fb0eb01c6b8b8b443be7",
+    "note-015.md": "e1e655459d4ee74945c1701217e77c9c47fe612ab7fcb30616e92941eeca8dd6",
+    "note-016.md": "1bff2020c35f292896b81bd58776b2935ee2c24890189fd4f823c3296d7870e9",
+    "note-019.md": "6e0efc096899c093beda24a11b35a2a4970ebc20f91e1b6f6d5b7ba61c939137",
+    "note-020.md": "3686f311491844ea2264222f61412bebd54ff8177f31742fe3ad959e55b246c6",
+    "note-021.md": "9a2c65ed926ba4f060c61e28db0bedf55a6de059529c28e8e2254238a8cf0106",
+    "note-022.md": "7fda13ca16392daa057eaf64dd6be062d9475bf84b228bafa064a63902184718",
+    "note-023.md": "33e99badfe43656dc1cc015bf2ca0798a2292460403d77eb1790f01d6af227d8",
+    "note-024.md": "2080faf57cd3a4be2aa9ab67899cb3c3c9fecb5e19b725908fb80f1f63de15e3",
+    "note-025.md": "66542585f92424f97392f208a6f8a93ebe0b913c648ac70e17dd9b9aded29c66",
+    "note-026.md": "b2e363503ff2d6b5fb0cd1f57ca6d6dc6b8880250a3cee9ac10e4d32f0439788",
+    "note-027.md": "6b2f6a54910cdf8201014bd4035b14992c80153f0728792fc8fd81fcdd6a5846",
+    "note-028.md": "a9fad499e224079acc1ad5c83bdfec1253fee99c24e2c958850fa1ef604e11c7",
+    "note-029.md": "b308e32f4fa2968caa0bd71de4ec9adcac92031ab88b8d3f65686ae184e3e876",
+    "note-030.md": "bcbf593a7cfa2cb3d14161456f74557f473fbdafe5a83f1a73642e2dce19588d",
+    "note-031.md": "37ed575d6d4fecc83c2680cdec10b17aaf52ed0453b6583f742c25468179b4b4",
+    "note-032.md": "bc6f85b5772e0f137cd26046bfb5b83ffc51539c0c90fabf67cb013514133305",
+    "note-033.md": "c2cca7b05dd68e85dce6ee1594c6595e831c9c5bda116a6492504b715f1572df",
+    "note-034.md": "c1eb33f5802b489356b3dfbbe9a7995d19aa117bb2d30025f613e3aa2d84fc88",
+    "note-035.md": "f0e17e10b23aa872fd9fa61e8de3fe461b121cf57d0ae0750be5f62d5e8275e8",
+    "note-038.md": "f6052230f83ebd9945e44c46f5a7263d77229883f673690d116c7aae8d880371",
+    "note-039.md": "38c62e86f583cbfe865b5a90ef7f29587fc481a4a1844a78bcb7f0bb86a356d4",
+    "note-040.md": "0973452bf6805ab7a09fa134bb0767732f6191929a58e87373d3d93f00ed1801",
+    "note-041.md": "df9895a67a6f89d4718bd36e64606df9117f54a018825fcf973749263ad7d511",
+    "note-045.md": "7cebd908e4e1e51f8fecd086e15771767215ad8898045e2bc805a0e8175e9cbd",
+    "note-046.md": "d8579ff673a6733a6f73930b9354f124f597b4145c4cacfe65d51cf622844045",
+    "note-048.md": "70166ce5f0113dac3a56bf4b167c04afcf88041cf324a2e41d5d7f1a9c5b7aad",
+    "note-049.md": "e5e208b84cba2686eea96862cc5a4e1f34f5de75eb5556c040603bcd94ffc1dd",
+    "note-050.md": "a075f31b20f7adc4f33ffaf0edbcd52a9075a3094e2a77670e502c13555906be",
+    "note-053.md": "0bc6da90751a8dbabaa396d769243f61ded0d782a3ef91d10c6da1764f2d4602",
+    "note-054.md": "7511ce165e0e788b0e8754abf2f12d5044a8de63ff82b9cb4d4fbf6433ee85c9",
+    "note-055.md": "c41374b399a106bb17a5c0376e2e3e817f290decb4e87b25cac6ec74deeafb77",
+    "note-056.md": "114c1223cd44fdd90313bc4f506a438ddc9009b8984f4a331152cafdbd7bff44",
+    "note-060.md": "683426f22f4c4648f2c936368469adca59ea433a8f2b0097be18b14de617e306",
+    "note-063.md": "8240af5de78ce25f3869d8d30b0666ceb5454214e811b0cc8ab06b5f2f65e672"
+  },
+  "notes": 40,
+  "chunks": 52,
+  "replayed": 52,
+  "indexingResult": {
+    "mode": "reconcile",
+    "documentsSeen": 40,
+    "documentsChanged": 40,
+    "documentsUnchanged": 0,
+    "documentsDeleted": 0,
+    "chunksSeen": 52,
+    "chunksEmbedded": 52,
+    "chunksDeleted": 0,
+    "generationBefore": 0,
+    "generationAfter": 1
+  },
+  "counts": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 144,
+    "candidateCount": 139,
+    "alignedCount": 5,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 27,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 88
+    }
+  },
+  "cohort": [
+    {
+      "id": "[\"note-019.md\",\"note-040.md\"]",
+      "leftPath": "note-019.md",
+      "rightPath": "note-040.md",
+      "leftBasename": "note-019",
+      "rightBasename": "note-040",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7106348067966823,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-021.md",
+          "note-039.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-046.md\",\"note-050.md\"]",
+      "leftPath": "note-046.md",
+      "rightPath": "note-050.md",
+      "leftBasename": "note-046",
+      "rightBasename": "note-050",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6608771900930986,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-039.md",
+          "note-040.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-030.md\",\"note-031.md\"]",
+      "leftPath": "note-030.md",
+      "rightPath": "note-031.md",
+      "leftBasename": "note-030",
+      "rightBasename": "note-031",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6243814120446028,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-026.md",
+          "note-040.md",
+          "note-053.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-039.md\",\"note-040.md\"]",
+      "leftPath": "note-039.md",
+      "rightPath": "note-040.md",
+      "leftBasename": "note-039",
+      "rightBasename": "note-040",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6235598647005588,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-038.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-034.md\",\"note-035.md\"]",
+      "leftPath": "note-034.md",
+      "rightPath": "note-035.md",
+      "leftBasename": "note-034",
+      "rightBasename": "note-035",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6197256257546118,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-001.md",
+          "note-002.md",
+          "note-027.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-007.md\",\"note-008.md\"]",
+      "leftPath": "note-007.md",
+      "rightPath": "note-008.md",
+      "leftBasename": "note-007",
+      "rightBasename": "note-008",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.5077886689615058,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-040.md",
+          "note-045.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-021.md\",\"note-038.md\"]",
+      "leftPath": "note-021.md",
+      "rightPath": "note-038.md",
+      "leftBasename": "note-021",
+      "rightBasename": "note-038",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.4862896020781978,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-039.md",
+          "note-040.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-050.md\",\"note-060.md\"]",
+      "leftPath": "note-050.md",
+      "rightPath": "note-060.md",
+      "leftBasename": "note-050",
+      "rightBasename": "note-060",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.4679310240685034,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-040.md",
+          "note-046.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-045.md\",\"note-049.md\"]",
+      "leftPath": "note-045.md",
+      "rightPath": "note-049.md",
+      "leftBasename": "note-045",
+      "rightBasename": "note-049",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6557699436987354,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-024.md",
+          "note-026.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"note-040.md\",\"note-046.md\"]",
+      "leftPath": "note-040.md",
+      "rightPath": "note-046.md",
+      "leftBasename": "note-040",
+      "rightBasename": "note-046",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.6237120539198778,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "note-019.md",
+          "note-039.md"
+        ]
+      }
+    }
+  ],
+  "missingMetadata": {
+    "path": "note-019.md",
+    "counts": {
+      "semanticMappedNoteCount": 40,
+      "topologyNoteCount": 40,
+      "comparableNoteCount": 39,
+      "semanticNotesMissingTopologyCount": 0,
+      "semanticNotesUnavailableLinksCount": 1,
+      "semanticPairCount": 144,
+      "candidateCount": 124,
+      "alignedCount": 5,
+      "explicitOnlyCount": 1,
+      "unclassifiedSemanticPairCount": 15,
+      "explicitOutsideSemanticMapCount": 0,
+      "unclassifiedExplicitPairCount": 0,
+      "ranks": {
+        "mutual-top-3": 24,
+        "mutual-top-5": 22,
+        "one-sided-top-5": 78
+      }
+    }
+  }
+}
