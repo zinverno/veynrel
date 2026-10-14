@@ -42,7 +42,7 @@ manifest={'model':'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',
  'defaultMaxSeqLength':128,'maxSeqLength':512,'normalization':'L2','pooling':'attention-mask mean, model packaged configuration',
  'batchSize':8,'torchThreads':4,'maxInputTokens':max(lengths),'inputsOverDefault128':sum(x>128 for x in lengths),'truncatedInputs':0,
  'probe':{'texts':probe,'relatedCosine':probe_scores[0],'unrelatedCosine':probe_scores[1],'scope':'one Russian smoke probe; not a quality benchmark'},
- 'repeatMaxAbsoluteError':repeat_error,'encodingSeconds':elapsed,'externalRequests':0,'modelDownloads':0,
+ 'repeatMaxAbsoluteError':repeat_error,'encodingSeconds':elapsed,'networkPolicy':'HF_HUB_OFFLINE=1; TRANSFORMERS_OFFLINE=1; local_files_only=True; no HTTP in script','downloadPolicy':'disabled; existing snapshot only',
  'python':platform.python_version(),'packages':{n:importlib.metadata.version(n) for n in ['torch','transformers','sentence-transformers','numpy','safetensors','tokenizers']},
  'compressedSha256':sha(packed),'float32Sha256':sha(raw),'format':'gzip of row-major little-endian float32',
  'inputs':[{'path':c['path'],'ordinal':c['ordinal'],'sha256':sha(c['text'].encode()),'inputTokens':lengths[i]} for i,c in enumerate(data['chunks'])]}

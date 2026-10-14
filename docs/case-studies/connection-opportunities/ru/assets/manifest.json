@@ -1,0 +1,39 @@
+{
+  "screenshots": [
+    {
+      "file": "01-russian-map.png",
+      "purpose": "Russian map with 40 notes, before any link action",
+      "sha256": "a9867cd7f8bb300caaa5ba81fc5d25eddc4a883776aa54a0e8c6d394454cb48b",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed"
+    },
+    {
+      "file": "02-russian-candidate.png",
+      "purpose": "First frozen Candidate, ranks, similarity and shared neighbors; unreviewed",
+      "sha256": "eee5e4a89f6fb01f780dfa07e1ef482a8c83eed700062779478135350b3226e7",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed"
+    }
+  ],
+  "thirdScreenshot": "Not produced: no author-approved action yet"
+}

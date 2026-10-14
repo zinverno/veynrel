@@ -81,7 +81,33 @@ node scripts/connection-case-study-ru.mjs prepare /tmp/veynrel-ru-repeat
 отдельно; скрипт не перезаписывает опубликованные векторы. Численная идентичность
 на другом оборудовании не обещается; эталон — сохранённый float32.
 
-Native-процедура и фактический статус будут записаны после запуска. До этого
-вычислительные проверки не являются испытанием в Obsidian. Пользовательские
-verdicts в самом Veynrel существуют только в сессии и очищаются новым snapshot;
-плагин не создаёт ссылок автоматически.
+## Native-воспроизведение, Linux
+
+После `prepare`, в графической сессии с доступом к DISPLAY и XAUTHORITY:
+
+```sh
+/usr/bin/electron43 /usr/lib/obsidian/app.asar \
+  --user-data-dir=/tmp/veynrel-ru-repeat/profile \
+  --remote-debugging-port=19644 --remote-debugging-address=127.0.0.1 \
+  --disable-gpu --ozone-platform=x11 --no-sandbox \
+  --proxy-server=http://127.0.0.1:9 --proxy-bypass-list='127.0.0.1;localhost'
+# Во втором терминале, после появления окна:
+node scripts/connection-case-study-ru-native.mjs http://127.0.0.1:19644 /tmp/veynrel-ru-repeat
+```
+
+Это точный вариант текущего Linux-окружения, не универсальная команда установки
+Obsidian. Применять только к созданному скриптом синтетическому профилю;
+нельзя направлять CDP-сценарий на личный vault. Оба localhost-порта должны быть
+свободны. На других системах нужен соответствующий исполняемый файл Obsidian.
+
+Скрипт проверяет путь vault, ключи, модель и совпадение Markdown-хешей. Он
+загружает индекс и реальные metadata Obsidian, сохраняет native.json и два PNG,
+не создаёт ссылок и не выставляет verdicts. Каждый запуск — новый каталог.
+Старые снимки не перезаписываются; новые нужно просмотреть перед публикацией.
+Контролируемое скрытие metadata восстанавливается в finally даже при ошибке.
+
+Текущий прогон: Obsidian 1.13.7, Electron 43.6.0, Veynrel 2.1.0, Linux;
+SHA-256 main.js `b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c`.
+Новая семантика рассчитана Python, native-прогон **загрузил** полученный индекс.
+Пользовательские verdicts в Veynrel существуют только в сессии и очищаются
+новым snapshot; плагин не создаёт ссылок автоматически.

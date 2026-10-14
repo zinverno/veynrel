@@ -1,0 +1,299 @@
+{
+  "protocolSha256": "eb93d9e5a41f2a38fba43a506b780f007bc39cd570872efad103038edab29c09",
+  "corpusSha256": {
+    "001 - После сбоя все клиенты приходят одновременно.md": "55234e52529be9a64942de66409897e3216fc44e73c77f8b119913596ee6bdd5",
+    "002 - Для одного загрузчика хватит простого backoff.md": "a0444b381a17754bad1dd7249b2a2568e46db2a4545d817733ad9ebd9871b0ec",
+    "003 - Очередь на GPU три разных ограничения.md": "3021b187bbcd14e02abc5a37cb0e2bf11d80a907b30f6d482bcc1ceb2b6fc9f5",
+    "007 - Что сохранять между эпохами.md": "92d9ef936361296c34719ba634fc715e9bf32de10c27aa81f42d592c9b2c52f2",
+    "008 - Кеш признаков — сохранять или пересчитывать.md": "864c4c2b286db266b2203ec4b4f9f8aea53052c48d66df72037092c43e7975c7",
+    "014 - Журнал экспериментов на SQLite чтение во время записи.md": "49d8fb6ccc6b4b1e4f213b3f3bb32396ed6d4ab041ab57bd31d81359a049b063",
+    "015 - Удалили старые метрики, а SQLite не уменьшилась.md": "d0562e20dc7428c366285118b7ed2e7e459f3cadb03c5469ef73bcbf917673fb",
+    "016 - Индекс для списка запусков в PostgreSQL.md": "a655fed7b4061e2b3032e8d8f0301125e0984645ee20e1643d9a9e0ed6728876",
+    "019 - На каком датасете это обучалось.md": "d12c88b3f8b88f0b64a8730656064a1026cd605db8047144f8c41fbed97783a1",
+    "020 - Синхронизация рабочей папки с разметкой.md": "3d1dff04d2a579d928eddd99d0426774eb2c16e1e402cb7c69071a217b644e0c",
+    "021 - Выносить историю артефактов в объектное хранилище.md": "e5564d88faf5e3be67a7f296dd269b5af8e8ec25f2c9a219e299a8c0f61851c6",
+    "022 - Повтор запроса не должен запускать второе обучение.md": "9b0e43ff00c76c903a7108fb17a9e420deab250bfb485d88e13501c53272b0dd",
+    "023 - Один blob для одинаковых весов.md": "ae8473386b41be1dffa2c1a726b681fbad6c0c15720c5971e1b1d6d4900b4bb2",
+    "024 - Два человека правят конфиг эксперимента.md": "9e5787e258c3d9311c2b1cec343cfb5ce8a71da559de3229b60d3e825542ec3f",
+    "025 - Короткое решение под блокировкой строки.md": "b194b27cae51a21788cafb237ba78c45d2b514c572c36f8535807bcef0b7d353",
+    "026 - Запуск отправлен, ответ потерялся.md": "f284b97eefd40f1f5eef8c9743c6271ec094b8a54704f6e43856c4c7046d96e2",
+    "027 - «Временная ошибка» ещё не разрешение повторить запись.md": "4b90f888799c52fab4ff1d1706ee98823ba5b88f546f0d1bdd060221da854fba",
+    "028 - Найти ровно E_CONN_42.md": "6c1ef87e74e1052a5bf7bd9351730c26ba4fd8dc655582f5ace89bca69911742",
+    "029 - Поиск по смыслу и граница reranker.md": "0200608058e4fe4ca0ecbd58df657c0ac58d91a757382b5713ec7aa1cf084a4d",
+    "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md": "8d5b2b678ffd0646dd46eb4e8b78f1fc20f9e4d9d5b3264650f5be1cdeb708d7",
+    "031 - Срок жизни DNS-ответа.md": "dfef62459c3c432d09dfaed671f28dd84be685d2ff030ea6ecc2d84f3f2577af",
+    "032 - Список запусков растёт между страницами.md": "efa17cd6d6eba257227fbfe74bec1bf3545c2e6baf115bb6ef5e4a5524571a21",
+    "033 - Номера страниц всё ещё бывают удобны.md": "02813b500f6bc1277c797199e819acc0d5e3a4082f21eca93864b045871056dd",
+    "034 - Несколько загрузок артефактов в одном соединении.md": "162c941cd601dffd05a849902e5e2f04f518988bd9a578e2da8bd656bcb79f96",
+    "035 - Что дают отдельные потоки QUIC.md": "933e088978eece0543770e01b20c48abdaeebe9234b29e05bab238d3c2687174",
+    "038 - Копия зашифрована. Получится её открыть.md": "1e67dbc98a332ef1363fc8b42df1c29a002d0105823ed5d39a120579032e8b3e",
+    "039 - Попробовать восстановить один старый запуск.md": "352acb48a2631a05262450abd0962736eaef8b5b4b90b3694f9119c994e2d632",
+    "040 - Реестр моделей и файлы моделей — что потеряется вместе.md": "f75b0f15a559199a91799291b946e6e12d3012ed239816b9a7cc205c1958c8f5",
+    "041 - Выгрузить датасет порциями и не смешать версии.md": "5379090e5ddb3a63266baaf0232c2b071d69eb2e13ff065589b13cf1bcfbd085",
+    "045 - Lease истёк, а воркер вернулся.md": "a4fbcb90ef895b4c68d74acc7f5e8e8acb34e6a9bdcc1f992e018fcc03238bdb",
+    "046 - Индекс датасета решил, что все файлы удалены.md": "6db1aafa7aa74454ad3793a479fca2f15390d6cefcc71488c99144b6f25c2fac",
+    "048 - CSV с разметкой где испортить данные ещё до обучения.md": "7be1756b2b93d295e3aa026b89ea6b7fb41a6e60599c5c40d42c798f28d8f45d",
+    "049 - Как выбрать единственный планировщик.md": "9767c056a9d0a54f6fbae21de8eb11ceb3713ac1f231d34cc03ea32ba55a9bc4",
+    "050 - Подключить ещё один диск для данных.md": "06b9348a7060c8c55ed8c69c62387d9993411cc96a215719a3a5d08a4d10b47b",
+    "053 - Старый расчёт перезаписал свежий кеш.md": "2637bff8018a303612b3369ff2bd738c8bc73f85422d9e67170c3ab234103301",
+    "054 - Ключ провайдера не должен попасть в конфиг запуска.md": "4985f3c5b96e12ed9e1ad4bb9b01c1740c0cd541ba9837c230983e122902291c",
+    "055 - Восстановить статус экспериментов из журнала.md": "b7e57d32a55082a3e2ab15972e6dcedca17d2408cd429790f317f1cdb31d7dcc",
+    "056 - Упаковать набор изображений для передачи.md": "c9dd9adb817004f35cca3e72fa9eb9e33371cdbd9fa4f34ab4241f9b1cb80331",
+    "060 - Ссылка на файл не создаёт вторую копию.md": "cf628456c26ad7a6d5fc376581d0c31e554682119f5d7c2b2c3c29b1107f82cb",
+    "063 - После JOIN примеров стало больше.md": "ae7b3fc354b9c1c29c7d890bfcafb2a0da76cc7e955b0de9a8b073ed694a5f02"
+  },
+  "notes": 40,
+  "chunks": 50,
+  "replayed": 50,
+  "indexingResult": {
+    "mode": "reconcile",
+    "documentsSeen": 40,
+    "documentsChanged": 40,
+    "documentsUnchanged": 0,
+    "documentsDeleted": 0,
+    "chunksSeen": 50,
+    "chunksEmbedded": 50,
+    "chunksDeleted": 0,
+    "generationBefore": 0,
+    "generationAfter": 1
+  },
+  "counts": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 148,
+    "candidateCount": 143,
+    "alignedCount": 5,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 23,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 96
+    }
+  },
+  "cohort": [
+    {
+      "id": "[\"019 - На каком датасете это обучалось.md\",\"040 - Реестр моделей и файлы моделей — что потеряется вместе.md\"]",
+      "leftPath": "019 - На каком датасете это обучалось.md",
+      "rightPath": "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+      "leftBasename": "019 - На каком датасете это обучалось",
+      "rightBasename": "040 - Реестр моделей и файлы моделей — что потеряется вместе",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.858510006811757,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "007 - Что сохранять между эпохами.md",
+          "008 - Кеш признаков — сохранять или пересчитывать.md",
+          "039 - Попробовать восстановить один старый запуск.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"007 - Что сохранять между эпохами.md\",\"008 - Кеш признаков — сохранять или пересчитывать.md\"]",
+      "leftPath": "007 - Что сохранять между эпохами.md",
+      "rightPath": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "leftBasename": "007 - Что сохранять между эпохами",
+      "rightBasename": "008 - Кеш признаков — сохранять или пересчитывать",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7886907668594492,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "019 - На каком датасете это обучалось.md",
+          "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+          "045 - Lease истёк, а воркер вернулся.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"001 - После сбоя все клиенты приходят одновременно.md\",\"003 - Очередь на GPU три разных ограничения.md\"]",
+      "leftPath": "001 - После сбоя все клиенты приходят одновременно.md",
+      "rightPath": "003 - Очередь на GPU три разных ограничения.md",
+      "leftBasename": "001 - После сбоя все клиенты приходят одновременно",
+      "rightBasename": "003 - Очередь на GPU три разных ограничения",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7512757028957021,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "002 - Для одного загрузчика хватит простого backoff.md",
+          "007 - Что сохранять между эпохами.md",
+          "025 - Короткое решение под блокировкой строки.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"046 - Индекс датасета решил, что все файлы удалены.md\",\"056 - Упаковать набор изображений для передачи.md\"]",
+      "leftPath": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "rightPath": "056 - Упаковать набор изображений для передачи.md",
+      "leftBasename": "046 - Индекс датасета решил, что все файлы удалены",
+      "rightBasename": "056 - Упаковать набор изображений для передачи",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7418721346599971,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "019 - На каком датасете это обучалось.md",
+          "038 - Копия зашифрована. Получится её открыть.md",
+          "050 - Подключить ещё один диск для данных.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"025 - Короткое решение под блокировкой строки.md\",\"049 - Как выбрать единственный планировщик.md\"]",
+      "leftPath": "025 - Короткое решение под блокировкой строки.md",
+      "rightPath": "049 - Как выбрать единственный планировщик.md",
+      "leftBasename": "025 - Короткое решение под блокировкой строки",
+      "rightBasename": "049 - Как выбрать единственный планировщик",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7264779224439417,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "024 - Два человека правят конфиг эксперимента.md",
+          "027 - «Временная ошибка» ещё не разрешение повторить запись.md",
+          "045 - Lease истёк, а воркер вернулся.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"002 - Для одного загрузчика хватит простого backoff.md\",\"003 - Очередь на GPU три разных ограничения.md\"]",
+      "leftPath": "002 - Для одного загрузчика хватит простого backoff.md",
+      "rightPath": "003 - Очередь на GPU три разных ограничения.md",
+      "leftBasename": "002 - Для одного загрузчика хватит простого backoff",
+      "rightBasename": "003 - Очередь на GPU три разных ограничения",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7226840552231008,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "001 - После сбоя все клиенты приходят одновременно.md",
+          "007 - Что сохранять между эпохами.md",
+          "025 - Короткое решение под блокировкой строки.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md\",\"031 - Срок жизни DNS-ответа.md\"]",
+      "leftPath": "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md",
+      "rightPath": "031 - Срок жизни DNS-ответа.md",
+      "leftBasename": "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN",
+      "rightBasename": "031 - Срок жизни DNS-ответа",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.8541915267666234,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "027 - «Временная ошибка» ещё не разрешение повторить запись.md",
+          "053 - Старый расчёт перезаписал свежий кеш.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"034 - Несколько загрузок артефактов в одном соединении.md\",\"035 - Что дают отдельные потоки QUIC.md\"]",
+      "leftPath": "034 - Несколько загрузок артефактов в одном соединении.md",
+      "rightPath": "035 - Что дают отдельные потоки QUIC.md",
+      "leftBasename": "034 - Несколько загрузок артефактов в одном соединении",
+      "rightBasename": "035 - Что дают отдельные потоки QUIC",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.832481605021819,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "001 - После сбоя все клиенты приходят одновременно.md",
+          "053 - Старый расчёт перезаписал свежий кеш.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"008 - Кеш признаков — сохранять или пересчитывать.md\",\"040 - Реестр моделей и файлы моделей — что потеряется вместе.md\"]",
+      "leftPath": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "rightPath": "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+      "leftBasename": "008 - Кеш признаков — сохранять или пересчитывать",
+      "rightBasename": "040 - Реестр моделей и файлы моделей — что потеряется вместе",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.8268396892314868,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "007 - Что сохранять между эпохами.md",
+          "019 - На каком датасете это обучалось.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"008 - Кеш признаков — сохранять или пересчитывать.md\",\"019 - На каком датасете это обучалось.md\"]",
+      "leftPath": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "rightPath": "019 - На каком датасете это обучалось.md",
+      "leftBasename": "008 - Кеш признаков — сохранять или пересчитывать",
+      "rightBasename": "019 - На каком датасете это обучалось",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7895465004212253,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "007 - Что сохранять между эпохами.md",
+          "040 - Реестр моделей и файлы моделей — что потеряется вместе.md"
+        ]
+      }
+    }
+  ],
+  "missingMetadata": {
+    "path": "019 - На каком датасете это обучалось.md",
+    "counts": {
+      "semanticMappedNoteCount": 40,
+      "topologyNoteCount": 40,
+      "comparableNoteCount": 39,
+      "semanticNotesMissingTopologyCount": 0,
+      "semanticNotesUnavailableLinksCount": 1,
+      "semanticPairCount": 148,
+      "candidateCount": 128,
+      "alignedCount": 5,
+      "explicitOnlyCount": 1,
+      "unclassifiedSemanticPairCount": 15,
+      "explicitOutsideSemanticMapCount": 0,
+      "unclassifiedExplicitPairCount": 0,
+      "ranks": {
+        "mutual-top-3": 20,
+        "mutual-top-5": 22,
+        "one-sided-top-5": 86
+      }
+    }
+  }
+}

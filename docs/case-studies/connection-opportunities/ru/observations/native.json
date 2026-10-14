@@ -1,0 +1,349 @@
+{
+  "source": "Native Obsidian, Russian synthetic corpus, newly computed local MiniLM vectors",
+  "checks": [
+    "passive Discover leaves owners idle",
+    "40 notes in native Global Map",
+    "all native pairs, ranks, shared neighbors and counts match offline",
+    "category aligned",
+    "category explicit-only",
+    "category candidate",
+    "rank filter mutual-top-3",
+    "rank filter mutual-top-5",
+    "rank filter one-sided-top-5",
+    "search filters selected path prefix",
+    "Excalidraw filter preserves this corpus",
+    "passive map/comparison: zero body reads, provider calls and Markdown writes",
+    "missing metadata remains unclassified",
+    "metadata restoration restores counts",
+    "both notes opened for reading",
+    "no human verdict assigned",
+    "all 40 Markdown files unchanged"
+  ],
+  "screenshots": [
+    {
+      "file": "01-russian-map.png",
+      "purpose": "Russian map with 40 notes, before any link action",
+      "sha256": "a9867cd7f8bb300caaa5ba81fc5d25eddc4a883776aa54a0e8c6d394454cb48b",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed"
+    },
+    {
+      "file": "02-russian-candidate.png",
+      "purpose": "First frozen Candidate, ranks, similarity and shared neighbors; unreviewed",
+      "sha256": "eee5e4a89f6fb01f780dfa07e1ef482a8c83eed700062779478135350b3226e7",
+      "viewport": {
+        "width": 1600,
+        "height": 1100
+      },
+      "capture": "Native Electron CDP",
+      "masks": [],
+      "hidden": [],
+      "privacy": {
+        "password": false,
+        "suspect": false
+      },
+      "visualReview": "passed"
+    }
+  ],
+  "humanReview": "Not collected; no verdict controls used",
+  "action": "Not performed; waiting for author",
+  "environment": {
+    "electron": "43.6.0",
+    "platform": "linux",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.13.7 Chrome/150.0.7871.250 Electron/43.6.0 Safari/537.36",
+    "plugin": "2.1.0"
+  },
+  "artifactSha256": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c",
+  "counts": {
+    "semanticMappedNoteCount": 40,
+    "topologyNoteCount": 40,
+    "comparableNoteCount": 40,
+    "semanticNotesMissingTopologyCount": 0,
+    "semanticNotesUnavailableLinksCount": 0,
+    "semanticPairCount": 148,
+    "candidateCount": 143,
+    "alignedCount": 5,
+    "explicitOnlyCount": 1,
+    "unclassifiedSemanticPairCount": 0,
+    "explicitOutsideSemanticMapCount": 0,
+    "unclassifiedExplicitPairCount": 0,
+    "ranks": {
+      "mutual-top-3": 23,
+      "mutual-top-5": 24,
+      "one-sided-top-5": 96
+    }
+  },
+  "cohort": [
+    {
+      "id": "[\"019 - На каком датасете это обучалось.md\",\"040 - Реестр моделей и файлы моделей — что потеряется вместе.md\"]",
+      "leftPath": "019 - На каком датасете это обучалось.md",
+      "rightPath": "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+      "leftBasename": "019 - На каком датасете это обучалось",
+      "rightBasename": "040 - Реестр моделей и файлы моделей — что потеряется вместе",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.858510006811757,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "007 - Что сохранять между эпохами.md",
+          "008 - Кеш признаков — сохранять или пересчитывать.md",
+          "039 - Попробовать восстановить один старый запуск.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"007 - Что сохранять между эпохами.md\",\"008 - Кеш признаков — сохранять или пересчитывать.md\"]",
+      "leftPath": "007 - Что сохранять между эпохами.md",
+      "rightPath": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "leftBasename": "007 - Что сохранять между эпохами",
+      "rightBasename": "008 - Кеш признаков — сохранять или пересчитывать",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7886907668594492,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "019 - На каком датасете это обучалось.md",
+          "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+          "045 - Lease истёк, а воркер вернулся.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"001 - После сбоя все клиенты приходят одновременно.md\",\"003 - Очередь на GPU три разных ограничения.md\"]",
+      "leftPath": "001 - После сбоя все клиенты приходят одновременно.md",
+      "rightPath": "003 - Очередь на GPU три разных ограничения.md",
+      "leftBasename": "001 - После сбоя все клиенты приходят одновременно",
+      "rightBasename": "003 - Очередь на GPU три разных ограничения",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7512757028957021,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "002 - Для одного загрузчика хватит простого backoff.md",
+          "007 - Что сохранять между эпохами.md",
+          "025 - Короткое решение под блокировкой строки.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"046 - Индекс датасета решил, что все файлы удалены.md\",\"056 - Упаковать набор изображений для передачи.md\"]",
+      "leftPath": "046 - Индекс датасета решил, что все файлы удалены.md",
+      "rightPath": "056 - Упаковать набор изображений для передачи.md",
+      "leftBasename": "046 - Индекс датасета решил, что все файлы удалены",
+      "rightBasename": "056 - Упаковать набор изображений для передачи",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7418721346599971,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "019 - На каком датасете это обучалось.md",
+          "038 - Копия зашифрована. Получится её открыть.md",
+          "050 - Подключить ещё один диск для данных.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"025 - Короткое решение под блокировкой строки.md\",\"049 - Как выбрать единственный планировщик.md\"]",
+      "leftPath": "025 - Короткое решение под блокировкой строки.md",
+      "rightPath": "049 - Как выбрать единственный планировщик.md",
+      "leftBasename": "025 - Короткое решение под блокировкой строки",
+      "rightBasename": "049 - Как выбрать единственный планировщик",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7264779224439417,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "024 - Два человека правят конфиг эксперимента.md",
+          "027 - «Временная ошибка» ещё не разрешение повторить запись.md",
+          "045 - Lease истёк, а воркер вернулся.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"002 - Для одного загрузчика хватит простого backoff.md\",\"003 - Очередь на GPU три разных ограничения.md\"]",
+      "leftPath": "002 - Для одного загрузчика хватит простого backoff.md",
+      "rightPath": "003 - Очередь на GPU три разных ограничения.md",
+      "leftBasename": "002 - Для одного загрузчика хватит простого backoff",
+      "rightBasename": "003 - Очередь на GPU три разных ограничения",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7226840552231008,
+        "mutualTopK": true,
+        "leftRank": 3,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "001 - После сбоя все клиенты приходят одновременно.md",
+          "007 - Что сохранять между эпохами.md",
+          "025 - Короткое решение под блокировкой строки.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md\",\"031 - Срок жизни DNS-ответа.md\"]",
+      "leftPath": "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN.md",
+      "rightPath": "031 - Срок жизни DNS-ответа.md",
+      "leftBasename": "030 - Endpoint появился, а DNS всё ещё говорит NXDOMAIN",
+      "rightBasename": "031 - Срок жизни DNS-ответа",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.8541915267666234,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "027 - «Временная ошибка» ещё не разрешение повторить запись.md",
+          "053 - Старый расчёт перезаписал свежий кеш.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"034 - Несколько загрузок артефактов в одном соединении.md\",\"035 - Что дают отдельные потоки QUIC.md\"]",
+      "leftPath": "034 - Несколько загрузок артефактов в одном соединении.md",
+      "rightPath": "035 - Что дают отдельные потоки QUIC.md",
+      "leftBasename": "034 - Несколько загрузок артефактов в одном соединении",
+      "rightBasename": "035 - Что дают отдельные потоки QUIC",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.832481605021819,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 1,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "001 - После сбоя все клиенты приходят одновременно.md",
+          "053 - Старый расчёт перезаписал свежий кеш.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"008 - Кеш признаков — сохранять или пересчитывать.md\",\"040 - Реестр моделей и файлы моделей — что потеряется вместе.md\"]",
+      "leftPath": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "rightPath": "040 - Реестр моделей и файлы моделей — что потеряется вместе.md",
+      "leftBasename": "008 - Кеш признаков — сохранять или пересчитывать",
+      "rightBasename": "040 - Реестр моделей и файлы моделей — что потеряется вместе",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.8268396892314868,
+        "mutualTopK": true,
+        "leftRank": 1,
+        "rightRank": 2,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "007 - Что сохранять между эпохами.md",
+          "019 - На каком датасете это обучалось.md"
+        ]
+      }
+    },
+    {
+      "id": "[\"008 - Кеш признаков — сохранять или пересчитывать.md\",\"019 - На каком датасете это обучалось.md\"]",
+      "leftPath": "008 - Кеш признаков — сохранять или пересчитывать.md",
+      "rightPath": "019 - На каком датасете это обучалось.md",
+      "leftBasename": "008 - Кеш признаков — сохранять или пересчитывать",
+      "rightBasename": "019 - На каком датасете это обучалось",
+      "category": "candidate",
+      "semantic": {
+        "score": 0.7895465004212253,
+        "mutualTopK": true,
+        "leftRank": 2,
+        "rightRank": 3,
+        "rankClass": "mutual-top-3",
+        "sharedNeighborPaths": [
+          "007 - Что сохранять между эпохами.md",
+          "040 - Реестр моделей и файлы моделей — что потеряется вместе.md"
+        ]
+      }
+    }
+  ],
+  "topologyEdges": [
+    {
+      "source": "001 - После сбоя все клиенты приходят одновременно.md",
+      "target": "002 - Для одного загрузчика хватит простого backoff.md"
+    },
+    {
+      "source": "014 - Журнал экспериментов на SQLite чтение во время записи.md",
+      "target": "015 - Удалили старые метрики, а SQLite не уменьшилась.md"
+    },
+    {
+      "source": "022 - Повтор запроса не должен запускать второе обучение.md",
+      "target": "026 - Запуск отправлен, ответ потерялся.md"
+    },
+    {
+      "source": "028 - Найти ровно E_CONN_42.md",
+      "target": "029 - Поиск по смыслу и граница reranker.md"
+    },
+    {
+      "source": "038 - Копия зашифрована. Получится её открыть.md",
+      "target": "039 - Попробовать восстановить один старый запуск.md"
+    },
+    {
+      "source": "039 - Попробовать восстановить один старый запуск.md",
+      "target": "038 - Копия зашифрована. Получится её открыть.md"
+    },
+    {
+      "source": "054 - Ключ провайдера не должен попасть в конфиг запуска.md",
+      "target": "022 - Повтор запроса не должен запускать второе обучение.md"
+    }
+  ],
+  "inspectorText": "Кандидаты\n\n019 - На каком датасете это обучалось\n\n019 - На каком датасете это обучалось.md\n\n040 - Реестр моделей и файлы моделей — что потеряется вместе\n\n040 - Реестр моделей и файлы моделей — что потеряется вместе.md\n\nСемантическое отношение\n\nСходство 0.859\n\n019 - На каком датасете это обучалось: другая заметка на месте 1 в её топ-5\n\n040 - Реестр моделей и файлы моделей — что потеряется вместе: другая заметка на месте 1 в её топ-5\n\nОбщих семантических соседей: 3\n\n007 - Что сохранять между эпохами\n008 - Кеш признаков — сохранять или пересчитывать\n039 - Попробовать восстановить один старый запуск\n\nВзаимный топ-3\n\nСвязь в Markdown\n\nНет ссылки в Markdown\n\nВаши оценки в этой сессии\nПолезно\nНе полезно\nНе уверен\nСнять оценку\nОткрыть пару рядом\nОткрыть первую заметку\nИсследовать окружение первой заметки\nОткрыть вторую заметку\nИсследовать окружение второй заметки",
+  "passiveIO": {
+    "embed": 0,
+    "read": 0,
+    "cachedRead": 0,
+    "write": 0
+  },
+  "injectedMissingMetadata": {
+    "path": "019 - На каком датасете это обучалось.md",
+    "counts": {
+      "semanticMappedNoteCount": 40,
+      "topologyNoteCount": 40,
+      "comparableNoteCount": 39,
+      "semanticNotesMissingTopologyCount": 0,
+      "semanticNotesUnavailableLinksCount": 1,
+      "semanticPairCount": 148,
+      "candidateCount": 128,
+      "alignedCount": 5,
+      "explicitOnlyCount": 1,
+      "unclassifiedSemanticPairCount": 15,
+      "explicitOutsideSemanticMapCount": 0,
+      "unclassifiedExplicitPairCount": 0,
+      "ranks": {
+        "mutual-top-3": 20,
+        "mutual-top-5": 22,
+        "one-sided-top-5": 86
+      }
+    }
+  },
+  "openedNotes": [
+    "019 - На каком датасете это обучалось.md",
+    "040 - Реестр моделей и файлы моделей — что потеряется вместе.md"
+  ],
+  "localReplayRequests": [],
+  "rejectedLocalRequests": []
+}
