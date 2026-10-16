@@ -109,6 +109,15 @@ describe("relationship consent and lifecycle", () => {
     await f.session.prepare(); await f.session.confirm(); f.session.dismiss(); await f.session.confirm();
     expect(f.deps.complete).toHaveBeenCalledOnce(); expect(f.session.view.stage).toBe("dismissed");
   });
+  it("exposes only current successful source evidence to local planning, without retaining credentials", async () => {
+    const f = fixture(); expect(f.session.analysisSource).toBeUndefined(); await f.session.prepare(); expect(f.session.analysisSource).toBeUndefined();
+    await f.session.confirm(); const source = f.session.analysisSource!;
+    expect(source.pair.map(note => note.content)).toEqual([f.item.a, f.item.b]); expect(source.result).toBe(f.session.view.result);
+    expect(JSON.stringify(source)).not.toContain("secret-test-key");
+    f.settings.model = "silently-changed"; expect(f.session.analysisSource).toBeUndefined(); expect(f.session.view.stage).toBe("stale");
+    await f.session.prepare(); await f.session.confirm(); expect(f.session.analysisSource?.model).toBe("silently-changed");
+    f.session.dismiss(); expect(f.session.analysisSource).toBeUndefined();
+  });
   it("never retries errors or shows raw provider data, and rejects invalid evidence", async () => {
     const f = fixture(); await f.session.prepare(); f.deps.complete.mockRejectedValue(Error("secret response"));
     await f.session.confirm(); await f.session.confirm(); expect(f.deps.complete).toHaveBeenCalledOnce();

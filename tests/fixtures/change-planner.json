@@ -1,0 +1,15 @@
+{
+  "a": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n",
+  "b": "Cache entries expire after the configured lifetime.\n",
+  "response": {
+    "relation": "partial_overlap",
+    "explanation": { "text": "The expiry rule appears in both sources; A contains a contextual example.", "evidence": ["shared", "example"] },
+    "claims": [
+      { "id": "shared", "kind": "shared", "text": "The expiry rule may overlap.", "quoteA": "Cache entries expire after the configured lifetime.", "quoteB": "Cache entries expire after the configured lifetime." },
+      { "id": "example", "kind": "context_a", "text": "This classroom example may be specific to A; this is an interpretation.", "quoteA": "In our classroom experiment, students compare two expiry settings.", "quoteB": null }
+    ],
+    "recommendation": { "action": "consider_embed_b_in_a", "reason": "Consider a shared source while retaining the contextual example in A.", "evidence": ["shared"] },
+    "alternatives": [{ "action": "add_link", "reason": "A normal link may be sufficient.", "evidence": ["shared"] }],
+    "limitations": ["Only these two saved sources were considered; semantic preservation needs human review."]
+  }
+}

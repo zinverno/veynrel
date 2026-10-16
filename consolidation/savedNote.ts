@@ -26,3 +26,8 @@ export async function readSavedNote(app: App, path: string): Promise<
     return { state: "ready", path, file, content, bytes: size, modified: mtime };
   } catch { return { path, state: "error" }; }
 }
+
+/** Identity, stat and complete saved source must all agree; a hash alone is insufficient. */
+export function sameSavedNote(a: SavedNote, b: SavedNote): boolean {
+  return a.path === b.path && a.file === b.file && a.content === b.content && a.modified === b.modified && a.bytes === b.bytes;
+}

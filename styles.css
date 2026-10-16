@@ -1707,7 +1707,7 @@
 .ai-proposal-diff-line { display: flex; min-width: 0; font-family: var(--font-monospace); font-size: var(--font-ui-small); line-height: 1.65; }
 .ai-proposal-line-numbers { display: flex; flex: 0 0 13ch; gap: 1ch; padding: 3px 8px; border-right: 1px solid var(--background-modifier-border); color: var(--text-muted); user-select: none; }
 .ai-proposal-line-numbers span { width: 6ch; text-align: right; }
-.ai-proposal-shell .ai-proposal-line-text {
+.ai-proposal-shell .ai-proposal-line-text, .ai-change-planner .ai-proposal-line-text {
     flex: 1;
     min-width: 0;
     margin: 0;
@@ -1744,7 +1744,7 @@
     .ai-proposal-navigation, .ai-proposal-decisions { width: 100%; }
     .ai-proposal-navigation button, .ai-proposal-decisions button { flex: 1; min-width: 0; }
     .ai-proposal-line-numbers { flex-basis: 13ch; padding-inline: 4px; }
-    .ai-proposal-shell .ai-proposal-line-text { padding-inline: 6px; }
+    .ai-proposal-shell .ai-proposal-line-text, .ai-change-planner .ai-proposal-line-text { padding-inline: 6px; }
 }
 @supports (height: 100dvh) {
     .modal.ai-proposal-shell { max-height: calc(100dvh - 32px); }
@@ -2572,3 +2572,16 @@
 .ai-taxonomy-tree { list-style: none; padding-inline-start: 12px; }
 .ai-taxonomy-tree .ai-taxonomy-tree { padding-inline-start: 0; }
 @media (max-width: 600px) { .ai-taxonomy-field { grid-template-columns: minmax(0, 1fr); } .ai-taxonomy ul { padding-inline-start: 14px; } }
+
+/* Local, text-only Change Planner inside the existing Pair Inspector. */
+.ai-change-planner { min-width: 0; }
+.ai-change-planner:empty { display: none; }
+.ai-planner-controls { display: flex; flex-wrap: wrap; gap: 12px; }
+.ai-planner-controls label, .ai-planner-location { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1 1 220px; }
+.ai-change-planner select { width: 100%; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.ai-planner-confirm { display: flex; align-items: flex-start; gap: 8px; margin: 12px 0; }
+.ai-planner-confirm input { flex-shrink: 0; }
+.ai-change-planner p, .ai-planner-confirm span { overflow-wrap: anywhere; }
+.ai-planner-result { margin-top: 16px; }
+.ai-change-planner button { white-space: normal; height: auto; }
+.ai-change-planner > button { margin: 8px 8px 8px 0; }

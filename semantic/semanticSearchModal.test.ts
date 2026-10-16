@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import type { RefinedSearchUpdate } from "../rerank/types";
+import plannerFixture from "../tests/fixtures/change-planner.json";
 import relationshipCases from "../tests/fixtures/relationships.json";
 
 const mocks = vi.hoisted(() => {
@@ -17,6 +18,7 @@ const mocks = vi.hoisted(() => {
     text = "";
     value = "";
     disabled = false;
+    checked = false;
     focused = false;
     attributes = new Map<string, string>();
 
@@ -160,6 +162,7 @@ vi.mock("obsidian", () => ({
   TFile: mocks.TFile,
   getLanguage: () => "ru",
   parseFrontMatterTags: () => null,
+  parseLinktext: (link: string) => ({ path: link.split("#")[0] }),
 }));
 
 import {
@@ -998,6 +1001,48 @@ describe("read-only Pair Inspector UI", () => {
     f.action("confirm").trigger("click"); await flush(); f.modal.close(); release("late response"); await flush();
     expect(f.content.children).toHaveLength(0); expect(f.listeners.size).toBe(0);
   });
+  it.each(["ru", "en"] as const)("plans only after explicit selection, confirms exact ranges and clears stale UI in %s", async language => {
+    const { setLanguage } = await import("../i18n"); setLanguage(language);
+    const f = await fixture(true);
+    f.bodies.set("one/Same.md", plannerFixture.a); f.bodies.set("two/Same.md", plannerFixture.b);
+    f.complete.mockResolvedValue(JSON.stringify(plannerFixture.response));
+    Object.assign(f.app.metadataCache, {
+      getFileCache: (file: { path: string }) => {
+        const content = f.bodies.get(file.path)!; let offset = 0;
+        return { sections: content.trimEnd().split("\n\n").map(text => {
+          const start = content.indexOf(text, offset); offset = start + text.length;
+          return { type: "paragraph", position: { start: { offset: start }, end: { offset } } };
+        }) };
+      },
+      getFirstLinkpathDest: (path: string) => f.files.get(`${path}.md`) ?? null,
+    });
+    const button = (name: string) => f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === name)!;
+    const select = (name: string, value: string) => {
+      const input = f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === name)!;
+      input.value = value; input.trigger("change");
+    };
+    f.modal.open(); await flush(); expect(button("open")).toBeUndefined();
+    f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
+    const reads = f.app.vault.read.mock.calls.length; expect(button("open")).toBeDefined(); expect(button("build")).toBeUndefined();
+    button("open").trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(reads + 2);
+    select("operation", "replace_with_embed"); expect(button("build").disabled).toBe(true);
+    select("range", "0"); expect(button("build").disabled).toBe(true);
+    const checkbox = f.content.findByTag("input").find(el => el.attributes.get("data-planner-field") === "confirm")!;
+    checkbox.checked = true; checkbox.trigger("change"); expect(button("build").disabled).toBe(false);
+    button("build").trigger("click"); await flush();
+    expect(f.content.findByClass("ai-proposal-removed")).toHaveLength(1); expect(f.content.findByClass("ai-proposal-added")).toHaveLength(1);
+    const after = f.content.findByTag("pre").find(el => el.attributes.get("data-planner-text") === "after")!;
+    expect(after.text).toBe("![[two/Same]]" + plannerFixture.a.slice(plannerFixture.response.claims[0].quoteA.length));
+    expect(f.content.findByTag("img")).toHaveLength(0); expect(f.complete).toHaveBeenCalledOnce();
+    select("range", "1"); expect(f.content.findByClass("ai-planner-result")).toHaveLength(0); expect(button("build").disabled).toBe(true);
+    select("operation", "no_change"); button("build").trigger("click"); await flush();
+    expect(f.content.findByClass("ai-planner-result")).toHaveLength(1); expect(f.content.findByClass("ai-proposal-diff")).toHaveLength(0);
+    const beforeEvent = f.app.vault.read.mock.calls.length; f.app.metadataCache.emit("resolved");
+    expect(f.content.findByClass("ai-planner-result")).toHaveLength(0); expect(f.stage()).toBe("result");
+    expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+    f.modal.close(); expect(f.content.children).toHaveLength(0); setLanguage("ru");
+  });
+
   it("removes a completed result when a selected source is deleted, without rereading or writing", async () => {
     const f = await fixture(true); f.modal.open(); await flush();
     f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();

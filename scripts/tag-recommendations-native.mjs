@@ -59,6 +59,8 @@ export async function tagRecommendationScenario({ ev, wait, cdp, close, focusMai
     await pass('Exact complete request preview before explicit confirmation', `tr.calls.length===tr.before&&JSON.stringify(JSON.parse(JSON.parse(tr.session.view.consent.body).messages[1].content))===JSON.stringify({source:tr.fixture.content,confirmedProfile:plugin.getTaxonomyProfilePort().get(),observedTags:tr.modal.session.inventory.tags.map(t=>t.tag)})&&!document.querySelector('.ai-tag-recommendations').textContent.includes('synthetic-tag-key')`);
   };
   const screenshot = async (name, expression = "[...document.querySelectorAll('.ai-tag-recommendations,.ai-tag-recommendations pre')].every(e=>e.scrollWidth<=e.clientWidth+1)") => {
+    // A hovered native Notice pauses its timer; keep the pointer outside screenshot content.
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 });
     await wait("!document.querySelector('.notice')");
     await ev(`document.querySelector(${JSON.stringify(name.endsWith('-consent') ? '.ai-tag-recommendations details' : '.ai-tag-recommendations [data-tag-rec-category]')}).scrollIntoView({block:'center'})`);
     await pass(name+': no horizontal overflow', expression);
