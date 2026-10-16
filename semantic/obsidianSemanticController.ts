@@ -5,6 +5,7 @@ import type { DecisionsProvider, DecisionsSettings } from "../decisions/types";
 import { OverlapSession } from "../decisions/overlapSession";
 import { OverlapModal } from "../decisions/overlapModal";
 import { PairInspectorModal } from "../consolidation/pairInspectorModal";
+import type { RelationshipSession } from "../consolidation/relationshipSession";
 import { OpenRouterRerankProvider, rerankConfigured, testRerankConnection } from "../rerank/openRouterRerank";
 import { refineCandidates } from "../rerank/refinedSearch";
 import { mergeRerankSettings, RERANK_LIMITS } from "../rerank/types";
@@ -110,6 +111,7 @@ interface SemanticPluginHost {
 }
 
 export interface SemanticControllerDependencies {
+  relationshipSession?: (paths: readonly [string, string]) => RelationshipSession;
   decisionsProvider?: (settings: DecisionsSettings) => DecisionsProvider;
   rerankProvider?: (settings: RerankSettings) => RerankProvider;
   runtimeFactory?: (input: {
@@ -255,6 +257,8 @@ function enqueueSharedSemanticMutation<T>(
 export class ObsidianSemanticController {
   private decisionsRevision = 0;
   private readonly overlapSessions = new Set<OverlapSession>();
+  private readonly pairInspectors = new Set<PairInspectorModal>();
+  private readonly relationshipSession?: SemanticControllerDependencies["relationshipSession"];
   private readonly decisionsTests = new Set<AbortController>();
   private readonly decisionsProvider: (settings: DecisionsSettings) => DecisionsProvider;
   private rerankRevision = 0;
@@ -340,6 +344,7 @@ export class ObsidianSemanticController {
     private readonly plugin: SemanticPluginHost,
     dependencies: SemanticControllerDependencies = {},
   ) {
+    this.relationshipSession = dependencies.relationshipSession;
     this.barrier = dependencies.barrier ?? new AsyncReadWriteBarrier();
     this.rerankProvider = dependencies.rerankProvider ?? (settings => new OpenRouterRerankProvider(settings));
     this.decisionsProvider = dependencies.decisionsProvider ?? (settings => new OpenRouterDecisionsProvider(settings));
@@ -491,6 +496,7 @@ export class ObsidianSemanticController {
   }
 
   dispose(): Promise<void> {
+    for (const inspector of this.pairInspectors) inspector.close();
     this.notifyDecisionsSettingsChanged();
     this.notifyRerankSettingsChanged();
     if (this.disposePromise) return this.disposePromise;
@@ -707,7 +713,10 @@ export class ObsidianSemanticController {
 
   inspectPair(pair: SemanticDuplicatePair): void {
     if (this.isDisposed()) return;
-    new PairInspectorModal(this.plugin.app, [pair.leftPath, pair.rightPath]).open();
+    const paths: readonly [string, string] = [pair.leftPath, pair.rightPath];
+    const inspector = new PairInspectorModal(this.plugin.app, paths,
+      this.relationshipSession ? () => this.relationshipSession!(paths) : undefined, () => { this.pairInspectors.delete(inspector); });
+    this.pairInspectors.add(inspector); inspector.open();
   }
 
   async prepareSearch(): Promise<SemanticRuntimeStats> {

@@ -827,18 +827,18 @@ describe("manual Decisions UI", () => {
 
 describe("read-only Pair Inspector UI", () => {
   function events() {
-    const listeners = new Map<string, Set<() => void>>();
+    const listeners = new Map<string, Set<(file: { path: string }) => void>>();
     return {
-      on: (event: string, listener: () => void) => {
+      on: (event: string, listener: (file: { path: string }) => void) => {
         if (!listeners.has(event)) listeners.set(event, new Set());
         listeners.get(event)!.add(listener);
         return { event, listener };
       },
-      offref: vi.fn((ref: { event: string; listener: () => void }) => { listeners.get(ref.event)!.delete(ref.listener); }),
-      emit: (event: string) => { for (const listener of listeners.get(event) ?? []) listener(); },
+      offref: vi.fn((ref: { event: string; listener: (file: { path: string }) => void }) => { listeners.get(ref.event)!.delete(ref.listener); }),
+      emit: (event: string, path = "one/Same.md") => { for (const listener of listeners.get(event) ?? []) listener({ path }); },
     };
   }
-  async function fixture() {
+  async function fixture(withAnalysis = false) {
     const { PairInspectorModal } = await import("../consolidation/pairInspectorModal");
     const files = new Map(["one/Same.md", "two/Same.md"].map(path => [path, Object.assign(new mocks.TFile(), {
       path, basename: "Same", stat: { mtime: 1, size: 100 },
@@ -851,11 +851,21 @@ describe("read-only Pair Inspector UI", () => {
       metadataCache: { ...events(), getFileCache: vi.fn(() => null), resolvedLinks: {} },
       workspace: { getLeaf: () => leaf },
     };
-    const modal = new PairInspectorModal(app as never, ["one/Same.md", "two/Same.md"]);
+    const { RelationshipSession, readRelationshipPair } = await import("../consolidation/relationshipSession");
+    const model = { provider: "custom" as const, model: "test-model", baseUrl: "https://example.test/v1", apiKey: "secret-key", temperature: 0.3, topK: 10 };
+    const listeners = new Set<() => void>();
+    const complete = vi.fn(async () => JSON.stringify({ relation: "related_distinct", explanation: { text: "Preliminary interpretation", evidence: ["c1"] },
+      claims: [{ id: "c1", kind: "comparison", text: "Model interpretation", quoteA: bodies.get("one/Same.md"), quoteB: bodies.get("two/Same.md") }],
+      recommendation: { action: "add_link", reason: "Consider a link after review", evidence: ["c1"] }, alternatives: [], limitations: ["Only these sources"] }));
+    const factory = vi.fn(() => new RelationshipSession({ read: () => readRelationshipPair(app as never, ["one/Same.md", "two/Same.md"]), complete,
+      settings: { get: () => model, subscribe: fn => { listeners.add(fn); return () => { listeners.delete(fn); }; } } }));
+    const modal = new PairInspectorModal(app as never, ["one/Same.md", "two/Same.md"], withAnalysis ? factory : undefined);
     const content = modal.contentEl as unknown as InstanceType<typeof mocks.FakeElement>;
     const status = () => content.findByTag("div").find(el => el.attributes.get("role") === "status")!;
     const refresh = () => content.findByTag("button")[0].trigger("click");
-    return { app, files, bodies, leaf, modal, content, status, refresh };
+    const action = (name: string) => content.findByTag("button").find(el => el.attributes.get("data-relationship-action") === name)!;
+    const stage = () => content.findByTag("div").find(el => el.attributes.has("data-relationship-stage"))?.attributes.get("data-relationship-stage");
+    return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, model, listeners, action, stage };
   }
 
   it("offers an explicit action alongside Decisions and never invokes either on list rendering", async () => {
@@ -935,5 +945,42 @@ describe("read-only Pair Inspector UI", () => {
     expect(f.content.findByTag("li")[0].text).toMatch(/усечено/);
     expect(f.content.findByTag("p").some(el => el.text.includes("100 из 101"))).toBe(true);
     f.modal.close();
+  });
+
+  it.each(["ru", "en"] as const)("keeps viewing local and requires exact-data confirmation in %s", async language => {
+    const { setLanguage } = await import("../i18n"); setLanguage(language);
+    const f = await fixture(true); f.modal.open(); await flush();
+    expect(f.factory).not.toHaveBeenCalled(); expect(f.complete).not.toHaveBeenCalled();
+    f.action("analyze").trigger("click"); await flush(); expect(f.stage()).toBe("consent"); expect(f.complete).not.toHaveBeenCalled();
+    expect(f.content.findByTag("pre").some(el => el.text.includes('"messages"'))).toBe(true);
+    expect(f.content.findByTag("pre").some(el => el.text.includes("secret-key"))).toBe(false);
+    const send = f.action("confirm"); send.trigger("click"); send.trigger("click"); await flush();
+    expect(f.complete).toHaveBeenCalledOnce(); expect(f.stage()).toBe("result");
+    expect(f.content.findByTag("img")).toHaveLength(0);
+    expect(f.content.findByTag("p").some(el => el.text.includes("@relationship"))).toBe(false);
+    f.action("dismiss").trigger("click"); expect(f.stage()).toBe("dismissed");
+    expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+    f.modal.close(); expect(f.listeners.size).toBe(0); setLanguage("ru");
+  });
+
+  it("invalidates consent/results on selected file and model changes, and cancels when closing", async () => {
+    const f = await fixture(true); f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
+    f.app.vault.emit("modify"); expect(f.stage()).toBe("stale"); expect(f.action("confirm")).toBeUndefined();
+    f.action("analyze").trigger("click"); await flush(); f.model.model = "changed"; for (const fn of f.listeners) fn();
+    expect(f.stage()).toBe("stale"); expect(f.complete).not.toHaveBeenCalled();
+    f.action("analyze").trigger("click"); await flush();
+    let release!: (text: string) => void; f.complete.mockImplementationOnce(() => new Promise(resolve => { release = resolve; }));
+    f.action("confirm").trigger("click"); await flush(); f.modal.close(); release("late response"); await flush();
+    expect(f.content.children).toHaveLength(0); expect(f.listeners.size).toBe(0);
+  });
+  it("removes a completed result when a selected source is deleted, without rereading or writing", async () => {
+    const f = await fixture(true); f.modal.open(); await flush();
+    f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
+    expect(f.stage()).toBe("result"); const reads = f.app.vault.read.mock.calls.length;
+    f.app.vault.emit("modify", "unrelated.md"); expect(f.stage()).toBe("result");
+    f.files.delete("one/Same.md"); f.app.vault.emit("delete");
+    expect(f.stage()).toBe("stale"); expect(f.action("dismiss")).toBeUndefined();
+    expect(f.app.vault.read).toHaveBeenCalledTimes(reads); expect(f.complete).toHaveBeenCalledOnce();
+    expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled(); f.modal.close();
   });
 });

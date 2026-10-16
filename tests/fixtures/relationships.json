@@ -1,0 +1,280 @@
+[
+  {
+    "name": "near_duplicates",
+    "a": "Cache entries expire after the configured lifetime.",
+    "b": "Cache entries expire after the configured lifetime.\n",
+    "response": {
+      "relation": "same_information",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "shared",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "Cache entries expire after the configured lifetime.",
+          "quoteB": "Cache entries expire after the configured lifetime."
+        }
+      ],
+      "recommendation": {
+        "action": "consider_merge",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "partial_overlap",
+    "a": "Cache entries expire after the configured lifetime.\nA also documents eviction under memory pressure.",
+    "b": "Cache entries expire after the configured lifetime.\nB also documents cache warming.",
+    "response": {
+      "relation": "partial_overlap",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "shared",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "Cache entries expire after the configured lifetime.",
+          "quoteB": "Cache entries expire after the configured lifetime."
+        },
+        {
+          "id": "c2",
+          "kind": "unique_a",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "A also documents eviction under memory pressure.",
+          "quoteB": "B also documents cache warming."
+        }
+      ],
+      "recommendation": {
+        "action": "add_link",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "theory_and_context",
+    "a": "Cache entries expire after the configured lifetime.\nIn our payment test, the cache key also includes the tenant ID.",
+    "b": "Cache entries expire after the configured lifetime.",
+    "response": {
+      "relation": "partial_overlap",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "shared",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "Cache entries expire after the configured lifetime.",
+          "quoteB": "Cache entries expire after the configured lifetime."
+        },
+        {
+          "id": "c2",
+          "kind": "context_a",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "In our payment test, the cache key also includes the tenant ID.",
+          "quoteB": "Cache entries expire after the configured lifetime."
+        }
+      ],
+      "recommendation": {
+        "action": "consider_embed_b_in_a",
+        "reason": "Consider referencing only the repeated theory; preserve the tenant-specific example in A. Review dependencies and choose the canonical source manually.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "standalone_large_section",
+    "a": "# Project journal\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\nDaily contextual observation.\n\n## Independently useful queue design\nA bounded queue needs an explicit overflow policy.",
+    "b": "Queue design is useful across batch and interactive workloads.",
+    "response": {
+      "relation": "related_distinct",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "standalone_a",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "A bounded queue needs an explicit overflow policy.",
+          "quoteB": "Queue design is useful across batch and interactive workloads."
+        }
+      ],
+      "recommendation": {
+        "action": "consider_atomize",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "contradiction",
+    "a": "Production requests must always require authentication.",
+    "b": "Production requests must never require authentication.",
+    "response": {
+      "relation": "conflicting",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "conflict",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "Production requests must always require authentication.",
+          "quoteB": "Production requests must never require authentication."
+        }
+      ],
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "versions",
+    "a": "Version 1 requires a restart after configuration changes.",
+    "b": "Version 2 applies configuration changes without restarting.",
+    "response": {
+      "relation": "conflicting",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "version_difference",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "Version 1 requires a restart after configuration changes.",
+          "quoteB": "Version 2 applies configuration changes without restarting."
+        }
+      ],
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "unrelated",
+    "a": "Prune apple trees during dormancy.",
+    "b": "A hash join builds a hash table on one input.",
+    "response": {
+      "relation": "unrelated",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "claims": [
+        {
+          "id": "c1",
+          "kind": "comparison",
+          "text": "A preliminary comparison supported by the two quoted passages.",
+          "quoteA": "Prune apple trees during dormancy.",
+          "quoteB": "A hash join builds a hash table on one input."
+        }
+      ],
+      "recommendation": {
+        "action": "no_change",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  },
+  {
+    "name": "insufficient",
+    "a": "See the other note.",
+    "b": "Context is missing.",
+    "response": {
+      "relation": "insufficient_context",
+      "explanation": {
+        "text": "A preliminary interpretation of these two saved sources only.",
+        "evidence": []
+      },
+      "claims": [],
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "Review the original contexts before considering any change.",
+        "evidence": []
+      },
+      "alternatives": [],
+      "limitations": [
+        "Other notes and dependencies have not been checked. Canonical source selection remains with the user."
+      ]
+    }
+  }
+]

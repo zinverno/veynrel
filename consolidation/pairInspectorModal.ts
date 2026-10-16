@@ -1,16 +1,21 @@
 import { App, Modal } from "obsidian";
+import type { TAbstractFile } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
 import { openDiscoveryResult } from "../semantic/semanticDiscoveryModal";
 import { readPairNote } from "./pairSnapshot";
 import type { InspectorList, PairNoteSnapshot } from "./pairSnapshot";
+import type { RelationshipSession } from "./relationshipSession";
+import { renderRelationshipView } from "./relationshipView";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairInspectorModal extends Modal {
   private openState = false;
   private generation = 0;
   private readonly cleanup: (() => void)[] = [];
+  private relationship?: RelationshipSession;
 
-  constructor(app: App, private readonly paths: readonly [string, string]) { super(app); }
+  constructor(app: App, private readonly paths: readonly [string, string],
+    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}) { super(app); }
 
   onOpen(): void {
     this.openState = true;
@@ -22,6 +27,22 @@ export class PairInspectorModal extends Modal {
     this.contentEl.createEl("p", { text: tr("@consolidation.sourceScope") });
     const controls = this.contentEl.createDiv({ cls: "ai-semantic-search-controls" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
+    const analysis = this.contentEl.createDiv({ cls: "ai-relationship" });
+    if (this.createRelationship) {
+      const analyze = controls.createEl("button", { text: tr("@relationship.analyze"), attr: { type: "button", "data-relationship-action": "analyze" } });
+      analyze.addEventListener("click", () => {
+        if (!this.relationship) {
+          this.relationship = this.createRelationship!();
+          this.relationship.onChange = () => {
+            if (!this.openState || !this.relationship) return;
+            analyze.disabled = this.relationship.busy;
+            analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
+            renderRelationshipView(analysis, this.relationship);
+          };
+        }
+        void this.relationship.prepare();
+      });
+    }
     const status = this.contentEl.createDiv({ attr: { role: "status", "aria-live": "polite" } });
     const notes = this.contentEl.createDiv({ cls: "ai-pair-notes" });
     const invalidate = () => {
@@ -31,9 +52,13 @@ export class PairInspectorModal extends Modal {
       status.setAttribute("data-state", "stale");
       status.setText(tr("@consolidation.stale"));
     };
+    const sourceChanged = (file: TAbstractFile, oldPath?: string) => {
+      invalidate();
+      if (this.paths.some(path => [file.path, oldPath].some(changed => changed !== undefined && (path === changed || path.startsWith(`${changed}/`))))) this.relationship?.invalidate();
+    };
     // Any vault change can affect incoming references; do no work until Refresh.
-    for (const ref of [this.app.vault.on("create", invalidate), this.app.vault.on("modify", invalidate),
-      this.app.vault.on("delete", invalidate), this.app.vault.on("rename", invalidate)]) {
+    for (const ref of [this.app.vault.on("create", sourceChanged), this.app.vault.on("modify", sourceChanged),
+      this.app.vault.on("delete", sourceChanged), this.app.vault.on("rename", sourceChanged)]) {
       this.cleanup.push(() => this.app.vault.offref(ref));
     }
     if (this.app.metadataCache) {
@@ -43,6 +68,7 @@ export class PairInspectorModal extends Modal {
     }
     const load = async () => {
       if (!this.openState) return;
+      this.relationship?.invalidate();
       const generation = ++this.generation;
       notes.empty();
       notes.setAttribute("aria-busy", "true");
@@ -53,7 +79,7 @@ export class PairInspectorModal extends Modal {
       notes.setAttribute("aria-busy", "false");
       status.setAttribute("data-state", "ready");
       status.setText(tr("@consolidation.loaded"));
-      for (const snapshot of snapshots) this.renderNote(notes, snapshot);
+      for (const [index, snapshot] of snapshots.entries()) this.renderNote(notes, snapshot, index === 0 ? "A" : "B");
     };
     refresh.addEventListener("click", () => { void load(); });
     void load();
@@ -62,13 +88,15 @@ export class PairInspectorModal extends Modal {
   onClose(): void {
     this.openState = false;
     this.generation++;
+    this.relationship?.close(); this.relationship = undefined;
     for (const remove of this.cleanup.splice(0)) remove();
     this.contentEl.empty();
+    this.release();
   }
 
-  private renderNote(container: HTMLElement, note: PairNoteSnapshot): void {
+  private renderNote(container: HTMLElement, note: PairNoteSnapshot, side: string): void {
     const card = container.createDiv({ cls: "ai-semantic-result-card ai-pair-note" });
-    card.createEl("h3", { text: note.name ?? note.path });
+    card.createEl("h3", { text: `${side}: ${note.name ?? note.path}` });
     card.createDiv({ cls: "ai-semantic-result-path", text: note.path });
     if (note.state !== "ready") {
       card.createEl("p", { text: tr(`@consolidation.${note.state}`) });

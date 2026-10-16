@@ -64,6 +64,8 @@ import {
 } from "./companionSync";
 import type { CompanionSettings, StoredCompanionSettings } from "./companionSync";
 import { ObsidianSemanticController } from "./semantic";
+import { RelationshipSession, readRelationshipPair } from "./consolidation/relationshipSession";
+import { RELATIONSHIP_OPTIONS } from "./consolidation/relationshipPrompt";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
 import type { VeynrelToolsPort } from "./health/toolsPort";
@@ -150,7 +152,12 @@ export default class AIHubPlugin extends Plugin {
     try {
       await this.loadSettings();
       setLanguage(this.settings.language ?? "auto");
-      this.semanticController = new ObsidianSemanticController(this);
+      this.semanticController = new ObsidianSemanticController(this, {
+        relationshipSession: paths => new RelationshipSession({
+          settings: this.getLanguageModelSettingsPort(), read: () => readRelationshipPair(this.app, paths),
+          complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }),
+        }),
+      });
       this.semanticController.registerCommands();
       this.addCommand({ id: "review-ai-change-proposals", name: "Review AI change proposals", callback: () => this.openProposalReview() });
       this.semanticController.registerAutomaticSync();
