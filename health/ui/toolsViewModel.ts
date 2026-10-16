@@ -6,7 +6,7 @@ export function toolsViewModel() {
   return {
     title: t("@health.tools"), description: t("@tools.description"),
     groups: [
-      { title: t("@tools.local"), tools: [tool("openTagTaxonomy")] },
+      { title: t("@tools.local"), tools: [tool("openTagTaxonomy"), tool("openOperationHistory")] },
       { title: t("@tools.intelligence"), tools: [tool("openAskVault"), tool("openDeepAudit"), tool("generateMocs")] },
       { title: t("@tools.batch"), tools: [tool("openBatchProcessing")] },
       { title: t("@tools.legacy"), tools: [tool("runLegacyVaultAudit")] },

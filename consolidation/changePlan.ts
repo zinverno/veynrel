@@ -27,7 +27,7 @@ export interface ChangePlan {
   after: string;
   affectedLinks: { added: string | null; target: string; preserved: PlanReference[] };
   provenance: { origin: "relationship_analyzer"; provider: string; model: string; recommendation: RelationshipRecommendation; userOperation: PlanOperation };
-  limitations: readonly ["saved_sources_only", "metadata_may_lag", "semantic_preservation_unverified", "dependencies_not_scanned", "no_executor_or_rollback"];
+  limitations: readonly ["saved_sources_only", "metadata_may_lag", "semantic_preservation_unverified", "dependencies_not_scanned", "requires_separate_apply_review"];
   modelLimitations: string[];
 }
 function requirePlan(condition: unknown, reason: PlanFailure): asserts condition { if (!condition) throw new ChangePlanError(reason); }
@@ -105,6 +105,6 @@ export function buildChangePlan(analysis: RelationshipAnalysis, pair: PlanPair, 
     sourceHash: stableHash(source.content), targetHash: stableHash(target.content), selection: choice.operation === "no_change" ? null : choice.selection,
     edit, before: source.content, after, affectedLinks: { added, target: target.path, preserved: source.references },
     provenance: { origin: "relationship_analyzer", provider: analysis.provider, model: analysis.model, recommendation, userOperation: choice.operation },
-    limitations: ["saved_sources_only", "metadata_may_lag", "semantic_preservation_unverified", "dependencies_not_scanned", "no_executor_or_rollback"],
+    limitations: ["saved_sources_only", "metadata_may_lag", "semantic_preservation_unverified", "dependencies_not_scanned", "requires_separate_apply_review"],
     modelLimitations: [...analysis.result.limitations] };
 }

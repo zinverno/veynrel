@@ -118,6 +118,8 @@ Existing enabled installations keep **automatic** refinement after upgrading; di
 
 **[Change Planner v1](docs/change-planner-v1.md)** turns a current relationship result into a local, read-only Markdown plan. Choose a paragraph and confirm its exact location to preview a normal link or a recommended embed replacement, with complete before/after text and a safe diff. No-change is supported; nothing applies, persists or calls a model during planning.
 
+**[Safe Apply & Undo v1](docs/safe-apply-undo-v1.md)** adds a separate final review for one planned link or embed edit, verified local recovery copies, operation history and guarded undo after restart. Changed sources or open editors block automatic writing; later user edits block automatic undo.
+
 Decisions and Rerank omit filename-derived fallback headings from outgoing fragments while preserving authored headings and body text. Names or paths written in the note itself are still sent; this is not anonymization. Indexing, embeddings, RAG and Companion retain their existing behavior. See the [outbound provenance fix evidence](docs/outbound-fragment-provenance.md).
 
 | Relationship view | What it shows |

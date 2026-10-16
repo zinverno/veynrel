@@ -1,3 +1,4 @@
+import type { SafeApplyService } from "../consolidation/safeApply";
 import type { GlobalSemanticAnalysis, GlobalSemanticOptions, SemanticFocusAnalysis } from "./globalSemanticMap";
 import { DecisionsError, OpenRouterDecisionsProvider, testDecisionsConnection } from "../decisions/openRouterDecisions";
 import { mergeDecisionsSettings } from "../decisions/types";
@@ -111,6 +112,7 @@ interface SemanticPluginHost {
 }
 
 export interface SemanticControllerDependencies {
+  safeApply?: SafeApplyService;
   relationshipSession?: (paths: readonly [string, string]) => RelationshipSession;
   decisionsProvider?: (settings: DecisionsSettings) => DecisionsProvider;
   rerankProvider?: (settings: RerankSettings) => RerankProvider;
@@ -258,6 +260,7 @@ export class ObsidianSemanticController {
   private decisionsRevision = 0;
   private readonly overlapSessions = new Set<OverlapSession>();
   private readonly pairInspectors = new Set<PairInspectorModal>();
+  private readonly safeApply?: SafeApplyService;
   private readonly relationshipSession?: SemanticControllerDependencies["relationshipSession"];
   private readonly decisionsTests = new Set<AbortController>();
   private readonly decisionsProvider: (settings: DecisionsSettings) => DecisionsProvider;
@@ -344,6 +347,7 @@ export class ObsidianSemanticController {
     private readonly plugin: SemanticPluginHost,
     dependencies: SemanticControllerDependencies = {},
   ) {
+    this.safeApply = dependencies.safeApply;
     this.relationshipSession = dependencies.relationshipSession;
     this.barrier = dependencies.barrier ?? new AsyncReadWriteBarrier();
     this.rerankProvider = dependencies.rerankProvider ?? (settings => new OpenRouterRerankProvider(settings));
@@ -715,7 +719,7 @@ export class ObsidianSemanticController {
     if (this.isDisposed()) return;
     const paths: readonly [string, string] = [pair.leftPath, pair.rightPath];
     const inspector = new PairInspectorModal(this.plugin.app, paths,
-      this.relationshipSession ? () => this.relationshipSession!(paths) : undefined, () => { this.pairInspectors.delete(inspector); });
+      this.relationshipSession ? () => this.relationshipSession!(paths) : undefined, () => { this.pairInspectors.delete(inspector); }, this.safeApply);
     this.pairInspectors.add(inspector); inspector.open();
   }
 
