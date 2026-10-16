@@ -1,0 +1,50 @@
+{
+  "mode": "fake-native",
+  "sourceCommit": "6a405e2e7d90be41f722e2a80995628ce56ad83c",
+  "buildSha256": "ae2fce2d38c5003ec4888f516de572544b30ceb9ac75f8f8c5d489644a6175ea",
+  "native": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "platform": "linux"
+  },
+  "startedAt": "2026-10-07T08:42:59.056Z",
+  "finishedAt": "2026-10-07T08:45:13.153Z",
+  "fakeRequests": 26,
+  "paidRequests": 0,
+  "checks": [
+    "workspace and indexing: zero capability requests",
+    "native preview exact; zero preview requests",
+    "all permitted operations completed; no connection probes",
+    "restart skipped every completed operation"
+  ],
+  "embeddingCalls": 3,
+  "nativeChecks": [
+    {
+      "id": "native-ru-paraphrase-AB",
+      "status": "validated",
+      "passed": true,
+      "stages": [
+        "preparing",
+        "ready",
+        "preparing",
+        "assessing",
+        "result"
+      ],
+      "previewRequests": 0,
+      "embeddingCalls": null
+    },
+    {
+      "id": "native-ru-cancellation",
+      "status": "validated",
+      "passed": true,
+      "stages": [
+        "semantic",
+        "refining",
+        "reranked"
+      ],
+      "previewRequests": null,
+      "embeddingCalls": 1
+    }
+  ],
+  "limitation": "Fake transport only. Simulated costs and labels are not provider billing or quality evidence."
+}

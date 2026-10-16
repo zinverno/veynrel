@@ -1,0 +1,64 @@
+{
+  "version": "live-native-v1",
+  "checkedOn": "2026-10-07",
+  "sourceCommit": "6a405e2e7d90be41f722e2a80995628ce56ad83c",
+  "casesSha256": "6c3a1ac4c540add14e64e821fff8c49ce82a7ef6a3f375fb0cee25701b590906",
+  "buildSha256": "ae2fce2d38c5003ec4888f516de572544b30ceb9ac75f8f8c5d489644a6175ea",
+  "planningCeilingNanodollars": 80000000,
+  "maximumRequests": 32,
+  "pricing": {
+    "decisions": {
+      "model": "typesafe/jev-1.13",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "liveAllowed": true,
+      "inputNanodollarsPerToken": 42,
+      "outputNanodollarsPerToken": 0,
+      "reservedInputTokens": 65536,
+      "reserveNanodollars": 2752512,
+      "rationale": "Reserve the entire documented 64k per-request input context, rounded upward to 65536. Includes state, Choice criteria and service context, not a character-to-token heuristic. One Choice question; output free. Rate and context rechecked 2026-10-07.",
+      "sources": [
+        "https://openrouter.ai/typesafe/jev-1.13",
+        "https://docs.typesafe.ai/models",
+        "https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-request"
+      ]
+    },
+    "rerank": {
+      "model": "cohere/rerank-v3.5",
+      "endpoint": "https://openrouter.ai/api/v1/rerank",
+      "liveAllowed": false,
+      "reserveNanodollars": null,
+      "reason": "OpenRouter upstream chunking/search-unit upper bound remains unverified; key limit is not pricing evidence.",
+      "sources": [
+        "https://openrouter.ai/cohere/rerank-v3.5",
+        "https://openrouter.ai/docs/api/api-reference/rerank/submit-a-rerank-request",
+        "https://cohere.com/pricing",
+        "https://docs.cohere.com/v1/reference/rerank"
+      ]
+    }
+  },
+  "native": {
+    "decisionsCaseId": "native-ru-paraphrase-AB",
+    "heading": "Fragment",
+    "annotation": "Additional native smoke input uses the same meeting pair with an explicit Fragment heading in each note. Production chunker includes that heading in the transmitted text. Count separately from the 20 frozen evaluation inputs; do not silently change them.",
+    "expected": "partial_overlap",
+    "alternatives": [
+      "same_information"
+    ],
+    "rerankCaseId": "native-ru-cancellation",
+    "embeddings": "synthetic UI-only vectors; zero paid embeddings; NOT EVALUATED as a retrieval quality baseline"
+  },
+  "plannedLive": {
+    "decisionsNative": 1,
+    "decisionsEvaluation": 20,
+    "rerank": 0,
+    "connectionTests": 0,
+    "paidEmbeddings": 0,
+    "total": 21,
+    "maximumNanodollars": 57802752
+  },
+  "order": [
+    "native-ru-paraphrase-AB",
+    "all frozen Decisions inputs in unchanged file order"
+  ],
+  "accounting": "One fixed live journal across restarts. No retries. Unresolved cost or timeout stops all dispatch. Failed capability stops; no price or limit changes."
+}

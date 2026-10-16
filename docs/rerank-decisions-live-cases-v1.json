@@ -1,0 +1,295 @@
+{
+  "version": "live-evaluation-v1",
+  "frozenAt": "2026-10-07",
+  "criteriaVersion": "overlap-v1",
+  "annotation": "Manual labels frozen before any live response. No model measurements. The meeting rescheduling assertion is substantive additional information: partial_overlap is primary; same_information remains an allowed pragmatic reading. Both orders changed together. All other labels and text are unchanged.",
+  "sources": {
+    "docs/rerank-v1-evaluation.json": "a6213ed3b33c26625ec537aafb910ed7d8cd86b238be3f27de97a5ddec714973",
+    "docs/decisions-v1-evaluation.json": "1d551dca41743fcdc027aded51caaf662fdf75cac174f1eb69e1344934ccee2f"
+  },
+  "criteriaSourceSha256": "44271f707ee1346db6771d8c15344a46eedd782d2065dae81ef5d09edb1d8c87",
+  "decisionsAdapterSha256": "af18babc462b6f8abceb228896763563d52027dbb1498d5068baa4d020fbbe77",
+  "rerankAdapterSha256": "0d98b0518bd4296ce5e60b21b2d075b3903d4ee17cdde085ff674cf22097a4f7",
+  "rerank": [
+    {
+      "id": "ru-cancellation",
+      "query": "Как не дать старому ответу изменить результаты нового поиска?",
+      "fragments": [
+        {
+          "id": "revision",
+          "relevant": true,
+          "text": "Каждому запуску поиска присваивается номер поколения. Перед обновлением UI ответ сравнивается с текущим поколением; устаревший ответ игнорируется."
+        },
+        {
+          "id": "http",
+          "relevant": false,
+          "text": "HTTP-клиент умеет посылать запросы с заголовками и читать JSON. Сервер возвращает статус 200 при успехе."
+        },
+        {
+          "id": "index",
+          "relevant": false,
+          "text": "Построение векторного индекса разбивает заметки на фрагменты. Изменение embedding-модели может требовать перестроения."
+        }
+      ]
+    },
+    {
+      "id": "ru-offline",
+      "query": "Где заметки об обработке звука без отправки записи в облако?",
+      "fragments": [
+        {
+          "id": "local-asr",
+          "relevant": true,
+          "text": "Локальное распознавание запускается на CPU. Модель заранее установлена пользователем; аудиозапись не отправляется внешнему сервису."
+        },
+        {
+          "id": "cloud-asr",
+          "relevant": false,
+          "text": "Облачный сервис быстро распознаёт аудиозапись. Файл загружается по HTTPS и оплата списывается с аккаунта."
+        },
+        {
+          "id": "local-player",
+          "relevant": false,
+          "text": "Проигрыватель открывает локальные аудиофайлы. Для следующего трека нажмите стрелку вправо; распознавания речи нет."
+        }
+      ]
+    },
+    {
+      "id": "en-rollback",
+      "query": "How can a failed settings write avoid losing a newer edit?",
+      "fragments": [
+        {
+          "id": "conditional-restore",
+          "relevant": true,
+          "text": "Restore the last committed value only if the live field still equals the failed attempted value. A newer user edit owns its current value and must survive rollback."
+        },
+        {
+          "id": "reset-all",
+          "relevant": false,
+          "text": "The reset button restores every setting to its factory default. All custom preferences are removed."
+        },
+        {
+          "id": "ui-style",
+          "relevant": false,
+          "text": "Settings controls share spacing and typography. Each field has a descriptive label and keyboard focus indicator."
+        }
+      ]
+    },
+    {
+      "id": "en-incomplete",
+      "query": "Can an incomplete scan prove that a note has no problems?",
+      "fragments": [
+        {
+          "id": "coverage",
+          "relevant": true,
+          "text": "Missing findings establish healthy absence only with complete current coverage. A failed or partial scan leaves previous findings unresolved."
+        },
+        {
+          "id": "empty-screen",
+          "relevant": false,
+          "text": "The findings screen shows an empty illustration when the current filter has no rows. Users can change the filter."
+        },
+        {
+          "id": "speed",
+          "relevant": false,
+          "text": "The scanner skips unchanged inputs to save time. Progress displays the number of documents examined."
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "ru-paraphrase-AB",
+      "language": "ru",
+      "fragmentA": "Встреча перенесена на вторник в 10:00. Место прежнее.",
+      "fragmentB": "Во вторник встречаемся в десять утра там же.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [
+        "same_information"
+      ],
+      "swapped": false
+    },
+    {
+      "id": "ru-paraphrase-BA",
+      "language": "ru",
+      "fragmentA": "Во вторник встречаемся в десять утра там же.",
+      "fragmentB": "Встреча перенесена на вторник в 10:00. Место прежнее.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [
+        "same_information"
+      ],
+      "swapped": true
+    },
+    {
+      "id": "en-partial-AB",
+      "language": "en",
+      "fragmentA": "Backups run nightly at 02:00.",
+      "fragmentB": "Backups run nightly at 02:00 and are retained for 30 days.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "en-partial-BA",
+      "language": "en",
+      "fragmentA": "Backups run nightly at 02:00 and are retained for 30 days.",
+      "fragmentB": "Backups run nightly at 02:00.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [],
+      "swapped": true
+    },
+    {
+      "id": "ru-aspects-AB",
+      "language": "ru",
+      "fragmentA": "Для велосипеда важна правильная высота седла.",
+      "fragmentB": "Для велосипеда важно регулярно смазывать цепь.",
+      "manualExpected": "related_distinct",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "ru-aspects-BA",
+      "language": "ru",
+      "fragmentA": "Для велосипеда важно регулярно смазывать цепь.",
+      "fragmentB": "Для велосипеда важна правильная высота седла.",
+      "manualExpected": "related_distinct",
+      "manualAlternatives": [],
+      "swapped": true
+    },
+    {
+      "id": "en-contradiction-AB",
+      "language": "en",
+      "fragmentA": "The switch must remain on during calibration.",
+      "fragmentB": "The switch must remain off during calibration.",
+      "manualExpected": "related_distinct",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "en-contradiction-BA",
+      "language": "en",
+      "fragmentA": "The switch must remain off during calibration.",
+      "fragmentB": "The switch must remain on during calibration.",
+      "manualExpected": "related_distinct",
+      "manualAlternatives": [],
+      "swapped": true
+    },
+    {
+      "id": "ru-unrelated-AB",
+      "language": "ru",
+      "fragmentA": "Томатам нужен регулярный полив.",
+      "fragmentB": "Пакет UDP не гарантирует доставку.",
+      "manualExpected": "unrelated",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "ru-unrelated-BA",
+      "language": "ru",
+      "fragmentA": "Пакет UDP не гарантирует доставку.",
+      "fragmentB": "Томатам нужен регулярный полив.",
+      "manualExpected": "unrelated",
+      "manualAlternatives": [],
+      "swapped": true
+    },
+    {
+      "id": "en-context-AB",
+      "language": "en",
+      "fragmentA": "It was the same as before.",
+      "fragmentB": "That one changed later.",
+      "manualExpected": "insufficient_context",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "en-context-BA",
+      "language": "en",
+      "fragmentA": "That one changed later.",
+      "fragmentB": "It was the same as before.",
+      "manualExpected": "insufficient_context",
+      "manualAlternatives": [],
+      "swapped": true
+    },
+    {
+      "id": "translation-AB",
+      "language": "ru-en",
+      "fragmentA": "Библиотека закрыта по понедельникам, кроме праздников.",
+      "fragmentB": "The library is closed on Mondays except on holidays.",
+      "manualExpected": "same_information",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "translation-BA",
+      "language": "ru-en",
+      "fragmentA": "The library is closed on Mondays except on holidays.",
+      "fragmentB": "Библиотека закрыта по понедельникам, кроме праздников.",
+      "manualExpected": "same_information",
+      "manualAlternatives": [],
+      "swapped": true
+    },
+    {
+      "id": "en-ambiguous-AB",
+      "language": "en",
+      "fragmentA": "The device usually lasts ten hours.",
+      "fragmentB": "The device lasts up to ten hours under normal conditions.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [
+        "related_distinct",
+        "same_information"
+      ],
+      "swapped": false
+    },
+    {
+      "id": "en-ambiguous-BA",
+      "language": "en",
+      "fragmentA": "The device lasts up to ten hours under normal conditions.",
+      "fragmentB": "The device usually lasts ten hours.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [
+        "related_distinct",
+        "same_information"
+      ],
+      "swapped": true
+    },
+    {
+      "id": "ru-ambiguous-AB",
+      "language": "ru",
+      "fragmentA": "Этот метод работает на небольших данных.",
+      "fragmentB": "Метод применим к небольшой выборке при независимых наблюдениях.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [
+        "insufficient_context"
+      ],
+      "swapped": false
+    },
+    {
+      "id": "ru-ambiguous-BA",
+      "language": "ru",
+      "fragmentA": "Метод применим к небольшой выборке при независимых наблюдениях.",
+      "fragmentB": "Этот метод работает на небольших данных.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [
+        "insufficient_context"
+      ],
+      "swapped": true
+    },
+    {
+      "id": "en-caveat-AB",
+      "language": "en",
+      "fragmentA": "The medicine is stored below 25°C, but must not be frozen.",
+      "fragmentB": "Store the medicine below 25°C.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [],
+      "swapped": false
+    },
+    {
+      "id": "en-caveat-BA",
+      "language": "en",
+      "fragmentA": "Store the medicine below 25°C.",
+      "fragmentB": "The medicine is stored below 25°C, but must not be frozen.",
+      "manualExpected": "partial_overlap",
+      "manualAlternatives": [],
+      "swapped": true
+    }
+  ]
+}

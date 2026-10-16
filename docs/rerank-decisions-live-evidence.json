@@ -1,0 +1,1046 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T09:03:22.624Z",
+  "mode": "live-evaluation",
+  "sourceCommit": "6a405e2e7d90be41f722e2a80995628ce56ad83c",
+  "buildSha256": "ae2fce2d38c5003ec4888f516de572544b30ceb9ac75f8f8c5d489644a6175ea",
+  "stylesSha256": "443b21f59f0326e38e369f67af2159a3d965a1cbbb053c7ca5a2d70f4a60dfff",
+  "environment": {
+    "platform": "linux",
+    "arch": "x64",
+    "node": "v24.14.1",
+    "nativeVersion": "1.13.7",
+    "nativePlatform": "linux",
+    "electronVersion": "43.6.0"
+  },
+  "cases": {
+    "file": "docs/rerank-decisions-live-cases-v1.json",
+    "sha256": "6c3a1ac4c540add14e64e821fff8c49ce82a7ef6a3f375fb0cee25701b590906",
+    "criteriaVersion": "overlap-v1",
+    "sources": {
+      "docs/rerank-v1-evaluation.json": "a6213ed3b33c26625ec537aafb910ed7d8cd86b238be3f27de97a5ddec714973",
+      "docs/decisions-v1-evaluation.json": "1d551dca41743fcdc027aded51caaf662fdf75cac174f1eb69e1344934ccee2f"
+    },
+    "criteriaSourceSha256": "44271f707ee1346db6771d8c15344a46eedd782d2065dae81ef5d09edb1d8c87",
+    "decisionsAdapterSha256": "af18babc462b6f8abceb228896763563d52027dbb1498d5068baa4d020fbbe77",
+    "rerankAdapterSha256": "0d98b0518bd4296ce5e60b21b2d075b3903d4ee17cdde085ff674cf22097a4f7"
+  },
+  "blockers": [
+    "Rerank: unverified OpenRouter billing upper bound"
+  ],
+  "liveAdapter": {
+    "rerank": "BLOCKED",
+    "decisions": "PASS"
+  },
+  "nativeLive": {
+    "rerank": "BLOCKED",
+    "decisions": "PASS"
+  },
+  "semanticQuality": {
+    "rerank": "NOT EVALUATED",
+    "decisions": "small synthetic set; see per-input results"
+  },
+  "pricing": {
+    "checkedOn": "2026-10-07",
+    "rerankUSDPerSearchUnit": 0.001,
+    "decisionsUSDPerMillionInputTokens": 0.042,
+    "decisionsUSDPerMillionOutputTokens": 0,
+    "sources": [
+      "https://openrouter.ai/cohere/rerank-v3.5",
+      "https://openrouter.ai/typesafe/jev-1.13",
+      "https://openrouter.ai/docs/api/api-reference/rerank/submit-a-rerank-request",
+      "https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-request",
+      "https://cohere.com/pricing",
+      "https://docs.cohere.com/v1/reference/rerank",
+      "https://docs.typesafe.ai/models"
+    ],
+    "decisionsUpperBoundUSD": 0.057802752,
+    "rerankUpperBoundUSD": null,
+    "assumptions": [
+      "Rerank live gate closed: OpenRouter upstream chunk cap not established.",
+      "21 Decisions calls reserving 65536 input tokens each, including state, criteria and service context (0.057802752 USD total); no output charge.",
+      "No connection probes, remote embeddings, retries, or additional experiments. Recheck rules before live execution."
+    ]
+  },
+  "budget": {
+    "authorizedUSD": 0.1,
+    "planningCeilingUSD": 0.08,
+    "untouchedMarginUSD": 0.02,
+    "maximumRequests": 32,
+    "planned": {
+      "rerankFixed": 0,
+      "rerankNative": 0,
+      "decisions": 20,
+      "nativeDecisions": 1,
+      "nativeDecisionsReusesFirstPair": false,
+      "remoteEmbeddings": 0,
+      "connectionTests": 0,
+      "total": 21
+    },
+    "sent": {
+      "rerank": 0,
+      "decisions": 21,
+      "embeddings": 0,
+      "connectionTests": 0,
+      "total": 21
+    },
+    "spentByThisRunUSD": 0.000488922,
+    "providerReportedUSD": 0.000488922,
+    "calculatedFromUsageUSD": null,
+    "unresolvedReservesUSD": 0,
+    "reservedOperations": 21,
+    "usageCrossCheckUSD": 0.000488922
+  },
+  "nativePlan": {
+    "rerankCaseId": "native-ru-cancellation",
+    "decisionsCaseId": "native-ru-paraphrase-AB",
+    "rerankStatus": "BLOCKED",
+    "decisionsStatus": "PASS",
+    "embeddings": "synthetic only; no quality baseline"
+  },
+  "orderStability": [
+    {
+      "pairId": "ru-paraphrase",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "en-partial",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "ru-aspects",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "en-contradiction",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "ru-unrelated",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "en-context",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "translation",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "en-ambiguous",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "ru-ambiguous",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    },
+    {
+      "pairId": "en-caveat",
+      "status": "evaluated",
+      "choiceAgrees": true,
+      "ambiguousSetAgrees": true
+    }
+  ],
+  "entries": [
+    {
+      "caseId": "ru-cancellation",
+      "capability": "rerank",
+      "endpoint": "https://openrouter.ai/api/v1/rerank",
+      "model": "cohere/rerank-v3.5",
+      "requestSha256": "cb3e2a303c074507fa9d712a0e0e8828e3b1fe9327539c3297a98d94a7cea940",
+      "payloadBytes": 888,
+      "relevantIds": [
+        "revision"
+      ],
+      "status": "BLOCKED",
+      "candidateContainsRelevant": true,
+      "candidateOrigin": "fixed-manual-set",
+      "afterOrder": null,
+      "firstRelevantAfter": null,
+      "top1": null,
+      "top3": null,
+      "semanticBefore": null,
+      "semanticAfter": null,
+      "semanticChange": "NOT EVALUATED",
+      "latencyMs": null,
+      "usage": null,
+      "costUSD": null,
+      "reason": "OpenRouter upstream chunking/search-unit upper bound remains unverified; key limit is not pricing evidence."
+    },
+    {
+      "caseId": "ru-offline",
+      "capability": "rerank",
+      "endpoint": "https://openrouter.ai/api/v1/rerank",
+      "model": "cohere/rerank-v3.5",
+      "requestSha256": "fcf64c5d03a72f7adc3191fdb434612393d4c07971b2626d6c58691ae0293699",
+      "payloadBytes": 867,
+      "relevantIds": [
+        "local-asr"
+      ],
+      "status": "BLOCKED",
+      "candidateContainsRelevant": true,
+      "candidateOrigin": "fixed-manual-set",
+      "afterOrder": null,
+      "firstRelevantAfter": null,
+      "top1": null,
+      "top3": null,
+      "semanticBefore": null,
+      "semanticAfter": null,
+      "semanticChange": "NOT EVALUATED",
+      "latencyMs": null,
+      "usage": null,
+      "costUSD": null,
+      "reason": "OpenRouter upstream chunking/search-unit upper bound remains unverified; key limit is not pricing evidence."
+    },
+    {
+      "caseId": "en-rollback",
+      "capability": "rerank",
+      "endpoint": "https://openrouter.ai/api/v1/rerank",
+      "model": "cohere/rerank-v3.5",
+      "requestSha256": "3374f353dc2552651650c8f1d998892ded60401cd9a2bbd97d7ac95f8fba14ff",
+      "payloadBytes": 544,
+      "relevantIds": [
+        "conditional-restore"
+      ],
+      "status": "BLOCKED",
+      "candidateContainsRelevant": true,
+      "candidateOrigin": "fixed-manual-set",
+      "afterOrder": null,
+      "firstRelevantAfter": null,
+      "top1": null,
+      "top3": null,
+      "semanticBefore": null,
+      "semanticAfter": null,
+      "semanticChange": "NOT EVALUATED",
+      "latencyMs": null,
+      "usage": null,
+      "costUSD": null,
+      "reason": "OpenRouter upstream chunking/search-unit upper bound remains unverified; key limit is not pricing evidence."
+    },
+    {
+      "caseId": "en-incomplete",
+      "capability": "rerank",
+      "endpoint": "https://openrouter.ai/api/v1/rerank",
+      "model": "cohere/rerank-v3.5",
+      "requestSha256": "3d7b35e6716e65fdf909149a8062b65d7cad55e813e05d4bc3f97799eb5fb6aa",
+      "payloadBytes": 522,
+      "relevantIds": [
+        "coverage"
+      ],
+      "status": "BLOCKED",
+      "candidateContainsRelevant": true,
+      "candidateOrigin": "fixed-manual-set",
+      "afterOrder": null,
+      "firstRelevantAfter": null,
+      "top1": null,
+      "top3": null,
+      "semanticBefore": null,
+      "semanticAfter": null,
+      "semanticChange": "NOT EVALUATED",
+      "latencyMs": null,
+      "usage": null,
+      "costUSD": null,
+      "reason": "OpenRouter upstream chunking/search-unit upper bound remains unverified; key limit is not pricing evidence."
+    },
+    {
+      "caseId": "ru-paraphrase-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "2da2af89d508fe1c85df2a53f2e7d61d5e4fad67536c65bcf1da307d7174170b",
+      "payloadBytes": 1245,
+      "expected": "partial_overlap",
+      "alternatives": [
+        "same_information"
+      ],
+      "status": "validated",
+      "choice": "same_information",
+      "probabilities": {
+        "same_information": 0.99,
+        "partial_overlap": 0.01,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 0.99,
+      "tied": [
+        "same_information"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "allowed-alternative",
+      "latencyMs": 477,
+      "usage": {
+        "input_tokens": 587,
+        "output_tokens": 64
+      },
+      "costUSD": 0.000024654,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-paraphrase-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "3602ff5a09f4a71fac486928b86129358771993a2c5bbaaae265dc51b31f1a6c",
+      "payloadBytes": 1245,
+      "expected": "partial_overlap",
+      "alternatives": [
+        "same_information"
+      ],
+      "status": "validated",
+      "choice": "same_information",
+      "probabilities": {
+        "same_information": 0.99,
+        "partial_overlap": 0.01,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 0.99,
+      "tied": [
+        "same_information"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "allowed-alternative",
+      "latencyMs": 630,
+      "usage": {
+        "input_tokens": 587,
+        "output_tokens": 64
+      },
+      "costUSD": 0.000024654,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-partial-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "445bcb42e2be8c237a66c162bfcb3e3db40a31f5c29158e4f13080a7755afd87",
+      "payloadBytes": 1160,
+      "expected": "partial_overlap",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 1,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 520,
+      "usage": {
+        "input_tokens": 545,
+        "output_tokens": 64
+      },
+      "costUSD": 0.00002289,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-partial-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "aa5940642b6916e9f98186fe82d8b041a06e0e176573dc75d3c68728b492759d",
+      "payloadBytes": 1160,
+      "expected": "partial_overlap",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 1,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 469,
+      "usage": {
+        "input_tokens": 545,
+        "output_tokens": 64
+      },
+      "costUSD": 0.00002289,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-aspects-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "9f1dd5208c1b4dcb5814a4d7f0149fe003f0bf9286fd6af3ba9c03efd793043c",
+      "payloadBytes": 1243,
+      "expected": "related_distinct",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "related_distinct",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0.01,
+        "related_distinct": 0.88,
+        "unrelated": 0.11,
+        "insufficient_context": 0
+      },
+      "confidence": 0.85,
+      "tied": [
+        "related_distinct"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 577,
+      "usage": {
+        "input_tokens": 576,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000024192,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-aspects-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "901975267048e533cc2d662f8db567254edc3ad5be447495eeead427fc89a662",
+      "payloadBytes": 1243,
+      "expected": "related_distinct",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "related_distinct",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0.01,
+        "related_distinct": 0.91,
+        "unrelated": 0.08,
+        "insufficient_context": 0
+      },
+      "confidence": 0.89,
+      "tied": [
+        "related_distinct"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 623,
+      "usage": {
+        "input_tokens": 576,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000024192,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-contradiction-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "969113842a956a91d2eabec7621a021d08dbefc5e9a3a42a2a42cf51b6b83a3d",
+      "payloadBytes": 1164,
+      "expected": "related_distinct",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "related_distinct",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0,
+        "related_distinct": 1,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "related_distinct"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 522,
+      "usage": {
+        "input_tokens": 527,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000022134,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-contradiction-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "58a4aea5e08cca55a77643844ba7a2771afd9af7a52fd668cf5f35e46b65beaf",
+      "payloadBytes": 1164,
+      "expected": "related_distinct",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "related_distinct",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0,
+        "related_distinct": 1,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "related_distinct"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 520,
+      "usage": {
+        "input_tokens": 527,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000022134,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-unrelated-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "56cea548b905ea58bcf985fde883fdeec0853fbae913f4dbdb14e58fee039bb5",
+      "payloadBytes": 1191,
+      "expected": "unrelated",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "unrelated",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0,
+        "related_distinct": 0,
+        "unrelated": 1,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "unrelated"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 467,
+      "usage": {
+        "input_tokens": 562,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000023604,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-unrelated-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "4a6ae9c01c5374995690ce8e719c4cdb6f1f1398262481c9886060cb9eeaa206",
+      "payloadBytes": 1191,
+      "expected": "unrelated",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "unrelated",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0,
+        "related_distinct": 0,
+        "unrelated": 1,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "unrelated"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 518,
+      "usage": {
+        "input_tokens": 562,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000023604,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-context-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "1c3d49c4f8cd37587dc00c9fc3325ca4b5cc4e9966db92853818aa3631fee18f",
+      "payloadBytes": 1122,
+      "expected": "insufficient_context",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "related_distinct",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0.08,
+        "related_distinct": 0.48,
+        "unrelated": 0.02,
+        "insufficient_context": 0.42
+      },
+      "confidence": 0.35,
+      "tied": [
+        "related_distinct"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "disagreement",
+      "latencyMs": 467,
+      "usage": {
+        "input_tokens": 523,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000021966,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-context-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "63c5db738f61aa36d3a80b7931ab1b4108581630c7d454b1141a146a700f689c",
+      "payloadBytes": 1122,
+      "expected": "insufficient_context",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "related_distinct",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 0,
+        "related_distinct": 0.91,
+        "unrelated": 0,
+        "insufficient_context": 0.09
+      },
+      "confidence": 0.89,
+      "tied": [
+        "related_distinct"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "disagreement",
+      "latencyMs": 466,
+      "usage": {
+        "input_tokens": 523,
+        "output_tokens": 65
+      },
+      "costUSD": 0.000021966,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "translation-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "d97048711bec1ef00fb16accc64a1139ac461862d2c5a141f04fdab5282a1e8e",
+      "payloadBytes": 1226,
+      "expected": "same_information",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "same_information",
+      "probabilities": {
+        "same_information": 1,
+        "partial_overlap": 0,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "same_information"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 522,
+      "usage": {
+        "input_tokens": 565,
+        "output_tokens": 64
+      },
+      "costUSD": 0.00002373,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "translation-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "ae9fa51d5c64fa17344a04174f33ab0f174e2a91ac7d7bc111bf9c3e1d942fda",
+      "payloadBytes": 1226,
+      "expected": "same_information",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "same_information",
+      "probabilities": {
+        "same_information": 1,
+        "partial_overlap": 0,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "same_information"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 569,
+      "usage": {
+        "input_tokens": 565,
+        "output_tokens": 64
+      },
+      "costUSD": 0.00002373,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-ambiguous-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "2da871577dc7d1d902b301e7c14705b03fc431646c8e26bbdda122eef3c1cf3f",
+      "payloadBytes": 1165,
+      "expected": "partial_overlap",
+      "alternatives": [
+        "related_distinct",
+        "same_information"
+      ],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0.16,
+        "partial_overlap": 0.84,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 0.8,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 521,
+      "usage": {
+        "input_tokens": 529,
+        "output_tokens": 64
+      },
+      "costUSD": 0.000022218,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-ambiguous-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "460cd5c6e296f7ecaa0a6e746dd95df83a488e41daffac9f0b7b76350aa31ed6",
+      "payloadBytes": 1165,
+      "expected": "partial_overlap",
+      "alternatives": [
+        "related_distinct",
+        "same_information"
+      ],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0.03,
+        "partial_overlap": 0.96,
+        "related_distinct": 0.01,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 0.94,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 471,
+      "usage": {
+        "input_tokens": 529,
+        "output_tokens": 64
+      },
+      "costUSD": 0.000022218,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-ambiguous-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "172fb5d0069e35f28475d91f514aa05dcd25b591243c3074c9b88b6ff54d7825",
+      "payloadBytes": 1265,
+      "expected": "partial_overlap",
+      "alternatives": [
+        "insufficient_context"
+      ],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0.04,
+        "partial_overlap": 0.96,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 0.95,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 518,
+      "usage": {
+        "input_tokens": 575,
+        "output_tokens": 64
+      },
+      "costUSD": 0.00002415,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "ru-ambiguous-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "8effcea0bc6770d1881ed246c69eaec25874db5338dc6982cbbbafb6729c491a",
+      "payloadBytes": 1265,
+      "expected": "partial_overlap",
+      "alternatives": [
+        "insufficient_context"
+      ],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0.02,
+        "partial_overlap": 0.98,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 0.97,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 469,
+      "usage": {
+        "input_tokens": 575,
+        "output_tokens": 64
+      },
+      "costUSD": 0.00002415,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-caveat-AB",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "3038266796bf913c8059251751956c681d18e5484e6aef314f61db11dd48e835",
+      "payloadBytes": 1163,
+      "expected": "partial_overlap",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 1,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 466,
+      "usage": {
+        "input_tokens": 536,
+        "output_tokens": 64
+      },
+      "costUSD": 0.000022512,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    },
+    {
+      "caseId": "en-caveat-BA",
+      "capability": "decisions",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "requestSha256": "2e73b96dd20007d096a68d2b6c9ae512e13c45c9e0f4cb3ade31f841a5651fef",
+      "payloadBytes": 1163,
+      "expected": "partial_overlap",
+      "alternatives": [],
+      "status": "validated",
+      "choice": "partial_overlap",
+      "probabilities": {
+        "same_information": 0,
+        "partial_overlap": 1,
+        "related_distinct": 0,
+        "unrelated": 0,
+        "insufficient_context": 0
+      },
+      "confidence": 1,
+      "tied": [
+        "partial_overlap"
+      ],
+      "resolvedModel": "typesafe/jev-1.13-20260917",
+      "correspondence": "primary-match",
+      "latencyMs": 517,
+      "usage": {
+        "input_tokens": 536,
+        "output_tokens": 64
+      },
+      "costUSD": 0.000022512,
+      "costBasis": "provider",
+      "reservationUSD": 0.002752512,
+      "requestedModel": "typesafe/jev-1.13",
+      "httpStatus": 200
+    }
+  ],
+  "planFingerprint": "78aaa48727b60f0b08f4e530a992e3d3f1d4979ce813f1c3bebc4723f908d958",
+  "replayCheckoutCommit": "5495683a6c1c684db068426ef05dc60b49116908",
+  "startedAt": "2026-10-07T08:45:54.231Z",
+  "finishedAt": "2026-10-07T08:50:06.559Z",
+  "resumedAt": "2026-10-07T08:50:06.559Z",
+  "replayRunnerSha256": "1a64f66d1fb5753d1ea2d9f53505f5d6f0fb956e1c72205dc9e57efaaaa1018a",
+  "nativeSyntheticEmbeddingCalls": 2,
+  "nativeChecks": [
+    "workspace and indexing: zero capability requests",
+    "native preview exact; zero preview requests",
+    "all permitted operations completed; no connection probes",
+    "restart skipped every completed operation"
+  ],
+  "nativeDecisions": {
+    "caseId": "native-ru-paraphrase-AB",
+    "capability": "decisions",
+    "expected": "partial_overlap",
+    "alternatives": [
+      "same_information"
+    ],
+    "status": "validated",
+    "latencyMs": 1006,
+    "usage": {
+      "input_tokens": 591,
+      "output_tokens": 64
+    },
+    "costUSD": 0.000024822,
+    "costBasis": "provider",
+    "reservationUSD": 0.002752512,
+    "choice": "same_information",
+    "probabilities": {
+      "same_information": 0.99,
+      "partial_overlap": 0.01,
+      "related_distinct": 0,
+      "unrelated": 0,
+      "insufficient_context": 0
+    },
+    "confidence": 0.99,
+    "tied": [
+      "same_information"
+    ],
+    "requestedModel": "typesafe/jev-1.13",
+    "resolvedModel": "typesafe/jev-1.13-20260917",
+    "correspondence": "allowed-alternative",
+    "httpStatus": 200,
+    "stage": "result",
+    "stages": [
+      "preparing",
+      "ready",
+      "preparing",
+      "assessing",
+      "result"
+    ],
+    "previewMatched": true,
+    "previewRequests": 0,
+    "tentativeVisible": true,
+    "checksPassed": true,
+    "separateFromEvaluation20": true
+  },
+  "decisionsSummary": {
+    "primary-match": 16,
+    "allowed-alternative": 2,
+    "disagreement": 2,
+    "ambiguous": 0,
+    "technical-failure": 0,
+    "NOT RUN": 0
+  }
+}
