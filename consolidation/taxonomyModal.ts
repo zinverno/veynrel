@@ -1,9 +1,22 @@
-import { App, Modal } from "obsidian";
+import { App, FuzzySuggestModal, Modal, Notice } from "obsidian";
 import { t } from "../i18n";
 import { categoryDefaults, categoryForTag, nextCategoryId, suggestTaxonomy, TAXONOMY_PURPOSES, TaxonomyError } from "./taxonomyProfile";
 import type { TaxonomyCategory, TaxonomyProfilePort } from "./taxonomyProfile";
-import { scanTaxonomy, taxonomyExclusions } from "./taxonomyScan";
+import { scanTaxonomy, taxonomyExclusions, taxonomyFileEligible } from "./taxonomyScan";
 import { TaxonomySession } from "./taxonomySession";
+
+import type { TFile } from "obsidian";
+import type { TaxonomyInventory } from "./taxonomyScan";
+import type { TagRecommendationSession } from "./tagRecommendationSession";
+import { renderTagRecommendationView } from "./tagRecommendationView";
+import { watchTaxonomyFreshness } from "./taxonomyFreshness";
+
+class TagNotePicker extends FuzzySuggestModal<TFile> {
+  constructor(app: App, private readonly choose: (path: string) => void) { super(app); this.setPlaceholder(t("@tagRec.select")); }
+  getItems(): TFile[] { return this.app.vault.getMarkdownFiles().filter(file => taxonomyFileEligible(this.app, file, [])); }
+  getItemText(file: TFile): string { return file.path; }
+  onChooseItem(file: TFile): void { this.choose(file.path); }
+}
 
 let modalSequence = 0;
 export class TagTaxonomyModal extends Modal {
@@ -16,8 +29,13 @@ export class TagTaxonomyModal extends Modal {
   private reviewButton?: HTMLButtonElement;
   private validation?: HTMLElement;
   private inventoryEl?: HTMLElement;
-  constructor(app: App, port: TaxonomyProfilePort, private readonly release: () => void = () => {}) {
+  private recommendationEl?: HTMLElement;
+  private readonly recommendations?: TagRecommendationSession;
+  private stopWatching?: () => void;
+  constructor(app: App, port: TaxonomyProfilePort, private readonly release: () => void = () => {},
+    createRecommendations?: (inventory: () => TaxonomyInventory | undefined) => TagRecommendationSession) {
     super(app); this.session = new TaxonomySession(port, (excluded, signal, progress) => scanTaxonomy(app, excluded, signal, progress));
+    this.recommendations = createRecommendations?.(() => this.session.inventory);
   }
   onOpen(): void {
     this.openState = true; this.modalEl.addClass("ai-taxonomy-modal"); this.contentEl.addClass("ai-taxonomy");
@@ -27,9 +45,27 @@ export class TagTaxonomyModal extends Modal {
       if (this.session.stage === "scanning" && this.previousStage === "scanning") this.updateStatus();
       else this.render();
     };
+    if (this.recommendations) this.recommendations.onChange = () => this.renderRecommendations();
     this.render();
   }
-  onClose(): void { this.openState = false; this.session.close(); this.contentEl.empty(); this.release(); }
+  onClose(): void {
+    this.openState = false; this.stopWatching?.(); this.session.close(); this.recommendations?.close();
+    if (this.recommendations?.hasDispatched) new Notice(t("@relationship.cancelScope"));
+    this.contentEl.empty(); this.release();
+  }
+  private invalidateInventory(): void {
+    const inventory = this.session.inventory;
+    // A dirty snapshot stays dirty; a burst of vault events needs only one UI update.
+    if (!inventory || inventory.state !== "complete") return;
+    this.session.inventory = { ...inventory, state: "stale" }; this.recommendations?.invalidate();
+    if (this.inventoryEl) this.renderInventory();
+  }
+  private renderRecommendations(): void {
+    if (!this.openState || !this.recommendationEl || !this.recommendations) return;
+    renderTagRecommendationView(this.recommendationEl, this.recommendations, () => {
+      new TagNotePicker(this.app, path => { if (this.openState) this.recommendations?.select(path); }).open();
+    });
+  }
   private updateStatus(): void {
     const s = this.session;
     this.status?.setText(t(s.error ? `@taxonomy.error.${s.error}` : `@taxonomy.stage.${s.stage}`, s.progress));
@@ -62,21 +98,29 @@ export class TagTaxonomyModal extends Modal {
   private render(): void {
     const focus = this.contentEl.ownerDocument.activeElement?.getAttribute("data-taxonomy-focus");
     const s = this.session; this.previousStage = s.stage;
-    this.contentEl.empty(); this.reviewButton = undefined; this.validation = undefined; this.inventoryEl = undefined;
+    this.contentEl.empty(); this.reviewButton = undefined; this.validation = undefined; this.inventoryEl = undefined; this.recommendationEl = undefined;
     this.contentEl.createEl("p", { text: t("@taxonomy.scope") });
     this.status = this.contentEl.createDiv({ attr: { role: "status", "aria-live": "polite" } }); this.updateStatus();
     if (s.stage === "review" || s.stage === "saving") this.renderReview();
     else {
       const scan = this.contentEl.createEl("fieldset"); scan.createEl("legend", { text: t("@taxonomy.inventory") });
-      this.field(scan, "exclusions", "exclusions", this.exclusions, value => { this.exclusions = value; }, true);
+      this.field(scan, "exclusions", "exclusions", this.exclusions, value => { this.exclusions = value; this.invalidateInventory(); }, true);
       this.button(scan, "analyze", () => {
-        try { void s.analyze(taxonomyExclusions(this.exclusions)); }
+        try {
+          const excluded = taxonomyExclusions(this.exclusions);
+          if (this.recommendations) {
+            this.stopWatching ??= watchTaxonomyFreshness(this.app, () => this.invalidateInventory());
+            this.recommendations.invalidate();
+          }
+          void s.analyze(excluded);
+        }
         catch (error) { s.error = error instanceof TaxonomyError ? error.reason : "scan"; s.stage = "error"; this.render(); }
       }, s.busy);
       // Keep cancellation outside the disabled fieldset.
       scan.disabled = s.busy;
       if (s.stage === "scanning") this.button(this.contentEl, "cancel", () => s.cancelScan());
       if (s.inventory) this.renderInventory();
+      if (this.recommendations) { this.recommendationEl = this.contentEl.createEl("section", { cls: "ai-tag-recommendations" }); this.renderRecommendations(); }
       const editor = this.contentEl.createEl("fieldset"); editor.disabled = s.busy;
       editor.createEl("legend", { text: t("@taxonomy.rules") });
       editor.createEl("p", { text: t(s.base ? "@taxonomy.confirmed" : "@taxonomy.noProfile") });

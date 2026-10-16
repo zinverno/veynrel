@@ -105,6 +105,10 @@ try {
    const { taxonomyScenario } = await import('./tag-taxonomy-native.mjs');
    report.taxonomy = await taxonomyScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b] });
  }
+ if (process.argv.includes('--tag-recommendations')) {
+   const { tagRecommendationScenario } = await import('./tag-recommendations-native.mjs');
+   report.tagRecommendations = await tagRecommendationScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
+ }
  await ev("document.querySelectorAll('.ai-pair-note button')[1].click()");
  await wait('app.workspace.getActiveFile()?.path==='+JSON.stringify(b));checks.push('Open source note selects the exact second path');
  await pass('Inspector performs zero network requests and Markdown writes','io.network===0&&io.write===0');
@@ -122,6 +126,6 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- report.version=await ev("({obsidian:app.version,electron:process.versions.electron})");report.io=await ev('io');report.status='PASS';
+ report.version=await ev("({electron:process.versions.electron})");report.io=await ev('io');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}

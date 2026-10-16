@@ -14,6 +14,7 @@ export interface TaxonomyCategory {
 export interface TagTaxonomyProfile { version: 1; categories: TaxonomyCategory[] }
 export interface TaxonomyProfilePort {
   get(): TagTaxonomyProfile | null;
+  subscribe(listener: () => void): () => void;
   save(next: TagTaxonomyProfile, expected: TagTaxonomyProfile | null, signal: AbortSignal): Promise<void>;
 }
 export class TaxonomyError extends Error {

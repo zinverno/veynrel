@@ -14,7 +14,7 @@ export class TaxonomySession {
   private closed = false;
   private operation?: AbortController;
   private reviewed?: TagTaxonomyProfile;
-  constructor(private readonly port: TaxonomyProfilePort,
+  constructor(private readonly port: Pick<TaxonomyProfilePort, "get" | "save">,
     private readonly scan: (excluded: string[], signal: AbortSignal, progress: (processed: number, total: number) => void) => Promise<TaxonomyInventory>) {
     this.base = port.get(); this.draft = structuredClone(this.base ?? { version: 1, categories: [] });
   }

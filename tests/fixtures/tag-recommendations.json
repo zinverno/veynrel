@@ -1,0 +1,420 @@
+[
+  {
+    "name": "theory_with_small_example",
+    "content": "---\ntype: atom\n---\n# Теория кеширования\nКеш хранит результат вычисления для повторного использования.\nНебольшой пример: повторно используем результат суммы.\n![[Private embedded target]]\n",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "role",
+          "name": "Роль / Role",
+          "purpose": "role",
+          "multiplicity": "one_primary",
+          "interpretation": "global",
+          "prefixes": [
+            "role",
+            "роль"
+          ],
+          "tags": [
+            "Практика"
+          ]
+        }
+      ]
+    },
+    "tags": [
+      "role/theory",
+      "роль/практика",
+      "Практика"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "role",
+          "status": "recommend",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Кеш хранит результат вычисления для повторного использования.",
+          "existing": [
+            {
+              "tag": "role/theory",
+              "evidence": {
+                "text": "Main content explains a principle; one small example does not change its role.",
+                "quote": "Кеш хранит результат вычисления для повторного использования."
+              }
+            }
+          ],
+          "proposed": [],
+          "basis": null
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "practical_guide",
+    "content": "# Инструкция\nСначала установите инструмент, затем запустите команду и проверьте вывод.",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "role",
+          "name": "Роль / Role",
+          "purpose": "role",
+          "multiplicity": "one_primary",
+          "interpretation": "global",
+          "prefixes": [
+            "role",
+            "роль"
+          ],
+          "tags": [
+            "Практика"
+          ]
+        }
+      ]
+    },
+    "tags": [
+      "role/theory",
+      "роль/практика",
+      "Практика"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "role",
+          "status": "recommend",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Сначала установите инструмент, затем запустите команду и проверьте вывод.",
+          "existing": [
+            {
+              "tag": "роль/практика",
+              "evidence": {
+                "text": "Classification proposed from the authored passage.",
+                "quote": "Сначала установите инструмент, затем запустите команду и проверьте вывод."
+              }
+            }
+          ],
+          "proposed": [],
+          "basis": null
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "programming_difficulty",
+    "content": "Алгоритм в программировании использует графы. Требуется знание обхода графа в глубину.",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "difficulty",
+          "name": "Сложность",
+          "purpose": "difficulty",
+          "multiplicity": "one_primary",
+          "interpretation": "domain",
+          "prefixes": [
+            "сложность",
+            "difficulty"
+          ],
+          "tags": []
+        }
+      ]
+    },
+    "tags": [
+      "difficulty/basic",
+      "сложность/продвинутый"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "difficulty",
+          "status": "recommend",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Требуется знание обхода графа в глубину.",
+          "existing": [
+            {
+              "tag": "сложность/продвинутый",
+              "evidence": {
+                "text": "Classification proposed from the authored passage.",
+                "quote": "Требуется знание обхода графа в глубину."
+              }
+            }
+          ],
+          "proposed": [],
+          "basis": {
+            "domain": {
+              "text": "Domain-specific interpretation.",
+              "quote": "Алгоритм в программировании использует графы."
+            },
+            "prerequisites": {
+              "text": "Level depends on prerequisite knowledge.",
+              "quote": "Требуется знание обхода графа в глубину."
+            }
+          }
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "language_difficulty",
+    "content": "Упражнение по английскому языку. Для него нужно знать базовые формы глагола.",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "difficulty",
+          "name": "Сложность",
+          "purpose": "difficulty",
+          "multiplicity": "one_primary",
+          "interpretation": "domain",
+          "prefixes": [
+            "сложность",
+            "difficulty"
+          ],
+          "tags": []
+        }
+      ]
+    },
+    "tags": [
+      "difficulty/basic",
+      "сложность/продвинутый"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "difficulty",
+          "status": "recommend",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Для него нужно знать базовые формы глагола.",
+          "existing": [
+            {
+              "tag": "difficulty/basic",
+              "evidence": {
+                "text": "Classification proposed from the authored passage.",
+                "quote": "Для него нужно знать базовые формы глагола."
+              }
+            }
+          ],
+          "proposed": [],
+          "basis": {
+            "domain": {
+              "text": "Domain-specific interpretation.",
+              "quote": "Упражнение по английскому языку."
+            },
+            "prerequisites": {
+              "text": "Level depends on prerequisite knowledge.",
+              "quote": "Для него нужно знать базовые формы глагола."
+            }
+          }
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "multiple_topics",
+    "content": "Рассматриваются хранение данных и распределённые вычисления.",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "topic",
+          "name": "Тематика",
+          "purpose": "topic",
+          "multiplicity": "multiple",
+          "interpretation": "global",
+          "prefixes": [
+            "topic",
+            "тема"
+          ],
+          "tags": []
+        }
+      ]
+    },
+    "tags": [
+      "тема/данные",
+      "topic/distributed"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "topic",
+          "status": "recommend",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Рассматриваются хранение данных и распределённые вычисления.",
+          "existing": [
+            {
+              "tag": "тема/данные",
+              "evidence": {
+                "text": "Classification proposed from the authored passage.",
+                "quote": "Рассматриваются хранение данных и распределённые вычисления."
+              }
+            },
+            {
+              "tag": "topic/distributed",
+              "evidence": {
+                "text": "Classification proposed from the authored passage.",
+                "quote": "Рассматриваются хранение данных и распределённые вычисления."
+              }
+            }
+          ],
+          "proposed": [],
+          "basis": null
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "no_applicable_tag",
+    "content": "Это личное напоминание купить хлеб.",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "role",
+          "name": "Роль / Role",
+          "purpose": "role",
+          "multiplicity": "one_primary",
+          "interpretation": "global",
+          "prefixes": [
+            "role",
+            "роль"
+          ],
+          "tags": [
+            "Практика"
+          ]
+        }
+      ]
+    },
+    "tags": [
+      "role/theory",
+      "роль/практика"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "role",
+          "status": "none",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Это личное напоминание купить хлеб.",
+          "existing": [],
+          "proposed": [],
+          "basis": null
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "justified_new_tag",
+    "content": "Текст объясняет стратегии вытеснения кеша.",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "topic",
+          "name": "Тематика",
+          "purpose": "topic",
+          "multiplicity": "multiple",
+          "interpretation": "global",
+          "prefixes": [
+            "topic",
+            "тема"
+          ],
+          "tags": []
+        }
+      ]
+    },
+    "tags": [
+      "тема/данные"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "topic",
+          "status": "recommend",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": "Текст объясняет стратегии вытеснения кеша.",
+          "existing": [],
+          "proposed": [
+            {
+              "tag": "тема/кеширование",
+              "evidence": {
+                "text": "A dedicated cache-strategy classification would help retrieval; the observed general data tag does not distinguish it.",
+                "quote": "Текст объясняет стратегии вытеснения кеша."
+              },
+              "nearest": [
+                {
+                  "tag": "тема/данные",
+                  "difference": "General data is broader than cache eviction strategies."
+                }
+              ],
+              "limitations": [
+                "Future repeated use is unknown; review the proposal manually."
+              ]
+            }
+          ],
+          "basis": null
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  },
+  {
+    "name": "insufficient_context",
+    "content": "",
+    "profile": {
+      "version": 1,
+      "categories": [
+        {
+          "id": "role",
+          "name": "Роль / Role",
+          "purpose": "role",
+          "multiplicity": "one_primary",
+          "interpretation": "global",
+          "prefixes": [
+            "role",
+            "роль"
+          ],
+          "tags": [
+            "Практика"
+          ]
+        }
+      ]
+    },
+    "tags": [
+      "role/theory"
+    ],
+    "response": {
+      "categories": [
+        {
+          "categoryId": "role",
+          "status": "insufficient_context",
+          "explanation": "Preliminary interpretation of the source; semantic judgment needs review.",
+          "quote": null,
+          "existing": [],
+          "proposed": [],
+          "basis": null
+        }
+      ],
+      "limitations": [
+        "Synthetic example; semantic accuracy is not established."
+      ]
+    }
+  }
+]

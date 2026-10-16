@@ -3,7 +3,7 @@ import type { App, PluginManifest } from "obsidian";
 import type { AIHubSettings } from "./settings";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
 vi.mock("obsidian", () => ({ Plugin: class { constructor(public app: App, public manifest: PluginManifest) {} },
-  Modal: class {}, Notice: class {}, PluginSettingTab: class {}, Component: class {}, TFile: class {}, TFolder: class {}, getLanguage: () => "en" }));
+  FuzzySuggestModal: class {}, Modal: class {}, Notice: class {}, PluginSettingTab: class {}, Component: class {}, TFile: class {}, TFolder: class {}, getLanguage: () => "en" }));
 const profile = (name = "Роль"): TagTaxonomyProfile => ({ version: 1, categories: [{ id: "role", name, purpose: "role", multiplicity: "one_primary", interpretation: "global", prefixes: ["role", "тип"], tags: ["Практика"] }] });
 async function fixture(value?: unknown) {
   const { default: Plugin } = await vi.importActual<typeof import("./main")>("./main.ts"); const { DEFAULT_SETTINGS } = await import("./settings");
@@ -26,6 +26,12 @@ describe("taxonomy uses the existing serialized settings owner", () => {
     expect(f.disk()).toEqual({ ...before, tagTaxonomyProfile: profile() });
     expect(f.app.vault.modify).not.toHaveBeenCalled(); await f.plugin.loadSettings(); expect(f.port.get()).toEqual(profile());
     f.port.get()!.categories[0].tags.push("mutated"); expect(f.port.get()).toEqual(profile());
+  });
+  it("notifies ephemeral profile readers only after the existing save queue commits", async () => {
+    const f = await fixture(), listener = vi.fn(), stop = f.port.subscribe(listener);
+    await f.persist(); expect(listener).toHaveBeenCalledOnce(); expect(f.port.get()).toEqual(profile());
+    f.save.mockRejectedValueOnce(Error("disk")); await expect(f.persist(profile("changed"))).rejects.toThrow();
+    expect(f.port.get()).toEqual(profile()); stop(); listener.mockClear(); await f.persist(profile("changed")); expect(listener).not.toHaveBeenCalled();
   });
   it("rejects stale editors and invalid profiles instead of replacing newer rules", async () => {
     const f = await fixture(); const a = f.persist(profile("First"), null), b = f.persist(profile("Second"), null);

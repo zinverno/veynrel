@@ -5,6 +5,10 @@ Opening Tools or this modal reads only the already loaded profile. It does not
 enumerate notes, read Markdown, call a provider, or create a profile. This feature
 requires neither Deep Intelligence configuration nor Decisions nor embeddings.
 
+Optional [Tag Recommendations v1](tag-recommendations-v1.md) now extends this
+dialog with a separately confirmed LLM request for one selected note. Local
+scanning and profile editing retain the boundaries described here.
+
 ## Inventory and structure
 
 **Analyze tags / Проанализировать теги** explicitly enumerates
@@ -12,7 +16,9 @@ requires neither Deep Intelligence configuration nor Decisions nor embeddings.
 Obsidian's public `getAllTags` helper for inline and YAML frontmatter tags. There
 is no new Markdown parser and no note-body fallback. A tag repeated inline and
 in frontmatter counts once per note. Literal case, Unicode and nesting are
-preserved: `Flat`, `flat`, `роль/теория` and `role/theory` remain different tags.
+preserved: `Flat`, `flat`, `роль/теория` and `role/theory` remain separate observed
+spellings. This literal inventory does not override Obsidian's case-insensitive
+tag lookup or infer equivalence between differently named values.
 
 The temporary inventory shows examined eligible notes, exclusions, missing cache
 entries, cached empty tag lists and unique tags. Missing metadata is **unknown**,

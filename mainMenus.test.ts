@@ -3,7 +3,7 @@ import type { App, Editor, Menu, MenuItem, PluginManifest, TFile } from "obsidia
 
 vi.mock("obsidian", () => ({
   Plugin: class { constructor(public app: App) {} },
-  Notice: class {}, Modal: class {}, PluginSettingTab: class {}, Component: class {},
+  Notice: class {}, FuzzySuggestModal: class {}, Modal: class {}, PluginSettingTab: class {}, Component: class {},
   TFile: class {}, TFolder: class {},
   getLanguage: () => "en",
 }));

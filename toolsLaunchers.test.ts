@@ -5,7 +5,7 @@ import type { App, PluginManifest } from "obsidian";
 const mocks = vi.hoisted(() => ({ opened: [] as unknown[] }));
 vi.mock("obsidian", () => ({
   Plugin: class { constructor(public app: App) {} },
-  Modal: class { open() { mocks.opened.push(this); } },
+  FuzzySuggestModal: class {}, Modal: class { open() { mocks.opened.push(this); } },
   Notice: vi.fn(), PluginSettingTab: class {}, Component: class {}, TFile: class {}, TFolder: class {}, getLanguage: () => "en",
 }));
 afterEach(() => { vi.restoreAllMocks(); mocks.opened.length = 0; });

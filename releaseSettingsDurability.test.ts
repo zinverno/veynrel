@@ -4,7 +4,7 @@ import manifest from "./manifest.json";
 
 vi.mock("obsidian", () => ({
   Plugin: class { constructor(public app: App, public manifest: PluginManifest) {} },
-  PluginSettingTab: class {}, Setting: class {}, Notice: class {}, Modal: class {}, Component: class {},
+  PluginSettingTab: class {}, Setting: class {}, Notice: class {}, FuzzySuggestModal: class {}, Modal: class {}, Component: class {},
   TFile: class {}, TFolder: class {}, getLanguage: () => "en", setIcon: vi.fn(), requireApiVersion: () => false,
 }));
 
