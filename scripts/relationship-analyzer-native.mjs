@@ -68,6 +68,13 @@ export async function relationshipScenario({ ev, wait, cdp, close, root, vault, 
       }
       await ev("{const button=document.querySelector('[data-relationship-action=confirm]');button.click();button.click();}void 0"); await stage('result');
       await pass(item.name + ': exactly one confirmed request and expected relation', `rel.calls.length===rel.before+1&&rel.sessions.at(-1).view.result.relation===${JSON.stringify(item.response.relation)}`);
+      if (['partial_overlap', 'theory_and_context', 'contradiction', 'versions'].includes(item.name)) {
+        await pass(item.name + ': only supplied and verified quote sides render', `rel.fixture.response.claims.every((claim,i)=>{
+          const card=document.querySelectorAll('.ai-relationship .ai-semantic-duplicate-card')[i];
+          const quotes=[claim.quoteA,claim.quoteB].filter(q=>q!==null);
+          return JSON.stringify([...card.querySelectorAll('pre')].map(e=>e.textContent))===JSON.stringify(quotes)&&card.querySelectorAll('p').length===1+quotes.length;
+        })`);
+      }
       if (['conflicting', 'unrelated', 'insufficient_context'].includes(item.response.relation)) refusals.push({ fixture: item.name, relation: item.response.relation, action: item.response.recommendation.action });
       if (item.name === 'standalone_large_section') await pass('Source beyond inspector preview is sent whole', "JSON.parse(rel.calls.at(-1).user).A.length>12000&&JSON.parse(rel.calls.at(-1).user).A.includes('A bounded queue')");
       await action('dismiss'); await stage('dismissed');
@@ -78,6 +85,14 @@ export async function relationshipScenario({ ev, wait, cdp, close, root, vault, 
       await ev(`rel.mode=${JSON.stringify(mode)};void 0`); await action('analyze'); await stage('consent'); await action('confirm'); await stage('error');
       await pass(mode + ': no recommendation displayed', "!rel.sessions.at(-1).view.result&&!document.querySelector('[data-relationship-action=dismiss]')"); refusals.push({ fixture: mode, state: 'error' });
     }
+    const context = cases.find(c => c.name === 'theory_and_context'); await write(context.a, context.b); await open();
+    for (const [field, value] of [['quoteA', null], ['quoteB', 'fabricated optional quote']]) {
+      await ev(`rel.fixture=${JSON.stringify(context)};rel.fixture.response.claims[1][${JSON.stringify(field)}]=${JSON.stringify(value)};rel.mode='ok';void 0`);
+      await action('analyze'); await stage('consent'); await action('confirm'); await stage('error');
+      await pass(field + ': invalid contextual evidence yields no recommendation', '!rel.sessions.at(-1).view.result');
+      refusals.push({ fixture: field === 'quoteA' ? 'missing required contextual quote' : 'fabricated optional quote', state: 'error' });
+    }
+    await write(item.a, item.b); await open(); await ev(`rel.fixture=${JSON.stringify(item)};void 0`);
     await ev("rel.mode='ok';rel.before=rel.calls.length;void 0"); await action('analyze'); await stage('consent');
     fs.writeFileSync(vault + '/' + a, item.a + '\nChanged before confirmation.'); await stage('stale');
     await pass('File change revokes consent without dispatch', 'rel.calls.length===rel.before');

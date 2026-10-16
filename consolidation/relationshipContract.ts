@@ -3,13 +3,14 @@ export const ACTIONS = ["consider_merge", "consider_embed_b_in_a", "consider_emb
 export const CLAIM_KINDS = ["shared", "unique_a", "unique_b", "context_a", "context_b", "standalone_a", "standalone_b", "conflict", "version_difference", "comparison"] as const;
 export type Relation = typeof RELATIONS[number];
 export type Action = typeof ACTIONS[number];
-export interface RelationshipClaim {
+export type RelationshipClaim = {
   id: string;
-  kind: typeof CLAIM_KINDS[number];
   text: string;
-  quoteA: string;
-  quoteB: string;
-}
+} & (
+  | { kind: "shared" | "conflict" | "version_difference" | "comparison"; quoteA: string; quoteB: string }
+  | { kind: "unique_a" | "context_a" | "standalone_a"; quoteA: string; quoteB: string | null }
+  | { kind: "unique_b" | "context_b" | "standalone_b"; quoteA: string | null; quoteB: string }
+);
 export interface RelationshipRecommendation { action: Action; reason: string; evidence: string[] }
 export interface RelationshipResult {
   relation: Relation;
@@ -53,6 +54,9 @@ function exactQuote(value: unknown, source: string): string {
   requireValid(start >= 0 && source.indexOf(quote, start + 1) === -1, "unverifiedEvidence");
   return quote;
 }
+function optionalQuote(value: unknown, source: string): string | null {
+  return value === null ? null : exactQuote(value, source);
+}
 
 /** Exact source presence is verified; the model's interpretation is never verified fact. */
 export function validateRelationshipResponse(raw: string, a: string, b: string): RelationshipResult {
@@ -62,10 +66,18 @@ export function validateRelationshipResponse(raw: string, a: string, b: string):
   const root = object(parsed, ["relation", "explanation", "claims", "recommendation", "alternatives", "limitations"]);
   const relation = member(root.relation, RELATIONS);
   const ids = new Set<string>();
-  const claims = array(root.claims, 8).map(value => {
+  const claims = array(root.claims, 8).map((value): RelationshipClaim => {
     const claim = object(value, ["id", "kind", "text", "quoteA", "quoteB"]);
     const id = text(claim.id, 32); requireValid(!ids.has(id)); ids.add(id);
-    return { id, kind: member(claim.kind, CLAIM_KINDS), text: prose(claim.text), quoteA: exactQuote(claim.quoteA, a), quoteB: exactQuote(claim.quoteB, b) };
+    const kind = member(claim.kind, CLAIM_KINDS), common = { id, text: prose(claim.text) };
+    switch (kind) {
+      case "unique_a": case "context_a": case "standalone_a":
+        return { ...common, kind, quoteA: exactQuote(claim.quoteA, a), quoteB: optionalQuote(claim.quoteB, b) };
+      case "unique_b": case "context_b": case "standalone_b":
+        return { ...common, kind, quoteA: optionalQuote(claim.quoteA, a), quoteB: exactQuote(claim.quoteB, b) };
+      default:
+        return { ...common, kind, quoteA: exactQuote(claim.quoteA, a), quoteB: exactQuote(claim.quoteB, b) };
+    }
   });
   requireValid(relation === "insufficient_context" || claims.length > 0, "unverifiedEvidence");
   const evidence = (value: unknown): string[] => {

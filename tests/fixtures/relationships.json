@@ -43,7 +43,8 @@
         "text": "A preliminary interpretation of these two saved sources only.",
         "evidence": [
           "c1",
-          "c2"
+          "c2",
+          "c3"
         ]
       },
       "claims": [
@@ -57,8 +58,15 @@
         {
           "id": "c2",
           "kind": "unique_a",
-          "text": "A preliminary comparison supported by the two quoted passages.",
+          "text": "Possibly distinctive content in A; literal presence alone does not prove semantic uniqueness.",
           "quoteA": "A also documents eviction under memory pressure.",
+          "quoteB": null
+        },
+        {
+          "id": "c3",
+          "kind": "unique_b",
+          "text": "B discusses cache warming; whether this is semantically unique remains a model interpretation.",
+          "quoteA": null,
           "quoteB": "B also documents cache warming."
         }
       ],
@@ -67,7 +75,8 @@
         "reason": "Review the original contexts before considering any change.",
         "evidence": [
           "c1",
-          "c2"
+          "c2",
+          "c3"
         ]
       },
       "alternatives": [],
@@ -100,9 +109,9 @@
         {
           "id": "c2",
           "kind": "context_a",
-          "text": "A preliminary comparison supported by the two quoted passages.",
+          "text": "The tenant-specific payment example belongs to A’s original context; its uniqueness is a preliminary interpretation.",
           "quoteA": "In our payment test, the cache key also includes the tenant ID.",
-          "quoteB": "Cache entries expire after the configured lifetime."
+          "quoteB": null
         }
       ],
       "recommendation": {
@@ -135,9 +144,9 @@
         {
           "id": "c1",
           "kind": "standalone_a",
-          "text": "A preliminary comparison supported by the two quoted passages.",
+          "text": "Possibly distinctive content in A; literal presence alone does not prove semantic uniqueness.",
           "quoteA": "A bounded queue needs an explicit overflow policy.",
-          "quoteB": "Queue design is useful across batch and interactive workloads."
+          "quoteB": null
         }
       ],
       "recommendation": {

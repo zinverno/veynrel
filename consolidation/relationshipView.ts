@@ -44,7 +44,8 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
     const card = container.createDiv({ cls: "ai-semantic-duplicate-card" });
     card.createEl("h5", { text: `${claim.id}: ${tr(`@relationship.kind.${claim.kind}`)}` });
     card.createEl("p", { text: claim.text });
-    for (const [side, quote] of [["A", claim.quoteA], ["B", claim.quoteB]]) {
+    for (const [side, quote] of [["A", claim.quoteA], ["B", claim.quoteB]] as const) {
+      if (quote === null) continue;
       card.createEl("p", { text: tr("@relationship.verifiedQuote", { side }) });
       card.createEl("pre", { cls: "ai-pair-source", text: quote, attr: { tabindex: "0" } });
     }

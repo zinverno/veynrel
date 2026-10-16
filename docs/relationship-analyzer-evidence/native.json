@@ -34,9 +34,11 @@
       "partial_overlap: opening is local",
       "partial_overlap: complete exact consent, no request yet",
       "partial_overlap: exactly one confirmed request and expected relation",
+      "partial_overlap: only supplied and verified quote sides render",
       "theory_and_context: opening is local",
       "theory_and_context: complete exact consent, no request yet",
       "theory_and_context: exactly one confirmed request and expected relation",
+      "theory_and_context: only supplied and verified quote sides render",
       "standalone_large_section: opening is local",
       "standalone_large_section: complete exact consent, no request yet",
       "standalone_large_section: exactly one confirmed request and expected relation",
@@ -44,9 +46,11 @@
       "contradiction: opening is local",
       "contradiction: complete exact consent, no request yet",
       "contradiction: exactly one confirmed request and expected relation",
+      "contradiction: only supplied and verified quote sides render",
       "versions: opening is local",
       "versions: complete exact consent, no request yet",
       "versions: exactly one confirmed request and expected relation",
+      "versions: only supplied and verified quote sides render",
       "unrelated: opening is local",
       "unrelated: complete exact consent, no request yet",
       "unrelated: exactly one confirmed request and expected relation",
@@ -55,6 +59,8 @@
       "insufficient: exactly one confirmed request and expected relation",
       "invalid: no recommendation displayed",
       "badQuote: no recommendation displayed",
+      "quoteA: invalid contextual evidence yields no recommendation",
+      "quoteB: invalid contextual evidence yields no recommendation",
       "File change revokes consent without dispatch",
       "File change aborts in-flight waiting",
       "Late reply cannot restore invalidated result",
@@ -100,11 +106,19 @@
         "state": "error"
       },
       {
+        "fixture": "missing required contextual quote",
+        "state": "error"
+      },
+      {
+        "fixture": "fabricated optional quote",
+        "state": "error"
+      },
+      {
         "fixture": "tooLarge",
         "state": "local refusal, no request"
       }
     ],
-    "fakeRequests": 16,
+    "fakeRequests": 18,
     "limitation": "Scripted fake transport responses; no real model accuracy or classification quality measured."
   },
   "version": {
@@ -115,7 +129,7 @@
       "Architecture/Query Planning.md",
       "Databases/Hash Join.md"
     ],
-    "reads": 138,
+    "reads": 154,
     "write": 0,
     "network": 0
   },
@@ -131,7 +145,7 @@
     "transport": "Scripted fake completion; zero live or paid model requests"
   },
   "assets": {
-    "main.js": "07801c1b8f8585cd64caf5a9fb501fc1d67fdeb20dc54dc7b0cb0db83a816e2f",
+    "main.js": "5fccc203d3fceef05b89deba0b271e76d03d3ebd2d210c917f137cfe9cf3eb30",
     "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
     "styles.css": "79cc9d4c176d3b4087d84c5b723b7c78ad852d017d3c34669f2f6a205e88a588"
   },

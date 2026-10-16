@@ -51,11 +51,24 @@ Merge, Undo buttons. The user chooses any canonical source; information preserva
 has not been proven. Contextual examples should remain in their original context;
 atomization requires evidence of an independently useful section.
 
-Every substantive claim must contain one contiguous literal quote from **each**
-source, and explanations/actions reference these claims. Each quote must occur
-exactly once in the corresponding current Markdown. A nearest comparable passage
-can contextualize a claimed difference, but cannot prove uniqueness or absence.
-The entire response is refused on missing, invented, repeated or wrong-source quotes,
+Every substantive claim carries evidence according to its type; explanations/actions
+reference these claims. Both `quoteA` and `quoteB` keys are always present. An absent
+optional quote is JSON `null`, not an omitted key, empty string or the string `"null"`.
+
+| Claim kind | `quoteA` | `quoteB` |
+| --- | --- | --- |
+| `shared`, `conflict`, `version_difference`, `comparison` | Required string | Required string |
+| `unique_a`, `context_a`, `standalone_a` | Required string | String or `null` |
+| `unique_b`, `context_b`, `standalone_b` | String or `null` | Required string |
+
+Every supplied quote, including an optional opposite-side quote, must occur exactly
+once in its corresponding current Markdown. The opposite-side quote should only
+be supplied when meaningful; a contextual example in A does not need an arbitrary
+passage from B. The UI renders only supplied quotes, without a placeholder or a
+verified label for a `null` side. Literal presence does **not** prove semantic
+uniqueness, absence of similar information elsewhere or correctness of interpretation;
+`null` means no excerpt supplied, not proof of absence.
+The entire response is refused on missing required, invented, repeated or wrong-source quotes,
 unknown fields, dangling references, invalid JSON or inconsistent actions. No raw
 invalid response is displayed. Exact source presence is verified; **semantic
 interpretation, classification accuracy and information completeness are not**.
@@ -104,7 +117,9 @@ example, an independently useful section beyond the inspector preview, contradic
 version differences, unrelated topics and insufficient context. These exercise the
 contract/UI; they do not measure how a real model would classify those notes.
 
-Tests cover exact payload/explicit consent, quote validation, malformed responses,
+Tests cover exact payload/explicit consent, quote validation by claim type (including
+contextual examples with no opposite-side quote, missing required quotes, fabricated
+optional quotes and bilateral contradictions), malformed responses,
 input bounds, files/settings changing before/during/after a request, cancellation,
 close/reopen, double-clicks, safe errors, no retries, no writes and existing
 Pair Inspector/Discover/Decisions regressions. The shared HTTP transport is tested
@@ -112,10 +127,9 @@ with a fake `requestUrl`; native testing replaces only the completion dependency
 
 Run `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`,
 `npm run audit:proposals` and `git diff --check`.
-Verified on 2026-10-16: **2,992 tests / 118 files**, typecheck, lint, build and
+Verified on 2026-10-16: **3,010 tests / 118 files**, typecheck, lint, build and
 diff check passed. Lint retains only the existing streaming-fetch advisory in
-`api.ts`. The proposal mutation audit passed **5/5**; a later sandbox attempt
-returned empty child-process output and required a standalone host rerun.
+`api.ts`. The proposal mutation audit passed **5/5** in a standalone host run.
 For isolated Linux Obsidian acceptance, after building run:
 
 ```sh
@@ -125,11 +139,13 @@ node scripts/pair-inspector-native.mjs /tmp/pair-inspector-relationship-fresh --
 The output directory must not exist. This reuses PR #79's native Discover/Pair
 Inspector harness and synthetic vault, with a fake LLM transport and no paid calls.
 The [native report](relationship-analyzer-evidence/native.json) records results
-and deliberate refusals: **18 inspector checks + 45 analyzer checks**, on Linux
+and deliberate refusals: **18 inspector checks + 51 analyzer checks**, on Linux
 Obsidian package 1.13.7-2 / Electron 43.6.0, with asset SHA-256 hashes and
 zero plugin Markdown writes/network counters. Scripted contradiction/version responses choose manual
-review; unrelated/insufficient-context responses choose no change. Invented quotes
-and invalid JSON produce no recommendation; oversized input produces no request.
+review; unrelated/insufficient-context responses choose no change. Missing required
+quotes, fabricated optional quotes and invalid JSON produce no recommendation;
+oversized input produces no request. Native checks also verify that contextual and
+unique claims render only their supplied quotes while contradictions retain both sides.
 
 ![Russian consent on a narrow desktop viewport](relationship-analyzer-evidence/consent-ru.png)
 ![English preliminary result](relationship-analyzer-evidence/result-en.png)

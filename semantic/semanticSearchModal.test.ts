@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import type { RefinedSearchUpdate } from "../rerank/types";
+import relationshipCases from "../tests/fixtures/relationships.json";
 
 const mocks = vi.hoisted(() => {
   interface FakeEvent {
@@ -961,6 +962,30 @@ describe("read-only Pair Inspector UI", () => {
     f.action("dismiss").trigger("click"); expect(f.stage()).toBe("dismissed");
     expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
     f.modal.close(); expect(f.listeners.size).toBe(0); setLanguage("ru");
+  });
+
+  it.each(["ru", "en"] as const)("renders only supplied quotes for contextual, unique and conflicting claims in %s", async language => {
+    const { setLanguage, t } = await import("../i18n"); setLanguage(language);
+    for (const name of ["theory_and_context", "partial_overlap", "contradiction"]) {
+      const item = relationshipCases.find(c => c.name === name)!;
+      const f = await fixture(true);
+      f.bodies.set("one/Same.md", item.a); f.bodies.set("two/Same.md", item.b);
+      f.complete.mockResolvedValue(JSON.stringify(item.response));
+      f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
+      expect(f.complete).not.toHaveBeenCalled(); f.action("confirm").trigger("click"); await flush();
+      expect(f.stage()).toBe("result"); expect(f.complete).toHaveBeenCalledOnce();
+      const cards = f.content.findByClass("ai-semantic-duplicate-card"); expect(cards).toHaveLength(item.response.claims.length);
+      item.response.claims.forEach((claim, i) => {
+        const quotes = cards[i].findByTag("pre").map(el => el.text);
+        expect(quotes).toEqual([claim.quoteA, claim.quoteB].filter(quote => quote !== null));
+        for (const [side, quote] of [["A", claim.quoteA], ["B", claim.quoteB]] as const) {
+          expect(cards[i].findByTag("p").some(el => el.text === t("@relationship.verifiedQuote", { side }))).toBe(quote !== null);
+        }
+      });
+      expect(f.content.findByTag("p").some(el => el.text === t("@relationship.evidenceScope"))).toBe(true);
+      expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled(); f.modal.close();
+    }
+    setLanguage("ru");
   });
 
   it("invalidates consent/results on selected file and model changes, and cancels when closing", async () => {
