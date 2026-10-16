@@ -471,9 +471,8 @@
     "electron": "43.6.0"
   },
   "io": {
-    "read": [],
-    "write": 0,
-    "network": 0
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
   },
   "status": "PASS",
   "baseCommit": "b222a44fd95b38802253b02019544b7508683bb3",

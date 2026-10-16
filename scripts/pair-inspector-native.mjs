@@ -148,6 +148,6 @@ try {
    const { safeApplyScenario } = await import('./safe-apply-native.mjs');
    report.safeApply=await safeApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
  }
- report.version=await ev("({electron:process.versions.electron})");report.io=await ev('io');report.status='PASS';
+ report.version=await ev("({electron:process.versions.electron})");report.io=process.argv.includes('--safe-apply')?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}
