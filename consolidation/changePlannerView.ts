@@ -1,5 +1,6 @@
 import { t as tr } from "../i18n";
-import { proposalDiff } from "../proposals/diff";
+import { renderPlanDiff } from "./planDiffView";
+import type { ChangePlan } from "./changePlan";
 import { paragraphRanges, permittedEmbed } from "./changePlan";
 import type { PlanOperation, PlanRange } from "./changePlan";
 import type { RelationshipAnalysis } from "./relationshipSession";
@@ -12,7 +13,7 @@ export class ChangePlannerView {
   private selection: PlanRange | null = null;
   private confirmed = false;
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
-    private readonly analysis: RelationshipAnalysis) {
+    private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void) {
     session.onChange = () => {
       const field = container.ownerDocument?.activeElement?.getAttribute("data-planner-field");
       this.render();
@@ -96,34 +97,13 @@ export class ChangePlannerView {
       const details = result.createEl("details"); details.createEl("summary", { text: tr(`@planner.${key}`) });
       details.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-planner-text": key } });
     }
-    if (plan.edit) this.diff(result, plan.before, plan.after);
+    if (plan.edit) renderPlanDiff(result, plan.before, plan.after);
     result.createEl("p", { text: tr("@planner.preserved") });
     result.createEl("p", { text: tr("@planner.limits") });
+    if (plan.edit && this.review) {
+      const check = result.createEl("button", { text: tr("@safeApply.review"), attr: { type: "button", "data-safe-action": "review" } });
+      check.addEventListener("click", () => this.review!(plan));
+    }
     for (const limitation of plan.modelLimitations) result.createEl("p", { text: limitation });
-  }
-  private diff(root: HTMLElement, before: string, after: string): void {
-    const panel = root.createDiv({ cls: "ai-proposal-diff-panel" });
-    const legend = panel.createDiv({ cls: "ai-proposal-diff-legend" });
-    legend.createSpan({ text: tr("@planner.diff"), cls: "ai-proposal-diff-title" });
-    let oldLine = 0, newLine = 0, page = 0;
-    const lines = proposalDiff(before, after).map(line => ({ ...line,
-      oldLine: line.kind === "added" ? "" : String(++oldLine), newLine: line.kind === "removed" ? "" : String(++newLine) }));
-    const status = legend.createDiv({ attr: { role: "status", "aria-live": "polite" } });
-    const diff = panel.createDiv({ cls: "ai-proposal-diff", attr: { tabindex: "0", "aria-label": tr("@planner.diff") } });
-    const controls = panel.createDiv({ cls: "ai-proposal-pagination" });
-    const previous = this.button(controls, "previous", () => { page--; render(); });
-    const next = this.button(controls, "next", () => { page++; render(); });
-    const render = () => {
-      diff.empty(); const start = page * 200, end = Math.min(start + 200, lines.length);
-      status.setText(tr("@planner.diffPage", { start: start + 1, end, total: lines.length }));
-      for (const line of lines.slice(start, end)) {
-        const row = diff.createDiv({ cls: `ai-proposal-diff-line ai-proposal-${line.kind}` });
-        const numbers = row.createDiv({ cls: "ai-proposal-line-numbers", attr: { "aria-hidden": "true" } });
-        numbers.createSpan({ text: line.oldLine }); numbers.createSpan({ text: line.newLine });
-        row.createEl("pre", { cls: "ai-proposal-line-text", text: `${line.kind === "added" ? "+" : line.kind === "removed" ? "−" : " "} ${line.text}` });
-      }
-      previous.disabled = page === 0; next.disabled = end === lines.length;
-    };
-    render();
   }
 }

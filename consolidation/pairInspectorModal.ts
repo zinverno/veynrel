@@ -7,6 +7,8 @@ import type { InspectorList, PairNoteSnapshot } from "./pairSnapshot";
 import type { RelationshipSession } from "./relationshipSession";
 import { renderRelationshipView } from "./relationshipView";
 import { ChangePlannerSession, readPlannerPair } from "./changePlannerSession";
+import type { SafeApplyService } from "./safeApply";
+import { SafeApplyModal, OperationHistoryModal } from "./safeApplyModal";
 import { ChangePlannerView } from "./changePlannerView";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
@@ -18,7 +20,7 @@ export class PairInspectorModal extends Modal {
   private planner?: ChangePlannerSession;
 
   constructor(app: App, private readonly paths: readonly [string, string],
-    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}) { super(app); }
+    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService) { super(app); }
 
   onOpen(): void {
     this.openState = true;
@@ -30,6 +32,10 @@ export class PairInspectorModal extends Modal {
     this.contentEl.createEl("p", { text: tr("@consolidation.sourceScope") });
     const controls = this.contentEl.createDiv({ cls: "ai-semantic-search-controls" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
+    if (this.safeApply) {
+      const history = controls.createEl("button", { text: tr("@safeApply.history"), attr: { type: "button", "data-safe-action": "history" } });
+      history.addEventListener("click", () => new OperationHistoryModal(this.app, this.safeApply!).open());
+    }
     const analysis = this.contentEl.createDiv({ cls: "ai-relationship" });
     const planning = this.contentEl.createDiv({ cls: "ai-change-planner" });
     if (this.createRelationship) {
@@ -51,7 +57,11 @@ export class PairInspectorModal extends Modal {
                 if (!source || !this.openState) return;
                 this.planner?.close();
                 this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths) });
-                new ChangePlannerView(planning, this.planner, source);
+                const planner = this.planner;
+                new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
+                  new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
+                    () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source)).open();
+                } : undefined);
                 void this.planner.prepare();
               });
             }

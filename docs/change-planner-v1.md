@@ -3,8 +3,8 @@
 The [Relationship Analyzer](relationship-analyzer-v1.md) can now lead to a concrete
 **local plan**, with full saved before/after text and a text-only diff. Nothing
 writes Markdown, applies a proposal, persists the plan or makes another model call.
-There is no Apply button, Companion connection, operation approval protocol,
-background scan, new setting or release/version change.
+Applying is now a separate [Safe Apply & Undo](safe-apply-undo-v1.md) review.
+Planning has no Companion connection, background scan, new setting or release/version change.
 
 ## Open and choose
 
@@ -123,16 +123,13 @@ Run `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`,
 `npm run audit:proposals`, `git diff --check`. Native evidence and screenshots:
 [Change Planner native report](change-planner-native.md).
 
-## Deferred: Safe Apply & Undo
+## Separate application and deferred operations
+
+[Safe Apply & Undo v1](safe-apply-undo-v1.md) now implements a separate final review,
+checked single-file writes, a persistent recovery journal and guarded undo. The
+planner itself remains pure and read-only; a plan is not write authorization.
 
 Merge, unique-content relocation, atom creation, tags, mass incoming-link rewrites,
-delete/archive, LLM editing, file application and rollback have no generated diff.
-They require a later implementation, not an enabled-looking placeholder operation.
-
-Before any future write, an executor must obtain separate explicit consent for the
-exact final edit; reread and compare both identities, paths and full contents; verify
-the selected range and model provenance; account for unsaved buffers and settings;
-revalidate links, anchors, embeds and bounded dependencies; and refuse changed or
-uncertain inputs. It must provide durable operation journaling, concurrency/conflict
-handling and verified rollback/recovery. This in-memory plan cannot promise semantic
-preservation, eventual write safety or an existing rollback mechanism.
+delete/archive and LLM editing still have no generated diff. They require a later
+implementation, not an enabled-looking placeholder operation. Semantic preservation
+remains unproven by structural checks.

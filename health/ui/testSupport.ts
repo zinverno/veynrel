@@ -10,5 +10,5 @@ export function inboxFinding(overrides: Partial<Finding> = {}): Finding {
 
 export function toolsFixture() {
   return { openAskVault: vi.fn(), openDeepAudit: vi.fn(async () => {}), generateMocs: vi.fn(async () => {}),
-    openBatchProcessing: vi.fn(), runLegacyVaultAudit: vi.fn(async () => {}), openTagTaxonomy: vi.fn() };
+    openBatchProcessing: vi.fn(), runLegacyVaultAudit: vi.fn(async () => {}), openOperationHistory: vi.fn(), openTagTaxonomy: vi.fn() };
 }

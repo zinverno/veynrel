@@ -1,3 +1,6 @@
+import { createSafeApplyService } from "./consolidation/obsidianSafeApply";
+import type { SafeApplyService } from "./consolidation/safeApply";
+import { OperationHistoryModal } from "./consolidation/safeApplyModal";
 import { auditModeViewModel } from "./deep/auditModeViewModel";
 import { mergeDecisionsSettings } from "./decisions/types";
 import { mergeRerankSettings } from "./rerank/types";
@@ -120,6 +123,7 @@ export default class AIHubPlugin extends Plugin {
   private recallAuthoring?: RecallAuthoringAdapter;
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
+  private safeApply?: SafeApplyService;
   private readonly taxonomyModals = new Set<TagTaxonomyModal>();
 
   getSemanticController(): ObsidianSemanticController {
@@ -140,6 +144,7 @@ export default class AIHubPlugin extends Plugin {
       generateMocs: () => this.generateMOCsFromClusters(),
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
+      openOperationHistory: () => { if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open(); },
       openTagTaxonomy: () => {
         const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); }, inventory =>
           new TagRecommendationSession({
@@ -178,7 +183,13 @@ export default class AIHubPlugin extends Plugin {
     try {
       await this.loadSettings();
       setLanguage(this.settings.language ?? "auto");
+      this.safeApply = createSafeApplyService(this.app, this.manifest.id);
+      this.register(() => this.safeApply?.dispose());
+      this.addCommand({ id: "consolidation-operation-history", name: "Knowledge consolidation: operation history", callback: () => {
+        if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open();
+      } });
       this.semanticController = new ObsidianSemanticController(this, {
+        safeApply: this.safeApply,
         relationshipSession: paths => new RelationshipSession({
           settings: this.getLanguageModelSettingsPort(), read: () => readRelationshipPair(this.app, paths),
           complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }),

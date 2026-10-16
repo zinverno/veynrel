@@ -6,6 +6,7 @@ export interface VeynrelToolsPort {
   openBatchProcessing(): void;
   runLegacyVaultAudit(): Promise<void>;
   openTagTaxonomy(): void;
+  openOperationHistory(): void;
 }
 
 export type VeynrelToolAction = keyof VeynrelToolsPort;

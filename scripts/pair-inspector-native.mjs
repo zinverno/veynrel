@@ -32,7 +32,8 @@ fs.writeFileSync(vault+'/.obsidian/community-plugins.json','["ai-knowledge-hub"]
 fs.writeFileSync(vault+'/.obsidian/app.json','{"checkForUpdates":false}');
 fs.writeFileSync(root+'/profile/obsidian.json',JSON.stringify({vaults:{pair:{path:vault,ts:Date.now(),open:true}}}));
 for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync(ROOT+'/'+name,dir+'/'+name);
-const child=spawn('/usr/bin/electron43',['/usr/lib/obsidian/app.asar','--user-data-dir='+root+'/profile','--remote-debugging-port=9274','--disable-gpu','--ozone-platform=x11'],{stdio:['ignore','ignore',fs.openSync(root+'/electron.log','w')]});
+const start=()=>spawn('/usr/bin/electron43',['/usr/lib/obsidian/app.asar','--user-data-dir='+root+'/profile','--remote-debugging-port=9274','--disable-gpu','--ozone-platform=x11'],{stdio:['ignore','ignore',fs.openSync(root+'/electron.log','a')]});
+let child=start();
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 let socket,id=0;const pending=new Map(),checks=[];
 const report={checks,fixture:'Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files',limits:'Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.'};
@@ -130,6 +131,23 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- report.version=await ev("({electron:process.versions.electron})");report.io=await ev('io');report.status='PASS';
+ if (process.argv.includes('--safe-apply')) {
+   const restart = async () => {
+     socket.close();
+     const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await exited;
+     child=start();
+     let page;
+     for(let i=0;i<180;i++){try{page=(await(await fetch('http://127.0.0.1:9274/json/list')).json()).find(x=>x.url.startsWith('app://obsidian.md/'));}catch{}if(page)break;await pause(100);}
+     assert(page,'restarted native ready');
+     socket=new WebSocket(page.webSocketDebuggerUrl);await new Promise((resolve,reject)=>{socket.onopen=resolve;socket.onerror=reject;});
+     socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}};
+     await wait("!!window.app?.workspace?.layoutReady&&!!app.plugins.plugins['ai-knowledge-hub']?.semanticController");
+     await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;window.io={read:[],write:0,network:0};window.fetch=()=>{io.network++;throw Error('network blocked')};XMLHttpRequest.prototype.send=function(){io.network++;throw Error('network blocked')};void 0");
+     await focusMain();
+   };
+   const { safeApplyScenario } = await import('./safe-apply-native.mjs');
+   report.safeApply=await safeApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
+ }
+ report.version=await ev("({electron:process.versions.electron})");report.io=process.argv.includes('--safe-apply')?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}
