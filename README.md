@@ -114,6 +114,8 @@ Existing enabled installations keep **automatic** refinement after upgrading; di
 
 **[Pair Inspector](docs/pair-inspector.md)** adds **Inspect structure** to each Potential duplicates pair. View the two current saved Markdown sources, tags, links, embed references and available Obsidian metadata. This explicit, read-only action needs no Decisions setting, API key or model request. Embedded content is not expanded; cache and preview limits are disclosed.
 
+**[Relationship Analyzer v1](docs/relationship-analyzer-v1.md)** optionally analyzes those two saved sources using the existing Deep Intelligence model. Review the exact request and confirm before sending. Results are preliminary recommendations with literal quote checks, not proven duplication or ready-to-apply operations. Oversized pairs are refused; nothing edits Markdown or runs automatically.
+
 Decisions and Rerank omit filename-derived fallback headings from outgoing fragments while preserving authored headings and body text. Names or paths written in the note itself are still sent; this is not anonymization. Indexing, embeddings, RAG and Companion retain their existing behavior. See the [outbound provenance fix evidence](docs/outbound-fragment-provenance.md).
 
 | Relationship view | What it shows |

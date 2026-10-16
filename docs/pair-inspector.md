@@ -3,7 +3,10 @@
 Open **Veynrel → Discover → Potential duplicates**, then choose **Inspect structure**
 (RU: **Изучить структуру**) on a pair. The existing duplicate list still needs a
 usable local semantic index. Pair Inspector needs neither Decisions nor an API key
-and makes no embedding or LLM requests. Semantic similarity does not establish
+and its local viewing makes no embedding or LLM requests. The optional
+[Relationship Analyzer](relationship-analyzer-v1.md) prepares a separate request
+preview and requires explicit confirmation before using the configured LLM.
+Semantic similarity does not establish
 information duplication.
 
 Each side shows the basename and full vault-relative path, current saved Markdown,
@@ -24,7 +27,7 @@ its length is not a measure of original ideas or authorship.
   existing similarity results, source navigation and Decisions action are preserved.
 - `ObsidianSemanticController.inspectPair`: opens the window without consulting
   Decisions or initializing a semantic runtime.
-- `consolidation/pairSnapshot.ts`: `isCanonicalMarkdownPath`, exact-path `TFile`
+- `consolidation/savedNote.ts` and `pairSnapshot.ts`: `isCanonicalMarkdownPath`, exact-path `TFile`
   lookup and `Vault.read`. Two selected files only; no vault Markdown enumeration,
   custom parser, persistent index, network client or write API.
 - Obsidian `getFileCache`, `parseFrontMatterTags` and `resolvedLinks`: frontmatter
@@ -99,6 +102,7 @@ screen readers, popout windows and custom themes were not tested.
 
 ## Later work
 
-No classification, editing, merge/delete, embed insertion, atomic-note creation,
+Optional preliminary classification is described in [Relationship Analyzer v1](relationship-analyzer-v1.md).
+No editing, merge/delete, embed insertion, atomic-note creation,
 tag recommendations, transactions, journal, rollback, API settings or Health
 Findings integration. These require separate designs and PRs.

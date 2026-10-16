@@ -2557,3 +2557,7 @@
 .ai-pair-note button { white-space: normal; height: auto; }
 .ai-pair-source { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; font-family: var(--font-monospace); background: var(--background-secondary); padding: 10px; }
 .ai-pair-note details { margin-block: 8px; }
+.ai-relationship { overflow-wrap: anywhere; }
+.ai-relationship:empty { display: none; }
+.ai-relationship button { margin: 8px 8px 8px 0; white-space: normal; height: auto; }
+.ai-relationship-paths { white-space: pre-wrap; }

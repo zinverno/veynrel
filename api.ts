@@ -2,6 +2,7 @@ import { t as tr } from "./i18n";
 import { requestUrl } from "obsidian";
 import type { RequestUrlParam, RequestUrlResponse } from "obsidian";
 import type { AIHubSettings } from "./settings";
+import type { LanguageModelSettingsSnapshot } from "./deep/product/languageModelSettingsPort";
 import { PROVIDER_PROFILES } from "./constants";
 import {
   API_TIMEOUT_MS,
@@ -16,7 +17,7 @@ export { validateSettings };
 // ─────────────────────────────────────────────
 //  Построение заголовков запроса по провайдеру
 // ─────────────────────────────────────────────
-function buildHeaders(settings: AIHubSettings): Record<string, string> {
+function buildHeaders(settings: LanguageModelSettingsSnapshot): Record<string, string> {
   const provider = settings.provider ?? "openrouter";
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -40,8 +41,8 @@ function buildHeaders(settings: AIHubSettings): Record<string, string> {
 // ─────────────────────────────────────────────
 //  Построение тела запроса по провайдеру
 // ─────────────────────────────────────────────
-function buildBody(
-  settings: AIHubSettings,
+export function buildChatBody(
+  settings: LanguageModelSettingsSnapshot,
   system: string,
   user: string,
   opts: CallOptions,
@@ -226,9 +227,10 @@ async function requestBuffered(
     if (signal?.aborted) onAbort();
     else signal?.addEventListener("abort", onAbort, { once: true });
   });
-  const requestPromise: Promise<RequestUrlResponse> = Promise.resolve().then(
-    () => requestUrl({ ...request, throw: false }),
-  );
+  const requestPromise: Promise<RequestUrlResponse> = Promise.resolve().then(() => {
+    if (signal?.aborted) throw namedError("AbortError", tr("API-запрос отменён."));
+    return requestUrl({ ...request, throw: false });
+  });
 
   try {
     return await Promise.race([
@@ -283,7 +285,7 @@ export interface CallOptions {
 //  Обычный (не-стриминговый) вызов
 // ─────────────────────────────────────────────
 export async function callOpenRouter(
-  settings: AIHubSettings,
+  settings: LanguageModelSettingsSnapshot,
   system: string,
   user: string,
   signalOrOptions?: AbortSignal | CallOptions,
@@ -297,7 +299,7 @@ export async function callOpenRouter(
       ? { signal: signalOrOptions }
       : (signalOrOptions ?? {});
 
-  const body = buildBody(settings, system, user, opts, false);
+  const body = buildChatBody(settings, system, user, opts, false);
   const headers = buildHeaders(settings);
 
   const res = await requestBuffered(
@@ -378,7 +380,7 @@ export async function streamOpenRouter(
       ? { signal: signalOrOptions }
       : (signalOrOptions ?? {});
 
-  const body = buildBody(settings, system, user, opts, true);
+  const body = buildChatBody(settings, system, user, opts, true);
   const headers = { ...buildHeaders(settings), Accept: "text/event-stream" };
   const controller = new AbortController();
   let termination: StreamTermination = "active";

@@ -221,6 +221,7 @@ describe("API request boundaries", () => {
       signal: controller.signal,
     });
 
+    await flushMicrotasks();
     controller.abort();
     const error = await rejection(pending);
     expect(error.name).toBe("AbortError");
@@ -312,11 +313,21 @@ describe("API request boundaries", () => {
     const errorPromise = rejection(
       callOpenRouter(settings(), "system", "user", controller.signal),
     );
+    await flushMicrotasks();
     controller.abort();
     expect((await errorPromise).name).toBe("AbortError");
 
     rejectRequest(new Error("late provider-secret rejection"));
     await flushMicrotasks();
+  });
+
+  it.each(["already cancelled", "cancelled before dispatch"])("never sends when %s", async timing => {
+    const controller = new AbortController();
+    if (timing === "already cancelled") controller.abort();
+    const error = rejection(callOpenRouter(settings(), "system", "user", controller.signal));
+    controller.abort();
+    expect((await error).name).toBe("AbortError");
+    expect(obsidianMocks.requestUrl).not.toHaveBeenCalled();
   });
 
   it("validates Ollama model names instead of trusting response.json", async () => {

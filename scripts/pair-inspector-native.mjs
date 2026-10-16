@@ -42,7 +42,7 @@ try {
  socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}};
  const cdp=(method,params={})=>new Promise((resolve,reject)=>{pending.set(++id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));});
  const ev=async expression=>{const r=await cdp('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});assert(!r.exceptionDetails,JSON.stringify(r.exceptionDetails));return r.result.value;};
- const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:engine.getSemanticStatus().kind,language:plugin.settings.language})")));};
+ const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:engine.getSemanticStatus().kind,language:plugin.settings.language})")));};
  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
  await wait('!!window.app?.workspace?.layoutReady');
  assert.equal(await ev('app.vault.adapter.basePath'),vault);
@@ -85,6 +85,10 @@ try {
      await pass(language+' '+theme+' '+width+' no horizontal overflow',"[...document.querySelectorAll('.ai-pair-inspector,.ai-pair-note,.ai-pair-source')].every(e=>e.scrollWidth<=e.clientWidth+1)");
      const {data}=await cdp('Page.captureScreenshot',{format:'png'});fs.writeFileSync(root+'/'+language+'-'+theme+'-'+width+'.png',Buffer.from(data,'base64'));
    }
+ }
+ if (process.argv.includes('--relationships')) {
+   const { relationshipScenario } = await import('./relationship-analyzer-native.mjs');
+   report.relationships = await relationshipScenario({ ev, wait, cdp, close, root, vault, paths: [a, b], ROOT });
  }
  await ev("document.querySelectorAll('.ai-pair-note button')[1].click()");
  await wait('app.workspace.getActiveFile()?.path==='+JSON.stringify(b));checks.push('Open source note selects the exact second path');

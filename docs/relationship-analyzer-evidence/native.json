@@ -1,0 +1,154 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "relationships": {
+    "status": "PASS",
+    "checks": [
+      "near_duplicates: opening is local",
+      "near_duplicates: complete exact consent, no request yet",
+      "RU consent theme-light 1200: no overflow",
+      "RU consent theme-light 390: no overflow",
+      "RU consent theme-dark 1200: no overflow",
+      "RU consent theme-dark 390: no overflow",
+      "near_duplicates: exactly one confirmed request and expected relation",
+      "partial_overlap: opening is local",
+      "partial_overlap: complete exact consent, no request yet",
+      "partial_overlap: exactly one confirmed request and expected relation",
+      "partial_overlap: only supplied and verified quote sides render",
+      "theory_and_context: opening is local",
+      "theory_and_context: complete exact consent, no request yet",
+      "theory_and_context: exactly one confirmed request and expected relation",
+      "theory_and_context: only supplied and verified quote sides render",
+      "standalone_large_section: opening is local",
+      "standalone_large_section: complete exact consent, no request yet",
+      "standalone_large_section: exactly one confirmed request and expected relation",
+      "Source beyond inspector preview is sent whole",
+      "contradiction: opening is local",
+      "contradiction: complete exact consent, no request yet",
+      "contradiction: exactly one confirmed request and expected relation",
+      "contradiction: only supplied and verified quote sides render",
+      "versions: opening is local",
+      "versions: complete exact consent, no request yet",
+      "versions: exactly one confirmed request and expected relation",
+      "versions: only supplied and verified quote sides render",
+      "unrelated: opening is local",
+      "unrelated: complete exact consent, no request yet",
+      "unrelated: exactly one confirmed request and expected relation",
+      "insufficient: opening is local",
+      "insufficient: complete exact consent, no request yet",
+      "insufficient: exactly one confirmed request and expected relation",
+      "invalid: no recommendation displayed",
+      "badQuote: no recommendation displayed",
+      "quoteA: invalid contextual evidence yields no recommendation",
+      "quoteB: invalid contextual evidence yields no recommendation",
+      "File change revokes consent without dispatch",
+      "File change aborts in-flight waiting",
+      "Late reply cannot restore invalidated result",
+      "Cancel aborts waiting",
+      "Close aborts waiting and clears session",
+      "Model change removes completed result",
+      "Saved source change removes completed result",
+      "Oversized pair refuses instead of sending a partial preview",
+      "EN result theme-light 390: no overflow",
+      "EN result theme-light 1200: no overflow",
+      "EN result theme-dark 390: no overflow",
+      "EN result theme-dark 1200: no overflow",
+      "EN result shows provisional analysis and exact-quote limits",
+      "Analysis performs no Markdown writes or real provider/network calls"
+    ],
+    "refusals": [
+      {
+        "fixture": "contradiction",
+        "relation": "conflicting",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "versions",
+        "relation": "conflicting",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "unrelated",
+        "relation": "unrelated",
+        "action": "no_change"
+      },
+      {
+        "fixture": "insufficient",
+        "relation": "insufficient_context",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "invalid",
+        "state": "error"
+      },
+      {
+        "fixture": "badQuote",
+        "state": "error"
+      },
+      {
+        "fixture": "missing required contextual quote",
+        "state": "error"
+      },
+      {
+        "fixture": "fabricated optional quote",
+        "state": "error"
+      },
+      {
+        "fixture": "tooLarge",
+        "state": "local refusal, no request"
+      }
+    ],
+    "fakeRequests": 18,
+    "limitation": "Scripted fake transport responses; no real model accuracy or classification quality measured."
+  },
+  "version": {
+    "electron": "43.6.0"
+  },
+  "io": {
+    "selectedPaths": [
+      "Architecture/Query Planning.md",
+      "Databases/Hash Join.md"
+    ],
+    "reads": 154,
+    "write": 0,
+    "network": 0
+  },
+  "status": "PASS",
+  "environment": {
+    "obsidianPackage": "1.13.7-2",
+    "electronPackage": "43.6.0-1",
+    "platform": "Linux desktop",
+    "viewports": [
+      390,
+      1200
+    ],
+    "transport": "Scripted fake completion; zero live or paid model requests"
+  },
+  "assets": {
+    "main.js": "5fccc203d3fceef05b89deba0b271e76d03d3ebd2d210c917f137cfe9cf3eb30",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "79cc9d4c176d3b4087d84c5b723b7c78ad852d017d3c34669f2f6a205e88a588"
+  },
+  "baseCommit": "fed92cde24b6f3010e058a78222f149006333e3b",
+  "date": "2026-10-16"
+}
