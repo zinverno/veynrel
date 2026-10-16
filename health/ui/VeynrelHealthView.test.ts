@@ -1181,7 +1181,7 @@ describe("final Tools and Settings IA", () => {
     expect(f.content.texts()).toContain("command palette"); expect(f.content.texts()).toContain("Single Audit");
     expect(f.content.texts()).toContain("Knowledge Health"); expect(f.content.texts()).toContain("backups");
     const actions = f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"));
-    expect(actions).toHaveLength(5);
+    expect(actions).toHaveLength(6);
     for (const [name, operation] of Object.entries(f.tools)) {
       f.content.action(`tool-${name}`).click(); await flush(); expect(operation).toHaveBeenCalledTimes(1);
     }
@@ -1318,7 +1318,7 @@ describe("real topology child route", () => {
     expect(content.action("tools")).toBeUndefined();
     content.action("nav-tools").click();
     expect(content.action("nav-tools").attrs["aria-current"]).toBe("page");
-    expect(content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"))).toHaveLength(5);
+    expect(content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"))).toHaveLength(6);
     await view.onClose(); topology.dispose(); f.controller.dispose();
   });
   it("preserves inline scroll and nearby focus through held loads, refreshes and stale updates", async () => {

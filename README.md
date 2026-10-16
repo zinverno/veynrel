@@ -175,6 +175,8 @@ Manual mirror sync requires confirmation. Enabling Connect also permits disclose
 
 **Tools** keeps Ask your Vault, Deep Audit / Single Audit, batch processing, MOC generation and legacy reports available. Editor workflows—AI writing, selection transforms, Dataview generation and atomization—remain separate, through the command palette and editor context menu. Existing command IDs remain compatible with hotkeys and automation.
 
+**[Tag Taxonomy Profile v1](docs/tag-taxonomy-profile-v1.md)** adds a local Tools dialog: explicitly scan Obsidian's tag metadata, browse the existing hierarchy and note counts, edit independent category policies, then review and save confirmed rules in Veynrel settings. The temporary inventory is not persisted. Opening the dialog performs no scan; no LLM, embeddings, Decisions or Markdown edits are involved.
+
 **Settings** summarizes Deep Intelligence, Semantic Intelligence, Connect and Recall. Native **Obsidian Settings → Veynrel** provides advanced provider/model, embedding, Companion, Deep Audit, output and interface controls.
 
 Supported language-model providers include Ollama, OpenRouter, OpenAI, Groq and custom OpenAI-compatible endpoints. Embeddings support Ollama, OpenRouter and OpenAI-compatible endpoints. Language-model, embedding and Companion credentials are separate.

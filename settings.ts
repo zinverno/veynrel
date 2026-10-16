@@ -43,6 +43,7 @@ import { DecisionsError } from "./decisions/openRouterDecisions";
 import { DEFAULT_RERANK_SETTINGS } from "./rerank/types";
 import type { RerankSettings } from "./rerank/types";
 import { RerankError } from "./rerank/openRouterRerank";
+import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
 
 export interface AIHubSettings {
   // ── Провайдер ─────────────────────────────────────────────────────
@@ -81,6 +82,8 @@ export interface AIHubSettings {
   /** Optional read-only network mirror used by the standalone Companion. */
   companion: CompanionSettings;
   health: HealthPreferences;
+  /** Only explicitly confirmed taxonomy rules; no inventory or note text. */
+  tagTaxonomyProfile?: TagTaxonomyProfile;
 }
 
 export const DEFAULT_SETTINGS: AIHubSettings = {

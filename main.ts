@@ -66,6 +66,9 @@ import type { CompanionSettings, StoredCompanionSettings } from "./companionSync
 import { ObsidianSemanticController } from "./semantic";
 import { RelationshipSession, readRelationshipPair } from "./consolidation/relationshipSession";
 import { RELATIONSHIP_OPTIONS } from "./consolidation/relationshipPrompt";
+import { parseTaxonomyProfile, requireTaxonomyProfile, TaxonomyError } from "./consolidation/taxonomyProfile";
+import type { TagTaxonomyProfile, TaxonomyProfilePort } from "./consolidation/taxonomyProfile";
+import { TagTaxonomyModal } from "./consolidation/taxonomyModal";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
 import type { VeynrelToolsPort } from "./health/toolsPort";
@@ -112,6 +115,7 @@ export default class AIHubPlugin extends Plugin {
   private recallAuthoring?: RecallAuthoringAdapter;
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
+  private readonly taxonomyModals = new Set<TagTaxonomyModal>();
 
   getSemanticController(): ObsidianSemanticController {
     return this.semanticController;
@@ -131,6 +135,10 @@ export default class AIHubPlugin extends Plugin {
       generateMocs: () => this.generateMOCsFromClusters(),
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
+      openTagTaxonomy: () => {
+        const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); });
+        this.taxonomyModals.add(modal); modal.open();
+      },
     };
   }
 
@@ -162,6 +170,7 @@ export default class AIHubPlugin extends Plugin {
       this.addCommand({ id: "review-ai-change-proposals", name: "Review AI change proposals", callback: () => this.openProposalReview() });
       this.semanticController.registerAutomaticSync();
       this.register(() => void this.semanticController.dispose());
+      this.register(() => { for (const modal of this.taxonomyModals) modal.close(); });
 
       const { registerHealth } = await import("./health/obsidian/registerHealth");
       const deep = new DeepIntelligenceController(this.getLanguageModelSettingsPort(), {
@@ -309,6 +318,9 @@ export default class AIHubPlugin extends Plugin {
       companion: mergeCompanionSettings(data?.companion),
       health: mergeHealthPreferences(data?.health),
     });
+    const taxonomy = parseTaxonomyProfile(data?.tagTaxonomyProfile);
+    if (taxonomy) this.settings.tagTaxonomyProfile = taxonomy;
+    else delete this.settings.tagTaxonomyProfile;
 
     // Миграция: если provider не задан — определяем по baseUrl
     if (!data?.provider && this.settings.baseUrl) {
@@ -350,6 +362,16 @@ export default class AIHubPlugin extends Plugin {
       subscribe: (listener) => {
         this.languageModelListeners.add(listener);
         return () => { this.languageModelListeners.delete(listener); };
+      },
+    };
+  }
+
+  getTaxonomyProfilePort(): TaxonomyProfilePort {
+    return {
+      get: () => parseTaxonomyProfile(this.settings.tagTaxonomyProfile),
+      save: async (next, expected, signal) => {
+        try { await this.saveSettings(undefined, undefined, undefined, undefined, undefined, { next, expected, signal }); }
+        catch (error) { throw error instanceof TaxonomyError ? error : new TaxonomyError("save"); }
       },
     };
   }
@@ -410,7 +432,8 @@ export default class AIHubPlugin extends Plugin {
 
   async saveSettings(health?: HealthPreferences, semantic?: EmbeddingSettings, expectedSemantic?: EmbeddingSettings,
     languageModel?: { next: LanguageModelSettingsSnapshot; expected?: LanguageModelSettingsSnapshot },
-    companion?: { next: CompanionSettingsUpdate; expected?: CompanionSettings }) {
+    companion?: { next: CompanionSettingsUpdate; expected?: CompanionSettings },
+    taxonomy?: { next: TagTaxonomyProfile; expected: TagTaxonomyProfile | null; signal: AbortSignal }) {
     const nextHealth = health ? { ...health } : undefined;
     const nextSemantic = semantic ? { ...semantic } : undefined;
     const expected = expectedSemantic ? { ...expectedSemantic } : undefined;
@@ -418,10 +441,16 @@ export default class AIHubPlugin extends Plugin {
     const expectedLanguageModel = languageModel?.expected ? languageModelSettingsSnapshot(languageModel.expected) : undefined;
     const nextCompanion = companion ? { ...companion.next } : undefined;
     const expectedCompanion = companion?.expected ? { ...companion.expected } : undefined;
+    const nextTaxonomy = taxonomy ? requireTaxonomyProfile(taxonomy.next) : undefined;
+    const expectedTaxonomy = taxonomy ? JSON.stringify(taxonomy.expected) : undefined;
     const rollback = structuredClone(this.settings);
     this.notifyCompanionSettingsChanged();
     // Read ordinary settings inside the same queue, so neither transaction loses concurrent edits.
     const save = this.settingsSave.then(async () => {
+      const taxonomyStamp = () => JSON.stringify(this.settings.tagTaxonomyProfile ?? null);
+      if (taxonomy?.signal.aborted) throw new TaxonomyError("cancelled");
+      if (taxonomy && expectedTaxonomy !== taxonomyStamp()) throw new TaxonomyError("conflict");
+      const previousTaxonomy = taxonomyStamp();
       const matches = (previous: EmbeddingSettings): boolean => Object.entries(previous)
         .every(([key, value]) => this.settings.semantic[key as keyof EmbeddingSettings] === value);
       // An Advanced edit during the connection test must not be overwritten by its older candidate.
@@ -444,18 +473,20 @@ export default class AIHubPlugin extends Plugin {
       const connection = nextLanguageModel ? { provider: nextLanguageModel.provider, apiKey: nextLanguageModel.apiKey,
         model: nextLanguageModel.model, baseUrl: nextLanguageModel.baseUrl } : undefined;
       const savedSettings = { ...this.settings, deepAudit: { ...this.settings.deepAudit }, ...(nextHealth ? { health: nextHealth } : {}),
-        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...connection, companion: companionConnection ?? { ...this.settings.companion } };
+        ...(nextSemantic ? { semantic: nextSemantic } : {}), ...(nextTaxonomy ? { tagTaxonomyProfile: nextTaxonomy } : {}),
+        ...connection, companion: companionConnection ?? { ...this.settings.companion } };
       const savedDeep = deepKnowledgeSettingsSnapshot(savedSettings);
       await this.persistSettings(savedSettings, rollback);
       this.publishDeepKnowledgeSettings(savedDeep);
       if ((previousSemantic && !matches(previousSemantic)) ||
         (previousLanguageModel && !sameLanguageModelConnection(this.settings, previousLanguageModel)) ||
-        (previousCompanion && !matchesCompanion(previousCompanion))) {
+        (previousCompanion && !matchesCompanion(previousCompanion)) || (taxonomy && previousTaxonomy !== taxonomyStamp())) {
         // Legacy controls mutate before saving. If they changed during I/O, restore their current
         // configuration on disk inside this queue and reject the obsolete setup without publishing it.
         const correctedDeep = deepKnowledgeSettingsSnapshot(this.settings);
         await this.persistSettings({ ...this.settings, semantic: { ...this.settings.semantic }, companion: { ...this.settings.companion } });
         this.publishDeepKnowledgeSettings(correctedDeep);
+        if (taxonomy) throw new TaxonomyError("conflict");
         throw new Error("Settings changed during persistence.");
       }
       if (nextHealth) this.settings.health = nextHealth;
@@ -466,6 +497,7 @@ export default class AIHubPlugin extends Plugin {
       }
       if (connection) Object.assign(this.settings, connection);
       if (companionConnection) Object.assign(this.settings.companion, companionConnection);
+      if (nextTaxonomy) this.settings.tagTaxonomyProfile = nextTaxonomy;
       this.notifyCompanionSettingsChanged();
       this.notifyLanguageModelSettingsChanged();
     });
