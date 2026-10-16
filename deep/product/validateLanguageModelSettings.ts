@@ -15,3 +15,14 @@ export function validateLanguageModelSettings(settings: Pick<LanguageModelSettin
   }
   return null;
 }
+
+/** Shared consent flows reject credential-bearing or non-HTTP destinations. */
+export function validAnalysisSettings(settings: LanguageModelSettingsSnapshot): boolean {
+  try {
+    const url = new URL(settings.baseUrl);
+    return Object.prototype.hasOwnProperty.call(PROVIDER_PROFILES, settings.provider) &&
+      validateLanguageModelSettings(settings) === null && Number.isFinite(settings.temperature) &&
+      ["https:", "http:"].includes(url.protocol) && !url.username && !url.password && !url.search && !url.hash &&
+      settings.baseUrl === settings.baseUrl.trim();
+  } catch { return false; }
+}

@@ -64,3 +64,17 @@ describe("explicit metadata-only taxonomy inventory", () => {
     expect(result).toMatchObject({ state: "cancelled", processed: 0, tags: [] });
   });
 });
+
+describe("interactive taxonomy freshness watch", () => {
+  it("only marks changes, never scans/reads/writes; disposal removes every listener", async () => {
+    const { watchTaxonomyFreshness } = await import("./taxonomyFreshness");
+    const f = fixture(), changed = vi.fn(), stop = watchTaxonomyFreshness(f.app as unknown as App, changed);
+    expect(changed).not.toHaveBeenCalled(); expect(f.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    for (const event of ["create", "modify", "delete", "rename"]) f.vaultEvents.emit(event);
+    for (const event of ["changed", "resolved"]) f.metadataEvents.emit(event);
+    expect(changed).toHaveBeenCalledTimes(6); expect(f.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    for (const call of [f.app.vault.read, f.app.vault.cachedRead, f.app.vault.modify, f.app.vault.create, f.app.vault.adapter.read, f.app.vault.adapter.write]) expect(call).not.toHaveBeenCalled();
+    stop(); f.vaultEvents.emit("modify"); f.metadataEvents.emit("resolved"); expect(changed).toHaveBeenCalledTimes(6);
+    expect([...f.vaultEvents.listeners.values(), ...f.metadataEvents.listeners.values()].every(set => !set.size)).toBe(true);
+  });
+});

@@ -1,0 +1,287 @@
+{
+  "status": "PASS",
+  "baseCommit": "f36960b3df488e32de66abd6d53fa47fd87024f3",
+  "environment": {
+    "obsidianPackage": "1.13.7-2 (pacman -Q obsidian)",
+    "electron": "43.6.0",
+    "platform": "Linux desktop, isolated synthetic vault/profile"
+  },
+  "artifactSha256": {
+    "main.js": "ec16f3ec00af8ded51f1dea13bfffef2c2cbdcc0cb5487e3c64ef95464ef81c3",
+    "styles.css": "91097dc4dfd092a062141ea0dc46e62934716cfb61314b91045d8e1ef3b94dd1",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "tagRecommendations": {
+    "status": "PASS",
+    "checks": [
+      "theory_with_small_example: Tools opening is passive",
+      "theory_with_small_example: explicit scan does not read bodies or call LLM",
+      "theory_with_small_example: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "theory_with_small_example: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "practical_guide: Tools opening is passive",
+      "practical_guide: explicit scan does not read bodies or call LLM",
+      "practical_guide: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "practical_guide: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "programming_difficulty: Tools opening is passive",
+      "programming_difficulty: explicit scan does not read bodies or call LLM",
+      "programming_difficulty: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "programming_difficulty: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "language_difficulty: Tools opening is passive",
+      "language_difficulty: explicit scan does not read bodies or call LLM",
+      "language_difficulty: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "language_difficulty: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "multiple_topics: Tools opening is passive",
+      "multiple_topics: explicit scan does not read bodies or call LLM",
+      "multiple_topics: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "multiple_topics: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "no_applicable_tag: Tools opening is passive",
+      "no_applicable_tag: explicit scan does not read bodies or call LLM",
+      "no_applicable_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "no_applicable_tag: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "justified_new_tag: Tools opening is passive",
+      "justified_new_tag: explicit scan does not read bodies or call LLM",
+      "justified_new_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "justified_new_tag: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "insufficient_context: Tools opening is passive",
+      "insufficient_context: explicit scan does not read bodies or call LLM",
+      "insufficient_context: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "insufficient_context: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "justified_new_tag: Tools opening is passive",
+      "justified_new_tag: explicit scan does not read bodies or call LLM",
+      "justified_new_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "tags-ru-theme-light-1200-consent: no horizontal overflow",
+      "tags-ru-theme-light-390-consent: no horizontal overflow",
+      "tags-ru-theme-dark-1200-consent: no horizontal overflow",
+      "tags-ru-theme-dark-390-consent: no horizontal overflow",
+      "tags-ru-theme-light-1200-result: no horizontal overflow",
+      "tags-ru-theme-light-390-result: no horizontal overflow",
+      "tags-ru-theme-dark-1200-result: no horizontal overflow",
+      "tags-ru-theme-dark-390-result: no horizontal overflow",
+      "ru: translated labels, existing/new/none sections and no Apply controls",
+      "justified_new_tag: Tools opening is passive",
+      "justified_new_tag: explicit scan does not read bodies or call LLM",
+      "justified_new_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "tags-en-theme-light-1200-consent: no horizontal overflow",
+      "tags-en-theme-light-390-consent: no horizontal overflow",
+      "tags-en-theme-dark-1200-consent: no horizontal overflow",
+      "tags-en-theme-dark-390-consent: no horizontal overflow",
+      "tags-en-theme-light-1200-result: no horizontal overflow",
+      "tags-en-theme-light-390-result: no horizontal overflow",
+      "tags-en-theme-dark-1200-result: no horizontal overflow",
+      "tags-en-theme-dark-390-result: no horizontal overflow",
+      "en: translated labels, existing/new/none sections and no Apply controls",
+      "theory_with_small_example: Tools opening is passive",
+      "theory_with_small_example: explicit scan does not read bodies or call LLM",
+      "theory_with_small_example: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "invalid: response withheld without retry",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "badQuote: response withheld without retry",
+      "Missing metadata prevents sending and does not claim tag absence",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Source/inventory change before confirmation prevents sending",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "A committed profile edit invalidates consent without sending",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Cancel aborts waiting; a double click dispatches once",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "A real saved-file edit invalidates an already displayed result",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Model change during request aborts and suppresses late result",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Close blocks late UI and warns that a dispatched call may be billed",
+      "theory_with_small_example: Tools opening is passive",
+      "theory_with_small_example: explicit scan does not read bodies or call LLM",
+      "theory_with_small_example: exact-path selection is passive",
+      "Oversized note refuses full analysis without sending",
+      "No Markdown writes or real network calls throughout recommendations",
+      "Settings contain no request bodies, inventories or model results"
+    ],
+    "refusals": [
+      "invalidResponse",
+      "evidence",
+      "incomplete inventory",
+      "stale before send",
+      "profile changed",
+      "changed after result",
+      "model change during request",
+      "oversized source"
+    ],
+    "scriptedCalls": 16,
+    "markdownWrites": 0,
+    "networkCalls": 0,
+    "limits": "Fake completion only; native cache and lifecycle, not semantic model accuracy. fetch/XHR counters plus injected completion; requestUrl not instrumented. Linux desktop, not physical mobile or screen readers."
+  },
+  "taxonomy": {
+    "status": "PASS",
+    "inventory": {
+      "state": "complete",
+      "total": 129,
+      "eligible": 127,
+      "excluded": 2,
+      "processed": 127,
+      "unavailable": 1,
+      "empty": 122,
+      "tags": [
+        {
+          "tag": "difficulty/basic",
+          "notes": 1
+        },
+        {
+          "tag": "domain/english",
+          "notes": 1
+        },
+        {
+          "tag": "domain/programming",
+          "notes": 1
+        },
+        {
+          "tag": "domain/programming/tools",
+          "notes": 1
+        },
+        {
+          "tag": "flat",
+          "notes": 1
+        },
+        {
+          "tag": "Flat",
+          "notes": 1
+        },
+        {
+          "tag": "front",
+          "notes": 1
+        },
+        {
+          "tag": "inline",
+          "notes": 1
+        },
+        {
+          "tag": "nesting/tag",
+          "notes": 1
+        },
+        {
+          "tag": "role",
+          "notes": 1
+        },
+        {
+          "tag": "role/theory",
+          "notes": 2
+        },
+        {
+          "tag": "type/atom",
+          "notes": 1
+        },
+        {
+          "tag": "роль/теория",
+          "notes": 1
+        },
+        {
+          "tag": "сложность/сложно",
+          "notes": 1
+        },
+        {
+          "tag": "тема/кэш",
+          "notes": 1
+        },
+        {
+          "tag": "тип/практика",
+          "notes": 1
+        }
+      ]
+    },
+    "io": {
+      "noteBodyReads": 0,
+      "markdownWrites": 0,
+      "networkCalls": 0
+    },
+    "checks": [
+      "Tools entry is passive",
+      "Opening taxonomy reads only saved rules, with no scan or profile creation",
+      "Cancellation exposes partial coverage and no category proposals",
+      "Native helper combines YAML and inline tags with note-level deduplication",
+      "Missing metadata, empty lists and exclusions are distinct",
+      "Similar flat tag names remain distinct",
+      "Tree summary accepts keyboard focus",
+      "Keyboard expands real hierarchy; exact parent counts do not sum child counts",
+      "Prefixes form separate unconfirmed dimensions; structural type is not inferred as role",
+      "Conflicting prefix assignment blocks review",
+      "Review shows changes but writes no profile",
+      "Confirmed rules and concurrent ordinary settings both persist",
+      "data.json stores rules only, without inventory, counts or note paths",
+      "ru: reopened profile survives without another scan",
+      "ru theme-light 1200: no horizontal overflow",
+      "ru theme-light 390: no horizontal overflow",
+      "ru theme-dark 1200: no horizontal overflow",
+      "ru theme-dark 390: no horizontal overflow",
+      "ru: all editable controls have accessible labels",
+      "en: reopened profile survives without another scan",
+      "en theme-light 1200: no horizontal overflow",
+      "en theme-light 390: no horizontal overflow",
+      "en theme-dark 1200: no horizontal overflow",
+      "en theme-dark 390: no horizontal overflow",
+      "en: all editable controls have accessible labels",
+      "A vault event during scanning marks the result stale",
+      "Close aborts the active scan and cannot restore its UI",
+      "Taxonomy performs no note-body reads, Markdown writes or network calls"
+    ],
+    "limitations": "Synthetic native vault; one deliberately unavailable cache entry and a synthetic modify event. No LLM calls. Desktop Linux only; no physical mobile or screen reader tests."
+  },
+  "pairInspectorChecks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "screenshotsMatrix": "RU/EN × light/dark × 1200/390; consent and result at each combination",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests."
+}

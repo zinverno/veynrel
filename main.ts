@@ -68,6 +68,10 @@ import { RelationshipSession, readRelationshipPair } from "./consolidation/relat
 import { RELATIONSHIP_OPTIONS } from "./consolidation/relationshipPrompt";
 import { parseTaxonomyProfile, requireTaxonomyProfile, TaxonomyError } from "./consolidation/taxonomyProfile";
 import type { TagTaxonomyProfile, TaxonomyProfilePort } from "./consolidation/taxonomyProfile";
+import { TagRecommendationSession } from "./consolidation/tagRecommendationSession";
+import { TAG_LIMITS, TAG_OPTIONS, TagRecommendationError } from "./consolidation/tagRecommendationContract";
+import { readSavedNote } from "./consolidation/savedNote";
+import { isCanonicalMarkdownPath } from "./chunking/reconstructChunks";
 import { TagTaxonomyModal } from "./consolidation/taxonomyModal";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
@@ -104,6 +108,7 @@ export default class AIHubPlugin extends Plugin {
   settings: AIHubSettings;
   private settingsSave: Promise<void> = Promise.resolve();
   private committedSettings?: AIHubSettings;
+  private readonly taxonomyProfileListeners = new Set<() => void>();
   private readonly languageModelListeners = new Set<() => void>();
   private readonly companionListeners = new Set<() => void>();
   private companionConfiguration?: string;
@@ -136,7 +141,20 @@ export default class AIHubPlugin extends Plugin {
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
       openTagTaxonomy: () => {
-        const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); });
+        const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); }, inventory =>
+          new TagRecommendationSession({
+            settings: this.getLanguageModelSettingsPort(), profile: this.getTaxonomyProfilePort(), inventory,
+            read: async path => {
+              if (!isCanonicalMarkdownPath(path)) throw new TagRecommendationError("source");
+              const file = this.app.vault.getFileByPath(path);
+              if (!file) throw new TagRecommendationError("source");
+              if (file.stat.size > TAG_LIMITS.characters * 4) throw new TagRecommendationError("tooLarge");
+              const note = await readSavedNote(this.app, path);
+              if (note.state !== "ready") throw new TagRecommendationError("source");
+              return note;
+            },
+            complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...TAG_OPTIONS, signal }),
+          }));
         this.taxonomyModals.add(modal); modal.open();
       },
     };
@@ -369,6 +387,10 @@ export default class AIHubPlugin extends Plugin {
   getTaxonomyProfilePort(): TaxonomyProfilePort {
     return {
       get: () => parseTaxonomyProfile(this.settings.tagTaxonomyProfile),
+      subscribe: listener => {
+        this.taxonomyProfileListeners.add(listener);
+        return () => { this.taxonomyProfileListeners.delete(listener); };
+      },
       save: async (next, expected, signal) => {
         try { await this.saveSettings(undefined, undefined, undefined, undefined, undefined, { next, expected, signal }); }
         catch (error) { throw error instanceof TaxonomyError ? error : new TaxonomyError("save"); }
@@ -377,7 +399,7 @@ export default class AIHubPlugin extends Plugin {
   }
 
   private notifyLanguageModelSettingsChanged(): void {
-    for (const listener of this.languageModelListeners) {
+    for (const listener of [...this.languageModelListeners, ...this.taxonomyProfileListeners]) {
       try { listener(); } catch { /* Observers cannot fail settings persistence. */ }
     }
   }

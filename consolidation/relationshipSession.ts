@@ -3,7 +3,7 @@ import { buildChatBody } from "../api";
 import { PROVIDER_PROFILES } from "../constants";
 import { currentLanguage } from "../i18n";
 import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
-import { validateLanguageModelSettings } from "../deep/product/validateLanguageModelSettings";
+import { validAnalysisSettings } from "../deep/product/validateLanguageModelSettings";
 import { readSavedNote } from "./savedNote";
 import type { SavedNote } from "./savedNote";
 import { RelationshipError, validateRelationshipResponse } from "./relationshipContract";
@@ -41,15 +41,6 @@ export async function readRelationshipPair(app: App, paths: readonly [string, st
 function samePair(a: RelationshipPair, b: RelationshipPair): boolean {
   return a.every((note, i) => note.path === b[i].path && note.file === b[i].file && note.content === b[i].content &&
     note.modified === b[i].modified && note.bytes === b[i].bytes);
-}
-function settingsValid(settings: LanguageModelSettingsSnapshot): boolean {
-  try {
-    const url = new URL(settings.baseUrl);
-    return Object.prototype.hasOwnProperty.call(PROVIDER_PROFILES, settings.provider) &&
-      validateLanguageModelSettings(settings) === null && Number.isFinite(settings.temperature) &&
-      ["https:", "http:"].includes(url.protocol) && !url.username && !url.password && !url.search && !url.hash &&
-      settings.baseUrl === settings.baseUrl.trim();
-  } catch { return false; }
 }
 
 /** Ephemeral consent/result; one request per confirmation, no retries or persistence. */
@@ -93,7 +84,7 @@ export class RelationshipSession {
     this.prepared = undefined;
     this.publish({ stage: "preparing" });
     try {
-      if (!settingsValid(settings)) throw new RelationshipError("configuration");
+      if (!validAnalysisSettings(settings)) throw new RelationshipError("configuration");
       const pair = await this.deps.read();
       if (!this.current(generation, stamp)) return;
       const characters: [number, number] = [pair[0].content.length, pair[1].content.length];
