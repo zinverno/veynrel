@@ -131,6 +131,7 @@ const mocks = vi.hoisted(() => {
   }
   class Modal {
     app: unknown;
+    modalEl = new FakeElement();
     titleEl = new FakeElement();
     contentEl = new FakeElement();
     closed = false;
@@ -157,6 +158,7 @@ vi.mock("obsidian", () => ({
   Notice: mocks.Notice,
   TFile: mocks.TFile,
   getLanguage: () => "ru",
+  parseFrontMatterTags: () => null,
 }));
 
 import {
@@ -820,5 +822,118 @@ describe("manual Decisions UI", () => {
     expect(f.leaf.openFile).toHaveBeenCalledWith(expect.objectContaining({ path: "Folder/B.md" })); expect(f.view.editor.setCursor).toHaveBeenCalledWith({ line: 18, ch: 0 });
     session.invalidate(); expect(content.findByTag("p").some(p => p.text.includes(language === "ru" ? "устарела" : "stale"))).toBe(true);
     modal.close(); expect(release).toHaveBeenCalledOnce(); expect(content.children).toHaveLength(0); setLanguage("ru");
+  });
+});
+
+describe("read-only Pair Inspector UI", () => {
+  function events() {
+    const listeners = new Map<string, Set<() => void>>();
+    return {
+      on: (event: string, listener: () => void) => {
+        if (!listeners.has(event)) listeners.set(event, new Set());
+        listeners.get(event)!.add(listener);
+        return { event, listener };
+      },
+      offref: vi.fn((ref: { event: string; listener: () => void }) => { listeners.get(ref.event)!.delete(ref.listener); }),
+      emit: (event: string) => { for (const listener of listeners.get(event) ?? []) listener(); },
+    };
+  }
+  async function fixture() {
+    const { PairInspectorModal } = await import("../consolidation/pairInspectorModal");
+    const files = new Map(["one/Same.md", "two/Same.md"].map(path => [path, Object.assign(new mocks.TFile(), {
+      path, basename: "Same", stat: { mtime: 1, size: 100 },
+    })]));
+    const bodies = new Map([["one/Same.md", '![[two/Same]]\n<img src="https://invalid.test/pixel">'], ["two/Same.md", "B own source"]]);
+    const leaf = { openFile: vi.fn(async () => undefined) };
+    const app = {
+      vault: { ...events(), getFileByPath: vi.fn((path: string) => files.get(path) ?? null),
+        read: vi.fn(async (file: { path: string }) => bodies.get(file.path)!), modify: vi.fn(), create: vi.fn() },
+      metadataCache: { ...events(), getFileCache: vi.fn(() => null), resolvedLinks: {} },
+      workspace: { getLeaf: () => leaf },
+    };
+    const modal = new PairInspectorModal(app as never, ["one/Same.md", "two/Same.md"]);
+    const content = modal.contentEl as unknown as InstanceType<typeof mocks.FakeElement>;
+    const status = () => content.findByTag("div").find(el => el.attributes.get("role") === "status")!;
+    const refresh = () => content.findByTag("button")[0].trigger("click");
+    return { app, files, bodies, leaf, modal, content, status, refresh };
+  }
+
+  it("offers an explicit action alongside Decisions and never invokes either on list rendering", async () => {
+    const f = discoveryHarness(), inspectPair = vi.fn(), assessOverlap = vi.fn();
+    const modal = new SemanticDuplicatesModal(f.app as never, { ...f.delegate, inspectPair, assessOverlap });
+    modal.open(); await flush();
+    expect(inspectPair).not.toHaveBeenCalled(); expect(assessOverlap).not.toHaveBeenCalled();
+    const buttons = (modal.contentEl as unknown as InstanceType<typeof mocks.FakeElement>).findByTag("button");
+    expect(buttons).toHaveLength(2);
+    buttons[1].trigger("click"); expect(inspectPair).toHaveBeenCalledWith(expect.objectContaining({ leftPath: "A.md", rightPath: "Folder/B.md" }));
+    expect(assessOverlap).not.toHaveBeenCalled();
+    buttons[0].trigger("click"); expect(assessOverlap).toHaveBeenCalledOnce(); modal.close();
+  });
+
+  it.each(["en", "ru"] as const)("renders safe current text and full paths; opens the selected note in %s", async language => {
+    const { setLanguage } = await import("../i18n"); setLanguage(language);
+    const f = await fixture(); expect(f.app.vault.read).not.toHaveBeenCalled();
+    f.modal.open(); await flush();
+    expect(f.content.findByClass("ai-semantic-result-path").map(el => el.text)).toEqual(["one/Same.md", "two/Same.md"]);
+    expect(f.content.findByTag("pre").map(el => el.text)).toEqual([...f.bodies.values()]);
+    expect(f.content.findByTag("img")).toHaveLength(0); expect(f.content.findByTag("iframe")).toHaveLength(0);
+    expect(f.content.findByTag("p").some(el => el.text.includes("@consolidation."))).toBe(false);
+    expect(f.content.findByTag("p").map(el => el.text).join(" ")).toContain(language === "en" ? "Metadata unavailable" : "Метаданные недоступны");
+    f.content.findByTag("button")[2].trigger("click"); await flush();
+    expect(f.leaf.openFile).toHaveBeenCalledWith(f.files.get("two/Same.md")); expect(f.content.findByTag("pre")).toHaveLength(2);
+    f.modal.close(); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+    setLanguage("ru");
+  });
+
+  it("ignores late reads after close, removes listeners and can reopen", async () => {
+    const f = await fixture(); let release!: (text: string) => void;
+    f.app.vault.read.mockImplementationOnce(() => new Promise(resolve => { release = resolve; }));
+    f.modal.open(); f.modal.close();
+    expect(f.content.children).toHaveLength(0); expect(f.app.vault.offref).toHaveBeenCalledTimes(4);
+    expect(f.app.metadataCache.offref).toHaveBeenCalledTimes(2);
+    f.app.vault.emit("modify"); expect(f.content.children).toHaveLength(0);
+    f.modal.open(); await flush(); expect(f.content.findByTag("pre")[0].text).toBe(f.bodies.get("one/Same.md"));
+    release("late closed source"); await flush();
+    expect(f.content.findByTag("pre")[0].text).toBe(f.bodies.get("one/Same.md"));
+    f.modal.close();
+  });
+
+  it("keeps only the latest refresh and invalidates without automatic IO", async () => {
+    const f = await fixture(); let release!: (text: string) => void;
+    f.app.vault.read.mockImplementationOnce(() => new Promise(resolve => { release = resolve; }));
+    f.modal.open(); f.bodies.set("one/Same.md", "fresh source"); f.refresh(); await flush();
+    release("late old source"); await flush();
+    expect(f.content.findByTag("pre")[0].text).toBe("fresh source"); expect(f.app.vault.read).toHaveBeenCalledTimes(4);
+    f.app.vault.emit("modify"); f.app.metadataCache.emit("resolved");
+    expect(f.status().attributes.get("data-state")).toBe("stale"); expect(f.app.vault.read).toHaveBeenCalledTimes(4);
+    f.files.delete("one/Same.md"); f.refresh(); await flush();
+    expect(f.content.findByTag("pre")).toHaveLength(1); expect(f.content.findByTag("pre")[0].text).toBe("B own source");
+    f.modal.close();
+  });
+
+  it("does not publish a pending load after a file/cache change", async () => {
+    const f = await fixture(); let release!: (text: string) => void;
+    f.app.vault.read.mockImplementationOnce(() => new Promise(resolve => { release = resolve; }));
+    f.modal.open(); f.app.metadataCache.emit("changed"); release("outdated source"); await flush();
+    expect(f.status().attributes.get("data-state")).toBe("stale"); expect(f.content.findByTag("pre")).toHaveLength(0);
+    f.refresh(); await flush(); expect(f.content.findByTag("pre")).toHaveLength(2); f.modal.close();
+  });
+
+  it("labels a truncated preview and distinguishes an empty file", async () => {
+    const f = await fixture(); f.bodies.set("one/Same.md", "X".repeat(13000)); f.bodies.set("two/Same.md", "");
+    f.modal.open(); await flush();
+    expect(f.content.findByTag("pre").map(el => el.text.length)).toEqual([12000, 0]);
+    expect(f.content.findByTag("p").some(el => el.text.includes("усечён"))).toBe(true);
+    expect(f.content.findByTag("p").some(el => el.text.includes("файл пуст"))).toBe(true); f.modal.close();
+  });
+
+  it("bounds metadata lists and long entries with explicit truncation labels", async () => {
+    const f = await fixture();
+    f.app.metadataCache.getFileCache.mockReturnValue({ headings: Array.from({ length: 101 }, () => ({ level: 1, heading: "X".repeat(600) })) } as never);
+    f.modal.open(); await flush();
+    expect(f.content.findByTag("li")).toHaveLength(200);
+    expect(f.content.findByTag("li")[0].text).toMatch(/усечено/);
+    expect(f.content.findByTag("p").some(el => el.text.includes("100 из 101"))).toBe(true);
+    f.modal.close();
   });
 });
