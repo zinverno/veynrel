@@ -116,6 +116,8 @@ Existing enabled installations keep **automatic** refinement after upgrading; di
 
 **[Relationship Analyzer v1](docs/relationship-analyzer-v1.md)** optionally analyzes those two saved sources using the existing Deep Intelligence model. Review the exact request and confirm before sending. Results are preliminary recommendations with literal quote checks, not proven duplication or ready-to-apply operations. Oversized pairs are refused; nothing edits Markdown or runs automatically.
 
+**[Change Planner v1](docs/change-planner-v1.md)** turns a current relationship result into a local, read-only Markdown plan. Choose a paragraph and confirm its exact location to preview a normal link or a recommended embed replacement, with complete before/after text and a safe diff. No-change is supported; nothing applies, persists or calls a model during planning.
+
 Decisions and Rerank omit filename-derived fallback headings from outgoing fragments while preserving authored headings and body text. Names or paths written in the note itself are still sent; this is not anonymization. Indexing, embeddings, RAG and Companion retain their existing behavior. See the [outbound provenance fix evidence](docs/outbound-fragment-provenance.md).
 
 | Relationship view | What it shows |

@@ -4,13 +4,14 @@ import { PROVIDER_PROFILES } from "../constants";
 import { currentLanguage } from "../i18n";
 import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
 import { validAnalysisSettings } from "../deep/product/validateLanguageModelSettings";
-import { readSavedNote } from "./savedNote";
+import { readSavedNote, sameSavedNote } from "./savedNote";
 import type { SavedNote } from "./savedNote";
 import { RelationshipError, validateRelationshipResponse } from "./relationshipContract";
 import type { RelationshipFailure, RelationshipResult } from "./relationshipContract";
 import { RELATIONSHIP_LIMITS, RELATIONSHIP_OPTIONS, relationshipPrompt } from "./relationshipPrompt";
 
 export type RelationshipPair = readonly [SavedNote, SavedNote];
+export interface RelationshipAnalysis { pair: RelationshipPair; result: RelationshipResult; provider: string; model: string }
 export interface RelationshipConsent {
   provider: string;
   model: string;
@@ -39,14 +40,14 @@ export async function readRelationshipPair(app: App, paths: readonly [string, st
   return [a, b];
 }
 function samePair(a: RelationshipPair, b: RelationshipPair): boolean {
-  return a.every((note, i) => note.path === b[i].path && note.file === b[i].file && note.content === b[i].content &&
-    note.modified === b[i].modified && note.bytes === b[i].bytes);
+  return a.every((note, i) => sameSavedNote(note, b[i]));
 }
 
 /** Ephemeral consent/result; one request per confirmation, no retries or persistence. */
 export class RelationshipSession {
   view: RelationshipView = { stage: "idle" };
   onChange: () => void = () => {};
+  private analysis?: RelationshipAnalysis;
   private generation = 0;
   private closed = false;
   private request?: AbortController;
@@ -59,6 +60,10 @@ export class RelationshipSession {
       if (this.settingsStamp !== this.stamp()) { this.settingsStamp = this.stamp(); this.invalidate(); }
     });
   }
+  get analysisSource(): RelationshipAnalysis | undefined {
+    if (this.settingsStamp !== this.stamp()) this.invalidate();
+    return this.view.stage === "result" ? this.analysis : undefined;
+  }
   get busy(): boolean { return this.view.stage === "preparing" || this.view.stage === "running"; }
   private stamp(): string { return JSON.stringify(this.deps.settings.get()); }
   private current(generation: number, stamp: string): boolean {
@@ -68,7 +73,7 @@ export class RelationshipSession {
   }
   private publish(view: RelationshipView): void { if (!this.closed) { this.view = view; this.onChange(); } }
   private clear(stage: "stale" | "cancelled" | "dismissed"): void {
-    this.generation++; this.request?.abort(); this.request = undefined; this.prepared = undefined;
+    this.generation++; this.request?.abort(); this.request = undefined; this.prepared = undefined; this.analysis = undefined;
     this.publish({ stage });
   }
   invalidate(): void { this.clear("stale"); }
@@ -81,7 +86,7 @@ export class RelationshipSession {
   async prepare(): Promise<void> {
     if (this.closed || this.busy) return;
     const generation = ++this.generation, settings = { ...this.deps.settings.get() }, stamp = JSON.stringify(settings);
-    this.prepared = undefined;
+    this.prepared = undefined; this.analysis = undefined; this.settingsStamp = stamp;
     this.publish({ stage: "preparing" });
     try {
       if (!validAnalysisSettings(settings)) throw new RelationshipError("configuration");
@@ -114,12 +119,13 @@ export class RelationshipSession {
       if (!samePair(prepared.pair, after)) { this.invalidate(); return; }
       const result = validateRelationshipResponse(raw, after[0].content, after[1].content);
       this.prepared = undefined;
+      this.analysis = { pair: after, result, provider: PROVIDER_PROFILES[prepared.settings.provider].label, model: prepared.settings.model };
       this.publish({ stage: "result", result });
     } catch (error) { if (this.current(generation, stamp)) this.fail(error); }
     finally { if (this.request === request) this.request = undefined; }
   }
   private fail(error: unknown): void {
-    this.prepared = undefined;
+    this.prepared = undefined; this.analysis = undefined;
     this.publish({ stage: "error", error: error instanceof RelationshipError ? error.reason : "transport" });
   }
 }

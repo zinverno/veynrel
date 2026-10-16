@@ -6,6 +6,8 @@ import { readPairNote } from "./pairSnapshot";
 import type { InspectorList, PairNoteSnapshot } from "./pairSnapshot";
 import type { RelationshipSession } from "./relationshipSession";
 import { renderRelationshipView } from "./relationshipView";
+import { ChangePlannerSession, readPlannerPair } from "./changePlannerSession";
+import { ChangePlannerView } from "./changePlannerView";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairInspectorModal extends Modal {
@@ -13,6 +15,7 @@ export class PairInspectorModal extends Modal {
   private generation = 0;
   private readonly cleanup: (() => void)[] = [];
   private relationship?: RelationshipSession;
+  private planner?: ChangePlannerSession;
 
   constructor(app: App, private readonly paths: readonly [string, string],
     private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}) { super(app); }
@@ -28,6 +31,7 @@ export class PairInspectorModal extends Modal {
     const controls = this.contentEl.createDiv({ cls: "ai-semantic-search-controls" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
     const analysis = this.contentEl.createDiv({ cls: "ai-relationship" });
+    const planning = this.contentEl.createDiv({ cls: "ai-change-planner" });
     if (this.createRelationship) {
       const analyze = controls.createEl("button", { text: tr("@relationship.analyze"), attr: { type: "button", "data-relationship-action": "analyze" } });
       analyze.addEventListener("click", () => {
@@ -37,7 +41,20 @@ export class PairInspectorModal extends Modal {
             if (!this.openState || !this.relationship) return;
             analyze.disabled = this.relationship.busy;
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
+            this.planner?.close(); this.planner = undefined; planning.empty();
             renderRelationshipView(analysis, this.relationship);
+            if (this.relationship.view.result) {
+              const prepare = analysis.createEl("button", { text: tr("@planner.prepare"), attr: { type: "button", "data-planner-action": "open" } });
+              prepare.addEventListener("click", () => {
+                if (this.planner?.busy) return;
+                const source = this.relationship?.analysisSource;
+                if (!source || !this.openState) return;
+                this.planner?.close();
+                this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths) });
+                new ChangePlannerView(planning, this.planner, source);
+                void this.planner.prepare();
+              });
+            }
           };
         }
         void this.relationship.prepare();
@@ -48,6 +65,7 @@ export class PairInspectorModal extends Modal {
     const invalidate = () => {
       if (!this.openState) return;
       this.generation++;
+      this.planner?.invalidate();
       notes.setAttribute("aria-busy", "false");
       status.setAttribute("data-state", "stale");
       status.setText(tr("@consolidation.stale"));
@@ -88,6 +106,7 @@ export class PairInspectorModal extends Modal {
   onClose(): void {
     this.openState = false;
     this.generation++;
+    this.planner?.close(); this.planner = undefined;
     this.relationship?.close(); this.relationship = undefined;
     for (const remove of this.cleanup.splice(0)) remove();
     this.contentEl.empty();

@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
-export async function relationshipScenario({ ev, wait, cdp, close, root, vault, paths: [a, b], ROOT }) {
+export async function relationshipScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT }) {
   const cases = JSON.parse(fs.readFileSync(ROOT + '/tests/fixtures/relationships.json', 'utf8'));
   const originals = [fs.readFileSync(vault + '/' + a, 'utf8'), fs.readFileSync(vault + '/' + b, 'utf8')];
   const checks = [], refusals = [];
@@ -12,6 +12,7 @@ export async function relationshipScenario({ ev, wait, cdp, close, root, vault, 
   const action = name => ev(`document.querySelector('[data-relationship-action=${name}]').click()`);
   const pass = async (name, expression) => { assert(await ev(expression), name); checks.push(name); console.log(name); };
   const open = async () => {
+    await focusMain();
     await ev(`engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:${JSON.stringify(b)}})`);
     await wait("['ready','stale'].includes(document.querySelector('.ai-pair-inspector [role=status]')?.dataset.state)");
     // External fixture edits can finish MetadataCache processing after initial open.
@@ -116,7 +117,9 @@ export async function relationshipScenario({ ev, wait, cdp, close, root, vault, 
     await pass('Oversized pair refuses instead of sending a partial preview', "rel.sessions.at(-1).view.error==='tooLarge'&&rel.calls.length===rel.before"); refusals.push({ fixture: 'tooLarge', state: 'local refusal, no request' });
     await write(item.a, item.b);
     await ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
-    await ev("{const s=[...app.setting.modalEl.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='ru'));s.value='en';s.dispatchEvent(new Event('change'));app.setting.close();}void 0"); await ev('plugin.settingsSave');
+    await ev("{const s=[...app.setting.modalEl.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='ru'));s.value='en';s.dispatchEvent(new Event('change'));}void 0"); await ev('plugin.settingsSave');
+    await ev('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+    await ev('app.setting.close();void 0');
     await open(); await action('analyze'); await stage('consent'); await action('confirm'); await stage('result');
     for (const theme of ['theme-light', 'theme-dark']) for (const width of [390, 1200]) {
       await cdp('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: false });

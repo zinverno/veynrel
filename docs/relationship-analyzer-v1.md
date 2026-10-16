@@ -160,3 +160,10 @@ No Markdown changes, merge/delete/embed insertion, atomic-note creation, tag
 classification/normalization, transaction/rollback, background audit or Health
 Findings integration. Operation planning and additional-note/dependency analysis
 need separate PRs and explicit confirmation; this result is not ready to apply.
+
+## Local planning follow-up
+
+[Change Planner v1](change-planner-v1.md) adds an explicit **Prepare change** action
+to a current result. It can preview a user-selected normal link, a direction-gated
+embed replacement or no change, without applying Markdown or making another model
+request. The analyzer’s recommendations remain preliminary.

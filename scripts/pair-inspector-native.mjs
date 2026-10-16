@@ -42,7 +42,7 @@ try {
  socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}};
  const cdp=(method,params={})=>new Promise((resolve,reject)=>{pending.set(++id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));});
  const ev=async expression=>{const r=await cdp('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});assert(!r.exceptionDetails,JSON.stringify(r.exceptionDetails));return r.result.value;};
- const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:window.engine?.getSemanticStatus().kind,language:window.plugin?.settings.language,titles:[...document.querySelectorAll('.modal')].map(e=>e.className)})")));};
+ const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:window.engine?.getSemanticStatus().kind,language:window.plugin?.settings.language,titles:[...document.querySelectorAll('.modal')].map(e=>e.className),notices:[...document.querySelectorAll('.notice')].map(e=>e.textContent)})")));};
  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
  const focusMain=async()=>{for(let i=0;i<40;i++){await cdp('Page.bringToFront');await pause(50);if(await ev('activeWindow===window'))return;}throw Error('Native main window did not receive focus');};
  await wait('!!window.app?.workspace?.layoutReady');
@@ -99,7 +99,7 @@ try {
  }
  if (process.argv.includes('--relationships')) {
    const { relationshipScenario } = await import('./relationship-analyzer-native.mjs');
-   report.relationships = await relationshipScenario({ ev, wait, cdp, close, root, vault, paths: [a, b], ROOT });
+   report.relationships = await relationshipScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
  }
  if (process.argv.includes('--taxonomy')) {
    const { taxonomyScenario } = await import('./tag-taxonomy-native.mjs');
@@ -108,6 +108,10 @@ try {
  if (process.argv.includes('--tag-recommendations')) {
    const { tagRecommendationScenario } = await import('./tag-recommendations-native.mjs');
    report.tagRecommendations = await tagRecommendationScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
+ }
+ if (process.argv.includes('--change-planner')) {
+   const { changePlannerScenario } = await import('./change-planner-native.mjs');
+   report.changePlanner = await changePlannerScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
  }
  await ev("document.querySelectorAll('.ai-pair-note button')[1].click()");
  await wait('app.workspace.getActiveFile()?.path==='+JSON.stringify(b));checks.push('Open source note selects the exact second path');
