@@ -15,6 +15,7 @@ export interface SemanticDiscoveryModalDelegate {
   findSimilarNotes(path: string): Promise<SemanticDocumentSimilarity[]>;
   findPotentialDuplicates(): Promise<SemanticDuplicatePair[]>;
   assessOverlap?(pair: SemanticDuplicatePair): void;
+  inspectPair?(pair: SemanticDuplicatePair): void;
   errorMessage(error: unknown): string;
 }
 
@@ -301,6 +302,10 @@ export class SemanticDuplicatesModal extends Modal {
       if (this.delegate.assessOverlap) {
         const assess = card.createEl("button", { text: tr("@decisions.title"), attr: { type: "button" } });
         assess.addEventListener("click", () => this.delegate.assessOverlap?.(pair));
+      }
+      if (this.delegate.inspectPair) {
+        const inspect = card.createEl("button", { text: tr("@consolidation.inspect"), attr: { type: "button" } });
+        inspect.addEventListener("click", () => this.delegate.inspectPair?.(pair));
       }
     }
   }

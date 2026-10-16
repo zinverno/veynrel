@@ -2548,3 +2548,12 @@
 .ai-overlap-text { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; font-family: var(--font-text); }
 .ai-overlap-note { white-space: normal; overflow-wrap: anywhere; height: auto; max-width: 100%; }
 .ai-overlap-result { overflow-wrap: anywhere; }
+
+.modal.ai-pair-inspector-modal { width: min(1000px, calc(100vw - 40px)); }
+.ai-pair-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 12px; }
+.ai-pair-note { min-width: 0; overflow-wrap: anywhere; cursor: auto; }
+.ai-pair-note:hover { border-color: var(--background-modifier-border); background: var(--background-secondary); }
+.ai-pair-note .ai-semantic-result-path { color: var(--text-normal); }
+.ai-pair-note button { white-space: normal; height: auto; }
+.ai-pair-source { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; font-family: var(--font-monospace); background: var(--background-secondary); padding: 10px; }
+.ai-pair-note details { margin-block: 8px; }

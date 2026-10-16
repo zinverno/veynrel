@@ -366,6 +366,20 @@ describe("ObsidianSemanticController commands and lazy behavior", () => {
     expect(harness.runtimeFactory).not.toHaveBeenCalled();
   });
 
+  it("opens Pair Inspector without Decisions configuration, providers or a semantic runtime", async () => {
+    const { PairInspectorModal } = await import("../consolidation/pairInspectorModal");
+    const open = vi.spyOn(PairInspectorModal.prototype, "open");
+    const harness = createHarness();
+    Object.assign(harness.plugin.settings, { decisions: { enabled: false, apiKey: "" } });
+    const before = JSON.stringify(harness.plugin.settings);
+    harness.controller.inspectPair({ leftPath: "one/Same.md", rightPath: "two/Same.md", score: 1, leftMatches: [], rightMatches: [] });
+    expect(open).toHaveBeenCalledOnce();
+    expect(harness.runtimeFactory).not.toHaveBeenCalled();
+    expect(harness.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(JSON.stringify(harness.plugin.settings)).toBe(before);
+    open.mockRestore();
+  });
+
   it("requires an active Markdown file before opening Similar Notes", () => {
     const harness = createHarness();
     harness.app.workspace.getActiveFile.mockReturnValue(null as never);

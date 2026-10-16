@@ -4,6 +4,7 @@ import { mergeDecisionsSettings } from "../decisions/types";
 import type { DecisionsProvider, DecisionsSettings } from "../decisions/types";
 import { OverlapSession } from "../decisions/overlapSession";
 import { OverlapModal } from "../decisions/overlapModal";
+import { PairInspectorModal } from "../consolidation/pairInspectorModal";
 import { OpenRouterRerankProvider, rerankConfigured, testRerankConnection } from "../rerank/openRouterRerank";
 import { refineCandidates } from "../rerank/refinedSearch";
 import { mergeRerankSettings, RERANK_LIMITS } from "../rerank/types";
@@ -702,6 +703,11 @@ export class ObsidianSemanticController {
   openPotentialDuplicates(): void {
     if (!this.ensureEnabled()) return;
     this.openDuplicatesModal(this.plugin.app, this);
+  }
+
+  inspectPair(pair: SemanticDuplicatePair): void {
+    if (this.isDisposed()) return;
+    new PairInspectorModal(this.plugin.app, [pair.leftPath, pair.rightPath]).open();
   }
 
   async prepareSearch(): Promise<SemanticRuntimeStats> {
