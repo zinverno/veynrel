@@ -2561,3 +2561,14 @@
 .ai-relationship:empty { display: none; }
 .ai-relationship button { margin: 8px 8px 8px 0; white-space: normal; height: auto; }
 .ai-relationship-paths { white-space: pre-wrap; }
+.ai-taxonomy-modal { width: min(960px, 95vw); }
+.ai-taxonomy { overflow-wrap: anywhere; }
+.ai-taxonomy fieldset { min-width: 0; margin-block: 12px; border: 1px solid var(--background-modifier-border); }
+.ai-taxonomy-field { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-block: 8px; align-items: center; }
+.ai-taxonomy input, .ai-taxonomy select, .ai-taxonomy textarea { width: 100%; min-width: 0; }
+.ai-taxonomy textarea { resize: vertical; }
+.ai-taxonomy button { margin: 6px; height: auto; white-space: normal; }
+.ai-taxonomy summary { cursor: pointer; }
+.ai-taxonomy-tree { list-style: none; padding-inline-start: 12px; }
+.ai-taxonomy-tree .ai-taxonomy-tree { padding-inline-start: 0; }
+@media (max-width: 600px) { .ai-taxonomy-field { grid-template-columns: minmax(0, 1fr); } .ai-taxonomy ul { padding-inline-start: 14px; } }

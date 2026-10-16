@@ -27,6 +27,8 @@ describe("Tools host delegates to authoritative legacy workflows", () => {
     port.openBatchProcessing(); expect(mocks.opened[0]).toBeInstanceOf(BatchProcessModal);
     await port.openDeepAudit(); expect(mocks.opened[1]?.constructor.name).toBe("AuditModeModal");
     expect(mocks.opened).toHaveLength(2); expect(batch).not.toHaveBeenCalled(); expect(deep).not.toHaveBeenCalled();
+    port.openTagTaxonomy(); expect(mocks.opened[2]?.constructor.name).toBe("TagTaxonomyModal");
+    expect(plugin.settings.tagTaxonomyProfile).toBeUndefined();
     port.openAskVault(); expect(rag.openAskVault).toHaveBeenCalledTimes(1);
     await port.generateMocs(); expect(mocs).toHaveBeenCalledTimes(1);
     await port.runLegacyVaultAudit(); expect(legacy).toHaveBeenCalledTimes(1);

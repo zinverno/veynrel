@@ -42,12 +42,18 @@ try {
  socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}};
  const cdp=(method,params={})=>new Promise((resolve,reject)=>{pending.set(++id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));});
  const ev=async expression=>{const r=await cdp('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});assert(!r.exceptionDetails,JSON.stringify(r.exceptionDetails));return r.result.value;};
- const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:engine.getSemanticStatus().kind,language:plugin.settings.language})")));};
+ const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:window.engine?.getSemanticStatus().kind,language:window.plugin?.settings.language,titles:[...document.querySelectorAll('.modal')].map(e=>e.className)})")));};
  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
+ const focusMain=async()=>{for(let i=0;i<40;i++){await cdp('Page.bringToFront');await pause(50);if(await ev('activeWindow===window'))return;}throw Error('Native main window did not receive focus');};
  await wait('!!window.app?.workspace?.layoutReady');
  assert.equal(await ev('app.vault.adapter.basePath'),vault);
- await ev(`(async()=>{if(!app.plugins.isEnabled())await app.plugins.setEnable(true);if(!app.plugins.plugins['ai-knowledge-hub'])await app.plugins.enablePlugin('ai-knowledge-hub');})()`);
+ // Accept the native trust dialog only for this freshly generated, synthetic vault.
+ await wait("!!document.querySelector('.mod-trust-folder')");
+ await ev("[...document.querySelectorAll('.mod-trust-folder button')].find(e=>e.textContent==='Trust author and enable plugins').click()");
+ await wait("!document.querySelector('.mod-trust-folder')");
  await wait("!!app.plugins.plugins['ai-knowledge-hub']?.semanticController");
+ // Native trust/settings can leave their popout as activeWindow.
+ await focusMain();
  await ev(`window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;window.io={read:[],write:0,network:0};
   window.originalRead=app.vault.read.bind(app.vault);app.vault.read=async f=>{io.read.push(f.path);return originalRead(f)};
   for(const key of ['modify','create','delete','append','process']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.write++;return original(...args)}};
@@ -57,7 +63,7 @@ try {
  await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health')");
  await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.contentEl.querySelector('[data-health-action=nav-discover]')");
  await ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;hv.contentEl.querySelector('[data-health-action=nav-discover]').click()");
- await wait("!!hv.contentEl.querySelector('[data-health-action=discover-duplicates]')");
+ await wait("!!hv.contentEl.querySelector('[data-health-action=discover-duplicates]')&&!hv.contentEl.querySelector('[data-health-action=discover-duplicates]').disabled");
  await ev("hv.contentEl.querySelector('[data-health-action=discover-duplicates]').click()");
  await wait("document.querySelectorAll('.ai-semantic-duplicate-card button').length===2");
  await pass('Discover and actual duplicate list read no Markdown and call no providers', 'io.read.length===0&&io.network===0&&io.write===0');
@@ -72,8 +78,13 @@ try {
    if(language==='ru'){
      await close();await ev("document.querySelector('.ai-semantic-discovery-modal').closest('.modal').querySelector('.modal-close-button,.modal-header-button').click()");
      await ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
-     await ev("{const s=[...app.setting.modalEl.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='ru'));s.value='ru';s.dispatchEvent(new Event('change'));app.setting.close();}void 0");
+     await ev("{const s=[...app.setting.modalEl.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='ru'));s.value='ru';s.dispatchEvent(new Event('change'));}void 0");
      await ev('plugin.settingsSave');
+     // Native settings update rerenders asynchronously; close after that update settles.
+     await ev('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+     await ev('app.setting.close();void 0');
+     await focusMain();
+     await wait("!document.querySelector('.modal')");
      // Locale rendering uses the same explicit controller action; Discover was exercised above.
      await ev(`engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:${JSON.stringify(b)}})`);
      await wait("document.querySelectorAll('.ai-pair-source').length===2");
@@ -90,13 +101,21 @@ try {
    const { relationshipScenario } = await import('./relationship-analyzer-native.mjs');
    report.relationships = await relationshipScenario({ ev, wait, cdp, close, root, vault, paths: [a, b], ROOT });
  }
+ if (process.argv.includes('--taxonomy')) {
+   const { taxonomyScenario } = await import('./tag-taxonomy-native.mjs');
+   report.taxonomy = await taxonomyScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b] });
+ }
  await ev("document.querySelectorAll('.ai-pair-note button')[1].click()");
  await wait('app.workspace.getActiveFile()?.path==='+JSON.stringify(b));checks.push('Open source note selects the exact second path');
  await pass('Inspector performs zero network requests and Markdown writes','io.network===0&&io.write===0');
  await close();await ev("engine.inspectPair({leftPath:"+JSON.stringify(a)+",rightPath:"+JSON.stringify(b)+"})");await wait("document.querySelectorAll('.ai-pair-source').length===2");
- fs.writeFileSync(vault+'/'+b,'UPDATED SAVED TEXT');await wait("document.querySelector('.ai-pair-inspector [role=status]').dataset.state==='stale'");
+ await ev(`window.pairCache={changed:false,resolved:false};pairCache.change=app.metadataCache.on('changed',(file,data)=>{if(file.path===${JSON.stringify(b)}&&data==='UPDATED SAVED TEXT')pairCache.changed=true});pairCache.resolve=app.metadataCache.on('resolved',()=>{if(pairCache.changed)pairCache.resolved=true});void 0`);
+ fs.writeFileSync(vault+'/'+b,'UPDATED SAVED TEXT');await wait("document.querySelector('.ai-pair-inspector [role=status]').dataset.state==='stale'&&pairCache.resolved");
+ await ev('app.metadataCache.offref(pairCache.change);app.metadataCache.offref(pairCache.resolve);void 0');
  await refresh();await wait("[...document.querySelectorAll('.ai-pair-source')].some(e=>e.textContent==='UPDATED SAVED TEXT')");checks.push('External change marks stale; refresh reads current saved file');
- fs.unlinkSync(vault+'/'+b);await wait("document.querySelector('.ai-pair-inspector [role=status]').dataset.state==='stale'");
+ await ev(`window.pairDeleted=false;window.pairDeleteRef=app.metadataCache.on('resolved',()=>{if(!app.vault.getFileByPath(${JSON.stringify(b)}))pairDeleted=true});void 0`);
+ fs.unlinkSync(vault+'/'+b);await wait("document.querySelector('.ai-pair-inspector [role=status]').dataset.state==='stale'&&pairDeleted");
+ await ev('app.metadataCache.offref(pairDeleteRef);void 0');
  await refresh();await wait("document.querySelectorAll('.ai-pair-source').length===1");checks.push('Deleted note shown independently while the other remains available');
  await pass('No writes or network even after refresh and reopen','io.network===0&&io.write===0');
  await close();
