@@ -3,7 +3,7 @@
 This extends [Safe Apply & Undo](safe-apply-undo-v1.md) in the same Operation History
 and the same plugin service directory. It diagnoses damaged operations and permits
 one conservative, separately confirmed decision: acknowledge a verified saved state
-and exclude that old incident from future Apply blockers. **Resolution is not Undo,
+and exclude that old incident from future Apply/Undo blockers. **Resolution is not Undo,
 proof of a successful Apply, or restoration of a note.**
 
 ## Use and evidence
@@ -44,18 +44,29 @@ Obsidian exact path + creation time + complete saved content, not an OS inode.
 ## Local and global blockers
 
 An unresolved damaged operation with at least one validated record and no conflict
-between valid copies blocks new applies whose **source or target** equals either of
+between valid copies blocks Apply and Undo whose **source or target** equals either of
 its recorded paths. The second copy need not be present to establish this scope.
 Independent pairs retain all normal source, structure, link, editor, consent,
 `Vault.process` and single-use checks and can proceed.
 
 No valid copy, contradictory valid copies, unknown root files/directory names, or an
-unreadable/invalid journal root retain a **global new-Apply block**. A directory name,
+unreadable/invalid journal root retain a **global Apply/Undo block**. A directory name,
 a path in invalid JSON or a surviving unchecked field never establishes local scope.
 Unknown children or unreadable evidence inside an operation with a trusted record
 retain its local blocker but cannot be manually resolved in v1. Other history rows
 remain visible. Resolving one eligible local incident never waives a separate global
 or local blocker.
+
+Undo checks this same policy during review, at final confirmation **before** writing
+`undo_pending`, and again after that marker's IO, before `Vault.process`. A newly
+appearing incident consumes/refuses the confirmation without changing Markdown or
+writing `undone`. If it appears during the intent write, the verified `undo_pending`
+remains as truthful evidence of an attempted undo; it is not a success marker.
+Source/target overlap both count even though Undo writes only the source. Independent
+Undo remains available. A previously committed valid resolution waives its incident
+exactly as for Apply; changed evidence reactivates the blocker. The damaged/resolved
+operation itself never gains Undo. History's Undo action opens fresh review; the
+button is not authorization to bypass other journal incidents.
 
 A normal intact historical operation can differ from the present note after a later
 edit or operation. That prevents its old Undo, as before; it does not turn ordinary
@@ -161,6 +172,8 @@ local/global blocking, late changes, consent reuse, concurrent windows, read-bac
 failure, restart and preservation of every original byte. Existing Apply/Undo tests
 remain in place. [Native report and screenshots](journal-recovery-native.md) include
 real Vault.process writes and actual SIGKILL with controlled adapter pause points.
+The [Undo blocker follow-up](journal-undo-blockers-native.md) adds targeted native
+checks for the shared blocker policy.
 
 Deferred: multi-file transactions, merging/deleting/archiving notes, automatic
 three-way merge, restoration from uncertain evidence, pruning old journals,

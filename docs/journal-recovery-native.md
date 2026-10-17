@@ -1,5 +1,9 @@
 # Journal Recovery native acceptance
 
+This is the original acceptance for `a0b7149`. See the
+[Undo blocker follow-up](journal-undo-blockers-native.md) for the subsequent fix,
+current artifact hashes and targeted native results.
+
 **PASS**, 2026-10-17. Isolated synthetic vault/profile; Obsidian **1.13.7-2**,
 Electron **43.6.0**, Linux desktop. No personal vault, real credential or paid provider
 request. The existing fake Relationship Analyzer response supplies plans; actual
@@ -18,7 +22,7 @@ It uses CDP port 9274. Never point these fault-injection helpers at a personal v
 
 ## Exact artifacts and checks
 
-The tested plugin copies were byte-compared to the final working build:
+The tested plugin copies were byte-compared to the original `a0b7149` build:
 
 | Artifact | SHA-256 |
 | --- | --- |

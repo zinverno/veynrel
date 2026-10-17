@@ -446,3 +446,99 @@ describe("fresh source observations", () => {
     expect([...f.disk.keys()].some(p => p.includes("resolution-"))).toBe(false);
   });
 });
+
+// A different, strictly valid historical operation with a missing recovery copy.
+async function undoIncident(f: ReturnType<typeof setup>, record: OperationRecord, sourcePath = record.sourcePath, targetPath = record.targetPath) {
+  const damaged = { ...record, sourcePath, targetPath, sourceModified: record.sourceModified + 100,
+    selection: { ...record.selection }, edit: { ...record.edit, inserted: ` [[${targetPath.slice(0, -3)}]]` } };
+  damaged.after = damaged.before.slice(0, damaged.edit.start) + damaged.edit.inserted + damaged.before.slice(damaged.edit.end);
+  damaged.afterHash = await checksum(damaged.after);
+  damaged.id = await checksum(JSON.stringify({ ...damaged, id: "", createdAt: 0 }));
+  await f.journal.prepare(damaged);
+  f.disk.delete(`${f.journal.root}/${damaged.id}/backup.json`);
+  return damaged.id;
+}
+
+describe("Undo shares Apply's journal blockers", () => {
+  async function applied() {
+    const f = setup(), review = await apply(f), record = (await f.journal.entries())[0].record!;
+    f.vault.process.mockClear();
+    return { ...f, id: review.id, record, pending: `${f.journal.root}/${review.id}/undo_pending.json`, undone: `${f.journal.root}/${review.id}/undone.json` };
+  }
+  function untouched(f: Awaited<ReturnType<typeof applied>>, original: Map<string, string>) {
+    expect(f.contents.get(f.plan.sourcePath)).toBe(f.plan.after);
+    expect(f.vault.process).not.toHaveBeenCalled(); expect(f.disk).toEqual(original);
+    expect(f.disk.has(f.pending)).toBe(false); expect(f.disk.has(f.undone)).toBe(false);
+  }
+  it.each(["root", "unknown operation"])("global %s damage refuses Undo review without writes", async kind => {
+    const f = await applied();
+    if (kind === "root") f.disk.set(`${f.journal.root}/unknown.json`, "{");
+    else {
+      const dir = `${f.journal.root}/${"0".repeat(64)}`; f.folders.add(dir); f.disk.set(`${dir}/record.json`, "{");
+    }
+    const original = new Map(f.disk);
+    await expect(f.service.reviewUndo(f.id, () => true)).rejects.toEqual(reason("storage")); untouched(f, original);
+  });
+  it.each([["source", "source"], ["source", "target"], ["target", "source"], ["target", "target"]] as const)(
+    "incident %s matching Undo %s blocks review", async (incidentSide, undoSide) => {
+      const f = await applied(), path = undoSide === "source" ? f.record.sourcePath : f.record.targetPath;
+      await undoIncident(f, f.record, incidentSide === "source" ? path : "Other/Source.md", incidentSide === "target" ? path : "Other/Target.md");
+      const original = new Map(f.disk);
+      await expect(f.service.reviewUndo(f.id, () => true)).rejects.toEqual(reason("storage")); untouched(f, original);
+    });
+  it("an independent incident allows exact Undo and still prevents a second Undo", async () => {
+    const f = await applied(); await undoIncident(f, f.record, "Other/Source.md", "Other/Target.md");
+    const review = await f.service.reviewUndo(f.id, () => true); await f.service.undo(review);
+    expect(f.contents.get(f.plan.sourcePath)).toBe(f.plan.before); expect(f.vault.process).toHaveBeenCalledOnce();
+    expect((await f.restart().history()).find(r => r.id === f.id)?.state).toBe("undone");
+    await expect(f.service.undo(review)).rejects.toEqual(reason("used"));
+    await expect(f.service.reviewUndo(f.id, () => true)).rejects.toEqual(reason("conflict"));
+  });
+  it.each(["global", "source", "target"])("a new %s incident after preview refuses before undo_pending", async scope => {
+    const f = await applied(), review = await f.service.reviewUndo(f.id, () => true);
+    if (scope === "global") f.disk.set(`${f.journal.root}/unknown`, "{");
+    else await undoIncident(f, f.record, scope === "source" ? f.record.sourcePath : "Other/Source.md", scope === "target" ? f.record.targetPath : "Other/Target.md");
+    const original = new Map(f.disk);
+    await expect(f.service.undo(review)).rejects.toEqual(reason("storage")); untouched(f, original);
+    await expect(f.service.undo(review)).rejects.toEqual(reason("used"));
+  });
+  it("a new incident during undo_pending IO prevents Markdown processing, retaining only the truthful intent", async () => {
+    const f = await applied(), review = await f.service.reviewUndo(f.id, () => true), write = f.adapter.write.getMockImplementation()!;
+    f.adapter.write.mockImplementation(async (path, raw) => { await write(path, raw); if (path === f.pending) f.disk.set(`${f.journal.root}/unknown`, "{"); });
+    await expect(f.service.undo(review)).rejects.toEqual(reason("storage"));
+    expect(f.disk.has(f.pending)).toBe(true); expect(f.disk.has(f.undone)).toBe(false);
+    expect(f.contents.get(f.plan.sourcePath)).toBe(f.plan.after); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("a committed resolution permits the other operation's Undo after restart, never the damaged operation's Undo", async () => {
+    const f = await applied(), incidentId = await undoIncident(f, f.record);
+    await f.service.resolve(await f.service.reviewResolution(incidentId, () => true));
+    const service = f.restart(), original = new Map(f.disk);
+    await service.undo(await service.reviewUndo(f.id, () => true));
+    expect(f.contents.get(f.plan.sourcePath)).toBe(f.plan.before); expect(f.vault.process).toHaveBeenCalledOnce();
+    for (const [path, raw] of original) expect(f.disk.get(path)).toBe(raw);
+    await expect(service.reviewUndo(incidentId, () => true)).rejects.toEqual(reason("conflict"));
+  });
+  it("a previously resolved incident whose evidence changed blocks a pending Undo again", async () => {
+    const f = await applied(), incidentId = await undoIncident(f, f.record);
+    await f.service.resolve(await f.service.reviewResolution(incidentId, () => true));
+    const review = await f.service.reviewUndo(f.id, () => true);
+    f.disk.set(`${f.journal.root}/${incidentId}/backup.json`, "{different");
+    const original = new Map(f.disk);
+    await expect(f.service.undo(review)).rejects.toEqual(reason("storage")); untouched(f, original);
+  });
+  it.each(["editor", "closed", "ctime"])("%s during blocker IO refuses before undo intent", async changed => {
+    const f = await applied(); let active = true;
+    const review = await f.service.reviewUndo(f.id, () => active), entries = f.journal.entries.bind(f.journal); let reads = 0;
+    vi.spyOn(f.journal, "entries").mockImplementation(async () => {
+      const result = await entries();
+      if (++reads === 2) {
+        if (changed === "editor") f.editor(f.plan.after);
+        else if (changed === "ctime") f.pair[0].file.stat.ctime++;
+        else active = false;
+      }
+      return result;
+    });
+    const original = new Map(f.disk);
+    await expect(f.service.undo(review)).rejects.toEqual(reason(changed === "editor" ? "editor" : changed === "ctime" ? "conflict" : "cancelled")); untouched(f, original);
+  });
+});

@@ -85,6 +85,61 @@ export async function journalRecoveryScenario(context) {
   await pass('Later user text blocks resolution and Undo while showing the verified backup',`(async()=>{const r=${rowExpr(refusalId)};return r.sourceState==='different'&&!r.canResolve&&!r.canUndo&&r.record.before.length>0})()`);
   await shot('journal-refusal');
   await pass('Native recovery and resolution made no network requests','io.network===0');
-  return {status:'PASS',checks,artifactSha256:createHash('sha256').update(fs.readFileSync(ROOT+'/main.js')).digest('hex'),originals,
+  const undoBlockers=await undoBlockerScenario(context);
+  return {status:'PASS',checks,undoBlockers,artifactSha256:createHash('sha256').update(fs.readFileSync(ROOT+'/main.js')).digest('hex'),originals,
     limits:'Actual Linux desktop and process SIGKILL with DataAdapter fault injection. No power-loss/fsync guarantee, mobile, independent concurrent vault processes, remote sync, screen reader or live LLM acceptance.'};
+}
+
+export async function undoBlockerScenario(context) {
+  const {ev,wait,cdp,root,vault,restart}=context, checks=[];
+  const primary=safeApplyHarness(context,['UndoPolicy/A.md','UndoPolicy/B.md']);
+  const related=safeApplyHarness(context,['UndoPolicy/Other.md',primary.b]);
+  const independent=safeApplyHarness(context,['UndoIndependent/A.md','UndoIndependent/B.md']);
+  const {history,click,closeAll}=primary;
+  const journal=vault+'/.obsidian/plugins/ai-knowledge-hub/consolidation-operations';
+  const saved=path=>fs.readFileSync(vault+'/'+path,'utf8');
+  const prepare=async h=>{await h.setup();await h.plan();await h.apply();return ev(`(async()=>{return (await plugin.safeApply.history()).find(r=>r.record?.sourcePath===${JSON.stringify(h.a)}).id})()`);};
+  const openUndo=async(id,blocked=false)=>{await history();await click(`[data-operation-id="${id}"] [data-safe-action=undo]`);await wait(blocked?"!!document.querySelector('.ai-safe-apply [role=alert]')":"!!document.querySelector('.ai-safe-apply [data-safe-action=undoConfirm]')");};
+  const confirm=()=>click('.ai-safe-apply [data-safe-action=undoConfirm]');
+  const refused=async()=>{await wait("!!document.querySelector('.ai-safe-apply [role=alert]')");assert(await ev("/журнал|journal/i.test(document.querySelector('.ai-safe-apply [role=alert]').textContent)"));};
+  const untouched=(h,id,text,pending=false)=>{assert.equal(saved(h.a),text);assert.equal(fs.existsSync(`${journal}/${id}/undo_pending.json`),pending);assert(!fs.existsSync(`${journal}/${id}/undone.json`));};
+  const shot=async name=>fs.writeFileSync(root+'/'+name+'.png',Buffer.from((await cdp('Page.captureScreenshot',{format:'png'})).data,'base64'));
+  const id=await prepare(primary), relatedId=await prepare(related), independentId=await prepare(independent);
+  const after=saved(primary.a), independentBefore=independent.fixture.a;
+  await openUndo(id);
+  fs.writeFileSync(`${journal}/${relatedId}/backup.json`,'{partial');
+  await confirm();await refused();untouched(primary,id,after);
+  checks.push('A real incident sharing only the Undo target, introduced after preview, refuses before undo_pending and Markdown');
+  await shot('undo-blocked-after-preview');
+  await restart();await openUndo(id,true);untouched(primary,id,after);
+  checks.push('After restart the local target incident also blocks Undo review');
+  await openUndo(independentId);await confirm();
+  await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=history]')");
+  assert.equal(saved(independent.a),independentBefore);assert(fs.existsSync(`${journal}/${independentId}/undone.json`));
+  assert(await ev(`(async()=>{try{await plugin.safeApply.reviewUndo(${JSON.stringify(independentId)},()=>true);return false}catch(e){return e.reason==='conflict'}})()`));
+  checks.push('Independent native Undo succeeds despite the local incident and cannot repeat');
+  await history();await click(`[data-operation-id="${relatedId}"] [data-safe-action=resolve]`);
+  await wait("!!document.querySelector('.ai-journal-resolution [data-safe-action=resolveConfirm]')");
+  const record=saved('.obsidian/plugins/ai-knowledge-hub/consolidation-operations/'+relatedId+'/record.json');
+  await click('.ai-journal-resolution [data-safe-action=resolveConfirm]');await wait("!!document.querySelector('.ai-journal-resolution [data-safe-action=history]')");
+  await restart();await openUndo(id);await confirm();await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=history]')");
+  assert.equal(saved(primary.a),primary.fixture.a);
+  assert.equal(fs.readFileSync(`${journal}/${relatedId}/record.json`,'utf8'),record);
+  assert.equal(fs.readFileSync(`${journal}/${relatedId}/backup.json`,'utf8'),'{partial');
+  assert(await ev(`(async()=>{const row=(await plugin.safeApply.history()).find(r=>r.id===${JSON.stringify(relatedId)});return row.state==='resolved'&&!row.canUndo})()`));
+  checks.push('Committed resolution survives restart and permits the intact operation Undo; damaged operation and evidence remain unchanged');
+  await shot('undo-after-resolution');
+  // A new global incident during the real intent write must still prevent Vault.process.
+  const global=safeApplyHarness(context,['UndoGlobal/A.md','UndoGlobal/B.md']), globalId=await prepare(global), globalAfter=saved(global.a);
+  await openUndo(globalId);
+  await ev(`{const adapter=plugin.safeApply.journal.adapter,write=adapter.write.bind(adapter);adapter.write=async(path,data,...rest)=>{await write(path,data,...rest);if(path.endsWith('/${globalId}/undo_pending.json'))await write(plugin.safeApply.journal.root+'/unknown-undo-fixture.json','{partial')};window.undoPolicyWrite=write;}void 0`);
+  await confirm();await refused();untouched(global,globalId,globalAfter,true);
+  checks.push('Global damage during undo_pending IO keeps the intent but prevents Markdown and undone marker');
+  await ev('plugin.safeApply.journal.adapter.write=undoPolicyWrite;void 0');
+  await restart();await openUndo(globalId,true);untouched(global,globalId,globalAfter,true);
+  checks.push('Unknown global scope blocks fresh Undo review after restart');
+  await shot('undo-global-block');await closeAll();
+  assert(await ev('io.network===0'));checks.push('No real LLM or network request in targeted Undo scenarios');
+  for(const check of checks)console.log(check);
+  return {status:'PASS',checks};
 }

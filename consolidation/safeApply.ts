@@ -169,6 +169,7 @@ export class SafeApplyService {
     return this.exclusive(async () => {
       const entry = (await this.journal.entries()).find(item => item.id === id); requireSafe(entry, "conflict");
       const row = await this.inspect(entry); requireSafe(row.canUndo && row.record, "conflict");
+      await this.checkBlockers([row.record.sourcePath, row.record.targetPath]);
       const source = await this.port.read(row.record.sourcePath);
       requireSafe(source?.content === row.record.after && source.file.stat.ctime === row.record.sourceCreated, "conflict");
       this.port.guard(source); this.active(current);
@@ -184,10 +185,16 @@ export class SafeApplyService {
       requireSafe(entry && !entry.damaged && !entry.resolutionAttempts.length && !entry.marks.includes("undone") && JSON.stringify(entry.record) === JSON.stringify(r), "conflict");
       const fresh = await this.port.read(r.sourcePath);
       requireSafe(fresh && fresh.file === source!.file && fresh.content === r.after && fresh.modified === source!.modified && fresh.file.stat.ctime === r.sourceCreated, "conflict");
-      this.port.guard(fresh);
+      const check = () => {
+        this.active(current); requireSafe(fresh.file.stat.ctime === r.sourceCreated, "conflict"); this.port.guard(fresh);
+      };
+      await this.checkBlockers([r.sourcePath, r.targetPath]);
+      check();
       try { await this.journal.mark(r, "undo_pending"); } catch { throw new SafeApplyError("storage"); }
-      this.active(current); this.port.guard(fresh);
-      try { await this.port.process(fresh, r.after, r.before, () => { this.active(current); this.port.guard(fresh); }); }
+      // Journal IO can reveal a new incident after consent, just as during Apply preparation.
+      await this.checkBlockers([r.sourcePath, r.targetPath]);
+      check();
+      try { await this.port.process(fresh, r.after, r.before, check); }
       catch { throw new SafeApplyError("write"); }
       const saved = await this.port.read(r.sourcePath);
       requireSafe(saved && saved.file === fresh.file && saved.content === r.before, "conflict");

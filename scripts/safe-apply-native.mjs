@@ -26,7 +26,8 @@ export function safeApplyHarness({ev,wait,focusMain,vault,ROOT}, paths = ['Safe/
     await ev('window.safePlan=[...engine.pairInspectors].at(-1).planner.view.plan;void 0');
   };
   const review=async()=>{await click('[data-safe-action=review]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')");};
-  const history=async()=>{await closeAll();await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history');void 0");await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]')");};
+  // Closing an Undo child can start a read-only parent refresh; wait for the shared owner.
+  const history=async()=>{await closeAll();await wait('!plugin.safeApply.busy');await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history');void 0");await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]')");};
   const apply=async()=>{await review();await click('.ai-safe-apply [data-safe-action=confirm]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=undo]')");};
   return {fixture,a,b,click,closeAll,setup,plan,review,history,apply};
 }
