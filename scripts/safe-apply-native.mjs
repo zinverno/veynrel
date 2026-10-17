@@ -2,10 +2,9 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-export async function safeApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart}) {
+export function safeApplyHarness({ev,wait,focusMain,vault,ROOT}, paths = ['Safe/English/Same.md', 'Safe/Русский/Same.md']) {
   const fixture=JSON.parse(fs.readFileSync(ROOT+'/tests/fixtures/change-planner.json','utf8'));
-  const a='Safe/English/Same.md', b='Safe/Русский/Same.md', checks=[];
-  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
+  const [a,b]=paths;
   const click=selector=>ev(`document.querySelector(${JSON.stringify(selector)}).click();void 0`);
   const closeAll=()=>ev("for(const e of [...document.querySelectorAll('.modal')].reverse())e.querySelector('.modal-close-button,.modal-header-button')?.click();void 0");
   const setup=async(suffix='')=>{
@@ -29,6 +28,13 @@ export async function safeApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,r
   const review=async()=>{await click('[data-safe-action=review]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')");};
   const history=async()=>{await closeAll();await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history');void 0");await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]')");};
   const apply=async()=>{await review();await click('.ai-safe-apply [data-safe-action=confirm]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=undo]')");};
+  return {fixture,a,b,click,closeAll,setup,plan,review,history,apply};
+}
+export async function safeApplyScenario(context) {
+  const {ev,wait,cdp,root,vault,ROOT,restart}=context;
+  const {fixture,a,click,closeAll,setup,plan,review,history,apply}=safeApplyHarness(context);
+  const checks=[];
+  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
   await setup();
   for(const language of ['en','ru']){
     await closeAll();await ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");

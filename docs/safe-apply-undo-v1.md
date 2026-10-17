@@ -95,7 +95,9 @@ authorizes an automatic retry. History derives actual state from the immutable
 record, stage markers, file creation time, exact path and complete saved contents.
 Malformed/oversized records, mismatching copies, checksums or partial markers are
 conflicts; bytes are retained. A valid surviving copy is viewable but cannot
-implicitly authorize undo. Damaged entries block new applies until manually repaired.
+implicitly authorize undo. Damaged entries now have structured diagnostics and local/global blocking. A separate
+conservative acknowledgement can resolve eligible incidents without repairing or
+removing evidence; see [Journal Recovery v1](journal-recovery-v1.md).
 
 **Durability boundary:** public DataAdapter has no `fsync`/directory-sync or
 multi-file transaction API. v1 awaits and verifies both recovery copies before

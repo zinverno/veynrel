@@ -7,11 +7,12 @@ import type { PlanPair, PlanNote } from "./changePlan";
 import { validateRelationshipResponse } from "./relationshipContract";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import fixture from "../tests/fixtures/change-planner.json";
-import { OperationJournal, checksum, validateOperation } from "./operationJournal";
+import { OperationJournal, SafeApplyError, checksum, validateOperation } from "./operationJournal";
+import type { OperationRecord, ResolutionRecord } from "./operationJournal";
 import { SafeApplyService } from "./safeApply";
 import { obsidianSafeApplyPort } from "./obsidianSafeApply";
 
-function setup(operation: "add_link" | "replace_with_embed" | "no_change" = "add_link") {
+function setup(operation: "add_link" | "replace_with_embed" | "no_change" = "add_link", prefix = "") {
   const contents = new Map<string, string>(), caches = new Map<TFile, CachedMetadata>();
   function note(path: string, content: string): PlanNote {
     const file = Object.assign(new TFile(), { path, stat: { ctime: 1, mtime: 2, size: content.length } });
@@ -21,9 +22,9 @@ function setup(operation: "add_link" | "replace_with_embed" | "no_change" = "add
     contents.set(path, content); caches.set(file, cache);
     return { file, path, content, modified: 2, bytes: content.length, cache, references: [] };
   }
-  const pair: PlanPair = [note("one/Same.md", fixture.a), note("two/Same.md", fixture.b)];
+  const pair: PlanPair = [note(`${prefix}one/Same.md`, fixture.a), note(`${prefix}two/Same.md`, fixture.b)];
   const analysis: RelationshipAnalysis = { pair, provider: "fake", model: "synthetic", result: validateRelationshipResponse(JSON.stringify(fixture.response), fixture.a, fixture.b) };
-  const plan = buildChangePlan(analysis, pair, { operation, source: 0, selection: paragraphRanges(pair[0])[0], confirmed: true }, "two/Same");
+  const plan = buildChangePlan(analysis, pair, { operation, source: 0, selection: paragraphRanges(pair[0])[0], confirmed: true }, `${prefix}two/Same`);
   const disk = new Map<string, string>(), folders = new Set<string>();
   const adapter = {
     exists: vi.fn(async (path: string) => disk.has(path) || folders.has(path)),
@@ -49,7 +50,7 @@ function setup(operation: "add_link" | "replace_with_embed" | "no_change" = "add
   const port = obsidianSafeApplyPort(app), service = new SafeApplyService(journal, port);
   let current = true;
   const review = () => service.review(plan, analysis, () => current);
-  return { pair, plan, analysis, contents, disk, adapter, journal, service, port, vault, caches, app, review,
+  return { pair, plan, analysis, contents, disk, folders, adapter, journal, service, port, vault, caches, app, review,
     cancel: () => { current = false; }, restart: () => new SafeApplyService(new OperationJournal(adapter as never, ".obsidian", "ai-knowledge-hub"), obsidianSafeApplyPort(app)),
     editor: (text: string, native = true, savedState = true) => { const view = Object.assign(native ? new MarkdownView({} as never) : {}, { file: pair[0].file, getViewData: () => text }); leaves = [{ view, getViewState: () => ({ type: "markdown", state: savedState ? { file: pair[0].path } : {} }) }]; },
   };
@@ -204,4 +205,244 @@ describe("single-file guarded apply and persistent recovery", () => {
     await expect(f.review()).rejects.toEqual(reason("editor")); expect(f.disk.size).toBe(0);
   });
 
+});
+
+async function incident(state: "before" | "after" = "after") {
+  const f = setup();
+  const review = (await f.review())!;
+  if (state === "before") {
+    f.adapter.copy.mockRejectedValueOnce(Error("interrupted copy"));
+    await expect(f.service.apply(review)).rejects.toThrow();
+  } else {
+    await f.service.apply(review); f.disk.delete(`${f.journal.root}/${review.id}/backup.json`);
+  }
+  f.vault.process.mockClear();
+  return { ...f, id: review.id, dir: `${f.journal.root}/${review.id}` };
+}
+
+describe("journal diagnostics and scoped blockers", () => {
+  it.each(["before", "after"] as const)("missing second copy with exact %s can be reviewed, never implicitly repaired", async state => {
+    const f = await incident(state), original = new Map(f.disk);
+    const row = (await f.restart().history())[0];
+    expect(row).toMatchObject({ scope: "local", sourceState: state, canResolve: true, canUndo: false, state: "conflict" });
+    expect(row.issues).toContainEqual({ file: "backup.json", code: "missing" });
+    await f.service.reviewResolution(f.id, () => true);
+    expect(f.disk).toEqual(original); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it.each(["missing", "json", "hash", "id", "path", "unreadable"])("diagnoses first-copy %s and retains the valid second copy", async kind => {
+    const f = setup(), review = await apply(f), path = `${f.journal.root}/${review.id}/record.json`;
+    const r = JSON.parse(f.disk.get(path)!) as OperationRecord;
+    if (kind === "missing") f.disk.delete(path);
+    if (kind === "json") f.disk.set(path, '{"version":');
+    if (kind === "hash") f.disk.set(path, JSON.stringify({ ...r, beforeHash: "0".repeat(64) }));
+    if (kind === "id") f.disk.set(path, JSON.stringify({ ...r, id: "0".repeat(64) }));
+    if (kind === "path") f.disk.set(path, JSON.stringify({ ...r, sourcePath: "../private.md" }));
+    if (kind === "unreadable") {
+      const read = f.adapter.read.getMockImplementation()!;
+      f.adapter.read.mockImplementation(async p => { if (p === path) throw Error("private raw error"); return read(p); });
+    }
+    const row = (await f.restart().history())[0];
+    const code = { missing: "missing", json: "invalid_json", hash: "integrity", id: "integrity", path: "invalid_record", unreadable: "unreadable" }[kind];
+    expect(row.issues).toContainEqual({ file: "record.json", code });
+    expect(row.scope).toBe("local"); expect(row.record!.sourcePath).toBe("one/Same.md");
+    expect(row.canResolve).toBe(kind !== "unreadable"); expect(JSON.stringify(row)).not.toContain("private raw error");
+  });
+  it.each(["both invalid", "disagreement"])("%s keeps a global block and cannot be confirmed", async mode => {
+    const f = setup(), review = await apply(f), dir = `${f.journal.root}/${review.id}`;
+    if (mode === "both invalid") for (const name of ["record.json", "backup.json"]) f.disk.set(`${dir}/${name}`, "{");
+    else {
+      const copy = JSON.parse(f.disk.get(`${dir}/backup.json`)!) as OperationRecord; copy.createdAt++;
+      await validateOperation(copy, review.id); f.disk.set(`${dir}/backup.json`, JSON.stringify(copy));
+    }
+    const row = (await f.service.history())[0]; expect(row.scope).toBe("global"); expect(row.canResolve).toBe(false);
+    const g = setup("add_link", "independent/");
+    await expect(new SafeApplyService(f.journal, g.port).review(g.plan, g.analysis, () => true)).rejects.toEqual(reason("storage"));
+    await expect(f.service.reviewResolution(review.id, () => true)).rejects.toEqual(reason("conflict"));
+  });
+  it.each(["applied", "undo_pending", "undone"])("partial %s marker is an incident, not a successful event", async mark => {
+    const f = setup(), review = await apply(f); f.disk.set(`${f.journal.root}/${review.id}/${mark}.json`, '{"version":1');
+    const row = (await f.restart().history())[0];
+    expect(row).toMatchObject({ scope: "local", state: "conflict", sourceState: "after", canResolve: true, canUndo: false });
+    expect(row.issues).toContainEqual({ file: `${mark}.json`, code: "invalid_marker" });
+    expect(row.marks).not.toContain(mark);
+  });
+  it("allows a real independent apply but blocks either affected path", async () => {
+    const f = await incident("before"), g = setup("add_link", "independent/");
+    const service = new SafeApplyService(f.journal, g.port);
+    await service.apply((await service.review(g.plan, g.analysis, () => true))!);
+    expect(g.contents.get(g.plan.sourcePath)).toBe(g.plan.after);
+    await expect(f.review()).rejects.toEqual(reason("storage"));
+    const reverse = buildChangePlan(f.analysis, f.pair, { operation: "add_link", source: 1, selection: paragraphRanges(f.pair[1])[0], confirmed: true }, "one/Same");
+    await expect(f.service.review(reverse, f.analysis, () => true)).rejects.toEqual(reason("storage"));
+  });
+  it.each(["root file", "bad directory", "nested directory", "unknown file", "root unreadable"])("keeps other history visible with %s", async kind => {
+    const f = setup(), review = await apply(f), dir = `${f.journal.root}/${review.id}`;
+    if (kind === "root file") f.disk.set(`${f.journal.root}/unexpected.json`, "unknown");
+    if (kind === "bad directory") f.folders.add(`${f.journal.root}/../unsafe`);
+    if (kind === "nested directory") f.folders.add(`${dir}/nested`);
+    if (kind === "unknown file") f.disk.set(`${dir}/unknown.json`, "private");
+    if (kind === "root unreadable") f.adapter.list.mockRejectedValueOnce(Error("private failure"));
+    // The fake adapter lists direct children; represent a malformed name without traversing it.
+    if (kind === "bad directory") f.folders.add(`${f.journal.root}/bad-id`);
+    const rows = await f.service.history();
+    if (kind !== "root unreadable") expect(rows.some(r => r.id === review.id && r.record)).toBe(true);
+    const incidentRow = rows.find(r => r.damaged)!;
+    expect(incidentRow.scope).toBe(kind === "unknown file" || kind === "nested directory" ? "local" : "global");
+    expect(incidentRow.canResolve).toBe(false);
+    expect(f.vault.read.mock.calls.every(([file]) => file.path === "one/Same.md" || file.path === "two/Same.md")).toBe(true);
+  });
+  it.each(["changed", "deleted", "moved", "ctime", "editor"])("refuses resolution with %s source", async kind => {
+    const f = await incident();
+    if (kind === "changed") f.contents.set(f.plan.sourcePath, "user additions");
+    if (kind === "deleted") f.contents.delete(f.plan.sourcePath);
+    if (kind === "moved") f.pair[0].file.path = "moved.md";
+    if (kind === "ctime") f.pair[0].file.stat.ctime++;
+    if (kind === "editor") f.editor(f.plan.after);
+    const row = (await f.restart().history())[0]; expect(row.canResolve).toBe(false);
+    expect(row.sourceState).toBe(({ changed: "different", deleted: "missing", moved: "missing", ctime: "identity", editor: "after" })[kind]);
+    await expect(f.service.reviewResolution(f.id, () => true)).rejects.toEqual(reason("conflict"));
+    expect(f.vault.process).not.toHaveBeenCalled();
+  });
+});
+
+describe("append-only incident resolution", () => {
+  it.each(["before", "after"] as const)("explicit resolution of %s survives restart, preserves every original byte, never enables Undo or replay", async state => {
+    const f = await incident(state), original = new Map(f.disk);
+    const review = await f.service.reviewResolution(f.id, () => true);
+    expect(f.disk).toEqual(original);
+    await f.service.resolve(review);
+    for (const [path, raw] of original) expect(f.disk.get(path)).toBe(raw);
+    expect(f.disk.size).toBe(original.size + 2); expect(f.disk.has(`${f.dir}/backup.json`)).toBe(false);
+    const service = f.restart(), row = (await service.history())[0];
+    expect(row).toMatchObject({ state: "resolved", damaged: true, canUndo: false, canResolve: false });
+    expect(row.resolution!.source.state).toBe(state);
+    expect(row.resolution!.evidenceHash).toBe(row.evidenceHash);
+    expect(f.vault.process).not.toHaveBeenCalled(); expect(f.vault.modify).not.toHaveBeenCalled();
+    await expect(service.reviewUndo(f.id, () => true)).rejects.toThrow();
+    await expect(service.reviewResolution(f.id, () => true)).rejects.toThrow();
+    await expect(f.service.resolve(review)).rejects.toEqual(reason("used"));
+    if (state === "before") await expect(service.review(f.plan, f.analysis, () => true)).rejects.toEqual(reason("used"));
+    // A later user edit does not revoke a historical acknowledgement or become an Undo target.
+    f.contents.set(f.plan.sourcePath, "later text");
+    expect((await service.history())[0]).toMatchObject({ state: "resolved", sourceState: "different", canUndo: false });
+  });
+  it("no fabricated ticket can bypass separate confirmation", async () => {
+    const f = await incident(), original = new Map(f.disk);
+    await expect(f.service.resolve({ row: (await f.service.history())[0] })).rejects.toEqual(reason("used"));
+    expect(f.disk).toEqual(original); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it.each(["source", "ctime", "journal", "close"])("invalidates %s change between preview and confirmation", async kind => {
+    const f = await incident(); let active = true;
+    const review = await f.service.reviewResolution(f.id, () => active), original = new Map(f.disk);
+    if (kind === "source") f.contents.set(f.plan.sourcePath, "user text");
+    if (kind === "ctime") f.pair[0].file.stat.ctime++;
+    if (kind === "journal") f.disk.set(`${f.dir}/applied.json`, "changed");
+    if (kind === "close") active = false;
+    await expect(f.service.resolve(review)).rejects.toThrow();
+    expect(f.disk.size).toBe(original.size); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it.each(["source", "journal", "close"])("rechecks %s after intent is written, before committing", async kind => {
+    const f = await incident(); let active = true;
+    const review = await f.service.reviewResolution(f.id, () => active), write = f.adapter.write.getMockImplementation()!;
+    f.adapter.write.mockImplementationOnce(async (path, raw) => {
+      await write(path, raw);
+      if (kind === "source") f.contents.set(f.plan.sourcePath, "user text during IO");
+      if (kind === "journal") f.disk.set(`${f.dir}/applied.json`, "torn");
+      if (kind === "close") active = false;
+    });
+    await expect(f.service.resolve(review)).rejects.toThrow();
+    expect([...f.disk.keys()].some(p => p.endsWith(".commit.json"))).toBe(false);
+    expect((await f.restart().history())[0].state).toBe("conflict"); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it.each(["intent partial", "commit partial", "intent complete"])("a killed %s attempt never unblocks; a new unique attempt succeeds without deleting it", async point => {
+    const f = await incident(), review = await f.service.reviewResolution(f.id, () => true), write = f.adapter.write.getMockImplementation()!;
+    f.adapter.write.mockImplementation(async (path, raw) => {
+      if (point === "commit partial" ? path.endsWith(".commit.json") : path.includes("/resolution-")) {
+        f.disk.set(path, point === "intent complete" ? raw : raw.slice(0, 30)); throw Error("SIGKILL boundary");
+      }
+      await write(path, raw);
+    });
+    await expect(f.service.resolve(review)).rejects.toEqual(reason("storage"));
+    const failed = new Map(f.disk), service = f.restart();
+    expect((await service.history())[0]).toMatchObject({ state: "conflict", scope: "local", canResolve: true });
+    f.adapter.write.mockImplementation(write);
+    await service.resolve(await service.reviewResolution(f.id, () => true));
+    expect((await f.restart().history())[0]).toMatchObject({ state: "resolved", canUndo: false });
+    for (const [path, raw] of failed) expect(f.disk.get(path)).toBe(raw);
+    expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("a complete committed decision recovers even if readback/acknowledgement was interrupted", async () => {
+    const f = await incident(), review = await f.service.reviewResolution(f.id, () => true), read = f.adapter.read.getMockImplementation()!;
+    f.adapter.read.mockImplementation(async path => { if (path.endsWith(".commit.json")) throw Error("stopped before acknowledgement"); return read(path); });
+    await expect(f.service.resolve(review)).rejects.toEqual(reason("storage"));
+    f.adapter.read.mockImplementation(read);
+    expect((await f.restart().history())[0]).toMatchObject({ state: "resolved", canUndo: false });
+    expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("a changed original invalidates its old waiver and never re-enables Undo", async () => {
+    const f = await incident(); await f.service.resolve(await f.service.reviewResolution(f.id, () => true));
+    f.disk.set(`${f.dir}/backup.json`, f.disk.get(`${f.dir}/record.json`)!);
+    const row = (await f.restart().history())[0];
+    expect(row).toMatchObject({ state: "conflict", scope: "local", canUndo: false });
+    expect(row.issues.some(i => i.code === "resolution_stale")).toBe(true);
+  });
+  it("two windows and a late callback cannot commit twice", async () => {
+    const f = await incident(), a = await f.service.reviewResolution(f.id, () => true), b = await f.service.reviewResolution(f.id, () => true);
+    const results = await Promise.allSettled([f.service.resolve(a), f.service.resolve(b)]);
+    expect(results.map(r => r.status)).toEqual(["fulfilled", "rejected"]);
+    expect([...f.disk.keys()].filter(p => p.endsWith(".commit.json"))).toHaveLength(1);
+  });
+});
+
+describe("resolution evidence integrity boundary", () => {
+  it.each(["operationId", "recordHash", "source path", "source ctime", "source hash", "unknown field", "decision", "evidence hash"])("rejects a %s forgery even with a recomputed commit hash", async field => {
+    const f = await incident(); await f.service.resolve(await f.service.reviewResolution(f.id, () => true));
+    const path = [...f.disk.keys()].find(p => p.includes("/resolution-") && !p.endsWith(".commit.json"))!;
+    const receipt = JSON.parse(f.disk.get(path)!) as Omit<ResolutionRecord, "decision"> & { decision: string; ignoreEverything?: boolean };
+    if (field === "operationId") receipt.operationId = "0".repeat(64);
+    if (field === "recordHash") receipt.recordHash = "0".repeat(64);
+    if (field === "source path") receipt.source.path = "../secret.md";
+    if (field === "source ctime") receipt.source.created++;
+    if (field === "source hash") receipt.source.hash = "0".repeat(64);
+    if (field === "unknown field") receipt.ignoreEverything = true;
+    if (field === "decision") receipt.decision = "force_undo";
+    if (field === "evidence hash") receipt.evidenceHash = "0".repeat(64);
+    const raw = JSON.stringify(receipt); f.disk.set(path, raw);
+    const commitPath = path.slice(0, -5) + ".commit.json", commit = JSON.parse(f.disk.get(commitPath)!) as { sha256: string };
+    commit.sha256 = await checksum(raw); f.disk.set(commitPath, JSON.stringify(commit));
+    const row = (await f.restart().history())[0];
+    expect(row).toMatchObject({ state: "conflict", canUndo: false }); expect(row.resolution).toBeUndefined();
+    expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("does not follow a malformed adapter listing outside the operation directory", async () => {
+    const f = await incident(), list = f.adapter.list.getMockImplementation()!;
+    const outside = "x".repeat(f.dir.length + 1) + "resolution-11111111-1111-4111-8111-111111111111.json";
+    f.adapter.list.mockImplementation(async path => path === f.dir ? { files: [outside], folders: [] } : list(path));
+    f.adapter.read.mockClear(); const row = (await f.service.history())[0];
+    expect(row.canResolve).toBe(false); expect(f.adapter.read.mock.calls.some(([p]) => p === outside)).toBe(false);
+  });
+  it("a new root incident stays global even after resolving a known operation", async () => {
+    const f = await incident(); f.disk.set(`${f.journal.root}/unknown`, "untrusted");
+    await f.service.resolve(await f.service.reviewResolution(f.id, () => true));
+    const g = setup("add_link", "elsewhere/");
+    await expect(new SafeApplyService(f.journal, g.port).review(g.plan, g.analysis, () => true)).rejects.toEqual(reason("storage"));
+    expect((await f.service.history()).some(r => r.state === "resolved")).toBe(true);
+  });
+});
+
+describe("fresh source observations", () => {
+  it("a guard identity failure is not reported as a verified source or an editor conflict", async () => {
+    const f = await incident(); vi.spyOn(f.port, "guard").mockImplementation(() => { throw new SafeApplyError("stale"); });
+    const row = (await f.service.history())[0];
+    expect(row).toMatchObject({ sourceState: "identity", editorBlocked: false, canResolve: false });
+  });
+  it("changing from before to after between the diagnostic read and review invalidates the preview", async () => {
+    const f = await incident("before"), read = f.port.read.bind(f.port); let count = 0;
+    vi.spyOn(f.port, "read").mockImplementation(async path => {
+      if (++count === 2) f.contents.set(f.plan.sourcePath, f.plan.after);
+      return read(path);
+    });
+    await expect(f.service.reviewResolution(f.id, () => true)).rejects.toEqual(reason("conflict"));
+    expect([...f.disk.keys()].some(p => p.includes("resolution-"))).toBe(false);
+  });
 });

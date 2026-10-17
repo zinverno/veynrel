@@ -1,7 +1,7 @@
 import { App, Modal } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
 import { SafeApplyError } from "./operationJournal";
-import type { ApplyReview, SafeApplyService, OperationHistory } from "./safeApply";
+import type { ApplyReview, SafeApplyService, OperationHistory, ResolutionReview } from "./safeApply";
 import { renderPlanDiff } from "./planDiffView";
 
 function button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
@@ -16,6 +16,75 @@ function preview(root: HTMLElement, before: string, after: string): void {
   renderPlanDiff(root, before, after);
 }
 function message(error: unknown): string { return tr(`@safeApply.error.${error instanceof SafeApplyError ? error.reason : "stale"}`); }
+function diagnostics(root: HTMLElement, row: OperationHistory): void {
+  root.createEl("p", { text: row.id, cls: "ai-pair-path" });
+  root.createEl("p", { text: tr(`@journal.source.${row.sourceState}`) });
+  root.createEl("p", { text: tr(`@journal.scope.${row.resolution ? "resolved" : row.scope}`) });
+  if (row.scope === "local" && row.record && !row.resolution) root.createEl("p", { text: `${row.record.sourcePath} · ${row.record.targetPath}` });
+  if (row.editorBlocked) root.createEl("p", { text: tr("@safeApply.error.editor") });
+  const details = root.createEl("details"); details.createEl("summary", { text: tr("@journal.evidence") });
+  const list = details.createEl("ul");
+  for (const item of [...row.evidence, ...row.resolutionAttempts]) {
+    const li = list.createEl("li", { text: `${item.name}: ${tr(`@journal.issue.${item.status}`)}` });
+    if (item.sha256) li.createEl("code", { text: ` SHA-256: ${item.sha256}` });
+  }
+  for (const issue of row.issues) root.createEl("p", { text: `${issue.file}: ${tr(`@journal.issue.${issue.code}`)}` });
+  if (row.resolution) {
+    root.createEl("p", { text: `${tr("@journal.confirmed")}: ${new Date(row.resolution.confirmedAt).toLocaleString(dateLocale())}` });
+    root.createEl("p", { text: tr(`@journal.source.${row.resolution.source.state}`) });
+    root.createEl("p", { text: tr("@journal.historical") });
+  }
+  if ((row.damaged || row.state === "conflict") && !row.canResolve && !row.resolution) root.createEl("p", { text: tr("@journal.manual") });
+}
+
+/** No note write: a separately confirmed acknowledgement of the inspected evidence. */
+export class JournalResolutionModal extends Modal {
+  private active = false;
+  private busy = false;
+  private review?: ResolutionReview;
+  constructor(app: App, private readonly service: SafeApplyService, private readonly id: string,
+    private readonly release: () => void = () => {}) { super(app); }
+  onOpen(): void {
+    this.active = true; this.modalEl.addClass("ai-pair-inspector-modal"); this.contentEl.addClass("ai-change-planner", "ai-journal-resolution");
+    this.titleEl.setText(tr("@journal.review"));
+    this.contentEl.createEl("p", { text: tr("@safeApply.checking"), attr: { role: "status" } });
+    void this.load();
+  }
+  private async load(): Promise<void> {
+    try {
+      const review = await this.service.reviewResolution(this.id, () => this.active);
+      if (!this.active) { this.service.discardResolution(review); return; }
+      this.review = review; this.contentEl.empty();
+      const r = review.row.record!;
+      this.contentEl.createEl("p", { text: `${tr(`@planner.op.${r.operation}`)}: ${r.sourcePath} → ${r.targetPath}` });
+      diagnostics(this.contentEl, review.row);
+      this.contentEl.createEl("p", { text: tr("@journal.warning") });
+      preview(this.contentEl, r.before, r.after);
+      button(this.contentEl, "resolveConfirm", () => { void this.commit(); });
+      button(this.contentEl, "cancel", () => this.close());
+    } catch (error) { this.error(error); }
+  }
+  private error(error: unknown): void {
+    if (!this.active) return;
+    this.contentEl.empty(); this.contentEl.createEl("p", { text: message(error), attr: { role: "alert" } });
+    this.contentEl.createEl("p", { text: tr("@journal.failure") });
+    button(this.contentEl, "history", () => new OperationHistoryModal(this.app, this.service).open());
+  }
+  private async commit(): Promise<void> {
+    if (this.busy || !this.active || !this.review) return;
+    this.busy = true; this.contentEl.empty();
+    this.contentEl.createEl("p", { text: tr("@journal.working"), attr: { role: "status" } });
+    try {
+      await this.service.resolve(this.review);
+      if (!this.active) return;
+      this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.state.resolved"), attr: { role: "status" } });
+      this.contentEl.createEl("p", { text: tr("@journal.warning") });
+      button(this.contentEl, "history", () => new OperationHistoryModal(this.app, this.service).open());
+    } catch (error) { this.error(error); }
+    finally { this.busy = false; }
+  }
+  onClose(): void { this.active = false; if (this.review) this.service.discardResolution(this.review); this.contentEl.empty(); this.release(); }
+}
 
 /** A fresh consent window, independent of the LLM consent and of disposable planner rendering. */
 export class SafeApplyModal extends Modal {
@@ -92,16 +161,23 @@ export class OperationHistoryModal extends Modal {
     }
   }
   private row(row: OperationHistory): void {
-    const card = this.contentEl.createEl("section", { cls: "ai-semantic-result-card", attr: { "data-operation-state": row.state } });
+    const card = this.contentEl.createEl("section", { cls: "ai-semantic-result-card", attr: { "data-operation-state": row.state, "data-operation-id": row.id } });
     const r = row.record;
     card.createEl("h3", { text: r ? `${new Date(r.createdAt).toLocaleString(dateLocale())} · ${tr(`@planner.op.${r.operation}`)}` : row.id });
     card.createEl("p", { text: tr(`@safeApply.state.${row.state}`), attr: { role: "status" } });
     if (row.recovered) card.createEl("p", { text: tr("@safeApply.recovered") });
     if (row.damaged) card.createEl("p", { text: tr("@safeApply.damaged") });
+    diagnostics(card, row);
     if (!r) return;
     card.createEl("p", { text: `${r.sourcePath} → ${r.targetPath}` });
     const details = card.createEl("details"); details.createEl("summary", { text: tr("@safeApply.preview") });
     preview(details, r.before, r.after);
+    if (row.issues.some(issue => issue.code === "copies_disagree")) for (const copy of row.copies.slice(1)) {
+      const other = card.createEl("details"); other.createEl("summary", { text: copy.name });
+      other.createEl("p", { text: `${copy.record.sourcePath} → ${copy.record.targetPath}` });
+      preview(other, copy.record.before, copy.record.after);
+    }
+    if (row.canResolve) button(card, "resolve", () => new JournalResolutionModal(this.app, this.service, row.id, () => { if (this.active) void this.refresh(); }).open());
     if (row.canUndo) button(card, "undo", () => new SafeApplyModal(this.app, this.service, current => this.service.reviewUndo(row.id, current), true, () => { if (this.active) void this.refresh(); }).open());
     else if (row.state === "applied") card.createEl("p", { text: tr("@safeApply.error.editor") });
   }

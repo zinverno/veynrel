@@ -103,8 +103,11 @@ export async function changePlannerScenario({ ev, wait, cdp, close, focusMain, r
     fs.writeFileSync(vault + '/' + a, fixture.a + '\nSaved change.');
     await wait("!document.querySelector('[data-planner-stage]')"); await pass('Saved source changes remove the plan', '!planSession.view.plan');
     await write(fixture.a, fixture.b); await open(); await select('replace_with_embed'); await build();
+    await ev("window.plannerRenameResolved=false;window.plannerRenameRef=app.metadataCache.on('resolved',()=>{plannerRenameResolved=true});void 0");
     fs.renameSync(vault + '/' + b, vault + '/' + 'Planner/Русский/Moved.md');
     await wait("!document.querySelector('[data-planner-stage]')"); await pass('Moving the target removes the plan', '!planSession.view.plan');
+    // Let the rename's metadata event finish before opening the next unrelated inspector.
+    await wait('plannerRenameResolved');await ev('app.metadataCache.offref(plannerRenameRef);void 0');
     await pass('Planning has no provider calls or Markdown writes', 'io.write===0&&io.network===0&&plannerTest.calls===plannerTest.beforeCalls');
     assert.equal(fs.readFileSync(vault + '/' + a, 'utf8'), fixture.a);
     assert.equal(fs.readFileSync(vault + '/' + 'Planner/Русский/Moved.md', 'utf8'), fixture.b);
@@ -114,6 +117,13 @@ export async function changePlannerScenario({ ev, wait, cdp, close, focusMain, r
   } finally {
     await closePair(); await ev('Object.assign(plugin.settings,plannerTest.settings);engine.relationshipSession=plannerTest.factory;void 0');
     await ev(`engine.inspectPair({leftPath:${JSON.stringify(paths[0])},rightPath:${JSON.stringify(paths[1])}})`);
+    // Cleanup follows the visible Refresh flow if delayed vault events invalidate the new read.
+    for(let attempt=0;attempt<3;attempt++) {
+      await wait("['ready','stale'].includes(document.querySelector('.ai-pair-inspector [role=status]')?.dataset.state)");
+      if(await ev("document.querySelectorAll('.ai-pair-note').length===2"))break;
+      await ev("new Promise(resolve=>setTimeout(resolve,250))");
+      await ev("document.querySelector('.ai-pair-inspector .ai-semantic-search-controls button').click();void 0");
+    }
     await wait("document.querySelectorAll('.ai-pair-note').length===2");
   }
 }
