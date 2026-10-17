@@ -4,6 +4,8 @@ The [Relationship Analyzer](relationship-analyzer-v1.md) can now lead to a concr
 **local plan**, with full saved before/after text and a text-only diff. Nothing
 writes Markdown, applies a proposal, persists the plan or makes another model call.
 Applying is now a separate [Safe Apply & Undo](safe-apply-undo-v1.md) review.
+Two reciprocal links can now be previewed as one [multi-file plan](multi-file-planner-v1.md);
+that combined plan has no Apply or Undo implementation.
 Planning has no Companion connection, background scan, new setting or release/version change.
 
 ## Open and choose

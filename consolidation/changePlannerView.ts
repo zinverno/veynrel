@@ -5,13 +5,17 @@ import { paragraphRanges, permittedEmbed } from "./changePlan";
 import type { PlanOperation, PlanRange } from "./changePlan";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import type { ChangePlannerSession } from "./changePlannerSession";
+import type { MultiFileChoice } from "./multiFilePlan";
+import { renderMultiFilePlanner } from "./multiFilePlannerView";
 
 /** Text-only controls and preview; no Markdown renderer or application protocol. */
 export class ChangePlannerView {
-  private operation: PlanOperation | "" = "";
+  private operation: PlanOperation | "add_reciprocal_links" | "" = "";
   private side: 0 | 1 = 0;
   private selection: PlanRange | null = null;
   private confirmed = false;
+  private multiSelections: [PlanRange | null, PlanRange | null] = [null, null];
+  private multiConfirmed: [boolean, boolean] = [false, false];
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void) {
     session.onChange = () => {
@@ -25,20 +29,26 @@ export class ChangePlannerView {
     const button = parent.createEl("button", { text: tr(`@planner.${key}`), attr: { type: "button", "data-planner-action": key } });
     button.addEventListener("click", action); return button;
   }
-  private changed(): void { this.confirmed = false; this.session.changeSelection(); }
+  private changed(): void {
+    this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.session.changeSelection();
+  }
   render(): void {
     const root = this.container, view = this.session.view;
     root.empty(); root.createEl("h3", { text: tr("@planner.title") });
-    root.createEl("p", { text: tr("@planner.scope") });
+    root.createEl("p", { text: tr(this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
     root.createDiv({ text: tr(view.stage === "error" ? `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
       attr: { role: "status", "aria-live": "polite", "data-planner-stage": view.stage } });
     if (view.stage === "loading") { this.button(root, "cancel", () => this.session.cancel()); return; }
     if (!view.input) {
-      this.button(root, "prepare", () => { this.selection = null; this.operation = ""; this.confirmed = false; void this.session.prepare(); }); return;
+      this.button(root, "prepare", () => {
+        this.selection = null; this.operation = ""; this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false];
+        void this.session.prepare();
+      }); return;
     }
-    root.createEl("p", { text: tr("@planner.unsupported") });
+    root.createEl("p", { text: tr(this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
     const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
+    sourceLabel.hidden = this.operation === "add_reciprocal_links";
     const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
     view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
     source.value = String(this.side);
@@ -46,12 +56,19 @@ export class ChangePlannerView {
     const operationLabel = controls.createEl("label", { text: tr("@planner.operation") });
     const operation = operationLabel.createEl("select", { attr: { "data-planner-field": "operation" } });
     operation.createEl("option", { text: tr("@planner.choose"), value: "" });
-    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change"]) {
+    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change", "add_reciprocal_links"]) {
       operation.createEl("option", { text: tr(`@planner.op.${key}`), value: key });
     }
     operation.value = this.operation;
-    operation.addEventListener("change", () => { this.operation = operation.value as PlanOperation | ""; this.selection = null; this.changed(); });
+    operation.addEventListener("change", () => { this.operation = operation.value as typeof this.operation; this.selection = null; this.changed(); });
     if (this.operation) root.createEl("p", { text: tr(`@planner.op.${this.operation}`) });
+    if (this.operation === "add_reciprocal_links") {
+      const choice: MultiFileChoice = { operation: this.operation, selections: this.multiSelections, confirmed: this.multiConfirmed };
+      renderMultiFilePlanner(root, this.session, choice, (side, range) => {
+        this.multiSelections[side] = range; this.multiConfirmed = [false, false]; this.session.changeSelection();
+      }, (side, confirmed) => { this.multiConfirmed[side] = confirmed; this.session.changeSelection(); });
+      return;
+    }
     const note = view.input.pair[this.side], target = view.input.pair[this.side === 0 ? 1 : 0];
     root.createEl("p", { text: tr("@planner.direction", { source: note.path, target: target.path }) });
     if (this.operation && this.operation !== "no_change") {
@@ -78,7 +95,7 @@ export class ChangePlannerView {
       }
     }
     const build = this.button(root, "build", () => {
-      if (this.operation) void this.session.build({ operation: this.operation, source: this.side, selection: this.selection, confirmed: this.confirmed });
+      if (this.operation && this.operation !== "add_reciprocal_links") void this.session.build({ operation: this.operation, source: this.side, selection: this.selection, confirmed: this.confirmed });
     });
     build.disabled = !this.operation || (this.operation !== "no_change" && (!this.selection || !this.confirmed));
     this.button(root, "cancel", () => this.session.cancel());

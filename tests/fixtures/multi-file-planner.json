@@ -1,0 +1,8 @@
+{
+  "paths": [
+    "Папка A/Same name.md",
+    "Folder B/Same name.md"
+  ],
+  "a": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nRepeated paragraph.\n\nRepeated paragraph.\n\n<img src=\"https://example.invalid/tracker\">\n",
+  "b": "Cache entries expire after the configured lifetime.\n\nB has a separate context.\n\nFinal paragraph in B.\n"
+}
