@@ -1,0 +1,234 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "relationships": {
+    "status": "PASS",
+    "checks": [
+      "near_duplicates: opening is local",
+      "near_duplicates: complete exact consent, no request yet",
+      "RU consent theme-light 1200: no overflow",
+      "RU consent theme-light 390: no overflow",
+      "RU consent theme-dark 1200: no overflow",
+      "RU consent theme-dark 390: no overflow",
+      "near_duplicates: exactly one confirmed request and expected relation",
+      "partial_overlap: opening is local",
+      "partial_overlap: complete exact consent, no request yet",
+      "partial_overlap: exactly one confirmed request and expected relation",
+      "partial_overlap: only supplied and verified quote sides render",
+      "theory_and_context: opening is local",
+      "theory_and_context: complete exact consent, no request yet",
+      "theory_and_context: exactly one confirmed request and expected relation",
+      "theory_and_context: only supplied and verified quote sides render",
+      "standalone_large_section: opening is local",
+      "standalone_large_section: complete exact consent, no request yet",
+      "standalone_large_section: exactly one confirmed request and expected relation",
+      "Source beyond inspector preview is sent whole",
+      "contradiction: opening is local",
+      "contradiction: complete exact consent, no request yet",
+      "contradiction: exactly one confirmed request and expected relation",
+      "contradiction: only supplied and verified quote sides render",
+      "versions: opening is local",
+      "versions: complete exact consent, no request yet",
+      "versions: exactly one confirmed request and expected relation",
+      "versions: only supplied and verified quote sides render",
+      "unrelated: opening is local",
+      "unrelated: complete exact consent, no request yet",
+      "unrelated: exactly one confirmed request and expected relation",
+      "insufficient: opening is local",
+      "insufficient: complete exact consent, no request yet",
+      "insufficient: exactly one confirmed request and expected relation",
+      "invalid: no recommendation displayed",
+      "badQuote: no recommendation displayed",
+      "quoteA: invalid contextual evidence yields no recommendation",
+      "quoteB: invalid contextual evidence yields no recommendation",
+      "File change revokes consent without dispatch",
+      "File change aborts in-flight waiting",
+      "Late reply cannot restore invalidated result",
+      "Cancel aborts waiting",
+      "Close aborts waiting and clears session",
+      "Model change removes completed result",
+      "Saved source change removes completed result",
+      "Oversized pair refuses instead of sending a partial preview",
+      "EN result theme-light 390: no overflow",
+      "EN result theme-light 1200: no overflow",
+      "EN result theme-dark 390: no overflow",
+      "EN result theme-dark 1200: no overflow",
+      "EN result shows provisional analysis and exact-quote limits",
+      "Analysis performs no Markdown writes or real provider/network calls"
+    ],
+    "refusals": [
+      {
+        "fixture": "contradiction",
+        "relation": "conflicting",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "versions",
+        "relation": "conflicting",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "unrelated",
+        "relation": "unrelated",
+        "action": "no_change"
+      },
+      {
+        "fixture": "insufficient",
+        "relation": "insufficient_context",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "invalid",
+        "state": "error"
+      },
+      {
+        "fixture": "badQuote",
+        "state": "error"
+      },
+      {
+        "fixture": "missing required contextual quote",
+        "state": "error"
+      },
+      {
+        "fixture": "fabricated optional quote",
+        "state": "error"
+      },
+      {
+        "fixture": "tooLarge",
+        "state": "local refusal, no request"
+      }
+    ],
+    "fakeRequests": 18,
+    "limitation": "Scripted fake transport responses; no real model accuracy or classification quality measured."
+  },
+  "taxonomy": {
+    "status": "PASS",
+    "inventory": {
+      "state": "complete",
+      "total": 129,
+      "eligible": 127,
+      "excluded": 2,
+      "processed": 127,
+      "unavailable": 1,
+      "empty": 122,
+      "tags": [
+        {
+          "tag": "difficulty/basic",
+          "notes": 1
+        },
+        {
+          "tag": "domain/english",
+          "notes": 1
+        },
+        {
+          "tag": "domain/programming",
+          "notes": 1
+        },
+        {
+          "tag": "domain/programming/tools",
+          "notes": 1
+        },
+        {
+          "tag": "flat",
+          "notes": 1
+        },
+        {
+          "tag": "Flat",
+          "notes": 1
+        },
+        {
+          "tag": "front",
+          "notes": 1
+        },
+        {
+          "tag": "inline",
+          "notes": 1
+        },
+        {
+          "tag": "nesting/tag",
+          "notes": 1
+        },
+        {
+          "tag": "role",
+          "notes": 1
+        },
+        {
+          "tag": "role/theory",
+          "notes": 2
+        },
+        {
+          "tag": "type/atom",
+          "notes": 1
+        },
+        {
+          "tag": "роль/теория",
+          "notes": 1
+        },
+        {
+          "tag": "сложность/сложно",
+          "notes": 1
+        },
+        {
+          "tag": "тема/кэш",
+          "notes": 1
+        },
+        {
+          "tag": "тип/практика",
+          "notes": 1
+        }
+      ]
+    },
+    "io": {
+      "noteBodyReads": 0,
+      "markdownWrites": 0,
+      "networkCalls": 0
+    },
+    "checks": [
+      "Tools entry is passive",
+      "Opening taxonomy reads only saved rules, with no scan or profile creation",
+      "Cancellation exposes partial coverage and no category proposals",
+      "Native helper combines YAML and inline tags with note-level deduplication",
+      "Missing metadata, empty lists and exclusions are distinct",
+      "Similar flat tag names remain distinct",
+      "Tree summary accepts keyboard focus",
+      "Keyboard expands real hierarchy; exact parent counts do not sum child counts",
+      "Prefixes form separate unconfirmed dimensions; structural type is not inferred as role",
+      "Conflicting prefix assignment blocks review",
+      "Review shows changes but writes no profile",
+      "Confirmed rules and concurrent ordinary settings both persist",
+      "data.json stores rules only, without inventory, counts or note paths",
+      "ru: reopened profile survives without another scan",
+      "ru theme-light 1200: no horizontal overflow",
+      "ru theme-light 390: no horizontal overflow",
+      "ru theme-dark 1200: no horizontal overflow",
+      "ru theme-dark 390: no horizontal overflow",
+      "ru: all editable controls have accessible labels",
+      "en: reopened profile survives without another scan",
+      "en theme-light 1200: no horizontal overflow",
+      "en theme-light 390: no horizontal overflow",
+      "en theme-dark 1200: no horizontal overflow",
+      "en theme-dark 390: no horizontal overflow",
+      "en: all editable controls have accessible labels",
+      "A vault event during scanning marks the result stale",
+      "Close aborts the active scan and cannot restore its UI",
+      "Taxonomy performs no note-body reads, Markdown writes or network calls"
+    ],
+    "limitations": "Synthetic native vault; one deliberately unavailable cache entry and a synthetic modify event. No LLM calls. Desktop Linux only; no physical mobile or screen reader tests."
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":57,\"scriptId\":\"429\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Cannot read properties of null (reading 'scrollIntoView')\\n    at <anonymous>:1:58\",\"objectId\":\"-6895128668146624151.1.2\"}}"
+}

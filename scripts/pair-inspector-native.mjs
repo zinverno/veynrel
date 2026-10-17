@@ -114,6 +114,10 @@ try {
    const { changePlannerScenario } = await import('./change-planner-native.mjs');
    report.changePlanner = await changePlannerScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
  }
+ if (process.argv.includes('--multi-file-planner')) {
+   const { multiFilePlannerScenario } = await import('./multi-file-planner-native.mjs');
+   report.multiFilePlanner = await multiFilePlannerScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
+ }
  await ev("document.querySelectorAll('.ai-pair-note button')[1].click()");
  await wait('app.workspace.getActiveFile()?.path==='+JSON.stringify(b));checks.push('Open source note selects the exact second path');
  await pass('Inspector performs zero network requests and Markdown writes','io.network===0&&io.write===0');

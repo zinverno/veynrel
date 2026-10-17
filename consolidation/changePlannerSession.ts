@@ -5,6 +5,8 @@ import type { RelationshipAnalysis } from "./relationshipSession";
 import { buildChangePlan, ChangePlanError } from "./changePlan";
 import type { ChangePlan, PlanChoice, PlanFailure, PlanPair, PlanNote } from "./changePlan";
 import { sameSavedNote } from "./savedNote";
+import { buildMultiFilePlan, MultiFilePlanError } from "./multiFilePlan";
+import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 
 export interface PlannerRead { pair: PlanPair; linktexts: readonly [string, string] }
 export interface PlannerDependencies {
@@ -15,7 +17,9 @@ export interface PlannerView {
   stage: "idle" | "loading" | "choosing" | "ready" | "error" | "stale" | "cancelled";
   input?: PlannerRead;
   plan?: ChangePlan;
+  multiPlan?: MultiFilePlan;
   error?: PlanFailure;
+  errorSide?: 0 | 1;
 }
 /** Public Obsidian APIs; only the two selected sources and their caches are consulted. */
 export async function readPlannerPair(app: App, paths: readonly [string, string]): Promise<PlannerRead> {
@@ -29,7 +33,7 @@ export async function readPlannerPair(app: App, paths: readonly [string, string]
       for (const item of items ?? []) references.push({ kind, original: item.original,
         target: app.metadataCache.getFirstLinkpathDest(parseLinktext(item.link).path, note.path)?.path ?? null });
     }
-    return { ...note, cache: cache ? JSON.parse(JSON.stringify(cache)) as PlanNote["cache"] : null, references };
+    return { ...note, created: note.file.stat.ctime, cache: cache ? JSON.parse(JSON.stringify(cache)) as PlanNote["cache"] : null, references };
   }) as unknown as PlanPair;
   // Full vault-relative paths preserve homonyms. Resolve each token from its actual source before allowing it.
   const linktexts = pair.map((target, i) => {
@@ -43,12 +47,18 @@ function sameRead(a: PlannerRead, b: PlannerRead): boolean {
     JSON.stringify(note.cache) === JSON.stringify(b.pair[i].cache) && JSON.stringify(note.references) === JSON.stringify(b.pair[i].references)) &&
     JSON.stringify(a.linktexts) === JSON.stringify(b.linktexts);
 }
+function sameMultiRead(a: PlannerRead, b: PlannerRead): boolean {
+  return sameRead(a, b) && a.pair.every((note, i) => note.created === b.pair[i].created &&
+    b.pair[i].file.stat.ctime === note.created && b.pair[i].file.path === note.path &&
+    b.pair[i].file.stat.mtime === note.modified && b.pair[i].file.stat.size === note.bytes);
+}
 
 /** Disposable local planning. There is deliberately no write, provider or apply port. */
 export class ChangePlannerSession {
   view: PlannerView = { stage: "idle" };
   onChange: () => void = () => {};
   private generation = 0;
+  private multiGeneration?: number;
   private closed = false;
   private analysis?: RelationshipAnalysis;
   constructor(private readonly deps: PlannerDependencies) {}
@@ -63,7 +73,33 @@ export class ChangePlannerSession {
   cancel(): void { this.generation++; this.analysis = undefined; this.publish({ stage: "cancelled" }); }
   close(): void { this.closed = true; this.generation++; this.analysis = undefined; this.view = { stage: "idle" }; this.onChange = () => {}; }
   changeSelection(): void {
+    if (!this.closed && this.busy && this.multiGeneration === this.generation) { this.invalidate(); return; }
     if (!this.closed && !this.busy && this.view.input) this.publish({ stage: "choosing", input: this.view.input });
+  }
+  async buildMulti(choice: MultiFileChoice): Promise<void> {
+    if (this.closed || this.busy || !this.view.input || !this.analysis) return;
+    const input = this.view.input, generation = ++this.generation;
+    this.multiGeneration = generation;
+    const selected: MultiFileChoice = { operation: choice.operation,
+      selections: [choice.selections[0] ? { ...choice.selections[0] } : null, choice.selections[1] ? { ...choice.selections[1] } : null],
+      confirmed: [...choice.confirmed] };
+    this.publish({ stage: "loading" });
+    try {
+      const fresh = await this.deps.read();
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(input, fresh)) { this.invalidate(); return; }
+      const multiPlan = buildMultiFilePlan(this.analysis, fresh.pair, selected, fresh.linktexts);
+      const verified = await this.deps.read();
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(fresh, verified)) { this.invalidate(); return; }
+      this.publish({ stage: "ready", input: verified, multiPlan });
+    } catch (error) {
+      if (this.current(generation)) {
+        const reason = error instanceof ChangePlanError ? error.reason : "source";
+        this.publish({ stage: "error", input: reason === "source" ? undefined : input, error: reason,
+          errorSide: error instanceof MultiFilePlanError ? error.side : undefined });
+      }
+    }
   }
   async prepare(): Promise<void> {
     if (this.closed || this.busy) return;

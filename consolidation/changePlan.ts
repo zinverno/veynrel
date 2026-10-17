@@ -10,7 +10,7 @@ export type PlanFailure = "source" | "metadata" | "range" | "protected" | "recom
 export class ChangePlanError extends Error { constructor(readonly reason: PlanFailure) { super(reason); } }
 export interface PlanRange { start: number; end: number; text: string }
 export interface PlanReference { kind: "link" | "embed" | "property"; original: string; target: string | null }
-export interface PlanNote extends SavedNote { cache: CachedMetadata | null; references: PlanReference[] }
+export interface PlanNote extends SavedNote { cache: CachedMetadata | null; references: PlanReference[]; created?: number }
 export type PlanPair = readonly [PlanNote, PlanNote];
 export interface PlanChoice { operation: PlanOperation; source: 0 | 1; selection: PlanRange | null; confirmed: boolean }
 export interface ChangePlan {
