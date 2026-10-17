@@ -3,7 +3,7 @@ import { paragraphRanges } from "./changePlan";
 import type { ChangePlannerSession } from "./changePlannerSession";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import { mergeBlockFailure, mergeHints } from "./mergePlan";
-import type { MergeChoice } from "./mergePlan";
+import type { MergeChoice, MergePlan } from "./mergePlan";
 import { renderPlanDiff } from "./planDiffView";
 
 function button(root: HTMLElement, key: string, fn: () => void): HTMLButtonElement {
@@ -13,9 +13,9 @@ function source(root: HTMLElement, title: string, text: string, key: string, ope
   const d = root.createEl("details"); d.open = open; d.createEl("summary", { text: title });
   d.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-merge-text": key } });
 }
-/** Local choices and literal previews only. No executor callback exists for MergePlan. */
+/** Local choices and literal previews; Apply opens a separate checked consent window. */
 export function renderMergePlanner(root: HTMLElement, session: ChangePlannerSession, analysis: RelationshipAnalysis,
-  choice: MergeChoice, change: (choice: MergeChoice) => void): void {
+  choice: MergeChoice, change: (choice: MergeChoice) => void, review?: (plan: MergePlan) => void): void {
   const input = session.view.input;
   if (!input) return;
   const pair = input.pair, hints = mergeHints(analysis.result, pair);
@@ -99,4 +99,8 @@ export function renderMergePlanner(root: HTMLElement, session: ChangePlannerSess
   result.createEl("p", { text: tr("@planner.provenance", { provider: plan.provenance.provider, model: plan.provenance.model }) });
   result.createEl("p", { text: `${tr(`@relationship.relation.${plan.provenance.relation}`)}: ${plan.provenance.recommendation.reason}` });
   for (const limit of plan.modelLimitations) result.createEl("p", { text: limit });
+  if (review) {
+    const check = result.createEl("button", { text: tr("@mergeApply.review"), attr: { type: "button", "data-merge-apply-action": "review" } });
+    check.addEventListener("click", () => review(plan));
+  }
 }

@@ -2,7 +2,7 @@ import { App, Modal } from "obsidian";
 import type { TAbstractFile } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
 import { openDiscoveryResult } from "../semantic/semanticDiscoveryModal";
-import { readPairNote, readCachedIncoming } from "./pairSnapshot";
+import { readPairNote } from "./pairSnapshot";
 import type { InspectorList, PairNoteSnapshot } from "./pairSnapshot";
 import type { RelationshipSession } from "./relationshipSession";
 import { renderRelationshipView } from "./relationshipView";
@@ -11,6 +11,8 @@ import type { SafeApplyService } from "./safeApply";
 import { SafeApplyModal, OperationHistoryModal } from "./safeApplyModal";
 import { ChangePlannerView } from "./changePlannerView";
 import { MultiFileApplyModal } from "./multiFileApplyModal";
+import { MergeApplyModal } from "./mergeApplyModal";
+import { readMergeIncoming } from "./obsidianMergeApply";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairInspectorModal extends Modal {
@@ -58,7 +60,7 @@ export class PairInspectorModal extends Modal {
                 if (!source || !this.openState) return;
                 this.planner?.close();
                 this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
-                  incoming: () => [readCachedIncoming(this.app, this.paths[0]) ?? null, readCachedIncoming(this.app, this.paths[1]) ?? null] });
+                  incoming: () => readMergeIncoming(this.app, this.paths) });
                 const planner = this.planner;
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                   new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
@@ -66,6 +68,10 @@ export class PairInspectorModal extends Modal {
                 } : undefined, this.safeApply?.multi ? plan => {
                   new MultiFileApplyModal(this.app, this.safeApply!.multi!, current => this.safeApply!.multi!.review(plan, source,
                     () => current() && this.openState && planner.view.multiPlan === plan && this.relationship?.analysisSource === source),
+                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+                } : undefined, this.safeApply?.merge ? plan => {
+                  new MergeApplyModal(this.app, this.safeApply!.merge!, current => this.safeApply!.merge!.review(plan, source,
+                    () => current() && this.openState && planner.view.mergePlan === plan && this.relationship?.analysisSource === source),
                   () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
                 } : undefined);
                 void this.planner.prepare();

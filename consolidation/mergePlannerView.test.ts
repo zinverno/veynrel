@@ -17,10 +17,10 @@ class Element {
   addEventListener(event: string, fn: () => void) { this.listeners.set(event, fn); }
   all(): Element[] { return [this, ...this.children.flatMap(e => e.all())]; }
 }
-async function setup() {
-  const f = mergeFixture(), root = new Element(), single = vi.fn(), multi = vi.fn();
+async function setup(withMerge = false) {
+  const f = mergeFixture(), root = new Element(), single = vi.fn(), multi = vi.fn(), merge = vi.fn();
   const session = new ChangePlannerSession({ analysis: () => f.analysis, read: async () => f.read });
-  new ChangePlannerView(root as unknown as HTMLElement, session, f.analysis, single, multi); await session.prepare();
+  new ChangePlannerView(root as unknown as HTMLElement, session, f.analysis, single, multi, withMerge ? merge : undefined); await session.prepare();
   const field = (name: string) => root.all().find(e => e.attrs["data-planner-field"] === name)!;
   const action = (name: string) => root.all().find(e => e.attrs["data-merge-action"] === name)!;
   const select = (name: string, value: string) => { const e = field(name); e.value = value; e.listeners.get("change")!(); };
@@ -28,9 +28,17 @@ async function setup() {
   select("operation", "merge_knowledge");
   const choose = () => { select("merge-canonical", "0"); check(`merge-transfer-${paragraphRanges(f.pair[1])[1].start}`); select("merge-location", "0"); check("merge-confirm"); };
   const build = async () => { action("build").listeners.get("click")!(); await vi.waitFor(() => expect(session.view.stage).toBe("ready")); };
-  return { ...f, root, session, single, multi, field, action, select, check, choose, build };
+  return { ...f, root, session, single, multi, merge, field, action, select, check, choose, build };
 }
 describe("merge choices and honest literal preview", () => {
+  it("routes only a completed merge plan to its separate review, never to either link executor", async () => {
+    const f = await setup(true);
+    expect(f.root.all().some(e => e.attrs["data-merge-apply-action"])).toBe(false);
+    f.choose(); await f.build(); expect(f.merge).not.toHaveBeenCalled();
+    const review = f.root.all().find(e => e.attrs["data-merge-apply-action"] === "review")!;
+    review.listeners.get("click")!(); expect(f.merge).toHaveBeenCalledExactlyOnceWith(f.session.view.mergePlan);
+    expect(f.single).not.toHaveBeenCalled(); expect(f.multi).not.toHaveBeenCalled();
+  });
   it.each(["en", "ru"] as const)("%s requires user canonical/block/context/point choices and offers no Apply", async language => {
     setLanguage(language); const f = await setup(); expect(f.field("merge-canonical").value).toBe(""); expect(f.action("build").disabled).toBe(true);
     expect(f.root.all().filter(e => e.attrs["data-merge-text"]?.startsWith("source-")).map(e => e.text)).toEqual(f.pair.map(n => n.content));
