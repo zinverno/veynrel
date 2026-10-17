@@ -2,7 +2,7 @@
 
 This is the original acceptance for `a0b7149`. See the
 [Undo blocker follow-up](journal-undo-blockers-native.md) for the subsequent fix,
-current artifact hashes and targeted native results.
+artifact hashes and targeted native results. The [editor diagnostic follow-up](journal-editor-diagnostic.md) records the subsequent harness correction and complete rerun.
 
 **PASS**, 2026-10-17. Isolated synthetic vault/profile; Obsidian **1.13.7-2**,
 Electron **43.6.0**, Linux desktop. No personal vault, real credential or paid provider

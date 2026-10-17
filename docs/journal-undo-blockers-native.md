@@ -49,7 +49,9 @@ read-only refresh to finish before reopening history. It does not weaken the bus
 guard or the product's refusal checks. A broader preliminary rerun stopped at the
 existing Apply-editor error-wording assertion; it was **not** counted as a passing
 full native regression run. The targeted follow-up above ran independently and passed;
-the earlier full acceptance remains recorded against `a0b7149`.
+the earlier full acceptance remains recorded against `a0b7149`. The subsequent
+[editor diagnostic follow-up](journal-editor-diagnostic.md) reproduces the autosave
+race, fixes only the harness, and records a complete 323-check native pass.
 
 [Machine report](journal-recovery-evidence/undo-blockers/report.json) ·
 [Evidence checksums](journal-recovery-evidence/undo-blockers/sha256.json)

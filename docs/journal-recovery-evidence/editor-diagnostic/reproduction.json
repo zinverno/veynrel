@@ -1,0 +1,833 @@
+{
+  "before": {
+    "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+    "journal": {
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/applied.json": "891abfc26718b03296f32867850b396f03820e69d9ff3df876b1d63c4ad5f2f3",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/backup.json": "3d915f3f492ba67fec091703c99773206d33551fd9c476d252b1a9b964ea113c",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/record.json": "3d915f3f492ba67fec091703c99773206d33551fd9c476d252b1a9b964ea113c",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/undo_pending.json": "514987c5466667c0e126804fe97c1e3ceab3c98ef88d1f54e71b32357ba37767",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/undone.json": "48272b5c7f312e34cbce3a6ebd95366a3fa498cbd4a46e78542fc0ec04155278",
+      "b5eeb1ad9e3cddca83bbf6f27ae0e06f6a3ce4ce028236ab2d8905f8b190c182/applied.json": "bd81cc4610e573771773133270802fc084d049c94051dc797e188329a2659985",
+      "b5eeb1ad9e3cddca83bbf6f27ae0e06f6a3ce4ce028236ab2d8905f8b190c182/backup.json": "ebe6336e65b29f1fbc2768770942bdc1347b40abecbe2524f9ec12db74ff7507",
+      "b5eeb1ad9e3cddca83bbf6f27ae0e06f6a3ce4ce028236ab2d8905f8b190c182/record.json": "ebe6336e65b29f1fbc2768770942bdc1347b40abecbe2524f9ec12db74ff7507"
+    }
+  },
+  "observed": {
+    "events": [
+      {
+        "event": "modify",
+        "path": "Safe/English/Same.md",
+        "data": "UNSAVED USER BUFFER",
+        "time": 4946.39999999851
+      },
+      {
+        "event": "vault-modify",
+        "path": "Safe/English/Same.md",
+        "time": 4947.80000000447
+      },
+      {
+        "event": "cache-changed",
+        "path": "Safe/English/Same.md",
+        "data": "UNSAVED USER BUFFER",
+        "time": 4953.80000000447
+      },
+      {
+        "event": "read",
+        "path": "Safe/English/Same.md",
+        "data": "UNSAVED USER BUFFER",
+        "stat": {
+          "ctime": 1792232956017,
+          "mtime": 1792232964447,
+          "size": 19
+        },
+        "time": 4998.70000000298
+      },
+      {
+        "event": "read",
+        "path": "Safe/English/Same.md",
+        "data": "UNSAVED USER BUFFER",
+        "stat": {
+          "ctime": 1792232956017,
+          "mtime": 1792232964447,
+          "size": 19
+        },
+        "time": 5000.39999999851
+      }
+    ],
+    "snapshots": [
+      {
+        "label": "before-open",
+        "time": 2806.10000000149,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232962054,
+            "size": 171
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "col": 0,
+                  "offset": 53
+                },
+                "end": {
+                  "line": 2,
+                  "col": 66,
+                  "offset": 119
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "col": 0,
+                  "offset": 121
+                },
+                "end": {
+                  "line": 4,
+                  "col": 31,
+                  "offset": 152
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 6,
+                  "col": 0,
+                  "offset": 154
+                },
+                "end": {
+                  "line": 6,
+                  "col": 16,
+                  "offset": 170
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": []
+      },
+      {
+        "label": "after-open",
+        "time": 2926.5,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232962054,
+            "size": 171
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "col": 0,
+                  "offset": 53
+                },
+                "end": {
+                  "line": 2,
+                  "col": 66,
+                  "offset": 119
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "col": 0,
+                  "offset": 121
+                },
+                "end": {
+                  "line": 4,
+                  "col": 31,
+                  "offset": 152
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 6,
+                  "col": 0,
+                  "offset": 154
+                },
+                "end": {
+                  "line": 6,
+                  "col": 16,
+                  "offset": 170
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": [
+          {
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Safe/English/Same.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Same"
+            },
+            "path": "Safe/English/Same.md",
+            "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+            "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n"
+          }
+        ]
+      },
+      {
+        "label": "after-setValue",
+        "time": 2945.8000000044703,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232962054,
+            "size": 171
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "col": 0,
+                  "offset": 53
+                },
+                "end": {
+                  "line": 2,
+                  "col": 66,
+                  "offset": 119
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "col": 0,
+                  "offset": 121
+                },
+                "end": {
+                  "line": 4,
+                  "col": 31,
+                  "offset": 152
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 6,
+                  "col": 0,
+                  "offset": 154
+                },
+                "end": {
+                  "line": 6,
+                  "col": 16,
+                  "offset": 170
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": [
+          {
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Safe/English/Same.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Same"
+            },
+            "path": "Safe/English/Same.md",
+            "buffer": "UNSAVED USER BUFFER",
+            "viewData": "UNSAVED USER BUFFER"
+          }
+        ]
+      },
+      {
+        "label": "check-start",
+        "time": 2962.89999999851,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232962054,
+            "size": 171
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "col": 0,
+                  "offset": 53
+                },
+                "end": {
+                  "line": 2,
+                  "col": 66,
+                  "offset": 119
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "col": 0,
+                  "offset": 121
+                },
+                "end": {
+                  "line": 4,
+                  "col": 31,
+                  "offset": 152
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 6,
+                  "col": 0,
+                  "offset": 154
+                },
+                "end": {
+                  "line": 6,
+                  "col": 16,
+                  "offset": 170
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": [
+          {
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Safe/English/Same.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Same"
+            },
+            "path": "Safe/English/Same.md",
+            "buffer": "UNSAVED USER BUFFER",
+            "viewData": "UNSAVED USER BUFFER"
+          }
+        ]
+      },
+      {
+        "label": "autosaved-before-review",
+        "time": 4999.80000000447,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232964447,
+            "size": 19
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 19,
+                  "offset": 19
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": [
+          {
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Safe/English/Same.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Same"
+            },
+            "path": "Safe/English/Same.md",
+            "buffer": "UNSAVED USER BUFFER",
+            "viewData": "UNSAVED USER BUFFER"
+          }
+        ]
+      },
+      {
+        "label": "check-failed",
+        "time": 5001.80000000447,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232964447,
+            "size": 19
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 19,
+                  "offset": 19
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": [
+          {
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Safe/English/Same.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Same"
+            },
+            "path": "Safe/English/Same.md",
+            "buffer": "UNSAVED USER BUFFER",
+            "viewData": "UNSAVED USER BUFFER"
+          }
+        ]
+      },
+      {
+        "label": "after-alert",
+        "time": 5003.70000000298,
+        "plan": {
+          "before": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor scenario.\n",
+          "modified": 1792232962054,
+          "bytes": 171
+        },
+        "source": {
+          "path": "Safe/English/Same.md",
+          "stat": {
+            "ctime": 1792232956017,
+            "mtime": 1792232964447,
+            "size": 19
+          },
+          "same": true
+        },
+        "target": {
+          "path": "Safe/Русский/Same.md",
+          "stat": {
+            "ctime": 1792232956020,
+            "mtime": 1792232962054,
+            "size": 52
+          },
+          "same": true
+        },
+        "cacheA": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 19,
+                  "offset": 19
+                }
+              }
+            }
+          ]
+        },
+        "cacheB": {
+          "sections": [
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 51,
+                  "offset": 51
+                }
+              }
+            }
+          ],
+          "v": 1
+        },
+        "editors": [
+          {
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Safe/English/Same.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Same"
+            },
+            "path": "Safe/English/Same.md",
+            "buffer": "UNSAVED USER BUFFER",
+            "viewData": "UNSAVED USER BUFFER"
+          }
+        ]
+      }
+    ],
+    "process": 0,
+    "resume": {},
+    "error": {
+      "name": "ChangePlanError",
+      "reason": "source",
+      "message": "source",
+      "stack": "Error: source\n    at requirePlan (plugin:ai-knowledge-hub:492:3982)\n    at buildChangePlan (plugin:ai-knowledge-hub:493:316)\n    at Object.check (plugin:ai-knowledge-hub:493:22020)\n    at async plugin.safeApply.port.check (<anonymous>:9:235)\n    at async eval (plugin:ai-knowledge-hub:493:15135)\n    at async SafeApplyService.exclusive (plugin:ai-knowledge-hub:493:14818)\n    at async kr.load (plugin:ai-knowledge-hub:495:5724)"
+    },
+    "message": "Источники, диапазон, ссылки или настройки изменились либо недоступны. Требуется новый план и предпросмотр. Ничего автоматически не перезаписывается."
+  },
+  "after": {
+    "markdown": "UNSAVED USER BUFFER",
+    "journal": {
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/applied.json": "891abfc26718b03296f32867850b396f03820e69d9ff3df876b1d63c4ad5f2f3",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/backup.json": "3d915f3f492ba67fec091703c99773206d33551fd9c476d252b1a9b964ea113c",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/record.json": "3d915f3f492ba67fec091703c99773206d33551fd9c476d252b1a9b964ea113c",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/undo_pending.json": "514987c5466667c0e126804fe97c1e3ceab3c98ef88d1f54e71b32357ba37767",
+      "0706aa4b157612d4b8ec8c645755e00abb96cdd8746d6d25ff954300490ef363/undone.json": "48272b5c7f312e34cbce3a6ebd95366a3fa498cbd4a46e78542fc0ec04155278",
+      "b5eeb1ad9e3cddca83bbf6f27ae0e06f6a3ce4ce028236ab2d8905f8b190c182/applied.json": "bd81cc4610e573771773133270802fc084d049c94051dc797e188329a2659985",
+      "b5eeb1ad9e3cddca83bbf6f27ae0e06f6a3ce4ce028236ab2d8905f8b190c182/backup.json": "ebe6336e65b29f1fbc2768770942bdc1347b40abecbe2524f9ec12db74ff7507",
+      "b5eeb1ad9e3cddca83bbf6f27ae0e06f6a3ce4ce028236ab2d8905f8b190c182/record.json": "ebe6336e65b29f1fbc2768770942bdc1347b40abecbe2524f9ec12db74ff7507"
+    }
+  },
+  "reproduction": "b29d12b: original assertion retained; harness pauses port.check before reading until native autosave finishes. Read polling events with unchanged data omitted.",
+  "artifacts": {
+    "main.js": "5dc2a22f9b5c88a63601904727ec38c4e29a978864dad5a415a99d96e44914f0",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  }
+}

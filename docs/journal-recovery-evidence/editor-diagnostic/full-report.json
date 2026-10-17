@@ -1,0 +1,1559 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "relationships": {
+    "status": "PASS",
+    "checks": [
+      "near_duplicates: opening is local",
+      "near_duplicates: complete exact consent, no request yet",
+      "RU consent theme-light 1200: no overflow",
+      "RU consent theme-light 390: no overflow",
+      "RU consent theme-dark 1200: no overflow",
+      "RU consent theme-dark 390: no overflow",
+      "near_duplicates: exactly one confirmed request and expected relation",
+      "partial_overlap: opening is local",
+      "partial_overlap: complete exact consent, no request yet",
+      "partial_overlap: exactly one confirmed request and expected relation",
+      "partial_overlap: only supplied and verified quote sides render",
+      "theory_and_context: opening is local",
+      "theory_and_context: complete exact consent, no request yet",
+      "theory_and_context: exactly one confirmed request and expected relation",
+      "theory_and_context: only supplied and verified quote sides render",
+      "standalone_large_section: opening is local",
+      "standalone_large_section: complete exact consent, no request yet",
+      "standalone_large_section: exactly one confirmed request and expected relation",
+      "Source beyond inspector preview is sent whole",
+      "contradiction: opening is local",
+      "contradiction: complete exact consent, no request yet",
+      "contradiction: exactly one confirmed request and expected relation",
+      "contradiction: only supplied and verified quote sides render",
+      "versions: opening is local",
+      "versions: complete exact consent, no request yet",
+      "versions: exactly one confirmed request and expected relation",
+      "versions: only supplied and verified quote sides render",
+      "unrelated: opening is local",
+      "unrelated: complete exact consent, no request yet",
+      "unrelated: exactly one confirmed request and expected relation",
+      "insufficient: opening is local",
+      "insufficient: complete exact consent, no request yet",
+      "insufficient: exactly one confirmed request and expected relation",
+      "invalid: no recommendation displayed",
+      "badQuote: no recommendation displayed",
+      "quoteA: invalid contextual evidence yields no recommendation",
+      "quoteB: invalid contextual evidence yields no recommendation",
+      "File change revokes consent without dispatch",
+      "File change aborts in-flight waiting",
+      "Late reply cannot restore invalidated result",
+      "Cancel aborts waiting",
+      "Close aborts waiting and clears session",
+      "Model change removes completed result",
+      "Saved source change removes completed result",
+      "Oversized pair refuses instead of sending a partial preview",
+      "EN result theme-light 390: no overflow",
+      "EN result theme-light 1200: no overflow",
+      "EN result theme-dark 390: no overflow",
+      "EN result theme-dark 1200: no overflow",
+      "EN result shows provisional analysis and exact-quote limits",
+      "Analysis performs no Markdown writes or real provider/network calls"
+    ],
+    "refusals": [
+      {
+        "fixture": "contradiction",
+        "relation": "conflicting",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "versions",
+        "relation": "conflicting",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "unrelated",
+        "relation": "unrelated",
+        "action": "no_change"
+      },
+      {
+        "fixture": "insufficient",
+        "relation": "insufficient_context",
+        "action": "manual_review"
+      },
+      {
+        "fixture": "invalid",
+        "state": "error"
+      },
+      {
+        "fixture": "badQuote",
+        "state": "error"
+      },
+      {
+        "fixture": "missing required contextual quote",
+        "state": "error"
+      },
+      {
+        "fixture": "fabricated optional quote",
+        "state": "error"
+      },
+      {
+        "fixture": "tooLarge",
+        "state": "local refusal, no request"
+      }
+    ],
+    "fakeRequests": 18,
+    "limitation": "Scripted fake transport responses; no real model accuracy or classification quality measured."
+  },
+  "taxonomy": {
+    "status": "PASS",
+    "inventory": {
+      "state": "complete",
+      "total": 129,
+      "eligible": 127,
+      "excluded": 2,
+      "processed": 127,
+      "unavailable": 1,
+      "empty": 122,
+      "tags": [
+        {
+          "tag": "difficulty/basic",
+          "notes": 1
+        },
+        {
+          "tag": "domain/english",
+          "notes": 1
+        },
+        {
+          "tag": "domain/programming",
+          "notes": 1
+        },
+        {
+          "tag": "domain/programming/tools",
+          "notes": 1
+        },
+        {
+          "tag": "flat",
+          "notes": 1
+        },
+        {
+          "tag": "Flat",
+          "notes": 1
+        },
+        {
+          "tag": "front",
+          "notes": 1
+        },
+        {
+          "tag": "inline",
+          "notes": 1
+        },
+        {
+          "tag": "nesting/tag",
+          "notes": 1
+        },
+        {
+          "tag": "role",
+          "notes": 1
+        },
+        {
+          "tag": "role/theory",
+          "notes": 2
+        },
+        {
+          "tag": "type/atom",
+          "notes": 1
+        },
+        {
+          "tag": "роль/теория",
+          "notes": 1
+        },
+        {
+          "tag": "сложность/сложно",
+          "notes": 1
+        },
+        {
+          "tag": "тема/кэш",
+          "notes": 1
+        },
+        {
+          "tag": "тип/практика",
+          "notes": 1
+        }
+      ]
+    },
+    "io": {
+      "noteBodyReads": 0,
+      "markdownWrites": 0,
+      "networkCalls": 0
+    },
+    "checks": [
+      "Tools entry is passive",
+      "Opening taxonomy reads only saved rules, with no scan or profile creation",
+      "Cancellation exposes partial coverage and no category proposals",
+      "Native helper combines YAML and inline tags with note-level deduplication",
+      "Missing metadata, empty lists and exclusions are distinct",
+      "Similar flat tag names remain distinct",
+      "Tree summary accepts keyboard focus",
+      "Keyboard expands real hierarchy; exact parent counts do not sum child counts",
+      "Prefixes form separate unconfirmed dimensions; structural type is not inferred as role",
+      "Conflicting prefix assignment blocks review",
+      "Review shows changes but writes no profile",
+      "Confirmed rules and concurrent ordinary settings both persist",
+      "data.json stores rules only, without inventory, counts or note paths",
+      "ru: reopened profile survives without another scan",
+      "ru theme-light 1200: no horizontal overflow",
+      "ru theme-light 390: no horizontal overflow",
+      "ru theme-dark 1200: no horizontal overflow",
+      "ru theme-dark 390: no horizontal overflow",
+      "ru: all editable controls have accessible labels",
+      "en: reopened profile survives without another scan",
+      "en theme-light 1200: no horizontal overflow",
+      "en theme-light 390: no horizontal overflow",
+      "en theme-dark 1200: no horizontal overflow",
+      "en theme-dark 390: no horizontal overflow",
+      "en: all editable controls have accessible labels",
+      "A vault event during scanning marks the result stale",
+      "Close aborts the active scan and cannot restore its UI",
+      "Taxonomy performs no note-body reads, Markdown writes or network calls"
+    ],
+    "limitations": "Synthetic native vault; one deliberately unavailable cache entry and a synthetic modify event. No LLM calls. Desktop Linux only; no physical mobile or screen reader tests."
+  },
+  "tagRecommendations": {
+    "status": "PASS",
+    "checks": [
+      "theory_with_small_example: Tools opening is passive",
+      "theory_with_small_example: explicit scan does not read bodies or call LLM",
+      "theory_with_small_example: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "theory_with_small_example: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "practical_guide: Tools opening is passive",
+      "practical_guide: explicit scan does not read bodies or call LLM",
+      "practical_guide: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "practical_guide: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "programming_difficulty: Tools opening is passive",
+      "programming_difficulty: explicit scan does not read bodies or call LLM",
+      "programming_difficulty: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "programming_difficulty: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "language_difficulty: Tools opening is passive",
+      "language_difficulty: explicit scan does not read bodies or call LLM",
+      "language_difficulty: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "language_difficulty: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "multiple_topics: Tools opening is passive",
+      "multiple_topics: explicit scan does not read bodies or call LLM",
+      "multiple_topics: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "multiple_topics: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "no_applicable_tag: Tools opening is passive",
+      "no_applicable_tag: explicit scan does not read bodies or call LLM",
+      "no_applicable_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "no_applicable_tag: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "justified_new_tag: Tools opening is passive",
+      "justified_new_tag: explicit scan does not read bodies or call LLM",
+      "justified_new_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "justified_new_tag: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "insufficient_context: Tools opening is passive",
+      "insufficient_context: explicit scan does not read bodies or call LLM",
+      "insufficient_context: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "insufficient_context: scripted result validated; only selected source read",
+      "Dismiss does not persist or resend",
+      "justified_new_tag: Tools opening is passive",
+      "justified_new_tag: explicit scan does not read bodies or call LLM",
+      "justified_new_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "tags-ru-theme-light-1200-consent: no horizontal overflow",
+      "tags-ru-theme-light-390-consent: no horizontal overflow",
+      "tags-ru-theme-dark-1200-consent: no horizontal overflow",
+      "tags-ru-theme-dark-390-consent: no horizontal overflow",
+      "tags-ru-theme-light-1200-result: no horizontal overflow",
+      "tags-ru-theme-light-390-result: no horizontal overflow",
+      "tags-ru-theme-dark-1200-result: no horizontal overflow",
+      "tags-ru-theme-dark-390-result: no horizontal overflow",
+      "ru: translated labels, existing/new/none sections and no Apply controls",
+      "justified_new_tag: Tools opening is passive",
+      "justified_new_tag: explicit scan does not read bodies or call LLM",
+      "justified_new_tag: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "tags-en-theme-light-1200-consent: no horizontal overflow",
+      "tags-en-theme-light-390-consent: no horizontal overflow",
+      "tags-en-theme-dark-1200-consent: no horizontal overflow",
+      "tags-en-theme-dark-390-consent: no horizontal overflow",
+      "tags-en-theme-light-1200-result: no horizontal overflow",
+      "tags-en-theme-light-390-result: no horizontal overflow",
+      "tags-en-theme-dark-1200-result: no horizontal overflow",
+      "tags-en-theme-dark-390-result: no horizontal overflow",
+      "en: translated labels, existing/new/none sections and no Apply controls",
+      "theory_with_small_example: Tools opening is passive",
+      "theory_with_small_example: explicit scan does not read bodies or call LLM",
+      "theory_with_small_example: exact-path selection is passive",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "invalid: response withheld without retry",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "badQuote: response withheld without retry",
+      "Missing metadata prevents sending and does not claim tag absence",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Source/inventory change before confirmation prevents sending",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "A committed profile edit invalidates consent without sending",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Cancel aborts waiting; a double click dispatches once",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "A real saved-file edit invalidates an already displayed result",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Model change during request aborts and suppresses late result",
+      "Keyboard activation retains focus on explicit confirmation",
+      "Exact complete request preview before explicit confirmation",
+      "Close blocks late UI and warns that a dispatched call may be billed",
+      "theory_with_small_example: Tools opening is passive",
+      "theory_with_small_example: explicit scan does not read bodies or call LLM",
+      "theory_with_small_example: exact-path selection is passive",
+      "Oversized note refuses full analysis without sending",
+      "No Markdown writes or real network calls throughout recommendations",
+      "Settings contain no request bodies, inventories or model results"
+    ],
+    "refusals": [
+      "invalidResponse",
+      "evidence",
+      "incomplete inventory",
+      "stale before send",
+      "profile changed",
+      "changed after result",
+      "model change during request",
+      "oversized source"
+    ],
+    "scriptedCalls": 16,
+    "markdownWrites": 0,
+    "networkCalls": 0,
+    "limits": "Fake completion only; native cache and lifecycle, not semantic model accuracy. fetch/XHR counters plus injected completion; requestUrl not instrumented. Linux desktop, not physical mobile or screen readers."
+  },
+  "changePlanner": {
+    "status": "PASS",
+    "checks": [
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "ru: keyboard build, exact embed and preserved context",
+      "ru: safe diff and no application control",
+      "ru theme-light 1200: plan and diff fit",
+      "ru theme-light 390: plan and diff fit",
+      "ru theme-dark 1200: plan and diff fit",
+      "ru theme-dark 390: plan and diff fit",
+      "Changing a selection removes the old plan and clears confirmation",
+      "No-change is a full outcome without a diff",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "en: keyboard build, exact embed and preserved context",
+      "en: safe diff and no application control",
+      "en theme-light 1200: plan and diff fit",
+      "en theme-light 390: plan and diff fit",
+      "en theme-dark 1200: plan and diff fit",
+      "en theme-dark 390: plan and diff fit",
+      "Changing a selection removes the old plan and clears confirmation",
+      "No-change is a full outcome without a diff",
+      "Exact range requires confirmation",
+      "A to B normal link has full path and preserves all other text",
+      "Exact range requires confirmation",
+      "B to A link resolves homonyms from a different folder",
+      "Metadata invalidates the completed plan",
+      "Model settings invalidate the analysis and clear its plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "Close and double click block late plans",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "Cancel drops source snapshots and plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "existing link: clear refusal, no plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "direct embed cycle: clear refusal, no plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "target dependency: clear refusal, no plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "unique context in selected paragraph: clear refusal, no plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "Saved source changes remove the plan",
+      "Planner prepares locally from exactly the two selected files",
+      "Exact range requires confirmation",
+      "Moving the target removes the plan",
+      "Planning has no provider calls or Markdown writes"
+    ],
+    "fakeRelationshipRequests": 10,
+    "plannerProviderRequests": 0,
+    "fixture": {
+      "source": "Planner/English/Same.md",
+      "target": "Planner/Русский/Same.md",
+      "contextualExample": "preserved",
+      "homonyms": true
+    },
+    "limitations": "Synthetic fake Relationship Analyzer only; no real model quality claim. Native Linux desktop, emulated widths, standard themes."
+  },
+  "safeApply": {
+    "status": "PASS",
+    "checks": [
+      "en: separate write consent, no note mutation or extra completion",
+      "en theme-light 1200: consent and diff fit",
+      "en theme-light 390: consent and diff fit",
+      "en theme-dark 1200: consent and diff fit",
+      "en theme-dark 390: consent and diff fit",
+      "ru: separate write consent, no note mutation or extra completion",
+      "ru theme-light 1200: consent and diff fit",
+      "ru theme-light 390: consent and diff fit",
+      "ru theme-dark 1200: consent and diff fit",
+      "ru theme-dark 390: consent and diff fit",
+      "Native Vault.process writes the exact selected add_link plan",
+      "Apply makes no additional LLM call",
+      "Actual Obsidian process killed and restarted after apply",
+      "Applied operation survives restart with Undo",
+      "Undo after restart restores exact original saved Markdown",
+      "Embed replacement preserves unique contextual example",
+      "Later user changes produce conflict and preserve the backup",
+      "Even a saved open editor blocks automatic write",
+      "Open native Markdown editor blocks automatic write",
+      "Native autosave invalidates the old plan before the editor guard, without executor writes",
+      "Process interruption at prepared recovers prepared without rewriting",
+      "Process interruption at applied recovers applied without rewriting",
+      "Process interruption at undone recovers undone without rewriting",
+      "Damaged journal blocks automatic undo but surviving copy remains visible",
+      "No paid network request during native apply, recovery or undo"
+    ],
+    "editorCases": [
+      {
+        "mode": "clean",
+        "before": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+          "journal": {
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/applied.json": "ec0e0dfabd260f510c2816f99ed2ec4213daac03857e2f0558b2a5b4b187777d",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/backup.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/record.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/applied.json": "a252acfa871764e17dbba348e049bf3267a58a0f02221a528f5892f3a231a5db",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/backup.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/record.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undo_pending.json": "ae360ecd49e448b96b8e56913ce167cae440b2d87a7cf8155405d1cca261c278",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undone.json": "66097b1a673307c9dd9ed0dd62d0c94f1609c75924a2f4e54ba023cdf96a0498"
+          },
+          "entries": [
+            {
+              "id": "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094",
+              "scope": "none",
+              "damaged": false,
+              "resolved": false,
+              "issues": [],
+              "marks": [
+                "applied"
+              ]
+            },
+            {
+              "id": "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833",
+              "scope": "none",
+              "damaged": false,
+              "resolved": false,
+              "issues": [],
+              "marks": [
+                "applied",
+                "undo_pending",
+                "undone"
+              ]
+            }
+          ]
+        },
+        "observed": {
+          "error": {
+            "name": "SafeApplyError",
+            "reason": "editor",
+            "message": "editor"
+          },
+          "snapshots": [
+            {
+              "label": "before-open",
+              "time": 2662.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": []
+            },
+            {
+              "label": "opened",
+              "time": 2783.2000000029802,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "buffer-set",
+              "time": 2783.39999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "check-start",
+              "time": 2783.8000000044703,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "check-sources",
+              "time": 2783.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "check-failed",
+              "time": 2786.60000000149,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "refused",
+              "time": 2840.60000000149,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233410767,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233410767,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            }
+          ],
+          "events": [],
+          "process": 0,
+          "held": false,
+          "saved": false,
+          "cacheChanged": false,
+          "message": "Закройте исходную и целевую заметки во всех редакторах, включая отдельные окна. Несохранённый буфер или отложенное сохранение могут конфликтовать с записью; публичный API не предоставляет блокировку.",
+          "confirm": false
+        },
+        "after": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+          "journal": {
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/applied.json": "ec0e0dfabd260f510c2816f99ed2ec4213daac03857e2f0558b2a5b4b187777d",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/backup.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/record.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/applied.json": "a252acfa871764e17dbba348e049bf3267a58a0f02221a528f5892f3a231a5db",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/backup.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/record.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undo_pending.json": "ae360ecd49e448b96b8e56913ce167cae440b2d87a7cf8155405d1cca261c278",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undone.json": "66097b1a673307c9dd9ed0dd62d0c94f1609c75924a2f4e54ba023cdf96a0498"
+          }
+        }
+      },
+      {
+        "mode": "dirty",
+        "before": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n",
+          "journal": {
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/applied.json": "ec0e0dfabd260f510c2816f99ed2ec4213daac03857e2f0558b2a5b4b187777d",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/backup.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/record.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/applied.json": "a252acfa871764e17dbba348e049bf3267a58a0f02221a528f5892f3a231a5db",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/backup.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/record.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undo_pending.json": "ae360ecd49e448b96b8e56913ce167cae440b2d87a7cf8155405d1cca261c278",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undone.json": "66097b1a673307c9dd9ed0dd62d0c94f1609c75924a2f4e54ba023cdf96a0498"
+          },
+          "entries": [
+            {
+              "id": "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094",
+              "scope": "none",
+              "damaged": false,
+              "resolved": false,
+              "issues": [],
+              "marks": [
+                "applied"
+              ]
+            },
+            {
+              "id": "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833",
+              "scope": "none",
+              "damaged": false,
+              "resolved": false,
+              "issues": [],
+              "marks": [
+                "applied",
+                "undo_pending",
+                "undone"
+              ]
+            }
+          ]
+        },
+        "observed": {
+          "error": {
+            "name": "SafeApplyError",
+            "reason": "editor",
+            "message": "editor"
+          },
+          "snapshots": [
+            {
+              "label": "before-open",
+              "time": 3518.7000000029802,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": []
+            },
+            {
+              "label": "opened",
+              "time": 3644,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "buffer-set",
+              "time": 3650.7000000029802,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-start",
+              "time": 5673.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-sources",
+              "time": 5673.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-failed",
+              "time": 5680.10000000149,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "refused",
+              "time": 5731,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233411507,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233411507,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "event": "native-save-request",
+              "time": 5651.30000000447,
+              "data": "UNSAVED USER BUFFER"
+            }
+          ],
+          "process": 0,
+          "held": true,
+          "saved": false,
+          "cacheChanged": false,
+          "message": "Закройте исходную и целевую заметки во всех редакторах, включая отдельные окна. Несохранённый буфер или отложенное сохранение могут конфликтовать с записью; публичный API не предоставляет блокировку.",
+          "confirm": false
+        },
+        "after": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n",
+          "journal": {
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/applied.json": "ec0e0dfabd260f510c2816f99ed2ec4213daac03857e2f0558b2a5b4b187777d",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/backup.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/record.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/applied.json": "a252acfa871764e17dbba348e049bf3267a58a0f02221a528f5892f3a231a5db",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/backup.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/record.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undo_pending.json": "ae360ecd49e448b96b8e56913ce167cae440b2d87a7cf8155405d1cca261c278",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undone.json": "66097b1a673307c9dd9ed0dd62d0c94f1609c75924a2f4e54ba023cdf96a0498"
+          }
+        }
+      },
+      {
+        "mode": "autosaved",
+        "before": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor autosaved scenario.\n",
+          "journal": {
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/applied.json": "ec0e0dfabd260f510c2816f99ed2ec4213daac03857e2f0558b2a5b4b187777d",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/backup.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/record.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/applied.json": "a252acfa871764e17dbba348e049bf3267a58a0f02221a528f5892f3a231a5db",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/backup.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/record.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undo_pending.json": "ae360ecd49e448b96b8e56913ce167cae440b2d87a7cf8155405d1cca261c278",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undone.json": "66097b1a673307c9dd9ed0dd62d0c94f1609c75924a2f4e54ba023cdf96a0498"
+          },
+          "entries": [
+            {
+              "id": "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094",
+              "scope": "none",
+              "damaged": false,
+              "resolved": false,
+              "issues": [],
+              "marks": [
+                "applied"
+              ]
+            },
+            {
+              "id": "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833",
+              "scope": "none",
+              "damaged": false,
+              "resolved": false,
+              "issues": [],
+              "marks": [
+                "applied",
+                "undo_pending",
+                "undone"
+              ]
+            }
+          ]
+        },
+        "observed": {
+          "error": {
+            "name": "ChangePlanError",
+            "reason": "source",
+            "message": "source"
+          },
+          "snapshots": [
+            {
+              "label": "before-open",
+              "time": 6235.20000000298,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": []
+            },
+            {
+              "label": "opened",
+              "time": 6310,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor autosaved scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor autosaved scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "buffer-set",
+              "time": 6311.39999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-start",
+              "time": 6312.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "autosaved",
+              "time": 8325.20000000298,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233416704,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-sources",
+              "time": 8325.39999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233416704,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-failed",
+              "time": 8327.10000000149,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233416704,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "refused",
+              "time": 8328.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233416704,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233403797,
+                    "mtime": 1792233414281,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233414281,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "event": "native-save-request",
+              "time": 8311.89999999851,
+              "data": "UNSAVED USER BUFFER"
+            },
+            {
+              "event": "native-save-complete",
+              "time": 8314
+            }
+          ],
+          "process": 0,
+          "held": false,
+          "saved": true,
+          "cacheChanged": true,
+          "message": "Источники, диапазон, ссылки или настройки изменились либо недоступны. Требуется новый план и предпросмотр. Ничего автоматически не перезаписывается.",
+          "confirm": false
+        },
+        "after": {
+          "markdown": "UNSAVED USER BUFFER",
+          "journal": {
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/applied.json": "ec0e0dfabd260f510c2816f99ed2ec4213daac03857e2f0558b2a5b4b187777d",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/backup.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "31d735c64aaae8b4ab24cf305b728acaefd11696ca5b670423c657aa06489094/record.json": "80270fc88d217fb445ad72279303493130a883589c1e4325fc92abadd038ad9e",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/applied.json": "a252acfa871764e17dbba348e049bf3267a58a0f02221a528f5892f3a231a5db",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/backup.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/record.json": "577aae8d2ec38f16031e316e4bb362dbdc2918a2743e3d8fb32811be30c049e2",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undo_pending.json": "ae360ecd49e448b96b8e56913ce167cae440b2d87a7cf8155405d1cca261c278",
+            "dac192ca2f9274da398f9a4a5636e153c59ed9b1a2f1e0784eba44b8e52d4833/undone.json": "66097b1a673307c9dd9ed0dd62d0c94f1609c75924a2f4e54ba023cdf96a0498"
+          }
+        }
+      }
+    ],
+    "artifactSha256": "5dc2a22f9b5c88a63601904727ec38c4e29a978864dad5a415a99d96e44914f0",
+    "limits": "Synthetic Linux desktop, public native Vault.process/DataAdapter; SIGKILL process interruption, not physical power failure. No mobile, multi-process vault access, custom editor, screen reader or live provider acceptance."
+  },
+  "journalRecovery": {
+    "status": "PASS",
+    "checks": [
+      "After real Apply and restart: partial backup has a local blocker and exact after evidence",
+      "Affected source and target are blocked; unrelated paths are not",
+      "en theme-light 1200: localized resolution review fits, with literal text and separate confirmation",
+      "en theme-light 390: localized resolution review fits, with literal text and separate confirmation",
+      "en theme-dark 1200: localized resolution review fits, with literal text and separate confirmation",
+      "en theme-dark 390: localized resolution review fits, with literal text and separate confirmation",
+      "ru theme-light 1200: localized resolution review fits, with literal text and separate confirmation",
+      "ru theme-light 390: localized resolution review fits, with literal text and separate confirmation",
+      "ru theme-dark 1200: localized resolution review fits, with literal text and separate confirmation",
+      "ru theme-dark 390: localized resolution review fits, with literal text and separate confirmation",
+      "All previews preserve journal and Markdown bytes",
+      "Confirmation can receive keyboard focus",
+      "Explicit resolution survives restart, stays separate from Undo, and releases only this incident",
+      "Resolution retained every original journal byte and exact saved Markdown",
+      "Independent native Apply succeeds alongside retained incidents",
+      "SIGKILL during intent: torn attempt cannot unblock and fresh review remains possible",
+      "New uniquely named attempt after intent interruption persists",
+      "intent: original and interrupted evidence retained, no Markdown changed",
+      "SIGKILL during commit: torn attempt cannot unblock and fresh review remains possible",
+      "New uniquely named attempt after commit interruption persists",
+      "commit: original and interrupted evidence retained, no Markdown changed",
+      "SIGKILL after complete commit, before readback: decision recovered, no Markdown replay",
+      "acknowledgement: original and interrupted evidence retained, no Markdown changed",
+      "Later user text blocks resolution and Undo while showing the verified backup",
+      "Native recovery and resolution made no network requests"
+    ],
+    "undoBlockers": {
+      "status": "PASS",
+      "checks": [
+        "A real incident sharing only the Undo target, introduced after preview, refuses before undo_pending and Markdown",
+        "After restart the local target incident also blocks Undo review",
+        "Independent native Undo succeeds despite the local incident and cannot repeat",
+        "Committed resolution survives restart and permits the intact operation Undo; damaged operation and evidence remain unchanged",
+        "Global damage during undo_pending IO keeps the intent but prevents Markdown and undone marker",
+        "Unknown global scope blocks fresh Undo review after restart",
+        "No real LLM or network request in targeted Undo scenarios"
+      ]
+    },
+    "artifactSha256": "5dc2a22f9b5c88a63601904727ec38c4e29a978864dad5a415a99d96e44914f0",
+    "originals": {
+      "applied.json": "87df4d21dddeb1595d084353fce49fe70a3a0f732f5f141419cf564c39c6087a",
+      "backup.json": "ee550950d01dcca5b263fa08e4f2174735be3545eceb509230807fcd321d2d99",
+      "record.json": "03068f1196827b338330645cfc0cc169c8e51d23c230b4dee1527a3aaec28fe5"
+    },
+    "limits": "Actual Linux desktop and process SIGKILL with DataAdapter fault injection. No power-loss/fsync guarantee, mobile, independent concurrent vault processes, remote sync, screen reader or live LLM acceptance."
+  },
+  "version": {
+    "electron": "43.6.0"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS",
+  "artifacts": {
+    "main.js": "5dc2a22f9b5c88a63601904727ec38c4e29a978864dad5a415a99d96e44914f0",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "harnessSha256": {
+    "scripts/pair-inspector-native.mjs": "76aabc1e88a260ffa91a7f4ae592eca4f7eaf48d67951572c6213aa388b9d4f8",
+    "scripts/safe-apply-native.mjs": "72ae1f49b8628143817c2cd40151d99e5cea6ee53bb114aa414ba96cc8aea443"
+  }
+}
