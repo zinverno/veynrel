@@ -2585,3 +2585,12 @@
 .ai-planner-result { margin-top: 16px; }
 .ai-change-planner button { white-space: normal; height: auto; }
 .ai-change-planner > button { margin: 8px 8px 8px 0; }
+
+.ai-operation-history .ai-semantic-result-card,
+.ai-journal-resolution {
+  overflow-wrap: anywhere;
+}
+.ai-operation-history code,
+.ai-journal-resolution code {
+  white-space: pre-wrap;
+}

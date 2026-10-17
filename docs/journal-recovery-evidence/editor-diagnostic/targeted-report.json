@@ -1,0 +1,947 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "safeApplyEditor": {
+    "status": "PASS",
+    "checks": [
+      "Even a saved open editor blocks automatic write",
+      "Open native Markdown editor blocks automatic write",
+      "Native autosave invalidates the old plan before the editor guard, without executor writes"
+    ],
+    "cases": [
+      {
+        "mode": "clean",
+        "before": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+          "journal": {},
+          "entries": []
+        },
+        "observed": {
+          "error": {
+            "name": "SafeApplyError",
+            "reason": "editor",
+            "message": "editor"
+          },
+          "snapshots": [
+            {
+              "label": "before-open",
+              "time": 5066.79999999702,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": []
+            },
+            {
+              "label": "opened",
+              "time": 5125.5999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "buffer-set",
+              "time": 5125.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "check-start",
+              "time": 5127.5,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "check-sources",
+              "time": 5127.5,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "check-failed",
+              "time": 5132.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "refused",
+              "time": 5183.5999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233551749,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233551749,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n"
+                }
+              ]
+            }
+          ],
+          "events": [],
+          "process": 0,
+          "held": false,
+          "saved": false,
+          "cacheChanged": false,
+          "message": "Закройте исходную и целевую заметки во всех редакторах, включая отдельные окна. Несохранённый буфер или отложенное сохранение могут конфликтовать с записью; публичный API не предоставляет блокировку.",
+          "confirm": false
+        },
+        "after": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor clean scenario.\n",
+          "journal": {}
+        }
+      },
+      {
+        "mode": "dirty",
+        "before": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n",
+          "journal": {},
+          "entries": []
+        },
+        "observed": {
+          "error": {
+            "name": "SafeApplyError",
+            "reason": "editor",
+            "message": "editor"
+          },
+          "snapshots": [
+            {
+              "label": "before-open",
+              "time": 5482.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": []
+            },
+            {
+              "label": "opened",
+              "time": 5548.69999999553,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "buffer-set",
+              "time": 5550.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-start",
+              "time": 7568.5,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-sources",
+              "time": 7568.5999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-failed",
+              "time": 7573.0999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "refused",
+              "time": 7624.5999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 177
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 177,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233552233,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233552233,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "event": "native-save-request",
+              "time": 7551.39999999851,
+              "data": "UNSAVED USER BUFFER"
+            }
+          ],
+          "process": 0,
+          "held": true,
+          "saved": false,
+          "cacheChanged": false,
+          "message": "Закройте исходную и целевую заметки во всех редакторах, включая отдельные окна. Несохранённый буфер или отложенное сохранение могут конфликтовать с записью; публичный API не предоставляет блокировку.",
+          "confirm": false
+        },
+        "after": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor dirty scenario.\n",
+          "journal": {}
+        }
+      },
+      {
+        "mode": "autosaved",
+        "before": {
+          "markdown": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor autosaved scenario.\n",
+          "journal": {},
+          "entries": []
+        },
+        "observed": {
+          "error": {
+            "name": "ChangePlanError",
+            "reason": "source",
+            "message": "source"
+          },
+          "snapshots": [
+            {
+              "label": "before-open",
+              "time": 8015.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": []
+            },
+            {
+              "label": "opened",
+              "time": 8067.5999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor autosaved scenario.\n",
+                  "viewData": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings.\n\nA final observation stays here.\n\nEditor autosaved scenario.\n"
+                }
+              ]
+            },
+            {
+              "label": "buffer-set",
+              "time": 8068.5999999940395,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-start",
+              "time": 8069.89999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 181
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "autosaved",
+              "time": 10084.09999999404,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233557013,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-sources",
+              "time": 10084.29999999702,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233557013,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "check-failed",
+              "time": 10085.69999999553,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233557013,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            },
+            {
+              "label": "refused",
+              "time": 10137.39999999851,
+              "notes": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233557013,
+                    "size": 19
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 181,
+                  "sameFile": true,
+                  "cacheMatchesPlan": false
+                },
+                {
+                  "path": "Safe/Русский/Same.md",
+                  "stat": {
+                    "ctime": 1792233551749,
+                    "mtime": 1792233554669,
+                    "size": 52
+                  },
+                  "expectedModified": 1792233554669,
+                  "expectedBytes": 52,
+                  "sameFile": true,
+                  "cacheMatchesPlan": true
+                }
+              ],
+              "editors": [
+                {
+                  "path": "Safe/English/Same.md",
+                  "buffer": "UNSAVED USER BUFFER",
+                  "viewData": "UNSAVED USER BUFFER"
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "event": "native-save-request",
+              "time": 10069,
+              "data": "UNSAVED USER BUFFER"
+            },
+            {
+              "event": "native-save-complete",
+              "time": 10070.39999999851
+            }
+          ],
+          "process": 0,
+          "held": false,
+          "saved": true,
+          "cacheChanged": true,
+          "message": "Источники, диапазон, ссылки или настройки изменились либо недоступны. Требуется новый план и предпросмотр. Ничего автоматически не перезаписывается.",
+          "confirm": false
+        },
+        "after": {
+          "markdown": "UNSAVED USER BUFFER",
+          "journal": {}
+        }
+      }
+    ]
+  },
+  "version": {
+    "electron": "43.6.0"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS",
+  "artifacts": {
+    "main.js": "5dc2a22f9b5c88a63601904727ec38c4e29a978864dad5a415a99d96e44914f0",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "harnessSha256": {
+    "scripts/pair-inspector-native.mjs": "76aabc1e88a260ffa91a7f4ae592eca4f7eaf48d67951572c6213aa388b9d4f8",
+    "scripts/safe-apply-native.mjs": "72ae1f49b8628143817c2cd40151d99e5cea6ee53bb114aa414ba96cc8aea443"
+  }
+}

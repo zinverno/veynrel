@@ -1,0 +1,49 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "undoBlockers": {
+    "status": "PASS",
+    "checks": [
+      "A real incident sharing only the Undo target, introduced after preview, refuses before undo_pending and Markdown",
+      "After restart the local target incident also blocks Undo review",
+      "Independent native Undo succeeds despite the local incident and cannot repeat",
+      "Committed resolution survives restart and permits the intact operation Undo; damaged operation and evidence remain unchanged",
+      "Global damage during undo_pending IO keeps the intent but prevents Markdown and undone marker",
+      "Unknown global scope blocks fresh Undo review after restart",
+      "No real LLM or network request in targeted Undo scenarios"
+    ]
+  },
+  "version": {
+    "electron": "43.6.0"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS",
+  "artifacts": {
+    "main.js": "5dc2a22f9b5c88a63601904727ec38c4e29a978864dad5a415a99d96e44914f0",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  }
+}
