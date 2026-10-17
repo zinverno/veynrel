@@ -1,5 +1,9 @@
 # Safe Apply & Undo v1
 
+The separate [multi-file executor](multi-file-safe-apply-v1.md) now shares this
+service's execution lock and blockers. The version-1 journal and single-file
+protocol described here remain unchanged.
+
 A separate, local executor can apply one checked Change Planner edit and undo it
 later, including after an Obsidian restart. It supports only `add_link`,
 `replace_with_embed` and a no-operation `no_change`. There is no Companion connection,

@@ -2,12 +2,12 @@ import { t as tr } from "../i18n";
 import { paragraphRanges } from "./changePlan";
 import type { PlanRange } from "./changePlan";
 import type { ChangePlannerSession } from "./changePlannerSession";
-import type { MultiFileChoice } from "./multiFilePlan";
+import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { renderPlanDiff } from "./planDiffView";
 
-/** No executor/callback is accepted here. This surface can only build or discard a whole plan. */
+/** Planning stays read-only; optional review opens a separate write-consent surface. */
 export function renderMultiFilePlanner(root: HTMLElement, session: ChangePlannerSession, choice: MultiFileChoice,
-  select: (side: 0 | 1, range: PlanRange | null) => void, confirm: (side: 0 | 1, value: boolean) => void): void {
+  select: (side: 0 | 1, range: PlanRange | null) => void, confirm: (side: 0 | 1, value: boolean) => void, review?: (plan: MultiFilePlan) => void): void {
   const input = session.view.input;
   if (!input) return;
   root.createEl("p", { text: tr("@multi.warning") });
@@ -64,5 +64,9 @@ export function renderMultiFilePlanner(root: HTMLElement, session: ChangePlanner
     renderPlanDiff(card, file.before, file.after);
   }
   result.createEl("p", { text: tr("@multi.limits") });
+  if (review) {
+    const check = result.createEl("button", { text: tr("@multiSafe.review"), attr: { type: "button", "data-multi-action": "review" } });
+    check.addEventListener("click", () => review(plan));
+  }
   for (const limitation of plan.modelLimitations) result.createEl("p", { text: limitation });
 }

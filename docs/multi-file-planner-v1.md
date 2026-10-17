@@ -1,5 +1,9 @@
 # Multi-file Change Planner v1
 
+Follow-up: [Multi-file Safe Apply & Undo v1](multi-file-safe-apply-v1.md) now provides
+a separate final review, shared journal and checked execution. This document records
+the original read-only planning contract; building a plan still writes nothing.
+
 **Link both notes** / **Связать обе заметки** builds one local, in-memory plan for
 two reciprocal ordinary links. Both saved Markdown sources remain unchanged.
 There is no multi-file Apply control, executor, journal entry, background work,

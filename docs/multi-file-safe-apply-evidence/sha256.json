@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "main.js": "606def83f6754d0bbb21f77818ec4f6dc9e3f5ccba8f6a27f740d54229c74513",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "evidence": {
+    "concurrency-report.json": "a4dcd5c4c5e8e7ecfadd491f2f29f2329c293c53d362c1a3ff5a81bb92291c82",
+    "conflict-observation.json": "d359de55690376de09100bd0b694b0a2c6feaaa55635ed9468929c40fcbcd751",
+    "incomplete-focus.json": "d91197e65a426f00ec1ee8e72de0fe238a29542bb3d8f32a7b51902334a74910",
+    "incomplete-second-window.json": "208cf51988166d1fa95e0a7e3f0b3b64e3b248330eb00f284639ba26b1264668",
+    "initial-cache-observation.json": "a59a75605a3b9677080cf673cf2c22be27dab12fed7200e1d91d6fcf8ef6f0ea",
+    "legacy-report.json": "b17cf366c07860ea6c58090c137333eb9a7830ce7d2515c5cf12c2ab42655d74",
+    "multi-apply-en-theme-dark-1200.png": "036863379968474bc7d8342bd1bfb4ef38cc38585c41cbee8de4ba156920d372",
+    "multi-apply-en-theme-dark-390.png": "2a1d35b57f56865191502875f039f4d84e5c342c33bba7597d4d6fb753c22478",
+    "multi-apply-en-theme-light-1200.png": "c694d254f653ef12ac97f95546bd2a281284299d609573c75ec39c376e61e9b7",
+    "multi-apply-en-theme-light-390.png": "820cbbf41c3863a345481e0b09d92d1d50291d98fb844adcc88545f0b1940ed6",
+    "multi-apply-ru-theme-dark-1200.png": "1523e2d006aff317484c092fba33bcb8c1092b8a3ccaa03a4a11e39ab837d071",
+    "multi-apply-ru-theme-dark-390.png": "63857c52ff8c893c8847af64efe0e26522110ffdea94dccfed437a1bd96cb1e1",
+    "multi-apply-ru-theme-light-1200.png": "89a77478f361fa0de91acabe0fe74a8524951cb7d2ff76fe1d70edc2c2288f7d",
+    "multi-apply-ru-theme-light-390.png": "9ff4cd1b1b6708267e2999ed5040d363a0eb72dfdf0bbe8d09185bd6b91b0678",
+    "multi-recovery-after-a.png": "90da61cf95f04432976deef53c25a280f9ab496fe57d8cb1807656707f4af7f2",
+    "multi-recovery-after-b.png": "8619a28abd6bf9d2842ce4e444596113f6d924d34bd436733c6e0663a9f4c51d",
+    "multi-recovery-before-a.png": "bdeb4758bb35cb0b9fc53166d1e594471fa22ee3b04f22d74bfe3a1b4b24f168",
+    "multi-recovery-before-b.png": "54f740315b124000e20279a72636c679822b2c3e7b9d6fec42a66a0947834ce6",
+    "multi-recovery-both-backups.png": "826003fcad47b7e1d1aed18dbaf50a999c7bf23949f8b42b93a8a99e59aa0d8c",
+    "multi-recovery-compensate-a.png": "ef2e4abcac56a76f08c6ba0ccaa2160d314bc3fa5a7235cfa82583915209d9a0",
+    "multi-recovery-first-backup.png": "515c2dba98cb836c1e93d54c329ce9193d7896e25d00fa8fbea90fa7bd843198",
+    "multi-recovery-torn-success.png": "7d45c893ca77f34c45068bb8c2ea3d46ea4ec9056cd0fda95a0b62bcfcd8d973",
+    "multi-recovery-undo-b.png": "efc4755505e9f9050caab177e64e7d0746b5f9cf15b6da283d89b3316aca95a2",
+    "multi-user-conflict.png": "723f36d0e10327af92dbd49b46800dba796f2a8cd71820efc36bf4827601ec55",
+    "protocol-report.json": "180156905c3c8920d0b18b7ebff7f2668f5f51e923d6984f33ba3353933ffcce"
+  }
+}

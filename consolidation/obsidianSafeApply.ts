@@ -7,6 +7,8 @@ import { buildChangePlan } from "./changePlan";
 import { OperationJournal, requireSafe } from "./operationJournal";
 import { SafeApplyService } from "./safeApply";
 import type { SafeApplyPort } from "./safeApply";
+import { MultiFileJournal } from "./multiFileJournal";
+import { obsidianMultiFilePort } from "./obsidianMultiFileApply";
 
 /** Only public APIs. No locks exist for pending editor saves: v1 requires affected views to be closed. */
 export function guardSavedEditors(app: App, notes: readonly SavedNote[]): void {
@@ -55,5 +57,8 @@ export function obsidianSafeApplyPort(app: App): SafeApplyPort {
   };
 }
 export function createSafeApplyService(app: App, pluginId: string): SafeApplyService {
-  return new SafeApplyService(new OperationJournal(app.vault.adapter, app.vault.configDir, pluginId), obsidianSafeApplyPort(app));
+  const port = obsidianSafeApplyPort(app);
+  return new SafeApplyService(new OperationJournal(app.vault.adapter, app.vault.configDir, pluginId), port, {
+    journal: new MultiFileJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMultiFilePort(app, port),
+  });
 }
