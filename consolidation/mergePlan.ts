@@ -20,7 +20,7 @@ export interface MergeChoice {
 }
 export interface MergeHint { id: string; kind: RelationshipClaim["kind"]; text: string; side: 0 | 1; range: PlanRange }
 export interface MergeIdentity { created: number; modified: number; bytes: number; contentHash: string }
-/** A separate serializable read-only contract. Neither Safe Apply executor accepts this operation. */
+/** Separate serializable copy plan; only Merge Apply can execute it after a fresh consent check. */
 export interface MergePlan {
   version: 1; operation: "merge_knowledge";
   canonical: { path: string; identity: MergeIdentity; before: string; after: string };
@@ -32,7 +32,7 @@ export interface MergePlan {
   dependencies: readonly { path: string; metadata: PlanNote["cache"]; outgoing: PlanReference[]; incoming: InspectorList | null }[];
   provenance: { origin: "relationship_analyzer"; provider: string; model: string; relation: RelationshipResult["relation"];
     recommendation: RelationshipResult["recommendation"]; userCanonical: 0 | 1 };
-  limitations: readonly ["secondary_unchanged", "metadata_may_lag", "incoming_kinds_unknown", "dependencies_not_scanned", "context_review_not_proof", "merge_executor_unavailable"];
+  limitations: readonly ["secondary_unchanged", "metadata_may_lag", "incoming_kinds_unknown", "dependencies_not_scanned", "context_review_not_proof", "requires_separate_apply_review"];
   modelLimitations: string[];
 }
 const copy = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
@@ -108,6 +108,6 @@ export function buildMergePlan(analysis: RelationshipAnalysis, pair: PlanPair, c
     retained, hints: copy(hints), dependencies: pair.map((n, i) => ({ path: n.path, metadata: copy(n.cache), outgoing: copy(n.references), incoming: copy(incoming[i]) })),
     provenance: { origin: "relationship_analyzer", provider: analysis.provider, model: analysis.model, relation: result.relation,
       recommendation: copy(result.recommendation), userCanonical: choice.canonical },
-    limitations: ["secondary_unchanged", "metadata_may_lag", "incoming_kinds_unknown", "dependencies_not_scanned", "context_review_not_proof", "merge_executor_unavailable"],
+    limitations: ["secondary_unchanged", "metadata_may_lag", "incoming_kinds_unknown", "dependencies_not_scanned", "context_review_not_proof", "requires_separate_apply_review"],
     modelLimitations: [...result.limitations] };
 }

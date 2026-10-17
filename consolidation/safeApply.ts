@@ -7,6 +7,9 @@ import type { JournalEntry, OperationRecord, OperationState, ResolutionRecord } 
 import { MultiFileApply } from "./multiFileApply";
 import type { MultiFilePort } from "./multiFileApply";
 import type { MultiFileJournal } from "./multiFileJournal";
+import { MergeApply } from "./mergeApply";
+import type { MergePort } from "./mergeApply";
+import type { MergeJournal } from "./mergeJournal";
 
 export interface SafeApplyPort {
   check(plan: ChangePlan, analysis: RelationshipAnalysis): Promise<() => void>;
@@ -26,25 +29,31 @@ interface Ticket { record: OperationRecord; plan?: ChangePlan; analysis?: Relati
 /** One plugin-wide owner. No work at construction; no retries and no automatic Markdown recovery. */
 export class SafeApplyService {
   readonly multi?: MultiFileApply;
+  readonly merge?: MergeApply;
   private busy = false;
   private closed = false;
   private readonly tickets = new Map<ApplyReview, Ticket>();
   private readonly resolutions = new Map<ResolutionReview, { entry: JournalEntry; source: SavedNote; current: () => boolean }>();
   constructor(private readonly journal: OperationJournal, private readonly port: SafeApplyPort,
-    multi?: { journal: MultiFileJournal; port: MultiFilePort }) {
+    multi?: { journal: MultiFileJournal; port: MultiFilePort }, merge?: { journal: MergeJournal; port: MergePort }) {
     if (multi) this.multi = new MultiFileApply(multi.journal, port, multi.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
       blockers: (paths, ownId) => this.checkBlockers(paths, ownId),
     });
+    if (merge) this.merge = new MergeApply(merge.journal, port, merge.port, {
+      exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
+      blockers: (paths, ownId) => this.checkBlockers(paths, undefined, ownId),
+    });
   }
-  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); }
+  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); }
   discard(review: ApplyReview): void { this.tickets.delete(review); }
   discardResolution(review: ResolutionReview): void { this.resolutions.delete(review); }
-  private async checkBlockers(paths: readonly string[], ownMultiId?: string): Promise<void> {
+  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string): Promise<void> {
     const blocked = (await this.journal.entries()).some(entry => !entry.resolution && entry.damaged &&
       (entry.scope === "global" || !entry.record || paths.includes(entry.record.sourcePath) || paths.includes(entry.record.targetPath)));
     requireSafe(!blocked, "storage");
     await this.multi?.blockers(paths, ownMultiId);
+    await this.merge?.blockers(paths, ownMergeId);
   }
   private async exclusive<T>(work: () => Promise<T>): Promise<T> {
     requireSafe(!this.closed, "cancelled"); requireSafe(!this.busy, "busy"); this.busy = true;

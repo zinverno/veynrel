@@ -3,8 +3,9 @@
 **Merge knowledge / Объединить знания** builds a local, read-only preview that
 copies explicitly selected whole paragraphs into a user-chosen canonical note.
 The complete secondary source stays unchanged, including the copied paragraphs.
-There is no Merge Apply button, write, archive, deletion, journal or new model call.
-Neither existing Safe Apply executor accepts `merge_knowledge`.
+Planning itself performs no write, journal mutation or new model call. The checked
+result now offers a separate [Merge Apply review](merge-apply-v1.md). Neither link
+executor accepts `merge_knowledge`; archiving and deletion remain unavailable.
 
 ## Open and review
 
@@ -78,12 +79,13 @@ from either source to make a merge appear complete.
 - Exact quote hints and their claim IDs, plus provider/model/recommendation
   provenance, the user's canonical choice and model/local limitations.
 - Snapshots of native structural metadata, outgoing resolved/unresolved references
-  and the bounded cached incoming paths for both notes.
+  and all available cached incoming paths for both notes.
 
 `stableHash` is only the existing diagnostic fingerprint, not cryptographic evidence
 or write authorization. Full content is also compared. `TFile` references are used
 only for runtime identity checks, never stored in the returned plan. There is no
-new persistent index, settings structure, LLM transport or journal format.
+new persistent index, settings structure or LLM transport in the planner. Merge
+Apply has its own strictly validated recovery journal.
 
 `buildMergePlan` is deterministic and has no IO. `ChangePlannerSession.buildMerge`
 reuses the existing pair reader and freshness comparisons: it rereads both complete
@@ -108,7 +110,8 @@ mean “absent from canonical” or “safe to discard.” The complete secondar
 including attribution and all original links/embeds, remains available unchanged.
 
 Outgoing references reuse the public Obsidian resolver. Incoming paths reuse Pair
-Inspector's `resolvedLinks` summary (up to 100 displayed paths plus cached total).
+Inspector's `resolvedLinks` reader, requesting all available incoming paths for
+MergePlan checks. The ordinary inspector still displays at most 100 paths.
 This aggregate cannot distinguish incoming links from embeds or certify completeness.
 No third-party note bodies are read; missing metadata is shown as unknown. Cache may
 lag and has no public content-revision receipt: comparing stable snapshots cannot
@@ -116,22 +119,21 @@ prove that already stale cache data is current. External references and semantic
 dependencies remain unknown. The UI therefore explicitly prohibits treating the
 preview as permission to archive or delete the secondary note.
 
-## Future Merge Apply & Archive
+## Merge Apply and the separate archive boundary
 
-A dedicated executor and separate final confirmation must first revalidate all
-sources, selected text, identities, open editor conflicts and complete relevant
-dependencies. It must define handling of headings, attribution, links, embeds,
-backlinks and external consumers, and a user-reviewed account of preserved versus
-remaining knowledge. Archive identity/path collisions and the effect on links need
-their own explicit decisions. Unknown dependencies cannot silently become zero.
+The [copy-only Merge Apply executor](merge-apply-v1.md) revalidates sources,
+selected text, identities, editor conflicts and available dependencies before
+separate consent and before writing canonical. It has its own operation schema,
+the shared execution lock, two verified recovery copies, conditional writes and
+explicit Undo. See its [native acceptance report](merge-apply-native.md).
 
 The `add_reciprocal_links` executor cannot execute this contract. Applying a copied
 paragraph and then independently archiving a source is not a recoverable logical
-merge. Future execution needs its own validated operation schema, shared exclusion,
-backups before any write, conditional writes, recovery and undo preserving later
-user edits. No filesystem atomicity or physical `fsync` guarantee is implied.
+merge. Archive identity/path collisions, backlinks and external consumers need
+their own explicit decisions. Unknown dependencies cannot silently become zero.
+No filesystem atomicity or physical `fsync` guarantee is implied.
 
-Merge application, archival/deletion, contradiction resolution, rewriting, atomization,
-tags and bulk backlink changes are outside this PR. Existing analyzer input bounds
+Archival/deletion, contradiction resolution, rewriting, atomization, tags and bulk
+backlink changes remain outside this workflow. Existing analyzer input bounds
 still apply (20,000 UTF-16 units per note, 32,000 per pair); this is not a partial
 analysis of larger notes. See [native evidence and automated checks](merge-planner-native.md).

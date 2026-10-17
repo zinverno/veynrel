@@ -23,17 +23,17 @@ export interface PairNoteSnapshot {
   incoming?: InspectorList;
 }
 
-function list(values: string[]): InspectorList {
-  return { items: values.slice(0, PAIR_LIST_LIMIT), total: values.length };
+function list(values: string[], limit = PAIR_LIST_LIMIT): InspectorList {
+  return { items: values.slice(0, limit), total: values.length };
 }
 
 /** Cached incoming paths only; link/embed kind and completeness are not certified by resolvedLinks. */
-export function readCachedIncoming(app: App, path: string): InspectorList | undefined {
+export function readCachedIncoming(app: App, path: string, limit = PAIR_LIST_LIMIT): InspectorList | undefined {
   try {
     const resolved = app.metadataCache?.resolvedLinks;
     if (resolved) return list(Object.keys(resolved).filter(source =>
       isCanonicalMarkdownPath(source) && Object.prototype.hasOwnProperty.call(resolved[source], path) &&
-      resolved[source][path] > 0 && app.vault.getFileByPath(source)?.path === source));
+      resolved[source][path] > 0 && app.vault.getFileByPath(source)?.path === source), limit);
   } catch { /* Missing backlink data is unknown, never a confirmed zero. */ }
   return undefined;
 }

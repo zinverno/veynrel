@@ -8,7 +8,7 @@ import type { ChangePlannerSession } from "./changePlannerSession";
 import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { renderMultiFilePlanner } from "./multiFilePlannerView";
 import { renderMergePlanner } from "./mergePlannerView";
-import type { MergeChoice } from "./mergePlan";
+import type { MergeChoice, MergePlan } from "./mergePlan";
 
 const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical: null, transfers: [], insertion: null, insertionConfirmed: false });
 
@@ -23,7 +23,7 @@ export class ChangePlannerView {
   private mergeChoice = emptyMerge();
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
-    private readonly reviewMulti?: (plan: MultiFilePlan) => void) {
+    private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void) {
     session.onChange = () => {
       const field = container.ownerDocument?.activeElement?.getAttribute("data-planner-field");
       this.render();
@@ -69,7 +69,7 @@ export class ChangePlannerView {
     operation.addEventListener("change", () => { this.operation = operation.value as typeof this.operation; this.selection = null; this.changed(); });
     if (this.operation) root.createEl("p", { text: tr(`@planner.op.${this.operation}`) });
     if (this.operation === "merge_knowledge") {
-      renderMergePlanner(root, this.session, this.analysis, this.mergeChoice, choice => { this.mergeChoice = choice; this.session.changeSelection(); });
+      renderMergePlanner(root, this.session, this.analysis, this.mergeChoice, choice => { this.mergeChoice = choice; this.session.changeSelection(); }, this.reviewMerge);
       return;
     }
     if (this.operation === "add_reciprocal_links") {
