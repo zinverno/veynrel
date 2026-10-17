@@ -10,6 +10,7 @@ import { ChangePlannerSession, readPlannerPair } from "./changePlannerSession";
 import type { SafeApplyService } from "./safeApply";
 import { SafeApplyModal, OperationHistoryModal } from "./safeApplyModal";
 import { ChangePlannerView } from "./changePlannerView";
+import { MultiFileApplyModal } from "./multiFileApplyModal";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairInspectorModal extends Modal {
@@ -61,6 +62,10 @@ export class PairInspectorModal extends Modal {
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                   new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
                     () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source)).open();
+                } : undefined, this.safeApply?.multi ? plan => {
+                  new MultiFileApplyModal(this.app, this.safeApply!.multi!, current => this.safeApply!.multi!.review(plan, source,
+                    () => current() && this.openState && planner.view.multiPlan === plan && this.relationship?.analysisSource === source),
+                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
                 } : undefined);
                 void this.planner.prepare();
               });

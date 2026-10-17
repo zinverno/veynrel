@@ -3,6 +3,7 @@ import { dateLocale, t as tr } from "../i18n";
 import { SafeApplyError } from "./operationJournal";
 import type { ApplyReview, SafeApplyService, OperationHistory, ResolutionReview } from "./safeApply";
 import { renderPlanDiff } from "./planDiffView";
+import { MultiFileApplyModal, renderMultiHistory } from "./multiFileApplyModal";
 
 function button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
   const el = parent.createEl("button", { text: tr(`@safeApply.${key}`), attr: { type: "button", "data-safe-action": key } });
@@ -148,10 +149,14 @@ export class OperationHistoryModal extends Modal {
     this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.checking"), attr: { role: "status" } });
     try {
       const rows = await this.service.history();
+      const multi = await this.service.multi?.history() ?? [];
       if (!this.active || this.generation !== generation) return;
       this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.historyScope") });
       button(this.contentEl, "refresh", () => { void this.refresh(); });
-      if (!rows.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
+      if (!rows.length && !multi.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
+      for (const row of multi) renderMultiHistory(this.contentEl, row, () => new MultiFileApplyModal(this.app, this.service.multi!,
+        current => this.service.multi!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
+        () => { if (this.active) void this.refresh(); }).open());
       for (const row of rows) this.row(row);
     } catch (error) {
       if (this.active && this.generation === generation) {

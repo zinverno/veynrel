@@ -1,0 +1,76 @@
+{
+  "trace": [
+    {
+      "reason": "conflict",
+      "error": "Error: conflict",
+      "next": 1,
+      "expected": [
+        "after",
+        "before"
+      ],
+      "atFailure": [
+        {
+          "sameFile": true,
+          "created": 1792241691111,
+          "expectedCreated": 1792241691111,
+          "cache": false,
+          "resolved": true
+        },
+        {
+          "sameFile": true,
+          "created": 1792241691121,
+          "expectedCreated": 1792241691121,
+          "cache": true,
+          "resolved": true
+        }
+      ],
+      "pinned": [
+        {
+          "path": "Multi/success-en/A/Same note.md",
+          "modified": 1792241693588,
+          "bytes": 187,
+          "stat": {
+            "ctime": 1792241691111,
+            "mtime": 1792241693588,
+            "size": 187
+          }
+        },
+        {
+          "path": "Multi/success-en/Б/Same note.md",
+          "modified": 1792241691121,
+          "bytes": 52,
+          "stat": {
+            "ctime": 1792241691121,
+            "mtime": 1792241691121,
+            "size": 52
+          }
+        }
+      ],
+      "saved": [
+        {
+          "path": "Multi/success-en/A/Same note.md",
+          "text": "Cache entries expire after the configured lifetime.\n\nIn our classroom experiment, students compare two expiry settings. [[Multi/success-en/Б/Same note]]\n\nA final observation stays here.\n",
+          "stat": {
+            "ctime": 1792241691111,
+            "mtime": 1792241693588,
+            "size": 187
+          }
+        },
+        {
+          "path": "Multi/success-en/Б/Same note.md",
+          "text": "Cache entries expire after the configured lifetime.\n",
+          "stat": {
+            "ctime": 1792241691121,
+            "mtime": 1792241691121,
+            "size": 52
+          }
+        }
+      ],
+      "cache": [
+        false,
+        true
+      ]
+    }
+  ],
+  "ui": "The file does not match the confirmed state. Automatic overwrite is blocked. Check history and the saved copy.The operation may be partially complete. History compares both saved files with the backups; no automatic retry will write a note.Operation history"
+}

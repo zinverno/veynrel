@@ -1,0 +1,48 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "multiApply": {
+    "status": "PASS",
+    "checks": [
+      "Single-file Apply shares the in-flight multi-file lock",
+      "Second simultaneous consent window cannot dispatch another operation",
+      "Concurrent confirmations produce one shared journal entry",
+      "Later B edit blocks compensation; both originals remain available",
+      "Open native Markdown editor refuses final review before journal or writes",
+      "Legacy v1 and shared v2 operations coexist in one history",
+      "Both corrupt shared backups retain a visible global conflict",
+      "Unknown shared scope blocks both executor families without new Markdown",
+      "No provider request in shared apply/recovery/undo"
+    ],
+    "artifactSha256": "606def83f6754d0bbb21f77818ec4f6dc9e3f5ccba8f6a27f740d54229c74513",
+    "limits": "Synthetic Linux desktop, owned process SIGKILL, native Vault.process and DataAdapter. No physical power loss, independent process, mobile hardware or live provider coverage."
+  },
+  "version": {
+    "electron": "43.6.0"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS"
+}

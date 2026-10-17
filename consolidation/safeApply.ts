@@ -4,6 +4,9 @@ import type { ChangePlan } from "./changePlan";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import { OperationJournal, SafeApplyError, requireSafe, checksum } from "./operationJournal";
 import type { JournalEntry, OperationRecord, OperationState, ResolutionRecord } from "./operationJournal";
+import { MultiFileApply } from "./multiFileApply";
+import type { MultiFilePort } from "./multiFileApply";
+import type { MultiFileJournal } from "./multiFileJournal";
 
 export interface SafeApplyPort {
   check(plan: ChangePlan, analysis: RelationshipAnalysis): Promise<() => void>;
@@ -22,18 +25,26 @@ interface Ticket { record: OperationRecord; plan?: ChangePlan; analysis?: Relati
 
 /** One plugin-wide owner. No work at construction; no retries and no automatic Markdown recovery. */
 export class SafeApplyService {
+  readonly multi?: MultiFileApply;
   private busy = false;
   private closed = false;
   private readonly tickets = new Map<ApplyReview, Ticket>();
   private readonly resolutions = new Map<ResolutionReview, { entry: JournalEntry; source: SavedNote; current: () => boolean }>();
-  constructor(private readonly journal: OperationJournal, private readonly port: SafeApplyPort) {}
-  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); }
+  constructor(private readonly journal: OperationJournal, private readonly port: SafeApplyPort,
+    multi?: { journal: MultiFileJournal; port: MultiFilePort }) {
+    if (multi) this.multi = new MultiFileApply(multi.journal, port, multi.port, {
+      exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
+      blockers: (paths, ownId) => this.checkBlockers(paths, ownId),
+    });
+  }
+  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); }
   discard(review: ApplyReview): void { this.tickets.delete(review); }
   discardResolution(review: ResolutionReview): void { this.resolutions.delete(review); }
-  private async checkBlockers(paths: readonly string[]): Promise<void> {
+  private async checkBlockers(paths: readonly string[], ownMultiId?: string): Promise<void> {
     const blocked = (await this.journal.entries()).some(entry => !entry.resolution && entry.damaged &&
       (entry.scope === "global" || !entry.record || paths.includes(entry.record.sourcePath) || paths.includes(entry.record.targetPath)));
     requireSafe(!blocked, "storage");
+    await this.multi?.blockers(paths, ownMultiId);
   }
   private async exclusive<T>(work: () => Promise<T>): Promise<T> {
     requireSafe(!this.closed, "cancelled"); requireSafe(!this.busy, "busy"); this.busy = true;

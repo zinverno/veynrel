@@ -5,7 +5,7 @@ import { paragraphRanges, permittedEmbed } from "./changePlan";
 import type { PlanOperation, PlanRange } from "./changePlan";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import type { ChangePlannerSession } from "./changePlannerSession";
-import type { MultiFileChoice } from "./multiFilePlan";
+import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { renderMultiFilePlanner } from "./multiFilePlannerView";
 
 /** Text-only controls and preview; no Markdown renderer or application protocol. */
@@ -17,7 +17,8 @@ export class ChangePlannerView {
   private multiSelections: [PlanRange | null, PlanRange | null] = [null, null];
   private multiConfirmed: [boolean, boolean] = [false, false];
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
-    private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void) {
+    private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
+    private readonly reviewMulti?: (plan: MultiFilePlan) => void) {
     session.onChange = () => {
       const field = container.ownerDocument?.activeElement?.getAttribute("data-planner-field");
       this.render();
@@ -66,7 +67,7 @@ export class ChangePlannerView {
       const choice: MultiFileChoice = { operation: this.operation, selections: this.multiSelections, confirmed: this.multiConfirmed };
       renderMultiFilePlanner(root, this.session, choice, (side, range) => {
         this.multiSelections[side] = range; this.multiConfirmed = [false, false]; this.session.changeSelection();
-      }, (side, confirmed) => { this.multiConfirmed[side] = confirmed; this.session.changeSelection(); });
+      }, (side, confirmed) => { this.multiConfirmed[side] = confirmed; this.session.changeSelection(); }, this.reviewMulti);
       return;
     }
     const note = view.input.pair[this.side], target = view.input.pair[this.side === 0 ? 1 : 0];
