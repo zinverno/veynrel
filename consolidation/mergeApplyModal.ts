@@ -82,6 +82,7 @@ export function renderMergeHistory(root: HTMLElement, row: MergeHistory, review:
   if (row.damaged) card.createEl("p", { text: tr("@safeApply.damaged") });
   if (row.state === "conflict" || row.damaged) card.createEl("p", { text: tr("@journal.manual") });
   if (row.editorBlocked) card.createEl("p", { text: tr("@safeApply.error.editor") });
+  if (row.archiveReason) card.createEl("p", { text: tr(`@safeApply.error.${row.archiveReason}`) });
   if (row.blocking) card.createEl("p", { text: tr(row.scope === "global" || !row.record ? "@journal.scope.global" : "@journal.scope.local") });
   for (const issue of row.issues) card.createEl("p", { text: issue, cls: "ai-pair-path" });
   if (row.record) {

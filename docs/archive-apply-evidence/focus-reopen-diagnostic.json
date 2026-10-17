@@ -1,0 +1,100 @@
+{
+  "startup": {
+    "active": true,
+    "closed": false,
+    "focus": true,
+    "title": "vault - Obsidian 1.13.7"
+  },
+  "attempts": [
+    {
+      "before": {
+        "active": true,
+        "closed": false,
+        "focus": true,
+        "title": "Veynrel Health - vault - Obsidian 1.13.7"
+      }
+    },
+    {
+      "before": {
+        "active": false,
+        "closed": true,
+        "focus": true,
+        "title": "Settings - vault - Obsidian 1.13.7"
+      },
+      "remote": [
+        "getBuiltin",
+        "getCurrentWindow",
+        "getCurrentWebContents",
+        "getGlobal",
+        "createFunctionWithReturnValue",
+        "require",
+        "process",
+        "app",
+        "autoUpdater",
+        "BaseWindow",
+        "BrowserView",
+        "BrowserWindow",
+        "contentTracing",
+        "crashReporter",
+        "dialog",
+        "globalShortcut",
+        "ipcMain",
+        "inAppPurchase",
+        "Menu",
+        "MenuItem",
+        "nativeTheme",
+        "net",
+        "netLog",
+        "MessageChannelMain",
+        "Notification",
+        "powerMonitor",
+        "powerSaveBlocker",
+        "protocol",
+        "pushNotifications",
+        "safeStorage",
+        "screen",
+        "session",
+        "ServiceWorkerMain",
+        "ShareMenu",
+        "systemPreferences",
+        "TopLevelWindow",
+        "TouchBar",
+        "Tray",
+        "utilityProcess",
+        "View",
+        "webContents",
+        "WebContentsView",
+        "webFrameMain",
+        "clipboard",
+        "nativeImage",
+        "shell",
+        "desktopCapturer",
+        "ImageView"
+      ],
+      "electron": [
+        "nativeImage",
+        "shell",
+        "clipboard",
+        "contextBridge",
+        "crashReporter",
+        "ipcRenderer",
+        "sharedTexture",
+        "webFrame",
+        "webUtils",
+        "remote"
+      ],
+      "reopen": {
+        "active": false,
+        "closed": false,
+        "focus": false,
+        "title": "Settings - vault - Obsidian 1.13.7"
+      },
+      "reclosed": {
+        "active": true,
+        "closed": false,
+        "focus": true,
+        "title": "Veynrel Health - vault - Obsidian 1.13.7"
+      }
+    }
+  ]
+}

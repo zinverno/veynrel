@@ -31,7 +31,7 @@ function validRecord(condition: unknown, code: "invalid_record" | "integrity" = 
   if (!condition) throw new JournalValidationError(code);
 }
 export class SafeApplyError extends Error {
-  constructor(readonly reason: "stale" | "editor" | "storage" | "conflict" | "busy" | "used" | "cancelled" | "write") { super(reason); }
+  constructor(readonly reason: "stale" | "editor" | "storage" | "conflict" | "busy" | "used" | "cancelled" | "write" | "archive_active" | "archive_chain" | "archive_parent") { super(reason); }
 }
 export function requireSafe(condition: unknown, reason: SafeApplyError["reason"]): asserts condition {
   if (!condition) throw new SafeApplyError(reason);

@@ -6,10 +6,16 @@ import { OperationJournal, SafeApplyError, requireSafe, checksum } from "./opera
 import type { JournalEntry, OperationRecord, OperationState, ResolutionRecord } from "./operationJournal";
 import { MultiFileApply } from "./multiFileApply";
 import type { MultiFilePort } from "./multiFileApply";
-import type { MultiFileJournal } from "./multiFileJournal";
+import type { MultiFileJournal, MultiEntry } from "./multiFileJournal";
 import { MergeApply } from "./mergeApply";
 import type { MergePort } from "./mergeApply";
-import type { MergeJournal } from "./mergeJournal";
+import type { MergeJournal, MergeEntry } from "./mergeJournal";
+import { ArchiveApply } from "./archiveApply";
+import type { ArchivePort } from "./archiveApply";
+import type { ArchiveJournal, ArchiveEntry } from "./archiveJournal";
+
+/** Call-local history evidence only. Consent and execution always reread the journals. */
+export interface JournalSnapshot { single: JournalEntry[]; multi: MultiEntry[]; merge: MergeEntry[]; archive: ArchiveEntry[] }
 
 export interface SafeApplyPort {
   check(plan: ChangePlan, analysis: RelationshipAnalysis): Promise<() => void>;
@@ -30,30 +36,44 @@ interface Ticket { record: OperationRecord; plan?: ChangePlan; analysis?: Relati
 export class SafeApplyService {
   readonly multi?: MultiFileApply;
   readonly merge?: MergeApply;
+  readonly archive?: ArchiveApply;
   private busy = false;
   private closed = false;
   private readonly tickets = new Map<ApplyReview, Ticket>();
   private readonly resolutions = new Map<ResolutionReview, { entry: JournalEntry; source: SavedNote; current: () => boolean }>();
+  private readonly historyJournals: () => Promise<JournalSnapshot>;
   constructor(private readonly journal: OperationJournal, private readonly port: SafeApplyPort,
-    multi?: { journal: MultiFileJournal; port: MultiFilePort }, merge?: { journal: MergeJournal; port: MergePort }) {
+    multi?: { journal: MultiFileJournal; port: MultiFilePort }, merge?: { journal: MergeJournal; port: MergePort },
+    archive?: { journal: ArchiveJournal; port: ArchivePort }) {
+    this.historyJournals = async () => {
+      const [single, multiEntries, mergeEntries, archiveEntries] = await Promise.all([
+        journal.entries(), multi?.journal.entries() ?? [], merge?.journal.entries() ?? [], archive?.journal.entries() ?? [],
+      ]);
+      return { single, multi: multiEntries, merge: mergeEntries, archive: archiveEntries };
+    };
     if (multi) this.multi = new MultiFileApply(multi.journal, port, multi.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
       blockers: (paths, ownId) => this.checkBlockers(paths, ownId),
     });
     if (merge) this.merge = new MergeApply(merge.journal, port, merge.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
-      blockers: (paths, ownId) => this.checkBlockers(paths, undefined, ownId),
+      blockers: (paths, ownId, snapshot) => this.checkBlockers(paths, undefined, ownId, undefined, snapshot), history: () => this.historyJournals(),
+    }, (record, snapshot) => this.archive?.restoration(record, snapshot) ?? Promise.resolve(undefined));
+    if (archive && merge) this.archive = new ArchiveApply(archive.journal, merge.journal, port, archive.port, {
+      exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
+      blockers: (paths, ownId, snapshot) => this.checkBlockers(paths, undefined, undefined, ownId, snapshot), history: () => this.historyJournals(),
     });
   }
-  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); }
+  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); this.archive?.dispose(); }
   discard(review: ApplyReview): void { this.tickets.delete(review); }
   discardResolution(review: ResolutionReview): void { this.resolutions.delete(review); }
-  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string): Promise<void> {
-    const blocked = (await this.journal.entries()).some(entry => !entry.resolution && entry.damaged &&
+  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string, ownArchiveId?: string, snapshot?: JournalSnapshot): Promise<void> {
+    const blocked = (snapshot?.single ?? await this.journal.entries()).some(entry => !entry.resolution && entry.damaged &&
       (entry.scope === "global" || !entry.record || paths.includes(entry.record.sourcePath) || paths.includes(entry.record.targetPath)));
     requireSafe(!blocked, "storage");
-    await this.multi?.blockers(paths, ownMultiId);
-    await this.merge?.blockers(paths, ownMergeId);
+    await this.multi?.blockers(paths, ownMultiId, snapshot);
+    await this.merge?.blockers(paths, ownMergeId, snapshot);
+    await this.archive?.blockers(paths, ownArchiveId, snapshot);
   }
   private async exclusive<T>(work: () => Promise<T>): Promise<T> {
     requireSafe(!this.closed, "cancelled"); requireSafe(!this.busy, "busy"); this.busy = true;
@@ -149,6 +169,7 @@ export class SafeApplyService {
       this.active(current);
       const entry = (await this.journal.entries()).find(item => item.id === id); requireSafe(entry, "conflict");
       const row = await this.inspect(entry); requireSafe(row.canResolve && row.record, "conflict");
+      await this.archive?.blockers([row.record.sourcePath, row.record.targetPath]);
       const source = await this.port.read(row.record.sourcePath);
       requireSafe(source && source.file.stat.ctime === row.record.sourceCreated &&
         source.content === (row.sourceState === "before" ? row.record.before : row.record.after), "conflict");
@@ -171,6 +192,7 @@ export class SafeApplyService {
         const saved = await this.port.read(record.sourcePath);
         requireSafe(saved && saved.file.stat.ctime === record.sourceCreated && sameSavedNote(saved, source), "conflict");
         this.port.guard(saved); this.active(current);
+        await this.archive?.blockers([record.sourcePath, record.targetPath]);
       };
       await recheck();
       const receipt: ResolutionRecord = {

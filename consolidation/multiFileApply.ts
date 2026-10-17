@@ -6,7 +6,7 @@ import type { PlannerRead } from "./changePlannerSession";
 import { requireSafe, SafeApplyError } from "./operationJournal";
 import { MultiFileJournal, multiRecord } from "./multiFileJournal";
 import type { MultiEntry, MultiRecord } from "./multiFileJournal";
-import type { SafeApplyPort } from "./safeApply";
+import type { SafeApplyPort, JournalSnapshot } from "./safeApply";
 
 export type ParticipantState = "before" | "after" | "different" | "missing" | "identity";
 export type MultiState = "prepared" | "partial" | "applied" | "undo_partial" | "undone" | "conflict";
@@ -22,7 +22,8 @@ export interface MultiFilePort {
 export interface MultiOwner {
   exclusive<T>(work: () => Promise<T>): Promise<T>;
   active(current?: () => boolean): void;
-  blockers(paths: readonly string[], ownId?: string): Promise<void>;
+  blockers(paths: readonly string[], ownId?: string, snapshot?: JournalSnapshot): Promise<void>;
+  history?(): Promise<JournalSnapshot>;
 }
 interface Ticket { record: MultiRecord; action: MultiAction; current: () => boolean; notes: readonly SavedNote[]; plan?: MultiFilePlan; analysis?: RelationshipAnalysis; baseline?: PlannerRead }
 
@@ -68,8 +69,8 @@ export class MultiFileApply {
     row.blocking = !terminal && ["conflict", "partial", "undo_partial", "prepared"].includes(row.state);
     return row;
   }
-  async blockers(paths: readonly string[], ownId?: string): Promise<void> {
-    for (const entry of await this.journal.entries()) {
+  async blockers(paths: readonly string[], ownId?: string, snapshot?: JournalSnapshot): Promise<void> {
+    for (const entry of snapshot?.multi ?? await this.journal.entries()) {
       if (entry.id === ownId && entry.record && !entry.damaged) continue;
       requireSafe(entry.scope !== "global", "storage");
       if (entry.record && !entry.record.files.some(f => paths.includes(f.path))) continue;

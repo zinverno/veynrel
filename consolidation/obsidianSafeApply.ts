@@ -11,6 +11,8 @@ import { MultiFileJournal } from "./multiFileJournal";
 import { obsidianMultiFilePort } from "./obsidianMultiFileApply";
 import { MergeJournal } from "./mergeJournal";
 import { obsidianMergePort } from "./obsidianMergeApply";
+import { ArchiveJournal } from "./archiveJournal";
+import { obsidianArchivePort } from "./obsidianArchiveApply";
 
 /** Only public APIs. No locks exist for pending editor saves: v1 requires affected views to be closed. */
 export function guardSavedEditors(app: App, notes: readonly SavedNote[]): void {
@@ -64,5 +66,7 @@ export function createSafeApplyService(app: App, pluginId: string): SafeApplySer
     journal: new MultiFileJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMultiFilePort(app, port),
   }, {
     journal: new MergeJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMergePort(app, port),
+  }, {
+    journal: new ArchiveJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianArchivePort(app, port),
   });
 }

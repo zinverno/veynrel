@@ -3,7 +3,7 @@ import { t as tr } from "../i18n";
 import { ArchiveSession } from "./archiveSession";
 import type { ArchiveRead } from "./archiveSession";
 import { ARCHIVE_LIMITATIONS, archiveFragments } from "./archivePlan";
-import type { ArchiveChoice, ArchiveDisposition } from "./archivePlan";
+import type { ArchiveChoice, ArchiveDisposition, ArchivePlan } from "./archivePlan";
 import { renderPlanDiff } from "./planDiffView";
 
 function source(root: HTMLElement, key: string, text: string): void {
@@ -17,7 +17,8 @@ export class ArchivePlannerModal extends Modal {
   private active = false;
   private cleanup: (() => void)[] = [];
   private choice: ArchiveChoice = { status: null, dispositions: [], limitationsReviewed: false };
-  constructor(app: App, read: (current: () => boolean) => Promise<ArchiveRead>) {
+  constructor(app: App, read: (current: () => boolean) => Promise<ArchiveRead>,
+    private readonly apply?: (plan: ArchivePlan, current: () => boolean) => void) {
     super(app); this.session = new ArchiveSession(() => read(() => this.active));
   }
   onOpen(): void {
@@ -53,6 +54,10 @@ export class ArchivePlannerModal extends Modal {
       renderPlanDiff(root, view.plan.secondary.before, view.plan.secondary.after);
       const json = root.createEl("details"); json.createEl("summary", { text: tr("@archive.serialized") });
       json.createEl("pre", { text: JSON.stringify(view.plan, null, 2), cls: "ai-pair-source", attr: { tabindex: "0", "data-archive-text": "json" } });
+      if (this.apply) {
+        const plan = view.plan;
+        this.button("applyReview", () => this.apply!(plan, () => this.active && this.session.view.plan === plan && this.session.view.stage === "ready"));
+      }
     }
     source(root, "canonical", r.canonical.after); source(root, "secondary", r.secondary.content);
     root.createEl("h3", { text: tr("@archive.copied") });
