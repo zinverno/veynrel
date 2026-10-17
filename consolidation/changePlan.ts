@@ -42,7 +42,7 @@ export function paragraphRanges(note: PlanNote): PlanRange[] {
     text: note.content.slice(section.position.start.offset, section.position.end.offset),
   }));
 }
-function requirePlainParagraph(note: PlanNote, selection: PlanRange): void {
+export function requirePlainParagraph(note: PlanNote, selection: PlanRange): void {
   const cache = note.cache;
   requirePlan(cache?.sections, "metadata");
   requirePlan(Number.isInteger(selection.start) && Number.isInteger(selection.end) && selection.start >= 0 &&

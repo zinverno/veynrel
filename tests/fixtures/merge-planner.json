@@ -1,0 +1,19 @@
+{
+  "paths": ["Merge/Теория/Same name.md", "Merge/Practice/Same name.md"],
+  "a": "A cache keeps reusable results.\n\nEviction removes a value when its lifetime ends.\n\nOur classroom example uses a five minute lifetime.\n\nRepeated observation.\n\nRepeated observation.\n\nThe original author keeps this closing explanation.\n",
+  "b": "A cache keeps reusable results.\n\nСрок хранения определяется требованиями к свежести данных.\n\nOur field example measures latency on a single device.\n\nThis attribution remains with the secondary source.\n",
+  "response": {
+    "relation": "partial_overlap",
+    "explanation": {"text": "The cache definition overlaps; both sources may contain independent information and local examples.", "evidence": ["shared", "unique-a", "unique-b"]},
+    "claims": [
+      {"id": "shared", "kind": "shared", "text": "The definition may overlap.", "quoteA": "A cache keeps reusable results.", "quoteB": "A cache keeps reusable results."},
+      {"id": "unique-a", "kind": "unique_a", "text": "A may explain eviction independently.", "quoteA": "Eviction removes a value when its lifetime ends.", "quoteB": null},
+      {"id": "unique-b", "kind": "unique_b", "text": "B may add the freshness criterion.", "quoteA": null, "quoteB": "Срок хранения определяется требованиями к свежести данных."},
+      {"id": "context-a", "kind": "context_a", "text": "This classroom example may depend on its original setting.", "quoteA": "Our classroom example uses a five minute lifetime.", "quoteB": null},
+      {"id": "context-b", "kind": "context_b", "text": "This measurement may depend on the original device context.", "quoteA": null, "quoteB": "Our field example measures latency on a single device."}
+    ],
+    "recommendation": {"action": "consider_merge", "reason": "Review independent knowledge manually while keeping local examples and sources intact.", "evidence": ["shared", "unique-a", "unique-b"]},
+    "alternatives": [{"action": "no_change", "reason": "Keeping both notes may preserve context better.", "evidence": ["context-a", "context-b"]}],
+    "limitations": ["Only two saved sources were considered. Quote presence does not prove semantic uniqueness or completeness."]
+  }
+}

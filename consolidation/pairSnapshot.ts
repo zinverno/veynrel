@@ -27,6 +27,17 @@ function list(values: string[]): InspectorList {
   return { items: values.slice(0, PAIR_LIST_LIMIT), total: values.length };
 }
 
+/** Cached incoming paths only; link/embed kind and completeness are not certified by resolvedLinks. */
+export function readCachedIncoming(app: App, path: string): InspectorList | undefined {
+  try {
+    const resolved = app.metadataCache?.resolvedLinks;
+    if (resolved) return list(Object.keys(resolved).filter(source =>
+      isCanonicalMarkdownPath(source) && Object.prototype.hasOwnProperty.call(resolved[source], path) &&
+      resolved[source][path] > 0 && app.vault.getFileByPath(source)?.path === source));
+  } catch { /* Missing backlink data is unknown, never a confirmed zero. */ }
+  return undefined;
+}
+
 function structure(cache: CachedMetadata): PairNoteSnapshot["metadata"] {
   return {
     frontmatterTags: list(parseFrontMatterTags(cache.frontmatter) ?? []),
@@ -57,11 +68,6 @@ export async function readPairNote(app: App, path: string): Promise<PairNoteSnap
     const cache = app.metadataCache?.getFileCache(file);
     if (cache) snapshot.metadata = structure(cache);
   } catch { /* Source remains readable when Obsidian metadata is unavailable. */ }
-  try {
-    const resolved = app.metadataCache?.resolvedLinks;
-    if (resolved) snapshot.incoming = list(Object.keys(resolved).filter(source =>
-      isCanonicalMarkdownPath(source) && Object.prototype.hasOwnProperty.call(resolved[source], path) &&
-      resolved[source][path] > 0 && app.vault.getFileByPath(source)?.path === source));
-  } catch { /* Missing backlink data is unknown, never a confirmed zero. */ }
+  snapshot.incoming = readCachedIncoming(app, path);
   return snapshot;
 }
