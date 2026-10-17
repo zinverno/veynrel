@@ -5,7 +5,9 @@ The [Relationship Analyzer](relationship-analyzer-v1.md) can now lead to a concr
 writes Markdown, applies a proposal, persists the plan or makes another model call.
 Applying is now a separate [Safe Apply & Undo](safe-apply-undo-v1.md) review.
 Two reciprocal links can now be previewed as one [multi-file plan](multi-file-planner-v1.md);
-that combined plan has no Apply or Undo implementation.
+its execution uses a separate [multi-file Safe Apply & Undo](multi-file-safe-apply-v1.md) review.
+[Merge Planner](merge-planner-v1.md) adds a separate read-only canonical-note preview;
+merge application and archiving remain unavailable.
 Planning has no Companion connection, background scan, new setting or release/version change.
 
 ## Open and choose

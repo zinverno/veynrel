@@ -7,17 +7,22 @@ import type { ChangePlan, PlanChoice, PlanFailure, PlanPair, PlanNote } from "./
 import { sameSavedNote } from "./savedNote";
 import { buildMultiFilePlan, MultiFilePlanError } from "./multiFilePlan";
 import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
+import { buildMergePlan, MergePlanError } from "./mergePlan";
+import type { MergeChoice, MergeFailure, MergeIncoming, MergePlan } from "./mergePlan";
 
 export interface PlannerRead { pair: PlanPair; linktexts: readonly [string, string] }
 export interface PlannerDependencies {
   analysis(): RelationshipAnalysis | undefined;
   read(): Promise<PlannerRead>;
+  incoming?(): MergeIncoming;
 }
 export interface PlannerView {
   stage: "idle" | "loading" | "choosing" | "ready" | "error" | "stale" | "cancelled";
   input?: PlannerRead;
   plan?: ChangePlan;
   multiPlan?: MultiFilePlan;
+  mergePlan?: MergePlan;
+  mergeError?: MergeFailure;
   error?: PlanFailure;
   errorSide?: 0 | 1;
 }
@@ -75,6 +80,26 @@ export class ChangePlannerSession {
   changeSelection(): void {
     if (!this.closed && this.busy && this.multiGeneration === this.generation) { this.invalidate(); return; }
     if (!this.closed && !this.busy && this.view.input) this.publish({ stage: "choosing", input: this.view.input });
+  }
+  async buildMerge(choice: MergeChoice): Promise<void> {
+    if (this.closed || this.busy || !this.view.input || !this.analysis) return;
+    const input = this.view.input, generation = ++this.generation;
+    this.multiGeneration = generation;
+    const selected = JSON.parse(JSON.stringify(choice)) as MergeChoice;
+    this.publish({ stage: "loading" });
+    try {
+      const fresh = await this.deps.read(), incoming = this.deps.incoming?.() ?? [null, null] as const;
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(input, fresh)) { this.invalidate(); return; }
+      const mergePlan = buildMergePlan(this.analysis, fresh.pair, selected, incoming);
+      const verified = await this.deps.read(), incomingAfter = this.deps.incoming?.() ?? [null, null] as const;
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(fresh, verified) || JSON.stringify(incoming) !== JSON.stringify(incomingAfter)) { this.invalidate(); return; }
+      this.publish({ stage: "ready", input: verified, mergePlan });
+    } catch (e) {
+      if (this.current(generation)) this.publish({ stage: "error", input,
+        mergeError: e instanceof MergePlanError || e instanceof ChangePlanError ? e.reason : "source" });
+    }
   }
   async buildMulti(choice: MultiFileChoice): Promise<void> {
     if (this.closed || this.busy || !this.view.input || !this.analysis) return;

@@ -7,15 +7,20 @@ import type { RelationshipAnalysis } from "./relationshipSession";
 import type { ChangePlannerSession } from "./changePlannerSession";
 import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { renderMultiFilePlanner } from "./multiFilePlannerView";
+import { renderMergePlanner } from "./mergePlannerView";
+import type { MergeChoice } from "./mergePlan";
+
+const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical: null, transfers: [], insertion: null, insertionConfirmed: false });
 
 /** Text-only controls and preview; no Markdown renderer or application protocol. */
 export class ChangePlannerView {
-  private operation: PlanOperation | "add_reciprocal_links" | "" = "";
+  private operation: PlanOperation | "add_reciprocal_links" | "merge_knowledge" | "" = "";
   private side: 0 | 1 = 0;
   private selection: PlanRange | null = null;
   private confirmed = false;
   private multiSelections: [PlanRange | null, PlanRange | null] = [null, null];
   private multiConfirmed: [boolean, boolean] = [false, false];
+  private mergeChoice = emptyMerge();
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
     private readonly reviewMulti?: (plan: MultiFilePlan) => void) {
@@ -31,25 +36,25 @@ export class ChangePlannerView {
     button.addEventListener("click", action); return button;
   }
   private changed(): void {
-    this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.session.changeSelection();
+    this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge(); this.session.changeSelection();
   }
   render(): void {
     const root = this.container, view = this.session.view;
     root.empty(); root.createEl("h3", { text: tr("@planner.title") });
-    root.createEl("p", { text: tr(this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
-    root.createDiv({ text: tr(view.stage === "error" ? `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
+    root.createEl("p", { text: tr(this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
+    root.createDiv({ text: tr(view.stage === "error" ? view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
       attr: { role: "status", "aria-live": "polite", "data-planner-stage": view.stage } });
     if (view.stage === "loading") { this.button(root, "cancel", () => this.session.cancel()); return; }
     if (!view.input) {
       this.button(root, "prepare", () => {
-        this.selection = null; this.operation = ""; this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false];
+        this.selection = null; this.operation = ""; this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge();
         void this.session.prepare();
       }); return;
     }
-    root.createEl("p", { text: tr(this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
+    root.createEl("p", { text: tr(this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
     const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
-    sourceLabel.hidden = this.operation === "add_reciprocal_links";
+    sourceLabel.hidden = this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
     const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
     view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
     source.value = String(this.side);
@@ -57,12 +62,16 @@ export class ChangePlannerView {
     const operationLabel = controls.createEl("label", { text: tr("@planner.operation") });
     const operation = operationLabel.createEl("select", { attr: { "data-planner-field": "operation" } });
     operation.createEl("option", { text: tr("@planner.choose"), value: "" });
-    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change", "add_reciprocal_links"]) {
+    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change", "add_reciprocal_links", "merge_knowledge"]) {
       operation.createEl("option", { text: tr(`@planner.op.${key}`), value: key });
     }
     operation.value = this.operation;
     operation.addEventListener("change", () => { this.operation = operation.value as typeof this.operation; this.selection = null; this.changed(); });
     if (this.operation) root.createEl("p", { text: tr(`@planner.op.${this.operation}`) });
+    if (this.operation === "merge_knowledge") {
+      renderMergePlanner(root, this.session, this.analysis, this.mergeChoice, choice => { this.mergeChoice = choice; this.session.changeSelection(); });
+      return;
+    }
     if (this.operation === "add_reciprocal_links") {
       const choice: MultiFileChoice = { operation: this.operation, selections: this.multiSelections, confirmed: this.multiConfirmed };
       renderMultiFilePlanner(root, this.session, choice, (side, range) => {
@@ -96,7 +105,7 @@ export class ChangePlannerView {
       }
     }
     const build = this.button(root, "build", () => {
-      if (this.operation && this.operation !== "add_reciprocal_links") void this.session.build({ operation: this.operation, source: this.side, selection: this.selection, confirmed: this.confirmed });
+      if (this.operation && this.operation !== "add_reciprocal_links" && this.operation !== "merge_knowledge") void this.session.build({ operation: this.operation, source: this.side, selection: this.selection, confirmed: this.confirmed });
     });
     build.disabled = !this.operation || (this.operation !== "no_change" && (!this.selection || !this.confirmed));
     this.button(root, "cancel", () => this.session.cancel());

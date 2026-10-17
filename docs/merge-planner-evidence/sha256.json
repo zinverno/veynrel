@@ -1,0 +1,20 @@
+{
+  "initial-harness-failure.json": "95cc44c1189a57fbc5c071a8a781834fc398c8fd15557e07502f05b36f1a7cb0",
+  "merge-en-before-after.png": "13721f84b42fe8475d5b3055c0cbfa352c047691c7753f3ea3f34d01cd352f11",
+  "merge-en-diff.png": "457d85cbe8c195eb71e28090e96754c31a0dccc10dcf4a73a650dcbe1a44a677",
+  "merge-en-theme-dark-1200.png": "7772d2b2441e01c825cf0d8da38af769c935b1948131d993f56a685840b97657",
+  "merge-en-theme-dark-390.png": "3e63321393e00aa846c73834920ca5e39a17d5f94a39ffc5d1a8e93ae6d67391",
+  "merge-en-theme-light-1200.png": "f090e42664c13638367226e0eb97923f66407ddd6080d2c55ae6fc4ce18f24e1",
+  "merge-en-theme-light-390.png": "701f3d793a5b8448a6e94238d96edb7e28fb2222816c01981e7499ab290c58f3",
+  "merge-refuse-conflict.png": "278a875a1e4e4f6e3ca6d3cd46bfb11fe9f19a878a0cb6483e696038556c0815",
+  "merge-refuse-version_difference.png": "1f64ee00b8b0487c17ce94cc5d864dc88b3188d548138e4b1e0e2fa5e24ac494",
+  "merge-ru-before-after.png": "6cfce874d24aeb03e2418fc6bb860ca43cab842019cacd00a6294a2019053bc1",
+  "merge-ru-diff.png": "6b6bac857dacc7a8d33e34d2a457158b4a290b0a97355657e084784bbcfa2842",
+  "merge-ru-theme-dark-1200.png": "26df46447de24658071ee16708773794766c875734e1584aadeec6e65d87d6f8",
+  "merge-ru-theme-dark-390.png": "23db55291176495becf7287efb43d5e36baddbd5ff90d8be6ab8ac9ad06c941a",
+  "merge-ru-theme-light-1200.png": "d2b13e6626164f78d24cf82f5be36cd0bd30b432b67268c6243c3c8ac7a6c392",
+  "merge-ru-theme-light-390.png": "62d470e94f9e20ca4effed040f95bc183997e0d6e40228c35b70f02684438cfa",
+  "merge-structural-refusals.png": "72cf71d52930cd7dfa82f0239bdbb43f55a58e7d6c0f4c1a7e548bf570f90317",
+  "report.json": "f3f94a13dbbc920c7d3e498e2040f0ed6c13c400924f9f5a3091305d67e7c41c",
+  "targeted-report.json": "75222daef7d149ed85d98a172be0820094b81c8d8029f5fb75806da191246342"
+}

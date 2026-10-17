@@ -2,7 +2,7 @@ import { App, Modal } from "obsidian";
 import type { TAbstractFile } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
 import { openDiscoveryResult } from "../semantic/semanticDiscoveryModal";
-import { readPairNote } from "./pairSnapshot";
+import { readPairNote, readCachedIncoming } from "./pairSnapshot";
 import type { InspectorList, PairNoteSnapshot } from "./pairSnapshot";
 import type { RelationshipSession } from "./relationshipSession";
 import { renderRelationshipView } from "./relationshipView";
@@ -57,7 +57,8 @@ export class PairInspectorModal extends Modal {
                 const source = this.relationship?.analysisSource;
                 if (!source || !this.openState) return;
                 this.planner?.close();
-                this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths) });
+                this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
+                  incoming: () => [readCachedIncoming(this.app, this.paths[0]) ?? null, readCachedIncoming(this.app, this.paths[1]) ?? null] });
                 const planner = this.planner;
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                   new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
