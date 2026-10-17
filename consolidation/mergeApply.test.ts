@@ -333,3 +333,43 @@ it("service recreation performs no startup journal IO or Markdown recovery", asy
   f.restart();
   for (const fn of [f.adapter.read, f.adapter.write, f.adapter.copy, f.adapter.list, f.vault.read, f.vault.process]) expect(fn).not.toHaveBeenCalled();
 });
+
+describe("read-only completed Merge Apply basis", () => {
+  it("refuses canonical stat changes between initial receipt inspection and native read", async () => {
+    const f = setup(), r = await apply(f), original = f.mergeNative.undo.bind(f.mergeNative);
+    vi.spyOn(f.mergeNative, "undo").mockImplementationOnce(async (...args) => { f.pair[0].file.stat.mtime++; return original(...args); });
+    await expect(f.merge.readApplied(r.id, () => true)).rejects.toThrow(); expect(f.vault.process).toHaveBeenCalledTimes(1); unchanged(f);
+  });
+  it.each(["backup", "undo_receipt"])("rejects underlying journal %s changes during provenance hashing", async fault => {
+    const f = setup(), r = await apply(f), original = f.mergeNative.undo.bind(f.mergeNative);
+    let armed = false;
+    vi.spyOn(f.mergeNative, "undo").mockImplementationOnce(async (...args) => { const checked = await original(...args); armed = true; return checked; });
+    const digest = crypto.subtle.digest.bind(crypto.subtle);
+    vi.spyOn(crypto.subtle, "digest").mockImplementation(async (...args) => {
+      if (armed) {
+        armed = false;
+        if (fault === "backup") f.disk.set(`${f.mergeJournal.root}/${r.id}/backup.json`, "{");
+        else await f.mergeJournal.mark(r.record, "undo_intent", (await f.port.read(r.record.canonical.path))!);
+      }
+      return digest(...args);
+    });
+    await expect(f.merge.readApplied(r.id, () => true)).rejects.toThrow(); expect(f.vault.process).toHaveBeenCalledTimes(1); unchanged(f);
+  });
+  it("uses verified full journal copies after restart and never writes", async () => {
+    const f = setup(), r = await apply(f), restarted = f.restart();
+    for (const fn of [f.vault.process, f.vault.modify, f.adapter.write, f.adapter.copy, f.adapter.mkdir]) fn.mockClear();
+    const basis = await restarted.merge!.readApplied(r.id, () => true);
+    expect(basis.record).toEqual(r.record); expect(basis.notes.map(n => n.content)).toEqual([r.record.canonical.after, r.record.secondary.content]);
+    for (const fn of [f.vault.process, f.vault.modify, f.adapter.write, f.adapter.copy, f.adapter.mkdir]) expect(fn).not.toHaveBeenCalled();
+    f.disk.set(`${f.mergeJournal.root}/${r.id}/backup.json`, "{"); await expect(restarted.merge!.readApplied(r.id, () => true)).rejects.toThrow();
+  });
+  it.each(["single", "multi", "merge"])("rechecks %s journal conflict after asynchronous source verification", async family => {
+    const f = setup(), r = await apply(f), before = [...f.disk], original = f.mergeNative.undo.bind(f.mergeNative);
+    vi.spyOn(f.mergeNative, "undo").mockImplementationOnce(async (...args) => {
+      const result = await original(...args), root = family === "single" ? f.journal.root : family === "multi" ? f.multiJournal.root : f.mergeJournal.root;
+      f.folders.add(root); f.disk.set(root + "/unknown.json", "{}"); return result;
+    });
+    await expect(f.merge.readApplied(r.id, () => true)).rejects.toEqual(reason("storage"));
+    expect(f.vault.process).toHaveBeenCalledTimes(1); expect([...f.disk].filter(([p]) => !p.endsWith("unknown.json"))).toEqual(before); unchanged(f);
+  });
+});

@@ -1,5 +1,9 @@
 # Merge Apply v1: safe copy-only consolidation
 
+After a completed operation, [Archive Eligibility & Planner](archive-planner-v1.md)
+offers a separate read-only preservation review. Successful copying alone is
+never archive eligibility; no archive mark is applied by either flow.
+
 Merge Apply executes the checked MergePlan introduced in PR #88. It copies the
 user-selected complete plain paragraphs into one canonical Markdown note. The
 secondary source is never dispatched to a writer. Duplicates remain there, and a

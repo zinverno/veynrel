@@ -71,7 +71,7 @@ export class MergeApplyModal extends Modal {
   }
   onClose(): void { this.active = false; if (this.review) this.service.discard(this.review); this.contentEl.empty(); this.release(); }
 }
-export function renderMergeHistory(root: HTMLElement, row: MergeHistory, review: () => void): void {
+export function renderMergeHistory(root: HTMLElement, row: MergeHistory, review: () => void, archive?: () => void): void {
   const card = root.createEl("section", { cls: "ai-semantic-result-card", attr: { "data-merge-state": row.state, "data-operation-id": row.id } });
   card.createEl("h3", { text: `${tr("@mergeApply.operation")} · ${row.record ? new Date(row.record.createdAt).toLocaleString(dateLocale()) : ""}` });
   card.createEl("p", { text: tr(`@safeApply.state.${row.state}`), attr: { role: "status" } });
@@ -88,4 +88,8 @@ export function renderMergeHistory(root: HTMLElement, row: MergeHistory, review:
     const details = card.createEl("details"); details.createEl("summary", { text: tr("@safeApply.preview") }); preview(details, row.record);
   }
   if (row.canUndo) control(card, "undoReview", review);
+  if (row.record && archive) {
+    const b = card.createEl("button", { text: tr("@archive.title"), attr: { type: "button", "data-archive-action": "open" } });
+    b.addEventListener("click", archive);
+  }
 }

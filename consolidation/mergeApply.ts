@@ -57,6 +57,8 @@ export class MergeApply {
   async blockers(paths: readonly string[], ownId?: string): Promise<void> {
     for (const entry of await this.journal.entries()) {
       if (entry.id === ownId && entry.record && !entry.damaged) continue;
+      requireSafe(entry.scope !== "global", "storage");
+      if (entry.record && !paths.includes(entry.record.canonical.path) && !paths.includes(entry.record.secondary.path)) continue;
       const row = await this.inspect(entry), r = row.record;
       requireSafe(!row.blocking || row.scope !== "global" && r && !paths.includes(r.canonical.path) && !paths.includes(r.secondary.path), "storage");
     }
@@ -88,6 +90,27 @@ export class MergeApply {
   private async intact(r: MergeRecord): Promise<MergeEntry> {
     const entry = (await this.journal.entries()).find(e => e.id === r.id);
     requireSafe(entry && !entry.damaged && JSON.stringify(entry.record) === JSON.stringify(r), "storage"); return entry;
+  }
+  /** Read-only archive basis. Recovered text without a completed receipt is insufficient. */
+  readApplied(id: string, current: () => boolean): Promise<MergeCheck & { record: MergeRecord; entry: MergeEntry; recordHash: string }> {
+    return this.owner.exclusive(async () => {
+      this.owner.active(current);
+      const entry = (await this.journal.entries()).find(e => e.id === id); requireSafe(entry, "conflict");
+      const completed = async (e: MergeEntry) => {
+        const row = await this.inspect(e);
+        requireSafe(row.record && row.canUndo && !row.recovered && !row.blocking && row.receipts.length > 0 &&
+          row.receipts.every(m => m.state === "applied"), "conflict");
+        return row.record;
+      };
+      const record = await completed(entry), checked = await this.native.undo(record);
+      const recordHash = await checksum(JSON.stringify(record));
+      await this.owner.blockers([record.canonical.path, record.secondary.path], id);
+      const verified = await this.intact(record);
+      requireSafe(JSON.stringify(entry) === JSON.stringify(verified), "stale");
+      requireSafe(verified.receipts.every(m => m.modified === checked.notes[0].modified && m.bytes === checked.notes[0].bytes), "stale");
+      this.owner.active(current); checked.guard();
+      return { ...checked, record, entry: verified, recordHash };
+    });
   }
   reviewUndo(id: string, current: () => boolean): Promise<MergeReview> {
     return this.owner.exclusive(async () => {

@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "main.js": "a1f88d47906a168df9174e9e53fb4b3a3cdd83975b602270839cd722edf15bc8",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "evidence": {
+    "archive-after-en-1200.png": "7e7bab35b9ee54c53b9c3dd20ab8ee8b9591ba586e3c78b9cb7f4a1102d5a97c",
+    "archive-after-en-390.png": "8aa1911364f3d7bd1dd5da283079cd40d4d38b5f49f7d2ebff05e08cdf57e0a1",
+    "archive-after-ru-1200.png": "91bd29a1aaeadf1c5a6f4f2b83acd195d5e7f4a4803b1435e80b0c3e52869149",
+    "archive-after-ru-390.png": "a0f80ac4776fd2c2b869ef40ddcde8942f5b561612e6a66784c01480062be7ea",
+    "archive-controls-en.png": "bd9df52362bac93bd130d643f439e080d3335dbd2e3003c2f8b45177156c54f7",
+    "archive-controls-ru.png": "884f646feecaa069576c8e7a5c43e209d4f515ed78fe5b59047ebae687599244",
+    "archive-diff-en.png": "7fdb323bddd9138f6307f55f2b25c8017fd3ecf21a4df356037d4dff79a1289d",
+    "archive-diff-ru.png": "877202f61ba370ab7a2cbd0f2829f38da74683ada184fe8f0e0b66cef35730d6",
+    "archive-en-theme-dark-1200.png": "3bca932599ee44b69ff9f68b6f53e5029f8e01774ada7f3e644324377fe30951",
+    "archive-en-theme-dark-390.png": "13ec426f692afa6136fa5c7a285b62cd6244f22e0ced20395c692278bfdee6ca",
+    "archive-en-theme-light-1200.png": "dd1af217c1d2c445ba00296b21aeb3e198656a70c95924b858bf1af4db6edd5a",
+    "archive-en-theme-light-390.png": "4fe04d27cd6f5787e280390790366d09e64434190f5101c91b35547246bfec1f",
+    "archive-preservation-en.png": "bd88e2f86a41a83545da43796a3ee97e604edaa006c53f023cd0946c79cdd9d9",
+    "archive-preservation-ru.png": "43a6cdcc362ed38cfc81c23d9ed19949ba300688ecd948c649b1f48f391e6d61",
+    "archive-refusal-canonical.png": "b18db524a29fd8ade16d94b60690227e3ecb3fcb21352f332b02cb0bcbd9e6da",
+    "archive-refusal-damage.png": "7702349ac6b08d22ed34c0ead02d98a3632dcc38d8ddf9064ec5293e99e3f4af",
+    "archive-refusal-incomplete.png": "f97fd283e5d8fd93f00f34c8599b2a92a7275210e1ab30b26cb884f0d6bbb001",
+    "archive-refusal-properties.png": "ace89195cbb4b67bd10cf05064a76ae8e2e6f672a35dd5436581e37fd798d4b8",
+    "archive-refusal-secondary.png": "a1d9dd7a6401ce5b2da4bcf2587ae21dea3629f875f8d419cb6a097d395a5a47",
+    "archive-refusal-yaml.png": "5b52b5ab42f81d2b89c082c7b7a2f7ad57d19a7bb0882aebb54a44d112bf193c",
+    "archive-ru-theme-dark-1200.png": "1da61188a1411a070d6fc726b0079e8ec008aa95c47257ca3c3a9a8b58c31e2a",
+    "archive-ru-theme-dark-390.png": "b6e0f4102a0dae0dce63c60c8b3c0ffea6e8d7d2fe14ec2e9f81942fa3c7372a",
+    "archive-ru-theme-light-1200.png": "bd6030ddfd860525a8f65ff039e622b17cc4bb1d2f148c242de2900b9097cf43",
+    "archive-ru-theme-light-390.png": "6a3dc867644322dac8a9b65a8cfbc51dc36296f8fd66c379a52168b0c799b812",
+    "archive-stale.png": "c536c4fc2f18711b392dee6674cdadc50c822d7fbb3630023d6c14e4fea8d448",
+    "harness-focus-diagnostic.json": "b8f6b59e86d26a2431560d5728ccfcca1624807542f7770a421d55e04044cfa1",
+    "harness-focus-failure.json": "d91197e65a426f00ec1ee8e72de0fe238a29542bb3d8f32a7b51902334a74910",
+    "harness-reporting-failure.json": "a3b8327ab8d429dc4fff2b834a973236714817a7bccd1583ab3386b0debbb2e5",
+    "report.json": "3060da20d46ad1ffafa445b3139e2ad27d89d4e965acc551e6ca9b5b55bbd926"
+  }
+}
