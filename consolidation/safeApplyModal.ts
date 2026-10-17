@@ -5,6 +5,8 @@ import type { ApplyReview, SafeApplyService, OperationHistory, ResolutionReview 
 import { renderPlanDiff } from "./planDiffView";
 import { MultiFileApplyModal, renderMultiHistory } from "./multiFileApplyModal";
 import { MergeApplyModal, renderMergeHistory } from "./mergeApplyModal";
+import { ArchivePlannerModal } from "./archivePlannerModal";
+import { readArchiveBasis } from "./obsidianArchive";
 
 function button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
   const el = parent.createEl("button", { text: tr(`@safeApply.${key}`), attr: { type: "button", "data-safe-action": key } });
@@ -158,7 +160,8 @@ export class OperationHistoryModal extends Modal {
       if (!rows.length && !multi.length && !merge.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
       for (const row of merge) renderMergeHistory(this.contentEl, row, () => new MergeApplyModal(this.app, this.service.merge!,
         current => this.service.merge!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
-        () => { if (this.active) void this.refresh(); }).open());
+        () => { if (this.active) void this.refresh(); }).open(),
+      () => new ArchivePlannerModal(this.app, current => readArchiveBasis(this.app, this.service.merge!, row.id, current)).open());
       for (const row of multi) renderMultiHistory(this.contentEl, row, () => new MultiFileApplyModal(this.app, this.service.multi!,
         current => this.service.multi!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
         () => { if (this.active) void this.refresh(); }).open());

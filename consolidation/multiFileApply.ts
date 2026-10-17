@@ -71,6 +71,8 @@ export class MultiFileApply {
   async blockers(paths: readonly string[], ownId?: string): Promise<void> {
     for (const entry of await this.journal.entries()) {
       if (entry.id === ownId && entry.record && !entry.damaged) continue;
+      requireSafe(entry.scope !== "global", "storage");
+      if (entry.record && !entry.record.files.some(f => paths.includes(f.path))) continue;
       const row = await this.inspect(entry);
       requireSafe(!row.blocking || (row.scope !== "global" && row.record && !row.record.files.some(f => paths.includes(f.path))), "storage");
     }

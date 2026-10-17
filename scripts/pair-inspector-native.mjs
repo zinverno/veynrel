@@ -30,7 +30,7 @@ const settings = { language:'en',apiKey:'',semanticAutoSyncSuspended:true,
 fs.writeFileSync(dir+'/data.json',JSON.stringify(settings));
 fs.writeFileSync(vault+'/.obsidian/community-plugins.json','["ai-knowledge-hub"]');
 fs.writeFileSync(vault+'/.obsidian/app.json','{"checkForUpdates":false}');
-fs.writeFileSync(root+'/profile/obsidian.json',JSON.stringify({vaults:{pair:{path:vault,ts:Date.now(),open:true}}}));
+fs.writeFileSync(root+'/profile/obsidian.json',JSON.stringify({updateDisabled:true,vaults:{pair:{path:vault,ts:Date.now(),open:true}}}));
 for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync(ROOT+'/'+name,dir+'/'+name);
 const start=()=>spawn('/usr/bin/electron43',['/usr/lib/obsidian/app.asar','--user-data-dir='+root+'/profile','--remote-debugging-port=9274','--disable-gpu','--ozone-platform=x11'],{stdio:['ignore','ignore',fs.openSync(root+'/electron.log','a')]});
 let child=start();
@@ -45,7 +45,13 @@ try {
  const ev=async expression=>{const r=await cdp('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});assert(!r.exceptionDetails,JSON.stringify(r.exceptionDetails));return r.result.value;};
  const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:window.engine?.getSemanticStatus().kind,language:window.plugin?.settings.language,titles:[...document.querySelectorAll('.modal')].map(e=>e.className),notices:[...document.querySelectorAll('.notice')].map(e=>e.textContent)})")));};
  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
- const focusMain=async()=>{for(let i=0;i<160;i++){await cdp('Page.bringToFront');await pause(50);if(await ev('activeWindow===window'))return;}throw Error('Native main window did not receive focus');};
+ const focusMain=async()=>{for(let i=0;i<160;i++){
+   // Trust restoration can leave the native Settings popout open in this synthetic profile.
+   await ev('if(app.setting.win&&app.setting.win!==window)app.setting.close();void 0');
+   await cdp('Page.bringToFront');await pause(50);if(await ev('activeWindow===window'))return;}
+   fs.writeFileSync(root+'/focus-failure.png',Buffer.from((await cdp('Page.captureScreenshot',{format:'png'})).data,'base64'));
+   fs.writeFileSync(root+'/focus-failure.json',JSON.stringify(await ev("({focus:document.hasFocus(),active:activeWindow===window,activeDocument:activeDocument===document,activeType:typeof activeWindow,activeClosed:activeWindow?.closed,activeTitle:activeDocument?.title,title:document.title,modals:[...document.querySelectorAll('.modal')].map(e=>e.textContent),windows:app.workspace.floatingSplit?.children?.length})"),null,2));
+   throw Error('Native main window did not receive focus');};
  await wait('!!window.app?.workspace?.layoutReady');
  assert.equal(await ev('app.vault.adapter.basePath'),vault);
  // Accept the native trust dialog only for this freshly generated, synthetic vault.
@@ -139,7 +145,7 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply')) {
+ if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner')) {
    const restart = async () => {
      socket.close();
      const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await exited;
@@ -158,6 +164,7 @@ try {
      }
      await wait("!!app.plugins.plugins['ai-knowledge-hub']?.semanticController");
      await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;window.io={read:[],write:0,network:0};window.fetch=()=>{io.network++;throw Error('network blocked')};XMLHttpRequest.prototype.send=function(){io.network++;throw Error('network blocked')};void 0");
+     await wait("!!app.commands.commands['ai-knowledge-hub:consolidation-operation-history']&&!!plugin.safeApply?.merge");
      await focusMain();
    };
    if(process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery')) {
@@ -180,11 +187,15 @@ try {
      const {mergeApplyScenario}=await import('./merge-apply-native.mjs');
      report.mergeApply=await mergeApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
+   if(process.argv.includes('--archive-planner')) {
+     const {archivePlannerScenario}=await import('./archive-planner-native.mjs');
+     report.archivePlanner=await archivePlannerScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
+   }
    if(process.argv.includes('--journal-recovery')) {
      const {journalRecoveryScenario}=await import('./journal-recovery-native.mjs');
      report.journalRecovery=await journalRecoveryScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
  }
- report.version=await ev("({electron:process.versions.electron})");report.io=(process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
+ report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}
