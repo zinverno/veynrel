@@ -1,0 +1,59 @@
+{
+  "base": "99c28beb4fee14e4ff6ab56e49a08b79fe8dcfcb",
+  "pr92MergedAt": "2026-10-18T10:33:06Z",
+  "artifactSha256": "7b9c699937c3858a5144c9f67afd2c5632ca05d34f68b5c8455f801d343d4478",
+  "checks": {
+    "npm test": "PASS 3709 tests / 143 files; 53 new tests; final sequential run 19.43s",
+    "npm run typecheck": "PASS; also included in lint",
+    "npm run lint": "PASS in original workspace; only accepted api.ts:404 fetch advisory",
+    "npm run build": "PASS; artifact matches native report",
+    "npm run audit:proposals": "PASS 5/5 mutations killed",
+    "git diff --check": "PASS"
+  },
+  "native": {
+    "status": "PASS",
+    "baseChecks": 18,
+    "groupChecks": 64,
+    "screenshots": 21,
+    "writers": 0,
+    "journalWrites": 0,
+    "networkCallsObserved": 0,
+    "scriptedCompletions": 35,
+    "byteIdenticalSources": 58
+  },
+  "regression": {
+    "unchangedPlainPlans": 4,
+    "newReadOnlyGroupPlans": 1,
+    "intendedCases": 12,
+    "newCase": "06",
+    "dependencyIncomplete": [
+      "05",
+      "19"
+    ],
+    "notModelQualityEvidence": true
+  },
+  "review": {
+    "status": "No remaining product blocker after fixes",
+    "fixed": [
+      "Validate protected metadata positions including unselected areas",
+      "Guard URL schemes consistently in headings and paragraphs"
+    ],
+    "sourceAnalysisMismatch": "Invalidates the entire session, including in-place analysis mutation during final verification"
+  },
+  "developmentFailures": [
+    "Initial native script CRLF escape fixed; later full runs passed",
+    "Native rich markup refused before selection control; harness records strict metadata refusal",
+    "Two unnecessary test type assertions removed after lint",
+    "One audit exploratory invocation returned empty test output; subsequent unchanged audit passed all 5 mutations",
+    "Concurrent full-suite rerun hit three existing 5-second import timeouts; final suite run sequentially without timeout changes",
+    "Escalated lint had transient sandbox .agents ENOENT; original-workspace final lint passed without new exclusions"
+  ],
+  "githubCI": "Required on PR head; see GitHub PR checks. Recorded separately after push, not claimed here.",
+  "scopeUnchanged": [
+    "Existing MergePlan/mergeBlockFailure",
+    "All executors, Undo and recovery",
+    "Journal formats",
+    "Frozen corpus and gold labels",
+    "Settings, version and release"
+  ]
+}

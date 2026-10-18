@@ -9,6 +9,10 @@ import { buildMultiFilePlan, MultiFilePlanError } from "./multiFilePlan";
 import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { buildMergePlan, MergePlanError } from "./mergePlan";
 import type { MergeChoice, MergeFailure, MergeIncoming, MergePlan } from "./mergePlan";
+import { buildGroupPlan, validateGroupPlan } from "./groupPlan";
+import type { GroupChoice, GroupPlan } from "./groupPlan";
+import { GroupPlanError } from "./groupStructure";
+import type { GroupFailure } from "./groupStructure";
 
 export interface PlannerRead { pair: PlanPair; linktexts: readonly [string, string] }
 export interface PlannerDependencies {
@@ -23,6 +27,8 @@ export interface PlannerView {
   multiPlan?: MultiFilePlan;
   mergePlan?: MergePlan;
   mergeError?: MergeFailure;
+  groupPlan?: GroupPlan;
+  groupError?: GroupFailure;
   error?: PlanFailure;
   errorSide?: 0 | 1;
 }
@@ -80,6 +86,29 @@ export class ChangePlannerSession {
   changeSelection(): void {
     if (!this.closed && this.busy && this.multiGeneration === this.generation) { this.invalidate(); return; }
     if (!this.closed && !this.busy && this.view.input) this.publish({ stage: "choosing", input: this.view.input });
+  }
+  async buildGroup(choice: GroupChoice): Promise<void> {
+    if (this.closed || this.busy || !this.view.input || !this.analysis) return;
+    const input = this.view.input, generation = ++this.generation;
+    this.multiGeneration = generation;
+    const selected = JSON.parse(JSON.stringify(choice)) as GroupChoice;
+    this.publish({ stage: "loading" });
+    try {
+      const fresh = await this.deps.read(), incoming = this.deps.incoming?.() ?? [null, null] as const;
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(input, fresh)) { this.invalidate(); return; }
+      const plan = buildGroupPlan(this.analysis, fresh.pair, selected, fresh.linktexts, incoming);
+      const verified = await this.deps.read(), incomingAfter = this.deps.incoming?.() ?? [null, null] as const;
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(fresh, verified) || JSON.stringify(incoming) !== JSON.stringify(incomingAfter)) { this.invalidate(); return; }
+      const groupPlan = validateGroupPlan(plan, this.analysis, verified.pair, selected, verified.linktexts, incomingAfter);
+      this.publish({ stage: "ready", input: verified, groupPlan });
+    } catch (e) {
+      if (!this.current(generation)) return;
+      const reason = e instanceof GroupPlanError ? e.reason : "source";
+      if (reason === "source" || reason === "analysis") { this.invalidate(); return; }
+      this.publish({ stage: "error", input, groupError: reason });
+    }
   }
   async buildMerge(choice: MergeChoice): Promise<void> {
     if (this.closed || this.busy || !this.view.input || !this.analysis) return;

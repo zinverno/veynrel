@@ -7,6 +7,8 @@ import type { RelationshipAnalysis } from "./relationshipSession";
 import type { ChangePlannerSession } from "./changePlannerSession";
 import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { renderMultiFilePlanner } from "./multiFilePlannerView";
+import { renderGroupPlanner } from "./groupPlannerView";
+import { emptyGroupChoice } from "./groupPlan";
 import { renderMergePlanner } from "./mergePlannerView";
 import type { MergeChoice, MergePlan } from "./mergePlan";
 
@@ -14,13 +16,14 @@ const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical
 
 /** Text-only controls and preview; no Markdown renderer or application protocol. */
 export class ChangePlannerView {
-  private operation: PlanOperation | "add_reciprocal_links" | "merge_knowledge" | "" = "";
+  private operation: PlanOperation | "add_reciprocal_links" | "merge_knowledge" | "copy_context_group" | "" = "";
   private side: 0 | 1 = 0;
   private selection: PlanRange | null = null;
   private confirmed = false;
   private multiSelections: [PlanRange | null, PlanRange | null] = [null, null];
   private multiConfirmed: [boolean, boolean] = [false, false];
   private mergeChoice = emptyMerge();
+  private groupChoice = emptyGroupChoice();
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
     private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void) {
@@ -36,25 +39,25 @@ export class ChangePlannerView {
     button.addEventListener("click", action); return button;
   }
   private changed(): void {
-    this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge(); this.session.changeSelection();
+    this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge(); this.groupChoice = emptyGroupChoice(); this.session.changeSelection();
   }
   render(): void {
     const root = this.container, view = this.session.view;
     root.empty(); root.createEl("h3", { text: tr("@planner.title") });
-    root.createEl("p", { text: tr(this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
-    root.createDiv({ text: tr(view.stage === "error" ? view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
+    root.createEl("p", { text: tr(this.operation === "copy_context_group" ? "@group.scope" : this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
+    root.createDiv({ text: tr(view.stage === "error" ? view.groupError ? `@group.error.${view.groupError}` : view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
       attr: { role: "status", "aria-live": "polite", "data-planner-stage": view.stage } });
     if (view.stage === "loading") { this.button(root, "cancel", () => this.session.cancel()); return; }
     if (!view.input) {
       this.button(root, "prepare", () => {
-        this.selection = null; this.operation = ""; this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge();
+        this.selection = null; this.operation = ""; this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge(); this.groupChoice = emptyGroupChoice();
         void this.session.prepare();
       }); return;
     }
-    root.createEl("p", { text: tr(this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
+    root.createEl("p", { text: tr(this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
     const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
-    sourceLabel.hidden = this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
+    sourceLabel.hidden = this.operation === "copy_context_group" || this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
     const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
     view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
     source.value = String(this.side);
@@ -62,12 +65,16 @@ export class ChangePlannerView {
     const operationLabel = controls.createEl("label", { text: tr("@planner.operation") });
     const operation = operationLabel.createEl("select", { attr: { "data-planner-field": "operation" } });
     operation.createEl("option", { text: tr("@planner.choose"), value: "" });
-    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change", "add_reciprocal_links", "merge_knowledge"]) {
+    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change", "add_reciprocal_links", "merge_knowledge", "copy_context_group"]) {
       operation.createEl("option", { text: tr(`@planner.op.${key}`), value: key });
     }
     operation.value = this.operation;
     operation.addEventListener("change", () => { this.operation = operation.value as typeof this.operation; this.selection = null; this.changed(); });
     if (this.operation) root.createEl("p", { text: tr(`@planner.op.${this.operation}`) });
+    if (this.operation === "copy_context_group") {
+      renderGroupPlanner(root, this.session, this.analysis, this.groupChoice, choice => { this.groupChoice = choice; this.session.changeSelection(); });
+      return;
+    }
     if (this.operation === "merge_knowledge") {
       renderMergePlanner(root, this.session, this.analysis, this.mergeChoice, choice => { this.mergeChoice = choice; this.session.changeSelection(); }, this.reviewMerge);
       return;
@@ -105,7 +112,7 @@ export class ChangePlannerView {
       }
     }
     const build = this.button(root, "build", () => {
-      if (this.operation && this.operation !== "add_reciprocal_links" && this.operation !== "merge_knowledge") void this.session.build({ operation: this.operation, source: this.side, selection: this.selection, confirmed: this.confirmed });
+      if (this.operation && this.operation !== "add_reciprocal_links" && this.operation !== "merge_knowledge" && this.operation !== "copy_context_group") void this.session.build({ operation: this.operation, source: this.side, selection: this.selection, confirmed: this.confirmed });
     });
     build.disabled = !this.operation || (this.operation !== "no_change" && (!this.selection || !this.confirmed));
     this.button(root, "cancel", () => this.session.cancel());
