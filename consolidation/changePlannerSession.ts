@@ -14,6 +14,11 @@ import type { GroupChoice, GroupPlan } from "./groupPlan";
 import { GroupPlanError } from "./groupStructure";
 import type { GroupFailure } from "./groupStructure";
 
+import { buildContextBundlePlan, validateContextBundlePlan } from "./contextBundlePlan";
+import type { ContextBundleChoice, ContextBundlePlan } from "./contextBundlePlan";
+import { ContextBundleError } from "./contextBundleStructure";
+import type { BundleFailure } from "./contextBundleStructure";
+
 export interface PlannerRead { pair: PlanPair; linktexts: readonly [string, string] }
 export interface PlannerDependencies {
   analysis(): RelationshipAnalysis | undefined;
@@ -29,6 +34,8 @@ export interface PlannerView {
   mergeError?: MergeFailure;
   groupPlan?: GroupPlan;
   groupError?: GroupFailure;
+  bundlePlan?: ContextBundlePlan;
+  bundleError?: BundleFailure;
   error?: PlanFailure;
   errorSide?: 0 | 1;
 }
@@ -86,6 +93,29 @@ export class ChangePlannerSession {
   changeSelection(): void {
     if (!this.closed && this.busy && this.multiGeneration === this.generation) { this.invalidate(); return; }
     if (!this.closed && !this.busy && this.view.input) this.publish({ stage: "choosing", input: this.view.input });
+  }
+  async buildBundle(choice: ContextBundleChoice): Promise<void> {
+    if (this.closed || this.busy || !this.view.input || !this.analysis) return;
+    const input = this.view.input, generation = ++this.generation;
+    this.multiGeneration = generation;
+    const selected = JSON.parse(JSON.stringify(choice)) as ContextBundleChoice;
+    this.publish({ stage: "loading" });
+    try {
+      const fresh = await this.deps.read(), incoming = this.deps.incoming?.() ?? [null, null] as const;
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(input, fresh)) { this.invalidate(); return; }
+      const plan = buildContextBundlePlan(this.analysis, fresh.pair, selected, fresh.linktexts, incoming);
+      const verified = await this.deps.read(), incomingAfter = this.deps.incoming?.() ?? [null, null] as const;
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(fresh, verified) || JSON.stringify(incoming) !== JSON.stringify(incomingAfter)) { this.invalidate(); return; }
+      const bundlePlan = validateContextBundlePlan(plan, this.analysis, verified.pair, selected, verified.linktexts, incomingAfter);
+      this.publish({ stage: "ready", input: verified, bundlePlan });
+    } catch (e) {
+      if (!this.current(generation)) return;
+      const reason = e instanceof ContextBundleError ? e.reason : "source";
+      if (reason === "source" || reason === "analysis") { this.invalidate(); return; }
+      this.publish({ stage: "error", input, bundleError: reason });
+    }
   }
   async buildGroup(choice: GroupChoice): Promise<void> {
     if (this.closed || this.busy || !this.view.input || !this.analysis) return;
