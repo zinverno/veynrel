@@ -82,6 +82,14 @@ ctime/mtime/size. An intact record with canonical `after` can support a separate
 confirmed Undo even if SIGKILL prevented the applied marker. A pending Undo with
 canonical `before` is shown as restored without writing anything again.
 
+The separate [Archive Apply protocol](archive-apply-v1.md) adds one narrowly
+verified exception to the secondary mtime check after a completed Archive Undo.
+Both immutable journals and all archive Apply/Undo receipts must prove the chain;
+the restored secondary must match its original content/ctime/size and the exact
+mtime recorded by Archive Undo. An active archive mark or incomplete archive
+receipt chain blocks Merge Undo. The original Merge journal and `sameSavedNote`
+checks are unchanged.
+
 A valid applied receipt additionally rejects canonical mtime/size changes even
 when text has returned to the same `after`. When a crash prevented that receipt,
 only the saved ctime and exact after content/size are available across restart;

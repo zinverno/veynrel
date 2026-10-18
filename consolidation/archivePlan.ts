@@ -66,7 +66,7 @@ function yamlRecord(text: string): Record<string, unknown> {
   } catch { throw new ArchiveError("frontmatter"); }
 }
 /** Insert literal YAML lines; never serialize or rewrite the user's YAML. */
-export function archiveMark(note: PlanNote, canonical: string): ArchivePlan["edit"] {
+export function archiveMark(note: Pick<PlanNote, "content" | "cache">, canonical: string): ArchivePlan["edit"] {
   requireArchive(!/[[\]|#^\\\r\n]/u.test(canonical), "link");
   const text = note.content, newline = text.includes("\r\n") ? "\r\n" : "\n";
   const mark = `veynrel_archive_status: archived${newline}veynrel_canonical: ${JSON.stringify(`[[${canonical.slice(0, -3)}]]`)}${newline}`;

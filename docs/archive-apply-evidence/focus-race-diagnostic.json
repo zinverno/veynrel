@@ -1,0 +1,32 @@
+{
+  "startup": {
+    "active": true,
+    "closed": false,
+    "focus": true,
+    "title": "vault - Obsidian 1.13.7"
+  },
+  "attempts": [
+    {
+      "before": {
+        "active": true,
+        "closed": false,
+        "focus": true,
+        "title": "Veynrel Health - vault - Obsidian 1.13.7"
+      }
+    },
+    {
+      "before": {
+        "active": false,
+        "closed": true,
+        "focus": true,
+        "title": "Settings - vault - Obsidian 1.13.7"
+      },
+      "clicked": {
+        "active": false,
+        "closed": true,
+        "focus": true,
+        "title": "Settings - vault - Obsidian 1.13.7"
+      }
+    }
+  ]
+}

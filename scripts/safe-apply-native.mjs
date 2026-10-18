@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-export function safeApplyHarness({ev,wait,focusMain,vault,ROOT}, paths = ['Safe/English/Same.md', 'Safe/Русский/Same.md']) {
+export function safeApplyHarness({ev,wait,focusMain,vault,ROOT,root}, paths = ['Safe/English/Same.md', 'Safe/Русский/Same.md']) {
   const fixture=JSON.parse(fs.readFileSync(ROOT+'/tests/fixtures/change-planner.json','utf8'));
   const [a,b]=paths;
   const click=selector=>ev(`document.querySelector(${JSON.stringify(selector)}).click();void 0`);
@@ -27,7 +27,13 @@ export function safeApplyHarness({ev,wait,focusMain,vault,ROOT}, paths = ['Safe/
   };
   const review=async()=>{await click('[data-safe-action=review]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')");};
   // Closing an Undo child can start a read-only parent refresh; wait for the shared owner.
-  const history=async()=>{await closeAll();await wait('!plugin.safeApply.busy');await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history');void 0");await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]')");};
+  const history=async()=>{
+    await closeAll();await wait('!plugin.safeApply.busy');await focusMain();
+    const before=await ev("({active:activeWindow===window,focus:document.hasFocus(),registered:!!app.commands.commands['ai-knowledge-hub:consolidation-operation-history']})");
+    const dispatched=await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history')");
+    try{await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]')");}
+    catch(error){fs.writeFileSync(root+'/history-failure.json',JSON.stringify({before,dispatched,after:await ev("({active:activeWindow===window,focus:document.hasFocus(),busy:plugin.safeApply.busy,modals:[...document.querySelectorAll('.modal')].map(e=>e.textContent),activeModals:[...activeDocument.querySelectorAll('.modal')].map(e=>e.textContent)})")},null,2));throw error;}
+  };
   const apply=async()=>{await review();await click('.ai-safe-apply [data-safe-action=confirm]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=undo]')");};
   return {fixture,a,b,click,closeAll,setup,plan,review,history,apply};
 }

@@ -81,7 +81,7 @@ secondary before/after and insertion, unchanged canonical text/path/identity,
 Merge Apply ID/operation/time/record SHA-256/successful receipt, copied ranges,
 remaining ranges with context and explicit dispositions, selected `archived`
 status, dependency observations and acknowledged limitations. It can be inspected
-as JSON in the preview. It has no executor and no persisted store.
+as JSON in the preview. Planning itself has no writer or persisted store.
 
 The only proposed change is two namespaced frontmatter text properties:
 
@@ -110,8 +110,10 @@ wikilink. There is no fallback that serializes all frontmatter.
 
 The preview displays full before/after, a line diff and serializable provenance.
 The exact text/insertion is authoritative for CRLF; the shared line diff is a
-human-readable presentation. There is **no Apply button**, mark application,
-archive Undo, deletion, relocation, hiding, tag change or backlink rewrite.
+human-readable presentation. The separate [Archive Apply & Undo stage](archive-apply-v1.md)
+adds a review entry after planning; its final write confirmation is in another
+window. Building a plan still writes nothing. Deletion, relocation, hiding, tag
+changes and backlink rewrites remain unsupported.
 
 ## Verification
 

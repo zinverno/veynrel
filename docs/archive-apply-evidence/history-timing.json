@@ -1,0 +1,414 @@
+{
+  "mergeJournal": {
+    "ms": 76.09999999776483,
+    "count": 18,
+    "states": [
+      {
+        "id": "0ce2fb8b7041832b783d9effaaf71f6cc1f665d6d2a86b5b7ff7d1a4c4a37362",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "11d590ba244adc55ed93795506995ee3c18fa377ba47fbbe269c4171b4658d23",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "1f6d219acb278e68178ae569bfeedd1acd2147a991ee14cfe967a976da48789f",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "3f0a397256f2ba68c16756411e3c9c6a1efa2d912997bc4d01f185cb97fc7ff6",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "61fc0f8a539aedeeef6003f35621cd1254fd2e619fa5a0e63c9567c50eaccb81",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "681397c3ec9df1a88e55a7952895dd14f6c2bb79dbca42d5f7808c42e6fc4ad1",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "68a8afbaa73aaf7e68d6c5363859134d358e056477ca7ad5acf8b06256810452",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "791c2b2f5dd01a857217e07503ddac5b9783d0c286d12f6ac328a94bfd41aa23",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "7ebb6f4fae6f1511189dd11c402c3192b541330be86c992c208b3099e1c5f4ab",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "7f15246b453708f07cde53da82904aa2b72bf4cb5b49abae19b55c75d9107642",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "a0e9bd568fb97ef1d0d0a368e9dadd2ab16e5e89b761e37e222caf16638256e3",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "a2577076be5189a88d47371fd35865c58e721d09601b99460c29971bd9066d27",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "aa5be0fbac199e6dd95b4fef1e0f81d6c8d883f8982fd880f586b1be7170012e",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "dc18e5cf829b90c635396a2d0434c60b4c3b49353e86a7437b194267fbad1850",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "ec0b9f4af80091ccc9e558d7b4c813e437fa843d0eec303de1a9b0440e33c252",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "ec3b883f45731a117b4cc9047ce2de6316a2e1372f0affa0fb1c6801ee483fa7",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "f01c943b27a8b7b95a419900ee96b03dfbcc296bc7d870b8ebe651d7364d0c6a",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "f95cd6979610d03e6cbfb2d3cb436ca0e085f7dec2dfec5202002d085ff4c0e6",
+        "damaged": false,
+        "issues": []
+      }
+    ]
+  },
+  "archiveJournal": {
+    "ms": 43.899999998509884,
+    "count": 13,
+    "states": [
+      {
+        "id": "1e73f1a9cefcbf29bd91daadc8dc0990998dd82ac7c9c634723015f3964cbb14",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "228240d697d83165037bf649e209793289db9b40c3e8eaa46ca0e786eb91b78e",
+        "damaged": true,
+        "issues": [
+          "backup.json"
+        ]
+      },
+      {
+        "id": "7dae33c36ee99f1c0e736ab536c9f55eedf2414ee175da3ad84b33882ba79251",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "981d7be33bfc0a38a99735da5a25391fc5b081d01584cec141f87ec86cad3ba7",
+        "damaged": true,
+        "issues": [
+          "mark-545c92c5-c65d-478e-83d9-c364f4568570.json"
+        ]
+      },
+      {
+        "id": "9b4d777afb32d6eaca2412073bb37857a3296968b8c02b509a6556a00682b358",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "9f9451498500bd0810ca5db522aa578a60cf1a870a2e392035bb527fe5e7debe",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "add040d7eb0537725e9e04023db071fad7a16c436a458e3aa8958e3f42cc03af",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "b4524b18d6ca15f40ac3cf5e30aa17f962cbb0f5611c571551d677577f703e7f",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "b572ac1b2f2aff8187f8dc10b4f128c8d0529a673a5d6a9c6f398c533bd59c1a",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "b5bc402dd2e7906478ddc996edde4e1f4f1315ee83bd7f258139eaa13a678c90",
+        "damaged": true,
+        "issues": [
+          "backup.json"
+        ]
+      },
+      {
+        "id": "cd77c1f9476029640b6480f6bf7f02fc37fdc74d9968351e35bdb043801aac5a",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "dc2b86ad319eac9c83ccd27b9a6ac5be1034d41013d31ca80a6822e37b479c23",
+        "damaged": false,
+        "issues": []
+      },
+      {
+        "id": "f018a0b5dd70db19fa383c19dc502d43592abb16f9d90c74e8c6c5b9a4c05033",
+        "damaged": true,
+        "issues": [
+          "mark-eba3e6d4-4fa5-41c7-9ecc-98f1721b7eab.json"
+        ]
+      }
+    ]
+  },
+  "mergeHistory": {
+    "ms": 795.6999999992549,
+    "count": 18,
+    "states": [
+      {
+        "id": "aa5be0fbac199e6dd95b4fef1e0f81d6c8d883f8982fd880f586b1be7170012e",
+        "state": "applied",
+        "damaged": false,
+        "issues": [],
+        "canUndo": true
+      },
+      {
+        "id": "ec0b9f4af80091ccc9e558d7b4c813e437fa843d0eec303de1a9b0440e33c252",
+        "state": "applied",
+        "damaged": false,
+        "issues": [],
+        "canUndo": true
+      },
+      {
+        "id": "a2577076be5189a88d47371fd35865c58e721d09601b99460c29971bd9066d27",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "791c2b2f5dd01a857217e07503ddac5b9783d0c286d12f6ac328a94bfd41aa23",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "681397c3ec9df1a88e55a7952895dd14f6c2bb79dbca42d5f7808c42e6fc4ad1",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "0ce2fb8b7041832b783d9effaaf71f6cc1f665d6d2a86b5b7ff7d1a4c4a37362",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "11d590ba244adc55ed93795506995ee3c18fa377ba47fbbe269c4171b4658d23",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "1f6d219acb278e68178ae569bfeedd1acd2147a991ee14cfe967a976da48789f",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "f01c943b27a8b7b95a419900ee96b03dfbcc296bc7d870b8ebe651d7364d0c6a",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "7f15246b453708f07cde53da82904aa2b72bf4cb5b49abae19b55c75d9107642",
+        "state": "applied",
+        "damaged": false,
+        "issues": [],
+        "canUndo": true
+      },
+      {
+        "id": "7ebb6f4fae6f1511189dd11c402c3192b541330be86c992c208b3099e1c5f4ab",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "f95cd6979610d03e6cbfb2d3cb436ca0e085f7dec2dfec5202002d085ff4c0e6",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "3f0a397256f2ba68c16756411e3c9c6a1efa2d912997bc4d01f185cb97fc7ff6",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "68a8afbaa73aaf7e68d6c5363859134d358e056477ca7ad5acf8b06256810452",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "a0e9bd568fb97ef1d0d0a368e9dadd2ab16e5e89b761e37e222caf16638256e3",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "61fc0f8a539aedeeef6003f35621cd1254fd2e619fa5a0e63c9567c50eaccb81",
+        "state": "applied",
+        "damaged": false,
+        "issues": [],
+        "canUndo": true
+      },
+      {
+        "id": "dc18e5cf829b90c635396a2d0434c60b4c3b49353e86a7437b194267fbad1850",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "ec3b883f45731a117b4cc9047ce2de6316a2e1372f0affa0fb1c6801ee483fa7",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      }
+    ]
+  },
+  "archiveHistory": {
+    "ms": 420.30000000074506,
+    "count": 13,
+    "states": [
+      {
+        "id": "9f9451498500bd0810ca5db522aa578a60cf1a870a2e392035bb527fe5e7debe",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "cd77c1f9476029640b6480f6bf7f02fc37fdc74d9968351e35bdb043801aac5a",
+        "state": "conflict",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "228240d697d83165037bf649e209793289db9b40c3e8eaa46ca0e786eb91b78e",
+        "state": "prepared",
+        "damaged": true,
+        "issues": [
+          "backup.json"
+        ],
+        "canUndo": false
+      },
+      {
+        "id": "f018a0b5dd70db19fa383c19dc502d43592abb16f9d90c74e8c6c5b9a4c05033",
+        "state": "undone",
+        "damaged": true,
+        "issues": [
+          "mark-eba3e6d4-4fa5-41c7-9ecc-98f1721b7eab.json"
+        ],
+        "canUndo": false
+      },
+      {
+        "id": "dc2b86ad319eac9c83ccd27b9a6ac5be1034d41013d31ca80a6822e37b479c23",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "7dae33c36ee99f1c0e736ab536c9f55eedf2414ee175da3ad84b33882ba79251",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "981d7be33bfc0a38a99735da5a25391fc5b081d01584cec141f87ec86cad3ba7",
+        "state": "applied",
+        "damaged": true,
+        "issues": [
+          "mark-545c92c5-c65d-478e-83d9-c364f4568570.json"
+        ],
+        "canUndo": false
+      },
+      {
+        "id": "b572ac1b2f2aff8187f8dc10b4f128c8d0529a673a5d6a9c6f398c533bd59c1a",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "9b4d777afb32d6eaca2412073bb37857a3296968b8c02b509a6556a00682b358",
+        "state": "prepared",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "1e73f1a9cefcbf29bd91daadc8dc0990998dd82ac7c9c634723015f3964cbb14",
+        "state": "prepared",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "b5bc402dd2e7906478ddc996edde4e1f4f1315ee83bd7f258139eaa13a678c90",
+        "state": "prepared",
+        "damaged": true,
+        "issues": [
+          "backup.json"
+        ],
+        "canUndo": false
+      },
+      {
+        "id": "add040d7eb0537725e9e04023db071fad7a16c436a458e3aa8958e3f42cc03af",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      },
+      {
+        "id": "b4524b18d6ca15f40ac3cf5e30aa17f962cbb0f5611c571551d677577f703e7f",
+        "state": "undone",
+        "damaged": false,
+        "issues": [],
+        "canUndo": false
+      }
+    ]
+  }
+}

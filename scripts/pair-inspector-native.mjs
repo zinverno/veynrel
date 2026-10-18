@@ -46,6 +46,11 @@ try {
  const wait=async expression=>{for(let i=0;i<180;i++){if(await ev(expression))return;await pause(50);}throw Error('timeout: '+expression+' '+JSON.stringify(await ev("({states:[...document.querySelectorAll('.ai-semantic-search-status,.ai-pair-inspector [role=status]')].map(e=>e.textContent),buttons:document.querySelectorAll('.ai-semantic-duplicate-card button').length,modals:document.querySelectorAll('.modal').length,semantic:window.engine?.getSemanticStatus().kind,language:window.plugin?.settings.language,titles:[...document.querySelectorAll('.modal')].map(e=>e.className),notices:[...document.querySelectorAll('.notice')].map(e=>e.textContent)})")));};
  const pass=async(name,expr)=>{assert(await ev(expr),name);checks.push(name);console.log(name);};
  const focusMain=async()=>{for(let i=0;i<160;i++){
+   // A Settings focus event can arrive after its rapid close. Obtain a live native focus before closing it again.
+   if(await ev('activeWindow!==window&&activeWindow.closed')) {
+     await ev('app.setting.open();void 0');
+     await wait('activeWindow!==window&&!activeWindow.closed&&activeWindow===app.setting.win');
+   }
    // Trust restoration can leave the native Settings popout open in this synthetic profile.
    await ev('if(app.setting.win&&app.setting.win!==window)app.setting.close();void 0');
    await cdp('Page.bringToFront');await pause(50);if(await ev('activeWindow===window'))return;}
@@ -145,7 +150,7 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner')) {
+ if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply')) {
    const restart = async () => {
      socket.close();
      const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await exited;
@@ -191,11 +196,15 @@ try {
      const {archivePlannerScenario}=await import('./archive-planner-native.mjs');
      report.archivePlanner=await archivePlannerScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
+   if(process.argv.includes('--archive-apply')) {
+     const {archiveApplyScenario}=await import('./archive-apply-native.mjs');
+     report.archiveApply=await archiveApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
+   }
    if(process.argv.includes('--journal-recovery')) {
      const {journalRecoveryScenario}=await import('./journal-recovery-native.mjs');
      report.journalRecovery=await journalRecoveryScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
  }
- report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
+ report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}
