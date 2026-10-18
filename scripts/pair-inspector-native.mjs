@@ -137,6 +137,10 @@ try {
    const { structuredGroupsScenario } = await import('./structured-groups-native.mjs');
    report.structuredGroups = await structuredGroupsScenario({ ev, wait, cdp, focusMain, root, vault, paths: [a, b], ROOT });
  }
+ if (process.argv.includes('--atomization')) {
+   const { atomizationScenario } = await import('./atomization-native.mjs');
+   report.atomization = await atomizationScenario({ ev, wait, cdp, focusMain, root, vault, paths: [a, b], ROOT });
+ }
  if (process.argv.includes('--merge-planner')) {
    const { mergePlannerScenario } = await import('./merge-planner-native.mjs');
    report.mergePlanner = await mergePlannerScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });

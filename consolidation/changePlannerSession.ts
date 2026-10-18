@@ -19,11 +19,15 @@ import type { ContextBundleChoice, ContextBundlePlan } from "./contextBundlePlan
 import { ContextBundleError } from "./contextBundleStructure";
 import type { BundleFailure } from "./contextBundleStructure";
 
+import { AtomizationError, buildAtomizationPlan, validateAtomizationPlan } from "./atomizationPlan";
+import type { AtomizationChoice, AtomizationFailure, AtomizationObservation, AtomizationPlan } from "./atomizationPlan";
+
 export interface PlannerRead { pair: PlanPair; linktexts: readonly [string, string] }
 export interface PlannerDependencies {
   analysis(): RelationshipAnalysis | undefined;
   read(): Promise<PlannerRead>;
   incoming?(): MergeIncoming;
+  atomizationObservation?(path: string, source: string): Promise<AtomizationObservation>;
 }
 export interface PlannerView {
   stage: "idle" | "loading" | "choosing" | "ready" | "error" | "stale" | "cancelled";
@@ -36,6 +40,8 @@ export interface PlannerView {
   groupError?: GroupFailure;
   bundlePlan?: ContextBundlePlan;
   bundleError?: BundleFailure;
+  atomizationPlan?: AtomizationPlan;
+  atomizationError?: AtomizationFailure;
   error?: PlanFailure;
   errorSide?: 0 | 1;
 }
@@ -79,6 +85,7 @@ export class ChangePlannerSession {
   private multiGeneration?: number;
   private closed = false;
   private analysis?: RelationshipAnalysis;
+  private analysisStamp?: string;
   constructor(private readonly deps: PlannerDependencies) {}
   get busy(): boolean { return this.view.stage === "loading"; }
   private publish(view: PlannerView): void { if (!this.closed) { this.view = view; this.onChange(); } }
@@ -93,6 +100,37 @@ export class ChangePlannerSession {
   changeSelection(): void {
     if (!this.closed && this.busy && this.multiGeneration === this.generation) { this.invalidate(); return; }
     if (!this.closed && !this.busy && this.view.input) this.publish({ stage: "choosing", input: this.view.input });
+  }
+  async buildAtomization(choice: AtomizationChoice): Promise<void> {
+    if (this.closed || this.busy || !this.view.input || !this.analysis) return;
+    const input = this.view.input, generation = ++this.generation, analysis = this.analysis;
+    const analysisJSON = JSON.stringify({ result: analysis.result, provider: analysis.provider, model: analysis.model });
+    if (analysisJSON !== this.analysisStamp) { this.invalidate(); return; }
+    this.multiGeneration = generation;
+    const selected = JSON.parse(JSON.stringify(choice)) as AtomizationChoice;
+    this.publish({ stage: "loading" });
+    try {
+      if (!this.deps.atomizationObservation || (selected.side !== 0 && selected.side !== 1)) throw new AtomizationError("confirmation");
+      const fresh = await this.deps.read();
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(input, fresh)) { this.invalidate(); return; }
+      const observation = await this.deps.atomizationObservation(selected.path, fresh.pair[selected.side].path);
+      if (!this.current(generation)) return;
+      const plan = buildAtomizationPlan(analysis, fresh.pair, selected, observation);
+      const verified = await this.deps.read();
+      if (!this.current(generation)) return;
+      const after = await this.deps.atomizationObservation(selected.path, verified.pair[selected.side].path);
+      if (!this.current(generation)) return;
+      if (!sameMultiRead(fresh, verified) || JSON.stringify(observation) !== JSON.stringify(after) ||
+        analysisJSON !== JSON.stringify({ result: analysis.result, provider: analysis.provider, model: analysis.model })) { this.invalidate(); return; }
+      const atomizationPlan = validateAtomizationPlan(plan, analysis, verified.pair, selected, after);
+      this.publish({ stage: "ready", input: verified, atomizationPlan });
+    } catch (e) {
+      if (!this.current(generation)) return;
+      const reason = e instanceof AtomizationError ? e.reason : "source";
+      if (reason === "source" || reason === "analysis") { this.invalidate(); return; }
+      this.publish({ stage: "error", input, atomizationError: reason });
+    }
   }
   async buildBundle(choice: ContextBundleChoice): Promise<void> {
     if (this.closed || this.busy || !this.view.input || !this.analysis) return;
@@ -189,6 +227,7 @@ export class ChangePlannerSession {
     if (this.closed || this.busy) return;
     this.analysis = this.deps.analysis();
     if (!this.analysis) { this.invalidate(); return; }
+    this.analysisStamp = JSON.stringify({ result: this.analysis.result, provider: this.analysis.provider, model: this.analysis.model });
     const generation = ++this.generation;
     this.publish({ stage: "loading" });
     try {

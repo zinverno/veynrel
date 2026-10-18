@@ -1,0 +1,556 @@
+{
+  "structuredGroups": {
+    "status": "PASS",
+    "corpusSha256": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+    "artifactSha256": "65b4ffa6448eb7917973c07e4ac92e6d2b20ab84c3ce73b6e8126ca64d80ffd1",
+    "checks": [
+      "01: no extra completion, writes or journals",
+      "02: no extra completion, writes or journals",
+      "03: no extra completion, writes or journals",
+      "04: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "05: incomplete external context blocks publication",
+      "05: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "06: no extra completion, writes or journals",
+      "07: no extra completion, writes or journals",
+      "08: no extra completion, writes or journals",
+      "09: no extra completion, writes or journals",
+      "10: no extra completion, writes or journals",
+      "11: no extra completion, writes or journals",
+      "12: no extra completion, writes or journals",
+      "13: no extra completion, writes or journals",
+      "14: no extra completion, writes or journals",
+      "15: no extra completion, writes or journals",
+      "16: no extra completion, writes or journals",
+      "17: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "19: incomplete external context blocks publication",
+      "19: no extra completion, writes or journals",
+      "20: no extra completion, writes or journals",
+      "21: no extra completion, writes or journals",
+      "22: no extra completion, writes or journals",
+      "23: no extra completion, writes or journals",
+      "24: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "en: full source/after/diff and no Apply route",
+      "en theme-light 1200: fits and localizes",
+      "en theme-light 390: fits and localizes",
+      "en theme-dark 1200: fits and localizes",
+      "en theme-dark 390: fits and localizes",
+      "Canonical re-selection clears whole plan and confirmations",
+      "Insertion remains separately unconfirmed",
+      "Both canonical directions preserve full CRLF originals",
+      "Insertion remains separately unconfirmed",
+      "ru: full source/after/diff and no Apply route",
+      "ru theme-light 1200: fits and localizes",
+      "ru theme-light 390: fits and localizes",
+      "ru theme-dark 1200: fits and localizes",
+      "ru theme-dark 390: fits and localizes",
+      "Canonical re-selection clears whole plan and confirmations",
+      "Insertion remains separately unconfirmed",
+      "Both canonical directions preserve full CRLF originals",
+      "wrapped-07: adding a heading does not authorize protected dependencies",
+      "wrapped-08: adding a heading does not authorize protected dependencies",
+      "wrapped-09: adding a heading does not authorize protected dependencies",
+      "wrapped-22: adding a heading does not authorize protected dependencies",
+      "Insertion remains separately unconfirmed",
+      "Related but distinct requires a separate intentional-copy decision",
+      "Explicit distinct branch plan keeps manual-review provenance",
+      "Insertion remains separately unconfirmed",
+      "Semantic conflict cannot be authorized by structural choices",
+      "Insertion remains separately unconfirmed",
+      "cancel: late read cannot publish a GroupPlan",
+      "Insertion remains separately unconfirmed",
+      "close: late read cannot publish a GroupPlan",
+      "Insertion remains separately unconfirmed",
+      "Source 0 edit destroys the whole group session",
+      "Insertion remains separately unconfirmed",
+      "Source 1 edit destroys the whole group session",
+      "All 58 originals byte-identical; zero Markdown writers, journal mutations or network"
+    ],
+    "io": {
+      "writers": 0,
+      "journals": 0,
+      "network": 0,
+      "scriptedAnalyzerCompletions": 35
+    },
+    "rows": [
+      {
+        "id": "01",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "02",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "03",
+        "plainPlan": true,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "04",
+        "plainPlan": true,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "05",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "unresolved external card dependency",
+        "structureFailure": null,
+        "plainFailure": "heading",
+        "refusal": "dependencies"
+      },
+      {
+        "id": "06",
+        "plainPlan": false,
+        "groupPlan": true,
+        "review": "reviewed full original context branch",
+        "structureFailure": null,
+        "plainFailure": "heading"
+      },
+      {
+        "id": "07",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "plainFailure": "neighbor",
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "08",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "plainFailure": "neighbor",
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "09",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "plainFailure": "context",
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "10",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "11",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "12",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "13",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "14",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "15",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "16",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "17",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "18",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "refusal": "analysis-input-limit"
+      },
+      {
+        "id": "19",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "unresolved external card dependency",
+        "structureFailure": null,
+        "plainFailure": "heading",
+        "refusal": "dependencies"
+      },
+      {
+        "id": "20",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "21",
+        "plainPlan": true,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      },
+      {
+        "id": "22",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": "metadata",
+        "plainFailure": "protected",
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "23",
+        "plainPlan": false,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "plainFailure": "context",
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "24",
+        "plainPlan": true,
+        "groupPlan": false,
+        "review": "No desired heading transfer",
+        "structureFailure": null
+      }
+    ]
+  },
+  "contextBundles": {
+    "status": "PASS",
+    "corpusSha256": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+    "artifactSha256": "65b4ffa6448eb7917973c07e4ac92e6d2b20ab84c3ce73b6e8126ca64d80ffd1",
+    "checks": [
+      "01: no additional analysis, writer or journal",
+      "02: no additional analysis, writer or journal",
+      "03: no additional analysis, writer or journal",
+      "04: no additional analysis, writer or journal",
+      "05: no automatic bundle permission",
+      "05: no additional analysis, writer or journal",
+      "06: no additional analysis, writer or journal",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "07: no additional analysis, writer or journal",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "08: no additional analysis, writer or journal",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "09: no additional analysis, writer or journal",
+      "10: no additional analysis, writer or journal",
+      "11: no additional analysis, writer or journal",
+      "12: no additional analysis, writer or journal",
+      "13: no additional analysis, writer or journal",
+      "14: no additional analysis, writer or journal",
+      "15: no additional analysis, writer or journal",
+      "16: no additional analysis, writer or journal",
+      "17: no additional analysis, writer or journal",
+      "19: no automatic bundle permission",
+      "19: no additional analysis, writer or journal",
+      "20: no additional analysis, writer or journal",
+      "21: no additional analysis, writer or journal",
+      "22: no automatic bundle permission",
+      "22: no additional analysis, writer or journal",
+      "23: no automatic bundle permission",
+      "23: no additional analysis, writer or journal",
+      "24: no additional analysis, writer or journal",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "en 07: exact full sources and before/after/diff, no Apply",
+      "en 07 theme-light 1200: localized and fits",
+      "en 07 theme-light 390: localized and fits",
+      "en 07 theme-dark 1200: localized and fits",
+      "en 07 theme-dark 390: localized and fits",
+      "Reselection clears the complete plan and confirmations",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "en 08: exact full sources and before/after/diff, no Apply",
+      "en 08 theme-light 1200: localized and fits",
+      "en 08 theme-light 390: localized and fits",
+      "en 08 theme-dark 1200: localized and fits",
+      "en 08 theme-dark 390: localized and fits",
+      "Reselection clears the complete plan and confirmations",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "en 09: exact full sources and before/after/diff, no Apply",
+      "en 09 theme-light 1200: localized and fits",
+      "en 09 theme-light 390: localized and fits",
+      "en 09 theme-dark 1200: localized and fits",
+      "en 09 theme-dark 390: localized and fits",
+      "Reselection clears the complete plan and confirmations",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "ru 07: exact full sources and before/after/diff, no Apply",
+      "ru 07 theme-light 1200: localized and fits",
+      "ru 07 theme-light 390: localized and fits",
+      "ru 07 theme-dark 1200: localized and fits",
+      "ru 07 theme-dark 390: localized and fits",
+      "Reselection clears the complete plan and confirmations",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "ru 08: exact full sources and before/after/diff, no Apply",
+      "ru 08 theme-light 1200: localized and fits",
+      "ru 08 theme-light 390: localized and fits",
+      "ru 08 theme-dark 1200: localized and fits",
+      "ru 08 theme-dark 390: localized and fits",
+      "Reselection clears the complete plan and confirmations",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "ru 09: exact full sources and before/after/diff, no Apply",
+      "ru 09 theme-light 1200: localized and fits",
+      "ru 09 theme-light 390: localized and fits",
+      "ru 09 theme-dark 1200: localized and fits",
+      "ru 09 theme-dark 390: localized and fits",
+      "Reselection clears the complete plan and confirmations",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "CRLF Unicode and both canonical choices preserve exact blocks",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "CRLF Unicode and both canonical choices preserve exact blocks",
+      "protected-0: dependent markup refused by native structure",
+      "protected-1: dependent markup refused by native structure",
+      "protected-2: dependent markup refused by native structure",
+      "protected-3: dependent markup refused by native structure",
+      "protected-4: dependent markup refused by native structure",
+      "protected-5: dependent markup refused by native structure",
+      "protected-6: dependent markup refused by native structure",
+      "protected-7: dependent markup refused by native structure",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "Related distinct needs separate intent",
+      "Distinct plan keeps original manual-review provenance",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "Conflict cannot be discharged by structural confirmation",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "Unresolved external context blocks build",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "cancel: late final read cannot restore a plan",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "close: late final read cannot restore a plan",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "Source 0 edit invalidates the whole session",
+      "All context paragraphs start unselected",
+      "Insertion requires independent confirmation",
+      "Source 1 edit invalidates the whole session",
+      "All 68 synthetic files byte-identical; zero writes/journals/network"
+    ],
+    "io": {
+      "writers": 0,
+      "journals": 0,
+      "network": 0,
+      "scriptedAnalyzerCompletions": 46
+    },
+    "rows": [
+      {
+        "id": "01",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "02",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "03",
+        "plainPlan": true,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "04",
+        "plainPlan": true,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "05",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false,
+        "plainFailure": "heading",
+        "refusal": "heading"
+      },
+      {
+        "id": "06",
+        "plainPlan": false,
+        "groupPlan": true,
+        "bundlePlan": false,
+        "plainFailure": "heading",
+        "refusal": "heading"
+      },
+      {
+        "id": "07",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": true,
+        "plainFailure": "neighbor"
+      },
+      {
+        "id": "08",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": true,
+        "plainFailure": "neighbor"
+      },
+      {
+        "id": "09",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": true,
+        "plainFailure": "context"
+      },
+      {
+        "id": "10",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "11",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "12",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "13",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "14",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "15",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "16",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "17",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "18",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false,
+        "refusal": "analysis-input-limit"
+      },
+      {
+        "id": "19",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false,
+        "plainFailure": "heading",
+        "refusal": "heading"
+      },
+      {
+        "id": "20",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false
+      },
+      {
+        "id": "21",
+        "plainPlan": true,
+        "groupPlan": false,
+        "bundlePlan": false,
+        "refusal": "context"
+      },
+      {
+        "id": "22",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false,
+        "plainFailure": "protected",
+        "refusal": "metadata"
+      },
+      {
+        "id": "23",
+        "plainPlan": false,
+        "groupPlan": false,
+        "bundlePlan": false,
+        "plainFailure": "context",
+        "refusal": "no-supported-core"
+      },
+      {
+        "id": "24",
+        "plainPlan": true,
+        "groupPlan": false,
+        "bundlePlan": false
+      }
+    ]
+  }
+}

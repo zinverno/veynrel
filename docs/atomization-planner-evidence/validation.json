@@ -1,0 +1,41 @@
+{
+  "baseCommit": "c29bd847bfc8c264fe7f414ffb553958b2bb8bb4",
+  "npmTest": {
+    "status": "PASS",
+    "tests": 4008,
+    "files": 153
+  },
+  "typecheck": "PASS",
+  "lint": {
+    "status": "PASS",
+    "existingWarnings": [
+      "api.ts:404 no-restricted-globals fetch advisory"
+    ]
+  },
+  "build": "PASS",
+  "auditProposals": {
+    "status": "PASS",
+    "killed": 5,
+    "total": 5
+  },
+  "diffCheck": "PASS",
+  "newAtomizationTests": 98,
+  "native": {
+    "status": "PASS",
+    "runtime": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    },
+    "atomizationAssertions": 98,
+    "groupAssertions": 64,
+    "bundleAssertions": 118,
+    "baseAssertions": 18
+  },
+  "artifacts": {
+    "main.js": "65b4ffa6448eb7917973c07e4ac92e6d2b20ab84c3ce73b6e8126ca64d80ffd1",
+    "styles.css": "7c6d353ef5952e4b305265bf163bfc24f2852c6ce71b1cbb6ef40da1b04ee05f",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "tests/fixtures/atomization-v1.json": "dbe6224a91ff1ea3dd9813cf11973c308cb2d64a0bb92a2daad96e086cceae2e",
+    "tests/fixtures/consolidation-realistic-v1.json": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8"
+  }
+}

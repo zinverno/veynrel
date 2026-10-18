@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "cases": [
+    {"id":"fact","text":"A blue envelope marks a completed trial.","accepted":"paragraph"},
+    {"id":"condition","text":"If the chamber stays below 5 °C, the sample remains valid for two hours.","accepted":"paragraph"},
+    {"id":"h1","text":"# Trial\n\nIf the chamber stays below 5 °C, the sample remains valid for two hours.\n","accepted":"section"},
+    {"id":"h2","text":"# Trial\n\nOnly sealed samples qualify.\n\n## Duration\n\nThe sample remains valid for two hours.\n","accepted":"section"},
+    {"id":"h3","text":"# Trial\n\nOnly sealed samples qualify.\n\n## Conditions\n\nThe chamber must stay below 5 °C.\n\n### Duration\n\nThe sample remains valid for two hours.\n","accepted":"section"},
+    {"id":"versions","text":"Version one requires 5 °C. Version two requires 8 °C.","semantic":"conflicting"},
+    {"id":"attribution","text":"> The sample remains valid for two hours.\n\n— Mira, lab notebook, page 5.","refused":true},
+    {"id":"unattributed","text":"“The sample remains valid for two hours.”","refused":true},
+    {"id":"code","text":"```md\nA blue envelope marks a completed trial.\n```","refused":true},
+    {"id":"list","text":"- A blue envelope\n- An amber envelope","refused":true},
+    {"id":"embed","text":"Read ![[Missing]] before using this rule.","refused":true},
+    {"id":"link","text":"See [the rule](Missing.md) for its condition.","refused":true},
+    {"id":"dependent","text":"# Conditional protocol\n\nOnly sealed samples qualify.\n\nThe sample remains valid for two hours.","accepted":"section","paragraphRefused":true},
+    {"id":"unicode-crlf","text":"# Опыт 🪶\r\n\r\nТолько закрытая проба.\r\n\r\n## Срок\r\n\r\nГипотеза: é остаётся стабильным два часа.\r\n","accepted":"section"}
+  ],
+  "refusedPaths": ["../Atom.md", "/Atom.md", ".obsidian/Atom.md", ".git/Atom.md", "custom-config/Atom.md", "node_modules/Atom.md", "Atoms//Atom.md", "Atoms/../Atom.md", "Atoms/Atom.MD", "Atoms/CON.md", "Atoms/Atom#x.md", "Atoms/Atom|x.md", "Atoms/Atom\\x.md", "Atoms/Atom.md ", "Atoms/.hidden.md", "Atoms/../.md", "Atoms/Atom\u200b.md"]
+}
