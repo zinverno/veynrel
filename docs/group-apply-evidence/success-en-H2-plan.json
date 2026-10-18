@@ -1,0 +1,669 @@
+{
+  "version": 1,
+  "operation": "copy_context_group",
+  "readOnly": true,
+  "canonical": {
+    "path": "GroupApply/success-en-H2/Теория/Same name.md",
+    "identity": {
+      "created": 1792354438947,
+      "modified": 1792354438947,
+      "bytes": 189,
+      "contentHash": "44b80a2b676b8df2"
+    },
+    "before": "---\ntitle: Keep\ntags: [synthetic]\nrelated: \"[[Absent synthetic source]]\"\n---\n\n# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\n[[Absent synthetic source]]\n\nAn existing observation.",
+    "after": "---\ntitle: Keep\ntags: [synthetic]\nrelated: \"[[Absent synthetic source]]\"\n---\n\n# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\n[[Absent synthetic source]]\n\nAn existing observation.\n\n# Source guide\n\nShared scoped fact.\n\n\n\n## Practice\n\nConditions apply to this demonstration only.\n\n### Trial\n\nObservation 🪶 é.\n\n"
+  },
+  "secondary": {
+    "path": "GroupApply/success-en-H2/Practice/Same name.md",
+    "identity": {
+      "created": 1792354438947,
+      "modified": 1792354438947,
+      "bytes": 184,
+      "contentHash": "de41a2e6c7a1faf8"
+    },
+    "content": "# Source guide\n\nShared scoped fact.\n\n## Practice\n\nConditions apply to this demonstration only.\n\n### Trial\n\nObservation 🪶 é.\n\n## Practice\n\n### Trial\n\nRetained sibling observation.\n",
+    "unchanged": true
+  },
+  "hierarchy": {
+    "source": [
+      {
+        "level": 1,
+        "title": "Source guide",
+        "range": {
+          "start": 0,
+          "end": 14,
+          "text": "# Source guide"
+        },
+        "end": 181,
+        "parent": null
+      },
+      {
+        "level": 2,
+        "title": "Practice",
+        "range": {
+          "start": 37,
+          "end": 48,
+          "text": "## Practice"
+        },
+        "end": 127,
+        "parent": 0
+      },
+      {
+        "level": 3,
+        "title": "Trial",
+        "range": {
+          "start": 96,
+          "end": 105,
+          "text": "### Trial"
+        },
+        "end": 127,
+        "parent": 1
+      },
+      {
+        "level": 2,
+        "title": "Practice",
+        "range": {
+          "start": 127,
+          "end": 138,
+          "text": "## Practice"
+        },
+        "end": 181,
+        "parent": 0
+      },
+      {
+        "level": 3,
+        "title": "Trial",
+        "range": {
+          "start": 140,
+          "end": 149,
+          "text": "### Trial"
+        },
+        "end": 181,
+        "parent": 3
+      }
+    ],
+    "destination": [
+      {
+        "level": 1,
+        "title": "Existing guide",
+        "range": {
+          "start": 78,
+          "end": 94,
+          "text": "# Existing guide"
+        },
+        "end": 189,
+        "parent": null
+      },
+      {
+        "level": 2,
+        "title": "Existing scope",
+        "range": {
+          "start": 117,
+          "end": 134,
+          "text": "## Existing scope"
+        },
+        "end": 189,
+        "parent": 0
+      }
+    ],
+    "inserted": [
+      {
+        "level": 1,
+        "text": "# Source guide",
+        "sourceOffset": 0,
+        "destinationOffset": 191
+      },
+      {
+        "level": 2,
+        "text": "## Practice",
+        "sourceOffset": 37,
+        "destinationOffset": 230
+      },
+      {
+        "level": 3,
+        "text": "### Trial",
+        "sourceOffset": 96,
+        "destinationOffset": 289
+      }
+    ]
+  },
+  "group": {
+    "heading": 1,
+    "path": [
+      0,
+      1
+    ],
+    "range": {
+      "start": 37,
+      "end": 127,
+      "text": "## Practice\n\nConditions apply to this demonstration only.\n\n### Trial\n\nObservation 🪶 é.\n\n"
+    },
+    "context": [
+      {
+        "start": 0,
+        "end": 37,
+        "text": "# Source guide\n\nShared scoped fact.\n\n"
+      }
+    ],
+    "copied": [
+      {
+        "start": 0,
+        "end": 37,
+        "text": "# Source guide\n\nShared scoped fact.\n\n"
+      },
+      {
+        "start": 37,
+        "end": 127,
+        "text": "## Practice\n\nConditions apply to this demonstration only.\n\n### Trial\n\nObservation 🪶 é.\n\n"
+      }
+    ],
+    "retained": [
+      {
+        "start": 127,
+        "end": 181,
+        "text": "## Practice\n\n### Trial\n\nRetained sibling observation.\n"
+      }
+    ]
+  },
+  "insertion": {
+    "point": 189,
+    "representation": "original_heading_branch",
+    "separator": "\n\n",
+    "edit": {
+      "start": 189,
+      "end": 189,
+      "removed": "",
+      "inserted": "\n\n# Source guide\n\nShared scoped fact.\n\n\n\n## Practice\n\nConditions apply to this demonstration only.\n\n### Trial\n\nObservation 🪶 é.\n\n"
+    }
+  },
+  "confirmations": {
+    "operation": "copy_context_group",
+    "canonical": 0,
+    "group": {
+      "start": 37,
+      "end": 127,
+      "text": "## Practice\n\nConditions apply to this demonstration only.\n\n### Trial\n\nObservation 🪶 é.\n\n"
+    },
+    "representation": "original_heading_branch",
+    "insertion": 189,
+    "groupConfirmed": true,
+    "contextConfirmed": true,
+    "insertionConfirmed": true,
+    "dependencies": "reviewed",
+    "distinctIntent": false
+  },
+  "dependencies": [
+    {
+      "path": "GroupApply/success-en-H2/Теория/Same name.md",
+      "metadata": {
+        "links": [
+          {
+            "link": "Absent synthetic source",
+            "original": "[[Absent synthetic source]]",
+            "displayText": "Absent synthetic source",
+            "position": {
+              "start": {
+                "line": 12,
+                "col": 0,
+                "offset": 136
+              },
+              "end": {
+                "line": 12,
+                "col": 27,
+                "offset": 163
+              }
+            }
+          }
+        ],
+        "headings": [
+          {
+            "heading": "Existing guide",
+            "level": 1,
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 78
+              },
+              "end": {
+                "line": 6,
+                "col": 16,
+                "offset": 94
+              }
+            }
+          },
+          {
+            "heading": "Existing scope",
+            "level": 2,
+            "position": {
+              "start": {
+                "line": 10,
+                "col": 0,
+                "offset": 117
+              },
+              "end": {
+                "line": 10,
+                "col": 17,
+                "offset": 134
+              }
+            }
+          }
+        ],
+        "sections": [
+          {
+            "type": "yaml",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 4,
+                "col": 3,
+                "offset": 76
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 78
+              },
+              "end": {
+                "line": 6,
+                "col": 16,
+                "offset": 94
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 8,
+                "col": 0,
+                "offset": 96
+              },
+              "end": {
+                "line": 8,
+                "col": 19,
+                "offset": 115
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 10,
+                "col": 0,
+                "offset": 117
+              },
+              "end": {
+                "line": 10,
+                "col": 17,
+                "offset": 134
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 12,
+                "col": 0,
+                "offset": 136
+              },
+              "end": {
+                "line": 12,
+                "col": 27,
+                "offset": 163
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 14,
+                "col": 0,
+                "offset": 165
+              },
+              "end": {
+                "line": 14,
+                "col": 24,
+                "offset": 189
+              }
+            }
+          }
+        ],
+        "frontmatter": {
+          "title": "Keep",
+          "tags": [
+            "synthetic"
+          ],
+          "related": "[[Absent synthetic source]]"
+        },
+        "frontmatterLinks": [
+          {
+            "key": "related",
+            "link": "Absent synthetic source",
+            "original": "[[Absent synthetic source]]",
+            "displayText": "Absent synthetic source"
+          }
+        ],
+        "v": 1,
+        "frontmatterPosition": {
+          "start": {
+            "line": 0,
+            "col": 0,
+            "offset": 0
+          },
+          "end": {
+            "line": 4,
+            "col": 3,
+            "offset": 76
+          }
+        }
+      },
+      "outgoing": [
+        {
+          "kind": "link",
+          "original": "[[Absent synthetic source]]",
+          "target": null
+        },
+        {
+          "kind": "property",
+          "original": "[[Absent synthetic source]]",
+          "target": null
+        }
+      ],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    },
+    {
+      "path": "GroupApply/success-en-H2/Practice/Same name.md",
+      "metadata": {
+        "headings": [
+          {
+            "heading": "Source guide",
+            "level": 1,
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 14,
+                "offset": 14
+              }
+            }
+          },
+          {
+            "heading": "Practice",
+            "level": 2,
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 37
+              },
+              "end": {
+                "line": 4,
+                "col": 11,
+                "offset": 48
+              }
+            }
+          },
+          {
+            "heading": "Trial",
+            "level": 3,
+            "position": {
+              "start": {
+                "line": 8,
+                "col": 0,
+                "offset": 96
+              },
+              "end": {
+                "line": 8,
+                "col": 9,
+                "offset": 105
+              }
+            }
+          },
+          {
+            "heading": "Practice",
+            "level": 2,
+            "position": {
+              "start": {
+                "line": 12,
+                "col": 0,
+                "offset": 127
+              },
+              "end": {
+                "line": 12,
+                "col": 11,
+                "offset": 138
+              }
+            }
+          },
+          {
+            "heading": "Trial",
+            "level": 3,
+            "position": {
+              "start": {
+                "line": 14,
+                "col": 0,
+                "offset": 140
+              },
+              "end": {
+                "line": 14,
+                "col": 9,
+                "offset": 149
+              }
+            }
+          }
+        ],
+        "sections": [
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 14,
+                "offset": 14
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 16
+              },
+              "end": {
+                "line": 2,
+                "col": 19,
+                "offset": 35
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 37
+              },
+              "end": {
+                "line": 4,
+                "col": 11,
+                "offset": 48
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 50
+              },
+              "end": {
+                "line": 6,
+                "col": 44,
+                "offset": 94
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 8,
+                "col": 0,
+                "offset": 96
+              },
+              "end": {
+                "line": 8,
+                "col": 9,
+                "offset": 105
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 10,
+                "col": 0,
+                "offset": 107
+              },
+              "end": {
+                "line": 10,
+                "col": 18,
+                "offset": 125
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 12,
+                "col": 0,
+                "offset": 127
+              },
+              "end": {
+                "line": 12,
+                "col": 11,
+                "offset": 138
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 14,
+                "col": 0,
+                "offset": 140
+              },
+              "end": {
+                "line": 14,
+                "col": 9,
+                "offset": 149
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 16,
+                "col": 0,
+                "offset": 151
+              },
+              "end": {
+                "line": 16,
+                "col": 29,
+                "offset": 180
+              }
+            }
+          }
+        ],
+        "v": 1
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    }
+  ],
+  "resolver": [
+    "GroupApply/success-en-H2/Теория/Same name",
+    "GroupApply/success-en-H2/Practice/Same name"
+  ],
+  "refusals": [],
+  "provenance": {
+    "origin": "relationship_analyzer",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "partial_overlap",
+      "claims": [
+        {
+          "id": "s",
+          "text": "Limited shared fact.",
+          "kind": "shared",
+          "quoteA": "Shared scoped fact.",
+          "quoteB": "Shared scoped fact."
+        }
+      ],
+      "explanation": {
+        "text": "Scripted group control.",
+        "evidence": [
+          "s"
+        ]
+      },
+      "recommendation": {
+        "action": "consider_merge",
+        "reason": "Review context.",
+        "evidence": [
+          "s"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Synthetic control; semantic completeness is not established."
+      ]
+    }
+  },
+  "limitations": [
+    "read_only_no_executor",
+    "secondary_unchanged",
+    "metadata_may_lag",
+    "dependencies_not_scanned",
+    "semantic_equivalence_unverified",
+    "user_review_not_proof",
+    "no_archive_eligibility"
+  ]
+}

@@ -1,0 +1,164 @@
+[
+  {
+    "edited": "canonical",
+    "id": "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b",
+    "paths": [
+      "GroupApply/completed-canonical/Теория/Same name.md",
+      "GroupApply/completed-canonical/Practice/Same name.md"
+    ],
+    "before": [
+      "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n\n\nUSER EDIT: новая проверенная заметка.\n",
+      "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    ],
+    "after": [
+      "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант. [[GroupApply/completed-canonical/Practice/Same name]]\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n\n\nUSER EDIT: новая проверенная заметка.\n",
+      "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    ],
+    "groupEvidence": {
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/backup.json": "20b86c864df2957a16ffe455e7f238c6fe053b3f75abc5dac2088608afeda150",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-38505aaa-e310-4a87-8c76-5754c126397d.json": "15e52c4e2e3576848a0fa60b8f0ef96aae434b8d6ebb077d4d2bf8299c11092f",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-6a8116de-cf22-4778-9b4d-14f281fab98c.json": "81da834356b0f5f2d006fb935db133f39e6975d373cdae5e0acdb7251d1f2bfb",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-a190e3d9-f440-491f-aaa1-e74f788321ad.json": "4dd783cfff41c70b8d18978baa989028bc441038f78ce93174aeebe15e2e2393",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/record.json": "20b86c864df2957a16ffe455e7f238c6fe053b3f75abc5dac2088608afeda150",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/backup.json": "6926f0539fa0500cd2950e443babf1d8e7c4d5da7862e1fd34b8e7b9be73a461",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/mark-87f8fdda-4bea-49d7-8730-849d51ba0bcd.json": "3b93d3ae8da5f87a02737c7fb787dd88fdafff36a9925028ad101b7fdf584bb0",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/record.json": "6926f0539fa0500cd2950e443babf1d8e7c4d5da7862e1fd34b8e7b9be73a461",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/backup.json": "9050027bee69f3ae1ee6e0b21a454861ae10a81f59800963c3a8c827658de223",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-0bc064a9-f482-4002-a9e2-d08492e996cd.json": "816441c7bee35e1a27754d6f648d5286d7b23cc92df88e82963980600cdf59f9",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-c98ebddd-0c00-49f7-86f8-d620e0a71355.json": "a5ff29e0713077662f7272c0c3434e2c8cf5436e402ff3803b92b0d86be5a34a",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-e93549e8-7792-4677-b60d-7308455e348a.json": "5bee4da4d5e212ab9c538ce2d82f30db716c01e79b31fb6b3cca81d5150d641a",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/record.json": "9050027bee69f3ae1ee6e0b21a454861ae10a81f59800963c3a8c827658de223",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/backup.json": "7ad7828a2e581db6a13858c8bd4d7517b0f3f7e7b4395a88fa6cdca4311a6b48",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-13f8de16-06b8-4fe9-bfb0-1a97042a05cd.json": "4aac28c039ccf07dc3721c4b16b6727686b91d4fedeca64dc20bbb5fa6bef9e4",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-1cda8a9e-2847-45b2-a50a-9eb4101c075d.json": "ac5e4eb3a18128ebfb5896ad4997c418eee7d606d5e7fb0782812e99437016be",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-7afaf060-7a2b-4873-92e1-b6457ffcb7d6.json": "cc29d0b3ee450b22fb0ad3de151967ab9488f3925a8dc53f6c8d6434c9a2329a",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/record.json": "7ad7828a2e581db6a13858c8bd4d7517b0f3f7e7b4395a88fa6cdca4311a6b48",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/backup.json": "923e56d0faaa2b6d147f7728d576ef15b9a3c7ca25deb102d49eae1373346fc4",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-1d5cd75e-7f50-466b-9a62-fd29af4a347b.json": "496f2f2b08c157dd015ff83a1707333bde01347a380a0fc3f2c9cbd44f15d079",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-74593cab-6c87-47dd-a282-c0c133773b7e.json": "0f9b4d6dfa3789059b34ee36143a83b80f6efd8415ddf8809b1ef19b91c28679",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-cd2ddfbe-a8c7-4eae-acdd-c6863803d8e9.json": "459fa43b06ffc790c9fede1b2262e76e80457ec315decbb245560ed212f27f72",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/record.json": "923e56d0faaa2b6d147f7728d576ef15b9a3c7ca25deb102d49eae1373346fc4",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/backup.json": "1af15e38b55354a409f0457a55fb412117e2471a07cb1d80a9b68330da2ef585",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-a44dfedb-7a40-4570-85e6-c0789de8d2c6.json": "551bcfdde8d7f54ce68f9e2b015ffe2402877b3b7643d886e5ab45bd983e3ac1",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-bb080c85-f2d5-4406-8576-5ca1d6c3d704.json": "4bedf9898d76bfcd1b4a35c6e986c9c2e07d1ba42ed58e1ddc1db8b205ce5beb",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-f2173df4-2a4f-4f15-9459-4a598d255493.json": "d672543179f929553040ec0f4f728af920e055cd89802cd817beb5b86752c18b",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/record.json": "1af15e38b55354a409f0457a55fb412117e2471a07cb1d80a9b68330da2ef585",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/backup.json": "013ac85001c78edb4b60f78cbe64187e1a4a94d51ac0e15b58e92fd1286389a4",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-28a713df-e2d3-497a-8e6b-a85e26a2685e.json": "6bf47a8e05dfc56a10f7ac4c14e2e1a2ccc9e5abd5be5599df5bd7bc57beb5db",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-3f279757-7323-4e03-af27-021ef8100f80.json": "36364546eb4031e8f2fa2b9c2bac710e06ccb47d438491de934504f7e167fc15",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-e8184157-057d-4539-8b87-bf24086ee661.json": "83a0ef9755993da48954d986dcaf1294c16e3c2402690726fb93d9ef261ad1fa",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/record.json": "013ac85001c78edb4b60f78cbe64187e1a4a94d51ac0e15b58e92fd1286389a4"
+    }
+  },
+  {
+    "edited": "secondary",
+    "id": "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f",
+    "paths": [
+      "GroupApply/completed-secondary/Теория/Same name.md",
+      "GroupApply/completed-secondary/Practice/Same name.md"
+    ],
+    "before": [
+      "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+      "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n\n\nUSER EDIT: новая проверенная заметка.\n"
+    ],
+    "after": [
+      "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант. [[GroupApply/completed-secondary/Practice/Same name]]\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+      "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n\n\nUSER EDIT: новая проверенная заметка.\n"
+    ],
+    "groupEvidence": {
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/backup.json": "20b86c864df2957a16ffe455e7f238c6fe053b3f75abc5dac2088608afeda150",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-38505aaa-e310-4a87-8c76-5754c126397d.json": "15e52c4e2e3576848a0fa60b8f0ef96aae434b8d6ebb077d4d2bf8299c11092f",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-6a8116de-cf22-4778-9b4d-14f281fab98c.json": "81da834356b0f5f2d006fb935db133f39e6975d373cdae5e0acdb7251d1f2bfb",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-a190e3d9-f440-491f-aaa1-e74f788321ad.json": "4dd783cfff41c70b8d18978baa989028bc441038f78ce93174aeebe15e2e2393",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/record.json": "20b86c864df2957a16ffe455e7f238c6fe053b3f75abc5dac2088608afeda150",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/backup.json": "6926f0539fa0500cd2950e443babf1d8e7c4d5da7862e1fd34b8e7b9be73a461",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/mark-87f8fdda-4bea-49d7-8730-849d51ba0bcd.json": "3b93d3ae8da5f87a02737c7fb787dd88fdafff36a9925028ad101b7fdf584bb0",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/record.json": "6926f0539fa0500cd2950e443babf1d8e7c4d5da7862e1fd34b8e7b9be73a461",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/backup.json": "9050027bee69f3ae1ee6e0b21a454861ae10a81f59800963c3a8c827658de223",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-0bc064a9-f482-4002-a9e2-d08492e996cd.json": "816441c7bee35e1a27754d6f648d5286d7b23cc92df88e82963980600cdf59f9",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-c98ebddd-0c00-49f7-86f8-d620e0a71355.json": "a5ff29e0713077662f7272c0c3434e2c8cf5436e402ff3803b92b0d86be5a34a",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-e93549e8-7792-4677-b60d-7308455e348a.json": "5bee4da4d5e212ab9c538ce2d82f30db716c01e79b31fb6b3cca81d5150d641a",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/record.json": "9050027bee69f3ae1ee6e0b21a454861ae10a81f59800963c3a8c827658de223",
+      "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f/backup.json": "76463ce34a728222525513bc4d1f7021c03d2539e3664ddb89f17fa069d5fc3d",
+      "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f/mark-ef27f677-f86f-490e-b324-5bf0fbbbff94.json": "411f73c98cca008208b4bc6a703abb607eb937dd351db7a70a91e881b2845331",
+      "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f/record.json": "76463ce34a728222525513bc4d1f7021c03d2539e3664ddb89f17fa069d5fc3d",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/backup.json": "7ad7828a2e581db6a13858c8bd4d7517b0f3f7e7b4395a88fa6cdca4311a6b48",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-13f8de16-06b8-4fe9-bfb0-1a97042a05cd.json": "4aac28c039ccf07dc3721c4b16b6727686b91d4fedeca64dc20bbb5fa6bef9e4",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-1cda8a9e-2847-45b2-a50a-9eb4101c075d.json": "ac5e4eb3a18128ebfb5896ad4997c418eee7d606d5e7fb0782812e99437016be",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-7afaf060-7a2b-4873-92e1-b6457ffcb7d6.json": "cc29d0b3ee450b22fb0ad3de151967ab9488f3925a8dc53f6c8d6434c9a2329a",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/record.json": "7ad7828a2e581db6a13858c8bd4d7517b0f3f7e7b4395a88fa6cdca4311a6b48",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/backup.json": "923e56d0faaa2b6d147f7728d576ef15b9a3c7ca25deb102d49eae1373346fc4",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-1d5cd75e-7f50-466b-9a62-fd29af4a347b.json": "496f2f2b08c157dd015ff83a1707333bde01347a380a0fc3f2c9cbd44f15d079",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-74593cab-6c87-47dd-a282-c0c133773b7e.json": "0f9b4d6dfa3789059b34ee36143a83b80f6efd8415ddf8809b1ef19b91c28679",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-cd2ddfbe-a8c7-4eae-acdd-c6863803d8e9.json": "459fa43b06ffc790c9fede1b2262e76e80457ec315decbb245560ed212f27f72",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/record.json": "923e56d0faaa2b6d147f7728d576ef15b9a3c7ca25deb102d49eae1373346fc4",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/backup.json": "1af15e38b55354a409f0457a55fb412117e2471a07cb1d80a9b68330da2ef585",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-a44dfedb-7a40-4570-85e6-c0789de8d2c6.json": "551bcfdde8d7f54ce68f9e2b015ffe2402877b3b7643d886e5ab45bd983e3ac1",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-bb080c85-f2d5-4406-8576-5ca1d6c3d704.json": "4bedf9898d76bfcd1b4a35c6e986c9c2e07d1ba42ed58e1ddc1db8b205ce5beb",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-f2173df4-2a4f-4f15-9459-4a598d255493.json": "d672543179f929553040ec0f4f728af920e055cd89802cd817beb5b86752c18b",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/record.json": "1af15e38b55354a409f0457a55fb412117e2471a07cb1d80a9b68330da2ef585",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/backup.json": "013ac85001c78edb4b60f78cbe64187e1a4a94d51ac0e15b58e92fd1286389a4",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-28a713df-e2d3-497a-8e6b-a85e26a2685e.json": "6bf47a8e05dfc56a10f7ac4c14e2e1a2ccc9e5abd5be5599df5bd7bc57beb5db",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-3f279757-7323-4e03-af27-021ef8100f80.json": "36364546eb4031e8f2fa2b9c2bac710e06ccb47d438491de934504f7e167fc15",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-e8184157-057d-4539-8b87-bf24086ee661.json": "83a0ef9755993da48954d986dcaf1294c16e3c2402690726fb93d9ef261ad1fa",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/record.json": "013ac85001c78edb4b60f78cbe64187e1a4a94d51ac0e15b58e92fd1286389a4"
+    }
+  },
+  {
+    "edited": "none",
+    "id": "45855ede98ec0843685427741f0c05d45e265eb142bbf96c083a1697853d97a6",
+    "paths": [
+      "GroupApply/completed-none/Теория/Same name.md",
+      "GroupApply/completed-none/Practice/Same name.md"
+    ],
+    "before": [
+      "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+      "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    ],
+    "after": [
+      "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант. [[GroupApply/completed-none/Practice/Same name]]\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+      "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    ],
+    "groupEvidence": {
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/backup.json": "20b86c864df2957a16ffe455e7f238c6fe053b3f75abc5dac2088608afeda150",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-38505aaa-e310-4a87-8c76-5754c126397d.json": "15e52c4e2e3576848a0fa60b8f0ef96aae434b8d6ebb077d4d2bf8299c11092f",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-6a8116de-cf22-4778-9b4d-14f281fab98c.json": "81da834356b0f5f2d006fb935db133f39e6975d373cdae5e0acdb7251d1f2bfb",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/mark-a190e3d9-f440-491f-aaa1-e74f788321ad.json": "4dd783cfff41c70b8d18978baa989028bc441038f78ce93174aeebe15e2e2393",
+      "24b3bc8e1e1aede3dedffa9e8a8653938a4c5ec6bc38313f6a017ec60bf3c319/record.json": "20b86c864df2957a16ffe455e7f238c6fe053b3f75abc5dac2088608afeda150",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/backup.json": "6926f0539fa0500cd2950e443babf1d8e7c4d5da7862e1fd34b8e7b9be73a461",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/mark-87f8fdda-4bea-49d7-8730-849d51ba0bcd.json": "3b93d3ae8da5f87a02737c7fb787dd88fdafff36a9925028ad101b7fdf584bb0",
+      "298f5f6344adad404dcc1efb631051cab81819b9b79a26569c86b71b0876bc6b/record.json": "6926f0539fa0500cd2950e443babf1d8e7c4d5da7862e1fd34b8e7b9be73a461",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/backup.json": "9050027bee69f3ae1ee6e0b21a454861ae10a81f59800963c3a8c827658de223",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-0bc064a9-f482-4002-a9e2-d08492e996cd.json": "816441c7bee35e1a27754d6f648d5286d7b23cc92df88e82963980600cdf59f9",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-c98ebddd-0c00-49f7-86f8-d620e0a71355.json": "a5ff29e0713077662f7272c0c3434e2c8cf5436e402ff3803b92b0d86be5a34a",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/mark-e93549e8-7792-4677-b60d-7308455e348a.json": "5bee4da4d5e212ab9c538ce2d82f30db716c01e79b31fb6b3cca81d5150d641a",
+      "33093dd7baea74f528d822ff392facddb8626c4b2828c5cd879357c686df4c59/record.json": "9050027bee69f3ae1ee6e0b21a454861ae10a81f59800963c3a8c827658de223",
+      "45855ede98ec0843685427741f0c05d45e265eb142bbf96c083a1697853d97a6/backup.json": "c6005c3edeb0ca50e320d93d166426da2ac3be8581ba75943230565eaa474f2b",
+      "45855ede98ec0843685427741f0c05d45e265eb142bbf96c083a1697853d97a6/mark-bc0bfbcd-6f4c-4721-b213-16626ee39f39.json": "1eed84695e6f32fc9f9be714a7c2fd09f88f7ba4279cf84ffa48f868b7bc3d47",
+      "45855ede98ec0843685427741f0c05d45e265eb142bbf96c083a1697853d97a6/record.json": "c6005c3edeb0ca50e320d93d166426da2ac3be8581ba75943230565eaa474f2b",
+      "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f/backup.json": "76463ce34a728222525513bc4d1f7021c03d2539e3664ddb89f17fa069d5fc3d",
+      "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f/mark-ef27f677-f86f-490e-b324-5bf0fbbbff94.json": "411f73c98cca008208b4bc6a703abb607eb937dd351db7a70a91e881b2845331",
+      "7804f9d1e76adf1ffbb7ac6b5fbd41394e0233c3368b5399f113fa33b306206f/record.json": "76463ce34a728222525513bc4d1f7021c03d2539e3664ddb89f17fa069d5fc3d",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/backup.json": "7ad7828a2e581db6a13858c8bd4d7517b0f3f7e7b4395a88fa6cdca4311a6b48",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-13f8de16-06b8-4fe9-bfb0-1a97042a05cd.json": "4aac28c039ccf07dc3721c4b16b6727686b91d4fedeca64dc20bbb5fa6bef9e4",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-1cda8a9e-2847-45b2-a50a-9eb4101c075d.json": "ac5e4eb3a18128ebfb5896ad4997c418eee7d606d5e7fb0782812e99437016be",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/mark-7afaf060-7a2b-4873-92e1-b6457ffcb7d6.json": "cc29d0b3ee450b22fb0ad3de151967ab9488f3925a8dc53f6c8d6434c9a2329a",
+      "7ef82824b40e7c8d82d91daf20788d3c65f4e85e5e0913f8ce108e73f5245f29/record.json": "7ad7828a2e581db6a13858c8bd4d7517b0f3f7e7b4395a88fa6cdca4311a6b48",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/backup.json": "923e56d0faaa2b6d147f7728d576ef15b9a3c7ca25deb102d49eae1373346fc4",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-1d5cd75e-7f50-466b-9a62-fd29af4a347b.json": "496f2f2b08c157dd015ff83a1707333bde01347a380a0fc3f2c9cbd44f15d079",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-74593cab-6c87-47dd-a282-c0c133773b7e.json": "0f9b4d6dfa3789059b34ee36143a83b80f6efd8415ddf8809b1ef19b91c28679",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/mark-cd2ddfbe-a8c7-4eae-acdd-c6863803d8e9.json": "459fa43b06ffc790c9fede1b2262e76e80457ec315decbb245560ed212f27f72",
+      "b6a27819e6c46cd6f87fe2a9d3e89b147e855b777546a1c2ff95fe386e6bc68f/record.json": "923e56d0faaa2b6d147f7728d576ef15b9a3c7ca25deb102d49eae1373346fc4",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/backup.json": "1af15e38b55354a409f0457a55fb412117e2471a07cb1d80a9b68330da2ef585",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-a44dfedb-7a40-4570-85e6-c0789de8d2c6.json": "551bcfdde8d7f54ce68f9e2b015ffe2402877b3b7643d886e5ab45bd983e3ac1",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-bb080c85-f2d5-4406-8576-5ca1d6c3d704.json": "4bedf9898d76bfcd1b4a35c6e986c9c2e07d1ba42ed58e1ddc1db8b205ce5beb",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/mark-f2173df4-2a4f-4f15-9459-4a598d255493.json": "d672543179f929553040ec0f4f728af920e055cd89802cd817beb5b86752c18b",
+      "b8f90bac89d4aeec2556b31022d42457f5d86b0b59cb48254e1a9fa517aed737/record.json": "1af15e38b55354a409f0457a55fb412117e2471a07cb1d80a9b68330da2ef585",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/backup.json": "013ac85001c78edb4b60f78cbe64187e1a4a94d51ac0e15b58e92fd1286389a4",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-28a713df-e2d3-497a-8e6b-a85e26a2685e.json": "6bf47a8e05dfc56a10f7ac4c14e2e1a2ccc9e5abd5be5599df5bd7bc57beb5db",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-3f279757-7323-4e03-af27-021ef8100f80.json": "36364546eb4031e8f2fa2b9c2bac710e06ccb47d438491de934504f7e167fc15",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/mark-e8184157-057d-4539-8b87-bf24086ee661.json": "83a0ef9755993da48954d986dcaf1294c16e3c2402690726fb93d9ef261ad1fa",
+      "c68b7cb12ec1246db0b77a4ea5d2de86ac336e5de0111e0c7a61d23f51ed5669/record.json": "013ac85001c78edb4b60f78cbe64187e1a4a94d51ac0e15b58e92fd1286389a4"
+    }
+  }
+]

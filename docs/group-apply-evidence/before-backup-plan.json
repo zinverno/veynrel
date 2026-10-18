@@ -1,0 +1,481 @@
+{
+  "version": 1,
+  "operation": "copy_context_group",
+  "readOnly": true,
+  "canonical": {
+    "path": "GroupApply/before-backup/Practice/Same name.md",
+    "identity": {
+      "created": 1792354478391,
+      "modified": 1792354478391,
+      "bytes": 277,
+      "contentHash": "43dd90ec27925497"
+    },
+    "before": "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n",
+    "after": "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+  },
+  "secondary": {
+    "path": "GroupApply/before-backup/Теория/Same name.md",
+    "identity": {
+      "created": 1792354478391,
+      "modified": 1792354478391,
+      "bytes": 430,
+      "contentHash": "ed4f58bc62e523c1"
+    },
+    "content": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+    "unchanged": true
+  },
+  "hierarchy": {
+    "source": [
+      {
+        "level": 1,
+        "title": "Журнал решений",
+        "range": {
+          "start": 0,
+          "end": 16,
+          "text": "# Журнал решений"
+        },
+        "end": 237,
+        "parent": null
+      },
+      {
+        "level": 2,
+        "title": "Обсуждение",
+        "range": {
+          "start": 90,
+          "end": 103,
+          "text": "## Обсуждение"
+        },
+        "end": 237,
+        "parent": 0
+      },
+      {
+        "level": 3,
+        "title": "Смена ответственного",
+        "range": {
+          "start": 105,
+          "end": 129,
+          "text": "### Смена ответственного"
+        },
+        "end": 237,
+        "parent": 1
+      }
+    ],
+    "destination": [
+      {
+        "level": 1,
+        "title": "Формат решения",
+        "range": {
+          "start": 0,
+          "end": 16,
+          "text": "# Формат решения"
+        },
+        "end": 153,
+        "parent": null
+      },
+      {
+        "level": 2,
+        "title": "Хранение",
+        "range": {
+          "start": 90,
+          "end": 101,
+          "text": "## Хранение"
+        },
+        "end": 153,
+        "parent": 0
+      }
+    ],
+    "inserted": [
+      {
+        "level": 1,
+        "text": "# Журнал решений",
+        "sourceOffset": 0,
+        "destinationOffset": 155
+      },
+      {
+        "level": 2,
+        "text": "## Обсуждение",
+        "sourceOffset": 90,
+        "destinationOffset": 247
+      },
+      {
+        "level": 3,
+        "text": "### Смена ответственного",
+        "sourceOffset": 105,
+        "destinationOffset": 264
+      }
+    ]
+  },
+  "group": {
+    "heading": 2,
+    "path": [
+      0,
+      1,
+      2
+    ],
+    "range": {
+      "start": 105,
+      "end": 237,
+      "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    },
+    "context": [
+      {
+        "start": 0,
+        "end": 90,
+        "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n"
+      },
+      {
+        "start": 90,
+        "end": 105,
+        "text": "## Обсуждение\n\n"
+      }
+    ],
+    "copied": [
+      {
+        "start": 0,
+        "end": 90,
+        "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n"
+      },
+      {
+        "start": 90,
+        "end": 105,
+        "text": "## Обсуждение\n\n"
+      },
+      {
+        "start": 105,
+        "end": 237,
+        "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+      }
+    ],
+    "retained": []
+  },
+  "insertion": {
+    "point": 153,
+    "representation": "original_heading_branch",
+    "separator": "\n\n",
+    "edit": {
+      "start": 153,
+      "end": 153,
+      "removed": "",
+      "inserted": "\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    }
+  },
+  "confirmations": {
+    "operation": "copy_context_group",
+    "canonical": 1,
+    "group": {
+      "start": 105,
+      "end": 237,
+      "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+    },
+    "representation": "original_heading_branch",
+    "insertion": 153,
+    "groupConfirmed": true,
+    "contextConfirmed": true,
+    "insertionConfirmed": true,
+    "dependencies": "reviewed",
+    "distinctIntent": false
+  },
+  "dependencies": [
+    {
+      "path": "GroupApply/before-backup/Теория/Same name.md",
+      "metadata": {
+        "headings": [
+          {
+            "heading": "Журнал решений",
+            "level": 1,
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 16,
+                "offset": 16
+              }
+            }
+          },
+          {
+            "heading": "Обсуждение",
+            "level": 2,
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 90
+              },
+              "end": {
+                "line": 4,
+                "col": 13,
+                "offset": 103
+              }
+            }
+          },
+          {
+            "heading": "Смена ответственного",
+            "level": 3,
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 105
+              },
+              "end": {
+                "line": 6,
+                "col": 24,
+                "offset": 129
+              }
+            }
+          }
+        ],
+        "sections": [
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 16,
+                "offset": 16
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 18
+              },
+              "end": {
+                "line": 2,
+                "col": 70,
+                "offset": 88
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 90
+              },
+              "end": {
+                "line": 4,
+                "col": 13,
+                "offset": 103
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 105
+              },
+              "end": {
+                "line": 6,
+                "col": 24,
+                "offset": 129
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 8,
+                "col": 0,
+                "offset": 131
+              },
+              "end": {
+                "line": 8,
+                "col": 105,
+                "offset": 236
+              }
+            }
+          }
+        ],
+        "v": 1
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    },
+    {
+      "path": "GroupApply/before-backup/Practice/Same name.md",
+      "metadata": {
+        "headings": [
+          {
+            "heading": "Формат решения",
+            "level": 1,
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 16,
+                "offset": 16
+              }
+            }
+          },
+          {
+            "heading": "Хранение",
+            "level": 2,
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 90
+              },
+              "end": {
+                "line": 4,
+                "col": 11,
+                "offset": 101
+              }
+            }
+          }
+        ],
+        "sections": [
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 16,
+                "offset": 16
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 18
+              },
+              "end": {
+                "line": 2,
+                "col": 70,
+                "offset": 88
+              }
+            }
+          },
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 90
+              },
+              "end": {
+                "line": 4,
+                "col": 11,
+                "offset": 101
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 103
+              },
+              "end": {
+                "line": 6,
+                "col": 49,
+                "offset": 152
+              }
+            }
+          }
+        ],
+        "v": 1
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    }
+  ],
+  "resolver": [
+    "GroupApply/before-backup/Теория/Same name",
+    "GroupApply/before-backup/Practice/Same name"
+  ],
+  "refusals": [],
+  "provenance": {
+    "origin": "relationship_analyzer",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "partial_overlap",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+          "kind": "shared",
+          "quoteA": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.",
+          "quoteB": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант."
+        },
+        {
+          "id": "c2",
+          "text": "Полезный сценарий передачи ответственности, ограниченный учебным упражнением.",
+          "kind": "unique_a",
+          "quoteA": "Если ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.",
+          "quoteB": null
+        }
+      ],
+      "explanation": {
+        "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "recommendation": {
+        "action": "consider_merge",
+        "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Заголовки задают контекст, а не являются декорацией."
+      ]
+    }
+  },
+  "limitations": [
+    "read_only_no_executor",
+    "secondary_unchanged",
+    "metadata_may_lag",
+    "dependencies_not_scanned",
+    "semantic_equivalence_unverified",
+    "user_review_not_proof",
+    "no_archive_eligibility"
+  ]
+}

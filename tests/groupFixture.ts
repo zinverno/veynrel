@@ -9,8 +9,10 @@ import type { PlannerRead } from "../consolidation/changePlannerSession";
 /** Test-only offsets for hand-authored ATX/plain fixtures; native acceptance supplies real MetadataCache. */
 export function groupNote(path: string, text: string) {
   const n = mergeNote(path, text);
+  n.cache!.sections = [...text.matchAll(/[^\r\n]+(?:\r?\n(?!\r?\n)[^\r\n]+)*/gu)].map(m => ({type:"paragraph",
+    position:{start:{offset:m.index!,line:0,col:0},end:{offset:m.index!+m[0].length,line:0,col:0}}}));
   n.cache!.headings = [];
-  for (const s of n.cache!.sections!) {
+  for (const s of n.cache!.sections) {
     const literal = text.slice(s.position.start.offset, s.position.end.offset), h = /^(#{1,6}) (.+)$/u.exec(literal);
     if (h) { s.type = "heading"; n.cache!.headings.push({ heading: h[2], level: h[1].length, position: s.position }); }
     else if (literal.startsWith("```")) s.type = "code";

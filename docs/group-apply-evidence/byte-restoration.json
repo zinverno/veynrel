@@ -1,0 +1,144 @@
+{
+  "status": "PASS",
+  "method": "Buffer comparison and SHA-256 after all native runs; exact source from saved plans",
+  "cycles": [
+    {
+      "plan": "success-en-H1-plan.json",
+      "notes": [
+        {
+          "side": "canonical",
+          "path": "GroupApply/success-en-H1/Теория/Same name.md",
+          "originalBytes": 189,
+          "restoredBytes": 189,
+          "originalSha256": "f5d83b7019acc5c92af653017bea7e2dd8d95ca8be5fd642bd1335dfc5ecd117",
+          "restoredSha256": "f5d83b7019acc5c92af653017bea7e2dd8d95ca8be5fd642bd1335dfc5ecd117",
+          "equal": true
+        },
+        {
+          "side": "secondary",
+          "path": "GroupApply/success-en-H1/Practice/Same name.md",
+          "originalBytes": 184,
+          "restoredBytes": 184,
+          "originalSha256": "e81f8bf0cb9095b2d53aa1008cd45aec006fdd3352e7f8f67843fa6b7c4eca40",
+          "restoredSha256": "e81f8bf0cb9095b2d53aa1008cd45aec006fdd3352e7f8f67843fa6b7c4eca40",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "plan": "success-en-H2-plan.json",
+      "notes": [
+        {
+          "side": "canonical",
+          "path": "GroupApply/success-en-H2/Теория/Same name.md",
+          "originalBytes": 189,
+          "restoredBytes": 189,
+          "originalSha256": "f5d83b7019acc5c92af653017bea7e2dd8d95ca8be5fd642bd1335dfc5ecd117",
+          "restoredSha256": "f5d83b7019acc5c92af653017bea7e2dd8d95ca8be5fd642bd1335dfc5ecd117",
+          "equal": true
+        },
+        {
+          "side": "secondary",
+          "path": "GroupApply/success-en-H2/Practice/Same name.md",
+          "originalBytes": 184,
+          "restoredBytes": 184,
+          "originalSha256": "e81f8bf0cb9095b2d53aa1008cd45aec006fdd3352e7f8f67843fa6b7c4eca40",
+          "restoredSha256": "e81f8bf0cb9095b2d53aa1008cd45aec006fdd3352e7f8f67843fa6b7c4eca40",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "plan": "success-en-H3-plan.json",
+      "notes": [
+        {
+          "side": "canonical",
+          "path": "GroupApply/success-en-H3/Теория/Same name.md",
+          "originalBytes": 189,
+          "restoredBytes": 189,
+          "originalSha256": "f5d83b7019acc5c92af653017bea7e2dd8d95ca8be5fd642bd1335dfc5ecd117",
+          "restoredSha256": "f5d83b7019acc5c92af653017bea7e2dd8d95ca8be5fd642bd1335dfc5ecd117",
+          "equal": true
+        },
+        {
+          "side": "secondary",
+          "path": "GroupApply/success-en-H3/Practice/Same name.md",
+          "originalBytes": 184,
+          "restoredBytes": 184,
+          "originalSha256": "e81f8bf0cb9095b2d53aa1008cd45aec006fdd3352e7f8f67843fa6b7c4eca40",
+          "restoredSha256": "e81f8bf0cb9095b2d53aa1008cd45aec006fdd3352e7f8f67843fa6b7c4eca40",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "plan": "success-ru-H1-plan.json",
+      "notes": [
+        {
+          "side": "canonical",
+          "path": "GroupApply/success-ru-H1/Practice/Same name.md",
+          "originalBytes": 284,
+          "restoredBytes": 284,
+          "originalSha256": "307c5362aeaff3e9aad8ae8527840328042fcf643f255507c249f89a5d9d505d",
+          "restoredSha256": "307c5362aeaff3e9aad8ae8527840328042fcf643f255507c249f89a5d9d505d",
+          "equal": true
+        },
+        {
+          "side": "secondary",
+          "path": "GroupApply/success-ru-H1/Теория/Same name.md",
+          "originalBytes": 439,
+          "restoredBytes": 439,
+          "originalSha256": "44e0379fd1425ac5eb60571794c61e6d18648987264cee0154610bfe6fa73dfc",
+          "restoredSha256": "44e0379fd1425ac5eb60571794c61e6d18648987264cee0154610bfe6fa73dfc",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "plan": "success-ru-H2-plan.json",
+      "notes": [
+        {
+          "side": "canonical",
+          "path": "GroupApply/success-ru-H2/Practice/Same name.md",
+          "originalBytes": 284,
+          "restoredBytes": 284,
+          "originalSha256": "307c5362aeaff3e9aad8ae8527840328042fcf643f255507c249f89a5d9d505d",
+          "restoredSha256": "307c5362aeaff3e9aad8ae8527840328042fcf643f255507c249f89a5d9d505d",
+          "equal": true
+        },
+        {
+          "side": "secondary",
+          "path": "GroupApply/success-ru-H2/Теория/Same name.md",
+          "originalBytes": 439,
+          "restoredBytes": 439,
+          "originalSha256": "44e0379fd1425ac5eb60571794c61e6d18648987264cee0154610bfe6fa73dfc",
+          "restoredSha256": "44e0379fd1425ac5eb60571794c61e6d18648987264cee0154610bfe6fa73dfc",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "plan": "success-ru-H3-plan.json",
+      "notes": [
+        {
+          "side": "canonical",
+          "path": "GroupApply/success-ru-H3/Practice/Same name.md",
+          "originalBytes": 284,
+          "restoredBytes": 284,
+          "originalSha256": "307c5362aeaff3e9aad8ae8527840328042fcf643f255507c249f89a5d9d505d",
+          "restoredSha256": "307c5362aeaff3e9aad8ae8527840328042fcf643f255507c249f89a5d9d505d",
+          "equal": true
+        },
+        {
+          "side": "secondary",
+          "path": "GroupApply/success-ru-H3/Теория/Same name.md",
+          "originalBytes": 439,
+          "restoredBytes": 439,
+          "originalSha256": "44e0379fd1425ac5eb60571794c61e6d18648987264cee0154610bfe6fa73dfc",
+          "restoredSha256": "44e0379fd1425ac5eb60571794c61e6d18648987264cee0154610bfe6fa73dfc",
+          "equal": true
+        }
+      ]
+    }
+  ]
+}

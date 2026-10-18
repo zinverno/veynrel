@@ -17,7 +17,7 @@ export interface GroupChoice {
 }
 export const emptyGroupChoice = (): GroupChoice => ({ operation: "copy_context_group", canonical: null, group: null,
   representation: null, insertion: null, groupConfirmed: false, contextConfirmed: false, insertionConfirmed: false, dependencies: null, distinctIntent: false });
-/** Read-only, deliberately incompatible with every executor and journal operation. Never a write authorization. */
+/** Read-only proposal. Only the separate GroupApply validation and consent flow can authorize a write. */
 export interface GroupPlan {
   version: 1; operation: "copy_context_group"; readOnly: true;
   canonical: { path: string; identity: MergeIdentity; before: string; after: string };

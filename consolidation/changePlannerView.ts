@@ -11,6 +11,7 @@ import { renderContextBundlePlanner } from "./contextBundleView";
 import type { ContextBundlePlan } from "./contextBundlePlan";
 import { emptyBundleChoice } from "./contextBundlePlan";
 import { renderGroupPlanner } from "./groupPlannerView";
+import type { GroupPlan } from "./groupPlan";
 import { emptyGroupChoice } from "./groupPlan";
 import { renderMergePlanner } from "./mergePlannerView";
 import type { MergeChoice, MergePlan } from "./mergePlan";
@@ -30,7 +31,7 @@ export class ChangePlannerView {
   private bundleChoice = emptyBundleChoice();
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
-    private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void, private readonly reviewBundle?: (plan: ContextBundlePlan) => void) {
+    private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void, private readonly reviewBundle?: (plan: ContextBundlePlan) => void, private readonly reviewGroup?: (plan: GroupPlan) => void) {
     session.onChange = () => {
       const field = container.ownerDocument?.activeElement?.getAttribute("data-planner-field");
       this.render();
@@ -80,7 +81,7 @@ export class ChangePlannerView {
       return;
     }
     if (this.operation === "copy_context_group") {
-      renderGroupPlanner(root, this.session, this.analysis, this.groupChoice, choice => { this.groupChoice = choice; this.session.changeSelection(); });
+      renderGroupPlanner(root, this.session, this.analysis, this.groupChoice, choice => { this.groupChoice = choice; this.session.changeSelection(); }, this.reviewGroup);
       return;
     }
     if (this.operation === "merge_knowledge") {

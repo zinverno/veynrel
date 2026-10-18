@@ -2,7 +2,7 @@ import { t as tr } from "../i18n";
 import type { ChangePlannerSession } from "./changePlannerSession";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import { emptyGroupChoice } from "./groupPlan";
-import type { GroupChoice } from "./groupPlan";
+import type { GroupChoice, GroupPlan } from "./groupPlan";
 import { contextGroups, groupDestination, GroupPlanError } from "./groupStructure";
 import { renderPlanDiff } from "./planDiffView";
 
@@ -10,9 +10,9 @@ function source(root: HTMLElement, title: string, text: string, key: string, ope
   const panel = root.createEl("details"); panel.open = open; panel.createEl("summary", { text: title });
   panel.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-group-text": key } });
 }
-/** Read-only choices. No executor callback exists for GroupPlan. */
+/** Read-only choices; execution requires a separate review and private consent ticket. */
 export function renderGroupPlanner(root: HTMLElement, session: ChangePlannerSession, analysis: RelationshipAnalysis,
-  choice: GroupChoice, change: (choice: GroupChoice) => void): void {
+  choice: GroupChoice, change: (choice: GroupChoice) => void, review?: (plan: GroupPlan) => void): void {
   const input = session.view.input;
   if (!input) return;
   const check = (key: "groupConfirmed" | "contextConfirmed" | "insertionConfirmed" | "distinctIntent") => {
@@ -86,4 +86,8 @@ export function renderGroupPlanner(root: HTMLElement, session: ChangePlannerSess
   result.createEl("p", { text: tr("@merge.dependencyScope") });
   for (const d of plan.dependencies) source(result, d.path, JSON.stringify(d, null, 2), `dependencies-${d.path}`);
   result.createEl("p", { text: tr("@group.limits") });
+  if (review) {
+    const button = result.createEl("button", { text: tr("@groupApply.review"), attr: { type: "button", "data-group-apply-action": "review" } });
+    button.addEventListener("click", () => review(plan));
+  }
 }
