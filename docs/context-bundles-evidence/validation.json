@@ -1,0 +1,63 @@
+{
+  "base": "52a31f506d32ea70510edf368cf0122fd96b1250",
+  "pr93MergedAt": "2026-10-18T17:25:33Z",
+  "artifactSha256": "c398ba5ea0eeab00797c536bfe8fac74bc02188c51ab30e60006c87bf42276dc",
+  "checks": {
+    "npm test": "PASS 3776 tests / 145 files; 67 new tests; final run 17.83s",
+    "npm run typecheck": "PASS; also included in lint",
+    "npm run lint": "PASS; only pre-existing api.ts:404 fetch advisory",
+    "npm run build": "PASS; exact artifact matches native report",
+    "npm run audit:proposals": "PASS 5/5 mutations killed; every restored test passed",
+    "git diff --check": "PASS"
+  },
+  "native": {
+    "status": "PASS",
+    "baseChecks": 18,
+    "bundleChecks": 118,
+    "screenshots": 41,
+    "writers": 0,
+    "journalWrites": 0,
+    "observedNetworkCalls": 0,
+    "scriptedAnalyzerCompletions": 46,
+    "additionalPlanningCompletions": 0,
+    "byteIdenticalSyntheticSources": 68
+  },
+  "regression": {
+    "existingExecutableMergePlans": 4,
+    "existingReadOnlyGroupPlans": 1,
+    "newReadOnlyBundlePlans": 3,
+    "intendedCases": 12,
+    "newCases": [
+      "07",
+      "08",
+      "09"
+    ],
+    "stillRefused": [
+      "05",
+      "19",
+      "22",
+      "23"
+    ],
+    "corpusSha256": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+    "notModelQualityEvidence": true
+  },
+  "review": {
+    "status": "No remaining required blocker after fixes",
+    "fixed": [
+      "Reject nested block-level syntax inside list/quote payloads, including whitespace thematic/setext runs and empty list markers",
+      "Validate all native listItems bounds and list-section ownership before overlap filtering",
+      "Verify core source line boundaries"
+    ],
+    "earlierRuns": "Superseded by final exact-artifact native run after all validator fixes"
+  },
+  "githubCI": "Required on PR head; reported separately after push, not claimed here.",
+  "scopeUnchanged": [
+    "Existing MergePlan and GroupPlan validators",
+    "All executors, Undo, recovery and journals",
+    "Frozen corpus and reference labels",
+    "Settings, dependencies, version and release"
+  ],
+  "developmentFailures": [
+    "First audit subprocess returned empty stdout with status 0; unchanged rerun killed all five mutations. No tests or audit checks were weakened."
+  ]
+}

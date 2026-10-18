@@ -129,6 +129,10 @@ try {
    const { multiFilePlannerScenario } = await import('./multi-file-planner-native.mjs');
    report.multiFilePlanner = await multiFilePlannerScenario({ ev, wait, cdp, close, focusMain, root, vault, paths: [a, b], ROOT });
  }
+ if (process.argv.includes('--context-bundles')) {
+   const { contextBundlesScenario } = await import('./context-bundles-native.mjs');
+   report.contextBundles = await contextBundlesScenario({ ev, wait, cdp, focusMain, root, vault, paths: [a, b], ROOT });
+ }
  if (process.argv.includes('--structured-groups')) {
    const { structuredGroupsScenario } = await import('./structured-groups-native.mjs');
    report.structuredGroups = await structuredGroupsScenario({ ev, wait, cdp, focusMain, root, vault, paths: [a, b], ROOT });
