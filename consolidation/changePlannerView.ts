@@ -8,6 +8,7 @@ import type { ChangePlannerSession } from "./changePlannerSession";
 import type { MultiFileChoice, MultiFilePlan } from "./multiFilePlan";
 import { renderMultiFilePlanner } from "./multiFilePlannerView";
 import { renderContextBundlePlanner } from "./contextBundleView";
+import type { ContextBundlePlan } from "./contextBundlePlan";
 import { emptyBundleChoice } from "./contextBundlePlan";
 import { renderGroupPlanner } from "./groupPlannerView";
 import { emptyGroupChoice } from "./groupPlan";
@@ -29,7 +30,7 @@ export class ChangePlannerView {
   private bundleChoice = emptyBundleChoice();
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
-    private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void) {
+    private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void, private readonly reviewBundle?: (plan: ContextBundlePlan) => void) {
     session.onChange = () => {
       const field = container.ownerDocument?.activeElement?.getAttribute("data-planner-field");
       this.render();
@@ -75,7 +76,7 @@ export class ChangePlannerView {
     operation.addEventListener("change", () => { this.operation = operation.value as typeof this.operation; this.selection = null; this.changed(); });
     if (this.operation) root.createEl("p", { text: tr(`@planner.op.${this.operation}`) });
     if (this.operation === "copy_context_bundle") {
-      renderContextBundlePlanner(root, this.session, this.analysis, this.bundleChoice, choice => { this.bundleChoice = choice; this.session.changeSelection(); });
+      renderContextBundlePlanner(root, this.session, this.analysis, this.bundleChoice, choice => { this.bundleChoice = choice; this.session.changeSelection(); }, this.reviewBundle);
       return;
     }
     if (this.operation === "copy_context_group") {

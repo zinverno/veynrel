@@ -1,0 +1,362 @@
+{
+  "version": 1,
+  "operation": "copy_context_bundle",
+  "readOnly": true,
+  "kind": "list_context",
+  "canonical": {
+    "path": "BundleApply/success-en-08/Теория/Same name.md",
+    "identity": {
+      "created": 1792349565420,
+      "modified": 1792349565420,
+      "bytes": 205,
+      "contentHash": "749273a273ceffc5"
+    },
+    "before": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n",
+    "after": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+  },
+  "secondary": {
+    "path": "BundleApply/success-en-08/Practice/Same name.md",
+    "identity": {
+      "created": 1792349565420,
+      "modified": 1792349565420,
+      "bytes": 529,
+      "contentHash": "877349d8cda284e0"
+    },
+    "content": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату.\n",
+    "unchanged": true
+  },
+  "bundle": {
+    "kind": "list_context",
+    "core": {
+      "start": 124,
+      "end": 245,
+      "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+    },
+    "before": [
+      {
+        "start": 0,
+        "end": 70,
+        "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+      },
+      {
+        "start": 72,
+        "end": 122,
+        "text": "Проверка карточки выполняется в следующем порядке."
+      }
+    ],
+    "after": [
+      {
+        "start": 247,
+        "end": 290,
+        "text": "Последний шаг не разрешает выдумывать дату."
+      }
+    ],
+    "range": {
+      "start": 0,
+      "end": 290,
+      "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+    },
+    "blocks": [
+      {
+        "role": "context_before",
+        "range": {
+          "start": 0,
+          "end": 70,
+          "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+        }
+      },
+      {
+        "role": "context_before",
+        "range": {
+          "start": 72,
+          "end": 122,
+          "text": "Проверка карточки выполняется в следующем порядке."
+        }
+      },
+      {
+        "role": "core",
+        "range": {
+          "start": 124,
+          "end": 245,
+          "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+        }
+      },
+      {
+        "role": "context_after",
+        "range": {
+          "start": 247,
+          "end": 290,
+          "text": "Последний шаг не разрешает выдумывать дату."
+        }
+      }
+    ],
+    "retained": [
+      {
+        "start": 290,
+        "end": 291,
+        "text": "\n"
+      }
+    ]
+  },
+  "insertion": {
+    "point": 111,
+    "separator": "\n\n",
+    "edit": {
+      "start": 111,
+      "end": 111,
+      "removed": "",
+      "inserted": "\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+    }
+  },
+  "confirmations": {
+    "operation": "copy_context_bundle",
+    "canonical": 0,
+    "kind": "list_context",
+    "core": {
+      "start": 124,
+      "end": 245,
+      "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+    },
+    "context": [
+      {
+        "start": 0,
+        "end": 70,
+        "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+      },
+      {
+        "start": 72,
+        "end": 122,
+        "text": "Проверка карточки выполняется в следующем порядке."
+      },
+      {
+        "start": 247,
+        "end": 290,
+        "text": "Последний шаг не разрешает выдумывать дату."
+      }
+    ],
+    "boundariesConfirmed": true,
+    "contextConfirmed": true,
+    "dependencies": "reviewed",
+    "insertion": 111,
+    "insertionConfirmed": true,
+    "distinctIntent": false
+  },
+  "dependencies": [
+    {
+      "path": "BundleApply/success-en-08/Теория/Same name.md",
+      "metadata": {
+        "sections": [
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 70,
+                "offset": 70
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 72
+              },
+              "end": {
+                "line": 2,
+                "col": 38,
+                "offset": 110
+              }
+            }
+          }
+        ]
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    },
+    {
+      "path": "BundleApply/success-en-08/Practice/Same name.md",
+      "metadata": {
+        "sections": [
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 70,
+                "offset": 70
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 72
+              },
+              "end": {
+                "line": 2,
+                "col": 50,
+                "offset": 122
+              }
+            }
+          },
+          {
+            "type": "list",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 124
+              },
+              "end": {
+                "line": 6,
+                "col": 51,
+                "offset": 245
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 8,
+                "col": 0,
+                "offset": 247
+              },
+              "end": {
+                "line": 8,
+                "col": 43,
+                "offset": 290
+              }
+            }
+          }
+        ],
+        "listItems": [
+          {
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 124
+              },
+              "end": {
+                "line": 4,
+                "col": 31,
+                "offset": 155
+              }
+            },
+            "parent": -4
+          },
+          {
+            "position": {
+              "start": {
+                "line": 5,
+                "col": 0,
+                "offset": 156
+              },
+              "end": {
+                "line": 5,
+                "col": 37,
+                "offset": 193
+              }
+            },
+            "parent": -4
+          },
+          {
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 194
+              },
+              "end": {
+                "line": 6,
+                "col": 51,
+                "offset": 245
+              }
+            },
+            "parent": -4
+          }
+        ]
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    }
+  ],
+  "resolver": [
+    "BundleApply/success-en-08/Теория/Same name",
+    "BundleApply/success-en-08/Practice/Same name"
+  ],
+  "provenance": {
+    "origin": "relationship_analyzer",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "partial_overlap",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+          "kind": "shared",
+          "quoteA": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.",
+          "quoteB": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+        },
+        {
+          "id": "c2",
+          "text": "Порядок проверки уникален и должен сохраняться целиком.",
+          "kind": "unique_b",
+          "quoteA": null,
+          "quoteB": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+        }
+      ],
+      "explanation": {
+        "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "recommendation": {
+        "action": "consider_merge",
+        "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Порядок пунктов имеет значение."
+      ]
+    }
+  },
+  "limitations": [
+    "read_only_no_executor",
+    "secondary_unchanged",
+    "metadata_may_lag",
+    "external_sources_unverified",
+    "user_context_roles_not_proof",
+    "semantic_equivalence_unverified",
+    "no_archive_eligibility"
+  ]
+}

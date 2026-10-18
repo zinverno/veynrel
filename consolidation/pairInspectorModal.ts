@@ -11,6 +11,7 @@ import type { SafeApplyService } from "./safeApply";
 import { SafeApplyModal, OperationHistoryModal } from "./safeApplyModal";
 import { ChangePlannerView } from "./changePlannerView";
 import { MultiFileApplyModal } from "./multiFileApplyModal";
+import { BundleApplyModal } from "./bundleApplyModal";
 import { MergeApplyModal } from "./mergeApplyModal";
 import { readMergeIncoming } from "./obsidianMergeApply";
 
@@ -72,6 +73,10 @@ export class PairInspectorModal extends Modal {
                 } : undefined, this.safeApply?.merge ? plan => {
                   new MergeApplyModal(this.app, this.safeApply!.merge!, current => this.safeApply!.merge!.review(plan, source,
                     () => current() && this.openState && planner.view.mergePlan === plan && this.relationship?.analysisSource === source),
+                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+                } : undefined, this.safeApply?.bundle ? plan => {
+                  new BundleApplyModal(this.app, this.safeApply!.bundle!, current => this.safeApply!.bundle!.review(plan, source,
+                    () => current() && this.openState && planner.view.bundlePlan === plan && this.relationship?.analysisSource === source),
                   () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
                 } : undefined);
                 void this.planner.prepare();

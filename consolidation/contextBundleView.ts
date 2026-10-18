@@ -2,7 +2,7 @@ import { t as tr } from "../i18n";
 import type { ChangePlannerSession } from "./changePlannerSession";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import { emptyBundleChoice } from "./contextBundlePlan";
-import type { ContextBundleChoice } from "./contextBundlePlan";
+import type { ContextBundleChoice, ContextBundlePlan } from "./contextBundlePlan";
 import { contextBundleCandidates, contextBundleDestination, ContextBundleError } from "./contextBundleStructure";
 import type { BundleKind } from "./contextBundleStructure";
 import { renderPlanDiff } from "./planDiffView";
@@ -11,9 +11,9 @@ function source(root: HTMLElement, label: string, text: string, key: string, ope
   const panel = root.createEl("details"); panel.open = open; panel.createEl("summary", { text: label });
   panel.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-bundle-text": key } });
 }
-/** Independent preview, with no Apply callback or executable plan conversion. */
+/** The plan stays read-only; optional execution opens a separate consent flow. */
 export function renderContextBundlePlanner(root: HTMLElement, session: ChangePlannerSession, analysis: RelationshipAnalysis,
-  choice: ContextBundleChoice, change: (c: ContextBundleChoice) => void): void {
+  choice: ContextBundleChoice, change: (c: ContextBundleChoice) => void, review?: (plan: ContextBundlePlan) => void): void {
   const input = session.view.input; if (!input) return;
   const select = (key: string, options: [string, string][], value: string, onChange: (v: string) => void) => {
     const label = root.createEl("label", { text: tr(`@bundle.${key}`), cls: "ai-planner-location" });
@@ -87,4 +87,8 @@ export function renderContextBundlePlanner(root: HTMLElement, session: ChangePla
   renderPlanDiff(result, plan.canonical.before, plan.canonical.after);
   source(result, tr("@bundle.serialized"), JSON.stringify(plan, null, 2), "serialized");
   result.createEl("p", { text: tr("@bundle.limits") });
+  if (review) {
+    const button=result.createEl("button", {text:tr("@bundleApply.review"),attr:{type:"button","data-bundle-apply-action":"review"}});
+    button.addEventListener("click",()=>review(plan));
+  }
 }

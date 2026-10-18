@@ -16,12 +16,12 @@ class Element {
   all(): Element[] { return [this, ...this.children.flatMap(e => e.all())]; }
 }
 
-describe("ContextBundlePlan UI has no apply route",()=>{
+describe("ContextBundlePlan UI routes only through separate bundle review",()=>{
   it.each(["ru","en"] as const)("%s: independent confirmations, full previews, explicit distinct intent and cleared selection", async language=>{
     setLanguage(language);const f=bundleFixture(); f.analysis.result.relation="related_distinct";f.analysis.result.recommendation.action="manual_review";
-    const root=new Element(),single=vi.fn(),multi=vi.fn(),merge=vi.fn();
+    const root=new Element(),single=vi.fn(),multi=vi.fn(),merge=vi.fn(),bundle=vi.fn();
     const s=new ChangePlannerSession({analysis:()=>f.analysis,read:async()=>f.read});
-    new ChangePlannerView(root as unknown as HTMLElement,s,f.analysis,single,multi,merge);await s.prepare();
+    new ChangePlannerView(root as unknown as HTMLElement,s,f.analysis,single,multi,merge,bundle);await s.prepare();
     const field=(key:string)=>root.all().find(e=>e.attrs["data-planner-field"]===key)!;
     const select=(key:string,value:string)=>{const e=field(key);e.value=value;e.listeners.get("change")!()};
     const check=(key:string)=>{const e=field("bundle-"+key);e.checked=true;e.listeners.get("change")!()};
@@ -36,6 +36,7 @@ describe("ContextBundlePlan UI has no apply route",()=>{
     expect(root.all().find(e=>e.attrs["data-bundle-text"]==="after")?.text).toBe(s.view.bundlePlan!.canonical.after);
     expect(root.all().some(e=>/^@(bundle|planner|merge)\./u.test(e.text))).toBe(false);
     expect(root.all().some(e=>e.attrs["data-safe-action"]||e.attrs["data-merge-apply-action"]||e.attrs["data-multi-action"])).toBe(false);
+    expect(bundle).not.toHaveBeenCalled();root.all().find(e=>e.attrs["data-bundle-apply-action"]==="review")!.listeners.get("click")!();expect(bundle).toHaveBeenCalledWith(s.view.bundlePlan);
     expect(single).not.toHaveBeenCalled();expect(multi).not.toHaveBeenCalled();expect(merge).not.toHaveBeenCalled();
     select("bundle-selection",String(f.choice.core!.start));expect(s.view.bundlePlan).toBeUndefined();expect(field("bundle-contextConfirmed").checked).toBe(false);
     expect(field("bundle-insertion").value).toBe("");select("bundle-canonical","1");expect(field("bundle-kind").value).toBe("");expect(field("bundle-selection")).toBeUndefined();

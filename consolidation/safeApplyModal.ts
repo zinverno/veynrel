@@ -4,6 +4,7 @@ import { SafeApplyError } from "./operationJournal";
 import type { ApplyReview, SafeApplyService, OperationHistory, ResolutionReview } from "./safeApply";
 import { renderPlanDiff } from "./planDiffView";
 import { MultiFileApplyModal, renderMultiHistory } from "./multiFileApplyModal";
+import { BundleApplyModal, renderBundleHistory } from "./bundleApplyModal";
 import { MergeApplyModal, renderMergeHistory } from "./mergeApplyModal";
 import { ArchivePlannerModal } from "./archivePlannerModal";
 import { readArchiveBasis } from "./obsidianArchive";
@@ -156,10 +157,14 @@ export class OperationHistoryModal extends Modal {
       const multi = await this.service.multi?.history() ?? [];
       const merge = await this.service.merge?.history() ?? [];
       const archive = await this.service.archive?.history() ?? [];
+      const bundle = await this.service.bundle?.history() ?? [];
       if (!this.active || this.generation !== generation) return;
       this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.historyScope") });
       button(this.contentEl, "refresh", () => { void this.refresh(); });
-      if (!rows.length && !multi.length && !merge.length && !archive.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
+      if (!rows.length && !multi.length && !merge.length && !archive.length && !bundle.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
+      for (const row of bundle) renderBundleHistory(this.contentEl, row, () => new BundleApplyModal(this.app, this.service.bundle!,
+        current => this.service.bundle!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
+        () => { if (this.active) void this.refresh(); }).open());
       for (const row of archive) renderArchiveHistory(this.contentEl, row, () => new ArchiveApplyModal(this.app, this.service.archive!,
         current => this.service.archive!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
         () => { if (this.active) void this.refresh(); }).open());

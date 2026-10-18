@@ -1,0 +1,185 @@
+{
+  "failure": {
+    "reason": "conflict",
+    "stack": "Error: conflict\n    at requireSafe (plugin:ai-knowledge-hub:505:7721)\n    at Object.undo (plugin:ai-knowledge-hub:512:28701)\n    at async n.undo (<anonymous>:1:94)\n    at async eval (plugin:ai-knowledge-hub:508:22409)\n    at async SafeApplyService.exclusive (plugin:ai-knowledge-hub:512:16020)\n    at async Ql.load (plugin:ai-knowledge-hub:514:7858)"
+  },
+  "files": [
+    {
+      "path": "BundleApply/success-en-07/Теория/Same name.md",
+      "stat": {
+        "ctime": 1792349361564,
+        "mtime": 1792349362887,
+        "size": 384
+      },
+      "cache": {
+        "sections": [
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 67,
+                "offset": 67
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 69
+              },
+              "end": {
+                "line": 2,
+                "col": 41,
+                "offset": 110
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 5,
+                "col": 0,
+                "offset": 113
+              },
+              "end": {
+                "line": 5,
+                "col": 67,
+                "offset": 180
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 7,
+                "col": 0,
+                "offset": 182
+              },
+              "end": {
+                "line": 7,
+                "col": 73,
+                "offset": 255
+              }
+            }
+          },
+          {
+            "type": "code",
+            "position": {
+              "start": {
+                "line": 9,
+                "col": 0,
+                "offset": 257
+              },
+              "end": {
+                "line": 13,
+                "col": 3,
+                "offset": 320
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 15,
+                "col": 0,
+                "offset": 322
+              },
+              "end": {
+                "line": 15,
+                "col": 62,
+                "offset": 384
+              }
+            }
+          }
+        ],
+        "v": 1
+      }
+    },
+    {
+      "path": "BundleApply/success-en-07/Practice/Same name.md",
+      "stat": {
+        "ctime": 1792349361564,
+        "mtime": 1792349361564,
+        "size": 272
+      },
+      "cache": {
+        "sections": [
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 67,
+                "offset": 67
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 69
+              },
+              "end": {
+                "line": 2,
+                "col": 73,
+                "offset": 142
+              }
+            }
+          },
+          {
+            "type": "code",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 144
+              },
+              "end": {
+                "line": 8,
+                "col": 3,
+                "offset": 207
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 10,
+                "col": 0,
+                "offset": 209
+              },
+              "end": {
+                "line": 10,
+                "col": 62,
+                "offset": 271
+              }
+            }
+          }
+        ],
+        "v": 1
+      }
+    }
+  ],
+  "text": "The file does not match the confirmed state. Automatic overwrite is blocked. Check history and the saved copy.Stopped without automatic retry. Preserved evidence is available in history; damaged evidence requires manual review.Operation history"
+}
