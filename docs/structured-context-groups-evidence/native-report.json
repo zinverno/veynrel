@@ -1,0 +1,5152 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "structuredGroups": {
+    "status": "PASS",
+    "corpusSha256": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+    "artifactSha256": "7b9c699937c3858a5144c9f67afd2c5632ca05d34f68b5c8455f801d343d4478",
+    "checks": [
+      "01: no extra completion, writes or journals",
+      "02: no extra completion, writes or journals",
+      "03: no extra completion, writes or journals",
+      "04: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "05: incomplete external context blocks publication",
+      "05: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "06: no extra completion, writes or journals",
+      "07: no extra completion, writes or journals",
+      "08: no extra completion, writes or journals",
+      "09: no extra completion, writes or journals",
+      "10: no extra completion, writes or journals",
+      "11: no extra completion, writes or journals",
+      "12: no extra completion, writes or journals",
+      "13: no extra completion, writes or journals",
+      "14: no extra completion, writes or journals",
+      "15: no extra completion, writes or journals",
+      "16: no extra completion, writes or journals",
+      "17: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "19: incomplete external context blocks publication",
+      "19: no extra completion, writes or journals",
+      "20: no extra completion, writes or journals",
+      "21: no extra completion, writes or journals",
+      "22: no extra completion, writes or journals",
+      "23: no extra completion, writes or journals",
+      "24: no extra completion, writes or journals",
+      "Insertion remains separately unconfirmed",
+      "en: full source/after/diff and no Apply route",
+      "en theme-light 1200: fits and localizes",
+      "en theme-light 390: fits and localizes",
+      "en theme-dark 1200: fits and localizes",
+      "en theme-dark 390: fits and localizes",
+      "Canonical re-selection clears whole plan and confirmations",
+      "Insertion remains separately unconfirmed",
+      "Both canonical directions preserve full CRLF originals",
+      "Insertion remains separately unconfirmed",
+      "ru: full source/after/diff and no Apply route",
+      "ru theme-light 1200: fits and localizes",
+      "ru theme-light 390: fits and localizes",
+      "ru theme-dark 1200: fits and localizes",
+      "ru theme-dark 390: fits and localizes",
+      "Canonical re-selection clears whole plan and confirmations",
+      "Insertion remains separately unconfirmed",
+      "Both canonical directions preserve full CRLF originals",
+      "wrapped-07: adding a heading does not authorize protected dependencies",
+      "wrapped-08: adding a heading does not authorize protected dependencies",
+      "wrapped-09: adding a heading does not authorize protected dependencies",
+      "wrapped-22: adding a heading does not authorize protected dependencies",
+      "Insertion remains separately unconfirmed",
+      "Related but distinct requires a separate intentional-copy decision",
+      "Explicit distinct branch plan keeps manual-review provenance",
+      "Insertion remains separately unconfirmed",
+      "Semantic conflict cannot be authorized by structural choices",
+      "Insertion remains separately unconfirmed",
+      "cancel: late read cannot publish a GroupPlan",
+      "Insertion remains separately unconfirmed",
+      "close: late read cannot publish a GroupPlan",
+      "Insertion remains separately unconfirmed",
+      "Source 0 edit destroys the whole group session",
+      "Insertion remains separately unconfirmed",
+      "Source 1 edit destroys the whole group session",
+      "All 58 originals byte-identical; zero Markdown writers, journal mutations or network"
+    ],
+    "rows": [
+      {
+        "id": "01",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 91,
+            "failure": null
+          },
+          {
+            "start": 93,
+            "end": 158,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "02",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 76,
+            "failure": null
+          },
+          {
+            "start": 78,
+            "end": 141,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "03",
+        "plainPlan": true,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 87,
+            "failure": null
+          },
+          {
+            "start": 89,
+            "end": 215,
+            "failure": null
+          },
+          {
+            "start": 217,
+            "end": 337,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "04",
+        "plainPlan": true,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 77,
+            "failure": null
+          },
+          {
+            "start": 79,
+            "end": 209,
+            "failure": null
+          },
+          {
+            "start": 211,
+            "end": 277,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "05",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [
+          {
+            "start": 0,
+            "end": 287,
+            "path": [
+              "Finch workshop notes"
+            ],
+            "failure": null,
+            "context": [],
+            "range": {
+              "start": 0,
+              "end": 287,
+              "text": "# Finch workshop notes\n\nA lease reserves a task for one worker in this fictional system.\n\n## Paper exercise\n\n### Two workers\n\nFor this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry.\n\nThe facilitator keeps the bell schedule on a separate card.\n"
+            }
+          },
+          {
+            "start": 90,
+            "end": 287,
+            "path": [
+              "Finch workshop notes",
+              "Paper exercise"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 90,
+                "text": "# Finch workshop notes\n\nA lease reserves a task for one worker in this fictional system.\n\n"
+              }
+            ],
+            "range": {
+              "start": 90,
+              "end": 287,
+              "text": "## Paper exercise\n\n### Two workers\n\nFor this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry.\n\nThe facilitator keeps the bell schedule on a separate card.\n"
+            }
+          },
+          {
+            "start": 109,
+            "end": 287,
+            "path": [
+              "Finch workshop notes",
+              "Paper exercise",
+              "Two workers"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 90,
+                "text": "# Finch workshop notes\n\nA lease reserves a task for one worker in this fictional system.\n\n"
+              },
+              {
+                "start": 90,
+                "end": 109,
+                "text": "## Paper exercise\n\n"
+              }
+            ],
+            "range": {
+              "start": 109,
+              "end": 287,
+              "text": "### Two workers\n\nFor this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry.\n\nThe facilitator keeps the bell schedule on a separate card.\n"
+            }
+          }
+        ],
+        "review": "unresolved external card dependency",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 24,
+            "end": 88,
+            "failure": "heading"
+          },
+          {
+            "start": 126,
+            "end": 225,
+            "failure": "heading"
+          },
+          {
+            "start": 227,
+            "end": 286,
+            "failure": "heading"
+          }
+        ],
+        "plainFailure": "heading",
+        "headings": [
+          {
+            "level": 1,
+            "title": "Finch workshop notes",
+            "range": {
+              "start": 0,
+              "end": 22,
+              "text": "# Finch workshop notes"
+            },
+            "end": 287,
+            "parent": null
+          },
+          {
+            "level": 2,
+            "title": "Paper exercise",
+            "range": {
+              "start": 90,
+              "end": 107,
+              "text": "## Paper exercise"
+            },
+            "end": 287,
+            "parent": 0
+          },
+          {
+            "level": 3,
+            "title": "Two workers",
+            "range": {
+              "start": 109,
+              "end": 124,
+              "text": "### Two workers"
+            },
+            "end": 287,
+            "parent": 1
+          }
+        ],
+        "selectedStart": 109,
+        "refusal": "dependencies"
+      },
+      {
+        "id": "06",
+        "plainPlan": false,
+        "groupPlan": true,
+        "groups": [
+          {
+            "start": 0,
+            "end": 237,
+            "path": [
+              "Журнал решений"
+            ],
+            "failure": null,
+            "context": [],
+            "range": {
+              "start": 0,
+              "end": 237,
+              "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+            }
+          },
+          {
+            "start": 90,
+            "end": 237,
+            "path": [
+              "Журнал решений",
+              "Обсуждение"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 90,
+                "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n"
+              }
+            ],
+            "range": {
+              "start": 90,
+              "end": 237,
+              "text": "## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+            }
+          },
+          {
+            "start": 105,
+            "end": 237,
+            "path": [
+              "Журнал решений",
+              "Обсуждение",
+              "Смена ответственного"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 90,
+                "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n"
+              },
+              {
+                "start": 90,
+                "end": 105,
+                "text": "## Обсуждение\n\n"
+              }
+            ],
+            "range": {
+              "start": 105,
+              "end": 237,
+              "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+            }
+          }
+        ],
+        "review": "reviewed full original context branch",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 18,
+            "end": 88,
+            "failure": "heading"
+          },
+          {
+            "start": 131,
+            "end": 236,
+            "failure": "heading"
+          }
+        ],
+        "plainFailure": "heading",
+        "headings": [
+          {
+            "level": 1,
+            "title": "Журнал решений",
+            "range": {
+              "start": 0,
+              "end": 16,
+              "text": "# Журнал решений"
+            },
+            "end": 237,
+            "parent": null
+          },
+          {
+            "level": 2,
+            "title": "Обсуждение",
+            "range": {
+              "start": 90,
+              "end": 103,
+              "text": "## Обсуждение"
+            },
+            "end": 237,
+            "parent": 0
+          },
+          {
+            "level": 3,
+            "title": "Смена ответственного",
+            "range": {
+              "start": 105,
+              "end": 129,
+              "text": "### Смена ответственного"
+            },
+            "end": 237,
+            "parent": 1
+          }
+        ],
+        "selectedStart": 105,
+        "plan": {
+          "version": 1,
+          "operation": "copy_context_group",
+          "readOnly": true,
+          "canonical": {
+            "path": "Realistic/06/B/Note.md",
+            "identity": {
+              "created": 1792320774499,
+              "modified": 1792320774499,
+              "bytes": 277,
+              "contentHash": "43dd90ec27925497"
+            },
+            "before": "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n",
+            "after": "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+          },
+          "secondary": {
+            "path": "Realistic/06/A/Note.md",
+            "identity": {
+              "created": 1792320774499,
+              "modified": 1792320774499,
+              "bytes": 430,
+              "contentHash": "ed4f58bc62e523c1"
+            },
+            "content": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+            "unchanged": true
+          },
+          "hierarchy": {
+            "source": [
+              {
+                "level": 1,
+                "title": "Журнал решений",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Журнал решений"
+                },
+                "end": 237,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Обсуждение",
+                "range": {
+                  "start": 90,
+                  "end": 103,
+                  "text": "## Обсуждение"
+                },
+                "end": 237,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Смена ответственного",
+                "range": {
+                  "start": 105,
+                  "end": 129,
+                  "text": "### Смена ответственного"
+                },
+                "end": 237,
+                "parent": 1
+              }
+            ],
+            "destination": [
+              {
+                "level": 1,
+                "title": "Формат решения",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Формат решения"
+                },
+                "end": 153,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Хранение",
+                "range": {
+                  "start": 90,
+                  "end": 101,
+                  "text": "## Хранение"
+                },
+                "end": 153,
+                "parent": 0
+              }
+            ],
+            "inserted": [
+              {
+                "level": 1,
+                "text": "# Журнал решений",
+                "sourceOffset": 0,
+                "destinationOffset": 155
+              },
+              {
+                "level": 2,
+                "text": "## Обсуждение",
+                "sourceOffset": 90,
+                "destinationOffset": 247
+              },
+              {
+                "level": 3,
+                "text": "### Смена ответственного",
+                "sourceOffset": 105,
+                "destinationOffset": 264
+              }
+            ]
+          },
+          "group": {
+            "heading": 2,
+            "path": [
+              0,
+              1,
+              2
+            ],
+            "range": {
+              "start": 105,
+              "end": 237,
+              "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+            },
+            "context": [
+              {
+                "start": 0,
+                "end": 90,
+                "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n"
+              },
+              {
+                "start": 90,
+                "end": 105,
+                "text": "## Обсуждение\n\n"
+              }
+            ],
+            "copied": [
+              {
+                "start": 0,
+                "end": 90,
+                "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n"
+              },
+              {
+                "start": 90,
+                "end": 105,
+                "text": "## Обсуждение\n\n"
+              },
+              {
+                "start": 105,
+                "end": 237,
+                "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+              }
+            ],
+            "retained": []
+          },
+          "insertion": {
+            "point": 153,
+            "representation": "original_heading_branch",
+            "separator": "\n\n",
+            "edit": {
+              "start": 153,
+              "end": 153,
+              "removed": "",
+              "inserted": "\n\n# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n\n\n## Обсуждение\n\n\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+            }
+          },
+          "confirmations": {
+            "operation": "copy_context_group",
+            "canonical": 1,
+            "group": {
+              "start": 105,
+              "end": 237,
+              "text": "### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n"
+            },
+            "representation": "original_heading_branch",
+            "insertion": 153,
+            "groupConfirmed": true,
+            "contextConfirmed": true,
+            "insertionConfirmed": true,
+            "dependencies": "reviewed",
+            "distinctIntent": false
+          },
+          "dependencies": [
+            {
+              "path": "Realistic/06/A/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Журнал решений",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 90
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 13,
+                        "offset": 103
+                      }
+                    },
+                    "heading": "Обсуждение",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 105
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 24,
+                        "offset": 129
+                      }
+                    },
+                    "heading": "Смена ответственного",
+                    "level": 3
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 18
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 70,
+                        "offset": 88
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 90
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 13,
+                        "offset": 103
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 105
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 24,
+                        "offset": 129
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 131
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 105,
+                        "offset": 236
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            },
+            {
+              "path": "Realistic/06/B/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Формат решения",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 90
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 101
+                      }
+                    },
+                    "heading": "Хранение",
+                    "level": 2
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 18
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 70,
+                        "offset": 88
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 90
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 101
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 103
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 49,
+                        "offset": 152
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            }
+          ],
+          "resolver": [
+            "Realistic/06/A/Note",
+            "Realistic/06/B/Note"
+          ],
+          "refusals": [],
+          "provenance": {
+            "origin": "relationship_analyzer",
+            "provider": "Свой API",
+            "model": "offline-control-NOT-a-model",
+            "analysis": {
+              "relation": "partial_overlap",
+              "claims": [
+                {
+                  "id": "c1",
+                  "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+                  "kind": "shared",
+                  "quoteA": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.",
+                  "quoteB": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант."
+                },
+                {
+                  "id": "c2",
+                  "text": "Полезный сценарий передачи ответственности, ограниченный учебным упражнением.",
+                  "kind": "unique_a",
+                  "quoteA": "Если ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.",
+                  "quoteB": null
+                }
+              ],
+              "explanation": {
+                "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+                "evidence": [
+                  "c1",
+                  "c2"
+                ]
+              },
+              "recommendation": {
+                "action": "consider_merge",
+                "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+                "evidence": [
+                  "c1"
+                ]
+              },
+              "alternatives": [],
+              "limitations": [
+                "Заголовки задают контекст, а не являются декорацией."
+              ]
+            }
+          },
+          "limitations": [
+            "read_only_no_executor",
+            "secondary_unchanged",
+            "metadata_may_lag",
+            "dependencies_not_scanned",
+            "semantic_equivalence_unverified",
+            "user_review_not_proof",
+            "no_archive_eligibility"
+          ]
+        }
+      },
+      {
+        "id": "07",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 67,
+            "failure": null
+          },
+          {
+            "start": 69,
+            "end": 142,
+            "failure": "neighbor"
+          },
+          {
+            "start": 209,
+            "end": 271,
+            "failure": "neighbor"
+          }
+        ],
+        "plainFailure": "neighbor",
+        "headings": [],
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "08",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 70,
+            "failure": null
+          },
+          {
+            "start": 72,
+            "end": 122,
+            "failure": "neighbor"
+          },
+          {
+            "start": 247,
+            "end": 290,
+            "failure": "neighbor"
+          }
+        ],
+        "plainFailure": "neighbor",
+        "headings": [],
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "09",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 77,
+            "failure": null
+          },
+          {
+            "start": 79,
+            "end": 157,
+            "failure": "neighbor"
+          },
+          {
+            "start": 213,
+            "end": 300,
+            "failure": "context"
+          }
+        ],
+        "plainFailure": "context",
+        "headings": [],
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "10",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 79,
+            "failure": "neighbor"
+          },
+          {
+            "start": 81,
+            "end": 145,
+            "failure": "protected"
+          },
+          {
+            "start": 147,
+            "end": 184,
+            "failure": "protected"
+          },
+          {
+            "start": 186,
+            "end": 278,
+            "failure": "protected"
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "11",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 66,
+            "failure": null
+          },
+          {
+            "start": 68,
+            "end": 132,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "12",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 80,
+            "failure": null
+          },
+          {
+            "start": 82,
+            "end": 157,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "13",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 44,
+            "failure": null
+          },
+          {
+            "start": 46,
+            "end": 138,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "14",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 46,
+            "failure": null
+          },
+          {
+            "start": 48,
+            "end": 159,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "15",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 64,
+            "failure": null
+          },
+          {
+            "start": 66,
+            "end": 105,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "16",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 90,
+            "failure": null
+          },
+          {
+            "start": 92,
+            "end": 133,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "17",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 22,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "18",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "refusal": "analysis-input-limit"
+      },
+      {
+        "id": "19",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [
+          {
+            "start": 0,
+            "end": 15811,
+            "path": [
+              "Finch field notebook"
+            ],
+            "failure": null,
+            "context": [],
+            "range": {
+              "start": 0,
+              "end": 15811,
+              "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n## Station 1: arrival\n\nAt the arrival station, exercise card 1 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 2: sorting\n\nAt the sorting station, exercise card 2 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 3: labeling\n\nAt the labeling station, exercise card 3 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 4: inspection\n\nAt the inspection station, exercise card 4 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 5: repair\n\nAt the repair station, exercise card 5 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 6: packing\n\nAt the packing station, exercise card 6 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 7: dispatch\n\nAt the dispatch station, exercise card 7 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 8: handover\n\nAt the handover station, exercise card 8 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 9: return\n\nAt the return station, exercise card 9 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 10: cleaning\n\nAt the cleaning station, exercise card 10 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 11: counting\n\nAt the counting station, exercise card 11 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n## Station 12: closure\n\nAt the closure station, exercise card 12 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 97,
+            "end": 1405,
+            "path": [
+              "Finch field notebook",
+              "Station 1: arrival"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 97,
+              "end": 1405,
+              "text": "## Station 1: arrival\n\nAt the arrival station, exercise card 1 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 1405,
+            "end": 2713,
+            "path": [
+              "Finch field notebook",
+              "Station 2: sorting"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 1405,
+              "end": 2713,
+              "text": "## Station 2: sorting\n\nAt the sorting station, exercise card 2 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 2713,
+            "end": 4023,
+            "path": [
+              "Finch field notebook",
+              "Station 3: labeling"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 2713,
+              "end": 4023,
+              "text": "## Station 3: labeling\n\nAt the labeling station, exercise card 3 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 4023,
+            "end": 5337,
+            "path": [
+              "Finch field notebook",
+              "Station 4: inspection"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 4023,
+              "end": 5337,
+              "text": "## Station 4: inspection\n\nAt the inspection station, exercise card 4 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 5337,
+            "end": 6643,
+            "path": [
+              "Finch field notebook",
+              "Station 5: repair"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 5337,
+              "end": 6643,
+              "text": "## Station 5: repair\n\nAt the repair station, exercise card 5 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 6643,
+            "end": 7951,
+            "path": [
+              "Finch field notebook",
+              "Station 6: packing"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 6643,
+              "end": 7951,
+              "text": "## Station 6: packing\n\nAt the packing station, exercise card 6 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 7951,
+            "end": 9261,
+            "path": [
+              "Finch field notebook",
+              "Station 7: dispatch"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 7951,
+              "end": 9261,
+              "text": "## Station 7: dispatch\n\nAt the dispatch station, exercise card 7 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 9261,
+            "end": 10571,
+            "path": [
+              "Finch field notebook",
+              "Station 8: handover"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 9261,
+              "end": 10571,
+              "text": "## Station 8: handover\n\nAt the handover station, exercise card 8 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 10571,
+            "end": 11877,
+            "path": [
+              "Finch field notebook",
+              "Station 9: return"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 10571,
+              "end": 11877,
+              "text": "## Station 9: return\n\nAt the return station, exercise card 9 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 11877,
+            "end": 13189,
+            "path": [
+              "Finch field notebook",
+              "Station 10: cleaning"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 11877,
+              "end": 13189,
+              "text": "## Station 10: cleaning\n\nAt the cleaning station, exercise card 10 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 13189,
+            "end": 14501,
+            "path": [
+              "Finch field notebook",
+              "Station 11: counting"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 13189,
+              "end": 14501,
+              "text": "## Station 11: counting\n\nAt the counting station, exercise card 11 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          },
+          {
+            "start": 14501,
+            "end": 15811,
+            "path": [
+              "Finch field notebook",
+              "Station 12: closure"
+            ],
+            "failure": null,
+            "context": [
+              {
+                "start": 0,
+                "end": 97,
+                "text": "# Finch field notebook\n\nThe fictional Finch workshop records twelve distinct station protocols.\n\n"
+              }
+            ],
+            "range": {
+              "start": 14501,
+              "end": 15811,
+              "text": "## Station 12: closure\n\nAt the closure station, exercise card 12 assigns a different observer and keeps its observations separate from the next station.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\nThe facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.\n\n"
+            }
+          }
+        ],
+        "review": "unresolved external card dependency",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 24,
+            "end": 95,
+            "failure": "heading"
+          },
+          {
+            "start": 120,
+            "end": 247,
+            "failure": "heading"
+          },
+          {
+            "start": 249,
+            "end": 536,
+            "failure": "heading"
+          },
+          {
+            "start": 538,
+            "end": 825,
+            "failure": "heading"
+          },
+          {
+            "start": 827,
+            "end": 1114,
+            "failure": "heading"
+          },
+          {
+            "start": 1116,
+            "end": 1403,
+            "failure": "heading"
+          },
+          {
+            "start": 1428,
+            "end": 1555,
+            "failure": "heading"
+          },
+          {
+            "start": 1557,
+            "end": 1844,
+            "failure": "heading"
+          },
+          {
+            "start": 1846,
+            "end": 2133,
+            "failure": "heading"
+          },
+          {
+            "start": 2135,
+            "end": 2422,
+            "failure": "heading"
+          },
+          {
+            "start": 2424,
+            "end": 2711,
+            "failure": "heading"
+          },
+          {
+            "start": 2737,
+            "end": 2865,
+            "failure": "heading"
+          },
+          {
+            "start": 2867,
+            "end": 3154,
+            "failure": "heading"
+          },
+          {
+            "start": 3156,
+            "end": 3443,
+            "failure": "heading"
+          },
+          {
+            "start": 3445,
+            "end": 3732,
+            "failure": "heading"
+          },
+          {
+            "start": 3734,
+            "end": 4021,
+            "failure": "heading"
+          },
+          {
+            "start": 4049,
+            "end": 4179,
+            "failure": "heading"
+          },
+          {
+            "start": 4181,
+            "end": 4468,
+            "failure": "heading"
+          },
+          {
+            "start": 4470,
+            "end": 4757,
+            "failure": "heading"
+          },
+          {
+            "start": 4759,
+            "end": 5046,
+            "failure": "heading"
+          },
+          {
+            "start": 5048,
+            "end": 5335,
+            "failure": "heading"
+          },
+          {
+            "start": 5359,
+            "end": 5485,
+            "failure": "heading"
+          },
+          {
+            "start": 5487,
+            "end": 5774,
+            "failure": "heading"
+          },
+          {
+            "start": 5776,
+            "end": 6063,
+            "failure": "heading"
+          },
+          {
+            "start": 6065,
+            "end": 6352,
+            "failure": "heading"
+          },
+          {
+            "start": 6354,
+            "end": 6641,
+            "failure": "heading"
+          },
+          {
+            "start": 6666,
+            "end": 6793,
+            "failure": "heading"
+          },
+          {
+            "start": 6795,
+            "end": 7082,
+            "failure": "heading"
+          },
+          {
+            "start": 7084,
+            "end": 7371,
+            "failure": "heading"
+          },
+          {
+            "start": 7373,
+            "end": 7660,
+            "failure": "heading"
+          },
+          {
+            "start": 7662,
+            "end": 7949,
+            "failure": "heading"
+          },
+          {
+            "start": 7975,
+            "end": 8103,
+            "failure": "heading"
+          },
+          {
+            "start": 8105,
+            "end": 8392,
+            "failure": "heading"
+          },
+          {
+            "start": 8394,
+            "end": 8681,
+            "failure": "heading"
+          },
+          {
+            "start": 8683,
+            "end": 8970,
+            "failure": "heading"
+          },
+          {
+            "start": 8972,
+            "end": 9259,
+            "failure": "heading"
+          },
+          {
+            "start": 9285,
+            "end": 9413,
+            "failure": "heading"
+          },
+          {
+            "start": 9415,
+            "end": 9702,
+            "failure": "heading"
+          },
+          {
+            "start": 9704,
+            "end": 9991,
+            "failure": "heading"
+          },
+          {
+            "start": 9993,
+            "end": 10280,
+            "failure": "heading"
+          },
+          {
+            "start": 10282,
+            "end": 10569,
+            "failure": "heading"
+          },
+          {
+            "start": 10593,
+            "end": 10719,
+            "failure": "heading"
+          },
+          {
+            "start": 10721,
+            "end": 11008,
+            "failure": "heading"
+          },
+          {
+            "start": 11010,
+            "end": 11297,
+            "failure": "heading"
+          },
+          {
+            "start": 11299,
+            "end": 11586,
+            "failure": "heading"
+          },
+          {
+            "start": 11588,
+            "end": 11875,
+            "failure": "heading"
+          },
+          {
+            "start": 11902,
+            "end": 12031,
+            "failure": "heading"
+          },
+          {
+            "start": 12033,
+            "end": 12320,
+            "failure": "heading"
+          },
+          {
+            "start": 12322,
+            "end": 12609,
+            "failure": "heading"
+          },
+          {
+            "start": 12611,
+            "end": 12898,
+            "failure": "heading"
+          },
+          {
+            "start": 12900,
+            "end": 13187,
+            "failure": "heading"
+          },
+          {
+            "start": 13214,
+            "end": 13343,
+            "failure": "heading"
+          },
+          {
+            "start": 13345,
+            "end": 13632,
+            "failure": "heading"
+          },
+          {
+            "start": 13634,
+            "end": 13921,
+            "failure": "heading"
+          },
+          {
+            "start": 13923,
+            "end": 14210,
+            "failure": "heading"
+          },
+          {
+            "start": 14212,
+            "end": 14499,
+            "failure": "heading"
+          },
+          {
+            "start": 14525,
+            "end": 14653,
+            "failure": "heading"
+          },
+          {
+            "start": 14655,
+            "end": 14942,
+            "failure": "heading"
+          },
+          {
+            "start": 14944,
+            "end": 15231,
+            "failure": "heading"
+          },
+          {
+            "start": 15233,
+            "end": 15520,
+            "failure": "heading"
+          },
+          {
+            "start": 15522,
+            "end": 15809,
+            "failure": "heading"
+          }
+        ],
+        "plainFailure": "heading",
+        "headings": [
+          {
+            "level": 1,
+            "title": "Finch field notebook",
+            "range": {
+              "start": 0,
+              "end": 22,
+              "text": "# Finch field notebook"
+            },
+            "end": 15811,
+            "parent": null
+          },
+          {
+            "level": 2,
+            "title": "Station 1: arrival",
+            "range": {
+              "start": 97,
+              "end": 118,
+              "text": "## Station 1: arrival"
+            },
+            "end": 1405,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 2: sorting",
+            "range": {
+              "start": 1405,
+              "end": 1426,
+              "text": "## Station 2: sorting"
+            },
+            "end": 2713,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 3: labeling",
+            "range": {
+              "start": 2713,
+              "end": 2735,
+              "text": "## Station 3: labeling"
+            },
+            "end": 4023,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 4: inspection",
+            "range": {
+              "start": 4023,
+              "end": 4047,
+              "text": "## Station 4: inspection"
+            },
+            "end": 5337,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 5: repair",
+            "range": {
+              "start": 5337,
+              "end": 5357,
+              "text": "## Station 5: repair"
+            },
+            "end": 6643,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 6: packing",
+            "range": {
+              "start": 6643,
+              "end": 6664,
+              "text": "## Station 6: packing"
+            },
+            "end": 7951,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 7: dispatch",
+            "range": {
+              "start": 7951,
+              "end": 7973,
+              "text": "## Station 7: dispatch"
+            },
+            "end": 9261,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 8: handover",
+            "range": {
+              "start": 9261,
+              "end": 9283,
+              "text": "## Station 8: handover"
+            },
+            "end": 10571,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 9: return",
+            "range": {
+              "start": 10571,
+              "end": 10591,
+              "text": "## Station 9: return"
+            },
+            "end": 11877,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 10: cleaning",
+            "range": {
+              "start": 11877,
+              "end": 11900,
+              "text": "## Station 10: cleaning"
+            },
+            "end": 13189,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 11: counting",
+            "range": {
+              "start": 13189,
+              "end": 13212,
+              "text": "## Station 11: counting"
+            },
+            "end": 14501,
+            "parent": 0
+          },
+          {
+            "level": 2,
+            "title": "Station 12: closure",
+            "range": {
+              "start": 14501,
+              "end": 14523,
+              "text": "## Station 12: closure"
+            },
+            "end": 15811,
+            "parent": 0
+          }
+        ],
+        "selectedStart": 97,
+        "refusal": "dependencies"
+      },
+      {
+        "id": "20",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 118,
+            "failure": null
+          },
+          {
+            "start": 120,
+            "end": 197,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "21",
+        "plainPlan": true,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 111,
+            "end": 192,
+            "failure": "neighbor"
+          },
+          {
+            "start": 196,
+            "end": 237,
+            "failure": null
+          },
+          {
+            "start": 241,
+            "end": 365,
+            "failure": null
+          },
+          {
+            "start": 369,
+            "end": 423,
+            "failure": null
+          }
+        ],
+        "headings": []
+      },
+      {
+        "id": "22",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": "metadata",
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 62,
+            "failure": "neighbor"
+          },
+          {
+            "start": 126,
+            "end": 197,
+            "failure": "protected"
+          },
+          {
+            "start": 199,
+            "end": 255,
+            "failure": "protected"
+          },
+          {
+            "start": 357,
+            "end": 412,
+            "failure": "protected"
+          }
+        ],
+        "plainFailure": "protected",
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "23",
+        "plainPlan": false,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 81,
+            "failure": null
+          },
+          {
+            "start": 83,
+            "end": 175,
+            "failure": null
+          },
+          {
+            "start": 177,
+            "end": 235,
+            "failure": "context"
+          },
+          {
+            "start": 237,
+            "end": 282,
+            "failure": null
+          }
+        ],
+        "plainFailure": "context",
+        "headings": [],
+        "refusal": "no-heading-group"
+      },
+      {
+        "id": "24",
+        "plainPlan": true,
+        "groupPlan": false,
+        "groups": [],
+        "review": "No desired heading transfer",
+        "structureFailure": null,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 87,
+            "failure": null
+          },
+          {
+            "start": 89,
+            "end": 215,
+            "failure": null
+          },
+          {
+            "start": 217,
+            "end": 310,
+            "failure": null
+          }
+        ],
+        "headings": []
+      }
+    ],
+    "protectedRefusals": [
+      {
+        "id": "wrapped-07",
+        "failures": [
+          "protected"
+        ]
+      },
+      {
+        "id": "wrapped-08",
+        "failures": [
+          "protected"
+        ]
+      },
+      {
+        "id": "wrapped-09",
+        "failures": [
+          "protected"
+        ]
+      },
+      {
+        "id": "wrapped-22",
+        "error": "metadata",
+        "metadata": {
+          "headings": [
+            {
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 19,
+                  "offset": 19
+                }
+              },
+              "heading": "Protected context",
+              "level": 1
+            }
+          ],
+          "footnotes": [
+            {
+              "position": {
+                "start": {
+                  "line": 13,
+                  "col": 0,
+                  "offset": 278
+                },
+                "end": {
+                  "line": 13,
+                  "col": 63,
+                  "offset": 341
+                }
+              },
+              "id": "count"
+            }
+          ],
+          "footnoteRefs": [
+            {
+              "position": {
+                "start": {
+                  "line": 11,
+                  "col": 48,
+                  "offset": 268
+                },
+                "end": {
+                  "line": 11,
+                  "col": 56,
+                  "offset": 276
+                }
+              },
+              "id": "count"
+            }
+          ],
+          "sections": [
+            {
+              "type": "heading",
+              "position": {
+                "start": {
+                  "line": 0,
+                  "col": 0,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 0,
+                  "col": 19,
+                  "offset": 19
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 2,
+                  "col": 0,
+                  "offset": 21
+                },
+                "end": {
+                  "line": 2,
+                  "col": 62,
+                  "offset": 83
+                }
+              }
+            },
+            {
+              "type": "table",
+              "position": {
+                "start": {
+                  "line": 4,
+                  "col": 0,
+                  "offset": 85
+                },
+                "end": {
+                  "line": 7,
+                  "col": 13,
+                  "offset": 145
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 9,
+                  "col": 0,
+                  "offset": 147
+                },
+                "end": {
+                  "line": 9,
+                  "col": 71,
+                  "offset": 218
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 11,
+                  "col": 0,
+                  "offset": 220
+                },
+                "end": {
+                  "line": 11,
+                  "col": 56,
+                  "offset": 276
+                }
+              }
+            },
+            {
+              "type": "footnoteDefinition",
+              "position": {
+                "start": {
+                  "line": 13,
+                  "col": 0,
+                  "offset": 278
+                },
+                "end": {
+                  "line": 13,
+                  "col": 63,
+                  "offset": 341
+                }
+              }
+            },
+            {
+              "type": "html",
+              "position": {
+                "start": {
+                  "line": 15,
+                  "col": 0,
+                  "offset": 343
+                },
+                "end": {
+                  "line": 15,
+                  "col": 33,
+                  "offset": 376
+                }
+              }
+            },
+            {
+              "type": "paragraph",
+              "position": {
+                "start": {
+                  "line": 17,
+                  "col": 0,
+                  "offset": 378
+                },
+                "end": {
+                  "line": 17,
+                  "col": 55,
+                  "offset": 433
+                }
+              },
+              "id": "display"
+            },
+            {
+              "type": "text",
+              "position": {
+                "start": {
+                  "line": 18,
+                  "col": 0,
+                  "offset": 433
+                },
+                "end": {
+                  "line": 18,
+                  "col": 0,
+                  "offset": 433
+                }
+              }
+            },
+            {
+              "type": "element",
+              "position": {
+                "start": {
+                  "line": 18,
+                  "col": 0,
+                  "offset": 433
+                },
+                "end": {
+                  "line": 18,
+                  "col": 0,
+                  "offset": 433
+                }
+              }
+            }
+          ],
+          "blocks": {
+            "display": {
+              "position": {
+                "start": {
+                  "line": 17,
+                  "col": 0,
+                  "offset": 378
+                },
+                "end": {
+                  "line": 17,
+                  "col": 55,
+                  "offset": 433
+                }
+              },
+              "id": "display"
+            }
+          }
+        }
+      }
+    ],
+    "uiPlans": [
+      {
+        "language": "en",
+        "canonical": 0,
+        "plan": {
+          "version": 1,
+          "operation": "copy_context_group",
+          "readOnly": true,
+          "canonical": {
+            "path": "Groups/A/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 115,
+              "contentHash": "14d49c381073802b"
+            },
+            "before": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n",
+            "after": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n\r\n\r\n# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+          },
+          "secondary": {
+            "path": "Groups/B/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 254,
+              "contentHash": "c08c4833ffdda88b"
+            },
+            "content": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n",
+            "unchanged": true
+          },
+          "hierarchy": {
+            "source": [
+              {
+                "level": 1,
+                "title": "Workshop guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Workshop guide"
+                },
+                "end": 241,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 183,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 183,
+                "parent": 1
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 183,
+                  "end": 194,
+                  "text": "## Practice"
+                },
+                "end": 241,
+                "parent": 0
+              }
+            ],
+            "destination": [
+              {
+                "level": 1,
+                "title": "Existing guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Existing guide"
+                },
+                "end": 115,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 115,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 115,
+                "parent": 1
+              }
+            ],
+            "inserted": [
+              {
+                "level": 1,
+                "text": "# Workshop guide",
+                "sourceOffset": 0,
+                "destinationOffset": 119
+              },
+              {
+                "level": 2,
+                "text": "## Practice",
+                "sourceOffset": 43,
+                "destinationOffset": 166
+              },
+              {
+                "level": 3,
+                "text": "### Trial",
+                "sourceOffset": 58,
+                "destinationOffset": 185
+              }
+            ]
+          },
+          "group": {
+            "heading": 2,
+            "path": [
+              0,
+              1,
+              2
+            ],
+            "range": {
+              "start": 58,
+              "end": 183,
+              "text": "### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+            },
+            "context": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              }
+            ],
+            "copied": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              },
+              {
+                "start": 58,
+                "end": 183,
+                "text": "### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+              }
+            ],
+            "retained": [
+              {
+                "start": 183,
+                "end": 241,
+                "text": "## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n"
+              }
+            ]
+          },
+          "insertion": {
+            "point": 115,
+            "representation": "original_heading_branch",
+            "separator": "\r\n\r\n",
+            "edit": {
+              "start": 115,
+              "end": 115,
+              "removed": "",
+              "inserted": "\r\n\r\n# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+            }
+          },
+          "confirmations": {
+            "operation": "copy_context_group",
+            "canonical": 0,
+            "group": {
+              "start": 58,
+              "end": 183,
+              "text": "### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+            },
+            "representation": "original_heading_branch",
+            "insertion": 115,
+            "groupConfirmed": true,
+            "contextConfirmed": true,
+            "insertionConfirmed": true,
+            "dependencies": "reviewed",
+            "distinctIntent": false
+          },
+          "dependencies": [
+            {
+              "path": "Groups/A/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Existing guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 42,
+                        "offset": 113
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            },
+            {
+              "path": "Groups/B/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Workshop guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 59,
+                        "offset": 130
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 10,
+                        "col": 0,
+                        "offset": 134
+                      },
+                      "end": {
+                        "line": 10,
+                        "col": 45,
+                        "offset": 179
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 14,
+                        "col": 0,
+                        "offset": 198
+                      },
+                      "end": {
+                        "line": 14,
+                        "col": 41,
+                        "offset": 239
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            }
+          ],
+          "resolver": [
+            "Groups/A/Note",
+            "Groups/B/Note"
+          ],
+          "refusals": [],
+          "provenance": {
+            "origin": "relationship_analyzer",
+            "provider": "Свой API",
+            "model": "offline-control-NOT-a-model",
+            "analysis": {
+              "relation": "partial_overlap",
+              "claims": [
+                {
+                  "id": "s",
+                  "text": "Shared fact.",
+                  "kind": "shared",
+                  "quoteA": "Shared scoped fact.",
+                  "quoteB": "Shared scoped fact."
+                }
+              ],
+              "explanation": {
+                "text": "Shared scope, different trials.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "recommendation": {
+                "action": "consider_merge",
+                "reason": "Review complete context.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "alternatives": [],
+              "limitations": [
+                "Synthetic exercise; semantic independence is not proven."
+              ]
+            }
+          },
+          "limitations": [
+            "read_only_no_executor",
+            "secondary_unchanged",
+            "metadata_may_lag",
+            "dependencies_not_scanned",
+            "semantic_equivalence_unverified",
+            "user_review_not_proof",
+            "no_archive_eligibility"
+          ]
+        }
+      },
+      {
+        "language": "en",
+        "canonical": 1,
+        "plan": {
+          "version": 1,
+          "operation": "copy_context_group",
+          "readOnly": true,
+          "canonical": {
+            "path": "Groups/B/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 254,
+              "contentHash": "c08c4833ffdda88b"
+            },
+            "before": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n",
+            "after": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n\r\n\r\n# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+          },
+          "secondary": {
+            "path": "Groups/A/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 115,
+              "contentHash": "14d49c381073802b"
+            },
+            "content": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n",
+            "unchanged": true
+          },
+          "hierarchy": {
+            "source": [
+              {
+                "level": 1,
+                "title": "Existing guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Existing guide"
+                },
+                "end": 115,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 115,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 115,
+                "parent": 1
+              }
+            ],
+            "destination": [
+              {
+                "level": 1,
+                "title": "Workshop guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Workshop guide"
+                },
+                "end": 241,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 183,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 183,
+                "parent": 1
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 183,
+                  "end": 194,
+                  "text": "## Practice"
+                },
+                "end": 241,
+                "parent": 0
+              }
+            ],
+            "inserted": [
+              {
+                "level": 1,
+                "text": "# Existing guide",
+                "sourceOffset": 0,
+                "destinationOffset": 245
+              },
+              {
+                "level": 2,
+                "text": "## Practice",
+                "sourceOffset": 43,
+                "destinationOffset": 292
+              },
+              {
+                "level": 3,
+                "text": "### Trial",
+                "sourceOffset": 58,
+                "destinationOffset": 311
+              }
+            ]
+          },
+          "group": {
+            "heading": 2,
+            "path": [
+              0,
+              1,
+              2
+            ],
+            "range": {
+              "start": 58,
+              "end": 115,
+              "text": "### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+            },
+            "context": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              }
+            ],
+            "copied": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              },
+              {
+                "start": 58,
+                "end": 115,
+                "text": "### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+              }
+            ],
+            "retained": []
+          },
+          "insertion": {
+            "point": 241,
+            "representation": "original_heading_branch",
+            "separator": "\r\n\r\n",
+            "edit": {
+              "start": 241,
+              "end": 241,
+              "removed": "",
+              "inserted": "\r\n\r\n# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+            }
+          },
+          "confirmations": {
+            "operation": "copy_context_group",
+            "canonical": 1,
+            "group": {
+              "start": 58,
+              "end": 115,
+              "text": "### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+            },
+            "representation": "original_heading_branch",
+            "insertion": 241,
+            "groupConfirmed": true,
+            "contextConfirmed": true,
+            "insertionConfirmed": true,
+            "dependencies": "reviewed",
+            "distinctIntent": false
+          },
+          "dependencies": [
+            {
+              "path": "Groups/A/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Existing guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 42,
+                        "offset": 113
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            },
+            {
+              "path": "Groups/B/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Workshop guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 59,
+                        "offset": 130
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 10,
+                        "col": 0,
+                        "offset": 134
+                      },
+                      "end": {
+                        "line": 10,
+                        "col": 45,
+                        "offset": 179
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 14,
+                        "col": 0,
+                        "offset": 198
+                      },
+                      "end": {
+                        "line": 14,
+                        "col": 41,
+                        "offset": 239
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            }
+          ],
+          "resolver": [
+            "Groups/A/Note",
+            "Groups/B/Note"
+          ],
+          "refusals": [],
+          "provenance": {
+            "origin": "relationship_analyzer",
+            "provider": "Свой API",
+            "model": "offline-control-NOT-a-model",
+            "analysis": {
+              "relation": "partial_overlap",
+              "claims": [
+                {
+                  "id": "s",
+                  "text": "Shared fact.",
+                  "kind": "shared",
+                  "quoteA": "Shared scoped fact.",
+                  "quoteB": "Shared scoped fact."
+                }
+              ],
+              "explanation": {
+                "text": "Shared scope, different trials.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "recommendation": {
+                "action": "consider_merge",
+                "reason": "Review complete context.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "alternatives": [],
+              "limitations": [
+                "Synthetic exercise; semantic independence is not proven."
+              ]
+            }
+          },
+          "limitations": [
+            "read_only_no_executor",
+            "secondary_unchanged",
+            "metadata_may_lag",
+            "dependencies_not_scanned",
+            "semantic_equivalence_unverified",
+            "user_review_not_proof",
+            "no_archive_eligibility"
+          ]
+        }
+      },
+      {
+        "language": "ru",
+        "canonical": 0,
+        "plan": {
+          "version": 1,
+          "operation": "copy_context_group",
+          "readOnly": true,
+          "canonical": {
+            "path": "Groups/A/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 115,
+              "contentHash": "14d49c381073802b"
+            },
+            "before": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n",
+            "after": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n\r\n\r\n# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+          },
+          "secondary": {
+            "path": "Groups/B/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 254,
+              "contentHash": "c08c4833ffdda88b"
+            },
+            "content": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n",
+            "unchanged": true
+          },
+          "hierarchy": {
+            "source": [
+              {
+                "level": 1,
+                "title": "Workshop guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Workshop guide"
+                },
+                "end": 241,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 183,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 183,
+                "parent": 1
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 183,
+                  "end": 194,
+                  "text": "## Practice"
+                },
+                "end": 241,
+                "parent": 0
+              }
+            ],
+            "destination": [
+              {
+                "level": 1,
+                "title": "Existing guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Existing guide"
+                },
+                "end": 115,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 115,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 115,
+                "parent": 1
+              }
+            ],
+            "inserted": [
+              {
+                "level": 1,
+                "text": "# Workshop guide",
+                "sourceOffset": 0,
+                "destinationOffset": 119
+              },
+              {
+                "level": 2,
+                "text": "## Practice",
+                "sourceOffset": 43,
+                "destinationOffset": 166
+              },
+              {
+                "level": 3,
+                "text": "### Trial",
+                "sourceOffset": 58,
+                "destinationOffset": 185
+              }
+            ]
+          },
+          "group": {
+            "heading": 2,
+            "path": [
+              0,
+              1,
+              2
+            ],
+            "range": {
+              "start": 58,
+              "end": 183,
+              "text": "### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+            },
+            "context": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              }
+            ],
+            "copied": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              },
+              {
+                "start": 58,
+                "end": 183,
+                "text": "### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+              }
+            ],
+            "retained": [
+              {
+                "start": 183,
+                "end": 241,
+                "text": "## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n"
+              }
+            ]
+          },
+          "insertion": {
+            "point": 115,
+            "representation": "original_heading_branch",
+            "separator": "\r\n\r\n",
+            "edit": {
+              "start": 115,
+              "end": 115,
+              "removed": "",
+              "inserted": "\r\n\r\n# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+            }
+          },
+          "confirmations": {
+            "operation": "copy_context_group",
+            "canonical": 0,
+            "group": {
+              "start": 58,
+              "end": 183,
+              "text": "### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n"
+            },
+            "representation": "original_heading_branch",
+            "insertion": 115,
+            "groupConfirmed": true,
+            "contextConfirmed": true,
+            "insertionConfirmed": true,
+            "dependencies": "reviewed",
+            "distinctIntent": false
+          },
+          "dependencies": [
+            {
+              "path": "Groups/A/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Existing guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 42,
+                        "offset": 113
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            },
+            {
+              "path": "Groups/B/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Workshop guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 59,
+                        "offset": 130
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 10,
+                        "col": 0,
+                        "offset": 134
+                      },
+                      "end": {
+                        "line": 10,
+                        "col": 45,
+                        "offset": 179
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 14,
+                        "col": 0,
+                        "offset": 198
+                      },
+                      "end": {
+                        "line": 14,
+                        "col": 41,
+                        "offset": 239
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            }
+          ],
+          "resolver": [
+            "Groups/A/Note",
+            "Groups/B/Note"
+          ],
+          "refusals": [],
+          "provenance": {
+            "origin": "relationship_analyzer",
+            "provider": "Свой API",
+            "model": "offline-control-NOT-a-model",
+            "analysis": {
+              "relation": "partial_overlap",
+              "claims": [
+                {
+                  "id": "s",
+                  "text": "Shared fact.",
+                  "kind": "shared",
+                  "quoteA": "Shared scoped fact.",
+                  "quoteB": "Shared scoped fact."
+                }
+              ],
+              "explanation": {
+                "text": "Shared scope, different trials.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "recommendation": {
+                "action": "consider_merge",
+                "reason": "Review complete context.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "alternatives": [],
+              "limitations": [
+                "Synthetic exercise; semantic independence is not proven."
+              ]
+            }
+          },
+          "limitations": [
+            "read_only_no_executor",
+            "secondary_unchanged",
+            "metadata_may_lag",
+            "dependencies_not_scanned",
+            "semantic_equivalence_unverified",
+            "user_review_not_proof",
+            "no_archive_eligibility"
+          ]
+        }
+      },
+      {
+        "language": "ru",
+        "canonical": 1,
+        "plan": {
+          "version": 1,
+          "operation": "copy_context_group",
+          "readOnly": true,
+          "canonical": {
+            "path": "Groups/B/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 254,
+              "contentHash": "c08c4833ffdda88b"
+            },
+            "before": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n",
+            "after": "# Workshop guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nНаблюдение 🪶 é: the amber envelope marks a pending trial.\r\n\r\nA second observation stays in the same group.\r\n\r\n## Practice\r\n\r\nAn unrelated sibling exercise stays here.\r\n\r\n\r\n# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+          },
+          "secondary": {
+            "path": "Groups/A/Note.md",
+            "identity": {
+              "created": 1792320774502,
+              "modified": 1792320774502,
+              "bytes": 115,
+              "contentHash": "14d49c381073802b"
+            },
+            "content": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n## Practice\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n",
+            "unchanged": true
+          },
+          "hierarchy": {
+            "source": [
+              {
+                "level": 1,
+                "title": "Existing guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Existing guide"
+                },
+                "end": 115,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 115,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 115,
+                "parent": 1
+              }
+            ],
+            "destination": [
+              {
+                "level": 1,
+                "title": "Workshop guide",
+                "range": {
+                  "start": 0,
+                  "end": 16,
+                  "text": "# Workshop guide"
+                },
+                "end": 241,
+                "parent": null
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 43,
+                  "end": 54,
+                  "text": "## Practice"
+                },
+                "end": 183,
+                "parent": 0
+              },
+              {
+                "level": 3,
+                "title": "Trial",
+                "range": {
+                  "start": 58,
+                  "end": 67,
+                  "text": "### Trial"
+                },
+                "end": 183,
+                "parent": 1
+              },
+              {
+                "level": 2,
+                "title": "Practice",
+                "range": {
+                  "start": 183,
+                  "end": 194,
+                  "text": "## Practice"
+                },
+                "end": 241,
+                "parent": 0
+              }
+            ],
+            "inserted": [
+              {
+                "level": 1,
+                "text": "# Existing guide",
+                "sourceOffset": 0,
+                "destinationOffset": 245
+              },
+              {
+                "level": 2,
+                "text": "## Practice",
+                "sourceOffset": 43,
+                "destinationOffset": 292
+              },
+              {
+                "level": 3,
+                "text": "### Trial",
+                "sourceOffset": 58,
+                "destinationOffset": 311
+              }
+            ]
+          },
+          "group": {
+            "heading": 2,
+            "path": [
+              0,
+              1,
+              2
+            ],
+            "range": {
+              "start": 58,
+              "end": 115,
+              "text": "### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+            },
+            "context": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              }
+            ],
+            "copied": [
+              {
+                "start": 0,
+                "end": 43,
+                "text": "# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n"
+              },
+              {
+                "start": 43,
+                "end": 58,
+                "text": "## Practice\r\n\r\n"
+              },
+              {
+                "start": 58,
+                "end": 115,
+                "text": "### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+              }
+            ],
+            "retained": []
+          },
+          "insertion": {
+            "point": 241,
+            "representation": "original_heading_branch",
+            "separator": "\r\n\r\n",
+            "edit": {
+              "start": 241,
+              "end": 241,
+              "removed": "",
+              "inserted": "\r\n\r\n# Existing guide\r\n\r\nShared scoped fact.\r\n\r\n\r\n\r\n## Practice\r\n\r\n\r\n\r\n### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+            }
+          },
+          "confirmations": {
+            "operation": "copy_context_group",
+            "canonical": 1,
+            "group": {
+              "start": 58,
+              "end": 115,
+              "text": "### Trial\r\n\r\nThe blue envelope marks a completed trial.\r\n"
+            },
+            "representation": "original_heading_branch",
+            "insertion": 241,
+            "groupConfirmed": true,
+            "contextConfirmed": true,
+            "insertionConfirmed": true,
+            "dependencies": "reviewed",
+            "distinctIntent": false
+          },
+          "dependencies": [
+            {
+              "path": "Groups/A/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Existing guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 42,
+                        "offset": 113
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            },
+            {
+              "path": "Groups/B/Note.md",
+              "metadata": {
+                "headings": [
+                  {
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    },
+                    "heading": "Workshop guide",
+                    "level": 1
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    },
+                    "heading": "Trial",
+                    "level": 3
+                  },
+                  {
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    },
+                    "heading": "Practice",
+                    "level": 2
+                  }
+                ],
+                "sections": [
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 0,
+                        "col": 0,
+                        "offset": 0
+                      },
+                      "end": {
+                        "line": 0,
+                        "col": 16,
+                        "offset": 16
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "col": 0,
+                        "offset": 20
+                      },
+                      "end": {
+                        "line": 2,
+                        "col": 19,
+                        "offset": 39
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 4,
+                        "col": 0,
+                        "offset": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "col": 11,
+                        "offset": 54
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "col": 0,
+                        "offset": 58
+                      },
+                      "end": {
+                        "line": 6,
+                        "col": 9,
+                        "offset": 67
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "col": 0,
+                        "offset": 71
+                      },
+                      "end": {
+                        "line": 8,
+                        "col": 59,
+                        "offset": 130
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 10,
+                        "col": 0,
+                        "offset": 134
+                      },
+                      "end": {
+                        "line": 10,
+                        "col": 45,
+                        "offset": 179
+                      }
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "col": 0,
+                        "offset": 183
+                      },
+                      "end": {
+                        "line": 12,
+                        "col": 11,
+                        "offset": 194
+                      }
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "position": {
+                      "start": {
+                        "line": 14,
+                        "col": 0,
+                        "offset": 198
+                      },
+                      "end": {
+                        "line": 14,
+                        "col": 41,
+                        "offset": 239
+                      }
+                    }
+                  }
+                ]
+              },
+              "outgoing": [],
+              "incoming": {
+                "items": [],
+                "total": 0
+              }
+            }
+          ],
+          "resolver": [
+            "Groups/A/Note",
+            "Groups/B/Note"
+          ],
+          "refusals": [],
+          "provenance": {
+            "origin": "relationship_analyzer",
+            "provider": "Свой API",
+            "model": "offline-control-NOT-a-model",
+            "analysis": {
+              "relation": "partial_overlap",
+              "claims": [
+                {
+                  "id": "s",
+                  "text": "Shared fact.",
+                  "kind": "shared",
+                  "quoteA": "Shared scoped fact.",
+                  "quoteB": "Shared scoped fact."
+                }
+              ],
+              "explanation": {
+                "text": "Shared scope, different trials.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "recommendation": {
+                "action": "consider_merge",
+                "reason": "Review complete context.",
+                "evidence": [
+                  "s"
+                ]
+              },
+              "alternatives": [],
+              "limitations": [
+                "Synthetic exercise; semantic independence is not proven."
+              ]
+            }
+          },
+          "limitations": [
+            "read_only_no_executor",
+            "secondary_unchanged",
+            "metadata_may_lag",
+            "dependencies_not_scanned",
+            "semantic_equivalence_unverified",
+            "user_review_not_proof",
+            "no_archive_eligibility"
+          ]
+        }
+      }
+    ],
+    "io": {
+      "writers": 0,
+      "journals": 0,
+      "network": 0,
+      "scriptedAnalyzerCompletions": 35
+    },
+    "limits": "Scripted Analyzer controls, AI-curated corpus, explicit test review decisions, not measured LLM quality. MetadataCache and UTF-16 ranges are native. Linux desktop 390px emulation, no physical mobile or screen reader. No Group Apply exists."
+  },
+  "version": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "io": {
+    "read": [
+      "Architecture/Query Planning.md",
+      "Databases/Hash Join.md",
+      "Architecture/Query Planning.md",
+      "Databases/Hash Join.md",
+      "Realistic/01/A/Note.md",
+      "Realistic/01/B/Note.md",
+      "Realistic/02/A/Note.md",
+      "Realistic/02/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/05/A/Note.md",
+      "Realistic/05/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/07/A/Note.md",
+      "Realistic/07/B/Note.md",
+      "Realistic/08/A/Note.md",
+      "Realistic/08/B/Note.md",
+      "Realistic/09/A/Note.md",
+      "Realistic/09/B/Note.md",
+      "Realistic/11/A/Note.md",
+      "Realistic/11/B/Note.md",
+      "Realistic/10/A/Note.md",
+      "Realistic/10/B/Note.md",
+      "Realistic/12/A/Note.md",
+      "Realistic/12/B/Note.md",
+      "Realistic/13/A/Note.md",
+      "Realistic/13/B/Note.md",
+      "Realistic/14/A/Note.md",
+      "Realistic/14/B/Note.md",
+      "Realistic/15/A/Note.md",
+      "Realistic/16/A/Note.md",
+      "Realistic/16/B/Note.md",
+      "Realistic/17/A/Note.md",
+      "Realistic/17/B/Note.md",
+      "Realistic/18/A/Note.md",
+      "Realistic/18/B/Note.md",
+      "Realistic/19/A/Note.md",
+      "Realistic/19/B/Note.md",
+      "Realistic/20/A/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/20/B/Note.md",
+      "Realistic/22/A/Note.md",
+      "Realistic/22/B/Note.md",
+      "Realistic/23/A/Note.md",
+      "Realistic/23/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/15/B/Note.md",
+      "Realistic/24/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Wrapped/07/A/Note.md",
+      "Wrapped/07/B/Note.md",
+      "Wrapped/08/A/Note.md",
+      "Wrapped/08/B/Note.md",
+      "Wrapped/09/A/Note.md",
+      "Wrapped/09/B/Note.md",
+      "Wrapped/22/A/Note.md",
+      "Wrapped/22/B/Note.md",
+      "Realistic/01/A/Note.md",
+      "Realistic/01/B/Note.md",
+      "Realistic/01/A/Note.md",
+      "Realistic/01/B/Note.md",
+      "Realistic/01/A/Note.md",
+      "Realistic/01/B/Note.md",
+      "Realistic/01/A/Note.md",
+      "Realistic/01/B/Note.md",
+      "Realistic/01/A/Note.md",
+      "Realistic/01/B/Note.md",
+      "Realistic/02/A/Note.md",
+      "Realistic/02/B/Note.md",
+      "Realistic/02/A/Note.md",
+      "Realistic/02/B/Note.md",
+      "Realistic/02/A/Note.md",
+      "Realistic/02/B/Note.md",
+      "Realistic/02/A/Note.md",
+      "Realistic/02/B/Note.md",
+      "Realistic/02/A/Note.md",
+      "Realistic/02/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/05/A/Note.md",
+      "Realistic/05/B/Note.md",
+      "Realistic/05/A/Note.md",
+      "Realistic/05/B/Note.md",
+      "Realistic/05/A/Note.md",
+      "Realistic/05/B/Note.md",
+      "Realistic/05/A/Note.md",
+      "Realistic/05/B/Note.md",
+      "Realistic/05/A/Note.md",
+      "Realistic/05/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/06/A/Note.md",
+      "Realistic/06/B/Note.md",
+      "Realistic/07/A/Note.md",
+      "Realistic/07/B/Note.md",
+      "Realistic/07/A/Note.md",
+      "Realistic/07/B/Note.md",
+      "Realistic/07/A/Note.md",
+      "Realistic/07/B/Note.md",
+      "Realistic/07/A/Note.md",
+      "Realistic/07/B/Note.md",
+      "Realistic/07/A/Note.md",
+      "Realistic/07/B/Note.md",
+      "Realistic/08/A/Note.md",
+      "Realistic/08/B/Note.md",
+      "Realistic/08/A/Note.md",
+      "Realistic/08/B/Note.md",
+      "Realistic/08/A/Note.md",
+      "Realistic/08/B/Note.md",
+      "Realistic/08/A/Note.md",
+      "Realistic/08/B/Note.md",
+      "Realistic/08/A/Note.md",
+      "Realistic/08/B/Note.md",
+      "Realistic/09/A/Note.md",
+      "Realistic/09/B/Note.md",
+      "Realistic/09/A/Note.md",
+      "Realistic/09/B/Note.md",
+      "Realistic/09/A/Note.md",
+      "Realistic/09/B/Note.md",
+      "Realistic/09/A/Note.md",
+      "Realistic/09/B/Note.md",
+      "Realistic/09/A/Note.md",
+      "Realistic/09/B/Note.md",
+      "Realistic/10/A/Note.md",
+      "Realistic/10/B/Note.md",
+      "Realistic/10/A/Note.md",
+      "Realistic/10/B/Note.md",
+      "Realistic/10/A/Note.md",
+      "Realistic/10/B/Note.md",
+      "Realistic/10/A/Note.md",
+      "Realistic/10/B/Note.md",
+      "Realistic/10/A/Note.md",
+      "Realistic/10/B/Note.md",
+      "Realistic/11/A/Note.md",
+      "Realistic/11/B/Note.md",
+      "Realistic/11/A/Note.md",
+      "Realistic/11/B/Note.md",
+      "Realistic/11/A/Note.md",
+      "Realistic/11/B/Note.md",
+      "Realistic/11/A/Note.md",
+      "Realistic/11/B/Note.md",
+      "Realistic/11/A/Note.md",
+      "Realistic/11/B/Note.md",
+      "Realistic/12/A/Note.md",
+      "Realistic/12/B/Note.md",
+      "Realistic/12/A/Note.md",
+      "Realistic/12/B/Note.md",
+      "Realistic/12/A/Note.md",
+      "Realistic/12/B/Note.md",
+      "Realistic/12/A/Note.md",
+      "Realistic/12/B/Note.md",
+      "Realistic/12/A/Note.md",
+      "Realistic/12/B/Note.md",
+      "Realistic/13/A/Note.md",
+      "Realistic/13/B/Note.md",
+      "Realistic/13/A/Note.md",
+      "Realistic/13/B/Note.md",
+      "Realistic/13/A/Note.md",
+      "Realistic/13/B/Note.md",
+      "Realistic/13/A/Note.md",
+      "Realistic/13/B/Note.md",
+      "Realistic/13/A/Note.md",
+      "Realistic/13/B/Note.md",
+      "Realistic/14/A/Note.md",
+      "Realistic/14/B/Note.md",
+      "Realistic/14/A/Note.md",
+      "Realistic/14/B/Note.md",
+      "Realistic/14/A/Note.md",
+      "Realistic/14/B/Note.md",
+      "Realistic/14/A/Note.md",
+      "Realistic/14/B/Note.md",
+      "Realistic/14/A/Note.md",
+      "Realistic/14/B/Note.md",
+      "Realistic/15/A/Note.md",
+      "Realistic/15/B/Note.md",
+      "Realistic/15/A/Note.md",
+      "Realistic/15/B/Note.md",
+      "Realistic/15/A/Note.md",
+      "Realistic/15/B/Note.md",
+      "Realistic/15/A/Note.md",
+      "Realistic/15/B/Note.md",
+      "Realistic/15/A/Note.md",
+      "Realistic/15/B/Note.md",
+      "Realistic/16/A/Note.md",
+      "Realistic/16/B/Note.md",
+      "Realistic/16/A/Note.md",
+      "Realistic/16/B/Note.md",
+      "Realistic/16/A/Note.md",
+      "Realistic/16/B/Note.md",
+      "Realistic/16/A/Note.md",
+      "Realistic/16/B/Note.md",
+      "Realistic/16/A/Note.md",
+      "Realistic/16/B/Note.md",
+      "Realistic/17/A/Note.md",
+      "Realistic/17/B/Note.md",
+      "Realistic/17/A/Note.md",
+      "Realistic/17/B/Note.md",
+      "Realistic/17/A/Note.md",
+      "Realistic/17/B/Note.md",
+      "Realistic/17/A/Note.md",
+      "Realistic/17/B/Note.md",
+      "Realistic/17/A/Note.md",
+      "Realistic/17/B/Note.md",
+      "Realistic/18/A/Note.md",
+      "Realistic/18/B/Note.md",
+      "Realistic/18/A/Note.md",
+      "Realistic/18/B/Note.md",
+      "Realistic/19/A/Note.md",
+      "Realistic/19/B/Note.md",
+      "Realistic/19/A/Note.md",
+      "Realistic/19/B/Note.md",
+      "Realistic/19/A/Note.md",
+      "Realistic/19/B/Note.md",
+      "Realistic/19/A/Note.md",
+      "Realistic/19/B/Note.md",
+      "Realistic/19/A/Note.md",
+      "Realistic/19/B/Note.md",
+      "Realistic/20/A/Note.md",
+      "Realistic/20/B/Note.md",
+      "Realistic/20/A/Note.md",
+      "Realistic/20/B/Note.md",
+      "Realistic/20/A/Note.md",
+      "Realistic/20/B/Note.md",
+      "Realistic/20/A/Note.md",
+      "Realistic/20/B/Note.md",
+      "Realistic/20/A/Note.md",
+      "Realistic/20/B/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/22/A/Note.md",
+      "Realistic/22/B/Note.md",
+      "Realistic/22/A/Note.md",
+      "Realistic/22/B/Note.md",
+      "Realistic/22/A/Note.md",
+      "Realistic/22/B/Note.md",
+      "Realistic/22/A/Note.md",
+      "Realistic/22/B/Note.md",
+      "Realistic/22/A/Note.md",
+      "Realistic/22/B/Note.md",
+      "Realistic/23/A/Note.md",
+      "Realistic/23/B/Note.md",
+      "Realistic/23/A/Note.md",
+      "Realistic/23/B/Note.md",
+      "Realistic/23/A/Note.md",
+      "Realistic/23/B/Note.md",
+      "Realistic/23/A/Note.md",
+      "Realistic/23/B/Note.md",
+      "Realistic/23/A/Note.md",
+      "Realistic/23/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/24/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/24/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/24/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/24/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/24/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Wrapped/07/A/Note.md",
+      "Wrapped/07/B/Note.md",
+      "Wrapped/07/A/Note.md",
+      "Wrapped/07/B/Note.md",
+      "Wrapped/07/A/Note.md",
+      "Wrapped/07/B/Note.md",
+      "Wrapped/07/A/Note.md",
+      "Wrapped/07/B/Note.md",
+      "Wrapped/07/A/Note.md",
+      "Wrapped/07/B/Note.md",
+      "Wrapped/08/A/Note.md",
+      "Wrapped/08/B/Note.md",
+      "Wrapped/08/A/Note.md",
+      "Wrapped/08/B/Note.md",
+      "Wrapped/08/A/Note.md",
+      "Wrapped/08/B/Note.md",
+      "Wrapped/08/A/Note.md",
+      "Wrapped/08/B/Note.md",
+      "Wrapped/08/A/Note.md",
+      "Wrapped/08/B/Note.md",
+      "Wrapped/09/A/Note.md",
+      "Wrapped/09/B/Note.md",
+      "Wrapped/09/A/Note.md",
+      "Wrapped/09/B/Note.md",
+      "Wrapped/09/A/Note.md",
+      "Wrapped/09/B/Note.md",
+      "Wrapped/09/A/Note.md",
+      "Wrapped/09/B/Note.md",
+      "Wrapped/09/A/Note.md",
+      "Wrapped/09/B/Note.md",
+      "Wrapped/22/A/Note.md",
+      "Wrapped/22/B/Note.md",
+      "Wrapped/22/A/Note.md",
+      "Wrapped/22/B/Note.md",
+      "Wrapped/22/A/Note.md",
+      "Wrapped/22/B/Note.md",
+      "Wrapped/22/A/Note.md",
+      "Wrapped/22/B/Note.md",
+      "Wrapped/22/A/Note.md",
+      "Wrapped/22/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/A/Note.md",
+      "Groups/B/Note.md",
+      "Groups/B/Note.md",
+      "Architecture/Query Planning.md",
+      "Databases/Hash Join.md",
+      "Databases/Hash Join.md",
+      "Architecture/Query Planning.md",
+      "Databases/Hash Join.md",
+      "Databases/Hash Join.md",
+      "Architecture/Query Planning.md",
+      "Databases/Hash Join.md",
+      "Architecture/Query Planning.md",
+      "Architecture/Query Planning.md"
+    ],
+    "write": 0,
+    "network": 0
+  },
+  "status": "PASS"
+}
