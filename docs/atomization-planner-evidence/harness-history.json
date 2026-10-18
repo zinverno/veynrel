@@ -1,0 +1,28 @@
+{
+  "runs": [
+    {
+      "root": "/tmp/pair-inspector-atomization-01",
+      "status": "BLOCKED_ENVIRONMENT",
+      "reason": "Electron sandbox_host_linux.cc:41 Operation not permitted before native ready; no product acceptance claimed."
+    },
+    {
+      "root": "/tmp/pair-inspector-atomization-02",
+      "status": "PASS",
+      "scope": "Initial atomization acceptance before final review changes."
+    },
+    {
+      "root": "/tmp/pair-inspector-atomization-final-03",
+      "status": "PASS",
+      "scope": "Combined acceptance before final percent-filename link-collision fix."
+    },
+    {
+      "root": "/tmp/pair-inspector-atomization-final-04",
+      "status": "PASS",
+      "scope": "Final exact artifact; atomization plus PR92 Group/Context Bundle regressions, including literal percent filenames."
+    }
+  ],
+  "auditRetry": {
+    "firstRun": "FAIL: audit harness received empty child Vitest stdout and failed its passed-count assertion. No product test assertion was reported.",
+    "rerun": "PASS outside command sandbox: 5/5 mutations killed and restored tests passed. Cause of the empty output was not established."
+  }
+}

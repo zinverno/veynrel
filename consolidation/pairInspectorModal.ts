@@ -14,6 +14,7 @@ import { MultiFileApplyModal } from "./multiFileApplyModal";
 import { GroupApplyModal } from "./groupApplyModal";
 import { BundleApplyModal } from "./bundleApplyModal";
 import { MergeApplyModal } from "./mergeApplyModal";
+import { readAtomizationObservation } from "./obsidianAtomization";
 import { readMergeIncoming } from "./obsidianMergeApply";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
@@ -62,7 +63,8 @@ export class PairInspectorModal extends Modal {
                 if (!source || !this.openState) return;
                 this.planner?.close();
                 this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
-                  incoming: () => readMergeIncoming(this.app, this.paths) });
+                  incoming: () => readMergeIncoming(this.app, this.paths),
+                  atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
                 const planner = this.planner;
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                   new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
