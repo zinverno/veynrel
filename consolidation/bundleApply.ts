@@ -32,8 +32,11 @@ export class BundleApply {
     this.tickets.set(review, t); return review;
   }
   private async inspect(entry: BundleEntry): Promise<BundleHistory> {
+    const marked = (state: string) => entry.receipts.some(m => m.state === state);
+    // Valid terminal receipts release reservations; later source changes only revoke Undo.
     const row: BundleHistory = { ...entry, state: "conflict", canonicalState: "missing", secondaryUnchanged: false,
-      editorBlocked: false, canUndo: false, recovered: false, blocking: true };
+      editorBlocked: false, canUndo: false, recovered: false,
+      blocking: !entry.record || entry.damaged || !marked("undone") && (!marked("applied") || marked("undo_intent")) };
     const r = entry.record; if (!r) return row;
     const c = await this.port.read(r.plan.canonical.path), s = await this.port.read(r.plan.secondary.path);
     row.canonicalState = !c ? "missing" : c.path !== r.plan.canonical.path || c.file.stat.ctime !== r.plan.canonical.identity.created ? "identity" :
@@ -44,7 +47,6 @@ export class BundleApply {
       if (e instanceof SafeApplyError && e.reason === "editor") row.editorBlocked = true;
       else return row;
     }
-    const marked = (state: string) => entry.receipts.some(m => m.state === state);
     if (row.canonicalState === "before") {
       const undone = entry.receipts.find(m => m.state === "undone");
       row.state = marked("undo_intent") && (!undone || undone.modified === c?.modified) ? "undone" :
@@ -55,7 +57,6 @@ export class BundleApply {
     if (!row.secondaryUnchanged || row.state === "applied" && receiptChanged) row.state = "conflict";
     row.recovered = row.state === "applied" && (!marked("applied") || marked("undo_intent")) || row.state === "undone" && !marked("undone");
     row.canUndo = row.state === "applied" && !entry.damaged && !row.editorBlocked;
-    row.blocking = entry.damaged || row.state !== "undone" || !marked("undone");
     return row;
   }
   async blockers(paths: readonly string[], ownId?: string, snapshot?: JournalSnapshot): Promise<void> {

@@ -1,5 +1,7 @@
 # Context Bundle Apply — native acceptance
 
+This is the original matrix at PR #95 HEAD `1625633`, before the completion-reservation review fix. See the [targeted completion-policy regression report](context-bundle-completion-review.md) for the updated behavior and build. The original reports, screenshots and hash manifest remain historical evidence at that head.
+
 PASS on Linux desktop, Obsidian **1.13.7**, Electron **43.6.0**. The successful run used a new synthetic vault at `/tmp/pair-inspector-bundle-apply-5/vault`; the runner controls only its own Electron process. **109 assertions**: 18 baseline Inspector checks plus 91 bundle checks. **52 feature screenshots** are retained. Production artifact SHA-256: `63e5ad7a891a9e778df7ee3100ae687d4941655b2bd9cdaa0a0bd54340cd1fe3`.
 
 Evidence: [native report](context-bundle-apply-evidence/native-report.json), [byte restoration](context-bundle-apply-evidence/byte-restoration.json), [artifact/source manifest](context-bundle-apply-evidence/sha256.json). Exact full plans, including all sources, before/after, ranges and analysis controls, are included as six `success-*-plan.json` files. All text is synthetic. No personal vault or paid model was used.

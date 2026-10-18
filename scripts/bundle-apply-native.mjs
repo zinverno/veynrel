@@ -61,6 +61,49 @@ export async function bundleApplyScenario(context) {
     await pass('Undo preview reverses only canonical; secondary remains literal',`document.querySelector('.ai-bundle-apply [data-bundle-apply-text=before]').textContent===${JSON.stringify(plan.canonical.after)}&&document.querySelector('.ai-bundle-apply [data-bundle-apply-text=after]').textContent===${JSON.stringify(plan.canonical.before)}&&document.querySelector('.ai-bundle-apply [data-bundle-apply-text=secondary]').textContent===${JSON.stringify(plan.secondary.content)}`);
     assert.deepEqual(disk(),applied());await confirm();assert.deepEqual(disk(),originals());otherFilesUnchanged();
   };
+  if(process.argv.includes('--bundle-completion')) {
+    const rows=[];
+    for(const edited of ['canonical','secondary','none']) {
+      await setup('completed-'+edited);await review();
+      await ev('window.oldBundleApply=[...plugin.safeApply.bundle.tickets.keys()].at(-1);void 0');await confirm();id=await recordId();
+      const evidence=journalHashes();assert.deepEqual(disk(),applied());
+      await wait(`app.metadataCache.getFileCache(app.vault.getFileByPath(${JSON.stringify(plan.canonical.path)}))?.sections?.at(-1)?.position.end.offset===${plan.canonical.after.length}`);
+      await ev(`(async()=>{window.oldBundleUndo=await plugin.safeApply.bundle.reviewUndo(${JSON.stringify(id)},()=>true)})()`);
+      await h.closeAll();
+      if(edited!=='none') {
+        const path=plan[edited].path,text=fs.readFileSync(vault+'/'+path,'utf8')+'\n\nUSER EDIT: новая проверенная заметка.\n';
+        await ev(`window.editReady=false;window.editRef=app.metadataCache.on('changed',(f,data)=>{if(f.path===${JSON.stringify(path)}&&data===${JSON.stringify(text)})editReady=true});void 0`);
+        fs.writeFileSync(vault+'/'+path,text);await wait('editReady');await ev('app.metadataCache.offref(editRef);void 0');
+      }
+      const before=disk();
+      if(edited!=='none')await pass(edited+': edited source revokes old Undo consent',`plugin.safeApply.bundle.execute(oldBundleUndo).then(()=>false,()=>true)`);
+      await restart();assert.deepEqual(disk(),before);assert.deepEqual(journalHashes(),evidence);
+      await pass(edited+': terminal operation releases both paths after restart',`(async()=>{const r=(await plugin.safeApply.bundle.history()).find(e=>e.id===${JSON.stringify(id)});await plugin.safeApply.bundle.blockers(${JSON.stringify(paths)});return r.blocking===false&&r.canUndo===${edited==='none'}})()`);
+      if(edited!=='none')await pass(edited+': fresh old Undo review refuses changed sources',`plugin.safeApply.bundle.reviewUndo(${JSON.stringify(id)},()=>true).then(()=>false,()=>true)`);
+      else await ev(`(async()=>{window.oldBundleUndo=await plugin.safeApply.bundle.reviewUndo(${JSON.stringify(id)},()=>true)})()`);
+      // Fresh scripted analysis quotes a context paragraph occurring once in each current source.
+      const quote=plan.bundle.blocks.find(b=>b.role==='context_before'&&b.range.start>0).range.text;
+      const response={relation:'partial_overlap',explanation:{text:'Synthetic current-source control.',evidence:['shared']},claims:[{id:'shared',kind:'shared',text:'Shared scoped context.',quoteA:quote,quoteB:quote}],recommendation:{action:'add_link',reason:'Link the current notes.',evidence:['shared']},alternatives:[],limitations:['Scripted control, not a model-quality evaluation.']};
+      await ev(`window.safeTest={calls:0,response:${JSON.stringify(response)}};Object.assign(plugin.settings,{provider:'custom',model:'synthetic-safe-apply',apiKey:'synthetic-only',baseUrl:'https://example.invalid/v1'});window.safeBaseFactory=engine.relationshipSession;engine.relationshipSession=paths=>{const s=safeBaseFactory(paths);s.deps.complete=async()=>{safeTest.calls++;return JSON.stringify(safeTest.response)};return s};void 0`);
+      await h.plan();await h.review();
+      const single=await ev('({before:safePlan.before,after:safePlan.after,sourcePath:safePlan.sourcePath})');assert.equal(single.before,before[0].toString());
+      await pass(edited+': current Single-file review succeeds without Markdown writes',`!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')&&safeTest.calls===1`);
+      assert.deepEqual(disk(),before);assert.deepEqual(journalHashes(),evidence);await shot('bundle-completed-'+edited+'-review');
+      await h.click('.ai-safe-apply [data-safe-action=confirm]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=undo]')&&!plugin.safeApply.busy");
+      const after=disk();assert.equal(after[0].toString(),single.after);assert.equal(after[1].toString(),before[1].toString());
+      if(edited==='none')await pass('Old Undo ticket cannot overwrite a subsequent Single-file Apply',`plugin.safeApply.bundle.execute(oldBundleUndo).then(()=>false,()=>true)`);
+      await pass(edited+': new Apply preserves all current text and invalidates old Bundle Undo',`plugin.safeApply.bundle.reviewUndo(${JSON.stringify(id)},()=>true).then(()=>false,()=>true)`);
+      await pass(edited+': completed ID cannot be prepared twice or used by Archive Eligibility',`(async()=>{const r=(await plugin.safeApply.bundle.journal.entries()).find(e=>e.id===${JSON.stringify(id)}).record;const used=await plugin.safeApply.bundle.journal.prepare(r).then(()=>false,e=>e.reason==='used');const archive=await plugin.safeApply.merge.readApplied(r.id,()=>true).then(()=>false,()=>true);return used&&archive})()`);
+      assert.deepEqual(disk(),after);assert.deepEqual(journalHashes(),evidence);
+      await h.history();await pass(edited+': history keeps evidence, disables old Undo and does not reserve paths',`(async()=>{const r=(await plugin.safeApply.bundle.history()).find(e=>e.id===${JSON.stringify(id)});return !r.canUndo&&!r.blocking&&${row()}?.dataset.bundleState==='conflict'&&!${row()}?.querySelector('[data-bundle-apply-action=undoReview]')})()`);
+      await ev(`${row()}.scrollIntoView({block:'start'});void 0`);await shot('bundle-completed-'+edited+'-history');
+      rows.push({edited,id,paths,before:before.map(b=>b.toString()),after:after.map(b=>b.toString()),bundleEvidence:evidence});
+      await pass(edited+': no paid or additional model requests','io.network===0&&safeTest.calls===1');
+    }
+    fs.writeFileSync(root+'/bundle-completion-cases.json',JSON.stringify(rows,null,2)+'\n');
+    return {status:'PASS',checks,artifactSha256:createHash('sha256').update(fs.readFileSync(ROOT+'/main.js')).digest('hex'),
+      limits:'Targeted synthetic Linux desktop: real Vault.process, manual filesystem edits, SIGKILL/restart and fresh explicit consent. Scripted current-source analysis; no paid models. Full visual/fault matrix remains in the original PR95 evidence.'};
+  }
   for(const language of ['en','ru'])for(const caseId of ['07','08','09']) {
     h??=safeApplyHarness(context);await h.closeAll();await ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
     await ev(`{const e=[...app.setting.modalEl.querySelectorAll('select')].find(e=>[...e.options].some(o=>o.value==='ru'));e.value='${language}';e.dispatchEvent(new Event('change'));}void 0`);

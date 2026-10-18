@@ -51,7 +51,17 @@ Native restart exposed two host serialization details: Obsidian adds private top
 
 ## Coexistence and limits
 
-The owner is the same SafeApplyService execution lock used by Single-file, Multi-file, Merge, Archive, every Undo and resolution. All old execution entrypoints consult the new journal; the new executor consults all old journals. Active, prepared, damaged or incomplete bundle evidence reserves both participating paths. Only a fully verified Undo receipt releases that reservation. Unknown scope blocks globally. This deliberately prevents another executor from invalidating the bundle's secondary while it is still undoable.
+The owner is the same SafeApplyService execution lock used by Single-file, Multi-file, Merge, Archive, every Undo and resolution. All old execution entrypoints consult the new journal; the new executor consults all old journals. Reservation, operation completion and Undo eligibility are separate decisions:
+
+- **Completed Apply:** two intact validated copies and a valid `applied` receipt, without `undo_intent` or damaged/contradictory evidence. It does not reserve either file. A completed, validated `undone` receipt also releases the reservation.
+- **Unresolved operation:** preparation, a missing applied receipt, missing/damaged copies, conflicting receipts or Undo intent without completed Undo still reserve both paths. Unknown damage scope blocks globally. Actual after text alone does not prove completion; actual before after an interrupted Undo does not release its reservation.
+- **Undo eligibility:** actual identity, ctime/mtime/size, full texts, native metadata/dependencies, editors and all journals must still pass the existing independent checks. Later edits can make a completed operation non-undoable without turning it back into an unresolved operation. History may show a source conflict with `canUndo: false` and `blocking: false`.
+
+Completion is determined before live source inspection, so a stale file guard cannot accidentally re-reserve a completed operation. New Single/Multi/Merge/Archive/Bundle plans still need their own valid current sources and consent. Old tickets remain single-use and stale; stable IDs and existing journals cannot be replayed or overwritten.
+
+This follows the existing `MergeApply.blockers` terminal-receipt policy. `ArchiveApply.blockers` intentionally has a different policy: an active archive reserves paths until its complete Apply/Undo chain proves the narrow secondary-mtime exception for parent Merge Undo. Bundle operations have no such parent provenance or mtime exception, so a completed Bundle does not need that archive reservation. Later operations invalidate old Bundle Undo through unchanged exact-state checks; no automatic merge, acknowledgement operation or Markdown-free release command is needed.
+
+See the [completion-policy regression report](context-bundle-completion-review.md) for manual edits followed by a new real Apply, immutable completed evidence and refusal cases.
 
 Old record formats and validators are unchanged. Archive Eligibility continues to accept only successfully confirmed `merge_knowledge_copy`; a context bundle is **not** an archive basis. No archive button is offered on bundle history. Preservation review for such operations is deferred.
 

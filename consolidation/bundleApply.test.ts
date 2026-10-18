@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 vi.mock("obsidian",()=>({TFile:class {},MarkdownView:class {},getLanguage:()=>"en",parseLinktext:(s:string)=>({path:s}),requestUrl:vi.fn(),parseYaml:vi.fn()}));
 import { requestUrl } from "obsidian";
+import { bundleNote } from "../tests/contextBundleFixture";
 import { bundleApplyFixture as setup } from "../tests/bundleApplyFixture";
 import { bundleRecord, validateBundleRecord } from "./bundleJournal";
 import { checksum, validateOperation } from "./operationJournal";
@@ -19,6 +20,12 @@ const unchanged=(f:ReturnType<typeof setup>)=>{
   expect(f.vault.modify).not.toHaveBeenCalled();expect(f.vault.create).not.toHaveBeenCalled();expect(f.vault.delete).not.toHaveBeenCalled();
 };
 const apply=async(f:ReturnType<typeof setup>)=>{const r=await f.review();await f.bundle.execute(r);return r;};
+const freshSingle=async(f:ReturnType<typeof setup>)=>{
+  const read=await readPlannerPair(f.app,[f.pair[0].path,f.pair[1].path]),analysis={...f.analysis,pair:read.pair};
+  const plan=buildChangePlan(analysis,read.pair,{operation:"add_link",source:0,selection:paragraphRanges(read.pair[0])[0],confirmed:true},read.linktexts[1]);
+  return {read,analysis,plan};
+};
+const bundleEvidence=(f:ReturnType<typeof setup>)=>[...f.disk].filter(([path])=>path.startsWith(f.bundleJournal.root+"/"));
 afterEach(()=>{vi.restoreAllMocks();vi.unstubAllGlobals();});
 
 describe("separate structured-copy authority",()=>{
@@ -33,7 +40,7 @@ describe("separate structured-copy authority",()=>{
         return process(...args);
       });
       await f.bundle.execute(review);expect(f.contents.get(f.plan.canonical.path)).toBe(f.plan.canonical.after);unchanged(f);
-      expect((await f.bundle.history())[0]).toMatchObject({state:"applied",canUndo:true,blocking:true});
+      expect((await f.bundle.history())[0]).toMatchObject({state:"applied",canUndo:true,blocking:false});
       const restarted=f.restart(),undo=await restarted.bundle!.reviewUndo(review.id,()=>true);
       expect(f.vault.process).toHaveBeenCalledTimes(1);await restarted.bundle!.execute(undo);unchanged(f);
       expect(f.contents.get(f.plan.canonical.path)).toBe(f.plan.canonical.before);
@@ -170,15 +177,50 @@ describe("durable evidence and fault boundaries",()=>{
       ()=>f.multi.reviewUndo("x",()=>true),()=>f.merge.reviewUndo("x",()=>true),()=>f.service.archive!.reviewUndo("x",()=>true),()=>f.bundle.history()];
     for(const call of calls)await expect(call()).rejects.toEqual(reason("busy"));release();await pending;unchanged(f);
   });
-  it("active bundle blocks old single/multi operations and clears only after verified Undo",async()=>{
-    const f=setup(),single=await f.service.review(f.single,f.analysis,()=>true),r=await apply(f);expect(single).toBeTruthy();
-    await expect(f.service.apply(single!)).rejects.toThrow();
-    const read=await readPlannerPair(f.app,[f.pair[0].path,f.pair[1].path]),analysis={...f.analysis,pair:read.pair};
-    const singleFresh=buildChangePlan(analysis,read.pair,{operation:"add_link",source:0,selection:paragraphRanges(read.pair[0])[0],confirmed:true},read.linktexts[1]);
-    await expect(f.service.review(singleFresh,analysis,()=>true)).rejects.toEqual(reason("storage"));
-    const multi=buildMultiFilePlan(analysis,read.pair,{operation:"add_reciprocal_links",selections:[paragraphRanges(read.pair[0])[0],paragraphRanges(read.pair[1])[0]],confirmed:[true,true]},read.linktexts);
-    await expect(f.multi.review(multi,analysis,()=>true)).rejects.toEqual(reason("storage"));
-    await f.bundle.execute(await f.bundle.reviewUndo(r.id,()=>true));expect((await f.bundle.history())[0].blocking).toBe(false);unchanged(f);
+  it.each(["none","canonical","secondary"])("completed Apply with %s edit releases paths, but never grants stale Undo or consent",async edited=>{
+    const f=setup(),staleSingle=await f.service.review(f.single,f.analysis,()=>true),r=await apply(f);
+    const oldUndo=await f.bundle.reviewUndo(r.id,()=>true),evidence=bundleEvidence(f);
+    if(edited!=="none"){
+      const note=f.pair[edited==="canonical"?0:1],content=f.contents.get(note.path)!+"\nUSER CONTENT 🪶\n";
+      f.contents.set(note.path,content);note.file.stat.mtime++;note.file.stat.size=Buffer.byteLength(content);
+      f.caches.set(note.file,bundleNote(note.path,content).cache);
+    }
+    const service=f.restart(),row=(await service.bundle!.history())[0];
+    expect(row).toMatchObject({state:edited==="none"?"applied":"conflict",blocking:false,canUndo:edited==="none"});
+    if(edited!=="none")await expect(service.bundle!.reviewUndo(r.id,()=>true)).rejects.toThrow();
+    await expect(f.service.apply(staleSingle!)).rejects.toThrow();await expect(f.bundle.execute(r)).rejects.toEqual(reason("used"));
+    const current=await freshSingle(f),saved=new Map(f.contents);
+    const single=await service.review(current.plan,current.analysis,()=>true);expect(single).toBeTruthy();expect(f.contents).toEqual(saved);
+    const multi=buildMultiFilePlan(current.analysis,current.read.pair,{operation:"add_reciprocal_links",selections:[paragraphRanges(current.read.pair[0])[0],paragraphRanges(current.read.pair[1])[0]],confirmed:[true,true]},current.read.linktexts);
+    const multiConsent=await service.multi!.review(multi,current.analysis,()=>true);service.multi!.discard(multiConsent);
+    await service.apply(single!);expect(f.contents.get(f.plan.canonical.path)).toBe(current.plan.after);expect(f.contents.get(f.plan.secondary.path)).toBe(saved.get(f.plan.secondary.path));
+    const after=new Map(f.contents);await expect(f.bundle.execute(oldUndo)).rejects.toThrow();
+    await expect(service.bundle!.reviewUndo(r.id,()=>true)).rejects.toThrow();expect(f.contents).toEqual(after);
+    expect((await service.bundle!.history())[0]).toMatchObject({blocking:false,canUndo:false});
+    expect(bundleEvidence(f)).toEqual(evidence);await expect(f.bundleJournal.prepare(r.record)).rejects.toEqual(reason("used"));
+    await expect(service.merge!.readApplied(r.id,()=>true)).rejects.toThrow();expect(bundleEvidence(f)).toEqual(evidence);
+  });
+  it.each(["prepared","missing-applied","record.json","backup.json","conflicting-receipts","pending-undo","restored-without-undone"])("unresolved %s still reserves both paths",async fault=>{
+    const f=setup(),r=await f.review();
+    if(fault==="prepared")await f.bundleJournal.prepare(r.record);else await f.bundle.execute(r);
+    if(fault==="missing-applied")for(const path of f.disk.keys())if(path.includes("/mark-"))f.disk.delete(path);
+    if(["record.json","backup.json"].includes(fault))f.disk.set(f.bundleJournal.root+"/"+r.id+"/"+fault,"{");
+    if(fault==="conflicting-receipts")await f.bundleJournal.mark(r.record,"applied",{...(await f.port.read(f.plan.canonical.path))!,modified:12345});
+    if(fault==="pending-undo"||fault==="restored-without-undone"){
+      await f.bundleJournal.mark(r.record,"undo_intent",(await f.port.read(f.plan.canonical.path))!);
+      if(fault==="restored-without-undone")await f.vault.process(f.pair[0].file,()=>f.plan.canonical.before);
+    }
+    const service=f.restart(),current=await freshSingle(f),before=new Map(f.contents),disk=new Map(f.disk);
+    expect((await service.bundle!.history())[0].blocking).toBe(true);
+    for(const path of [f.plan.canonical.path,f.plan.secondary.path])await expect(service.bundle!.blockers([path])).rejects.toEqual(reason("storage"));
+    await expect(service.review(current.plan,current.analysis,()=>true)).rejects.toEqual(reason("storage"));
+    expect(f.contents).toEqual(before);expect(f.disk).toEqual(disk);
+  });
+  it("completed Undo stays terminal after later edits; a live stale guard cannot re-reserve completed Apply",async()=>{
+    const f=setup(),r=await apply(f),guard=vi.spyOn(f.port,"guard").mockImplementation(()=>{throw Object.assign(Error("stale"),{reason:"stale"});});
+    expect((await f.bundle.history())[0]).toMatchObject({blocking:false,canUndo:false});guard.mockRestore();
+    await f.bundle.execute(await f.bundle.reviewUndo(r.id,()=>true));f.contents.set(f.plan.canonical.path,"Later user data");
+    expect((await f.restart().bundle!.history())[0]).toMatchObject({blocking:false,canUndo:false,state:"conflict"});
   });
   it.each(["single","multi","merge"])("valid prepared local %s evidence blocks bundle on participating paths",async kind=>{
     const f=setup();

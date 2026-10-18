@@ -1,0 +1,63 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "bundleApply": {
+    "status": "PASS",
+    "checks": [
+      "canonical: edited source revokes old Undo consent",
+      "canonical: terminal operation releases both paths after restart",
+      "canonical: fresh old Undo review refuses changed sources",
+      "canonical: current Single-file review succeeds without Markdown writes",
+      "canonical: new Apply preserves all current text and invalidates old Bundle Undo",
+      "canonical: completed ID cannot be prepared twice or used by Archive Eligibility",
+      "canonical: history keeps evidence, disables old Undo and does not reserve paths",
+      "canonical: no paid or additional model requests",
+      "secondary: edited source revokes old Undo consent",
+      "secondary: terminal operation releases both paths after restart",
+      "secondary: fresh old Undo review refuses changed sources",
+      "secondary: current Single-file review succeeds without Markdown writes",
+      "secondary: new Apply preserves all current text and invalidates old Bundle Undo",
+      "secondary: completed ID cannot be prepared twice or used by Archive Eligibility",
+      "secondary: history keeps evidence, disables old Undo and does not reserve paths",
+      "secondary: no paid or additional model requests",
+      "none: terminal operation releases both paths after restart",
+      "none: current Single-file review succeeds without Markdown writes",
+      "Old Undo ticket cannot overwrite a subsequent Single-file Apply",
+      "none: new Apply preserves all current text and invalidates old Bundle Undo",
+      "none: completed ID cannot be prepared twice or used by Archive Eligibility",
+      "none: history keeps evidence, disables old Undo and does not reserve paths",
+      "none: no paid or additional model requests"
+    ],
+    "artifactSha256": "ecaaac3eeb6be4ca3dd6aa269fcf361f6af9c6021eb2b2a3b79111f59b09db50",
+    "limits": "Targeted synthetic Linux desktop: real Vault.process, manual filesystem edits, SIGKILL/restart and fresh explicit consent. Scripted current-source analysis; no paid models. Full visual/fault matrix remains in the original PR95 evidence."
+  },
+  "version": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS"
+}

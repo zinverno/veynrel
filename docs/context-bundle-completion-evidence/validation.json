@@ -1,0 +1,52 @@
+{
+  "recordedAt": "2026-10-18T19:51:22.376941+00:00",
+  "pr": 95,
+  "branch": "feat/context-bundle-safe-apply-v1",
+  "previousHead": "16256331745fd13d3ee9af61cde9ea56276994d9",
+  "redRegression": {
+    "base": "1625633",
+    "command": "npm test -- consolidation/bundleApply.test.ts",
+    "expectedFailures": 7,
+    "passed": 41
+  },
+  "targeted": {
+    "status": "PASS",
+    "tests": 165,
+    "files": 3
+  },
+  "npm test": {
+    "status": "PASS",
+    "tests": 3830,
+    "files": 147
+  },
+  "typecheck": "PASS",
+  "lint": {
+    "status": "PASS",
+    "errors": 0,
+    "existingWarnings": [
+      "api.ts:404 fetch"
+    ]
+  },
+  "build": "PASS",
+  "audit:proposals": {
+    "status": "PASS",
+    "mutationsKilled": 5,
+    "total": 5
+  },
+  "diff-check": "PASS",
+  "native": {
+    "status": "PASS",
+    "checks": 41,
+    "screenshots": 6,
+    "scenarios": [
+      "canonical edit",
+      "secondary edit",
+      "no edit"
+    ],
+    "restarts": 3,
+    "artifactSha256": "ecaaac3eeb6be4ca3dd6aa269fcf361f6af9c6021eb2b2a3b79111f59b09db50"
+  },
+  "githubCI": {
+    "status": "See final-head PR95 checks; not predicted by local pre-publication evidence."
+  }
+}
