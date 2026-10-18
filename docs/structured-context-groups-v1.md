@@ -1,5 +1,7 @@
 # Structured Context Groups v1
 
+This document records the original read-only PR #93 stage. [Group Safe Apply & Undo](group-apply-v1.md) now adds a separate executor, journal and consent flow; it does not change this planner's boundaries or make a GroupPlan itself write authority.
+
 This is a **read-only** addition to Change Planner, based on merged PR [#92](https://github.com/zinverno/veynrel/pull/92), main `99c28beb4fee14e4ff6ab56e49a08b79fe8dcfcb`. It previews an explicitly selected heading section as a new branch in a canonical note. There is **no Group Apply**: the new `copy_context_group` discriminator is not accepted by any existing executor or journal. Existing paragraph guards, Single/Multi/Merge/Archive Apply, Undo and recovery are unchanged.
 
 ## What a group means

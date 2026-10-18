@@ -1,0 +1,14 @@
+[
+  {
+    "run": 1,
+    "status": "FAIL",
+    "error": "Error: timeout: app.metadataCache.getFileCache(app.vault.getFileByPath(\"GroupApply/completed-canonical/Теория/Same name.md\"))?.sections?.at(-1)?.position.end.offset===396 {\"states\":[\"Источники, просмотр или настройки изменились. Старое согласие и результат недействительны. Запросите новый анализ.\",\"Файлы или метаданные изменились. Показанный снимок может быть устаревшим — обновите просмотр.\"],\"buttons\":0,\"modals\":2,\"semantic\":\"not-initialized\",\"language\":\"ru\",\"titles\":[\"modal ai-pair-inspector-modal\",\"modal ai-pair-inspector-modal\"],\"notices\":[]}",
+    "correction": "Harness expected paragraph end to include the trailing newline; corrected to trimEnd length."
+  },
+  {
+    "run": 2,
+    "status": "FAIL",
+    "error": "Error: timeout: document.querySelectorAll('.ai-group-apply').length===1&&!![...document.querySelectorAll('.ai-group-apply')].at(-1)?.querySelector('[data-group-apply-action=confirm]')&&!plugin.safeApply.busy {\"states\":[\"Ответ модели получен, источники и цитаты перепроверены.\",\"План построен локально. Проверьте весь исходный и итоговый текст.\",\"Строки diff 1–23 из 23. Полные тексты доступны выше.\",\"Снимок получен. Доступность каждой заметки указана ниже.\"],\"buttons\":0,\"modals\":2,\"semantic\":\"not-initialized\",\"language\":\"ru\",\"titles\":[\"modal ai-pair-inspector-modal\",\"modal ai-pair-inspector-modal\"],\"notices\":[]}",
+    "correction": "Review started around parent history refresh; harness now waits for the shared owner and captures review failures. No Markdown or journal repair was performed."
+  }
+]

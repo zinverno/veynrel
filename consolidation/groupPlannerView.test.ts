@@ -3,6 +3,7 @@ vi.mock("obsidian", () => ({ TFile: class {}, getLanguage: () => "en", requestUr
 import { setLanguage } from "../i18n";
 import { ChangePlannerView } from "./changePlannerView";
 import { ChangePlannerSession } from "./changePlannerSession";
+import { renderGroupPlanner } from "./groupPlannerView";
 import { groupFixture } from "../tests/groupFixture";
 class Element {
   children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; disabled = false; hidden = false; checked = false; value = "";
@@ -16,7 +17,7 @@ class Element {
   all(): Element[] { return [this, ...this.children.flatMap(e => e.all())]; }
 }
 
-describe("GroupPlan UI has no apply route",()=>{
+describe("GroupPlan UI without an execution callback remains read-only",()=>{
   it.each(["ru","en"] as const)("%s: independent confirmations, full previews, explicit distinct intent and cleared selection", async language=>{
     setLanguage(language);const f=groupFixture(); f.analysis.result.relation="related_distinct";f.analysis.result.recommendation.action="manual_review";
     const root=new Element(),single=vi.fn(),multi=vi.fn(),merge=vi.fn();
@@ -41,4 +42,12 @@ describe("GroupPlan UI has no apply route",()=>{
     expect(field("group-insertion").value).toBe("");select("group-canonical","1");expect(field("group-selection").value).toBe("");
     root.all().find(e=>e.attrs["data-group-action"]==="cancel")!.listeners.get("click")!();expect(s.view.stage).toBe("cancelled");
   });
+});
+
+it("a ready GroupPlan opens only the separate explicit review callback",async()=>{
+  const f=groupFixture(),s=new ChangePlannerSession({analysis:()=>f.analysis,read:async()=>f.read}),review=vi.fn();
+  await s.prepare();const before=new Element();renderGroupPlanner(before as unknown as HTMLElement,s,f.analysis,f.choice,vi.fn(),review);
+  expect(before.all().some(e=>e.attrs["data-group-apply-action"])).toBe(false);await s.buildGroup(f.choice);
+  const root=new Element();renderGroupPlanner(root as unknown as HTMLElement,s,f.analysis,f.choice,vi.fn(),review);expect(review).not.toHaveBeenCalled();
+  root.all().find(e=>e.attrs["data-group-apply-action"]==="review")!.listeners.get("click")!();expect(review).toHaveBeenCalledExactlyOnceWith(s.view.groupPlan);
 });

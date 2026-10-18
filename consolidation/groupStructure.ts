@@ -62,7 +62,7 @@ export function groupHeadings(note: PlanNote): GroupHeading[] {
 }
 
 /** Check all characters in a transferred range, including native protected metadata and whitespace gaps. */
-function plainSection(note: PlanNote, range: PlanRange, headings: GroupHeading[]): void {
+export function validateGroupSection(note: PlanNote, range: PlanRange, headings: GroupHeading[]): void {
   const cache = note.cache!;
   requireGroup(!protectedRanges(note).some(p => intersects(range, p)), "protected");
   const sections = cache.sections!.filter(s => intersects(range, groupRange(note.content, s.position.start.offset, s.position.end.offset)));
@@ -92,7 +92,7 @@ export function contextGroups(note: PlanNote): { headings: GroupHeading[]; group
     if (offset < note.content.length) retained.push(groupRange(note.content, offset, note.content.length));
     const group: ContextGroup = { heading: index, path, range, context, copied, retained };
     try {
-      for (const r of copied) plainSection(note, r, headings);
+      for (const r of copied) validateGroupSection(note, r, headings);
       requireGroup(note.cache!.sections!.some(s => s.type === "paragraph" && s.position.start.offset >= range.start && s.position.end.offset <= range.end), "range");
       // A file preamble or properties can qualify every section; never silently leave them behind.
       requireGroup(!note.content.slice(0, headings[0].range.start).trim(), "context");
