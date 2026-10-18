@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "status": "NOT RUN; candidate identifiers, availability and prices must be checked when separately authorized",
+  "profiles": [
+    { "id": "openai-mini", "model": "openai/gpt-4.1-mini" },
+    { "id": "anthropic-sonnet", "model": "anthropic/claude-sonnet-4" },
+    { "id": "google-flash", "model": "google/gemini-2.5-flash" }
+  ]
+}

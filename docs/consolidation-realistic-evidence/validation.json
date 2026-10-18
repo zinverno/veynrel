@@ -1,0 +1,33 @@
+{
+  "base": "bb2036e48745e61007b10cc84fbbaed475ac2ae3",
+  "local": {
+    "npm test": {
+      "status": "PASS",
+      "files": 141,
+      "tests": 3656,
+      "durationSeconds": 16.69
+    },
+    "typecheck": "PASS",
+    "lint": "PASS; only existing reviewed api.ts streaming-fetch advisory",
+    "build": "PASS",
+    "audit:proposals": "PASS; 5/5 mutations killed",
+    "git diff --check": "PASS"
+  },
+  "native": {
+    "status": "PASS",
+    "cases": 24,
+    "assertions": 71,
+    "completeCycles": 4,
+    "processCalls": 16,
+    "sigkillRestarts": 8,
+    "screenshots": 22,
+    "artifactSha256": "9f4bd1d5649e3317c66d289b0c58d9dae737577f77f8ef6cc553b52ff2038093"
+  },
+  "modelCalls": 0,
+  "paidCostUSD": 0,
+  "independentHumanAdjudication": "NOT RUN",
+  "ci": "See exact-head PR checks after push",
+  "notes": [
+    "An initial concurrent test/audit/lint run encountered existing 5-second import timeouts; the isolated final npm test passed without changing timeouts or assertions."
+  ]
+}
