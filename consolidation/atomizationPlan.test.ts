@@ -83,6 +83,13 @@ describe("AtomizationPlan independent verified copy contract", () => {
     const f = atomizationFixture(); f.pair[0].cache = null; expect(() => build(f)).toThrow("metadata");
     const g = atomizationFixture(); g.pair[0].cache!.sections![0].position.end.offset--; expect(() => build(g)).toThrow("metadata");
   });
+  it("serialized v1 evidence cannot rebind session identity to reconstructed TFiles", () => {
+    const original = atomizationFixture(), saved: unknown = JSON.parse(JSON.stringify(build(original)));
+    const reopened = atomizationFixture();
+    expect(reopened.pair[0].file.stat).toEqual(original.pair[0].file.stat);
+    expect(reopened.pair[0].content).toBe(original.pair[0].content);
+    expect(() => validateAtomizationPlan(saved, reopened.analysis, reopened.pair, reopened.choice, reopened.observation)).toThrow(AtomizationError);
+  });
   it("a title cannot inject Markdown or line breaks", () => {
     const f = atomizationFixture(); f.choice.title = "Title\ninvented fact"; expect(() => build(f)).toThrow("confirmation");
     f.choice.title = "[[hidden link]]"; expect(() => build(f)).toThrow("confirmation");

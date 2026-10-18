@@ -1,0 +1,375 @@
+{
+  "gate": "BLOCKED_NO_OVERWRITE",
+  "cases": [
+    {
+      "name": "Existing native TFile is preserved",
+      "path": "Creation gate/Already exists.md",
+      "outcome": {
+        "status": "rejected",
+        "error": "Error: File already exists."
+      },
+      "content": "# Independent note\n\nCOMPETING WRITER: this text must survive.\n",
+      "sha256": "8fe1e37f7a0d4f600de2dfe2760a86dc4e0654570678b7e2c787459b41cf249d",
+      "competingSurvived": true
+    },
+    {
+      "name": "File appears after preview but before create: refused",
+      "path": "Creation gate/After preview.md",
+      "outcome": {
+        "status": "rejected",
+        "error": "Error: File already exists."
+      },
+      "content": "# Independent note\n\nCOMPETING WRITER: this text must survive.\n",
+      "sha256": "8fe1e37f7a0d4f600de2dfe2760a86dc4e0654570678b7e2c787459b41cf249d",
+      "competingSurvived": true
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 0.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 0.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 0.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 1.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 1.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 1.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 2.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 2.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 2.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 3.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 3.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 3.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 4.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 4.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 4.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 5.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 5.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 5.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 6.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 6.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 6.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 7.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 7.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 7.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 8.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 8.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 8.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Unmodified concurrent Vault.create",
+      "path": "Creation gate/Concurrent 9.md",
+      "outcome": [
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 9.md"
+        },
+        {
+          "status": "fulfilled",
+          "path": "Creation gate/Concurrent 9.md"
+        }
+      ],
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Competing Vault.create commits before paused create resumes: OVERWRITTEN",
+      "path": "Creation gate/Same app race.md",
+      "outcome": {
+        "first": {
+          "status": "fulfilled",
+          "path": "Creation gate/Same app race.md"
+        },
+        "second": {
+          "status": "fulfilled",
+          "path": "Creation gate/Same app race.md"
+        }
+      },
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    },
+    {
+      "name": "Independent disk writer after native absence check: OVERWRITTEN",
+      "path": "Creation gate/Disk race.md",
+      "outcome": {
+        "status": "fulfilled",
+        "path": "Creation gate/Disk race.md"
+      },
+      "content": "# Verified atom\n\nA synthetic observation.\n\nSource: [[Atomization/fact]]\n\n<!-- veynrel-atomization: synthetic-gate-only -->\n",
+      "sha256": "29d8545b4900f19e58154b3b63b4a74d21d790a3623140cdce66290db8c8040b",
+      "competingSurvived": false
+    }
+  ],
+  "benchmark": [
+    {
+      "syntheticNotes": 1000,
+      "samples": [
+        {
+          "milliseconds": 14,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 12.099999994039536,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 15.799999997019768,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 11.100000008940697,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 11.400000005960464,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 11.100000008940697,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 11.299999997019768,
+          "files": 1040,
+          "bytes": 264636,
+          "markdownReads": 0
+        }
+      ],
+      "medianMs": 11.400000005960464,
+      "maxMs": 15.799999997019768
+    },
+    {
+      "syntheticNotes": 10000,
+      "samples": [
+        {
+          "milliseconds": 120.90000000596046,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 115.80000001192093,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 121.70000000298023,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 118.70000000298023,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 122.79999999701977,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 119.40000000596046,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        },
+        {
+          "milliseconds": 120.1000000089407,
+          "files": 10040,
+          "bytes": 2622678,
+          "markdownReads": 0
+        }
+      ],
+      "medianMs": 120.1000000089407,
+      "maxMs": 122.79999999701977
+    }
+  ],
+  "limits": [
+    "Linux desktop filesystem adapter only; no mobile or other adapter guarantee.",
+    "Barriers delay a real API call without changing its exists result or its writer.",
+    "Synthetic competing creates are test actions, not product Apply or a model request.",
+    "No Apply/Undo journal, ownership receipt, trash or crash-recovery executor is connected."
+  ],
+  "artifactSha256": "65b4ffa6448eb7917973c07e4ac92e6d2b20ab84c3ce73b6e8126ca64d80ffd1",
+  "version": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "apiFingerprint": {
+    "create": "dcca41bf8065c931b41cfa10fcc191bcb5509c0dd8e6f150243bc057428d4457",
+    "write": "56f659287120b6ee3d6a9dbca8551b123e83ecf825947565fa7aee7ffbfd96ed"
+  },
+  "metadataBeforeEmpty": {
+    "metadataComplete": true,
+    "files": 38,
+    "conflicts": []
+  },
+  "emptyNoteCache": {},
+  "metadataWithEmpty": {
+    "metadataComplete": false,
+    "files": 39,
+    "conflicts": []
+  },
+  "sourceHashes": {
+    "Architecture/Query Planning.md": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+    "Atomization/Comparison.md": "0bf46ef11ffd9ed9ac7365b27b371503f35d12d557addcff90b0c73a72e92130",
+    "Atomization/Linker.md": "82c574666e14dad0c07c9ceeda4728e77a2257d5c0e4cd605fc54601532a3e2a",
+    "Atomization/Occupied.md": "de68d841023d1c4821ef800f1c65334fc0cbd82066ebf1323d52b4a106329883",
+    "Atomization/attribution.md": "451cd6d0f057cc98387f0e24866a3885df1ddebe1978d6e24439127271273dd9",
+    "Atomization/code.md": "9bd88e035ed5c72254bf4dee126085641dd96403d736ed9ec143ff3f7fce2b77",
+    "Atomization/condition.md": "27bc503b4e7ee7c89a1e82de95fae3cef174c31464a6e0a7380f6061cc11426a",
+    "Atomization/dependent.md": "8b44e2edf0c02e9c3803c7f55b9e7b004c603e195d4353fdb1f09dbc5f562ee7",
+    "Atomization/embed.md": "59964bf7053cb45c67bfe01cc5c972ee40a6d5ef52f7cb1168369a775e7dfb75",
+    "Atomization/fact.md": "a63fcee405c36818e0e5f2518708f819d073c8e2c2f59cccb55e9f3960da1075",
+    "Atomization/h1.md": "59c4929b0acd0d5296937190c82541f55e7767ce12439e9ecb5e021b45983256",
+    "Atomization/h2.md": "34107969848eb6fed8a0452abfe9bbff48772be22d27301e3ca345eb38f3daf0",
+    "Atomization/h3.md": "05a3b580efacc03df21a78e60b881684cafa886a2d66e232732b7df2da55b8d9",
+    "Atomization/link.md": "1333168d3e069495e3a24907968b4b095b7da09e93be65b6526042338dd4d040",
+    "Atomization/list.md": "846f67ae6988973c1c17da57370e90f21adaf0a1accead59c3baf73dde149231",
+    "Atomization/unattributed.md": "8818a3071971451fb238e9f48d1fbe812b8e75073399320d317237585f507b03",
+    "Atomization/unicode-crlf.md": "781159b81e657e5363ee62452887a9b5fa54f04ba3d51f262d4d88cc3d32cd3c",
+    "Atomization/versions.md": "6dd672d6874728d03179e0960ce284b7c83f2d6c7daad4ddea9f21dfbb1c8920"
+  },
+  "sourcesUnchanged": true,
+  "additionalNetwork": 0,
+  "harnessVaultCreates": 26,
+  "status": "PASS: blocker reproduced; Apply remains disconnected"
+}

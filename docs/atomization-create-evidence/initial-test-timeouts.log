@@ -1,0 +1,55 @@
+
+> obsidian-ai-hub@2.1.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD
+
+ ❯ mainMenus.test.ts (2 tests | 1 failed) 5323ms
+   × keeps all six context actions using only public menu methods 5027ms
+ ❯ taxonomySettings.test.ts (10 tests | 1 failed) 5758ms
+     × loads old/invalid profiles without new writes or work 5036ms
+ ❯ releaseSettingsDurability.test.ts (9 tests | 1 failed) 5801ms
+     × rolls back triggerMode in place without invalidating the semantic index or changing model/key 5027ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  mainMenus.test.ts > keeps all six context actions using only public menu methods
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ mainMenus.test.ts:10:1
+      8|   getLanguage: () => "en",
+      9| }));
+     10| it("keeps all six context actions using only public menu methods", asy…
+       | ^
+     11|   const { default: AIHubPlugin } = await vi.importActual<typeof import…
+     12|   const items: Array<{ title: string; section: string; click?: unknown…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  releaseSettingsDurability.test.ts > Advanced data.json durability > rolls back triggerMode in place without invalidating the semantic index or changing model/key
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ releaseSettingsDurability.test.ts:66:3
+     64|
+     65| describe("Advanced data.json durability", () => {
+     66|   it("rolls back triggerMode in place without invalidating the semanti…
+       |   ^
+     67|     const f = await fixture();
+     68|     const before = structuredClone(f.plugin.settings.rerank), referenc…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  taxonomySettings.test.ts > taxonomy uses the existing serialized settings owner > loads old/invalid profiles without new writes or work
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ taxonomySettings.test.ts:19:140
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  3 failed | 150 passed (153)
+      Tests  3 failed | 4008 passed (4011)
+   Start at  01:17:03
+   Duration  28.90s (transform 54.18s, setup 0ms, import 100.69s, tests 146.41s, environment 37ms)
