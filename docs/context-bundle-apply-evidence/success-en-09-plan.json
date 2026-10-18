@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "operation": "copy_context_bundle",
+  "readOnly": true,
+  "kind": "quotation_attribution",
+  "canonical": {
+    "path": "BundleApply/success-en-09/Теория/Same name.md",
+    "identity": {
+      "created": 1792349569367,
+      "modified": 1792349569367,
+      "bytes": 145,
+      "contentHash": "5062001c6bf813db"
+    },
+    "before": "The fictional Linden archive keeps a separate record for each donated object.\n\nA record is not a promise that the donor’s account is accurate.\n",
+    "after": "The fictional Linden archive keeps a separate record for each donated object.\n\nA record is not a promise that the donor’s account is accurate.\n\n\nThe fictional Linden archive keeps a separate record for each donated object.\n\nThe next statement is attributed to the donor, not established by the curator.\n\n> I remember this ticket being blue before it faded.\n\nThe intake photograph shows a grey ticket; neither observation dates the colour change."
+  },
+  "secondary": {
+    "path": "BundleApply/success-en-09/Practice/Same name.md",
+    "identity": {
+      "created": 1792349569367,
+      "modified": 1792349569367,
+      "bytes": 301,
+      "contentHash": "490ac9601ea2d1fc"
+    },
+    "content": "The fictional Linden archive keeps a separate record for each donated object.\n\nThe next statement is attributed to the donor, not established by the curator.\n\n> I remember this ticket being blue before it faded.\n\nThe intake photograph shows a grey ticket; neither observation dates the colour change.\n",
+    "unchanged": true
+  },
+  "bundle": {
+    "kind": "quotation_attribution",
+    "core": {
+      "start": 159,
+      "end": 211,
+      "text": "> I remember this ticket being blue before it faded."
+    },
+    "before": [
+      {
+        "start": 0,
+        "end": 77,
+        "text": "The fictional Linden archive keeps a separate record for each donated object."
+      },
+      {
+        "start": 79,
+        "end": 157,
+        "text": "The next statement is attributed to the donor, not established by the curator."
+      }
+    ],
+    "after": [
+      {
+        "start": 213,
+        "end": 300,
+        "text": "The intake photograph shows a grey ticket; neither observation dates the colour change."
+      }
+    ],
+    "range": {
+      "start": 0,
+      "end": 300,
+      "text": "The fictional Linden archive keeps a separate record for each donated object.\n\nThe next statement is attributed to the donor, not established by the curator.\n\n> I remember this ticket being blue before it faded.\n\nThe intake photograph shows a grey ticket; neither observation dates the colour change."
+    },
+    "blocks": [
+      {
+        "role": "context_before",
+        "range": {
+          "start": 0,
+          "end": 77,
+          "text": "The fictional Linden archive keeps a separate record for each donated object."
+        }
+      },
+      {
+        "role": "context_before",
+        "range": {
+          "start": 79,
+          "end": 157,
+          "text": "The next statement is attributed to the donor, not established by the curator."
+        }
+      },
+      {
+        "role": "core",
+        "range": {
+          "start": 159,
+          "end": 211,
+          "text": "> I remember this ticket being blue before it faded."
+        }
+      },
+      {
+        "role": "context_after",
+        "range": {
+          "start": 213,
+          "end": 300,
+          "text": "The intake photograph shows a grey ticket; neither observation dates the colour change."
+        }
+      }
+    ],
+    "retained": [
+      {
+        "start": 300,
+        "end": 301,
+        "text": "\n"
+      }
+    ]
+  },
+  "insertion": {
+    "point": 143,
+    "separator": "\n\n",
+    "edit": {
+      "start": 143,
+      "end": 143,
+      "removed": "",
+      "inserted": "\n\nThe fictional Linden archive keeps a separate record for each donated object.\n\nThe next statement is attributed to the donor, not established by the curator.\n\n> I remember this ticket being blue before it faded.\n\nThe intake photograph shows a grey ticket; neither observation dates the colour change."
+    }
+  },
+  "confirmations": {
+    "operation": "copy_context_bundle",
+    "canonical": 0,
+    "kind": "quotation_attribution",
+    "core": {
+      "start": 159,
+      "end": 211,
+      "text": "> I remember this ticket being blue before it faded."
+    },
+    "context": [
+      {
+        "start": 0,
+        "end": 77,
+        "text": "The fictional Linden archive keeps a separate record for each donated object."
+      },
+      {
+        "start": 79,
+        "end": 157,
+        "text": "The next statement is attributed to the donor, not established by the curator."
+      },
+      {
+        "start": 213,
+        "end": 300,
+        "text": "The intake photograph shows a grey ticket; neither observation dates the colour change."
+      }
+    ],
+    "boundariesConfirmed": true,
+    "contextConfirmed": true,
+    "dependencies": "reviewed",
+    "insertion": 143,
+    "insertionConfirmed": true,
+    "distinctIntent": false
+  },
+  "dependencies": [
+    {
+      "path": "BundleApply/success-en-09/Теория/Same name.md",
+      "metadata": {
+        "sections": [
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 77,
+                "offset": 77
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 79
+              },
+              "end": {
+                "line": 2,
+                "col": 63,
+                "offset": 142
+              }
+            }
+          }
+        ]
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    },
+    {
+      "path": "BundleApply/success-en-09/Practice/Same name.md",
+      "metadata": {
+        "sections": [
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 77,
+                "offset": 77
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 79
+              },
+              "end": {
+                "line": 2,
+                "col": 78,
+                "offset": 157
+              }
+            }
+          },
+          {
+            "type": "blockquote",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 159
+              },
+              "end": {
+                "line": 4,
+                "col": 52,
+                "offset": 211
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 6,
+                "col": 0,
+                "offset": 213
+              },
+              "end": {
+                "line": 6,
+                "col": 87,
+                "offset": 300
+              }
+            }
+          }
+        ]
+      },
+      "outgoing": [],
+      "incoming": {
+        "items": [],
+        "total": 0
+      }
+    }
+  ],
+  "resolver": [
+    "BundleApply/success-en-09/Теория/Same name",
+    "BundleApply/success-en-09/Practice/Same name"
+  ],
+  "provenance": {
+    "origin": "relationship_analyzer",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "partial_overlap",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+          "kind": "shared",
+          "quoteA": "The fictional Linden archive keeps a separate record for each donated object.",
+          "quoteB": "The fictional Linden archive keeps a separate record for each donated object."
+        },
+        {
+          "id": "c2",
+          "text": "The photograph observation is unique but depends on the donor quotation for comparison.",
+          "kind": "context_b",
+          "quoteA": null,
+          "quoteB": "The intake photograph shows a grey ticket; neither observation dates the colour change."
+        }
+      ],
+      "explanation": {
+        "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+        "evidence": [
+          "c1",
+          "c2"
+        ]
+      },
+      "recommendation": {
+        "action": "consider_merge",
+        "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+        "evidence": [
+          "c1"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "A recollection is not a curator-verified historical fact."
+      ]
+    }
+  },
+  "limitations": [
+    "read_only_no_executor",
+    "secondary_unchanged",
+    "metadata_may_lag",
+    "external_sources_unverified",
+    "user_context_roles_not_proof",
+    "semantic_equivalence_unverified",
+    "no_archive_eligibility"
+  ]
+}

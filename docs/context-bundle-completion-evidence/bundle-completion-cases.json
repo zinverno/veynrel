@@ -1,0 +1,74 @@
+[
+  {
+    "edited": "canonical",
+    "id": "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659",
+    "paths": [
+      "BundleApply/completed-canonical/Теория/Same name.md",
+      "BundleApply/completed-canonical/Practice/Same name.md"
+    ],
+    "before": [
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n\nUSER EDIT: новая проверенная заметка.\n",
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n"
+    ],
+    "after": [
+      "The fictional Reed scheduler admits a job only when a slot is free. [[BundleApply/completed-canonical/Practice/Same name]]\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n\nUSER EDIT: новая проверенная заметка.\n",
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n"
+    ],
+    "bundleEvidence": {
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/backup.json": "0833bbb7e8ccc907b9d6f615446632b576036bbaa41bf8066dff4dde73c07e1d",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/mark-3a4f5fca-0ccc-462c-9a3d-a00ec12fcd24.json": "e47aa8b39f59c3ae87c7a8ee591f4131f30445293c92472e4d2ded778933f45d",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/record.json": "0833bbb7e8ccc907b9d6f615446632b576036bbaa41bf8066dff4dde73c07e1d"
+    }
+  },
+  {
+    "edited": "secondary",
+    "id": "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6",
+    "paths": [
+      "BundleApply/completed-secondary/Теория/Same name.md",
+      "BundleApply/completed-secondary/Practice/Same name.md"
+    ],
+    "before": [
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.",
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n\n\nUSER EDIT: новая проверенная заметка.\n"
+    ],
+    "after": [
+      "The fictional Reed scheduler admits a job only when a slot is free. [[BundleApply/completed-secondary/Practice/Same name]]\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.",
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n\n\nUSER EDIT: новая проверенная заметка.\n"
+    ],
+    "bundleEvidence": {
+      "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6/backup.json": "a5201441714745ca16973074c77db2ee81c91734ee283520ab53e430230b2a17",
+      "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6/mark-a776c47a-e372-419d-96ea-3b9e0fe8dfc8.json": "92d112def591de6146105d7df578b2e7642e711074c51f21258c5b8cab7b98a0",
+      "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6/record.json": "a5201441714745ca16973074c77db2ee81c91734ee283520ab53e430230b2a17",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/backup.json": "0833bbb7e8ccc907b9d6f615446632b576036bbaa41bf8066dff4dde73c07e1d",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/mark-3a4f5fca-0ccc-462c-9a3d-a00ec12fcd24.json": "e47aa8b39f59c3ae87c7a8ee591f4131f30445293c92472e4d2ded778933f45d",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/record.json": "0833bbb7e8ccc907b9d6f615446632b576036bbaa41bf8066dff4dde73c07e1d"
+    }
+  },
+  {
+    "edited": "none",
+    "id": "161002149ce23bc41862c28c2798a33b4900c31dde12ebff2a4b315ac9861803",
+    "paths": [
+      "BundleApply/completed-none/Теория/Same name.md",
+      "BundleApply/completed-none/Practice/Same name.md"
+    ],
+    "before": [
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.",
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n"
+    ],
+    "after": [
+      "The fictional Reed scheduler admits a job only when a slot is free. [[BundleApply/completed-none/Practice/Same name]]\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.",
+      "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n"
+    ],
+    "bundleEvidence": {
+      "161002149ce23bc41862c28c2798a33b4900c31dde12ebff2a4b315ac9861803/backup.json": "f9c8d066ad9df2089745e022087290988f5f35b8821de7e84e8e27b2636f2579",
+      "161002149ce23bc41862c28c2798a33b4900c31dde12ebff2a4b315ac9861803/mark-a0c98b5c-2c0d-4ccc-87c2-06043c95cc45.json": "7e029f8bacc9482a798af3c8b97ed1592eb909cb6f6a1a3e70ef429820494f54",
+      "161002149ce23bc41862c28c2798a33b4900c31dde12ebff2a4b315ac9861803/record.json": "f9c8d066ad9df2089745e022087290988f5f35b8821de7e84e8e27b2636f2579",
+      "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6/backup.json": "a5201441714745ca16973074c77db2ee81c91734ee283520ab53e430230b2a17",
+      "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6/mark-a776c47a-e372-419d-96ea-3b9e0fe8dfc8.json": "92d112def591de6146105d7df578b2e7642e711074c51f21258c5b8cab7b98a0",
+      "4ace44bb6b6c3c0298cb6bf97dad3ed992e0af25e0e669cfdcc9317dd29bc1f6/record.json": "a5201441714745ca16973074c77db2ee81c91734ee283520ab53e430230b2a17",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/backup.json": "0833bbb7e8ccc907b9d6f615446632b576036bbaa41bf8066dff4dde73c07e1d",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/mark-3a4f5fca-0ccc-462c-9a3d-a00ec12fcd24.json": "e47aa8b39f59c3ae87c7a8ee591f4131f30445293c92472e4d2ded778933f45d",
+      "73fb0384cdb7834db8c76a93fcedc8f150282ae8861bbb65a689b4fa3b554659/record.json": "0833bbb7e8ccc907b9d6f615446632b576036bbaa41bf8066dff4dde73c07e1d"
+    }
+  }
+]

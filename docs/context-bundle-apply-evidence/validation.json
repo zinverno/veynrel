@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-10-18T19:00:56.994511+00:00",
+  "branch": "feat/context-bundle-safe-apply-v1",
+  "base": "49fd55729940f3a4d5ef588b2ee5904f229272de",
+  "prerequisite": {
+    "pr": 94,
+    "state": "MERGED",
+    "mergedAt": "2026-10-18T18:37:27Z"
+  },
+  "npm test": {
+    "status": "PASS",
+    "tests": 3820,
+    "files": 147
+  },
+  "typecheck": "PASS",
+  "lint": {
+    "status": "PASS",
+    "errors": 0,
+    "existingWarnings": [
+      "api.ts:404 no-restricted-globals fetch"
+    ]
+  },
+  "build": "PASS",
+  "audit:proposals": {
+    "status": "PASS",
+    "mutationsKilled": 5,
+    "total": 5,
+    "note": "First invocation failed on empty child stdout; unchanged retry passed all five restored tests and mutants."
+  },
+  "diff-check": "PASS",
+  "native": {
+    "status": "PASS",
+    "checks": 109,
+    "screenshots": 52,
+    "cycles": 6,
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "artifactSha256": "63e5ad7a891a9e778df7ee3100ae687d4941655b2bd9cdaa0a0bd54340cd1fe3"
+  },
+  "githubCI": {
+    "status": "See final-head PR check runs; not asserted by this pre-publication local record",
+    "workflow": "https://github.com/zinverno/veynrel/actions/workflows/ci.yml"
+  }
+}

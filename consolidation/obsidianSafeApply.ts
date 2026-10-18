@@ -11,6 +11,8 @@ import { MultiFileJournal } from "./multiFileJournal";
 import { obsidianMultiFilePort } from "./obsidianMultiFileApply";
 import { MergeJournal } from "./mergeJournal";
 import { obsidianMergePort } from "./obsidianMergeApply";
+import { BundleJournal } from "./bundleJournal";
+import { obsidianBundlePort } from "./obsidianBundleApply";
 import { ArchiveJournal } from "./archiveJournal";
 import { obsidianArchivePort } from "./obsidianArchiveApply";
 
@@ -68,5 +70,7 @@ export function createSafeApplyService(app: App, pluginId: string): SafeApplySer
     journal: new MergeJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMergePort(app, port),
   }, {
     journal: new ArchiveJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianArchivePort(app, port),
+  }, {
+    journal: new BundleJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianBundlePort(app, port),
   });
 }

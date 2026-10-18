@@ -1,0 +1,104 @@
+[
+  {
+    "scenario": "success-en-07-plan",
+    "kind": "code_explanation",
+    "canonicalSide": 0,
+    "files": [
+      {
+        "path": "BundleApply/success-en-07/Теория/Same name.md",
+        "bytes": 111,
+        "restoredSha256": "be09671e6564802426a6a0db73a5d70cc3011858a72a3f81bdef7a4df66aa84c"
+      },
+      {
+        "path": "BundleApply/success-en-07/Practice/Same name.md",
+        "bytes": 272,
+        "restoredSha256": "7f05ee7b5c9c22b5b74a55ffd4d7b330eefca99b1faf955cd728c76727dcac1b"
+      }
+    ]
+  },
+  {
+    "scenario": "success-en-08-plan",
+    "kind": "list_context",
+    "canonicalSide": 0,
+    "files": [
+      {
+        "path": "BundleApply/success-en-08/Теория/Same name.md",
+        "bytes": 205,
+        "restoredSha256": "5b3be0f02bdc77b88e4d731e239fb37e13d0459fc2d359bccd16f0b86ca857ad"
+      },
+      {
+        "path": "BundleApply/success-en-08/Practice/Same name.md",
+        "bytes": 529,
+        "restoredSha256": "d4ee0fb49b0c0933f6dd7d9f71c536e07952952dded4e7936cc7b8bdae6d88a2"
+      }
+    ]
+  },
+  {
+    "scenario": "success-en-09-plan",
+    "kind": "quotation_attribution",
+    "canonicalSide": 0,
+    "files": [
+      {
+        "path": "BundleApply/success-en-09/Теория/Same name.md",
+        "bytes": 145,
+        "restoredSha256": "e739f12045e8477e933da98b424d4e022dd9f339158bca7057c6b7884198e74a"
+      },
+      {
+        "path": "BundleApply/success-en-09/Practice/Same name.md",
+        "bytes": 301,
+        "restoredSha256": "73b9ee65b8324b397c17f9d9bbd6b5b6740ab21490302fbc3320838c25cbc947"
+      }
+    ]
+  },
+  {
+    "scenario": "success-ru-07-plan",
+    "kind": "code_explanation",
+    "canonicalSide": 1,
+    "files": [
+      {
+        "path": "BundleApply/success-ru-07/Practice/Same name.md",
+        "bytes": 114,
+        "restoredSha256": "0e46e61381b8fd6130eb6b495391755329941f898ea1a66d7b07c4c6e2e9f025"
+      },
+      {
+        "path": "BundleApply/success-ru-07/Теория/Same name.md",
+        "bytes": 283,
+        "restoredSha256": "049aacccb8814166b6ea7841659b6b6a047658c47e22b7eb17f162f1a890a3c1"
+      }
+    ]
+  },
+  {
+    "scenario": "success-ru-08-plan",
+    "kind": "list_context",
+    "canonicalSide": 1,
+    "files": [
+      {
+        "path": "BundleApply/success-ru-08/Practice/Same name.md",
+        "bytes": 208,
+        "restoredSha256": "3bc1f901bc81829d1f8b4d4ab4121cf3b43381bbe596bb9cfe5c91ed3dd9396b"
+      },
+      {
+        "path": "BundleApply/success-ru-08/Теория/Same name.md",
+        "bytes": 538,
+        "restoredSha256": "753cc587e5310db42c9dbc1a93210757656dad0ee6cda9af98dd99a49870f9fd"
+      }
+    ]
+  },
+  {
+    "scenario": "success-ru-09-plan",
+    "kind": "quotation_attribution",
+    "canonicalSide": 1,
+    "files": [
+      {
+        "path": "BundleApply/success-ru-09/Practice/Same name.md",
+        "bytes": 148,
+        "restoredSha256": "86d708019fa83f5a42c53cd58fe8ee6a19b34f62750396b2bad52422ff69faa8"
+      },
+      {
+        "path": "BundleApply/success-ru-09/Теория/Same name.md",
+        "bytes": 308,
+        "restoredSha256": "0c0870b6a7d13bbdff4e5fdb9b263082dee9a4eaa8dc64f8e93ebd19aa9701f9"
+      }
+    ]
+  }
+]

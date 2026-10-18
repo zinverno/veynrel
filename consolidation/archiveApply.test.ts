@@ -9,6 +9,10 @@ import { archiveApplyFixture as setup } from "../tests/archiveApplyFixture";
 import { checksum } from "./operationJournal";
 import type { OperationRecord } from "./operationJournal";
 import { multiRecord } from "./multiFileJournal";
+import { BundleJournal, bundleRecord } from "./bundleJournal";
+import { buildContextBundlePlan } from "./contextBundlePlan";
+import { bundleFixture } from "../tests/contextBundleFixture";
+import { createSafeApplyService } from "./obsidianSafeApply";
 import { validateArchiveRecord } from "./archiveJournal";
 
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); });
@@ -74,6 +78,17 @@ describe("Archive Apply and proven sequential Undo", () => {
 });
 
 describe("archive faults and shared exclusion", () => {
+  it("new local bundle evidence blocks old Archive Apply and Merge Undo without modifying old journals",async()=>{
+    const f=await setup(),service=createSafeApplyService(f.app,"ai-knowledge-hub"),archive=await service.archive!.review(f.plan,()=>true);
+    const b=bundleFixture();for(const [i,path] of [f.plan.canonical.path,f.plan.secondary.path].entries()){
+      b.pair[i].path=path;b.pair[i].file.path=path;b.analysis.pair[i].path=path;
+    }
+    const bundle=await bundleRecord(buildContextBundlePlan(b.analysis,b.pair,b.choice,[f.plan.canonical.path.slice(0,-3),f.plan.secondary.path.slice(0,-3)]));
+    await new BundleJournal(f.adapter as never,f.vault.configDir,"ai-knowledge-hub").prepare(bundle);
+    const old=new Map(f.disk);await expect(service.archive!.execute(archive)).rejects.toEqual(reason("storage"));
+    await expect(service.merge!.reviewUndo(f.mergeReview.id,()=>true)).rejects.toEqual(reason("storage"));
+    expect(f.disk).toEqual(old);preserved(f);expect(f.vault.process).not.toHaveBeenCalled();
+  });
   it("an empty operation directory after a failed first write remains a global blocker", async () => {
     const f = await setup(), r = await f.review(); f.adapter.write.mockRejectedValueOnce(Error("interrupted before record"));
     await expect(f.archive.execute(r)).rejects.toEqual(reason("storage"));

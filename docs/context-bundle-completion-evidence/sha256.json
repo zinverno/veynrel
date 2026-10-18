@@ -1,0 +1,23 @@
+{
+  "previousHead": "16256331745fd13d3ee9af61cde9ea56276994d9",
+  "artifactSha256": "ecaaac3eeb6be4ca3dd6aa269fcf361f6af9c6021eb2b2a3b79111f59b09db50",
+  "sha256": {
+    "consolidation/bundleApply.test.ts": "8e775e5f93ed248d4eb33949e34681cfe35ddfd163344e2dda59fcf0028a3e98",
+    "consolidation/bundleApply.ts": "ce944d0b6694e46fd41c8ca52ee8370dad640d50c112351d7c676c8afc55e803",
+    "docs/context-bundle-apply-native.md": "088c6c8505ba3838e72987c746d0e571502bb94a5de037ed28f98e953dcc1b5f",
+    "docs/context-bundle-apply-v1.md": "acffbb619365eb25781651b468cc5bf4f2ac5c081bfdc661f7d2a5b9148c014b",
+    "docs/context-bundle-completion-evidence/bundle-completed-canonical-history.png": "606491c1add90eee2ec1dd2d70054fe9b209919253afe7a2db3804137513c596",
+    "docs/context-bundle-completion-evidence/bundle-completed-canonical-review.png": "39f5dd4df33d470f9e04fb291d6ca7ffefdce73054adf2ed849fca2f749c5586",
+    "docs/context-bundle-completion-evidence/bundle-completed-none-history.png": "70bb40e59114d1df8575b0128fba6563f0333142ce993200733afd83ed58eecb",
+    "docs/context-bundle-completion-evidence/bundle-completed-none-review.png": "ef30eaac8f8adccbeac205b0940e320fd9ba57049678c52d963c1cf79dd6586e",
+    "docs/context-bundle-completion-evidence/bundle-completed-secondary-history.png": "fe4491096aa42ecf2e3581262f0a1d83863bbfc8a1b8c78f6643e2ec65160d8b",
+    "docs/context-bundle-completion-evidence/bundle-completed-secondary-review.png": "674ee6eecd67a23d953531213961676cfb53e1a367c59dc4e99eca730a2ac764",
+    "docs/context-bundle-completion-evidence/bundle-completion-cases.json": "898b5fd697fc6e017cd771cae35cfde1a8e06e467cc2bfcb23c1d269dd7fb362",
+    "docs/context-bundle-completion-evidence/harness-async-failure.json": "c749c924aae431a5c76da67b97ccac49cc495c3cc2a7e9506afac0dde157d96e",
+    "docs/context-bundle-completion-evidence/native-report.json": "9c2a0cfcf92b2d5860e3112a06e1c14b9ce82d05e9f516e558444ae45652f4bd",
+    "docs/context-bundle-completion-evidence/validation.json": "78dc42fbf88a546cd1518afb7048711371a874b1673d40e9e5b0bfb055f324f2",
+    "docs/context-bundle-completion-review.md": "e62f414b04fb5f3de7e00cdedfd29ca93d895fbb3330ec1dcc0eb02b29d17178",
+    "main.js": "ecaaac3eeb6be4ca3dd6aa269fcf361f6af9c6021eb2b2a3b79111f59b09db50",
+    "scripts/bundle-apply-native.mjs": "471c7c1d4c3d5f9fb38c933fcd4034e0fddf6f47be156d0c25cfb73b9917d437"
+  }
+}
