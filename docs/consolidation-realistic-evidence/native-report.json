@@ -1,0 +1,1979 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "realistic": {
+    "status": "PASS",
+    "corpusSha256": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+    "artifactSha256": "9f4bd1d5649e3317c66d289b0c58d9dae737577f77f8ef6cc553b52ff2038093",
+    "rows": [
+      {
+        "id": "01",
+        "title": "Same ferry checklist, edited wording",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 91,
+            "text": "Before the morning queue opens, the fictional Alder ferry desk checks the weather bulletin.",
+            "failure": null
+          },
+          {
+            "start": 93,
+            "end": 158,
+            "text": "The shift notebook contains the desk lead’s record of that check.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/01/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/01/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "automatedPairToPlanOrRefusalMs": 239
+      },
+      {
+        "id": "02",
+        "title": "Одинаковая памятка читательского клуба",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 76,
+            "text": "В вымышленном клубе «Лист» ведущий записывает название книги и дату встречи.",
+            "failure": null
+          },
+          {
+            "start": 78,
+            "end": 141,
+            "text": "Список вопросов хранится отдельно от личных отзывов участников.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/02/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/02/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "automatedPairToPlanOrRefusalMs": 127
+      },
+      {
+        "id": "03",
+        "title": "Cache theory and a museum teaching example",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": true,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 87,
+            "text": "In the fictional Finch service, a cache stores a reusable answer until its expiry time.",
+            "failure": null
+          },
+          {
+            "start": 89,
+            "end": 215,
+            "text": "In the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer.",
+            "failure": null
+          },
+          {
+            "start": 217,
+            "end": 337,
+            "text": "The guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy.",
+            "failure": null
+          }
+        ],
+        "desired": [
+          {
+            "text": "In the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer.",
+            "start": 89,
+            "failure": null
+          },
+          {
+            "text": "The guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy.",
+            "start": 217,
+            "failure": null
+          }
+        ],
+        "confirmations": 4,
+        "anchors": [
+          0,
+          1,
+          2
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/03/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/03/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "automatedPairToPlanOrRefusalMs": 219
+      },
+      {
+        "id": "04",
+        "title": "Счётчик и явно ограниченный учебный пример",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": true,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 77,
+            "text": "В учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену.",
+            "failure": null
+          },
+          {
+            "start": 79,
+            "end": 209,
+            "text": "На демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе.",
+            "failure": null
+          },
+          {
+            "start": 211,
+            "end": 277,
+            "text": "Это условное обозначение действует только в упражнении мастерской.",
+            "failure": null
+          }
+        ],
+        "desired": [
+          {
+            "text": "На демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе.",
+            "start": 79,
+            "failure": null
+          }
+        ],
+        "confirmations": 3,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/04/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/04/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "automatedPairToPlanOrRefusalMs": 302
+      },
+      {
+        "id": "05",
+        "title": "H1/H2/H3 contain the scope of a useful example",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 24,
+            "end": 88,
+            "text": "A lease reserves a task for one worker in this fictional system.",
+            "failure": "heading"
+          },
+          {
+            "start": 126,
+            "end": 225,
+            "text": "For this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry.",
+            "failure": "heading"
+          },
+          {
+            "start": 227,
+            "end": 286,
+            "text": "The facilitator keeps the bell schedule on a separate card.",
+            "failure": "heading"
+          }
+        ],
+        "desired": [
+          {
+            "text": "For this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry.",
+            "start": 126,
+            "failure": "heading"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "heading",
+          "heading",
+          "heading"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/05/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/05/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "heading",
+        "automatedPairToPlanOrRefusalMs": 311
+      },
+      {
+        "id": "06",
+        "title": "Иерархия заголовков в журнале решений",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 18,
+            "end": 88,
+            "text": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.",
+            "failure": "heading"
+          },
+          {
+            "start": 131,
+            "end": 236,
+            "text": "Если ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.",
+            "failure": "heading"
+          }
+        ],
+        "desired": [
+          {
+            "text": "Если ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.",
+            "start": 131,
+            "failure": "heading"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "heading",
+          "heading",
+          "heading"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/06/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/06/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "heading",
+        "automatedPairToPlanOrRefusalMs": 186
+      },
+      {
+        "id": "07",
+        "title": "Code and explanatory paragraphs form one unit",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 67,
+            "text": "The fictional Reed scheduler admits a job only when a slot is free.",
+            "failure": null
+          },
+          {
+            "start": 69,
+            "end": 142,
+            "text": "The toy implementation below returns a decision without starting the job.",
+            "failure": "neighbor"
+          },
+          {
+            "start": 209,
+            "end": 271,
+            "text": "The zero-slot case is the counterexample used in the exercise.",
+            "failure": "neighbor"
+          }
+        ],
+        "desired": [
+          {
+            "text": "The toy implementation below returns a decision without starting the job.",
+            "start": 69,
+            "failure": "neighbor"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "code"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/07/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/07/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "neighbor",
+        "automatedPairToPlanOrRefusalMs": 205
+      },
+      {
+        "id": "08",
+        "title": "Нумерованный список и зависимое пояснение",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 70,
+            "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.",
+            "failure": null
+          },
+          {
+            "start": 72,
+            "end": 122,
+            "text": "Проверка карточки выполняется в следующем порядке.",
+            "failure": "neighbor"
+          },
+          {
+            "start": 247,
+            "end": 290,
+            "text": "Последний шаг не разрешает выдумывать дату.",
+            "failure": "neighbor"
+          }
+        ],
+        "desired": [
+          {
+            "text": "Проверка карточки выполняется в следующем порядке.",
+            "start": 72,
+            "failure": "neighbor"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "list"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/08/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/08/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "neighbor",
+        "automatedPairToPlanOrRefusalMs": 235
+      },
+      {
+        "id": "09",
+        "title": "Quotation and attribution must stay attached",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 77,
+            "text": "The fictional Linden archive keeps a separate record for each donated object.",
+            "failure": null
+          },
+          {
+            "start": 79,
+            "end": 157,
+            "text": "The next statement is attributed to the donor, not established by the curator.",
+            "failure": "neighbor"
+          },
+          {
+            "start": 213,
+            "end": 300,
+            "text": "The intake photograph shows a grey ticket; neither observation dates the colour change.",
+            "failure": "context"
+          }
+        ],
+        "desired": [
+          {
+            "text": "The intake photograph shows a grey ticket; neither observation dates the colour change.",
+            "start": 213,
+            "failure": "context"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "blockquote"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/09/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/09/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "context",
+        "automatedPairToPlanOrRefusalMs": 125
+      },
+      {
+        "id": "10",
+        "title": "Ссылки и embeds не являются содержимым автора",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 79,
+            "text": "В учебной экспозиции «Берег» карточки связывают описание предмета с источником.",
+            "failure": "neighbor"
+          },
+          {
+            "start": 81,
+            "end": 145,
+            "text": "Подробности датировки находятся в [[References/Field register]].",
+            "failure": "protected"
+          },
+          {
+            "start": 147,
+            "end": 184,
+            "text": "![[References/Field register#Dating]]",
+            "failure": "protected"
+          },
+          {
+            "start": 186,
+            "end": 278,
+            "text": "Ссылка на [схему экспозиции](https://example.invalid/exhibition) требует отдельной проверки.",
+            "failure": "protected"
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/10/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/10/B/Note.md",
+            "references": [
+              {
+                "kind": "link",
+                "original": "[[References/Field register]]",
+                "target": "References/Field register.md"
+              },
+              {
+                "kind": "embed",
+                "original": "![[References/Field register#Dating]]",
+                "target": "References/Field register.md"
+              }
+            ],
+            "incoming": [
+              "Realistic/Consumers/Guide.md"
+            ]
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "automatedPairToPlanOrRefusalMs": 230
+      },
+      {
+        "id": "11",
+        "title": "Same revision, incompatible queue limit",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 66,
+            "text": "The fictional Finch lab uses revision R7 for the Tuesday exercise.",
+            "failure": null
+          },
+          {
+            "start": 68,
+            "end": 132,
+            "text": "In revision R7, the waiting queue holds exactly thirty-two jobs.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/11/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/11/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "error",
+          "reason": "conflict"
+        },
+        "automatedPairToPlanOrRefusalMs": 282
+      },
+      {
+        "id": "12",
+        "title": "Разные условия не являются противоречием",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 80,
+            "text": "На вымышленной выставке «Клён» схема для вечерней группы содержит две остановки.",
+            "failure": null
+          },
+          {
+            "start": 82,
+            "end": 157,
+            "text": "Вечером мастерская закрыта; это отдельная схема, а не исправление утренней.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/12/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/12/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "ready",
+          "reason": null
+        },
+        "automatedPairToPlanOrRefusalMs": 248
+      },
+      {
+        "id": "13",
+        "title": "Old and new retry policy",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 44,
+            "text": "Fictional Reed service handbook, revision 2.",
+            "failure": null
+          },
+          {
+            "start": 46,
+            "end": 138,
+            "text": "Revision 2 leaves rejected jobs for the next scheduled batch and does not retry immediately.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/13/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/13/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "error",
+          "reason": "conflict"
+        },
+        "automatedPairToPlanOrRefusalMs": 135
+      },
+      {
+        "id": "14",
+        "title": "Старый и новый регламент инвентаризации",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 46,
+            "text": "Учебный регламент склада «Ива», редакция 2025.",
+            "failure": null
+          },
+          {
+            "start": 48,
+            "end": 159,
+            "text": "В редакции 2025 пересчёт проводится перед открытием смены; прежний порядок оставлен для разбора архивных задач.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/14/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/14/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "error",
+          "reason": "conflict"
+        },
+        "automatedPairToPlanOrRefusalMs": 251
+      },
+      {
+        "id": "15",
+        "title": "Identical filenames, different project owners",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 64,
+            "text": "Project Birch uses the name Notes for its private rehearsal log.",
+            "failure": null
+          },
+          {
+            "start": 66,
+            "end": 105,
+            "text": "Its owner is the rehearsal coordinator.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/15/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/15/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "ready",
+          "reason": null
+        },
+        "automatedPairToPlanOrRefusalMs": 192
+      },
+      {
+        "id": "16",
+        "title": "Ветка дерева и ветка репозитория",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 90,
+            "text": "В учебном репозитории «Вяз» ветка хранит отдельную последовательность коммитов упражнения.",
+            "failure": null
+          },
+          {
+            "start": 92,
+            "end": 133,
+            "text": "Название ветки выбирает автор упражнения.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/16/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/16/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "error",
+          "reason": "conflict"
+        },
+        "automatedPairToPlanOrRefusalMs": 149
+      },
+      {
+        "id": "17",
+        "title": "Unresolved pronouns and missing referents",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 22,
+            "text": "Keep the previous one.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/17/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/17/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "error",
+          "reason": "conflict"
+        },
+        "automatedPairToPlanOrRefusalMs": 198
+      },
+      {
+        "id": "18",
+        "title": "Полный источник превышает лимит анализатора",
+        "language": "ru",
+        "analysis": false,
+        "mergePlan": false,
+        "paragraphs": [],
+        "desired": [],
+        "confirmations": 0,
+        "refusal": "tooLarge",
+        "automatedPairToPlanOrRefusalMs": 215
+      },
+      {
+        "id": "19",
+        "title": "Long source, twelve dispersed unique observations",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 24,
+            "end": 95,
+            "text": "The fictional Finch workshop records twelve distinct station protocols.",
+            "failure": "heading"
+          },
+          {
+            "start": 120,
+            "end": 247,
+            "text": "At the arrival station, exercise card 1 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 249,
+            "end": 536,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 538,
+            "end": 825,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 827,
+            "end": 1114,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 1116,
+            "end": 1403,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 1428,
+            "end": 1555,
+            "text": "At the sorting station, exercise card 2 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 1557,
+            "end": 1844,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 1846,
+            "end": 2133,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 2135,
+            "end": 2422,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 2424,
+            "end": 2711,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 2737,
+            "end": 2865,
+            "text": "At the labeling station, exercise card 3 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 2867,
+            "end": 3154,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 3156,
+            "end": 3443,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 3445,
+            "end": 3732,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 3734,
+            "end": 4021,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 4049,
+            "end": 4179,
+            "text": "At the inspection station, exercise card 4 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 4181,
+            "end": 4468,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 4470,
+            "end": 4757,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 4759,
+            "end": 5046,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 5048,
+            "end": 5335,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 5359,
+            "end": 5485,
+            "text": "At the repair station, exercise card 5 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 5487,
+            "end": 5774,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 5776,
+            "end": 6063,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 6065,
+            "end": 6352,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 6354,
+            "end": 6641,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 6666,
+            "end": 6793,
+            "text": "At the packing station, exercise card 6 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 6795,
+            "end": 7082,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 7084,
+            "end": 7371,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 7373,
+            "end": 7660,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 7662,
+            "end": 7949,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 7975,
+            "end": 8103,
+            "text": "At the dispatch station, exercise card 7 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 8105,
+            "end": 8392,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 8394,
+            "end": 8681,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 8683,
+            "end": 8970,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 8972,
+            "end": 9259,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 9285,
+            "end": 9413,
+            "text": "At the handover station, exercise card 8 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 9415,
+            "end": 9702,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 9704,
+            "end": 9991,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 9993,
+            "end": 10280,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 10282,
+            "end": 10569,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 10593,
+            "end": 10719,
+            "text": "At the return station, exercise card 9 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 10721,
+            "end": 11008,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 11010,
+            "end": 11297,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 11299,
+            "end": 11586,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 11588,
+            "end": 11875,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 11902,
+            "end": 12031,
+            "text": "At the cleaning station, exercise card 10 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 12033,
+            "end": 12320,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 12322,
+            "end": 12609,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 12611,
+            "end": 12898,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 12900,
+            "end": 13187,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 13214,
+            "end": 13343,
+            "text": "At the counting station, exercise card 11 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 13345,
+            "end": 13632,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 13634,
+            "end": 13921,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 13923,
+            "end": 14210,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 14212,
+            "end": 14499,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 14525,
+            "end": 14653,
+            "text": "At the closure station, exercise card 12 assigns a different observer and keeps its observations separate from the next station.",
+            "failure": "heading"
+          },
+          {
+            "start": 14655,
+            "end": 14942,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 14944,
+            "end": 15231,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 15233,
+            "end": 15520,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          },
+          {
+            "start": 15522,
+            "end": 15809,
+            "text": "The facilitator asks the group to distinguish the demonstration artifact from an operational instruction. The local record preserves the original wording, the order of events and the observer’s question. A later summary must not silently turn a tentative explanation into a general rule.",
+            "failure": "heading"
+          }
+        ],
+        "desired": [
+          {
+            "text": "At the arrival station, exercise card 1 assigns a different observer and keeps its observations separate from the next station.",
+            "start": 120,
+            "failure": "heading"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading",
+          "heading"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/19/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/19/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "heading",
+        "automatedPairToPlanOrRefusalMs": 342
+      },
+      {
+        "id": "20",
+        "title": "Hypothesis and observed result must not collapse",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 118,
+            "text": "Observation from the fictional Cedar paper exercise: participants noticed the bell before they noticed the blue token.",
+            "failure": null
+          },
+          {
+            "start": 120,
+            "end": 197,
+            "text": "The exercise does not establish which cue would work better in another group.",
+            "failure": null
+          }
+        ],
+        "desired": [],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/20/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/20/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "no-reference-transfer-intent",
+        "manualOverrideProbe": {
+          "stage": "ready",
+          "reason": null
+        },
+        "automatedPairToPlanOrRefusalMs": 293
+      },
+      {
+        "id": "21",
+        "title": "Безопасный YAML и уникальный пример",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": true,
+        "paragraphs": [
+          {
+            "start": 111,
+            "end": 192,
+            "text": "В каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.",
+            "failure": "neighbor"
+          },
+          {
+            "start": 196,
+            "end": 237,
+            "text": "Владелец карточки отвечает за её подпись.",
+            "failure": null
+          },
+          {
+            "start": 241,
+            "end": 365,
+            "text": "В упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет.",
+            "failure": null
+          },
+          {
+            "start": 369,
+            "end": 423,
+            "text": "Правило подставки относится только к этому упражнению.",
+            "failure": null
+          }
+        ],
+        "desired": [
+          {
+            "text": "В упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет.",
+            "start": 241,
+            "failure": null
+          }
+        ],
+        "confirmations": 3,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "yaml"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/21/A/Note.md",
+            "references": [
+              {
+                "kind": "property",
+                "original": "[[References/Field register]]",
+                "target": "References/Field register.md"
+              }
+            ],
+            "incoming": [
+              "Realistic/Consumers/Guide.md"
+            ]
+          },
+          {
+            "path": "Realistic/21/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "automatedPairToPlanOrRefusalMs": 255
+      },
+      {
+        "id": "22",
+        "title": "Table, math, footnote, HTML and block identity",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 62,
+            "text": "The fictional Maple scoring exercise counts tokens on a board.",
+            "failure": "neighbor"
+          },
+          {
+            "start": 126,
+            "end": 197,
+            "text": "The exercise uses $s=b+a$ as a label, not a validated general equation.",
+            "failure": "protected"
+          },
+          {
+            "start": 199,
+            "end": 255,
+            "text": "A facilitator note preserves the original count.[^count]",
+            "failure": "protected"
+          },
+          {
+            "start": 357,
+            "end": 412,
+            "text": "The display label is addressed by other notes. ^display",
+            "failure": "protected"
+          }
+        ],
+        "desired": [
+          {
+            "text": "The exercise uses $s=b+a$ as a label, not a validated general equation.",
+            "start": 126,
+            "failure": "protected"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [
+          "table",
+          "footnoteDefinition",
+          "html",
+          "text",
+          "element"
+        ],
+        "dependencies": [
+          {
+            "path": "Realistic/22/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/22/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "protected",
+        "automatedPairToPlanOrRefusalMs": 209
+      },
+      {
+        "id": "23",
+        "title": "Местоименная зависимость без заголовков",
+        "language": "ru",
+        "analysis": true,
+        "mergePlan": false,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 81,
+            "text": "В учебном расписании «Липа» время встречи записывается вместе с названием группы.",
+            "failure": null
+          },
+          {
+            "start": 83,
+            "end": 175,
+            "text": "В следующем примере речь только о группе, которая пришла на час раньше условленного времени.",
+            "failure": null
+          },
+          {
+            "start": 177,
+            "end": 235,
+            "text": "Поэтому эту группу сначала направляют в читальную комнату.",
+            "failure": "context"
+          },
+          {
+            "start": 237,
+            "end": 282,
+            "text": "Остальные группы проходят сразу в мастерскую.",
+            "failure": null
+          }
+        ],
+        "desired": [
+          {
+            "text": "Поэтому эту группу сначала направляют в читальную комнату.",
+            "start": 177,
+            "failure": "context"
+          }
+        ],
+        "confirmations": 1,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/23/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/23/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "refusal": "context",
+        "automatedPairToPlanOrRefusalMs": 400
+      },
+      {
+        "id": "24",
+        "title": "Bilingual overlap with verbatim Unicode example",
+        "language": "en",
+        "analysis": true,
+        "mergePlan": true,
+        "paragraphs": [
+          {
+            "start": 0,
+            "end": 87,
+            "text": "В вымышленной мастерской Willow каждое наблюдение хранится вместе с именем наблюдателя.",
+            "failure": null
+          },
+          {
+            "start": 89,
+            "end": 215,
+            "text": "В упражнении с бумажным мостом наблюдатель Лена отмечает сначала порядок укладки карточек, а затем условный сигнал завершения.",
+            "failure": null
+          },
+          {
+            "start": 217,
+            "end": 310,
+            "text": "Имена и последовательность событий сохраняются дословно, включая пометку 👩🏽‍💻 и символ é.",
+            "failure": null
+          }
+        ],
+        "desired": [
+          {
+            "text": "В упражнении с бумажным мостом наблюдатель Лена отмечает сначала порядок укладки карточек, а затем условный сигнал завершения.",
+            "start": 89,
+            "failure": null
+          },
+          {
+            "text": "Имена и последовательность событий сохраняются дословно, включая пометку 👩🏽‍💻 и символ é.",
+            "start": 217,
+            "failure": null
+          }
+        ],
+        "confirmations": 4,
+        "anchors": [
+          0,
+          1
+        ],
+        "nonParagraphSections": [],
+        "dependencies": [
+          {
+            "path": "Realistic/24/A/Note.md",
+            "references": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/24/B/Note.md",
+            "references": [],
+            "incoming": []
+          }
+        ],
+        "automatedPairToPlanOrRefusalMs": 323
+      }
+    ],
+    "cycles": [
+      {
+        "id": "03",
+        "canonical": "Realistic/03/A/Note.md",
+        "secondary": "Realistic/03/B/Note.md",
+        "before": [
+          "In the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nThe owner of each cached answer is the service that created it.\n\nA cache miss returns control to that owner.\n",
+          "In the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nIn the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer.\n\nThe guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy.\n"
+        ],
+        "merged": "In the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nIn the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer.\n\nThe guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy.\n\nThe owner of each cached answer is the service that created it.\n\nA cache miss returns control to that owner.\n",
+        "preservation": [
+          {
+            "range": {
+              "start": 0,
+              "end": 87,
+              "text": "In the fictional Finch service, a cache stores a reusable answer until its expiry time."
+            },
+            "context": {
+              "start": 0,
+              "end": 215,
+              "text": "In the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nIn the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer."
+            },
+            "disposition": "retained"
+          }
+        ],
+        "confirmations": 10,
+        "mergeOperationId": "ee11b8e785ff268626174be0c395240598ca87aee87953563b23200ceb30d6ac",
+        "archived": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[Realistic/03/A/Note]]\"\n---\nIn the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nIn the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer.\n\nThe guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy.\n",
+        "dependencies": [
+          {
+            "path": "Realistic/03/A/Note.md",
+            "outgoing": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/03/B/Note.md",
+            "outgoing": [],
+            "incoming": []
+          }
+        ],
+        "archiveOperationId": "6ced1281fc090e531925162fbfb4c0ec33d79bdbd9d7e44bacad2a84ea967c22",
+        "restarts": 2,
+        "originalSha256": [
+          "dd8e3f6c1461dc8202cd48759bd050aad02a787328c57bad6c99b3c499884b90",
+          "ffdecbe2569ababf5e3bb08eff30c688c136f85c110513bbe5876a74f470415f"
+        ],
+        "restoredSha256": [
+          "dd8e3f6c1461dc8202cd48759bd050aad02a787328c57bad6c99b3c499884b90",
+          "ffdecbe2569ababf5e3bb08eff30c688c136f85c110513bbe5876a74f470415f"
+        ],
+        "byteExact": true
+      },
+      {
+        "id": "04",
+        "canonical": "Realistic/04/B/Note.md",
+        "secondary": "Realistic/04/A/Note.md",
+        "before": [
+          "В учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену.\n\nНа демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе.\n\nЭто условное обозначение действует только в упражнении мастерской.\n",
+          "В учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену.\n\nСмена имеет фиксированные начало и конец; счётчик не описывает длительность отдельной задачи.\n"
+        ],
+        "merged": "В учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену.\n\nНа демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе.\n\nСмена имеет фиксированные начало и конец; счётчик не описывает длительность отдельной задачи.\n",
+        "preservation": [
+          {
+            "range": {
+              "start": 0,
+              "end": 77,
+              "text": "В учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену."
+            },
+            "context": {
+              "start": 0,
+              "end": 209,
+              "text": "В учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену.\n\nНа демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе."
+            },
+            "disposition": "retained"
+          },
+          {
+            "range": {
+              "start": 211,
+              "end": 277,
+              "text": "Это условное обозначение действует только в упражнении мастерской."
+            },
+            "context": {
+              "start": 79,
+              "end": 278,
+              "text": "На демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе.\n\nЭто условное обозначение действует только в упражнении мастерской.\n"
+            },
+            "disposition": "retained"
+          }
+        ],
+        "confirmations": 10,
+        "mergeOperationId": "18ddaf69913d67f49790ad0f51a5835016fb5946985dc75466443e3c34d0b4f5",
+        "archived": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[Realistic/04/B/Note]]\"\n---\nВ учебном сервисе «Маяк» счётчик показывает число завершённых задач за смену.\n\nНа демонстрации в мастерской зелёная фишка обозначает одну завершённую задачу; незавершённые задачи остаются на отдельном подносе.\n\nЭто условное обозначение действует только в упражнении мастерской.\n",
+        "dependencies": [
+          {
+            "path": "Realistic/04/B/Note.md",
+            "outgoing": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/04/A/Note.md",
+            "outgoing": [],
+            "incoming": []
+          }
+        ],
+        "archiveOperationId": "6ed698d779efe36aa36700f11d8fec295fc984f88fcb49c8ba10f49583f5e9cc",
+        "restarts": 2,
+        "originalSha256": [
+          "136ff22361a8a079b6e83a519668f4dfa93b36cb0b686db9b83562d5f0bc6dcc",
+          "01630804048ade26a7fead18b49ddea39ddaf9844a5b7c4adc06ef4fd7eaa49a"
+        ],
+        "restoredSha256": [
+          "136ff22361a8a079b6e83a519668f4dfa93b36cb0b686db9b83562d5f0bc6dcc",
+          "01630804048ade26a7fead18b49ddea39ddaf9844a5b7c4adc06ef4fd7eaa49a"
+        ],
+        "byteExact": true
+      },
+      {
+        "id": "21",
+        "canonical": "Realistic/21/B/Note.md",
+        "secondary": "Realistic/21/A/Note.md",
+        "before": [
+          "---\r\n# Учебные свойства владельца\r\ntags: [workshop, catalog]\r\nrelated: \"[[References/Field register]]\"\r\n---\r\n\r\nВ каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.\r\n\r\nВладелец карточки отвечает за её подпись.\r\n\r\nВ упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет.\r\n\r\nПравило подставки относится только к этому упражнению.\r\n",
+          "В каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.\r\n\r\nКарточки располагают в порядке обхода экспозиции.\r\n"
+        ],
+        "merged": "В каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.\r\n\r\nВ упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет.\r\n\r\nКарточки располагают в порядке обхода экспозиции.\r\n",
+        "preservation": [
+          {
+            "range": {
+              "start": 0,
+              "end": 107,
+              "text": "---\r\n# Учебные свойства владельца\r\ntags: [workshop, catalog]\r\nrelated: \"[[References/Field register]]\"\r\n---"
+            },
+            "context": {
+              "start": 0,
+              "end": 192,
+              "text": "---\r\n# Учебные свойства владельца\r\ntags: [workshop, catalog]\r\nrelated: \"[[References/Field register]]\"\r\n---\r\n\r\nВ каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет."
+            },
+            "disposition": "retained"
+          },
+          {
+            "range": {
+              "start": 111,
+              "end": 192,
+              "text": "В каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет."
+            },
+            "context": {
+              "start": 0,
+              "end": 237,
+              "text": "---\r\n# Учебные свойства владельца\r\ntags: [workshop, catalog]\r\nrelated: \"[[References/Field register]]\"\r\n---\r\n\r\nВ каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.\r\n\r\nВладелец карточки отвечает за её подпись."
+            },
+            "disposition": "retained"
+          },
+          {
+            "range": {
+              "start": 196,
+              "end": 237,
+              "text": "Владелец карточки отвечает за её подпись."
+            },
+            "context": {
+              "start": 111,
+              "end": 365,
+              "text": "В каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.\r\n\r\nВладелец карточки отвечает за её подпись.\r\n\r\nВ упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет."
+            },
+            "disposition": "retained"
+          },
+          {
+            "range": {
+              "start": 369,
+              "end": 423,
+              "text": "Правило подставки относится только к этому упражнению."
+            },
+            "context": {
+              "start": 241,
+              "end": 425,
+              "text": "В упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет.\r\n\r\nПравило подставки относится только к этому упражнению.\r\n"
+            },
+            "disposition": "retained"
+          }
+        ],
+        "confirmations": 12,
+        "mergeOperationId": "312789f9402abed9e8d6c015b80205596a055dc3c7921ed59d530343c99a844c",
+        "archived": "---\r\n# Учебные свойства владельца\r\ntags: [workshop, catalog]\r\nrelated: \"[[References/Field register]]\"\r\nveynrel_archive_status: archived\r\nveynrel_canonical: \"[[Realistic/21/B/Note]]\"\r\n---\r\n\r\nВ каталоге учебной мастерской «Ясень» каждая карточка обозначает отдельный макет.\r\n\r\nВладелец карточки отвечает за её подпись.\r\n\r\nВ упражнении с красным макетом подпись помещают на отдельную подставку, чтобы её можно было прочитать, не поворачивая макет.\r\n\r\nПравило подставки относится только к этому упражнению.\r\n",
+        "dependencies": [
+          {
+            "path": "Realistic/21/B/Note.md",
+            "outgoing": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/21/A/Note.md",
+            "outgoing": [
+              {
+                "kind": "property",
+                "original": "[[References/Field register]]",
+                "target": "References/Field register.md"
+              }
+            ],
+            "incoming": [
+              {
+                "path": "Realistic/Consumers/Guide.md",
+                "count": 2,
+                "references": [
+                  {
+                    "kind": "embed",
+                    "original": "![[Realistic/21/A/Note]]",
+                    "target": "Realistic/21/A/Note.md"
+                  },
+                  {
+                    "kind": "property",
+                    "original": "[[Realistic/21/A/Note]]",
+                    "target": "Realistic/21/A/Note.md"
+                  }
+                ],
+                "metadataAvailable": true
+              }
+            ]
+          }
+        ],
+        "archiveOperationId": "4efe4aca61a26150b82fa091cf07e15404c8de25458de9d0678960d6e3def678",
+        "restarts": 2,
+        "originalSha256": [
+          "df0e4c2f6fda536449b20a4aeff10e793bc7f0bed93bb16b9ed41a64c037ea31",
+          "d9f0ff22189719a038158ac73c423088e5f68d8d29774584cf26b6ce74aa8bfb"
+        ],
+        "restoredSha256": [
+          "df0e4c2f6fda536449b20a4aeff10e793bc7f0bed93bb16b9ed41a64c037ea31",
+          "d9f0ff22189719a038158ac73c423088e5f68d8d29774584cf26b6ce74aa8bfb"
+        ],
+        "byteExact": true
+      },
+      {
+        "id": "24",
+        "canonical": "Realistic/24/A/Note.md",
+        "secondary": "Realistic/24/B/Note.md",
+        "before": [
+          "The fictional Willow workshop keeps each observation with the name of its observer.\n\nAn observation describes one exercise and does not automatically generalize to another.\n",
+          "В вымышленной мастерской Willow каждое наблюдение хранится вместе с именем наблюдателя.\n\nВ упражнении с бумажным мостом наблюдатель Лена отмечает сначала порядок укладки карточек, а затем условный сигнал завершения.\n\nИмена и последовательность событий сохраняются дословно, включая пометку 👩🏽‍💻 и символ é.\n"
+        ],
+        "merged": "The fictional Willow workshop keeps each observation with the name of its observer.\n\nВ упражнении с бумажным мостом наблюдатель Лена отмечает сначала порядок укладки карточек, а затем условный сигнал завершения.\n\nИмена и последовательность событий сохраняются дословно, включая пометку 👩🏽‍💻 и символ é.\n\nAn observation describes one exercise and does not automatically generalize to another.\n",
+        "preservation": [
+          {
+            "range": {
+              "start": 0,
+              "end": 87,
+              "text": "В вымышленной мастерской Willow каждое наблюдение хранится вместе с именем наблюдателя."
+            },
+            "context": {
+              "start": 0,
+              "end": 215,
+              "text": "В вымышленной мастерской Willow каждое наблюдение хранится вместе с именем наблюдателя.\n\nВ упражнении с бумажным мостом наблюдатель Лена отмечает сначала порядок укладки карточек, а затем условный сигнал завершения."
+            },
+            "disposition": "retained"
+          }
+        ],
+        "confirmations": 10,
+        "mergeOperationId": "9988aab597fe8871dab13caafafd9dd57872cce4aedf177a8503962c9fc537ad",
+        "archived": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[Realistic/24/A/Note]]\"\n---\nВ вымышленной мастерской Willow каждое наблюдение хранится вместе с именем наблюдателя.\n\nВ упражнении с бумажным мостом наблюдатель Лена отмечает сначала порядок укладки карточек, а затем условный сигнал завершения.\n\nИмена и последовательность событий сохраняются дословно, включая пометку 👩🏽‍💻 и символ é.\n",
+        "dependencies": [
+          {
+            "path": "Realistic/24/A/Note.md",
+            "outgoing": [],
+            "incoming": []
+          },
+          {
+            "path": "Realistic/24/B/Note.md",
+            "outgoing": [],
+            "incoming": []
+          }
+        ],
+        "archiveOperationId": "6000a136b488c357aadbdb63af89123497c89e65990efb7842124b0bb20d8eab",
+        "restarts": 2,
+        "originalSha256": [
+          "516d5d828c67490855d9331b1e87dfda5ab0a9443ccbab648dff6e99fe70af3d",
+          "d658388d0b213324f35c43216d340bacad2eb23f3474a6e8cdf55035751348a0"
+        ],
+        "restoredSha256": [
+          "516d5d828c67490855d9331b1e87dfda5ab0a9443ccbab648dff6e99fe70af3d",
+          "d658388d0b213324f35c43216d340bacad2eb23f3474a6e8cdf55035751348a0"
+        ],
+        "byteExact": true
+      }
+    ],
+    "checks": [
+      "01: analyzer/planner leave all Markdown and journals unchanged",
+      "02: analyzer/planner leave all Markdown and journals unchanged",
+      "03: analyzer/planner leave all Markdown and journals unchanged",
+      "03: exact full Archive before/after and diff",
+      "en theme-light 1200: full consent fits",
+      "en theme-light 390: full consent fits",
+      "en theme-dark 1200: full consent fits",
+      "en theme-dark 390: full consent fits",
+      "03: before restart network tripwire is zero",
+      "03: active archive blocks Merge Undo",
+      "03: Undo network tripwire is zero",
+      "03: restarted Archive Undo → Merge Undo restores every original",
+      "04: analyzer/planner leave all Markdown and journals unchanged",
+      "04: exact full Archive before/after and diff",
+      "04: before restart network tripwire is zero",
+      "04: active archive blocks Merge Undo",
+      "04: Undo network tripwire is zero",
+      "04: restarted Archive Undo → Merge Undo restores every original",
+      "05: analyzer/planner leave all Markdown and journals unchanged",
+      "06: analyzer/planner leave all Markdown and journals unchanged",
+      "07: analyzer/planner leave all Markdown and journals unchanged",
+      "08: analyzer/planner leave all Markdown and journals unchanged",
+      "09: analyzer/planner leave all Markdown and journals unchanged",
+      "10: analyzer/planner leave all Markdown and journals unchanged",
+      "11: analyzer/planner leave all Markdown and journals unchanged",
+      "12: analyzer/planner leave all Markdown and journals unchanged",
+      "13: analyzer/planner leave all Markdown and journals unchanged",
+      "14: analyzer/planner leave all Markdown and journals unchanged",
+      "15: analyzer/planner leave all Markdown and journals unchanged",
+      "16: analyzer/planner leave all Markdown and journals unchanged",
+      "17: analyzer/planner leave all Markdown and journals unchanged",
+      "18: analyzer/planner leave all Markdown and journals unchanged",
+      "19: analyzer/planner leave all Markdown and journals unchanged",
+      "20: analyzer/planner leave all Markdown and journals unchanged",
+      "21: analyzer/planner leave all Markdown and journals unchanged",
+      "21: exact full Archive before/after and diff",
+      "ru theme-light 1200: full consent fits",
+      "ru theme-light 390: full consent fits",
+      "ru theme-dark 1200: full consent fits",
+      "ru theme-dark 390: full consent fits",
+      "21: before restart network tripwire is zero",
+      "21: active archive blocks Merge Undo",
+      "21: Undo network tripwire is zero",
+      "21: restarted Archive Undo → Merge Undo restores every original",
+      "22: analyzer/planner leave all Markdown and journals unchanged",
+      "23: analyzer/planner leave all Markdown and journals unchanged",
+      "24: analyzer/planner leave all Markdown and journals unchanged",
+      "24: exact full Archive before/after and diff",
+      "24: before restart network tripwire is zero",
+      "24: active archive blocks Merge Undo",
+      "24: Undo network tripwire is zero",
+      "24: restarted Archive Undo → Merge Undo restores every original",
+      "All realistic notes and consumers restored byte-for-byte; no network"
+    ],
+    "processPaths": [
+      "Realistic/03/A/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/03/B/Note.md",
+      "Realistic/03/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/A/Note.md",
+      "Realistic/04/B/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/A/Note.md",
+      "Realistic/21/B/Note.md",
+      "Realistic/24/A/Note.md",
+      "Realistic/24/B/Note.md",
+      "Realistic/24/B/Note.md",
+      "Realistic/24/A/Note.md"
+    ],
+    "limits": "Scripted completion controls; no model quality claim. Native Linux Obsidian, default themes, desktop 390px emulation. Timings exclude human reading, discovery ranking and external model latency. No paid calls, physical mobile or independent-process concurrency tests."
+  },
+  "version": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS"
+}

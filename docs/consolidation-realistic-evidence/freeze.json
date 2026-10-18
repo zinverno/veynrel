@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "base": "bb2036e48745e61007b10cc84fbbaed475ac2ae3",
+  "pr91MergedAt": "2026-10-18T09:20:17Z",
+  "frozenAt": "2026-10-18T09:46:30.170Z",
+  "beforeAnyLiveResponses": true,
+  "corpusSha256": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+  "promptSha256": "8e0dc81c36d39d4c346255ae2ba9f8fd31954f95a87a9c75610d783a80fbc2e3",
+  "profilesSha256": "87eb6b494724601d2856158d5c8cb1d5585875498405ae4236e1ed59f6c8a5e5",
+  "files": {
+    "tests/fixtures/consolidation-realistic-v1.json": "dc7cfdf692791552abd9b06c128f6a2c78f666882b159412b647ef747ef0cda8",
+    "tests/fixtures/consolidation-model-profiles.json": "87eb6b494724601d2856158d5c8cb1d5585875498405ae4236e1ed59f6c8a5e5",
+    "consolidation/relationshipPrompt.ts": "3b6a4ca15b17f59ef4067565a6162b7bdac1205cd1054a7de13244ce6045e34b",
+    "consolidation/relationshipContract.ts": "d715efe2e9dc03d6943c9a3e72378099f3f2f1cba0c9a86043e41ca5707c0ddf",
+    "consolidation/relationshipSession.ts": "67a173d496a4138b8365a39351e5c2bb83b175a108e2d3fc2b48ee067cce9061",
+    "consolidation/changePlan.ts": "0ed67a444f5afe4b842692ba69260d9f32be98e9e696dd846ebad8e09efe35a8",
+    "consolidation/mergePlan.ts": "a79b3c29f1a33cdd0a262a2de8567e4e43a574aecca90a9fe57d8faf61187996",
+    "consolidation/mergeApply.ts": "5c1b7c7cbb89d98aa330968fa5f3380cc26f894c5d2e11d8ee9bcb1ad0ed1427",
+    "consolidation/mergeJournal.ts": "111e252113ebad029d1c2575cf85101fee69d228451a1b39c1d6f09006e51b38",
+    "consolidation/archivePlan.ts": "4726a567d675ac6cc573465ecb9da180347e3e6d5e1cfe43489e8f1e1861c5ab",
+    "consolidation/archiveApply.ts": "acebb3cee27e83bb512d0552671e2e7c4e71af82db2388118f5b84ef8f925551",
+    "consolidation/archiveJournal.ts": "a4cdc31b1d0027f8a453744ecbdcc034de2efa80a5afa8cdde529b741c1e5cf3",
+    "api.ts": "c33f7ac49c825b16a9720003a2758cfab766b1004a10024c726ff7c5d00dc8a6",
+    "package-lock.json": "97886535e6ad448e52da82507ac9438844f17ee900edc613eebf775e6dedf76b"
+  },
+  "liveStatus": "NOT RUN; no authorization granted"
+}

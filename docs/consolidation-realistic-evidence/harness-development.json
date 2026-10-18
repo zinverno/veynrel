@@ -1,0 +1,17 @@
+{
+  "failures": [
+    {
+      "run": "first",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: 03: exact full Archive before/after and diff",
+      "classification": "Harness flag incorrectly included the old archive fault matrix; then an unscoped selector read a history preview."
+    },
+    {
+      "run": "second",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: 04: exact full Archive before/after and diff",
+      "classification": "Unscoped archive before/after selector read the previous operation history preview."
+    }
+  ],
+  "resolution": "Restrict dispatch to the requested scenario; scope before/after selectors to the active archive consent modal. Final frozen run passes without product edits."
+}
