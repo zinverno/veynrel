@@ -1,0 +1,830 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "Actual desktop API and lazy Node loading",
+      "available": true,
+      "applyReady": false,
+      "filesystem": "btrfs"
+    },
+    {
+      "name": "Refuse unknown",
+      "available": false,
+      "reason": "environment"
+    },
+    {
+      "name": "Refuse network",
+      "available": false,
+      "reason": "environment"
+    },
+    {
+      "name": "Refuse synchronized",
+      "available": false,
+      "reason": "environment"
+    },
+    {
+      "name": "Refuse non-FileSystemAdapter",
+      "available": false,
+      "reason": "adapter"
+    },
+    {
+      "name": "PR98 red regression 0",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 1",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 2",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 3",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 4",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 5",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 6",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 7",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 8",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "PR98 red regression 9",
+      "outcomes": [
+        "fulfilled",
+        "fulfilled"
+      ],
+      "competingSurvived": false
+    },
+    {
+      "name": "Existing competitor preserved",
+      "ok": false,
+      "reason": "occupied",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Competitor after preview preserved",
+      "ok": false,
+      "reason": "occupied",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Independent process immediately before exclusive open preserved",
+      "ok": false,
+      "reason": "occupied",
+      "code": "EEXIST",
+      "mayHaveCreated": false
+    },
+    {
+      "name": "Exclusive concurrent pair 0",
+      "outcomes": [
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        },
+        {
+          "ok": true,
+          "body": "second"
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 1",
+      "outcomes": [
+        {
+          "ok": true,
+          "body": "first"
+        },
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 2",
+      "outcomes": [
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        },
+        {
+          "ok": true,
+          "body": "second"
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 3",
+      "outcomes": [
+        {
+          "ok": true,
+          "body": "first"
+        },
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 4",
+      "outcomes": [
+        {
+          "ok": true,
+          "body": "first"
+        },
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 5",
+      "outcomes": [
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        },
+        {
+          "ok": true,
+          "body": "second"
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 6",
+      "outcomes": [
+        {
+          "ok": true,
+          "body": "first"
+        },
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 7",
+      "outcomes": [
+        {
+          "ok": true,
+          "body": "first"
+        },
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 8",
+      "outcomes": [
+        {
+          "ok": true,
+          "body": "first"
+        },
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Exclusive concurrent pair 9",
+      "outcomes": [
+        {
+          "ok": false,
+          "reason": "occupied",
+          "created": false
+        },
+        {
+          "ok": true,
+          "body": "second"
+        }
+      ],
+      "winnerPreserved": true
+    },
+    {
+      "name": "Concurrent public Vault.create wins and is preserved",
+      "ok": false,
+      "reason": "occupied",
+      "code": "EEXIST",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Later independent write revokes verification",
+      "ok": false,
+      "reason": "changed",
+      "mayHaveCreated": false,
+      "message": "Error: changed"
+    },
+    {
+      "name": "Stale Vault writer after exclusive create is detected",
+      "ok": false,
+      "reason": "changed",
+      "mayHaveCreated": false,
+      "message": "Error: changed"
+    },
+    {
+      "name": "Unicode/CRLF discovered through native watcher and coherent MetadataCache",
+      "milliseconds": 111,
+      "cache": {
+        "links": [
+          {
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 52
+              },
+              "end": {
+                "line": 4,
+                "col": 20,
+                "offset": 72
+              }
+            },
+            "link": "Atomization/fact",
+            "original": "[[Atomization/fact]]",
+            "displayText": "Atomization/fact"
+          }
+        ],
+        "headings": [
+          {
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 12,
+                "offset": 12
+              }
+            },
+            "heading": "Verified Ω",
+            "level": 1
+          }
+        ],
+        "sections": [
+          {
+            "type": "heading",
+            "position": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 0,
+                "col": 12,
+                "offset": 12
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 2,
+                "col": 0,
+                "offset": 16
+              },
+              "end": {
+                "line": 2,
+                "col": 32,
+                "offset": 48
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "position": {
+              "start": {
+                "line": 4,
+                "col": 0,
+                "offset": 52
+              },
+              "end": {
+                "line": 4,
+                "col": 20,
+                "offset": 72
+              }
+            }
+          }
+        ]
+      },
+      "identity": {
+        "dev": 52,
+        "ino": 22153463,
+        "size": 103,
+        "ctimeMs": 1792425563536.265,
+        "mtimeMs": 1792425563536.265,
+        "birthtimeMs": 1792425563532.9314
+      }
+    },
+    {
+      "name": "Case-normalized collision refused",
+      "ok": false,
+      "reason": "occupied",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Symlink parent cannot escape vault",
+      "ok": false,
+      "reason": "io",
+      "code": "ENOTDIR",
+      "mayHaveCreated": false,
+      "message": "Error: io"
+    },
+    {
+      "name": "Final symlink preserves outside target",
+      "ok": false,
+      "reason": "occupied",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Dangling symlink refused",
+      "ok": false,
+      "reason": "occupied",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Invalid or missing parent ../Escape.md",
+      "ok": false,
+      "reason": "path",
+      "mayHaveCreated": false,
+      "message": "Error: path"
+    },
+    {
+      "name": "Invalid or missing parent /tmp/Escape.md",
+      "ok": false,
+      "reason": "path",
+      "mayHaveCreated": false,
+      "message": "Error: path"
+    },
+    {
+      "name": "Invalid or missing parent Exclusive/Missing/New.md",
+      "ok": false,
+      "reason": "io",
+      "code": "ENOENT",
+      "mayHaveCreated": false,
+      "message": "Error: io"
+    },
+    {
+      "name": "Permission error without creation",
+      "ok": false,
+      "reason": "io",
+      "code": "EACCES",
+      "mayHaveCreated": false,
+      "message": "Error: io"
+    },
+    {
+      "name": "Parent replaced by symlink: no escape, empty evidence retained",
+      "ok": false,
+      "reason": "changed",
+      "mayHaveCreated": true,
+      "message": "Error: changed"
+    },
+    {
+      "name": "BLOCKER: parent moved to a second synthetic vault before exclusive open",
+      "ok": false,
+      "reason": "changed",
+      "mayHaveCreated": true,
+      "message": "Error: changed",
+      "foreignBytesOverwritten": false,
+      "emptyFileOutsideOriginalVault": true
+    },
+    {
+      "name": "Write error retains empty file, closes all descriptors",
+      "ok": false,
+      "reason": "io",
+      "code": "EIO",
+      "mayHaveCreated": true,
+      "message": "Error: io"
+    },
+    {
+      "name": "External source delete/recreate fails saved-source identity guard",
+      "createDispatched": false
+    },
+    {
+      "name": "SIGKILL after empty create: restart performs no retry or cleanup",
+      "ok": false,
+      "reason": "occupied",
+      "mayHaveCreated": false,
+      "message": "Error: occupied"
+    },
+    {
+      "name": "Native empty note verified without fabricating sections",
+      "complete": true,
+      "empty": [
+        {
+          "path": "Exclusive/Confirmed empty.md",
+          "identity": 28,
+          "folder": false,
+          "ctime": 1792425566220,
+          "mtime": 1792425566220,
+          "size": 0,
+          "metadataHash": "75b6696807aa690d",
+          "emptyVerified": true
+        },
+        {
+          "path": "Exclusive/Crash empty.md",
+          "identity": 29,
+          "folder": false,
+          "ctime": 1792425564180,
+          "mtime": 1792425564180,
+          "size": 0,
+          "metadataHash": "75b6696807aa690d",
+          "emptyVerified": true
+        },
+        {
+          "path": "Exclusive/Swap moved/New.md",
+          "identity": 56,
+          "folder": false,
+          "ctime": 1792425563940,
+          "mtime": 1792425563940,
+          "size": 0,
+          "metadataHash": "75b6696807aa690d",
+          "emptyVerified": true
+        },
+        {
+          "path": "Exclusive/Write error.md",
+          "identity": 58,
+          "folder": false,
+          "ctime": 1792425563956,
+          "mtime": 1792425563956,
+          "size": 0,
+          "metadataHash": "75b6696807aa690d",
+          "emptyVerified": true
+        }
+      ]
+    }
+  ],
+  "benchmark": [
+    {
+      "notes": 1000,
+      "medianMs": 12.799999982118607,
+      "maxMs": 20.69999998807907,
+      "samples": [
+        {
+          "ms": 15.900000005960464,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 16.200000017881393,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 20.69999998807907,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 12.300000011920929,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 12.299999982118607,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 12.799999982118607,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 11.900000005960464,
+          "files": 1060,
+          "bytes": 249469,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        }
+      ]
+    },
+    {
+      "notes": 10000,
+      "medianMs": 123.90000000596046,
+      "maxMs": 169.90000000596046,
+      "samples": [
+        {
+          "ms": 169.90000000596046,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 123.89999997615814,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 131,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 123.90000000596046,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 123.19999998807907,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 133.40000000596046,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        },
+        {
+          "ms": 121.40000000596046,
+          "files": 10060,
+          "bytes": 2436530,
+          "reads": [
+            "Exclusive/Confirmed empty.md"
+          ]
+        }
+      ]
+    }
+  ],
+  "platform": {
+    "desktop": true,
+    "filesystemAdapter": true,
+    "node": "24.20.0",
+    "os": "linux"
+  },
+  "statfs": "9123683e",
+  "buildSha256": "13f9f3cbf4fef2cfc633f30a996a2ad093156bfc754adf3f0b7bf337c2e74e4c",
+  "sourceSha256": {
+    "consolidation/desktopExclusiveCreate.ts": "e43dc83bde803e9bceadf52fded22ec323925b01be6680f9599321130b34e165",
+    "consolidation/obsidianAtomization.ts": "335de3c0b6ce4204c58982266fc9456c086961a0a7d580fa93b74a4a712d3feb",
+    "scripts/exclusive-create-native.mjs": "237d2a1076d9149d6e88c041ee9923154a99fa695552bf68167948afc8d3ebce",
+    "scripts/atomization-native.mjs": "cb36c59901a66a95dfa4028894dbfcc3a8429153b353a82a470d44738f9c5889",
+    "scripts/pair-inspector-native.mjs": "9bb704a28f668db876b0107dcbd451b041a3bf01ad7b0511e5745574aa862229"
+  },
+  "applyGate": "BLOCKED_PARENT_RELOCATION",
+  "emptyDiagnostics": [
+    {
+      "path": "Exclusive/Confirmed empty.md",
+      "stat": {
+        "ctime": 1792425566220,
+        "mtime": 1792425566220,
+        "size": 0
+      },
+      "disk": {
+        "type": "file",
+        "ctime": 1792425566220,
+        "mtime": 1792425566220,
+        "size": 0
+      },
+      "cache": {
+        "v": 1
+      },
+      "resolved": {},
+      "unresolved": {}
+    },
+    {
+      "path": "Exclusive/Write error.md",
+      "stat": {
+        "ctime": 1792425563956,
+        "mtime": 1792425563956,
+        "size": 0
+      },
+      "disk": {
+        "type": "file",
+        "ctime": 1792425563956,
+        "mtime": 1792425563956,
+        "size": 0
+      },
+      "cache": {
+        "v": 1
+      },
+      "resolved": {},
+      "unresolved": {}
+    },
+    {
+      "path": "Exclusive/Swap moved/New.md",
+      "stat": {
+        "ctime": 1792425563940,
+        "mtime": 1792425563940,
+        "size": 0
+      },
+      "disk": {
+        "type": "file",
+        "ctime": 1792425563940,
+        "mtime": 1792425563940,
+        "size": 0
+      },
+      "cache": {
+        "v": 1
+      },
+      "resolved": {},
+      "unresolved": {}
+    },
+    {
+      "path": "Exclusive/Crash empty.md",
+      "stat": {
+        "ctime": 1792425564180,
+        "mtime": 1792425564180,
+        "size": 0
+      },
+      "disk": {
+        "type": "file",
+        "ctime": 1792425564180,
+        "mtime": 1792425564180,
+        "size": 0
+      },
+      "cache": {
+        "v": 1
+      },
+      "resolved": {},
+      "unresolved": {}
+    }
+  ],
+  "emptyObservation": {
+    "complete": true,
+    "empty": [
+      {
+        "path": "Exclusive/Confirmed empty.md",
+        "identity": 28,
+        "folder": false,
+        "ctime": 1792425566220,
+        "mtime": 1792425566220,
+        "size": 0,
+        "metadataHash": "75b6696807aa690d",
+        "emptyVerified": true
+      },
+      {
+        "path": "Exclusive/Crash empty.md",
+        "identity": 29,
+        "folder": false,
+        "ctime": 1792425564180,
+        "mtime": 1792425564180,
+        "size": 0,
+        "metadataHash": "75b6696807aa690d",
+        "emptyVerified": true
+      },
+      {
+        "path": "Exclusive/Swap moved/New.md",
+        "identity": 56,
+        "folder": false,
+        "ctime": 1792425563940,
+        "mtime": 1792425563940,
+        "size": 0,
+        "metadataHash": "75b6696807aa690d",
+        "emptyVerified": true
+      },
+      {
+        "path": "Exclusive/Write error.md",
+        "identity": 58,
+        "folder": false,
+        "ctime": 1792425563956,
+        "mtime": 1792425563956,
+        "size": 0,
+        "metadataHash": "75b6696807aa690d",
+        "emptyVerified": true
+      }
+    ]
+  },
+  "sourcesUnchanged": true,
+  "sourceHashes": {
+    "Architecture/Query Planning.md": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+    "Atomization/Comparison.md": "0bf46ef11ffd9ed9ac7365b27b371503f35d12d557addcff90b0c73a72e92130",
+    "Atomization/Linker.md": "82c574666e14dad0c07c9ceeda4728e77a2257d5c0e4cd605fc54601532a3e2a",
+    "Atomization/Occupied.md": "de68d841023d1c4821ef800f1c65334fc0cbd82066ebf1323d52b4a106329883",
+    "Atomization/attribution.md": "451cd6d0f057cc98387f0e24866a3885df1ddebe1978d6e24439127271273dd9",
+    "Atomization/code.md": "9bd88e035ed5c72254bf4dee126085641dd96403d736ed9ec143ff3f7fce2b77",
+    "Atomization/condition.md": "27bc503b4e7ee7c89a1e82de95fae3cef174c31464a6e0a7380f6061cc11426a",
+    "Atomization/dependent.md": "8b44e2edf0c02e9c3803c7f55b9e7b004c603e195d4353fdb1f09dbc5f562ee7",
+    "Atomization/embed.md": "59964bf7053cb45c67bfe01cc5c972ee40a6d5ef52f7cb1168369a775e7dfb75",
+    "Atomization/fact.md": "a63fcee405c36818e0e5f2518708f819d073c8e2c2f59cccb55e9f3960da1075",
+    "Atomization/h1.md": "59c4929b0acd0d5296937190c82541f55e7767ce12439e9ecb5e021b45983256",
+    "Atomization/h2.md": "34107969848eb6fed8a0452abfe9bbff48772be22d27301e3ca345eb38f3daf0",
+    "Atomization/h3.md": "05a3b580efacc03df21a78e60b881684cafa886a2d66e232732b7df2da55b8d9",
+    "Atomization/link.md": "1333168d3e069495e3a24907968b4b095b7da09e93be65b6526042338dd4d040",
+    "Atomization/list.md": "846f67ae6988973c1c17da57370e90f21adaf0a1accead59c3baf73dde149231",
+    "Atomization/unattributed.md": "8818a3071971451fb238e9f48d1fbe812b8e75073399320d317237585f507b03",
+    "Atomization/unicode-crlf.md": "781159b81e657e5363ee62452887a9b5fa54f04ba3d51f262d4d88cc3d32cd3c",
+    "Atomization/versions.md": "6dd672d6874728d03179e0960ce284b7c83f2d6c7daad4ddea9f21dfbb1c8920"
+  }
+}

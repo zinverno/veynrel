@@ -21,6 +21,8 @@ import type { BundleFailure } from "./contextBundleStructure";
 
 import { AtomizationError, buildAtomizationPlan, validateAtomizationPlan } from "./atomizationPlan";
 import type { AtomizationChoice, AtomizationFailure, AtomizationObservation, AtomizationPlan } from "./atomizationPlan";
+import type { AtomizationPlanV2, EmptyAtomChoice } from "./emptyAtomPlan";
+import type { EmptyAtomPort } from "./emptyAtomApply";
 
 export interface PlannerRead { pair: PlanPair; linktexts: readonly [string, string] }
 export interface PlannerDependencies {
@@ -28,6 +30,8 @@ export interface PlannerDependencies {
   read(): Promise<PlannerRead>;
   incoming?(): MergeIncoming;
   atomizationObservation?(path: string, source: string): Promise<AtomizationObservation>;
+  emptyAtom?: Pick<EmptyAtomPort, "plan" | "check">;
+  emptyTargets?(): string[];
 }
 export interface PlannerView {
   stage: "idle" | "loading" | "choosing" | "ready" | "error" | "stale" | "cancelled";
@@ -41,6 +45,7 @@ export interface PlannerView {
   bundlePlan?: ContextBundlePlan;
   bundleError?: BundleFailure;
   atomizationPlan?: AtomizationPlan;
+  emptyAtomPlan?: AtomizationPlanV2;
   atomizationError?: AtomizationFailure;
   error?: PlanFailure;
   errorSide?: 0 | 1;
@@ -88,6 +93,7 @@ export class ChangePlannerSession {
   private analysisStamp?: string;
   constructor(private readonly deps: PlannerDependencies) {}
   get busy(): boolean { return this.view.stage === "loading"; }
+  emptyTargets(): string[] { return this.deps.emptyTargets?.() ?? []; }
   private publish(view: PlannerView): void { if (!this.closed) { this.view = view; this.onChange(); } }
   private current(generation: number): boolean {
     if (this.closed || this.generation !== generation) return false;
@@ -100,6 +106,21 @@ export class ChangePlannerSession {
   changeSelection(): void {
     if (!this.closed && this.busy && this.multiGeneration === this.generation) { this.invalidate(); return; }
     if (!this.closed && !this.busy && this.view.input) this.publish({ stage: "choosing", input: this.view.input });
+  }
+  async buildEmptyAtom(choice: EmptyAtomChoice): Promise<void> {
+    if (this.closed || this.busy || !this.view.input || !this.analysis || !this.deps.emptyAtom) return;
+    const input=this.view.input, analysis=this.analysis,generation=++this.generation;
+    this.multiGeneration=generation;const selected=JSON.parse(JSON.stringify(choice)) as EmptyAtomChoice;
+    this.publish({stage:"loading"});
+    try {
+      if(this.analysisStamp!==JSON.stringify({result:analysis.result,provider:analysis.provider,model:analysis.model})){this.invalidate();return;}
+      const fresh=await this.deps.read();if(!this.current(generation))return;
+      if(!sameMultiRead(input,fresh)){this.invalidate();return;}
+      const built=await this.deps.emptyAtom.plan(analysis,selected);if(!this.current(generation))return;
+      const verified=await this.deps.emptyAtom.check(built.plan,analysis,built.checked.notes);if(!this.current(generation))return;
+      built.checked.guard();verified.guard();
+      this.publish({stage:"ready",input:fresh,emptyAtomPlan:built.plan});
+    }catch(e){if(this.current(generation))this.publish({stage:"error",input,atomizationError:e instanceof AtomizationError?e.reason:"source"});}
   }
   async buildAtomization(choice: AtomizationChoice): Promise<void> {
     if (this.closed || this.busy || !this.view.input || !this.analysis) return;

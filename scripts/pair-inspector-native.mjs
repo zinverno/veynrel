@@ -166,7 +166,7 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--group-apply') || process.argv.includes('--bundle-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation') || process.argv.includes('--exclusive-create-v2')) {
+ if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--group-apply') || process.argv.includes('--bundle-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation') || process.argv.includes('--exclusive-create-v2') || process.argv.includes('--empty-atom-apply')) {
    const restart = async () => {
      socket.close();
      const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await exited;
@@ -203,6 +203,10 @@ try {
    if(process.argv.includes('--multi-safe-apply')) {
      const {multiFileApplyScenario}=await import('./multi-file-apply-native.mjs');
      report.multiApply=await multiFileApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
+   }
+   if(process.argv.includes('--empty-atom-apply')) {
+     const {emptyAtomScenario}=await import('./empty-atom-native.mjs');
+     report.emptyAtom=await emptyAtomScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
    if(process.argv.includes('--group-apply')) {
      const {groupApplyScenario}=await import('./group-apply-native.mjs');

@@ -1,0 +1,47 @@
+{
+  "baseMain": "a27037985f7186e88ee6e199a0fabd4fd16d2c5e",
+  "prerequisite": {
+    "pr": 99,
+    "state": "MERGED",
+    "mergedAt": "2026-10-19T15:07:49Z"
+  },
+  "branch": "feat/atomization-existing-empty-note-v1",
+  "npmTest": {
+    "status": "PASS",
+    "files": 157,
+    "tests": 4149
+  },
+  "typecheck": "PASS",
+  "lint": {
+    "status": "PASS",
+    "errors": 0,
+    "existingWarnings": [
+      "api.ts:404 fetch rule"
+    ]
+  },
+  "build": "PASS",
+  "auditProposals": {
+    "status": "PASS",
+    "mutationsKilled": 5,
+    "total": 5,
+    "sandboxFailurePreserved": true
+  },
+  "native": {
+    "status": "PASS",
+    "checks": 168,
+    "languageContentCycles": 10,
+    "sigkillBoundaries": 9,
+    "runtime": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  "creationRegression": {
+    "diagnosticStatus": "PASS",
+    "applyGate": "BLOCKED_PARENT_RELOCATION",
+    "experimentalCreatorBundled": false
+  },
+  "buildSha256": "13f9f3cbf4fef2cfc633f30a996a2ad093156bfc754adf3f0b7bf337c2e74e4c",
+  "githubCi": "Check the pull request checks at its current HEAD; not a local claim.",
+  "diffCheck": "PASS"
+}

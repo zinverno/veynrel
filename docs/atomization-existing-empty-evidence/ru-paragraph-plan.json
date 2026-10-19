@@ -1,0 +1,154 @@
+{
+  "version": 2,
+  "operation": "write_atom_to_empty_note",
+  "sources": [
+    {
+      "path": "EmptyAtom/ru-paragraph/Source.md",
+      "created": 1792425420464,
+      "modified": 1792425420464,
+      "bytes": 94,
+      "markdown": "Синяя метка 🪶 é обозначает завершённое испытание.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 51,
+                "line": 0,
+                "offset": 51
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    },
+    {
+      "path": "EmptyAtom/ru-paragraph/Comparison.md",
+      "created": 1792425420464,
+      "modified": 1792425420464,
+      "bytes": 38,
+      "markdown": "An amber mark denotes a pending trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 38,
+                "line": 0,
+                "offset": 38
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    }
+  ],
+  "target": {
+    "path": "EmptyAtom/ru-paragraph/Атом 🪶 ru-paragraph.md",
+    "created": 1792425420524,
+    "modified": 1792425420524,
+    "bytes": 0,
+    "markdown": "",
+    "metadata": {},
+    "references": [],
+    "before": "",
+    "after": "# Наблюдение испытания\n\nСиняя метка 🪶 é обозначает завершённое испытание.\n\nSource: [[EmptyAtom/ru-paragraph/Source]]"
+  },
+  "selected": {
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 51,
+      "text": "Синяя метка 🪶 é обозначает завершённое испытание."
+    },
+    "context": []
+  },
+  "context": [],
+  "remaining": "Синяя метка 🪶 é обозначает завершённое испытание.",
+  "additions": {
+    "title": "# Наблюдение испытания",
+    "source": "Source: [[EmptyAtom/ru-paragraph/Source]]",
+    "separator": "\n\n"
+  },
+  "confirmations": {
+    "operation": "write_atom_to_empty_note",
+    "side": 0,
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 51,
+      "text": "Синяя метка 🪶 é обозначает завершённое испытание."
+    },
+    "title": "Наблюдение испытания",
+    "path": "EmptyAtom/ru-paragraph/Атом 🪶 ru-paragraph.md",
+    "unitConfirmed": true,
+    "contextConfirmed": true,
+    "manualConfirmed": true,
+    "titleConfirmed": true,
+    "sourceConfirmed": true,
+    "dependenciesReviewed": true,
+    "targetConfirmed": true
+  },
+  "observation": {
+    "configDir": ".obsidian",
+    "sourceLink": "EmptyAtom/ru-paragraph/Source",
+    "dependencyHash": "1ea50419acd985f0dc298fbea8817aca78f63bbf29bc0baab95c71486bee90e9"
+  },
+  "provenance": {
+    "origin": "manual_review",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "related_distinct",
+      "claims": [
+        {
+          "id": "c",
+          "text": "Different observations.",
+          "kind": "comparison",
+          "quoteA": "Синяя метка 🪶 é обозначает завершённое испытание.",
+          "quoteB": "An amber mark denotes a pending trial."
+        }
+      ],
+      "explanation": {
+        "text": "Scripted extraction control.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "User reviews semantic independence.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Synthetic control; not model quality evidence."
+      ]
+    },
+    "hintIds": []
+  },
+  "limitations": [
+    "existing_empty_target_only",
+    "sources_unchanged",
+    "undo_clears_never_deletes",
+    "semantic_independence_is_user_judgment",
+    "unknown_external_dependencies",
+    "independent_processes_not_locked"
+  ]
+}

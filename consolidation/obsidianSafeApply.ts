@@ -1,3 +1,5 @@
+import { EmptyAtomJournal } from "./emptyAtomJournal";
+import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { MarkdownView } from "obsidian";
 import type { App, FileView } from "obsidian";
 import { readSavedNote } from "./savedNote";
@@ -76,5 +78,7 @@ export function createSafeApplyService(app: App, pluginId: string): SafeApplySer
     journal: new BundleJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianBundlePort(app, port),
   }, {
     journal: new GroupJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianGroupPort(app, port),
+  }, {
+    journal: new EmptyAtomJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianEmptyAtomPort(app, port),
   });
 }

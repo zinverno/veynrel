@@ -1,0 +1,154 @@
+{
+  "version": 2,
+  "operation": "write_atom_to_empty_note",
+  "sources": [
+    {
+      "path": "EmptyAtom/en-conditional/Source.md",
+      "created": 1792425405764,
+      "modified": 1792425405764,
+      "bytes": 71,
+      "markdown": "Only when the surface is dry: a blue mark may denote a completed trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 71,
+                "line": 0,
+                "offset": 71
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    },
+    {
+      "path": "EmptyAtom/en-conditional/Comparison.md",
+      "created": 1792425405764,
+      "modified": 1792425405764,
+      "bytes": 38,
+      "markdown": "An amber mark denotes a pending trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 38,
+                "line": 0,
+                "offset": 38
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    }
+  ],
+  "target": {
+    "path": "EmptyAtom/en-conditional/Атом 🪶 en-conditional.md",
+    "created": 1792425405820,
+    "modified": 1792425405820,
+    "bytes": 0,
+    "markdown": "",
+    "metadata": {},
+    "references": [],
+    "before": "",
+    "after": "# Trial observation\n\nOnly when the surface is dry: a blue mark may denote a completed trial.\n\nSource: [[EmptyAtom/en-conditional/Source]]"
+  },
+  "selected": {
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 71,
+      "text": "Only when the surface is dry: a blue mark may denote a completed trial."
+    },
+    "context": []
+  },
+  "context": [],
+  "remaining": "Only when the surface is dry: a blue mark may denote a completed trial.",
+  "additions": {
+    "title": "# Trial observation",
+    "source": "Source: [[EmptyAtom/en-conditional/Source]]",
+    "separator": "\n\n"
+  },
+  "confirmations": {
+    "operation": "write_atom_to_empty_note",
+    "side": 0,
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 71,
+      "text": "Only when the surface is dry: a blue mark may denote a completed trial."
+    },
+    "title": "Trial observation",
+    "path": "EmptyAtom/en-conditional/Атом 🪶 en-conditional.md",
+    "unitConfirmed": true,
+    "contextConfirmed": true,
+    "manualConfirmed": true,
+    "titleConfirmed": true,
+    "sourceConfirmed": true,
+    "dependenciesReviewed": true,
+    "targetConfirmed": true
+  },
+  "observation": {
+    "configDir": ".obsidian",
+    "sourceLink": "EmptyAtom/en-conditional/Source",
+    "dependencyHash": "46e02ff0440059c246d59c086fc23cd1e7dbdfdeb075be494ef0fe52749126fc"
+  },
+  "provenance": {
+    "origin": "manual_review",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "related_distinct",
+      "claims": [
+        {
+          "id": "c",
+          "text": "Different observations.",
+          "kind": "comparison",
+          "quoteA": "Only when the surface is dry: a blue mark may denote a completed trial.",
+          "quoteB": "An amber mark denotes a pending trial."
+        }
+      ],
+      "explanation": {
+        "text": "Scripted extraction control.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "User reviews semantic independence.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Synthetic control; not model quality evidence."
+      ]
+    },
+    "hintIds": []
+  },
+  "limitations": [
+    "existing_empty_target_only",
+    "sources_unchanged",
+    "undo_clears_never_deletes",
+    "semantic_independence_is_user_judgment",
+    "unknown_external_dependencies",
+    "independent_processes_not_locked"
+  ]
+}

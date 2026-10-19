@@ -5,7 +5,7 @@ import { atomIdentity, atomKey, validateAtomizationPath } from "./atomizationPla
 import type { AtomizationObservation } from "./atomizationPlan";
 
 /** Only zero-byte notes with an empty native cache are eligible for the exact-read exception. */
-async function verifyEmptyNote(app: App, file: TFile): Promise<{ guard(): boolean; diskMatches(): Promise<boolean> } | null> {
+export async function verifyEmptyNote(app: App, file: TFile): Promise<{ guard(): boolean; diskMatches(): Promise<boolean> } | null> {
   const path = file.path, before = { ...file.stat };
   const cacheStamp = JSON.stringify(app.metadataCache.getFileCache(file));
   const emptyCache = () => {

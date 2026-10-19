@@ -1,5 +1,7 @@
 # Atomization Apply & Undo v1: creation gate blocked
 
+Historical **file-creation** protocol. The later [existing empty note workflow](atomization-existing-empty-note-v1.md) fills and clears an already existing file without creating or deleting Markdown; this creation gate remains blocked.
+
 **Apply is not connected.** Native Obsidian 1.13.7 allows two concurrent `Vault.create()` calls to succeed for the same path and overwrite a competing note. This activates the requested stop condition: do not ship an executor that can overwrite another file. This PR supplies the reproducible gate, regression tests, evidence and a proposed protocol. It does **not** implement AtomizationPlan v2, a seventh journal, consent tickets, Apply, Undo or recovery.
 
 PR [#97](https://github.com/zinverno/veynrel/pull/97) was verified merged into current `main`, `87da22d49f69de30a316759fb86da7ac8f8eb2ea`, before branch `feat/atomization-apply-undo-v1` was created. See the [native report and error log](atomization-create-gate-native.md).

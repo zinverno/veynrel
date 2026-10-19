@@ -80,15 +80,16 @@ export function validateAtomizationPath(path: string, configDir: string): void {
       !/^(?:con|prn|aux|nul|com[0-9]|lpt[0-9])(?:\.|$)/iu.test(p) && atomKey(p) !== "node_modules") &&
     !atomKey(path).startsWith(atomKey(configDir) + "/"), "path");
 }
-export function buildAtomizationPlan(analysis: RelationshipAnalysis, pair: PlanPair, choice: AtomizationChoice, observation: AtomizationObservation): AtomizationPlan {
-  requireAtom(JSON.stringify(Object.keys(choice).sort()) === JSON.stringify(Object.keys(emptyAtomizationChoice()).sort()), "confirmation");
-  requireAtom(choice.operation === "atomization_preview" && (choice.side === 0 || choice.side === 1), "confirmation");
+export type AtomizationUnitChoice = Omit<AtomizationChoice, "operation" | "path">;
+/** Shared extraction checks; no destination fiction or serialized runtime identity. */
+export function atomizationUnit(analysis: RelationshipAnalysis, pair: PlanPair, choice: AtomizationUnitChoice, configDir: string) {
+  requireAtom(choice.side === 0 || choice.side === 1, "confirmation");
   requireAtom(pair.length === 2 && pair[0].path !== pair[1].path && pair[0].file !== pair[1].file, "source");
   pair.forEach((n, i) => {
     requireAtom(sameSavedNote(n, analysis.pair[i]) && n.file.path === n.path && n.created !== undefined &&
       n.created === n.file.stat.ctime && n.modified === n.file.stat.mtime && n.bytes === n.file.stat.size &&
       n.bytes === new TextEncoder().encode(n.content).byteLength, "source");
-    validateAtomizationPath(n.path, observation.configDir); requireAtom(n.cache?.sections, "metadata");
+    validateAtomizationPath(n.path, configDir); requireAtom(n.cache?.sections, "metadata");
   });
   let result: RelationshipAnalysis["result"];
   try { result = validateRelationshipResponse(JSON.stringify(analysis.result), pair[0].content, pair[1].content); }
@@ -104,17 +105,23 @@ export function buildAtomizationPlan(analysis: RelationshipAnalysis, pair: PlanP
   const hintIds = atomizationHintIds(analysis, pair, choice.side, selected);
   requireAtom(choice.unitConfirmed === true && choice.contextConfirmed === true && choice.titleConfirmed === true && choice.sourceConfirmed === true &&
     (hintIds.length > 0 || choice.manualConfirmed === true), "confirmation");
+  requireAtom(choice.title.length > 0 && choice.title.length <= 160 && choice.title === choice.title.trim() &&
+    !/[\p{Cc}\p{Cf}[\]`~<>\\^$*_#|%]/u.test(choice.title), "confirmation");
+  const separator = (note.content.includes("\r\n") ? "\r\n" : "\n").repeat(2);
+  const title = `# ${choice.title}`, source = `Source: [[${note.path.slice(0, -3)}]]`;
+  return { note, candidates, selected, result, hintIds, separator, title, source,
+    markdown: [title, ...ranges.map(r => r.text), source].join(separator) };
+}
+export function buildAtomizationPlan(analysis: RelationshipAnalysis, pair: PlanPair, choice: AtomizationChoice, observation: AtomizationObservation): AtomizationPlan {
+  requireAtom(JSON.stringify(Object.keys(choice).sort()) === JSON.stringify(Object.keys(emptyAtomizationChoice()).sort()), "confirmation");
+  requireAtom(choice.operation === "atomization_preview" && (choice.side === 0 || choice.side === 1), "confirmation");
+  const { note, candidates, selected, result, hintIds, separator, title, source, markdown } = atomizationUnit(analysis, pair, choice, observation.configDir);
   requireAtom(choice.dependenciesReviewed === true && observation.metadataComplete, "dependencies");
   validateAtomizationPath(choice.path, observation.configDir);
   requireAtom(observation.path === choice.path && observation.parentExists, "path");
   const key = atomKey(choice.path), basename = key.split("/").pop()!.slice(0, -3);
   requireAtom(observation.absent && !observation.inventory.some(f => atomKey(f.path) === key || (!f.folder && atomKey(f.path).split("/").pop()!.replace(/\.[^.]+$/u, "") === basename)), "occupied");
   requireAtom(!observation.linkConflicts.length && observation.sourceLink === note.path.slice(0, -3), "link");
-  requireAtom(choice.title.length > 0 && choice.title.length <= 160 && choice.title === choice.title.trim() &&
-    !/[\p{Cc}\p{Cf}[\]`~<>\\^$*_#|%]/u.test(choice.title), "confirmation");
-  const separator = (note.content.includes("\r\n") ? "\r\n" : "\n").repeat(2);
-  const title = `# ${choice.title}`, source = `Source: [[${observation.sourceLink}]]`;
-  const markdown = [title, ...ranges.map(r => r.text), source].join(separator);
   return copy({ version: 1, operation: "atomization_preview", readOnly: true,
     source: { path: note.path, identity: atomIdentity(note.file), ctime: note.created!, mtime: note.modified, size: note.bytes,
       checksum: stableHash(note.content), markdown: note.content, remaining: note.content }, selected, context: selected.context,

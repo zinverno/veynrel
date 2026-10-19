@@ -1,0 +1,39 @@
+
+> obsidian-ai-hub@2.1.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.1.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.1.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.1.0 build
+> node esbuild.config.mjs production
+
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/api.ts
+  404:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/consolidation/emptyAtomApply.test.ts
+   64:42   warning  Use sentence case for UI text. Expected: 'Observation HTTPS://example.invalid'                                                                                                                                                                                                                                                              obsidianmd/ui/sentence-case
+  147:68   error    Unsafe assignment of an `any` value                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unsafe-assignment
+  147:114  error    Unsafe member access .attempt on an `any` value                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unsafe-member-access
+  147:150  error    Unsafe member access .modified on an `any` value                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unsafe-member-access
+  148:41   error    Unsafe member access .attempt on an `any` value                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unsafe-member-access
+  157:59   error    A method that is not declared with `this: void` may cause unintentional scoping of `this` when separated from its object.
+Consider using an arrow function or explicitly `.bind()`ing the method to avoid calling the method with an unintended `this` value.
+If a function does not access `this`, it can be annotated with `this: void`  @typescript-eslint/unbound-method
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/consolidation/emptyAtomApplyModal.test.ts
+  7:31  warning  Use 'this.createDiv(opts)' instead of 'this.createEl("div",opts)'    obsidianmd/prefer-create-el
+  7:85  warning  Use 'this.createSpan(opts)' instead of 'this.createEl("span",opts)'  obsidianmd/prefer-create-el
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/tests/emptyAtomFixture.ts
+  45:137  error  This assertion is unnecessary since the receiver accepts the original type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+
+✖ 10 problems (6 errors, 4 warnings)
+  1 error and 2 warnings potentially fixable with the `--fix` option.
