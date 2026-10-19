@@ -1,0 +1,589 @@
+{
+  "version": 2,
+  "operation": "structural_archive_in_place_plan",
+  "readOnly": true,
+  "status": "archived",
+  "provenance": {
+    "operation": "context_bundle_copy",
+    "id": "1995082826e4798935b81546e8dc60183d9128a04adc71797d0c49f9af1fd2c0",
+    "recordHash": "04e95dd5d7846fb476d70385569b9f4514a9e7fbd1f2d5c0cdf030c6dd943d19",
+    "parent": {
+      "version": 1,
+      "operation": "context_bundle_copy",
+      "state": "prepared",
+      "id": "1995082826e4798935b81546e8dc60183d9128a04adc71797d0c49f9af1fd2c0",
+      "createdAt": 1792430466571,
+      "plan": {
+        "version": 1,
+        "operation": "copy_context_bundle",
+        "readOnly": true,
+        "kind": "code_explanation",
+        "canonical": {
+          "path": "ArchiveV2/archive-v2-07-en/A.md",
+          "identity": {
+            "created": 1792430465790,
+            "modified": 1792430465790,
+            "bytes": 111,
+            "contentHash": "e9df6aaa66e04883"
+          },
+          "before": "The fictional Reed scheduler admits a job only when a slot is free.\n\nA rejected job stays in the waiting list.\n",
+          "after": "The fictional Reed scheduler admits a job only when a slot is free.\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+        },
+        "secondary": {
+          "path": "ArchiveV2/archive-v2-07-en/B.md",
+          "identity": {
+            "created": 1792430465790,
+            "modified": 1792430465790,
+            "bytes": 272,
+            "contentHash": "78dc909da159a405"
+          },
+          "content": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n",
+          "unchanged": true
+        },
+        "bundle": {
+          "kind": "code_explanation",
+          "core": {
+            "start": 144,
+            "end": 207,
+            "text": "```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```"
+          },
+          "before": [
+            {
+              "start": 0,
+              "end": 67,
+              "text": "The fictional Reed scheduler admits a job only when a slot is free."
+            },
+            {
+              "start": 69,
+              "end": 142,
+              "text": "The toy implementation below returns a decision without starting the job."
+            }
+          ],
+          "after": [
+            {
+              "start": 209,
+              "end": 271,
+              "text": "The zero-slot case is the counterexample used in the exercise."
+            }
+          ],
+          "range": {
+            "start": 0,
+            "end": 271,
+            "text": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+          },
+          "blocks": [
+            {
+              "role": "context_before",
+              "range": {
+                "start": 0,
+                "end": 67,
+                "text": "The fictional Reed scheduler admits a job only when a slot is free."
+              }
+            },
+            {
+              "role": "context_before",
+              "range": {
+                "start": 69,
+                "end": 142,
+                "text": "The toy implementation below returns a decision without starting the job."
+              }
+            },
+            {
+              "role": "core",
+              "range": {
+                "start": 144,
+                "end": 207,
+                "text": "```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```"
+              }
+            },
+            {
+              "role": "context_after",
+              "range": {
+                "start": 209,
+                "end": 271,
+                "text": "The zero-slot case is the counterexample used in the exercise."
+              }
+            }
+          ],
+          "retained": [
+            {
+              "start": 271,
+              "end": 272,
+              "text": "\n"
+            }
+          ]
+        },
+        "insertion": {
+          "point": 111,
+          "separator": "\n\n",
+          "edit": {
+            "start": 111,
+            "end": 111,
+            "removed": "",
+            "inserted": "\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+          }
+        },
+        "confirmations": {
+          "operation": "copy_context_bundle",
+          "canonical": 0,
+          "kind": "code_explanation",
+          "core": {
+            "start": 144,
+            "end": 207,
+            "text": "```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```"
+          },
+          "context": [
+            {
+              "start": 0,
+              "end": 67,
+              "text": "The fictional Reed scheduler admits a job only when a slot is free."
+            },
+            {
+              "start": 69,
+              "end": 142,
+              "text": "The toy implementation below returns a decision without starting the job."
+            },
+            {
+              "start": 209,
+              "end": 271,
+              "text": "The zero-slot case is the counterexample used in the exercise."
+            }
+          ],
+          "boundariesConfirmed": true,
+          "contextConfirmed": true,
+          "dependencies": "reviewed",
+          "insertion": 111,
+          "insertionConfirmed": true,
+          "distinctIntent": false
+        },
+        "dependencies": [
+          {
+            "path": "ArchiveV2/archive-v2-07-en/A.md",
+            "metadata": {
+              "sections": [
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 0,
+                      "col": 0,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 0,
+                      "col": 67,
+                      "offset": 67
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "col": 0,
+                      "offset": 69
+                    },
+                    "end": {
+                      "line": 2,
+                      "col": 41,
+                      "offset": 110
+                    }
+                  }
+                }
+              ]
+            },
+            "outgoing": [],
+            "incoming": {
+              "items": [],
+              "total": 0
+            }
+          },
+          {
+            "path": "ArchiveV2/archive-v2-07-en/B.md",
+            "metadata": {
+              "sections": [
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 0,
+                      "col": 0,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 0,
+                      "col": 67,
+                      "offset": 67
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "col": 0,
+                      "offset": 69
+                    },
+                    "end": {
+                      "line": 2,
+                      "col": 73,
+                      "offset": 142
+                    }
+                  }
+                },
+                {
+                  "type": "code",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "col": 0,
+                      "offset": 144
+                    },
+                    "end": {
+                      "line": 8,
+                      "col": 3,
+                      "offset": 207
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 10,
+                      "col": 0,
+                      "offset": 209
+                    },
+                    "end": {
+                      "line": 10,
+                      "col": 62,
+                      "offset": 271
+                    }
+                  }
+                }
+              ]
+            },
+            "outgoing": [],
+            "incoming": {
+              "items": [
+                "ArchiveV2/archive-v2-07-en/Consumer.md"
+              ],
+              "total": 1
+            }
+          }
+        ],
+        "resolver": [
+          "ArchiveV2/archive-v2-07-en/A",
+          "ArchiveV2/archive-v2-07-en/B"
+        ],
+        "provenance": {
+          "origin": "relationship_analyzer",
+          "provider": "Свой API",
+          "model": "synthetic-safe-apply",
+          "analysis": {
+            "relation": "partial_overlap",
+            "claims": [
+              {
+                "id": "c1",
+                "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+                "kind": "shared",
+                "quoteA": "The fictional Reed scheduler admits a job only when a slot is free.",
+                "quoteB": "The fictional Reed scheduler admits a job only when a slot is free."
+              },
+              {
+                "id": "c2",
+                "text": "The implementation is unique and depends on its code fence and explanation.",
+                "kind": "unique_b",
+                "quoteA": null,
+                "quoteB": "function admit(freeSlots) {\n  return freeSlots > 0;\n}"
+              }
+            ],
+            "explanation": {
+              "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+              "evidence": [
+                "c1",
+                "c2"
+              ]
+            },
+            "recommendation": {
+              "action": "consider_merge",
+              "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+              "evidence": [
+                "c1"
+              ]
+            },
+            "alternatives": [],
+            "limitations": [
+              "Do not detach the prose from the code it describes."
+            ]
+          }
+        },
+        "limitations": [
+          "read_only_no_executor",
+          "secondary_unchanged",
+          "metadata_may_lag",
+          "external_sources_unverified",
+          "user_context_roles_not_proof",
+          "semantic_equivalence_unverified",
+          "no_archive_eligibility"
+        ]
+      },
+      "hashes": {
+        "before": "be09671e6564802426a6a0db73a5d70cc3011858a72a3f81bdef7a4df66aa84c",
+        "after": "3f9869e870c0840badfeb3a99cfe2073eedef5bb4ee935a6e42db68fbca96075",
+        "secondary": "7f05ee7b5c9c22b5b74a55ffd4d7b330eefca99b1faf955cd728c76727dcac1b"
+      }
+    },
+    "receipt": {
+      "state": "applied",
+      "modified": 1792430466703,
+      "bytes": 384,
+      "hash": "3f9869e870c0840badfeb3a99cfe2073eedef5bb4ee935a6e42db68fbca96075"
+    }
+  },
+  "canonical": {
+    "path": "ArchiveV2/archive-v2-07-en/A.md",
+    "created": 1792430465790,
+    "modified": 1792430466703,
+    "bytes": 384,
+    "content": "The fictional Reed scheduler admits a job only when a slot is free.\n\nA rejected job stays in the waiting list.\n\n\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.",
+    "hash": "3f9869e870c0840badfeb3a99cfe2073eedef5bb4ee935a6e42db68fbca96075"
+  },
+  "secondary": {
+    "path": "ArchiveV2/archive-v2-07-en/B.md",
+    "created": 1792430465790,
+    "modified": 1792430465790,
+    "bytes": 272,
+    "before": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n",
+    "after": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[ArchiveV2/archive-v2-07-en/A]]\"\n---\nThe fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise.\n",
+    "beforeHash": "7f05ee7b5c9c22b5b74a55ffd4d7b330eefca99b1faf955cd728c76727dcac1b"
+  },
+  "copied": [
+    {
+      "start": 0,
+      "end": 271,
+      "text": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+    }
+  ],
+  "retained": [
+    {
+      "start": 271,
+      "end": 272,
+      "text": "\n"
+    }
+  ],
+  "partition": [
+    {
+      "range": {
+        "start": 0,
+        "end": 67,
+        "text": "The fictional Reed scheduler admits a job only when a slot is free."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 0,
+        "end": 142,
+        "text": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 67,
+        "end": 69,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 0,
+        "end": 207,
+        "text": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```"
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 69,
+        "end": 142,
+        "text": "The toy implementation below returns a decision without starting the job."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 0,
+        "end": 207,
+        "text": "The fictional Reed scheduler admits a job only when a slot is free.\n\nThe toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```"
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 142,
+        "end": 144,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 69,
+        "end": 271,
+        "text": "The toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 144,
+        "end": 207,
+        "text": "```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```"
+      },
+      "copied": true,
+      "section": "code",
+      "context": {
+        "start": 69,
+        "end": 271,
+        "text": "The toy implementation below returns a decision without starting the job.\n\n```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 207,
+        "end": 209,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 144,
+        "end": 271,
+        "text": "```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 209,
+        "end": 271,
+        "text": "The zero-slot case is the counterexample used in the exercise."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 144,
+        "end": 271,
+        "text": "```js\nfunction admit(freeSlots) {\n  return freeSlots > 0;\n}\n```\n\nThe zero-slot case is the counterexample used in the exercise."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 271,
+        "end": 272,
+        "text": "\n"
+      },
+      "copied": false,
+      "section": null,
+      "context": {
+        "start": 209,
+        "end": 271,
+        "text": "The zero-slot case is the counterexample used in the exercise."
+      },
+      "kind": "separator"
+    }
+  ],
+  "preservation": [],
+  "dependencies": [
+    {
+      "path": "ArchiveV2/archive-v2-07-en/A.md",
+      "outgoing": [],
+      "incoming": [],
+      "targets": [],
+      "issues": [
+        "external_consumers_unverified"
+      ]
+    },
+    {
+      "path": "ArchiveV2/archive-v2-07-en/B.md",
+      "outgoing": [],
+      "incoming": [
+        {
+          "path": "ArchiveV2/archive-v2-07-en/Consumer.md",
+          "count": 3,
+          "metadataAvailable": true,
+          "references": [
+            {
+              "kind": "link",
+              "original": "[[ArchiveV2/archive-v2-07-en/B]]",
+              "target": "ArchiveV2/archive-v2-07-en/B.md"
+            },
+            {
+              "kind": "embed",
+              "original": "![[ArchiveV2/archive-v2-07-en/B]]",
+              "target": "ArchiveV2/archive-v2-07-en/B.md"
+            },
+            {
+              "kind": "property",
+              "original": "[[ArchiveV2/archive-v2-07-en/B]]",
+              "target": "ArchiveV2/archive-v2-07-en/B.md"
+            }
+          ]
+        }
+      ],
+      "targets": [
+        {
+          "from": "ArchiveV2/archive-v2-07-en/Consumer.md",
+          "kind": "link",
+          "original": "[[ArchiveV2/archive-v2-07-en/B]]",
+          "target": "ArchiveV2/archive-v2-07-en/B.md",
+          "subpath": ""
+        },
+        {
+          "from": "ArchiveV2/archive-v2-07-en/Consumer.md",
+          "kind": "embed",
+          "original": "![[ArchiveV2/archive-v2-07-en/B]]",
+          "target": "ArchiveV2/archive-v2-07-en/B.md",
+          "subpath": ""
+        },
+        {
+          "from": "ArchiveV2/archive-v2-07-en/Consumer.md",
+          "kind": "property",
+          "original": "[[ArchiveV2/archive-v2-07-en/B]]",
+          "target": "ArchiveV2/archive-v2-07-en/B.md",
+          "subpath": ""
+        }
+      ],
+      "issues": [
+        "external_consumers_unverified"
+      ]
+    }
+  ],
+  "confirmation": {
+    "limitationsReviewed": true,
+    "unknownDependenciesAccepted": true,
+    "semanticCompletenessProven": false
+  },
+  "limitations": [
+    "copy_not_redundancy",
+    "contradictions_versions",
+    "headings_examples",
+    "metadata_incomplete",
+    "unknown_dependencies",
+    "soft_only",
+    "read_only",
+    "single_parent_only",
+    "retained_group_rich_syntax_unsupported",
+    "parent_undo_chain_unimplemented",
+    "Do not detach the prose from the code it describes."
+  ],
+  "edit": {
+    "start": 0,
+    "end": 0,
+    "removed": "",
+    "inserted": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[ArchiveV2/archive-v2-07-en/A]]\"\n---\n"
+  }
+}

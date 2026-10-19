@@ -10,6 +10,8 @@ import { BundleApplyModal, renderBundleHistory } from "./bundleApplyModal";
 import { MergeApplyModal, renderMergeHistory } from "./mergeApplyModal";
 import { ArchivePlannerModal } from "./archivePlannerModal";
 import { readArchiveBasis } from "./obsidianArchive";
+import { ArchivePlannerModalV2 } from "./archivePlannerModalV2";
+import { readArchiveBasisV2 } from "./obsidianArchiveV2";
 import { ArchiveApplyModal, renderArchiveHistory } from "./archiveApplyModal";
 
 function button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
@@ -171,10 +173,12 @@ export class OperationHistoryModal extends Modal {
         ()=>{if(this.active)void this.refresh();}).open());
       for (const row of group) renderGroupHistory(this.contentEl, row, () => new GroupApplyModal(this.app, this.service.group!,
         current => this.service.group!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
-        () => { if (this.active) void this.refresh(); }).open());
+        () => { if (this.active) void this.refresh(); }).open(),
+      () => new ArchivePlannerModalV2(this.app, current => readArchiveBasisV2(this.app, this.service, "copy_context_group", row.id, current)).open());
       for (const row of bundle) renderBundleHistory(this.contentEl, row, () => new BundleApplyModal(this.app, this.service.bundle!,
         current => this.service.bundle!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
-        () => { if (this.active) void this.refresh(); }).open());
+        () => { if (this.active) void this.refresh(); }).open(),
+      () => new ArchivePlannerModalV2(this.app, current => readArchiveBasisV2(this.app, this.service, "context_bundle_copy", row.id, current)).open());
       for (const row of archive) renderArchiveHistory(this.contentEl, row, () => new ArchiveApplyModal(this.app, this.service.archive!,
         current => this.service.archive!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
         () => { if (this.active) void this.refresh(); }).open());

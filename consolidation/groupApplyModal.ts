@@ -4,6 +4,7 @@ import { SafeApplyError } from "./operationJournal";
 import type { GroupApply, GroupHistory, GroupReview } from "./groupApply";
 import type { GroupRecord } from "./groupJournal";
 import { renderPlanDiff } from "./planDiffView";
+import { renderStructuralArchiveAction } from "./archivePlannerModalV2";
 
 function control(root: HTMLElement, key: string, action: () => void): HTMLButtonElement {
   const b = root.createEl("button", { text: tr(`@groupApply.${key}`), attr: { type: "button", "data-group-apply-action": key } });
@@ -79,7 +80,7 @@ export class GroupApplyModal extends Modal {
   }
   onClose(): void { this.active = false; if (this.review) this.service.discard(this.review); this.contentEl.empty(); this.release(); }
 }
-export function renderGroupHistory(root: HTMLElement, row: GroupHistory, review: () => void): void {
+export function renderGroupHistory(root: HTMLElement, row: GroupHistory, review: () => void, archive?: () => void): void {
   const card = root.createEl("section", { cls: "ai-semantic-result-card", attr: { "data-group-state": row.state, "data-operation-id": row.id } });
   card.createEl("h3", { text: `${tr("@groupApply.operation")} · ${row.record ? new Date(row.record.createdAt).toLocaleString(dateLocale()) : ""}` });
   card.createEl("p", { text: tr(`@safeApply.state.${row.state}`), attr: { role: "status" } });
@@ -97,4 +98,5 @@ export function renderGroupHistory(root: HTMLElement, row: GroupHistory, review:
     const details = card.createEl("details"); details.createEl("summary", { text: tr("@safeApply.preview") }); preview(details, row.record);
   }
   if (row.canUndo) control(card, "undoReview", review);
+  if (archive) renderStructuralArchiveAction(card, row, archive);
 }

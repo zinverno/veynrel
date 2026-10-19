@@ -166,7 +166,7 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--group-apply') || process.argv.includes('--bundle-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation') || process.argv.includes('--exclusive-create-v2') || process.argv.includes('--empty-atom-apply')) {
+ if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--group-apply') || process.argv.includes('--bundle-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner-v2') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation') || process.argv.includes('--exclusive-create-v2') || process.argv.includes('--empty-atom-apply')) {
    const restart = async () => {
      socket.close();
      const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await exited;
@@ -220,6 +220,10 @@ try {
      const {mergeApplyScenario}=await import('./merge-apply-native.mjs');
      report.mergeApply=await mergeApplyScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
+   if(process.argv.includes('--archive-planner-v2')) {
+     const {archivePlannerV2Scenario}=await import('./archive-planner-v2-native.mjs');
+     report.archivePlannerV2=await archivePlannerV2Scenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
+   }
    if(process.argv.includes('--archive-planner')) {
      const {archivePlannerScenario}=await import('./archive-planner-native.mjs');
      report.archivePlanner=await archivePlannerScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
@@ -245,7 +249,7 @@ try {
    const { atomizationCreateGate } = await import('./atomization-create-gate-native.mjs');
    report.atomizationCreateGate = await atomizationCreateGate({ev,wait,cdp,root,vault,ROOT});
  }
- report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--bundle-apply')||process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
+ report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--bundle-apply')||process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner-v2') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
  if (report.exclusive) report.io={network:await ev('io.network'),scope:'Synthetic gate writes only; planner IO is asserted separately.'};
  if (report.atomizationCreateGate) report.io={network:await ev('io.network'),harnessVaultCreates:report.atomizationCreateGate.harnessVaultCreates,scope:'Read-only planning is checked before explicit synthetic API probes. Test creates and native indexing of scale fixtures are outside that boundary.'};
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}

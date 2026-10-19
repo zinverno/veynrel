@@ -4,6 +4,7 @@ import { SafeApplyError } from "./operationJournal";
 import type { BundleApply, BundleHistory, BundleReview } from "./bundleApply";
 import type { BundleRecord } from "./bundleJournal";
 import { renderPlanDiff } from "./planDiffView";
+import { renderStructuralArchiveAction } from "./archivePlannerModalV2";
 
 function control(root: HTMLElement, key: string, action: () => void): HTMLButtonElement {
   const b = root.createEl("button", { text: tr(`@bundleApply.${key}`), attr: { type: "button", "data-bundle-apply-action": key } });
@@ -74,7 +75,7 @@ export class BundleApplyModal extends Modal {
   }
   onClose(): void { this.active = false; if (this.review) this.service.discard(this.review); this.contentEl.empty(); this.release(); }
 }
-export function renderBundleHistory(root: HTMLElement, row: BundleHistory, review: () => void): void {
+export function renderBundleHistory(root: HTMLElement, row: BundleHistory, review: () => void, archive?: () => void): void {
   const card = root.createEl("section", { cls: "ai-semantic-result-card", attr: { "data-bundle-state": row.state, "data-operation-id": row.id } });
   card.createEl("h3", { text: `${tr("@bundleApply.operation")} · ${row.record ? new Date(row.record.createdAt).toLocaleString(dateLocale()) : ""}` });
   card.createEl("p", { text: tr(`@safeApply.state.${row.state}`), attr: { role: "status" } });
@@ -91,4 +92,5 @@ export function renderBundleHistory(root: HTMLElement, row: BundleHistory, revie
     const details = card.createEl("details"); details.createEl("summary", { text: tr("@safeApply.preview") }); preview(details, row.record);
   }
   if (row.canUndo) control(card, "undoReview", review);
+  if (archive) renderStructuralArchiveAction(card, row, archive);
 }

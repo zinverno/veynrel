@@ -1,0 +1,46 @@
+{
+  "base": "a89df52c988379780cef0463a83e4b0b06b27af3",
+  "artifactSha256": "27ff72c93cda4a430ca418406b421fe18d678c95493a9a5059b1ab579ea1efc4",
+  "unit": {
+    "command": "npm test",
+    "status": "PASS",
+    "files": 159,
+    "tests": 4254
+  },
+  "focused": {
+    "files": 2,
+    "tests": 105,
+    "status": "PASS"
+  },
+  "typecheck": "PASS",
+  "lint": {
+    "status": "PASS",
+    "errors": 0,
+    "existingWarning": "api.ts:404 no-restricted-globals (streaming fetch)"
+  },
+  "build": "PASS",
+  "auditProposals": {
+    "status": "PASS",
+    "mutationsKilled": 5,
+    "total": 5,
+    "restoredTests": "PASS",
+    "environment": "outside sandbox after sandbox child stdout was empty"
+  },
+  "diffCheck": "PASS",
+  "nativeV2": {
+    "status": "PASS",
+    "archiveAssertions": 93,
+    "inspectorBaselineAssertions": 18,
+    "cases": 8,
+    "screenshots": 59,
+    "plannerMarkdownWrites": 0,
+    "plannerJournalWrites": 0,
+    "plannerModelFactoryCalls": 0
+  },
+  "nativeMergeV1": {
+    "status": "PASS",
+    "archiveAssertions": 40,
+    "repeatedInspectorBaselineAssertions": 18
+  },
+  "githubCI": "Consult checks on the PR head; not part of this local evidence file."
+}
