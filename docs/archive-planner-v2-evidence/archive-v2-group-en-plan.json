@@ -1,0 +1,1054 @@
+{
+  "version": 2,
+  "operation": "structural_archive_in_place_plan",
+  "readOnly": true,
+  "status": "archived",
+  "provenance": {
+    "operation": "copy_context_group",
+    "id": "5a21ba752e6119cad8378e9a0682782df1d2c731ebdcbc91f564378ccbea0922",
+    "recordHash": "bd0ae3a588d8c0d44aec3b8c7bfab10efdf769207031e6b7e2d3fdf377ff038a",
+    "parent": {
+      "version": 1,
+      "operation": "copy_context_group",
+      "state": "prepared",
+      "id": "5a21ba752e6119cad8378e9a0682782df1d2c731ebdcbc91f564378ccbea0922",
+      "createdAt": 1792430458332,
+      "plan": {
+        "version": 1,
+        "operation": "copy_context_group",
+        "readOnly": true,
+        "canonical": {
+          "path": "ArchiveV2/archive-v2-group-en/A.md",
+          "identity": {
+            "created": 1792430457686,
+            "modified": 1792430457686,
+            "bytes": 80,
+            "contentHash": "81b4fd000b38199f"
+          },
+          "before": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n",
+          "after": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n"
+        },
+        "secondary": {
+          "path": "ArchiveV2/archive-v2-group-en/B.md",
+          "identity": {
+            "created": 1792430457686,
+            "modified": 1792430457686,
+            "bytes": 189,
+            "contentHash": "e583602d138e1ce1"
+          },
+          "content": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+          "unchanged": true
+        },
+        "hierarchy": {
+          "source": [
+            {
+              "level": 1,
+              "title": "Source guide",
+              "range": {
+                "start": 0,
+                "end": 14,
+                "text": "# Source guide"
+              },
+              "end": 170,
+              "parent": null
+            },
+            {
+              "level": 2,
+              "title": "Practice",
+              "range": {
+                "start": 66,
+                "end": 77,
+                "text": "## Practice"
+              },
+              "end": 130,
+              "parent": 0
+            },
+            {
+              "level": 3,
+              "title": "Trial",
+              "range": {
+                "start": 103,
+                "end": 112,
+                "text": "### Trial"
+              },
+              "end": 130,
+              "parent": 1
+            },
+            {
+              "level": 2,
+              "title": "Other",
+              "range": {
+                "start": 130,
+                "end": 138,
+                "text": "## Other"
+              },
+              "end": 170,
+              "parent": 0
+            }
+          ],
+          "destination": [
+            {
+              "level": 1,
+              "title": "Existing guide",
+              "range": {
+                "start": 0,
+                "end": 16,
+                "text": "# Existing guide"
+              },
+              "end": 80,
+              "parent": null
+            },
+            {
+              "level": 2,
+              "title": "Existing scope",
+              "range": {
+                "start": 39,
+                "end": 56,
+                "text": "## Existing scope"
+              },
+              "end": 80,
+              "parent": 0
+            }
+          ],
+          "inserted": [
+            {
+              "level": 1,
+              "text": "# Source guide",
+              "sourceOffset": 0,
+              "destinationOffset": 82
+            },
+            {
+              "level": 2,
+              "text": "## Practice",
+              "sourceOffset": 66,
+              "destinationOffset": 150
+            },
+            {
+              "level": 3,
+              "text": "### Trial",
+              "sourceOffset": 103,
+              "destinationOffset": 189
+            }
+          ]
+        },
+        "group": {
+          "heading": 2,
+          "path": [
+            0,
+            1,
+            2
+          ],
+          "range": {
+            "start": 103,
+            "end": 130,
+            "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+          },
+          "context": [
+            {
+              "start": 0,
+              "end": 66,
+              "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+            },
+            {
+              "start": 66,
+              "end": 103,
+              "text": "## Practice\n\nAncestor introduction.\n\n"
+            }
+          ],
+          "copied": [
+            {
+              "start": 0,
+              "end": 66,
+              "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+            },
+            {
+              "start": 66,
+              "end": 103,
+              "text": "## Practice\n\nAncestor introduction.\n\n"
+            },
+            {
+              "start": 103,
+              "end": 130,
+              "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+            }
+          ],
+          "retained": [
+            {
+              "start": 130,
+              "end": 170,
+              "text": "## Other\n\nRetained sibling observation.\n"
+            }
+          ]
+        },
+        "insertion": {
+          "point": 80,
+          "representation": "original_heading_branch",
+          "separator": "\n\n",
+          "edit": {
+            "start": 80,
+            "end": 80,
+            "removed": "",
+            "inserted": "\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n"
+          }
+        },
+        "confirmations": {
+          "operation": "copy_context_group",
+          "canonical": 0,
+          "group": {
+            "start": 103,
+            "end": 130,
+            "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+          },
+          "representation": "original_heading_branch",
+          "insertion": 80,
+          "groupConfirmed": true,
+          "contextConfirmed": true,
+          "insertionConfirmed": true,
+          "dependencies": "reviewed",
+          "distinctIntent": false
+        },
+        "dependencies": [
+          {
+            "path": "ArchiveV2/archive-v2-group-en/A.md",
+            "metadata": {
+              "headings": [
+                {
+                  "position": {
+                    "start": {
+                      "line": 0,
+                      "col": 0,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 0,
+                      "col": 16,
+                      "offset": 16
+                    }
+                  },
+                  "heading": "Existing guide",
+                  "level": 1
+                },
+                {
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "col": 0,
+                      "offset": 39
+                    },
+                    "end": {
+                      "line": 4,
+                      "col": 17,
+                      "offset": 56
+                    }
+                  },
+                  "heading": "Existing scope",
+                  "level": 2
+                }
+              ],
+              "sections": [
+                {
+                  "type": "heading",
+                  "position": {
+                    "start": {
+                      "line": 0,
+                      "col": 0,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 0,
+                      "col": 16,
+                      "offset": 16
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "col": 0,
+                      "offset": 18
+                    },
+                    "end": {
+                      "line": 2,
+                      "col": 19,
+                      "offset": 37
+                    }
+                  }
+                },
+                {
+                  "type": "heading",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "col": 0,
+                      "offset": 39
+                    },
+                    "end": {
+                      "line": 4,
+                      "col": 17,
+                      "offset": 56
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 6,
+                      "col": 0,
+                      "offset": 58
+                    },
+                    "end": {
+                      "line": 6,
+                      "col": 21,
+                      "offset": 79
+                    }
+                  }
+                }
+              ]
+            },
+            "outgoing": [],
+            "incoming": {
+              "items": [],
+              "total": 0
+            }
+          },
+          {
+            "path": "ArchiveV2/archive-v2-group-en/B.md",
+            "metadata": {
+              "headings": [
+                {
+                  "position": {
+                    "start": {
+                      "line": 0,
+                      "col": 0,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 0,
+                      "col": 14,
+                      "offset": 14
+                    }
+                  },
+                  "heading": "Source guide",
+                  "level": 1
+                },
+                {
+                  "position": {
+                    "start": {
+                      "line": 6,
+                      "col": 0,
+                      "offset": 66
+                    },
+                    "end": {
+                      "line": 6,
+                      "col": 11,
+                      "offset": 77
+                    }
+                  },
+                  "heading": "Practice",
+                  "level": 2
+                },
+                {
+                  "position": {
+                    "start": {
+                      "line": 10,
+                      "col": 0,
+                      "offset": 103
+                    },
+                    "end": {
+                      "line": 10,
+                      "col": 9,
+                      "offset": 112
+                    }
+                  },
+                  "heading": "Trial",
+                  "level": 3
+                },
+                {
+                  "position": {
+                    "start": {
+                      "line": 14,
+                      "col": 0,
+                      "offset": 130
+                    },
+                    "end": {
+                      "line": 14,
+                      "col": 8,
+                      "offset": 138
+                    }
+                  },
+                  "heading": "Other",
+                  "level": 2
+                }
+              ],
+              "sections": [
+                {
+                  "type": "heading",
+                  "position": {
+                    "start": {
+                      "line": 0,
+                      "col": 0,
+                      "offset": 0
+                    },
+                    "end": {
+                      "line": 0,
+                      "col": 14,
+                      "offset": 14
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 2,
+                      "col": 0,
+                      "offset": 16
+                    },
+                    "end": {
+                      "line": 2,
+                      "col": 19,
+                      "offset": 35
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 4,
+                      "col": 0,
+                      "offset": 37
+                    },
+                    "end": {
+                      "line": 4,
+                      "col": 27,
+                      "offset": 64
+                    }
+                  }
+                },
+                {
+                  "type": "heading",
+                  "position": {
+                    "start": {
+                      "line": 6,
+                      "col": 0,
+                      "offset": 66
+                    },
+                    "end": {
+                      "line": 6,
+                      "col": 11,
+                      "offset": 77
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 8,
+                      "col": 0,
+                      "offset": 79
+                    },
+                    "end": {
+                      "line": 8,
+                      "col": 22,
+                      "offset": 101
+                    }
+                  }
+                },
+                {
+                  "type": "heading",
+                  "position": {
+                    "start": {
+                      "line": 10,
+                      "col": 0,
+                      "offset": 103
+                    },
+                    "end": {
+                      "line": 10,
+                      "col": 9,
+                      "offset": 112
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 12,
+                      "col": 0,
+                      "offset": 114
+                    },
+                    "end": {
+                      "line": 12,
+                      "col": 14,
+                      "offset": 128
+                    }
+                  }
+                },
+                {
+                  "type": "heading",
+                  "position": {
+                    "start": {
+                      "line": 14,
+                      "col": 0,
+                      "offset": 130
+                    },
+                    "end": {
+                      "line": 14,
+                      "col": 8,
+                      "offset": 138
+                    }
+                  }
+                },
+                {
+                  "type": "paragraph",
+                  "position": {
+                    "start": {
+                      "line": 16,
+                      "col": 0,
+                      "offset": 140
+                    },
+                    "end": {
+                      "line": 16,
+                      "col": 29,
+                      "offset": 169
+                    }
+                  }
+                }
+              ]
+            },
+            "outgoing": [],
+            "incoming": {
+              "items": [
+                "ArchiveV2/archive-v2-group-en/Consumer.md"
+              ],
+              "total": 1
+            }
+          }
+        ],
+        "resolver": [
+          "ArchiveV2/archive-v2-group-en/A",
+          "ArchiveV2/archive-v2-group-en/B"
+        ],
+        "refusals": [],
+        "provenance": {
+          "origin": "relationship_analyzer",
+          "provider": "Свой API",
+          "model": "synthetic-safe-apply",
+          "analysis": {
+            "relation": "partial_overlap",
+            "claims": [
+              {
+                "id": "s",
+                "text": "Shared limited fact.",
+                "kind": "shared",
+                "quoteA": "Shared scoped fact.",
+                "quoteB": "Shared scoped fact."
+              }
+            ],
+            "explanation": {
+              "text": "Scripted structural control.",
+              "evidence": [
+                "s"
+              ]
+            },
+            "recommendation": {
+              "action": "consider_merge",
+              "reason": "Review context.",
+              "evidence": [
+                "s"
+              ]
+            },
+            "alternatives": [],
+            "limitations": [
+              "Synthetic control, not semantic completeness proof."
+            ]
+          }
+        },
+        "limitations": [
+          "read_only_no_executor",
+          "secondary_unchanged",
+          "metadata_may_lag",
+          "dependencies_not_scanned",
+          "semantic_equivalence_unverified",
+          "user_review_not_proof",
+          "no_archive_eligibility"
+        ]
+      },
+      "hashes": {
+        "before": "ea5244414903e6d63ce4374c0c9ec31857b49522cf9df5069233c7cabc4b41f3",
+        "after": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+        "secondary": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4"
+      }
+    },
+    "receipt": {
+      "state": "applied",
+      "modified": 1792430458473,
+      "bytes": 235,
+      "hash": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246"
+    }
+  },
+  "canonical": {
+    "path": "ArchiveV2/archive-v2-group-en/A.md",
+    "created": 1792430457686,
+    "modified": 1792430458473,
+    "bytes": 235,
+    "content": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n",
+    "hash": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246"
+  },
+  "secondary": {
+    "path": "ArchiveV2/archive-v2-group-en/B.md",
+    "created": 1792430457686,
+    "modified": 1792430457686,
+    "bytes": 189,
+    "before": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+    "after": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[ArchiveV2/archive-v2-group-en/A]]\"\n---\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+    "beforeHash": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4"
+  },
+  "heading": 2,
+  "path": [
+    0,
+    1,
+    2
+  ],
+  "range": {
+    "start": 103,
+    "end": 130,
+    "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+  },
+  "context": [
+    {
+      "start": 0,
+      "end": 66,
+      "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+    },
+    {
+      "start": 66,
+      "end": 103,
+      "text": "## Practice\n\nAncestor introduction.\n\n"
+    }
+  ],
+  "copied": [
+    {
+      "start": 0,
+      "end": 66,
+      "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+    },
+    {
+      "start": 66,
+      "end": 103,
+      "text": "## Practice\n\nAncestor introduction.\n\n"
+    },
+    {
+      "start": 103,
+      "end": 130,
+      "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+    }
+  ],
+  "retained": [
+    {
+      "start": 130,
+      "end": 170,
+      "text": "## Other\n\nRetained sibling observation.\n"
+    }
+  ],
+  "partition": [
+    {
+      "range": {
+        "start": 0,
+        "end": 14,
+        "text": "# Source guide"
+      },
+      "copied": true,
+      "section": "heading",
+      "context": {
+        "start": 0,
+        "end": 35,
+        "text": "# Source guide\n\nShared scoped fact."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 14,
+        "end": 16,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 0,
+        "end": 64,
+        "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 16,
+        "end": 35,
+        "text": "Shared scoped fact."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 0,
+        "end": 64,
+        "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 35,
+        "end": 37,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 16,
+        "end": 77,
+        "text": "Shared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice"
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 37,
+        "end": 64,
+        "text": "Root introduction 🪶 é 中文."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 16,
+        "end": 77,
+        "text": "Shared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice"
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 64,
+        "end": 66,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 37,
+        "end": 101,
+        "text": "Root introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 66,
+        "end": 77,
+        "text": "## Practice"
+      },
+      "copied": true,
+      "section": "heading",
+      "context": {
+        "start": 37,
+        "end": 101,
+        "text": "Root introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 77,
+        "end": 79,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 66,
+        "end": 112,
+        "text": "## Practice\n\nAncestor introduction.\n\n### Trial"
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 79,
+        "end": 101,
+        "text": "Ancestor introduction."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 66,
+        "end": 112,
+        "text": "## Practice\n\nAncestor introduction.\n\n### Trial"
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 101,
+        "end": 103,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 79,
+        "end": 128,
+        "text": "Ancestor introduction.\n\n### Trial\n\nНаблюдение 🪶."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 103,
+        "end": 112,
+        "text": "### Trial"
+      },
+      "copied": true,
+      "section": "heading",
+      "context": {
+        "start": 79,
+        "end": 128,
+        "text": "Ancestor introduction.\n\n### Trial\n\nНаблюдение 🪶."
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 112,
+        "end": 114,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 103,
+        "end": 138,
+        "text": "### Trial\n\nНаблюдение 🪶.\n\n## Other"
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 114,
+        "end": 128,
+        "text": "Наблюдение 🪶."
+      },
+      "copied": true,
+      "section": "paragraph",
+      "context": {
+        "start": 103,
+        "end": 138,
+        "text": "### Trial\n\nНаблюдение 🪶.\n\n## Other"
+      },
+      "kind": "copied"
+    },
+    {
+      "range": {
+        "start": 128,
+        "end": 130,
+        "text": "\n\n"
+      },
+      "copied": true,
+      "section": null,
+      "context": {
+        "start": 114,
+        "end": 169,
+        "text": "Наблюдение 🪶.\n\n## Other\n\nRetained sibling observation."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 130,
+        "end": 138,
+        "text": "## Other"
+      },
+      "copied": false,
+      "section": "heading",
+      "context": {
+        "start": 114,
+        "end": 169,
+        "text": "Наблюдение 🪶.\n\n## Other\n\nRetained sibling observation."
+      },
+      "kind": "dependency"
+    },
+    {
+      "range": {
+        "start": 138,
+        "end": 140,
+        "text": "\n\n"
+      },
+      "copied": false,
+      "section": null,
+      "context": {
+        "start": 130,
+        "end": 169,
+        "text": "## Other\n\nRetained sibling observation."
+      },
+      "kind": "separator"
+    },
+    {
+      "range": {
+        "start": 140,
+        "end": 169,
+        "text": "Retained sibling observation."
+      },
+      "copied": false,
+      "section": "paragraph",
+      "context": {
+        "start": 130,
+        "end": 169,
+        "text": "## Other\n\nRetained sibling observation."
+      },
+      "kind": "uncopied"
+    },
+    {
+      "range": {
+        "start": 169,
+        "end": 170,
+        "text": "\n"
+      },
+      "copied": false,
+      "section": null,
+      "context": {
+        "start": 140,
+        "end": 169,
+        "text": "Retained sibling observation."
+      },
+      "kind": "separator"
+    }
+  ],
+  "preservation": [
+    {
+      "range": {
+        "start": 130,
+        "end": 138,
+        "text": "## Other"
+      },
+      "copied": false,
+      "section": "heading",
+      "context": {
+        "start": 114,
+        "end": 169,
+        "text": "Наблюдение 🪶.\n\n## Other\n\nRetained sibling observation."
+      },
+      "kind": "dependency",
+      "disposition": "represented"
+    },
+    {
+      "range": {
+        "start": 140,
+        "end": 169,
+        "text": "Retained sibling observation."
+      },
+      "copied": false,
+      "section": "paragraph",
+      "context": {
+        "start": 130,
+        "end": 169,
+        "text": "## Other\n\nRetained sibling observation."
+      },
+      "kind": "uncopied",
+      "disposition": "retained"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "ArchiveV2/archive-v2-group-en/A.md",
+      "outgoing": [],
+      "incoming": [],
+      "targets": [],
+      "issues": [
+        "external_consumers_unverified"
+      ]
+    },
+    {
+      "path": "ArchiveV2/archive-v2-group-en/B.md",
+      "outgoing": [],
+      "incoming": [
+        {
+          "path": "ArchiveV2/archive-v2-group-en/Consumer.md",
+          "count": 3,
+          "metadataAvailable": true,
+          "references": [
+            {
+              "kind": "link",
+              "original": "[[ArchiveV2/archive-v2-group-en/B#Trial]]",
+              "target": "ArchiveV2/archive-v2-group-en/B.md"
+            },
+            {
+              "kind": "embed",
+              "original": "![[ArchiveV2/archive-v2-group-en/B#Trial]]",
+              "target": "ArchiveV2/archive-v2-group-en/B.md"
+            },
+            {
+              "kind": "property",
+              "original": "[[ArchiveV2/archive-v2-group-en/B]]",
+              "target": "ArchiveV2/archive-v2-group-en/B.md"
+            }
+          ]
+        }
+      ],
+      "targets": [
+        {
+          "from": "ArchiveV2/archive-v2-group-en/Consumer.md",
+          "kind": "link",
+          "original": "[[ArchiveV2/archive-v2-group-en/B#Trial]]",
+          "target": "ArchiveV2/archive-v2-group-en/B.md",
+          "subpath": "#Trial"
+        },
+        {
+          "from": "ArchiveV2/archive-v2-group-en/Consumer.md",
+          "kind": "embed",
+          "original": "![[ArchiveV2/archive-v2-group-en/B#Trial]]",
+          "target": "ArchiveV2/archive-v2-group-en/B.md",
+          "subpath": "#Trial"
+        },
+        {
+          "from": "ArchiveV2/archive-v2-group-en/Consumer.md",
+          "kind": "property",
+          "original": "[[ArchiveV2/archive-v2-group-en/B]]",
+          "target": "ArchiveV2/archive-v2-group-en/B.md",
+          "subpath": ""
+        }
+      ],
+      "issues": [
+        "external_consumers_unverified"
+      ]
+    }
+  ],
+  "confirmation": {
+    "limitationsReviewed": true,
+    "unknownDependenciesAccepted": true,
+    "semanticCompletenessProven": false
+  },
+  "limitations": [
+    "copy_not_redundancy",
+    "contradictions_versions",
+    "headings_examples",
+    "metadata_incomplete",
+    "unknown_dependencies",
+    "soft_only",
+    "read_only",
+    "single_parent_only",
+    "retained_group_rich_syntax_unsupported",
+    "parent_undo_chain_unimplemented",
+    "Synthetic control, not semantic completeness proof."
+  ],
+  "edit": {
+    "start": 0,
+    "end": 0,
+    "removed": "",
+    "inserted": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[ArchiveV2/archive-v2-group-en/A]]\"\n---\n"
+  }
+}

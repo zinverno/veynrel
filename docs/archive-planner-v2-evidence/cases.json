@@ -1,0 +1,82 @@
+[
+  {
+    "name": "archive-v2-group-en",
+    "id": "5a21ba752e6119cad8378e9a0682782df1d2c731ebdcbc91f564378ccbea0922",
+    "operation": "copy_context_group",
+    "partitionParts": 18,
+    "reviewParts": 2,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-07-en",
+    "id": "1995082826e4798935b81546e8dc60183d9128a04adc71797d0c49f9af1fd2c0",
+    "operation": "context_bundle_copy",
+    "partitionParts": 8,
+    "reviewParts": 0,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-08-en",
+    "id": "9718e317c4e278c3e248232aa1bcf0a0d8f89388ad0ebb616c83466825a617ea",
+    "operation": "context_bundle_copy",
+    "partitionParts": 8,
+    "reviewParts": 0,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-09-en",
+    "id": "00c558dfc0c094bea7cd28277e7ada7f0fcca83aff19aaf2de2dcc2ed9a8d862",
+    "operation": "context_bundle_copy",
+    "partitionParts": 8,
+    "reviewParts": 0,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-group-ru",
+    "id": "025a8a2b53d9cb43efe72298527d77ec73749d973d59fa72c9c24fc79d3ad2b9",
+    "operation": "copy_context_group",
+    "partitionParts": 18,
+    "reviewParts": 2,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-07-ru",
+    "id": "3618a61dfbc848ccc779871ca3d6c961f2090fbbb0d211373f175c1d44947293",
+    "operation": "context_bundle_copy",
+    "partitionParts": 8,
+    "reviewParts": 0,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-08-ru",
+    "id": "04b2a6a560e18cffb8114c1b5d539895c59d18f5feaab79b4c0dba0c73caa78c",
+    "operation": "context_bundle_copy",
+    "partitionParts": 8,
+    "reviewParts": 0,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  },
+  {
+    "name": "archive-v2-09-ru",
+    "id": "ef22c04d228bab14ebaadbd3e9bc3439303c03b6d48c4d82d37a979f9c0d31bb",
+    "operation": "context_bundle_copy",
+    "partitionParts": 8,
+    "reviewParts": 0,
+    "markdownWrites": 0,
+    "journalWrites": 0,
+    "modelRequests": 0
+  }
+]

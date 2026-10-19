@@ -23,6 +23,7 @@ import type { ArchiveJournal, ArchiveEntry } from "./archiveJournal";
 import { EmptyAtomApply } from "./emptyAtomApply";
 import type { EmptyAtomPort } from "./emptyAtomApply";
 import type { EmptyAtomJournal, EmptyAtomEntry } from "./emptyAtomJournal";
+import type { ArchiveParent, ArchiveParentRead } from "./archivePlanV2";
 
 /** Call-local history evidence only. Consent and execution always reread the journals. */
 export interface JournalSnapshot { single: JournalEntry[]; multi: MultiEntry[]; merge: MergeEntry[]; archive: ArchiveEntry[]; bundle: BundleEntry[]; group: GroupEntry[]; emptyAtom: EmptyAtomEntry[] }
@@ -50,6 +51,7 @@ export class SafeApplyService {
   readonly bundle?: BundleApply;
   readonly group?: GroupApply;
   readonly emptyAtom?: EmptyAtomApply;
+  readonly readArchiveParent: (operation: ArchiveParent["operation"], id: string, current: () => boolean) => Promise<ArchiveParentRead>;
   private busy = false;
   private closed = false;
   private readonly tickets = new Map<ApplyReview, Ticket>();
@@ -64,6 +66,29 @@ export class SafeApplyService {
       ]);
       return { single, multi: multiEntries, merge: mergeEntries, archive: archiveEntries, bundle: bundleEntries, group: groupEntries, emptyAtom: emptyAtomEntries };
     };
+    this.readArchiveParent = (operation, id, current) => this.exclusive(async () => {
+      this.active(current);
+      const snapshot = await this.historyJournals();
+      const entry = (operation === "copy_context_group" ? snapshot.group : snapshot.bundle).find(e => e.id === id);
+      requireSafe(entry?.record && entry.record.operation === operation && !entry.damaged && entry.scope === "none" &&
+        entry.receipts.length > 0 && entry.receipts.every(m => m.state === "applied" && JSON.stringify(m) === JSON.stringify(entry.receipts[0])), "conflict");
+      const record = entry.record, paths = [record.plan.canonical.path, record.plan.secondary.path];
+      // Planning also rejects intact pending Single/Multi operations, not just damaged evidence.
+      for (const e of snapshot.single) requireSafe(!!e.resolution || !!e.record &&
+        (!paths.some(p => p === e.record!.sourcePath || p === e.record!.targetPath) || e.marks.includes("undone") ||
+          e.marks.includes("applied") && !e.marks.includes("undo_pending")), "storage");
+      for (const e of snapshot.multi) requireSafe(!!e.record && (!e.record.files.some(f => paths.includes(f.path)) ||
+        e.marks.includes("undone") || e.marks.includes("applied") && !e.marks.includes("undo_intent") && !e.marks.includes("compensate_intent")), "storage");
+      await this.checkBlockers(paths, undefined, undefined, undefined, snapshot,
+        operation === "context_bundle_copy" ? id : undefined, operation === "copy_context_group" ? id : undefined);
+      const checked = record.operation === "copy_context_group" ? await group?.port.undo(record) : await bundle?.port.undo(record);
+      requireSafe(checked, "conflict");
+      const recordHash = await checksum(JSON.stringify(record));
+      requireSafe(entry.receipts.every(m => m.modified === checked.notes[0].modified && m.bytes === checked.notes[0].bytes && m.hash === record.hashes.after), "conflict");
+      requireSafe(JSON.stringify(snapshot) === JSON.stringify(await this.historyJournals()), "stale");
+      const guard = () => { this.active(current); checked.guard(); };
+      guard(); return { ...checked, record, entry, recordHash, guard };
+    });
     if (multi) this.multi = new MultiFileApply(multi.journal, port, multi.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
       blockers: (paths, ownId) => this.checkBlockers(paths, ownId),
