@@ -1,0 +1,326 @@
+[
+  {
+    "case": "block-archive-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-bundle-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-empty-atom-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-group-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-merge-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-multi-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "block-structural-archive-operations",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-after-write",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-before-backup",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-before-write",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-both-backups",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-first-backup",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-torn-applied",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-torn-undone",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-undo-after-write",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "bundle-undo-intent",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "canonical-edit",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "competing",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "cycles",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-after-write",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-before-backup",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-before-write",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-both-backups",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-first-backup",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-torn-applied",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-torn-undone",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-undo-after-write",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "group-undo-intent",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "merge-v1",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "metadata",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "new-backlink",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "parent-copy",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "pending-single",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "replacement",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  },
+  {
+    "case": "secondary-edit",
+    "status": "PASS",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+    "version": {
+      "electron": "43.6.0",
+      "obsidian": "1.13.7"
+    }
+  }
+]

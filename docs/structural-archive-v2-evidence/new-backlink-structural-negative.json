@@ -1,0 +1,199 @@
+{
+  "negative": "new-backlink",
+  "before": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/backup.json": {
+      "sha256": "81ca0c45b93e2ca1fca25e582ce36e2db98f0e294a96234e541d8a104ffb1f4b",
+      "mtime": 1792435335097.6604,
+      "bytes": 7063
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/mark-a0c1c0d7-e59e-40b6-8592-4fcf035ca264.json": {
+      "sha256": "2367b2e461e1461af06c58d0b4a840a403b54f00569c99ea3f9f0d360820ec94",
+      "mtime": 1792435335130.9941,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/record.json": {
+      "sha256": "81ca0c45b93e2ca1fca25e582ce36e2db98f0e294a96234e541d8a104ffb1f4b",
+      "mtime": 1792435335094.327,
+      "bytes": 7063
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/backup.json": {
+      "sha256": "1b8f7b61a5525e53b3f4acbc7b5d89ba86cd5adad0eb86c87acdddf6140acfa1",
+      "mtime": 1792435337504.369,
+      "bytes": 30650
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-7c24e362-0b9a-466c-af0f-674dd7a33a5a.json": {
+      "sha256": "1eb975e58f865300239c8c5e702a5c18c0d1ba5a0e737b9c3847af4dcc8bae1e",
+      "mtime": 1792435338001.0442,
+      "bytes": 549
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-c4e6b9aa-80aa-4730-8b34-8939bfcf44b1.json": {
+      "sha256": "32e977aef2321cbfb63dda42105ef46d5ad2d09fda8f4b2853b9ec579a2e5e32",
+      "mtime": 1792435338054.3784,
+      "bytes": 544
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-d30a518e-b666-4c8b-bca9-e74596307113.json": {
+      "sha256": "3f13ab35c1fd3c01300f859b587027c8aa6a9f78cf4657c6247d4655c3007a9c",
+      "mtime": 1792435337637.7043,
+      "bytes": 545
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/record.json": {
+      "sha256": "1b8f7b61a5525e53b3f4acbc7b5d89ba86cd5adad0eb86c87acdddf6140acfa1",
+      "mtime": 1792435337501.0354,
+      "bytes": 30650
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435329604.2317,
+      "bytes": 196
+    },
+    "StructuralArchive/negative-new-backlink/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435335117.6606,
+      "bytes": 235
+    },
+    "StructuralArchive/negative-new-backlink/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435338027.7112,
+      "bytes": 189
+    },
+    "StructuralArchive/negative-new-backlink/Consumer.md": {
+      "sha256": "182a0b13a2d75eaab8b9f38a0a2efc624978cb781b9ea3b5c0b30bad8a436ee3",
+      "mtime": 1792435334567.6511,
+      "bytes": 172
+    }
+  },
+  "changed": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/backup.json": {
+      "sha256": "81ca0c45b93e2ca1fca25e582ce36e2db98f0e294a96234e541d8a104ffb1f4b",
+      "mtime": 1792435335097.6604,
+      "bytes": 7063
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/mark-a0c1c0d7-e59e-40b6-8592-4fcf035ca264.json": {
+      "sha256": "2367b2e461e1461af06c58d0b4a840a403b54f00569c99ea3f9f0d360820ec94",
+      "mtime": 1792435335130.9941,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/record.json": {
+      "sha256": "81ca0c45b93e2ca1fca25e582ce36e2db98f0e294a96234e541d8a104ffb1f4b",
+      "mtime": 1792435335094.327,
+      "bytes": 7063
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/backup.json": {
+      "sha256": "1b8f7b61a5525e53b3f4acbc7b5d89ba86cd5adad0eb86c87acdddf6140acfa1",
+      "mtime": 1792435337504.369,
+      "bytes": 30650
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-7c24e362-0b9a-466c-af0f-674dd7a33a5a.json": {
+      "sha256": "1eb975e58f865300239c8c5e702a5c18c0d1ba5a0e737b9c3847af4dcc8bae1e",
+      "mtime": 1792435338001.0442,
+      "bytes": 549
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-c4e6b9aa-80aa-4730-8b34-8939bfcf44b1.json": {
+      "sha256": "32e977aef2321cbfb63dda42105ef46d5ad2d09fda8f4b2853b9ec579a2e5e32",
+      "mtime": 1792435338054.3784,
+      "bytes": 544
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-d30a518e-b666-4c8b-bca9-e74596307113.json": {
+      "sha256": "3f13ab35c1fd3c01300f859b587027c8aa6a9f78cf4657c6247d4655c3007a9c",
+      "mtime": 1792435337637.7043,
+      "bytes": 545
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/record.json": {
+      "sha256": "1b8f7b61a5525e53b3f4acbc7b5d89ba86cd5adad0eb86c87acdddf6140acfa1",
+      "mtime": 1792435337501.0354,
+      "bytes": 30650
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435329604.2317,
+      "bytes": 196
+    },
+    "StructuralArchive/New consumer.md": {
+      "sha256": "347de1239b49ed304440e2a6ce78f1e18643dabddeee42aeae351d3857c539e5",
+      "mtime": 1792435338177.7139,
+      "bytes": 45
+    },
+    "StructuralArchive/negative-new-backlink/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435335117.6606,
+      "bytes": 235
+    },
+    "StructuralArchive/negative-new-backlink/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435338027.7112,
+      "bytes": 189
+    },
+    "StructuralArchive/negative-new-backlink/Consumer.md": {
+      "sha256": "182a0b13a2d75eaab8b9f38a0a2efc624978cb781b9ea3b5c0b30bad8a436ee3",
+      "mtime": 1792435334567.6511,
+      "bytes": 172
+    }
+  },
+  "after": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/backup.json": {
+      "sha256": "81ca0c45b93e2ca1fca25e582ce36e2db98f0e294a96234e541d8a104ffb1f4b",
+      "mtime": 1792435335097.6604,
+      "bytes": 7063
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/mark-a0c1c0d7-e59e-40b6-8592-4fcf035ca264.json": {
+      "sha256": "2367b2e461e1461af06c58d0b4a840a403b54f00569c99ea3f9f0d360820ec94",
+      "mtime": 1792435335130.9941,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/3dfcdbe817585ede5595f54a9e3b9f6a5f1336502b49f3bfe7d9b6ffbb6e8dda/record.json": {
+      "sha256": "81ca0c45b93e2ca1fca25e582ce36e2db98f0e294a96234e541d8a104ffb1f4b",
+      "mtime": 1792435335094.327,
+      "bytes": 7063
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/backup.json": {
+      "sha256": "1b8f7b61a5525e53b3f4acbc7b5d89ba86cd5adad0eb86c87acdddf6140acfa1",
+      "mtime": 1792435337504.369,
+      "bytes": 30650
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-7c24e362-0b9a-466c-af0f-674dd7a33a5a.json": {
+      "sha256": "1eb975e58f865300239c8c5e702a5c18c0d1ba5a0e737b9c3847af4dcc8bae1e",
+      "mtime": 1792435338001.0442,
+      "bytes": 549
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-c4e6b9aa-80aa-4730-8b34-8939bfcf44b1.json": {
+      "sha256": "32e977aef2321cbfb63dda42105ef46d5ad2d09fda8f4b2853b9ec579a2e5e32",
+      "mtime": 1792435338054.3784,
+      "bytes": 544
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/mark-d30a518e-b666-4c8b-bca9-e74596307113.json": {
+      "sha256": "3f13ab35c1fd3c01300f859b587027c8aa6a9f78cf4657c6247d4655c3007a9c",
+      "mtime": 1792435337637.7043,
+      "bytes": 545
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/3ad2b30e74cd2c3f821f24799b93401a09bffdf69057f2c0539fe9ed2bd0a389/record.json": {
+      "sha256": "1b8f7b61a5525e53b3f4acbc7b5d89ba86cd5adad0eb86c87acdddf6140acfa1",
+      "mtime": 1792435337501.0354,
+      "bytes": 30650
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435329604.2317,
+      "bytes": 196
+    },
+    "StructuralArchive/New consumer.md": {
+      "sha256": "347de1239b49ed304440e2a6ce78f1e18643dabddeee42aeae351d3857c539e5",
+      "mtime": 1792435338177.7139,
+      "bytes": 45
+    },
+    "StructuralArchive/negative-new-backlink/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435335117.6606,
+      "bytes": 235
+    },
+    "StructuralArchive/negative-new-backlink/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435338027.7112,
+      "bytes": 189
+    },
+    "StructuralArchive/negative-new-backlink/Consumer.md": {
+      "sha256": "182a0b13a2d75eaab8b9f38a0a2efc624978cb781b9ea3b5c0b30bad8a436ee3",
+      "mtime": 1792435334567.6511,
+      "bytes": 172
+    }
+  }
+}

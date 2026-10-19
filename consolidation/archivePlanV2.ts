@@ -103,6 +103,6 @@ export function buildArchivePlanV2(input: ArchiveParentRead & { dependencies: Ar
     secondary: { path: s.path, created: s.created, modified: s.modified, bytes: s.bytes, before: s.content, after, beforeHash: record.hashes.secondary },
     ...archiveSourceRanges(record), partition, preservation, dependencies: input.dependencies,
     confirmation: { limitationsReviewed: true, unknownDependenciesAccepted: true, semanticCompletenessProven: false },
-    limitations: [...ARCHIVE_LIMITATIONS.filter(l => l !== "semantic_review_unavailable"), "single_parent_only", "retained_group_rich_syntax_unsupported", "parent_undo_chain_unimplemented",
+    limitations: [...ARCHIVE_LIMITATIONS.filter(l => l !== "semantic_review_unavailable"), "single_parent_only", "retained_group_rich_syntax_unsupported", "parent_undo_requires_complete_archive_chain",
       ...record.plan.provenance.analysis.limitations], edit };
 }

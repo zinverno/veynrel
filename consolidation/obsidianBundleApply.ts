@@ -1,3 +1,5 @@
+import { restorationModified } from "./structuralArchiveEvidence";
+import { checkStructuralRestoration } from "./obsidianStructuralArchiveState";
 import type { App } from "obsidian";
 import type { BundlePort } from "./bundleApply";
 import type { SafeApplyPort } from "./safeApply";
@@ -34,11 +36,11 @@ export function obsidianBundlePort(app: App, port: SafeApplyPort): BundlePort {
       const guard=()=>{checked.guard();validateContextBundlePlan(plan,analysis,checked.pair,plan.confirmations,checked.linktexts,checked.incoming);};
       guard();return {notes:[checked.pair[side],checked.pair[1-side]],guard};
     },
-    async undo(record,pinned){
+    async undo(record,pinned,restoration){
       const p=record.plan,c=p.canonical,s=p.secondary,checked=await read([c.path,s.path],pinned),[canonical,secondary]=checked.pair;
       const side=p.confirmations.canonical!;
       requireSafe(canonical.created===c.identity.created && canonical.content===c.after && canonical.bytes===new TextEncoder().encode(c.after).length &&
-        secondary.created===s.identity.created && secondary.modified===s.identity.modified && secondary.bytes===s.identity.bytes && secondary.content===s.content &&
+        secondary.created===s.identity.created && secondary.modified===restorationModified(record,restoration) && secondary.bytes===s.identity.bytes && secondary.content===s.content &&
         persistedMetadata(secondary.cache)===persistedMetadata(p.dependencies[1-side].metadata) &&
         JSON.stringify(secondary.references)===JSON.stringify(p.dependencies[1-side].outgoing) &&
         JSON.stringify(canonical.references)===JSON.stringify(p.dependencies[side].outgoing) &&
@@ -46,7 +48,8 @@ export function obsidianBundlePort(app: App, port: SafeApplyPort): BundlePort {
         JSON.stringify(checked.linktexts)===JSON.stringify([p.resolver[side],p.resolver[1-side]]),"conflict");
       const start=p.insertion.point+p.insertion.separator.length+p.bundle.core.start-p.bundle.range.start;
       requireSafe(contextBundleCandidates(canonical).some(b=>!b.failure && b.kind===p.kind && b.core.start===start && b.core.text===p.bundle.core.text),"conflict");
-      checked.guard();return {notes:checked.pair,guard:checked.guard};
+      const restoredGuard=restoration?await checkStructuralRestoration(app,port,checked.pair,restoration):undefined;
+      const guard=()=>{checked.guard();restoredGuard?.();};guard();return {notes:checked.pair,guard};
     },
   };
 }

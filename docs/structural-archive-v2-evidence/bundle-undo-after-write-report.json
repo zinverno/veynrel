@@ -1,0 +1,46 @@
+{
+  "checks": [
+    "Discover and actual duplicate list read no Markdown and call no providers",
+    "Decisions disabled with empty key; both exact saved paths read",
+    "Source never expands embeds or HTML",
+    "Native inline/frontmatter tags and incoming links appear",
+    "en theme-light 1200 no horizontal overflow",
+    "en theme-light 390 no horizontal overflow",
+    "en theme-dark 1200 no horizontal overflow",
+    "en theme-dark 390 no horizontal overflow",
+    "ru theme-light 1200 no horizontal overflow",
+    "ru theme-light 390 no horizontal overflow",
+    "ru theme-dark 1200 no horizontal overflow",
+    "ru theme-dark 390 no horizontal overflow",
+    "Open source note selects the exact second path",
+    "Inspector performs zero network requests and Markdown writes",
+    "External change marks stale; refresh reads current saved file",
+    "Deleted note shown independently while the other remains available",
+    "No writes or network even after refresh and reopen",
+    "Closing during asynchronous read never restores inspector UI"
+  ],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "structuralArchive": {
+    "status": "PASS",
+    "checks": [
+      "crash-undo-after-write-08: explicit independent review, unchecked controls and known dependencies",
+      "crash-undo-after-write-08: unknown-consumer decision is separately required",
+      "crash-undo-after-write-08: read-only plan with separate final review",
+      "crash-undo-after-write-08: final review creates no journal or Markdown; final confirmation unchecked",
+      "SIGKILL undo-after-write: exact Markdown and evidence unchanged at startup; incomplete chain blocks both Undo actions"
+    ],
+    "crash": "undo-after-write",
+    "kind": "08",
+    "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487"
+  },
+  "version": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "io": {
+    "network": 0,
+    "scope": "Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly."
+  },
+  "status": "PASS"
+}

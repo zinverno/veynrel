@@ -1,0 +1,1759 @@
+{
+  "crash": "both-backups",
+  "kind": "group",
+  "stopped": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77/backup.json": {
+      "sha256": "bd347eff1a99b1296dcd5d42cb8b437041ec94b7eca0d5fdb93b592aea08526d",
+      "mtime": 1792435118593.9006,
+      "bytes": 7084
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77/mark-317e9f0d-56c6-4795-9f48-225363454650.json": {
+      "sha256": "579558392b31cffc9feda5ab2e8e576b5417eff8a739008c4c7538d024ec17cc",
+      "mtime": 1792435118637.2346,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77/record.json": {
+      "sha256": "bd347eff1a99b1296dcd5d42cb8b437041ec94b7eca0d5fdb93b592aea08526d",
+      "mtime": 1792435118590.5671,
+      "bytes": 7084
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/cbd9d5b40974eab1d016c8ad864399985eb4cb43f2becdc4c40a57b92cecb018/backup.json": {
+      "sha256": "fbb3e61c2f7bc515801cc84e4c88aedac1a3528e860e36e287e11e384accb138",
+      "mtime": 1792435121597.2861,
+      "bytes": 30845
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/cbd9d5b40974eab1d016c8ad864399985eb4cb43f2becdc4c40a57b92cecb018/record.json": {
+      "sha256": "fbb3e61c2f7bc515801cc84e4c88aedac1a3528e860e36e287e11e384accb138",
+      "mtime": 1792435121597.2861,
+      "bytes": 30845
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435111473.777,
+      "bytes": 196
+    },
+    "StructuralArchive/crash-both-backups-group/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435118620.5679,
+      "bytes": 235
+    },
+    "StructuralArchive/crash-both-backups-group/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435118007.2239,
+      "bytes": 189
+    },
+    "StructuralArchive/crash-both-backups-group/Consumer.md": {
+      "sha256": "1bfb9519b93bef5e3eece6afc045819170af27a062918c6ed2b4d6429fac0d94",
+      "mtime": 1792435118063.8914,
+      "bytes": 181
+    }
+  },
+  "afterRestart": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77/backup.json": {
+      "sha256": "bd347eff1a99b1296dcd5d42cb8b437041ec94b7eca0d5fdb93b592aea08526d",
+      "mtime": 1792435118593.9006,
+      "bytes": 7084
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77/mark-317e9f0d-56c6-4795-9f48-225363454650.json": {
+      "sha256": "579558392b31cffc9feda5ab2e8e576b5417eff8a739008c4c7538d024ec17cc",
+      "mtime": 1792435118637.2346,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77/record.json": {
+      "sha256": "bd347eff1a99b1296dcd5d42cb8b437041ec94b7eca0d5fdb93b592aea08526d",
+      "mtime": 1792435118590.5671,
+      "bytes": 7084
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/cbd9d5b40974eab1d016c8ad864399985eb4cb43f2becdc4c40a57b92cecb018/backup.json": {
+      "sha256": "fbb3e61c2f7bc515801cc84e4c88aedac1a3528e860e36e287e11e384accb138",
+      "mtime": 1792435121597.2861,
+      "bytes": 30845
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/cbd9d5b40974eab1d016c8ad864399985eb4cb43f2becdc4c40a57b92cecb018/record.json": {
+      "sha256": "fbb3e61c2f7bc515801cc84e4c88aedac1a3528e860e36e287e11e384accb138",
+      "mtime": 1792435121597.2861,
+      "bytes": 30845
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435111473.777,
+      "bytes": 196
+    },
+    "StructuralArchive/crash-both-backups-group/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435118620.5679,
+      "bytes": 235
+    },
+    "StructuralArchive/crash-both-backups-group/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435118007.2239,
+      "bytes": 189
+    },
+    "StructuralArchive/crash-both-backups-group/Consumer.md": {
+      "sha256": "1bfb9519b93bef5e3eece6afc045819170af27a062918c6ed2b4d6429fac0d94",
+      "mtime": 1792435118063.8914,
+      "bytes": 181
+    }
+  },
+  "rows": [
+    {
+      "id": "cbd9d5b40974eab1d016c8ad864399985eb4cb43f2becdc4c40a57b92cecb018",
+      "damaged": false,
+      "scope": "none",
+      "receipts": [],
+      "issues": [],
+      "record": {
+        "version": 2,
+        "operation": "structural_archive_in_place",
+        "state": "prepared",
+        "id": "cbd9d5b40974eab1d016c8ad864399985eb4cb43f2becdc4c40a57b92cecb018",
+        "createdAt": 1792435121513,
+        "parent": {
+          "version": 1,
+          "operation": "copy_context_group",
+          "state": "prepared",
+          "id": "c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77",
+          "createdAt": 1792435118535,
+          "plan": {
+            "version": 1,
+            "operation": "copy_context_group",
+            "readOnly": true,
+            "canonical": {
+              "path": "StructuralArchive/crash-both-backups-group/A.md",
+              "identity": {
+                "created": 1792435118007,
+                "modified": 1792435118007,
+                "bytes": 80,
+                "contentHash": "81b4fd000b38199f"
+              },
+              "before": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n",
+              "after": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n"
+            },
+            "secondary": {
+              "path": "StructuralArchive/crash-both-backups-group/B.md",
+              "identity": {
+                "created": 1792435118007,
+                "modified": 1792435118007,
+                "bytes": 189,
+                "contentHash": "e583602d138e1ce1"
+              },
+              "content": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+              "unchanged": true
+            },
+            "hierarchy": {
+              "source": [
+                {
+                  "level": 1,
+                  "title": "Source guide",
+                  "range": {
+                    "start": 0,
+                    "end": 14,
+                    "text": "# Source guide"
+                  },
+                  "end": 170,
+                  "parent": null
+                },
+                {
+                  "level": 2,
+                  "title": "Practice",
+                  "range": {
+                    "start": 66,
+                    "end": 77,
+                    "text": "## Practice"
+                  },
+                  "end": 130,
+                  "parent": 0
+                },
+                {
+                  "level": 3,
+                  "title": "Trial",
+                  "range": {
+                    "start": 103,
+                    "end": 112,
+                    "text": "### Trial"
+                  },
+                  "end": 130,
+                  "parent": 1
+                },
+                {
+                  "level": 2,
+                  "title": "Other",
+                  "range": {
+                    "start": 130,
+                    "end": 138,
+                    "text": "## Other"
+                  },
+                  "end": 170,
+                  "parent": 0
+                }
+              ],
+              "destination": [
+                {
+                  "level": 1,
+                  "title": "Existing guide",
+                  "range": {
+                    "start": 0,
+                    "end": 16,
+                    "text": "# Existing guide"
+                  },
+                  "end": 80,
+                  "parent": null
+                },
+                {
+                  "level": 2,
+                  "title": "Existing scope",
+                  "range": {
+                    "start": 39,
+                    "end": 56,
+                    "text": "## Existing scope"
+                  },
+                  "end": 80,
+                  "parent": 0
+                }
+              ],
+              "inserted": [
+                {
+                  "level": 1,
+                  "text": "# Source guide",
+                  "sourceOffset": 0,
+                  "destinationOffset": 82
+                },
+                {
+                  "level": 2,
+                  "text": "## Practice",
+                  "sourceOffset": 66,
+                  "destinationOffset": 150
+                },
+                {
+                  "level": 3,
+                  "text": "### Trial",
+                  "sourceOffset": 103,
+                  "destinationOffset": 189
+                }
+              ]
+            },
+            "group": {
+              "heading": 2,
+              "path": [
+                0,
+                1,
+                2
+              ],
+              "range": {
+                "start": 103,
+                "end": 130,
+                "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+              },
+              "context": [
+                {
+                  "start": 0,
+                  "end": 66,
+                  "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+                },
+                {
+                  "start": 66,
+                  "end": 103,
+                  "text": "## Practice\n\nAncestor introduction.\n\n"
+                }
+              ],
+              "copied": [
+                {
+                  "start": 0,
+                  "end": 66,
+                  "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+                },
+                {
+                  "start": 66,
+                  "end": 103,
+                  "text": "## Practice\n\nAncestor introduction.\n\n"
+                },
+                {
+                  "start": 103,
+                  "end": 130,
+                  "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+                }
+              ],
+              "retained": [
+                {
+                  "start": 130,
+                  "end": 170,
+                  "text": "## Other\n\nRetained sibling observation.\n"
+                }
+              ]
+            },
+            "insertion": {
+              "point": 80,
+              "representation": "original_heading_branch",
+              "separator": "\n\n",
+              "edit": {
+                "start": 80,
+                "end": 80,
+                "removed": "",
+                "inserted": "\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n"
+              }
+            },
+            "confirmations": {
+              "operation": "copy_context_group",
+              "canonical": 0,
+              "group": {
+                "start": 103,
+                "end": 130,
+                "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+              },
+              "representation": "original_heading_branch",
+              "insertion": 80,
+              "groupConfirmed": true,
+              "contextConfirmed": true,
+              "insertionConfirmed": true,
+              "dependencies": "reviewed",
+              "distinctIntent": false
+            },
+            "dependencies": [
+              {
+                "path": "StructuralArchive/crash-both-backups-group/A.md",
+                "metadata": {
+                  "headings": [
+                    {
+                      "position": {
+                        "start": {
+                          "line": 0,
+                          "col": 0,
+                          "offset": 0
+                        },
+                        "end": {
+                          "line": 0,
+                          "col": 16,
+                          "offset": 16
+                        }
+                      },
+                      "heading": "Existing guide",
+                      "level": 1
+                    },
+                    {
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "col": 0,
+                          "offset": 39
+                        },
+                        "end": {
+                          "line": 4,
+                          "col": 17,
+                          "offset": 56
+                        }
+                      },
+                      "heading": "Existing scope",
+                      "level": 2
+                    }
+                  ],
+                  "sections": [
+                    {
+                      "type": "heading",
+                      "position": {
+                        "start": {
+                          "line": 0,
+                          "col": 0,
+                          "offset": 0
+                        },
+                        "end": {
+                          "line": 0,
+                          "col": 16,
+                          "offset": 16
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 2,
+                          "col": 0,
+                          "offset": 18
+                        },
+                        "end": {
+                          "line": 2,
+                          "col": 19,
+                          "offset": 37
+                        }
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "col": 0,
+                          "offset": 39
+                        },
+                        "end": {
+                          "line": 4,
+                          "col": 17,
+                          "offset": 56
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 6,
+                          "col": 0,
+                          "offset": 58
+                        },
+                        "end": {
+                          "line": 6,
+                          "col": 21,
+                          "offset": 79
+                        }
+                      }
+                    }
+                  ]
+                },
+                "outgoing": [],
+                "incoming": {
+                  "items": [],
+                  "total": 0
+                }
+              },
+              {
+                "path": "StructuralArchive/crash-both-backups-group/B.md",
+                "metadata": {
+                  "headings": [
+                    {
+                      "position": {
+                        "start": {
+                          "line": 0,
+                          "col": 0,
+                          "offset": 0
+                        },
+                        "end": {
+                          "line": 0,
+                          "col": 14,
+                          "offset": 14
+                        }
+                      },
+                      "heading": "Source guide",
+                      "level": 1
+                    },
+                    {
+                      "position": {
+                        "start": {
+                          "line": 6,
+                          "col": 0,
+                          "offset": 66
+                        },
+                        "end": {
+                          "line": 6,
+                          "col": 11,
+                          "offset": 77
+                        }
+                      },
+                      "heading": "Practice",
+                      "level": 2
+                    },
+                    {
+                      "position": {
+                        "start": {
+                          "line": 10,
+                          "col": 0,
+                          "offset": 103
+                        },
+                        "end": {
+                          "line": 10,
+                          "col": 9,
+                          "offset": 112
+                        }
+                      },
+                      "heading": "Trial",
+                      "level": 3
+                    },
+                    {
+                      "position": {
+                        "start": {
+                          "line": 14,
+                          "col": 0,
+                          "offset": 130
+                        },
+                        "end": {
+                          "line": 14,
+                          "col": 8,
+                          "offset": 138
+                        }
+                      },
+                      "heading": "Other",
+                      "level": 2
+                    }
+                  ],
+                  "sections": [
+                    {
+                      "type": "heading",
+                      "position": {
+                        "start": {
+                          "line": 0,
+                          "col": 0,
+                          "offset": 0
+                        },
+                        "end": {
+                          "line": 0,
+                          "col": 14,
+                          "offset": 14
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 2,
+                          "col": 0,
+                          "offset": 16
+                        },
+                        "end": {
+                          "line": 2,
+                          "col": 19,
+                          "offset": 35
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "col": 0,
+                          "offset": 37
+                        },
+                        "end": {
+                          "line": 4,
+                          "col": 27,
+                          "offset": 64
+                        }
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "position": {
+                        "start": {
+                          "line": 6,
+                          "col": 0,
+                          "offset": 66
+                        },
+                        "end": {
+                          "line": 6,
+                          "col": 11,
+                          "offset": 77
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 8,
+                          "col": 0,
+                          "offset": 79
+                        },
+                        "end": {
+                          "line": 8,
+                          "col": 22,
+                          "offset": 101
+                        }
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "position": {
+                        "start": {
+                          "line": 10,
+                          "col": 0,
+                          "offset": 103
+                        },
+                        "end": {
+                          "line": 10,
+                          "col": 9,
+                          "offset": 112
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 12,
+                          "col": 0,
+                          "offset": 114
+                        },
+                        "end": {
+                          "line": 12,
+                          "col": 14,
+                          "offset": 128
+                        }
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "position": {
+                        "start": {
+                          "line": 14,
+                          "col": 0,
+                          "offset": 130
+                        },
+                        "end": {
+                          "line": 14,
+                          "col": 8,
+                          "offset": 138
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 16,
+                          "col": 0,
+                          "offset": 140
+                        },
+                        "end": {
+                          "line": 16,
+                          "col": 29,
+                          "offset": 169
+                        }
+                      }
+                    }
+                  ]
+                },
+                "outgoing": [],
+                "incoming": {
+                  "items": [
+                    "StructuralArchive/crash-both-backups-group/Consumer.md"
+                  ],
+                  "total": 1
+                }
+              }
+            ],
+            "resolver": [
+              "StructuralArchive/crash-both-backups-group/A",
+              "StructuralArchive/crash-both-backups-group/B"
+            ],
+            "refusals": [],
+            "provenance": {
+              "origin": "relationship_analyzer",
+              "provider": "Свой API",
+              "model": "synthetic-safe-apply",
+              "analysis": {
+                "relation": "partial_overlap",
+                "claims": [
+                  {
+                    "id": "s",
+                    "text": "Shared limited fact.",
+                    "kind": "shared",
+                    "quoteA": "Shared scoped fact.",
+                    "quoteB": "Shared scoped fact."
+                  }
+                ],
+                "explanation": {
+                  "text": "Scripted structural control.",
+                  "evidence": [
+                    "s"
+                  ]
+                },
+                "recommendation": {
+                  "action": "consider_merge",
+                  "reason": "Review context.",
+                  "evidence": [
+                    "s"
+                  ]
+                },
+                "alternatives": [],
+                "limitations": [
+                  "Synthetic control, not semantic completeness proof."
+                ]
+              }
+            },
+            "limitations": [
+              "read_only_no_executor",
+              "secondary_unchanged",
+              "metadata_may_lag",
+              "dependencies_not_scanned",
+              "semantic_equivalence_unverified",
+              "user_review_not_proof",
+              "no_archive_eligibility"
+            ]
+          },
+          "hashes": {
+            "before": "ea5244414903e6d63ce4374c0c9ec31857b49522cf9df5069233c7cabc4b41f3",
+            "after": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+            "secondary": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4"
+          }
+        },
+        "plan": {
+          "version": 2,
+          "operation": "structural_archive_in_place_plan",
+          "readOnly": true,
+          "status": "archived",
+          "provenance": {
+            "operation": "copy_context_group",
+            "id": "c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77",
+            "recordHash": "bd347eff1a99b1296dcd5d42cb8b437041ec94b7eca0d5fdb93b592aea08526d",
+            "parent": {
+              "version": 1,
+              "operation": "copy_context_group",
+              "state": "prepared",
+              "id": "c8bd830fab51dadd807afa9964f40d3c0438f5b6c6de9a0e7a7e039d7313bd77",
+              "createdAt": 1792435118535,
+              "plan": {
+                "version": 1,
+                "operation": "copy_context_group",
+                "readOnly": true,
+                "canonical": {
+                  "path": "StructuralArchive/crash-both-backups-group/A.md",
+                  "identity": {
+                    "created": 1792435118007,
+                    "modified": 1792435118007,
+                    "bytes": 80,
+                    "contentHash": "81b4fd000b38199f"
+                  },
+                  "before": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n",
+                  "after": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n"
+                },
+                "secondary": {
+                  "path": "StructuralArchive/crash-both-backups-group/B.md",
+                  "identity": {
+                    "created": 1792435118007,
+                    "modified": 1792435118007,
+                    "bytes": 189,
+                    "contentHash": "e583602d138e1ce1"
+                  },
+                  "content": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+                  "unchanged": true
+                },
+                "hierarchy": {
+                  "source": [
+                    {
+                      "level": 1,
+                      "title": "Source guide",
+                      "range": {
+                        "start": 0,
+                        "end": 14,
+                        "text": "# Source guide"
+                      },
+                      "end": 170,
+                      "parent": null
+                    },
+                    {
+                      "level": 2,
+                      "title": "Practice",
+                      "range": {
+                        "start": 66,
+                        "end": 77,
+                        "text": "## Practice"
+                      },
+                      "end": 130,
+                      "parent": 0
+                    },
+                    {
+                      "level": 3,
+                      "title": "Trial",
+                      "range": {
+                        "start": 103,
+                        "end": 112,
+                        "text": "### Trial"
+                      },
+                      "end": 130,
+                      "parent": 1
+                    },
+                    {
+                      "level": 2,
+                      "title": "Other",
+                      "range": {
+                        "start": 130,
+                        "end": 138,
+                        "text": "## Other"
+                      },
+                      "end": 170,
+                      "parent": 0
+                    }
+                  ],
+                  "destination": [
+                    {
+                      "level": 1,
+                      "title": "Existing guide",
+                      "range": {
+                        "start": 0,
+                        "end": 16,
+                        "text": "# Existing guide"
+                      },
+                      "end": 80,
+                      "parent": null
+                    },
+                    {
+                      "level": 2,
+                      "title": "Existing scope",
+                      "range": {
+                        "start": 39,
+                        "end": 56,
+                        "text": "## Existing scope"
+                      },
+                      "end": 80,
+                      "parent": 0
+                    }
+                  ],
+                  "inserted": [
+                    {
+                      "level": 1,
+                      "text": "# Source guide",
+                      "sourceOffset": 0,
+                      "destinationOffset": 82
+                    },
+                    {
+                      "level": 2,
+                      "text": "## Practice",
+                      "sourceOffset": 66,
+                      "destinationOffset": 150
+                    },
+                    {
+                      "level": 3,
+                      "text": "### Trial",
+                      "sourceOffset": 103,
+                      "destinationOffset": 189
+                    }
+                  ]
+                },
+                "group": {
+                  "heading": 2,
+                  "path": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "range": {
+                    "start": 103,
+                    "end": 130,
+                    "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+                  },
+                  "context": [
+                    {
+                      "start": 0,
+                      "end": 66,
+                      "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+                    },
+                    {
+                      "start": 66,
+                      "end": 103,
+                      "text": "## Practice\n\nAncestor introduction.\n\n"
+                    }
+                  ],
+                  "copied": [
+                    {
+                      "start": 0,
+                      "end": 66,
+                      "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+                    },
+                    {
+                      "start": 66,
+                      "end": 103,
+                      "text": "## Practice\n\nAncestor introduction.\n\n"
+                    },
+                    {
+                      "start": 103,
+                      "end": 130,
+                      "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+                    }
+                  ],
+                  "retained": [
+                    {
+                      "start": 130,
+                      "end": 170,
+                      "text": "## Other\n\nRetained sibling observation.\n"
+                    }
+                  ]
+                },
+                "insertion": {
+                  "point": 80,
+                  "representation": "original_heading_branch",
+                  "separator": "\n\n",
+                  "edit": {
+                    "start": 80,
+                    "end": 80,
+                    "removed": "",
+                    "inserted": "\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n"
+                  }
+                },
+                "confirmations": {
+                  "operation": "copy_context_group",
+                  "canonical": 0,
+                  "group": {
+                    "start": 103,
+                    "end": 130,
+                    "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+                  },
+                  "representation": "original_heading_branch",
+                  "insertion": 80,
+                  "groupConfirmed": true,
+                  "contextConfirmed": true,
+                  "insertionConfirmed": true,
+                  "dependencies": "reviewed",
+                  "distinctIntent": false
+                },
+                "dependencies": [
+                  {
+                    "path": "StructuralArchive/crash-both-backups-group/A.md",
+                    "metadata": {
+                      "headings": [
+                        {
+                          "position": {
+                            "start": {
+                              "line": 0,
+                              "col": 0,
+                              "offset": 0
+                            },
+                            "end": {
+                              "line": 0,
+                              "col": 16,
+                              "offset": 16
+                            }
+                          },
+                          "heading": "Existing guide",
+                          "level": 1
+                        },
+                        {
+                          "position": {
+                            "start": {
+                              "line": 4,
+                              "col": 0,
+                              "offset": 39
+                            },
+                            "end": {
+                              "line": 4,
+                              "col": 17,
+                              "offset": 56
+                            }
+                          },
+                          "heading": "Existing scope",
+                          "level": 2
+                        }
+                      ],
+                      "sections": [
+                        {
+                          "type": "heading",
+                          "position": {
+                            "start": {
+                              "line": 0,
+                              "col": 0,
+                              "offset": 0
+                            },
+                            "end": {
+                              "line": 0,
+                              "col": 16,
+                              "offset": 16
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 2,
+                              "col": 0,
+                              "offset": 18
+                            },
+                            "end": {
+                              "line": 2,
+                              "col": 19,
+                              "offset": 37
+                            }
+                          }
+                        },
+                        {
+                          "type": "heading",
+                          "position": {
+                            "start": {
+                              "line": 4,
+                              "col": 0,
+                              "offset": 39
+                            },
+                            "end": {
+                              "line": 4,
+                              "col": 17,
+                              "offset": 56
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 6,
+                              "col": 0,
+                              "offset": 58
+                            },
+                            "end": {
+                              "line": 6,
+                              "col": 21,
+                              "offset": 79
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "outgoing": [],
+                    "incoming": {
+                      "items": [],
+                      "total": 0
+                    }
+                  },
+                  {
+                    "path": "StructuralArchive/crash-both-backups-group/B.md",
+                    "metadata": {
+                      "headings": [
+                        {
+                          "position": {
+                            "start": {
+                              "line": 0,
+                              "col": 0,
+                              "offset": 0
+                            },
+                            "end": {
+                              "line": 0,
+                              "col": 14,
+                              "offset": 14
+                            }
+                          },
+                          "heading": "Source guide",
+                          "level": 1
+                        },
+                        {
+                          "position": {
+                            "start": {
+                              "line": 6,
+                              "col": 0,
+                              "offset": 66
+                            },
+                            "end": {
+                              "line": 6,
+                              "col": 11,
+                              "offset": 77
+                            }
+                          },
+                          "heading": "Practice",
+                          "level": 2
+                        },
+                        {
+                          "position": {
+                            "start": {
+                              "line": 10,
+                              "col": 0,
+                              "offset": 103
+                            },
+                            "end": {
+                              "line": 10,
+                              "col": 9,
+                              "offset": 112
+                            }
+                          },
+                          "heading": "Trial",
+                          "level": 3
+                        },
+                        {
+                          "position": {
+                            "start": {
+                              "line": 14,
+                              "col": 0,
+                              "offset": 130
+                            },
+                            "end": {
+                              "line": 14,
+                              "col": 8,
+                              "offset": 138
+                            }
+                          },
+                          "heading": "Other",
+                          "level": 2
+                        }
+                      ],
+                      "sections": [
+                        {
+                          "type": "heading",
+                          "position": {
+                            "start": {
+                              "line": 0,
+                              "col": 0,
+                              "offset": 0
+                            },
+                            "end": {
+                              "line": 0,
+                              "col": 14,
+                              "offset": 14
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 2,
+                              "col": 0,
+                              "offset": 16
+                            },
+                            "end": {
+                              "line": 2,
+                              "col": 19,
+                              "offset": 35
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 4,
+                              "col": 0,
+                              "offset": 37
+                            },
+                            "end": {
+                              "line": 4,
+                              "col": 27,
+                              "offset": 64
+                            }
+                          }
+                        },
+                        {
+                          "type": "heading",
+                          "position": {
+                            "start": {
+                              "line": 6,
+                              "col": 0,
+                              "offset": 66
+                            },
+                            "end": {
+                              "line": 6,
+                              "col": 11,
+                              "offset": 77
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 8,
+                              "col": 0,
+                              "offset": 79
+                            },
+                            "end": {
+                              "line": 8,
+                              "col": 22,
+                              "offset": 101
+                            }
+                          }
+                        },
+                        {
+                          "type": "heading",
+                          "position": {
+                            "start": {
+                              "line": 10,
+                              "col": 0,
+                              "offset": 103
+                            },
+                            "end": {
+                              "line": 10,
+                              "col": 9,
+                              "offset": 112
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 12,
+                              "col": 0,
+                              "offset": 114
+                            },
+                            "end": {
+                              "line": 12,
+                              "col": 14,
+                              "offset": 128
+                            }
+                          }
+                        },
+                        {
+                          "type": "heading",
+                          "position": {
+                            "start": {
+                              "line": 14,
+                              "col": 0,
+                              "offset": 130
+                            },
+                            "end": {
+                              "line": 14,
+                              "col": 8,
+                              "offset": 138
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 16,
+                              "col": 0,
+                              "offset": 140
+                            },
+                            "end": {
+                              "line": 16,
+                              "col": 29,
+                              "offset": 169
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "outgoing": [],
+                    "incoming": {
+                      "items": [
+                        "StructuralArchive/crash-both-backups-group/Consumer.md"
+                      ],
+                      "total": 1
+                    }
+                  }
+                ],
+                "resolver": [
+                  "StructuralArchive/crash-both-backups-group/A",
+                  "StructuralArchive/crash-both-backups-group/B"
+                ],
+                "refusals": [],
+                "provenance": {
+                  "origin": "relationship_analyzer",
+                  "provider": "Свой API",
+                  "model": "synthetic-safe-apply",
+                  "analysis": {
+                    "relation": "partial_overlap",
+                    "claims": [
+                      {
+                        "id": "s",
+                        "text": "Shared limited fact.",
+                        "kind": "shared",
+                        "quoteA": "Shared scoped fact.",
+                        "quoteB": "Shared scoped fact."
+                      }
+                    ],
+                    "explanation": {
+                      "text": "Scripted structural control.",
+                      "evidence": [
+                        "s"
+                      ]
+                    },
+                    "recommendation": {
+                      "action": "consider_merge",
+                      "reason": "Review context.",
+                      "evidence": [
+                        "s"
+                      ]
+                    },
+                    "alternatives": [],
+                    "limitations": [
+                      "Synthetic control, not semantic completeness proof."
+                    ]
+                  }
+                },
+                "limitations": [
+                  "read_only_no_executor",
+                  "secondary_unchanged",
+                  "metadata_may_lag",
+                  "dependencies_not_scanned",
+                  "semantic_equivalence_unverified",
+                  "user_review_not_proof",
+                  "no_archive_eligibility"
+                ]
+              },
+              "hashes": {
+                "before": "ea5244414903e6d63ce4374c0c9ec31857b49522cf9df5069233c7cabc4b41f3",
+                "after": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+                "secondary": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4"
+              }
+            },
+            "receipt": {
+              "state": "applied",
+              "modified": 1792435118621,
+              "bytes": 235,
+              "hash": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246"
+            }
+          },
+          "canonical": {
+            "path": "StructuralArchive/crash-both-backups-group/A.md",
+            "created": 1792435118007,
+            "modified": 1792435118621,
+            "bytes": 235,
+            "content": "# Existing guide\n\nShared scoped fact.\n\n## Existing scope\n\nOriginal observation.\n\n\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n\n\n## Practice\n\nAncestor introduction.\n\n\n\n### Trial\n\nНаблюдение 🪶.\n\n",
+            "hash": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246"
+          },
+          "secondary": {
+            "path": "StructuralArchive/crash-both-backups-group/B.md",
+            "created": 1792435118007,
+            "modified": 1792435118007,
+            "bytes": 189,
+            "before": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+            "after": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[StructuralArchive/crash-both-backups-group/A]]\"\n---\n# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction.\n\n### Trial\n\nНаблюдение 🪶.\n\n## Other\n\nRetained sibling observation.\n",
+            "beforeHash": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4"
+          },
+          "heading": 2,
+          "path": [
+            0,
+            1,
+            2
+          ],
+          "range": {
+            "start": 103,
+            "end": 130,
+            "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+          },
+          "context": [
+            {
+              "start": 0,
+              "end": 66,
+              "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+            },
+            {
+              "start": 66,
+              "end": 103,
+              "text": "## Practice\n\nAncestor introduction.\n\n"
+            }
+          ],
+          "copied": [
+            {
+              "start": 0,
+              "end": 66,
+              "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n"
+            },
+            {
+              "start": 66,
+              "end": 103,
+              "text": "## Practice\n\nAncestor introduction.\n\n"
+            },
+            {
+              "start": 103,
+              "end": 130,
+              "text": "### Trial\n\nНаблюдение 🪶.\n\n"
+            }
+          ],
+          "retained": [
+            {
+              "start": 130,
+              "end": 170,
+              "text": "## Other\n\nRetained sibling observation.\n"
+            }
+          ],
+          "partition": [
+            {
+              "range": {
+                "start": 0,
+                "end": 14,
+                "text": "# Source guide"
+              },
+              "copied": true,
+              "section": "heading",
+              "context": {
+                "start": 0,
+                "end": 35,
+                "text": "# Source guide\n\nShared scoped fact."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 14,
+                "end": 16,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 0,
+                "end": 64,
+                "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 16,
+                "end": 35,
+                "text": "Shared scoped fact."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 0,
+                "end": 64,
+                "text": "# Source guide\n\nShared scoped fact.\n\nRoot introduction 🪶 é 中文."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 35,
+                "end": 37,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 16,
+                "end": 77,
+                "text": "Shared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice"
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 37,
+                "end": 64,
+                "text": "Root introduction 🪶 é 中文."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 16,
+                "end": 77,
+                "text": "Shared scoped fact.\n\nRoot introduction 🪶 é 中文.\n\n## Practice"
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 64,
+                "end": 66,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 37,
+                "end": 101,
+                "text": "Root introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 66,
+                "end": 77,
+                "text": "## Practice"
+              },
+              "copied": true,
+              "section": "heading",
+              "context": {
+                "start": 37,
+                "end": 101,
+                "text": "Root introduction 🪶 é 中文.\n\n## Practice\n\nAncestor introduction."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 77,
+                "end": 79,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 66,
+                "end": 112,
+                "text": "## Practice\n\nAncestor introduction.\n\n### Trial"
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 79,
+                "end": 101,
+                "text": "Ancestor introduction."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 66,
+                "end": 112,
+                "text": "## Practice\n\nAncestor introduction.\n\n### Trial"
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 101,
+                "end": 103,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 79,
+                "end": 128,
+                "text": "Ancestor introduction.\n\n### Trial\n\nНаблюдение 🪶."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 103,
+                "end": 112,
+                "text": "### Trial"
+              },
+              "copied": true,
+              "section": "heading",
+              "context": {
+                "start": 79,
+                "end": 128,
+                "text": "Ancestor introduction.\n\n### Trial\n\nНаблюдение 🪶."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 112,
+                "end": 114,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 103,
+                "end": 138,
+                "text": "### Trial\n\nНаблюдение 🪶.\n\n## Other"
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 114,
+                "end": 128,
+                "text": "Наблюдение 🪶."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 103,
+                "end": 138,
+                "text": "### Trial\n\nНаблюдение 🪶.\n\n## Other"
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 128,
+                "end": 130,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 114,
+                "end": 169,
+                "text": "Наблюдение 🪶.\n\n## Other\n\nRetained sibling observation."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 130,
+                "end": 138,
+                "text": "## Other"
+              },
+              "copied": false,
+              "section": "heading",
+              "context": {
+                "start": 114,
+                "end": 169,
+                "text": "Наблюдение 🪶.\n\n## Other\n\nRetained sibling observation."
+              },
+              "kind": "dependency"
+            },
+            {
+              "range": {
+                "start": 138,
+                "end": 140,
+                "text": "\n\n"
+              },
+              "copied": false,
+              "section": null,
+              "context": {
+                "start": 130,
+                "end": 169,
+                "text": "## Other\n\nRetained sibling observation."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 140,
+                "end": 169,
+                "text": "Retained sibling observation."
+              },
+              "copied": false,
+              "section": "paragraph",
+              "context": {
+                "start": 130,
+                "end": 169,
+                "text": "## Other\n\nRetained sibling observation."
+              },
+              "kind": "uncopied"
+            },
+            {
+              "range": {
+                "start": 169,
+                "end": 170,
+                "text": "\n"
+              },
+              "copied": false,
+              "section": null,
+              "context": {
+                "start": 140,
+                "end": 169,
+                "text": "Retained sibling observation."
+              },
+              "kind": "separator"
+            }
+          ],
+          "preservation": [
+            {
+              "range": {
+                "start": 130,
+                "end": 138,
+                "text": "## Other"
+              },
+              "copied": false,
+              "section": "heading",
+              "context": {
+                "start": 114,
+                "end": 169,
+                "text": "Наблюдение 🪶.\n\n## Other\n\nRetained sibling observation."
+              },
+              "kind": "dependency",
+              "disposition": "represented"
+            },
+            {
+              "range": {
+                "start": 140,
+                "end": 169,
+                "text": "Retained sibling observation."
+              },
+              "copied": false,
+              "section": "paragraph",
+              "context": {
+                "start": 130,
+                "end": 169,
+                "text": "## Other\n\nRetained sibling observation."
+              },
+              "kind": "uncopied",
+              "disposition": "retained"
+            }
+          ],
+          "dependencies": [
+            {
+              "path": "StructuralArchive/crash-both-backups-group/A.md",
+              "outgoing": [],
+              "incoming": [],
+              "targets": [],
+              "issues": [
+                "external_consumers_unverified"
+              ]
+            },
+            {
+              "path": "StructuralArchive/crash-both-backups-group/B.md",
+              "outgoing": [],
+              "incoming": [
+                {
+                  "path": "StructuralArchive/crash-both-backups-group/Consumer.md",
+                  "count": 3,
+                  "metadataAvailable": true,
+                  "references": [
+                    {
+                      "kind": "link",
+                      "original": "[[StructuralArchive/crash-both-backups-group/B#Trial]]",
+                      "target": "StructuralArchive/crash-both-backups-group/B.md"
+                    },
+                    {
+                      "kind": "embed",
+                      "original": "![[StructuralArchive/crash-both-backups-group/B#Trial]]",
+                      "target": "StructuralArchive/crash-both-backups-group/B.md"
+                    },
+                    {
+                      "kind": "property",
+                      "original": "[[StructuralArchive/crash-both-backups-group/B]]",
+                      "target": "StructuralArchive/crash-both-backups-group/B.md"
+                    }
+                  ]
+                }
+              ],
+              "targets": [
+                {
+                  "from": "StructuralArchive/crash-both-backups-group/Consumer.md",
+                  "kind": "link",
+                  "original": "[[StructuralArchive/crash-both-backups-group/B#Trial]]",
+                  "target": "StructuralArchive/crash-both-backups-group/B.md",
+                  "subpath": "#Trial"
+                },
+                {
+                  "from": "StructuralArchive/crash-both-backups-group/Consumer.md",
+                  "kind": "embed",
+                  "original": "![[StructuralArchive/crash-both-backups-group/B#Trial]]",
+                  "target": "StructuralArchive/crash-both-backups-group/B.md",
+                  "subpath": "#Trial"
+                },
+                {
+                  "from": "StructuralArchive/crash-both-backups-group/Consumer.md",
+                  "kind": "property",
+                  "original": "[[StructuralArchive/crash-both-backups-group/B]]",
+                  "target": "StructuralArchive/crash-both-backups-group/B.md",
+                  "subpath": ""
+                }
+              ],
+              "issues": [
+                "external_consumers_unverified"
+              ]
+            }
+          ],
+          "confirmation": {
+            "limitationsReviewed": true,
+            "unknownDependenciesAccepted": true,
+            "semanticCompletenessProven": false
+          },
+          "limitations": [
+            "copy_not_redundancy",
+            "contradictions_versions",
+            "headings_examples",
+            "metadata_incomplete",
+            "unknown_dependencies",
+            "soft_only",
+            "read_only",
+            "single_parent_only",
+            "retained_group_rich_syntax_unsupported",
+            "parent_undo_requires_complete_archive_chain",
+            "Synthetic control, not semantic completeness proof."
+          ],
+          "edit": {
+            "start": 0,
+            "end": 0,
+            "removed": "",
+            "inserted": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[StructuralArchive/crash-both-backups-group/A]]\"\n---\n"
+          }
+        },
+        "environment": "{\"consumers\":[{\"bytes\":181,\"created\":1792435118064,\"metadata\":{\"embeds\":[{\"displayText\":\"StructuralArchive/crash-both-backups-group/B > Trial\",\"link\":\"StructuralArchive/crash-both-backups-group/B#Trial\",\"original\":\"![[StructuralArchive/crash-both-backups-group/B#Trial]]\",\"position\":{\"end\":{\"col\":55,\"line\":6,\"offset\":180},\"start\":{\"col\":0,\"line\":6,\"offset\":125}}}],\"frontmatter\":{\"related\":\"[[StructuralArchive/crash-both-backups-group/B]]\"},\"frontmatterLinks\":[{\"displayText\":\"StructuralArchive/crash-both-backups-group/B\",\"key\":\"related\",\"link\":\"StructuralArchive/crash-both-backups-group/B\",\"original\":\"[[StructuralArchive/crash-both-backups-group/B]]\"}],\"frontmatterPosition\":{\"end\":{\"col\":3,\"line\":2,\"offset\":67},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"links\":[{\"displayText\":\"StructuralArchive/crash-both-backups-group/B > Trial\",\"link\":\"StructuralArchive/crash-both-backups-group/B#Trial\",\"original\":\"[[StructuralArchive/crash-both-backups-group/B#Trial]]\",\"position\":{\"end\":{\"col\":54,\"line\":4,\"offset\":123},\"start\":{\"col\":0,\"line\":4,\"offset\":69}}}],\"sections\":[{\"position\":{\"end\":{\"col\":3,\"line\":2,\"offset\":67},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"type\":\"yaml\"},{\"position\":{\"end\":{\"col\":54,\"line\":4,\"offset\":123},\"start\":{\"col\":0,\"line\":4,\"offset\":69}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":55,\"line\":6,\"offset\":180},\"start\":{\"col\":0,\"line\":6,\"offset\":125}},\"type\":\"paragraph\"}]},\"modified\":1792435118064,\"path\":\"StructuralArchive/crash-both-backups-group/Consumer.md\"}],\"dependencies\":[{\"incoming\":[],\"issues\":[\"external_consumers_unverified\"],\"outgoing\":[],\"path\":\"StructuralArchive/crash-both-backups-group/A.md\",\"targets\":[]},{\"incoming\":[{\"count\":3,\"metadataAvailable\":true,\"path\":\"StructuralArchive/crash-both-backups-group/Consumer.md\",\"references\":[{\"kind\":\"link\",\"original\":\"[[StructuralArchive/crash-both-backups-group/B#Trial]]\",\"target\":\"StructuralArchive/crash-both-backups-group/B.md\"},{\"kind\":\"embed\",\"original\":\"![[StructuralArchive/crash-both-backups-group/B#Trial]]\",\"target\":\"StructuralArchive/crash-both-backups-group/B.md\"},{\"kind\":\"property\",\"original\":\"[[StructuralArchive/crash-both-backups-group/B]]\",\"target\":\"StructuralArchive/crash-both-backups-group/B.md\"}]}],\"issues\":[\"external_consumers_unverified\"],\"outgoing\":[],\"path\":\"StructuralArchive/crash-both-backups-group/B.md\",\"targets\":[{\"from\":\"StructuralArchive/crash-both-backups-group/Consumer.md\",\"kind\":\"link\",\"original\":\"[[StructuralArchive/crash-both-backups-group/B#Trial]]\",\"subpath\":\"#Trial\",\"target\":\"StructuralArchive/crash-both-backups-group/B.md\"},{\"from\":\"StructuralArchive/crash-both-backups-group/Consumer.md\",\"kind\":\"embed\",\"original\":\"![[StructuralArchive/crash-both-backups-group/B#Trial]]\",\"subpath\":\"#Trial\",\"target\":\"StructuralArchive/crash-both-backups-group/B.md\"},{\"from\":\"StructuralArchive/crash-both-backups-group/Consumer.md\",\"kind\":\"property\",\"original\":\"[[StructuralArchive/crash-both-backups-group/B]]\",\"subpath\":\"\",\"target\":\"StructuralArchive/crash-both-backups-group/B.md\"}]}],\"metadata\":[{\"headings\":[{\"heading\":\"Existing guide\",\"level\":1,\"position\":{\"end\":{\"col\":16,\"line\":0,\"offset\":16},\"start\":{\"col\":0,\"line\":0,\"offset\":0}}},{\"heading\":\"Existing scope\",\"level\":2,\"position\":{\"end\":{\"col\":17,\"line\":4,\"offset\":56},\"start\":{\"col\":0,\"line\":4,\"offset\":39}}},{\"heading\":\"Source guide\",\"level\":1,\"position\":{\"end\":{\"col\":14,\"line\":9,\"offset\":96},\"start\":{\"col\":0,\"line\":9,\"offset\":82}}},{\"heading\":\"Practice\",\"level\":2,\"position\":{\"end\":{\"col\":11,\"line\":17,\"offset\":161},\"start\":{\"col\":0,\"line\":17,\"offset\":150}}},{\"heading\":\"Trial\",\"level\":3,\"position\":{\"end\":{\"col\":9,\"line\":23,\"offset\":198},\"start\":{\"col\":0,\"line\":23,\"offset\":189}}}],\"sections\":[{\"position\":{\"end\":{\"col\":16,\"line\":0,\"offset\":16},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":19,\"line\":2,\"offset\":37},\"start\":{\"col\":0,\"line\":2,\"offset\":18}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":17,\"line\":4,\"offset\":56},\"start\":{\"col\":0,\"line\":4,\"offset\":39}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":21,\"line\":6,\"offset\":79},\"start\":{\"col\":0,\"line\":6,\"offset\":58}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":14,\"line\":9,\"offset\":96},\"start\":{\"col\":0,\"line\":9,\"offset\":82}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":19,\"line\":11,\"offset\":117},\"start\":{\"col\":0,\"line\":11,\"offset\":98}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":27,\"line\":13,\"offset\":146},\"start\":{\"col\":0,\"line\":13,\"offset\":119}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":11,\"line\":17,\"offset\":161},\"start\":{\"col\":0,\"line\":17,\"offset\":150}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":22,\"line\":19,\"offset\":185},\"start\":{\"col\":0,\"line\":19,\"offset\":163}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":9,\"line\":23,\"offset\":198},\"start\":{\"col\":0,\"line\":23,\"offset\":189}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":14,\"line\":25,\"offset\":214},\"start\":{\"col\":0,\"line\":25,\"offset\":200}},\"type\":\"paragraph\"}]},{\"headings\":[{\"heading\":\"Source guide\",\"level\":1,\"position\":{\"end\":{\"col\":14,\"line\":0,\"offset\":14},\"start\":{\"col\":0,\"line\":0,\"offset\":0}}},{\"heading\":\"Practice\",\"level\":2,\"position\":{\"end\":{\"col\":11,\"line\":6,\"offset\":77},\"start\":{\"col\":0,\"line\":6,\"offset\":66}}},{\"heading\":\"Trial\",\"level\":3,\"position\":{\"end\":{\"col\":9,\"line\":10,\"offset\":112},\"start\":{\"col\":0,\"line\":10,\"offset\":103}}},{\"heading\":\"Other\",\"level\":2,\"position\":{\"end\":{\"col\":8,\"line\":14,\"offset\":138},\"start\":{\"col\":0,\"line\":14,\"offset\":130}}}],\"sections\":[{\"position\":{\"end\":{\"col\":14,\"line\":0,\"offset\":14},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":19,\"line\":2,\"offset\":35},\"start\":{\"col\":0,\"line\":2,\"offset\":16}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":27,\"line\":4,\"offset\":64},\"start\":{\"col\":0,\"line\":4,\"offset\":37}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":11,\"line\":6,\"offset\":77},\"start\":{\"col\":0,\"line\":6,\"offset\":66}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":22,\"line\":8,\"offset\":101},\"start\":{\"col\":0,\"line\":8,\"offset\":79}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":9,\"line\":10,\"offset\":112},\"start\":{\"col\":0,\"line\":10,\"offset\":103}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":14,\"line\":12,\"offset\":128},\"start\":{\"col\":0,\"line\":12,\"offset\":114}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":8,\"line\":14,\"offset\":138},\"start\":{\"col\":0,\"line\":14,\"offset\":130}},\"type\":\"heading\"},{\"position\":{\"end\":{\"col\":29,\"line\":16,\"offset\":169},\"start\":{\"col\":0,\"line\":16,\"offset\":140}},\"type\":\"paragraph\"}]}]}",
+        "hashes": {
+          "canonical": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+          "before": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+          "after": "deeca0c69ed6342981b0c79eb1b9c17f5d0f49ffa3a535e976077ff10d74e520",
+          "edit": "6ce79ff1781a266b523b293e859ea3de16b092eb39655a4bca11af57730a5e8c"
+        }
+      },
+      "state": "prepared",
+      "recovered": false,
+      "canUndo": false,
+      "editorBlocked": false,
+      "parentUndo": "chain_incomplete"
+    }
+  ],
+  "parentUndo": false
+}
