@@ -36,6 +36,13 @@ describe("native atomization observation", () => {
     const f = fixture(); f.app.metadataCache.getFileCache = () => null!; f.app.metadataCache.getFirstLinkpathDest = () => null!;
     expect(await f.read()).toMatchObject({ metadataComplete: false, sourceLink: "" });
   });
+  it.each([0, 3])("missing sections on an unrelated %i-byte note are not evidence of no dependencies", async size => {
+    const f = fixture(); f.other.stat.size = size;
+    f.app.metadataCache.getFileCache = (file?: TFile) => file === f.other ? {} : f.cache;
+    const observation = await f.read();
+    expect(observation.linkConflicts).toEqual([]);
+    expect(observation.metadataComplete).toBe(false);
+  });
   it("checks adapter existence even when vault inventory has not caught up", async () => {
     const f = fixture(); f.exists.mockResolvedValue(true); expect((await f.read()).absent).toBe(false);
   });

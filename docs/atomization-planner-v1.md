@@ -58,6 +58,8 @@ Only the two selected Markdown files are read. Destination inspection consults v
 
 ## Future Apply and crash-safe Undo (design only)
 
+The follow-up [Apply/Undo creation gate](atomization-apply-undo-protocol.md) reproduced concurrent overwrite in native Obsidian. Apply remains disconnected; see that protocol and its native report before implementing file creation.
+
 A future executor must be a separate operation and consent flow, never dispatch this preview into legacy atomization. It must reuse the plugin-wide operation exclusion/blocker checks and freshly revalidate the full source, destination absence, dependencies, source link, editors and exact proposed text. Session identity must be replaced with verified durable evidence for restart recovery. Use SHA-256 for durable records and exact text comparisons; v1's preview checksum is insufficient for authorization.
 
 The smallest future operation creates **one new file containing the source link**. The source remains untouched. Obsidian can observe that ordinary link; no backlink files need rewriting. Reciprocal source annotations, directory creation and multi-file edits would require separately previewed plans and consent.

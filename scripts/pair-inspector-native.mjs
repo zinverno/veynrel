@@ -9,6 +9,7 @@ const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const require = createRequire(ROOT + '/package.json');
 const { build } = require('esbuild');
 const root = process.argv[2];
+assert(!process.argv.includes('--atomization-create-gate') || process.argv.includes('--atomization'), 'Creation gate requires --atomization');
 assert(root?.startsWith('/tmp/pair-inspector-') && !root.includes('..') && !fs.existsSync(root));
 const vault = root + '/vault', dir = vault + '/.obsidian/plugins/ai-knowledge-hub';
 fs.mkdirSync(dir, { recursive: true }); fs.mkdirSync(root + '/profile', { recursive: true });
@@ -229,6 +230,11 @@ try {
      report.journalRecovery=await journalRecoveryScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
  }
+ if (process.argv.includes('--atomization-create-gate')) {
+   const { atomizationCreateGate } = await import('./atomization-create-gate-native.mjs');
+   report.atomizationCreateGate = await atomizationCreateGate({ev,wait,cdp,root,vault,ROOT});
+ }
  report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--bundle-apply')||process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
+ if (report.atomizationCreateGate) report.io={network:await ev('io.network'),harnessVaultCreates:report.atomizationCreateGate.harnessVaultCreates,scope:'Read-only planning is checked before explicit synthetic API probes. Test creates and native indexing of scale fixtures are outside that boundary.'};
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}

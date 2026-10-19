@@ -1,0 +1,37 @@
+{
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":69,\"scriptId\":\"363\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"SyntaxError\",\"description\":\"SyntaxError: await is only valid in async functions and the top level bodies of modules\",\"objectId\":\"-4976854375227806911.1.2\"}}",
+  "gate": {
+    "gate": "NOT_RUN",
+    "cases": [
+      {
+        "name": "Existing native TFile is preserved",
+        "path": "Creation gate/Already exists.md",
+        "outcome": {
+          "status": "rejected",
+          "error": "Error: File already exists."
+        },
+        "content": "# Independent note\n\nCOMPETING WRITER: this text must survive.\n",
+        "sha256": "8fe1e37f7a0d4f600de2dfe2760a86dc4e0654570678b7e2c787459b41cf249d",
+        "competingSurvived": true
+      }
+    ],
+    "benchmark": [],
+    "limits": [
+      "Linux desktop filesystem adapter only; no mobile or other adapter guarantee.",
+      "Barriers delay a real API call without changing its exists result or its writer.",
+      "Synthetic competing creates are test actions, not product Apply or a model request.",
+      "No Apply/Undo journal, ownership receipt, trash or crash-recovery executor is connected."
+    ],
+    "artifactSha256": "65b4ffa6448eb7917973c07e4ac92e6d2b20ab84c3ce73b6e8126ca64d80ffd1",
+    "version": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    },
+    "apiFingerprint": {
+      "create": "dcca41bf8065c931b41cfa10fcc191bcb5509c0dd8e6f150243bc057428d4457",
+      "write": "56f659287120b6ee3d6a9dbca8551b123e83ecf825947565fa7aee7ffbfd96ed"
+    }
+  },
+  "resolution": "Correct the CDP expression to return a Promise instead of using top-level await; final complete run passes the blocker probe."
+}
