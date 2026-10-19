@@ -21,6 +21,8 @@ import { renderAtomizationPlanner } from "./atomizationPlannerView";
 import { renderEmptyAtomPlanner } from "./emptyAtomPlannerView";
 import { emptyAtomChoice } from "./emptyAtomPlan";
 import type { AtomizationPlanV2 } from "./emptyAtomPlan";
+import { renderActionChoice } from "./consolidationActions";
+import { workflowStep, focusStatus } from "./consolidationUx";
 
 const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical: null, transfers: [], insertion: null, insertionConfirmed: false });
 
@@ -50,7 +52,7 @@ export class ChangePlannerView {
         const next = container.querySelector<HTMLElement>(`[data-planner-field="${field}"]`);
         next?.focus();
         if (caret !== null && next?.tagName === "INPUT") (next as HTMLInputElement).setSelectionRange(caret, caret);
-      }
+      } else if (["ready", "error", "stale", "cancelled"].includes(session.view.stage)) focusStatus(container);
     };
     this.render();
   }
@@ -64,7 +66,9 @@ export class ChangePlannerView {
   }
   render(): void {
     const root = this.container, view = this.session.view;
-    root.empty(); root.createEl("h3", { text: tr("@planner.title") });
+    root.empty(); workflowStep(root, view.atomizationPlan || view.plan && !view.plan.edit ? "previewOnly" :
+      view.plan || view.multiPlan || view.mergePlan || view.groupPlan || view.bundlePlan || view.emptyAtomPlan ? "preview" : "action");
+    root.createEl("h3", { text: tr("@planner.title") });
     root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" ? "@emptyAtom.scope" : this.operation === "atomization_preview" ? "@atom.scope" : this.operation === "copy_context_bundle" ? "@bundle.scope" : this.operation === "copy_context_group" ? "@group.scope" : this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
     root.createDiv({ text: tr(view.stage === "error" ? view.atomizationError ? `@atom.error.${view.atomizationError}` : view.bundleError ? `@bundle.error.${view.bundleError}` : view.groupError ? `@group.error.${view.groupError}` : view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
       attr: { role: "status", "aria-live": "polite", "data-planner-stage": view.stage } });
@@ -84,15 +88,10 @@ export class ChangePlannerView {
     view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
     source.value = String(this.side);
     source.addEventListener("change", () => { this.side = source.value === "1" ? 1 : 0; this.operation = ""; this.selection = null; this.changed(); });
-    const operationLabel = controls.createEl("label", { text: tr("@planner.operation") });
-    const operation = operationLabel.createEl("select", { attr: { "data-planner-field": "operation" } });
-    operation.createEl("option", { text: tr("@planner.choose"), value: "" });
-    for (const key of ["add_link", ...(permittedEmbed(this.analysis, this.side) ? ["replace_with_embed"] : []), "no_change", "add_reciprocal_links", "merge_knowledge", "copy_context_group", "copy_context_bundle", "atomization_preview", "write_atom_to_empty_note"]) {
-      operation.createEl("option", { text: tr(`@planner.op.${key}`), value: key });
-    }
-    operation.value = this.operation;
-    operation.addEventListener("change", () => { this.operation = operation.value as typeof this.operation; this.selection = null; this.changed(); });
-    if (this.operation) root.createEl("p", { text: tr(`@planner.op.${this.operation}`) });
+    renderActionChoice(controls, this.operation, !!permittedEmbed(this.analysis, this.side), value => {
+      this.operation = value; this.selection = null; this.changed();
+    });
+    if (!this.operation) { root.createEl("p", { text: tr("@ux.noSelection") }); return; }
     if (this.operation === "write_atom_to_empty_note") {
       renderEmptyAtomPlanner(root,this.session,this.analysis,this.emptyChoice,choice=>{this.emptyChoice=choice;this.session.changeSelection();},this.reviewEmptyAtom);
       return;

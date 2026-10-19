@@ -1,6 +1,9 @@
 import {afterEach,describe,expect,it,vi} from "vitest";
 const mocks=vi.hoisted(()=>{
   class Element {
+    closest() { return null; }
+    focused=false;focus(){this.focused=true;}setAttribute(key:string,value:string){this.attrs[key]=value;}
+    querySelector(){return this.all().find(e=>["alert","status"].includes(e.attrs.role)||e.tag==="h3")??null;}
     children:Element[]=[];text="";tag="div";attrs:Record<string,string>={};listeners=new Map<string,()=>void>();
     empty(){this.children=[];}addClass(){}setText(text:string){this.text=text;}
     create(tag:string,opts:{text?:string;attr?:Record<string,string>}={}){const e=new Element();e.tag=tag;e.text=opts.text??"";e.attrs=opts.attr??{};this.children.push(e);return e;}
@@ -27,6 +30,10 @@ async function setup(){
   return {modal,review,service,prepare,events,offref,root:modal.contentEl as unknown as InstanceType<typeof mocks.Element>};
 }
 describe("separate empty-note consent",()=>{
+  it("recorded success is not replaced by late metadata events",async()=>{
+    const f=await setup();f.modal.open();await flush();f.root.action("confirm")!.click();await flush();
+    expect(f.events.size).toBe(0);expect(f.root.action("history")).toBeDefined();expect(f.root.all().some(e=>e.attrs.role==="alert")).toBe(false);
+  });
   it.each(["en","ru"] as const)("%s shows exact originals, context, empty before, after and diff before consent",async language=>{
     setLanguage(language);const f=await setup();f.modal.open();await flush();const p=f.review.record.plan,all=f.root.all();
     expect(all.filter(e=>e.attrs["data-empty-atom-text"]==="@atom.original").map(e=>e.text)).toEqual(p.sources.map(n=>n.markdown));

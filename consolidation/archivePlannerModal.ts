@@ -5,6 +5,7 @@ import type { ArchiveRead } from "./archiveSession";
 import { ARCHIVE_LIMITATIONS, archiveFragments } from "./archivePlan";
 import type { ArchiveChoice, ArchiveDisposition, ArchivePlan } from "./archivePlan";
 import { renderPlanDiff } from "./planDiffView";
+import { diagnosticPanel } from "./consolidationUx";
 
 function source(root: HTMLElement, key: string, text: string): void {
   const d = root.createEl("details"); d.open = true;
@@ -48,7 +49,7 @@ export class ArchivePlannerModal extends Modal {
     }
     const r = input.record;
     root.createEl("p", { text: `${r.secondary.path} → ${r.canonical.path}`, cls: "ai-pair-path" });
-    root.createEl("p", { text: `${tr("@archive.provenance")}: ${r.id} · SHA-256: ${input.recordHash}`, cls: "ai-pair-path" });
+    diagnosticPanel(root).createEl("p", { text: `${tr("@archive.provenance")}: ${r.id} · SHA-256: ${input.recordHash}`, cls: "ai-pair-path" });
     if (view.plan) {
       source(root, "before", view.plan.secondary.before); source(root, "after", view.plan.secondary.after);
       renderPlanDiff(root, view.plan.secondary.before, view.plan.secondary.after);

@@ -1,0 +1,1 @@
+[855097:1020/004909.059049:FATAL:content/browser/gpu/gpu_data_manager_impl_private.cc:416] GPU process isn't usable. Goodbye.

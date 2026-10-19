@@ -1,0 +1,1 @@
+[34:1020/010904.718473:FATAL:content/browser/sandbox_host_linux.cc:41] Check failed: . shutdown: Operation not permitted (1)

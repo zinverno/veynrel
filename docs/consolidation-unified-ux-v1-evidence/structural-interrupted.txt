@@ -1,0 +1,166 @@
+Discover and actual duplicate list read no Markdown and call no providers
+Decisions disabled with empty key; both exact saved paths read
+Source never expands embeds or HTML
+Native inline/frontmatter tags and incoming links appear
+en theme-light 1200 no horizontal overflow
+en theme-light 390 no horizontal overflow
+en theme-dark 1200 no horizontal overflow
+en theme-dark 390 no horizontal overflow
+ru theme-light 1200 no horizontal overflow
+ru theme-light 390 no horizontal overflow
+ru theme-dark 1200 no horizontal overflow
+ru theme-dark 390 no horizontal overflow
+Inspector performs zero network requests and Markdown writes
+No writes or network even after refresh and reopen
+Closing during asynchronous read never restores inspector UI
+structural-group1-ru: explicit independent review, unchecked controls and known dependencies
+structural-group1-ru: unknown-consumer decision is separately required
+structural-group1-ru: read-only plan with separate final review
+structural-group1-ru: final review creates no journal or Markdown; final confirmation unchecked
+structural-group1-ru theme-light 1200: full localized review fits
+structural-group1-ru theme-light 390: full localized review fits
+structural-group1-ru theme-dark 1200: full localized review fits
+structural-group1-ru theme-dark 390: full localized review fits
+structural-group1-ru: active archive blocks parent Undo across restart
+structural-group1-ru: separate reverse preview and fresh unchecked consent
+structural-group1-ru: complete chain enables parent Undo with changed secondary mtime
+structural-group2-ru: explicit independent review, unchecked controls and known dependencies
+structural-group2-ru: further consolidation blocks
+structural-group2-ru: unknown-consumer decision is separately required
+structural-group2-ru: read-only plan with separate final review
+structural-group2-ru: final review creates no journal or Markdown; final confirmation unchecked
+structural-group2-ru theme-light 1200: full localized review fits
+structural-group2-ru theme-light 390: full localized review fits
+structural-group2-ru theme-dark 1200: full localized review fits
+structural-group2-ru theme-dark 390: full localized review fits
+structural-group2-ru: active archive blocks parent Undo across restart
+structural-group2-ru: separate reverse preview and fresh unchecked consent
+structural-group2-ru: complete chain enables parent Undo with changed secondary mtime
+structural-group3-ru: explicit independent review, unchecked controls and known dependencies
+structural-group3-ru: further consolidation blocks
+structural-group3-ru: unknown-consumer decision is separately required
+structural-group3-ru: read-only plan with separate final review
+structural-group3-ru: final review creates no journal or Markdown; final confirmation unchecked
+structural-group3-ru theme-light 1200: full localized review fits
+structural-group3-ru theme-light 390: full localized review fits
+structural-group3-ru theme-dark 1200: full localized review fits
+structural-group3-ru theme-dark 390: full localized review fits
+structural-group3-ru: active archive blocks parent Undo across restart
+structural-group3-ru: separate reverse preview and fresh unchecked consent
+structural-group3-ru: complete chain enables parent Undo with changed secondary mtime
+structural-07-ru: explicit independent review, unchecked controls and known dependencies
+structural-07-ru: unknown-consumer decision is separately required
+structural-07-ru: read-only plan with separate final review
+structural-07-ru: final review creates no journal or Markdown; final confirmation unchecked
+structural-07-ru theme-light 1200: full localized review fits
+structural-07-ru theme-light 390: full localized review fits
+structural-07-ru theme-dark 1200: full localized review fits
+structural-07-ru theme-dark 390: full localized review fits
+structural-07-ru: active archive blocks parent Undo across restart
+structural-07-ru: separate reverse preview and fresh unchecked consent
+structural-07-ru: complete chain enables parent Undo with changed secondary mtime
+structural-08-ru: explicit independent review, unchecked controls and known dependencies
+structural-08-ru: unknown-consumer decision is separately required
+structural-08-ru: read-only plan with separate final review
+structural-08-ru: final review creates no journal or Markdown; final confirmation unchecked
+structural-08-ru theme-light 1200: full localized review fits
+structural-08-ru theme-light 390: full localized review fits
+structural-08-ru theme-dark 1200: full localized review fits
+structural-08-ru theme-dark 390: full localized review fits
+structural-08-ru: active archive blocks parent Undo across restart
+structural-08-ru: separate reverse preview and fresh unchecked consent
+structural-08-ru: complete chain enables parent Undo with changed secondary mtime
+structural-09-ru: explicit independent review, unchecked controls and known dependencies
+structural-09-ru: unknown-consumer decision is separately required
+structural-09-ru: read-only plan with separate final review
+structural-09-ru: final review creates no journal or Markdown; final confirmation unchecked
+structural-09-ru theme-light 1200: full localized review fits
+structural-09-ru theme-light 390: full localized review fits
+structural-09-ru theme-dark 1200: full localized review fits
+structural-09-ru theme-dark 390: full localized review fits
+structural-09-ru: active archive blocks parent Undo across restart
+structural-09-ru: separate reverse preview and fresh unchecked consent
+structural-09-ru: complete chain enables parent Undo with changed secondary mtime
+structural-group1-en: explicit independent review, unchecked controls and known dependencies
+structural-group1-en: unknown-consumer decision is separately required
+structural-group1-en: read-only plan with separate final review
+structural-group1-en: final review creates no journal or Markdown; final confirmation unchecked
+structural-group1-en theme-light 1200: full localized review fits
+structural-group1-en theme-light 390: full localized review fits
+structural-group1-en theme-dark 1200: full localized review fits
+structural-group1-en theme-dark 390: full localized review fits
+structural-group1-en: active archive blocks parent Undo across restart
+structural-group1-en: separate reverse preview and fresh unchecked consent
+structural-group1-en: complete chain enables parent Undo with changed secondary mtime
+structural-group2-en: explicit independent review, unchecked controls and known dependencies
+structural-group2-en: further consolidation blocks
+structural-group2-en: unknown-consumer decision is separately required
+structural-group2-en: read-only plan with separate final review
+structural-group2-en: final review creates no journal or Markdown; final confirmation unchecked
+structural-group2-en theme-light 1200: full localized review fits
+structural-group2-en theme-light 390: full localized review fits
+structural-group2-en theme-dark 1200: full localized review fits
+structural-group2-en theme-dark 390: full localized review fits
+structural-group2-en: active archive blocks parent Undo across restart
+structural-group2-en: separate reverse preview and fresh unchecked consent
+structural-group2-en: complete chain enables parent Undo with changed secondary mtime
+structural-group3-en: explicit independent review, unchecked controls and known dependencies
+structural-group3-en: further consolidation blocks
+structural-group3-en: unknown-consumer decision is separately required
+structural-group3-en: read-only plan with separate final review
+structural-group3-en: final review creates no journal or Markdown; final confirmation unchecked
+structural-group3-en theme-light 1200: full localized review fits
+structural-group3-en theme-light 390: full localized review fits
+structural-group3-en theme-dark 1200: full localized review fits
+structural-group3-en theme-dark 390: full localized review fits
+structural-group3-en: active archive blocks parent Undo across restart
+structural-group3-en: separate reverse preview and fresh unchecked consent
+structural-group3-en: complete chain enables parent Undo with changed secondary mtime
+structural-07-en: explicit independent review, unchecked controls and known dependencies
+structural-07-en: unknown-consumer decision is separately required
+structural-07-en: read-only plan with separate final review
+structural-07-en: final review creates no journal or Markdown; final confirmation unchecked
+structural-07-en theme-light 1200: full localized review fits
+structural-07-en theme-light 390: full localized review fits
+structural-07-en theme-dark 1200: full localized review fits
+structural-07-en theme-dark 390: full localized review fits
+structural-07-en: active archive blocks parent Undo across restart
+structural-07-en: separate reverse preview and fresh unchecked consent
+structural-07-en: complete chain enables parent Undo with changed secondary mtime
+structural-08-en: explicit independent review, unchecked controls and known dependencies
+structural-08-en: unknown-consumer decision is separately required
+structural-08-en: read-only plan with separate final review
+structural-08-en: final review creates no journal or Markdown; final confirmation unchecked
+structural-08-en theme-light 1200: full localized review fits
+structural-08-en theme-light 390: full localized review fits
+structural-08-en theme-dark 1200: full localized review fits
+structural-08-en theme-dark 390: full localized review fits
+structural-08-en: active archive blocks parent Undo across restart
+structural-08-en: separate reverse preview and fresh unchecked consent
+structural-08-en: complete chain enables parent Undo with changed secondary mtime
+structural-09-en: explicit independent review, unchecked controls and known dependencies
+structural-09-en: unknown-consumer decision is separately required
+structural-09-en: read-only plan with separate final review
+structural-09-en: final review creates no journal or Markdown; final confirmation unchecked
+structural-09-en theme-light 1200: full localized review fits
+structural-09-en theme-light 390: full localized review fits
+structural-09-en theme-dark 1200: full localized review fits
+structural-09-en theme-dark 390: full localized review fits
+structural-09-en: active archive blocks parent Undo across restart
+structural-09-en: separate reverse preview and fresh unchecked consent
+structural-09-en: complete chain enables parent Undo with changed secondary mtime
+editor-en-false: explicit independent review, unchecked controls and known dependencies
+editor-en-false: further consolidation blocks
+editor-en-false: unknown-consumer decision is separately required
+editor-en-false: read-only plan with separate final review
+editor-en-false: final review creates no journal or Markdown; final confirmation unchecked
+editor-en-true: explicit independent review, unchecked controls and known dependencies
+editor-en-true: further consolidation blocks
+editor-en-true: unknown-consumer decision is separately required
+editor-en-true: read-only plan with separate final review
+editor-en-true: final review creates no journal or Markdown; final confirmation unchecked
+editor-ru-false: explicit independent review, unchecked controls and known dependencies
+editor-ru-false: further consolidation blocks
+editor-ru-false: unknown-consumer decision is separately required
+editor-ru-false: read-only plan with separate final review
+editor-ru-false: final review creates no journal or Markdown; final confirmation unchecked

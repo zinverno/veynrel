@@ -1,0 +1,5 @@
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/api.ts
+  404:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 1 problem (0 errors, 1 warning)

@@ -52,6 +52,8 @@ export async function mergeApplyScenario(context) {
     await ev(`{const e=[...app.setting.modalEl.querySelectorAll('select')].find(e=>[...e.options].some(o=>o.value==='ru'));e.value='${language}';e.dispatchEvent(new Event('change'));}void 0`);
     await ev('plugin.settingsSave');await ev('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');await ev('app.setting.close();void 0');
     await setup('success-'+language,{canonical:language==='en'?0:1,count:language==='en'?1:2,crlf:language==='ru',rich:language==='en'});await review();
+    // Expand the public disclosures before asserting every full source and result.
+    await ev("['before','after','secondary'].forEach(k=>document.querySelector('.ai-merge-apply [data-merge-apply-text='+k+']').parentElement.open=true);void 0");
     await pass(language+': full before/after, copied ranges, secondary and literal diff precede consent',"document.querySelectorAll('.ai-merge-apply .ai-proposal-diff').length===1&&['before','after','secondary'].every(k=>document.querySelector('.ai-merge-apply [data-merge-apply-text='+k+']')?.parentElement.open)&&document.querySelector('.ai-merge-apply [data-merge-apply-text=before]').textContent===mergePlan.canonical.before&&document.querySelector('.ai-merge-apply [data-merge-apply-text=after]').textContent===mergePlan.canonical.after&&document.querySelector('.ai-merge-apply [data-merge-apply-text=secondary]').textContent===mergePlan.secondary.content&&document.querySelector('.ai-merge-apply [data-merge-apply-text=anchor]').textContent===mergePlan.insertion.anchor.text&&safeTest.calls===mergeCalls&&mergeProcessPaths.length===0");
     assert.deepEqual(disk(),originals());
     for(const theme of ['theme-light','theme-dark'])for(const width of [1200,390]) {

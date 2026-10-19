@@ -294,7 +294,8 @@ export class VeynrelHealthView extends ItemView {
       renderDiscover(surface, discover, (action) => this.semanticAction(action), this.neighborhood ? () => {
         this.navigate({ page: "semantic-neighborhood", returnTo: "discover" }); void this.neighborhood!.prepare();
       } : undefined, this.globalMap ? () => { this.navigate({ page: "semantic-map" }); void this.globalMap!.load(); } : undefined,
-      this.comparison ? () => { this.navigate({ page: "connection-opportunities" }); void this.comparison!.load(); } : undefined);
+      this.comparison ? () => { this.navigate({ page: "connection-opportunities" }); void this.comparison!.load(); } : undefined,
+      () => this.tools.openOperationHistory());
     } else if (normal && this.route.page === "findings") {
       const route = this.route;
       const inbox = findingsInboxViewModel({ findings: this.controller.listFindings(), route,

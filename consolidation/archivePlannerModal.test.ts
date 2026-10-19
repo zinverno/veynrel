@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   class Element {
+    closest() { return null; }
     children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; value = ""; checked = false; disabled = false; open = false;
     listeners = new Map<string, () => void>();
     empty() { this.children = []; } addClass() {} setText(text: string) { this.text = text; } focus() {}

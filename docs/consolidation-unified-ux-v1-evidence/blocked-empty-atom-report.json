@@ -1,0 +1,7 @@
+{
+  "checks": [],
+  "fixture": "Two deterministic synthetic vectors via existing fixture, actual Discover/discovery engine and current saved files",
+  "limits": "Native network counters cover fetch/XHR and Decisions/Rerank factories. No requestUrl instrumentation. Linux desktop only. No physical mobile, other OS, screen reader, custom theme or paid provider tests.",
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: native ready"
+}

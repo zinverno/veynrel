@@ -2,11 +2,13 @@ import { t as tr } from "../i18n";
 import { RELATIONSHIP_LIMITS } from "./relationshipPrompt";
 import type { RelationshipSession } from "./relationshipSession";
 import type { RelationshipRecommendation } from "./relationshipContract";
+import { workflowStep } from "./consolidationUx";
 
 /** Model prose and excerpts are text nodes; no Markdown renderer or actionable diff. */
 export function renderRelationshipView(container: HTMLElement, session: RelationshipSession): void {
   container.empty();
   const view = session.view;
+  workflowStep(container, "analysis");
   container.createEl("h3", { text: tr("@relationship.title") });
   container.createDiv({ text: tr(view.stage === "error" ? `@relationship.error.${view.error}` : `@relationship.stage.${view.stage}`),
     attr: { role: "status", "aria-live": "polite", "data-relationship-stage": view.stage } });
@@ -37,11 +39,12 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   container.createEl("h4", { text: tr(`@relationship.relation.${result.relation}`) });
   container.createEl("p", { text: result.explanation.text });
   container.createEl("p", { text: tr("@relationship.references", { ids: result.explanation.evidence.join(", ") || "—" }) });
-  container.createEl("h4", { text: tr("@relationship.evidence") });
-  container.createEl("p", { text: tr("@relationship.evidenceScope") });
-  if (!result.claims.length) container.createEl("p", { text: tr("@relationship.noEvidence") });
+  const evidence = container.createEl("details");
+  evidence.createEl("summary", { text: tr("@relationship.evidence") });
+  evidence.createEl("p", { text: tr("@relationship.evidenceScope") });
+  if (!result.claims.length) evidence.createEl("p", { text: tr("@relationship.noEvidence") });
   for (const claim of result.claims) {
-    const card = container.createDiv({ cls: "ai-semantic-duplicate-card" });
+    const card = evidence.createDiv({ cls: "ai-semantic-duplicate-card" });
     card.createEl("h5", { text: `${claim.id}: ${tr(`@relationship.kind.${claim.kind}`)}` });
     card.createEl("p", { text: claim.text });
     for (const [side, quote] of [["A", claim.quoteA], ["B", claim.quoteB]] as const) {
@@ -50,10 +53,10 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
       card.createEl("pre", { cls: "ai-pair-source", text: quote, attr: { tabindex: "0" } });
     }
   }
-  container.createEl("h4", { text: tr("@relationship.unique") });
+  evidence.createEl("h4", { text: tr("@relationship.unique") });
   const unique = result.claims.filter(claim => /^(unique|context|standalone)_/.test(claim.kind));
-  if (!unique.length) container.createEl("p", { text: tr("@relationship.noUnique") });
-  for (const claim of unique) container.createEl("p", { text: `${claim.id}: ${claim.text}` });
+  if (!unique.length) evidence.createEl("p", { text: tr("@relationship.noUnique") });
+  for (const claim of unique) evidence.createEl("p", { text: `${claim.id}: ${claim.text}` });
   const recommend = (item: RelationshipRecommendation) => {
     container.createEl("h5", { text: tr(`@relationship.action.${item.action}`) });
     container.createEl("p", { text: item.reason });

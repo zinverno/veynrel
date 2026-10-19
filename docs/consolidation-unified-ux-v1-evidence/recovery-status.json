@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-20",
+  "status": "INCOMPLETE",
+  "branch": "feat/consolidation-unified-ux-v1",
+  "base": "292a81e00b2f6c5210f5d172bc6c4798b098d042",
+  "githubMainMatchesBase": true,
+  "artifactSha256": "50b53c5b2a32a5ad482aee6ef625b94f38e712e51c38dbf33cb8e9de1965314d",
+  "stylesSha256": "239cff9e32d8f1f06083beb6c06bcfb62139f4643442cbdb9a2ccade54015199",
+  "completedNativeRuns": [
+    {
+      "name": "merge-archive",
+      "status": "PASS",
+      "exitCode": 0,
+      "baseChecks": 18,
+      "suiteChecks": 58,
+      "report": "merge-archive-report.json",
+      "sourceRoot": "/tmp/pair-inspector-unified-final3-merge-archive"
+    },
+    {
+      "name": "ux",
+      "status": "PASS",
+      "exitCode": 0,
+      "baseChecks": 18,
+      "suiteChecks": 48,
+      "report": "ux-report.json",
+      "sourceRoot": "/tmp/pair-inspector-unified-final3-ux"
+    },
+    {
+      "name": "single",
+      "status": "PASS",
+      "exitCode": 0,
+      "baseChecks": 18,
+      "suiteChecks": 25,
+      "report": "single-report.json",
+      "sourceRoot": "/tmp/pair-inspector-unified-final3-single"
+    },
+    {
+      "name": "multi",
+      "status": "PASS",
+      "exitCode": 0,
+      "baseChecks": 18,
+      "suiteChecks": 39,
+      "report": "multi-report.json",
+      "sourceRoot": "/tmp/pair-inspector-unified-final3-multi"
+    }
+  ],
+  "structuralArchive": {
+    "status": "INCOMPLETE",
+    "completeCycles": 12,
+    "editorChecksWithSavedScreenshots": [
+      "en-main",
+      "en-popout",
+      "ru-main"
+    ],
+    "missing": [
+      "ru-popout",
+      "final-report"
+    ],
+    "sourceRoot": "/tmp/pair-inspector-unified-final3-structural"
+  },
+  "emptyAtom": {
+    "finalRunnerStatus": "NOT_STARTED"
+  },
+  "nativeRecoveryAttempts": [
+    {
+      "name": "structural",
+      "status": "BLOCKED_ENVIRONMENT",
+      "scenarioChecks": 0,
+      "report": "blocked-structural-report.json"
+    },
+    {
+      "name": "empty-atom",
+      "status": "BLOCKED_ENVIRONMENT",
+      "scenarioChecks": 0,
+      "report": "blocked-empty-atom-report.json"
+    },
+    {
+      "name": "empty-atom-retry",
+      "status": "BLOCKED_ENVIRONMENT",
+      "scenarioChecks": 0,
+      "report": "blocked-empty-atom-retry-report.json"
+    }
+  ],
+  "unitTests": {
+    "previousFullRun": {
+      "files": 162,
+      "tests": 4455,
+      "status": "PASS"
+    },
+    "focusedCurrentRun": {
+      "files": 1,
+      "tests": 24,
+      "status": "PASS",
+      "exitCode": 0
+    }
+  },
+  "lint": {
+    "status": "PASS",
+    "exitCode": 0,
+    "approvedWarnings": 1
+  },
+  "proposalAudit": {
+    "status": "PASS",
+    "mutationsKilled": 5,
+    "total": 5,
+    "exitCode": 0,
+    "source": "Recovered original tool output"
+  },
+  "publication": {
+    "commitCreated": false,
+    "pushed": false,
+    "pr": null,
+    "ci": "NOT_RUN",
+    "reason": "Required native acceptance incomplete"
+  },
+  "processScope": "Old processes not visible in sandbox PID namespace; host-wide absence not established. New check sessions exited.",
+  "build": {
+    "status": "PASS",
+    "exitCode": 0,
+    "artifactUnchanged": true
+  },
+  "typecheck": {
+    "status": "PASS",
+    "evidence": "Previous final npm run lint && chain reached the build after both tsc commands"
+  }
+}
