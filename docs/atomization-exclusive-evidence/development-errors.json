@@ -1,0 +1,163 @@
+[
+  {
+    "attempt": "01",
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: {\"ok\":false,\"message\":\"TypeError: Failed to fetch dynamically imported module: node:fs\"}",
+    "completedGateCases": 0,
+    "applyGate": null,
+    "logTail": [
+      "AssertionError [ERR_ASSERTION]: {\"ok\":false,\"message\":\"TypeError: Failed to fetch dynamically imported module: node:fs\"}",
+      "    at exclusiveCreateScenario (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/scripts/exclusive-create-native.mjs:58:5)",
+      "    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/scripts/pair-inspector-native.mjs:232:23 {",
+      "  generatedMessage: false,",
+      "  code: 'ERR_ASSERTION',",
+      "  actual: false,",
+      "  expected: true,",
+      "  operator: '==',",
+      "  diff: 'simple'",
+      "}"
+    ]
+  },
+  {
+    "attempt": "02",
+    "status": "FAIL",
+    "error": "[object Object]",
+    "completedGateCases": 30,
+    "applyGate": null,
+    "logTail": [
+      "Exclusive concurrent pair 3",
+      "Exclusive concurrent pair 4",
+      "Exclusive concurrent pair 5",
+      "Exclusive concurrent pair 6",
+      "Exclusive concurrent pair 7",
+      "Exclusive concurrent pair 8",
+      "Exclusive concurrent pair 9",
+      "Concurrent public Vault.create wins and is preserved",
+      "Later independent write revokes verification",
+      "{ code: -32000, message: 'Object reference chain is too long' }"
+    ]
+  },
+  {
+    "attempt": "03",
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(obs.complete&&obs.empty.some(f=>f.path==='Exclusive/Confirmed empty.md'))\n",
+    "completedGateCases": 44,
+    "applyGate": null,
+    "logTail": [
+      "",
+      "    at exclusiveCreateScenario (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/scripts/exclusive-create-native.mjs:145:175)",
+      "    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/scripts/pair-inspector-native.mjs:232:23 {",
+      "  generatedMessage: true,",
+      "  code: 'ERR_ASSERTION',",
+      "  actual: false,",
+      "  expected: true,",
+      "  operator: '==',",
+      "  diff: 'simple'",
+      "}"
+    ]
+  },
+  {
+    "attempt": "04",
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(obs.complete&&obs.empty.some(f=>f.path==='Exclusive/Confirmed empty.md'))\n",
+    "completedGateCases": 44,
+    "applyGate": null,
+    "emptyDiagnostics": [
+      {
+        "path": "Exclusive/Confirmed empty.md",
+        "stat": {
+          "ctime": 1792411967685,
+          "mtime": 1792411967685,
+          "size": 0
+        },
+        "disk": {
+          "type": "file",
+          "ctime": 1792411967685,
+          "mtime": 1792411967685,
+          "size": 0
+        },
+        "cache": {
+          "v": 1
+        },
+        "resolved": {},
+        "unresolved": {}
+      },
+      {
+        "path": "Exclusive/Write error.md",
+        "stat": {
+          "ctime": 1792411965342,
+          "mtime": 1792411965342,
+          "size": 0
+        },
+        "disk": {
+          "type": "file",
+          "ctime": 1792411965342,
+          "mtime": 1792411965342,
+          "size": 0
+        },
+        "cache": {
+          "v": 1
+        },
+        "resolved": {},
+        "unresolved": {}
+      },
+      {
+        "path": "Exclusive/Swap moved/New.md",
+        "stat": {
+          "ctime": 1792411965335,
+          "mtime": 1792411965335,
+          "size": 0
+        },
+        "disk": {
+          "type": "file",
+          "ctime": 1792411965335,
+          "mtime": 1792411965335,
+          "size": 0
+        },
+        "cache": {
+          "v": 1
+        },
+        "resolved": {},
+        "unresolved": {}
+      },
+      {
+        "path": "Exclusive/Crash empty.md",
+        "stat": {
+          "ctime": 1792411965562,
+          "mtime": 1792411965562,
+          "size": 0
+        },
+        "disk": {
+          "type": "file",
+          "ctime": 1792411965562,
+          "mtime": 1792411965562,
+          "size": 0
+        },
+        "cache": {
+          "v": 1
+        },
+        "resolved": {},
+        "unresolved": {}
+      }
+    ],
+    "logTail": [
+      "",
+      "    at exclusiveCreateScenario (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/scripts/exclusive-create-native.mjs:148:5)",
+      "    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/scripts/pair-inspector-native.mjs:232:23 {",
+      "  generatedMessage: true,",
+      "  code: 'ERR_ASSERTION',",
+      "  actual: false,",
+      "  expected: true,",
+      "  operator: '==',",
+      "  diff: 'simple'",
+      "}"
+    ]
+  },
+  {
+    "attempt": "05",
+    "status": "PASS",
+    "error": null,
+    "completedGateCases": 46,
+    "applyGate": "BLOCKED_PARENT_RELOCATION"
+  }
+]

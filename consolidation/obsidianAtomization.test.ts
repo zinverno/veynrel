@@ -9,17 +9,22 @@ function fixture() {
   const root = Object.assign(new TFolder(), { path: "/" }); const parent = Object.assign(new TFolder(), { path: "Atoms" });
   const files = [source, other, parent], cache: CachedMetadata = { sections: [] };
   const exists = vi.fn(async () => false);
+  const readText = vi.fn(async () => "unread fixture"), stat = vi.fn(async (path: string) => {
+    const file = files.find(f => f instanceof TFile && f.path === path);
+    return file instanceof TFile ? { type: "file", ...file.stat } : null;
+  });
   const app = { vault: { configDir: "custom-config", getAllLoadedFiles: () => files, getRoot: () => root,
     getFileByPath: (p: string) => files.find(f => f instanceof TFile && f.path === p),
-    getAbstractFileByPath: (p: string) => files.find(f => f.path === p), adapter: { exists } },
-    metadataCache: { resolvedLinks: {}, unresolvedLinks: {}, getFileCache: () => cache, getFirstLinkpathDest: () => source } };
-  return { source, other, files, cache, app, exists, read: () => readAtomizationObservation(app as unknown as App, "Atoms/New atom.md", source.path) };
+    getAbstractFileByPath: (p: string) => files.find(f => f.path === p), read: readText, adapter: { exists, stat } },
+    metadataCache: { resolvedLinks: {}, unresolvedLinks: {}, getFileCache: (_file?: TFile) => cache, getFirstLinkpathDest: () => source } };
+  return { source, other, files, cache, app, exists, readText, stat, read: () => readAtomizationObservation(app as unknown as App, "Atoms/New atom.md", source.path) };
 }
 describe("native atomization observation", () => {
   it("only queries metadata and existence, with source resolution from the future path", async () => {
     const f = fixture(); const resolver = vi.spyOn(f.app.metadataCache, "getFirstLinkpathDest");
     expect(await f.read()).toMatchObject({ absent: true, parentExists: true, sourceLink: "Sources/Original", metadataComplete: true, linkConflicts: [] });
     expect(f.exists).toHaveBeenCalledWith("Atoms/New atom.md"); expect(resolver).toHaveBeenCalledWith("Sources/Original", "Atoms/New atom.md");
+    expect(f.readText).not.toHaveBeenCalled(); expect(f.stat).not.toHaveBeenCalled();
   });
   it.each(["links", "embeds", "frontmatterLinks"] as const)("detects %s capture even without resolved cache entries", async key => {
     const f = fixture(); Object.assign(f.cache, { [key]: [{ link: "new%20atom#Heading", original: "[[new atom#Heading]]" }] });
@@ -54,6 +59,66 @@ describe("native atomization observation", () => {
   it("records identity, stats and metadata changes even with unchanged links", async () => {
     const f = fixture(); const before = await f.read(); f.cache.tags = []; f.other.stat.mtime++;
     expect((await f.read()).inventory).not.toEqual(before.inventory);
+  });
+});
+
+function emptyFixture() {
+  const f = fixture(); f.other.stat.size = 0; f.readText.mockResolvedValue("");
+  f.app.metadataCache.getFileCache = (file?: TFile) => file === f.other ? {} : f.cache;
+  return f;
+}
+describe("verified empty-note exception", () => {
+  it("proves only the unknown empty note without reading normal metadata-backed notes", async () => {
+    const f = emptyFixture(), result = await f.read();
+    expect(result.metadataComplete).toBe(true);
+    expect(result.inventory.find(i => i.path === f.other.path)).toMatchObject({ emptyVerified: true, size: 0 });
+    expect(f.readText.mock.calls).toEqual([[f.other]]);
+    expect(f.stat.mock.calls).toEqual([[f.other.path], [f.other.path], [f.other.path]]);
+    expect(f.app.metadataCache.getFileCache(f.other)).toEqual({});
+  });
+  it.each(["text", "whitespace", "missing", "properties", "links", "resolved", "unresolved", "disk", "read-error"])("refuses %s despite apparent zero native size", kind => {
+    const f = emptyFixture();
+    if (kind === "text" || kind === "whitespace") f.readText.mockResolvedValue(kind === "text" ? "Text" : "\r\n");
+    if (kind === "missing") f.app.metadataCache.getFileCache = () => null!;
+    if (kind === "properties" || kind === "links") f.app.metadataCache.getFileCache = () => kind === "properties" ? { frontmatter: {} } : { links: [] };
+    if (kind === "resolved" || kind === "unresolved") f.app.metadataCache[kind === "resolved" ? "resolvedLinks" : "unresolvedLinks"] = { "Other.md": { Target: 1 } };
+    if (kind === "disk") f.stat.mockResolvedValue({ type: "file", ...f.other.stat, size: 10 });
+    if (kind === "read-error") f.readText.mockRejectedValue(new Error("read"));
+    return expect(f.read()).resolves.toMatchObject({ metadataComplete: false });
+  });
+  it.each(["identity", "path", "ctime", "mtime", "size", "cache", "dependency", "late"])("refuses %s changes during the proof", async kind => {
+    const f = emptyFixture();
+    const mutate = () => {
+      if (kind === "identity") f.files[1] = Object.assign(new TFile(), f.other);
+      if (kind === "path") f.other.path = "Renamed.md";
+      if (["ctime", "mtime", "size", "late"].includes(kind)) f.other.stat[kind === "late" ? "mtime" : kind as "ctime" | "mtime" | "size"]++;
+      if (kind === "cache") f.app.metadataCache.getFileCache = () => ({ sections: [] });
+      if (kind === "dependency") f.app.metadataCache.unresolvedLinks = { "Other.md": { Later: 1 } };
+    };
+    if (kind === "late") f.exists.mockImplementation(async () => { mutate(); return false; });
+    else f.readText.mockImplementation(async () => { mutate(); return ""; });
+    expect((await f.read()).metadataComplete).toBe(false);
+  });
+  it("refuses nonempty notes without sections without reading their Markdown", async () => {
+    const f = emptyFixture(); f.other.stat.size = 20;
+    expect((await f.read()).metadataComplete).toBe(false); expect(f.readText).not.toHaveBeenCalled();
+  });
+  it.each(["footnotes", "footnoteRefs", "referenceLinks"] as const)("refuses parsed %s on an apparently empty note", async field => {
+    const f = emptyFixture();
+    f.app.metadataCache.getFileCache = (file?: TFile) => file === f.other ? { [field]: [] } : f.cache;
+    expect((await f.read()).metadataComplete).toBe(false); expect(f.readText).not.toHaveBeenCalled();
+  });
+  it("rechecks the empty file on disk after the asynchronous destination observation", async () => {
+    const f = emptyFixture();
+    f.exists.mockImplementation(async () => { f.stat.mockResolvedValue({ type: "file", ...f.other.stat, size: 20 }); return false; });
+    expect((await f.read()).metadataComplete).toBe(false);
+  });
+  it("accepts stable native bookkeeping only with the same exact empty-byte proof", async () => {
+    const f = emptyFixture();
+    f.app.metadataCache.getFileCache = (file?: TFile) => file === f.other ? { v: 1 } as CachedMetadata : f.cache;
+    expect((await f.read()).metadataComplete).toBe(true); expect(f.readText).toHaveBeenCalledOnce();
+    f.readText.mockImplementation(async () => { f.app.metadataCache.getFileCache = () => ({ v: 2 } as CachedMetadata); return ""; });
+    expect((await f.read()).metadataComplete).toBe(false);
   });
 });
 
