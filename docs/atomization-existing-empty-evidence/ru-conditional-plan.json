@@ -1,0 +1,154 @@
+{
+  "version": 2,
+  "operation": "write_atom_to_empty_note",
+  "sources": [
+    {
+      "path": "EmptyAtom/ru-conditional/Source.md",
+      "created": 1792425425137,
+      "modified": 1792425425137,
+      "bytes": 173,
+      "markdown": "Только при сухой поверхности: синяя метка предположительно обозначает завершённое испытание.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 92,
+                "line": 0,
+                "offset": 92
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    },
+    {
+      "path": "EmptyAtom/ru-conditional/Comparison.md",
+      "created": 1792425425137,
+      "modified": 1792425425137,
+      "bytes": 38,
+      "markdown": "An amber mark denotes a pending trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 38,
+                "line": 0,
+                "offset": 38
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    }
+  ],
+  "target": {
+    "path": "EmptyAtom/ru-conditional/Атом 🪶 ru-conditional.md",
+    "created": 1792425425194,
+    "modified": 1792425425194,
+    "bytes": 0,
+    "markdown": "",
+    "metadata": {},
+    "references": [],
+    "before": "",
+    "after": "# Наблюдение испытания\n\nТолько при сухой поверхности: синяя метка предположительно обозначает завершённое испытание.\n\nSource: [[EmptyAtom/ru-conditional/Source]]"
+  },
+  "selected": {
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 92,
+      "text": "Только при сухой поверхности: синяя метка предположительно обозначает завершённое испытание."
+    },
+    "context": []
+  },
+  "context": [],
+  "remaining": "Только при сухой поверхности: синяя метка предположительно обозначает завершённое испытание.",
+  "additions": {
+    "title": "# Наблюдение испытания",
+    "source": "Source: [[EmptyAtom/ru-conditional/Source]]",
+    "separator": "\n\n"
+  },
+  "confirmations": {
+    "operation": "write_atom_to_empty_note",
+    "side": 0,
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 92,
+      "text": "Только при сухой поверхности: синяя метка предположительно обозначает завершённое испытание."
+    },
+    "title": "Наблюдение испытания",
+    "path": "EmptyAtom/ru-conditional/Атом 🪶 ru-conditional.md",
+    "unitConfirmed": true,
+    "contextConfirmed": true,
+    "manualConfirmed": true,
+    "titleConfirmed": true,
+    "sourceConfirmed": true,
+    "dependenciesReviewed": true,
+    "targetConfirmed": true
+  },
+  "observation": {
+    "configDir": ".obsidian",
+    "sourceLink": "EmptyAtom/ru-conditional/Source",
+    "dependencyHash": "870eef6f4e547f61a196821bb45aaa4953974a118524574922028e004aaf3609"
+  },
+  "provenance": {
+    "origin": "manual_review",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "related_distinct",
+      "claims": [
+        {
+          "id": "c",
+          "text": "Different observations.",
+          "kind": "comparison",
+          "quoteA": "Только при сухой поверхности: синяя метка предположительно обозначает завершённое испытание.",
+          "quoteB": "An amber mark denotes a pending trial."
+        }
+      ],
+      "explanation": {
+        "text": "Scripted extraction control.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "User reviews semantic independence.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Synthetic control; not model quality evidence."
+      ]
+    },
+    "hintIds": []
+  },
+  "limitations": [
+    "existing_empty_target_only",
+    "sources_unchanged",
+    "undo_clears_never_deletes",
+    "semantic_independence_is_user_judgment",
+    "unknown_external_dependencies",
+    "independent_processes_not_locked"
+  ]
+}

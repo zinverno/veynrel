@@ -1,0 +1,42 @@
+[
+  {
+    "phase": "unit fixture",
+    "observed": "H1/H2/H3 test addressed nonexistent candidate.label; three failures",
+    "fix": "Use the real candidate.range.text; all hierarchy cases then passed."
+  },
+  {
+    "phase": "native harness syntax",
+    "observed": "Nested template for option selection did not parse",
+    "fix": "Read option values through CDP and select by literal text in the host; node --check passed before launch."
+  },
+  {
+    "phase": "TypeScript",
+    "observed": "Test CachedMetadata excess field, nullable review, and overloaded native event union errors",
+    "fix": "Correct fixture types and register explicit public event names; no production validation relaxed."
+  },
+  {
+    "phase": "intermediate native run 02",
+    "observed": "Before crash-torn-undone, planner reference had stage idle instead of ready; no consent/write took place for that case. Exact invalidating event was not recorded.",
+    "fix": "Wait for public MetadataCache event quiescence and idle owner after authoring synthetic fixtures. Preserve FAIL report; complete run 03 and final-build run 04 passed."
+  },
+  {
+    "phase": "implementation review",
+    "observed": "URL-shaped title could pass planning but disagree with strict postwrite group heading checks",
+    "fix": "Reject URL-shaped v2 titles before writing and add a unit regression. Final native run 04 used the corrected build."
+  },
+  {
+    "phase": "first full lint",
+    "observed": "Six lint errors in tests only: JSON.parse any, unbound method and unnecessary assertion; new test-helper/style warnings. Existing api.ts fetch warning also reported.",
+    "fix": "Type the receipt fixture, bind the plan method, remove the unnecessary assertion and adjust the DOM fake. Product code and checks were not relaxed; rerun lint."
+  },
+  {
+    "phase": "sandbox audit:proposals",
+    "observed": "The child Vitest returned empty stdout, so the audit rejected the run.",
+    "fix": "Reran the unchanged audit outside sandbox: all five mutations killed, restored controls passed. No test, policy or audit script was changed."
+  },
+  {
+    "phase": "staged diff-check",
+    "observed": "New console-log artifacts contained trailing whitespace and extra blank EOF lines.",
+    "fix": "Normalize console-log whitespace only; raw journal JSON/receipt bytes remain untouched. Recheck the entire baseline-to-branch diff."
+  }
+]

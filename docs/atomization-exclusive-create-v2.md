@@ -1,5 +1,7 @@
 # Atomization Exclusive Creation Gate v2
 
+Historical **file-creation** gate. The later [existing empty note workflow](atomization-existing-empty-note-v1.md) uses only `Vault.process()` on a user-created file and does not reopen this gate.
+
 **Apply remains disconnected.** Linux exclusive creation preserves a file that wins the race before Veynrel opens it. The native gate also found a remaining vault-containment failure: moving the pinned parent directory into a second synthetic vault immediately before the exclusive open leaves an empty file there. The candidate refuses before writing the body, but it has already created an entry outside the intended vault. This is not sufficient to authorize Atomization Apply.
 
 This is a capability experiment and a narrow empty-note planner fix. It introduces no Apply/Undo UI, ownership marker, journal, folder creation, background recovery or source mutation. PR #98's [original red regression](atomization-create-gate-native.md), its harness and evidence remain unchanged. [New native results, timings and error log](atomization-exclusive-native.md) distinguish the improved creation primitive from the unresolved gate.

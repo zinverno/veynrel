@@ -1,0 +1,154 @@
+{
+  "version": 2,
+  "operation": "write_atom_to_empty_note",
+  "sources": [
+    {
+      "path": "EmptyAtom/native-empty-v1-cache/Source.md",
+      "created": 1792425441918,
+      "modified": 1792425443344,
+      "bytes": 47,
+      "markdown": "A blue mark 🪶 é denotes a completed trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 44,
+                "line": 0,
+                "offset": 44
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    },
+    {
+      "path": "EmptyAtom/native-empty-v1-cache/Comparison.md",
+      "created": 1792425441918,
+      "modified": 1792425443344,
+      "bytes": 38,
+      "markdown": "An amber mark denotes a pending trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 38,
+                "line": 0,
+                "offset": 38
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    }
+  ],
+  "target": {
+    "path": "EmptyAtom/native-empty-v1-cache/Атом 🪶 native-empty-v1-cache.md",
+    "created": 1792425441971,
+    "modified": 1792425441971,
+    "bytes": 0,
+    "markdown": "",
+    "metadata": {},
+    "references": [],
+    "before": "",
+    "after": "# Trial observation\n\nA blue mark 🪶 é denotes a completed trial.\n\nSource: [[EmptyAtom/native-empty-v1-cache/Source]]"
+  },
+  "selected": {
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 44,
+      "text": "A blue mark 🪶 é denotes a completed trial."
+    },
+    "context": []
+  },
+  "context": [],
+  "remaining": "A blue mark 🪶 é denotes a completed trial.",
+  "additions": {
+    "title": "# Trial observation",
+    "source": "Source: [[EmptyAtom/native-empty-v1-cache/Source]]",
+    "separator": "\n\n"
+  },
+  "confirmations": {
+    "operation": "write_atom_to_empty_note",
+    "side": 0,
+    "kind": "paragraph",
+    "range": {
+      "start": 0,
+      "end": 44,
+      "text": "A blue mark 🪶 é denotes a completed trial."
+    },
+    "title": "Trial observation",
+    "path": "EmptyAtom/native-empty-v1-cache/Атом 🪶 native-empty-v1-cache.md",
+    "unitConfirmed": true,
+    "contextConfirmed": true,
+    "manualConfirmed": true,
+    "titleConfirmed": true,
+    "sourceConfirmed": true,
+    "dependenciesReviewed": true,
+    "targetConfirmed": true
+  },
+  "observation": {
+    "configDir": ".obsidian",
+    "sourceLink": "EmptyAtom/native-empty-v1-cache/Source",
+    "dependencyHash": "749008d0e03644e8c0bb27672357a3009a8c7b9223c6a2cdf73e3f2759290ce4"
+  },
+  "provenance": {
+    "origin": "manual_review",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "related_distinct",
+      "claims": [
+        {
+          "id": "c",
+          "text": "Different observations.",
+          "kind": "comparison",
+          "quoteA": "A blue mark 🪶 é denotes a completed trial.",
+          "quoteB": "An amber mark denotes a pending trial."
+        }
+      ],
+      "explanation": {
+        "text": "Scripted extraction control.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "User reviews semantic independence.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Synthetic control; not model quality evidence."
+      ]
+    },
+    "hintIds": []
+  },
+  "limitations": [
+    "existing_empty_target_only",
+    "sources_unchanged",
+    "undo_clears_never_deletes",
+    "semantic_independence_is_user_judgment",
+    "unknown_external_dependencies",
+    "independent_processes_not_locked"
+  ]
+}

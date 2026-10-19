@@ -16,6 +16,9 @@ import { BundleApplyModal } from "./bundleApplyModal";
 import { MergeApplyModal } from "./mergeApplyModal";
 import { readAtomizationObservation } from "./obsidianAtomization";
 import { readMergeIncoming } from "./obsidianMergeApply";
+import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
+import { obsidianSafeApplyPort } from "./obsidianSafeApply";
+import { EmptyAtomApplyModal } from "./emptyAtomApplyModal";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairInspectorModal extends Modal {
@@ -64,6 +67,8 @@ export class PairInspectorModal extends Modal {
                 this.planner?.close();
                 this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
                   incoming: () => readMergeIncoming(this.app, this.paths),
+                  emptyAtom: obsidianEmptyAtomPort(this.app, obsidianSafeApplyPort(this.app)),
+                  emptyTargets: () => this.app.vault.getMarkdownFiles().filter(f => !this.paths.includes(f.path) && f.stat.size === 0).map(f => f.path).sort(),
                   atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
                 const planner = this.planner;
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
@@ -84,6 +89,10 @@ export class PairInspectorModal extends Modal {
                 } : undefined, this.safeApply?.group ? plan => {
                   new GroupApplyModal(this.app, this.safeApply!.group!, current => this.safeApply!.group!.review(plan, source,
                     () => current() && this.openState && planner.view.groupPlan === plan && this.relationship?.analysisSource === source),
+                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+                } : undefined, this.safeApply?.emptyAtom ? plan => {
+                  new EmptyAtomApplyModal(this.app, this.safeApply!.emptyAtom!, current => this.safeApply!.emptyAtom!.review(plan, source,
+                    () => current() && this.openState && planner.view.emptyAtomPlan === plan && this.relationship?.analysisSource === source),
                   () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
                 } : undefined);
                 void this.planner.prepare();

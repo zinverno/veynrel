@@ -1,0 +1,183 @@
+Discover and actual duplicate list read no Markdown and call no providers
+Decisions disabled with empty key; both exact saved paths read
+Source never expands embeds or HTML
+Native inline/frontmatter tags and incoming links appear
+en theme-light 1200 no horizontal overflow
+en theme-light 390 no horizontal overflow
+en theme-dark 1200 no horizontal overflow
+en theme-dark 390 no horizontal overflow
+ru theme-light 1200 no horizontal overflow
+ru theme-light 390 no horizontal overflow
+ru theme-dark 1200 no horizontal overflow
+ru theme-dark 390 no horizontal overflow
+Inspector performs zero network requests and Markdown writes
+No writes or network even after refresh and reopen
+Closing during asynchronous read never restores inspector UI
+en-paragraph: all confirmations initially unchecked
+en-paragraph: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+en theme-light 1200: literal localized review fits
+en theme-light 390: literal localized review fits
+en theme-dark 1200: literal localized review fits
+en theme-dark 390: literal localized review fits
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+en-conditional: all confirmations initially unchecked
+en-conditional: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+en-H1: all confirmations initially unchecked
+en-H1: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+en-H2: all confirmations initially unchecked
+en-H2: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+en-H3: all confirmations initially unchecked
+en-H3: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+ru-paragraph: all confirmations initially unchecked
+ru-paragraph: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+ru theme-light 1200: literal localized review fits
+ru theme-light 390: literal localized review fits
+ru theme-dark 1200: literal localized review fits
+ru theme-dark 390: literal localized review fits
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+ru-conditional: all confirmations initially unchecked
+ru-conditional: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+ru-H1: all confirmations initially unchecked
+ru-H1: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+ru-H2: all confirmations initially unchecked
+ru-H2: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+ru-H3: all confirmations initially unchecked
+ru-H3: planning has no Markdown/journal/provider write
+Separate review includes complete source pair, target before/after, additions and diff
+Only existing target reaches Vault.process; no create/delete/adapter Markdown write
+Applied survives SIGKILL/restart without background writes
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+native-empty-v1-cache: all confirmations initially unchecked
+native-empty-v1-cache: planning has no Markdown/journal/provider write
+Exact empty target after restart has native cache {v:1}
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+cancel-late-read: all confirmations initially unchecked
+cancel-late-read: planning has no Markdown/journal/provider write
+Close during actual Vault.read discards late consent and writes nothing
+Reopening/cancelling and changing selection clears every confirmation
+refuse-target-edit: all confirmations initially unchecked
+refuse-target-edit: planning has no Markdown/journal/provider write
+target-edit: consent revoked before any process or journal
+refuse-source-edit: all confirmations initially unchecked
+refuse-source-edit: planning has no Markdown/journal/provider write
+source-edit: consent revoked before any process or journal
+refuse-replace: all confirmations initially unchecked
+refuse-replace: planning has no Markdown/journal/provider write
+replace: consent revoked before any process or journal
+refuse-rename: all confirmations initially unchecked
+refuse-rename: planning has no Markdown/journal/provider write
+rename: consent revoked before any process or journal
+refuse-cache-loss: all confirmations initially unchecked
+refuse-cache-loss: planning has no Markdown/journal/provider write
+cache-loss: consent revoked before any process or journal
+undo-refuse-target-edit: all confirmations initially unchecked
+undo-refuse-target-edit: planning has no Markdown/journal/provider write
+target-edit: old Undo refused; completed paths released
+undo-refuse-source-edit: all confirmations initially unchecked
+undo-refuse-source-edit: planning has no Markdown/journal/provider write
+source-edit: old Undo refused; completed paths released
+undo-refuse-incoming: all confirmations initially unchecked
+undo-refuse-incoming: planning has no Markdown/journal/provider write
+incoming: old Undo refused; completed paths released
+undo-refuse-replace: all confirmations initially unchecked
+undo-refuse-replace: planning has no Markdown/journal/provider write
+replace: old Undo refused; completed paths released
+undo-refuse-rename: all confirmations initially unchecked
+undo-refuse-rename: planning has no Markdown/journal/provider write
+rename: old Undo refused; completed paths released
+editor-false-0: all confirmations initially unchecked
+editor-false-0: planning has no Markdown/journal/provider write
+Main participant 0: saved editor blocks review
+editor-false-1: all confirmations initially unchecked
+editor-false-1: planning has no Markdown/journal/provider write
+Main participant 1: saved editor blocks review
+editor-false-2: all confirmations initially unchecked
+editor-false-2: planning has no Markdown/journal/provider write
+Main participant 2: saved editor blocks review
+editor-true-0: all confirmations initially unchecked
+editor-true-0: planning has no Markdown/journal/provider write
+Popout participant 0: saved editor blocks review
+editor-true-1: all confirmations initially unchecked
+editor-true-1: planning has no Markdown/journal/provider write
+Popout participant 1: saved editor blocks review
+editor-true-2: all confirmations initially unchecked
+editor-true-2: planning has no Markdown/journal/provider write
+Popout participant 2: saved editor blocks review
+competing-windows: all confirmations initially unchecked
+competing-windows: planning has no Markdown/journal/provider write
+Two competing review windows produce one process call; duplicate tickets are spent
+Undo leaves the file and has no repeat button
+Repeated Undo is refused without another process call
+crash-before-journal: all confirmations initially unchecked
+crash-before-journal: planning has no Markdown/journal/provider write
+before-journal: actual SIGKILL preserves evidence and never writes recovery
+crash-first-copy: all confirmations initially unchecked
+crash-first-copy: planning has no Markdown/journal/provider write
+first-copy: actual SIGKILL preserves evidence and never writes recovery
+crash-second-copy: all confirmations initially unchecked
+crash-second-copy: planning has no Markdown/journal/provider write
+second-copy: actual SIGKILL preserves evidence and never writes recovery
+crash-before-process: all confirmations initially unchecked
+crash-before-process: planning has no Markdown/journal/provider write
+before-process: actual SIGKILL preserves evidence and never writes recovery
+crash-after-process: all confirmations initially unchecked
+crash-after-process: planning has no Markdown/journal/provider write
+after-process: actual SIGKILL preserves evidence and never writes recovery
+crash-torn-applied: all confirmations initially unchecked
+crash-torn-applied: planning has no Markdown/journal/provider write
+torn-applied: actual SIGKILL preserves evidence and never writes recovery
+crash-undo-intent: all confirmations initially unchecked
+crash-undo-intent: planning has no Markdown/journal/provider write
+undo-intent: actual SIGKILL preserves evidence and never writes recovery
+crash-after-undo: all confirmations initially unchecked
+crash-after-undo: planning has no Markdown/journal/provider write
+after-undo: actual SIGKILL preserves evidence and never writes recovery
+crash-torn-undone: all confirmations initially unchecked
+crash-torn-undone: planning has no Markdown/journal/provider write
+torn-undone: actual SIGKILL preserves evidence and never writes recovery
+Legacy command remains registered and automatic creation remains outside executor

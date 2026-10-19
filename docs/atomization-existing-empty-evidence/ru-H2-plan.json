@@ -1,0 +1,291 @@
+{
+  "version": 2,
+  "operation": "write_atom_to_empty_note",
+  "sources": [
+    {
+      "path": "EmptyAtom/ru-H2/Source.md",
+      "created": 1792425433294,
+      "modified": 1792425433294,
+      "bytes": 176,
+      "markdown": "# Scope\r\n\r\nOnly trial A.\r\n\r\n## Conditions\r\n\r\nOnly if dry.\r\n\r\n### Observation\r\n\r\nСиняя метка 🪶 é обозначает завершённое испытание.\r\n",
+      "metadata": {
+        "headings": [
+          {
+            "heading": "Scope",
+            "level": 1,
+            "position": {
+              "end": {
+                "col": 7,
+                "line": 0,
+                "offset": 7
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            }
+          },
+          {
+            "heading": "Conditions",
+            "level": 2,
+            "position": {
+              "end": {
+                "col": 13,
+                "line": 4,
+                "offset": 41
+              },
+              "start": {
+                "col": 0,
+                "line": 4,
+                "offset": 28
+              }
+            }
+          },
+          {
+            "heading": "Observation",
+            "level": 3,
+            "position": {
+              "end": {
+                "col": 15,
+                "line": 8,
+                "offset": 76
+              },
+              "start": {
+                "col": 0,
+                "line": 8,
+                "offset": 61
+              }
+            }
+          }
+        ],
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 7,
+                "line": 0,
+                "offset": 7
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "heading"
+          },
+          {
+            "position": {
+              "end": {
+                "col": 13,
+                "line": 2,
+                "offset": 24
+              },
+              "start": {
+                "col": 0,
+                "line": 2,
+                "offset": 11
+              }
+            },
+            "type": "paragraph"
+          },
+          {
+            "position": {
+              "end": {
+                "col": 13,
+                "line": 4,
+                "offset": 41
+              },
+              "start": {
+                "col": 0,
+                "line": 4,
+                "offset": 28
+              }
+            },
+            "type": "heading"
+          },
+          {
+            "position": {
+              "end": {
+                "col": 12,
+                "line": 6,
+                "offset": 57
+              },
+              "start": {
+                "col": 0,
+                "line": 6,
+                "offset": 45
+              }
+            },
+            "type": "paragraph"
+          },
+          {
+            "position": {
+              "end": {
+                "col": 15,
+                "line": 8,
+                "offset": 76
+              },
+              "start": {
+                "col": 0,
+                "line": 8,
+                "offset": 61
+              }
+            },
+            "type": "heading"
+          },
+          {
+            "position": {
+              "end": {
+                "col": 51,
+                "line": 10,
+                "offset": 131
+              },
+              "start": {
+                "col": 0,
+                "line": 10,
+                "offset": 80
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    },
+    {
+      "path": "EmptyAtom/ru-H2/Comparison.md",
+      "created": 1792425433294,
+      "modified": 1792425433294,
+      "bytes": 38,
+      "markdown": "An amber mark denotes a pending trial.",
+      "metadata": {
+        "sections": [
+          {
+            "position": {
+              "end": {
+                "col": 38,
+                "line": 0,
+                "offset": 38
+              },
+              "start": {
+                "col": 0,
+                "line": 0,
+                "offset": 0
+              }
+            },
+            "type": "paragraph"
+          }
+        ]
+      },
+      "references": []
+    }
+  ],
+  "target": {
+    "path": "EmptyAtom/ru-H2/Атом 🪶 ru-H2.md",
+    "created": 1792425433347,
+    "modified": 1792425433347,
+    "bytes": 0,
+    "markdown": "",
+    "metadata": {},
+    "references": [],
+    "before": "",
+    "after": "# Наблюдение испытания\r\n\r\n# Scope\r\n\r\nOnly trial A.\r\n\r\n\r\n\r\n## Conditions\r\n\r\nOnly if dry.\r\n\r\n### Observation\r\n\r\nСиняя метка 🪶 é обозначает завершённое испытание.\r\n\r\n\r\nSource: [[EmptyAtom/ru-H2/Source]]"
+  },
+  "selected": {
+    "kind": "section",
+    "range": {
+      "start": 28,
+      "end": 133,
+      "text": "## Conditions\r\n\r\nOnly if dry.\r\n\r\n### Observation\r\n\r\nСиняя метка 🪶 é обозначает завершённое испытание.\r\n"
+    },
+    "context": [
+      {
+        "start": 0,
+        "end": 28,
+        "text": "# Scope\r\n\r\nOnly trial A.\r\n\r\n"
+      }
+    ]
+  },
+  "context": [
+    {
+      "start": 0,
+      "end": 28,
+      "text": "# Scope\r\n\r\nOnly trial A.\r\n\r\n"
+    }
+  ],
+  "remaining": "# Scope\r\n\r\nOnly trial A.\r\n\r\n## Conditions\r\n\r\nOnly if dry.\r\n\r\n### Observation\r\n\r\nСиняя метка 🪶 é обозначает завершённое испытание.\r\n",
+  "additions": {
+    "title": "# Наблюдение испытания",
+    "source": "Source: [[EmptyAtom/ru-H2/Source]]",
+    "separator": "\r\n\r\n"
+  },
+  "confirmations": {
+    "operation": "write_atom_to_empty_note",
+    "side": 0,
+    "kind": "section",
+    "range": {
+      "start": 28,
+      "end": 133,
+      "text": "## Conditions\r\n\r\nOnly if dry.\r\n\r\n### Observation\r\n\r\nСиняя метка 🪶 é обозначает завершённое испытание.\r\n"
+    },
+    "title": "Наблюдение испытания",
+    "path": "EmptyAtom/ru-H2/Атом 🪶 ru-H2.md",
+    "unitConfirmed": true,
+    "contextConfirmed": true,
+    "manualConfirmed": true,
+    "titleConfirmed": true,
+    "sourceConfirmed": true,
+    "dependenciesReviewed": true,
+    "targetConfirmed": true
+  },
+  "observation": {
+    "configDir": ".obsidian",
+    "sourceLink": "EmptyAtom/ru-H2/Source",
+    "dependencyHash": "d92183a6818a36adc1ea09334f8ed6da4abd5c61dee4d67ea49f37140481534c"
+  },
+  "provenance": {
+    "origin": "manual_review",
+    "provider": "Свой API",
+    "model": "synthetic-safe-apply",
+    "analysis": {
+      "relation": "related_distinct",
+      "claims": [
+        {
+          "id": "c",
+          "text": "Different observations.",
+          "kind": "comparison",
+          "quoteA": "Синяя метка 🪶 é обозначает завершённое испытание.",
+          "quoteB": "An amber mark denotes a pending trial."
+        }
+      ],
+      "explanation": {
+        "text": "Scripted extraction control.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "recommendation": {
+        "action": "manual_review",
+        "reason": "User reviews semantic independence.",
+        "evidence": [
+          "c"
+        ]
+      },
+      "alternatives": [],
+      "limitations": [
+        "Synthetic control; not model quality evidence."
+      ]
+    },
+    "hintIds": []
+  },
+  "limitations": [
+    "existing_empty_target_only",
+    "sources_unchanged",
+    "undo_clears_never_deletes",
+    "semantic_independence_is_user_judgment",
+    "unknown_external_dependencies",
+    "independent_processes_not_locked"
+  ]
+}
