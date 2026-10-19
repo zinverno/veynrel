@@ -65,7 +65,7 @@ export class GroupApplyModal extends Modal {
   }
   private error(error: unknown): void {
     if (!this.active) return;
-    this.contentEl.empty(); this.contentEl.createEl("p", { text: tr(`@safeApply.error.${error instanceof SafeApplyError ? error.reason : "stale"}`), attr: { role: "alert" } });
+    this.contentEl.empty(); this.contentEl.createEl("p", { text: tr(error instanceof SafeApplyError && error.reason === "archive_chain" ? "@structuralArchive.error.archive_chain" : `@safeApply.error.${error instanceof SafeApplyError ? error.reason : "stale"}`), attr: { role: "alert" } });
     this.contentEl.createEl("p", { text: tr("@groupApply.failure") }); control(this.contentEl, "history", this.history);
   }
   private async commit(): Promise<void> {
@@ -90,6 +90,7 @@ export function renderGroupHistory(root: HTMLElement, row: GroupHistory, review:
   if (row.recovered) card.createEl("p", { text: tr("@safeApply.recovered") });
   if (row.damaged) card.createEl("p", { text: tr("@safeApply.damaged") });
   if (row.state === "conflict" || row.damaged) card.createEl("p", { text: tr("@journal.manual") });
+  if (row.archiveReason) card.createEl("p", { text: tr(row.archiveReason === "archive_chain" ? "@structuralArchive.error.archive_chain" : "@safeApply.error.archive_active"), attr: { role: "alert" } });
   if (row.editorBlocked) card.createEl("p", { text: tr("@safeApply.error.editor") });
   if (!row.blocking) card.createEl("p", { text: tr("@groupApply.completed") });
   if (row.blocking) card.createEl("p", { text: tr(row.scope === "global" || !row.record ? "@journal.scope.global" : "@journal.scope.local") });

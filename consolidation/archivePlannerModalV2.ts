@@ -4,7 +4,7 @@ import { ArchiveSessionV2 } from "./archiveSessionV2";
 import type { ArchiveReadV2 } from "./archiveSessionV2";
 import { ARCHIVE_LIMITATIONS } from "./archivePlan";
 import { archivePartition, archiveReviewParts, archiveSourceRanges } from "./archivePlanV2";
-import type { ArchiveChoiceV2 } from "./archivePlanV2";
+import type { ArchiveChoiceV2, ArchivePlanV2 } from "./archivePlanV2";
 import type { ArchiveDisposition } from "./archivePlan";
 import { renderPlanDiff } from "./planDiffView";
 import type { GroupHistory } from "./groupApply";
@@ -28,7 +28,8 @@ export class ArchivePlannerModalV2 extends Modal {
   private active = false;
   private cleanup: (() => void)[] = [];
   private choice: ArchiveChoiceV2 = { status: null, dispositions: [], limitationsReviewed: false, unknownDependenciesAccepted: false };
-  constructor(app: App, read: (current: () => boolean) => Promise<ArchiveReadV2>) {
+  constructor(app: App, read: (current: () => boolean) => Promise<ArchiveReadV2>,
+    private readonly apply?: (plan: ArchivePlanV2, current: () => boolean) => void) {
     super(app); this.session = new ArchiveSessionV2(() => read(() => this.active));
   }
   onOpen(): void {
@@ -131,6 +132,10 @@ export class ArchivePlannerModalV2 extends Modal {
     ack.addEventListener("change", () => { this.choice.limitationsReviewed = ack.checked; this.session.changeSelection(); this.contentEl.querySelector<HTMLInputElement>("[data-archive-ack]")?.focus(); });
     this.button("build", () => { void this.session.build(this.choice); }).disabled = !this.choice.status || !this.choice.limitationsReviewed || !this.choice.unknownDependenciesAccepted ||
       fragments.some((_, i) => !["represented", "retained"].includes(this.choice.dispositions[i]?.disposition));
+    if (view.stage === "ready" && view.plan && this.apply) {
+      const plan = view.plan, apply = root.createEl("button", { text: tr("@archiveApply.review"), attr: { type: "button", "data-structural-archive-action": "review" } });
+      apply.addEventListener("click", () => this.apply!(plan, () => this.active && this.session.view.stage === "ready" && this.session.view.plan === plan));
+    }
     this.button("cancel", () => { this.choice = { status: null, dispositions: [], limitationsReviewed: false, unknownDependenciesAccepted: false }; this.session.cancel(); });
     this.button("close", () => this.close());
   }

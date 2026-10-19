@@ -16,6 +16,9 @@ import type { GroupJournal, GroupEntry } from "./groupJournal";
 import { BundleApply } from "./bundleApply";
 import type { BundlePort } from "./bundleApply";
 import type { BundleJournal, BundleEntry } from "./bundleJournal";
+import { StructuralArchiveApply } from "./structuralArchiveApply";
+import type { StructuralArchivePort } from "./structuralArchiveApply";
+import type { StructuralArchiveJournal, StructuralArchiveEntry } from "./structuralArchiveJournal";
 import { ArchiveApply } from "./archiveApply";
 import type { ArchivePort } from "./archiveApply";
 import type { ArchiveJournal, ArchiveEntry } from "./archiveJournal";
@@ -26,7 +29,7 @@ import type { EmptyAtomJournal, EmptyAtomEntry } from "./emptyAtomJournal";
 import type { ArchiveParent, ArchiveParentRead } from "./archivePlanV2";
 
 /** Call-local history evidence only. Consent and execution always reread the journals. */
-export interface JournalSnapshot { single: JournalEntry[]; multi: MultiEntry[]; merge: MergeEntry[]; archive: ArchiveEntry[]; bundle: BundleEntry[]; group: GroupEntry[]; emptyAtom: EmptyAtomEntry[] }
+export interface JournalSnapshot { single: JournalEntry[]; multi: MultiEntry[]; merge: MergeEntry[]; archive: ArchiveEntry[]; bundle: BundleEntry[]; group: GroupEntry[]; emptyAtom: EmptyAtomEntry[]; structuralArchive: StructuralArchiveEntry[] }
 
 export interface SafeApplyPort {
   check(plan: ChangePlan, analysis: RelationshipAnalysis): Promise<() => void>;
@@ -48,6 +51,7 @@ export class SafeApplyService {
   readonly multi?: MultiFileApply;
   readonly merge?: MergeApply;
   readonly archive?: ArchiveApply;
+  readonly structuralArchive?: StructuralArchiveApply;
   readonly bundle?: BundleApply;
   readonly group?: GroupApply;
   readonly emptyAtom?: EmptyAtomApply;
@@ -59,12 +63,12 @@ export class SafeApplyService {
   private readonly historyJournals: () => Promise<JournalSnapshot>;
   constructor(private readonly journal: OperationJournal, private readonly port: SafeApplyPort,
     multi?: { journal: MultiFileJournal; port: MultiFilePort }, merge?: { journal: MergeJournal; port: MergePort },
-    archive?: { journal: ArchiveJournal; port: ArchivePort }, bundle?: { journal: BundleJournal; port: BundlePort }, group?: { journal: GroupJournal; port: GroupPort }, emptyAtom?: { journal: EmptyAtomJournal; port: EmptyAtomPort }) {
+    archive?: { journal: ArchiveJournal; port: ArchivePort }, bundle?: { journal: BundleJournal; port: BundlePort }, group?: { journal: GroupJournal; port: GroupPort }, emptyAtom?: { journal: EmptyAtomJournal; port: EmptyAtomPort }, structuralArchive?: { journal: StructuralArchiveJournal; port: StructuralArchivePort }) {
     this.historyJournals = async () => {
-      const [single, multiEntries, mergeEntries, archiveEntries, bundleEntries, groupEntries, emptyAtomEntries] = await Promise.all([
-        journal.entries(), multi?.journal.entries() ?? [], merge?.journal.entries() ?? [], archive?.journal.entries() ?? [], bundle?.journal.entries() ?? [], group?.journal.entries() ?? [], emptyAtom?.journal.entries() ?? [],
+      const [single, multiEntries, mergeEntries, archiveEntries, bundleEntries, groupEntries, emptyAtomEntries, structuralArchiveEntries] = await Promise.all([
+        journal.entries(), multi?.journal.entries() ?? [], merge?.journal.entries() ?? [], archive?.journal.entries() ?? [], bundle?.journal.entries() ?? [], group?.journal.entries() ?? [], emptyAtom?.journal.entries() ?? [], structuralArchive?.journal.entries() ?? [],
       ]);
-      return { single, multi: multiEntries, merge: mergeEntries, archive: archiveEntries, bundle: bundleEntries, group: groupEntries, emptyAtom: emptyAtomEntries };
+      return { single, multi: multiEntries, merge: mergeEntries, archive: archiveEntries, bundle: bundleEntries, group: groupEntries, emptyAtom: emptyAtomEntries, structuralArchive: structuralArchiveEntries };
     };
     this.readArchiveParent = (operation, id, current) => this.exclusive(async () => {
       this.active(current);
@@ -104,10 +108,15 @@ export class SafeApplyService {
     if (bundle) this.bundle = new BundleApply(bundle.journal, port, bundle.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
       blockers: (paths, ownId, snapshot) => this.checkBlockers(paths, undefined, undefined, undefined, snapshot, ownId), history: () => this.historyJournals(),
-    });
+    }, (record, snapshot) => this.structuralArchive?.restoration(record, snapshot) ?? Promise.resolve(undefined));
     if (group) this.group = new GroupApply(group.journal, port, group.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
       blockers: (paths, ownId, snapshot) => this.checkBlockers(paths, undefined, undefined, undefined, snapshot, undefined, ownId), history: () => this.historyJournals(),
+    }, (record, snapshot) => this.structuralArchive?.restoration(record, snapshot) ?? Promise.resolve(undefined));
+    if (structuralArchive) this.structuralArchive = new StructuralArchiveApply(structuralArchive.journal, port, structuralArchive.port, {
+      exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
+      blockers: (paths, ownId, snapshot) => this.checkBlockers(paths, undefined, undefined, undefined, snapshot, undefined, undefined, undefined, ownId),
+      history: () => this.historyJournals(),
     });
     if (emptyAtom) this.emptyAtom = new EmptyAtomApply(emptyAtom.journal, port, emptyAtom.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
@@ -122,10 +131,11 @@ export class SafeApplyService {
       }, history: () => this.historyJournals(),
     });
   }
-  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); this.archive?.dispose(); this.bundle?.dispose(); this.group?.dispose(); this.emptyAtom?.dispose(); }
+  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); this.archive?.dispose(); this.bundle?.dispose(); this.group?.dispose(); this.emptyAtom?.dispose(); this.structuralArchive?.dispose(); }
   discard(review: ApplyReview): void { this.tickets.delete(review); }
   discardResolution(review: ResolutionReview): void { this.resolutions.delete(review); }
-  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string, ownArchiveId?: string, snapshot?: JournalSnapshot, ownBundleId?: string, ownGroupId?: string, ownEmptyAtomId?: string): Promise<void> {
+  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string, ownArchiveId?: string, snapshot?: JournalSnapshot, ownBundleId?: string, ownGroupId?: string, ownEmptyAtomId?: string, ownStructuralArchiveId?: string): Promise<void> {
+    snapshot ??= await this.historyJournals();
     const blocked = (snapshot?.single ?? await this.journal.entries()).some(entry => !entry.resolution && entry.damaged &&
       (entry.scope === "global" || !entry.record || paths.includes(entry.record.sourcePath) || paths.includes(entry.record.targetPath)));
     requireSafe(!blocked, "storage");
@@ -135,6 +145,7 @@ export class SafeApplyService {
     await this.bundle?.blockers(paths, ownBundleId, snapshot);
     await this.group?.blockers(paths, ownGroupId, snapshot);
     await this.emptyAtom?.blockers(paths, ownEmptyAtomId, snapshot);
+    await this.structuralArchive?.blockers(paths, ownStructuralArchiveId, snapshot);
   }
   private async exclusive<T>(work: () => Promise<T>): Promise<T> {
     requireSafe(!this.closed, "cancelled"); requireSafe(!this.busy, "busy"); this.busy = true;
@@ -234,6 +245,7 @@ export class SafeApplyService {
       await this.bundle?.blockers([row.record.sourcePath, row.record.targetPath]);
       await this.group?.blockers([row.record.sourcePath, row.record.targetPath]);
       await this.emptyAtom?.blockers([row.record.sourcePath, row.record.targetPath]);
+      await this.structuralArchive?.blockers([row.record.sourcePath, row.record.targetPath]);
       const source = await this.port.read(row.record.sourcePath);
       requireSafe(source && source.file.stat.ctime === row.record.sourceCreated &&
         source.content === (row.sourceState === "before" ? row.record.before : row.record.after), "conflict");
@@ -260,6 +272,7 @@ export class SafeApplyService {
         await this.bundle?.blockers([record.sourcePath, record.targetPath]);
         await this.group?.blockers([record.sourcePath, record.targetPath]);
         await this.emptyAtom?.blockers([record.sourcePath, record.targetPath]);
+        await this.structuralArchive?.blockers([record.sourcePath, record.targetPath]);
       };
       await recheck();
       const receipt: ResolutionRecord = {

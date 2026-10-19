@@ -1,0 +1,1139 @@
+{
+  "crash": "after-write",
+  "kind": "08",
+  "stopped": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-bundle-operations/b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936/backup.json": {
+      "sha256": "9ec67496c90fc1de20fa2c104007d47deac88f085c73fa85a4c99de3dced7671",
+      "mtime": 1792435243456.0688,
+      "bytes": 9062
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-bundle-operations/b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936/mark-569e4349-d297-489f-8b8f-95e337b22ed2.json": {
+      "sha256": "a469e826c88102b68d10674ad768938dc51fe77b0fee71c3f63665649908460d",
+      "mtime": 1792435243486.0693,
+      "bytes": 377
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-bundle-operations/b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936/record.json": {
+      "sha256": "9ec67496c90fc1de20fa2c104007d47deac88f085c73fa85a4c99de3dced7671",
+      "mtime": 1792435243452.7356,
+      "bytes": 9062
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/9677a559bcca5eda7ef6482546a239f874be8d121fafaff232b279e93a93fab5/backup.json": {
+      "sha256": "ea38ff5db469d2b09ac55b812a47e2b9c1d4484d3700277a87d93123d9c0f3d7",
+      "mtime": 1792435245679.441,
+      "bytes": 33713
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/9677a559bcca5eda7ef6482546a239f874be8d121fafaff232b279e93a93fab5/record.json": {
+      "sha256": "ea38ff5db469d2b09ac55b812a47e2b9c1d4484d3700277a87d93123d9c0f3d7",
+      "mtime": 1792435245679.441,
+      "bytes": 33713
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435238172.6438,
+      "bytes": 196
+    },
+    "StructuralArchive/crash-after-write-08/A.md": {
+      "sha256": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba",
+      "mtime": 1792435243472.7358,
+      "bytes": 735
+    },
+    "StructuralArchive/crash-after-write-08/B.md": {
+      "sha256": "07c223ee2528b8d056defe20aacbd0df8dc874793ea6648c7d5717b3d22a468f",
+      "mtime": 1792435245706.108,
+      "bytes": 636
+    },
+    "StructuralArchive/crash-after-write-08/Consumer.md": {
+      "sha256": "eb901d6c4d487c53a497fe1403082e4cc14e50f83ec14fe40ed416f210eda8fa",
+      "mtime": 1792435242996.061,
+      "bytes": 157
+    }
+  },
+  "afterRestart": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-bundle-operations/b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936/backup.json": {
+      "sha256": "9ec67496c90fc1de20fa2c104007d47deac88f085c73fa85a4c99de3dced7671",
+      "mtime": 1792435243456.0688,
+      "bytes": 9062
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-bundle-operations/b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936/mark-569e4349-d297-489f-8b8f-95e337b22ed2.json": {
+      "sha256": "a469e826c88102b68d10674ad768938dc51fe77b0fee71c3f63665649908460d",
+      "mtime": 1792435243486.0693,
+      "bytes": 377
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-bundle-operations/b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936/record.json": {
+      "sha256": "9ec67496c90fc1de20fa2c104007d47deac88f085c73fa85a4c99de3dced7671",
+      "mtime": 1792435243452.7356,
+      "bytes": 9062
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/9677a559bcca5eda7ef6482546a239f874be8d121fafaff232b279e93a93fab5/backup.json": {
+      "sha256": "ea38ff5db469d2b09ac55b812a47e2b9c1d4484d3700277a87d93123d9c0f3d7",
+      "mtime": 1792435245679.441,
+      "bytes": 33713
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-structural-archive-operations/9677a559bcca5eda7ef6482546a239f874be8d121fafaff232b279e93a93fab5/record.json": {
+      "sha256": "ea38ff5db469d2b09ac55b812a47e2b9c1d4484d3700277a87d93123d9c0f3d7",
+      "mtime": 1792435245679.441,
+      "bytes": 33713
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435238172.6438,
+      "bytes": 196
+    },
+    "StructuralArchive/crash-after-write-08/A.md": {
+      "sha256": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba",
+      "mtime": 1792435243472.7358,
+      "bytes": 735
+    },
+    "StructuralArchive/crash-after-write-08/B.md": {
+      "sha256": "07c223ee2528b8d056defe20aacbd0df8dc874793ea6648c7d5717b3d22a468f",
+      "mtime": 1792435245706.108,
+      "bytes": 636
+    },
+    "StructuralArchive/crash-after-write-08/Consumer.md": {
+      "sha256": "eb901d6c4d487c53a497fe1403082e4cc14e50f83ec14fe40ed416f210eda8fa",
+      "mtime": 1792435242996.061,
+      "bytes": 157
+    }
+  },
+  "rows": [
+    {
+      "id": "9677a559bcca5eda7ef6482546a239f874be8d121fafaff232b279e93a93fab5",
+      "damaged": false,
+      "scope": "none",
+      "receipts": [],
+      "issues": [],
+      "record": {
+        "version": 2,
+        "operation": "structural_archive_in_place",
+        "state": "prepared",
+        "id": "9677a559bcca5eda7ef6482546a239f874be8d121fafaff232b279e93a93fab5",
+        "createdAt": 1792435245605,
+        "parent": {
+          "version": 1,
+          "operation": "context_bundle_copy",
+          "state": "prepared",
+          "id": "b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936",
+          "createdAt": 1792435243393,
+          "plan": {
+            "version": 1,
+            "operation": "copy_context_bundle",
+            "readOnly": true,
+            "kind": "list_context",
+            "canonical": {
+              "path": "StructuralArchive/crash-after-write-08/A.md",
+              "identity": {
+                "created": 1792435242939,
+                "modified": 1792435242939,
+                "bytes": 205,
+                "contentHash": "749273a273ceffc5"
+              },
+              "before": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n",
+              "after": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+            },
+            "secondary": {
+              "path": "StructuralArchive/crash-after-write-08/B.md",
+              "identity": {
+                "created": 1792435242939,
+                "modified": 1792435242939,
+                "bytes": 529,
+                "contentHash": "877349d8cda284e0"
+              },
+              "content": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату.\n",
+              "unchanged": true
+            },
+            "bundle": {
+              "kind": "list_context",
+              "core": {
+                "start": 124,
+                "end": 245,
+                "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+              },
+              "before": [
+                {
+                  "start": 0,
+                  "end": 70,
+                  "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                },
+                {
+                  "start": 72,
+                  "end": 122,
+                  "text": "Проверка карточки выполняется в следующем порядке."
+                }
+              ],
+              "after": [
+                {
+                  "start": 247,
+                  "end": 290,
+                  "text": "Последний шаг не разрешает выдумывать дату."
+                }
+              ],
+              "range": {
+                "start": 0,
+                "end": 290,
+                "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+              },
+              "blocks": [
+                {
+                  "role": "context_before",
+                  "range": {
+                    "start": 0,
+                    "end": 70,
+                    "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                  }
+                },
+                {
+                  "role": "context_before",
+                  "range": {
+                    "start": 72,
+                    "end": 122,
+                    "text": "Проверка карточки выполняется в следующем порядке."
+                  }
+                },
+                {
+                  "role": "core",
+                  "range": {
+                    "start": 124,
+                    "end": 245,
+                    "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+                  }
+                },
+                {
+                  "role": "context_after",
+                  "range": {
+                    "start": 247,
+                    "end": 290,
+                    "text": "Последний шаг не разрешает выдумывать дату."
+                  }
+                }
+              ],
+              "retained": [
+                {
+                  "start": 290,
+                  "end": 291,
+                  "text": "\n"
+                }
+              ]
+            },
+            "insertion": {
+              "point": 111,
+              "separator": "\n\n",
+              "edit": {
+                "start": 111,
+                "end": 111,
+                "removed": "",
+                "inserted": "\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+              }
+            },
+            "confirmations": {
+              "operation": "copy_context_bundle",
+              "canonical": 0,
+              "kind": "list_context",
+              "core": {
+                "start": 124,
+                "end": 245,
+                "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+              },
+              "context": [
+                {
+                  "start": 0,
+                  "end": 70,
+                  "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                },
+                {
+                  "start": 72,
+                  "end": 122,
+                  "text": "Проверка карточки выполняется в следующем порядке."
+                },
+                {
+                  "start": 247,
+                  "end": 290,
+                  "text": "Последний шаг не разрешает выдумывать дату."
+                }
+              ],
+              "boundariesConfirmed": true,
+              "contextConfirmed": true,
+              "dependencies": "reviewed",
+              "insertion": 111,
+              "insertionConfirmed": true,
+              "distinctIntent": false
+            },
+            "dependencies": [
+              {
+                "path": "StructuralArchive/crash-after-write-08/A.md",
+                "metadata": {
+                  "sections": [
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 0,
+                          "col": 0,
+                          "offset": 0
+                        },
+                        "end": {
+                          "line": 0,
+                          "col": 70,
+                          "offset": 70
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 2,
+                          "col": 0,
+                          "offset": 72
+                        },
+                        "end": {
+                          "line": 2,
+                          "col": 38,
+                          "offset": 110
+                        }
+                      }
+                    }
+                  ]
+                },
+                "outgoing": [],
+                "incoming": {
+                  "items": [],
+                  "total": 0
+                }
+              },
+              {
+                "path": "StructuralArchive/crash-after-write-08/B.md",
+                "metadata": {
+                  "sections": [
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 0,
+                          "col": 0,
+                          "offset": 0
+                        },
+                        "end": {
+                          "line": 0,
+                          "col": 70,
+                          "offset": 70
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 2,
+                          "col": 0,
+                          "offset": 72
+                        },
+                        "end": {
+                          "line": 2,
+                          "col": 50,
+                          "offset": 122
+                        }
+                      }
+                    },
+                    {
+                      "type": "list",
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "col": 0,
+                          "offset": 124
+                        },
+                        "end": {
+                          "line": 6,
+                          "col": 51,
+                          "offset": 245
+                        }
+                      }
+                    },
+                    {
+                      "type": "paragraph",
+                      "position": {
+                        "start": {
+                          "line": 8,
+                          "col": 0,
+                          "offset": 247
+                        },
+                        "end": {
+                          "line": 8,
+                          "col": 43,
+                          "offset": 290
+                        }
+                      }
+                    }
+                  ],
+                  "listItems": [
+                    {
+                      "position": {
+                        "start": {
+                          "line": 4,
+                          "col": 0,
+                          "offset": 124
+                        },
+                        "end": {
+                          "line": 4,
+                          "col": 31,
+                          "offset": 155
+                        }
+                      },
+                      "parent": -4
+                    },
+                    {
+                      "position": {
+                        "start": {
+                          "line": 5,
+                          "col": 0,
+                          "offset": 156
+                        },
+                        "end": {
+                          "line": 5,
+                          "col": 37,
+                          "offset": 193
+                        }
+                      },
+                      "parent": -4
+                    },
+                    {
+                      "position": {
+                        "start": {
+                          "line": 6,
+                          "col": 0,
+                          "offset": 194
+                        },
+                        "end": {
+                          "line": 6,
+                          "col": 51,
+                          "offset": 245
+                        }
+                      },
+                      "parent": -4
+                    }
+                  ]
+                },
+                "outgoing": [],
+                "incoming": {
+                  "items": [
+                    "StructuralArchive/crash-after-write-08/Consumer.md"
+                  ],
+                  "total": 1
+                }
+              }
+            ],
+            "resolver": [
+              "StructuralArchive/crash-after-write-08/A",
+              "StructuralArchive/crash-after-write-08/B"
+            ],
+            "provenance": {
+              "origin": "relationship_analyzer",
+              "provider": "Свой API",
+              "model": "synthetic-safe-apply",
+              "analysis": {
+                "relation": "partial_overlap",
+                "claims": [
+                  {
+                    "id": "c1",
+                    "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+                    "kind": "shared",
+                    "quoteA": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.",
+                    "quoteB": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                  },
+                  {
+                    "id": "c2",
+                    "text": "Порядок проверки уникален и должен сохраняться целиком.",
+                    "kind": "unique_b",
+                    "quoteA": null,
+                    "quoteB": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+                  }
+                ],
+                "explanation": {
+                  "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+                  "evidence": [
+                    "c1",
+                    "c2"
+                  ]
+                },
+                "recommendation": {
+                  "action": "consider_merge",
+                  "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+                  "evidence": [
+                    "c1"
+                  ]
+                },
+                "alternatives": [],
+                "limitations": [
+                  "Порядок пунктов имеет значение."
+                ]
+              }
+            },
+            "limitations": [
+              "read_only_no_executor",
+              "secondary_unchanged",
+              "metadata_may_lag",
+              "external_sources_unverified",
+              "user_context_roles_not_proof",
+              "semantic_equivalence_unverified",
+              "no_archive_eligibility"
+            ]
+          },
+          "hashes": {
+            "before": "5b3be0f02bdc77b88e4d731e239fb37e13d0459fc2d359bccd16f0b86ca857ad",
+            "after": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba",
+            "secondary": "d4ee0fb49b0c0933f6dd7d9f71c536e07952952dded4e7936cc7b8bdae6d88a2"
+          }
+        },
+        "plan": {
+          "version": 2,
+          "operation": "structural_archive_in_place_plan",
+          "readOnly": true,
+          "status": "archived",
+          "provenance": {
+            "operation": "context_bundle_copy",
+            "id": "b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936",
+            "recordHash": "9ec67496c90fc1de20fa2c104007d47deac88f085c73fa85a4c99de3dced7671",
+            "parent": {
+              "version": 1,
+              "operation": "context_bundle_copy",
+              "state": "prepared",
+              "id": "b905bb96a268673aeda61b73a69e23988f9182fd2bc5ebdcbb5e4715c7661936",
+              "createdAt": 1792435243393,
+              "plan": {
+                "version": 1,
+                "operation": "copy_context_bundle",
+                "readOnly": true,
+                "kind": "list_context",
+                "canonical": {
+                  "path": "StructuralArchive/crash-after-write-08/A.md",
+                  "identity": {
+                    "created": 1792435242939,
+                    "modified": 1792435242939,
+                    "bytes": 205,
+                    "contentHash": "749273a273ceffc5"
+                  },
+                  "before": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n",
+                  "after": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+                },
+                "secondary": {
+                  "path": "StructuralArchive/crash-after-write-08/B.md",
+                  "identity": {
+                    "created": 1792435242939,
+                    "modified": 1792435242939,
+                    "bytes": 529,
+                    "contentHash": "877349d8cda284e0"
+                  },
+                  "content": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату.\n",
+                  "unchanged": true
+                },
+                "bundle": {
+                  "kind": "list_context",
+                  "core": {
+                    "start": 124,
+                    "end": 245,
+                    "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+                  },
+                  "before": [
+                    {
+                      "start": 0,
+                      "end": 70,
+                      "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                    },
+                    {
+                      "start": 72,
+                      "end": 122,
+                      "text": "Проверка карточки выполняется в следующем порядке."
+                    }
+                  ],
+                  "after": [
+                    {
+                      "start": 247,
+                      "end": 290,
+                      "text": "Последний шаг не разрешает выдумывать дату."
+                    }
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 290,
+                    "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+                  },
+                  "blocks": [
+                    {
+                      "role": "context_before",
+                      "range": {
+                        "start": 0,
+                        "end": 70,
+                        "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                      }
+                    },
+                    {
+                      "role": "context_before",
+                      "range": {
+                        "start": 72,
+                        "end": 122,
+                        "text": "Проверка карточки выполняется в следующем порядке."
+                      }
+                    },
+                    {
+                      "role": "core",
+                      "range": {
+                        "start": 124,
+                        "end": 245,
+                        "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+                      }
+                    },
+                    {
+                      "role": "context_after",
+                      "range": {
+                        "start": 247,
+                        "end": 290,
+                        "text": "Последний шаг не разрешает выдумывать дату."
+                      }
+                    }
+                  ],
+                  "retained": [
+                    {
+                      "start": 290,
+                      "end": 291,
+                      "text": "\n"
+                    }
+                  ]
+                },
+                "insertion": {
+                  "point": 111,
+                  "separator": "\n\n",
+                  "edit": {
+                    "start": 111,
+                    "end": 111,
+                    "removed": "",
+                    "inserted": "\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+                  }
+                },
+                "confirmations": {
+                  "operation": "copy_context_bundle",
+                  "canonical": 0,
+                  "kind": "list_context",
+                  "core": {
+                    "start": 124,
+                    "end": 245,
+                    "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+                  },
+                  "context": [
+                    {
+                      "start": 0,
+                      "end": 70,
+                      "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                    },
+                    {
+                      "start": 72,
+                      "end": 122,
+                      "text": "Проверка карточки выполняется в следующем порядке."
+                    },
+                    {
+                      "start": 247,
+                      "end": 290,
+                      "text": "Последний шаг не разрешает выдумывать дату."
+                    }
+                  ],
+                  "boundariesConfirmed": true,
+                  "contextConfirmed": true,
+                  "dependencies": "reviewed",
+                  "insertion": 111,
+                  "insertionConfirmed": true,
+                  "distinctIntent": false
+                },
+                "dependencies": [
+                  {
+                    "path": "StructuralArchive/crash-after-write-08/A.md",
+                    "metadata": {
+                      "sections": [
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 0,
+                              "col": 0,
+                              "offset": 0
+                            },
+                            "end": {
+                              "line": 0,
+                              "col": 70,
+                              "offset": 70
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 2,
+                              "col": 0,
+                              "offset": 72
+                            },
+                            "end": {
+                              "line": 2,
+                              "col": 38,
+                              "offset": 110
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "outgoing": [],
+                    "incoming": {
+                      "items": [],
+                      "total": 0
+                    }
+                  },
+                  {
+                    "path": "StructuralArchive/crash-after-write-08/B.md",
+                    "metadata": {
+                      "sections": [
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 0,
+                              "col": 0,
+                              "offset": 0
+                            },
+                            "end": {
+                              "line": 0,
+                              "col": 70,
+                              "offset": 70
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 2,
+                              "col": 0,
+                              "offset": 72
+                            },
+                            "end": {
+                              "line": 2,
+                              "col": 50,
+                              "offset": 122
+                            }
+                          }
+                        },
+                        {
+                          "type": "list",
+                          "position": {
+                            "start": {
+                              "line": 4,
+                              "col": 0,
+                              "offset": 124
+                            },
+                            "end": {
+                              "line": 6,
+                              "col": 51,
+                              "offset": 245
+                            }
+                          }
+                        },
+                        {
+                          "type": "paragraph",
+                          "position": {
+                            "start": {
+                              "line": 8,
+                              "col": 0,
+                              "offset": 247
+                            },
+                            "end": {
+                              "line": 8,
+                              "col": 43,
+                              "offset": 290
+                            }
+                          }
+                        }
+                      ],
+                      "listItems": [
+                        {
+                          "position": {
+                            "start": {
+                              "line": 4,
+                              "col": 0,
+                              "offset": 124
+                            },
+                            "end": {
+                              "line": 4,
+                              "col": 31,
+                              "offset": 155
+                            }
+                          },
+                          "parent": -4
+                        },
+                        {
+                          "position": {
+                            "start": {
+                              "line": 5,
+                              "col": 0,
+                              "offset": 156
+                            },
+                            "end": {
+                              "line": 5,
+                              "col": 37,
+                              "offset": 193
+                            }
+                          },
+                          "parent": -4
+                        },
+                        {
+                          "position": {
+                            "start": {
+                              "line": 6,
+                              "col": 0,
+                              "offset": 194
+                            },
+                            "end": {
+                              "line": 6,
+                              "col": 51,
+                              "offset": 245
+                            }
+                          },
+                          "parent": -4
+                        }
+                      ]
+                    },
+                    "outgoing": [],
+                    "incoming": {
+                      "items": [
+                        "StructuralArchive/crash-after-write-08/Consumer.md"
+                      ],
+                      "total": 1
+                    }
+                  }
+                ],
+                "resolver": [
+                  "StructuralArchive/crash-after-write-08/A",
+                  "StructuralArchive/crash-after-write-08/B"
+                ],
+                "provenance": {
+                  "origin": "relationship_analyzer",
+                  "provider": "Свой API",
+                  "model": "synthetic-safe-apply",
+                  "analysis": {
+                    "relation": "partial_overlap",
+                    "claims": [
+                      {
+                        "id": "c1",
+                        "text": "These excerpts describe the same limited fact; this does not establish whole-note redundancy.",
+                        "kind": "shared",
+                        "quoteA": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.",
+                        "quoteB": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+                      },
+                      {
+                        "id": "c2",
+                        "text": "Порядок проверки уникален и должен сохраняться целиком.",
+                        "kind": "unique_b",
+                        "quoteA": null,
+                        "quoteB": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+                      }
+                    ],
+                    "explanation": {
+                      "text": "Curated control response derived from the frozen synthetic reference, not a model prediction.",
+                      "evidence": [
+                        "c1",
+                        "c2"
+                      ]
+                    },
+                    "recommendation": {
+                      "action": "consider_merge",
+                      "reason": "Review the stated evidence and scope; no operation is authorized by this recommendation.",
+                      "evidence": [
+                        "c1"
+                      ]
+                    },
+                    "alternatives": [],
+                    "limitations": [
+                      "Порядок пунктов имеет значение."
+                    ]
+                  }
+                },
+                "limitations": [
+                  "read_only_no_executor",
+                  "secondary_unchanged",
+                  "metadata_may_lag",
+                  "external_sources_unverified",
+                  "user_context_roles_not_proof",
+                  "semantic_equivalence_unverified",
+                  "no_archive_eligibility"
+                ]
+              },
+              "hashes": {
+                "before": "5b3be0f02bdc77b88e4d731e239fb37e13d0459fc2d359bccd16f0b86ca857ad",
+                "after": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba",
+                "secondary": "d4ee0fb49b0c0933f6dd7d9f71c536e07952952dded4e7936cc7b8bdae6d88a2"
+              }
+            },
+            "receipt": {
+              "state": "applied",
+              "modified": 1792435243473,
+              "bytes": 735,
+              "hash": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba"
+            }
+          },
+          "canonical": {
+            "path": "StructuralArchive/crash-after-write-08/A.md",
+            "created": 1792435242939,
+            "modified": 1792435243473,
+            "bytes": 735,
+            "content": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nНазвание и год записываются раздельно.\n\n\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату.",
+            "hash": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba"
+          },
+          "secondary": {
+            "path": "StructuralArchive/crash-after-write-08/B.md",
+            "created": 1792435242939,
+            "modified": 1792435242939,
+            "bytes": 529,
+            "before": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату.\n",
+            "after": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[StructuralArchive/crash-after-write-08/A]]\"\n---\nВ учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату.\n",
+            "beforeHash": "d4ee0fb49b0c0933f6dd7d9f71c536e07952952dded4e7936cc7b8bdae6d88a2"
+          },
+          "copied": [
+            {
+              "start": 0,
+              "end": 290,
+              "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+            }
+          ],
+          "retained": [
+            {
+              "start": 290,
+              "end": 291,
+              "text": "\n"
+            }
+          ],
+          "partition": [
+            {
+              "range": {
+                "start": 0,
+                "end": 70,
+                "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 0,
+                "end": 122,
+                "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 70,
+                "end": 72,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 0,
+                "end": 245,
+                "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 72,
+                "end": 122,
+                "text": "Проверка карточки выполняется в следующем порядке."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 0,
+                "end": 245,
+                "text": "В учебном каталоге «Тростник» карточка описывает одну найденную книгу.\n\nПроверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 122,
+                "end": 124,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 72,
+                "end": 290,
+                "text": "Проверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 124,
+                "end": 245,
+                "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные."
+              },
+              "copied": true,
+              "section": "list",
+              "context": {
+                "start": 72,
+                "end": 290,
+                "text": "Проверка карточки выполняется в следующем порядке.\n\n1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 245,
+                "end": 247,
+                "text": "\n\n"
+              },
+              "copied": true,
+              "section": null,
+              "context": {
+                "start": 124,
+                "end": 290,
+                "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+              },
+              "kind": "separator"
+            },
+            {
+              "range": {
+                "start": 247,
+                "end": 290,
+                "text": "Последний шаг не разрешает выдумывать дату."
+              },
+              "copied": true,
+              "section": "paragraph",
+              "context": {
+                "start": 124,
+                "end": 290,
+                "text": "1. Сверить название с обложкой.\n2. Проверить год по титульному листу.\n3. Отметить отсутствующие сведения как неизвестные.\n\nПоследний шаг не разрешает выдумывать дату."
+              },
+              "kind": "copied"
+            },
+            {
+              "range": {
+                "start": 290,
+                "end": 291,
+                "text": "\n"
+              },
+              "copied": false,
+              "section": null,
+              "context": {
+                "start": 247,
+                "end": 290,
+                "text": "Последний шаг не разрешает выдумывать дату."
+              },
+              "kind": "separator"
+            }
+          ],
+          "preservation": [],
+          "dependencies": [
+            {
+              "path": "StructuralArchive/crash-after-write-08/A.md",
+              "outgoing": [],
+              "incoming": [],
+              "targets": [],
+              "issues": [
+                "external_consumers_unverified"
+              ]
+            },
+            {
+              "path": "StructuralArchive/crash-after-write-08/B.md",
+              "outgoing": [],
+              "incoming": [
+                {
+                  "path": "StructuralArchive/crash-after-write-08/Consumer.md",
+                  "count": 3,
+                  "metadataAvailable": true,
+                  "references": [
+                    {
+                      "kind": "link",
+                      "original": "[[StructuralArchive/crash-after-write-08/B]]",
+                      "target": "StructuralArchive/crash-after-write-08/B.md"
+                    },
+                    {
+                      "kind": "embed",
+                      "original": "![[StructuralArchive/crash-after-write-08/B]]",
+                      "target": "StructuralArchive/crash-after-write-08/B.md"
+                    },
+                    {
+                      "kind": "property",
+                      "original": "[[StructuralArchive/crash-after-write-08/B]]",
+                      "target": "StructuralArchive/crash-after-write-08/B.md"
+                    }
+                  ]
+                }
+              ],
+              "targets": [
+                {
+                  "from": "StructuralArchive/crash-after-write-08/Consumer.md",
+                  "kind": "link",
+                  "original": "[[StructuralArchive/crash-after-write-08/B]]",
+                  "target": "StructuralArchive/crash-after-write-08/B.md",
+                  "subpath": ""
+                },
+                {
+                  "from": "StructuralArchive/crash-after-write-08/Consumer.md",
+                  "kind": "embed",
+                  "original": "![[StructuralArchive/crash-after-write-08/B]]",
+                  "target": "StructuralArchive/crash-after-write-08/B.md",
+                  "subpath": ""
+                },
+                {
+                  "from": "StructuralArchive/crash-after-write-08/Consumer.md",
+                  "kind": "property",
+                  "original": "[[StructuralArchive/crash-after-write-08/B]]",
+                  "target": "StructuralArchive/crash-after-write-08/B.md",
+                  "subpath": ""
+                }
+              ],
+              "issues": [
+                "external_consumers_unverified"
+              ]
+            }
+          ],
+          "confirmation": {
+            "limitationsReviewed": true,
+            "unknownDependenciesAccepted": true,
+            "semanticCompletenessProven": false
+          },
+          "limitations": [
+            "copy_not_redundancy",
+            "contradictions_versions",
+            "headings_examples",
+            "metadata_incomplete",
+            "unknown_dependencies",
+            "soft_only",
+            "read_only",
+            "single_parent_only",
+            "retained_group_rich_syntax_unsupported",
+            "parent_undo_requires_complete_archive_chain",
+            "Порядок пунктов имеет значение."
+          ],
+          "edit": {
+            "start": 0,
+            "end": 0,
+            "removed": "",
+            "inserted": "---\nveynrel_archive_status: archived\nveynrel_canonical: \"[[StructuralArchive/crash-after-write-08/A]]\"\n---\n"
+          }
+        },
+        "environment": "{\"consumers\":[{\"bytes\":157,\"created\":1792435242996,\"metadata\":{\"embeds\":[{\"displayText\":\"StructuralArchive/crash-after-write-08/B\",\"link\":\"StructuralArchive/crash-after-write-08/B\",\"original\":\"![[StructuralArchive/crash-after-write-08/B]]\",\"position\":{\"end\":{\"col\":45,\"line\":6,\"offset\":156},\"start\":{\"col\":0,\"line\":6,\"offset\":111}}}],\"frontmatter\":{\"related\":\"[[StructuralArchive/crash-after-write-08/B]]\"},\"frontmatterLinks\":[{\"displayText\":\"StructuralArchive/crash-after-write-08/B\",\"key\":\"related\",\"link\":\"StructuralArchive/crash-after-write-08/B\",\"original\":\"[[StructuralArchive/crash-after-write-08/B]]\"}],\"frontmatterPosition\":{\"end\":{\"col\":3,\"line\":2,\"offset\":63},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"links\":[{\"displayText\":\"StructuralArchive/crash-after-write-08/B\",\"link\":\"StructuralArchive/crash-after-write-08/B\",\"original\":\"[[StructuralArchive/crash-after-write-08/B]]\",\"position\":{\"end\":{\"col\":44,\"line\":4,\"offset\":109},\"start\":{\"col\":0,\"line\":4,\"offset\":65}}}],\"sections\":[{\"position\":{\"end\":{\"col\":3,\"line\":2,\"offset\":63},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"type\":\"yaml\"},{\"position\":{\"end\":{\"col\":44,\"line\":4,\"offset\":109},\"start\":{\"col\":0,\"line\":4,\"offset\":65}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":45,\"line\":6,\"offset\":156},\"start\":{\"col\":0,\"line\":6,\"offset\":111}},\"type\":\"paragraph\"}]},\"modified\":1792435242996,\"path\":\"StructuralArchive/crash-after-write-08/Consumer.md\"}],\"dependencies\":[{\"incoming\":[],\"issues\":[\"external_consumers_unverified\"],\"outgoing\":[],\"path\":\"StructuralArchive/crash-after-write-08/A.md\",\"targets\":[]},{\"incoming\":[{\"count\":3,\"metadataAvailable\":true,\"path\":\"StructuralArchive/crash-after-write-08/Consumer.md\",\"references\":[{\"kind\":\"link\",\"original\":\"[[StructuralArchive/crash-after-write-08/B]]\",\"target\":\"StructuralArchive/crash-after-write-08/B.md\"},{\"kind\":\"embed\",\"original\":\"![[StructuralArchive/crash-after-write-08/B]]\",\"target\":\"StructuralArchive/crash-after-write-08/B.md\"},{\"kind\":\"property\",\"original\":\"[[StructuralArchive/crash-after-write-08/B]]\",\"target\":\"StructuralArchive/crash-after-write-08/B.md\"}]}],\"issues\":[\"external_consumers_unverified\"],\"outgoing\":[],\"path\":\"StructuralArchive/crash-after-write-08/B.md\",\"targets\":[{\"from\":\"StructuralArchive/crash-after-write-08/Consumer.md\",\"kind\":\"link\",\"original\":\"[[StructuralArchive/crash-after-write-08/B]]\",\"subpath\":\"\",\"target\":\"StructuralArchive/crash-after-write-08/B.md\"},{\"from\":\"StructuralArchive/crash-after-write-08/Consumer.md\",\"kind\":\"embed\",\"original\":\"![[StructuralArchive/crash-after-write-08/B]]\",\"subpath\":\"\",\"target\":\"StructuralArchive/crash-after-write-08/B.md\"},{\"from\":\"StructuralArchive/crash-after-write-08/Consumer.md\",\"kind\":\"property\",\"original\":\"[[StructuralArchive/crash-after-write-08/B]]\",\"subpath\":\"\",\"target\":\"StructuralArchive/crash-after-write-08/B.md\"}]}],\"metadata\":[{\"listItems\":[{\"parent\":-9,\"position\":{\"end\":{\"col\":31,\"line\":9,\"offset\":268},\"start\":{\"col\":0,\"line\":9,\"offset\":237}}},{\"parent\":-9,\"position\":{\"end\":{\"col\":37,\"line\":10,\"offset\":306},\"start\":{\"col\":0,\"line\":10,\"offset\":269}}},{\"parent\":-9,\"position\":{\"end\":{\"col\":51,\"line\":11,\"offset\":358},\"start\":{\"col\":0,\"line\":11,\"offset\":307}}}],\"sections\":[{\"position\":{\"end\":{\"col\":70,\"line\":0,\"offset\":70},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":38,\"line\":2,\"offset\":110},\"start\":{\"col\":0,\"line\":2,\"offset\":72}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":70,\"line\":5,\"offset\":183},\"start\":{\"col\":0,\"line\":5,\"offset\":113}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":50,\"line\":7,\"offset\":235},\"start\":{\"col\":0,\"line\":7,\"offset\":185}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":51,\"line\":11,\"offset\":358},\"start\":{\"col\":0,\"line\":9,\"offset\":237}},\"type\":\"list\"},{\"position\":{\"end\":{\"col\":43,\"line\":13,\"offset\":403},\"start\":{\"col\":0,\"line\":13,\"offset\":360}},\"type\":\"paragraph\"}]},{\"listItems\":[{\"parent\":-4,\"position\":{\"end\":{\"col\":31,\"line\":4,\"offset\":155},\"start\":{\"col\":0,\"line\":4,\"offset\":124}}},{\"parent\":-4,\"position\":{\"end\":{\"col\":37,\"line\":5,\"offset\":193},\"start\":{\"col\":0,\"line\":5,\"offset\":156}}},{\"parent\":-4,\"position\":{\"end\":{\"col\":51,\"line\":6,\"offset\":245},\"start\":{\"col\":0,\"line\":6,\"offset\":194}}}],\"sections\":[{\"position\":{\"end\":{\"col\":70,\"line\":0,\"offset\":70},\"start\":{\"col\":0,\"line\":0,\"offset\":0}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":50,\"line\":2,\"offset\":122},\"start\":{\"col\":0,\"line\":2,\"offset\":72}},\"type\":\"paragraph\"},{\"position\":{\"end\":{\"col\":51,\"line\":6,\"offset\":245},\"start\":{\"col\":0,\"line\":4,\"offset\":124}},\"type\":\"list\"},{\"position\":{\"end\":{\"col\":43,\"line\":8,\"offset\":290},\"start\":{\"col\":0,\"line\":8,\"offset\":247}},\"type\":\"paragraph\"}]}]}",
+        "hashes": {
+          "canonical": "177f3ef33c11a39de60e47a00a19990f9f7300c6ccbef699b3dc1d7b8b9284ba",
+          "before": "d4ee0fb49b0c0933f6dd7d9f71c536e07952952dded4e7936cc7b8bdae6d88a2",
+          "after": "07c223ee2528b8d056defe20aacbd0df8dc874793ea6648c7d5717b3d22a468f",
+          "edit": "a49d700f2ec61e11a1164f22afbc8b716764347ed724138c180ef5d05fb0d1a7"
+        }
+      },
+      "state": "applied",
+      "recovered": true,
+      "canUndo": false,
+      "editorBlocked": false,
+      "parentUndo": "chain_incomplete"
+    }
+  ],
+  "parentUndo": false
+}

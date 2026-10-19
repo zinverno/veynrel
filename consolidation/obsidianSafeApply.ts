@@ -1,3 +1,5 @@
+import { StructuralArchiveJournal } from "./structuralArchiveJournal";
+import { obsidianStructuralArchivePort } from "./obsidianStructuralArchive";
 import { EmptyAtomJournal } from "./emptyAtomJournal";
 import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { MarkdownView } from "obsidian";
@@ -80,5 +82,7 @@ export function createSafeApplyService(app: App, pluginId: string): SafeApplySer
     journal: new GroupJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianGroupPort(app, port),
   }, {
     journal: new EmptyAtomJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianEmptyAtomPort(app, port),
+  }, {
+    journal: new StructuralArchiveJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianStructuralArchivePort(app, port),
   });
 }

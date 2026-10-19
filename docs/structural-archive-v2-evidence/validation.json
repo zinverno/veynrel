@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-19",
+  "base": "fa98580b8f22a57f6b6024b373343165b1b6285c",
+  "prerequisite": {
+    "pr": 101,
+    "state": "MERGED",
+    "mergedAt": "2026-10-19T17:39:25Z"
+  },
+  "branch": "feat/structural-archive-apply-v2",
+  "artifactSha256": "0166e1a5844ff80bc9d356fc74b429a9835841b8e1f55071c73e0d3f87bc6487",
+  "npmTest": {
+    "status": "PASS",
+    "files": 161,
+    "tests": 4430,
+    "durationSeconds": 31.77
+  },
+  "typecheck": {
+    "status": "PASS",
+    "commands": [
+      "tsc --noEmit --module ES2020 --ignoreDeprecations 5.0",
+      "tsc --project health/tsconfig.json"
+    ]
+  },
+  "lint": {
+    "status": "PASS",
+    "newWarnings": 0,
+    "existingAdvisory": "api.ts:no-restricted-globals (streaming fetch)"
+  },
+  "build": "PASS",
+  "auditProposals": {
+    "status": "PASS",
+    "mutationsKilled": 5,
+    "total": 5,
+    "sandboxRetry": "Nested test output was empty inside sandbox; unchanged audit passed outside sandbox."
+  },
+  "diffCheck": "PASS",
+  "native": {
+    "status": "PASS",
+    "freshVaultRuns": 36,
+    "fullCycles": 12,
+    "editorControls": 4,
+    "sigkillCheckpoints": 18,
+    "negativeControls": 16,
+    "mergeArchiveV1Assertions": 58,
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "paidProviderRequests": 0
+  },
+  "review": {
+    "status": "PASS after fixes",
+    "fixed": [
+      "Outcome subscription disposal",
+      "Strict nested dependency validation",
+      "Intact pending Single/Multi reservations before granting parent restoration"
+    ]
+  },
+  "githubCI": "See PR checks for the committed head; local evidence does not substitute for CI."
+}

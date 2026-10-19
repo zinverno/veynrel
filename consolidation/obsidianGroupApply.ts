@@ -1,3 +1,5 @@
+import { restorationModified } from "./structuralArchiveEvidence";
+import { checkStructuralRestoration } from "./obsidianStructuralArchiveState";
 import type { App } from "obsidian";
 import type { GroupPort } from "./groupApply";
 import type { SafeApplyPort } from "./safeApply";
@@ -34,11 +36,11 @@ export function obsidianGroupPort(app: App, port: SafeApplyPort): GroupPort {
       const guard=()=>{checked.guard();validateGroupPlan(plan,analysis,checked.pair,plan.confirmations,checked.linktexts,checked.incoming);};
       guard();return {notes:[checked.pair[side],checked.pair[1-side]],guard};
     },
-    async undo(record,pinned){
+    async undo(record,pinned,restoration){
       const p=record.plan,c=p.canonical,s=p.secondary,checked=await read([c.path,s.path],pinned),[canonical,secondary]=checked.pair;
       const side=p.confirmations.canonical!;
       requireSafe(canonical.created===c.identity.created && canonical.content===c.after && canonical.bytes===new TextEncoder().encode(c.after).length &&
-        secondary.created===s.identity.created && secondary.modified===s.identity.modified && secondary.bytes===s.identity.bytes && secondary.content===s.content &&
+        secondary.created===s.identity.created && secondary.modified===restorationModified(record,restoration) && secondary.bytes===s.identity.bytes && secondary.content===s.content &&
         persistedMetadata(secondary.cache)===persistedMetadata(p.dependencies[1-side].metadata) &&
         JSON.stringify(secondary.references)===JSON.stringify(p.dependencies[1-side].outgoing) &&
         JSON.stringify(canonical.references)===JSON.stringify(p.dependencies[side].outgoing) &&
@@ -66,7 +68,8 @@ export function obsidianGroupPort(app: App, port: SafeApplyPort): GroupPort {
         requireSafe(JSON.stringify(sections(canonical, target.start, target.end)) === JSON.stringify(sections(secondary, source.start, source.end)), "conflict");
         cursor = target.end + p.insertion.separator.length;
       }
-      checked.guard();return {notes:checked.pair,guard:checked.guard};
+      const restoredGuard=restoration?await checkStructuralRestoration(app,port,checked.pair,restoration):undefined;
+      const guard=()=>{checked.guard();restoredGuard?.();};guard();return {notes:checked.pair,guard};
     },
   };
 }

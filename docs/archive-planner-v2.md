@@ -1,5 +1,7 @@
 # Unified Archive Eligibility & Planner v2
 
+This document records the read-only scope delivered in PR #101. The separately implemented [Structural Archive Apply & Undo v2](structural-archive-v2.md) now supplies the executor and verified restoration chain described in the historical design below; `ArchivePlanV2` itself remains read-only.
+
 Group and Bundle history can now open a separate, read-only in-place archive review after a **confirmed completed Apply**. Merge keeps its existing `ArchivePlan` v1, planner, executor and Archive Undo chain. PR #100 was verified merged at `a89df52c988379780cef0463a83e4b0b06b27af3`; this change starts from that current `main`.
 
 ## Contracts and authority

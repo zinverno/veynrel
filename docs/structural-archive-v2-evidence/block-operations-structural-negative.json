@@ -1,0 +1,124 @@
+{
+  "negative": "block-operations",
+  "before": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/backup.json": {
+      "sha256": "fed37b0b17859cd36736a8731b75c80d64b046bb604ef5c1c3743db6fac19aa2",
+      "mtime": 1792435361001.4434,
+      "bytes": 7091
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/mark-7adeb60b-49c6-41ad-806e-a0fd59a05b9b.json": {
+      "sha256": "2f4a46e3bdbf12764fc6285fe36e970a34e16a9dce2a770b68cf9d4f4dd9698d",
+      "mtime": 1792435361038.1108,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/record.json": {
+      "sha256": "fed37b0b17859cd36736a8731b75c80d64b046bb604ef5c1c3743db6fac19aa2",
+      "mtime": 1792435361001.4434,
+      "bytes": 7091
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435355748.0188,
+      "bytes": 196
+    },
+    "StructuralArchive/negative-block-operations/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435361021.4438,
+      "bytes": 235
+    },
+    "StructuralArchive/negative-block-operations/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435360491.4346,
+      "bytes": 189
+    },
+    "StructuralArchive/negative-block-operations/Consumer.md": {
+      "sha256": "5ac5a4cd211bacccdd3b9c19870257531a2382b8748f4338690b1c61cf6b3646",
+      "mtime": 1792435360544.7688,
+      "bytes": 184
+    }
+  },
+  "changed": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/backup.json": {
+      "sha256": "fed37b0b17859cd36736a8731b75c80d64b046bb604ef5c1c3743db6fac19aa2",
+      "mtime": 1792435361001.4434,
+      "bytes": 7091
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/mark-7adeb60b-49c6-41ad-806e-a0fd59a05b9b.json": {
+      "sha256": "2f4a46e3bdbf12764fc6285fe36e970a34e16a9dce2a770b68cf9d4f4dd9698d",
+      "mtime": 1792435361038.1108,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/record.json": {
+      "sha256": "fed37b0b17859cd36736a8731b75c80d64b046bb604ef5c1c3743db6fac19aa2",
+      "mtime": 1792435361001.4434,
+      "bytes": 7091
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/synthetic-unknown.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "mtime": 1792435363248.1492,
+      "bytes": 2
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435355748.0188,
+      "bytes": 196
+    },
+    "StructuralArchive/negative-block-operations/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435361021.4438,
+      "bytes": 235
+    },
+    "StructuralArchive/negative-block-operations/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435360491.4346,
+      "bytes": 189
+    },
+    "StructuralArchive/negative-block-operations/Consumer.md": {
+      "sha256": "5ac5a4cd211bacccdd3b9c19870257531a2382b8748f4338690b1c61cf6b3646",
+      "mtime": 1792435360544.7688,
+      "bytes": 184
+    }
+  },
+  "after": {
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/backup.json": {
+      "sha256": "fed37b0b17859cd36736a8731b75c80d64b046bb604ef5c1c3743db6fac19aa2",
+      "mtime": 1792435361001.4434,
+      "bytes": 7091
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/mark-7adeb60b-49c6-41ad-806e-a0fd59a05b9b.json": {
+      "sha256": "2f4a46e3bdbf12764fc6285fe36e970a34e16a9dce2a770b68cf9d4f4dd9698d",
+      "mtime": 1792435361038.1108,
+      "bytes": 376
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-group-operations/2b3519f4040d63f677e057f8182ede3081eecb9f54bae136c8a6b41d6e568fd0/record.json": {
+      "sha256": "fed37b0b17859cd36736a8731b75c80d64b046bb604ef5c1c3743db6fac19aa2",
+      "mtime": 1792435361001.4434,
+      "bytes": 7091
+    },
+    ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/synthetic-unknown.json": {
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "mtime": 1792435363248.1492,
+      "bytes": 2
+    },
+    "Architecture/Query Planning.md": {
+      "sha256": "9319346932abe22e25b032ca9e3da484fe30d9fc2465ed219cf6ee363fb45377",
+      "mtime": 1792435355748.0188,
+      "bytes": 196
+    },
+    "StructuralArchive/negative-block-operations/A.md": {
+      "sha256": "c0f47c2c940f64f28dbf164ace0cdd00fa7213c1b797fd833442dd80ba2c0246",
+      "mtime": 1792435361021.4438,
+      "bytes": 235
+    },
+    "StructuralArchive/negative-block-operations/B.md": {
+      "sha256": "5c879bc403e87c126e361b01bd6c254010f99440d612de66cc63fb1a40f4c9c4",
+      "mtime": 1792435360491.4346,
+      "bytes": 189
+    },
+    "StructuralArchive/negative-block-operations/Consumer.md": {
+      "sha256": "5ac5a4cd211bacccdd3b9c19870257531a2382b8748f4338690b1c61cf6b3646",
+      "mtime": 1792435360544.7688,
+      "bytes": 184
+    }
+  }
+}

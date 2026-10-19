@@ -1,3 +1,5 @@
+import { StructuralArchiveApplyModal, renderStructuralArchiveHistory } from "./structuralArchiveApplyModal";
+import type { ArchivePlanV2 } from "./archivePlanV2";
 import { App, Modal } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
 import { SafeApplyError } from "./operationJournal";
@@ -161,24 +163,28 @@ export class OperationHistoryModal extends Modal {
       const multi = await this.service.multi?.history() ?? [];
       const merge = await this.service.merge?.history() ?? [];
       const archive = await this.service.archive?.history() ?? [];
+      const structuralArchive = await this.service.structuralArchive?.history() ?? [];
       const bundle = await this.service.bundle?.history() ?? [];
       const group = await this.service.group?.history() ?? [];
       const emptyAtom = await this.service.emptyAtom?.history() ?? [];
       if (!this.active || this.generation !== generation) return;
       this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.historyScope") });
       button(this.contentEl, "refresh", () => { void this.refresh(); });
-      if (!rows.length && !multi.length && !merge.length && !archive.length && !bundle.length && !group.length && !emptyAtom.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
+      if (!rows.length && !multi.length && !merge.length && !archive.length && !bundle.length && !group.length && !emptyAtom.length && !structuralArchive.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
       for (const row of emptyAtom) renderEmptyAtomHistory(this.contentEl,row,()=>new EmptyAtomApplyModal(this.app,this.service.emptyAtom!,
         current=>this.service.emptyAtom!.reviewUndo(row.id,current),()=>new OperationHistoryModal(this.app,this.service).open(),
         ()=>{if(this.active)void this.refresh();}).open());
       for (const row of group) renderGroupHistory(this.contentEl, row, () => new GroupApplyModal(this.app, this.service.group!,
         current => this.service.group!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
         () => { if (this.active) void this.refresh(); }).open(),
-      () => new ArchivePlannerModalV2(this.app, current => readArchiveBasisV2(this.app, this.service, "copy_context_group", row.id, current)).open());
+      () => new ArchivePlannerModalV2(this.app, current => readArchiveBasisV2(this.app, this.service, "copy_context_group", row.id, current), this.service.structuralArchive ? (plan, currentPlan) => this.structuralReview(plan, currentPlan) : undefined).open());
       for (const row of bundle) renderBundleHistory(this.contentEl, row, () => new BundleApplyModal(this.app, this.service.bundle!,
         current => this.service.bundle!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
         () => { if (this.active) void this.refresh(); }).open(),
-      () => new ArchivePlannerModalV2(this.app, current => readArchiveBasisV2(this.app, this.service, "context_bundle_copy", row.id, current)).open());
+      () => new ArchivePlannerModalV2(this.app, current => readArchiveBasisV2(this.app, this.service, "context_bundle_copy", row.id, current), this.service.structuralArchive ? (plan, currentPlan) => this.structuralReview(plan, currentPlan) : undefined).open());
+      for (const row of structuralArchive) renderStructuralArchiveHistory(this.contentEl, row, () => new StructuralArchiveApplyModal(this.app, this.service.structuralArchive!,
+        current => this.service.structuralArchive!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
+        () => { if (this.active) void this.refresh(); }).open());
       for (const row of archive) renderArchiveHistory(this.contentEl, row, () => new ArchiveApplyModal(this.app, this.service.archive!,
         current => this.service.archive!.reviewUndo(row.id, current), () => new OperationHistoryModal(this.app, this.service).open(),
         () => { if (this.active) void this.refresh(); }).open());
@@ -198,6 +204,10 @@ export class OperationHistoryModal extends Modal {
         button(this.contentEl, "refresh", () => { void this.refresh(); });
       }
     }
+  }
+  private structuralReview(plan: ArchivePlanV2, currentPlan: () => boolean): void {
+    new StructuralArchiveApplyModal(this.app, this.service.structuralArchive!, current => this.service.structuralArchive!.review(plan, () => current() && currentPlan()),
+      () => new OperationHistoryModal(this.app, this.service).open()).open();
   }
   private row(row: OperationHistory): void {
     const card = this.contentEl.createEl("section", { cls: "ai-semantic-result-card", attr: { "data-operation-state": row.state, "data-operation-id": row.id } });

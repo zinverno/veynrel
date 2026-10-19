@@ -1,3 +1,4 @@
+import type { StructuralRestoration } from "./structuralArchiveEvidence";
 import type { ContextBundlePlan } from "./contextBundlePlan";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import type { PlanPair } from "./changePlan";
@@ -8,13 +9,14 @@ import { checksum, requireSafe, SafeApplyError } from "./operationJournal";
 import { BundleJournal, bundleRecord } from "./bundleJournal";
 import type { BundleEntry, BundleRecord } from "./bundleJournal";
 
-export interface BundleCheck { notes: PlanPair; guard(): void }
+export interface BundleCheck { notes: PlanPair; guard(): void; restoration?: StructuralRestoration }
 export interface BundlePort {
   check(plan: ContextBundlePlan, analysis: RelationshipAnalysis, pinned?: PlanPair): Promise<BundleCheck>;
-  undo(record: BundleRecord, pinned?: PlanPair): Promise<BundleCheck>;
+  undo(record: BundleRecord, pinned?: PlanPair, restoration?: StructuralRestoration): Promise<BundleCheck>;
 }
 export interface BundleHistory extends BundleEntry {
   state: "prepared" | "applied" | "undone" | "conflict"; canonicalState: ParticipantState; secondaryUnchanged: boolean;
+  archiveReason?: "archive_active" | "archive_chain";
   editorBlocked: boolean; canUndo: boolean; recovered: boolean; blocking: boolean;
 }
 export interface BundleReview { readonly id: string; readonly action: "apply" | "undo"; readonly record: BundleRecord }
@@ -24,14 +26,15 @@ interface Ticket { record: BundleRecord; action: BundleReview["action"]; current
 export class BundleApply {
   private readonly tickets = new Map<BundleReview, Ticket>();
   constructor(private readonly journal: BundleJournal, private readonly port: SafeApplyPort,
-    private readonly native: BundlePort, private readonly owner: MultiOwner) {}
+    private readonly native: BundlePort, private readonly owner: MultiOwner,
+    private readonly restored?: (record: BundleRecord, snapshot?: JournalSnapshot) => Promise<StructuralRestoration | undefined>) {}
   dispose(): void { this.tickets.clear(); }
   discard(review: BundleReview): void { this.tickets.delete(review); }
   private ticket(t: Ticket): BundleReview {
     const review = Object.freeze({ id: t.record.id, action: t.action, record: JSON.parse(JSON.stringify(t.record)) as BundleRecord });
     this.tickets.set(review, t); return review;
   }
-  private async inspect(entry: BundleEntry): Promise<BundleHistory> {
+  private async inspect(entry: BundleEntry, snapshot?: JournalSnapshot): Promise<BundleHistory> {
     const marked = (state: string) => entry.receipts.some(m => m.state === state);
     // Valid terminal receipts release reservations; later source changes only revoke Undo.
     const row: BundleHistory = { ...entry, state: "conflict", canonicalState: "missing", secondaryUnchanged: false,
@@ -39,9 +42,12 @@ export class BundleApply {
       blocking: !entry.record || entry.damaged || !marked("undone") && (!marked("applied") || marked("undo_intent")) };
     const r = entry.record; if (!r) return row;
     const c = await this.port.read(r.plan.canonical.path), s = await this.port.read(r.plan.secondary.path);
+    let restoration: StructuralRestoration | undefined;
+    try { restoration = await this.restored?.(r, snapshot); }
+    catch (e) { row.archiveReason = e instanceof SafeApplyError && e.reason === "archive_active" ? "archive_active" : "archive_chain"; }
     row.canonicalState = !c ? "missing" : c.path !== r.plan.canonical.path || c.file.stat.ctime !== r.plan.canonical.identity.created ? "identity" :
       c.content === r.plan.canonical.before ? "before" : c.content === r.plan.canonical.after ? "after" : "different";
-    row.secondaryUnchanged = !!s && s.path === r.plan.secondary.path && s.file.stat.ctime === r.plan.secondary.identity.created && s.modified === r.plan.secondary.identity.modified &&
+    row.secondaryUnchanged = !row.archiveReason && !!s && s.path === r.plan.secondary.path && s.file.stat.ctime === r.plan.secondary.identity.created && s.modified === (restoration?.modified ?? r.plan.secondary.identity.modified) &&
       s.bytes === r.plan.secondary.identity.bytes && s.content === r.plan.secondary.content && await checksum(s.content) === r.hashes.secondary;
     for (const note of [c, s]) if (note) try { this.port.guard(note); } catch (e) {
       if (e instanceof SafeApplyError && e.reason === "editor") row.editorBlocked = true;
@@ -59,12 +65,20 @@ export class BundleApply {
     row.canUndo = row.state === "applied" && !entry.damaged && !row.editorBlocked;
     return row;
   }
+  private async undoCheck(record: BundleRecord, pinned?: PlanPair): Promise<BundleCheck> {
+    const restoration = await this.restored?.(record), checked = await this.native.undo(record, pinned, restoration);
+    requireSafe(JSON.stringify(await this.restored?.(record)) === JSON.stringify(restoration), "archive_chain");
+    return { ...checked, restoration };
+  }
+  private async verifyRestoration(record: BundleRecord, checked: BundleCheck): Promise<void> {
+    requireSafe(JSON.stringify(await this.restored?.(record)) === JSON.stringify(checked.restoration), "archive_chain");
+  }
   async blockers(paths: readonly string[], ownId?: string, snapshot?: JournalSnapshot): Promise<void> {
     for (const entry of snapshot?.bundle ?? await this.journal.entries()) {
       if (entry.id === ownId && entry.record && !entry.damaged) continue;
       requireSafe(entry.scope !== "global", "storage");
       if (entry.record && !paths.includes(entry.record.plan.canonical.path) && !paths.includes(entry.record.plan.secondary.path)) continue;
-      const row = await this.inspect(entry), r = row.record;
+      const row = await this.inspect(entry, snapshot), r = row.record;
       requireSafe(!row.blocking || row.scope !== "global" && r && !paths.includes(r.plan.canonical.path) && !paths.includes(r.plan.secondary.path), "storage");
     }
   }
@@ -73,8 +87,8 @@ export class BundleApply {
       const snapshot = await this.owner.history?.();
       const rows: BundleHistory[] = [];
       for (const entry of snapshot?.bundle ?? await this.journal.entries()) {
-        const row = await this.inspect(entry);
-        if (row.canUndo && row.record) try { await this.owner.blockers([row.record.plan.canonical.path, row.record.plan.secondary.path], row.id, snapshot); }
+        const row = await this.inspect(entry, snapshot);
+        if (row.canUndo && row.record) try { if (await this.restored?.(row.record, snapshot)) await this.undoCheck(row.record); await this.owner.blockers([row.record.plan.canonical.path, row.record.plan.secondary.path], row.id, snapshot); }
         catch { row.canUndo = false; }
         rows.push(row);
       }
@@ -100,13 +114,13 @@ export class BundleApply {
   reviewUndo(id: string, current: () => boolean): Promise<BundleReview> {
     return this.owner.exclusive(async () => {
       this.owner.active(current); const entry = (await this.journal.entries()).find(e => e.id === id); requireSafe(entry, "conflict");
-      const row = await this.inspect(entry); requireSafe(row.record && row.canUndo, row.editorBlocked ? "editor" : "conflict");
+      const row = await this.inspect(entry); requireSafe(row.record && row.canUndo, row.archiveReason ?? (row.editorBlocked ? "editor" : "conflict"));
       const record = row.record;
       await this.owner.blockers([record.plan.canonical.path, record.plan.secondary.path], id);
-      const checked = await this.native.undo(record); this.owner.active(current); checked.guard();
+      const checked = await this.undoCheck(record); this.owner.active(current); checked.guard();
       // Recheck receipt identity after asynchronous dependency reads, before presenting consent.
       requireSafe((await this.inspect(await this.intact(record))).canUndo, "conflict");
-      await this.owner.blockers([record.plan.canonical.path, record.plan.secondary.path], id); this.owner.active(current); checked.guard();
+      await this.owner.blockers([record.plan.canonical.path, record.plan.secondary.path], id); await this.verifyRestoration(record, checked); this.owner.active(current); checked.guard();
       return this.ticket({ record, action: "undo", current, checked });
     });
   }
@@ -120,17 +134,18 @@ export class BundleApply {
         try { await this.journal.prepare(r); } catch (e) { throw e instanceof SafeApplyError ? e : new SafeApplyError("storage"); }
       } else {
         requireSafe((await this.inspect(await this.intact(r))).canUndo, "conflict");
-        const checked = await this.native.undo(r, t.checked.notes);
+        const checked = await this.undoCheck(r, t.checked.notes); await this.verifyRestoration(r, t.checked);
         await this.owner.blockers(paths, r.id); this.owner.active(t.current); checked.guard();
         try { await this.journal.mark(r, "undo_intent", checked.notes[0]); } catch { throw new SafeApplyError("storage"); }
       }
       await this.intact(r); await this.owner.blockers(paths, r.id);
       // Journal IO precedes a fresh two-source read and complete plan rebuild, including native structure.
-      const checked = forward ? await this.native.check(t.plan!, t.analysis!, t.checked.notes) : await this.native.undo(r, t.checked.notes);
+      const checked = forward ? await this.native.check(t.plan!, t.analysis!, t.checked.notes) : await this.undoCheck(r, t.checked.notes);
       if (!forward) requireSafe((await this.inspect(await this.intact(r))).canUndo, "conflict");
       await this.owner.blockers(paths, r.id);
       const entry = await this.intact(r);
       requireSafe(forward ? entry.receipts.length === 0 : !entry.receipts.some(m => m.state === "undone"), "conflict");
+      if (!forward) await this.verifyRestoration(r, t.checked);
       t.checked.guard();
       const guard = () => { this.owner.active(t.current); checked.guard(); };
       guard();
