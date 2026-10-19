@@ -10,8 +10,11 @@ const require = createRequire(ROOT + '/package.json');
 const { build } = require('esbuild');
 const root = process.argv[2];
 assert(!process.argv.includes('--atomization-create-gate') || process.argv.includes('--atomization'), 'Creation gate requires --atomization');
+assert(!process.argv.includes('--exclusive-create-v2') || process.argv.includes('--atomization'), 'Exclusive gate requires --atomization');
 assert(root?.startsWith('/tmp/pair-inspector-') && !root.includes('..') && !fs.existsSync(root));
-const vault = root + '/vault', dir = vault + '/.obsidian/plugins/ai-knowledge-hub';
+const vault = process.argv.includes('--exclusive-create-v2') ? ROOT + '.esbuild/' + root.split('/').pop() + '/vault' : root + '/vault';
+assert(!fs.existsSync(vault));
+const dir = vault + '/.obsidian/plugins/ai-knowledge-hub';
 fs.mkdirSync(dir, { recursive: true }); fs.mkdirSync(root + '/profile', { recursive: true });
 await build({ absWorkingDir: ROOT, entryPoints: ['scripts/global-semantic-map-fixture.ts'], bundle: true,
   plugins: [{ name: 'synthetic-host', setup(b) { b.onResolve({filter:/^obsidian$/},()=>({path:'obsidian',namespace:'fixture'}));
@@ -163,7 +166,7 @@ try {
  await ev(`window.nativeRead=app.vault.read;app.vault.read=f=>new Promise(r=>{window.releasePair=()=>nativeRead(f).then(r)});engine.inspectPair({leftPath:${JSON.stringify(a)},rightPath:'missing.md'})`);
  await close();await ev('releasePair();app.vault.read=nativeRead;void 0');await pause(100);
  await pass('Closing during asynchronous read never restores inspector UI',"!document.querySelector('.ai-pair-inspector')");
- if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--group-apply') || process.argv.includes('--bundle-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation')) {
+ if (process.argv.includes('--safe-apply') || process.argv.includes('--journal-recovery') || process.argv.includes('--undo-blockers') || process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--group-apply') || process.argv.includes('--bundle-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation') || process.argv.includes('--exclusive-create-v2')) {
    const restart = async () => {
      socket.close();
      const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await exited;
@@ -225,6 +228,10 @@ try {
      const {realisticConsolidationScenario}=await import('./consolidation-realistic-native.mjs');
      report.realistic=await realisticConsolidationScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
    }
+   if(process.argv.includes('--exclusive-create-v2')) {
+     const {exclusiveCreateScenario}=await import('./exclusive-create-native.mjs');
+     report.exclusive=await exclusiveCreateScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
+   }
    if(process.argv.includes('--journal-recovery')) {
      const {journalRecoveryScenario}=await import('./journal-recovery-native.mjs');
      report.journalRecovery=await journalRecoveryScenario({ev,wait,cdp,focusMain,root,vault,ROOT,restart});
@@ -235,6 +242,7 @@ try {
    report.atomizationCreateGate = await atomizationCreateGate({ev,wait,cdp,root,vault,ROOT});
  }
  report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");assert(report.version.obsidian,"Native title contains runtime version");report.io=(process.argv.includes('--bundle-apply')||process.argv.includes('--safe-apply')||process.argv.includes('--journal-recovery')||process.argv.includes('--undo-blockers')||process.argv.includes('--safe-apply-editor') || process.argv.includes('--multi-safe-apply') || process.argv.includes('--merge-apply') || process.argv.includes('--archive-planner') || process.argv.includes('--archive-apply') || process.argv.includes('--realistic-consolidation'))?{network:await ev('io.network'),scope:'Final restarted process only; prior read-only invariants are asserted separately, and Safe Apply disk writes are verified explicitly.'}:await ev('io');report.status='PASS';
+ if (report.exclusive) report.io={network:await ev('io.network'),scope:'Synthetic gate writes only; planner IO is asserted separately.'};
  if (report.atomizationCreateGate) report.io={network:await ev('io.network'),harnessVaultCreates:report.atomizationCreateGate.harnessVaultCreates,scope:'Read-only planning is checked before explicit synthetic API probes. Test creates and native indexing of scale fixtures are outside that boundary.'};
 }catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;}
 finally{fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2)+'\n');socket?.close();child.kill('SIGTERM');}

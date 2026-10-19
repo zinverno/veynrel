@@ -94,6 +94,15 @@ export async function atomizationScenario(context) {
       assert.equal(await ev('atomSession.view.atomizationError'),reason);rows.push({path,refusal:reason});await zero();
     }
     await ev("document.querySelector('[data-planner-stage]').scrollIntoView({block:'start'});void 0");await shot('path-refusal');
+    if(process.argv.includes('--exclusive-create-v2')) {
+      const empty='Atomization/Verified empty.md';fs.writeFileSync(vault+'/'+empty,'',{flag:'wx'});
+      await wait(`!!app.vault.getFileByPath(${JSON.stringify(empty)})&&!!app.metadataCache.getFileCache(app.vault.getFileByPath(${JSON.stringify(empty)}))`);
+      await open();await choose();await h.click('[data-atom-action=build]');await stage('ready');
+      await pass('An unrelated truly empty note permits an exact read-only plan',`atomSession.view.atomizationPlan.destination.observation.inventory.some(f=>f.path===${JSON.stringify(empty)}&&f.emptyVerified===true)&&Object.keys(app.metadataCache.getFileCache(app.vault.getFileByPath(${JSON.stringify(empty)}))).length===0`);
+      await pass('Exceptional reads are limited to the candidate empty note',`io.read.slice(atomReadStart).every(p=>${JSON.stringify(['Atomization/fact.md',comparisonPath,empty])}.includes(p))`);
+      await ev("document.querySelector('[data-atom-plan]').scrollIntoView({block:'start'});void 0");await shot('empty-verified');await zero();
+      fs.unlinkSync(vault+'/'+empty);await wait(`!app.vault.getFileByPath(${JSON.stringify(empty)})`);
+    }
     for(const action of ['cancel','close','changeSelection']){
       await open();await choose();
       await ev("window.atomRead=atomSession.deps.read;window.atomReads=0;delete window.releaseAtom;atomSession.deps.read=()=>++atomReads===2?new Promise(r=>window.releaseAtom=()=>atomRead().then(r)):atomRead();void 0");

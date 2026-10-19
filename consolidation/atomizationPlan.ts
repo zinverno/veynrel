@@ -25,7 +25,7 @@ export const resetAtomizationConfirmations = (choice: AtomizationChoice): Atomiz
   unitConfirmed: false, contextConfirmed: false, manualConfirmed: false, titleConfirmed: false, sourceConfirmed: false, dependenciesReviewed: false });
 export interface AtomizationObservation {
   path: string; absent: boolean; parentExists: boolean; configDir: string; sourceLink: string;
-  inventory: { path: string; identity: number; folder: boolean; ctime?: number; mtime?: number; size?: number; metadataHash?: string }[];
+  inventory: { path: string; identity: number; folder: boolean; ctime?: number; mtime?: number; size?: number; metadataHash?: string; emptyVerified?: true }[];
   linkConflicts: string[]; metadataComplete: boolean;
   dependencies: { resolved: unknown; unresolved: unknown };
 }
