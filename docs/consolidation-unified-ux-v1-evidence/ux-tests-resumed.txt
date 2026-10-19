@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.1.0 test
+> vitest run consolidation/consolidationUx.test.ts --maxWorkers=1
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD
+
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  01:09:31
+   Duration  3.02s (transform 1.09s, setup 0ms, import 1.28s, tests 1.60s, environment 0ms)

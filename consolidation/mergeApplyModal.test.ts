@@ -1,16 +1,20 @@
 import { describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   class Element {
+    closest() { return null; }
     children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; disabled = false; listeners = new Map<string, () => void>();
     empty() { this.children = []; } addClass() {} setText(text: string) { this.text = text; }
     create(tag: string, opts: { text?: string; attr?: Record<string, string> } = {}) { const e = new Element(); e.tag = tag; e.text = opts.text ?? ""; e.attrs = opts.attr ?? {}; this.children.push(e); return e; }
     createEl(tag: string, opts = {}) { return this.create(tag, opts); } createDiv(opts = {}) { return this.create("div", opts); } createSpan(opts = {}) { return this.create("span", opts); }
     addEventListener(key: string, fn: () => void) { this.listeners.set(key, fn); }
+    setAttribute(key: string, value: string) { this.attrs[key] = value; }
+    focus() {}
+    querySelector() { return this.all().find(e => e.attrs.role === "alert") ?? this.all().find(e => e.attrs.role === "status") ?? this.all().find(e => e.tag === "h3"); }
     all(): Element[] { return [this, ...this.children.flatMap(e => e.all())]; }
     action(key: string) { return this.all().find(e => e.attrs["data-merge-apply-action"] === key); }
     click() { this.listeners.get("click")?.(); }
   }
-  class Modal { contentEl = new Element(); modalEl = new Element(); titleEl = new Element(); onOpen() {} onClose() {} open() { this.onOpen(); } close() { this.onClose(); } }
+  class Modal { constructor(readonly app: unknown) {} contentEl = new Element(); modalEl = new Element(); titleEl = new Element(); onOpen() {} onClose() {} open() { this.onOpen(); } close() { this.onClose(); } }
   return { Element, Modal };
 });
 vi.mock("obsidian", () => ({ TFile: class {}, Modal: mocks.Modal, getLanguage: () => "en" }));
@@ -24,9 +28,10 @@ async function fixture() {
   const f = mergeFixture(), record = await mergeRecord(buildMergePlan(f.analysis, f.pair, f.choice));
   const review = { id: record.id, action: "apply" as const, record }, service = { execute: vi.fn(async () => {}), discard: vi.fn() }, history = vi.fn();
   const prepare = vi.fn(async (_current: () => boolean) => review);
-  const modal = new MergeApplyModal({} as never, service as unknown as MergeApply, prepare, history);
+  const modal = new MergeApplyModal(eventApp() as never, service as unknown as MergeApply, prepare, history);
   return { modal, service, prepare, review, history, root: modal.contentEl as unknown as InstanceType<typeof mocks.Element> };
 }
+function eventApp() { const listeners = new Map<string, () => void>(); const events = { on: (name: string, fn: () => void) => { listeners.set(name, fn); return name; }, offref: (name: string) => listeners.delete(name) }; return { vault: events, metadataCache: events, workspace: events }; }
 const flush = async () => { for (let i = 0; i < 10; i++) await Promise.resolve(); };
 describe("separate merge consent", () => {
   it.each(["ru", "en"] as const)("%s presents full before/after, secondary, copied ranges and diff before enabling Apply", async language => {
@@ -34,7 +39,7 @@ describe("separate merge consent", () => {
     const r = f.review.record;
     expect(f.root.all().filter(e => e.attrs["data-merge-apply-text"]).map(e => e.text)).toEqual([r.canonical.before, r.canonical.after, r.secondary.content, ...r.transfers.map(t => t.range.text), r.insertion.anchor.text]);
     expect(f.root.all().some(e => e.tag === "img" || e.text.startsWith("@mergeApply."))).toBe(false);
-    expect(f.root.all().filter(e => e.tag === "details").every(e => (e as unknown as {open: boolean}).open)).toBe(true);
+    expect(f.root.all().filter(e => e.tag === "details").every(e => !(e as unknown as {open: boolean}).open)).toBe(true);
     expect(f.service.execute).not.toHaveBeenCalled(); f.root.action("confirm")!.click(); await flush(); expect(f.service.execute).toHaveBeenCalledExactlyOnceWith(f.review);
   });
   it("close during review revokes late consent and double click dispatches only once", async () => {

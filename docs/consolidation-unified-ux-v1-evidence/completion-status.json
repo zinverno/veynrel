@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-20",
+  "status": "PASS",
+  "artifactSha256": "50b53c5b2a32a5ad482aee6ef625b94f38e712e51c38dbf33cb8e9de1965314d",
+  "stylesSha256": "239cff9e32d8f1f06083beb6c06bcfb62139f4643442cbdb9a2ccade54015199",
+  "base": "292a81e00b2f6c5210f5d172bc6c4798b098d042",
+  "nativeRuns": [
+    {
+      "name": "merge-archive",
+      "status": "PASS",
+      "report": "merge-archive-report.json",
+      "baseChecks": 18,
+      "suiteChecks": 58,
+      "evidence": "retained completed report; not repeated"
+    },
+    {
+      "name": "ux",
+      "status": "PASS",
+      "report": "ux-report.json",
+      "baseChecks": 18,
+      "suiteChecks": 48,
+      "evidence": "retained completed report; not repeated"
+    },
+    {
+      "name": "single",
+      "status": "PASS",
+      "report": "single-report.json",
+      "baseChecks": 18,
+      "suiteChecks": 25,
+      "evidence": "retained completed report; not repeated"
+    },
+    {
+      "name": "multi",
+      "status": "PASS",
+      "report": "multi-report.json",
+      "baseChecks": 18,
+      "suiteChecks": 39,
+      "evidence": "retained completed report; not repeated"
+    },
+    {
+      "name": "structural",
+      "status": "PASS",
+      "report": "structural-report.json",
+      "baseChecks": 18,
+      "suiteChecks": 172,
+      "evidence": "new host run"
+    },
+    {
+      "name": "empty-atom",
+      "status": "PASS",
+      "report": "empty-atom-report.json",
+      "baseChecks": 18,
+      "suiteChecks": 168,
+      "evidence": "new host run"
+    }
+  ],
+  "unitTests": "4455 / 162 files; retained successful full run, current focused 24/24",
+  "typecheckBuildLint": "PASS; retained outputs and unchanged source snapshot",
+  "proposalAudit": "PASS 5/5; retained successful tool output",
+  "screenshotScope": "Fresh Structural/Empty Atom host runs; previous four runs retain reports but their temporary vaults/screenshots did not survive interruption.",
+  "limitations": "Synthetic Linux desktop only; 390 px is not physical mobile. No live paid provider, real-vault, screen-reader or custom-theme acceptance. Fetch/XHR counters are not a system-wide network capture."
+}

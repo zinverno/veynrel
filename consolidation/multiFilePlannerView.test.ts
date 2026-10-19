@@ -6,6 +6,11 @@ import { ChangePlannerSession } from "./changePlannerSession";
 import { multiFileFixture } from "../tests/multiFileFixture";
 
 class Element {
+    closest() { return null; }
+  focused = false;
+  focus() { this.focused = true; }
+  setAttribute(key: string, value: string) { this.attrs[key] = value; }
+  querySelector() { return this.all().find(e => ["alert", "status"].includes(e.attrs.role) || e.tag === "h3") ?? null; }
   children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; disabled = false; hidden = false; checked = false; value = "";
   listeners = new Map<string, () => void>();
   empty() { this.children = []; } setText(text: string) { this.text = text; }

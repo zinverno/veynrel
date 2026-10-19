@@ -9,6 +9,7 @@ import type { ArchiveDisposition } from "./archivePlan";
 import { renderPlanDiff } from "./planDiffView";
 import type { GroupHistory } from "./groupApply";
 import type { BundleHistory } from "./bundleApply";
+import { diagnosticPanel, workflowStep } from "./consolidationUx";
 
 export function renderStructuralArchiveAction(root: HTMLElement, row: GroupHistory | BundleHistory, open: () => void): void {
   if (row.record && row.canUndo && !row.damaged && !row.recovered && !row.blocking && row.receipts.length > 0 && row.receipts.every(r => r.state === "applied")) {
@@ -18,7 +19,7 @@ export function renderStructuralArchiveAction(root: HTMLElement, row: GroupHisto
 }
 
 function source(root: HTMLElement, key: string, text: string): void {
-  const d = root.createEl("details"); d.open = true;
+  const d = root.createEl("details");
   d.createEl("summary", { text: tr(key === "copiedText" ? "@archiveV2.copiedText" : `@archive.${key}`) });
   d.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-archive-text": key } });
 }
@@ -54,6 +55,7 @@ export class ArchivePlannerModalV2 extends Modal {
   private render(): void {
     if (!this.active) return;
     const root = this.contentEl, view = this.session.view; root.empty();
+    workflowStep(root, "preview");
     root.createEl("p", { text: tr("@archive.scope") });
     root.createEl("p", { text: tr("@archiveV2.structureLimit") });
     root.createEl("p", { text: tr(view.error === "basis" ? "@archiveV2.basis" : view.stage === "stale" ? "@archiveV2.stale" : view.error ? `@archive.error.${view.error}` : `@archive.stage.${view.stage}`),
@@ -66,7 +68,7 @@ export class ArchivePlannerModalV2 extends Modal {
     }
     const parent = input.record, r = parent.plan;
     root.createEl("p", { text: `${r.secondary.path} → ${r.canonical.path}`, cls: "ai-pair-path" });
-    root.createEl("p", { text: `${tr("@archiveV2.provenance")}: ${parent.operation} · ${parent.id} · SHA-256: ${input.recordHash}`, cls: "ai-pair-path" });
+    diagnosticPanel(root).createEl("p", { text: `${tr("@archiveV2.provenance")}: ${parent.operation} · ${parent.id} · SHA-256: ${input.recordHash}`, cls: "ai-pair-path" });
     if (view.plan) {
       source(root, "before", view.plan.secondary.before); source(root, "after", view.plan.secondary.after);
       renderPlanDiff(root, view.plan.secondary.before, view.plan.secondary.after);

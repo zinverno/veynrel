@@ -11,6 +11,7 @@ const mocks = vi.hoisted(() => {
   }
 
   class FakeElement {
+    closest() { return null; }
     readonly children: FakeElement[] = [];
     readonly listeners = new Map<string, Array<(event: FakeEvent) => void>>();
     tag = "div";
@@ -93,6 +94,11 @@ const mocks = vi.hoisted(() => {
           preventDefault: vi.fn(),
         });
       }
+    }
+
+    querySelector(): FakeElement | null {
+      const walk = (e: FakeElement): FakeElement[] => [e, ...e.children.flatMap(walk)];
+      return walk(this).find(e => ["alert", "status"].includes(e.attributes.get("role") ?? "") || e.tag === "h3") ?? null;
     }
 
     focus() {
@@ -945,8 +951,8 @@ describe("read-only Pair Inspector UI", () => {
     const f = await fixture();
     f.app.metadataCache.getFileCache.mockReturnValue({ headings: Array.from({ length: 101 }, () => ({ level: 1, heading: "X".repeat(600) })) } as never);
     f.modal.open(); await flush();
-    expect(f.content.findByTag("li")).toHaveLength(200);
-    expect(f.content.findByTag("li")[0].text).toMatch(/усечено/);
+    expect(f.content.findByClass("ai-pair-note").flatMap(note => note.findByTag("li"))).toHaveLength(200);
+    expect(f.content.findByClass("ai-pair-note")[0].findByTag("li")[0].text).toMatch(/усечено/);
     expect(f.content.findByTag("p").some(el => el.text.includes("100 из 101"))).toBe(true);
     f.modal.close();
   });

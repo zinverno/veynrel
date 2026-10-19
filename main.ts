@@ -185,7 +185,7 @@ export default class AIHubPlugin extends Plugin {
       setLanguage(this.settings.language ?? "auto");
       this.safeApply = createSafeApplyService(this.app, this.manifest.id);
       this.register(() => this.safeApply?.dispose());
-      this.addCommand({ id: "consolidation-operation-history", name: "Knowledge consolidation: operation history", callback: () => {
+      this.addCommand({ id: "consolidation-operation-history", name: tr("@ux.historyCommand"), callback: () => {
         if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open();
       } });
       this.semanticController = new ObsidianSemanticController(this, {

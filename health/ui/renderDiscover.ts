@@ -3,10 +3,15 @@ import { t } from "../../i18n";
 import { healthButton } from "./renderHealthHome";
 import type { DiscoverAction, DiscoverViewModel } from "./discoverViewModel";
 
-export function renderDiscover(parent: HTMLElement, model: DiscoverViewModel, action: (action: DiscoverAction) => void, openNeighborhood?: () => void, openGlobalMap?: () => void, openComparison?: () => void): void {
+export function renderDiscover(parent: HTMLElement, model: DiscoverViewModel, action: (action: DiscoverAction) => void, openNeighborhood?: () => void, openGlobalMap?: () => void, openComparison?: () => void, openHistory?: () => void): void {
   const section = parent.createEl("section", { cls: "veynrel-health-home veynrel-discover",
     attr: { "aria-label": model.title, "aria-busy": String(model.busy) } });
   section.createEl("h1", { text: model.title, attr: { tabindex: "-1", "data-health-heading": "true" } });
+  if (openHistory) {
+    const history = section.createDiv({ cls: "veynrel-discover-history" });
+    healthButton(history, t("@safeApply.history"), openHistory, "consolidation-history", false);
+    history.createEl("p", { text: t("@ux.historyAccess"), cls: "veynrel-health-muted" });
+  }
   const status = section.createDiv({ cls: "veynrel-capability-summary" });
   status.createEl("p", { text: model.status, cls: "veynrel-health-state" });
   if (model.details) status.createEl("p", { text: model.details, cls: "veynrel-health-muted" });

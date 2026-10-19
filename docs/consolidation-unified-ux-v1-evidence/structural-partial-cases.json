@@ -1,0 +1,98 @@
+[
+  {
+    "name": "structural-group1-ru",
+    "parentId": "8b7b68ff24beb4f411239f302e79d74ef158799da5b06041b9debf0010bff6ad",
+    "archiveId": "3d7d3ea3ffe5b97a81d9a66e74ce91f032805a5d2e9f129d9283e0fedfaad4aa",
+    "initialSecondaryMtime": 1792445980887,
+    "restoredSecondaryMtime": 1792445989834,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-group2-ru",
+    "parentId": "c18cb33795dee4b326707725f71bcebbf039bc7d5058020745705439c000412a",
+    "archiveId": "2cf7b2e353972f6f3717a2449ee31a161b91114a7bc60ec957226335d567bc24",
+    "initialSecondaryMtime": 1792445993801,
+    "restoredSecondaryMtime": 1792446005658,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-group3-ru",
+    "parentId": "32196879b36b5436e11a68924eb7c894efe7f3c78438ebeb35a1b87892c05cb7",
+    "archiveId": "8d6d770b231138f3750567749e2d6244b4ee5c85cfafac726a31391b272e1417",
+    "initialSecondaryMtime": 1792446010671,
+    "restoredSecondaryMtime": 1792446020848,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-07-ru",
+    "parentId": "53f98c2d63922bb6f3d8f79122402320aee45b93cad8e2c8979939a8d6b8fdcd",
+    "archiveId": "4ad38fb086ad04aad9ba36457f74a94fabb66a561cd0072f0f7e7b68ad3bff97",
+    "initialSecondaryMtime": 1792446025115,
+    "restoredSecondaryMtime": 1792446033925,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-08-ru",
+    "parentId": "d30410ac1bf71eb015e3e126597c9d3ca25b9333ec937330c2d1de6f6d946e0b",
+    "archiveId": "5b603fb81ac360c8b64f07cb682ec9aeda9f14fe34e4574cf46d06d80ac2d899",
+    "initialSecondaryMtime": 1792446040338,
+    "restoredSecondaryMtime": 1792446064132,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-09-ru",
+    "parentId": "e8b4cc53805ece191c947d43359c125b6d916666b8ccb43363ce97b81aa2294e",
+    "archiveId": "1f3d4f1a6527c0f568a725ef393b74817ea0c855d3345606d13451d1747b2fe0",
+    "initialSecondaryMtime": 1792446082476,
+    "restoredSecondaryMtime": 1792446104780,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-group1-en",
+    "parentId": "e9c10f96097fa16c1fcc79d63cea7fe5d06b2d24a06ceffd1fdea223bc982e8e",
+    "archiveId": "27eb91864f3e6353289ae94b95f91393f270d16c327babdd2a88b7cb3e8c5c5d",
+    "initialSecondaryMtime": 1792446116883,
+    "restoredSecondaryMtime": 1792446196951,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-group2-en",
+    "parentId": "716e95c8409aae65b84afc22c4829ec719f37192f125b2d51563c4216b13378e",
+    "archiveId": "ce8f7e943f9b1a0e368d08b906367ae64b11adbd2794abaf11352cce9f7be5ca",
+    "initialSecondaryMtime": 1792446202094,
+    "restoredSecondaryMtime": 1792446211351,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-group3-en",
+    "parentId": "e31464190e9bb95278a6ba233a424c72b76e4a7b9b189336389590765847437f",
+    "archiveId": "b78c18a88299670330b8ee16da2a9f678915acd891d746d5da9a8da276441e82",
+    "initialSecondaryMtime": 1792446216385,
+    "restoredSecondaryMtime": 1792446225901,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-07-en",
+    "parentId": "fb4bddc4074616e3db88f67d293733873999d7fe0a613f6201d66536f9ef04f1",
+    "archiveId": "818334f7ec4b0a9a94aaff7598c625a3a4fbfd9c44fb64b8d482f3b571b27932",
+    "initialSecondaryMtime": 1792446230922,
+    "restoredSecondaryMtime": 1792446240815,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-08-en",
+    "parentId": "38ffe5a29b8cbf6910e72de6ef22ba05395b090dd28d3ee8fe60d4f8b32c1cfc",
+    "archiveId": "fab8f7292e044cc3a531ca87686bf48b13ce63298463cc273fce65098effc263",
+    "initialSecondaryMtime": 1792446246038,
+    "restoredSecondaryMtime": 1792446258639,
+    "completeCycle": true
+  },
+  {
+    "name": "structural-09-en",
+    "parentId": "1ef636ef44e632143fdbfa50815d9ec7253e8270967faa6895cc3cc021181106",
+    "archiveId": "72b00e2fc733720e5e213b74a72807a53f0b2e39006af80c5094a379dbe91663",
+    "initialSecondaryMtime": 1792446265965,
+    "restoredSecondaryMtime": 1792446280362,
+    "completeCycle": true
+  }
+]

@@ -19,6 +19,7 @@ import { readMergeIncoming } from "./obsidianMergeApply";
 import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { obsidianSafeApplyPort } from "./obsidianSafeApply";
 import { EmptyAtomApplyModal } from "./emptyAtomApplyModal";
+import { workflowStep, focusStatus } from "./consolidationUx";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairInspectorModal extends Modal {
@@ -37,6 +38,9 @@ export class PairInspectorModal extends Modal {
     this.titleEl.setText(tr("@consolidation.title"));
     this.contentEl.empty();
     this.contentEl.addClass("ai-pair-inspector");
+    workflowStep(this.contentEl, "pair");
+    const pair = this.contentEl.createEl("ul", { cls: "ai-consolidation-pair" });
+    this.paths.forEach((path, i) => pair.createEl("li", { text: `${i === 0 ? "A" : "B"}: ${path}` }));
     this.contentEl.createEl("p", { text: tr("@consolidation.scope") });
     this.contentEl.createEl("p", { text: tr("@consolidation.sourceScope") });
     const controls = this.contentEl.createDiv({ cls: "ai-semantic-search-controls" });
@@ -58,6 +62,7 @@ export class PairInspectorModal extends Modal {
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
             renderRelationshipView(analysis, this.relationship);
+            if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) focusStatus(analysis);
             if (this.relationship.view.result) {
               const prepare = analysis.createEl("button", { text: tr("@planner.prepare"), attr: { type: "button", "data-planner-action": "open" } });
               prepare.addEventListener("click", () => {
@@ -73,7 +78,7 @@ export class PairInspectorModal extends Modal {
                 const planner = this.planner;
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                   new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
-                    () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source)).open();
+                    () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source), false, undefined, undefined, plan).open();
                 } : undefined, this.safeApply?.multi ? plan => {
                   new MultiFileApplyModal(this.app, this.safeApply!.multi!, current => this.safeApply!.multi!.review(plan, source,
                     () => current() && this.openState && planner.view.multiPlan === plan && this.relationship?.analysisSource === source),
@@ -170,10 +175,10 @@ export class PairInspectorModal extends Modal {
     open.addEventListener("click", () => { void openDiscoveryResult(this.app, note.path, undefined, () => {}); });
     card.createEl("p", { text: tr("@consolidation.size", { bytes: note.bytes!, characters: note.characters! }) });
     card.createEl("p", { text: tr("@consolidation.modified", { time: new Date(note.modified!).toLocaleString(dateLocale()) }) });
-    card.createEl("h4", { text: tr("@consolidation.source") });
+    const source = card.createEl("details"); source.createEl("summary", { text: tr("@consolidation.source") });
     if (note.preview!.length < note.characters!) card.createEl("p", { text: tr("@consolidation.truncated", { shown: note.preview!.length, total: note.characters! }) });
     if (note.characters === 0) card.createEl("p", { text: tr("@consolidation.empty") });
-    card.createEl("pre", { cls: "ai-pair-source", text: note.preview, attr: { tabindex: "0", "aria-label": tr("@consolidation.source") } });
+    source.createEl("pre", { cls: "ai-pair-source", text: note.preview, attr: { tabindex: "0", "aria-label": tr("@consolidation.source") } });
     card.createEl("h4", { text: tr("@consolidation.metadata") });
     card.createEl("p", { text: tr("@consolidation.cacheScope") });
     if (note.metadata) {

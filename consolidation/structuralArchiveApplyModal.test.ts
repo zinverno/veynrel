@@ -1,11 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   class Element {
+    closest() { return null; }
     children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; checked = false; disabled = false; listeners = new Map<string, () => void>();
     empty() { this.children = []; } addClass() {} setText(text: string) { this.text = text; }
     create(tag: string, opts: { text?: string; attr?: Record<string, string> } = {}) { const e = new Element(); e.tag = tag; e.text = opts.text ?? ""; e.attrs = opts.attr ?? {}; this.children.push(e); return e; }
     createEl(tag: string, opts = {}) { return this.create(tag, opts); } createDiv(opts = {}) { return this.create("div", opts); } createSpan(opts = {}) { return this.create("span", opts); }
     addEventListener(key: string, fn: () => void) { this.listeners.set(key, fn); }
+    setAttribute(key: string, value: string) { this.attrs[key] = value; }
+    focus() {}
+    querySelector() { return this.all().find(e => e.attrs.role === "alert") ?? this.all().find(e => e.attrs.role === "status") ?? this.all().find(e => e.tag === "h3"); }
     all(): Element[] { return [this, ...this.children.flatMap(e => e.all())]; }
     action(key: string) { return this.all().find(e => e.attrs["data-structural-archive-action"] === key); }
     click() { if (!this.disabled) this.listeners.get("click")?.(); }

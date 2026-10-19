@@ -62,6 +62,8 @@ export async function archiveApplyScenario(context) {
     await h.click('.ai-archive-apply [data-archive-apply-action=cancel]');
     await pass(language+': cancel consent leaves no Markdown or journal writes',"!document.querySelector('.ai-archive-apply')&&archiveWrites.paths.length===0&&archiveWrites.other===0&&archiveWrites.journal===0");
     assert.deepEqual(files(journal),evidence);assert.deepEqual(disk(),expected());await review();
+    // Expand the public disclosures before asserting every full source and result.
+    await ev("['before','after','canonical'].forEach(k=>document.querySelector('.ai-archive-apply [data-archive-apply-text='+k+']').parentElement.open=true);void 0");
     await pass(language+': full before/after, canonical, decisions and diff; review has zero writes/completions',`['before','after','canonical'].every(k=>document.querySelector('.ai-archive-apply [data-archive-apply-text='+k+']').parentElement.open)&&document.querySelector('.ai-archive-apply [data-archive-apply-text=before]').textContent===${JSON.stringify(plan.secondary.before)}&&document.querySelector('.ai-archive-apply [data-archive-apply-text=after]').textContent===${JSON.stringify(plan.secondary.after)}&&document.querySelectorAll('.ai-archive-apply [data-archive-apply-text=fragment]').length===${plan.preservation.length}&&!!document.querySelector('.ai-archive-apply .ai-proposal-diff')&&archiveWrites.paths.length===0&&archiveWrites.other===0&&archiveWrites.journal===0&&safeTest.calls===archiveWrites.calls`);
     assert.deepEqual(disk(),expected());assert.deepEqual(files(journal),evidence);
     for(const theme of ['theme-light','theme-dark'])for(const width of [1200,390]) {
@@ -112,8 +114,9 @@ export async function archiveApplyScenario(context) {
   await pass('Failed backup writes no Markdown',"archiveWrites.paths.length===0&&!!document.querySelector('.ai-archive-apply [role=alert]')");assert.deepEqual(disk(),expected());await ev('app.vault.adapter.copy=oldCopy;void 0');
   for(const side of ['canonical','secondary'])for(const timing of ['consent','undo']) {
     await setup('edit-'+side+'-'+timing);await review();if(timing==='undo'){await confirm();id=await findId();}
+    if(timing==='consent')await ev("window.revokedArchiveConfirm=document.querySelector('.ai-archive-apply [data-archive-apply-action=confirm]');void 0");
     fs.appendFileSync(vault+'/'+plan[side].path,'\nUSER TEXT\n');await wait(`app.vault.read(app.vault.getFileByPath(${JSON.stringify(plan[side].path)})).then(t=>t.endsWith('USER TEXT\\n'))`);const before=disk();
-    if(timing==='consent'){await confirm();await pass(side+' edit after consent refuses archive write',"!!document.querySelector('.ai-archive-apply [role=alert]')&&archiveWrites.paths.length===0");}
+    if(timing==='consent'){await wait("!!document.querySelector('.ai-archive-apply [role=alert]')");await ev('revokedArchiveConfirm.click();void 0');await pass(side+' edit revokes consent and refuses stale detached confirmation',"!document.querySelector('.ai-archive-apply [data-archive-apply-action=confirm]')&&!!document.querySelector('.ai-archive-apply [role=alert]')&&archiveWrites.paths.length===0");}
     else {await h.history();await pass(side+' edit blocks Archive Undo',`${row()}?.dataset.archiveState==='conflict'&&!${row()}?.querySelector('[data-archive-apply-action=undoReview]')`);}
     assert.deepEqual(disk(),before);await shot('archive-refusal-'+side+'-'+timing);
   }
