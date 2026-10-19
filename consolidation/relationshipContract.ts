@@ -20,7 +20,8 @@ export interface RelationshipResult {
   alternatives: RelationshipRecommendation[];
   limitations: string[];
 }
-export type RelationshipFailure = "source" | "tooLarge" | "configuration" | "invalidResponse" | "unverifiedEvidence" | "inconsistent" | "transport";
+export type RelationshipFailure = "source" | "tooLarge" | "configuration" | "invalidResponse" | "unverifiedEvidence" | "inconsistent" | "transport"
+  | "timeout" | "aborted" | "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope";
 export class RelationshipError extends Error {
   constructor(readonly reason: RelationshipFailure) { super(reason); }
 }

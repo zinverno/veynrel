@@ -61,8 +61,9 @@ export class BundleApplyModal extends Modal {
       this.review = review; this.contentEl.empty(); this.titleEl.setText(tr(review.action === "undo" ? "@bundleApply.undoReview" : "@bundleApply.review"));
       preview(this.contentEl, review.record, review.action === "undo");
       this.contentEl.createEl("p", { text: tr("@bundleApply.closeScope") });
-      control(this.contentEl, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(review.action === "undo" ? "@bundleApply.undoConfirm" : "@bundleApply.confirm"));
-      control(this.contentEl, "cancel", () => this.close()); focusStatus(this.contentEl);
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      control(actions, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(review.action === "undo" ? "@bundleApply.undoConfirm" : "@bundleApply.confirm"));
+      control(actions, "cancel", () => this.close()); focusStatus(this.contentEl);
     } catch (e) { this.error(e); }
   }
   private error(error: unknown): void {

@@ -682,7 +682,7 @@ describe("semantic discovery modals", () => {
     expect(content.findByClass("ai-semantic-duplicate-label")[0].text).toBe(
       "Потенциально похожая пара",
     );
-    content.findByClass("ai-semantic-duplicate-note")[1].trigger("keydown", {
+    content.findByClass("ai-semantic-duplicate-note")[1].findByClass("ai-semantic-result-title")[0].trigger("keydown", {
       key: "Enter",
     });
     await flush();
@@ -690,6 +690,21 @@ describe("semantic discovery modals", () => {
       expect.objectContaining({ path: "Folder/B.md" }),
     );
     expect(view.editor.setCursor).toHaveBeenCalledWith({ line: 18, ch: 0 });
+  });
+
+  it("preserves complete long excerpts behind a disclosure separate from note navigation", async () => {
+    const f = discoveryHarness(), pair = (await f.delegate.findPotentialDuplicates())[0];
+    const preview = "Long synthetic excerpt. ".repeat(80);
+    pair.leftMatches[0].preview = preview;
+    f.delegate.findPotentialDuplicates.mockResolvedValue([pair]);
+    const modal = new SemanticDuplicatesModal(f.app as never, f.delegate); modal.open(); await flush();
+    const content = modal.contentEl as unknown as InstanceType<typeof mocks.FakeElement>;
+    const note = content.findByClass("ai-semantic-duplicate-note")[0];
+    expect(note.attributes.has("role")).toBe(false);
+    expect(note.findByTag("details")[0].attributes.has("open")).toBe(false);
+    expect(note.findByClass("ai-semantic-result-preview")[0].text).toBe(preview);
+    note.findByTag("summary")[0].trigger("click"); await flush();
+    expect(f.leaf.openFile).not.toHaveBeenCalled();
   });
 
   it("shows controlled empty and error states", async () => {

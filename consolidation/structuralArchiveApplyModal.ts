@@ -74,10 +74,11 @@ export class StructuralArchiveApplyModal extends Modal {
       preview(this.contentEl, r.record, r.action === "undo"); this.contentEl.createEl("p", { text: tr("@archiveApply.closeScope") });
       const label = this.contentEl.createEl("label", { text: tr("@structuralArchive.confirmReview") });
       const ack = label.createEl("input", { type: "checkbox", attr: { "data-structural-archive-ack": "true" } }); ack.checked = false;
-      const confirm = button(this.contentEl, "confirm", () => { if (ack.checked && !this.busy) this.pending = this.commit(); });
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      const confirm = button(actions, "confirm", () => { if (ack.checked && !this.busy) this.pending = this.commit(); });
       confirm.setText(tr(r.action === "undo" ? "@archiveApply.undoConfirm" : "@archiveApply.confirm")); confirm.disabled = true;
       ack.addEventListener("change", () => { confirm.disabled = !ack.checked; });
-      button(this.contentEl, "cancel", () => this.close());
+      button(actions, "cancel", () => this.close());
       focusStatus(this.contentEl);
     } catch (e) { this.error(e); }
   }

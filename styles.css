@@ -2559,8 +2559,27 @@
 .ai-pair-note details { margin-block: 8px; }
 .ai-relationship { overflow-wrap: anywhere; }
 .ai-relationship:empty { display: none; }
-.ai-relationship button { margin: 8px 8px 8px 0; white-space: normal; height: auto; }
+.ai-relationship button { white-space: normal; height: auto; }
 .ai-relationship-paths { white-space: pre-wrap; }
+
+/* The width belongs to the outer Modal, only for Potential Duplicates. */
+.modal.ai-semantic-duplicates-modal { width: min(1000px, calc(100vw - 32px)); }
+.ai-semantic-duplicates-modal .ai-semantic-search-modal { width: 100%; }
+.ai-semantic-duplicates-modal .ai-semantic-duplicate-note { cursor: auto; }
+.ai-semantic-duplicates-modal .ai-semantic-result-title[role="button"] { cursor: pointer; color: var(--link-color); }
+.ai-semantic-duplicates-modal .ai-semantic-duplicate-notes { max-height: 40vh; overflow-y: auto; padding: 2px; }
+.ai-semantic-duplicates-modal summary { cursor: pointer; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ai-semantic-duplicates-modal :focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.ai-consolidation-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-block: 12px; }
+.ai-consolidation-actions button { white-space: normal; height: auto; min-height: 32px; margin: 0; max-width: 100%; }
+.ai-pair-status { margin-block: 12px; color: var(--text-muted); }
+.ai-pair-status[data-state="stale"] { color: var(--text-warning); }
+.ai-relationship { display: flex; flex-direction: column; max-height: 65vh; margin-block: 12px; }
+.ai-relationship-body { min-height: 0; overflow-y: auto; padding: 2px; }
+.ai-relationship-body > p { margin-block: 10px; }
+.ai-relationship-actions { flex-shrink: 0; border-top: 1px solid var(--background-modifier-border); background: var(--background-primary); }
+.ai-relationship-actions:empty { display: none; }
+.ai-review-actions { position: sticky; bottom: 0; background: var(--background-primary); border-top: 1px solid var(--background-modifier-border); z-index: 1; }
 .ai-taxonomy-modal { width: min(960px, 95vw); }
 .ai-taxonomy { overflow-wrap: anywhere; }
 .ai-taxonomy fieldset { min-width: 0; margin-block: 12px; border: 1px solid var(--background-modifier-border); }

@@ -1,7 +1,7 @@
 import { ACTIONS, CLAIM_KINDS, RELATIONS } from "./relationshipContract";
 
 export const RELATIONSHIP_LIMITS = { noteCharacters: 20000, pairCharacters: 32000, requestBytes: 128 * 1024 } as const;
-export const RELATIONSHIP_OPTIONS = { maxTokens: 4000, temperature: 0 } as const;
+export const RELATIONSHIP_OPTIONS = { maxTokens: 4000, temperature: 0, timeoutMs: 120_000 } as const;
 
 export function relationshipPrompt(language: "ru" | "en"): string {
   return `You are a cautious read-only note relationship analyst. Write all explanatory prose in ${language === "ru" ? "Russian" : "English"}.
@@ -26,5 +26,11 @@ Every substantive conclusion, including possible unique content, contextual exam
 - unique_b, context_b, standalone_b: quoteB is required; quoteA may be null.
 Only include an opposite-side quote when it meaningfully supports the claim. Otherwise use null, never an arbitrary passage, empty string, the string "null", or an omitted key. Every supplied quote, including an optional one, must match its source exactly and occur exactly once, preserving whitespace, punctuation and Markdown. Use wider context for repeated snippets. Literal presence does not prove semantic uniqueness, absence of equivalent information in the other note, or correctness of interpretation. A null quote means no excerpt supplied, not proof of absence.
 At most 8 claims, 3 alternatives, 8 limitations. Prose fields at most 1600 characters; quotes at most 1200 characters; IDs at most 32. Never fabricate or paraphrase a quote. If exact evidence is unavailable, use insufficient_context with empty claims and evidence lists, manual_review/no_change, and an explanation of the limitation.
-For same_information/partial_overlap include a shared claim. same_information must not include unique/context/standalone claims; choose partial_overlap or related_distinct when those matter. Conflicts/version differences require conflicting or insufficient_context. conflicting/unrelated/insufficient_context allow only manual_review or no_change. Merge/embed considerations require same_information/partial_overlap and cited shared evidence. Atomization requires cited standalone_a/standalone_b evidence. Alternatives are optional and must not duplicate the primary action.`;
+For same_information/partial_overlap include a shared claim. same_information must not include unique/context/standalone claims; choose partial_overlap or related_distinct when those matter. Conflicts/version differences require conflicting or insufficient_context. conflicting/unrelated/insufficient_context allow only manual_review or no_change.
+Validate EACH recommendation independently: the primary recommendation AND EVERY alternative obey exactly the same evidence rules. Evidence is not inherited from the relation, explanation, primary action or another alternative.
+- consider_merge, consider_embed_b_in_a and consider_embed_a_in_b require same_information/partial_overlap AND at least one claim of kind shared in THAT recommendation's own evidence list. unique/context claims alone never justify merging or embedding.
+- Example: if c1 is shared and c6/c7 are unique_b, an embed alternative with evidence ["c6","c7"] is INVALID, even if the primary merge cites c1. Cite ["c1","c6","c7"] only if those claims actually support that alternative; otherwise omit the alternative or choose manual_review/no_change. Never relabel unique evidence as shared to satisfy the schema.
+- consider_atomize requires standalone_a/standalone_b in THAT recommendation's own evidence list.
+- Every cited ID must exist, with exact source quotes of the required kind. Do not invent, rewrite or repair evidence.
+Alternatives are optional and must not duplicate the primary action. Check each alternative before returning the JSON.`;
 }

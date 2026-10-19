@@ -55,8 +55,9 @@ export class MergeApplyModal extends Modal {
       this.review = review; this.contentEl.empty(); this.titleEl.setText(tr(review.action === "undo" ? "@mergeApply.undoReview" : "@mergeApply.review"));
       preview(this.contentEl, review.record, review.action === "undo");
       this.contentEl.createEl("p", { text: tr("@mergeApply.closeScope") });
-      control(this.contentEl, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(review.action === "undo" ? "@mergeApply.undoConfirm" : "@mergeApply.confirm"));
-      control(this.contentEl, "cancel", () => this.close()); focusStatus(this.contentEl);
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      control(actions, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(review.action === "undo" ? "@mergeApply.undoConfirm" : "@mergeApply.confirm"));
+      control(actions, "cancel", () => this.close()); focusStatus(this.contentEl);
     } catch (e) { this.error(e); }
   }
   private error(error: unknown): void {

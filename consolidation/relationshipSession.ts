@@ -1,5 +1,5 @@
 import type { App } from "obsidian";
-import { buildChatBody } from "../api";
+import { ApiRequestError, buildChatBody } from "../api";
 import { PROVIDER_PROFILES } from "../constants";
 import { currentLanguage } from "../i18n";
 import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
@@ -26,6 +26,7 @@ export interface RelationshipView {
   consent?: RelationshipConsent;
   result?: RelationshipResult;
   error?: RelationshipFailure;
+  httpStatus?: number;
 }
 export interface RelationshipDependencies {
   settings: Pick<LanguageModelSettingsPort, "get" | "subscribe">;
@@ -126,6 +127,11 @@ export class RelationshipSession {
   }
   private fail(error: unknown): void {
     this.prepared = undefined; this.analysis = undefined;
-    this.publish({ stage: "error", error: error instanceof RelationshipError ? error.reason : "transport" });
+    const reason = error instanceof RelationshipError || error instanceof ApiRequestError ? error.reason
+      : error instanceof Error && error.name === "TimeoutError" ? "timeout"
+      : error instanceof Error && error.name === "AbortError" ? "aborted" : "transport";
+    const status = error instanceof ApiRequestError ? error.status : undefined;
+    this.publish({ stage: "error", error: reason,
+      ...(Number.isInteger(status) && status! >= 100 && status! <= 599 ? { httpStatus: status } : {}) });
   }
 }
