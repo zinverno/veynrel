@@ -12,6 +12,7 @@ const mocks = vi.hoisted(() => {
 
   class FakeElement {
     closest() { return null; }
+    scrollIntoView() {}
     readonly children: FakeElement[] = [];
     readonly listeners = new Map<string, Array<(event: FakeEvent) => void>>();
     tag = "div";

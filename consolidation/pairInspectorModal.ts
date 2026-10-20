@@ -59,7 +59,10 @@ export class PairInspectorModal extends Modal {
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
             renderRelationshipView(analysis, this.relationship);
-            if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) focusStatus(analysis);
+            if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) {
+              focusStatus(analysis);
+              analysis.scrollIntoView({ block: "start" });
+            }
             if (this.relationship.view.result) {
               const prepare = analysis.createEl("button", { text: tr("@planner.prepare"), attr: { type: "button", "data-planner-action": "open" } });
               prepare.addEventListener("click", () => {
