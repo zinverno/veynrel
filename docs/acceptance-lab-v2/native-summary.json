@@ -1,0 +1,350 @@
+{
+  "status": "PASS",
+  "suite": "all",
+  "artifact": {
+    "commit": "59e57842d8772b5804f7421428e9af5e53b31fa6",
+    "sha256": {
+      "main.js": "02f34f2930a0b0b30510fb4b071bbb535b66724381efaf5dd39c82bc8a56b747",
+      "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+      "styles.css": "97d1881d9df955b0f01e6bc71942b587c4898a4dbd7689a6103184bae8ea8a7d"
+    }
+  },
+  "corpusSha256": "f2f45eba446b3f76a7eb98fc07c65946bbc4090bb385b39ca3c9fa6da60311b3",
+  "conditions": {
+    "os": "linux",
+    "release": "6.12.108-1-MANJARO",
+    "arch": "x64",
+    "cpus": 12,
+    "totalMemory": 7607296000,
+    "notes": 1000,
+    "bytes": 719854,
+    "index": "2 synthetic vectors; no embedding service"
+  },
+  "checks": [
+    "Native initialization sees all 1000 files and cached metadata",
+    "Health scan completed without a provider request",
+    "Findings navigation rendered",
+    "en-theme-light-1650 duplicates outer width and wrapped actions",
+    "en-theme-light-1650 compact Inspector and closed metadata",
+    "en-theme-light-1650 consent is local with closed exact JSON",
+    "en-theme-light-1650 confirmation visible without JSON scrolling",
+    "en-theme-light-1650 keyboard opens exact payload without sending",
+    "en-theme-light-1650 cancel keeps provider untouched",
+    "en-theme-light-390 duplicates outer width and wrapped actions",
+    "en-theme-light-390 compact Inspector and closed metadata",
+    "en-theme-light-390 consent is local with closed exact JSON",
+    "en-theme-light-390 confirmation visible without JSON scrolling",
+    "en-theme-light-390 keyboard opens exact payload without sending",
+    "en-theme-light-390 cancel keeps provider untouched",
+    "en-theme-dark-1650 duplicates outer width and wrapped actions",
+    "en-theme-dark-1650 compact Inspector and closed metadata",
+    "en-theme-dark-1650 consent is local with closed exact JSON",
+    "en-theme-dark-1650 confirmation visible without JSON scrolling",
+    "en-theme-dark-1650 keyboard opens exact payload without sending",
+    "en-theme-dark-1650 cancel keeps provider untouched",
+    "en-theme-dark-390 duplicates outer width and wrapped actions",
+    "en-theme-dark-390 compact Inspector and closed metadata",
+    "en-theme-dark-390 consent is local with closed exact JSON",
+    "en-theme-dark-390 confirmation visible without JSON scrolling",
+    "en-theme-dark-390 keyboard opens exact payload without sending",
+    "en-theme-dark-390 cancel keeps provider untouched",
+    "ru-theme-light-1650 duplicates outer width and wrapped actions",
+    "ru-theme-light-1650 compact Inspector and closed metadata",
+    "ru-theme-light-1650 consent is local with closed exact JSON",
+    "ru-theme-light-1650 confirmation visible without JSON scrolling",
+    "ru-theme-light-1650 keyboard opens exact payload without sending",
+    "ru-theme-light-1650 cancel keeps provider untouched",
+    "ru-theme-light-390 duplicates outer width and wrapped actions",
+    "ru-theme-light-390 compact Inspector and closed metadata",
+    "ru-theme-light-390 consent is local with closed exact JSON",
+    "ru-theme-light-390 confirmation visible without JSON scrolling",
+    "ru-theme-light-390 keyboard opens exact payload without sending",
+    "ru-theme-light-390 cancel keeps provider untouched",
+    "ru-theme-dark-1650 duplicates outer width and wrapped actions",
+    "ru-theme-dark-1650 compact Inspector and closed metadata",
+    "ru-theme-dark-1650 consent is local with closed exact JSON",
+    "ru-theme-dark-1650 confirmation visible without JSON scrolling",
+    "ru-theme-dark-1650 keyboard opens exact payload without sending",
+    "ru-theme-dark-1650 cancel keeps provider untouched",
+    "ru-theme-dark-390 duplicates outer width and wrapped actions",
+    "ru-theme-dark-390 compact Inspector and closed metadata",
+    "ru-theme-dark-390 consent is local with closed exact JSON",
+    "ru-theme-dark-390 confirmation visible without JSON scrolling",
+    "ru-theme-dark-390 keyboard opens exact payload without sending",
+    "ru-theme-dark-390 cancel keeps provider untouched",
+    "Long Markdown previews remain bounded and keyboard scrollable",
+    "50 MetadataCache events invalidate Inspector without an automatic model call",
+    "Real native popout owns the Inspector and preserves keyboard controls",
+    "20 real Vault modifications invalidate Inspector without provider calls",
+    "en-single theme-light 1650: review fits, sticky actions remain reachable",
+    "en-single theme-light 390: review fits, sticky actions remain reachable",
+    "en-single theme-dark 1650: review fits, sticky actions remain reachable",
+    "en-single theme-dark 390: review fits, sticky actions remain reachable",
+    "en single real Apply writes only allowed paths without extra model calls",
+    "en single explicit Undo restores all 1000 files byte for byte",
+    "en-multi theme-light 1650: review fits, sticky actions remain reachable",
+    "en-multi theme-light 390: review fits, sticky actions remain reachable",
+    "en-multi theme-dark 1650: review fits, sticky actions remain reachable",
+    "en-multi theme-dark 390: review fits, sticky actions remain reachable",
+    "en multi real Apply writes only allowed paths without extra model calls",
+    "en Multi Apply survives restart without automatic writes",
+    "en multi explicit Undo restores all 1000 files byte for byte",
+    "en-merge theme-light 1650: review fits, sticky actions remain reachable",
+    "en-merge theme-light 390: review fits, sticky actions remain reachable",
+    "en-merge theme-dark 1650: review fits, sticky actions remain reachable",
+    "en-merge theme-dark 390: review fits, sticky actions remain reachable",
+    "en merge real Apply writes only allowed paths without extra model calls",
+    "archive-merge theme-light 1650: review fits, sticky actions remain reachable",
+    "archive-merge theme-light 390: review fits, sticky actions remain reachable",
+    "archive-merge theme-dark 1650: review fits, sticky actions remain reachable",
+    "archive-merge theme-dark 390: review fits, sticky actions remain reachable",
+    "Archive merge survives restart and blocks parent Undo",
+    "Archive merge Undo restores exact secondary Markdown",
+    "en merge explicit Undo restores all 1000 files byte for byte",
+    "en-group theme-light 1650: review fits, sticky actions remain reachable",
+    "en-group theme-light 390: review fits, sticky actions remain reachable",
+    "en-group theme-dark 1650: review fits, sticky actions remain reachable",
+    "en-group theme-dark 390: review fits, sticky actions remain reachable",
+    "en group real Apply writes only allowed paths without extra model calls",
+    "archive-group theme-light 1650: review fits, sticky actions remain reachable",
+    "archive-group theme-light 390: review fits, sticky actions remain reachable",
+    "archive-group theme-dark 1650: review fits, sticky actions remain reachable",
+    "archive-group theme-dark 390: review fits, sticky actions remain reachable",
+    "Archive group survives restart and blocks parent Undo",
+    "Archive group Undo restores exact secondary Markdown",
+    "en group explicit Undo restores all 1000 files byte for byte",
+    "en-bundle theme-light 1650: review fits, sticky actions remain reachable",
+    "en-bundle theme-light 390: review fits, sticky actions remain reachable",
+    "en-bundle theme-dark 1650: review fits, sticky actions remain reachable",
+    "en-bundle theme-dark 390: review fits, sticky actions remain reachable",
+    "en bundle real Apply writes only allowed paths without extra model calls",
+    "archive-bundle theme-light 1650: review fits, sticky actions remain reachable",
+    "archive-bundle theme-light 390: review fits, sticky actions remain reachable",
+    "archive-bundle theme-dark 1650: review fits, sticky actions remain reachable",
+    "archive-bundle theme-dark 390: review fits, sticky actions remain reachable",
+    "Archive bundle survives restart and blocks parent Undo",
+    "Archive bundle Undo restores exact secondary Markdown",
+    "en bundle explicit Undo restores all 1000 files byte for byte",
+    "en Atomization Preview creates no file",
+    "en-empty_atom theme-light 1650: review fits, sticky actions remain reachable",
+    "en-empty_atom theme-light 390: review fits, sticky actions remain reachable",
+    "en-empty_atom theme-dark 1650: review fits, sticky actions remain reachable",
+    "en-empty_atom theme-dark 390: review fits, sticky actions remain reachable",
+    "en empty_atom real Apply writes only allowed paths without extra model calls",
+    "en empty_atom explicit Undo restores all 1000 files byte for byte",
+    "en unsupported structure refuses Group before selection or Apply",
+    "ru-single theme-light 1650: review fits, sticky actions remain reachable",
+    "ru-single theme-light 390: review fits, sticky actions remain reachable",
+    "ru-single theme-dark 1650: review fits, sticky actions remain reachable",
+    "ru-single theme-dark 390: review fits, sticky actions remain reachable",
+    "ru single real Apply writes only allowed paths without extra model calls",
+    "ru single explicit Undo restores all 1000 files byte for byte",
+    "ru-multi theme-light 1650: review fits, sticky actions remain reachable",
+    "ru-multi theme-light 390: review fits, sticky actions remain reachable",
+    "ru-multi theme-dark 1650: review fits, sticky actions remain reachable",
+    "ru-multi theme-dark 390: review fits, sticky actions remain reachable",
+    "ru multi real Apply writes only allowed paths without extra model calls",
+    "ru Multi Apply survives restart without automatic writes",
+    "ru multi explicit Undo restores all 1000 files byte for byte",
+    "ru-merge theme-light 1650: review fits, sticky actions remain reachable",
+    "ru-merge theme-light 390: review fits, sticky actions remain reachable",
+    "ru-merge theme-dark 1650: review fits, sticky actions remain reachable",
+    "ru-merge theme-dark 390: review fits, sticky actions remain reachable",
+    "ru merge real Apply writes only allowed paths without extra model calls",
+    "ru merge explicit Undo restores all 1000 files byte for byte",
+    "ru-group theme-light 1650: review fits, sticky actions remain reachable",
+    "ru-group theme-light 390: review fits, sticky actions remain reachable",
+    "ru-group theme-dark 1650: review fits, sticky actions remain reachable",
+    "ru-group theme-dark 390: review fits, sticky actions remain reachable",
+    "ru group real Apply writes only allowed paths without extra model calls",
+    "ru group explicit Undo restores all 1000 files byte for byte",
+    "ru-bundle theme-light 1650: review fits, sticky actions remain reachable",
+    "ru-bundle theme-light 390: review fits, sticky actions remain reachable",
+    "ru-bundle theme-dark 1650: review fits, sticky actions remain reachable",
+    "ru-bundle theme-dark 390: review fits, sticky actions remain reachable",
+    "ru bundle real Apply writes only allowed paths without extra model calls",
+    "ru bundle explicit Undo restores all 1000 files byte for byte",
+    "ru Atomization Preview creates no file",
+    "ru-empty_atom theme-light 1650: review fits, sticky actions remain reachable",
+    "ru-empty_atom theme-light 390: review fits, sticky actions remain reachable",
+    "ru-empty_atom theme-dark 1650: review fits, sticky actions remain reachable",
+    "ru-empty_atom theme-dark 390: review fits, sticky actions remain reachable",
+    "ru empty_atom real Apply writes only allowed paths without extra model calls",
+    "ru empty_atom explicit Undo restores all 1000 files byte for byte",
+    "ru unsupported structure refuses Group before selection or Apply",
+    "History opens after native process restart",
+    "All 1000 Markdown files exactly match the initial manifest after Undo"
+  ],
+  "measurements": {
+    "startupMs": 3881.2915279999997,
+    "healthScanMs": 685.1671419999998,
+    "discoverMs": 73.55596400000013,
+    "historyOpenMs": 544.7946350000002,
+    "longInspectorMs": 56.74437899999975,
+    "metadataBurstMs": 1.728038999999626,
+    "metadata20WritesMs": 241.9293720000005,
+    "restartMs": 1625.8187650000036,
+    "finalRendererMemory": {
+      "rss": 390578176,
+      "heapTotal": 95412224,
+      "heapUsed": 50524636,
+      "external": 23107205,
+      "arrayBuffers": 0
+    }
+  },
+  "limitations": [
+    "Linux desktop; 390 px is desktop resizing, not mobile acceptance.",
+    "No paid provider or real embedding quality evaluation.",
+    "Network instrumentation observes fetch/XHR and synthetic completion dispatch, not system-wide traffic."
+  ],
+  "runtime": {
+    "electron": "43.6.0",
+    "memory": {
+      "rss": 385880064,
+      "heapTotal": 64589824,
+      "heapUsed": 39724496,
+      "external": 9147075,
+      "arrayBuffers": 0
+    }
+  },
+  "health": {
+    "outcome": {
+      "scan": {
+        "id": "omitted",
+        "type": "local",
+        "startedAt": 1792491766620,
+        "notesSeen": 1000,
+        "findingsCreated": 0,
+        "findingsUpdated": 606,
+        "findingsResolved": 0,
+        "analyzerVersions": {
+          "broken-links": "1",
+          "duplicate-titles": "1",
+          "exact-duplicates": "1",
+          "graph-components": "1",
+          "no-incoming-links": "1",
+          "no-outgoing-links": "1",
+          "note-shape": "1",
+          "orphans": "1"
+        },
+        "reconciliationReceipts": {
+          "local:broken-links": 1792491767205,
+          "local:duplicate-titles": 1792491767205,
+          "local:exact-duplicates": 1792491767205,
+          "local:graph-components": 1792491767205,
+          "local:no-incoming-links": 1792491767205,
+          "local:no-outgoing-links": 1792491767205,
+          "local:note-shape": 1792491767205,
+          "local:orphans": 1792491767205
+        },
+        "status": "completed",
+        "completedAt": 1792491767205
+      },
+      "freshness": "verified",
+      "findingsCommitted": true,
+      "historyRecorded": true,
+      "diagnostics": []
+    }
+  },
+  "metadataChanges": {
+    "writes": 20,
+    "changedEvents": 20,
+    "cleanup": "Explicit fixture cleanup; not Apply/Undo recovery"
+  },
+  "actions": [
+    {
+      "language": "en",
+      "kind": "single",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "en",
+      "kind": "multi",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "kind": "archive-merge",
+      "result": "PASS"
+    },
+    {
+      "language": "en",
+      "kind": "merge",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "kind": "archive-group",
+      "result": "PASS"
+    },
+    {
+      "language": "en",
+      "kind": "group",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "kind": "archive-bundle",
+      "result": "PASS"
+    },
+    {
+      "language": "en",
+      "kind": "bundle",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "en",
+      "kind": "atomization",
+      "result": "PREVIEW_ONLY"
+    },
+    {
+      "language": "en",
+      "kind": "empty_atom",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "en",
+      "kind": "refusal",
+      "result": "REFUSED_AS_EXPECTED",
+      "reason": "Native MetadataCache cannot establish exact structural coverage"
+    },
+    {
+      "language": "ru",
+      "kind": "single",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "ru",
+      "kind": "multi",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "ru",
+      "kind": "merge",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "ru",
+      "kind": "group",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "ru",
+      "kind": "bundle",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "ru",
+      "kind": "atomization",
+      "result": "PREVIEW_ONLY"
+    },
+    {
+      "language": "ru",
+      "kind": "empty_atom",
+      "result": "APPLY_UNDO_PASS"
+    },
+    {
+      "language": "ru",
+      "kind": "refusal",
+      "result": "REFUSED_AS_EXPECTED",
+      "reason": "Native MetadataCache cannot establish exact structural coverage"
+    }
+  ]
+}

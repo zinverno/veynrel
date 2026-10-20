@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Veynrel Acceptance Lab manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "seed",
+    "sourceProfile",
+    "notes",
+    "pairs",
+    "scenarios",
+    "corpusSha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "veynrel.acceptance-lab.v2"
+    },
+    "seed": {
+      "type": "string"
+    },
+    "corpusSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sourceProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "markdown",
+        "bytes",
+        "hints",
+        "fingerprint"
+      ],
+      "properties": {
+        "markdown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hints": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "minItems": 300,
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "domain",
+          "form",
+          "sha256",
+          "bytes"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.md$"
+          },
+          "domain": {
+            "enum": [
+              "sql",
+              "programming",
+              "english",
+              "knowledge",
+              "productivity",
+              "projects"
+            ]
+          },
+          "form": {
+            "type": "string"
+          },
+          "language": {
+            "enum": [
+              "ru",
+              "en"
+            ]
+          },
+          "pairId": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "pairs": {
+      "type": "array",
+      "minItems": 120,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "paths",
+          "category",
+          "expectedRelation",
+          "explanation",
+          "expertReview",
+          "candidateScenarios",
+          "eligibility"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "paths": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "category": {
+            "type": "string"
+          },
+          "expectedRelation": {
+            "enum": [
+              "same_information",
+              "partial_overlap",
+              "related_distinct",
+              "conflicting",
+              "unrelated",
+              "insufficient_context"
+            ]
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "expertReview": {
+            "type": "boolean"
+          },
+          "candidateScenarios": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "eligibility": {
+            "const": "UNVERIFIED_REAL_PLANNER_REQUIRED"
+          }
+        }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "paths",
+          "operations",
+          "eligibility",
+          "response"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "paths": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            }
+          },
+          "target": {
+            "type": "string"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "eligibility": {
+            "const": "UNVERIFIED_REAL_PLANNER_REQUIRED"
+          },
+          "response": {
+            "type": "object",
+            "description": "Synthetic Analyzer control response, checked by production relationshipContract before use."
+          }
+        }
+      }
+    }
+  }
+}
