@@ -1788,11 +1788,9 @@
 }
 .veynrel-health-view .veynrel-workspace {
   box-sizing: border-box;
-  width: calc(100% - 32px);
-  max-width: 1400px;
+  width: 100%;
   min-width: 0;
-  margin-inline: auto;
-  padding-block: 16px;
+  padding: 0;
   overflow-wrap: anywhere;
 }
 .veynrel-health-view .veynrel-health-home,
@@ -1869,7 +1867,6 @@
 .veynrel-health-view .veynrel-health-profile-control { font-size: var(--font-ui-small); }
 @container (max-width: 520px) {
   .veynrel-health-view .veynrel-health-grid { grid-template-columns: minmax(0, 1fr); }
-  .veynrel-health-view .veynrel-workspace { width: 100%; padding: 12px; }
   .veynrel-health-view .veynrel-health-header { align-items: flex-start; flex-direction: column; }
   .veynrel-health-view .veynrel-health-primary { width: 100%; }
 }
@@ -1896,45 +1893,6 @@
 /* Findings shares the Health workspace and native theme; no persisted layout state. */
 .veynrel-health-view .veynrel-findings-filters,
 .veynrel-health-view .veynrel-findings-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.veynrel-health-view .veynrel-findings-navigation {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scroll-padding-inline: var(--size-4-2);
-  width: 100%;
-  padding: 0;
-  margin-block-end: var(--size-4-5);
-  border: 0;
-  border-bottom: 1px solid var(--background-modifier-border);
-  border-radius: 0;
-  background: transparent;
-}
-.veynrel-health-view .veynrel-findings-navigation button {
-  position: relative;
-  flex: 1 0 auto;
-  height: auto;
-  min-height: 44px;
-  padding: var(--size-4-3) var(--size-4-2);
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
-  color: var(--text-muted);
-  white-space: nowrap;
-  font-size: var(--font-ui-small);
-}
-.veynrel-health-view .veynrel-findings-navigation button + button::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  top: 35%;
-  height: 30%;
-  border-inline-start: 1px solid var(--background-modifier-border);
-}
-.veynrel-health-view .veynrel-findings-navigation button:hover,
-.veynrel-health-view .veynrel-findings-navigation [aria-current="page"] { color: var(--text-normal); }
-.veynrel-health-view .veynrel-findings-navigation button:focus-visible { outline: 2px solid var(--text-normal); outline-offset: -4px; }
-.veynrel-health-view .veynrel-findings-navigation [aria-current="page"],
 .veynrel-health-view .veynrel-findings-filters [aria-pressed="true"] {
   font-weight: var(--font-semibold);
   box-shadow: inset 0 -2px var(--interactive-accent);
@@ -1972,7 +1930,6 @@
 .veynrel-health-view .veynrel-health-recommendation button { margin-inline-end: 8px; margin-bottom: 8px; }
 .veynrel-health-view :is(h1, h2, h3)[tabindex="-1"]:focus { outline: none; }
 @container (max-width: 700px) {
-  .veynrel-health-view .veynrel-findings-navigation button { padding-inline: var(--size-4-2); font-size: var(--font-ui-smaller); }
   .veynrel-health-view .veynrel-findings-has-detail { grid-template-columns: minmax(0, 1fr); }
   .veynrel-health-view .veynrel-findings-has-detail .veynrel-findings-list-pane { display: none; }
   .veynrel-health-view .veynrel-findings-detail { padding: 0; border: 0; }
@@ -2287,14 +2244,12 @@
   .veynrel-health-page-enter { animation: veynrel-page-enter 160ms ease-out; }
   .veynrel-topology-content { animation: veynrel-content-enter 160ms ease-out; }
   .veynrel-topology-inspector-content { animation: veynrel-content-enter 120ms ease-out; }
-  .veynrel-findings-navigation button,
   .veynrel-topology-detail :is(button, input, summary) { transition: background-color 120ms ease-out, color 120ms ease-out, border-color 120ms ease-out; }
 }
 @media (prefers-reduced-motion: reduce) {
   .veynrel-health-page-enter,
   .veynrel-topology-content,
   .veynrel-topology-inspector-content { animation: none; }
-  .veynrel-findings-navigation button,
   .veynrel-topology-detail :is(button, input, summary) { transition: none; }
 }
 
@@ -2633,4 +2588,142 @@
   .modal.ai-pair-inspector-modal { width: calc(100vw - 16px); }
   .ai-consolidation-archives { padding-inline-start: 8px; }
   .ai-consolidation-summary { padding-inline: 8px; }
+}
+
+/* Stage 1 native workspace. Tokens inherit the active Obsidian theme/accent. */
+.view-content.veynrel-health-view {
+  --vx-bg: color-mix(in srgb, var(--background-primary) 96%, var(--interactive-accent));
+  --vx-surface: color-mix(in srgb, var(--background-secondary) 94%, var(--interactive-accent));
+  --vx-selected: color-mix(in srgb, var(--interactive-accent) 15%, var(--vx-bg));
+  padding: 0;
+  background: var(--vx-bg);
+}
+.veynrel-health-view .veynrel-shell { display: grid; grid-template-columns: 208px minmax(0, 1fr); min-height: 100%; }
+.veynrel-health-view .veynrel-sidebar { padding: 28px 16px 20px; border-right: 1px solid var(--background-modifier-border); background: var(--background-secondary); }
+.veynrel-health-view .veynrel-brand { font-size: 21px; font-weight: 650; letter-spacing: -.5px; padding-inline: 12px; }
+.veynrel-health-view .veynrel-brand::before { content: "♢"; color: var(--text-accent); padding-right: 12px; }
+.veynrel-health-view .veynrel-vault-name { margin: 26px 10px; font-size: 12px; }
+.veynrel-health-view .veynrel-vault-name strong { font-weight: 500; }
+.veynrel-health-view .veynrel-vault-name p { color: var(--text-muted); font-size: 11px; margin-block: 6px; }
+.veynrel-health-view .veynrel-sidebar nav { display: flex; flex-direction: column; gap: 5px; min-height: 600px; }
+.veynrel-health-view .veynrel-sidebar button { display: flex; justify-content: flex-start; gap: 11px; text-align: left; min-height: 44px; height: auto; padding: 11px 13px; border: 1px solid transparent; border-radius: 8px; box-shadow: none; color: var(--text-muted); background: transparent; }
+.veynrel-health-view .veynrel-sidebar button svg { width: 18px; height: 18px; vertical-align: middle; }
+.veynrel-health-view .veynrel-sidebar button[aria-current="page"] { color: var(--text-accent); background: var(--vx-selected); border-left-color: var(--text-accent); font-weight: 600; }
+.veynrel-health-view .veynrel-sidebar .veynrel-nav-secondary { margin-top: 28px; }
+.veynrel-health-view .veynrel-sidebar .veynrel-nav-settings { margin-top: auto; }
+.veynrel-health-view .veynrel-shell-content { min-width: 0; }
+.veynrel-health-view .veynrel-topbar { min-height: 74px; padding: 16px 32px; border-bottom: 1px solid var(--background-modifier-border); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.veynrel-health-view .veynrel-crumb { font-size: 12px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-scope-picker { display: flex; gap: 12px; align-items: center; min-width: 0; font-size: 11px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-scope-picker select { width: 220px; max-width: 100%; min-width: 0; min-height: 36px; text-overflow: ellipsis; }
+.veynrel-health-view .veynrel-menu-toggle { display: none; }
+.veynrel-health-view .veynrel-shell-main { max-width: 1536px; margin-inline: auto; padding: 32px; }
+.veynrel-health-view .veynrel-page-heading { margin-bottom: 26px; }
+.veynrel-health-view .veynrel-page-heading h1 { font-size: 29px; font-weight: 600; letter-spacing: -.7px; margin: 0; }
+.veynrel-health-view .veynrel-page-heading p { margin: 8px 0 0; color: var(--text-muted); }
+.veynrel-health-view .veynrel-home-grid { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(268px, 1fr); gap: 18px; }
+.veynrel-health-view :is(.veynrel-core-panel, .veynrel-scope-card, .veynrel-home-entries > section) { background: var(--vx-surface); border: 1px solid var(--background-modifier-border); border-radius: 14px; min-width: 0; }
+.veynrel-health-view .veynrel-core-panel { position: relative; min-height: 439px; overflow: hidden; }
+.veynrel-health-view .veynrel-core-caption { position: absolute; z-index: 1; top: 22px; left: 24px; pointer-events: none; }
+.veynrel-health-view .veynrel-eyebrow { font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin: 0; }
+.veynrel-health-view .veynrel-core-caption p { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+.veynrel-health-view .veynrel-universe { height: 420px; position: relative; }
+.veynrel-health-view .veynrel-core-svg { position: absolute; width: 100%; height: 100%; inset: 0; pointer-events: none; }
+.veynrel-health-view .veynrel-orbit { stroke: var(--background-modifier-border); stroke-width: 1; }
+.veynrel-health-view .veynrel-orbit.is-selected { stroke: var(--text-accent); stroke-width: 1.5; }
+.veynrel-health-view .veynrel-core-geometry { transform-origin: 320px 210px; animation: veynrel-core-breathe 6s ease-in-out infinite; }
+.veynrel-health-view .veynrel-core-geometry line { stroke: var(--text-accent); opacity: .22; }
+.veynrel-health-view .veynrel-core-geometry circle { fill: var(--text-accent); opacity: .6; }
+.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all) { position: absolute; transform: translate(-50%, -50%); height: auto; box-shadow: none; border: 1px solid var(--background-modifier-border); background: var(--vx-surface); color: var(--text-normal); display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 9px 12px; border-radius: 9px; text-align: left; }
+.veynrel-health-view .veynrel-topic-node { width: 24%; max-width: 150px; min-height: 54px; }
+.veynrel-health-view .veynrel-topic-node strong { width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-weight: 550; font-size: 12px; }
+.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all) small { color: var(--text-muted); font-size: 10px; }
+.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all)[aria-pressed="true"] { border-color: var(--text-accent); background: var(--vx-selected); box-shadow: inset 3px 0 var(--text-accent); }
+.veynrel-health-view .veynrel-core-all { left: 50%; top: 50%; align-items: center; text-align: center; padding: 14px 12px; width: 168px; }
+.veynrel-health-view .veynrel-core-all strong { font-size: 14px; }
+.veynrel-health-view .veynrel-topic-0 { left: 22%; top: 27%; }
+.veynrel-health-view .veynrel-topic-1 { left: 78%; top: 27%; }
+.veynrel-health-view .veynrel-topic-2 { left: 18%; top: 59%; }
+.veynrel-health-view .veynrel-topic-3 { left: 82%; top: 59%; }
+.veynrel-health-view .veynrel-topic-4 { left: 30%; top: 82%; }
+.veynrel-health-view .veynrel-topic-5 { left: 70%; top: 82%; }
+.veynrel-health-view .veynrel-core-foot { position: absolute; bottom: 12px; left: 24px; right: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-muted); font-size: 10px; }
+.veynrel-health-view .veynrel-core-foot button { background: transparent; border: 0; box-shadow: none; font-size: 10px; padding: 4px; white-space: normal; }
+.veynrel-health-view .veynrel-core-foot button[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 3px; }
+.veynrel-health-view .veynrel-scope-card { padding: 24px; display: flex; flex-direction: column; }
+.veynrel-health-view .veynrel-scope-icon { width: 44px; height: 44px; display: grid; place-items: center; background: var(--vx-selected); color: var(--text-accent); border-radius: 11px; margin: 16px 0; }
+.veynrel-health-view .veynrel-scope-card h2 { font-size: 23px; margin: 0 0 8px; overflow-wrap: anywhere; }
+.veynrel-health-view .veynrel-scope-card p { font-size: 12px; margin: 0 0 8px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-scope-metrics { display: flex; gap: 28px; margin: 24px 0 14px; }
+.veynrel-health-view .veynrel-scope-metrics > div { min-width: 0; flex: 1; }
+.veynrel-health-view .veynrel-scope-metrics strong { display: block; font-size: 25px; font-weight: 500; }
+.veynrel-health-view .veynrel-scope-metrics small { display: block; font-size: 11px; color: var(--text-muted); margin-top: 5px; }
+.veynrel-health-view .veynrel-data-note { font-size: 12px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-scope-actions { margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+.veynrel-health-view .veynrel-scope-actions button { width: 100%; min-height: 39px; height: auto; white-space: normal; }
+.veynrel-health-view .veynrel-scope-actions small { text-align: center; font-size: 11px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-home-section-title { margin: 28px 0 14px; font-size: 19px; }
+.veynrel-health-view .veynrel-home-entries { display: grid; grid-template-columns: 1.35fr 1fr; gap: 18px; }
+.veynrel-health-view .veynrel-home-entries > section { padding: 22px; }
+.veynrel-health-view .veynrel-home-entries h3 { margin: 0 0 6px; font-size: 15px; }
+.veynrel-health-view .veynrel-home-entries p { color: var(--text-muted); font-size: 12px; margin: 0 0 15px; }
+.veynrel-health-view .veynrel-home-footnote { color: var(--text-muted); font-size: 11px; margin-top: 20px; }
+.veynrel-health-view .veynrel-check-entries { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.veynrel-health-view .veynrel-scope-handoff { padding: 16px; margin-bottom: 20px; border: 1px solid var(--background-modifier-border); border-radius: 9px; background: var(--vx-selected); }
+.veynrel-health-view .veynrel-note-search { width: 100%; min-height: 40px; margin-block: 12px; }
+.veynrel-health-view .veynrel-scope-notes { list-style: none; padding: 0; max-height: 420px; overflow: auto; }
+.veynrel-health-view .veynrel-scope-notes button { height: auto; min-height: 40px; width: 100%; text-align: left; justify-content: flex-start; white-space: normal; overflow-wrap: anywhere; border: 0; border-bottom: 1px solid var(--background-modifier-border); box-shadow: none; border-radius: 0; background: transparent; }
+.veynrel-health-view :is(button, input, select):focus-visible { outline: 2px solid var(--text-accent); outline-offset: 3px; }
+.veynrel-health-view[data-scene-visible="false"] .veynrel-core-geometry,
+.veynrel-health-view [data-motion="false"] .veynrel-core-geometry { animation: none; }
+@keyframes veynrel-core-breathe { 0%, 100% { opacity: .7; transform: scale(.98); } 50% { opacity: 1; transform: scale(1.025); } }
+@media (prefers-reduced-motion: reduce) {
+  .veynrel-health-view .veynrel-core-geometry { animation: none; }
+}
+@container (max-width: 1150px) {
+  .veynrel-health-view .veynrel-home-grid { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-health-view .veynrel-scope-card { display: block; }
+  .veynrel-health-view .veynrel-home-entries { grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 760px) {
+  .veynrel-health-view .veynrel-shell { display: block; }
+  .veynrel-health-view .veynrel-sidebar { display: none; border-right: 0; border-bottom: 1px solid var(--background-modifier-border); }
+  .veynrel-health-view [data-menu-open="true"] .veynrel-sidebar { display: block; }
+  .veynrel-health-view .veynrel-sidebar nav { min-height: 0; }
+  .veynrel-health-view .veynrel-topbar { padding: 12px 18px; gap: 12px; }
+  .veynrel-health-view .veynrel-menu-toggle { display: block; }
+  .veynrel-health-view .veynrel-crumb, .veynrel-health-view .veynrel-scope-picker > span { display: none; }
+  .veynrel-health-view .veynrel-scope-picker select { width: 190px; }
+  .veynrel-health-view .veynrel-shell-main { padding: 24px 18px; }
+  .veynrel-health-view .veynrel-page-heading h1 { font-size: 26px; }
+}
+@container (max-width: 600px) {
+  .veynrel-health-view .veynrel-core-caption { position: static; padding: 20px 18px 0; }
+  .veynrel-health-view .veynrel-core-panel { min-height: 0; }
+  .veynrel-health-view .veynrel-universe { height: auto; min-height: 210px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 170px 16px 16px; }
+  .veynrel-health-view .veynrel-core-svg { height: 210px; }
+  .veynrel-health-view .veynrel-topic-node { position: relative; left: auto; top: auto; transform: none; width: 100%; max-width: none; }
+  .veynrel-health-view .veynrel-core-all { top: 88px; }
+  .veynrel-health-view .veynrel-core-foot { position: static; padding: 8px 18px 16px; }
+  .veynrel-health-view .veynrel-scope-card { padding: 20px; }
+}
+
+.theme-dark .veynrel-health-view {
+  --vx-bg: color-mix(in srgb, color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent)) 68%, black);
+  --vx-surface: color-mix(in srgb, color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent)) 88%, black);
+}
+.veynrel-health-view .veynrel-sidebar { background: var(--vx-bg); }
+.veynrel-health-view .veynrel-topic-node { background: color-mix(in srgb, var(--vx-surface) 92%, var(--text-normal)); }
+.veynrel-health-view .veynrel-scope-metrics { margin-top: 16px; }
+.veynrel-health-view .veynrel-tool-entry { margin-block: 24px; }
+
+.veynrel-health-view .veynrel-page-index { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; margin: 0 0 9px; }
+
+.veynrel-health-view .veynrel-shell-content { background: var(--vx-bg); }
+.veynrel-health-view .veynrel-sidebar { display: flex; flex-direction: column; }
+.veynrel-health-view .veynrel-sidebar nav { flex: 1; }
+.veynrel-health-view .veynrel-sidebar .veynrel-nav-caption { margin: 24px 12px 10px; }
+@container (max-width: 760px) {
+  .veynrel-health-view .veynrel-sidebar { display: none; }
+  .veynrel-health-view [data-menu-open="true"] .veynrel-sidebar { display: flex; }
 }

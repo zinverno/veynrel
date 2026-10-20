@@ -114,7 +114,7 @@ function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, on
 
 describe("native Health view lifecycle", () => {
   it("opening only initializes storage; a click scans once and notifications update the dashboard", async () => {
-    const f = fixture(); await f.view.onOpen();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
     expect(f.content.texts()).toContain("Coverage not established");
     let release!: (body: string) => void; f.vault.read.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
@@ -135,11 +135,11 @@ describe("native Health view lifecycle", () => {
     const removals: ReturnType<typeof vi.fn>[] = [];
     const subscribe = vi.spyOn(f.controller, "subscribe").mockImplementation((listener) => {
       const remove = vi.fn(realSubscribe(listener)); removals.push(remove); return remove;
-    }); await f.view.onOpen();
+    }); await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.vault.read.mockReturnValueOnce(new Promise(() => {})); f.content.action("scan").click(); await flush();
     await f.view.onClose(); expect(f.content.children).toHaveLength(0); expect(removals[0]).toHaveBeenCalledTimes(1);
     expect(f.controller.getState().busy).toBe(true);
-    await f.view.onOpen(); expect(f.content.action("scan").disabled).toBe(true);
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("scan").disabled).toBe(true);
     expect(subscribe).toHaveBeenCalledTimes(2);
     await f.view.onClose(); expect(removals[1]).toHaveBeenCalledTimes(1); f.controller.dispose(); await flush();
     expect(f.content.children).toHaveLength(0); expect(f.controller.getState().busy).toBe(false);
@@ -153,14 +153,14 @@ describe("native Health view lifecycle", () => {
   });
   it("keeps an initialization failure visible in the workspace as well as announced", async () => {
     const f = fixture(); vi.spyOn(f.controller, "getHealthService").mockRejectedValueOnce(new Error("private"));
-    await f.view.onOpen();
+    await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.all().find((e) => e.cls === "veynrel-workspace")?.texts()).toContain(t("@health.error.load"));
     expect(f.content.all().find((e) => e.attrs.role === "status")?.text).toBe(t("@health.error.load"));
     expect(f.content.texts()).not.toContain("private");
     await f.view.onClose(); f.controller.dispose();
   });
   it("rechecks note existence at click time and leaves Findings unchanged if the note disappeared", async () => {
-    const f = fixture(); await f.view.onOpen(); await f.controller.runLocalScan();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     const service = await f.controller.getHealthService(); const before = service.listFindings();
     f.vault.getAbstractFileByPath.mockReturnValue(null);
     f.content.action("open-note").click(); await flush();
@@ -169,13 +169,13 @@ describe("native Health view lifecycle", () => {
     expect(service.listFindings()).toEqual(before); expect(f.content.action("open-note")).toBeUndefined();
   });
   it("blocking recovery requires modal confirmation and Cancel leaves files untouched", async () => {
-    const f = fixture(); f.files.set(`${root}/findings.json`, "{bad"); await f.view.onOpen();
+    const f = fixture(); f.files.set(`${root}/findings.json`, "{bad"); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("scan")).toBeUndefined(); f.content.action("recover").click();
     const modal = mocks.Modal.opened[0]; expect(modal.contentEl.texts()).toContain("does not delete or edit your notes");
     modal.contentEl.all().find((e) => e.text === "Cancel")!.click(); expect(f.adapter.rename).not.toHaveBeenCalled();
     f.content.action("recover").click(); const confirmation = mocks.Modal.opened[1];
     confirmation.contentEl.all().find((e) => e.text === "Back up and reset")!.click();
-    await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
+    await vi.waitFor(() => expect(f.content.action("nav-home")).toBeDefined()); f.content.action("nav-health").click();
     expect(f.content.texts()).toContain("Coverage not established"); expect(f.vault.read).not.toHaveBeenCalled();
   });
 });
@@ -198,12 +198,12 @@ describe("inline Deep Intelligence boundaries", () => {
     return { ...f, second, secondContent, deep, settings, connection, cachedRead,
       change: (patch: Partial<LanguageModelSettingsSnapshot>) => { current = { ...current, ...patch }; emit(); } };
   }
-  function noWork(f: ReturnType<typeof deepFixture>) {
-    expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+  function noWork(f: ReturnType<typeof deepFixture>, openedViews = 1) {
+    expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(openedViews); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.cachedRead).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
   }
   it("retains a disclosure and its keyboard focus on notification, but resets it on navigation", async () => {
-    const f = deepFixture(); await f.view.onOpen();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     const summary = f.content.action("deep-about");
     summary.parentElement!.open = true; summary.focus(); f.content.scrollTop = 700;
     f.change({ model: "another-model" });
@@ -226,7 +226,7 @@ describe("inline Deep Intelligence boundaries", () => {
     const f = deepFixture(true, analysis); return { ...f, analysis, result };
   }
   it.each(["en", "ru"] as const)("Knowledge confirmation, cancel and navigation perform zero work in %s", async (language) => {
-    setLanguage(language); const f = knowledgeFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen();
+    setLanguage(language); const f = knowledgeFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("deep-knowledge").click();
     expect(f.content.texts()).toContain(language === "en" ? "bounded note content" : "ограниченный объём");
     expect(f.content.texts()).toContain(language === "en" ? "costs" : "плату");
@@ -234,12 +234,12 @@ describe("inline Deep Intelligence boundaries", () => {
     noWork(f); expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled();
     const staleStart = f.content.action("knowledge-start");
     f.content.action("knowledge-back").click(); staleStart.click(); noWork(f);
-    f.content.action("deep-knowledge").click(); f.content.action("nav-findings").click(); f.content.action("nav-health").click();
+    f.content.action("deep-knowledge").click(); f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("nav-health").click();
     expect(f.content.action("knowledge-start")).toBeUndefined(); staleStart.click(); noWork(f);
     await f.view.onClose(); expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled();
   });
   it.each(["en", "ru"] as const)("confirmed Knowledge creates one localized Finding and card filter in %s", async (language) => {
-    setLanguage(language); const f = knowledgeFixture(); await f.view.onOpen();
+    setLanguage(language); const f = knowledgeFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("deep-knowledge").click(); const start = f.content.action("knowledge-start"); start.click(); start.click();
     await vi.waitFor(() => expect(f.controller.getState().deepOutcome?.historyRecorded).toBe(true));
     expect(f.analysis.analyzeKnowledge).toHaveBeenCalledTimes(1); expect(f.connection.test).not.toHaveBeenCalled();
@@ -251,7 +251,7 @@ describe("inline Deep Intelligence boundaries", () => {
     f.content.action("finding-note-0").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
   });
   it("running Knowledge exposes cancel, excludes other Health scans, and late work cannot resurrect closed UI", async () => {
-    const f = knowledgeFixture(); await f.view.onOpen(); await f.second.onOpen(); let release!: (value: DeepKnowledgeAnalysis) => void;
+    const f = knowledgeFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.second.onOpen(); f.secondContent.action("nav-health")?.click(); let release!: (value: DeepKnowledgeAnalysis) => void;
     f.analysis.analyzeKnowledge.mockImplementationOnce((signal) => withAbort(new Promise<DeepKnowledgeAnalysis>((resolve) => { release = resolve; }), signal));
     f.content.action("deep-knowledge").click(); f.content.action("knowledge-start").click(); await flush();
     expect(f.content.texts()).toContain("Preparing analysis…"); expect(f.secondContent.action("knowledge-cancel")).toBeDefined();
@@ -263,7 +263,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.controller.listFindings()).toEqual([]); expect(f.connection.test).not.toHaveBeenCalled();
   });
   it("renders real counters in both views, updates elapsed only, and cleans up on failure/restart/close", async () => {
-    const f = knowledgeFixture(); await f.view.onOpen(); await f.second.onOpen();
+    const f = knowledgeFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.second.onOpen(); f.secondContent.action("nav-health")?.click();
     let progress!: (progress: DeepKnowledgeProgress) => void;
     let fail!: (reason: Error) => void;
     f.analysis.analyzeKnowledge.mockImplementationOnce((_signal, _consent, onProgress) => {
@@ -293,7 +293,7 @@ describe("inline Deep Intelligence boundaries", () => {
     finish(f.result); await flush(); now.mockRestore(); f.controller.dispose();
   });
   it("Configured can analyze after restart, while Unconfigured/Busy/Error cannot; Check and Connect never analyze", async () => {
-    const f = knowledgeFixture(); await f.view.onOpen();
+    const f = knowledgeFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("deep-knowledge")).toBeDefined();
     f.connection.test.mockRejectedValueOnce(new Error("PRIVATE_PROVIDER_BODY"));
     f.content.action("deep-check").click(); await flush(); expect(f.content.action("deep-knowledge")).toBeUndefined();
@@ -303,17 +303,17 @@ describe("inline Deep Intelligence boundaries", () => {
     noWork(f); f.change({ model: "" }); expect(f.content.action("deep-knowledge")).toBeUndefined();
   });
   it.each([true, false])("passive legacy configuration is safe and does no work (configured: %s)", async (configured) => {
-    const f = deepFixture(configured); await f.view.onOpen();
+    const f = deepFixture(configured); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).toContain(configured ? "Configured" : "Not configured");
     const publicValues = JSON.stringify([f.deep.getSnapshot(), f.controller.getState(), deepIntelligenceViewModel(f.deep.getSnapshot()),
       f.content.all().map((element) => ({ text: element.text, value: element.value, attrs: element.attrs }))]);
     expect(publicValues.includes("synthetic-DO-NOT-EXPOSE-key")).toBe(false);
     expect(f.content.all().find((element) => element.attrs["data-dimension"] === "knowledge")?.texts()).toContain("Not enabled");
-    f.content.action("nav-findings").click(); f.content.action("nav-discover").click(); f.content.action("nav-health").click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("nav-discover").click(); f.content.action("nav-health").click();
     expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
   });
   it.each(["en", "ru"] as const)("localizes chooser/forms/errors and keeps all inputs labelled in %s", async (language) => {
-    setLanguage(language); const f = deepFixture(false); await f.view.onOpen();
+    setLanguage(language); const f = deepFixture(false); await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("deep-setup").click();
     for (const provider of ["ollama", "openrouter", "openai", "groq", "custom"]) {
       const choice = f.content.action(`deep-provider-${provider}`); expect(choice.tag).toBe("button"); choice.click();
@@ -334,7 +334,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.connection.test).not.toHaveBeenCalled(); noWork(f);
   });
   it("keys appear only in intentional password editing and drafts are discarded on Back", async () => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("deep-change").click(); f.content.action("deep-provider-openrouter").click();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("deep-change").click(); f.content.action("deep-provider-openrouter").click();
     const key = f.content.action("deep-field-apiKey"); expect(key.value === f.settings.get().apiKey).toBe(true);
     expect(key.attrs.type).toBe("password"); expect(f.content.texts().includes(key.value)).toBe(false);
     key.input("synthetic-discarded-draft"); f.content.action("deep-back").click();
@@ -343,20 +343,20 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
   });
   it("an already-open form cannot overwrite a newer Advanced edit", async () => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
     f.change({ model: "new-advanced-model" }); f.content.action("deep-connect").click(); await flush();
     expect(f.settings.get().model).toBe("new-advanced-model"); expect(f.content.texts()).toContain("Couldn't save");
     expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
   });
   it.each([false, true])("Deep status never hides subsequent Health scan feedback (failed check: %s)", async (failed) => {
-    const f = deepFixture(); await f.view.onOpen();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     if (failed) f.connection.test.mockRejectedValueOnce(new Error("fixture"));
     await f.deep.checkCurrentSetup(); await f.controller.runLocalScan();
     const status = f.content.all().find((element) => element.attrs.role === "status")!.text;
     expect(status).toContain("Vault check complete"); expect(status).toContain(failed ? "Connection failed" : "Connected");
   });
   it("two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription", async () => {
-    const f = deepFixture(); await f.view.onOpen(); await f.second.onOpen(); let release!: () => void;
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.second.onOpen(); f.secondContent.action("nav-health")?.click(); let release!: () => void;
     f.connection.test.mockImplementationOnce(() => new Promise<void>((resolve) => { release = resolve; }));
     f.content.action("deep-check").click();
     expect(f.content.texts()).toContain("Checking…"); expect(f.secondContent.texts()).toContain("Checking…");
@@ -369,25 +369,25 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.content.texts()).not.toContain("synthetic-DO-NOT-EXPOSE-key");
     await f.view.onClose(); f.change({ model: "advanced-model" });
     expect(f.content.children).toHaveLength(0); expect(f.secondContent.texts()).toContain("OpenRouter · advanced-model");
-    expect(f.secondContent.texts()).toContain("Configured"); expect(f.connection.test).toHaveBeenCalledTimes(2); noWork(f);
+    expect(f.secondContent.texts()).toContain("Configured"); expect(f.connection.test).toHaveBeenCalledTimes(2); noWork(f, 2);
   });
   it.each(["navigate", "close", "back"] as const)("late Connect may save but cannot resurrect a form after %s", async (action) => {
-    const f = deepFixture(false); await f.view.onOpen(); await f.second.onOpen(); let release!: () => void;
+    const f = deepFixture(false); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.second.onOpen(); f.secondContent.action("nav-health")?.click(); let release!: () => void;
     f.connection.test.mockImplementationOnce(() => new Promise<void>((resolve) => { release = resolve; }));
     f.content.action("deep-setup").click(); f.content.action("deep-provider-ollama").click();
     f.content.action("deep-field-model").input("chosen-model"); f.content.action("deep-connect").click();
     expect(f.content.action("deep-connect").disabled).toBe(true); expect(f.secondContent.texts()).toContain("Connecting…");
-    if (action === "navigate") f.content.action("nav-findings").click();
+    if (action === "navigate") { f.content.action("nav-health").click(); f.content.action("nav-findings").click(); }
     else if (action === "close") await f.view.onClose();
     else f.content.action("deep-back").click();
     release(); await flush(); expect(f.settings.get().model).toBe("chosen-model"); expect(f.settings.update).toHaveBeenCalledTimes(1);
     expect(f.content.action("deep-field-model")).toBeUndefined(); expect(f.secondContent.texts()).toContain("Connected");
     if (action === "close") expect(f.content.children).toHaveLength(0);
     if (action === "navigate") expect(f.content.action("nav-findings").attrs["aria-current"]).toBe("page");
-    noWork(f);
+    noWork(f, 2);
   });
   it.each(["connection", "save"] as const)("failed %s keeps the form and committed configuration with safe feedback", async (failure) => {
-    const f = deepFixture(); await f.view.onOpen(); const before = f.settings.get();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); const before = f.settings.get();
     if (failure === "connection") f.connection.test.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
     else f.settings.update.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
     f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
@@ -423,7 +423,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it.each(["en", "ru"] as const)("disabled Discover owns its visible status and retains the global live region in %s", async (language) => {
-    setLanguage(language); const f = semanticFixture(false, "not-initialized", 0); await f.view.onOpen();
+    setLanguage(language); const f = semanticFixture(false, "not-initialized", 0); await f.view.onOpen(); f.content.action("nav-health")?.click();
     const live = f.content.all().find((e) => e.attrs.role === "status")!;
     f.content.action("nav-discover").click();
     expect(f.content.all().find((e) => e.attrs.role === "status")).toBe(live);
@@ -438,17 +438,17 @@ describe("inline Semantic Intelligence boundaries", () => {
     [false, "not-initialized", 0], [true, "not-initialized", 0], [true, "ready", 4],
     [true, "incompatible", 4], [true, "error", 0], [true, "ready", 0], [true, "indexing", 4],
   ] as const)("Discover navigation is passive (enabled %s, %s, %s vectors)", async (enabled, kind, count) => {
-    const f = semanticFixture(enabled, kind, count); await f.view.onOpen();
-    expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.text))
-      .toEqual(["Health", "Findings", "Discover", "Tools", "Settings"]);
+    const f = semanticFixture(enabled, kind, count); await f.view.onOpen(); f.content.action("nav-health")?.click();
+    expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.attrs["data-health-action"]))
+      .toEqual(["nav-home", "nav-discover", "nav-health", "nav-process", "nav-recall", "nav-tools", "nav-history", "nav-settings", "nav-findings"]);
     f.content.action("nav-discover").click();
     expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
-    expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Discover");
-    expect(f.content.ownerDocument.activeElement?.text).toBe("Discover");
+    expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Map and search");
+    expect(f.content.ownerDocument.activeElement?.text).toBe("Map and search");
     expect(f.content.all().find((e) => e.tag === "nav")?.attrs["aria-label"]).toBe("Veynrel navigation");
-    f.content.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
     f.content.action("nav-discover").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
-    f.content.action("nav-discover").click(); await f.view.onClose(); await f.view.onOpen();
+    f.content.action("nav-discover").click(); await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
     expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
     expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
@@ -456,7 +456,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     expect(f.engine.openPotentialDuplicates).not.toHaveBeenCalled();
     expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled(); expect(f.semanticScan).not.toHaveBeenCalled();
     expect(Boolean(f.content.action("semantic-health-scan"))).toBe(false); // Reopened on Health, never auto-run.
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(2);
     expect(f.scan).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled(); expect(f.settings.update.mock.calls.length).toBe(0);
     expect(f.adapter.write).not.toHaveBeenCalled(); await f.view.onClose();
   });
@@ -465,7 +465,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     setLanguage(language); const f = semanticFixture(true, "ready", 8);
     const pair: SemanticDuplicatePair = { leftPath: "B.md", rightPath: "A.md", score: 0.971, leftMatches: [], rightMatches: [] };
     f.engine.findPotentialDuplicates.mockResolvedValue([pair]);
-    await f.view.onOpen(); f.content.action("nav-discover").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     const section = f.content.all().find((element) => element.cls === "veynrel-discover-health")!;
     expect(section).toBeDefined(); expect(section.action("discover-duplicates")).toBeUndefined();
     expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled();
@@ -477,7 +477,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     f.content.action("nav-health").click();
     expect(f.content.texts()).toContain(language === "en" ? "Review recommended" : "Рекомендуется проверить");
     expect(f.content.texts()).toContain(language === "en" ? "Possible semantic duplicate" : "Возможный смысловой дубликат");
-    f.content.action("nav-findings").click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click();
     expect(f.content.texts()).toContain(language === "en" ? "2 notes" : "Заметок: 2");
     f.content.action(`finding-${finding.id}`).click();
     expect(f.content.texts()).toContain(language === "en" ? "Semantic analysis" : "Семантический анализ");
@@ -491,13 +491,13 @@ describe("inline Semantic Intelligence boundaries", () => {
     await vi.waitFor(() => expect(f.engine.findPotentialDuplicates).toHaveBeenCalledTimes(2)); await flush();
     expect(f.controller.getFinding(finding.id)?.state).toBe("dismissed");
     expect(f.engine.openPotentialDuplicates).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
     expect(f.adapter.write.mock.calls.every(([path]) => path.startsWith(`${root}/`))).toBe(true);
     await f.view.onClose();
   });
 
   it("shows semantic busy state across close/reopen, excludes Local scans and leaves exploratory workflows usable", async () => {
-    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     let release!: (pairs: SemanticDuplicatePair[]) => void;
     f.engine.findPotentialDuplicates.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
     const button = f.content.action("semantic-health-scan"); button.click(); button.click(); await flush();
@@ -505,7 +505,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     expect(f.content.texts()).toContain("Checking semantic duplicates…");
     expect(f.content.texts()).not.toContain("%");
     f.content.action("discover-duplicates").click(); expect(f.engine.openPotentialDuplicates).toHaveBeenCalledTimes(1);
-    await f.view.onClose(); await f.view.onOpen();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("scan").disabled).toBe(true); expect(f.content.action("scan").text).not.toBe("Checking your vault…");
     f.content.action("nav-discover").click(); expect(f.content.action("semantic-health-scan").disabled).toBe(true);
     release([]); await vi.waitFor(() => expect(f.controller.getState().busy).toBe(false));
@@ -514,7 +514,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("reports partial/failure safely and never starts Health analysis after Build", async () => {
-    const f = semanticFixture(true, "not-initialized"); await f.view.onOpen(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "not-initialized"); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     expect(f.content.action("semantic-health-scan")).toBeUndefined();
     f.content.action("discover-build").click(); await flush();
     expect(f.content.action("semantic-health-scan")).toBeDefined(); expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled();
@@ -530,7 +530,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   it("Discover's three Ready workflows delegate once through the port and preserve Finding bytes, lifecycle and Health", async () => {
     const f = semanticFixture(true, "ready", 8); const item = inboxFinding({ state: "dismissed" });
     const bytes = serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } });
-    f.files.set(`${root}/findings.json`, bytes); await f.view.onOpen();
+    f.files.set(`${root}/findings.json`, bytes); await f.view.onOpen(); f.content.action("nav-health")?.click();
     const findings = f.controller.listFindings(); const health = f.controller.getState().snapshot;
     const actions = [["search", "openSearch"], ["related", "openSimilarNotes"], ["duplicates", "openPotentialDuplicates"]] as const;
     const delegates = actions.map(([, method]) => vi.spyOn(f.semantic, method));
@@ -542,7 +542,7 @@ describe("inline Semantic Intelligence boundaries", () => {
       expect(f.engine[method]).toHaveBeenCalledExactlyOnceWith();
     }
     for (const delegate of delegates) expect(delegate).toHaveBeenCalledExactlyOnceWith();
-    f.content.action("nav-findings").click(); f.content.action("state-dismissed").click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("state-dismissed").click();
     expect(f.content.action(`finding-${item.id}`)).toBeDefined();
     expect(f.files.get(`${root}/findings.json`)).toBe(bytes); expect(f.controller.listFindings()).toEqual(findings);
     expect(f.controller.getState().snapshot).toEqual(health); expect(f.adapter.write).not.toHaveBeenCalled();
@@ -551,7 +551,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("disabled Discover reuses Health setup and Back discards edits without network or saves", async () => {
-    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-discover").click();
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     expect(f.content.texts()).toContain("Local Health continues to work without it");
     f.content.action("discover-enable").click();
     expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
@@ -566,7 +566,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it.each(["not-initialized", "ready"] as const)("%s without vectors builds only on click and updates Discover to Ready", async (kind) => {
-    const f = semanticFixture(true, kind); await f.view.onOpen(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, kind); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     expect(f.content.action("discover-search")).toBeUndefined(); expect(f.engine.indexVault).not.toHaveBeenCalled();
     expect(Boolean(f.content.action("discover-check"))).toBe(kind === "not-initialized");
     f.content.action("discover-build").click(); await flush();
@@ -575,7 +575,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("incompatible Discover rebuilds only on click; Change reuses Health setup", async () => {
-    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     expect(f.content.texts()).toContain("Index needs rebuilding"); expect(f.content.action("discover-search")).toBeUndefined();
     expect(f.engine.rebuildIndex).not.toHaveBeenCalled(); f.content.action("discover-change").click();
     expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page"); expect(f.content.action("semantic-mode-local")).toBeDefined();
@@ -584,7 +584,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("error and busy Discover show safe status, prevent duplicate checks and leave Local Health browsable", async () => {
-    const f = semanticFixture(true, "error"); await f.view.onOpen(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "error"); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
     expect(f.content.texts()).toContain("Semantic Intelligence needs attention");
     expect(f.content.action("discover-change")).toBeDefined(); expect(f.content.action("discover-search")).toBeUndefined();
     let reject!: (error: Error) => void;
@@ -599,14 +599,14 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("Russian Discover localizes navigation/workflows and preserves provider/model identifiers", async () => {
-    setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-discover").click();
-    expect(f.content.action("nav-discover").text).toBe("Открытия"); expect(f.content.texts()).toContain("Связанные заметки");
+    setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    expect(f.content.action("nav-discover").texts()).toContain("Карта и поиск"); expect(f.content.texts()).toContain("Связанные заметки");
     expect(f.content.texts()).toContain("Возможные дубликаты"); expect(f.content.texts()).toContain(f.settings.get().embeddingModel);
     expect(f.content.texts()).not.toMatch(/@discover|@semantic/u); await f.view.onClose();
   });
 
   it.each([false, true])("opening Health (enabled %s) never tests, reads notes, indexes or changes the four local dimensions", async (enabled) => {
-    const f = semanticFixture(enabled); await f.view.onOpen();
+    const f = semanticFixture(enabled); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
     expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.scan).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.content.all().filter((e) => e.attrs["data-dimension"])).toHaveLength(4);
@@ -617,7 +617,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it.each(["local", "cloud", "custom"] as const)("choosing/editing %s is transient; Back discards it without side effects", async (mode) => {
-    const f = semanticFixture(); await f.view.onOpen(); const previous = JSON.stringify(f.settings.get());
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); const previous = JSON.stringify(f.settings.get());
     f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
     const selected = f.content.action(`semantic-mode-${mode}`); expect(selected.tag).toBe("button");
     expect(selected.attrs["aria-pressed"]).toBe("true"); expect(selected.texts()).toContain("✓ Selected");
@@ -637,14 +637,14 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it.each(["local", "cloud", "custom"] as const)("%s Connect reads no notes, says Index required, and waits for a separate Build action", async (mode) => {
-    const f = semanticFixture(); await f.view.onOpen();
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
     if (mode !== "local") f.content.action("semantic-field-apiKey").input("synthetic-key");
     f.content.action("semantic-connect").click();
     expect(f.content.action("semantic-connect").disabled).toBe(true); expect(f.content.action("semantic-mode-cloud").disabled).toBe(true);
     await vi.waitFor(() => expect(f.content.texts()).toContain("Index required"));
     expect(f.content.texts()).not.toContain("Semantic Intelligence ready"); expect(f.content.action("semantic-search")).toBeUndefined();
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.scan).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1); expect(f.scan).not.toHaveBeenCalled();
     expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.settings.update).toHaveBeenCalledTimes(1);
     expect(f.controller.listFindings()).toEqual([]);
     f.content.action("semantic-build").click(); await vi.waitFor(() => expect(f.content.action("semantic-search")).toBeDefined());
@@ -654,19 +654,19 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("existing Ready users search immediately; Change setup and Back retain Ready; Advanced edits are reread", async () => {
-    const f = semanticFixture(true, "ready", 8); await f.view.onOpen();
+    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).toContain("Semantic Intelligence ready"); expect(f.content.texts()).toContain("8 vectors");
     expect(f.content.action("semantic-mode-local")).toBeUndefined(); f.content.action("semantic-search").click();
     f.content.action("semantic-change").click(); f.content.action("semantic-mode-cloud").click(); f.content.action("semantic-back").click();
     expect(f.content.action("semantic-search")).toBeDefined(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
     await f.settings.update({ ...f.settings.get(), embeddingModel: "advanced-model" });
-    f.content.action("nav-findings").click(); f.content.action("nav-health").click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("nav-health").click();
     expect(f.content.texts()).toContain("advanced-model"); expect(f.scan).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
     await f.view.onClose();
   });
 
   it("incompatible status offers only explicit rebuild, without Clear or semantic Findings", async () => {
-    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen();
+    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).toContain("Index needs rebuilding"); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
     expect(f.content.action("semantic-build")).toBeUndefined(); expect(f.content.texts()).not.toContain("Clear index");
     f.content.action("semantic-rebuild").click(); await flush(); expect(f.engine.rebuildIndex).toHaveBeenCalledTimes(1);
@@ -674,7 +674,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("failed tests and saves retain drafts for retry with fixed safe copy", async () => {
-    const f = semanticFixture(); await f.view.onOpen(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
     mocks.requestUrl.mockRejectedValueOnce(new Error("private-provider-response")); f.content.action("semantic-connect").click();
     await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't connect to Ollama"));
     f.settings.update.mockRejectedValueOnce(new Error("private-save-response")); f.content.action("semantic-connect").click();
@@ -688,16 +688,16 @@ describe("inline Semantic Intelligence boundaries", () => {
   it("closing discards the route and subscription; a late Connect cannot reopen it", async () => {
     const f = semanticFixture(); const remove = vi.fn(); const subscribe = f.semantic.subscribe.bind(f.semantic);
     vi.spyOn(f.semantic, "subscribe").mockImplementation((listener) => { const unsubscribe = subscribe(listener); return () => { remove(); unsubscribe(); }; });
-    await f.view.onOpen(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
     let release!: (value: unknown) => void; mocks.requestUrl.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
     f.content.action("semantic-connect").click(); await flush(); await f.view.onClose(); expect(remove).toHaveBeenCalledTimes(1);
-    release({ status: 200, text: '{"embeddings":[[1,0,0]]}' }); await flush(); await f.view.onOpen();
+    release({ status: 200, text: '{"embeddings":[[1,0,0]]}' }); await flush(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("semantic-mode-local")).toBeUndefined(); expect(f.content.action("semantic-check")).toBeDefined();
     expect(f.content.texts()).not.toContain("Semantic Intelligence connected"); await f.view.onClose();
   });
 
   it("Russian setup uses localized copy while preserving provider/model identifiers", async () => {
-    setLanguage("ru"); const f = semanticFixture(); await f.view.onOpen();
+    setLanguage("ru"); const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).toContain("Семантические возможности"); f.content.action("semantic-enable").click();
     for (const mode of ["local", "cloud", "custom"] as const) { f.content.action(`semantic-mode-${mode}`).click(); expect(f.content.texts()).not.toContain("@semantic"); }
     expect(f.content.texts()).toContain("Базовый URL"); expect(f.content.texts()).toContain("OpenAI"); await f.view.onClose();
@@ -706,7 +706,7 @@ describe("inline Semantic Intelligence boundaries", () => {
 
 describe("integrated Health onboarding", () => {
   it("asks one question, resumes after reopen without reading notes, scans only on click and keeps one live region", async () => {
-    const f = fixture({}); await f.view.onOpen();
+    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).toContain("Welcome to Veynrel");
     expect(f.content.action("nav-findings")).toBeUndefined();
     expect(f.content.action("nav-discover")).toBeUndefined();
@@ -716,10 +716,10 @@ describe("integrated Health onboarding", () => {
     const choice = f.content.action("profile-research"); choice.focus(); choice.click();
     await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
     expect(f.preferences.get()).toMatchObject({ profile: "research", profileChosen: true, onboardingCompleted: false });
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
     expect(f.content.all().find((e) => e.attrs.role === "status")).toBe(live);
     expect(f.content.ownerDocument.activeElement?.tag).toBe("h1");
-    await f.view.onClose(); await f.view.onOpen();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("scan")).toBeDefined(); expect(f.vault.read).not.toHaveBeenCalled();
     f.content.action("scan").click(); const pending = f.controller.runLocalScan();
     expect(f.preferences.get().onboardingCompleted).toBe(false); await pending;
@@ -728,23 +728,23 @@ describe("integrated Health onboarding", () => {
     expect(f.content.action("nav-findings")).toBeUndefined();
     expect(f.preferences.get().onboardingCompleted).toBe(false);
     f.content.action("continue").click(); await vi.waitFor(() => expect(f.content.action("nav-tools")).toBeDefined());
-    expect(f.preferences.get().onboardingCompleted).toBe(true); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.preferences.get().onboardingCompleted).toBe(true); f.content.action("nav-health").click(); expect(f.vault.read).toHaveBeenCalledTimes(1);
     expect(f.content.action("nav-findings")).toBeDefined();
-    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("nav-tools")).toBeDefined();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("nav-tools")).toBeDefined();
     expect(f.content.all().filter((e) => e.attrs.role === "status")).toHaveLength(1);
     expect(f.vault.read).toHaveBeenCalledTimes(1);
   });
   it("Skip saves Mixed, permanently exits onboarding and never scans", async () => {
-    const f = fixture({}); await f.view.onOpen(); f.content.action("skip").click();
+    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("skip").click();
     await vi.waitFor(() => expect(f.content.action("nav-tools")).toBeDefined());
     expect(f.preferences.get()).toEqual({ profile: "mixed", profileChosen: true, onboardingCompleted: true, onboardingVersion: 1 });
-    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("skip")).toBeUndefined();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("skip")).toBeUndefined();
     expect(f.vault.read).not.toHaveBeenCalled();
   });
   it("migrating an existing scan uses it immediately after profile selection and derives Result after restart", async () => {
     const f = fixture({}); await f.controller.runLocalScan(); f.controller.dispose(); f.vault.read.mockClear();
     const controller = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
-    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen();
+    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click();
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
     expect(content.texts()).toContain("Welcome"); content.action("profile-work").click();
     await vi.waitFor(() => expect(content.action("continue")).toBeDefined());
@@ -756,7 +756,7 @@ describe("integrated Health onboarding", () => {
     expect(f.vault.read).not.toHaveBeenCalled();
   });
   it("safe errors retain Profile or Result when choice, Skip or completion fails", async () => {
-    const f = fixture({}); await f.view.onOpen(); f.save.mockRejectedValue(new Error("private details"));
+    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.save.mockRejectedValue(new Error("private details"));
     f.content.action("profile-work").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Health preferences"));
     expect(f.content.querySelector("[data-workspace-message]")?.texts()).toContain("Couldn't save Health preferences");
     expect(f.content.action("profile-work")).toBeDefined(); expect(f.preferences.get().profileChosen).toBe(false);
@@ -770,7 +770,7 @@ describe("integrated Health onboarding", () => {
     result.content.action("continue").click(); await vi.waitFor(() => expect(result.content.action("nav-tools")).toBeDefined());
   });
   it("Change profile is secondary, shows a non-color selected marker, has no Skip and never scans", async () => {
-    const f = fixture({ profile: "work", profileChosen: true, onboardingCompleted: true }); await f.view.onOpen();
+    const f = fixture({ profile: "work", profileChosen: true, onboardingCompleted: true }); await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("change-profile").click();
     expect(f.content.action("profile-work").attrs["aria-pressed"]).toBe("true");
     expect(f.content.action("profile-work").texts()).toContain("✓ Selected"); expect(f.content.action("skip")).toBeUndefined();
@@ -781,12 +781,12 @@ describe("integrated Health onboarding", () => {
     expect(f.content.action("profile-research").attrs["aria-pressed"]).toBe("false");
     f.content.action("profile-research").click(); await vi.waitFor(() => expect(f.content.action("profile-research")).toBeUndefined());
     expect(f.content.texts()).toContain("Profile: Research & writing");
-    expect(f.preferences.get().onboardingCompleted).toBe(true); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.preferences.get().onboardingCompleted).toBe(true); f.content.action("nav-health").click(); expect(f.vault.read).not.toHaveBeenCalled();
     f.content.action("nav-tools").click(); expect(f.content.action("nav-tools").attrs["aria-current"]).toBe("page");
     expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
   });
   it.each(["findings.json", "scan-runs.json"])("recovery of %s wins before Welcome and preserves preferences", async (file) => {
-    const f = fixture({ profile: "research" }); f.files.set(`${root}/${file}`, "{bad"); await f.view.onOpen();
+    const f = fixture({ profile: "research" }); f.files.set(`${root}/${file}`, "{bad"); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("profile-research")).toBeUndefined();
     const preferences = f.preferences.get(); f.content.action("recover").click();
     mocks.Modal.opened[0].contentEl.all().find((e) => e.text === "Back up and reset")!.click();
@@ -794,7 +794,7 @@ describe("integrated Health onboarding", () => {
     expect(f.preferences.get()).toEqual(preferences); expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
   });
   it("Russian first-result copy localizes the selected Finding while retaining its stored text", async () => {
-    setLanguage("ru"); const f = fixture({ profileChosen: true }); await f.view.onOpen(); await f.controller.runLocalScan();
+    setLanguage("ru"); const f = fixture({ profileChosen: true }); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     expect(f.content.texts()).toContain("Заметка без связей"); expect(f.content.texts()).not.toContain("Note has no");
     const finding = f.controller.getState().recommendationFinding!;
     expect(finding.title).not.toMatch(/[А-Яа-яЁё]/u); expect(f.content.action("continue").text).toBe("Перейти к состоянию");
@@ -847,7 +847,7 @@ describe("navigation and registration", () => {
 
 describe("Findings navigation and lifecycle integration", () => {
   async function scanned() {
-    const f = fixture(); await f.view.onOpen(); await f.controller.runLocalScan();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     f.vault.read.mockClear(); f.vault.getMarkdownFiles.mockClear(); f.adapter.write.mockClear();
     return f;
   }
@@ -887,7 +887,7 @@ describe("Findings navigation and lifecycle integration", () => {
     expect(f.content.texts()).toContain("Finding updated");
     f.content.action("nav-health").click();
     expect(f.content.texts()).toContain("No open findings"); expect(f.content.action("review-finding")).toBeUndefined();
-    f.content.action("nav-findings").click(); f.content.action("state-dismissed").click(); f.content.action(`finding-${id}`).click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("state-dismissed").click(); f.content.action(`finding-${id}`).click();
     f.content.action("finding-reopen").click(); await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("open"));
     expect(f.content.action("finding-reopen")).toBeUndefined();
     f.content.action("state-open").click(); f.content.action(`finding-${id}`).click(); f.content.action("finding-snooze").click();
@@ -932,7 +932,7 @@ describe("Findings navigation and lifecycle integration", () => {
     const f = await failedDismiss(); f.content.action("nav-health").click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
     expect(f.content.texts()).toContain("Vault check complete");
-    f.content.action("nav-findings").click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
     f.content.action(`finding-${f.id}`).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
@@ -940,14 +940,14 @@ describe("Findings navigation and lifecycle integration", () => {
   });
   it.each(["state-dismissed", "filter-connections", "another-finding"])("%s ends the failed interaction without resurrecting its status on return", async (destination) => {
     const f = fixture(); f.vault.getMarkdownFiles.mockReturnValue([f.note, { ...f.note, path: "B.md", basename: "B" }]);
-    await f.view.onOpen(); await f.controller.runLocalScan();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     const id = f.controller.getState().recommendationFinding!.id;
     const other = f.controller.listFindings().find((finding) => finding.id !== id)!;
     f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
     f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
     f.content.action(destination === "another-finding" ? `finding-${other.id}` : destination).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
-    f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.controller.getFinding(id)?.state).toBe("open");
   });
   it("a later scan clears a failed Finding interaction immediately and can publish its own successful status", async () => {
@@ -974,8 +974,8 @@ describe("Findings navigation and lifecycle integration", () => {
     let reject!: (error: Error) => void; f.adapter.write.mockReturnValueOnce(new Promise((_, rejectWrite) => { reject = rejectWrite; }));
     f.content.action("finding-dismiss").click(); await flush();
     if (leave === "navigation") f.content.action("nav-health").click();
-    else { await f.view.onClose(); await f.view.onOpen(); }
-    f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    else { await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); }
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
     reject(new Error("PRIVATE LATE FAILURE")); await vi.waitFor(() => expect(f.controller.getState().mutatingFindingId).toBeUndefined()); await flush();
     expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.content.texts()).not.toContain("Couldn't update this finding.");
     expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
@@ -994,28 +994,28 @@ describe("Findings navigation and lifecycle integration", () => {
     const f = fixture(); const item = inboxFinding({ notePaths: ["A.md", "Private/Config/Secret.md"],
       actions: [{ kind: "delete", path: "A.md" }, { kind: "fix-link", path: "A.md" }] });
     f.files.set(`${root}/findings.json`, serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } }));
-    await f.view.onOpen(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
     const before = f.controller.listFindings(); f.content.action("finding-note-0").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
     f.content.action("finding-note-1").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
     f.vault.getAbstractFileByPath.mockReturnValue(null); f.content.action("finding-note-0").click(); await flush();
     expect(f.content.texts()).toContain("This note is no longer available"); expect(f.controller.listFindings()).toEqual(before);
     expect(f.content.texts()).not.toMatch(/fix-link|Delete|Fix automatically/u); expect(f.adapter.write).not.toHaveBeenCalled();
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
   });
   it("bounds representative paths to ten, expands/collapses them, resets expansion and route when reopened", async () => {
     const f = fixture(); const item = inboxFinding({ type: "exact-duplicate-group", notePaths: Array.from({ length: 100 }, (_, i) => `Note${i}.md`),
       evidence: [{ kind: "member-count", value: 105 }, { kind: "represented-path-count", value: 100 }] });
     f.files.set(`${root}/findings.json`, serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } }));
-    await f.view.onOpen(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
     expect(f.content.texts()).toContain("105 notes affected"); expect(f.content.texts()).toContain("Showing 100 representative paths");
     expect(f.content.action("finding-note-9")).toBeDefined(); expect(f.content.action("finding-note-10")).toBeUndefined();
     f.content.action("finding-paths").click(); expect(f.content.action("finding-note-99")).toBeDefined();
     f.content.action("finding-paths").click(); expect(f.content.action("finding-note-10")).toBeUndefined();
-    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("view-findings")).toBeDefined(); expect(f.content.action("finding-dismiss")).toBeUndefined();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("view-findings")).toBeDefined(); expect(f.content.action("finding-dismiss")).toBeUndefined();
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
   });
   it.each(["findings.json", "scan-runs.json"])("%s recovery dominates completed onboarding and prevents Inbox navigation", async (file) => {
-    const f = fixture(); f.files.set(`${root}/${file}`, "invalid"); await f.view.onOpen();
+    const f = fixture(); f.files.set(`${root}/${file}`, "invalid"); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-findings")).toBeUndefined();
     expect(f.content.action("nav-discover")).toBeUndefined();
     expect(f.content.action("view-findings")).toBeUndefined(); expect(f.content.action("dimension-structure")).toBeUndefined();
@@ -1041,14 +1041,14 @@ describe("Connect view boundaries", () => {
     return { ...f, settings, engine, connect, second, secondContent: second.contentEl as unknown as InstanceType<typeof mocks.Element>,
       publish: (next: CompanionConnectionStatus) => { status = next; for (const listener of engineListeners) listener(); } };
   }
-  function passive(f: ReturnType<typeof connectFixture>) {
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+  function passive(f: ReturnType<typeof connectFixture>, openedViews = 1) {
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(openedViews);
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
     expect(f.engine.syncCurrent).not.toHaveBeenCalled(); expect(f.engine.openProposalReview).not.toHaveBeenCalled();
   }
   it.each(["en", "ru"] as const)("disabled Connect owns its visible status in %s", async (language) => {
-    setLanguage(language); const f = connectFixture(false); await f.view.onOpen();
-    f.content.action("nav-connect").click();
+    setLanguage(language); const f = connectFixture(false); await f.view.onOpen(); f.content.action("nav-health")?.click();
+    f.content.action("nav-settings").click(); f.content.action("settings-connect").click();
     const live = f.content.all().find((e) => e.attrs.role === "status")!;
     expect(live.text).toBe(t("@connect.state.disabled"));
     expect(live.attrs).toMatchObject({ role: "status", "aria-live": "polite", "aria-atomic": "true" });
@@ -1057,9 +1057,9 @@ describe("Connect view boundaries", () => {
     passive(f); await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
   });
   it.each(["en", "ru"] as const)("Connect opens passively with localized capabilities, credential distinction and no direct writes in %s", async (language) => {
-    setLanguage(language); const f = connectFixture(); await f.view.onOpen();
-    f.content.action("nav-connect").click(); passive(f); expect(f.engine.test).not.toHaveBeenCalled();
-    expect(f.content.action("nav-connect").attrs["aria-current"]).toBe("page");
+    setLanguage(language); const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
+    f.content.action("nav-settings").click(); f.content.action("settings-connect").click(); passive(f); expect(f.engine.test).not.toHaveBeenCalled();
+    expect(f.content.action("nav-settings").attrs["aria-current"]).toBe("page");
     expect(f.content.texts()).not.toMatch(/@connect|PRIVATE_CONNECT_TOKEN|22222222/u);
     expect(f.content.texts()).toContain(language === "en" ? "They do not read live Obsidian memory" : "не имеют доступа к текущему состоянию Obsidian");
     expect(f.content.texts()).toContain(language === "en" ? "does not delete data already stored" : "не удаляет уже сохранённые");
@@ -1069,21 +1069,21 @@ describe("Connect view boundaries", () => {
     await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
   });
   it("Sync now discloses exact data, Cancel/navigation/detached confirm do no work, and confirmation is single flight", async () => {
-    const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-connect").click();
+    const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings").click(); f.content.action("settings-connect").click();
     f.content.action("connect-sync").click(); passive(f);
     expect(f.content.ownerDocument.activeElement?.attrs["data-connect-confirmation"]).toBe("true");
     for (const text of ["Stable Vault identity", "Vault-relative", "Markdown content", "Chunk text", "source metadata", "Embeddings", "Semantic descriptor"])
       expect(f.content.texts()).toContain(text);
     const stale = f.content.action("connect-sync-confirm"); f.content.action("connect-sync-cancel").click(); stale.click(); passive(f);
     f.content.action("connect-sync").click(); const detached = f.content.action("connect-sync-confirm");
-    f.content.action("nav-findings").click(); detached.click(); passive(f);
-    f.content.action("nav-connect").click(); expect(f.content.action("connect-sync-confirm")).toBeUndefined();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); detached.click(); passive(f);
+    f.content.action("nav-settings").click(); f.content.action("settings-connect").click(); expect(f.content.action("connect-sync-confirm")).toBeUndefined();
     f.content.action("connect-sync").click(); const confirm = f.content.action("connect-sync-confirm"); confirm.click(); confirm.click(); await flush();
     expect(f.engine.syncCurrent).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
     await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
   });
   it("Remote form discloses storage before enabling, uses password-only token and clears token on server changes", async () => {
-    const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-connect").click(); f.content.action("connect-setup").click();
+    const f = connectFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings").click(); f.content.action("settings-connect").click(); f.content.action("connect-setup").click();
     f.content.action("connect-mode-remote").click();
     expect(f.content.action("connect-field-token").value).toBe("");
     expect(f.content.texts()).toContain("transmitted to and stored by the configured remote Companion server");
@@ -1099,7 +1099,7 @@ describe("Connect view boundaries", () => {
     await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
   });
   it("failed setup retains the form and safe error; late success after navigation never restores it", async () => {
-    const f = connectFixture(false); await f.view.onOpen(); f.content.action("nav-connect").click();
+    const f = connectFixture(false); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings").click(); f.content.action("settings-connect").click();
     f.content.action("connect-setup").click(); f.content.action("connect-mode-local").click();
     expect(f.content.action("connect-field-endpoint")).toBeUndefined();
     f.engine.test.mockRejectedValueOnce(new Error("PRIVATE_CONNECT_TOKEN raw response"));
@@ -1111,13 +1111,13 @@ describe("Connect view boundaries", () => {
     let release!: () => void; f.engine.test.mockImplementationOnce(() => new Promise((resolve) => { release = resolve; }));
     f.content.action("connect-submit").click(); f.content.action("nav-health").click(); release(); await flush();
     expect(f.content.action("connect-field-token")).toBeUndefined();
-    f.content.action("nav-connect").click(); expect(f.content.texts()).toContain("Connected");
+    f.content.action("nav-settings").click(); f.content.action("settings-connect").click(); expect(f.content.texts()).toContain("Connected");
     expect(f.content.action("connect-field-token")).toBeUndefined();
     await f.view.onClose(); f.connect.dispose(); f.controller.dispose();
   });
   it("two views share status and one Check; closing one leaves the other subscribed", async () => {
-    const f = connectFixture(); await Promise.all([f.view.onOpen(), f.second.onOpen()]);
-    f.content.action("nav-connect").click(); f.secondContent.action("nav-connect").click(); passive(f);
+    const f = connectFixture(); await Promise.all([f.view.onOpen(), f.second.onOpen()]); f.content.action("nav-health")?.click(); f.secondContent.action("nav-health")?.click();
+    f.content.action("nav-settings").click(); f.content.action("settings-connect").click(); f.secondContent.action("nav-settings").click(); f.secondContent.action("settings-connect").click(); passive(f, 2);
     let release!: () => void; f.engine.test.mockImplementationOnce(() => new Promise((resolve) => { release = resolve; }));
     f.content.action("connect-check").click(); expect(f.secondContent.action("connect-check").disabled).toBe(true);
     release(); await flush(); expect(f.content.texts()).toContain("Connected"); expect(f.secondContent.texts()).toContain("Connected");
@@ -1153,31 +1153,32 @@ describe("final Tools and Settings IA", () => {
   }
   function passive(f: ReturnType<typeof overviewFixture>) {
     for (const operation of f.work) expect(operation).not.toHaveBeenCalled();
-    for (const name of ["read", "cachedRead", "getMarkdownFiles", "modify", "create"] as const) expect(Reflect.get(f.vault, name)).not.toHaveBeenCalled();
+    expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
+    for (const name of ["read", "cachedRead", "modify", "create"] as const) expect(Reflect.get(f.vault, name)).not.toHaveBeenCalled();
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
     expect(mocks.requestUrl).not.toHaveBeenCalled();
   }
   it.each(["en", "ru"] as const)("renders final navigation, passive Tools and safe Settings in %s", async (language) => {
-    setLanguage(language); mocks.requestUrl.mockClear(); const f = overviewFixture(); await f.view.onOpen();
+    setLanguage(language); mocks.requestUrl.mockClear(); const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.attrs["data-health-action"]))
-      .toEqual(["nav-health", "nav-findings", "nav-discover", "nav-recall", "nav-connect", "nav-tools", "nav-settings"]);
+      .toEqual(["nav-home", "nav-discover", "nav-health", "nav-process", "nav-recall", "nav-tools", "nav-history", "nav-settings", "nav-findings"]);
     for (const page of ["tools", "settings"] as const) {
       f.content.action(`nav-${page}`).click(); passive(f);
       expect(f.content.action(`nav-${page}`).attrs["aria-current"]).toBe("page");
       expect(f.content.ownerDocument.activeElement?.attrs["data-health-heading"]).toBe("true");
       expect(f.content.texts()).not.toMatch(/@(?:tools|settings|deep|semantic|connect)|PRIVATE_ENDPOINT|AI Hub|Vault Audit AI/u);
-      expect(f.content.all().filter((e) => e.attrs["data-health-action"]).every((e) => e.tag === "button")).toBe(true);
+      expect(f.content.all().filter((e) => e.attrs["data-health-action"]).every((e) => e.tag === "button" || e.tag === "select" && e.attrs["data-health-action"] === "scope-picker" && Boolean(e.attrs["aria-label"]))).toBe(true);
     }
     expect(f.content.texts()).toContain("deep-fixture"); expect(f.content.texts()).toContain("semantic-fixture"); expect(f.content.texts()).toContain("42");
     expect(f.content.texts()).toContain(language === "en" ? "Configured" : "Настроено");
     expect(f.content.texts()).toContain(language === "en" ? "Local scheduling" : "Локальное планирование");
     expect(f.content.texts()).toContain(language === "en" ? "Settings → Community plugins → Veynrel" : "настройки Obsidian → Сторонние плагины → Veynrel");
     expect(f.content.all().some((e) => e.tag === "input")).toBe(false);
-    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it("each Tools action invokes one host operation and editor entries never guess an editor", async () => {
-    const f = overviewFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen(); f.content.action("nav-tools").click();
+    const f = overviewFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
     expect(f.content.texts()).toContain("command palette"); expect(f.content.texts()).toContain("Single Audit");
     expect(f.content.texts()).toContain("Knowledge Health"); expect(f.content.texts()).toContain("backups");
     const actions = f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"));
@@ -1190,17 +1191,17 @@ describe("final Tools and Settings IA", () => {
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it("Settings reuses the existing setup choosers and Connect route without setup or IO on entry", async () => {
-    const f = overviewFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen();
+    const f = overviewFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     for (const kind of ["deep", "semantic", "connect"] as const) {
       f.content.action("nav-settings").click(); f.content.action(`settings-${kind}`).click();
       expect(f.content.action(kind === "deep" ? "deep-provider-ollama" : kind === "semantic" ? "semantic-mode-local" : "connect-check")).toBeDefined();
-      expect(f.content.action(`nav-${kind === "connect" ? "connect" : "health"}`).attrs["aria-current"]).toBe("page");
+      expect(f.content.action(`nav-${kind === "connect" ? "settings" : "health"}`).attrs["aria-current"]).toBe("page");
       passive(f);
     }
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it("two views keep independent routes and share launchers; late errors cannot resurrect a route", async () => {
-    const f = overviewFixture(); await f.view.onOpen();
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     const second = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, f.semantic, f.recall, f.deep, undefined, f.connect);
     await second.onOpen(); const content = second.contentEl as unknown as InstanceType<typeof mocks.Element>;
     f.content.action("nav-tools").click(); content.action("nav-settings").click();
@@ -1214,32 +1215,32 @@ describe("final Tools and Settings IA", () => {
     expect(content.texts()).toContain("Could not open this tool"); expect(content.texts()).not.toContain("PRIVATE_PROVIDER_BODY");
     const feedback = content.querySelector("[data-workspace-message]")!;
     expect(feedback.texts()).toContain("Could not open this tool");
-    expect(feedback.parentElement!.children[0].tag).toBe("nav");
-    expect(feedback.parentElement!.children[1]).toBe(feedback);
+    expect(feedback.parentElement!.cls).toBe("veynrel-shell-main");
+    expect(feedback.parentElement!.children[0]).toBe(feedback);
     content.action("tool-openAskVault").click(); await flush();
     expect(f.tools.openAskVault).toHaveBeenCalledTimes(2); expect(content.texts()).not.toContain("Could not open this tool");
     await second.onClose(); await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it.each(["onboarding", "findings.json", "scan-runs.json"])("%s hides Tools/Settings and rejects stale launch actions", async (boundary) => {
-    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
     const stale = f.content.action("tool-openBatchProcessing"); await f.view.onClose();
     if (boundary === "onboarding") await f.preferences.update({ onboardingCompleted: false, profileChosen: false });
     else f.files.set(`${root}/${boundary}`, "invalid");
     // A fresh controller models recovery discovered on reopen.
     const controller = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
-    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen();
+    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click();
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
     expect(content.action("nav-tools")).toBeUndefined(); expect(content.action("nav-settings")).toBeUndefined(); expect(content.action("tools")).toBeUndefined();
     stale.click(); expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
     await view.onClose(); controller.dispose(); f.controller.dispose(); f.recall.dispose();
   });
   it("onboarding taking over a mounted Tools view invalidates actions and cannot resurrect its route", async () => {
-    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
     const stale = f.content.action("tool-openAskVault");
     await f.controller.updatePreferences({ onboardingCompleted: false, profileChosen: false });
     stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled(); expect(f.content.action("nav-tools")).toBeUndefined();
     await f.controller.updatePreferences({ onboardingCompleted: true, profileChosen: true });
-    expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
+    expect(f.content.action("nav-home").attrs["aria-current"]).toBe("page");
     stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled();
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
@@ -1261,7 +1262,7 @@ describe("visual Health dashboard", () => {
     vi.spyOn(f.controller, "getState").mockReturnValue(state);
     const localScan = vi.spyOn(f.controller, "runLocalScan"), deepScan = vi.spyOn(f.controller, "runDeepScan"), semanticScan = vi.spyOn(f.controller, "runSemanticScan");
     const recallInit = vi.spyOn(f.controller, "initializeRecall");
-    await f.view.onOpen();
+    await f.view.onOpen(); f.content.action("nav-health")?.click();
     const metrics = (id: string) => f.content.all().find((e) => e.attrs["data-insight"] === id)!.all()
       .filter((e) => e.cls === "veynrel-dashboard-number").map((e) => e.text);
     expect(metrics("recall")).toEqual(["12", "143", "4"]);
@@ -1278,25 +1279,26 @@ describe("visual Health dashboard", () => {
     f.content.action("change-profile").click();
     expect(f.content.ownerDocument.activeElement?.attrs["data-health-action"]).toBe("area-structure");
     const readCount = f.adapter.read.mock.calls.length;
-    await f.view.onClose(); await f.view.onOpen();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.adapter.read).toHaveBeenCalledTimes(readCount);
-    for (const effect of [f.vault.getMarkdownFiles, f.vault.read, f.adapter.write, f.save, mocks.requestUrl, localScan, deepScan, semanticScan]) expect(effect).not.toHaveBeenCalled();
+    expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(2);
+    for (const effect of [f.vault.read, f.adapter.write, f.save, mocks.requestUrl, localScan, deepScan, semanticScan]) expect(effect).not.toHaveBeenCalled();
     // The existing metadata initialization entry is retained; it has no inventory capability.
     expect(recallInit).toHaveBeenCalled();
     await f.view.onClose();
   });
   it.each(["structure", "connections", "knowledge"])("area %s opens the existing Findings filter", async (id) => {
-    const f = fixture(); await f.view.onOpen();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action(`area-${id}`).tag).toBe("button"); f.content.action(`area-${id}`).click();
     expect(f.content.action(`filter-${id}`).attrs["aria-pressed"]).toBe("true");
     expect(f.content.ownerDocument.activeElement?.attrs["data-health-heading"]).toBe("true");
   });
   it("blocking recovery and onboarding render no pulse or charts; history degradation keeps real current counts", async () => {
-    const onboarding = fixture({ profileChosen: false, onboardingCompleted: false }); await onboarding.view.onOpen();
+    const onboarding = fixture({ profileChosen: false, onboardingCompleted: false }); await onboarding.view.onOpen(); onboarding.content.action("nav-health")?.click();
     expect(onboarding.content.all().some((e) => e.attrs["data-pulse-state"])).toBe(false);
-    const broken = fixture(); broken.files.set(`${root}/findings.json`, "{broken"); await broken.view.onOpen();
+    const broken = fixture(); broken.files.set(`${root}/findings.json`, "{broken"); await broken.view.onOpen(); broken.content.action("nav-health")?.click();
     expect(broken.content.action("recover")).toBeDefined(); expect(broken.content.all().some((e) => e.attrs["data-area"])).toBe(false);
-    const history = fixture(); history.files.set(`${root}/scan-runs.json`, "{broken"); await history.view.onOpen();
+    const history = fixture(); history.files.set(`${root}/scan-runs.json`, "{broken"); await history.view.onOpen(); history.content.action("nav-health")?.click();
     expect(history.content.action("recover")).toBeDefined();
     expect(history.content.all().find((e) => e.attrs["data-pulse-state"])?.attrs["data-pulse-state"]).toBe("unknown");
     expect(history.content.texts()).toContain("Coverage not established");
@@ -1308,7 +1310,7 @@ describe("real topology child route", () => {
     const f = fixture(); const topology = new VaultTopologyController(new ObsidianLocalVaultSource(f.app));
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    await view.onOpen(); await f.controller.runLocalScan();
+    await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click(); await f.controller.runLocalScan();
     const elements = content.all();
     const order = ["veynrel-vault-pulse", "veynrel-health-recommendation", "veynrel-health-dimensions", "veynrel-dashboard-insights", "veynrel-topology-preview", "veynrel-dashboard-controls"]
       .map((cls) => elements.findIndex((e) => e.cls.split(" ").includes(cls)));
@@ -1326,10 +1328,10 @@ describe("real topology child route", () => {
     const topology = new VaultTopologyController(source);
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    await view.onOpen();
+    await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click();
     // Model a browser clamping scroll when the view body is replaced. Real layout
     // and keyboard/viewport bounds are also checked by the native regression.
-    const body = content.action("nav-health").parentElement!.parentElement!;
+    const body = content.all().find(e => e.cls === "veynrel-workspace")!;
     const empty = body.empty.bind(body);
     vi.spyOn(body, "empty").mockImplementation(() => { empty(); content.scrollTop = 0; });
     const capture = source.captureMetadata.bind(source);
@@ -1374,7 +1376,7 @@ describe("real topology child route", () => {
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
     const capture = vi.spyOn(f.vault, "getMarkdownFiles");
-    await view.onOpen();
+    await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click(); expect(capture).toHaveBeenCalledTimes(1); capture.mockClear();
     expect(content.texts()).toContain("See how your notes connect.");
     expect(content.action("topology-refresh").text).toBe("Load map");
     expect(capture).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
@@ -1401,7 +1403,7 @@ describe("real topology child route", () => {
     content.action("topology-back").click(); expect(capture).toHaveBeenCalledTimes(2);
     topology.markStale(); expect(content.texts()).toContain("Map may be outdated");
     content.action("topology-refresh").click(); await topology.load(); expect(capture).toHaveBeenCalledTimes(4);
-    await view.onClose(); await view.onOpen(); expect(capture).toHaveBeenCalledTimes(4);
+    await view.onClose(); await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click(); expect(capture).toHaveBeenCalledTimes(5);
     await view.onClose(); topology.dispose(); f.controller.dispose();
   });
   it.each(["en", "ru"] as const)("groups partial coverage, exact metrics and bounded relationships without loading in %s", async (language) => {
@@ -1479,7 +1481,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
     const cachedRead = vi.fn(); Object.assign(f.vault, { cachedRead });
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, semantic, undefined, undefined, undefined, undefined, withComparison ? topology : undefined, neighborhood, globalMap, comparison);
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    await view.onOpen();
+    await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click();
     return { ...f, cachedRead, view, content, engine, semantic, neighborhood, globalMap, topology, comparison, change: () => { index = { ...index, vectorGeneration: 2 }; for (const l of listeners) l(); } };
   }
   it.each(["en", "ru"] as const)("comparison stays passive and preserves its category/query/pair/limit across A-B-C Neighborhood round-trip in %s", async lang => {
@@ -1671,7 +1673,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
     f.content.action("neighborhood-choose").focus(); f.content.action("neighborhood-choose").click();
     expect(f.content.ownerDocument.activeElement).toBe(f.content.action("neighborhood-search")); expect(f.content.action("neighborhood-search")).toBeDefined();
     expect(f.engine.listIndexedPaths).toHaveBeenCalledTimes(2);
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-discover").click(); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click(); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
     expect(f.engine.listIndexedPaths).toHaveBeenCalledTimes(2);
     await f.view.onClose(); f.neighborhood.dispose(); f.controller.dispose();
   });
@@ -1823,5 +1825,58 @@ describe("safe pair opening", () => {
     split.mockClear(); first.openFile.mockImplementationOnce(async () => { f.vault.getAbstractFileByPath.mockReturnValue(null); return undefined; });
     expect(await openHealthNotePair(f.app, "A.md", "B.md")).toBe(false); expect(split).not.toHaveBeenCalled();
     for (const spy of [f.vault.read, f.adapter.write]) expect(spy).not.toHaveBeenCalled();
+  });
+});
+
+describe("Stage 1 native home and scope boundaries", () => {
+  it("opens the approved home with real metadata and preserves selection independently in two views", async () => {
+    const f = fixture();
+    f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }, { path: "SQL/nested" }, { path: "SQL-old" }]);
+    f.vault.getMarkdownFiles.mockReturnValue(["Root.md", "SQL/A.md", "SQL/nested/B.md", "SQL-old/C.md"].map(path => ({ ...f.note, path })));
+    const other = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools);
+    await f.view.onOpen(); await other.onOpen();
+    const second = other.contentEl as unknown as InstanceType<typeof mocks.Element>;
+    expect(f.content.action("nav-home").attrs["aria-current"]).toBe("page");
+    expect(f.content.action("scope-all").texts()).toContain("Notes: 4");
+    f.content.action("scope-0").click();
+    expect(f.content.action("scope-0").attrs["aria-pressed"]).toBe("true");
+    expect(second.action("scope-all").attrs["aria-pressed"]).toBe("true");
+    f.content.action("open-scope").click();
+    expect(f.content.action("scope-note-0").text).toBe("SQL/A.md");
+    expect(f.content.action("scope-note-1").text).toBe("SQL/nested/B.md");
+    expect(f.content.action("scope-note-2")).toBeUndefined();
+    expect(f.content.action("discover-search")).toBeUndefined();
+    f.content.action("nav-home").click(); expect(f.content.action("scope-0").attrs["aria-pressed"]).toBe("true");
+    expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(2);
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
+    await f.view.onClose(); await other.onClose(); expect(f.vault.offref).toHaveBeenCalledTimes(6);
+  });
+  it("requires an explicit scope handoff, rejects detached confirmation and keeps late failures out of the new scope", async () => {
+    const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }, { path: "Other" }]);
+    await f.view.onOpen(); f.content.action("scope-1").click(); f.content.action("nav-process").click();
+    f.content.action("tool-openBatchProcessing").click(); const old = f.content.action("scope-continue");
+    expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
+    f.content.action("scope-picker").input("Other"); old.click(); expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
+    f.content.action("tool-openBatchProcessing").click(); const confirm = f.content.action("scope-continue"); confirm.click(); confirm.click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledTimes(1);
+    f.content.action("nav-tools").click(); let reject!: (error: Error) => void;
+    f.tools.openDeepAudit.mockImplementationOnce(() => new Promise((_resolve, fail) => { reject = fail; }));
+    f.content.action("tool-openDeepAudit").click(); f.content.action("scope-continue").click();
+    f.content.action("scope-picker").input("SQL"); reject(new Error("private response")); await flush();
+    expect(f.content.texts()).not.toContain(t("@tools.launch-failed"));
+    await f.view.onClose();
+  });
+  it("keeps unavailable storage/due state honest and supports missing folders without an All fallback", async () => {
+    const f = fixture(); const handlers = new Map<string, (file: { path: string }, oldPath?: string) => void>();
+    f.vault.on.mockImplementation((...args: unknown[]) => { handlers.set(args[0] as string, args[1] as never); });
+    f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]); await f.view.onOpen();
+    expect(f.content.texts()).toContain("Data unavailable");
+    f.content.action("scope-0").click();
+    expect(f.content.texts()).toContain("Folder queue not available yet");
+    f.vault.getAllFolders.mockReturnValue([]); handlers.get("delete")!({ path: "SQL" }); await flush();
+    expect(f.content.texts()).toContain("The selected folder was deleted or renamed");
+    expect(f.content.action("open-scope").disabled).toBe(true);
+    expect(f.content.action("scope-all").attrs["aria-pressed"]).toBe("false");
+    f.content.action("scope-all").click(); expect(f.content.action("open-scope").disabled).toBe(false);
+    await f.view.onClose();
   });
 });

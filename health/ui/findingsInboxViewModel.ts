@@ -9,7 +9,7 @@ export const FINDING_DIMENSIONS = ["all", "structure", "connections", "recall", 
 export interface FindingsFilter { state: FindingState; dimension: HealthDimension | "all" }
 export type FindingsRoute = { page: "findings"; selectedFindingId?: string } & FindingsFilter;
 export type SemanticNeighborhoodRoute = { page: "semantic-neighborhood"; returnTo?: "discover" | "semantic-map" | "connection-opportunities" };
-export type VeynrelHealthRoute = { page: "health" } | { page: "topology" } | SemanticNeighborhoodRoute | { page: "semantic-map" } | { page: "connection-opportunities" } | FindingsRoute | { page: "discover" } | { page: "recall" } | { page: "connect" } | { page: "tools" } | { page: "settings" };
+export type VeynrelHealthRoute = { page: "home" } | { page: "process" } | { page: "history" } | { page: "health" } | { page: "topology" } | SemanticNeighborhoodRoute | { page: "semantic-map" } | { page: "connection-opportunities" } | FindingsRoute | { page: "discover" } | { page: "recall" } | { page: "connect" } | { page: "tools" } | { page: "settings" };
 
 export function findingsRoute(options: Partial<Omit<FindingsRoute, "page">> = {}): FindingsRoute {
   return { page: "findings", state: "open", dimension: "all", ...options };

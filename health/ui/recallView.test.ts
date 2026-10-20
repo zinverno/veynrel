@@ -99,7 +99,7 @@ function fixture(raw?: string, onboarded = true, withAuthoring = false) {
   return { ...f, view, content, health, authoring, build, settings, processNote, action: (key: string) => content.action(key)! };
 }
 async function reviewFixture() {
-  const f = fixture(); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+  const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
   f.action("recall-refresh").click(); await vi.waitFor(() => expect(f.content.action("recall-start")).toBeDefined());
   f.action("recall-start").click(); f.time(200); return f;
 }
@@ -109,7 +109,7 @@ const healthBytes = (f: ReturnType<typeof fixture>) => [...f.files].filter(([pat
 
 describe("Recall authoring presentation", () => {
   it.each(["cancel", "navigate", "close"])("keeps overview and confirmation passive, including %s", async (action) => {
-    const f = fixture(undefined, true, true); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    const f = fixture(undefined, true, true); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     f.action("recall-authoring-create").click();
     expect(f.content.ownerDocument.activeElement?.attrs["data-recall-authoring-confirmation"]).toBe("true");
     expect(f.content.texts()).toContain("A.md"); expect(f.content.texts()).toContain("32000");
@@ -124,7 +124,7 @@ describe("Recall authoring presentation", () => {
   });
 
   it.each(["en", "ru"] as const)("renders localized authoring progress, first-run truth and immediate review in %s", async (language) => {
-    setLanguage(language); const f = fixture(undefined, true, true); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    setLanguage(language); const f = fixture(undefined, true, true); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     f.action("recall-authoring-create").click(); f.action("recall-authoring-generate").click();
     expect(f.content.all().find((element) => element.cls.includes("veynrel-recall-authoring"))?.attrs["aria-busy"]).toBe("true");
     await vi.waitFor(() => expect(f.authoring!.getSnapshot().state).toBe("success"));
@@ -140,7 +140,7 @@ describe("Recall authoring presentation", () => {
 
   it("directs unconfigured setup to Deep without note IO and keeps blocked Recall authoring available", async () => {
     const f = fixture("{broken", true, true); f.settings.model = "";
-    await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     expect(f.content.texts()).toContain("Configure Deep Intelligence to generate flashcards");
     expect(f.content.action("recall-authoring-create")).toBeUndefined();
     f.settings.model = "synthetic"; f.action("nav-health").click(); f.action("nav-recall").click();
@@ -162,20 +162,20 @@ describe("Recall Health integration", () => {
   it("keeps construction/onboarding dormant, then makes first-run Recall actionable without IO beyond metadata", async () => {
     const f = fixture(undefined, false);
     expect(f.adapter.exists).not.toHaveBeenCalled(); expect(f.factory).not.toHaveBeenCalled();
-    await f.view.onOpen(); f.health.initializeRecall(); expect(f.factory).not.toHaveBeenCalled();
-    f.action("skip").click(); await flush();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.health.initializeRecall(); expect(f.factory).not.toHaveBeenCalled();
+    f.action("skip").click(); await flush(); f.action("nav-health").click();
     expect(recallCard(f).texts()).toContain("Not enabled"); expect(f.factory).toHaveBeenCalledTimes(1);
     const reads = f.adapter.read.mock.calls.length, exists = f.adapter.exists.mock.calls.length;
     expect(f.action("dimension-recall").tag).toBe("button"); f.action("dimension-recall").click(); await flush();
     expect(f.action("nav-recall").attrs["aria-current"]).toBe("page"); expect(f.content.texts()).toContain("Find flashcards");
-    f.action("nav-findings").click(); f.action("nav-discover").click(); f.action("nav-health").click();
+    f.action("nav-health").click(); f.action("nav-findings").click(); f.action("nav-discover").click(); f.action("nav-health").click();
     expect(f.adapter.read).toHaveBeenCalledTimes(reads); expect(f.adapter.exists).toHaveBeenCalledTimes(exists);
-    expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
   });
 
   it.each(["good", "easy", "hard", "again"] as const)("explicit inventory and %s update Health live without Findings or a Health scan", async (rating) => {
-    const f = fixture(); await f.view.onOpen(); await flush();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush();
     const before = f.health.getState().snapshot!, bytes = healthBytes(f);
     expect(recallCard(f).texts()).toContain("Not enabled");
     await f.product.refreshCards(); expect(recallCard(f).texts()).toContain("Review recommended");
@@ -204,7 +204,7 @@ describe("Recall Health integration", () => {
 
   it("Again wakes Health at the due boundary with one timer, no polling or IO, and cleans up on navigation/close", async () => {
     const f = fixture(); vi.spyOn(Date, "now").mockReturnValue(200);
-    await f.view.onOpen(); await flush(); await f.product.refreshCards();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush(); await f.product.refreshCards();
     f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("again"); f.product.endSession();
     expect(recallCard(f).texts()).toContain("Good");
     expect(mocks.setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 60_000);
@@ -227,7 +227,7 @@ describe("Recall Health integration", () => {
     const f = fixture(); await f.product.initialize(); await f.product.refreshCards();
     const get = f.product.getSnapshot.bind(f.product);
     vi.spyOn(f.product, "getSnapshot").mockImplementation(() => ({ ...get(), nextDueAt: 3_000_000_000, summary: { ...get().summary!, due: 0 } }));
-    vi.spyOn(Date, "now").mockReturnValue(100); await f.view.onOpen();
+    vi.spyOn(Date, "now").mockReturnValue(100); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(mocks.setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 2_147_483_647);
     vi.spyOn(Date, "now").mockReturnValue(3_000_000_001); f.product.endSession();
     expect(mocks.setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 0);
@@ -236,25 +236,25 @@ describe("Recall Health integration", () => {
   it("loads valid v1 on Health only, due/new in memory without migration writes", async () => {
     const card = candidate(); const raw = JSON.stringify({ version: 1, updatedAt: 10,
       cards: { [card.id]: { ...card, firstSeenAt: 10, lastSeenAt: 10, state: "active" } } });
-    const f = fixture(raw); await f.view.onOpen(); await flush();
+    const f = fixture(raw); await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush();
     expect(recallCard(f).texts()).toContain("Review recommended"); expectRecallCounts(f.content, 1, 1);
     expect(f.health.getState().snapshot?.recall?.new).toBe(1); expect(f.files.get(cardsPath)).toBe(raw);
     expect(f.adapter.read.mock.calls.filter(([path]) => path === cardsPath)).toHaveLength(1);
-    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
   });
 
   it.each([200, 60_200])("restarts from persisted v2 with correct state at %s before visiting Recall", async (at) => {
     const first = fixture(); await first.view.onOpen(); await flush(); await first.product.refreshCards();
     first.product.startSession(); first.time(200); first.product.revealAnswer(); await first.product.rate("again");
     const raw = first.files.get(cardsPath)!; await first.view.onClose(); first.health.dispose(); first.product.dispose();
-    const f = fixture(raw); f.time(at); await f.view.onOpen(); await flush();
+    const f = fixture(raw); f.time(at); await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush();
     expect(recallCard(f).texts()).toContain(at === 200 ? "Good" : "Review recommended");
     expect(f.factory).toHaveBeenCalledTimes(1); expect(f.files.get(cardsPath)).toBe(raw);
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1); expect(f.adapter.write).not.toHaveBeenCalled();
   });
 
   it("explicit empty/retiring inventory shows No active cards, and later additions appear immediately", async () => {
-    const f = fixture(); await f.view.onOpen(); await flush(); f.vault.read.mockResolvedValue("No cards"); await f.product.refreshCards();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush(); f.vault.read.mockResolvedValue("No cards"); await f.product.refreshCards();
     expect(recallCard(f).texts()).toContain("No active cards"); expect(recallCard(f).texts()).not.toContain("Good");
     f.vault.read.mockResolvedValue("## Flashcards\nOne::Answer\nTwo::Answer"); f.time(200); await f.product.refreshCards();
     expectRecallCounts(f.content, 2, 2);
@@ -265,11 +265,11 @@ describe("Recall Health integration", () => {
   it.each(["{broken", '{"version":99}'])("isolates %s, keeps Health scan/Findings/Discover usable, and resets to Not enabled", async (raw) => {
     // Local analysis cooperatively yields through window.setTimeout; use real timers for that scan.
     vi.stubGlobal("window", { setTimeout, clearTimeout });
-    const f = fixture(raw); await f.view.onOpen(); await flush();
+    const f = fixture(raw); await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush();
     expect(recallCard(f).texts()).toContain("Recall data needs recovery"); expect(f.health.getState().error).toBeUndefined();
     expect(f.content.action("recall-recover")).toBeUndefined(); expect(f.adapter.write).not.toHaveBeenCalled();
     await f.health.runLocalScan(); expect(f.health.getState().outcome?.findingsCommitted).toBe(true);
-    f.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
+    f.action("nav-health").click(); f.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
     f.action("nav-discover").click(); expect(f.content.action("nav-discover")).toBeDefined(); f.action("nav-health").click();
     const bytes = healthBytes(f), reads = f.vault.read.mock.calls.length; f.adapter.write.mockClear();
     f.action("dimension-recall").click(); expect(f.content.action("recall-recover")).toBeDefined();
@@ -281,7 +281,7 @@ describe("Recall Health integration", () => {
 
   it("read failure is Recall-specific and routes to existing Retry, never global Health recovery", async () => {
     const f = fixture("{}"); f.adapter.read.mockRejectedValue(new Error("PRIVATE credentials"));
-    await f.view.onOpen(); await flush();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); await flush();
     expect(recallCard(f).texts()).toContain("Recall data unavailable"); expect(f.action("scan").disabled).toBe(false);
     expect(f.content.texts()).not.toContain("PRIVATE"); expect(f.content.action("recover")).toBeUndefined();
     f.action("dimension-recall").click(); expect(f.content.action("recall-retry")).toBeDefined();
@@ -292,7 +292,7 @@ describe("Recall Health integration", () => {
     const f = fixture(); vi.spyOn(Date, "now").mockReturnValue(200);
     const other = new VeynrelHealthView({ app: f.app } as never, f.health, toolsFixture(), undefined, f.product);
     const content = other.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    await Promise.all([f.view.onOpen(), other.onOpen()]); await flush();
+    await Promise.all([f.view.onOpen(), other.onOpen()]); f.action("nav-health").click(); content.action("nav-health")!.click(); await flush();
     await f.product.refreshCards(); expectRecallCounts(f.content, 1, 1); expectRecallCounts(content, 1, 1);
     expect(f.factory).toHaveBeenCalledTimes(1); expect(f.vault.read).toHaveBeenCalledTimes(1);
     f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("again"); f.product.endSession();
@@ -310,21 +310,21 @@ describe("Recall workspace route and lazy composition", () => {
     const f = fixture(), plugin = { app: f.app, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), register: vi.fn(), addRibbonIcon: vi.fn(), addCommand: vi.fn() };
     registerHealth(plugin as never, toolsFixture(), preferencesFixture().preferences);
     expect(plugin.registerView).toHaveBeenCalledTimes(1); expect(f.adapter.exists).not.toHaveBeenCalled();
-    await f.view.onOpen(); f.action("nav-findings").click(); f.action("nav-discover").click(); f.action("nav-health").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-health").click(); f.action("nav-findings").click(); f.action("nav-discover").click(); f.action("nav-health").click();
     await flush(); expect(f.factory).toHaveBeenCalledTimes(1);
     expect(f.adapter.exists.mock.calls.filter(([path]) => path === cardsPath)).toHaveLength(1);
     for (const page of ["health", "findings", "discover", "recall"]) expect(f.content.action(`nav-${page}`)).toBeDefined();
     f.action("nav-recall").click(); await flush();
     expect(f.action("nav-recall").attrs["aria-current"]).toBe("page"); expect(f.factory).toHaveBeenCalledTimes(1);
     expect(f.content.texts()).toContain("Find flashcards"); expect(f.content.texts()).toContain("question::answer");
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1); expect(f.adapter.write).not.toHaveBeenCalled();
     expect(f.adapter.exists.mock.calls.filter(([path]) => path === cardsPath)).toHaveLength(1);
-    await f.view.onClose(); await f.view.onOpen(); expect(f.content.action("scan")).toBeDefined(); expect(f.content.action("recall-refresh")).toBeUndefined();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("scan")).toBeDefined(); expect(f.content.action("recall-refresh")).toBeUndefined();
   });
 
   it.each(["onboarding", "health-recovery"])("%s still hides normal navigation and causes no Recall IO", async (kind) => {
     const f = fixture(undefined, kind !== "onboarding"); if (kind === "health-recovery") f.files.set(`${root}/findings.json`, "{");
-    await f.view.onOpen(); expect(f.content.action("nav-recall")).toBeUndefined(); expect(f.factory).not.toHaveBeenCalled();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("nav-recall")).toBeUndefined(); expect(f.factory).not.toHaveBeenCalled();
   });
 
   it("closing another workspace tab preserves the session; entering Recall transfers surface ownership", async () => {
@@ -354,7 +354,7 @@ describe("Recall workspace route and lazy composition", () => {
   });
 
   it("first Find click alone scans, updates counts and exposes Start review", async () => {
-    const f = fixture(); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     const entered = gate(), hold = gate(); f.vault.read.mockImplementationOnce(async () => { entered.release(); await hold.promise; return "## Flashcards\nQuestion::SECRET ANSWER"; });
     f.action("recall-refresh").click(); await entered.promise;
     expect(f.action("recall-refresh").disabled).toBe(true); expect(f.content.texts()).toContain("Scanning flashcards…");
@@ -383,7 +383,7 @@ describe("Recall question/reveal/rate surface", () => {
 
   it("focuses the next question only after durable success and blocks duplicate ratings", async () => {
     const f = fixture(); f.vault.read.mockResolvedValue("## Flashcards\nOne::ANSWER ONE\nTwo::ANSWER TWO");
-    await f.view.onOpen(); f.action("nav-recall").click(); await flush(); await f.product.refreshCards(); f.action("recall-start").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush(); await f.product.refreshCards(); f.action("recall-start").click();
     const id = f.product.getSnapshot().session!.card!.id; f.time(200); f.action("recall-reveal").click();
     const good = f.action("recall-good"), easy = f.action("recall-easy"), entered = gate(), hold = gate(), write = f.adapter.write;
     f.adapter.write = vi.fn(async (path, raw) => { entered.release(); await hold.promise; await write(path, raw); });
@@ -407,7 +407,7 @@ describe("Recall question/reveal/rate surface", () => {
     const f = await reviewFixture(); f.action("recall-reveal").click(); const entered = gate(), hold = gate(), write = f.adapter.write;
     f.adapter.write = vi.fn(async (path, raw) => { entered.release(); await hold.promise; await write(path, raw); });
     f.action("recall-easy").click(); await entered.promise;
-    if (leave === "navigate") f.action("nav-discover").click(); else { await f.view.onClose(); await f.view.onOpen(); }
+    if (leave === "navigate") f.action("nav-discover").click(); else { await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); }
     hold.release(); await vi.waitFor(() => expect(f.product.getSnapshot().reviewSaving).toBe(false));
     expect(f.content.texts()).not.toContain("SECRET ANSWER"); expect(f.content.action("recall-back")).toBeUndefined();
     f.action("nav-recall").click(); expect(f.content.action("recall-reveal")).toBeUndefined(); expect(f.product.getSnapshot().session).toBeUndefined();
@@ -460,19 +460,19 @@ describe("Recall recovery and presentation", () => {
     const card = candidate();
     const f = fixture(JSON.stringify({ version: 1, updatedAt: 10,
       cards: { [card.id]: { ...card, firstSeenAt: 10, lastSeenAt: 10, state: "active" } } }));
-    await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     expect(f.product.getSnapshot().summary).toMatchObject({ due: 1, new: 1 });
     expect(f.content.action("recall-recover")).toBeUndefined(); expect(f.adapter.write).not.toHaveBeenCalled();
     f.action("recall-start").click(); f.action("recall-reveal").click(); f.action("recall-easy").click();
     await vi.waitFor(() => expect(f.content.texts()).toContain("You're caught up"));
     expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 3 });
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
   });
 
   it.each(["{broken", '{"version":99}'])("scopes recovery to Recall and requires confirmation before moving %s", async (raw) => {
-    const f = fixture(raw); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    const f = fixture(raw); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     expect(f.content.texts()).toContain("Recall data needs recovery"); expect(f.content.action("recall-refresh")).toBeUndefined();
-    f.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
+    f.action("nav-health").click(); f.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
     f.action("nav-discover").click(); expect(f.content.action("recall-recover")).toBeUndefined();
     f.action("nav-recall").click(); f.action("recall-recover").click();
     expect(f.content.texts()).toContain("Learned scheduling state will not automatically transfer"); expect(f.adapter.rename).not.toHaveBeenCalled();
@@ -482,7 +482,7 @@ describe("Recall recovery and presentation", () => {
   });
 
   it("shows recovery failure without a new writable surface", async () => {
-    const f = fixture("{"); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    const f = fixture("{"); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     f.adapter.rename.mockRejectedValueOnce(new Error("PRIVATE")); f.action("recall-recover").click(); f.action("recall-confirm-recovery").click();
     await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't reset Recall data."));
     expect(f.content.action("recall-refresh")).toBeUndefined(); expect(f.files.get(cardsPath)).toBe("{"); expect(f.content.texts()).not.toContain("PRIVATE");
@@ -502,7 +502,7 @@ describe("Recall recovery and presentation", () => {
     expect(recallViewModel(f.product.getSnapshot()).emptyTitle).toBe("No flashcards found");
     f.vault.read.mockRejectedValueOnce(new Error("PRIVATE")); await f.product.refreshCards();
     const model = recallViewModel(f.product.getSnapshot()); expect(model.emptyTitle).toBe("No cards available"); expect(model.status).toContain("incomplete");
-    await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     expect(f.content.querySelector("[data-workspace-message]")?.texts()).toContain("incomplete");
     await f.view.onClose();
   });
