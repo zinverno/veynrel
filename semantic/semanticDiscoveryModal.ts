@@ -22,6 +22,7 @@ export interface SemanticDiscoveryModalDelegate {
 function renderMatches(
   container: HTMLElement,
   matches: readonly SemanticChunkMatch[],
+  collapsible = false,
 ): void {
   for (const match of matches) {
     const fragment = container.createDiv({
@@ -35,7 +36,14 @@ function renderMatches(
       });
     }
     if (match.preview) {
-      fragment.createDiv({
+      let target: HTMLElement = fragment;
+      if (collapsible && match.preview.length > 240) {
+        const details = fragment.createEl("details");
+        const end = /[\uD800-\uDBFF]/.test(match.preview[239]) ? 239 : 240;
+        details.createEl("summary", { text: `${match.preview.slice(0, end)}…`, attr: { "aria-label": tr("@ux.expandFragment") } });
+        target = details;
+      }
+      target.createDiv({
         cls: "ai-semantic-result-preview",
         text: match.preview,
       });
@@ -212,6 +220,7 @@ export class SemanticDuplicatesModal extends Modal {
 
   onOpen(): void {
     this.openState = true;
+    this.modalEl.addClass("ai-semantic-duplicates-modal");
     this.titleEl.setText(tr("Сильно похожие заметки"));
     this.contentEl.empty();
     this.contentEl.addClass(
@@ -299,12 +308,13 @@ export class SemanticDuplicatesModal extends Modal {
         pair.rightPath,
         pair.rightMatches,
       );
+      const actions = card.createDiv({ cls: "ai-consolidation-actions" });
       if (this.delegate.assessOverlap) {
-        const assess = card.createEl("button", { text: tr("@decisions.title"), attr: { type: "button" } });
+        const assess = actions.createEl("button", { text: tr("@decisions.title"), attr: { type: "button" } });
         assess.addEventListener("click", () => this.delegate.assessOverlap?.(pair));
       }
       if (this.delegate.inspectPair) {
-        const inspect = card.createEl("button", { text: tr("@consolidation.inspect"), attr: { type: "button" } });
+        const inspect = actions.createEl("button", { text: tr("@consolidation.inspect"), attr: { type: "button" } });
         inspect.addEventListener("click", () => this.delegate.inspectPair?.(pair));
       }
     }
@@ -317,19 +327,15 @@ export class SemanticDuplicatesModal extends Modal {
   ): void {
     const note = container.createDiv({
       cls: "ai-semantic-duplicate-note",
-      attr: {
-        role: "button",
-        tabindex: "0",
-        "aria-label": tr("Открыть заметку {path}", { path }),
-      },
     });
-    note.createDiv({
+    const title = note.createDiv({
       cls: "ai-semantic-result-title",
       text: semanticBasename(path),
+      attr: { role: "button", tabindex: "0", "aria-label": tr("Открыть заметку {path}", { path }) },
     });
     note.createDiv({ cls: "ai-semantic-result-path", text: path });
-    renderMatches(note, matches);
-    makeInteractive(note, () => {
+    renderMatches(note, matches, true);
+    makeInteractive(title, () => {
       void openDiscoveryResult(this.app, path, matches[0], () => this.close());
     });
   }

@@ -39,11 +39,8 @@ export class PairInspectorModal extends Modal {
     this.contentEl.empty();
     this.contentEl.addClass("ai-pair-inspector");
     workflowStep(this.contentEl, "pair");
-    const pair = this.contentEl.createEl("ul", { cls: "ai-consolidation-pair" });
-    this.paths.forEach((path, i) => pair.createEl("li", { text: `${i === 0 ? "A" : "B"}: ${path}` }));
-    this.contentEl.createEl("p", { text: tr("@consolidation.scope") });
-    this.contentEl.createEl("p", { text: tr("@consolidation.sourceScope") });
-    const controls = this.contentEl.createDiv({ cls: "ai-semantic-search-controls" });
+    this.contentEl.createEl("p", { text: tr("@ux.pairScope") });
+    const controls = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-pair-actions" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
     if (this.safeApply) {
       const history = controls.createEl("button", { text: tr("@safeApply.history"), attr: { type: "button", "data-safe-action": "history" } });
@@ -62,7 +59,10 @@ export class PairInspectorModal extends Modal {
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
             renderRelationshipView(analysis, this.relationship);
-            if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) focusStatus(analysis);
+            if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) {
+              focusStatus(analysis);
+              analysis.scrollIntoView({ block: "start" });
+            }
             if (this.relationship.view.result) {
               const prepare = analysis.createEl("button", { text: tr("@planner.prepare"), attr: { type: "button", "data-planner-action": "open" } });
               prepare.addEventListener("click", () => {
@@ -108,8 +108,12 @@ export class PairInspectorModal extends Modal {
         void this.relationship.prepare();
       });
     }
-    const status = this.contentEl.createDiv({ attr: { role: "status", "aria-live": "polite" } });
+    const status = this.contentEl.createDiv({ cls: "ai-pair-status", attr: { role: "status", "aria-live": "polite" } });
     const notes = this.contentEl.createDiv({ cls: "ai-pair-notes" });
+    const limits = this.contentEl.createEl("details", { cls: "ai-consolidation-diagnostics" });
+    limits.createEl("summary", { text: tr("@ux.pairDetails") });
+    limits.createEl("p", { text: tr("@consolidation.scope") });
+    limits.createEl("p", { text: tr("@consolidation.sourceScope") });
     const invalidate = () => {
       if (!this.openState) return;
       this.generation++;
@@ -174,17 +178,18 @@ export class PairInspectorModal extends Modal {
     } });
     open.addEventListener("click", () => { void openDiscoveryResult(this.app, note.path, undefined, () => {}); });
     card.createEl("p", { text: tr("@consolidation.size", { bytes: note.bytes!, characters: note.characters! }) });
-    card.createEl("p", { text: tr("@consolidation.modified", { time: new Date(note.modified!).toLocaleString(dateLocale()) }) });
     const source = card.createEl("details"); source.createEl("summary", { text: tr("@consolidation.source") });
     if (note.preview!.length < note.characters!) card.createEl("p", { text: tr("@consolidation.truncated", { shown: note.preview!.length, total: note.characters! }) });
     if (note.characters === 0) card.createEl("p", { text: tr("@consolidation.empty") });
     source.createEl("pre", { cls: "ai-pair-source", text: note.preview, attr: { tabindex: "0", "aria-label": tr("@consolidation.source") } });
-    card.createEl("h4", { text: tr("@consolidation.metadata") });
-    card.createEl("p", { text: tr("@consolidation.cacheScope") });
+    const metadata = card.createEl("details");
+    metadata.createEl("summary", { text: tr("@consolidation.metadata") });
+    metadata.createEl("p", { text: tr("@consolidation.modified", { time: new Date(note.modified!).toLocaleString(dateLocale()) }) });
+    metadata.createEl("p", { text: tr("@consolidation.cacheScope") });
     if (note.metadata) {
-      for (const [key, values] of Object.entries(note.metadata)) this.renderList(card, key, values);
-    } else card.createEl("p", { text: tr("@consolidation.unavailable") });
-    this.renderList(card, "incoming", note.incoming);
+      for (const [key, values] of Object.entries(note.metadata)) this.renderList(metadata, key, values);
+    } else metadata.createEl("p", { text: tr("@consolidation.unavailable") });
+    this.renderList(metadata, "incoming", note.incoming);
   }
 
   private renderList(card: HTMLElement, key: string, values?: InspectorList): void {

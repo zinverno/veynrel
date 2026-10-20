@@ -77,8 +77,9 @@ export class JournalResolutionModal extends Modal {
       diagnostics(this.contentEl, review.row);
       this.contentEl.createEl("p", { text: tr("@journal.warning") });
       preview(this.contentEl, r.before, r.after);
-      button(this.contentEl, "resolveConfirm", () => { if (!this.busy) this.pending = this.commit(); });
-      button(this.contentEl, "cancel", () => this.close());
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      button(actions, "resolveConfirm", () => { if (!this.busy) this.pending = this.commit(); });
+      button(actions, "cancel", () => this.close());
     } catch (error) { this.error(error); }
   }
   private error(error: unknown): void {
@@ -132,8 +133,9 @@ export class SafeApplyModal extends Modal {
       reviewSummary(this.contentEl, [review.sourcePath], this.context?.sourcePath === review.sourcePath ? [this.context.targetPath] : [], this.undo);
       this.contentEl.createEl("p", { text: tr("@safeApply.warning") });
       preview(this.contentEl, this.undo ? review.after : review.before, this.undo ? review.before : review.after);
-      button(this.contentEl, this.undo ? "undoConfirm" : "confirm", () => { if (!this.busy) this.pending = this.commit(); });
-      button(this.contentEl, "cancel", () => this.close());
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      button(actions, this.undo ? "undoConfirm" : "confirm", () => { if (!this.busy) this.pending = this.commit(); });
+      button(actions, "cancel", () => this.close());
       focusStatus(this.contentEl);
     } catch (error) { this.showError(error); }
   }

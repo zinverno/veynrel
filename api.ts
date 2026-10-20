@@ -130,20 +130,20 @@ function parseJson(text: string): unknown {
   try {
     return JSON.parse(text) as unknown;
   } catch {
-    throw new Error(tr("API вернул некорректный JSON."));
+    throw new ApiRequestError("invalidEnvelope", tr("API вернул некорректный JSON."));
   }
 }
 
 function parseOpenRouterResponse(text: string): OpenRouterResponse {
   const payload = parseJson(text);
   if (!isObject(payload)) {
-    throw new Error(tr("API вернул ответ неверного формата."));
+    throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
   }
 
   let error: OpenRouterResponse["error"];
   if (payload.error !== undefined) {
     if (!isObject(payload.error)) {
-      throw new Error(tr("API вернул ответ неверного формата."));
+      throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
     }
     error = {
       code:
@@ -156,29 +156,29 @@ function parseOpenRouterResponse(text: string): OpenRouterResponse {
   let choices: OpenRouterChoice[] | undefined;
   if (payload.choices !== undefined) {
     if (!Array.isArray(payload.choices)) {
-      throw new Error(tr("API вернул ответ неверного формата."));
+      throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
     }
     choices = payload.choices.map((rawChoice) => {
       if (!isObject(rawChoice)) {
-        throw new Error(tr("API вернул ответ неверного формата."));
+        throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
       }
       const choice: OpenRouterChoice = {};
       if (rawChoice.message !== undefined) {
         if (!isObject(rawChoice.message)) {
-          throw new Error(tr("API вернул ответ неверного формата."));
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
         }
         if (typeof rawChoice.message.content !== "string") {
-          throw new Error(tr("API вернул ответ неверного формата."));
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
         }
         choice.message = { content: rawChoice.message.content };
       }
       if (rawChoice.delta !== undefined) {
         if (!isObject(rawChoice.delta)) {
-          throw new Error(tr("API вернул ответ неверного формата."));
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
         }
         if (rawChoice.delta.content !== undefined) {
           if (typeof rawChoice.delta.content !== "string") {
-            throw new Error(tr("API вернул ответ неверного формата."));
+            throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
           }
           choice.delta = { content: rawChoice.delta.content };
         }
@@ -245,7 +245,7 @@ async function requestBuffered(
     ) {
       throw error;
     }
-    throw new Error(tr("Не удалось подключиться к API."));
+    throw new ApiRequestError("network", tr("Не удалось подключиться к API."));
   } finally {
     if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     if (onAbort) signal?.removeEventListener("abort", onAbort);
@@ -253,7 +253,7 @@ async function requestBuffered(
 }
 
 function httpError(status: number): Error {
-  return new Error(tr("API вернул HTTP {code}.", { code: status }));
+  return new ApiRequestError("http", tr("API вернул HTTP {code}.", { code: status }), status);
 }
 
 function parseOllamaModelNames(text: string): string[] {
@@ -279,6 +279,16 @@ export interface CallOptions {
   repetitionPenalty?: number;
   frequencyPenalty?: number;
   signal?: AbortSignal;
+  /** Buffered requests only; stopping the wait cannot cancel requestUrl. */
+  timeoutMs?: number;
+}
+
+/** Only safe categories and numeric status cross the transport boundary. */
+export class ApiRequestError extends Error {
+  constructor(readonly reason: "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope", message: string, readonly status?: number) {
+    super(message);
+    this.name = "ApiRequestError";
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -310,7 +320,7 @@ export async function callOpenRouter(
       headers,
       body: JSON.stringify(body),
     },
-    API_TIMEOUT_MS,
+    Number.isFinite(opts.timeoutMs) && opts.timeoutMs! > 0 ? opts.timeoutMs! : API_TIMEOUT_MS,
     opts.signal,
   );
 
@@ -319,7 +329,7 @@ export async function callOpenRouter(
   const json = parseOpenRouterResponse(res.text);
 
   if (json.error) {
-    throw new Error(
+    throw new ApiRequestError("provider",
       json.error.code === undefined
         ? tr("API вернул ошибку.")
         : tr("API вернул ошибку с кодом {code}.", {
@@ -330,7 +340,7 @@ export async function callOpenRouter(
 
   const content = json.choices?.[0]?.message?.content;
   if (content === undefined || !content.trim()) {
-    throw new Error(tr("API вернул ответ неверного формата."));
+    throw new ApiRequestError("emptyResponse", tr("API вернул ответ неверного формата."));
   }
   return content;
 }

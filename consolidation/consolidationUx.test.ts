@@ -51,6 +51,8 @@ vi.mock("obsidian", async () => {
 });
 
 import { setLanguage } from "../i18n";
+import { renderRelationshipView } from "./relationshipView";
+import type { RelationshipSession } from "./relationshipSession";
 import { renderActionChoice } from "./consolidationActions";
 import { groupHistory, renderConsolidationHistory } from "./consolidationHistory";
 import type { HistoryPresentation } from "./consolidationHistory";
@@ -83,6 +85,23 @@ function appEvents(app = {} as Record<string, unknown>) {
 }
 const text = (e: Element) => e.all().map(n => n.text).join("\n");
 const action = (e: Element, attribute: string, value: string) => e.querySelector(`[${attribute}="${value}"]`);
+
+it.each(["ru", "en"] as const)("%s keeps exact consent private, collapsed and separately actionable", language => {
+  setLanguage(language);
+  const node = new dom.Element(), confirm = vi.fn(), cancel = vi.fn();
+  const session = { view: { stage: "consent", consent: { provider: "Synthetic", model: "offline", endpoint: "https://example.test/v1/chat/completions",
+    paths: ["A.md", "B.md"], characters: [12, 13], bytes: 99, body: '{"exact":"source"}' } }, confirm, cancel } as unknown as RelationshipSession;
+  renderRelationshipView(element(node), session);
+  expect(confirm).not.toHaveBeenCalled();
+  expect(node.querySelectorAll("details").every(e => !e.open && !Object.prototype.hasOwnProperty.call(e.attrs, "open"))).toBe(true);
+  expect(node.querySelector("pre")?.text).toBe(session.view.consent!.body);
+  expect(text(node)).toContain(session.view.consent!.endpoint);
+  expect(text(node)).not.toMatch(/@relationship\.|@ux\./);
+  const send = action(node, "data-relationship-action", "confirm")!;
+  expect(send.parentElement?.cls).toContain("ai-relationship-actions");
+  expect(send.parentElement).toBe(action(node, "data-relationship-action", "cancel")?.parentElement);
+  send.click(); expect(confirm).toHaveBeenCalledOnce();
+});
 
 describe("consolidation action choices", () => {
   it.each(["ru", "en"] as const)("%s groups existing actions, keeps no selection and exposes a real embed refusal", language => {

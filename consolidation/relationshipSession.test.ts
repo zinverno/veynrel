@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { TFile } from "obsidian";
 vi.mock("obsidian", () => ({ getLanguage: () => "en", requestUrl: vi.fn(), TFile: class {} }));
 import { requestUrl } from "obsidian";
-import { callOpenRouter } from "../api";
+import { ApiRequestError, callOpenRouter } from "../api";
 import cases from "../tests/fixtures/relationships.json";
 import { RelationshipSession } from "./relationshipSession";
 import type { RelationshipPair } from "./relationshipSession";
@@ -26,7 +26,7 @@ function fixture(name = "near_duplicates") {
     replace: (a: string, b: string) => { pair = [{ ...pair[0], content: a }, { ...pair[1], content: b }]; } };
 }
 function deferred<T>() { let resolve!: (v: T) => void; const promise = new Promise<T>(r => { resolve = r; }); return { promise, resolve }; }
-afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
+afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
 describe("relationship consent and lifecycle", () => {
   it("does no reads or requests at construction; preparation is local and discloses exact payload without the key", async () => {
@@ -131,5 +131,40 @@ describe("relationship consent and lifecycle", () => {
   it.each(["https://secret:password@example.test/v1", "https://example.test/v1?key=secret", "file:///private"])("refuses unsafe destination disclosure %s", async baseUrl => {
     const f = fixture(); f.settings.baseUrl = baseUrl; await f.session.prepare();
     expect(f.session.view).toEqual({ stage: "error", error: "configuration" }); expect(f.deps.read).not.toHaveBeenCalled();
+  });
+});
+
+describe("Relationship Analyzer transport diagnostics", () => {
+  it("accepts a complete response at 38.6 seconds with the call-specific limit, once", async () => {
+    vi.useFakeTimers(); vi.stubGlobal("window", { setTimeout, clearTimeout });
+    const f = fixture(), pending = deferred<never>();
+    vi.mocked(requestUrl).mockReturnValueOnce(pending.promise as never);
+    f.deps.complete.mockImplementation((settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }));
+    await f.session.prepare(); const run = f.session.confirm();
+    await vi.advanceTimersByTimeAsync(38_600);
+    expect(f.session.view.stage).toBe("running");
+    pending.resolve({ status: 200, text: JSON.stringify({ choices: [{ message: { content: JSON.stringify(f.item.response) } }] }) } as never);
+    await run; expect(f.session.view.stage).toBe("result"); expect(requestUrl).toHaveBeenCalledOnce();
+  });
+  it("stops at 120 seconds, suppresses late results, and never reuses consent", async () => {
+    vi.useFakeTimers(); vi.stubGlobal("window", { setTimeout, clearTimeout });
+    const f = fixture(), pending = deferred<never>();
+    vi.mocked(requestUrl).mockReturnValueOnce(pending.promise as never);
+    f.deps.complete.mockImplementation((settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }));
+    await f.session.prepare(); const run = f.session.confirm();
+    await vi.advanceTimersByTimeAsync(119_999); expect(f.session.view.stage).toBe("running");
+    await vi.advanceTimersByTimeAsync(1); await run;
+    expect(f.session.view).toEqual({ stage: "error", error: "timeout" });
+    pending.resolve({ status: 200, text: "private late response" } as never);
+    await Promise.resolve(); await f.session.confirm();
+    expect(f.session.view.result).toBeUndefined(); expect(requestUrl).toHaveBeenCalledOnce();
+  });
+  it.each(["network", "http", "provider", "emptyResponse", "invalidEnvelope"] as const)("exposes safe %s diagnostics only", async reason => {
+    const f = fixture(); await f.session.prepare();
+    f.deps.complete.mockRejectedValue(new ApiRequestError(reason, "Bearer private-token and provider personal data", reason === "http" ? 503 : undefined));
+    await f.session.confirm(); await f.session.confirm();
+    expect(f.session.view.error).toBe(reason); expect(f.deps.complete).toHaveBeenCalledOnce();
+    expect(JSON.stringify(f.session.view)).not.toMatch(/private|personal|Bearer/);
+    expect(f.session.view.httpStatus).toBe(reason === "http" ? 503 : undefined);
   });
 });

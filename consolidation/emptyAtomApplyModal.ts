@@ -43,8 +43,9 @@ export class EmptyAtomApplyModal extends Modal {
       if(!this.active||!this.valid){this.service.discard(review);return;}
       this.review=review;this.contentEl.empty();this.titleEl.setText(tr(review.action==="undo"?"@emptyAtom.undoReview":"@emptyAtom.review"));
       preview(this.contentEl,review.record,review.action==="undo");this.contentEl.createEl("p",{text:tr("@emptyAtom.closeScope")});
-      button(this.contentEl,"confirm",()=>{if(!this.busy)this.pending=this.commit();}).setText(tr(review.action==="undo"?"@emptyAtom.undoConfirm":"@emptyAtom.confirm"));
-      button(this.contentEl,"cancel",()=>this.close());focusStatus(this.contentEl);
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      button(actions,"confirm",()=>{if(!this.busy)this.pending=this.commit();}).setText(tr(review.action==="undo"?"@emptyAtom.undoConfirm":"@emptyAtom.confirm"));
+      button(actions,"cancel",()=>this.close());focusStatus(this.contentEl);
     }catch(e){this.error(e);}
   }
   private error(e:unknown):void{

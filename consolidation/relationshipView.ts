@@ -8,38 +8,48 @@ import { workflowStep } from "./consolidationUx";
 export function renderRelationshipView(container: HTMLElement, session: RelationshipSession): void {
   container.empty();
   const view = session.view;
-  workflowStep(container, "analysis");
-  container.createEl("h3", { text: tr("@relationship.title") });
-  container.createDiv({ text: tr(view.stage === "error" ? `@relationship.error.${view.error}` : `@relationship.stage.${view.stage}`),
+  const body = container.createDiv({ cls: "ai-relationship-body" });
+  const actions = container.createDiv({ cls: "ai-consolidation-actions ai-relationship-actions" });
+  workflowStep(body, "analysis");
+  body.createEl("h3", { text: tr("@relationship.title") });
+  body.createDiv({ text: tr(view.stage === "error" ? `@relationship.error.${view.error}` : `@relationship.stage.${view.stage}`),
     attr: { role: "status", "aria-live": "polite", "data-relationship-stage": view.stage } });
   const button = (key: string, action: () => void) => {
-    const control = container.createEl("button", { text: tr(`@relationship.${key}`), attr: { type: "button", "data-relationship-action": key } });
+    const control = actions.createEl("button", { text: tr(`@relationship.${key}`), attr: { type: "button", "data-relationship-action": key } });
     control.addEventListener("click", action);
   };
-  if (["preparing", "consent", "running"].includes(view.stage)) button("cancel", () => session.cancel());
-  if (view.stage === "running" || view.stage === "cancelled") container.createEl("p", { text: tr("@relationship.cancelScope") });
+
+  if (view.stage === "running" || view.stage === "cancelled") body.createEl("p", { text: tr("@relationship.cancelScope") });
   if (view.consent) {
     const preview = view.consent;
-    container.createEl("p", { text: tr("@relationship.destination", { provider: preview.provider, model: preview.model, endpoint: preview.endpoint }) });
-    container.createEl("p", { text: `A: ${preview.paths[0]}\nB: ${preview.paths[1]}`, cls: "ai-relationship-paths" });
-    container.createEl("p", { text: tr("@relationship.volume", { a: preview.characters[0], b: preview.characters[1], bytes: preview.bytes }) });
-    container.createEl("p", { text: tr("@relationship.privacy") });
-    container.createEl("p", { text: tr("@relationship.fullInput") });
-    const payload = container.createEl("details", { attr: { open: "" } });
+    body.createEl("p", { text: tr("@relationship.destination", { provider: preview.provider, model: preview.model }) });
+    body.createEl("p", { text: `A: ${preview.paths[0]}\nB: ${preview.paths[1]}`, cls: "ai-relationship-paths" });
+    body.createEl("p", { text: tr("@relationship.volume", { a: preview.characters[0], b: preview.characters[1], bytes: preview.bytes }) });
+    body.createEl("p", { text: tr("@relationship.privacy") });
+    const payload = body.createEl("details");
     payload.createEl("summary", { text: tr("@relationship.payload") });
+    payload.createEl("p", { text: preview.endpoint, cls: "ai-relationship-paths" });
+    payload.createEl("p", { text: tr("@relationship.fullInput") });
     payload.createEl("pre", { text: preview.body, cls: "ai-pair-source", attr: { tabindex: "0", "aria-label": tr("@relationship.payload") } });
     button("confirm", () => { void session.confirm(); });
   }
-  if (view.error === "tooLarge") container.createEl("p", { text: tr("@relationship.limits", {
+  if (["preparing", "consent", "running"].includes(view.stage)) button("cancel", () => session.cancel());
+  if (view.error) {
+    const diagnostic = body.createEl("details", { cls: "ai-consolidation-diagnostics" });
+    diagnostic.createEl("summary", { text: tr("@ux.diagnostics") });
+    diagnostic.createEl("p", { text: view.error + (view.httpStatus === undefined ? "" : ` · HTTP ${view.httpStatus}`) });
+    if (!["source", "tooLarge", "configuration"].includes(view.error)) body.createEl("p", { text: tr("@relationship.billingUnknown") });
+  }
+  if (view.error === "tooLarge") body.createEl("p", { text: tr("@relationship.limits", {
     note: RELATIONSHIP_LIMITS.noteCharacters, pair: RELATIONSHIP_LIMITS.pairCharacters, bytes: RELATIONSHIP_LIMITS.requestBytes,
   }) });
   if (!view.result) return;
   const result = view.result;
-  container.createEl("p", { text: tr("@relationship.provisional"), cls: "ai-semantic-duplicate-disclaimer" });
-  container.createEl("h4", { text: tr(`@relationship.relation.${result.relation}`) });
-  container.createEl("p", { text: result.explanation.text });
-  container.createEl("p", { text: tr("@relationship.references", { ids: result.explanation.evidence.join(", ") || "—" }) });
-  const evidence = container.createEl("details");
+  body.createEl("p", { text: tr("@relationship.provisional"), cls: "ai-semantic-duplicate-disclaimer" });
+  body.createEl("h4", { text: tr(`@relationship.relation.${result.relation}`) });
+  body.createEl("p", { text: result.explanation.text });
+  body.createEl("p", { text: tr("@relationship.references", { ids: result.explanation.evidence.join(", ") || "—" }) });
+  const evidence = body.createEl("details");
   evidence.createEl("summary", { text: tr("@relationship.evidence") });
   evidence.createEl("p", { text: tr("@relationship.evidenceScope") });
   if (!result.claims.length) evidence.createEl("p", { text: tr("@relationship.noEvidence") });
@@ -58,17 +68,17 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   if (!unique.length) evidence.createEl("p", { text: tr("@relationship.noUnique") });
   for (const claim of unique) evidence.createEl("p", { text: `${claim.id}: ${claim.text}` });
   const recommend = (item: RelationshipRecommendation) => {
-    container.createEl("h5", { text: tr(`@relationship.action.${item.action}`) });
-    container.createEl("p", { text: item.reason });
-    container.createEl("p", { text: tr("@relationship.references", { ids: item.evidence.join(", ") || "—" }) });
+    body.createEl("h5", { text: tr(`@relationship.action.${item.action}`) });
+    body.createEl("p", { text: item.reason });
+    body.createEl("p", { text: tr("@relationship.references", { ids: item.evidence.join(", ") || "—" }) });
   };
-  container.createEl("h4", { text: tr("@relationship.recommendation") }); recommend(result.recommendation);
+  body.createEl("h4", { text: tr("@relationship.recommendation") }); recommend(result.recommendation);
   if (result.alternatives.length) {
-    container.createEl("h4", { text: tr("@relationship.alternatives") });
+    body.createEl("h4", { text: tr("@relationship.alternatives") });
     for (const item of result.alternatives) recommend(item);
   }
-  container.createEl("h4", { text: tr("@relationship.limitations") });
-  container.createEl("p", { text: tr("@relationship.coverage") });
-  for (const limitation of result.limitations) container.createEl("p", { text: limitation });
+  body.createEl("h4", { text: tr("@relationship.limitations") });
+  body.createEl("p", { text: tr("@relationship.coverage") });
+  for (const limitation of result.limitations) body.createEl("p", { text: limitation });
   button("dismiss", () => session.dismiss());
 }

@@ -66,8 +66,9 @@ export class ArchiveApplyModal extends Modal {
       if (!this.active || !this.lifetime?.current()) { this.service.discard(r); return; }
       this.review = r; this.contentEl.empty(); this.titleEl.setText(tr(r.action === "undo" ? "@archiveApply.undoReview" : "@archiveApply.review"));
       preview(this.contentEl, r.record, r.action === "undo"); this.contentEl.createEl("p", { text: tr("@archiveApply.closeScope") });
-      button(this.contentEl, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(r.action === "undo" ? "@archiveApply.undoConfirm" : "@archiveApply.confirm"));
-      button(this.contentEl, "cancel", () => this.close()); focusStatus(this.contentEl);
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      button(actions, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(r.action === "undo" ? "@archiveApply.undoConfirm" : "@archiveApply.confirm"));
+      button(actions, "cancel", () => this.close()); focusStatus(this.contentEl);
     } catch (e) { this.error(e); }
   }
   private error(e: unknown): void {

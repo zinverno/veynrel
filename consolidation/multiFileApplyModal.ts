@@ -53,8 +53,9 @@ export class MultiFileApplyModal extends Modal {
       this.contentEl.createEl("p", { text: tr("@multiSafe.warning") });
       this.contentEl.createEl("p", { text: tr("@multiSafe.closeScope") });
       preview(this.contentEl, review.record, review.action);
-      control(this.contentEl, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(`@multiSafe.confirm.${review.action}`));
-      control(this.contentEl, "cancel", () => this.close()); focusStatus(this.contentEl);
+      const actions = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-review-actions" });
+      control(actions, "confirm", () => { if (!this.busy) this.pending = this.commit(); }).setText(tr(`@multiSafe.confirm.${review.action}`));
+      control(actions, "cancel", () => this.close()); focusStatus(this.contentEl);
     } catch (e) { this.error(e); }
   }
   private error(error: unknown): void {
