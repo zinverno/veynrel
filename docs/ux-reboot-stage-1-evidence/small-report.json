@@ -1,0 +1,190 @@
+{
+  "status": "PASS",
+  "mode": "small",
+  "checks": [
+    "Real native home; one sidebar and no old primary rail",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "ru/dark/1484 no horizontal overflow or untranslated keys",
+    "ru/dark/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "ru/light/1484 no horizontal overflow or untranslated keys",
+    "ru/light/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "en/dark/1484 no horizontal overflow or untranslated keys",
+    "en/dark/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "en/light/1484 no horizontal overflow or untranslated keys",
+    "en/light/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "Folder list includes descendants and excludes SQL-old",
+    "Folder does not expose unacknowledged global actions",
+    "Folder context survives routes",
+    "Rare long folder is visible and named literally",
+    "Long names fit at 390 px",
+    "Empty folder has an honest empty local list",
+    "Selection and rendering do not enumerate the vault again",
+    "Reduced motion disables the geometry animation",
+    "Navigation and scope selection remain zero-read/write/network",
+    "Route health",
+    "Route process",
+    "Route recall",
+    "Route tools",
+    "Route settings",
+    "Route history",
+    "Route discover",
+    "Health Findings entry",
+    "Settings retains Companion/MCP",
+    "Audit entry reaches the existing mode selector without a request",
+    "Process reaches existing batch filters and preview",
+    "History delegates to existing journal owner",
+    "Renaming an ancestor invalidates selection, never selects All",
+    "Deleted folder remains an explicit missing scope",
+    "Local list opens the exact source path",
+    "Two native views have independent scope",
+    "Wide-window split uses the pane-width menu without overflow",
+    "Hidden view stops decorative animation",
+    "Popout owns its DOM and scope",
+    "Popout SVG uses no shared document IDs",
+    "Close disposes scope subscriptions/observer; reopening starts on All"
+  ],
+  "metrics": {
+    "openMs": 425.744729,
+    "switchMs": [
+      7.300000004470348,
+      6.899999998509884,
+      6.899999998509884,
+      7.200000002980232,
+      6.799999997019768,
+      7,
+      6.899999998509884,
+      6.600000001490116,
+      7.5,
+      7.100000001490116,
+      7.299999997019768,
+      6.600000001490116,
+      6.799999997019768,
+      6.5,
+      6.800000004470348,
+      6.899999998509884,
+      6.399999998509884,
+      7.5,
+      6.799999997019768,
+      7.200000002980232
+    ],
+    "switchThroughFrameMs": [
+      29.435072999999647,
+      34.149231999999756,
+      33.257690999999795,
+      32.52606199999991,
+      34.0258300000005
+    ],
+    "idle-true": {
+      "intervalMs": 1500,
+      "taskDurationSeconds": 0.007141
+    },
+    "idle-false": {
+      "intervalMs": 1500,
+      "taskDurationSeconds": 0.0008640000000000002
+    }
+  },
+  "screenshots": [
+    {
+      "file": "home-ru-dark-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-ru-dark-434.png",
+      "width": 390,
+      "height": 1720.859375
+    },
+    {
+      "file": "home-ru-light-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-ru-light-434.png",
+      "width": 390,
+      "height": 1720.859375
+    },
+    {
+      "file": "home-en-dark-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-en-dark-434.png",
+      "width": 390,
+      "height": 1720.859375
+    },
+    {
+      "file": "home-en-light-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-en-light-434.png",
+      "width": 390,
+      "height": 1720.859375
+    },
+    {
+      "file": "home-folder-ru.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-long-folder-390.png",
+      "width": 390,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-wide-window-split.png",
+      "width": 720,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-popout.png",
+      "nativePopout": true
+    }
+  ],
+  "artifact": {
+    "main.js": "32f0f76519ee4f6d65c05022b37effa9d5a46b6bda4bc12c234f4467ece56055",
+    "styles.css": "992bb54a25923867bc099ed2a2d925f62a7c9627719a617ff06ef63ec9ffea22",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "markdownBefore": {
+    "A/Same/One.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "B/Same/Two.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "Root.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "SQL-old/Other.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "SQL/One.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "SQL/nested/Two.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "日本語 — очень длинное название папки с пробелами и [скобками]/Note.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b"
+  },
+  "markdownAfter": {
+    "A/Same/One.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "B/Same/Two.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "Root.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "SQL-old/Other.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "SQL/One.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "SQL/nested/Two.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b",
+    "日本語 — очень длинное название папки с пробелами и [скобками]/Note.md": "57634d5301ba31b4f3160b80756150d49ee1ebe8ba5e057df6165734e294658b"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "io": {
+    "reads": 6,
+    "writes": 2,
+    "network": 0,
+    "enumerations": 12
+  },
+  "limits": "Linux desktop. Narrow viewport is not physical mobile. No provider/model quality or screen-reader speech claim. Idle intervals and opening timings are observations, not a benchmark."
+}

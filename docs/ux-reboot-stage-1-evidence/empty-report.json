@@ -1,0 +1,155 @@
+{
+  "status": "PASS",
+  "mode": "empty",
+  "checks": [
+    "Real native home; one sidebar and no old primary rail",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "ru/dark/1484 no horizontal overflow or untranslated keys",
+    "ru/dark/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "ru/light/1484 no horizontal overflow or untranslated keys",
+    "ru/light/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "en/dark/1484 no horizontal overflow or untranslated keys",
+    "en/dark/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "en/light/1484 no horizontal overflow or untranslated keys",
+    "en/light/434 no horizontal overflow or untranslated keys",
+    "Narrow menu is visible and expanded",
+    "Escape closes menu and returns focus",
+    "Selection and rendering do not enumerate the vault again",
+    "Reduced motion disables the geometry animation",
+    "Navigation and scope selection remain zero-read/write/network",
+    "Route health",
+    "Route process",
+    "Route recall",
+    "Route tools",
+    "Route settings",
+    "Route history",
+    "Route discover",
+    "Health Findings entry",
+    "Settings retains Companion/MCP",
+    "Audit entry reaches the existing mode selector without a request",
+    "Process reaches existing batch filters and preview",
+    "History delegates to existing journal owner",
+    "Two native views have independent scope",
+    "Wide-window split uses the pane-width menu without overflow",
+    "Hidden view stops decorative animation",
+    "Popout owns its DOM and scope",
+    "Popout SVG uses no shared document IDs",
+    "Close disposes scope subscriptions/observer; reopening starts on All"
+  ],
+  "metrics": {
+    "openMs": 266.7883790000001,
+    "switchMs": [
+      7.600000001490116,
+      6.399999998509884,
+      6.199999995529652,
+      5.200000002980232,
+      5.799999997019768,
+      5.5,
+      5.300000004470348,
+      5.5,
+      5.699999995529652,
+      5.200000002980232,
+      5.299999997019768,
+      5.700000002980232,
+      5.100000001490116,
+      5.299999997019768,
+      5.5,
+      5.100000001490116,
+      5.299999997019768,
+      5.800000004470348,
+      5.399999998509884,
+      5.199999995529652
+    ],
+    "switchThroughFrameMs": [
+      35.61793200000011,
+      33.96960300000046,
+      33.1466019999998,
+      33.034270000000106,
+      33.598713999999745
+    ],
+    "idle-true": {
+      "intervalMs": 1500,
+      "taskDurationSeconds": 0.014171
+    },
+    "idle-false": {
+      "intervalMs": 1500,
+      "taskDurationSeconds": 0.006142000000000002
+    }
+  },
+  "screenshots": [
+    {
+      "file": "home-ru-dark-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-ru-dark-434.png",
+      "width": 390,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-ru-light-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-ru-light-434.png",
+      "width": 390,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-en-dark-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-en-dark-434.png",
+      "width": 390,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-en-light-1484.png",
+      "width": 1440,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-en-light-434.png",
+      "width": 390,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-wide-window-split.png",
+      "width": 720,
+      "height": 1001.453125
+    },
+    {
+      "file": "home-popout.png",
+      "nativePopout": true
+    }
+  ],
+  "artifact": {
+    "main.js": "32f0f76519ee4f6d65c05022b37effa9d5a46b6bda4bc12c234f4467ece56055",
+    "styles.css": "992bb54a25923867bc099ed2a2d925f62a7c9627719a617ff06ef63ec9ffea22",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282"
+  },
+  "markdownBefore": {},
+  "markdownAfter": {},
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "io": {
+    "reads": 0,
+    "writes": 0,
+    "network": 0,
+    "enumerations": 7
+  },
+  "limits": "Linux desktop. Narrow viewport is not physical mobile. No provider/model quality or screen-reader speech claim. Idle intervals and opening timings are observations, not a benchmark."
+}
