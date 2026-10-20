@@ -5,8 +5,8 @@ import type { VeynrelHealthRoute } from "../ui/findingsInboxViewModel";
 import type { VaultScopeIndex } from "./vaultScope";
 
 export function workspaceSection(page: VeynrelHealthRoute["page"]): string {
-  if (["health", "findings", "topology"].includes(page)) return "check";
-  if (["discover", "semantic-neighborhood", "semantic-map", "connection-opportunities"].includes(page)) return "map";
+  if (["health", "findings"].includes(page)) return "check";
+  if (["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities"].includes(page)) return "map";
   return page === "connect" ? "settings" : page;
 }
 

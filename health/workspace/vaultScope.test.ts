@@ -17,7 +17,7 @@ describe("view-local metadata scopes", () => {
     const folders = Array.from({ length: count }, (_, i) => `Area ${i}`);
     const model = scopeSnapshot(folders.map(path => `${path}/Note.md`), folders.reverse());
     expect(model.folders).toHaveLength(count);
-    expect(model.folders.slice(0, 6)).toHaveLength(Math.min(count, 6));
+    expect(sceneFolders(model, { kind: "all" })).toHaveLength(Math.min(count, 6));
     expect(model.folders.every(folder => folder.count === 1)).toBe(true);
     expect(model).toEqual(scopeSnapshot([...model.paths].reverse(), [...folders].reverse()));
   });
@@ -27,6 +27,22 @@ describe("view-local metadata scopes", () => {
     expect(scene).toHaveLength(6);
     expect(scene[5].path).toBe("Folder 9");
     expect(scene.slice(0, 5)).toEqual(snapshot.folders.slice(0, 5));
+  });
+  it("shows top-level folders even when one diary has hundreds of nested paths", () => {
+    const roots = ["Diary", "Projects", "Reading", "Research", "Work", "Z Empty", "Z More"];
+    const nested = Array.from({ length: 300 }, (_, i) => `Diary/2026/${i}`);
+    const snapshot = scopeSnapshot(["Diary/2026/0/A.md", "Diary/2026/0/A.md", "Reading/B.md", "Root.md"], [...roots, "Diary/2026", ...nested]);
+    expect(sceneFolders(snapshot, { kind: "all" }).map(folder => folder.path)).toEqual(roots.slice(0, 6));
+    const chosen = sceneFolders(snapshot, { kind: "folder", path: "Diary/2026/299" });
+    expect(chosen.map(folder => folder.path)).toEqual([...roots.slice(0, 5), "Diary/2026/299"]);
+    expect(chosen[5].count).toBe(0);
+    expect(snapshot.folders.find(folder => folder.path === "Diary")?.count).toBe(1);
+    expect(sceneFolders(snapshot, { kind: "folder", path: "Diary/2026", missing: true })).toEqual(sceneFolders(snapshot, { kind: "all" }));
+  });
+  it("does not fill sparse overviews with descendants, but adds a chosen nested folder", () => {
+    const snapshot = scopeSnapshot([], ["A", "A/nested", "A/nested/empty", "B", "B/nested"]);
+    expect(sceneFolders(snapshot, { kind: "all" }).map(folder => folder.path)).toEqual(["A", "B"]);
+    expect(sceneFolders(snapshot, { kind: "folder", path: "B/nested" }).map(folder => folder.path)).toEqual(["A", "B", "B/nested"]);
   });
   it("never identifies folders by basename or treats literal names as selectors", () => {
     const folders = ['A/日本語 [x] "long"', 'B/日本語 [x] "long"'];
@@ -67,8 +83,8 @@ describe("view-local metadata scopes", () => {
     first.dispose(); expect(vault.offref).toHaveBeenCalledTimes(6);
   });
   it("keeps existing child routes under the correct single navigation entry", () => {
-    expect(["health", "findings", "topology"].map(page => workspaceSection(page as "health"))).toEqual(["check", "check", "check"]);
-    expect(["discover", "semantic-neighborhood", "semantic-map", "connection-opportunities"].map(page => workspaceSection(page as "discover"))).toEqual(["map", "map", "map", "map"]);
+    expect(["health", "findings"].map(page => workspaceSection(page as "health"))).toEqual(["check", "check"]);
+    expect(["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities"].map(page => workspaceSection(page as "discover"))).toEqual(["map", "map", "map", "map", "map"]);
     expect(workspaceSection("connect")).toBe("settings");
   });
 });

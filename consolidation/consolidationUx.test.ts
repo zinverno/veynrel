@@ -46,7 +46,7 @@ const dom = vi.hoisted(() => {
 vi.mock("obsidian", async () => {
   // eslint-disable-next-line import/no-extraneous-dependencies -- Test-only native YAML substitute.
   const yaml = await import("js-yaml") as { load(s: string): unknown };
-  return { Modal: dom.Modal, TFile: class {}, MarkdownView: class {}, getLanguage: () => "en", parseYaml: (s: string) => yaml.load(s),
+  return { setIcon: vi.fn(), Modal: dom.Modal, TFile: class {}, MarkdownView: class {}, getLanguage: () => "en", parseYaml: (s: string) => yaml.load(s),
     parseLinktext: (s: string) => ({ path: s.split("#")[0], subpath: s.includes("#") ? s.slice(s.indexOf("#")) : "" }) };
 });
 

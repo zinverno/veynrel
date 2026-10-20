@@ -30,7 +30,7 @@ export function invalidateScope(scope: WorkspaceScope, removedPath: string): Wor
 }
 
 export function sceneFolders(snapshot: VaultScopeSnapshot, scope: WorkspaceScope): readonly FolderScope[] {
-  const first = snapshot.folders.slice(0, 6);
+  const first = snapshot.folders.filter(folder => !folder.path.includes("/")).slice(0, 6);
   if (scope.kind === "all" || scope.missing || first.some(folder => folder.path === scope.path)) return first;
   const selected = snapshot.folders.find(folder => folder.path === scope.path);
   return selected ? [...first.slice(0, 5), selected] : first;

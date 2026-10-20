@@ -25,31 +25,23 @@ export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex,
   caption.createEl("h2", { text: t("@workspace.your-vault"), cls: "veynrel-eyebrow" });
   caption.createEl("p", { text: `${t("@workspace.notes", { n: index.snapshot.paths.length })} · ${t("@workspace.areas", { n: index.snapshot.folders.length })}` });
   const universe = scene.createDiv({ cls: "veynrel-universe", attr: { "data-motion": String(motion) } });
-  const svg = universe.createSvg("svg", { cls: "veynrel-core-svg", attr: { viewBox: "0 0 640 420", "aria-hidden": "true", fill: "none", preserveAspectRatio: "none" } });
-  svg.createSvg("ellipse", { attr: { cx: "320", cy: "210", rx: "250", ry: "129", class: "veynrel-orbit" } });
-  svg.createSvg("ellipse", { attr: { cx: "320", cy: "210", rx: "215", ry: "162", class: "veynrel-orbit", "stroke-dasharray": "2 9", transform: "rotate(-16 320 210)" } });
   const folders = sceneFolders(index.snapshot, index.selection);
-  const slots = [[22, 27], [78, 27], [18, 59], [82, 59], [30, 82], [70, 82]];
   folders.forEach((folder, i) => {
     const selected = index.selection.kind === "folder" && !index.selection.missing && index.selection.path === folder.path;
-    const [x, y] = slots[i];
-    svg.createSvg("path", { attr: { d: `M320 210 Q${(320 + x * 6.4) / 2} 210 ${x * 6.4} ${y * 4.2}`, class: selected ? "veynrel-orbit is-selected" : "veynrel-orbit" } });
     const button = healthButton(universe, "", () => actions.select(folder.path), `scope-${i}`);
     button.addClass("veynrel-topic-node", `veynrel-topic-${i}`); button.setAttribute("aria-pressed", String(selected));
     button.setAttribute("title", folder.path);
-    button.createEl("strong", { text: folder.path }); button.createEl("small", { text: t("@workspace.notes", { n: folder.count }) });
-  });
-  const geometry = svg.createSvg("g", { cls: "veynrel-core-geometry" });
-  // Fixed decorative geometry only; no note vectors or data-dependent layout.
-  const points = Array.from({ length: 60 }, (_, i) => {
-    const angle = i * 2.39996323, radius = 25 + Math.sqrt(i / 60) * 64;
-    return [320 + Math.cos(angle) * radius, 210 + Math.sin(angle) * radius * .83];
-  });
-  points.forEach(([x, y], i) => {
-    if (i > 3) { const [a, b] = points[i - 3]; geometry.createSvg("line", { attr: { x1: String(x), y1: String(y), x2: String(a), y2: String(b) } }); }
-    geometry.createSvg("circle", { attr: { cx: String(x), cy: String(y), r: i % 7 ? "1.1" : "2" } });
+    button.setAttribute("aria-label", `${folder.path} · ${t("@workspace.notes", { n: folder.count })}`);
+    const icon = button.createSpan({ cls: "veynrel-topic-icon", attr: { "aria-hidden": "true" } });
+    setIcon(icon, selected ? "check" : "folder");
+    const name = button.createSpan({ cls: "veynrel-topic-name" });
+    const slash = folder.path.lastIndexOf("/");
+    name.createEl("strong", { text: folder.path.slice(slash + 1) });
+    if (slash >= 0) name.createSpan({ cls: "veynrel-topic-path", text: folder.path.slice(0, slash) });
+    name.createEl("small", { text: t("@workspace.notes", { n: folder.count }) });
   });
   const center = healthButton(universe, "", () => actions.select(), "scope-all"); center.addClass("veynrel-core-all");
+  center.createSpan({ cls: "veynrel-core-geometry", attr: { "aria-hidden": "true" } });
   center.setAttribute("aria-pressed", String(index.selection.kind === "all"));
   center.createEl("strong", { text: t("@workspace.all") });
   center.createEl("small", { text: t("@workspace.notes", { n: index.snapshot.paths.length }) });
@@ -85,12 +77,11 @@ export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex,
     const card = entries.createEl("section"); card.createEl("h3", { text: t(`@workspace.${key}`) });
     card.createEl("p", { text: t(`@workspace.${key}-description`) }); healthButton(card, t(`@workspace.${key}`), action, `home-${key}`);
   }
-  home.createEl("p", { cls: "veynrel-home-footnote", text: t("@workspace.decor") });
 }
 
 export function renderScopeNotes(parent: HTMLElement, index: VaultScopeIndex, query: string, limit: number,
   actions: { search: (query: string) => void; more: () => void; open: (path: string) => void }): void {
-  workspaceHeading(parent, t("@workspace.map"), scopeName(index));
+  parent.createEl("h2", { text: t("@workspace.note-list"), cls: "veynrel-home-section-title" });
   parent.createEl("p", { cls: "veynrel-data-note", text: t(index.selection.kind === "all" ? "@workspace.all-source" : "@workspace.folder-source") });
   if (index.selection.kind === "folder" && index.selection.missing) { parent.createEl("p", { text: t("@workspace.missing"), attr: { role: "alert" } }); return; }
   const search = parent.createEl("input", { cls: "veynrel-note-search", attr: { type: "search", "aria-label": t("@workspace.search"), placeholder: t("@workspace.search"), "data-health-action": "scope-search" } });

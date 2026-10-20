@@ -2628,27 +2628,28 @@
 .veynrel-health-view .veynrel-eyebrow { font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin: 0; }
 .veynrel-health-view .veynrel-core-caption p { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
 .veynrel-health-view .veynrel-universe { height: 420px; position: relative; }
-.veynrel-health-view .veynrel-core-svg { position: absolute; width: 100%; height: 100%; inset: 0; pointer-events: none; }
-.veynrel-health-view .veynrel-orbit { stroke: var(--background-modifier-border); stroke-width: 1; }
-.veynrel-health-view .veynrel-orbit.is-selected { stroke: var(--text-accent); stroke-width: 1.5; }
-.veynrel-health-view .veynrel-core-geometry { transform-origin: 320px 210px; animation: veynrel-core-breathe 6s ease-in-out infinite; }
-.veynrel-health-view .veynrel-core-geometry line { stroke: var(--text-accent); opacity: .22; }
-.veynrel-health-view .veynrel-core-geometry circle { fill: var(--text-accent); opacity: .6; }
-.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all) { position: absolute; transform: translate(-50%, -50%); height: auto; box-shadow: none; border: 1px solid var(--background-modifier-border); background: var(--vx-surface); color: var(--text-normal); display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 9px 12px; border-radius: 9px; text-align: left; }
-.veynrel-health-view .veynrel-topic-node { width: 24%; max-width: 150px; min-height: 54px; }
-.veynrel-health-view .veynrel-topic-node strong { width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-weight: 550; font-size: 12px; }
-.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all) small { color: var(--text-muted); font-size: 10px; }
-.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all)[aria-pressed="true"] { border-color: var(--text-accent); background: var(--vx-selected); box-shadow: inset 3px 0 var(--text-accent); }
-.veynrel-health-view .veynrel-core-all { left: 50%; top: 50%; align-items: center; text-align: center; padding: 14px 12px; width: 168px; }
-.veynrel-health-view .veynrel-core-all strong { font-size: 14px; }
+.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all) { position: absolute; transform: translate(-50%, -50%); height: auto; box-shadow: none; border: 1px solid var(--background-modifier-border); background: var(--vx-surface); color: var(--text-normal); display: flex; gap: 8px; padding: 10px 14px; text-align: left; }
+.veynrel-health-view .veynrel-topic-node { width: 25%; max-width: 180px; min-height: 58px; border-radius: 28px; align-items: center; }
+.veynrel-health-view .veynrel-topic-icon { flex: 0 0 16px; display: flex; color: var(--text-muted); }
+.veynrel-health-view .veynrel-topic-icon svg { width: 16px; height: 16px; }
+.veynrel-health-view .veynrel-topic-name { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.veynrel-health-view .veynrel-topic-node strong { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-weight: 550; font-size: 13px; }
+.veynrel-health-view .veynrel-topic-path { font-size: 11px; color: var(--text-muted); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all) small { color: var(--text-muted); font-size: 12px; }
+.veynrel-health-view :is(.veynrel-topic-node, .veynrel-core-all)[aria-pressed="true"] { border: 2px solid var(--text-accent); background: var(--vx-selected); }
+.veynrel-health-view .veynrel-topic-node[aria-pressed="true"] .veynrel-topic-icon { color: var(--text-accent); }
+.veynrel-health-view .veynrel-core-all { left: 50%; top: 50%; width: 156px; height: 156px; border-radius: 50%; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; isolation: isolate; }
+.veynrel-health-view .veynrel-core-all strong { font-size: 15px; white-space: normal; }
+/* Only the halo breathes; the hit target and its text never transform. */
+.veynrel-health-view .veynrel-core-geometry { position: absolute; inset: -12px; border: 2px solid var(--text-accent); border-radius: 50%; background: color-mix(in srgb, var(--interactive-accent) 7%, transparent); pointer-events: none; z-index: -1; transform-origin: center; animation: veynrel-core-breathe 4.5s ease-in-out infinite; }
 .veynrel-health-view .veynrel-topic-0 { left: 22%; top: 27%; }
 .veynrel-health-view .veynrel-topic-1 { left: 78%; top: 27%; }
 .veynrel-health-view .veynrel-topic-2 { left: 18%; top: 59%; }
 .veynrel-health-view .veynrel-topic-3 { left: 82%; top: 59%; }
 .veynrel-health-view .veynrel-topic-4 { left: 30%; top: 82%; }
 .veynrel-health-view .veynrel-topic-5 { left: 70%; top: 82%; }
-.veynrel-health-view .veynrel-core-foot { position: absolute; bottom: 12px; left: 24px; right: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-muted); font-size: 10px; }
-.veynrel-health-view .veynrel-core-foot button { background: transparent; border: 0; box-shadow: none; font-size: 10px; padding: 4px; white-space: normal; }
+.veynrel-health-view .veynrel-core-foot { position: absolute; bottom: 12px; left: 24px; right: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-muted); font-size: 12px; }
+.veynrel-health-view .veynrel-core-foot button { background: transparent; border: 0; box-shadow: none; font-size: 12px; padding: 4px; white-space: normal; }
 .veynrel-health-view .veynrel-core-foot button[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 3px; }
 .veynrel-health-view .veynrel-scope-card { padding: 24px; display: flex; flex-direction: column; }
 .veynrel-health-view .veynrel-scope-icon { width: 44px; height: 44px; display: grid; place-items: center; background: var(--vx-selected); color: var(--text-accent); border-radius: 11px; margin: 16px 0; }
@@ -2675,8 +2676,9 @@
 .veynrel-health-view .veynrel-scope-notes button { height: auto; min-height: 40px; width: 100%; text-align: left; justify-content: flex-start; white-space: normal; overflow-wrap: anywhere; border: 0; border-bottom: 1px solid var(--background-modifier-border); box-shadow: none; border-radius: 0; background: transparent; }
 .veynrel-health-view :is(button, input, select):focus-visible { outline: 2px solid var(--text-accent); outline-offset: 3px; }
 .veynrel-health-view[data-scene-visible="false"] .veynrel-core-geometry,
+.veynrel-health-view[data-document-hidden="true"] .veynrel-core-geometry,
 .veynrel-health-view [data-motion="false"] .veynrel-core-geometry { animation: none; }
-@keyframes veynrel-core-breathe { 0%, 100% { opacity: .7; transform: scale(.98); } 50% { opacity: 1; transform: scale(1.025); } }
+@keyframes veynrel-core-breathe { 0%, 100% { opacity: .28; transform: scale(.96); } 50% { opacity: .8; transform: scale(1.08); } }
 @media (prefers-reduced-motion: reduce) {
   .veynrel-health-view .veynrel-core-geometry { animation: none; }
 }
@@ -2700,10 +2702,9 @@
 @container (max-width: 600px) {
   .veynrel-health-view .veynrel-core-caption { position: static; padding: 20px 18px 0; }
   .veynrel-health-view .veynrel-core-panel { min-height: 0; }
-  .veynrel-health-view .veynrel-universe { height: auto; min-height: 210px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 170px 16px 16px; }
-  .veynrel-health-view .veynrel-core-svg { height: 210px; }
+  .veynrel-health-view .veynrel-universe { height: auto; min-height: 210px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 218px 16px 16px; }
   .veynrel-health-view .veynrel-topic-node { position: relative; left: auto; top: auto; transform: none; width: 100%; max-width: none; }
-  .veynrel-health-view .veynrel-core-all { top: 88px; }
+  .veynrel-health-view .veynrel-core-all { top: 108px; }
   .veynrel-health-view .veynrel-core-foot { position: static; padding: 8px 18px 16px; }
   .veynrel-health-view .veynrel-scope-card { padding: 20px; }
 }
@@ -2726,4 +2727,35 @@
 @container (max-width: 760px) {
   .veynrel-health-view .veynrel-sidebar { display: none; }
   .veynrel-health-view [data-menu-open="true"] .veynrel-sidebar { display: flex; }
+}
+
+/* Task entries keep controls and consequences visible; optional context is disclosed. */
+.veynrel-health-view .veynrel-catalog-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; }
+.veynrel-health-view .veynrel-tools-group { min-width: 0; margin-top: 0; }
+.veynrel-health-view .veynrel-tools-group h2 { font-size: 18px; margin: 18px 0 8px; }
+.veynrel-health-view .veynrel-catalog-row { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--background-modifier-border); }
+.veynrel-health-view .veynrel-catalog-icon { color: var(--text-muted); padding-top: 2px; display: flex; }
+.veynrel-health-view .veynrel-catalog-icon svg { width: 20px; height: 20px; }
+.veynrel-health-view :is(.veynrel-catalog-row, .veynrel-explore-entry) :is(h2, h3) { margin: 0 0 6px; font-size: 15px; }
+.veynrel-health-view :is(.veynrel-catalog-row, .veynrel-explore-entry) p { margin: 0 0 6px; font-size: 13px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-catalog-effect { font-size: 12px; color: var(--text-muted); display: block; }
+.veynrel-health-view .veynrel-catalog-row .veynrel-details { margin: 6px 0 0; padding: 0; border: 0; }
+.veynrel-health-view .veynrel-catalog-row summary { font-size: 12px; padding-block: 2px; }
+.veynrel-health-view .veynrel-catalog-row button { min-height: 36px; }
+.veynrel-health-view .veynrel-editor-catalog { margin-top: 24px; }
+.veynrel-health-view .veynrel-explore-entries { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; margin-bottom: 16px; }
+.veynrel-health-view .veynrel-explore-entry { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 12px; align-items: start; border-bottom: 1px solid var(--background-modifier-border); padding: 18px 0; }
+.veynrel-health-view .veynrel-explore-entry small { color: var(--text-muted); font-size: 12px; }
+.veynrel-health-view .veynrel-explore-status { margin-block: 16px; }
+.veynrel-health-view .veynrel-explore-status button { margin: 0 8px 8px 0; }
+.veynrel-health-view .veynrel-explore-secondary { margin-block: 12px; }
+.veynrel-health-view .veynrel-scope-notes { max-height: 280px; }
+.veynrel-health-view .veynrel-scope-handoff p { margin: 0 0 8px; overflow-wrap: anywhere; }
+.veynrel-health-view :is(summary, button, input, select):focus-visible { outline: 2px solid var(--text-accent); outline-offset: 3px; }
+@container (max-width: 1000px) {
+  .veynrel-health-view :is(.veynrel-catalog-groups, .veynrel-explore-entries) { grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 450px) {
+  .veynrel-health-view :is(.veynrel-catalog-row, .veynrel-explore-entry) { grid-template-columns: 20px minmax(0, 1fr); gap: 8px; }
+  .veynrel-health-view :is(.veynrel-catalog-row, .veynrel-explore-entry) > button { grid-column: 2; justify-self: start; }
 }
