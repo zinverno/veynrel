@@ -174,8 +174,8 @@ describe("Relationship Analyzer transport diagnostics", () => {
     const content = JSON.stringify(response);
     f.reply({ choices: [{ finish_reason: "stop", message: { content } }] });
     await f.session.confirm(); await f.session.confirm();
-    expect(f.session.view).toMatchObject({ stage: "error", error: "invalidResponse",
-      diagnostics: expect.arrayContaining([{ field: `${field === "alternative" ? "alternatives[0]" : field}.evidence`, code: "evidence_unknown" }]) });
+    expect(f.session.view).toMatchObject({ stage: "error", error: "invalidResponse" });
+    expect(f.session.view.diagnostics).toContainEqual({ field: `${field === "alternative" ? "alternatives[0]" : field}.evidence`, code: "evidence_unknown" });
     expect(f.session.analysisSource).toBeUndefined(); expect(requestUrl).toHaveBeenCalledOnce();
     expect(vi.mocked(requestUrl).mock.calls[0][0]).toMatchObject({ body: consent });
     expect(JSON.stringify(response)).toBe(content);

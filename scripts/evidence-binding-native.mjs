@@ -42,6 +42,7 @@ const server=createServer(async(req,res)=>{
  if(requests.length===1)wire.claims[0].evidenceA='unknown-fragment';
  if(requests.length===2)wire.claims[0].evidenceA=wire.claims[0].evidenceB;
  if(requests.length===3)wire.alternatives=[{action:'consider_atomize',reason:'Unique does not prove standalone.',evidence:['unique-a']}];
+ if(requests.length===4)wire.explanation.evidence=[wire.claims[0].evidenceA,wire.claims[0].evidenceB];
  res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:JSON.stringify(wire)}}],usage:{completion_tokens:300,completion_tokens_details:{reasoning_tokens:0}}}));
 });
 await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve)});
@@ -145,7 +146,7 @@ try{
    if(recording)await cdp('Page.startScreencast',{format:'jpeg',quality:70,maxWidth:1694,maxHeight:1080,everyNthFrame:1});
  };
  await startVideo('evidence-binding-merge-apply-undo');
- for(const [index,code]of ['reference_unknown','reference_side_mismatch','missing_standalone_evidence'].entries()){
+ for(const [index,code]of ['reference_unknown','reference_side_mismatch','missing_standalone_evidence','evidence_unknown'].entries()){
    await openPair('Cache');await clickSelector('[data-relationship-action=analyze]');await wait("!!document.querySelector('[data-relationship-action=confirm]')");
    bodies.push(await ev("document.querySelector('.ai-relationship pre').textContent"));
    assert.equal(requests.length,index);await shot('refusal-consent-'+index);
@@ -163,7 +164,7 @@ try{
  const transfer=fixture.b.indexOf('Срок хранения');await clickSelector(`[data-planner-field=merge-transfer-${transfer}]`);await field('[data-planner-field=merge-location]','0');
  await pass('Merge insertion remains unconfirmed',"!document.querySelector('[data-planner-field=merge-confirm]').checked&&document.querySelector('[data-merge-action=build]').disabled");
  await clickSelector('[data-planner-field=merge-confirm]');await clickSelector('[data-merge-action=build]');await wait("!!document.querySelector('[data-merge-plan]')");
- assert.equal(requests.length,4);await ev('window.mergePlan=[...engine.pairReviews].at(-1).planner.view.mergePlan;void 0');
+ assert.equal(requests.length,5);await ev('window.mergePlan=[...engine.pairReviews].at(-1).planner.view.mergePlan;void 0');
  await clickSelector('[data-merge-apply-action=review]');await wait("!!document.querySelector('.modal [data-merge-apply-action=confirm]')");assert.deepEqual(markdown(vault),before);await shot('merge-exact-review');await pause(1400);
  await clickSelector('.modal [data-merge-apply-action=confirm]');await wait("!!document.querySelector('.modal [data-merge-apply-action=history]')");
  assert.equal(fs.readFileSync(vault+'/'+pairPaths[0],'utf8'),await ev('mergePlan.canonical.after'));assert.equal(fs.readFileSync(vault+'/'+pairPaths[1],'utf8'),fixture.b);await shot('merge-applied');
@@ -173,9 +174,9 @@ try{
  checks.push('Merge: canonical-only real Apply/history/separate Undo; secondary unchanged and all Markdown SHA256 restored');
  await closeModals();await click('review-back');await shot('merge-return-list');await stopVideo();
  await locale('ru');await shot('ru-list');await smoke('ru-list');
- assert.deepEqual(markdown(vault),before);assert.equal(requests.length,4);
- await pass('No map construction or renderer network; four explicit loopback completions','graphicalCreations===0&&io.network===0&&!hv.workbench.data.semantic');
- checks.push('All four disclosed consent bodies exactly match sent HTTP bodies');
+ assert.deepEqual(markdown(vault),before);assert.equal(requests.length,5);
+ await pass('No map construction or renderer network; five explicit loopback completions','graphicalCreations===0&&io.network===0&&!hv.workbench.data.semantic');
+ checks.push('All five disclosed consent bodies exactly match sent HTTP bodies');
  fs.writeFileSync(root+'/after.json',JSON.stringify(markdown(vault),null,2));
  metrics.runtime=await ev("({obsidian:require('@electron/remote').app.getVersion(),electron:process.versions.electron})");
  fs.writeFileSync(root+'/report.json',JSON.stringify({status:'native evidence binding verified on synthetic loopback responses',checks,metrics,screenshots,sourceCommit,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io'),httpRequests:requests.length,requestBytes:requests.map(body=>Buffer.byteLength(body)),catalogues:requests.map(body=>{const request=JSON.parse(JSON.parse(body).messages[1].content);return {fragments:request.evidence.length,uncoveredCharacters:request.uncoveredCharacters}}),consentMatches:requests.map((body,i)=>body===bodies[i]),httpDestination:'loopback only',liveModel:'NOT RUN'},null,2));

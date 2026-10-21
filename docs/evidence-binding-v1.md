@@ -1,5 +1,7 @@
 # Relationship Analyzer: session-bound evidence references
 
+Follow-up: [authorized live namespace diagnosis and correction](evidence-binding-live-diagnostics.md). The initial offline and synthetic results below remain historical; the follow-up records the later paid run separately.
+
 New analyses select prepared fragment IDs instead of reproducing Markdown quotes. The local adapter resolves those references from the same frozen input snapshots, then passes the resulting quote-format response through the original strict validator. A rejected response never becomes analysis or planner authority.
 
 ## Incident and offline limits
