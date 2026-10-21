@@ -30,6 +30,7 @@ const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical
 export class ChangePlannerView {
   private operation: PlanOperation | "add_reciprocal_links" | "merge_knowledge" | "copy_context_group" | "copy_context_bundle" | "atomization_preview" | "write_atom_to_empty_note" | "" = "";
   private side: 0 | 1 = 0;
+  private sourceChosen = false;
   private selection: PlanRange | null = null;
   private confirmed = false;
   private multiSelections: [PlanRange | null, PlanRange | null] = [null, null];
@@ -85,10 +86,11 @@ export class ChangePlannerView {
     const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
     sourceLabel.hidden = this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" || this.operation === "copy_context_bundle" || this.operation === "copy_context_group" || this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
     const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
+    source.createEl("option", { text: tr("@planner.choose"), value: "" });
     view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
-    source.value = String(this.side);
-    source.addEventListener("change", () => { this.side = source.value === "1" ? 1 : 0; this.operation = ""; this.selection = null; this.changed(); });
-    renderActionChoice(controls, this.operation, !!permittedEmbed(this.analysis, this.side), value => {
+    source.value = this.sourceChosen ? String(this.side) : "";
+    source.addEventListener("change", () => { this.sourceChosen = source.value === "0" || source.value === "1"; this.side = source.value === "1" ? 1 : 0; this.operation = ""; this.selection = null; this.changed(); });
+    renderActionChoice(controls, this.operation, this.sourceChosen && !!permittedEmbed(this.analysis, this.side), value => {
       this.operation = value; this.selection = null; this.changed();
     });
     if (!this.operation) { root.createEl("p", { text: tr("@ux.noSelection") }); return; }
@@ -118,6 +120,9 @@ export class ChangePlannerView {
         this.multiSelections[side] = range; this.multiConfirmed = [false, false]; this.session.changeSelection();
       }, (side, confirmed) => { this.multiConfirmed[side] = confirmed; this.session.changeSelection(); }, this.reviewMulti);
       return;
+    }
+    if (["add_link", "replace_with_embed"].includes(this.operation) && !this.sourceChosen) {
+      root.createEl("p", { text: tr("@planner.source") }); return;
     }
     const note = view.input.pair[this.side], target = view.input.pair[this.side === 0 ? 1 : 0];
     root.createEl("p", { text: tr("@planner.direction", { source: note.path, target: target.path }) });

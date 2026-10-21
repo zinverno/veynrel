@@ -45,21 +45,21 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   }) });
   if (!view.result) return;
   const result = view.result;
-  body.createEl("p", { text: tr("@relationship.provisional"), cls: "ai-semantic-duplicate-disclaimer" });
+
   body.createEl("h4", { text: tr(`@relationship.relation.${result.relation}`) });
   body.createEl("p", { text: result.explanation.text });
-  body.createEl("p", { text: tr("@relationship.references", { ids: result.explanation.evidence.join(", ") || "—" }) });
   const summary = body.createDiv({ cls: "ai-relationship-summary" });
   for (const [key, claims] of [["shared", result.claims.filter(claim => claim.kind === "shared")],
     ["differences", result.claims.filter(claim => claim.kind !== "shared")]] as const) {
     const section = summary.createEl("section");
     section.createEl("h4", { text: tr(`@workbench.${key}`) });
     if (!claims.length) section.createEl("p", { text: tr("@workbench.no-claims") });
-    for (const claim of claims) section.createEl("p", { text: `${claim.id}: ${claim.text}` });
+    for (const claim of claims) section.createEl("p", { text: claim.text });
   }
   const evidence = body.createEl("details");
   evidence.createEl("summary", { text: tr("@relationship.evidence") });
   evidence.createEl("p", { text: tr("@relationship.evidenceScope") });
+  evidence.createEl("p", { text: tr("@relationship.references", { ids: result.explanation.evidence.join(", ") || "—" }) });
   if (!result.claims.length) evidence.createEl("p", { text: tr("@relationship.noEvidence") });
   for (const claim of result.claims) {
     const card = evidence.createDiv({ cls: "ai-semantic-duplicate-card" });
@@ -75,18 +75,21 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   const unique = result.claims.filter(claim => /^(unique|context|standalone)_/.test(claim.kind));
   if (!unique.length) evidence.createEl("p", { text: tr("@relationship.noUnique") });
   for (const claim of unique) evidence.createEl("p", { text: `${claim.id}: ${claim.text}` });
-  const recommend = (item: RelationshipRecommendation) => {
-    body.createEl("h5", { text: tr(`@relationship.action.${item.action}`) });
-    body.createEl("p", { text: item.reason });
-    body.createEl("p", { text: tr("@relationship.references", { ids: item.evidence.join(", ") || "—" }) });
+  const recommend = (parent: HTMLElement, item: RelationshipRecommendation) => {
+    parent.createEl("h5", { text: tr(`@relationship.action.${item.action}`) });
+    parent.createEl("p", { text: item.reason });
+    parent.createEl("p", { text: tr("@relationship.references", { ids: item.evidence.join(", ") || "—" }) });
   };
-  body.createEl("h4", { text: tr("@relationship.recommendation") }); recommend(result.recommendation);
+  body.createEl("h4", { text: tr("@relationship.recommendation") }); recommend(body, result.recommendation);
+  body.createEl("p", { text: tr("@relationship.provisional"), cls: "ai-semantic-duplicate-disclaimer" });
   if (result.alternatives.length) {
-    body.createEl("h4", { text: tr("@relationship.alternatives") });
-    for (const item of result.alternatives) recommend(item);
+    const alternatives = body.createEl("details");
+    alternatives.createEl("summary", { text: tr("@relationship.alternatives") });
+    for (const item of result.alternatives) recommend(alternatives, item);
   }
-  body.createEl("h4", { text: tr("@relationship.limitations") });
-  body.createEl("p", { text: tr("@relationship.coverage") });
-  for (const limitation of result.limitations) body.createEl("p", { text: limitation });
+  const limitations = body.createEl("details");
+  limitations.createEl("summary", { text: tr("@relationship.limitations") });
+  limitations.createEl("p", { text: tr("@relationship.coverage") });
+  for (const limitation of result.limitations) limitations.createEl("p", { text: limitation });
   button("dismiss", () => session.dismiss());
 }

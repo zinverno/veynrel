@@ -19,7 +19,7 @@ import { readMergeIncoming } from "./obsidianMergeApply";
 import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { obsidianSafeApplyPort } from "./obsidianSafeApply";
 import { EmptyAtomApplyModal } from "./emptyAtomApplyModal";
-import { workflowStep, focusStatus } from "./consolidationUx";
+import { focusStatus } from "./consolidationUx";
 
 /** One disposable view: listeners only invalidate; reading requires open or refresh. */
 export class PairReview {
@@ -36,10 +36,9 @@ export class PairReview {
     this.openState = true;
     this.contentEl.empty();
     this.contentEl.addClass("ai-pair-inspector");
-    workflowStep(this.contentEl, "pair");
-    this.contentEl.createEl("h2", { text: tr("@consolidation.title"), attr: { tabindex: "-1", "data-pair-heading": "true" } });
-    this.contentEl.createEl("p", { text: `A: ${this.paths[0]} · B: ${this.paths[1]}`, cls: "ai-relationship-paths" });
-    this.contentEl.createEl("p", { text: tr("@ux.pairScope") });
+    this.contentEl.createEl("h2", { text: tr("@review.pair-title"), attr: { tabindex: "-1", "data-pair-heading": "true" } });
+    this.contentEl.createEl("p", { text: this.paths.map((path, i) => `${i === 0 ? "A" : "B"}: ${path.split("/").slice(-2).join("/").replace(/\.md$/iu, "")}`).join(" ↔ "), cls: "ai-pair-titles" });
+    const intro = this.contentEl.createEl("p", { text: tr("@review.pair-description"), cls: "ai-pair-intro" });
     const controls = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-pair-actions" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
     if (this.safeApply) {
@@ -48,6 +47,14 @@ export class PairReview {
     }
     const analysis = this.contentEl.createDiv({ cls: "ai-relationship" });
     const planning = this.contentEl.createDiv({ cls: "ai-change-planner" });
+    planning.hidden = true;
+    const backResult = controls.createEl("button", { text: tr("@review.result-back"), attr: { type: "button", "data-planner-action": "back-result" } });
+    backResult.hidden = true;
+    backResult.addEventListener("click", () => {
+      if (!this.openState) return;
+      this.planner?.close(); this.planner = undefined; planning.empty(); planning.hidden = true;
+      analysis.hidden = false; backResult.hidden = true; focusStatus(analysis);
+    });
     if (this.createRelationship) {
       const analyze = controls.createEl("button", { text: tr("@relationship.analyze"), attr: { type: "button", "data-relationship-action": "analyze" } });
       analyze.addEventListener("click", () => {
@@ -57,6 +64,12 @@ export class PairReview {
           this.relationship.onChange = () => {
             if (!this.openState || !this.relationship) return;
             analyze.disabled = this.relationship.busy;
+            const stage = this.relationship.view.stage;
+            const initial = ["idle", "cancelled", "error", "stale", "dismissed"].includes(stage);
+            notes.hidden = !initial; limits.hidden = !initial; status.hidden = !initial;
+            intro.hidden = !initial;
+            refresh.hidden = !initial; analyze.hidden = !initial;
+            analysis.hidden = false; planning.hidden = true; backResult.hidden = true;
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
             renderRelationshipView(analysis, this.relationship);
@@ -66,6 +79,8 @@ export class PairReview {
             }
             if (this.relationship.view.result) {
               const prepare = analysis.createEl("button", { text: tr("@planner.prepare"), attr: { type: "button", "data-planner-action": "open" } });
+              prepare.addClass("mod-cta");
+              analysis.querySelector(".ai-relationship-actions")?.prepend(prepare);
               const expected = this.relationship.analysisSource;
               prepare.addEventListener("click", () => {
                 if (!analysis.contains(prepare) || this.relationship?.analysisSource !== expected) return;
@@ -79,6 +94,7 @@ export class PairReview {
                   emptyTargets: () => this.app.vault.getMarkdownFiles().filter(f => !this.paths.includes(f.path) && f.stat.size === 0).map(f => f.path).sort(),
                   atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
                 const planner = this.planner;
+                analysis.hidden = true; planning.hidden = false; backResult.hidden = false;
                 new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                   new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
                     () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source), false, undefined, undefined, plan).open();
@@ -181,8 +197,12 @@ export class PairReview {
       type: "button", "aria-label": tr("Открыть заметку {path}", { path: note.path }),
     } });
     open.addEventListener("click", () => { void openDiscoveryResult(this.app, note.path, undefined, () => {}); });
-    card.createEl("p", { text: tr("@consolidation.size", { bytes: note.bytes!, characters: note.characters! }) });
+
+    const excerpt = note.preview!.slice(0, 650);
+    card.createEl("pre", { text: excerpt, cls: "ai-pair-excerpt", attr: { tabindex: "0" } });
+    if (excerpt.length < note.characters!) card.createEl("small", { text: tr("@review.excerpt") });
     const source = card.createEl("details"); source.createEl("summary", { text: tr("@consolidation.source") });
+    source.createEl("p", { text: tr("@consolidation.size", { bytes: note.bytes!, characters: note.characters! }) });
     if (note.preview!.length < note.characters!) card.createEl("p", { text: tr("@consolidation.truncated", { shown: note.preview!.length, total: note.characters! }) });
     if (note.characters === 0) card.createEl("p", { text: tr("@consolidation.empty") });
     source.createEl("pre", { cls: "ai-pair-source", text: note.preview, attr: { tabindex: "0", "aria-label": tr("@consolidation.source") } });

@@ -13,6 +13,13 @@ const mocks = vi.hoisted(() => {
   class FakeElement {
     closest() { return null; }
     scrollIntoView() {}
+    hidden = false;
+    parentElement?: FakeElement;
+    prepend(child: FakeElement) {
+      const previous = child.parentElement?.children;
+      if (previous) previous.splice(previous.indexOf(child), 1);
+      child.parentElement = this; this.children.unshift(child);
+    }
     readonly children: FakeElement[] = [];
     readonly listeners = new Map<string, Array<(event: FakeEvent) => void>>();
     tag = "div";
@@ -61,6 +68,7 @@ const mocks = vi.hoisted(() => {
       for (const [key, value] of Object.entries(options.attr ?? {})) {
         child.attributes.set(key, value);
       }
+      child.parentElement = this;
       this.children.push(child);
       return child;
     }
@@ -101,7 +109,8 @@ const mocks = vi.hoisted(() => {
       }
     }
 
-    querySelector(): FakeElement | null {
+    querySelector(selector?: string): FakeElement | null {
+      if (selector?.startsWith(".")) return this.findByClass(selector.slice(1))[0] ?? null;
       const walk = (e: FakeElement): FakeElement[] => [e, ...e.children.flatMap(walk)];
       return walk(this).find(e => ["alert", "status"].includes(e.attributes.get("role") ?? "") || e.tag === "h3") ?? null;
     }
@@ -898,6 +907,38 @@ describe("read-only Pair Inspector UI", () => {
     return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, model, listeners, action, stage };
   }
 
+  it("shows one current pair step and recovers explicitly after dismiss or source invalidation", async () => {
+    const f = await fixture(true); f.modal.open(); await flush();
+    const notes = () => f.content.findByClass("ai-pair-notes")[0];
+    const planning = () => f.content.findByClass("ai-change-planner")[0];
+    const analysis = () => f.content.findByClass("ai-relationship")[0];
+    expect(notes().hidden).toBe(false); expect(planning().hidden).toBe(true);
+    expect(f.content.findByClass("ai-pair-excerpt").map(el => el.text)).toEqual([...f.bodies.values()]);
+    f.action("analyze").trigger("click"); await flush(); expect(notes().hidden).toBe(true);
+    f.action("confirm").trigger("click"); await flush(); expect(f.stage()).toBe("result");
+    f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "open")!.trigger("click"); await flush();
+    expect(analysis().hidden).toBe(true); expect(planning().hidden).toBe(false);
+    f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "back-result")!.trigger("click");
+    expect(analysis().hidden).toBe(false); expect(planning().hidden).toBe(true); expect(f.complete).toHaveBeenCalledOnce();
+    f.action("dismiss").trigger("click"); expect(f.action("analyze").hidden).toBe(false); expect(notes().hidden).toBe(false);
+    f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
+    const reads = f.app.vault.read.mock.calls.length; f.app.vault.emit("modify");
+    expect(f.stage()).toBe("stale"); expect(f.action("analyze").hidden).toBe(false); expect(f.app.vault.read).toHaveBeenCalledTimes(reads);
+    expect(f.content.findByTag("button").some(el => el.attributes.get("data-planner-action") === "open")).toBe(false);
+    f.refresh(); await flush(); expect(f.app.vault.read.mock.calls.length).toBeGreaterThan(reads); f.modal.close();
+  });
+
+  it("never offers preparation when a response contains a quote absent from the exact sources", async () => {
+    const f = await fixture(true);
+    const invalid = JSON.parse(await f.complete()) as { claims: { quoteA: string }[] };
+    invalid.claims[0].quoteA = "A fabricated excerpt";
+    f.complete.mockClear(); f.complete.mockResolvedValueOnce(JSON.stringify(invalid));
+    f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
+    expect(f.stage()).toBe("error"); expect(f.complete).toHaveBeenCalledOnce();
+    expect(f.content.findByTag("button").some(el => el.attributes.get("data-planner-action") === "open")).toBe(false);
+    expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled(); f.modal.close();
+  });
+
   it("offers an explicit action alongside Decisions and never invokes either on list rendering", async () => {
     const f = discoveryHarness(), inspectPair = vi.fn(), assessOverlap = vi.fn();
     const modal = new SemanticDuplicatesModal(f.app as never, { ...f.delegate, inspectPair, assessOverlap });
@@ -915,12 +956,12 @@ describe("read-only Pair Inspector UI", () => {
     const f = await fixture(); expect(f.app.vault.read).not.toHaveBeenCalled();
     f.modal.open(); await flush();
     expect(f.content.findByClass("ai-semantic-result-path").map(el => el.text)).toEqual(["one/Same.md", "two/Same.md"]);
-    expect(f.content.findByTag("pre").map(el => el.text)).toEqual([...f.bodies.values()]);
+    expect(f.content.findByClass("ai-pair-source").map(el => el.text)).toEqual([...f.bodies.values()]);
     expect(f.content.findByTag("img")).toHaveLength(0); expect(f.content.findByTag("iframe")).toHaveLength(0);
     expect(f.content.findByTag("p").some(el => el.text.includes("@consolidation."))).toBe(false);
     expect(f.content.findByTag("p").map(el => el.text).join(" ")).toContain(language === "en" ? "Metadata unavailable" : "Метаданные недоступны");
-    f.content.findByTag("button")[2].trigger("click"); await flush();
-    expect(f.leaf.openFile).toHaveBeenCalledWith(f.files.get("two/Same.md")); expect(f.content.findByTag("pre")).toHaveLength(2);
+    f.content.findByClass("ai-pair-note")[1].findByTag("button")[0].trigger("click"); await flush();
+    expect(f.leaf.openFile).toHaveBeenCalledWith(f.files.get("two/Same.md")); expect(f.content.findByClass("ai-pair-source")).toHaveLength(2);
     f.modal.close(); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
     setLanguage("ru");
   });
@@ -932,9 +973,9 @@ describe("read-only Pair Inspector UI", () => {
     expect(f.content.children).toHaveLength(0); expect(f.app.vault.offref).toHaveBeenCalledTimes(4);
     expect(f.app.metadataCache.offref).toHaveBeenCalledTimes(2);
     f.app.vault.emit("modify"); expect(f.content.children).toHaveLength(0);
-    f.modal.open(); await flush(); expect(f.content.findByTag("pre")[0].text).toBe(f.bodies.get("one/Same.md"));
+    f.modal.open(); await flush(); expect(f.content.findByClass("ai-pair-source")[0].text).toBe(f.bodies.get("one/Same.md"));
     release("late closed source"); await flush();
-    expect(f.content.findByTag("pre")[0].text).toBe(f.bodies.get("one/Same.md"));
+    expect(f.content.findByClass("ai-pair-source")[0].text).toBe(f.bodies.get("one/Same.md"));
     f.modal.close();
   });
 
@@ -943,11 +984,11 @@ describe("read-only Pair Inspector UI", () => {
     f.app.vault.read.mockImplementationOnce(() => new Promise(resolve => { release = resolve; }));
     f.modal.open(); f.bodies.set("one/Same.md", "fresh source"); f.refresh(); await flush();
     release("late old source"); await flush();
-    expect(f.content.findByTag("pre")[0].text).toBe("fresh source"); expect(f.app.vault.read).toHaveBeenCalledTimes(4);
+    expect(f.content.findByClass("ai-pair-source")[0].text).toBe("fresh source"); expect(f.app.vault.read).toHaveBeenCalledTimes(4);
     f.app.vault.emit("modify"); f.app.metadataCache.emit("resolved");
     expect(f.status().attributes.get("data-state")).toBe("stale"); expect(f.app.vault.read).toHaveBeenCalledTimes(4);
     f.files.delete("one/Same.md"); f.refresh(); await flush();
-    expect(f.content.findByTag("pre")).toHaveLength(1); expect(f.content.findByTag("pre")[0].text).toBe("B own source");
+    expect(f.content.findByClass("ai-pair-source")).toHaveLength(1); expect(f.content.findByClass("ai-pair-source")[0].text).toBe("B own source");
     f.modal.close();
   });
 
@@ -955,14 +996,14 @@ describe("read-only Pair Inspector UI", () => {
     const f = await fixture(); let release!: (text: string) => void;
     f.app.vault.read.mockImplementationOnce(() => new Promise(resolve => { release = resolve; }));
     f.modal.open(); f.app.metadataCache.emit("changed"); release("outdated source"); await flush();
-    expect(f.status().attributes.get("data-state")).toBe("stale"); expect(f.content.findByTag("pre")).toHaveLength(0);
-    f.refresh(); await flush(); expect(f.content.findByTag("pre")).toHaveLength(2); f.modal.close();
+    expect(f.status().attributes.get("data-state")).toBe("stale"); expect(f.content.findByClass("ai-pair-source")).toHaveLength(0);
+    f.refresh(); await flush(); expect(f.content.findByClass("ai-pair-source")).toHaveLength(2); f.modal.close();
   });
 
   it("labels a truncated preview and distinguishes an empty file", async () => {
     const f = await fixture(); f.bodies.set("one/Same.md", "X".repeat(13000)); f.bodies.set("two/Same.md", "");
     f.modal.open(); await flush();
-    expect(f.content.findByTag("pre").map(el => el.text.length)).toEqual([12000, 0]);
+    expect(f.content.findByClass("ai-pair-source").map(el => el.text.length)).toEqual([12000, 0]);
     expect(f.content.findByTag("p").some(el => el.text.includes("усечён"))).toBe(true);
     expect(f.content.findByTag("p").some(el => el.text.includes("файл пуст"))).toBe(true); f.modal.close();
   });
@@ -1052,6 +1093,9 @@ describe("read-only Pair Inspector UI", () => {
     const reads = f.app.vault.read.mock.calls.length; expect(button("open")).toBeDefined(); expect(button("build")).toBeUndefined();
     const oldPrepare = button("open");
     oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(reads + 2);
+    expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "source")!.value).toBe("");
+    select("operation", "add_link"); expect(button("build")).toBeUndefined();
+    select("source", "0");
     select("operation", "replace_with_embed"); expect(button("build").disabled).toBe(true);
     select("range", "0"); expect(button("build").disabled).toBe(true);
     const checkbox = f.content.findByTag("input").find(el => el.attributes.get("data-planner-field") === "confirm")!;

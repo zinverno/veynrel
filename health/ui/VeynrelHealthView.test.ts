@@ -450,8 +450,8 @@ describe("inline Semantic Intelligence boundaries", () => {
       .toEqual(["nav-home", "nav-discover", "nav-health", "nav-process", "nav-recall", "nav-tools", "nav-history", "nav-settings", "nav-findings"]);
     f.content.action("nav-discover").click();
     expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
-    expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Map and review");
-    expect(f.content.ownerDocument.activeElement?.text).toBe("Map and review");
+    expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Review vault");
+    expect(f.content.ownerDocument.activeElement?.text).toBe("Review vault");
     expect(f.content.all().find((e) => e.tag === "nav")?.attrs["aria-label"]).toBe("Veynrel navigation");
     f.content.action("nav-health").click(); f.content.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
     f.content.action("nav-discover").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
@@ -607,7 +607,7 @@ describe("inline Semantic Intelligence boundaries", () => {
 
   it("Russian Discover localizes navigation/workflows and preserves provider/model identifiers", async () => {
     setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
-    expect(f.content.action("nav-discover").texts()).toContain("Карта и разбор"); expect(f.content.texts()).toContain("Связанные заметки");
+    expect(f.content.action("nav-discover").texts()).toContain("Разбор хранилища"); expect(f.content.texts()).toContain("Связанные заметки");
     expect(f.content.texts()).toContain("Возможные дубликаты");
     f.content.action("nav-settings").click(); expect(f.content.texts()).toContain(f.settings.get().embeddingModel);
     expect(f.content.texts()).not.toMatch(/@discover|@semantic/u); await f.view.onClose();

@@ -15,6 +15,8 @@ export interface WorkbenchDependencies {
   createComparison: (semantic: SemanticGlobalMapPort) => ConnectionComparisonPort;
   duplicates?: SemanticHealthAnalysisPort;
   tags?: WorkbenchTagsPort;
+  prepareExisting?: () => Promise<void>;
+  subscribeIndex?: (listener: () => void) => () => void;
 }
 
 /** Per ItemView, transient read-only ownership. Sources retain all computation/IO authority. */
@@ -24,14 +26,14 @@ export class WorkbenchData {
   duplicates?: SemanticDuplicateAnalysis;
   duplicateState: "idle" | "loading" | "ready" | "stale" | "unavailable" | "error" = "idle";
   busy = false;
+  connectionError = false;
   private abort?: AbortController;
   private epoch = 0;
   private disposed = false;
   private removers: (() => void)[] = [];
   private readonly listeners = new Set<() => void>();
-  constructor(readonly scope: SemanticMapScope, readonly dependencies: WorkbenchDependencies) {
-    this.semantic = dependencies.createSemantic?.(scope);
-    this.comparison = this.semantic && dependencies.createComparison(this.semantic);
+  constructor(readonly scope: SemanticMapScope, readonly dependencies: WorkbenchDependencies, graphical = true) {
+    if (graphical) this.ensureComparison();
     const changed = (): void => {
       if (this.duplicates && (dependencies.topology.getSnapshot().state === "stale" ||
         this.semantic?.getSnapshot().state === "stale" || this.semantic?.getSnapshot().map &&
@@ -42,21 +44,41 @@ export class WorkbenchData {
     if (dependencies.tags) this.removers.push(dependencies.tags.subscribe(changed));
     if (this.semantic) this.removers.push(this.semantic.subscribe(changed));
     if (this.comparison) this.removers.push(this.comparison.subscribe(changed));
+    if (dependencies.subscribeIndex) this.removers.push(dependencies.subscribeIndex(() => {
+      if (this.duplicates) this.duplicateState = "stale";
+      this.emit();
+    }));
+  }
+  private ensureComparison(): void {
+    if (this.semantic) return;
+    this.semantic = this.dependencies.createSemantic?.(this.scope);
+    this.comparison = this.semantic && this.dependencies.createComparison(this.semantic);
   }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
-  async refresh(): Promise<void> {
+  async refresh(task: "map" | "repeats" | "connections" = "map"): Promise<void> {
     if (this.disposed || this.busy) return;
     const epoch = ++this.epoch, abort = new AbortController(); this.abort = abort;
-    this.busy = true; this.duplicateState = this.dependencies.duplicates ? "loading" : "unavailable"; this.emit();
-    this.dependencies.tags?.refresh();
+    const duplicates = task !== "connections";
+    if (task !== "repeats") this.connectionError = false;
+    this.busy = true;
+    if (duplicates) this.duplicateState = this.dependencies.duplicates ? "loading" : "unavailable";
+    const hadSemantic = Boolean(this.semantic);
+    if (task !== "repeats" && !hadSemantic) {
+      this.ensureComparison();
+      if (this.semantic) this.removers.push(this.semantic.subscribe(() => this.emit()));
+      if (this.comparison) this.removers.push(this.comparison.subscribe(() => this.emit()));
+    }
+    this.emit();
+    if (task === "map") this.dependencies.tags?.refresh();
     const current = (): boolean => !this.disposed && epoch === this.epoch;
     try {
-      await this.semantic?.prepareExisting?.();
+      if (this.dependencies.prepareExisting) await this.dependencies.prepareExisting();
+      else await this.semantic?.prepareExisting?.();
       if (!current()) return;
       await Promise.all([
-        this.comparison ? this.comparison.refresh() : this.dependencies.topology.refresh(),
+        task === "repeats" ? Promise.resolve() : this.comparison ? this.comparison.refresh() : this.dependencies.topology.refresh(),
         (async () => {
-          if (!this.dependencies.duplicates) return;
+          if (!duplicates || !this.dependencies.duplicates) return;
           try {
             const result = await this.dependencies.duplicates.analyzeDuplicates(abort.signal);
             await this.dependencies.duplicates.verifyCurrent(result.revision, abort.signal);
@@ -66,7 +88,7 @@ export class WorkbenchData {
           }
         })(),
       ]);
-    } catch { if (current()) this.duplicateState = "error"; } finally { if (current()) { this.busy = false; this.abort = undefined; this.emit(); } }
+    } catch { if (current()) { if (duplicates) this.duplicateState = "error"; else this.connectionError = true; } } finally { if (current()) { this.busy = false; this.abort = undefined; this.emit(); } }
   }
   dispose(): void {
     this.disposed = true; this.epoch++; this.abort?.abort();

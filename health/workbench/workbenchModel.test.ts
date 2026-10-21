@@ -118,3 +118,38 @@ describe("workbench source projection", () => {
     await f.data.refresh(); expect(f.data.duplicateState).toBe("ready"); expect(f.data.duplicates?.candidates).toEqual([]); f.data.dispose();
   });
 });
+
+describe("list-first data ownership", () => {
+  it("refreshes repeats without constructing comparison/graphical data, even above the map cap", async () => {
+    const f = await fixture(); f.data.dispose();
+    const forbidden = vi.fn(() => { throw Error("Graphical work is forbidden on the repeat route"); });
+    const prepareExisting = vi.fn(async () => {});
+    const dependencies = { topology: f.topology, duplicates: f.source, createSemantic: forbidden, createComparison: forbidden, prepareExisting };
+    const data = new WorkbenchData({ id: "all", revision: 1, paths: Array.from({ length: 1000 }, (_, i) => `${i}.md`).concat(["A.md", "X.md"]) }, dependencies, false);
+    expect(prepareExisting).not.toHaveBeenCalled();
+    await data.refresh("repeats");
+    expect(prepareExisting).toHaveBeenCalledOnce(); expect(f.source.analyzeDuplicates).toHaveBeenCalledOnce();
+    expect(forbidden).not.toHaveBeenCalled(); expect(f.topology.refresh).not.toHaveBeenCalled();
+    expect(workbenchModel(data, []).repeats).toHaveLength(1); expect(data.semantic).toBeUndefined(); data.dispose();
+  });
+  it("connections request the existing scoped comparison only; no duplicate search", async () => {
+    const f = await fixture(); f.data.dispose();
+    const data = new WorkbenchData(f.data.scope, f.data.dependencies, false);
+    expect(data.comparison).toBeUndefined(); await data.refresh("connections");
+    expect(f.comparison.refresh).toHaveBeenCalledOnce(); expect(f.source.analyzeDuplicates).not.toHaveBeenCalled();
+    expect(data.duplicateState).toBe("idle"); data.dispose();
+  });
+  it("retains task/theory and task/task pairs, source order and duplicate basenames without role filtering", async () => {
+    const f = await fixture(["Practice/Task.md", "Theory/Task.md", "Practice/Other.md"]);
+    f.source.analyzeDuplicates.mockResolvedValue({ revision: semanticRevision, complete: false, candidates: [candidate("Practice/Task.md", "Theory/Task.md"), candidate("Practice/Task.md", "Practice/Other.md")] });
+    await f.data.refresh("repeats");
+    expect(workbenchModel(f.data, []).repeats.map(pair => pair.id)).toEqual([pairId("Practice/Task.md", "Theory/Task.md"), pairId("Practice/Task.md", "Practice/Other.md")]);
+    expect(f.data.duplicates?.complete).toBe(false); f.data.dispose();
+  });
+  it("invalidates repeat freshness on index notification without loading a map", async () => {
+    const f = await fixture(); let changed!: () => void;
+    const data = new WorkbenchData(f.data.scope, { ...f.data.dependencies, subscribeIndex: listener => { changed = listener; return () => {}; } }, false);
+    await data.refresh("repeats"); expect(data.duplicateState).toBe("ready");
+    changed(); expect(data.duplicateState).toBe("stale"); expect(data.semantic).toBeUndefined(); data.dispose(); f.data.dispose();
+  });
+});
