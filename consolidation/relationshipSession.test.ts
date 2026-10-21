@@ -6,7 +6,9 @@ import { ApiRequestError, callOpenRouter } from "../api";
 import cases from "../tests/fixtures/relationships.json";
 import { RelationshipSession } from "./relationshipSession";
 import type { RelationshipPair } from "./relationshipSession";
-import { RELATIONSHIP_OPTIONS } from "./relationshipPrompt";
+import { relationshipOptions } from "./relationshipPrompt";
+import type { CallOptions } from "../api";
+import type { LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
 import { RelationshipError } from "./relationshipContract";
 
 function fixture(name = "near_duplicates") {
@@ -14,12 +16,12 @@ function fixture(name = "near_duplicates") {
   let pair: RelationshipPair = [item.a, item.b].map((content, i) => ({
     path: `${i}/Same.md`, file: {} as TFile, content, modified: 1, bytes: content.length,
   })) as unknown as RelationshipPair;
-  const settings = { provider: "custom" as const, model: "test-model", apiKey: "secret-test-key", baseUrl: "https://example.test/v1", temperature: 0.3, topK: 10 };
+  const settings: LanguageModelSettingsSnapshot = { provider: "custom", model: "test-model", apiKey: "secret-test-key", baseUrl: "https://example.test/v1", temperature: 0.3, topK: 10 };
   const listeners = new Set<() => void>();
   const deps = {
     settings: { get: () => ({ ...settings }), subscribe: (fn: () => void) => { listeners.add(fn); return () => { listeners.delete(fn); }; } },
     read: vi.fn(async () => pair),
-    complete: vi.fn(async (_settings: typeof settings, _system: string, _user: string, _signal: AbortSignal) => JSON.stringify(item.response)),
+    complete: vi.fn(async (_settings: typeof settings, _system: string, _user: string, _signal: AbortSignal, _options: Readonly<CallOptions>) => JSON.stringify(item.response)),
   };
   const session = new RelationshipSession(deps);
   return { session, deps, settings, item, listeners, change: () => { pair = [{ ...pair[0], content: pair[0].content + " changed", modified: 2 }, pair[1]]; },
@@ -51,8 +53,8 @@ describe("relationship consent and lifecycle", () => {
   });
   it("uses the existing transport and sends exactly the consent body after confirmation", async () => {
     const f = fixture(); vi.stubGlobal("window", { setTimeout, clearTimeout });
-    vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ message: { content: JSON.stringify(f.item.response) } }] }) } as never);
-    f.deps.complete.mockImplementation((settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }));
+    vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(f.item.response) } }] }) } as never);
+    f.deps.complete.mockImplementation((settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }));
     await f.session.prepare(); const body = f.session.view.consent!.body; expect(requestUrl).not.toHaveBeenCalled();
     await f.session.confirm(); expect(requestUrl).toHaveBeenCalledOnce();
     expect(vi.mocked(requestUrl).mock.calls[0][0]).toMatchObject({ body });
@@ -135,22 +137,102 @@ describe("relationship consent and lifecycle", () => {
 });
 
 describe("Relationship Analyzer transport diagnostics", () => {
+  function transport() {
+    const f = fixture(); vi.stubGlobal("window", { setTimeout, clearTimeout });
+    f.settings.provider = "openrouter"; f.settings.model = "deepseek/deepseek-v4-flash-0731";
+    f.deps.complete.mockImplementation((settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }));
+    const reply = (payload: unknown) => vi.mocked(requestUrl).mockResolvedValueOnce({ status: 200, text: JSON.stringify(payload) } as never);
+    return { ...f, reply };
+  }
+  it.each([null, "", undefined, '{"relation":', "valid"])("length %s never becomes evidence or a retry", async content => {
+    const f = transport();
+    f.reply({ choices: [{ finish_reason: "length", message: { content: content === "valid" ? JSON.stringify(f.item.response) : content,
+      reasoning: JSON.stringify(f.item.response), reasoning_content: "private", reasoning_details: [{ text: "private" }] } }],
+      usage: { completion_tokens: 4000, completion_tokens_details: { reasoning_tokens: 4000 } } });
+    await f.session.prepare(); await Promise.all([f.session.confirm(), f.session.confirm()]); await f.session.confirm();
+    expect(f.session.view).toEqual({ stage: "error", error: "outputLimit" });
+    expect(f.session.analysisSource).toBeUndefined(); expect(requestUrl).toHaveBeenCalledOnce();
+    expect(JSON.stringify(f.session.view)).not.toMatch(/private|reasoning|4000/);
+  });
+  it.each([undefined, null, {}, { completion_tokens: -1 }, { completion_tokens: "4000" },
+    { completion_tokens: 4000, completion_tokens_details: { reasoning_tokens: 5000 } }, { completion_tokens: Number.POSITIVE_INFINITY }])("does not infer counts from unknown/invalid usage %j", async usage => {
+    const f = transport(); f.reply({ choices: [{ finish_reason: "length", message: { content: null } }], usage });
+    await f.session.prepare(); await f.session.confirm();
+    expect(f.session.view).toEqual({ stage: "error", error: "outputLimit" });
+  });
+  it.each([null, "", " \n"])("stop with %s and reasoning is empty, never recovered", async content => {
+    const f = transport(); f.reply({ choices: [{ finish_reason: "stop", message: { content, reasoning: JSON.stringify(f.item.response) } }] });
+    await f.session.prepare(); await f.session.confirm();
+    expect(f.session.view).toEqual({ stage: "error", error: "emptyResponse" });
+  });
+  it.each([undefined, null, "invented", "tool_calls"])("rejects missing/unexpected completion %s", async finish_reason => {
+    const f = transport(); f.reply({ choices: [{ finish_reason, message: { content: JSON.stringify(f.item.response) } }] });
+    await f.session.prepare(); await f.session.confirm();
+    expect(f.session.view).toEqual({ stage: "error", error: "unexpectedCompletion" });
+  });
+  it.each([
+    [{}, "invalidEnvelope"], [{ choices: [] }, "invalidEnvelope"], [{ choices: "private" }, "invalidEnvelope"],
+    [{ choices: [{ finish_reason: "length", message: null }] }, "invalidEnvelope"],
+    [{ choices: [{ finish_reason: "stop", message: {} }] }, "invalidEnvelope"],
+    [{ choices: [{ finish_reason: 42, message: { content: "private" } }] }, "invalidEnvelope"],
+    [{ error: { code: 503, message: "private", metadata: { key: "private" } } }, "provider"],
+    [{ choices: [{ finish_reason: "error", error: { message: "private" }, message: {} }] }, "provider"],
+    [{ choices: [{ finish_reason: "content_filter", message: { content: null } }] }, "refused"],
+    [{ choices: [{ finish_reason: "stop", message: { content: "text", refusal: "private" } }] }, "refused"],
+    [{ choices: [{ finish_reason: "stop", message: { content: "text", tool_calls: [{ id: "private" }] } }] }, "unexpectedCompletion"],
+  ])("safe envelope failure %#", async (payload, error) => {
+    const f = transport(); f.reply(payload); await f.session.prepare(); await f.session.confirm(); await f.session.confirm();
+    expect(f.session.view).toEqual({ stage: "error", error }); expect(f.session.analysisSource).toBeUndefined();
+    expect(requestUrl).toHaveBeenCalledOnce(); expect(JSON.stringify(f.session.view)).not.toContain("private");
+  });
+  it.each(["valid", "JSON", "quote", "evidence"])("stop still uses the strict %s contract", async variant => {
+    const f = transport(), response = structuredClone(f.item.response);
+    if (variant === "quote") response.claims[0].quoteA = "invented excerpt";
+    if (variant === "evidence") response.recommendation.evidence = ["unknown"];
+    f.reply({ choices: [{ finish_reason: "stop", message: { content: variant === "JSON" ? "{broken" : JSON.stringify(response) } }],
+      usage: { completion_tokens: 200, completion_tokens_details: { reasoning_tokens: 0 } } });
+    await f.session.prepare(); await f.session.confirm();
+    if (variant === "valid") expect(f.session.view.result).toEqual(response);
+    else { expect(f.session.view.error).toBe(variant === "JSON" ? "invalidResponse" : "unverifiedEvidence"); expect(f.session.analysisSource).toBeUndefined(); }
+    expect(requestUrl).toHaveBeenCalledOnce();
+  });
+  it.each(["deepseek/deepseek-v4-flash-0731", "deepseek/deepseek-v4-flash-20260731", "other-model"])("freezes %s policy and sends the byte-identical consent body", async model => {
+    const f = transport(); f.settings.model = model;
+    f.reply({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(f.item.response) } }] });
+    await f.session.prepare(); const consent = f.session.view.consent!;
+    expect(JSON.parse(consent.body)).toMatchObject({ model, max_tokens: 8192, reasoning: model === "other-model" ? { effort: "low" } : { enabled: false } });
+    expect(consent.maxTokens).toBe(8192); expect(requestUrl).not.toHaveBeenCalled();
+    await f.session.confirm(); expect(vi.mocked(requestUrl).mock.calls[0][0]).toMatchObject({ body: consent.body });
+    expect(Object.isFrozen(f.deps.complete.mock.calls[0][4])).toBe(true);
+    expect(Object.isFrozen(f.deps.complete.mock.calls[0][4].reasoning)).toBe(true);
+    expect(f.session.view.stage).toBe("result");
+  });
+  it("requires new consent when model changes the reasoning policy", async () => {
+    const f = transport(); await f.session.prepare(); const first = f.session.view.consent!;
+    f.settings.model = "other-model"; await f.session.confirm(); expect(f.session.view.stage).toBe("stale");
+    expect(requestUrl).not.toHaveBeenCalled(); await f.session.prepare();
+    expect(f.session.view.consent!.body).not.toBe(first.body); expect(f.session.view.consent!.reasoning).toBe("low");
+  });
+  it.each(["custom", "ollama", "openai", "groq"] as const)("never applies OpenRouter reasoning fields to %s", provider => {
+    const f = transport(); f.settings.provider = provider;
+    expect(relationshipOptions(f.settings)).toEqual({ maxTokens: 8192, temperature: 0, timeoutMs: 120_000, requireFinishReason: true });
+  });
   it("accepts a complete response at 38.6 seconds with the call-specific limit, once", async () => {
     vi.useFakeTimers(); vi.stubGlobal("window", { setTimeout, clearTimeout });
     const f = fixture(), pending = deferred<never>();
     vi.mocked(requestUrl).mockReturnValueOnce(pending.promise as never);
-    f.deps.complete.mockImplementation((settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }));
+    f.deps.complete.mockImplementation((settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }));
     await f.session.prepare(); const run = f.session.confirm();
     await vi.advanceTimersByTimeAsync(38_600);
     expect(f.session.view.stage).toBe("running");
-    pending.resolve({ status: 200, text: JSON.stringify({ choices: [{ message: { content: JSON.stringify(f.item.response) } }] }) } as never);
+    pending.resolve({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(f.item.response) } }] }) } as never);
     await run; expect(f.session.view.stage).toBe("result"); expect(requestUrl).toHaveBeenCalledOnce();
   });
   it("stops at 120 seconds, suppresses late results, and never reuses consent", async () => {
     vi.useFakeTimers(); vi.stubGlobal("window", { setTimeout, clearTimeout });
     const f = fixture(), pending = deferred<never>();
     vi.mocked(requestUrl).mockReturnValueOnce(pending.promise as never);
-    f.deps.complete.mockImplementation((settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }));
+    f.deps.complete.mockImplementation((settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }));
     await f.session.prepare(); const run = f.session.confirm();
     await vi.advanceTimersByTimeAsync(119_999); expect(f.session.view.stage).toBe("running");
     await vi.advanceTimersByTimeAsync(1); await run;

@@ -72,6 +72,10 @@ export function buildChatBody(
     body["frequency_penalty"] = opts.frequencyPenalty ?? 0.1;
   }
 
+  if ((settings.provider ?? "openrouter") === "openrouter" && opts.reasoning) {
+    body["reasoning"] = { ...opts.reasoning };
+  }
+
   return body;
 }
 
@@ -112,9 +116,12 @@ export function detectRepetitionLoop(
 //  Типы ответа API
 // ─────────────────────────────────────────────
 interface OpenRouterChoice {
-  message?: { content?: string };
-  delta?: { content?: string };
+  message?: { content?: string | null };
+  delta?: { content?: string | null };
   finish_reason?: string | null;
+  refused?: boolean;
+  toolCalls?: boolean;
+  error?: boolean;
 }
 
 interface OpenRouterResponse {
@@ -147,7 +154,7 @@ function parseOpenRouterResponse(text: string): OpenRouterResponse {
     }
     error = {
       code:
-        typeof payload.error.code === "number"
+        typeof payload.error.code === "number" && Number.isFinite(payload.error.code)
           ? payload.error.code
           : undefined,
     };
@@ -163,36 +170,49 @@ function parseOpenRouterResponse(text: string): OpenRouterResponse {
         throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
       }
       const choice: OpenRouterChoice = {};
-      if (rawChoice.message !== undefined) {
-        if (!isObject(rawChoice.message)) {
+      if (rawChoice.finish_reason !== undefined) {
+        if (typeof rawChoice.finish_reason !== "string" && rawChoice.finish_reason !== null) {
           throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
         }
-        if (typeof rawChoice.message.content !== "string") {
-          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
-        }
-        choice.message = { content: rawChoice.message.content };
-      }
-      if (rawChoice.delta !== undefined) {
-        if (!isObject(rawChoice.delta)) {
-          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
-        }
-        if (rawChoice.delta.content !== undefined) {
-          if (typeof rawChoice.delta.content !== "string") {
-            throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
-          }
-          choice.delta = { content: rawChoice.delta.content };
-        }
-      }
-      if (
-        typeof rawChoice.finish_reason === "string" ||
-        rawChoice.finish_reason === null
-      ) {
         choice.finish_reason = rawChoice.finish_reason;
+      }
+      if (rawChoice.error !== undefined) {
+        if (!isObject(rawChoice.error)) throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+        choice.error = true;
+      }
+      for (const key of ["message", "delta"] as const) {
+        const message = rawChoice[key];
+        if (message === undefined) continue;
+        if (!isObject(message)) {
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+        }
+        if (message.content !== undefined && message.content !== null && typeof message.content !== "string") {
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+        }
+        choice[key] = { content: message.content };
+        if (message.refusal !== undefined && message.refusal !== null && typeof message.refusal !== "string") {
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+        }
+        if (typeof message.refusal === "string" && message.refusal.trim()) choice.refused = true;
+        if (message.tool_calls !== undefined && message.tool_calls !== null && !Array.isArray(message.tool_calls)) {
+          throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+        }
+        if ((Array.isArray(message.tool_calls) && message.tool_calls.length > 0) || message.function_call != null) choice.toolCalls = true;
       }
       return choice;
     });
   }
   return { choices, error };
+}
+
+/** Completion status is authoritative even when content looks like valid JSON. */
+function checkCompletion(choice: OpenRouterChoice, requireFinishReason = false): void {
+  if (choice.finish_reason === "length") throw new ApiRequestError("outputLimit", tr("@relationship.error.outputLimit"));
+  if (choice.error || choice.finish_reason === "error") throw new ApiRequestError("provider", tr("API вернул ошибку."));
+  if (choice.refused || choice.finish_reason === "content_filter") throw new ApiRequestError("refused", tr("@relationship.error.refused"));
+  if (choice.toolCalls || (choice.finish_reason != null && choice.finish_reason !== "stop") || (requireFinishReason && choice.finish_reason !== "stop")) {
+    throw new ApiRequestError("unexpectedCompletion", tr("@relationship.error.unexpectedCompletion"));
+  }
 }
 
 function namedError(name: "AbortError" | "TimeoutError", message: string): Error {
@@ -281,11 +301,15 @@ export interface CallOptions {
   signal?: AbortSignal;
   /** Buffered requests only; stopping the wait cannot cancel requestUrl. */
   timeoutMs?: number;
+  /** OpenRouter only. Call-specific; never inferred for other API clients. */
+  reasoning?: Readonly<{ enabled: false } | { effort: "low" }>;
+  /** Structured analysis must receive an explicit normal completion. */
+  requireFinishReason?: boolean;
 }
 
 /** Only safe categories and numeric status cross the transport boundary. */
 export class ApiRequestError extends Error {
-  constructor(readonly reason: "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope", message: string, readonly status?: number) {
+  constructor(readonly reason: "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope" | "outputLimit" | "refused" | "unexpectedCompletion", message: string, readonly status?: number) {
     super(message);
     this.name = "ApiRequestError";
   }
@@ -338,8 +362,12 @@ export async function callOpenRouter(
     );
   }
 
-  const content = json.choices?.[0]?.message?.content;
-  if (content === undefined || !content.trim()) {
+  const choice = json.choices?.[0];
+  if (!choice?.message) throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+  checkCompletion(choice, opts.requireFinishReason);
+  const content = choice.message.content;
+  if (content === undefined) throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
+  if (content === null || !content.trim()) {
     throw new ApiRequestError("emptyResponse", tr("API вернул ответ неверного формата."));
   }
   return content;
@@ -455,8 +483,11 @@ export async function streamOpenRouter(
           continue;
         }
 
-        const finishReason = json.choices?.[0]?.finish_reason;
-        const content = json.choices?.[0]?.delta?.content;
+        if (json.error) throw new ApiRequestError("provider", tr("API вернул ошибку."));
+        const choice = json.choices?.[0];
+        if (choice) checkCompletion(choice);
+        const finishReason = choice?.finish_reason;
+        const content = choice?.delta?.content;
         if (!content) {
           if (finishReason && finishReason !== "null") break stream;
           continue;

@@ -156,6 +156,16 @@ describe("API request boundaries", () => {
     });
   });
 
+  // Synthetic chat/completions envelopes, not a captured user HTTP response.
+  it.each([null, "", undefined, '{"relation":', '{"relation":"same_information"}'])("rejects length before accepting final content: %s", async content => {
+    obsidianMocks.requestUrl.mockResolvedValueOnce(response(200, JSON.stringify({
+      choices: [{ finish_reason: "length", message: { content, reasoning: "synthetic-private-reasoning" } }],
+      usage: { completion_tokens: 4000, completion_tokens_details: { reasoning_tokens: 4000 } },
+    })));
+    await expect(callOpenRouter(settings(), "system", "user")).rejects.toMatchObject({ reason: "outputLimit" });
+    expect(obsidianMocks.requestUrl).toHaveBeenCalledOnce();
+  });
+
   it("rejects malformed buffered JSON at the trust boundary", async () => {
     obsidianMocks.requestUrl.mockResolvedValueOnce(
       response(200, "provider-secret-invalid-json"),
@@ -377,6 +387,42 @@ describe("API request boundaries", () => {
     expect(tokens).toEqual(["one ", "two"]);
     expect(fetchMock).toHaveBeenCalledOnce();
     expect(obsidianMocks.requestUrl).not.toHaveBeenCalled();
+  });
+
+  it("ignores null/empty intermediate deltas but delivers the final content", async () => {
+    const chunks = [{ delta: { content: null }, finish_reason: null }, { delta: { content: "" }, finish_reason: null },
+      { delta: { reasoning: "private" }, finish_reason: null }, { delta: { content: "final" }, finish_reason: "stop" }];
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(chunks.map(c => `data: ${JSON.stringify({ choices: [c] })}\n`).join(""))));
+    const tokens: string[] = [];
+    await streamOpenRouter(settings(), "system", "user", token => tokens.push(token));
+    expect(tokens).toEqual(["final"]);
+  });
+  it.each(["length", "content_filter", "tool_calls", "error", "unknown"])("does not report stream completion %s as success", async finish_reason => {
+    const chunks = [{ delta: { content: null }, finish_reason: null }, { delta: { content: "" }, finish_reason }];
+    const fetchMock = vi.fn(async () => new Response(chunks.map(c => `data: ${JSON.stringify({ choices: [c] })}\n`).join("")));
+    vi.stubGlobal("fetch", fetchMock); const token = vi.fn();
+    await expect(streamOpenRouter(settings(), "system", "user", token)).rejects.toMatchObject({ reason:
+      finish_reason === "length" ? "outputLimit" : finish_reason === "content_filter" ? "refused" : finish_reason === "error" ? "provider" : "unexpectedCompletion" });
+    expect(token).not.toHaveBeenCalled(); expect(fetchMock).toHaveBeenCalledOnce();
+  });
+  it("rejects a stream limit after earlier visible content, without forwarding reasoning", async () => {
+    const body = 'data: {"choices":[{"delta":{"content":"partial"},"finish_reason":null}]}\n' +
+      'data: {"choices":[{"delta":{"content":null,"reasoning":"private"},"finish_reason":"length"}]}\n';
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body))); const tokens: string[] = [];
+    await expect(streamOpenRouter(settings(), "system", "user", t => tokens.push(t))).rejects.toMatchObject({ reason: "outputLimit" });
+    expect(tokens).toEqual(["partial"]);
+  });
+  it("keeps ordinary client defaults and limits OpenRouter options to OpenRouter", async () => {
+    for (const provider of ["openrouter", "custom", "ollama", "openai", "groq"] as const) {
+      obsidianMocks.requestUrl.mockResolvedValueOnce(response(200, JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: "answer" } }] })));
+      await callOpenRouter(settings({ provider }), "system", "user");
+      const body = JSON.parse(obsidianMocks.requestUrl.mock.calls.at(-1)![0].body as string) as Record<string, unknown>;
+      expect(body).toMatchObject({ max_tokens: 2000, temperature: 0.5 }); expect(body.reasoning).toBeUndefined();
+      if (provider === "openrouter") continue;
+      obsidianMocks.requestUrl.mockResolvedValueOnce(response(200, JSON.stringify({ choices: [{ message: { content: "answer" } }] })));
+      await callOpenRouter(settings({ provider }), "system", "user", { reasoning: { effort: "low" } });
+      expect((JSON.parse(obsidianMocks.requestUrl.mock.calls.at(-1)![0].body as string) as Record<string, unknown>).reasoning).toBeUndefined();
+    }
   });
 
   it.each([
