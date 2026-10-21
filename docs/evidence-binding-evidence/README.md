@@ -1,6 +1,6 @@
 # Evidence binding — native verification
 
-Frozen source: `ca1d3153e016d88fac1b34c6de75a33989c930a0`. Obsidian 1.13.7 / Electron 43.6.0, isolated synthetic profile, four synthetic notes and artificial candidate vectors. No personal content or live provider.
+Frozen source: `fc1cbbc5962d5faae4309986f73082065c46da4c`. Obsidian 1.13.7 / Electron 43.6.0, isolated synthetic profile, four synthetic notes and artificial candidate vectors. No personal content or live provider.
 
 - 4663 tests / 170 files; typecheck, lint/build, proposal audit and diff check pass. The existing streaming-fetch advisory is retained.
 - 21 native checks, 4 explicit consented loopback requests through real requestUrl/parser/session/validator. All actual request bodies equal consent previews byte for byte: 8710 bytes each, 9 fragments, no uncovered non-whitespace characters for this small fixture.

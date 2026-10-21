@@ -24,7 +24,7 @@
     "All four disclosed consent bodies exactly match sent HTTP bodies"
   ],
   "metrics": {
-    "openMs": 379.73489900000004,
+    "openMs": 303.0001659999998,
     "runtime": {
       "obsidian": "1.13.7",
       "electron": "43.6.0"
@@ -56,9 +56,9 @@
     "ru-list-theme-light-1280.png",
     "ru-list-theme-light-390.png"
   ],
-  "sourceCommit": "ca1d3153e016d88fac1b34c6de75a33989c930a0",
+  "sourceCommit": "fc1cbbc5962d5faae4309986f73082065c46da4c",
   "hashes": {
-    "main.js": "737f374fc22e8898626e733ec9dd25d73f97c5b8ff985d4283c8ce17b4dac709",
+    "main.js": "34279c763b39539ab61c64eae377201868e213a6fa41ed25d662d5ada475d664",
     "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
     "styles.css": "2993fd7570240eecf58c852c4983d5a32dfe44f55ef21fc8f0cd9bf59000d999"
   },
