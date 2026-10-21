@@ -53,8 +53,8 @@ const pause=ms=>new Promise(r=>setTimeout(r,ms));let socket,onFrame,id=0;const p
 try{
  let page;for(let i=0;i<150;i++){try{page=(await(await fetch('http://127.0.0.1:9392/json/list')).json()).find(p=>p.url.startsWith('app://obsidian.md/'));}catch{}if(page)break;await pause(100);}assert(page,'Obsidian ready');
  socket=new WebSocket(page.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j});
- socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.method==='Page.screencastFrame')onFrame?.(m.params);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result)}};
- const cdp=(method,params={})=>new Promise((resolve,reject)=>{pending.set(++id,{resolve,reject});socket.send(JSON.stringify({id,method,params}))});
+ socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.method==='Page.screencastFrame')onFrame?.(m.params);if(m.id){const p=pending.get(m.id);pending.delete(m.id);if(p)m.error?p.reject(m.error):p.resolve(m.result)}};
+ const cdp=(method,params={})=>new Promise((resolve,reject)=>{const request=++id,timer=setTimeout(()=>{pending.delete(request);reject(Error(`CDP timeout: ${method}`))},30000);pending.set(request,{resolve:value=>{clearTimeout(timer);resolve(value)},reject:error=>{clearTimeout(timer);reject(error)}});socket.send(JSON.stringify({id:request,method,params}))});
  const ev=async expression=>{const r=await cdp('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});assert(!r.exceptionDetails,expression+' '+JSON.stringify(r.exceptionDetails));return r.result.value};
  const wait=async expression=>{for(let i=0;i<160;i++){if(await ev(expression))return;await pause(70);}throw Error('Timeout '+expression)};
  const pass=async(name,expression)=>{assert(await ev(expression),name);checks.push(name);console.log(name)};
@@ -112,7 +112,7 @@ try{
  await click('nav-discover');await wait("!!hv.contentEl.querySelector('[data-health-action=workbench-refresh]')");
  await pass('Workbench opening is passive','io.reads===0&&io.writes===0&&io.network===0');
  await wait('app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))');
- if(mode==='154'&&!process.env.V3_NO_INDEX)await startVideo();
+ if(mode==='154'&&!process.env.V3_NO_INDEX&&!process.env.V3_VISUAL_THEMES_ONLY&&!process.env.V3_EDGES_ONLY)await startVideo();
  await shot('before-semantic-load');
  await cdp('Performance.enable');metrics.performanceStart=await cdp('Performance.getMetrics');
  await click('workbench-refresh');await wait('!hv.workbench.data.busy');
@@ -123,6 +123,7 @@ try{
  assert.deepEqual(markdown(vault),before);if(lab)assert.deepEqual(markdown(lab),sourceBefore);await pass('No network during any scenario','io.network===0');
  fs.writeFileSync(root+'/after.json',JSON.stringify(markdown(vault),null,2));
  metrics.nativeWheelLatency=await ev('window.nativeWheelLatency??[]');
+ metrics.edgeLanguages=process.env.V3_EDGE_LANGUAGE?[process.env.V3_EDGE_LANGUAGE]:['ru','en'];
  metrics.runtime=await ev("({obsidian:require('@electron/remote').app.getVersion(),electron:process.versions.electron})");
  fs.writeFileSync(root+'/report.json',JSON.stringify({status:'visual review candidate',mode,theme:theme?{name:theme.name,version:theme.version,cssHash:theme.cssHash}:'built-in',checks,metrics,screenshots,sourceCommit,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io')},null,2));
  console.log(JSON.stringify({status:'PASS',checks:checks.length,root}));

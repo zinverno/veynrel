@@ -22,6 +22,11 @@ export async function exerciseNavigation(h) {
   const result=await ev(`(()=>{const scene=hv.contentEl.querySelector('.veynrel-visual-map'),r=scene.getBoundingClientRect(),labels=[...scene.querySelectorAll('.veynrel-workbench-label')].filter(e=>getComputedStyle(e).visibility==='visible').map(e=>({path:e.dataset.labelPath,box:e.getBoundingClientRect().toJSON(),font:getComputedStyle(e).fontSize}));const overlaps=[];for(let i=0;i<labels.length;i++)for(let j=i+1;j<labels.length;j++){const a=labels[i].box,b=labels[j].box;if(a.x<b.right&&a.right>b.x&&a.y<b.bottom&&a.bottom>b.y)overlaps.push([i,j]);}return {zoom:hv.workbench.graph.viewport.zoom,labels,overlaps,inside:labels.every(l=>l.box.left>=r.left&&l.box.right<=r.right&&l.box.top>=r.top&&l.box.bottom<=r.bottom)}})()`);
   assert.equal(result.overlaps.length,0,name+' no label overlap');assert(result.inside,name+' labels inside');metrics[name]=result;return result;
  };
+ const themeFrames=async()=>{
+  for(const color of ['light','dark']){await ev(`document.body.removeClass('theme-light','theme-dark');document.body.addClass('theme-${color}');void 0`);await settle();await pass(`Native ${color} theme class is active`,`document.body.classList.contains('theme-${color}')`);
+   await click('workbench-fit');await shot('overview-'+color);await wheel(-80);await wheel(-80);await checkLabels('theme-medium-'+color);await shot('medium-'+color);await wheel(-80);await wheel(-80);await checkLabels('theme-close-'+color);await shot('close-'+color);await click('workbench-fit');await ev(`hv.workbench.selectNote(${JSON.stringify(pairPaths[0])});void 0`);await settle();const names=await checkLabels('theme-membership-'+color);assert(names.labels.some(l=>l.path===pairPaths[0]),'Selected graph name is visible');await shot('membership-'+color);await click('workbench-clear-selection');
+  }
+ };
  if(process.env.V3_EDGES_ONLY){await exerciseEdges(h,{rect,points,context,wheelCheck,chooseZones,tags,checkLabels});return;}
  await pass('All canonical documents represented; aggregation counts unique files',`hv.workbench.items.reduce((n,p)=>n+(p.members?.length??1),0)===${mode}&&hv.workbench.items.length<=500`);
  await wait('hv.workbench.simulation.alpha===0');await click('workbench-fit');await settle();
@@ -35,6 +40,15 @@ export async function exerciseNavigation(h) {
  await pass('Ready artificial semantic data is present',`hv.workbench.data.semantic.getSnapshot().state==='ready'&&hv.workbench.data.semantic.getSnapshot().map.nodes.length===${mode}`);
  const stable=await points(),ticks=await ev('hv.workbench.simulation.ticks');await pause(700);assert.deepEqual(await points(),stable);assert.equal(await ev('hv.workbench.simulation.ticks'),ticks);checks.push('Settled graph has no idle drift or continued ticks');
  await chooseZones(tags);const colors=await ev('({...hv.workbench.graph.hues})');
+ if(mode==='154'){
+  const before=await ev('hv.workbench.graph.viewport');await ev("hv.contentEl.querySelector('svg[data-camera]').focus();void 0");
+  for(const key of ['ArrowRight','+']){await cdp('Input.dispatchKeyEvent',{type:'keyDown',key});await cdp('Input.dispatchKeyEvent',{type:'keyUp',key});}await settle();
+  const after=await ev('hv.workbench.graph.viewport');assert(after.x!==before.x&&after.zoom>before.zoom);checks.push('Native keyboard pans and zooms focused map');
+  const chip=await ev("hv.contentEl.querySelector('[data-zone-title=\"topic/sql\"]').getBoundingClientRect().toJSON()");await mouse('mouseMoved',chip.x+chip.width/2,chip.y+chip.height/2);await settle();
+  await pass('Native tag hover highlights exactly 95 metadata members',"hv.contentEl.querySelectorAll('[data-path].is-zone-member').length===95&&[...hv.contentEl.querySelectorAll('[data-path]')].every(n=>n.classList.contains('is-zone-member')===hv.workbench.data.dependencies.tags.getSnapshot().notes.find(m=>m.path===n.dataset.path).tags.includes('topic/sql'))");await shot('tag-hover-exact-members',true);
+  await click('workbench-fit');
+  if(process.env.V3_VISUAL_THEMES_ONLY){await themeFrames();return;}
+ }
  if(mode==='154')await startVideo();
  await click('workbench-expand');await click('workbench-fit');await shot('expanded-overview');
  const target=await ev(`(()=>{const e=hv.contentEl.querySelector('[data-path=${JSON.stringify(pairPaths[0])}]');return e.getBoundingClientRect().toJSON()})()`);
@@ -58,7 +72,7 @@ export async function exerciseNavigation(h) {
  if(mode==='500'){await wheelCheck('500-node native zoom');metrics.after=await ev('({simulation:hv.workbench.simulation.milliseconds,render:hv.workbench.graph.metrics})');return;}
  await clickSelector('[data-health-action^=workbench-related-]');const beforeReview=await context();await click('workbench-compare');await wait("document.querySelectorAll('.ai-pair-note').length===2");await shot('candidate-compare');await click('workbench-back');assert.deepEqual(await context(),beforeReview);checks.push('Candidate Compare returns exact context and disposes consent owner');
  await click('workbench-clear-selection');await click('workbench-expand');await stopVideo();
- for(const color of ['moonstone','obsidian']){await ev(`app.setTheme('${color}');void 0`);await settle();await click('workbench-fit');await shot('overview-'+color);await wheel(-80);await wheel(-80);await shot('medium-'+color);await wheel(-80);await wheel(-80);await shot('close-'+color);await click('workbench-fit');await ev(`hv.workbench.selectNote(${JSON.stringify(pairPaths[0])});void 0`);await settle();await shot('membership-'+color);await click('workbench-clear-selection');}
+ await themeFrames();
  assert.deepEqual(await ev('hv.workbench.graph.hues'),colors);checks.push('Canonical tag colors survive selection and theme changes');
  await exerciseExecutor(h,chooseZones,tags);
  await exerciseReference(h);

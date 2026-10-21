@@ -10,7 +10,7 @@ seen, found = set(), []
 for y in range(y0, y1):
     for x in range(x0, x1):
         red, green, blue = im.getpixel((x, y))
-        if (x, y) in seen or max(red, green, blue) - min(red, green, blue) > 3 or red < 150:
+        if (x, y) in seen or max(red, green, blue) - min(red, green, blue) > 32 or red < 150:
             continue
         todo, points = [(x, y)], []
         seen.add((x, y))
@@ -21,7 +21,7 @@ for y in range(y0, y1):
                 if not (x0 <= q[0] < x1 and y0 <= q[1] < y1) or q in seen:
                     continue
                 a, b, c = im.getpixel(q)
-                if max(a, b, c)-min(a, b, c) <= 3 and a >= 150:
+                if max(a, b, c)-min(a, b, c) <= 32 and a >= 150:
                     seen.add(q)
                     todo.append(q)
         xs, ys = [p[0] for p in points], [p[1] for p in points]

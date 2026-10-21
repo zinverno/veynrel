@@ -1,0 +1,8 @@
+{
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "inputs": "CDP native mouse wheel ±80, background drag, ArrowLeft/+/-; no private Graph View internals accessed",
+  "nodeDrag": "Native press/move/release on screenshot-located visible circle; screenshots/video recorded. No private renderer coordinates or code used."
+}

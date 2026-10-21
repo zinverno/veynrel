@@ -43,7 +43,26 @@ V3 заменяет эту модель:
 
 ## Результаты и воспроизведение
 
-Финальные результаты, hashes, source commit и native измерения добавляются после проверки frozen сборки. До этого текущий документ не является заявлением полного прохождения.
+Frozen source: `2da829d8fdbfcd4fc08b1e62746897c83a16a1bb`. [Полные кадры, видео, SHA256, отчёты и логи](map-visual-reset-v3-evidence/README.md). Сборка проверена в Obsidian 1.13.7 / Electron 43.6.0 на Linux; штатный Graph View открыт рядом на той же фикстуре.
+
+Автоматика: **4542 тест / 167 файлов**, оба tsc проекта, lint/build, `git diff --check`, proposal mutation audit **5/5**. Оставлено прежнее предупреждение `api.ts:414`. Исполнитель Apply/History/отдельный Undo реально изменил и восстановил synthetic Markdown; полный инвентарь SHA256 до/после совпал. Открытие карты и локальный refresh дали 0 Markdown reads/writes и 0 network; целевой executor-сценарий дал два write (Apply и Undo), network=0.
+
+Native evidence включает 154/500/1000, отсутствие индекса, ready artificial semantics, stale/unknown, семь промежуточных zoom без пересечений label boxes, keyboard, Escape, capture cleanup, AND/OR, pause/reduced-motion drag с движущимся ореолом, скрытую вкладку, свёрнутый настоящий popout, dispose, RU/EN, 390 px и 200% Electron zoom. Built-in light/dark и локальная Red Graphite 1.0.5 проверены на synthetic данных. Программное переключение встроенных theme classes в harness подтверждается явной проверкой класса; неверно названные ранние «light» кадры не включены в evidence.
+
+| Измерение native | 154 | 500 | 1000 |
+|---|---:|---:|---:|
+| Физика, накопленное JS-время до первого Fit | 44.8 ms | 447.4 ms | 0 — агрегация |
+| JS renderer до первого Fit | 1021 ms | 4037 ms | 706 ms |
+| Интервал кадров стабилизации, средний / p95 | 33.7 / 50.1 ms | 63.1 / 150.1 ms | нет симуляции |
+| Окно refresh → settle/fit | 5.19 s | 17.08 s | 0.61 s |
+| Renderer CPU TaskDuration в этом окне | 3.51 s | 17.02 s | 0.43 s |
+| Native wheel → два RAF после события | 15.9–32.8 ms | 38.3–48.0 ms | не измерялось |
+
+Интервалы кадров берутся из ограниченного буфера до 240 последних движущихся кадров. Счётчики физики/JS накоплены с открытия карты, а CPU window начинается перед refresh; это разные интервалы. Холодные metadata/topology/semantic arrivals дали три обновления данных на 154/500, после выбора/hover/десяти переключений линий — **ноль новых раскладок**, после успокоения — ноль дополнительных ticks. CPU измерен через CDP Performance TaskDuration, а не внешним системным профайлером. Native wheel latency включает два RAF и не является аппаратной input-to-photon метрикой. На 154 шла запись видео; на 500 нет. GPU отключён в изолированном harness. На 500 первичная стабилизация тяжёлая и **60 FPS не достигнуты**; это явное ограничение кандидата, не скрытый PASS.
+
+Проверка installer на временном synthetic vault подтвердила три файла, внешний backup, сохранение settings/index/journals и отказ при tamper, symlink и original target. Fixed-target wrapper проверен `bash -n` и отказом при аргументах; в пользовательский TEST не запускался. Постоянный комплект хранится вне `/tmp` с SOURCE_COMMIT и SHA256SUMS. Версия, зависимости, #106 и #107 не изменены.
+
+Ревью закрыло три найденных дефекта: Focus теперь использует мировую ширину, drag >500 не разогревает отключённую физику, ручной drag при pause/reduced motion инвалидирует кэш ореолов. Финальная проверка добавила запасные диагональные позиции приоритетной подписи: выбранное имя теперь проверяется непосредственно в native light/dark кадрах, даже когда четыре ближайшие позиции заняты. Последующие изменения harness исправили проверку native theme switch и screenshot-поиск нейтральной точки штатного графа в Red Graphite; production bundle остался frozen.
 
 ```bash
 # Fresh disposable profile; never pass the original or installed TEST vault.
@@ -55,6 +74,8 @@ VEYNREL_LAB_ROOT=/absolute/path/to/synthetic-lab \
 ```
 
 Отдельные offline режимы: `V3_NO_INDEX=1`; `VEYNREL_THEME_DIR=/path/to/local/theme` копирует только theme.css/manifest в synthetic vault. В evidence не публикуются CSS сторонней темы, личные пути или пользовательские screenshots.
+
+Два совмещённых RU/EN прогона оборвались при серии theme/width переключений: один Red Graphite на `dc3c84b`, один built-in на `2da829d`. В обоих случаях журнал ядра подтвердил native Compositor segfault в Electron. Причина не установлена; взаимодействие с этим UI не исключено. [Диагностика](map-visual-reset-v3-evidence/runtime-interruption.json) сохранена. Финальные RU и EN проверки разделены по свежим профилям на одной frozen сборке. Это обход проблемы тестового окружения, **не заявленное исправление compositor**. Прерванные прогоны не считаются PASS.
 
 Не проверены физический mobile/touch/trackpad, озвучивание screen reader, все сторонние темы и реальная embedding quality. Ручная оценка формы/движения и полезности остаётся открытой. 60 FPS не обещается; измерения относятся к этой машине и указанному native окружению.
 
