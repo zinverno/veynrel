@@ -1,0 +1,76 @@
+{
+  "status": "native checks passed; user UX acceptance separate",
+  "checks": [
+    "Cold direct command opens one list without map data",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Direct command opens one standalone list without graphical data or IO",
+    "Repeat search uses no comparison or topology calculation",
+    "Pair reads two sources but sends no model request",
+    "Explicit consent shows the actual offline test model",
+    "Real Apply → history → separate Undo restores every Markdown SHA256",
+    "List search and selected pair survive return; no analysis consent survives",
+    "Returning revokes one-use consent",
+    "Scope change rejects late completion",
+    "ru/dark/1694: no horizontal overflow",
+    "ru/dark/390: no horizontal overflow",
+    "ru/light/1694: no horizontal overflow",
+    "ru/light/390: no horizontal overflow",
+    "en/dark/1694: no horizontal overflow",
+    "en/dark/390: no horizontal overflow",
+    "en/light/1694: no horizontal overflow",
+    "en/light/390: no horizontal overflow",
+    "200% global zoom remains usable",
+    "Keyboard mode switch retains focus",
+    "Source error retains prior candidate provenance",
+    "Empty folder is explicit",
+    "Split views keep independent context",
+    "Real popout preserves list and scope without map",
+    "No map construction, model network or graphical data during full route"
+  ],
+  "metrics": {
+    "openMs": 1918.0245750000013,
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "screenshots": [
+    "list-before-search.png",
+    "list-candidates.png",
+    "list-selected-search.png",
+    "pair-before-analysis.png",
+    "analysis-consent.png",
+    "pair-validated-result.png",
+    "exact-review.png",
+    "applied-result.png",
+    "history.png",
+    "undo-review.png",
+    "return-to-list.png",
+    "list-ru-dark-1694.png",
+    "list-ru-dark-390.png",
+    "list-ru-light-1694.png",
+    "list-ru-light-390.png",
+    "list-en-dark-1694.png",
+    "list-en-dark-390.png",
+    "list-en-light-1694.png",
+    "list-en-light-390.png",
+    "list-zoom-200.png",
+    "list-source-error.png",
+    "list-empty-scope.png",
+    "list-split.png",
+    "list-popout.png"
+  ],
+  "sourceCommit": "f894125090038a0c61039f750932955149dd51de",
+  "hashes": {
+    "main.js": "b21d4cc9635382a42356666f1671e7e23d451b166080890dd30eba2e422159fd",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "2993fd7570240eecf58c852c4983d5a32dfe44f55ef21fc8f0cd9bf59000d999"
+  },
+  "io": {
+    "reads": 36,
+    "writes": 2,
+    "network": 0,
+    "enumerations": 71
+  }
+}

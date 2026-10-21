@@ -2952,3 +2952,33 @@
   .veynrel-visual-map .veynrel-workbench-map-tools { max-width: calc(100% - 90px); gap: 2px; }
   .veynrel-workbench-grid .veynrel-workbench-selection { bottom: 90px; }
 }
+
+/* Review vault: full-width list, with graphical resources created only on request. */
+.veynrel-review { min-width: 0; }
+.veynrel-review-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.veynrel-review-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-right: auto; }
+.veynrel-review-modes [aria-pressed="true"] { background: var(--background-modifier-active-hover); border-color: var(--interactive-accent); }
+.veynrel-review-toolbar input[type="search"] { flex: 1; min-width: min(240px, 100%); }
+.veynrel-review-status { color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-review-status p { margin: 6px 0; }
+.veynrel-review-results { list-style: none; padding: 0; margin: 20px 0; }
+.veynrel-review-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(180px, 1fr) auto; align-items: center; gap: 20px; padding: 18px 12px; border-top: 1px solid var(--background-modifier-border); }
+.veynrel-review-row.is-selected { background: var(--background-modifier-active-hover); }
+.veynrel-review-row p { color: var(--text-muted); font-size: var(--font-ui-small); margin: 0; }
+.veynrel-review-names { display: grid; gap: 10px; min-width: 0; }
+.veynrel-review-path { display: block; color: var(--text-muted); overflow-wrap: anywhere; }
+.veynrel-review-names strong { overflow-wrap: anywhere; }
+.veynrel-review-detail .ai-pair-inspector { margin-top: 12px; }
+.ai-pair-titles { font-size: var(--font-ui-large); font-weight: 600; overflow-wrap: anywhere; }
+.ai-pair-excerpt { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font-text); font-size: var(--font-text-size); max-height: 16em; overflow: auto; }
+.ai-pair-inspector > [hidden], .ai-pair-actions > [hidden], .veynrel-review > [hidden] { display: none; }
+@container (max-width: 760px) {
+  .veynrel-review-row { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  .veynrel-review-row p { grid-column: 1 / -1; grid-row: 2; }
+}
+@container (max-width: 450px) {
+  .veynrel-review-toolbar { align-items: stretch; }
+  .veynrel-review-toolbar input[type="search"] { width: 100%; }
+  .veynrel-review-row { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-review-row p { grid-row: auto; }
+}

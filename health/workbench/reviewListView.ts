@@ -1,0 +1,160 @@
+import { currentLanguage, t } from "../../i18n";
+import type { Finding } from "../domain/finding";
+import { healthButton, healthDetails } from "../ui/renderHealthHome";
+import type { PairReviewPort, WorkbenchData } from "./workbenchData";
+import { workbenchModel } from "./workbenchModel";
+import type { WorkbenchPair } from "./workbenchModel";
+
+interface OptionalMap { update(findings: readonly Finding[]): void; dispose(): void }
+interface ReviewActions {
+  history(): void; settings(): void;
+  map(parent: HTMLElement): OptionalMap;
+}
+
+/** List navigation has no graphical dependencies. Each pair owns fresh consent and tickets. */
+export class ReviewListView {
+  readonly element: HTMLElement;
+  private readonly browser: HTMLElement;
+  private readonly detail: HTMLElement;
+  private readonly remove: () => void;
+  private stopReview?: () => void;
+  private map?: OptionalMap;
+  private findings: readonly Finding[] = [];
+  private mode: "repeats" | "connections" = "repeats";
+  private query = "";
+  private limit = 60;
+  private selected?: WorkbenchPair;
+  private scroll = 0;
+  private generation = 0;
+  private disposed = false;
+  private suspended = false;
+  private language = currentLanguage();
+  constructor(parent: HTMLElement, readonly data: WorkbenchData, private readonly pair: PairReviewPort,
+    private readonly actions: ReviewActions, private readonly scrollOwner: HTMLElement) {
+    this.element = parent.createDiv({ cls: "veynrel-review" });
+    this.browser = this.element.createDiv({ cls: "veynrel-review-list" });
+    this.detail = this.element.createDiv({ cls: "veynrel-review-detail" });
+    this.detail.hidden = true;
+    this.remove = data.subscribe(() => this.render());
+    this.render();
+  }
+  update(findings: readonly Finding[]): void {
+    if (this.disposed) return;
+    if (this.language !== currentLanguage()) { this.suspend(); this.language = currentLanguage(); }
+    this.suspended = false;
+    this.findings = findings;
+    if (this.map) this.map.update(findings); else this.render();
+  }
+  inheritNavigation(previous?: ReviewListView): void {
+    if (!previous) return;
+    this.mode = previous.mode; this.query = previous.query; this.limit = previous.limit;
+    this.selected = previous.selected?.paths.every(path => this.data.scope.paths.includes(path)) ? previous.selected : undefined;
+    this.render();
+  }
+  suspend(): void {
+    this.suspended = true; this.generation++;
+    this.stopReview?.(); this.stopReview = undefined;
+    this.map?.dispose(); this.map = undefined;
+    this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
+  }
+  dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.data.dispose(); }
+  private back(): void {
+    this.suspend(); this.suspended = false; this.render();
+    this.scrollOwner.scrollTop = this.scroll;
+    const target = Array.from(this.browser.querySelectorAll<HTMLElement>("[data-pair-id]")).find(el => el.getAttribute("data-pair-id") === this.selected?.id);
+    target?.focus({ preventScroll: true });
+  }
+  private openPair(pair: WorkbenchPair): void {
+    if (this.stopReview || this.disposed) return;
+    this.selected = pair; this.scroll = this.scrollOwner.scrollTop; this.generation++;
+    this.browser.hidden = true; this.detail.hidden = false; this.detail.empty();
+    const generation = this.generation;
+    healthButton(this.detail, t("@review.back"), () => { if (generation === this.generation) this.back(); }, "review-back");
+    this.detail.createEl("p", { text: t(`@review.origin.${pair.basis}`), cls: "veynrel-review-basis" });
+    this.stopReview = this.pair.mount(this.detail.createDiv(), pair.paths);
+    this.scrollOwner.scrollTop = 0;
+    this.detail.querySelector<HTMLElement>("[data-pair-heading]")?.focus({ preventScroll: true });
+  }
+  private basis(pair: WorkbenchPair): string {
+    return t(pair.basis === "duplicate" && this.data.duplicateState !== "ready" ? "@review.old-result" : `@review.basis.${pair.basis}`);
+  }
+  private render(): void {
+    if (this.disposed || this.suspended || this.stopReview || this.map) return;
+    const generation = ++this.generation;
+    const current = (): boolean => !this.disposed && !this.suspended && generation === this.generation;
+    const active = this.element.ownerDocument.activeElement as HTMLInputElement | null;
+    const focusKey = this.browser.contains(active) ? active?.getAttribute("data-health-action") : undefined;
+    const searching = focusKey === "review-search";
+    const caret = searching ? [active?.selectionStart, active?.selectionEnd] : undefined;
+    const scroll = this.scrollOwner.scrollTop;
+    this.browser.empty();
+    const button = (parent: HTMLElement, label: string, action: () => void, id: string, disabled = false, primary = false) =>
+      healthButton(parent, label, () => { if (current()) action(); }, id, disabled, primary);
+    this.browser.createEl("h1", { text: t("@review.title"), attr: { tabindex: "-1", "data-review-heading": "true" } });
+    this.browser.createEl("p", { text: t("@review.description") });
+    const toolbar = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
+    const modes = toolbar.createDiv({ cls: "veynrel-review-modes", attr: { "aria-label": t("@workbench.scenarios") } });
+    for (const mode of ["repeats", "connections"] as const) {
+      const control = button(modes, t(`@workbench.${mode}`), () => { this.mode = mode; this.limit = 60; this.render(); }, `review-${mode}`);
+      control.setAttribute("aria-pressed", String(this.mode === mode));
+    }
+    button(toolbar, t("@safeApply.history"), () => this.actions.history(), "review-history");
+    button(toolbar, t("@review.map"), () => {
+      this.scroll = this.scrollOwner.scrollTop; this.browser.hidden = true; this.detail.hidden = false; this.detail.empty(); this.generation++;
+      const mapGeneration = this.generation;
+      healthButton(this.detail, t("@review.back"), () => { if (mapGeneration === this.generation) this.back(); }, "review-back");
+      this.map = this.actions.map(this.detail.createDiv()); this.map.update(this.findings);
+    }, "review-map");
+    const searchRow = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
+    const search = searchRow.createEl("input", { type: "search", attr: { placeholder: t("@workbench.search"), "aria-label": t("@workbench.search"), "data-health-action": "review-search" } });
+    search.value = this.query;
+    search.addEventListener("input", () => { if (current()) { this.query = search.value; this.limit = 60; this.render(); } });
+    button(searchRow, t("@review.refresh"), () => { void this.data.refresh(this.mode); }, "review-refresh", this.data.busy, true);
+    const model = workbenchModel(this.data, this.findings.filter(f => f.state === "open"));
+    const all = this.mode === "repeats" ? model.repeats : model.connections;
+    const matches = all.filter(pair => pair.paths.some(path => path.toLowerCase().includes(this.query.trim().toLowerCase())));
+    const state = this.mode === "repeats" ? this.data.duplicateState : this.data.connectionError ? "error" : this.data.comparison?.getSnapshot().state ?? "idle";
+    const status = this.browser.createDiv({ cls: "veynrel-review-status", attr: { role: "status", "aria-live": "polite" } });
+    status.createEl("p", { text: t(`@workbench.state.${this.data.busy ? "loading" : state}`) });
+    if (state === "unavailable") button(status, t("@workbench.setup"), () => this.actions.settings(), "review-settings");
+    if (all.length || state === "ready") status.createEl("p", { text: t("@review.count", { shown: Math.min(matches.length, this.limit), total: matches.length, all: all.length }) });
+    if (this.mode === "repeats") {
+      status.createEl("small", { text: t("@review.global-limit") });
+      const coverage = healthDetails(status, t("@workbench.coverage"), "review-coverage");
+      coverage.createEl("p", { text: t("@workbench.global-candidates") });
+      if (this.data.duplicates?.complete === false) coverage.createEl("p", { text: t("@review.partial") });
+      if (this.data.duplicates) coverage.createEl("pre", { text: JSON.stringify(this.data.duplicates.revision, null, 2) });
+    } else {
+      const semantic = this.data.semantic?.getSnapshot();
+      if (semantic?.reason === "too-large") status.createEl("p", { text: t("@workbench.cap", { cap: semantic.supportedNoteCount, count: semantic.indexedNoteCount ?? "—" }) });
+      const coverage = healthDetails(status, t("@workbench.coverage"), "review-coverage");
+      coverage.createEl("p", { text: t("@workbench.ranking") });
+      const topology = this.data.dependencies.topology.getSnapshot();
+      if (topology.state === "ready" && topology.map?.complete === false) coverage.createEl("p", { text: t("@workbench.links-partial") });
+    }
+    if (!this.data.scope.paths.length) this.browser.createEl("p", { text: t("@workbench.no-notes") });
+    else if (!matches.length && (all.length || state === "ready")) this.browser.createEl("p", { text: t(this.query ? "@workbench.no-search" : this.mode === "repeats" ? "@workbench.no-candidates" : "@workbench.no-connections") });
+    const list = this.browser.createEl("ol", { cls: "veynrel-review-results" });
+    for (const pair of matches.slice(0, this.limit)) {
+      const row = list.createEl("li", { cls: "veynrel-review-row" });
+      if (this.selected?.id === pair.id) row.addClass("is-selected");
+      const names = row.createDiv({ cls: "veynrel-review-names" });
+      pair.paths.forEach(path => {
+        const name = names.createDiv(); name.createEl("strong", { text: path.split("/").pop()!.replace(/\.md$/iu, "") });
+        name.createEl("small", { text: path, cls: "veynrel-review-path" });
+      });
+      row.createEl("p", { text: this.basis(pair) });
+      const compare = button(row, t("@review.compare"), () => this.openPair(pair), `review-pair-${encodeURIComponent(pair.id)}`);
+      compare.setAttribute("data-pair-id", pair.id);
+      compare.setAttribute("aria-label", `${t("@review.compare")}: ${pair.paths.join(" · ")}`);
+    }
+    if (matches.length > this.limit) button(this.browser, t("@workbench.more"), () => { this.limit += 60; this.render(); }, "review-more");
+    if (searching) { search.focus({ preventScroll: true }); search.setSelectionRange(caret?.[0] ?? null, caret?.[1] ?? null); }
+    if (focusKey && !searching) {
+      const next = Array.from(this.browser.querySelectorAll<HTMLElement>("[data-health-action]")).find(el => el.getAttribute("data-health-action") === focusKey);
+      if (next && !(next as HTMLButtonElement).disabled) next.focus({ preventScroll: true });
+      else this.browser.querySelector<HTMLElement>("[data-review-heading]")?.focus({ preventScroll: true });
+    }
+    this.scrollOwner.scrollTop = scroll;
+  }
+}

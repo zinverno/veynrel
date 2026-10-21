@@ -35,9 +35,10 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
   const createComparison = (map: SemanticGlobalMapPort): ConnectionComparisonController => new ConnectionComparisonController(map, topology);
   const comparison = globalMap ? createComparison(globalMap) : undefined;
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall), deepAnalysis);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison, pairReview ? { pair: pairReview, create: scope => new WorkbenchData(scope, {
-    topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope) : undefined, createComparison, duplicates: semanticAnalysis, tags: createTags?.(scope.paths),
-  }) } : undefined));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison, pairReview ? { pair: pairReview, create: (scope, graphical = false) => new WorkbenchData(scope, {
+    topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope) : undefined, createComparison, duplicates: semanticAnalysis, tags: graphical ? createTags?.(scope.paths) : undefined,
+    prepareExisting: () => globalMap?.prepareExisting?.() ?? Promise.resolve(), subscribeIndex: semantic ? listener => semantic.subscribe(listener) : undefined,
+  }, graphical) } : undefined));
   plugin.register(() => comparison?.dispose());
   plugin.register(() => globalMap?.dispose());
   plugin.register(() => neighborhood?.dispose());
@@ -45,9 +46,15 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
   plugin.register(() => controller.dispose());
   plugin.register(() => recall.dispose());
   let opening: Promise<void> | undefined;
-  const open = (): void => {
-    opening ??= openHealthView(plugin.app.workspace).catch(() => { new Notice(t("@health.open-failed")); }).finally(() => { opening = undefined; });
+  const open = (): Promise<void> => {
+    return opening ??= openHealthView(plugin.app.workspace).catch(() => { new Notice(t("@health.open-failed")); }).finally(() => { opening = undefined; });
   };
   plugin.addRibbonIcon("activity", t("@health.title"), open);
   plugin.addCommand({ id: "veynrel-open-health", name: t("@health.command"), callback: open });
+  plugin.addCommand({ id: "veynrel-review-vault", name: t("@review.title"), callback: () => {
+    void open().then(() => {
+      const view = plugin.app.workspace.getLeavesOfType(VEYNREL_HEALTH_VIEW_TYPE)[0]?.view;
+      if (view instanceof VeynrelHealthView) view.openReviewVault();
+    }).catch(() => { new Notice(t("@health.open-failed")); });
+  } });
 }
