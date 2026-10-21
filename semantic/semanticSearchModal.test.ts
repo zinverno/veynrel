@@ -69,6 +69,10 @@ const mocks = vi.hoisted(() => {
       this.cls = `${this.cls} ${value}`.trim();
     }
 
+    contains(element: FakeElement): boolean {
+      return this === element || this.children.some(child => child.contains(element));
+    }
+
     empty() {
       this.children.length = 0;
       this.text = "";
@@ -1046,7 +1050,8 @@ describe("read-only Pair Inspector UI", () => {
     f.modal.open(); await flush(); expect(button("open")).toBeUndefined();
     f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
     const reads = f.app.vault.read.mock.calls.length; expect(button("open")).toBeDefined(); expect(button("build")).toBeUndefined();
-    button("open").trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(reads + 2);
+    const oldPrepare = button("open");
+    oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(reads + 2);
     select("operation", "replace_with_embed"); expect(button("build").disabled).toBe(true);
     select("range", "0"); expect(button("build").disabled).toBe(true);
     const checkbox = f.content.findByTag("input").find(el => el.attributes.get("data-planner-field") === "confirm")!;
@@ -1062,7 +1067,9 @@ describe("read-only Pair Inspector UI", () => {
     const beforeEvent = f.app.vault.read.mock.calls.length; f.app.metadataCache.emit("resolved");
     expect(f.content.findByClass("ai-planner-result")).toHaveLength(0); expect(f.stage()).toBe("result");
     expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
-    f.modal.close(); expect(f.content.children).toHaveLength(0); setLanguage("ru");
+    f.modal.close(); expect(f.content.children).toHaveLength(0);
+    oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent);
+    setLanguage("ru");
   });
 
   it("removes a completed result when a selected source is deleted, without rereading or writing", async () => {

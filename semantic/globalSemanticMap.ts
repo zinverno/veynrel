@@ -18,6 +18,8 @@ export interface GlobalSemanticRelationship {
 }
 export interface GlobalSemanticProgress { readonly completedPairs: number; readonly totalPairs: number }
 export interface GlobalSemanticOptions {
+  /** Exact canonical paths from the selected metadata scope, before pairwise analysis. */
+  readonly paths?: readonly string[];
   readonly signal?: AbortSignal;
   readonly onProgress?: (progress: GlobalSemanticProgress) => void;
 }

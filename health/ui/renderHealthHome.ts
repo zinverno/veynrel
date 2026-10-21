@@ -41,7 +41,7 @@ function renderHealthCard(parent: HTMLElement, card: HealthCardModel, actions: H
   article.createDiv({ cls: "veynrel-health-state-rail", attr: { "aria-hidden": "true" } });
 }
 
-export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel, actions: HealthHomeActions): void {
+export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel, actions: HealthHomeActions, renderTask?: (parent: HTMLElement) => void): void {
   parent.empty();
   const home = parent.createDiv({ cls: "veynrel-health-home" });
   const header = home.createEl("header", { cls: "veynrel-health-header" });
@@ -67,11 +67,12 @@ export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel
     const id = model.recommendation.findingId;
     if (id && actions.reviewFinding) healthButton(section, t("@findings.review"), () => actions.reviewFinding?.(id), "review-finding");
   }
+  renderTask?.(home);
   const health = home.createEl("section", { cls: "veynrel-health-dimensions" });
   health.createEl("h2", { text: t("@ui.dimensions") });
   const grid = health.createDiv({ cls: "veynrel-health-grid" });
   for (const card of model.cards) renderHealthCard(grid, card, actions);
-  renderHealthInsights(home, model.dashboard, actions);
+  renderHealthInsights(healthDetails(home, t("@workbench.health-details"), "health-data"), model.dashboard, actions);
 }
 
 export function renderHealthProfile(parent: HTMLElement, model: HealthHomeViewModel,

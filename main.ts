@@ -230,7 +230,8 @@ export default class AIHubPlugin extends Plugin {
           this.recallAuthoring = authoring;
           this.register(() => authoring.dispose());
           return authoring;
-        }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController));
+        }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController),
+        { mount: (container, paths) => this.semanticController.mountPairReview(container, paths) });
 
       this.addCommand({
         id: "ai-hub-open-panel",

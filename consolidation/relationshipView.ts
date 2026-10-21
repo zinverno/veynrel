@@ -49,6 +49,14 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   body.createEl("h4", { text: tr(`@relationship.relation.${result.relation}`) });
   body.createEl("p", { text: result.explanation.text });
   body.createEl("p", { text: tr("@relationship.references", { ids: result.explanation.evidence.join(", ") || "—" }) });
+  const summary = body.createDiv({ cls: "ai-relationship-summary" });
+  for (const [key, claims] of [["shared", result.claims.filter(claim => claim.kind === "shared")],
+    ["differences", result.claims.filter(claim => claim.kind !== "shared")]] as const) {
+    const section = summary.createEl("section");
+    section.createEl("h4", { text: tr(`@workbench.${key}`) });
+    if (!claims.length) section.createEl("p", { text: tr("@workbench.no-claims") });
+    for (const claim of claims) section.createEl("p", { text: `${claim.id}: ${claim.text}` });
+  }
   const evidence = body.createEl("details");
   evidence.createEl("summary", { text: tr("@relationship.evidence") });
   evidence.createEl("p", { text: tr("@relationship.evidenceScope") });

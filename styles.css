@@ -2759,3 +2759,69 @@
   .veynrel-health-view :is(.veynrel-catalog-row, .veynrel-explore-entry) { grid-template-columns: 20px minmax(0, 1fr); gap: 8px; }
   .veynrel-health-view :is(.veynrel-catalog-row, .veynrel-explore-entry) > button { grid-column: 2; justify-self: start; }
 }
+
+/* The ItemView is the scroll owner; its own size contains split/popout sidebar height. */
+.view-content.veynrel-health-view { container-type: size; }
+.veynrel-health-view > .veynrel-workspace { height: 100%; }
+.veynrel-health-view .veynrel-sidebar { position: sticky; top: 0; height: 100cqh; overflow-y: auto; align-self: start; }
+.veynrel-health-view .veynrel-sidebar nav { min-height: 0; }
+.veynrel-health-view .veynrel-catalog-groups { display: block; }
+.veynrel-health-view .veynrel-tools-group { margin-bottom: 24px; }
+.veynrel-health-view .veynrel-catalog-row { padding-block: 12px; }
+.veynrel-health-view .veynrel-dashboard-insights-grid { align-items: start; }
+.veynrel-health-view .veynrel-health-dimensions { margin-top: 24px; }
+.veynrel-health-view .veynrel-health-dimensions + details { margin-top: 20px; }
+.veynrel-workbench :is(h2, h3) { margin-top: 0; }
+.veynrel-workbench [hidden] { display: none; }
+.veynrel-workbench-modes, .veynrel-workbench-toolbar, .veynrel-workbench-footer, .veynrel-workbench-map-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.veynrel-workbench-modes { margin-bottom: 16px; }
+.veynrel-workbench-modes button[aria-pressed="true"], .veynrel-workbench-map-tools button[aria-pressed="true"] { background: var(--vx-selected); border-color: var(--interactive-accent); }
+.veynrel-workbench-toolbar input { flex: 1 1 220px; min-width: 0; min-height: 38px; }
+.veynrel-workbench-status { color: var(--text-muted); font-size: var(--font-ui-small); margin-block: 12px 20px; }
+.veynrel-workbench-status p { margin: 6px 0; }
+.veynrel-workbench-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .8fr); align-items: start; gap: 20px; }
+.veynrel-workbench-grid.with-map { grid-template-columns: minmax(230px, .9fr) minmax(0, 1.5fr) minmax(230px, .8fr); }
+.veynrel-workbench-grid > section { min-width: 0; }
+.veynrel-workbench-list { list-style: none; margin: 0; padding: 0; max-height: 480px; overflow: auto; overscroll-behavior: contain; }
+.veynrel-workbench-list li { padding: 12px 4px; border-bottom: 1px solid var(--background-modifier-border); }
+.veynrel-workbench-list button { display: block; width: 100%; text-align: left; height: auto; padding: 8px; background: transparent; border: 1px solid transparent; box-shadow: none; overflow-wrap: anywhere; }
+.veynrel-workbench-list button[aria-pressed="true"] { background: var(--vx-selected); border-color: var(--interactive-accent); }
+.veynrel-workbench-list small { display: block; padding-inline: 8px; color: var(--text-muted); }
+.veynrel-workbench-selection { padding: 20px; background: var(--vx-surface); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); }
+.veynrel-workbench-selection select { max-width: 100%; display: block; margin-top: 8px; }
+.veynrel-workbench-path { font-weight: 550; overflow-wrap: anywhere; }
+.veynrel-workbench-selection:focus { outline: none; }
+.veynrel-workbench-map { margin-top: 12px; background: var(--vx-surface); border-radius: var(--radius-m); }
+.veynrel-workbench-map svg { width: 100%; display: block; touch-action: none; }
+.veynrel-workbench-edge { stroke: var(--text-faint); stroke-width: 1; fill: none; }
+.veynrel-workbench-edge.is-semantic { stroke: var(--text-accent); stroke-dasharray: 5 5; }
+.veynrel-workbench-arrow { stroke: var(--text-muted); stroke-width: 1.5; fill: none; }
+.veynrel-workbench-node { fill: var(--text-muted); stroke: var(--vx-bg); stroke-width: 2; cursor: pointer; }
+.veynrel-workbench-node.is-selected { fill: var(--text-accent); stroke: var(--text-normal); stroke-width: 3; }
+.veynrel-workbench-label { fill: var(--text-normal); font-size: 16px; paint-order: stroke; stroke: var(--vx-surface); stroke-width: 4px; stroke-linejoin: round; }
+.veynrel-workbench-map-tools { margin-top: 12px; }
+.veynrel-workbench-map-tools button { font-size: var(--font-ui-smaller); min-height: 30px; }
+.veynrel-workbench-footer { margin-block: 24px 16px; }
+.veynrel-workbench pre { overflow: auto; max-height: 280px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.veynrel-workbench .veynrel-details { margin-top: 12px; }
+.veynrel-workbench-review > button { margin-bottom: 20px; }
+.ai-relationship-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@container (max-width: 1250px) {
+  .veynrel-workbench-grid.with-map { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .veynrel-workbench-grid.with-map .veynrel-workbench-selection { grid-column: 1 / -1; }
+}
+@container (max-width: 760px) {
+  .veynrel-health-view .veynrel-sidebar { position: static; height: auto; }
+  .veynrel-health-view .veynrel-topbar { position: sticky; top: 0; z-index: 5; background: var(--vx-bg); }
+  .veynrel-workbench-grid, .veynrel-workbench-grid.with-map { display: flex; flex-direction: column; }
+  .veynrel-workbench-grid > section { width: 100%; }
+  .veynrel-workbench-selection { order: 1; }
+  .veynrel-workbench-map-pane { order: 2; }
+  .veynrel-workbench-list { max-height: 280px; }
+  .veynrel-workbench-toolbar > * { width: 100%; }
+  .ai-relationship-summary { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Embedded review shares the ItemView scroll owner; modal review retains its own bounds. */
+.veynrel-workbench-review .ai-relationship { max-height: none; }
+.veynrel-workbench-review .ai-relationship-body { overflow: visible; }
