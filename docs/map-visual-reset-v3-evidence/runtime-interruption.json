@@ -1,0 +1,35 @@
+{
+  "status": "observed native runtime failure; retained",
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "theme": "Red Graphite 1.0.5",
+  "phase": "expanded acceptance matrix, after EN dark 1650 screenshot while resizing toward 390",
+  "observation": "Renderer stopped responding. Kernel recorded Compositor segfault in electron; browser process remained alive.",
+  "cause": "Root cause is not established; interaction with this UI cannot be ruled out. Native symbols/stack debugging was not performed.",
+  "recovery": "Stopped only owned synthetic processes. Final RU and EN matrices run in separate fresh profiles on the same frozen build; see reports. This is a test-environment workaround, not a claimed compositor fix.",
+  "scope": "No TEST/original vault involved. Interrupted run is not counted as a completed PASS.",
+  "observations": [
+    {
+      "sourceCommit": "dc3c84b5c09118f63649ffd473ff564907359dfd",
+      "theme": "Red Graphite 1.0.5",
+      "kernel": "Compositor segfault in electron",
+      "phase": "combined RU/EN resize matrix",
+      "retry": "Fresh profile completed 55 checks on that source"
+    },
+    {
+      "sourceCommit": "2da829d8fdbfcd4fc08b1e62746897c83a16a1bb",
+      "theme": "built-in",
+      "kernel": "Compositor segfault in electron",
+      "phase": "combined RU/EN resize matrix"
+    }
+  ],
+  "finalSplitRuns": {
+    "sourceCommit": "2da829d8fdbfcd4fc08b1e62746897c83a16a1bb",
+    "builtinRU": 52,
+    "builtinEN": 34,
+    "redGraphiteRU": 53,
+    "result": "completed on fresh isolated profiles; compositor root cause remains unresolved"
+  }
+}

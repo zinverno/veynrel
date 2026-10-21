@@ -1,0 +1,1464 @@
+{
+  "status": "visual review candidate",
+  "mode": "154",
+  "theme": "built-in",
+  "checks": [
+    "Real native home; one sidebar and no old primary rail",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Workbench opening is passive",
+    "Explicit local refresh does not read Markdown, embed, call a model or write",
+    "Unknown metadata is distinct from known untagged notes",
+    "Stale topology and semantic state are explicit after vault event and injected index revision",
+    "Ten layer changes and tag reorder do not restart physics or recolor existing tags",
+    "Explicit AND/OR remain distinct, while color toggles do not filter",
+    "Escape first closes local help, preserving expanded mode",
+    "Text input Escape does not collapse map",
+    "Canvas Escape exits expanded mode",
+    "Ctrl-wheel is not consumed by map camera (native input)",
+    "Native drag plus injected cancellation/lostcapture clears capture and listeners",
+    "Wheel outside canvas scrolls list",
+    "Detached renderer cannot change current camera",
+    "Hidden native tab stops simulation",
+    "Explicit pause retains usable map",
+    "Wheel remains usable while physics is paused",
+    "Paused native node drag moves its exact one-member field",
+    "en/dark/1650: no horizontal overflow",
+    "en/dark/390: no horizontal overflow",
+    "en/light/1650: no horizontal overflow",
+    "en/light/390: no horizontal overflow",
+    "Wheel in ordinary pane",
+    "Native Electron 200% wheel anchor",
+    "Reduced motion completes finite placement without a visible simulation loop",
+    "Reduced-motion native node drag moves its field without ticking",
+    "Native split wheel anchor",
+    "Focus fits tall narrow canvas using world units",
+    "Same ItemView in native popout: cursor anchor",
+    "Minimized real popout stops simulation",
+    "Dispose stops renderer and review owners",
+    "No network during any scenario"
+  ],
+  "metrics": {
+    "openMs": 270.161697,
+    "process": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "tools": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 2374.125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 2452.671875,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": [
+        {
+          "x": 284,
+          "y": 277.7142333984375,
+          "width": 1366,
+          "height": 269.671875,
+          "top": 277.7142333984375,
+          "right": 1650,
+          "bottom": 547.3861083984375,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 571.3861083984375,
+          "width": 1366,
+          "height": 388.359375,
+          "top": 571.3861083984375,
+          "right": 1650,
+          "bottom": 959.7454833984375,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 983.7454833984375,
+          "width": 1366,
+          "height": 269.671875,
+          "top": 983.7454833984375,
+          "right": 1650,
+          "bottom": 1253.4173583984375,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1277.4173583984375,
+          "width": 1366,
+          "height": 507.046875,
+          "top": 1277.4173583984375,
+          "right": 1650,
+          "bottom": 1784.4642333984375,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1808.4642333984375,
+          "width": 1366,
+          "height": 590.3594970703125,
+          "top": 1808.4642333984375,
+          "right": 1650,
+          "bottom": 2398.82373046875,
+          "left": 284
+        }
+      ]
+    },
+    "health": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 1071.453125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 1150,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "performanceStart": {
+      "metrics": [
+        {
+          "name": "Timestamp",
+          "value": 90462.112705
+        },
+        {
+          "name": "AudioHandlers",
+          "value": 0
+        },
+        {
+          "name": "AudioWorkletProcessors",
+          "value": 0
+        },
+        {
+          "name": "Documents",
+          "value": 10
+        },
+        {
+          "name": "Frames",
+          "value": 5
+        },
+        {
+          "name": "JSEventListeners",
+          "value": 6109
+        },
+        {
+          "name": "LayoutObjects",
+          "value": 4235
+        },
+        {
+          "name": "MediaKeySessions",
+          "value": 0
+        },
+        {
+          "name": "MediaKeys",
+          "value": 0
+        },
+        {
+          "name": "Nodes",
+          "value": 8639
+        },
+        {
+          "name": "Resources",
+          "value": 31
+        },
+        {
+          "name": "ContextLifecycleStateObservers",
+          "value": 67
+        },
+        {
+          "name": "V8PerContextDatas",
+          "value": 2
+        },
+        {
+          "name": "WorkerGlobalScopes",
+          "value": 2
+        },
+        {
+          "name": "UACSSResources",
+          "value": 0
+        },
+        {
+          "name": "RTCPeerConnections",
+          "value": 0
+        },
+        {
+          "name": "ResourceFetchers",
+          "value": 12
+        },
+        {
+          "name": "AdSubframes",
+          "value": 0
+        },
+        {
+          "name": "DetachedScriptStates",
+          "value": 0
+        },
+        {
+          "name": "ArrayBufferContents",
+          "value": 428
+        },
+        {
+          "name": "LayoutCount",
+          "value": 0
+        },
+        {
+          "name": "RecalcStyleCount",
+          "value": 0
+        },
+        {
+          "name": "LayoutDuration",
+          "value": 0
+        },
+        {
+          "name": "RecalcStyleDuration",
+          "value": 0
+        },
+        {
+          "name": "DevToolsCommandDuration",
+          "value": 0.000053
+        },
+        {
+          "name": "ScriptDuration",
+          "value": 0
+        },
+        {
+          "name": "V8CompileDuration",
+          "value": 0
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.000076
+        },
+        {
+          "name": "TaskOtherDuration",
+          "value": 0.000023
+        },
+        {
+          "name": "ThreadTime",
+          "value": 0.000189
+        },
+        {
+          "name": "ProcessTime",
+          "value": 4.35
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 36607424
+        },
+        {
+          "name": "JSHeapTotalSize",
+          "value": 55042048
+        },
+        {
+          "name": "FirstMeaningfulPaint",
+          "value": 0
+        },
+        {
+          "name": "DomContentLoaded",
+          "value": 90458.699685
+        },
+        {
+          "name": "NavigationStart",
+          "value": 90458.207107
+        }
+      ]
+    },
+    "labels-en-dark-1694": {
+      "zoom": 0.3395999506125293,
+      "labels": [
+        {
+          "path": "Synthetic/Examples/072 — Transactions across independent services.md",
+          "box": {
+            "x": 925.390625,
+            "y": 481.5,
+            "width": 230,
+            "height": 19.546875,
+            "top": 481.5,
+            "right": 1155.390625,
+            "bottom": 501.046875,
+            "left": 925.390625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/115 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1239.734375,
+            "y": 677.4375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 677.4375,
+            "right": 1469.734375,
+            "bottom": 696.984375,
+            "left": 1239.734375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/050 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 1131.984375,
+            "y": 556.6875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 556.6875,
+            "right": 1361.984375,
+            "bottom": 576.234375,
+            "left": 1131.984375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/063 — Small steps toward reproducible knowledge.md",
+          "box": {
+            "x": 570.140625,
+            "y": 648.609375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 648.609375,
+            "right": 800.140625,
+            "bottom": 668.15625,
+            "left": 570.140625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/074 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 784.234375,
+            "y": 441.078125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 441.078125,
+            "right": 1014.234375,
+            "bottom": 460.625,
+            "left": 784.234375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/098 — Small steps toward reproducible knowledge.md",
+          "box": {
+            "x": 545.453125,
+            "y": 893.796875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 893.796875,
+            "right": 775.453125,
+            "bottom": 913.34375,
+            "left": 545.453125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/045 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1062.953125,
+            "y": 511.15625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 511.15625,
+            "right": 1292.953125,
+            "bottom": 530.703125,
+            "left": 1062.953125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/085 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 542.34375,
+            "y": 759.34375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 759.34375,
+            "right": 772.34375,
+            "bottom": 778.890625,
+            "left": 542.34375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/102 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 755.515625,
+            "y": 927.046875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 927.046875,
+            "right": 985.515625,
+            "bottom": 946.59375,
+            "left": 755.515625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/082 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 585.140625,
+            "y": 699.90625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 699.90625,
+            "right": 815.140625,
+            "bottom": 719.453125,
+            "left": 585.140625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/032 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 686.875,
+            "y": 391.53125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 391.53125,
+            "right": 916.875,
+            "bottom": 411.078125,
+            "left": 686.875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/094 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 751.046875,
+            "y": 845.015625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 845.015625,
+            "right": 981.046875,
+            "bottom": 864.5625,
+            "left": 751.046875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/033 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 575.59375,
+            "y": 481.921875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 481.921875,
+            "right": 805.59375,
+            "bottom": 501.46875,
+            "left": 575.59375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/141 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 1053.671875,
+            "y": 853.578125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 853.578125,
+            "right": 1283.671875,
+            "bottom": 873.125,
+            "left": 1053.671875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/112 — Small steps toward reproducible knowledge.md",
+          "box": {
+            "x": 1251.875,
+            "y": 713.875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 713.875,
+            "right": 1481.875,
+            "bottom": 733.421875,
+            "left": 1251.875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/031 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 543.9375,
+            "y": 354.703125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 354.703125,
+            "right": 773.9375,
+            "bottom": 374.25,
+            "left": 543.9375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/089 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 543.0625,
+            "y": 786.640625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 786.640625,
+            "right": 773.0625,
+            "bottom": 806.1875,
+            "left": 543.0625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Workbench/B/Cache.md",
+          "box": {
+            "x": 1096.6875,
+            "y": 648.640625,
+            "width": 45.5,
+            "height": 19.546875,
+            "top": 648.640625,
+            "right": 1142.1875,
+            "bottom": 668.1875,
+            "left": 1096.6875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/081 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 601.984375,
+            "y": 672.859375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 672.859375,
+            "right": 831.984375,
+            "bottom": 692.40625,
+            "left": 601.984375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/131 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 1123.921875,
+            "y": 925.953125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 925.953125,
+            "right": 1353.921875,
+            "bottom": 945.5,
+            "left": 1123.921875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/078 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 645.5,
+            "y": 545.890625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 545.890625,
+            "right": 875.5,
+            "bottom": 565.4375,
+            "left": 645.5
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/143 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1061.53125,
+            "y": 817.75,
+            "width": 230,
+            "height": 19.546875,
+            "top": 817.75,
+            "right": 1291.53125,
+            "bottom": 837.296875,
+            "left": 1061.53125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/129 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1130.21875,
+            "y": 892.515625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 892.515625,
+            "right": 1360.21875,
+            "bottom": 912.0625,
+            "left": 1130.21875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/067 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 530.75,
+            "y": 615.5625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 615.5625,
+            "right": 760.75,
+            "bottom": 635.109375,
+            "left": 530.75
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/090 — When a shared definition becomes ambiguous.md",
+          "box": {
+            "x": 723.015625,
+            "y": 816.921875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 816.921875,
+            "right": 953.015625,
+            "bottom": 836.46875,
+            "left": 723.015625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/134 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 1104,
+            "y": 954.75,
+            "width": 230,
+            "height": 19.546875,
+            "top": 954.75,
+            "right": 1334,
+            "bottom": 974.296875,
+            "left": 1104
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/017 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1041.875,
+            "y": 373.296875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 373.296875,
+            "right": 1271.875,
+            "bottom": 392.84375,
+            "left": 1041.875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/083 — When a shared definition becomes ambiguous.md",
+          "box": {
+            "x": 574.53125,
+            "y": 732.6875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 732.6875,
+            "right": 804.53125,
+            "bottom": 752.234375,
+            "left": 574.53125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/136 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 804.1875,
+            "y": 958,
+            "width": 230,
+            "height": 19.546875,
+            "top": 958,
+            "right": 1034.1875,
+            "bottom": 977.546875,
+            "left": 804.1875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/095 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 496.984375,
+            "y": 860.0625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 860.0625,
+            "right": 726.984375,
+            "bottom": 879.609375,
+            "left": 496.984375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/127 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 845.828125,
+            "y": 726.171875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 726.171875,
+            "right": 1075.828125,
+            "bottom": 745.71875,
+            "left": 845.828125
+          },
+          "font": "13px"
+        }
+      ],
+      "overlaps": [],
+      "inside": true
+    },
+    "labels-en-dark-434": {
+      "zoom": 0.1912037426141265,
+      "labels": [
+        {
+          "path": "Synthetic/Examples/024 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 81.46875,
+            "y": 461.375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 461.375,
+            "right": 311.46875,
+            "bottom": 480.921875,
+            "left": 81.46875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/136 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 160.734375,
+            "y": 818.328125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 818.328125,
+            "right": 390.734375,
+            "bottom": 837.875,
+            "left": 160.734375
+          },
+          "font": "13px"
+        }
+      ],
+      "overlaps": [],
+      "inside": true
+    },
+    "labels-en-light-1694": {
+      "zoom": 0.3395999506125293,
+      "labels": [
+        {
+          "path": "Synthetic/Examples/072 — Transactions across independent services.md",
+          "box": {
+            "x": 925.390625,
+            "y": 481.5,
+            "width": 230,
+            "height": 19.546875,
+            "top": 481.5,
+            "right": 1155.390625,
+            "bottom": 501.046875,
+            "left": 925.390625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/115 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1239.734375,
+            "y": 677.4375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 677.4375,
+            "right": 1469.734375,
+            "bottom": 696.984375,
+            "left": 1239.734375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/050 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 1131.984375,
+            "y": 556.6875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 556.6875,
+            "right": 1361.984375,
+            "bottom": 576.234375,
+            "left": 1131.984375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/063 — Small steps toward reproducible knowledge.md",
+          "box": {
+            "x": 570.140625,
+            "y": 648.609375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 648.609375,
+            "right": 800.140625,
+            "bottom": 668.15625,
+            "left": 570.140625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/074 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 784.234375,
+            "y": 441.078125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 441.078125,
+            "right": 1014.234375,
+            "bottom": 460.625,
+            "left": 784.234375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/098 — Small steps toward reproducible knowledge.md",
+          "box": {
+            "x": 545.453125,
+            "y": 893.796875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 893.796875,
+            "right": 775.453125,
+            "bottom": 913.34375,
+            "left": 545.453125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/045 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1062.953125,
+            "y": 511.15625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 511.15625,
+            "right": 1292.953125,
+            "bottom": 530.703125,
+            "left": 1062.953125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/085 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 542.34375,
+            "y": 759.34375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 759.34375,
+            "right": 772.34375,
+            "bottom": 778.890625,
+            "left": 542.34375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/102 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 755.515625,
+            "y": 927.046875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 927.046875,
+            "right": 985.515625,
+            "bottom": 946.59375,
+            "left": 755.515625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/082 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 585.140625,
+            "y": 699.90625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 699.90625,
+            "right": 815.140625,
+            "bottom": 719.453125,
+            "left": 585.140625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/032 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 686.875,
+            "y": 391.53125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 391.53125,
+            "right": 916.875,
+            "bottom": 411.078125,
+            "left": 686.875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/094 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 751.046875,
+            "y": 845.015625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 845.015625,
+            "right": 981.046875,
+            "bottom": 864.5625,
+            "left": 751.046875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/033 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 575.59375,
+            "y": 481.921875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 481.921875,
+            "right": 805.59375,
+            "bottom": 501.46875,
+            "left": 575.59375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/141 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 1053.671875,
+            "y": 853.578125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 853.578125,
+            "right": 1283.671875,
+            "bottom": 873.125,
+            "left": 1053.671875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/112 — Small steps toward reproducible knowledge.md",
+          "box": {
+            "x": 1251.875,
+            "y": 713.875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 713.875,
+            "right": 1481.875,
+            "bottom": 733.421875,
+            "left": 1251.875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/031 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 543.9375,
+            "y": 354.703125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 354.703125,
+            "right": 773.9375,
+            "bottom": 374.25,
+            "left": 543.9375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/089 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 543.0625,
+            "y": 786.640625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 786.640625,
+            "right": 773.0625,
+            "bottom": 806.1875,
+            "left": 543.0625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Workbench/B/Cache.md",
+          "box": {
+            "x": 1096.6875,
+            "y": 648.640625,
+            "width": 45.5,
+            "height": 19.546875,
+            "top": 648.640625,
+            "right": 1142.1875,
+            "bottom": 668.1875,
+            "left": 1096.6875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/081 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 601.984375,
+            "y": 672.859375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 672.859375,
+            "right": 831.984375,
+            "bottom": 692.40625,
+            "left": 601.984375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/131 — Reading a difficult execution trace.md",
+          "box": {
+            "x": 1123.921875,
+            "y": 925.953125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 925.953125,
+            "right": 1353.921875,
+            "bottom": 945.5,
+            "left": 1123.921875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/078 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 645.5,
+            "y": 545.890625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 545.890625,
+            "right": 875.5,
+            "bottom": 565.4375,
+            "left": 645.5
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/143 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1061.53125,
+            "y": 817.75,
+            "width": 230,
+            "height": 19.546875,
+            "top": 817.75,
+            "right": 1291.53125,
+            "bottom": 837.296875,
+            "left": 1061.53125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/129 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1130.21875,
+            "y": 892.515625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 892.515625,
+            "right": 1360.21875,
+            "bottom": 912.0625,
+            "left": 1130.21875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/067 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 530.75,
+            "y": 615.5625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 615.5625,
+            "right": 760.75,
+            "bottom": 635.109375,
+            "left": 530.75
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/090 — When a shared definition becomes ambiguous.md",
+          "box": {
+            "x": 723.015625,
+            "y": 816.921875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 816.921875,
+            "right": 953.015625,
+            "bottom": 836.46875,
+            "left": 723.015625
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Systems/134 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 1104,
+            "y": 954.75,
+            "width": 230,
+            "height": 19.546875,
+            "top": 954.75,
+            "right": 1334,
+            "bottom": 974.296875,
+            "left": 1104
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Database/017 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 1041.875,
+            "y": 373.296875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 373.296875,
+            "right": 1271.875,
+            "bottom": 392.84375,
+            "left": 1041.875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/083 — When a shared definition becomes ambiguous.md",
+          "box": {
+            "x": 574.53125,
+            "y": 732.6875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 732.6875,
+            "right": 804.53125,
+            "bottom": 752.234375,
+            "left": 574.53125
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/136 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 804.1875,
+            "y": 958,
+            "width": 230,
+            "height": 19.546875,
+            "top": 958,
+            "right": 1034.1875,
+            "bottom": 977.546875,
+            "left": 804.1875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/095 — Boundaries of a reliable cache.md",
+          "box": {
+            "x": 496.984375,
+            "y": 860.0625,
+            "width": 230,
+            "height": 19.546875,
+            "top": 860.0625,
+            "right": 726.984375,
+            "bottom": 879.609375,
+            "left": 496.984375
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Methods/127 — Query plans and the cost of a forgotten assumption.md",
+          "box": {
+            "x": 845.828125,
+            "y": 726.171875,
+            "width": 230,
+            "height": 19.546875,
+            "top": 726.171875,
+            "right": 1075.828125,
+            "bottom": 745.71875,
+            "left": 845.828125
+          },
+          "font": "13px"
+        }
+      ],
+      "overlaps": [],
+      "inside": true
+    },
+    "labels-en-light-434": {
+      "zoom": 0.1912037426141265,
+      "labels": [
+        {
+          "path": "Synthetic/Examples/024 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 81.46875,
+            "y": 461.375,
+            "width": 230,
+            "height": 19.546875,
+            "top": 461.375,
+            "right": 311.46875,
+            "bottom": 480.921875,
+            "left": 81.46875
+          },
+          "font": "13px"
+        },
+        {
+          "path": "Synthetic/Examples/136 — A practical guide to repeatable experiments.md",
+          "box": {
+            "x": 160.734375,
+            "y": 818.328125,
+            "width": 230,
+            "height": 19.546875,
+            "top": 818.328125,
+            "right": 390.734375,
+            "bottom": 837.875,
+            "left": 160.734375
+          },
+          "font": "13px"
+        }
+      ],
+      "overlaps": [],
+      "inside": true
+    },
+    "finalPerformance": {
+      "metrics": [
+        {
+          "name": "Timestamp",
+          "value": 90489.739429
+        },
+        {
+          "name": "AudioHandlers",
+          "value": 0
+        },
+        {
+          "name": "AudioWorkletProcessors",
+          "value": 0
+        },
+        {
+          "name": "Documents",
+          "value": 8
+        },
+        {
+          "name": "Frames",
+          "value": 7
+        },
+        {
+          "name": "JSEventListeners",
+          "value": 5122
+        },
+        {
+          "name": "LayoutObjects",
+          "value": 4045
+        },
+        {
+          "name": "MediaKeySessions",
+          "value": 0
+        },
+        {
+          "name": "MediaKeys",
+          "value": 0
+        },
+        {
+          "name": "Nodes",
+          "value": 14554
+        },
+        {
+          "name": "Resources",
+          "value": 39
+        },
+        {
+          "name": "ContextLifecycleStateObservers",
+          "value": 46
+        },
+        {
+          "name": "V8PerContextDatas",
+          "value": 2
+        },
+        {
+          "name": "WorkerGlobalScopes",
+          "value": 2
+        },
+        {
+          "name": "UACSSResources",
+          "value": 0
+        },
+        {
+          "name": "RTCPeerConnections",
+          "value": 0
+        },
+        {
+          "name": "ResourceFetchers",
+          "value": 8
+        },
+        {
+          "name": "AdSubframes",
+          "value": 0
+        },
+        {
+          "name": "DetachedScriptStates",
+          "value": 2
+        },
+        {
+          "name": "ArrayBufferContents",
+          "value": 160
+        },
+        {
+          "name": "LayoutCount",
+          "value": 1691
+        },
+        {
+          "name": "RecalcStyleCount",
+          "value": 3184
+        },
+        {
+          "name": "LayoutDuration",
+          "value": 2.501923
+        },
+        {
+          "name": "RecalcStyleDuration",
+          "value": 6.979987
+        },
+        {
+          "name": "DevToolsCommandDuration",
+          "value": 0.551635
+        },
+        {
+          "name": "ScriptDuration",
+          "value": 5.623303
+        },
+        {
+          "name": "V8CompileDuration",
+          "value": 0.000153
+        },
+        {
+          "name": "TaskDuration",
+          "value": 20.5447
+        },
+        {
+          "name": "TaskOtherDuration",
+          "value": 4.887699
+        },
+        {
+          "name": "ThreadTime",
+          "value": 20.074523
+        },
+        {
+          "name": "ProcessTime",
+          "value": 49.22
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 46849988
+        },
+        {
+          "name": "JSHeapTotalSize",
+          "value": 98037760
+        },
+        {
+          "name": "FirstMeaningfulPaint",
+          "value": 0
+        },
+        {
+          "name": "DomContentLoaded",
+          "value": 90458.699685
+        },
+        {
+          "name": "NavigationStart",
+          "value": 90458.207107
+        }
+      ]
+    },
+    "nativeWheelLatency": [
+      17.700000002980232,
+      16.299999997019768,
+      16,
+      17,
+      16.900000005960464
+    ],
+    "edgeLanguages": [
+      "en"
+    ],
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "screenshots": [
+    "process.png",
+    "tools.png",
+    "tools-bottom.png",
+    "health.png",
+    "before-semantic-load.png",
+    "unknown-metadata.png",
+    "stale-sources.png",
+    "facets-and-or.png",
+    "map-en-dark-1650.png",
+    "map-en-dark-390.png",
+    "map-en-light-1650.png",
+    "map-en-light-390.png",
+    "zoom-200.png",
+    "reduced-motion.png",
+    "native-split.png"
+  ],
+  "sourceCommit": "2da829d8fdbfcd4fc08b1e62746897c83a16a1bb",
+  "hashes": {
+    "main.js": "420f45a9e8fa50351e986201cba7d5ee21b5ed41eed90d493d5518be6c3edf29",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "5f98090d77dfc953130e7fef03874f0e11da354adb058cbbe97d95bda0160b24"
+  },
+  "io": {
+    "reads": 1,
+    "writes": 0,
+    "network": 0,
+    "enumerations": 7
+  }
+}

@@ -2,11 +2,12 @@ import { t, currentLanguage } from "../../i18n";
 import type { Finding } from "../domain/finding";
 import { healthButton, healthDetails } from "../ui/renderHealthHome";
 import type { WorkbenchData, PairReviewPort } from "./workbenchData";
-import { linkFact, pairId, reconcileWorkbenchSelection, workbenchLayout, workbenchModel } from "./workbenchModel";
+import { linkFact, pairId, reconcileWorkbenchSelection, workbenchModel } from "./workbenchModel";
+import { WorkbenchSimulation } from "./workbenchSimulation";
 import type { MapPoint, WorkbenchPair } from "./workbenchModel";
 import { focusWorkbench, newWorkbenchGraphState, overviewWorkbench, renderWorkbenchGraph } from "./workbenchGraph";
-import { fitPoints, mapItems, membershipCells } from "./workbenchGeometry";
-import type { MapItem, XY } from "./workbenchGeometry";
+import { canvasWorldWidth, fitPoints, mapItems } from "./workbenchGeometry";
+import type { MapItem } from "./workbenchGeometry";
 import { matchesTagFilter, MAX_ACTIVE_ZONES, tagZones } from "./workbenchTags";
 import { initialZones, newZoneState, renderZoneControls } from "./workbenchZones";
 
@@ -23,6 +24,7 @@ export class WorkbenchView {
   private stopReview?: () => void;
   private stopGraph?: () => void;
   private remove: () => void;
+  private removeMigration: () => void;
   private disposed = false;
   private generation = 0;
   private mode: "repeats" | "connections" | "notes" = "repeats";
@@ -40,7 +42,7 @@ export class WorkbenchView {
   private zonesInitialized = false;
   private points: readonly MapPoint[] = [];
   private items: readonly MapItem[] = [];
-  private cells: ReadonlyMap<string,readonly XY[]> = new Map();
+  private simulation = new WorkbenchSimulation();
   private groupPaths?: readonly string[];
   private groupCamera?: typeof this.graph.viewport;
   private geometryKey = "";
@@ -55,6 +57,7 @@ export class WorkbenchView {
     this.element=parent.createDiv({cls:"veynrel-workbench"});
     this.browser=this.element.createDiv({cls:"veynrel-workbench-browser"});this.review=this.element.createDiv({cls:"veynrel-workbench-review"});this.review.hidden=true;
     this.element.addEventListener("keydown",this.escape);
+    this.removeMigration=this.element.onWindowMigrated(()=>this.render());
     this.remove=data.subscribe(()=>this.render());this.render();
   }
   update(findings: readonly Finding[]): void {
@@ -67,13 +70,15 @@ export class WorkbenchView {
     this.stopReview?.();this.stopReview=undefined;this.review.empty();this.review.hidden=true;this.browser.hidden=false;
   }
   dispose(): void {
-    this.disposed=true;this.suspend();this.remove();this.data.dispose();this.element.removeEventListener("keydown",this.escape);
+    this.disposed=true;this.suspend();this.remove();this.removeMigration();this.data.dispose();this.element.removeEventListener("keydown",this.escape);
     this.element.closest(".veynrel-shell")?.classList.remove("is-map-expanded");
   }
   private escape = (event: KeyboardEvent): void => {
     const target=event.target as HTMLElement;
     if(event.key!=="Escape"||event.defaultPrevented||this.stopReview||target.closest('input,textarea,select,[contenteditable="true"]')||
       this.element.ownerDocument.querySelector(".modal-container, .menu")||this.element.closest('[data-menu-open="true"]'))return;
+    const help=this.browser.querySelector<HTMLDetailsElement>(".veynrel-map-help[open]");
+    if(help){help.open=false;event.preventDefault();event.stopPropagation();return;}
     if(this.zones.open)this.zones.open=false;
     else if(this.expanded)this.expanded=false;
     else if(this.graph.focus)overviewWorkbench(this.graph);
@@ -96,15 +101,14 @@ export class WorkbenchView {
     const model=workbenchModel(this.data,this.findings.filter(finding=>finding.state==="open"));
     const paths=new Set(model.nodes.map(node=>node.path));
     this.selected=reconcileWorkbenchSelection(model,this.selected);if(this.note&&!paths.has(this.note))this.note=undefined;
-    const geometryKey=JSON.stringify([model.nodes.map(node=>node.path),model.edges]);
+    const geometryKey=JSON.stringify([model.nodes.map(node=>node.path),model.edges,model.linksCurrent,model.semanticCurrent]);
     if(geometryKey!==this.geometryKey){
-      this.geometryKey=geometryKey;const started=performance.now();this.points=workbenchLayout(model.nodes,model.edges);
+      this.geometryKey=geometryKey;const started=performance.now();this.simulation.update(model.nodes,model.edges.filter(edge=>edge.kind==="link"?model.linksCurrent:model.semanticCurrent));this.points=this.simulation.points;
       this.layoutMilliseconds=performance.now()-started;this.layoutCount++;
     }
     const representationKey=JSON.stringify([geometryKey,this.groupPaths]);
     if(representationKey!==this.representationKey){
       this.representationKey=representationKey;this.items=mapItems(this.groupPaths?this.points.filter(point=>this.groupPaths!.includes(point.path)):this.points);
-      this.cells=membershipCells(this.items);
     }
     const metadata=this.data.dependencies.tags?.getSnapshot(),zones=tagZones(metadata);
     if(!this.zonesInitialized&&zones.length){this.zones.active=initialZones(zones);this.zonesInitialized=true;}
@@ -144,11 +148,10 @@ export class WorkbenchView {
     const work=this.browser.createDiv({cls:`veynrel-workbench-grid${this.showList?" is-list-open":""}${this.pinned?" is-detail-pinned":""}`});
     const map=work.createEl("section",{cls:"veynrel-workbench-map-pane"});
     const visibleItems=this.items.filter(item=>(item.members??[item.path]).some(path=>visiblePaths.has(path))).map(item=>item.members?{...item,members:item.members.filter(path=>visiblePaths.has(path))}:item);
-    this.stopGraph=renderWorkbenchGraph(map,model,selectedPaths,this.graph,{items:visibleItems,cells:this.cells,zones,activeZones:this.zones.active,zone:this.zones.selected,
+    this.stopGraph=renderWorkbenchGraph(map,model,selectedPaths,this.graph,{items:visibleItems,simulation:this.simulation,query:this.query,zones,activeZones:this.zones.active,zone:this.zones.selected,
       selectZone:tag=>{if(current()){this.zones.selected=tag;this.render();}},group:members=>{if(current()){
         overviewWorkbench(this.graph);this.groupCamera={...this.graph.viewport};this.groupPaths=members;this.graph.viewport={x:0,y:0,zoom:1};this.render();
       }}},path=>{if(current())this.selectNote(path);},()=>{if(current())this.render();});
-    if(!selectedPaths.length&&!this.zones.selected)map.createDiv({cls:"veynrel-map-hint",text:t("@mapnav.hint")});
     if(this.zones.selected){
       const zone=zones.find(zone=>zone.tag===this.zones.selected);
       if(zone){const selected=map.createDiv({cls:"veynrel-zone-selection"});selected.createEl("strong",{text:`#${zone.tag} · ${zone.members.size}`});
@@ -185,7 +188,7 @@ export class WorkbenchView {
       for(const path of selectedPaths){
         detail.createEl("h2",{text:path.split("/").pop()!.replace(/\.md$/u,"")});
         const memberships=zones.filter(zone=>zone.members.has(path)&&zone.direct.includes(path)),chips=detail.createDiv({cls:"veynrel-memberships"});
-        for(const zone of memberships){const visible=this.zones.active.includes(zone.tag);button(chips,`${visible?`${this.zones.active.indexOf(zone.tag)+1} · `:"+ "}#${zone.tag}`,()=>{
+        for(const zone of memberships){const visible=this.zones.active.includes(zone.tag);button(chips,`${visible?"":"+ "}#${zone.tag}`,()=>{
           if(!visible&&this.zones.active.length<MAX_ACTIVE_ZONES)this.zones.active.push(zone.tag);else if(!visible)this.zones.open=true;
           this.zones.selected=zone.tag;this.render();
         },`workbench-membership-${encodeURIComponent(zone.tag)}`).setAttribute("aria-pressed",String(visible));}
@@ -202,7 +205,7 @@ export class WorkbenchView {
         button(detail,t("@workbench.compare"),()=>this.openReview(),"workbench-compare",false,true);
       }else if(this.note){
         const candidates=[...new Map([...model.connections,...model.repeats].filter(pair=>pair.paths.includes(this.note!)).map(pair=>[pair.id,pair])).values()];
-        if(candidates.length){detail.createEl("h3",{text:t("@mapnav.candidates")});for(const pair of candidates.slice(0,5))button(detail,pair.paths.find(path=>path!==this.note)!,()=>this.selectPair(pair),`workbench-related-${encodeURIComponent(pair.id)}`);}
+        if(candidates.length){detail.createEl("h3",{text:t("@mapnav.candidates")});for(const pair of candidates.slice(0,5))button(detail,`${t("@visual.review")} · ${pair.paths.find(path=>path!==this.note)!}`,()=>this.selectPair(pair),`workbench-related-${encodeURIComponent(pair.id)}`);}
         const label=detail.createEl("label",{text:t("@workbench.second-note")});
         const picker=label.createEl("select",{attr:{"data-health-action":"workbench-second","aria-label":t("@workbench.second-note")}});
         picker.createEl("option",{text:t("@workbench.choose"),value:""});
@@ -211,7 +214,8 @@ export class WorkbenchView {
           const a=this.note,b=picker.value;this.selectPair(model.repeats.find(pair=>pair.id===pairId(a,b))??model.connections.find(pair=>pair.id===pairId(a,b))??{id:pairId(a,b),paths:[a,b].sort() as [string,string],basis:"selected"});});
       }
       button(detail,t("@mapnav.focus-action"),()=>{
-        const width=this.browser.querySelector<SVGSVGElement>("svg[data-camera]")?.viewBox.baseVal.width;
+        const box=this.browser.querySelector<SVGSVGElement>("svg[data-camera]")?.viewBox.baseVal;
+        const width=box?canvasWorldWidth(box.width,box.height):undefined;
         focusWorkbench(this.graph,selectedPaths,model);this.graph.viewport=fitPoints(this.items.filter(item=>this.graph.focus!.includes(item.path)),width);this.render();
       },"workbench-focus");
       button(detail,t("@mapnav.clear-selection"),()=>{this.note=undefined;this.selected=undefined;this.render();},"workbench-clear-selection");

@@ -1,0 +1,203 @@
+{
+  "builtin": {
+    "checks": 52,
+    "ticks": 149,
+    "revisions": 3,
+    "physicsMs": 44.79999998211861,
+    "renderFrames": 150,
+    "renderJsMs": 1020.900000050664,
+    "frameMeanMs": 33.714028985507255,
+    "frameP95Ms": 50.099999999998545,
+    "taskMs": 3507.307,
+    "refreshWindowMs": 5186.130000001867,
+    "wheelTwoFramesMs": [
+      32.80000001192093,
+      16.900000005960464,
+      16.099999994039536,
+      17.100000008940697,
+      16.700000002980232,
+      15.899999991059303
+    ],
+    "io": {
+      "reads": 38,
+      "writes": 2,
+      "network": 0,
+      "enumerations": 9
+    },
+    "theme": "built-in",
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "themes": {
+    "checks": 52,
+    "ticks": 149,
+    "revisions": 3,
+    "physicsMs": 44.79999998211861,
+    "renderFrames": 150,
+    "renderJsMs": 1020.900000050664,
+    "frameMeanMs": 33.714028985507255,
+    "frameP95Ms": 50.099999999998545,
+    "taskMs": 3507.307,
+    "refreshWindowMs": 5186.130000001867,
+    "wheelTwoFramesMs": [
+      32.80000001192093,
+      16.900000005960464,
+      16.099999994039536,
+      17.100000008940697,
+      16.700000002980232,
+      15.899999991059303
+    ],
+    "io": {
+      "reads": 38,
+      "writes": 2,
+      "network": 0,
+      "enumerations": 9
+    },
+    "theme": "built-in",
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "500": {
+    "checks": 15,
+    "ticks": 272,
+    "revisions": 3,
+    "physicsMs": 447.4000000357628,
+    "renderFrames": 273,
+    "renderJsMs": 4036.7000001072884,
+    "frameMeanMs": 63.07974879227052,
+    "frameP95Ms": 150.10000000000036,
+    "taskMs": 17019.765,
+    "refreshWindowMs": 17076.748999999836,
+    "wheelTwoFramesMs": [
+      48,
+      38.29999999701977
+    ],
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0,
+      "enumerations": 4
+    },
+    "theme": "built-in",
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "1000": {
+    "checks": 9,
+    "ticks": 0,
+    "revisions": 2,
+    "physicsMs": 0,
+    "renderFrames": 471,
+    "renderJsMs": 705.8000000566244,
+    "frameMeanMs": null,
+    "frameP95Ms": null,
+    "taskMs": 429.225,
+    "refreshWindowMs": 607.8669999988051,
+    "wheelTwoFramesMs": [],
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0,
+      "enumerations": 100
+    },
+    "theme": "built-in",
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "no-index": {
+    "checks": 8,
+    "ticks": 156,
+    "revisions": 2,
+    "physicsMs": 46.099999874830246,
+    "renderFrames": 157,
+    "renderJsMs": 972.7000000029802,
+    "frameMeanMs": 23.081695364238414,
+    "frameP95Ms": 33.400000000000546,
+    "taskMs": 2491.4109999999996,
+    "refreshWindowMs": 3067.899000001489,
+    "wheelTwoFramesMs": [],
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0,
+      "enumerations": 4
+    },
+    "theme": "built-in",
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "en-edges": {
+    "checks": 34,
+    "ticks": null,
+    "revisions": null,
+    "physicsMs": null,
+    "renderFrames": null,
+    "renderJsMs": null,
+    "frameMeanMs": null,
+    "frameP95Ms": null,
+    "taskMs": null,
+    "refreshWindowMs": null,
+    "wheelTwoFramesMs": [
+      17.700000002980232,
+      16.299999997019768,
+      16,
+      17,
+      16.900000005960464
+    ],
+    "io": {
+      "reads": 1,
+      "writes": 0,
+      "network": 0,
+      "enumerations": 7
+    },
+    "theme": "built-in",
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "red-graphite": {
+    "checks": 53,
+    "ticks": 151,
+    "revisions": 3,
+    "physicsMs": 47.500000074505806,
+    "renderFrames": 152,
+    "renderJsMs": 1063.6000000089407,
+    "frameMeanMs": 35.257171428571446,
+    "frameP95Ms": 50.100000000000364,
+    "taskMs": 4080.9069999999997,
+    "refreshWindowMs": 5530.80300000147,
+    "wheelTwoFramesMs": [
+      22,
+      18.099999994039536,
+      16.30000001192093,
+      17.30000001192093,
+      19.700000002980232
+    ],
+    "io": {
+      "reads": 38,
+      "writes": 2,
+      "network": 0,
+      "enumerations": 9
+    },
+    "theme": {
+      "name": "Red Graphite",
+      "version": "1.0.5",
+      "cssHash": "d92311c2948d7c9c014b01b5ffb5b9dab40f492702e0409089ca36bd94a32151"
+    },
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  }
+}
