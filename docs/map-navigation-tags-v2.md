@@ -56,9 +56,34 @@ VEYNREL_LAB_ROOT=/absolute/path/to/synthetic-lab \
   node scripts/map-navigation-native.mjs /tmp/veynrel-workbench-new-run 154 /absolute/path/to/frozen-build
 ```
 
-Размеры: `154`, `500`, `501`, `1000`. Векторы искусственные, deterministic; результат проверяет UI/navigation/provenance/cap, **не качество embedding-модели**. Для executor case только completion transport заменён локальным фиксированным JSON; реальные validator, planner, exact review, Apply, history и Undo проходят штатный маршрут. Нет платных API. Markdown после Undo сравнивается с исходным manifest, без копирования/восстановления в обход исполнителя.
+Размеры: `154`, `500`, `501`, `1000`. Для отдельного offline theme-прогона можно задать `VEYNREL_THEME_DIR=/path/to/theme`; скрипт копирует только theme.css и manifest.json в synthetic vault. Векторы искусственные, deterministic; результат проверяет UI/navigation/provenance/cap, **не качество embedding-модели**. Для executor case только completion transport заменён локальным фиксированным JSON; реальные validator, planner, exact review, Apply, history и Undo проходят штатный маршрут. Нет платных API. Markdown после Undo сравнивается с исходным manifest, без копирования/восстановления в обход исполнителя.
 
-Финальные результаты, frozen source commit, измерения и список native evidence приведены ниже после проверки зафиксированной сборки.
+Проверенный frozen source commit: `f4c7bea9d6bac2f91b437bb9a51641de07d67ccc`.
+
+- **4527 tests / 166 files PASS**; оба typecheck, lint/build, `audit:proposals` **5/5**, diff-check. Единственное предупреждение lint — прежний `api.ts:414 fetch` advisory. [Логи](map-navigation-tags-v2-evidence/).
+- Native Linux Obsidian 1.13.7 / Electron 43.6.0: **137 assertions PASS** — 154 notes: 49; 500: 14; 501: 12; 1000: 12; Red Graphite: 50. Каждый report содержит тот же source commit и SHA256 трёх frozen файлов.
+- 154-note маршрут включает expanded canvas, cursor wheel, pan, keyboard selection без скачка, три одновременные зоны, реальный click по зоне, явный фильтр, focus/fit/back, explicit candidate, Compare/back с полным контекстом, collapse; отдельно dense 12+ tag membership, AND/OR, exact Apply/History/Undo с hash equality, revoked consent и late scope completion.
+- Pointercancel/lost capture, Escape ordering, текстовый ввод, быстрое колесо, прокрутка списка, detached callbacks, metadata staleness, отсутствие нижней полосы/overflow, 390 px, RU/EN, built-in light/dark, reduced motion, native 200% zoom, настоящий split и перенос **того же ItemView** в popout проверены. Узкий focus помещается в текущий viewBox; возврат восстанавливает прежнюю камеру.
+- Доступная пользовательская тема **Red Graphite 1.0.5** проверена отдельно на fresh synthetic copy (включая весь executor route и appearance matrix). Только CSS/manifest темы скопированы локально; TEST не изменён. CSS не публикуется; его hash указан в report.
+
+Измерения одного native прогона на этой машине, не статистическая оценка:
+
+| Набор | Layout | Выбор + синхронный DOM render | Повторных layout при выборе/10 сменах слоя |
+|---|---:|---:|---:|
+| 154 | 6.2 ms | 36.8 ms | 0 |
+| 500 | 74.8 ms | 95.3 ms | 0 |
+| 501 | 0.1 ms, grid → 6 групп | — | — |
+| 1000 | 0.4 ms, grid → 10 групп | — | — |
+
+Первичная публикация источников дала 3 layout в ready случаях (начальные paths, topology, semantic), 2 при cap. Это не непрерывная симуляция. 10 переключений слоя при 500 заняли 1443 ms **с CDP и ожиданием кадров**. В 154 видео-сценарии такой же показатель 5019 ms включает искусственные паузы 450 ms для читаемости записи и не является latency UI. 12 native wheel events заняли 665 ms с CDP/кадрами, без перераскладки. Не заявляется frame-time/P95 на других устройствах.
+
+[Полный отчёт 154](map-navigation-tags-v2-evidence/154/report.json), [500](map-navigation-tags-v2-evidence/500/report.json), [501](map-navigation-tags-v2-evidence/501/report.json), [1000](map-navigation-tags-v2-evidence/1000/report.json), [Red Graphite](map-navigation-tags-v2-evidence/red-graphite/report.json).
+
+[Native video, 15.3 s](map-navigation-tags-v2-evidence/154/map-navigation.mp4). [Полные screenshots и manifests](map-navigation-tags-v2-evidence/). Основные состояния: [общий обзор](map-navigation-tags-v2-evidence/154/initial-overview.png), [три членства](map-navigation-tags-v2-evidence/154/three-memberships-selected.png), [много тегов](map-navigation-tags-v2-evidence/154/dense-membership.png), [390 px](map-navigation-tags-v2-evidence/154/map-ru-dark-390.png), [popout](map-navigation-tags-v2-evidence/154/native-popout.png), [1000 / cap](map-navigation-tags-v2-evidence/1000/initial-overview.png), [точный review](map-navigation-tags-v2-evidence/154/exact-change-review.png), [отдельный Undo](map-navigation-tags-v2-evidence/154/separate-undo-review.png).
+
+[Before](map-navigation-tags-v2-evidence/154/before.json) → [после Apply](map-navigation-tags-v2-evidence/154/after-apply.json) → [после штатного Undo](map-navigation-tags-v2-evidence/154/after.json): SHA256 возвращается к исходному для всех 154 Markdown. Отдельные 500/501/1000 прогоны не изменяли Markdown. Исходный synthetic Lab проверен до/после каждого запуска; оригинальный личный vault не использовался.
+
+Ограничения: физический mobile/touch и озвучивание screen reader не проверены. Реальные embedding/provider quality и личное хранилище не тестировались. Визуальная читаемость сложной личной таксономии остаётся предметом пользовательской UX-приёмки. Лимиты — 8 одновременных зон, ≤500 индивидуальных узлов, 45 обзорных / 80 выбранных линий с явным счётчиком скрытых; остальные пути и членства доступны через список/детализацию. Новые ANN, тематический Recall и новая генерация corpus не выполнялись.
 
 ## Установка
 

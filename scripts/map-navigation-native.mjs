@@ -45,6 +45,17 @@ for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync(build
 fs.writeFileSync(dir+'/data.json',JSON.stringify({language:'ru',apiKey:'',semanticAutoSyncSuspended:true,semantic:{enabled:true,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 fs.writeFileSync(vault+'/.obsidian/community-plugins.json','["ai-knowledge-hub"]');
 fs.writeFileSync(vault+'/.obsidian/app.json','{"checkForUpdates":false}');
+let theme;
+if(process.env.VEYNREL_THEME_DIR){
+ const path=process.env.VEYNREL_THEME_DIR,manifest=JSON.parse(fs.readFileSync(path+'/manifest.json','utf8'));
+ assert(typeof manifest.name==='string'&&!manifest.name.includes('/')&&!manifest.name.includes('..'));
+ const css=fs.readFileSync(path+'/theme.css','utf8');assert(!/@import|url\(\s*["']?https?:/i.test(css),'Acceptance theme must be local/offline');
+ const target=vault+'/.obsidian/themes/'+manifest.name;fs.mkdirSync(target,{recursive:true});
+ fs.copyFileSync(path+'/theme.css',target+'/theme.css');fs.copyFileSync(path+'/manifest.json',target+'/manifest.json');
+ fs.writeFileSync(vault+'/.obsidian/appearance.json',JSON.stringify({cssTheme:manifest.name,theme:'obsidian'}));
+ theme={name:manifest.name,version:manifest.version,cssHash:sha(css),probe:css.slice(0,120)};
+}
+
 fs.writeFileSync(root+'/profile/obsidian.json',JSON.stringify({updateDisabled:true,vaults:{stage1:{path:vault,ts:Date.now(),open:true}}}));
 const before=markdown(vault),checks=[],metrics={},screenshots=[];fs.writeFileSync(root+'/before.json',JSON.stringify(before,null,2));
 const child=spawn('/usr/bin/electron43',['/usr/lib/obsidian/app.asar','--user-data-dir='+root+'/profile','--remote-debugging-port=9392','--disable-gpu','--ozone-platform=x11'],{stdio:['ignore','ignore',fs.openSync(root+'/electron.log','a')]});
@@ -60,6 +71,7 @@ try{
  const click=key=>clickSelector(`[data-health-action="${key}"]`);
  const settle=()=>ev('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');
  await wait('!!window.app?.workspace?.layoutReady');assert.equal(await ev('app.vault.adapter.basePath'),vault);
+ if(theme)await pass('Configured local theme CSS is loaded in synthetic vault',`[...document.querySelectorAll('style')].some(s=>s.textContent.includes(${JSON.stringify(theme.probe)}))`);
  await wait("!!document.querySelector('.mod-trust-folder')||!!app.plugins.plugins['ai-knowledge-hub']");
  await ev("document.querySelector('.mod-trust-folder')&&[...document.querySelectorAll('.mod-trust-folder button')].find(e=>e.textContent==='Trust author and enable plugins').click();void 0");
  await wait("!!app.commands.commands['ai-knowledge-hub:veynrel-open-health']");
@@ -117,7 +129,7 @@ try{
  await exerciseNavigation({ev,cdp,click,clickSelector,field,wait,pass,shot,closeModals,pause,settle,locale,root,vault,before,markdown,pairPaths,fixture,checks,metrics,page,socket,pending,nextId:()=>++id,startVideo,stopVideo,mode});
  assert.deepEqual(markdown(vault),before);assert.deepEqual(markdown(lab),sourceBefore);await pass('No network during any scenario','io.network===0');
  fs.writeFileSync(root+'/after.json',JSON.stringify(markdown(vault),null,2));
- fs.writeFileSync(root+'/report.json',JSON.stringify({status:'PASS',mode,checks,metrics,screenshots,sourceCommit,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io')},null,2));
+ fs.writeFileSync(root+'/report.json',JSON.stringify({status:'PASS',mode,theme:theme?{name:theme.name,version:theme.version,cssHash:theme.cssHash}:'built-in',checks,metrics,screenshots,sourceCommit,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io')},null,2));
  console.log(JSON.stringify({status:'PASS',checks:checks.length,root}));
 } catch(error){
  fs.writeFileSync(root+'/failure.txt',String(error.stack));if(socket?.readyState===1){try{const p=++id;const shot=await new Promise((resolve,reject)=>{pending.set(p,{resolve,reject});socket.send(JSON.stringify({id:p,method:'Page.captureScreenshot',params:{format:'png'}}))});fs.writeFileSync(root+'/failure.png',Buffer.from(shot.data,'base64'));}catch{}}
