@@ -164,6 +164,32 @@ describe("Relationship Analyzer transport diagnostics", () => {
     const reply = (payload: unknown) => vi.mocked(requestUrl).mockResolvedValueOnce({ status: 200, text: JSON.stringify(payload) } as never);
     return { ...f, reply };
   }
+  it.each(["explanation", "recommendation", "alternative"] as const)("rejects catalogue IDs in %s claim references through the transport parser", async field => {
+    const f = transport(); await f.session.prepare();
+    const consent = f.session.view.consent!.body;
+    const response = relationshipWireFixture(f.item.response, relationshipFixtureUser(consent));
+    const fragment = response.claims[0].evidenceA!;
+    if (field === "alternative") Object.assign(response, { alternatives: [{ action: "manual_review", reason: "Synthetic review", evidence: [fragment] }] });
+    else response[field].evidence = [fragment];
+    const content = JSON.stringify(response);
+    f.reply({ choices: [{ finish_reason: "stop", message: { content } }] });
+    await f.session.confirm(); await f.session.confirm();
+    expect(f.session.view).toMatchObject({ stage: "error", error: "invalidResponse",
+      diagnostics: expect.arrayContaining([{ field: `${field === "alternative" ? "alternatives[0]" : field}.evidence`, code: "evidence_unknown" }]) });
+    expect(f.session.analysisSource).toBeUndefined(); expect(requestUrl).toHaveBeenCalledOnce();
+    expect(vi.mocked(requestUrl).mock.calls[0][0]).toMatchObject({ body: consent });
+    expect(JSON.stringify(response)).toBe(content);
+  });
+  it("accepts separately generated claim references without translating fragment IDs into claims", async () => {
+    const f = transport(); await f.session.prepare();
+    const content = wire(f), consent = f.session.view.consent!.body;
+    f.reply({ choices: [{ finish_reason: "stop", message: { content } }] });
+    await f.session.confirm();
+    expect(f.session.view.stage).toBe("result");
+    expect(f.session.view.result?.explanation.evidence).toEqual(f.item.response.explanation.evidence);
+    expect(requestUrl).toHaveBeenCalledOnce();
+    expect(vi.mocked(requestUrl).mock.calls[0][0]).toMatchObject({ body: consent });
+  });
   it.each([null, "", undefined, '{"relation":', "valid"])("length %s never becomes evidence or a retry", async content => {
     const f = transport(); await f.session.prepare();
     f.reply({ choices: [{ finish_reason: "length", message: { content: content === "valid" ? wire(f) : content,

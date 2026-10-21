@@ -123,6 +123,9 @@ describe("catalogue before consent and explicit reference wire schema", () => {
       const prompt = relationshipPrompt(lang);
       expect(prompt).toContain('"alternatives":[]'); expect(prompt).toContain("unique_a/unique_b are NOT standalone evidence");
       expect(prompt).toContain("One substantive, supportable thought per claim"); expect(prompt).not.toContain('"quoteA"');
+      expect(prompt).toContain("explanation.evidence, recommendation.evidence and alternatives[*].evidence contain ONLY IDs declared in your own claims[].id");
+      expect(prompt).toContain("Catalogue fragment IDs are permitted ONLY in claims[*].evidenceA and claims[*].evidenceB");
+      expect(prompt).toContain("Do not put a fragment ID in explanation.evidence even if that fragment supports the explanation");
     }
   });
 });
