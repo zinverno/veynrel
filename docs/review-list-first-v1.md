@@ -61,7 +61,10 @@ outcomes and expose history. Closing a modal does not mark a candidate resolved.
 Base: `7163f39e10ec900011090124b767a46e872f4d7f`, PR #108,
 `experiment/map-visual-reset-v3`. Dependencies at audit: #106 → #107 → #108 all OPEN;
 #108 draft. This PR targets #108, without merge/rebase or changes to those branches.
-Source/review SHAs and exact final verification results are recorded below after freezing.
+Frozen source: `f894125090038a0c61039f750932955149dd51de` (implementation
+`96bc05a2750c1f8618d5d3a6d867b87d2bc9a505` plus explicit-source UI test updates).
+The review HEAD is the subsequent evidence-only commit containing this report;
+its exact SHA is recorded in the PR description and frozen `REVIEW_HEAD`.
 
 Targeted tests cover passive/list-only ownership with throwing graphical dependencies,
 1000-path repeats without the map cap, preserved source ordering and exercise pairs,
@@ -94,3 +97,34 @@ Recommendation noise is deliberately unchanged. Synthetic completions do not val
 a live provider or model quality. No Stage 2 rules, map redesign, FSRS changes, new
 packages, version bump or release are included. User UX acceptance is separate from
 technical checks.
+
+## Executed acceptance on the frozen source
+
+- `npm test`: **4552 tests / 168 files passed**.
+- `npm run typecheck`, `npm run lint` (includes build), `npm run build`,
+  `git diff --check`: passed. One pre-existing `api.ts:414` fetch advisory remains.
+- `npm run audit:proposals`: **5/5 mutations killed**, restored tests passed.
+- Independent code review: required findings fixed; no remaining required findings.
+- Frozen native run: **26 checks passed**; separate no-index profile: **6 checks passed**.
+  RU/EN, built-in dark/light, 1694px and 390px desktop windows, keyboard, 200% global
+  zoom, actual split and same view in popout. Cold direct command and simultaneous
+  command calls create one standalone list. Repeat refresh above 500 inventory paths
+  does not construct comparison/semantic graph data or graphical resources.
+- Full route: exactly **2 Markdown writes** (Apply and Undo), **0 network calls**;
+  **1002/1002 Markdown hashes restored** by the actual Undo executor. Index-status
+  loading and browsing are passive; explicit pair/review reads account for 36 reads
+  in the full acceptance run. The synthetic source Lab hashes also remain unchanged.
+- Installer: actual three-file replacement/backup and refusal cases tested only on a
+  temporary synthetic destination. Final fixed-target wrapper passes `bash -n` and
+  rejects extra arguments before accessing TEST. Artifact SHA256 checks passed.
+
+[Native screenshots, route video and integrity evidence](review-list-first-v1-evidence/README.md).
+The full-route video is slowed to 0.5× for reading, with no removed/reordered actions.
+
+Not run: live paid/model completion, real embedding quality, phone/touch, screen reader,
+third-party themes in this stage. Map redesign/visual acceptance is not part of this
+work. The old map remains an explicit compatibility action; its visual quality has
+not been re-accepted. No user vault was installed or modified. CI is reported on the
+exact final review HEAD in the PR, independently of these local/native results.
+
+Stage 1 stops here. Candidate noise and participation rules are intentionally unchanged.
