@@ -1,10 +1,11 @@
 import type { MapPoint } from "./workbenchModel";
 import type { Viewport } from "../ui/graphViewport";
 export const MAP_WIDTH = 1000, MAP_HEIGHT = 640;
+export const canvasWorldWidth=(width:number,height:number):number=>height>0?width*MAP_HEIGHT/height:MAP_WIDTH;
 export interface MapItem extends MapPoint { members?: readonly string[]; label?: string }
 /** All files are accounted for. Group IDs are presentation-only and never passed to file actions. */
 export function mapItems(points: readonly MapPoint[]): MapItem[] {
-  if (points.length <= 500) return normalizePoints(points);
+  if (points.length <= 500) return [...points];
   const sorted = [...points].sort((a,b) => a.path < b.path ? -1 : 1), size = Math.max(100, Math.ceil(sorted.length / 64));
   const groups: MapItem[] = [];
   for (let i = 0; i < sorted.length; i += size) {
@@ -22,43 +23,9 @@ function normalizePoints<T extends MapPoint>(points: readonly T[]): T[] {
   return points.map(p => ({ ...p, x: 500+(p.x-(minX+maxX)/2)*scale, y: 320+(p.y-(minY+maxY)/2)*scale }));
 }
 export interface XY { x: number; y: number }
-/** Bounded Voronoi cells: no other document center can be enclosed by a member's zone. */
-export function membershipCells(points: readonly MapItem[]): ReadonlyMap<string, readonly XY[]> {
-  const result = new Map<string, XY[]>();
-  for (const p of points) {
-    if (p.members) continue;
-    let polygon = [{ x:p.x-60, y:p.y-60 }, { x:p.x+60, y:p.y-60 }, { x:p.x+60, y:p.y+60 }, { x:p.x-60, y:p.y+60 }];
-    for (const q of points) {
-      if (p === q || Math.abs(q.x-p.x) > 180 || Math.abs(q.y-p.y) > 180) continue;
-      const nx = q.x-p.x, ny = q.y-p.y, mid = (q.x*q.x+q.y*q.y-p.x*p.x-p.y*p.y)/2;
-      const next: XY[] = [];
-      for (let i=0; i<polygon.length; i++) {
-        const a = polygon[i], b = polygon[(i+1)%polygon.length], da = a.x*nx+a.y*ny-mid, db = b.x*nx+b.y*ny-mid;
-        if (da <= 0) next.push(a);
-        if ((da <= 0) !== (db <= 0)) { const t = da/(da-db); next.push({ x:a.x+(b.x-a.x)*t, y:a.y+(b.y-a.y)*t }); }
-      }
-      polygon = next;
-    }
-    result.set(p.path, polygon);
-  }
-  return result;
-}
-export function insetCell(polygon: readonly XY[], center: XY, inset: number): string {
-  return polygon.length ? polygon.map((p,i) => `${i ? "L" : "M"}${center.x+(p.x-center.x)*(1-inset)},${center.y+(p.y-center.y)*(1-inset)}`).join(" ")+" Z" : "";
-}
-/** Cancel shared cell edges instead of drawing a misleading convex hull around nonmembers. */
-export function zoneBoundary(cells: readonly (readonly XY[])[]): string {
-  const edges = new Map<string, readonly [XY,XY]>();
-  const key = (p:XY):string => `${p.x.toFixed(3)},${p.y.toFixed(3)}`;
-  for (const polygon of cells) for (let i=0;i<polygon.length;i++) {
-    const a=polygon[i],b=polygon[(i+1)%polygon.length],ka=key(a),kb=key(b),id=ka<kb?`${ka}|${kb}`:`${kb}|${ka}`;
-    if(edges.has(id))edges.delete(id);else edges.set(id,[a,b]);
-  }
-  return [...edges.values()].map(([a,b])=>`M${a.x},${a.y} L${b.x},${b.y}`).join(" ");
-}
 export function wheelFactor(delta: number, mode: number, pageHeight: number): number {
   const pixels = delta * (mode === 1 ? 16 : mode === 2 ? pageHeight : 1);
-  return Math.exp(-Math.max(-240, Math.min(240, pixels)) * .0025);
+  return Math.exp(-Math.max(-80, Math.min(80, pixels)) * .002);
 }
 export function fitPoints(points: readonly XY[], width = MAP_WIDTH, height = MAP_HEIGHT): Viewport {
   if (!points.length) return { x:0, y:0, zoom:1 };

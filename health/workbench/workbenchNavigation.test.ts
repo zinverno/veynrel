@@ -1,12 +1,16 @@
 import { describe, expect, it, vi } from "vitest";
 vi.mock("obsidian",()=>({getLanguage:()=>"en"}));
-import { edgeAttraction, workbenchLayout } from "./workbenchModel";
+import { edgeAttraction } from "./workbenchModel";
 import type { WorkbenchModel } from "./workbenchModel";
-import { fitPoints, mapItems, membershipCells, wheelFactor } from "./workbenchGeometry";
+import { canvasWorldWidth, fitPoints, mapItems, wheelFactor } from "./workbenchGeometry";
 import { focusWorkbench, newWorkbenchGraphState, overviewWorkbench } from "./workbenchGraph";
 import { tagZones, matchesTagFilter } from "./workbenchTags";
 import { initialZones } from "./workbenchZones";
 import { zoomGraph } from "../ui/graphViewport";
+import { WorkbenchSimulation } from "./workbenchSimulation";
+import type { WorkbenchNode, WorkbenchEdge } from "./workbenchModel";
+import { haloSpots } from "./workbenchPalette";
+const workbenchLayout=(nodes:readonly WorkbenchNode[],edges:readonly WorkbenchEdge[])=>{const simulation=new WorkbenchSimulation();simulation.update(nodes,edges);simulation.settle();return simulation.points;};
 const node=(path:string)=>({path,semantic:false,linksAvailable:true});
 const tags=tagZones({revision:1,categories:[{id:"role",name:"Material",prefixes:["role"],tags:[]}],notes:[
  {path:"A.md",state:"known",tags:["topic/sql/cte","role/theory","difficulty/advanced"]},
@@ -33,8 +37,8 @@ describe("read-only multi-tag membership",()=>{
  it("keeps dense membership while bounding initial layer detail across categories",()=>{
   const dense=tagZones({revision:1,categories:[],notes:[{path:"A.md",state:"known",tags:Array.from({length:30},(_,i)=>`category${i}/tag`)}]});
   expect(dense.filter(z=>z.direct.includes("A.md"))).toHaveLength(30);
-  expect(initialZones(dense)).toHaveLength(6);
-  expect(new Set(initialZones(dense).map(tag=>dense.find(z=>z.tag===tag)!.category)).size).toBe(6);
+  expect(initialZones(dense)).toHaveLength(3);
+  expect(new Set(initialZones(dense).map(tag=>dense.find(z=>z.tag===tag)!.category)).size).toBe(3);
  });
  it("covers every combination A∩B, B∩C, A∩C and A∩B∩C without a primary zone",()=>{
   const memberships=[["A","B"],["B","C"],["A","C"],["A","B","C"]];
@@ -63,12 +67,11 @@ describe("bounded layout and presentation",()=>{
   expect(workbenchLayout([node("B.md"),node("A.md")],[strong])).toEqual(points(.95));
   expect(edgeAttraction({source:"A.md",target:"B.md",kind:"link"})).toEqual({length:110,strength:.025});
  });
- it("splits membership contours around a nonmember between two members",()=>{
+ it("soft fields do not infer membership from a foreign center inside their radius",()=>{
   const points=[{path:"A",x:100,y:100},{path:"X",x:120,y:100},{path:"B",x:140,y:100}];
-  const cells=membershipCells(points);
-  expect(Math.max(...cells.get("A")!.map(p=>p.x))).toBe(110);
-  expect(Math.min(...cells.get("B")!.map(p=>p.x))).toBe(130);
-  expect(cells.get("X")!.every(p=>p.x>=110&&p.x<=130)).toBe(true);
+  const members=new Set(["A","B"]),spots=haloSpots(points,members);
+  expect(spots.some(p=>Math.hypot(p.x-120,p.y-100)<p.r)).toBe(true);
+  expect(members.has("X")).toBe(false);expect(members.size).toBe(2);
  });
  it("fit changes only camera; explicit focus/return restores exact overview camera",()=>{
   const state=newWorkbenchGraphState();state.viewport={x:56,y:-20,zoom:2.3};const previous={...state.viewport};
@@ -86,7 +89,7 @@ describe("bounded layout and presentation",()=>{
   expect(zoomGraph(after,1e9,280,130,12).zoom).toBe(12);
  });
   it("fits a wide neighborhood to the actual narrow viewBox",()=>{
-    const points=[{x:100,y:100},{x:900,y:500}],width=400,view=fitPoints(points,width);
+    const points=[{x:100,y:100},{x:900,y:500}],width=canvasWorldWidth(500,800),view=fitPoints(points,width);
     for(const point of points){expect(point.x*view.zoom+view.x).toBeGreaterThanOrEqual(500-width/2);expect(point.x*view.zoom+view.x).toBeLessThanOrEqual(500+width/2);}
     const next=zoomGraph(view,1.1,380,240,12,.05);expect((380-next.x)/next.zoom).toBeCloseTo((380-view.x)/view.zoom);
   });

@@ -1,6 +1,9 @@
+import { WorkbenchSimulation } from "./workbenchSimulation";
+import type { WorkbenchNode, WorkbenchEdge } from "./workbenchModel";
+const workbenchLayout=(nodes:readonly WorkbenchNode[],edges:readonly WorkbenchEdge[])=>{const simulation=new WorkbenchSimulation();simulation.update(nodes,edges);simulation.settle();return simulation.points;};
 import { describe, expect, it, vi } from "vitest";
 import { WorkbenchData } from "./workbenchData";
-import { linkFact, pairId, reconcileWorkbenchSelection, workbenchLayout, workbenchModel } from "./workbenchModel";
+import { linkFact, pairId, reconcileWorkbenchSelection, workbenchModel } from "./workbenchModel";
 import { semanticMap, topologyMap, semanticRevision } from "../connections/testFixtures";
 import { deriveConnectionComparison } from "../connections/deriveConnectionComparison";
 import type { VaultTopologyProductSnapshot } from "../topology/types";

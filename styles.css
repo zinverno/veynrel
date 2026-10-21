@@ -2874,14 +2874,6 @@
 .veynrel-workbench-node.is-group { fill: var(--vx-selected); stroke: var(--text-accent); }
 .veynrel-workbench-label { font-size: 11px; pointer-events: none; stroke-width: 3px; }
 .veynrel-workbench-label.is-label-hidden { visibility: hidden; }
-.veynrel-candidate-marker { fill: var(--text-accent); pointer-events: none; }
-.veynrel-tag-zone { fill: var(--interactive-accent); fill-opacity: .025; stroke: var(--text-faint); stroke-width: .7; vector-effect: non-scaling-stroke; cursor: pointer; }
-.veynrel-tag-zone.zone-style-1 { stroke-dasharray: 7 2; }
-.veynrel-tag-zone.zone-style-2 { stroke-dasharray: 2 2; }
-.veynrel-tag-zone.zone-style-3 { stroke-dasharray: 7 2 2 2; }
-.veynrel-tag-zone.is-active, .veynrel-tag-zone:focus { fill-opacity: .06; stroke: var(--text-accent); stroke-width: 2; }
-.veynrel-zone-label { font-size: 11px; fill: var(--text-muted); stroke: var(--vx-surface); stroke-width: 3px; paint-order: stroke; pointer-events: none; }
-.veynrel-zone-label.is-active { fill: var(--text-normal); font-weight: 650; }
 .veynrel-zone-selection { position: absolute; left: 12px; bottom: 56px; max-width: calc(100% - 24px); background: var(--background-primary); border: 1px solid var(--text-accent); border-radius: 8px; padding: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; }
 .veynrel-zones-panel { position: absolute; top: 100%; left: 0; z-index: 8; width: 370px; max-width: 100%; max-height: 65cqh; overflow: auto; padding: 14px; background: var(--background-primary); box-shadow: var(--shadow-l); border: 1px solid var(--background-modifier-border); border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
 .veynrel-zones-panel input, .veynrel-zones-panel select { max-width: 100%; flex: none; }
@@ -2917,12 +2909,6 @@
   .veynrel-map-hint { font-size: 10px; }
 }
 .veynrel-shell-main > div:has(> .veynrel-workbench) { height: 100%; min-height: 0; }
-.veynrel-zone-fill { stroke: none; }
-.veynrel-zone-border { fill: none; stroke: inherit; stroke-width: inherit; stroke-dasharray: inherit; vector-effect: non-scaling-stroke; pointer-events: none; }
-.veynrel-membership-ring { fill: none; stroke: var(--text-accent); stroke-width: 1.5; pointer-events: none; vector-effect: non-scaling-stroke; }
-.veynrel-membership-ring.zone-style-1 { stroke-dasharray: 7 2; }
-.veynrel-membership-ring.zone-style-2 { stroke-dasharray: 2 2; }
-.veynrel-membership-ring.zone-style-3 { stroke-dasharray: 7 2 2 2; }
 @container (min-width: 1000px) {
   .veynrel-workbench-grid.is-detail-pinned:has(.veynrel-workbench-selection) .veynrel-workbench-map-pane { width: calc(100% - 320px); }
 }
@@ -2931,3 +2917,38 @@
 .veynrel-zone-keys button.is-active { color: var(--text-normal); border-color: var(--text-accent); background: var(--vx-selected); }
 .veynrel-map-hint { top: auto; bottom: 62px; padding: 4px 7px; background: var(--vx-surface); border-radius: 4px; }
 .veynrel-shell.is-map-expanded .veynrel-workbench-footer { display: none; }
+
+/* Visual review v3: soft orientation fields, screen-sized marks and collision-placed text. */
+.veynrel-visual-map { position: relative; background: var(--background-primary); }
+.veynrel-visual-map .veynrel-workbench-map-tools { position: absolute; right: 10px; bottom: 10px; z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end; max-width: calc(100% - 110px); margin: 0; padding: 4px; border-radius: 8px; background: color-mix(in srgb, var(--background-primary) 94%, transparent); border: 1px solid var(--background-modifier-border); }
+.veynrel-visual-map .veynrel-workbench-map-tools button { background: transparent; box-shadow: none; font-size: var(--font-ui-smaller); }
+.veynrel-visual-map .veynrel-zone-keys { position: absolute; top: 10px; left: 10px; right: 10px; z-index: 1; gap: 6px; pointer-events: none; }
+.veynrel-visual-map .veynrel-zone-keys button { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--background-primary) 92%, transparent); color: var(--text-muted); font-size: var(--font-ui-smaller); border: 1px solid var(--background-modifier-border); box-shadow: none; max-width: 100%; overflow-wrap: anywhere; }
+.veynrel-visual-map .veynrel-zone-keys button::before { content: ""; flex: 0 0 8px; height: 8px; border-radius: 50%; background: var(--tag-color); }
+.veynrel-visual-map .veynrel-zone-keys button.is-active { color: var(--text-normal); border-color: var(--tag-color); box-shadow: inset 0 -2px var(--tag-color); }
+.veynrel-visual-map .veynrel-tag-zone { fill: none; fill-opacity: 1; stroke: none; pointer-events: none; }
+.veynrel-soft-fields { pointer-events: none; }
+.veynrel-visual-map .veynrel-workbench-edge { stroke: var(--text-muted); opacity: .23; stroke-width: .75; }
+.veynrel-visual-map .veynrel-workbench-edge.is-semantic { stroke: var(--text-muted); stroke-dasharray: 3 5; opacity: .20; }
+.veynrel-visual-map .veynrel-workbench-edge.is-neighbor { opacity: .75; stroke-width: 1.2; }
+.veynrel-visual-map .veynrel-workbench-arrow { opacity: .3; stroke-width: .8; }
+.veynrel-visual-map .veynrel-workbench-node { fill: var(--text-muted); stroke: var(--background-primary); stroke-width: 1; cursor: grab; }
+.veynrel-visual-map .veynrel-workbench-node.is-selected, .veynrel-visual-map .veynrel-workbench-node.is-hovered, .veynrel-visual-map .veynrel-workbench-node.is-keyboard-focused { fill: var(--text-normal); stroke: var(--interactive-accent); stroke-width: 2; }
+.veynrel-visual-map .veynrel-workbench-node.is-zone-member { fill: var(--text-normal); stroke: var(--text-normal); stroke-width: 1; }
+.veynrel-visual-map .veynrel-workbench-node.is-group { fill: var(--background-secondary); stroke: var(--text-muted); }
+.veynrel-visual-map .is-dimmed { opacity: .18; }
+.veynrel-candidate-rim { fill: none; stroke: var(--text-muted); stroke-width: .8; vector-effect: non-scaling-stroke; pointer-events: none; }
+.veynrel-membership-segment { fill: none; stroke-width: 2.6; vector-effect: non-scaling-stroke; pointer-events: none; }
+.veynrel-map-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.veynrel-map-labels .veynrel-workbench-label { position: absolute; width: max-content; font-size: var(--font-ui-small); line-height: 1.35; color: var(--text-muted); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; pointer-events: none; padding: 1px 3px; border-radius: 3px; background: color-mix(in srgb, var(--background-primary) 78%, transparent); }
+.veynrel-map-labels .veynrel-workbench-label.is-priority { color: var(--text-normal); font-weight: 600; white-space: normal; overflow-wrap: anywhere; }
+.veynrel-map-help { position: absolute; bottom: 14px; left: 12px; z-index: 3; color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.veynrel-map-help summary { cursor: pointer; }
+.veynrel-map-help[open] { width: min(350px, calc(100% - 24px)); max-height: 65%; overflow: auto; background: var(--background-primary); border: 1px solid var(--background-modifier-border); padding: 12px; border-radius: 8px; box-shadow: var(--shadow-s); }
+.veynrel-zone-selection { bottom: 70px; z-index: 3; }
+.veynrel-workbench-status { font-size: var(--font-ui-smaller); }
+@container (max-width: 760px) {
+  .veynrel-visual-map .veynrel-zone-keys { max-height: 100px; overflow: auto; }
+  .veynrel-visual-map .veynrel-workbench-map-tools { max-width: calc(100% - 90px); gap: 2px; }
+  .veynrel-workbench-grid .veynrel-workbench-selection { bottom: 90px; }
+}
