@@ -15,17 +15,18 @@ function source(root: HTMLElement, title: string, text: string, key: string, ope
 }
 /** Local choices and literal previews; Apply opens a separate checked consent window. */
 export function renderMergePlanner(root: HTMLElement, session: ChangePlannerSession, analysis: RelationshipAnalysis,
-  choice: MergeChoice, change: (choice: MergeChoice) => void, review?: (plan: MergePlan) => void): void {
+  choice: MergeChoice, change: (choice: MergeChoice) => void, review?: (plan: MergePlan) => void, canonicalChosen = false): void {
   const input = session.view.input;
   if (!input) return;
   const pair = input.pair, hints = mergeHints(analysis.result, pair);
   root.createEl("p", { text: tr("@merge.hintScope") });
-  for (const [i, note] of pair.entries()) source(root, `${i === 0 ? "A" : "B"}: ${note.path}`, note.content, `source-${i}`, true);
+  for (const [i, note] of pair.entries()) source(root, `${i === 0 ? "A" : "B"}: ${note.path}`, note.content, `source-${i}`, !canonicalChosen);
   const hintPanel = root.createEl("details"); hintPanel.createEl("summary", { text: tr("@merge.hints") });
   for (const h of hints) {
     hintPanel.createEl("p", { text: `${tr(`@relationship.kind.${h.kind}`)} · ${h.side === 0 ? "A" : "B"} · ${h.range.start}–${h.range.end}: ${h.text}` });
     hintPanel.createEl("pre", { text: h.range.text, cls: "ai-pair-source", attr: { tabindex: "0" } });
   }
+  if (!canonicalChosen) {
   const label = root.createEl("label", { text: tr("@merge.canonical"), cls: "ai-planner-location" });
   const select = label.createEl("select", { attr: { "data-planner-field": "merge-canonical" } });
   select.createEl("option", { text: tr("@planner.choose"), value: "" });
@@ -33,6 +34,7 @@ export function renderMergePlanner(root: HTMLElement, session: ChangePlannerSess
   select.value = choice.canonical === null ? "" : String(choice.canonical);
   select.addEventListener("change", () => change({ ...choice, canonical: select.value === "" ? null : select.value === "0" ? 0 : 1,
     transfers: [], insertion: null, insertionConfirmed: false }));
+  }
   if (choice.canonical !== null) {
     const side = choice.canonical === 0 ? 1 : 0, secondary = pair[side];
     root.createEl("h4", { text: tr("@merge.blocks", { path: secondary.path }) });
