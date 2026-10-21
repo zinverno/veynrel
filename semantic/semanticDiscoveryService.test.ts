@@ -811,3 +811,30 @@ describe("Global Semantic Map exact analysis", () => {
     expect(f.store.mutations).toBe(0);
   });
 });
+
+
+describe("explicit scoped global map compatibility", () => {
+  it.each([0, 1, 150, 500, 501])("caps %i eligible documents before any pairwise work", async count => {
+    const f = similarHarness(Array.from({ length: count }, (_, i) => entry(`s${i}`, `Scope/N${String(i).padStart(4, "0")}.md`, [1, i / 1000])));
+    const progress = vi.fn();
+    const result = await f.service.analyzeGlobalSemanticMap({ paths: f.service.listIndexedPaths(), onProgress: progress });
+    expect(result.state).toBe(count > 500 ? "too-large" : count === 0 ? "core-unavailable" : "ready");
+    expect(result.mappedNoteCount).toBe(count);
+    if (count > 500 || count === 0) expect(progress).not.toHaveBeenCalled();
+    else expect(progress).toHaveBeenLastCalledWith({ completedPairs: count * (count - 1) / 2, totalPairs: count * (count - 1) / 2 });
+    expect(f.store.mutations).toBe(0);
+  });
+  it("recalculates within a real subset of 501, preserving unscoped ranking and eligibility", async () => {
+    const rows = Array.from({ length: 501 }, (_, i) => entry(`s${i}`, `${i < 150 ? "Scope" : "Scope-old"}/N${i}.md`, [1, i / 800]));
+    rows.push(entry("short", "Scope/Short.md", [1, 0], 0, "tiny"));
+    const f = similarHarness(rows), chosen = rows.filter(row => row.path.startsWith("Scope/"));
+    const progress = vi.fn();
+    const globalBefore = await f.service.analyzeGlobalSemanticMap(); expect(globalBefore.state).toBe("too-large");
+    const scoped = await f.service.analyzeGlobalSemanticMap({ paths: chosen.map(row => row.path), onProgress: progress });
+    expect(scoped).toEqual(await similarHarness(chosen).service.analyzeGlobalSemanticMap());
+    expect(scoped).toMatchObject({ state: "ready", indexedNoteCount: 151, mappedNoteCount: 150 });
+    expect(progress).toHaveBeenLastCalledWith({ completedPairs: 11175, totalPairs: 11175 });
+    expect(await f.service.analyzeGlobalSemanticMap()).toEqual(globalBefore);
+    expect(f.store.mutations).toBe(0);
+  });
+});

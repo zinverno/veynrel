@@ -1,0 +1,295 @@
+{
+  "status": "PASS",
+  "mode": "154",
+  "theme": {
+    "name": "Red Graphite",
+    "version": "1.0.5",
+    "cssHash": "d92311c2948d7c9c014b01b5ffb5b9dab40f492702e0409089ca36bd94a32151"
+  },
+  "checks": [
+    "Configured local theme CSS is loaded in synthetic vault",
+    "Real native home; one sidebar and no old primary rail",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Workbench opening is passive",
+    "Explicit local refresh does not read Markdown, embed, call a model or write",
+    "All unique documents accounted for; full 154/500 or bounded groups",
+    "Canvas fits available native pane without a bottom strip",
+    "Ready synthetic semantic layer is actually loaded",
+    "Expand removes only own chrome and increases canvas area",
+    "Cursor wheel anchor in expanded native pane",
+    "Note selection after pan preserves geometry/camera and does not select an arbitrary pair",
+    "Selected note visibly belongs to three independent active zones",
+    "Native stationary zone click selects exact membership",
+    "Zone highlight and explicit filter are separate actions",
+    "Neighborhood requires explicit action; return is always visible",
+    "Fit changes camera only",
+    "Candidate pair is selected explicitly and has two distinct canonical paths",
+    "Return restores all visual context without retaining a review owner",
+    "Dense 12+ tags retain every membership and disclose hidden categories",
+    "Filter checkbox keeps keyboard focus after render",
+    "Explicit AND/OR produce distinct inclusion sets",
+    "Model consent is separate and truthful about the offline test destination",
+    "Actual Apply → History → separate Undo restores all Markdown SHA256 hashes",
+    "Return revokes one-use model consent",
+    "Scope change discards late completion and old review owner",
+    "Transient stale metadata preserves visible-layer choices",
+    "Escape closes own zone panel before expanded map",
+    "Escape in text input does not collapse the map",
+    "Contextual Escape then exits expanded mode",
+    "pointercancel and lost capture end pan without subsequent movement",
+    "Rapid wheel remains bounded and never reruns layout",
+    "Wheel inside note list scrolls that list without changing map zoom",
+    "Disposed SVG and toolbar callbacks cannot change current camera",
+    "ru/dark/1650: no horizontal overflow",
+    "ru/dark/390: no horizontal overflow",
+    "ru/light/1650: no horizontal overflow",
+    "ru/light/390: no horizontal overflow",
+    "en/dark/1650: no horizontal overflow",
+    "en/dark/390: no horizontal overflow",
+    "en/light/1650: no horizontal overflow",
+    "en/light/390: no horizontal overflow",
+    "Wheel anchor in ordinary native pane",
+    "Wheel anchor at native Electron 200% zoom",
+    "200% zoom keeps exit and controls reachable",
+    "Wheel anchor in real split pane",
+    "Explicit neighborhood fits narrow split viewBox",
+    "Wheel anchor after moving same ItemView to real popout",
+    "Closing popout disposes metadata, graph, and review owners",
+    "No network during any scenario"
+  ],
+  "metrics": {
+    "openMs": 546.1105299999999,
+    "process": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "tools": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 2374.125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 2452.671875,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": [
+        {
+          "x": 284,
+          "y": 277.2001953125,
+          "width": 1366,
+          "height": 269.671875,
+          "top": 277.2001953125,
+          "right": 1650,
+          "bottom": 546.8720703125,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 570.8720703125,
+          "width": 1366,
+          "height": 388.359375,
+          "top": 570.8720703125,
+          "right": 1650,
+          "bottom": 959.2314453125,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 983.2314453125,
+          "width": 1366,
+          "height": 269.671875,
+          "top": 983.2314453125,
+          "right": 1650,
+          "bottom": 1252.9033203125,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1276.9033203125,
+          "width": 1366,
+          "height": 507.046875,
+          "top": 1276.9033203125,
+          "right": 1650,
+          "bottom": 1783.9501953125,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1807.9501953125,
+          "width": 1366,
+          "height": 590.359375,
+          "top": 1807.9501953125,
+          "right": 1650,
+          "bottom": 2398.3095703125,
+          "left": 284
+        }
+      ]
+    },
+    "health": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 1071.453125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 1150,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "layout": {
+      "count": 3,
+      "milliseconds": 6.299999997019768,
+      "nodes": 154
+    },
+    "Cursor wheel anchor in expanded native pane": {
+      "before": {
+        "x": 320.0530700683594,
+        "y": 274.9867248535156
+      },
+      "after": {
+        "x": 320.0530700683594,
+        "y": 274.98675537109375
+      }
+    },
+    "layersTenMs": 5089.318756000001,
+    "selectionRenderMs": 30.799999997019768,
+    "fastWheelTwelveMs": 648.2321730000003,
+    "Wheel anchor in ordinary native pane": {
+      "before": {
+        "x": 387.7612609863281,
+        "y": 278.3113708496094
+      },
+      "after": {
+        "x": 387.7612609863281,
+        "y": 278.3114013671875
+      }
+    },
+    "Wheel anchor at native Electron 200% zoom": {
+      "before": {
+        "x": 282.29742431640625,
+        "y": 277.494140625
+      },
+      "after": {
+        "x": 282.29742431640625,
+        "y": 277.494140625
+      }
+    },
+    "Wheel anchor in real split pane": {
+      "before": {
+        "x": 420.14398193359375,
+        "y": 278.3841552734375
+      },
+      "after": {
+        "x": 420.1440124511719,
+        "y": 278.3841857910156
+      }
+    },
+    "Wheel anchor after moving same ItemView to real popout": {
+      "before": {
+        "x": 379.7482604980469,
+        "y": 278.3758850097656
+      },
+      "after": {
+        "x": 379.7482604980469,
+        "y": 278.3758850097656
+      }
+    },
+    "finalHashes": 154
+  },
+  "screenshots": [
+    "process.png",
+    "tools.png",
+    "tools-bottom.png",
+    "health.png",
+    "initial-overview.png",
+    "expanded-three-facets.png",
+    "three-memberships-selected.png",
+    "explicit-zone-filter.png",
+    "focused-neighborhood.png",
+    "compare-native.png",
+    "same-context-collapsed.png",
+    "dense-membership.png",
+    "facets-and-or.png",
+    "validated-comparison.png",
+    "exact-change-review.png",
+    "applied.png",
+    "operation-history.png",
+    "separate-undo-review.png",
+    "map-ru-dark-1650.png",
+    "map-ru-dark-390.png",
+    "map-ru-light-1650.png",
+    "map-ru-light-390.png",
+    "map-en-dark-1650.png",
+    "map-en-dark-390.png",
+    "map-en-light-1650.png",
+    "map-en-light-390.png",
+    "zoom-200.png",
+    "reduced-motion.png",
+    "native-split.png"
+  ],
+  "sourceCommit": "f4c7bea9d6bac2f91b437bb9a51641de07d67ccc",
+  "hashes": {
+    "main.js": "c0a8ee69071d549ba2dd9a275de24a9f21cde0202c2c5d3607088f3ed8588510",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "16bc3f4df3a81ea949ceb3e6c9d1f2dd90249c9c0fc8361005b446bd93fd8dba"
+  },
+  "io": {
+    "reads": 38,
+    "writes": 2,
+    "network": 0,
+    "enumerations": 9
+  }
+}

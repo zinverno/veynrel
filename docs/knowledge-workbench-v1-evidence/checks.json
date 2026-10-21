@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "dd683ee2c5a9a5b1a71a392c7a5f9812d955ecf6",
+  "unit": {
+    "files": 164,
+    "tests": 4507,
+    "status": "PASS"
+  },
+  "typecheck": "PASS",
+  "build": "PASS",
+  "lint": {
+    "status": "PASS",
+    "existingWarnings": 1
+  },
+  "audit": {
+    "killed": 5,
+    "total": 5,
+    "status": "PASS"
+  },
+  "nativeAssertions": {
+    "ready": 45,
+    "cap": 10,
+    "absent": 7
+  },
+  "paidRequests": 0,
+  "originalVaultWrites": 0,
+  "testVaultInstalled": false,
+  "installerTest": "PASS (synthetic only)"
+}

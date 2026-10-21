@@ -76,6 +76,7 @@ import { TAG_LIMITS, TAG_OPTIONS, TagRecommendationError } from "./consolidation
 import { readSavedNote } from "./consolidation/savedNote";
 import { isCanonicalMarkdownPath } from "./chunking/reconstructChunks";
 import { TagTaxonomyModal } from "./consolidation/taxonomyModal";
+import { createWorkbenchMetadata } from "./consolidation/workbenchMetadata";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
 import type { VeynrelToolsPort } from "./health/toolsPort";
@@ -230,7 +231,9 @@ export default class AIHubPlugin extends Plugin {
           this.recallAuthoring = authoring;
           this.register(() => authoring.dispose());
           return authoring;
-        }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController));
+        }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController),
+        { mount: (container, paths) => this.semanticController.mountPairReview(container, paths) },
+        paths => createWorkbenchMetadata(this.app, paths, this.getTaxonomyProfilePort()));
 
       this.addCommand({
         id: "ai-hub-open-panel",

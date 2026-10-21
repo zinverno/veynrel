@@ -352,8 +352,10 @@ export class SemanticDiscoveryService {
     await yieldGlobalAnalysis();
     check();
     const prepared = this.prepareSnapshot();
-    const documents = prepared.documents.filter((document) => this.eligible(document));
-    const counts = { indexedNoteCount: prepared.documents.length, mappedNoteCount: documents.length };
+    const paths = options.paths === undefined ? undefined : new Set(options.paths.map(validatePath));
+    const scoped = paths ? prepared.documents.filter(document => paths.has(document.path)) : prepared.documents;
+    const documents = scoped.filter((document) => this.eligible(document));
+    const counts = { indexedNoteCount: scoped.length, mappedNoteCount: documents.length };
     if (documents.length > GLOBAL_SEMANTIC_DOCUMENT_CAP) return { ...counts, state: "too-large" };
     const core = new Float64Array(this.dimensions);
     for (const document of documents) {

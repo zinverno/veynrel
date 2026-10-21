@@ -17,7 +17,6 @@ export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex,
   findings: readonly Finding[], motion: boolean, actions: { select: (path?: string) => void; open: () => void; recall: () => void;
     check: () => void; process: () => void; motion: () => void }): void {
   const home = parent.createEl("section", { cls: "veynrel-native-home" });
-  home.createEl("p", { cls: "veynrel-page-index", text: `Veynrel / ${t("@workspace.home")}` });
   workspaceHeading(home, t("@workspace.headline"), t("@workspace.intro"));
   const grid = home.createDiv({ cls: "veynrel-home-grid" });
   const scene = grid.createEl("section", { cls: "veynrel-core-panel", attr: { "aria-label": t("@workspace.scope") } });

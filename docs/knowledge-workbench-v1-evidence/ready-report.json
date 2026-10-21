@@ -1,0 +1,270 @@
+{
+  "status": "PASS",
+  "mode": "ready150",
+  "checks": [
+    "Real native home; one sidebar and no old primary rail",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Workbench opening is passive",
+    "Explicit local refresh does not read Markdown, embed, call a model or write",
+    "150 genuine synthetic indexed documents reach the new source projection",
+    "List and selected pair retain exact distinct paths",
+    "Only the chosen pair was read, with no completion",
+    "Separate model consent names actual destination",
+    "Validator and planner lead to a separate exact review without writing",
+    "Apply → History → separate Undo restores all 1000 files byte for byte",
+    "Returning preserves the list, query and selected pair",
+    "Invalid exact evidence has no planner or write",
+    "Detached browser callback cannot mount a review",
+    "Back revokes consent; detached confirm cannot reuse it",
+    "Scope change discards a late model result and releases its mounted owner",
+    "Incomplete Archive preservation cannot be built",
+    "Active Archive blocks Parent Undo",
+    "Merge → separate Archive → Archive Undo → Parent Undo restores all 1000 original files",
+    "Missing endpoint metadata never states absent link",
+    "One graph contains actual and semantic edges",
+    "Canvas selection and candidate row show the same canonical pair",
+    "Index configuration epoch invalidates the published semantic snapshot without a request",
+    "ru: shell and workbench share the locale",
+    "ru/dark/1650: no horizontal pane overflow",
+    "ru/dark/1440: no horizontal pane overflow",
+    "ru/dark/390: no horizontal pane overflow",
+    "ru/light/1650: no horizontal pane overflow",
+    "ru/light/1440: no horizontal pane overflow",
+    "ru/light/390: no horizontal pane overflow",
+    "en: shell and workbench share the locale",
+    "en/dark/1650: no horizontal pane overflow",
+    "en/dark/1440: no horizontal pane overflow",
+    "en/dark/390: no horizontal pane overflow",
+    "en/light/1650: no horizontal pane overflow",
+    "en/light/1440: no horizontal pane overflow",
+    "en/light/390: no horizontal pane overflow",
+    "200% native zoom preserves list/action layout",
+    "Keyboard activates list-only without losing the exact pair",
+    "Real narrow split uses pane width without overflow",
+    "Popout uses its own document and independent scope",
+    "Rename preserves an explicitly missing folder, never All",
+    "Delete invalidates scoped workbench data",
+    "Closing ItemView disposes its workbench and consent owners",
+    "No network during any scenario"
+  ],
+  "metrics": {
+    "openMs": 214.10066000000006,
+    "process": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "tools": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 2374.125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 2452.671875,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": [
+        {
+          "x": 284,
+          "y": 277.19842529296875,
+          "width": 1366,
+          "height": 269.671875,
+          "top": 277.19842529296875,
+          "right": 1650,
+          "bottom": 546.8703002929688,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 570.8703002929688,
+          "width": 1366,
+          "height": 388.359375,
+          "top": 570.8703002929688,
+          "right": 1650,
+          "bottom": 959.2296752929688,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 983.2296752929688,
+          "width": 1366,
+          "height": 269.67193603515625,
+          "top": 983.2296752929688,
+          "right": 1650,
+          "bottom": 1252.901611328125,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1276.901611328125,
+          "width": 1366,
+          "height": 507.046875,
+          "top": 1276.901611328125,
+          "right": 1650,
+          "bottom": 1783.948486328125,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1807.948486328125,
+          "width": 1366,
+          "height": 590.359375,
+          "top": 1807.948486328125,
+          "right": 1650,
+          "bottom": 2398.307861328125,
+          "left": 284
+        }
+      ]
+    },
+    "health": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 1071.453125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 1150,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "positions": [
+      [
+        "Inbox/Countable и uncountable — 2.md",
+        "50",
+        "355.7659216692043"
+      ],
+      [
+        "Inbox/Атомарная запись файла — 12.md",
+        "229.99590472681365",
+        "355.7659216692043"
+      ],
+      [
+        "Inbox/Оконные функции — 2.md",
+        "750",
+        "355.7659216692043"
+      ],
+      [
+        "Inbox/Пустая 5.md",
+        "303.2527044783604",
+        "204.23407833079568"
+      ],
+      [
+        "Workbench/A/Cache.md",
+        "123.68421052631578",
+        "249.40755457593625"
+      ],
+      [
+        "Workbench/B/Cache.md",
+        "160.5263157894737",
+        "234.38081100227132"
+      ],
+      [
+        "Знания/MOC как маршрут — вопрос 4.md",
+        "50",
+        "332.0285380570599"
+      ]
+    ],
+    "finalSourcePaths": 1000
+  },
+  "screenshots": [
+    "process.png",
+    "tools.png",
+    "tools-bottom.png",
+    "health.png",
+    "workbench-candidate-both-layers.png",
+    "pair-before-analysis.png",
+    "pair-accepted-response.png",
+    "exact-review.png",
+    "apply-result.png",
+    "history.png",
+    "undo-review.png",
+    "return-with-selection.png",
+    "invalid-evidence.png",
+    "merge-review.png",
+    "archive-review.png",
+    "parent-undo-result.png",
+    "missing-metadata.png",
+    "workbench-final-both-layers.png",
+    "stale-index.png",
+    "map-ru-dark-1650.png",
+    "map-ru-dark-1440.png",
+    "map-ru-dark-390.png",
+    "map-ru-light-1650.png",
+    "map-ru-light-1440.png",
+    "map-ru-light-390.png",
+    "map-en-dark-1650.png",
+    "map-en-dark-1440.png",
+    "map-en-dark-390.png",
+    "map-en-light-1650.png",
+    "map-en-light-1440.png",
+    "map-en-light-390.png",
+    "map-zoom-200.png",
+    "map-reduced-motion.png",
+    "map-keyboard-list.png",
+    "map-native-split.png"
+  ],
+  "sourceCommit": "dd683ee2c5a9a5b1a71a392c7a5f9812d955ecf6",
+  "hashes": {
+    "main.js": "5794f05eb5bc11c35aeacf33f62187e89d0a92c388d4acba23167cba872e0c2e",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "bc5dec00da1ab6d6b08917555501c191e576fdc1ac21c85a8c87a2170059ffe6"
+  },
+  "io": {
+    "reads": 165,
+    "writes": 8,
+    "network": 0,
+    "enumerations": 29
+  }
+}

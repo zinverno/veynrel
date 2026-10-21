@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.1.0 test
+> vitest run
+
+
+ RUN  v4.1.10 <checkout>
+
+
+ Test Files  166 passed (166)
+      Tests  4527 passed (4527)
+   Start at  15:42:03
+   Duration  44.17s (transform 33.07s, setup 0ms, import 78.80s, tests 161.72s, environment 42ms)

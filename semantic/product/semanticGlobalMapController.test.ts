@@ -155,3 +155,30 @@ describe("Global map validation", () => {
     expect(map.nodes[0].neighbors[0].score).toBe(1); expect(JSON.stringify(map)).not.toContain("privateVector");
   });
 });
+
+
+describe("view-local scope owners", () => {
+  it("keeps two windows independent and rejects late A to B to A publications", async () => {
+    const f = fixture(), paths = analysis().nodes.map(node => node.path), gate = deferred<GlobalSemanticAnalysis>();
+    const a = f.port.createScoped({ id: "A", revision: 1, paths });
+    const other = f.port.createScoped({ id: "A", revision: 1, paths });
+    expect(f.engine.analyzeGlobalSemanticMap).not.toHaveBeenCalled();
+    f.engine.analyzeGlobalSemanticMap.mockReturnValueOnce(gate.promise);
+    const pending = a.load(); await Promise.resolve(); a.dispose();
+    const b = f.port.createScoped({ id: "B", revision: 2, paths: [] }); b.dispose();
+    const freshA = f.port.createScoped({ id: "A", revision: 3, paths });
+    await freshA.load(); gate.resolve(analysis()); await pending;
+    expect(freshA.getSnapshot().map?.scope).toEqual({ id: "A", revision: 3, paths });
+    expect(a.getSnapshot().map).toBeUndefined(); expect(other.getSnapshot().state).toBe("idle");
+    expect(f.port.getSnapshot().state).toBe("idle");
+    expect(f.engine.analyzeGlobalSemanticMap).toHaveBeenLastCalledWith(expect.objectContaining({ paths }));
+    const cached = freshA.getSnapshot().map; await freshA.load(); expect(freshA.getSnapshot().map).toBe(cached);
+    f.update({ vectorGeneration: 2 }); expect(freshA.getSnapshot().state).toBe("stale");
+    freshA.dispose(); other.dispose(); f.port.dispose(); expect(f.listeners.size).toBe(0);
+  });
+  it("rejects paths from outside a requested scope without publishing a partial map", async () => {
+    const f = fixture(), scoped = f.port.createScoped({ id: "small", revision: 0, paths: [analysis().nodes[0].path] });
+    await scoped.load(); expect(scoped.getSnapshot()).toMatchObject({ state: "error", reason: "invalid" });
+    expect(scoped.getSnapshot().map).toBeUndefined(); scoped.dispose(); f.port.dispose();
+  });
+});
