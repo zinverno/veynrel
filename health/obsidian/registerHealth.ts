@@ -1,5 +1,6 @@
 import { WorkbenchData } from "../workbench/workbenchData";
 import type { PairReviewPort } from "../workbench/workbenchData";
+import type { WorkbenchTagsPort } from "../workbench/workbenchTags";
 import { ConnectionComparisonController } from "../connections/connectionComparisonController";
 import type { SemanticGlobalMapPort } from "../semanticGlobalMapPort";
 import { Notice } from "obsidian";
@@ -26,7 +27,8 @@ import type { SemanticNeighborhoodPort } from "../semanticNeighborhoodPort";
 
 export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort,
   semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort,
-  createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort, neighborhood?: SemanticNeighborhoodPort, globalMap?: SemanticGlobalMapPort, pairReview?: PairReviewPort): void {
+  createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort, neighborhood?: SemanticNeighborhoodPort, globalMap?: SemanticGlobalMapPort, pairReview?: PairReviewPort,
+  createTags?: (paths: readonly string[]) => WorkbenchTagsPort): void {
   const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
   const authoring = createAuthoring?.(recall);
   const topology = createObsidianVaultTopology(plugin.app);
@@ -34,7 +36,7 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
   const comparison = globalMap ? createComparison(globalMap) : undefined;
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall), deepAnalysis);
   plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison, pairReview ? { pair: pairReview, create: scope => new WorkbenchData(scope, {
-    topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope) : undefined, createComparison, duplicates: semanticAnalysis,
+    topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope) : undefined, createComparison, duplicates: semanticAnalysis, tags: createTags?.(scope.paths),
   }) } : undefined));
   plugin.register(() => comparison?.dispose());
   plugin.register(() => globalMap?.dispose());

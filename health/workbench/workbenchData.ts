@@ -3,6 +3,7 @@ import type { ConnectionComparisonPort } from "../connectionComparisonPort";
 import type { VaultTopologyPort } from "../topology/types";
 import { sameSemanticIndexRevision } from "../semanticHealthAnalysisPort";
 import type { SemanticDuplicateAnalysis, SemanticHealthAnalysisPort } from "../semanticHealthAnalysisPort";
+import type { WorkbenchTagsPort } from "./workbenchTags";
 
 /** Context is navigation only. The host creates a fresh session; no serialized write authority. */
 export interface PairReviewPort {
@@ -13,6 +14,7 @@ export interface WorkbenchDependencies {
   createSemantic?: (scope: SemanticMapScope) => SemanticGlobalMapPort;
   createComparison: (semantic: SemanticGlobalMapPort) => ConnectionComparisonPort;
   duplicates?: SemanticHealthAnalysisPort;
+  tags?: WorkbenchTagsPort;
 }
 
 /** Per ItemView, transient read-only ownership. Sources retain all computation/IO authority. */
@@ -37,6 +39,7 @@ export class WorkbenchData {
       this.emit();
     };
     this.removers = [dependencies.topology.subscribe(changed)];
+    if (dependencies.tags) this.removers.push(dependencies.tags.subscribe(changed));
     if (this.semantic) this.removers.push(this.semantic.subscribe(changed));
     if (this.comparison) this.removers.push(this.comparison.subscribe(changed));
   }
@@ -45,6 +48,7 @@ export class WorkbenchData {
     if (this.disposed || this.busy) return;
     const epoch = ++this.epoch, abort = new AbortController(); this.abort = abort;
     this.busy = true; this.duplicateState = this.dependencies.duplicates ? "loading" : "unavailable"; this.emit();
+    this.dependencies.tags?.refresh();
     const current = (): boolean => !this.disposed && epoch === this.epoch;
     try {
       await this.semantic?.prepareExisting?.();
@@ -68,6 +72,7 @@ export class WorkbenchData {
     this.disposed = true; this.epoch++; this.abort?.abort();
     this.removers.forEach(remove => remove()); this.removers = [];
     this.comparison?.dispose(); this.semantic?.dispose(); this.listeners.clear();
+    this.dependencies.tags?.dispose();
   }
   private emit(): void { if (!this.disposed) for (const listener of this.listeners) listener(); }
 }

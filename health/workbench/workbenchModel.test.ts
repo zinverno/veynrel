@@ -70,6 +70,14 @@ describe("workbench source projection", () => {
     const model = workbenchModel(f.data, []); expect(model.nodes).toHaveLength(10); expect(model.edges.every(edge => edge.kind === "link")).toBe(true);
     expect(model.nodes.every(node => !node.semantic)).toBe(true); expect(model.connections).toEqual([]); f.data.dispose();
   });
+  it("retains raw semantic weight and provenance without assigning a score to Markdown links", async()=>{
+    const f=await fixture(),model=workbenchModel(f.data,[]),source=f.semantic.getSnapshot().map!;
+    for(const edge of model.edges.filter(edge=>edge.kind==="semantic")){
+      const original=source.edges.find(item=>item.left===edge.source&&item.right===edge.target)!;
+      expect(edge.score).toBe(original.score);expect(edge.revision).toEqual(source.revision);expect(edge.mutual).toBe(original.mutual);
+    }
+    expect(model.edges.filter(edge=>edge.kind==="link").every(edge=>edge.score===undefined&&edge.revision===undefined)).toBe(true);f.data.dispose();
+  });
   it("keeps layout deterministic without layer or selection inputs, including a 1000-note bounded fallback", async () => {
     const f = await fixture(), model = workbenchModel(f.data, []), before = workbenchLayout(model.nodes,model.edges);
     expect(workbenchLayout([...model.nodes].reverse(),model.edges)).toEqual(before);

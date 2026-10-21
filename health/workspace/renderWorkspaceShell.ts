@@ -46,7 +46,7 @@ export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRo
       state.menuOpen = false; shell.setAttribute("data-menu-open", "false"); menu.setAttribute("aria-expanded", "false"); menu.focus();
     }
   });
-  top.createSpan({ cls: "veynrel-crumb", text: `Veynrel / ${t(`@workspace.${workspaceSection(route.page)}`)}` });
+  top.createSpan({ cls: "veynrel-crumb", text: t(`@workspace.${workspaceSection(route.page)}`) });
   const label = top.createEl("label", { cls: "veynrel-scope-picker" });
   label.createSpan({ text: t("@workspace.scope") });
   const picker = label.createEl("select", { attr: { "aria-label": t("@workspace.folders"), "data-health-action": "scope-picker" } });
