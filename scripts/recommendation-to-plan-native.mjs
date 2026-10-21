@@ -128,6 +128,7 @@ try{
    for(const theme of ['theme-dark','theme-light'])for(const width of [1280,390]){
      await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});
      await ev(`document.body.removeClass('theme-light','theme-dark');document.body.addClass('${theme}');void 0`);
+     await ev(`hv.contentEl.querySelector('[data-planner-field=range],[data-planner-field=combine-canonical],[data-intent-unavailable]')?.scrollIntoView({block:'center'});void 0`);
      await pass(prefix+' '+theme+' '+width+' localized and fits',"!/@intent\\./.test(hv.contentEl.textContent)&&[...hv.contentEl.querySelectorAll('.ai-change-planner,.ai-change-planner select,.ai-change-planner pre,.ai-relationship')].filter(e=>e.offsetWidth).every(e=>e.scrollWidth<=e.clientWidth+1)");
      await shot(prefix+'-'+theme+'-'+width);
    }

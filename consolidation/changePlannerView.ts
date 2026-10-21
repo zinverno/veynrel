@@ -149,7 +149,7 @@ export class ChangePlannerView {
     }
     if (intent?.family === "combine") { this.renderCombine(root); return; }
     if (intent && !intent.operation) return;
-    root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" ? "@atom.supported" : this.operation === "copy_context_bundle" ? "@bundle.supported" : this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
+    if (!intent || !["add_link", "replace_with_embed"].includes(this.operation)) root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" ? "@atom.supported" : this.operation === "copy_context_bundle" ? "@bundle.supported" : this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
     const sourceLabel = controls.createEl("label", { text: tr(intent ? this.operation === "add_link" ? "@intent.linkSource" : "@intent.embedSource" : "@planner.source") });
     sourceLabel.hidden = this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" || this.operation === "copy_context_bundle" || this.operation === "copy_context_group" || this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";

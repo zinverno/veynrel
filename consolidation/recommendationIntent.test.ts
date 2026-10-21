@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ TFile: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
 import { requestUrl } from "obsidian";
 import { callOpenRouter } from "../api";
-import { setLanguage } from "../i18n";
+import { setLanguage, t } from "../i18n";
 import { mergeFixture, mergeNote } from "../tests/mergeFixture";
 import { atomizationFixture } from "../tests/atomizationFixture";
 import { groupFixture } from "../tests/groupFixture";
@@ -72,6 +72,7 @@ describe("validated transport response → intent → existing planner → exact
   it.each(["ru", "en"] as const)("%s opens link directly and preserves family when direction changes", async language => {
     setLanguage(language); const f = await route();
     expect(field(f.root, "operation")).toBeUndefined(); expect(field(f.root, "source").value).toBe("");
+    expect(text(f.root)).not.toContain(t("@planner.unsupported"));
     field(f.root, "source").change("0"); field(f.root, "range").change("0");
     expect(field(f.root, "confirm").checked).toBe(false);
     expect(action(f.root, "data-planner-action", "build").disabled).toBe(true);
