@@ -1,3 +1,4 @@
+import { relationshipWireFixture, relationshipFixtureUser } from "../tests/relationshipWireFixture";
 import { afterEach, describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ TFile: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
 import { requestUrl } from "obsidian";
@@ -50,10 +51,12 @@ async function route(actionName = "add_link", selection: IntentSelection = { ori
   response.alternatives = [{ action: actionName === "consider_merge" ? "add_link" : "consider_merge", reason: "Alternative, not permission.", evidence: response.recommendation.evidence }];
   const settings = { provider: "openrouter" as const, model: "deepseek/deepseek-v4-flash-0731", apiKey: "synthetic", baseUrl: "https://example.test/v1", temperature: 0, topK: 5 };
   vi.stubGlobal("window", { setTimeout, clearTimeout });
-  vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(response) } }] }) } as never);
   const relationship = new RelationshipSession({ settings: { get: () => settings, subscribe: () => () => {} }, read: async () => f.pair,
     complete: (s, system, user, signal, options) => callOpenRouter(s, system, user, { ...options, signal }) });
-  await relationship.prepare(); await relationship.confirm();
+  await relationship.prepare();
+  const user = relationshipFixtureUser(relationship.view.consent!.body);
+  vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(relationshipWireFixture(response, user)) } }] }) } as never);
+  await relationship.confirm();
   expect(relationship.view.stage).toBe("result");
   const analysis = relationship.analysisSource!, root = new Element(), result = new Element(), review = vi.fn(), merge = vi.fn();
   const session = new ChangePlannerSession({ analysis: () => relationship.analysisSource, read: async () => f.read });
@@ -162,13 +165,15 @@ it("atomization requires actual standalone evidence and remains preview-only", (
 
 it.each(["length", "bad-evidence"])("%s through the transport parser cannot offer any plan", async failure => {
   const f = mergeFixture(), result = structuredClone(f.analysis.result);
-  if (failure === "bad-evidence") result.claims[0].quoteA = "This quote does not occur in the source.";
+
   vi.stubGlobal("window", { setTimeout, clearTimeout });
-  vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: failure === "length" ? "length" : "stop",
-    message: { content: failure === "length" ? null : JSON.stringify(result), reasoning: "Never turn this into a recommendation" } }] }) } as never);
   const session = new RelationshipSession({ settings: { get: () => ({ provider: "openrouter", model: "deepseek/deepseek-v4-flash-0731", apiKey: "synthetic", baseUrl: "https://example.test/v1", temperature: 0, topK: 5 }), subscribe: () => () => {} },
     read: async () => f.pair, complete: (s, system, user, signal, options) => callOpenRouter(s, system, user, { ...options, signal }) });
-  await session.prepare(); await session.confirm();
+  await session.prepare();
+  const wire = relationshipWireFixture(result, relationshipFixtureUser(session.view.consent!.body));
+  wire.claims[0].evidenceA = "unknown";
+  vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: failure === "length" ? "length" : "stop", message: { content: JSON.stringify(wire) } }] }) } as never);
+  await session.confirm();
   expect(session.view.error).toBe(failure === "length" ? "outputLimit" : "unverifiedEvidence"); expect(session.analysisSource).toBeUndefined();
   const root = new Element(), prepare = vi.fn(); renderRelationshipView(html(root), session, prepare);
   expect(root.all().some(e => e.attrs["data-intent-action"])).toBe(false); expect(prepare).not.toHaveBeenCalled(); expect(requestUrl).toHaveBeenCalledTimes(1);

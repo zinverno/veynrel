@@ -15,6 +15,14 @@ const approval=async(root=temp())=>{const d=await inputs();return {approved:true
   profilesSha256:sha256(profiles),expiresAt:new Date(Date.now()+60000).toISOString(),dedicatedUnusedKey:true,noBYOK:true,maxRequests:3,maxUSD:3,reservePerRequestUSD:1,maxPromptUSDPerMillion:1,maxCompletionUSDPerMillion:1,caseIds:["03"]};};
 
 describe("realistic evaluation separates shape, grounding, semantics and applicability",()=>{
+  it("keeps the historical quote experiment separate from the new product wire schema",async()=>{
+    const d=await inputs();
+    expect(d.promptSha256).toBe("c52d9c5ca313a6280bf6b270c84f9b6ae09abaa1186638b6510cbde9779bf5f6");
+    expect(d.api.relationshipPrompt("en")).toContain('"quoteA"');
+    expect(d.api.relationshipPrompt("en")).not.toContain("veynrel.relationship.refs.v1");
+    expect(Object.keys(JSON.parse(d.requests[0].input) as Record<string, unknown>)).toEqual(["A","B"]);
+    const a=await approval();expect(()=>authorize({...a,promptSha256:"product-wire-prompt"},d,profiles)).toThrow();
+  });
   it("validates all reference spans, languages, exact control quotes and all 24 cases",()=>{
     validateCorpus(corpus,validateRelationshipResponse);expect(corpus.cases).toHaveLength(24);
     expect(corpus.cases.filter(c=>c.gold.fullCycle).map(c=>c.gold.canonical)).toEqual([0,1,1,0]);

@@ -4,7 +4,10 @@ export const ROOT=fileURLToPath(new URL('../',import.meta.url));
 export async function evaluationAdapter() {
   const result=await build({absWorkingDir:ROOT,stdin:{resolveDir:ROOT,contents:`
     export * from './consolidation/relationshipContract';
-    export {RELATIONSHIP_LIMITS,relationshipPrompt} from './consolidation/relationshipPrompt';
+    export {RELATIONSHIP_LIMITS} from './consolidation/relationshipPrompt';
+    // This historical experiment still sends {A,B} and scores legacy quote-format replies.
+    import prompts from './tests/fixtures/relationship-legacy-prompts.json';
+    export const relationshipPrompt = language => prompts[language];
     // Keep the separately authorized historical evaluation budget; product policy is not its approval.
     export const RELATIONSHIP_OPTIONS = {maxTokens:4000,temperature:0,timeoutMs:120000};
     export {buildChatBody} from './api';`},bundle:true,write:false,platform:'node',format:'esm',

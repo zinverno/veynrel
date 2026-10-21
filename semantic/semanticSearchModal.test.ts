@@ -1,3 +1,4 @@
+import { relationshipWireFixture, relationshipFixtureUser } from "../tests/relationshipWireFixture";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { callOpenRouter } from "../api";
@@ -898,9 +899,10 @@ describe("read-only Pair Inspector UI", () => {
     const { RelationshipSession, readRelationshipPair } = await import("../consolidation/relationshipSession");
     const model: LanguageModelSettingsSnapshot = { provider: "custom", model: "test-model", baseUrl: "https://example.test/v1", apiKey: "secret-key", temperature: 0.3, topK: 10 };
     const listeners = new Set<() => void>();
-    const complete = vi.fn(async () => JSON.stringify({ relation: "related_distinct", explanation: { text: "Preliminary interpretation", evidence: ["c1"] },
-      claims: [{ id: "c1", kind: "comparison", text: "Model interpretation", quoteA: bodies.get("one/Same.md"), quoteB: bodies.get("two/Same.md") }],
-      recommendation: { action: "add_link", reason: "Consider a link after review", evidence: ["c1"] }, alternatives: [], limitations: ["Only these sources"] }));
+    const internalResponse = () => ({ relation: "related_distinct", explanation: { text: "Preliminary interpretation", evidence: ["c1"] },
+      claims: [{ id: "c1", kind: "comparison", text: "Model interpretation", quoteA: bodies.get("one/Same.md")!, quoteB: bodies.get("two/Same.md")! }],
+      recommendation: { action: "add_link", reason: "Consider a link after review", evidence: ["c1"] }, alternatives: [], limitations: ["Only these sources"] });
+    const complete = vi.fn(async (_settings: LanguageModelSettingsSnapshot, _system: string, user: string) => JSON.stringify(relationshipWireFixture(internalResponse(), user)));
     const factory = vi.fn(() => new RelationshipSession({ read: () => readRelationshipPair(app as never, ["one/Same.md", "two/Same.md"]),
       complete: transport ? (settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }) : complete,
       settings: { get: () => model, subscribe: fn => { listeners.add(fn); return () => { listeners.delete(fn); }; } } }));
@@ -910,7 +912,7 @@ describe("read-only Pair Inspector UI", () => {
     const refresh = () => content.findByTag("button")[0].trigger("click");
     const action = (name: string) => content.findByTag("button").find(el => el.attributes.get("data-relationship-action") === name)!;
     const stage = () => content.findByTag("div").find(el => el.attributes.has("data-relationship-stage"))?.attributes.get("data-relationship-stage");
-    return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, model, listeners, action, stage };
+    return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, internalResponse, model, listeners, action, stage };
   }
 
   it.each(["null", "empty", "missing", "partial", "valid-length", "stop", "bad-quote"])("actual HTTP parser → session → validator → pair UI: %s", async variant => {
@@ -918,14 +920,14 @@ describe("read-only Pair Inspector UI", () => {
     const f = await fixture(true, true);
     try {
       f.model.provider = "openrouter"; f.model.model = "deepseek/deepseek-v4-flash-0731";
-      const valid = JSON.parse(await f.complete()) as { claims: { quoteA: string }[] };
-      if (variant === "bad-quote") valid.claims[0].quoteA = "fabricated excerpt";
+      f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
+      const payload = f.content.findByClass("ai-relationship")[0].findByTag("pre")[0].text;
+      const valid = relationshipWireFixture(f.internalResponse(), relationshipFixtureUser(payload));
+      if (variant === "bad-quote") valid.claims[0].evidenceA = "unknown";
       const content = variant === "null" ? null : variant === "empty" ? "" : variant === "missing" ? undefined : variant === "partial" ? '{"relation":' : JSON.stringify(valid);
       const completed = ["stop", "bad-quote"].includes(variant);
       vi.mocked(requestUrl).mockResolvedValueOnce({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: completed ? "stop" : "length",
         message: { content, reasoning: "synthetic-private-reasoning" } }], usage: { completion_tokens: 4000, completion_tokens_details: { reasoning_tokens: 4000 } } }) } as never);
-      f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
-      const payload = f.content.findByClass("ai-relationship")[0].findByTag("pre")[0].text;
       expect(payload).toContain('"max_tokens":8192'); expect(payload).toContain('"reasoning":{"enabled":false}');
       const confirm = f.action("confirm"); confirm.trigger("click"); confirm.trigger("click"); await flush(); await flush();
       await vi.waitFor(() => expect(f.stage()).toBe(variant === "stop" ? "result" : "error"));
@@ -968,7 +970,7 @@ describe("read-only Pair Inspector UI", () => {
 
   it("never offers preparation when a response contains a quote absent from the exact sources", async () => {
     const f = await fixture(true);
-    const invalid = JSON.parse(await f.complete()) as { claims: { quoteA: string }[] };
+    const invalid = f.internalResponse();
     invalid.claims[0].quoteA = "A fabricated excerpt";
     f.complete.mockClear(); f.complete.mockResolvedValueOnce(JSON.stringify(invalid));
     f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
@@ -1078,7 +1080,7 @@ describe("read-only Pair Inspector UI", () => {
       const item = relationshipCases.find(c => c.name === name)!;
       const f = await fixture(true);
       f.bodies.set("one/Same.md", item.a); f.bodies.set("two/Same.md", item.b);
-      f.complete.mockResolvedValue(JSON.stringify(item.response));
+      f.complete.mockImplementation(async (_s, _sys, user) => JSON.stringify(relationshipWireFixture(item.response, user)));
       f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
       expect(f.complete).not.toHaveBeenCalled(); f.action("confirm").trigger("click"); await flush();
       expect(f.stage()).toBe("result"); expect(f.complete).toHaveBeenCalledOnce();
@@ -1110,7 +1112,7 @@ describe("read-only Pair Inspector UI", () => {
     const { setLanguage } = await import("../i18n"); setLanguage(language);
     const f = await fixture(true);
     f.bodies.set("one/Same.md", plannerFixture.a); f.bodies.set("two/Same.md", plannerFixture.b);
-    f.complete.mockResolvedValue(JSON.stringify(plannerFixture.response));
+    f.complete.mockImplementation(async (_s, _sys, user) => JSON.stringify(relationshipWireFixture(plannerFixture.response, user)));
     Object.assign(f.app.metadataCache, {
       getFileCache: (file: { path: string }) => {
         const content = f.bodies.get(file.path)!; let offset = 0;

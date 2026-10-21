@@ -27,6 +27,8 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
     body.createEl("p", { text: `A: ${preview.paths[0]}\nB: ${preview.paths[1]}`, cls: "ai-relationship-paths" });
     body.createEl("p", { text: tr("@relationship.volume", { a: preview.characters[0], b: preview.characters[1], bytes: preview.bytes }) });
     body.createEl("p", { text: tr("@relationship.budget", { tokens: preview.maxTokens, reasoning: tr(`@relationship.reasoning.${preview.reasoning}`) }) });
+    if (preview.evidence) body.createEl("p", { text: tr("@relationship.catalog", { count: preview.evidence.fragments,
+      a: preview.evidence.uncoveredCharacters[0], b: preview.evidence.uncoveredCharacters[1] }) });
     body.createEl("p", { text: tr("@relationship.privacy") });
     const payload = body.createEl("details");
     payload.createEl("summary", { text: tr("@relationship.payload") });
@@ -37,9 +39,11 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   }
   if (["preparing", "consent", "running"].includes(view.stage)) button("cancel", () => session.cancel());
   if (view.error) {
+    if (view.diagnostics?.length) body.createEl("p", { text: tr(`@relationship.diagnostic.${view.diagnostics[0].code}`) });
     const diagnostic = body.createEl("details", { cls: "ai-consolidation-diagnostics" });
     diagnostic.createEl("summary", { text: tr("@ux.diagnostics") });
     diagnostic.createEl("p", { text: view.error + (view.httpStatus === undefined ? "" : ` · HTTP ${view.httpStatus}`) });
+    for (const issue of view.diagnostics ?? []) diagnostic.createEl("p", { text: `${issue.field}${issue.claimId ? ` · ${issue.claimId}` : ""}${issue.side ? ` · ${issue.side}` : ""}: ${tr(`@relationship.diagnostic.${issue.code}`)} (${issue.code})` });
     if (!["source", "tooLarge", "configuration"].includes(view.error)) body.createEl("p", { text: tr("@relationship.billingUnknown") });
   }
   if (view.error === "tooLarge") body.createEl("p", { text: tr("@relationship.limits", {
