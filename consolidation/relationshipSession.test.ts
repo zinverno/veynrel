@@ -1,4 +1,4 @@
-import { relationshipWireFixture } from "../tests/relationshipWireFixture";
+import { relationshipWireFixture, relationshipFixtureUser } from "../tests/relationshipWireFixture";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { TFile } from "obsidian";
 vi.mock("obsidian", () => ({ getLanguage: () => "en", requestUrl: vi.fn(), TFile: class {} }));
@@ -30,7 +30,7 @@ function fixture(name = "near_duplicates") {
 }
 function wire(f: ReturnType<typeof fixture>, response = f.item.response): string {
   const consent = f.session.view.consent;
-  const user = consent ? JSON.parse(consent.body).messages[1].content : f.deps.complete.mock.calls.at(-1)![2];
+  const user = consent ? relationshipFixtureUser(consent.body) : f.deps.complete.mock.calls.at(-1)![2];
   return JSON.stringify(relationshipWireFixture(response, user));
 }
 function deferred<T>() { let resolve!: (v: T) => void; const promise = new Promise<T>(r => { resolve = r; }); return { promise, resolve }; }
@@ -146,7 +146,7 @@ describe("relationship consent and lifecycle", () => {
     await f.session.prepare(); f.deps.complete.mockResolvedValue("invalid JSON"); await f.session.confirm();
     expect(f.session.view).toEqual({ stage: "error", error: "invalidResponse" });
     await f.session.prepare(); const bad = structuredClone(f.item.response); bad.claims[0].quoteA = "made up";
-    const badWire = JSON.parse(wire(f)); badWire.claims[0].evidenceA = "unknown";
+    const badWire = relationshipWireFixture(f.item.response, relationshipFixtureUser(f.session.view.consent!.body)); badWire.claims[0].evidenceA = "unknown";
     f.deps.complete.mockResolvedValue(JSON.stringify(badWire)); await f.session.confirm();
     expect(f.session.view).toMatchObject({ stage: "error", error: "unverifiedEvidence", diagnostics: [{ field: "claims[0].evidenceA", code: "reference_unknown" }] });
   });
@@ -207,7 +207,7 @@ describe("Relationship Analyzer transport diagnostics", () => {
   });
   it.each(["valid", "JSON", "reference", "evidence"])("stop still uses the strict %s contract", async variant => {
     const f = transport(); await f.session.prepare();
-    const response = JSON.parse(wire(f));
+    const response = relationshipWireFixture(f.item.response, relationshipFixtureUser(f.session.view.consent!.body));
     if (variant === "reference") response.claims[0].evidenceA = "invented-reference";
     if (variant === "evidence") response.recommendation.evidence = ["unknown"];
     f.reply({ choices: [{ finish_reason: "stop", message: { content: variant === "JSON" ? "{broken" : JSON.stringify(response) } }] });

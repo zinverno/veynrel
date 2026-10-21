@@ -1,4 +1,4 @@
-import { relationshipWireFixture } from "../tests/relationshipWireFixture";
+import { relationshipWireFixture, relationshipFixtureUser } from "../tests/relationshipWireFixture";
 import { afterEach, describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ TFile: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
 import { requestUrl } from "obsidian";
@@ -54,7 +54,7 @@ async function route(actionName = "add_link", selection: IntentSelection = { ori
   const relationship = new RelationshipSession({ settings: { get: () => settings, subscribe: () => () => {} }, read: async () => f.pair,
     complete: (s, system, user, signal, options) => callOpenRouter(s, system, user, { ...options, signal }) });
   await relationship.prepare();
-  const user = JSON.parse(relationship.view.consent!.body).messages[1].content;
+  const user = relationshipFixtureUser(relationship.view.consent!.body);
   vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(relationshipWireFixture(response, user)) } }] }) } as never);
   await relationship.confirm();
   expect(relationship.view.stage).toBe("result");
@@ -170,7 +170,7 @@ it.each(["length", "bad-evidence"])("%s through the transport parser cannot offe
   const session = new RelationshipSession({ settings: { get: () => ({ provider: "openrouter", model: "deepseek/deepseek-v4-flash-0731", apiKey: "synthetic", baseUrl: "https://example.test/v1", temperature: 0, topK: 5 }), subscribe: () => () => {} },
     read: async () => f.pair, complete: (s, system, user, signal, options) => callOpenRouter(s, system, user, { ...options, signal }) });
   await session.prepare();
-  const wire = relationshipWireFixture(result, JSON.parse(session.view.consent!.body).messages[1].content);
+  const wire = relationshipWireFixture(result, relationshipFixtureUser(session.view.consent!.body));
   wire.claims[0].evidenceA = "unknown";
   vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: failure === "length" ? "length" : "stop", message: { content: JSON.stringify(wire) } }] }) } as never);
   await session.confirm();

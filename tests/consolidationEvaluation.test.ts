@@ -20,7 +20,7 @@ describe("realistic evaluation separates shape, grounding, semantics and applica
     expect(d.promptSha256).toBe("c52d9c5ca313a6280bf6b270c84f9b6ae09abaa1186638b6510cbde9779bf5f6");
     expect(d.api.relationshipPrompt("en")).toContain('"quoteA"');
     expect(d.api.relationshipPrompt("en")).not.toContain("veynrel.relationship.refs.v1");
-    expect(Object.keys(JSON.parse(d.requests[0].input))).toEqual(["A","B"]);
+    expect(Object.keys(JSON.parse(d.requests[0].input) as Record<string, unknown>)).toEqual(["A","B"]);
     const a=await approval();expect(()=>authorize({...a,promptSha256:"product-wire-prompt"},d,profiles)).toThrow();
   });
   it("validates all reference spans, languages, exact control quotes and all 24 cases",()=>{

@@ -25,7 +25,7 @@ function unique(source: string, start: number, end: number): boolean {
 /** Catalogue is fixed BEFORE consent; omitted evidence never removes the complete input text. */
 export function prepareEvidenceCatalog(input: RelationshipPair): EvidenceCatalog {
   const pair = Object.freeze(input.map(note => Object.freeze({ ...note }))) as unknown as RelationshipPair;
-  const nonce = globalThis.crypto.randomUUID(), fragments: EvidenceFragment[] = [], uncoveredCharacters: number[] = [];
+  const nonce = crypto.randomUUID(), fragments: EvidenceFragment[] = [], uncoveredCharacters: number[] = [];
   pair.forEach((note, index) => {
     const source = note.content, side = index === 0 ? "A" : "B", covered = new Uint8Array(source.length);
     const seeds = new Set<string>();

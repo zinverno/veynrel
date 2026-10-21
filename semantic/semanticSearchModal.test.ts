@@ -1,4 +1,4 @@
-import { relationshipWireFixture } from "../tests/relationshipWireFixture";
+import { relationshipWireFixture, relationshipFixtureUser } from "../tests/relationshipWireFixture";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { callOpenRouter } from "../api";
@@ -922,7 +922,7 @@ describe("read-only Pair Inspector UI", () => {
       f.model.provider = "openrouter"; f.model.model = "deepseek/deepseek-v4-flash-0731";
       f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
       const payload = f.content.findByClass("ai-relationship")[0].findByTag("pre")[0].text;
-      const valid = relationshipWireFixture(f.internalResponse(), JSON.parse(payload).messages[1].content);
+      const valid = relationshipWireFixture(f.internalResponse(), relationshipFixtureUser(payload));
       if (variant === "bad-quote") valid.claims[0].evidenceA = "unknown";
       const content = variant === "null" ? null : variant === "empty" ? "" : variant === "missing" ? undefined : variant === "partial" ? '{"relation":' : JSON.stringify(valid);
       const completed = ["stop", "bad-quote"].includes(variant);

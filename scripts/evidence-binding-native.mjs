@@ -1,6 +1,8 @@
 // Synthetic HTTP envelopes over loopback; real requestUrl/parser/session/validator/executors.
-// node scripts/evidence-binding-native.mjs <repo>/.native/evidence-binding-<new-name> [frozen-build]
+// node scripts/evidence-binding-native.mjs ~/projects/veynrel-artifacts/veynrel-evidence-binding-native-<new-name> [frozen-build]
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import {createServer} from 'node:http';
 import assert from 'node:assert/strict';
 import {spawn, execFileSync} from 'node:child_process';
@@ -11,7 +13,7 @@ import {fileURLToPath} from 'node:url';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
 const [root,build=ROOT]=process.argv.slice(2);
 const sourceCommit=fs.existsSync(build+'/SOURCE_COMMIT')?fs.readFileSync(build+'/SOURCE_COMMIT','utf8').trim():undefined;
-assert(root?.startsWith(ROOT+'.native/evidence-binding-')&&!root.includes('..')&&!fs.existsSync(root));
+assert(root&&path.dirname(root)===path.join(os.homedir(),'projects/veynrel-artifacts')&&path.basename(root).startsWith('veynrel-evidence-binding-native-')&&!root.includes('..')&&!fs.existsSync(root));
 
 const vault=root+'/vault',dir=vault+'/.obsidian/plugins/ai-knowledge-hub';
 fs.mkdirSync(dir,{recursive:true});fs.mkdirSync(root+'/profile');

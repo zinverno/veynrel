@@ -32,7 +32,7 @@ export function diagnoseRelationshipEvidence(raw: string, a: string, b: string):
       if (matches !== 1) issues.push({ field, claimId, side, matches, code: matches ? "quote_ambiguous" : "quote_not_found" });
     }
   }
-  const alternatives = Array.isArray(root.alternatives) ? root.alternatives.slice(0, 3) : [];
+  const alternatives: unknown[] = Array.isArray(root.alternatives) ? root.alternatives.slice(0, 3) : [];
   for (const [field, value] of [["explanation", root.explanation], ["recommendation", root.recommendation], ...alternatives.map((v, i) => [`alternatives[${i}]`, v])] as [string, unknown][]) {
     const item = record(value), refs = Array.isArray(item.evidence) ? item.evidence : [];
     if (!refs.length && root.relation !== "insufficient_context") issues.push({ field: `${field}.evidence`, code: "evidence_missing" });

@@ -102,7 +102,7 @@ describe("catalogue before consent and explicit reference wire schema", () => {
   it.each(["\n", "\r\n"])("preserves Unicode, Cyrillic and formatted Markdown with %j", newline => {
     const a = `---${newline}tags: [тест]${newline}---${newline}${newline}**Ёж 🦔**: не удалять.${newline}> вопрос::ответ${newline}${"я".repeat(599)}😀конец`;
     const sources = pair(a, a.replace("конец", "другое")), c = prepareEvidenceCatalog(sources);
-    expect(JSON.parse(evidenceRequest(c)).A).toBe(a); expect(c.uncoveredCharacters).toEqual([0, 0]);
+    expect((JSON.parse(evidenceRequest(c)) as { A: string }).A).toBe(a); expect(c.uncoveredCharacters).toEqual([0, 0]);
     for (const f of c.fragments) {
       const source = sources[f.side === "A" ? 0 : 1].content;
       expect(f.text).toBe(source.slice(f.start, f.end));
