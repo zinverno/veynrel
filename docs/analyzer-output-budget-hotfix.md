@@ -97,3 +97,7 @@ loopback HTTP requests, both matching consent; no automatic retry, no map. The
 only two Markdown writes were Apply and Undo. Both original hashes were restored
 by the actual Undo executor. The complete error/consent and success/Apply/Undo
 recordings are synthetic integration evidence, not a live provider run.
+
+Frozen source: `b17ba8cb32e1049622667c1b43012deebaeaa2e1`.
+[Native screenshots, recordings and integrity evidence](analyzer-output-budget-evidence/README.md).
+Final review HEAD and exact-head CI are recorded in the PR and frozen delivery metadata.
