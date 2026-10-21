@@ -35,7 +35,7 @@ export function historyUnavailable(root: HTMLElement, available: boolean, state:
   });
 }
 
-export function workflowStep(root: HTMLElement, step: "pair" | "analysis" | "action" | "preview" | "previewOnly"): void {
+export function workflowStep(root: HTMLElement, step: "pair" | "analysis" | "action" | "parameters" | "preview" | "previewOnly"): void {
   root.createEl("p", { cls: "ai-consolidation-step", text: tr(`@ux.step.${step}`) });
 }
 

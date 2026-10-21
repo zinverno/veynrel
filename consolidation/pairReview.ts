@@ -5,6 +5,7 @@ import { openDiscoveryResult } from "../semantic/semanticDiscoveryModal";
 import { readPairNote } from "./pairSnapshot";
 import type { InspectorList, PairNoteSnapshot } from "./pairSnapshot";
 import type { RelationshipSession } from "./relationshipSession";
+import type { IntentSelection } from "./recommendationIntent";
 import { renderRelationshipView } from "./relationshipView";
 import { ChangePlannerSession, readPlannerPair } from "./changePlannerSession";
 import type { SafeApplyService } from "./safeApply";
@@ -72,55 +73,49 @@ export class PairReview {
             analysis.hidden = false; planning.hidden = true; backResult.hidden = true;
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
-            renderRelationshipView(analysis, this.relationship);
+            const expected = this.relationship.analysisSource;
+            const prepare = (selection: IntentSelection) => {
+              if (analysis.hidden || this.relationship?.analysisSource !== expected || this.planner?.busy) return;
+              const source = this.relationship?.analysisSource;
+              if (!source || !this.openState) return;
+              this.planner?.close();
+              this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
+                incoming: () => readMergeIncoming(this.app, this.paths),
+                emptyAtom: obsidianEmptyAtomPort(this.app, obsidianSafeApplyPort(this.app)),
+                emptyTargets: () => this.app.vault.getMarkdownFiles().filter(f => !this.paths.includes(f.path) && f.stat.size === 0).map(f => f.path).sort(),
+                atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
+              const planner = this.planner;
+              analysis.hidden = true; planning.hidden = false; backResult.hidden = false;
+              new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
+                new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
+                  () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source), false, undefined, undefined, plan).open();
+              } : undefined, this.safeApply?.multi ? plan => {
+                new MultiFileApplyModal(this.app, this.safeApply!.multi!, current => this.safeApply!.multi!.review(plan, source,
+                  () => current() && this.openState && planner.view.multiPlan === plan && this.relationship?.analysisSource === source),
+                () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+              } : undefined, this.safeApply?.merge ? plan => {
+                new MergeApplyModal(this.app, this.safeApply!.merge!, current => this.safeApply!.merge!.review(plan, source,
+                  () => current() && this.openState && planner.view.mergePlan === plan && this.relationship?.analysisSource === source),
+                () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+              } : undefined, this.safeApply?.bundle ? plan => {
+                new BundleApplyModal(this.app, this.safeApply!.bundle!, current => this.safeApply!.bundle!.review(plan, source,
+                  () => current() && this.openState && planner.view.bundlePlan === plan && this.relationship?.analysisSource === source),
+                () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+              } : undefined, this.safeApply?.group ? plan => {
+                new GroupApplyModal(this.app, this.safeApply!.group!, current => this.safeApply!.group!.review(plan, source,
+                  () => current() && this.openState && planner.view.groupPlan === plan && this.relationship?.analysisSource === source),
+                () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+              } : undefined, this.safeApply?.emptyAtom ? plan => {
+                new EmptyAtomApplyModal(this.app, this.safeApply!.emptyAtom!, current => this.safeApply!.emptyAtom!.review(plan, source,
+                  () => current() && this.openState && planner.view.emptyAtomPlan === plan && this.relationship?.analysisSource === source),
+                () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
+              } : undefined, selection);
+              void this.planner.prepare();
+            };
+            renderRelationshipView(analysis, this.relationship, prepare);
             if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) {
               focusStatus(analysis);
               analysis.scrollIntoView({ block: "start" });
-            }
-            if (this.relationship.view.result) {
-              const prepare = analysis.createEl("button", { text: tr("@planner.prepare"), attr: { type: "button", "data-planner-action": "open" } });
-              prepare.addClass("mod-cta");
-              analysis.querySelector(".ai-relationship-actions")?.prepend(prepare);
-              const expected = this.relationship.analysisSource;
-              prepare.addEventListener("click", () => {
-                if (!analysis.contains(prepare) || this.relationship?.analysisSource !== expected) return;
-                if (this.planner?.busy) return;
-                const source = this.relationship?.analysisSource;
-                if (!source || !this.openState) return;
-                this.planner?.close();
-                this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
-                  incoming: () => readMergeIncoming(this.app, this.paths),
-                  emptyAtom: obsidianEmptyAtomPort(this.app, obsidianSafeApplyPort(this.app)),
-                  emptyTargets: () => this.app.vault.getMarkdownFiles().filter(f => !this.paths.includes(f.path) && f.stat.size === 0).map(f => f.path).sort(),
-                  atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
-                const planner = this.planner;
-                analysis.hidden = true; planning.hidden = false; backResult.hidden = false;
-                new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
-                  new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
-                    () => current() && this.openState && planner.view.plan === plan && this.relationship?.analysisSource === source), false, undefined, undefined, plan).open();
-                } : undefined, this.safeApply?.multi ? plan => {
-                  new MultiFileApplyModal(this.app, this.safeApply!.multi!, current => this.safeApply!.multi!.review(plan, source,
-                    () => current() && this.openState && planner.view.multiPlan === plan && this.relationship?.analysisSource === source),
-                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
-                } : undefined, this.safeApply?.merge ? plan => {
-                  new MergeApplyModal(this.app, this.safeApply!.merge!, current => this.safeApply!.merge!.review(plan, source,
-                    () => current() && this.openState && planner.view.mergePlan === plan && this.relationship?.analysisSource === source),
-                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
-                } : undefined, this.safeApply?.bundle ? plan => {
-                  new BundleApplyModal(this.app, this.safeApply!.bundle!, current => this.safeApply!.bundle!.review(plan, source,
-                    () => current() && this.openState && planner.view.bundlePlan === plan && this.relationship?.analysisSource === source),
-                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
-                } : undefined, this.safeApply?.group ? plan => {
-                  new GroupApplyModal(this.app, this.safeApply!.group!, current => this.safeApply!.group!.review(plan, source,
-                    () => current() && this.openState && planner.view.groupPlan === plan && this.relationship?.analysisSource === source),
-                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
-                } : undefined, this.safeApply?.emptyAtom ? plan => {
-                  new EmptyAtomApplyModal(this.app, this.safeApply!.emptyAtom!, current => this.safeApply!.emptyAtom!.review(plan, source,
-                    () => current() && this.openState && planner.view.emptyAtomPlan === plan && this.relationship?.analysisSource === source),
-                  () => new OperationHistoryModal(this.app, this.safeApply!).open()).open();
-                } : undefined);
-                void this.planner.prepare();
-              });
             }
           };
         }

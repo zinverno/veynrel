@@ -63,6 +63,33 @@ export function permittedEmbed(analysis: RelationshipAnalysis, side: 0 | 1): Rel
   const action = side === 0 ? "consider_embed_b_in_a" : "consider_embed_a_in_b";
   return [analysis.result.recommendation, ...analysis.result.alternatives].find(item => item.action === action);
 }
+/** Shared read-only eligibility check; selection never implies confirmation or an executable plan. */
+export function requireChangeRange(analysis: RelationshipAnalysis, pair: PlanPair, operation: "add_link" | "replace_with_embed",
+  side: 0 | 1, selection: PlanRange, linktext: string): RelationshipRecommendation {
+  const source = pair[side], target = pair[side === 0 ? 1 : 0];
+  let recommendation = analysis.result.recommendation;
+  requirePlan(source.cache && target.cache, "metadata");
+  requirePlainParagraph(source, selection);
+  requirePlan(linktext === target.path.slice(0, -3) && linktext.length > 0 && !/[[\]#|^\\]/u.test(linktext) && [...linktext].every(char => char.charCodeAt(0) >= 32), "link");
+  requirePlan(!source.references.some(ref => ref.target === target.path), "existing");
+  if (operation === "replace_with_embed") {
+    const offered = permittedEmbed(analysis, side);
+    requirePlan(offered && ["same_information", "partial_overlap"].includes(analysis.result.relation), "recommendation");
+    recommendation = offered;
+    const quoteFor = (claim: RelationshipAnalysis["result"]["claims"][number]) => side === 0 ? claim.quoteA : claim.quoteB;
+    requirePlan(analysis.result.claims.some(claim => claim.kind === "shared" && offered.evidence.includes(claim.id) &&
+      quoteFor(claim) && selection.text.includes(quoteFor(claim)!)), "evidence");
+    const suffix = side === 0 ? "_a" : "_b";
+    for (const claim of analysis.result.claims.filter(claim => claim.kind.endsWith(suffix))) {
+      const quote = quoteFor(claim);
+      if (quote) requirePlan(!overlaps(selection, source.content.indexOf(quote), source.content.indexOf(quote) + quote.length), "protected");
+    }
+    requirePlan(!target.references.some(ref => ref.kind === "embed" && ref.target === source.path), "cycle");
+    // shortcut: reject any target transclusion; transitive cycles need a separately bounded dependency review.
+    requirePlan(!target.references.some(ref => ref.kind === "embed") && !target.content.includes("!["), "dependencies");
+  }
+  return recommendation;
+}
 /** A single checked splice; never applies, persists, renders or asks a model to edit Markdown. */
 export function buildChangePlan(analysis: RelationshipAnalysis, pair: PlanPair, choice: PlanChoice, linktext: string): ChangePlan {
   requirePlan(pair.every((note, i) => sameSavedNote(note, analysis.pair[i])), "source");
@@ -74,25 +101,8 @@ export function buildChangePlan(analysis: RelationshipAnalysis, pair: PlanPair, 
   let added: string | null = null;
   if (choice.operation !== "no_change") {
     requirePlan(choice.selection && choice.confirmed, "confirmation");
-    requirePlan(source.cache && target.cache, "metadata");
-    requirePlainParagraph(source, choice.selection);
-    requirePlan(linktext === target.path.slice(0, -3) && linktext.length > 0 && !/[[\]#|^\\]/u.test(linktext) && [...linktext].every(char => char.charCodeAt(0) >= 32), "link");
-    requirePlan(!source.references.some(ref => ref.target === target.path), "existing");
+    recommendation = requireChangeRange(analysis, pair, choice.operation, choice.source, choice.selection, linktext);
     if (choice.operation === "replace_with_embed") {
-      const offered = permittedEmbed(analysis, choice.source);
-      requirePlan(offered && ["same_information", "partial_overlap"].includes(analysis.result.relation), "recommendation");
-      recommendation = offered;
-      const quoteFor = (claim: RelationshipAnalysis["result"]["claims"][number]) => choice.source === 0 ? claim.quoteA : claim.quoteB;
-      requirePlan(analysis.result.claims.some(claim => claim.kind === "shared" && offered.evidence.includes(claim.id) &&
-        quoteFor(claim) && choice.selection!.text.includes(quoteFor(claim)!)), "evidence");
-      const suffix = choice.source === 0 ? "_a" : "_b";
-      for (const claim of analysis.result.claims.filter(claim => claim.kind.endsWith(suffix))) {
-        const quote = quoteFor(claim);
-        if (quote) requirePlan(!overlaps(choice.selection, source.content.indexOf(quote), source.content.indexOf(quote) + quote.length), "protected");
-      }
-      requirePlan(!target.references.some(ref => ref.kind === "embed" && ref.target === source.path), "cycle");
-      // shortcut: reject any target transclusion; transitive cycles need a separately bounded dependency review.
-      requirePlan(!target.references.some(ref => ref.kind === "embed") && !target.content.includes("!["), "dependencies");
       added = `![[${linktext}]]`;
       edit = { start: choice.selection.start, end: choice.selection.end, removed: choice.selection.text, inserted: added };
     } else {
