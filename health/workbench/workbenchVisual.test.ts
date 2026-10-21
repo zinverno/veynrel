@@ -28,6 +28,11 @@ describe("finite UI physics",()=>{
   });
 });
 describe("screen text and tag orientation",()=>{
+  it("keeps a priority name visible when neighboring targets occupy its four nearest positions",()=>{
+    const obstacles=[{x:112,y:92,width:60,height:16},{x:28,y:92,width:60,height:16},{x:70,y:72,width:60,height:16},{x:70,y:112,width:60,height:16}];
+    const placed=placeLabels([{id:"selected",x:100,y:100,width:60,height:16,priority:100000}],400,300,obstacles);
+    expect(placed.has("selected")).toBe(true);obstacles.forEach(box=>expect(overlaps(placed.get("selected")!,box)).toBe(false));
+  });
   it.each([.3,.5,.8,1,1.5,2.2,4])("avoids labels/controls/viewport collisions at zoom %s",zoom=>{
     const anchors=Array.from({length:154},(_,i)=>({id:String(i),x:400+Math.cos(i*2.4)*Math.sqrt(i)*20*zoom,y:300+Math.sin(i*2.4)*Math.sqrt(i)*20*zoom,width:150,height:20,priority:i===0?100:0}));
     const controls={x:0,y:0,width:500,height:60},placed=placeLabels(anchors,800,600,[controls]);

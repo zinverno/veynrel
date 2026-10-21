@@ -8,6 +8,7 @@ export function placeLabels(anchors:readonly LabelAnchor[], width:number, height
   for(const label of ordered){
     if(label.x<0||label.y<0||label.x>width||label.y>height)continue;
     const offsets=[[12,-label.height/2],[-label.width-12,-label.height/2],[-label.width/2,-label.height-12],[-label.width/2,12]];
+    if(label.priority>=90000)for(const gap of [16,28,40])offsets.push([gap,gap],[gap,-label.height-gap],[-label.width-gap,gap],[-label.width-gap,-label.height-gap]);
     for(const [dx,dy] of offsets){
       const box={x:label.x+dx,y:label.y+dy,width:label.width,height:label.height};
       if(box.x<8||box.y<8||box.x+box.width>width-8||box.y+box.height>height-8||occupied.some(other=>overlaps(box,other)))continue;
