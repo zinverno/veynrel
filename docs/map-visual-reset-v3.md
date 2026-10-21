@@ -66,7 +66,8 @@ Native evidence включает 154/500/1000, отсутствие индекс
 
 ```bash
 # Fresh disposable profile; never pass the original or installed TEST vault.
-node scripts/map-visual-native.mjs /tmp/veynrel-workbench-v3-new 154 /absolute/path/to/frozen-build
+V3_EDGE_LANGUAGE=ru node scripts/map-visual-native.mjs /tmp/veynrel-workbench-v3-new 154 /absolute/path/to/frozen-build
+V3_EDGES_ONLY=1 V3_EDGE_LANGUAGE=en node scripts/map-visual-native.mjs /tmp/veynrel-workbench-v3-en 154 /absolute/path/to/frozen-build
 # Larger copies reuse the existing synthetic Lab:
 VEYNREL_LAB_ROOT=/absolute/path/to/synthetic-lab \
   node scripts/map-visual-native.mjs /tmp/veynrel-workbench-v3-large 500 /absolute/path/to/frozen-build
