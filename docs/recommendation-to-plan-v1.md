@@ -95,3 +95,15 @@ recordings are recorded in the accompanying evidence after the final run.
 Not run: paid/live-model requests, physical mobile, screen reader, third-party
 themes, personal or TEST vault installation. Prior map A/B and wider UX acceptance
 remain separate. No next product stage is started.
+
+Final local gates: **4632 tests / 169 files**, both typecheck projects, lint/build
+and diff-check passed. The only lint warning is the pre-existing streaming fetch
+advisory. Proposal mutation audit: **5/5 killed**, restored tests passed. Installer
+synthetic tests verify three-file replacement, external backup, settings/index/
+journal preservation, and original/tampered/symlink refusals. Independent read-only
+review found the early range-eligibility gap; it was fixed by sharing the original
+builder guard. Follow-up review found no Required/Critical issues.
+
+Frozen source: `629ff92fd29f6e866328bc0f380bafac81eff491`.
+[Two native recordings, early refusal, screenshots and integrity evidence](recommendation-to-plan-evidence/README.md).
+Final review HEAD and exact-head CI are recorded in the PR and delivery metadata.
