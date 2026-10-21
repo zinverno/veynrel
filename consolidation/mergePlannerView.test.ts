@@ -65,7 +65,7 @@ describe("merge choices and honest literal preview", () => {
     expect(f.session.view.mergePlan).toBeUndefined(); await f.session.prepare(); f.select("operation", "no_change");
     f.root.all().find(e => e.attrs["data-planner-action"] === "build")!.listeners.get("click")!();
     await vi.waitFor(() => expect(f.session.view.plan?.operation).toBe("no_change")); expect(f.session.view.mergePlan).toBeUndefined();
-    f.select("operation", "add_link"); f.select("range", "0"); f.check("confirm");
+    f.select("operation", "add_link"); f.select("source", "0"); f.select("operation", "add_link"); f.select("range", "0"); f.check("confirm");
     f.root.all().find(e => e.attrs["data-planner-action"] === "build")!.listeners.get("click")!();
     await vi.waitFor(() => expect(f.session.view.plan?.operation).toBe("add_link"));
     f.root.all().find(e => e.attrs["data-safe-action"] === "review")!.listeners.get("click")!(); expect(f.single).toHaveBeenCalledOnce();
