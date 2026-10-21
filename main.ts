@@ -68,7 +68,6 @@ import {
 import type { CompanionSettings, StoredCompanionSettings } from "./companionSync";
 import { ObsidianSemanticController } from "./semantic";
 import { RelationshipSession, readRelationshipPair } from "./consolidation/relationshipSession";
-import { RELATIONSHIP_OPTIONS } from "./consolidation/relationshipPrompt";
 import { parseTaxonomyProfile, requireTaxonomyProfile, TaxonomyError } from "./consolidation/taxonomyProfile";
 import type { TagTaxonomyProfile, TaxonomyProfilePort } from "./consolidation/taxonomyProfile";
 import { TagRecommendationSession } from "./consolidation/tagRecommendationSession";
@@ -193,7 +192,7 @@ export default class AIHubPlugin extends Plugin {
         safeApply: this.safeApply,
         relationshipSession: paths => new RelationshipSession({
           settings: this.getLanguageModelSettingsPort(), read: () => readRelationshipPair(this.app, paths),
-          complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }),
+          complete: (settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }),
         }),
       });
       this.semanticController.registerCommands();

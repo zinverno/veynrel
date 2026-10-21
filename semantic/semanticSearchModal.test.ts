@@ -1,5 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
+import { callOpenRouter } from "../api";
+import { setLanguage } from "../i18n";
+import { requestUrl } from "obsidian";
+import type { LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
 import type { RefinedSearchUpdate } from "../rerank/types";
 import plannerFixture from "../tests/fixtures/change-planner.json";
 import relationshipCases from "../tests/fixtures/relationships.json";
@@ -181,6 +185,7 @@ vi.mock("obsidian", () => ({
   Notice: mocks.Notice,
   TFile: mocks.TFile,
   getLanguage: () => "ru",
+  requestUrl: vi.fn(),
   parseFrontMatterTags: () => null,
   parseLinktext: (link: string) => ({ path: link.split("#")[0] }),
 }));
@@ -877,7 +882,7 @@ describe("read-only Pair Inspector UI", () => {
       emit: (event: string, path = "one/Same.md") => { for (const listener of listeners.get(event) ?? []) listener({ path }); },
     };
   }
-  async function fixture(withAnalysis = false) {
+  async function fixture(withAnalysis = false, transport = false) {
     const { PairInspectorModal } = await import("../consolidation/pairInspectorModal");
     const files = new Map(["one/Same.md", "two/Same.md"].map(path => [path, Object.assign(new mocks.TFile(), {
       path, basename: "Same", stat: { mtime: 1, size: 100 },
@@ -891,12 +896,13 @@ describe("read-only Pair Inspector UI", () => {
       workspace: { getLeaf: () => leaf },
     };
     const { RelationshipSession, readRelationshipPair } = await import("../consolidation/relationshipSession");
-    const model = { provider: "custom" as const, model: "test-model", baseUrl: "https://example.test/v1", apiKey: "secret-key", temperature: 0.3, topK: 10 };
+    const model: LanguageModelSettingsSnapshot = { provider: "custom", model: "test-model", baseUrl: "https://example.test/v1", apiKey: "secret-key", temperature: 0.3, topK: 10 };
     const listeners = new Set<() => void>();
     const complete = vi.fn(async () => JSON.stringify({ relation: "related_distinct", explanation: { text: "Preliminary interpretation", evidence: ["c1"] },
       claims: [{ id: "c1", kind: "comparison", text: "Model interpretation", quoteA: bodies.get("one/Same.md"), quoteB: bodies.get("two/Same.md") }],
       recommendation: { action: "add_link", reason: "Consider a link after review", evidence: ["c1"] }, alternatives: [], limitations: ["Only these sources"] }));
-    const factory = vi.fn(() => new RelationshipSession({ read: () => readRelationshipPair(app as never, ["one/Same.md", "two/Same.md"]), complete,
+    const factory = vi.fn(() => new RelationshipSession({ read: () => readRelationshipPair(app as never, ["one/Same.md", "two/Same.md"]),
+      complete: transport ? (settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }) : complete,
       settings: { get: () => model, subscribe: fn => { listeners.add(fn); return () => { listeners.delete(fn); }; } } }));
     const modal = new PairInspectorModal(app as never, ["one/Same.md", "two/Same.md"], withAnalysis ? factory : undefined);
     const content = modal.contentEl as unknown as InstanceType<typeof mocks.FakeElement>;
@@ -906,6 +912,38 @@ describe("read-only Pair Inspector UI", () => {
     const stage = () => content.findByTag("div").find(el => el.attributes.has("data-relationship-stage"))?.attributes.get("data-relationship-stage");
     return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, model, listeners, action, stage };
   }
+
+  it.each(["null", "empty", "missing", "partial", "valid-length", "stop", "bad-quote"])("actual HTTP parser → session → validator → pair UI: %s", async variant => {
+    vi.stubGlobal("window", { setTimeout, clearTimeout }); vi.mocked(requestUrl).mockReset(); setLanguage("ru");
+    const f = await fixture(true, true);
+    try {
+      f.model.provider = "openrouter"; f.model.model = "deepseek/deepseek-v4-flash-0731";
+      const valid = JSON.parse(await f.complete()) as { claims: { quoteA: string }[] };
+      if (variant === "bad-quote") valid.claims[0].quoteA = "fabricated excerpt";
+      const content = variant === "null" ? null : variant === "empty" ? "" : variant === "missing" ? undefined : variant === "partial" ? '{"relation":' : JSON.stringify(valid);
+      const completed = ["stop", "bad-quote"].includes(variant);
+      vi.mocked(requestUrl).mockResolvedValueOnce({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: completed ? "stop" : "length",
+        message: { content, reasoning: "synthetic-private-reasoning" } }], usage: { completion_tokens: 4000, completion_tokens_details: { reasoning_tokens: 4000 } } }) } as never);
+      f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
+      const payload = f.content.findByClass("ai-relationship")[0].findByTag("pre")[0].text;
+      expect(payload).toContain('"max_tokens":8192'); expect(payload).toContain('"reasoning":{"enabled":false}');
+      const confirm = f.action("confirm"); confirm.trigger("click"); confirm.trigger("click"); await flush(); await flush();
+      await vi.waitFor(() => expect(f.stage()).toBe(variant === "stop" ? "result" : "error"));
+      confirm.trigger("click"); expect(requestUrl).toHaveBeenCalledOnce();
+      expect(vi.mocked(requestUrl).mock.calls[0][0]).toMatchObject({ body: payload });
+      const session = f.factory.mock.results[0].value as import("../consolidation/relationshipSession").RelationshipSession;
+      const all = f.content.findByTag("p").map(el => el.text).join("\n") + f.content.findByTag("div").map(el => el.text).join("\n");
+      expect(all).not.toContain("synthetic-private-reasoning");
+      if (!completed) {
+        expect(session.view.error).toBe("outputLimit"); expect(all).toContain("Модель достигла лимита генерации до завершения анализа");
+        expect(all).not.toContain("invalidEnvelope");
+      }
+      if (variant === "bad-quote") expect(session.view.error).toBe("unverifiedEvidence");
+      expect(f.content.findByTag("button").some(el => el.attributes.get("data-planner-action") === "open")).toBe(variant === "stop");
+      expect(f.content.findByTag("button").some(el => el.attributes.get("data-safe-action") === "confirm")).toBe(false);
+      expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+    } finally { f.modal.close(); vi.unstubAllGlobals(); vi.mocked(requestUrl).mockReset(); }
+  });
 
   it("shows one current pair step and recovers explicitly after dismiss or source invalidation", async () => {
     const f = await fixture(true); f.modal.open(); await flush();

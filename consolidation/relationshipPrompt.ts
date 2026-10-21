@@ -1,7 +1,16 @@
 import { ACTIONS, CLAIM_KINDS, RELATIONS } from "./relationshipContract";
+import type { CallOptions } from "../api";
+import type { LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
 
 export const RELATIONSHIP_LIMITS = { noteCharacters: 20000, pairCharacters: 32000, requestBytes: 128 * 1024 } as const;
-export const RELATIONSHIP_OPTIONS = { maxTokens: 4000, temperature: 0, timeoutMs: 120_000 } as const;
+export const RELATIONSHIP_OPTIONS = Object.freeze({ maxTokens: 8192, temperature: 0, timeoutMs: 120_000, requireFinishReason: true });
+
+export function relationshipOptions(settings: LanguageModelSettingsSnapshot): Readonly<CallOptions> {
+  if (settings.provider !== "openrouter") return RELATIONSHIP_OPTIONS;
+  // OpenRouter's 2026-10-22 catalogue confirms optional reasoning for these exact IDs.
+  const canDisable = settings.model === "deepseek/deepseek-v4-flash-0731" || settings.model === "deepseek/deepseek-v4-flash-20260731";
+  return Object.freeze({ ...RELATIONSHIP_OPTIONS, reasoning: Object.freeze(canDisable ? { enabled: false as const } : { effort: "low" as const }) });
+}
 
 export function relationshipPrompt(language: "ru" | "en"): string {
   return `You are a cautious read-only note relationship analyst. Write all explanatory prose in ${language === "ru" ? "Russian" : "English"}.

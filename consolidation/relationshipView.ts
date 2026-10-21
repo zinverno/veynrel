@@ -25,6 +25,7 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
     body.createEl("p", { text: tr("@relationship.destination", { provider: preview.provider, model: preview.model }) });
     body.createEl("p", { text: `A: ${preview.paths[0]}\nB: ${preview.paths[1]}`, cls: "ai-relationship-paths" });
     body.createEl("p", { text: tr("@relationship.volume", { a: preview.characters[0], b: preview.characters[1], bytes: preview.bytes }) });
+    body.createEl("p", { text: tr("@relationship.budget", { tokens: preview.maxTokens, reasoning: tr(`@relationship.reasoning.${preview.reasoning}`) }) });
     body.createEl("p", { text: tr("@relationship.privacy") });
     const payload = body.createEl("details");
     payload.createEl("summary", { text: tr("@relationship.payload") });

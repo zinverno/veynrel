@@ -21,7 +21,7 @@ export interface RelationshipResult {
   limitations: string[];
 }
 export type RelationshipFailure = "source" | "tooLarge" | "configuration" | "invalidResponse" | "unverifiedEvidence" | "inconsistent" | "transport"
-  | "timeout" | "aborted" | "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope";
+  | "timeout" | "aborted" | "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope" | "outputLimit" | "refused" | "unexpectedCompletion";
 export class RelationshipError extends Error {
   constructor(readonly reason: RelationshipFailure) { super(reason); }
 }
