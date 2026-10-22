@@ -1,6 +1,6 @@
 {
   "name": "obsidian-ai-hub",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Veynrel: semantic search and AI-assisted knowledge workflows for Obsidian.",
   "main": "main.js",
   "scripts": {

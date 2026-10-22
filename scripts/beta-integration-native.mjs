@@ -36,15 +36,17 @@ export async function archiveChain(c) {
 }
 
 export async function swapBuild(c, next, label) {
- const {ev,wait,root,dir,vault,build}=c;
+ const {ev,wait,root,dir,vault,build,reload}=c;
  assert.equal(await ev('app.vault.adapter.basePath'),vault);
+ const manifestBefore=await ev("app.plugins.plugins['ai-knowledge-hub'].manifest");
  await ev("await app.plugins.disablePlugin('ai-knowledge-hub');void 0");
  const retained=()=>Object.fromEntries(fs.readdirSync(dir,{recursive:true}).filter(p=>!['main.js','manifest.json','styles.css'].includes(p)&&fs.statSync(dir+'/'+p).isFile()).sort().map(p=>[p,fs.readFileSync(dir+'/'+p).toString('base64')]));
  const before=retained();
  const output=execFileSync('bash',[build+'/install-knowledge-workbench.sh',vault],{encoding:'utf8',env:{...process.env,XDG_STATE_HOME:root+'/installer-state'}});
  // The generic installer is copied next to the exact build being installed.
  assert.equal(next,build);assert.deepEqual(retained(),before);
- fs.writeFileSync(root+'/upgrade-'+label+'.json',JSON.stringify({retainedFiles:Object.keys(before),output},null,2));
+ fs.writeFileSync(root+'/upgrade-'+label+'.json',JSON.stringify({retainedFiles:Object.keys(before),manifestBefore,manifestAfter:JSON.parse(fs.readFileSync(dir+'/manifest.json','utf8')),output},null,2));
+ if(reload)await reload(); // Manual version upgrades require a fresh host manifest cache.
  await ev("await app.plugins.enablePlugin('ai-knowledge-hub');window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;app.commands.executeCommandById('ai-knowledge-hub:veynrel-review-vault');void 0");
  await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.workbench");await ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0");
 }
