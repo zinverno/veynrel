@@ -1,0 +1,9 @@
+{
+  "chunker": "production MarkdownChunker, default 1200/1800/200 chars",
+  "chunks": 1726,
+  "nonemptyNotes": 993,
+  "characters": 432562,
+  "outboundCharacters": 428137,
+  "maxChunkCharacters": 1782,
+  "cost": "Not priced: no selected external embedding model/tokenizer. Cost = actual billed tokens / 1e6 * selected provider price; no paid indexing performed."
+}
