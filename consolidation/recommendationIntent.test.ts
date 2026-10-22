@@ -1,6 +1,6 @@
 import { relationshipWireFixture, relationshipFixtureUser } from "../tests/relationshipWireFixture";
 import { afterEach, describe, expect, it, vi } from "vitest";
-vi.mock("obsidian", () => ({ TFile: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
+vi.mock("obsidian", () => ({ setIcon: vi.fn(), TFile: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
 import { requestUrl } from "obsidian";
 import { callOpenRouter } from "../api";
 import { setLanguage, t } from "../i18n";
@@ -23,7 +23,7 @@ class Element {
   value = ""; disabled = false; checked = false; hidden = false; open = false;
   listeners = new Map<string, () => void>();
   setText(value: string) { this.text = value; }
-  empty() { this.children = []; } closest() { return null; } focus() {} addClass() {}
+  empty() { this.children = []; } closest() { return null; } focus() {} scrollIntoView() {} addClass() {}
   setAttribute(k: string, v: string) { this.attrs[k] = v; }
   create(tag: string, opts: { text?: string; value?: string; attr?: Record<string, string> } = {}) {
     const child = new Element(); Object.assign(child, { tag, text: opts.text ?? "", value: opts.value ?? "", attrs: opts.attr ?? {} }); this.children.push(child); return child;
@@ -58,23 +58,26 @@ async function route(actionName = "add_link", selection: IntentSelection = { ori
   vi.mocked(requestUrl).mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(relationshipWireFixture(response, user)) } }] }) } as never);
   await relationship.confirm();
   expect(relationship.view.stage).toBe("result");
+  // Legacy results retain their independently validated alternatives; new wire replies cannot contain them.
+  if (selection.origin === "alternative") Object.assign(relationship.analysisSource!.result, validateRelationshipResponse(JSON.stringify(response), f.pair[0].content, f.pair[1].content));
   const analysis = relationship.analysisSource!, root = new Element(), result = new Element(), review = vi.fn(), merge = vi.fn();
   const session = new ChangePlannerSession({ analysis: () => relationship.analysisSource, read: async () => f.read });
   const start = (chosen: IntentSelection) => {
     new ChangePlannerView(html(root), session, analysis, review, undefined, merge, undefined, undefined, undefined, chosen);
     void session.prepare();
   };
-  renderRelationshipView(html(result), relationship, start);
+  const keep = vi.fn(async () => {});
+  renderRelationshipView(html(result), relationship, start, { state: "ready", pair: f.pair }, keep);
   const key = selection.origin === "primary" ? "primary" : selection.origin === "alternative" ? `alternative-${selection.index}` : selection.action;
   action(result, "data-intent-action", key).click();
   if (!["no_change", "manual_review"].includes(actionName)) await vi.waitFor(() => expect(session.view.stage).toBe("choosing"));
-  return { ...f, analysis, relationship, session, root, result, review, merge, settings };
+  return { ...f, analysis, relationship, session, root, result, review, merge, settings, keep };
 }
 
 describe("validated transport response → intent → existing planner → exact review", () => {
   it.each(["ru", "en"] as const)("%s opens link directly and preserves family when direction changes", async language => {
     setLanguage(language); const f = await route();
-    expect(field(f.root, "operation")).toBeUndefined(); expect(field(f.root, "source").value).toBe("");
+    expect(field(f.root, "operation")).toBeUndefined(); expect(field(f.root, "source").checked).toBe(false);
     expect(text(f.root)).not.toContain(t("@planner.unsupported"));
     field(f.root, "source").change("0"); field(f.root, "range").change("0");
     expect(field(f.root, "confirm").checked).toBe(false);
@@ -92,7 +95,7 @@ describe("validated transport response → intent → existing planner → exact
   });
   it.each([{ origin: "primary" }, { origin: "alternative", index: 0 }, { origin: "user", action: "consider_merge" }] as IntentSelection[])("merge route keeps $origin provenance and requires all confirmations", async selection => {
     const f = await route(selection.origin === "primary" ? "consider_merge" : "add_link", selection);
-    expect(field(f.root, "operation")).toBeUndefined(); expect(field(f.root, "combine-canonical").value).toBe("");
+    expect(field(f.root, "operation")).toBeUndefined(); expect(field(f.root, "combine-canonical").checked).toBe(false);
     field(f.root, "combine-canonical").change("0");
     const start = paragraphRanges(f.pair[1])[1].start;
     expect(field(f.root, `merge-transfer-${start}`).checked).toBe(false);
@@ -111,7 +114,7 @@ describe("validated transport response → intent → existing planner → exact
   });
   it.each(["consider_embed_b_in_a", "consider_embed_a_in_b"])("%s carries the exact direction to the existing guarded builder", async actionName => {
     const f = await route(actionName), side = actionName === "consider_embed_b_in_a" ? 0 : 1;
-    expect(field(f.root, "source").value).toBe(String(side)); expect(field(f.root, "source").disabled).toBe(true);
+    expect(field(f.root, "source")).toBeUndefined(); expect(text(f.root)).toContain(f.pair[side].path);
     field(f.root, "range").change("0"); field(f.root, "confirm").check(); action(f.root, "data-planner-action", "build").click();
     await vi.waitFor(() => expect(f.session.view.stage).toBe("ready"));
     expect(f.session.view.plan!.edit!.inserted).toBe(`![[${f.pair[1 - side].path.slice(0, -3)}]]`);
@@ -120,7 +123,9 @@ describe("validated transport response → intent → existing planner → exact
   });
   it.each(["no_change", "manual_review"])("%s never opens a planner", async name => {
     const f = await route(name); expect(f.session.view.stage).toBe("idle"); expect(f.root.all()).toHaveLength(1);
-    expect(f.relationship.view.stage).toBe(name === "no_change" ? "dismissed" : "result");
+    expect(f.relationship.view.stage).toBe("result");
+    expect(f.keep).toHaveBeenCalledTimes(name === "no_change" ? 1 : 0);
+    if (name === "no_change") expect(text(f.result)).toContain(t("@decision.reversible"));
     expect(requestUrl).toHaveBeenCalledTimes(1);
   });
   it("close, settings changes and old result buttons cannot revive the analysis or late plan", async () => {

@@ -1,10 +1,11 @@
-import { RELATIONSHIP_WIRE_SCHEMA } from "../consolidation/relationshipContract";
+import { RELATIONSHIP_WIRE_SCHEMA, RELATIONSHIP_SINGLE_SCHEMA } from "../consolidation/relationshipContract";
 
 /** Explicit synthetic wire reply. Legacy fixtures remain internal quote-format fixtures. */
-export function relationshipWireFixture<T extends { claims: { quoteA: string | null; quoteB: string | null }[] }>(response: T, user: string) {
-  const request = JSON.parse(user) as { evidence: { id: string; side: string; text: string }[] };
-  const internal = structuredClone(response);
-  return { ...internal, schema: RELATIONSHIP_WIRE_SCHEMA, claims: internal.claims.map(({ quoteA, quoteB, ...claim }) => {
+export function relationshipWireFixture<T extends { alternatives?: unknown[]; claims: { quoteA: string | null; quoteB: string | null }[] }>(response: T, user: string) {
+  const request = JSON.parse(user) as { schema?: string; evidence: { id: string; side: string; text: string }[] };
+  const { alternatives, ...internal } = structuredClone(response);
+  const schema = request.schema ?? RELATIONSHIP_WIRE_SCHEMA;
+  return { ...internal, ...(schema === RELATIONSHIP_SINGLE_SCHEMA ? {} : { alternatives }), schema, claims: internal.claims.map(({ quoteA, quoteB, ...claim }) => {
     const reference = (side: string, quote: string | null) => {
       if (quote === null) return null;
       const entries = request.evidence.filter(f => f.side === side);

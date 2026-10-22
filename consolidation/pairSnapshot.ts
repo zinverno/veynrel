@@ -1,6 +1,7 @@
 import { parseFrontMatterTags } from "obsidian";
 import type { App, CachedMetadata } from "obsidian";
 import { isCanonicalMarkdownPath } from "../chunking/reconstructChunks";
+import type { SavedNote } from "./savedNote";
 import { readSavedNote } from "./savedNote";
 
 export const PAIR_PREVIEW_LIMIT = 12000;
@@ -14,6 +15,7 @@ export interface InspectorList {
 export interface PairNoteSnapshot {
   path: string;
   state: "ready" | "missing" | "changed" | "error";
+  saved?: SavedNote;
   name?: string;
   preview?: string;
   characters?: number;
@@ -61,7 +63,7 @@ export async function readPairNote(app: App, path: string): Promise<PairNoteSnap
   // Keep a surrogate pair intact at the preview boundary.
   if (end < content.length && /[\uD800-\uDBFF]/.test(content[end - 1])) end--;
   const snapshot: PairNoteSnapshot = {
-    path, state: "ready", name: file.basename, preview: content.slice(0, end),
+    path, saved: source, state: "ready", name: file.basename, preview: content.slice(0, end),
     characters: content.length, bytes, modified,
   };
   try {

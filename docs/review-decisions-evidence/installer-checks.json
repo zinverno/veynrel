@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "checks": [
+    "exact three-file installation",
+    "external backup of previous three files",
+    "settings, review-decisions.json, review-decisions.json.bak, index and journals preserved",
+    "original vault refused",
+    "tamper rejected before writes",
+    "symlink target rejected"
+  ],
+  "fixedTargetWrapper": "bash -n only; TEST installation NOT RUN"
+}

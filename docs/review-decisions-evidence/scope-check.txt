@@ -1,0 +1,2 @@
+Relative to 71e7ce6: no changes to styles.css, source-note rendering, semantic ranking, maps, FSRS, relationship validator, prompts, writers, journals or Apply/Undo tickets.
+Source commit: dd8191ebacc49fa0acf992a6281213de31658514

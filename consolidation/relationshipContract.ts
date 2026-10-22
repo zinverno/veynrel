@@ -2,6 +2,7 @@ import { diagnoseRelationshipEvidence } from "./relationshipDiagnostics";
 import type { EvidenceDiagnostic } from "./relationshipDiagnostics";
 
 export const RELATIONSHIP_WIRE_SCHEMA = "veynrel.relationship.refs.v1";
+export const RELATIONSHIP_SINGLE_SCHEMA = "veynrel.relationship.refs.v2";
 
 export const RELATIONS = ["same_information", "partial_overlap", "related_distinct", "conflicting", "unrelated", "insufficient_context"] as const;
 export const ACTIONS = ["consider_merge", "consider_embed_b_in_a", "consider_embed_a_in_b", "consider_atomize", "add_link", "no_change", "manual_review"] as const;

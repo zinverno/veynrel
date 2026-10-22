@@ -1,3 +1,7 @@
+import { reviewDecisions } from "./reviewDecisions";
+import type { ReviewDecision } from "./reviewDecisions";
+import { readRelationshipPair } from "./relationshipSession";
+import type { RelationshipPair } from "./relationshipSession";
 import type { App } from "obsidian";
 import type { TAbstractFile } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
@@ -20,25 +24,29 @@ import { readMergeIncoming } from "./obsidianMergeApply";
 import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { obsidianSafeApplyPort } from "./obsidianSafeApply";
 import { EmptyAtomApplyModal } from "./emptyAtomApplyModal";
+import { RecommendationPreflight } from "./recommendationPreflight";
+import { recommendationIntent } from "./recommendationIntent";
 import { focusStatus } from "./consolidationUx";
+import { reviewPair } from "./reviewPresentation";
 
-/** One disposable view: listeners only invalidate; reading requires open or refresh. */
+/** Disposable pair owner; metadata readiness may recheck availability, never rerun analysis. */
 export class PairReview {
   private openState = false;
   private generation = 0;
   private readonly cleanup: (() => void)[] = [];
   private relationship?: RelationshipSession;
   private planner?: ChangePlannerSession;
+  private preflight?: RecommendationPreflight;
 
   constructor(private readonly app: App, private readonly contentEl: HTMLElement, private readonly paths: readonly [string, string],
-    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService) {}
+    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService, private readonly completed?: (decision: ReviewDecision) => void) {}
 
   open(): void {
     this.openState = true;
     this.contentEl.empty();
     this.contentEl.addClass("ai-pair-inspector");
-    this.contentEl.createEl("h2", { text: tr("@review.pair-title"), attr: { tabindex: "-1", "data-pair-heading": "true" } });
-    this.contentEl.createEl("p", { text: this.paths.map((path, i) => `${i === 0 ? "A" : "B"}: ${path.split("/").slice(-2).join("/").replace(/\.md$/iu, "")}`).join(" ↔ "), cls: "ai-pair-titles" });
+    const heading = this.contentEl.createEl("h2", { text: tr("@review.pair-title"), attr: { tabindex: "-1", "data-pair-heading": "true" } });
+    reviewPair(this.contentEl, this.paths);
     const intro = this.contentEl.createEl("p", { text: tr("@review.pair-description"), cls: "ai-pair-intro" });
     const controls = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-pair-actions" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
@@ -46,6 +54,29 @@ export class PairReview {
       const history = controls.createEl("button", { text: tr("@safeApply.history"), attr: { type: "button", "data-safe-action": "history" } });
       history.addEventListener("click", () => new OperationHistoryModal(this.app, this.safeApply!).open());
     }
+    let shownPair: RelationshipPair | undefined, savingDecision = false;
+    const keep = controls.createEl("button", { text: tr("@flow.keep"), attr: { type: "button", "data-review-keep": "" } });
+    keep.disabled = true;
+    const decisionStatus = this.contentEl.createDiv({ cls: "ai-review-caption", attr: { role: "status", "aria-live": "polite", tabindex: "-1", "data-review-decision-status": "" } });
+    const leaveAsIs = async (expected: RelationshipPair | undefined) => {
+      if (!this.openState || savingDecision || !expected) return;
+      savingDecision = true; keep.disabled = true; decisionStatus.setText(tr("@decision.saving"));
+      try {
+        const current = await readRelationshipPair(this.app, this.paths);
+        if (!this.openState) return;
+        if (!expected.every(n => current.some(c => n.path === c.path && n.file === c.file && n.content === c.content))) {
+          decisionStatus.setText(tr("@decision.stale")); decisionStatus.focus(); return;
+        }
+        const store = reviewDecisions(this.app);
+        if (!store) throw Error("Decisions unavailable");
+        const decision = await store.keep(expected);
+        if (!this.openState) return;
+        decisionStatus.setText(tr("@decision.saved"));
+        this.completed?.(decision);
+      } catch { if (this.openState) { decisionStatus.setText(tr("@decision.error")); decisionStatus.focus(); } }
+      finally { savingDecision = false; keep.disabled = !shownPair; }
+    };
+    keep.addEventListener("click", () => { if (!keep.disabled && !keep.hidden) void leaveAsIs(shownPair); });
     const analysis = this.contentEl.createDiv({ cls: "ai-relationship" });
     const planning = this.contentEl.createDiv({ cls: "ai-change-planner" });
     planning.hidden = true;
@@ -54,8 +85,18 @@ export class PairReview {
     backResult.addEventListener("click", () => {
       if (!this.openState) return;
       this.planner?.close(); this.planner = undefined; planning.empty(); planning.hidden = true;
-      analysis.hidden = false; backResult.hidden = true; focusStatus(analysis);
+      analysis.hidden = false; backResult.hidden = true; heading.setText(tr("@final.headingResult")); renderAnalysis(); checkAvailability(); focusStatus(analysis);
     });
+    const pendingMetadata = new Set<string>();
+    let renderAnalysis = () => {};
+    this.preflight = new RecommendationPreflight(async () => {
+      if (this.paths.some(path => pendingMetadata.has(path))) throw new Error("metadata");
+      return readPlannerPair(this.app, this.paths);
+    }, () => renderAnalysis());
+    const checkAvailability = () => {
+      const expected = this.relationship?.analysisSource;
+      if (expected) void this.preflight!.check(expected, () => this.openState && this.relationship?.analysisSource === expected);
+    };
     if (this.createRelationship) {
       const analyze = controls.createEl("button", { text: tr("@relationship.analyze"), attr: { type: "button", "data-relationship-action": "analyze" } });
       analyze.addEventListener("click", () => {
@@ -66,10 +107,11 @@ export class PairReview {
             if (!this.openState || !this.relationship) return;
             analyze.disabled = this.relationship.busy;
             const stage = this.relationship.view.stage;
-            const initial = ["idle", "cancelled", "error", "stale", "dismissed"].includes(stage);
+            heading.setText(tr(stage === "result" ? "@final.headingResult" : stage === "error" ? "@final.headingError" : "@review.pair-title"));
+            const initial = ["idle", "cancelled", "stale", "dismissed"].includes(stage);
             notes.hidden = !initial; limits.hidden = !initial; status.hidden = !initial;
             intro.hidden = !initial;
-            refresh.hidden = !initial; analyze.hidden = !initial;
+            refresh.hidden = !initial; analyze.hidden = !initial; keep.hidden = !initial;
             analysis.hidden = false; planning.hidden = true; backResult.hidden = true;
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
@@ -77,7 +119,8 @@ export class PairReview {
             const prepare = (selection: IntentSelection) => {
               if (analysis.hidden || this.relationship?.analysisSource !== expected || this.planner?.busy) return;
               const source = this.relationship?.analysisSource;
-              if (!source || !this.openState) return;
+              if (!source || !this.openState || this.preflight?.view.state !== "ready" ||
+                recommendationIntent(source, selection, this.preflight.view.pair, this.preflight.view.linktexts).status === "unavailable") return;
               this.planner?.close();
               this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
                 incoming: () => readMergeIncoming(this.app, this.paths),
@@ -85,6 +128,7 @@ export class PairReview {
                 emptyTargets: () => this.app.vault.getMarkdownFiles().filter(f => !this.paths.includes(f.path) && f.stat.size === 0).map(f => f.path).sort(),
                 atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
               const planner = this.planner;
+              heading.setText(tr(`@intent.cta.${recommendationIntent(source, selection).family}`));
               analysis.hidden = true; planning.hidden = false; backResult.hidden = false;
               new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                 new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
@@ -112,10 +156,16 @@ export class PairReview {
               } : undefined, selection);
               void this.planner.prepare();
             };
-            renderRelationshipView(analysis, this.relationship, prepare);
+            renderAnalysis = () => { if (this.openState && this.relationship && !analysis.hidden)
+              renderRelationshipView(analysis, this.relationship, prepare, this.preflight?.view, async () => {
+                if (expected && this.relationship?.analysisSource === expected) await leaveAsIs(expected.pair);
+              }, () => { if (this.openState) { notes.hidden = false; limits.hidden = false; notes.scrollIntoView({ block: "start" }); } }); };
+            this.preflight?.invalidate();
+            renderAnalysis();
+            checkAvailability();
             if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) {
               focusStatus(analysis);
-              analysis.scrollIntoView({ block: "start" });
+              (this.contentEl.closest(".veynrel-review-detail") ?? heading).scrollIntoView({ block: "start" });
             }
           };
         }
@@ -132,21 +182,24 @@ export class PairReview {
       if (!this.openState) return;
       this.generation++;
       this.planner?.invalidate();
+      this.preflight?.invalidate();
       notes.setAttribute("aria-busy", "false");
       status.setAttribute("data-state", "stale");
       status.setText(tr("@consolidation.stale"));
     };
     const sourceChanged = (file: TAbstractFile, oldPath?: string) => {
+      pendingMetadata.add(file.path);
       invalidate();
       if (this.paths.some(path => [file.path, oldPath].some(changed => changed !== undefined && (path === changed || path.startsWith(`${changed}/`))))) this.relationship?.invalidate();
     };
-    // Any vault change can affect incoming references; do no work until Refresh.
+    // Vault changes revoke planner dependencies; metadata readiness rechecks only local availability.
     for (const ref of [this.app.vault.on("create", sourceChanged), this.app.vault.on("modify", sourceChanged),
       this.app.vault.on("delete", sourceChanged), this.app.vault.on("rename", sourceChanged)]) {
       this.cleanup.push(() => this.app.vault.offref(ref));
     }
     if (this.app.metadataCache) {
-      for (const ref of [this.app.metadataCache.on("changed", invalidate), this.app.metadataCache.on("resolved", invalidate)]) {
+      for (const ref of [this.app.metadataCache.on("changed", file => { pendingMetadata.delete(file.path); invalidate(); checkAvailability(); }),
+        this.app.metadataCache.on("resolved", () => { invalidate(); checkAvailability(); })]) {
         this.cleanup.push(() => this.app.metadataCache.offref(ref));
       }
     }
@@ -154,12 +207,15 @@ export class PairReview {
       if (!this.openState) return;
       this.relationship?.invalidate();
       const generation = ++this.generation;
+      shownPair = undefined; keep.disabled = true; decisionStatus.setText("");
       notes.empty();
       notes.setAttribute("aria-busy", "true");
       status.setAttribute("data-state", "loading");
       status.setText(tr("@consolidation.loading"));
       const snapshots = await Promise.all(this.paths.map(path => readPairNote(this.app, path)));
       if (!this.openState || generation !== this.generation) return;
+      if (snapshots[0].saved && snapshots[1].saved) shownPair = [snapshots[0].saved, snapshots[1].saved];
+      keep.disabled = !shownPair || savingDecision;
       notes.setAttribute("aria-busy", "false");
       status.setAttribute("data-state", "ready");
       status.setText(tr("@consolidation.loaded"));
@@ -174,6 +230,7 @@ export class PairReview {
     this.openState = false;
     this.generation++;
     this.planner?.close(); this.planner = undefined;
+    this.preflight?.close(); this.preflight = undefined;
     this.relationship?.close(); this.relationship = undefined;
     for (const remove of this.cleanup.splice(0)) remove();
     this.contentEl.empty();
@@ -193,9 +250,6 @@ export class PairReview {
     } });
     open.addEventListener("click", () => { void openDiscoveryResult(this.app, note.path, undefined, () => {}); });
 
-    const excerpt = note.preview!.slice(0, 650);
-    card.createEl("pre", { text: excerpt, cls: "ai-pair-excerpt", attr: { tabindex: "0" } });
-    if (excerpt.length < note.characters!) card.createEl("small", { text: tr("@review.excerpt") });
     const source = card.createEl("details"); source.createEl("summary", { text: tr("@consolidation.source") });
     source.createEl("p", { text: tr("@consolidation.size", { bytes: note.bytes!, characters: note.characters! }) });
     if (note.preview!.length < note.characters!) card.createEl("p", { text: tr("@consolidation.truncated", { shown: note.preview!.length, total: note.characters! }) });

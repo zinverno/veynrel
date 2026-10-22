@@ -4,19 +4,17 @@ import type { MergePlan } from "./mergePlan";
 /** Presentation only: callers pass paths from their checked plan/record, never inferred edits. */
 export function reviewSummary(root: HTMLElement, changed: readonly string[], preserved: readonly string[], undo = false): void {
   const panel = root.createEl("section", { cls: "ai-consolidation-summary", attr: { "aria-label": tr("@ux.reviewSummary") } });
-  panel.createEl("h3", { text: tr(undo ? "@ux.undoStep" : "@ux.reviewStep") });
+  panel.createEl("strong", { text: tr(undo ? "@ux.undoStep" : "@ux.reviewStep") });
   for (const [key, paths] of [["changed", changed], ["preserved", preserved]] as const) {
     if (!paths.length) continue;
-    panel.createEl("p", { text: tr(`@ux.${key}`) });
-    const list = panel.createEl("ul");
-    for (const path of paths) list.createEl("li", { text: path });
+    panel.createEl("p", { text: `${tr(`@ux.${key}`)} ${paths.join(" · ")}` });
   }
   panel.createEl("p", { text: tr("@ux.undoConditions") });
 }
 
 export function diagnosticPanel(root: HTMLElement, id?: string): HTMLDetailsElement {
   const details = root.createEl("details", { cls: "ai-consolidation-diagnostics" });
-  details.createEl("summary", { text: tr("@ux.diagnostics") });
+  details.createEl("summary", { text: tr("@final.technical") });
   if (id) details.createEl("p", { text: id, cls: "ai-pair-path" });
   return details;
 }

@@ -1,3 +1,4 @@
+import { refreshReviewFacts, reviewOutcome } from "./reviewRefresh";
 import { reviewSummary, diagnosticPanel, historyHeading, historyUnavailable, focusStatus } from "./consolidationUx";
 import { App, Modal } from "obsidian";
 import { t as tr } from "../i18n";
@@ -56,7 +57,8 @@ export class EmptyAtomApplyModal extends Modal {
     if(!this.active||!this.valid||this.busy||!this.review)return;
     this.busy=true;this.contentEl.empty();this.contentEl.createEl("p",{text:tr("@safeApply.working"),attr:{role:"status","aria-live":"polite"}}); focusStatus(this.contentEl);
     try{
-      await this.service.execute(this.review);if(!this.active)return;
+      await this.service.execute(this.review);
+      refreshReviewFacts(this.app, reviewOutcome(this.review.record, this.review.action === "apply" ? "applied" : "undone"));if(!this.active)return;
       this.contentEl.empty();this.contentEl.createEl("p",{text:tr(this.review.action==="apply"?"@emptyAtom.applied":"@emptyAtom.undone"),attr:{role:"status"}});button(this.contentEl,"history",()=>{this.close();void this.pending.then(this.history);});focusStatus(this.contentEl);
     }catch(e){this.error(e);}finally{this.busy=false;for(const off of this.cleanup.splice(0))off();}
   }

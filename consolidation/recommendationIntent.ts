@@ -29,13 +29,19 @@ export function safeParagraphs(note: PlanNote): PlanRange[] {
 }
 
 export function changeRangeOptions(analysis: RelationshipAnalysis, pair: PlanPair, operation: "add_link" | "replace_with_embed", side: 0 | 1,
-  linktext = pair[side === 0 ? 1 : 0].path.slice(0, -3)): { ranges: PlanRange[]; reason?: string } {
-  let reason: string | undefined;
+  linktext = pair[side === 0 ? 1 : 0].path.slice(0, -3)): { ranges: PlanRange[]; reason?: string; reasons?: string[] } {
+  const source = pair[side], target = pair[side === 0 ? 1 : 0];
+  if (!source.cache?.sections || !target.cache?.sections) return { ranges: [], reason: "@planner.error.metadata" };
+  if (source.references.some(ref => ref.target === target.path)) return { ranges: [], reason: "@planner.error.existing" };
+  const failures = new Set<string>();
   const ranges = paragraphRanges(pair[side]).filter(range => {
     try { requireChangeRange(analysis, pair, operation, side, range, linktext); return true; }
-    catch (error) { reason ??= `@planner.error.${error instanceof ChangePlanError ? error.reason : "metadata"}`; return false; }
+    catch (error) { failures.add(`@planner.error.${error instanceof ChangePlanError ? error.reason : "metadata"}`); return false; }
   });
-  return { ranges, reason: ranges.length ? undefined : reason ?? "@planner.noParagraphs" };
+  // A protected first paragraph says nothing about other eligible paragraphs.
+  const priority = ["metadata", "existing", "link", "cycle", "dependencies", "recommendation", "evidence", "protected", "range"];
+  const reason = priority.map(key => `@planner.error.${key}`).find(key => failures.has(key));
+  return { ranges, reason: ranges.length ? undefined : reason ?? "@planner.noParagraphs", reasons: ranges.length ? [] : [...failures] };
 }
 
 /** Capability hints only. No confirmations, plans, tickets, writes or model calls. */
@@ -65,7 +71,7 @@ export function combineCapabilities(analysis: RelationshipAnalysis, pair: PlanPa
 }
 
 /** Input is the session's validated analysis; local metadata is re-read by the existing planner owner. */
-export function recommendationIntent(analysis: RelationshipAnalysis, selection: IntentSelection, pair?: PlanPair): RecommendationIntent {
+export function recommendationIntent(analysis: RelationshipAnalysis, selection: IntentSelection, pair?: PlanPair, linktexts?: readonly [string, string]): RecommendationIntent {
   const item: RelationshipRecommendation | undefined = selection.origin === "primary" ? analysis.result.recommendation :
     selection.origin === "alternative" ? analysis.result.alternatives[selection.index] : undefined;
   const action = selection.origin === "user" ? selection.action : item?.action;
@@ -85,20 +91,20 @@ export function recommendationIntent(analysis: RelationshipAnalysis, selection: 
     case "manual_review": intent.status = "draft_ready"; return intent;
     default: intent.status = "unavailable"; intent.limitations = ["@intent.unavailable"]; return intent;
   }
-  const refuse = (reason: string) => { intent.status = "unavailable"; intent.limitations = [reason]; return intent; };
+  const refuse = (reason: string, reasons: readonly string[] = []) => { intent.status = "unavailable"; intent.limitations = [...new Set([reason, ...reasons])]; return intent; };
   if (intent.family === "embed" && !permittedEmbed(analysis, intent.direction!)) return refuse("@planner.error.recommendation");
   if (!pair) return intent;
   if (!pair.every(n => n.cache?.sections)) return refuse("@planner.error.metadata");
   if (intent.family === "combine" && !([0, 1] as const).some(side => combineCapabilities(analysis, pair, side).some(c => !c.reason)))
     return refuse("@intent.combineUnavailable");
   if (intent.family === "link") {
-    const options = ([0, 1] as const).map(side => changeRangeOptions(analysis, pair, "add_link", side));
+    const options = ([0, 1] as const).map(side => changeRangeOptions(analysis, pair, "add_link", side, linktexts?.[side === 0 ? 1 : 0]));
     if (intent.operation === "add_reciprocal_links" ? options.some(o => !o.ranges.length) : options.every(o => !o.ranges.length))
       return refuse(options.find(o => o.reason)!.reason!);
   }
   if (intent.family === "embed") {
-    const options = changeRangeOptions(analysis, pair, "replace_with_embed", intent.direction!);
-    if (!options.ranges.length) return refuse(options.reason!);
+    const options = changeRangeOptions(analysis, pair, "replace_with_embed", intent.direction!, linktexts?.[intent.direction === 0 ? 1 : 0]);
+    if (!options.ranges.length) return refuse(options.reason!, options.reasons);
   }
   if (intent.family === "atom" && selection.origin !== "user") {
     const sides = ([0, 1] as const).filter(side => {

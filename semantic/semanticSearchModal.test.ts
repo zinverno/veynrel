@@ -179,7 +179,7 @@ const mocks = vi.hoisted(() => {
   return { FakeElement, TFile, MarkdownView, Notice, Modal };
 });
 
-vi.mock("obsidian", () => ({
+vi.mock("obsidian", () => ({ setIcon: vi.fn(),
   App: class {},
   MarkdownView: mocks.MarkdownView,
   Modal: mocks.Modal,
@@ -886,7 +886,7 @@ describe("read-only Pair Inspector UI", () => {
   async function fixture(withAnalysis = false, transport = false) {
     const { PairInspectorModal } = await import("../consolidation/pairInspectorModal");
     const files = new Map(["one/Same.md", "two/Same.md"].map(path => [path, Object.assign(new mocks.TFile(), {
-      path, basename: "Same", stat: { mtime: 1, size: 100 },
+      path, basename: "Same", stat: { ctime: 1, mtime: 1, size: 100 },
     })]));
     const bodies = new Map([["one/Same.md", '![[two/Same]]\n<img src="https://invalid.test/pixel">'], ["two/Same.md", "B own source"]]);
     const leaf = { openFile: vi.fn(async () => undefined) };
@@ -896,6 +896,15 @@ describe("read-only Pair Inspector UI", () => {
       metadataCache: { ...events(), getFileCache: vi.fn(() => null), resolvedLinks: {} },
       workspace: { getLeaf: () => leaf },
     };
+    const stored = new Map<string, string>();
+    const adapter = { exists: async (path: string) => stored.has(path), read: async (path: string) => stored.get(path)!,
+      write: vi.fn(async (path: string, text: string) => { stored.set(path, text); }),
+      remove: vi.fn(async (path: string) => { stored.delete(path); }),
+      rename: vi.fn(async (a: string, b: string) => { stored.set(b, stored.get(a)!); stored.delete(a); }) };
+    Object.assign(app.vault, { configDir: '.test-config', adapter });
+    const { registerReviewDecisions, reviewDecisions } = await import("../consolidation/reviewDecisions");
+    registerReviewDecisions(app as never, 'test-plugin');
+    const decisions = reviewDecisions(app as never)!;
     const { RelationshipSession, readRelationshipPair } = await import("../consolidation/relationshipSession");
     const model: LanguageModelSettingsSnapshot = { provider: "custom", model: "test-model", baseUrl: "https://example.test/v1", apiKey: "secret-key", temperature: 0.3, topK: 10 };
     const listeners = new Set<() => void>();
@@ -908,12 +917,61 @@ describe("read-only Pair Inspector UI", () => {
       settings: { get: () => model, subscribe: fn => { listeners.add(fn); return () => { listeners.delete(fn); }; } } }));
     const modal = new PairInspectorModal(app as never, ["one/Same.md", "two/Same.md"], withAnalysis ? factory : undefined);
     const content = modal.contentEl as unknown as InstanceType<typeof mocks.FakeElement>;
-    const status = () => content.findByTag("div").find(el => el.attributes.get("role") === "status")!;
+    const status = () => content.findByClass("ai-pair-status")[0];
     const refresh = () => content.findByTag("button")[0].trigger("click");
     const action = (name: string) => content.findByTag("button").find(el => el.attributes.get("data-relationship-action") === name)!;
     const stage = () => content.findByTag("div").find(el => el.attributes.has("data-relationship-stage"))?.attributes.get("data-relationship-stage");
-    return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, internalResponse, model, listeners, action, stage };
+    return { app, files, bodies, leaf, modal, content, status, refresh, factory, complete, internalResponse, model, listeners, action, stage, decisions, adapter };
   }
+
+  it("explicit leave saves the shown versions and closes, without any analysis or Markdown write", async () => {
+    const f = await fixture(true); f.modal.open(); await flush();
+    const keep = f.content.findByTag("button").find(el => el.attributes.has("data-review-keep"))!;
+    keep.trigger("click"); keep.trigger("click");
+    await vi.waitFor(() => expect(f.decisions.list()).toHaveLength(1)); await flush();
+    expect(f.content.children).toHaveLength(0); expect(f.adapter.write).toHaveBeenCalledOnce();
+    expect(f.factory).not.toHaveBeenCalled(); expect(f.complete).not.toHaveBeenCalled();
+    expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+  });
+  it.each(["add_link", "no_change"])("%s: leave from the validated result saves the whole pair; another option remains available", async actionName => {
+    const f = await fixture(true);
+    f.complete.mockImplementation(async (_settings, _system, user) => {
+      const response = f.internalResponse(); response.recommendation.action = actionName;
+      return JSON.stringify(relationshipWireFixture(response, user));
+    });
+    f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
+    expect(f.stage()).toBe('result'); expect(f.action('dismiss')).toBeUndefined();
+    expect(f.content.findByClass('ai-review-options')).toHaveLength(1);
+    const control = () => f.content.findByTag('button').find(el => actionName === 'no_change' ? el.attributes.get('data-intent-action') === 'primary' : !el.hidden && el.attributes.has('data-review-keep'))!;
+    f.adapter.write.mockRejectedValueOnce(Error('disk'));
+    control().trigger('click'); await vi.waitFor(() => expect(f.adapter.write).toHaveBeenCalledOnce()); await flush();
+    expect(f.stage()).toBe('result'); expect(f.decisions.list()).toEqual([]);
+    control().trigger('click'); await vi.waitFor(() => expect(f.decisions.list()).toHaveLength(1)); await flush();
+    expect(f.content.children).toHaveLength(0); expect(f.complete).toHaveBeenCalledOnce();
+    expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+  });
+
+  it("save failure stays in review; retry is explicit and no close/cancel records a decision", async () => {
+    const f = await fixture(true); f.modal.open(); await flush();
+    f.adapter.write.mockRejectedValueOnce(Error('disk'));
+    const keep = f.content.findByTag("button").find(el => el.attributes.has("data-review-keep"))!;
+    keep.trigger("click"); await vi.waitFor(() => expect(f.adapter.write).toHaveBeenCalledOnce()); await flush();
+    expect(f.decisions.list()).toEqual([]); expect(f.content.children.length).toBeGreaterThan(0);
+    expect(f.content.findByTag("div").find(el => el.attributes.has("data-review-decision-status"))?.text).toContain("Не удалось сохранить");
+    f.action("analyze").trigger("click"); await flush(); f.action("cancel").trigger("click");
+    f.modal.close(); expect(f.decisions.list()).toEqual([]); expect(f.complete).not.toHaveBeenCalled();
+    f.modal.open(); await flush(); f.content.findByTag("button").find(el => el.attributes.has("data-review-keep"))!.trigger("click");
+    await vi.waitFor(() => expect(f.decisions.list()).toHaveLength(1)); await flush(); f.modal.close();
+  });
+  it("does not decide for an unseen edit or finish a stale click after closing", async () => {
+    const f = await fixture(); f.modal.open(); await flush();
+    f.bodies.set('one/Same.md', 'unseen source');
+    f.content.findByTag("button").find(el => el.attributes.has("data-review-keep"))!.trigger("click"); await flush();
+    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.decisions.list()).toEqual([]);
+    f.refresh(); await flush();
+    f.content.findByTag("button").find(el => el.attributes.has("data-review-keep"))!.trigger("click"); f.modal.close(); await flush();
+    expect(f.adapter.write).not.toHaveBeenCalled();
+  });
 
   it.each(["null", "empty", "missing", "partial", "valid-length", "stop", "bad-quote"])("actual HTTP parser → session → validator → pair UI: %s", async variant => {
     vi.stubGlobal("window", { setTimeout, clearTimeout }); vi.mocked(requestUrl).mockReset(); setLanguage("ru");
@@ -937,7 +995,7 @@ describe("read-only Pair Inspector UI", () => {
       const all = f.content.findByTag("p").map(el => el.text).join("\n") + f.content.findByTag("div").map(el => el.text).join("\n");
       expect(all).not.toContain("synthetic-private-reasoning");
       if (!completed) {
-        expect(session.view.error).toBe("outputLimit"); expect(all).toContain("Модель достигла лимита генерации до завершения анализа");
+        expect(session.view.error).toBe("outputLimit"); expect([...f.content.findByTag("h3"), ...f.content.findByTag("p")].map(e => e.text).join("\n")).toContain("Модель достигла лимита генерации до завершения анализа");
         expect(all).not.toContain("invalidEnvelope");
       }
       if (variant === "bad-quote") expect(session.view.error).toBe("unverifiedEvidence");
@@ -947,21 +1005,19 @@ describe("read-only Pair Inspector UI", () => {
     } finally { f.modal.close(); vi.unstubAllGlobals(); vi.mocked(requestUrl).mockReset(); }
   });
 
-  it("shows one current pair step and recovers explicitly after dismiss or source invalidation", async () => {
+  it("shows one current pair step and recovers explicitly after source invalidation", async () => {
     const f = await fixture(true); f.modal.open(); await flush();
     const notes = () => f.content.findByClass("ai-pair-notes")[0];
     const planning = () => f.content.findByClass("ai-change-planner")[0];
     const analysis = () => f.content.findByClass("ai-relationship")[0];
     expect(notes().hidden).toBe(false); expect(planning().hidden).toBe(true);
-    expect(f.content.findByClass("ai-pair-excerpt").map(el => el.text)).toEqual([...f.bodies.values()]);
+    expect(f.content.findByClass("ai-pair-source").map(el => el.text)).toEqual([...f.bodies.values()]);
     f.action("analyze").trigger("click"); await flush(); expect(notes().hidden).toBe(true);
     f.action("confirm").trigger("click"); await flush(); expect(f.stage()).toBe("result");
-    f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "open")!.trigger("click"); await flush();
-    expect(analysis().hidden).toBe(true); expect(planning().hidden).toBe(false);
-    f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "back-result")!.trigger("click");
+    const unavailable = f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "open")!;
+    expect(unavailable.disabled).toBe(true); unavailable.trigger("click"); await flush();
     expect(analysis().hidden).toBe(false); expect(planning().hidden).toBe(true); expect(f.complete).toHaveBeenCalledOnce();
-    f.action("dismiss").trigger("click"); expect(f.action("analyze").hidden).toBe(false); expect(notes().hidden).toBe(false);
-    f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
+    expect(f.action("dismiss")).toBeUndefined();
     const reads = f.app.vault.read.mock.calls.length; f.app.vault.emit("modify");
     expect(f.stage()).toBe("stale"); expect(f.action("analyze").hidden).toBe(false); expect(f.app.vault.read).toHaveBeenCalledTimes(reads);
     expect(f.content.findByTag("button").some(el => el.attributes.get("data-planner-action") === "open")).toBe(false);
@@ -1069,7 +1125,7 @@ describe("read-only Pair Inspector UI", () => {
     expect(f.complete).toHaveBeenCalledOnce(); expect(f.stage()).toBe("result");
     expect(f.content.findByTag("img")).toHaveLength(0);
     expect(f.content.findByTag("p").some(el => el.text.includes("@relationship"))).toBe(false);
-    f.action("dismiss").trigger("click"); expect(f.stage()).toBe("dismissed");
+    expect(f.action("dismiss")).toBeUndefined();
     expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
     f.modal.close(); expect(f.listeners.size).toBe(0); setLanguage("ru");
   });
@@ -1084,15 +1140,15 @@ describe("read-only Pair Inspector UI", () => {
       f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
       expect(f.complete).not.toHaveBeenCalled(); f.action("confirm").trigger("click"); await flush();
       expect(f.stage()).toBe("result"); expect(f.complete).toHaveBeenCalledOnce();
-      const cards = f.content.findByClass("ai-semantic-duplicate-card"); expect(cards).toHaveLength(item.response.claims.length);
+      const cards = f.content.findByTag("article"); expect(cards).toHaveLength(item.response.claims.length);
       item.response.claims.forEach((claim, i) => {
-        const quotes = cards[i].findByTag("pre").map(el => el.text);
+        const quotes = cards[i].findByTag("blockquote").map(el => el.text);
         expect(quotes).toEqual([claim.quoteA, claim.quoteB].filter(quote => quote !== null));
         for (const [side, quote] of [["A", claim.quoteA], ["B", claim.quoteB]] as const) {
-          expect(cards[i].findByTag("p").some(el => el.text === t("@relationship.verifiedQuote", { side }))).toBe(quote !== null);
+          expect(cards[i].findByTag("strong").some(el => el.text.startsWith(`${side} · `))).toBe(quote !== null);
         }
       });
-      expect(f.content.findByTag("p").some(el => el.text === t("@relationship.evidenceScope"))).toBe(true);
+      expect(f.content.findByTag("small").some(el => el.text === t("@relationship.evidenceScope"))).toBe(true);
       expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled(); f.modal.close();
     }
     setLanguage("ru");
@@ -1133,7 +1189,7 @@ describe("read-only Pair Inspector UI", () => {
     const reads = f.app.vault.read.mock.calls.length; expect(button("open")).toBeDefined(); expect(button("build")).toBeUndefined();
     const oldPrepare = button("open");
     oldPrepare.trigger("click"); oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(reads + 2);
-    expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "source")!.value).toBe("0");
+    expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "source")).toBeUndefined(); // Validated embed direction is already fixed.
     expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "operation")).toBeUndefined();
     expect(button("build").disabled).toBe(true);
     select("range", "0"); expect(button("build").disabled).toBe(true);
@@ -1151,9 +1207,9 @@ describe("read-only Pair Inspector UI", () => {
     button("build").trigger("click"); await flush(); expect(f.content.findByClass("ai-planner-result")).toHaveLength(1);
     const beforeEvent = f.app.vault.read.mock.calls.length; f.app.metadataCache.emit("resolved");
     expect(f.content.findByClass("ai-planner-result")).toHaveLength(0); expect(f.stage()).toBe("result");
-    expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+    expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent + 2); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
     f.modal.close(); expect(f.content.children).toHaveLength(0);
-    oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent);
+    oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent + 2);
     setLanguage("ru");
   });
 

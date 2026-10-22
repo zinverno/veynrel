@@ -1,0 +1,5 @@
+{
+  "notes": 4,
+  "indexed": 4,
+  "provenance": "Synthetic chat/completions envelopes, NOT intercepted user HTTP. Loopback HTTP only; real requestUrl, parser, validator, planners and executors. Artificial vectors do not test embedding quality."
+}
