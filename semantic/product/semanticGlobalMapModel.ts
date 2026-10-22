@@ -2,7 +2,7 @@ import { compareStrings, isVaultPath } from "../../health/domain/validation";
 import type { SemanticIndexRevision } from "../../health/semanticHealthAnalysisPort";
 import type { SemanticGlobalFocus, SemanticGlobalMap, SemanticGlobalNode } from "../../health/semanticGlobalMapPort";
 import { GLOBAL_SEMANTIC_DOCUMENT_CAP, GLOBAL_SEMANTIC_NEIGHBORS } from "../globalSemanticMap";
-import type { GlobalSemanticAnalysis, GlobalSemanticNeighbor, GlobalSemanticDocument, GlobalSemanticRelationship, SemanticFocusAnalysis } from "../globalSemanticMap";
+import type { GlobalSemanticOptions, GlobalSemanticAnalysis, GlobalSemanticNeighbor, GlobalSemanticDocument, GlobalSemanticRelationship, SemanticFocusAnalysis } from "../globalSemanticMap";
 
 export class InvalidGlobalSemanticResult extends Error {}
 function requireValid(value: boolean): asserts value { if (!value) throw new InvalidGlobalSemanticResult(); }
@@ -24,25 +24,34 @@ export function projectSemanticFocus(result: SemanticFocusAnalysis | undefined, 
 }
 
 /** Reject the whole result on malformed counts/paths/ranks/relationships. Copy only public fields. */
-export function projectGlobalSemanticMap(result: GlobalSemanticAnalysis, revision: SemanticIndexRevision, capturedAt: number): SemanticGlobalMap | undefined {
+export function projectGlobalSemanticMap(result: GlobalSemanticAnalysis, revision: SemanticIndexRevision, capturedAt: number, selection?: GlobalSemanticOptions["selection"]): SemanticGlobalMap | undefined {
   requireValid(Boolean(result) && count(result.indexedNoteCount) && result.indexedNoteCount <= revision.vectorCount &&
     count(result.mappedNoteCount) && result.mappedNoteCount <= result.indexedNoteCount && count(capturedAt));
   if (result.state === "too-large") {
     requireValid(result.mappedNoteCount > GLOBAL_SEMANTIC_DOCUMENT_CAP); return undefined;
   }
   requireValid(result.mappedNoteCount <= GLOBAL_SEMANTIC_DOCUMENT_CAP);
+  if (selection) {
+    const summary = result.selection;
+    requireValid(Boolean(summary) && summary!.revision === selection.revision);
+    requireValid([summary!.eligibleNoteCount, summary!.excludedNoteCount, summary!.unknownNoteCount, summary!.excludedPairCount, summary!.unknownPairCount].every(count));
+    requireValid(summary!.eligibleNoteCount === result.mappedNoteCount + summary!.excludedNoteCount && summary!.eligibleNoteCount <= GLOBAL_SEMANTIC_DOCUMENT_CAP &&
+      summary!.eligibleNoteCount <= result.indexedNoteCount && summary!.unknownNoteCount <= summary!.eligibleNoteCount &&
+      summary!.excludedPairCount + summary!.unknownPairCount <= summary!.eligibleNoteCount * (summary!.eligibleNoteCount - 1) / 2);
+  } else requireValid(result.selection === undefined);
   if (result.state === "core-unavailable") return undefined;
-  requireValid(result.state === "ready" && result.mappedNoteCount > 0 && Array.isArray(result.nodes) && result.nodes.length === result.mappedNoteCount);
+  requireValid(result.state === "ready" && (result.mappedNoteCount > 0 || Boolean(selection && result.selection?.excludedNoteCount)) && Array.isArray(result.nodes) && result.nodes.length === result.mappedNoteCount);
   const documents = result.nodes as readonly GlobalSemanticDocument[];
   const paths = new Set<string>();
   for (const node of documents) {
-    requireValid(Boolean(node) && isVaultPath(node.path) && !paths.has(node.path)); paths.add(node.path);
+    requireValid(Boolean(node) && isVaultPath(node.path) && !paths.has(node.path) && (!selection || selection.document(node.path) !== "exclude")); paths.add(node.path);
   }
   const nodes = Array.from(documents, (node): SemanticGlobalNode => {
-    requireValid(score(node.coreSimilarity) && Array.isArray(node.neighbors) && node.neighbors.length === Math.min(GLOBAL_SEMANTIC_NEIGHBORS, paths.size - 1));
+    const available = selection ? [...paths].filter(path => path !== node.path && selection.pair(node.path, path) === "allow").length : paths.size - 1;
+    requireValid(score(node.coreSimilarity) && Array.isArray(node.neighbors) && node.neighbors.length === Math.min(GLOBAL_SEMANTIC_NEIGHBORS, available));
     const seen = new Set<string>();
     const neighbors = Array.from(node.neighbors, (neighbor: GlobalSemanticNeighbor) => {
-      requireValid(Boolean(neighbor) && paths.has(neighbor.path) && neighbor.path !== node.path && !seen.has(neighbor.path) && score(neighbor.score));
+      requireValid(Boolean(neighbor) && paths.has(neighbor.path) && neighbor.path !== node.path && !seen.has(neighbor.path) && score(neighbor.score) && (!selection || selection.pair(node.path, neighbor.path) === "allow"));
       seen.add(neighbor.path); return Object.freeze({ path: neighbor.path, score: neighbor.score });
     });
     const sorted = [...neighbors].sort((a, b) => b.score - a.score || compareStrings(a.path, b.path));

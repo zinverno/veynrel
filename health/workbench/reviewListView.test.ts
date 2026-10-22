@@ -173,3 +173,14 @@ it("saved decisions filter active pairs and counts, preserve return context, and
   await vi.waitFor(() => expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(1));
   expect(f.forbidden).not.toHaveBeenCalled(); f.view.dispose();
 });
+
+it("offers the shared rules editor only in Connections; opening does not compute, write or mount the map", async () => {
+  const { ConnectionRules } = await import("../connections/connectionRules");
+  const write = vi.fn(async () => {}), rules = new ConnectionRules({ read: async () => null, write }, async () => null);
+  await rules.load(); const f = setup(), close = vi.fn(), edit = vi.fn(() => close);
+  f.data.dependencies.rules = rules; f.data.dependencies.editRules = edit; f.view.update([finding]);
+  expect(f.action("review-rules")).toBeUndefined(); f.action("review-connections").click();
+  expect(f.action("review-rules").text).toContain("(0)"); f.action("review-rules").click();
+  expect(edit).toHaveBeenCalledOnce(); expect(write).not.toHaveBeenCalled(); expect(f.map).not.toHaveBeenCalled(); expect(f.forbidden).not.toHaveBeenCalled();
+  f.view.dispose(); expect(close).toHaveBeenCalledOnce();
+});

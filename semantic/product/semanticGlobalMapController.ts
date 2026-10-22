@@ -1,3 +1,4 @@
+import type { ConnectionSelectionSource } from "../../health/semanticGlobalMapPort";
 import type { SemanticIndexRevision } from "../../health/semanticHealthAnalysisPort";
 import type { SemanticGlobalMapPort, SemanticGlobalMapProductSnapshot, SemanticGlobalSearchResult, SemanticMapScope } from "../../health/semanticGlobalMapPort";
 import { GLOBAL_SEMANTIC_DOCUMENT_CAP } from "../globalSemanticMap";
@@ -18,18 +19,20 @@ export class SemanticGlobalMapController implements SemanticGlobalMapPort {
   private readonly listeners = new Set<() => void>();
   private readonly unsubscribe: () => void;
   private revision?: SemanticIndexRevision;
+  private readonly removeSelection?: () => void;
   private abort?: AbortController;
   private pending?: Promise<void>;
   private epoch = 0;
   private disposed = false;
 
-  constructor(private readonly engine: SemanticGlobalMapEngine, private readonly scope?: SemanticMapScope) {
+  constructor(private readonly engine: SemanticGlobalMapEngine, private readonly scope?: SemanticMapScope, private readonly selection?: ConnectionSelectionSource) {
+    this.removeSelection = selection?.subscribe(() => { if (!this.disposed) this.invalidate(); });
     this.unsubscribe = engine.subscribeStatus(() => {
       if (!this.disposed && this.revision && !sameSemanticIndexRevision(this.revision, semanticIndexRevision(engine.getCachedIndexState()))) this.invalidate();
     });
   }
-  createScoped(scope: SemanticMapScope): SemanticGlobalMapPort {
-    return new SemanticGlobalMapController(this.engine, Object.freeze({ ...scope, paths: Object.freeze([...scope.paths]) }));
+  createScoped(scope: SemanticMapScope, selection?: ConnectionSelectionSource): SemanticGlobalMapPort {
+    return new SemanticGlobalMapController(this.engine, Object.freeze({ ...scope, paths: Object.freeze([...scope.paths]) }), selection);
   }
   async prepareExisting(): Promise<void> {
     if (!this.disposed) await this.engine.refreshSemanticStatus?.();
@@ -63,7 +66,7 @@ export class SemanticGlobalMapController implements SemanticGlobalMapPort {
     const matches = this.disposed ? [] : (this.snapshot.map?.nodes ?? []).filter((node) => node.path.toLowerCase().includes(needle) || node.basename.toLowerCase().includes(needle));
     return Object.freeze({ nodes: Object.freeze(matches.slice(0, 20)), total: matches.length });
   }
-  dispose(): void { this.disposed = true; this.epoch++; this.abort?.abort(); this.unsubscribe(); this.listeners.clear(); }
+  dispose(): void { this.disposed = true; this.epoch++; this.abort?.abort(); this.unsubscribe(); this.removeSelection?.(); this.listeners.clear(); }
   private invalidate(): void {
     this.epoch++; this.abort?.abort(); this.revision = undefined;
     this.publish({ ...this.snapshot, state: "stale", reason: "changed", progress: undefined });
@@ -92,16 +95,18 @@ export class SemanticGlobalMapController implements SemanticGlobalMapPort {
           this.publish({ ...this.snapshot, focus, focusError: undefined });
           return;
         }
-        const result = await this.engine.analyzeGlobalSemanticMap({ ...(this.scope ? { paths: this.scope.paths } : {}), signal: abort.signal, onProgress: (progress) => {
+        const selection = this.selection?.capture();
+        const result = await this.engine.analyzeGlobalSemanticMap({ ...(selection ? { selection } : {}), ...(this.scope ? { paths: this.scope.paths } : {}), signal: abort.signal, onProgress: (progress) => {
           if (this.current(epoch, revision)) this.publish({ ...this.snapshot, progress: Object.freeze({ ...progress }) });
         } });
         if (!this.current(epoch, revision)) return;
-        const projected = projectGlobalSemanticMap(result, revision, Date.now());
+        if (this.selection && this.selection.capture()?.revision !== selection?.revision) { this.invalidate(); return; }
+        const projected = projectGlobalSemanticMap(result, revision, Date.now(), selection);
         if (this.scope && projected?.nodes.some(node => !this.scope!.paths.includes(node.path))) throw new InvalidGlobalSemanticResult();
         const map = projected && this.scope ? Object.freeze({ ...projected, scope: this.scope }) : projected;
         if (!this.current(epoch, revision)) return;
         this.publish({ state: map ? "ready" : "unavailable", reason: result.state === "ready" ? undefined : result.state,
-          map, indexedNoteCount: result.indexedNoteCount, mappedNoteCount: result.mappedNoteCount,
+          map, selection: result.selection && Object.freeze({ ...result.selection }), indexedNoteCount: result.indexedNoteCount, mappedNoteCount: result.mappedNoteCount,
           busy: true, supportedNoteCount: GLOBAL_SEMANTIC_DOCUMENT_CAP });
       } catch (error) {
         if (this.current(epoch, revision)) this.publish(focusPath !== undefined ? { ...this.snapshot, focusError: true } :

@@ -1,3 +1,6 @@
+import { ConnectionRulesModal } from "./connectionRulesModal";
+import { createConnectionRules } from "./connectionRules";
+import { compileConnectionRules } from "../connections/connectionRules";
 import { WorkbenchData } from "../workbench/workbenchData";
 import type { PairReviewPort } from "../workbench/workbenchData";
 import type { WorkbenchTagsPort } from "../workbench/workbenchTags";
@@ -29,16 +32,26 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
   semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort,
   createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort, neighborhood?: SemanticNeighborhoodPort, globalMap?: SemanticGlobalMapPort, pairReview?: PairReviewPort,
   createTags?: (paths: readonly string[]) => WorkbenchTagsPort): void {
+  const rules = createConnectionRules(plugin);
   const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
   const authoring = createAuthoring?.(recall);
   const topology = createObsidianVaultTopology(plugin.app);
   const createComparison = (map: SemanticGlobalMapPort): ConnectionComparisonController => new ConnectionComparisonController(map, topology);
   const comparison = globalMap ? createComparison(globalMap) : undefined;
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall), deepAnalysis);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison, pairReview ? { pair: pairReview, create: (scope, graphical = false) => new WorkbenchData(scope, {
-    topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope) : undefined, createComparison, duplicates: semanticAnalysis, tags: graphical ? createTags?.(scope.paths) : undefined,
-    prepareExisting: () => globalMap?.prepareExisting?.() ?? Promise.resolve(), subscribeIndex: semantic ? listener => semantic.subscribe(listener) : undefined,
-  }, graphical) } : undefined));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison, pairReview ? { pair: pairReview, create: (scope, graphical = false) => {
+    const tags = createTags?.(scope.paths);
+    const selection = !graphical && tags ? {
+      capture: () => compileConnectionRules(rules, tags.getSnapshot()),
+      subscribe: (listener: () => void) => { const a = rules.subscribe(listener), b = tags.subscribe(listener); return () => { a(); b(); }; },
+    } : undefined;
+    return new WorkbenchData(scope, {
+      topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope, selection) : undefined,
+      createComparison, duplicates: semanticAnalysis, tags, rules: graphical ? undefined : rules,
+      editRules: !graphical && tags ? () => { const modal = new ConnectionRulesModal(plugin.app, rules, tags, scope.paths); modal.open(); return () => modal.close(); } : undefined,
+      prepareExisting: () => globalMap?.prepareExisting?.() ?? Promise.resolve(), subscribeIndex: semantic ? listener => semantic.subscribe(listener) : undefined,
+    }, graphical);
+  } } : undefined));
   plugin.register(() => comparison?.dispose());
   plugin.register(() => globalMap?.dispose());
   plugin.register(() => neighborhood?.dispose());

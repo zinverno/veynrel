@@ -17,6 +17,8 @@ export interface WorkbenchDependencies {
   createComparison: (semantic: SemanticGlobalMapPort) => ConnectionComparisonPort;
   duplicates?: SemanticHealthAnalysisPort;
   tags?: WorkbenchTagsPort;
+  editRules?: () => () => void;
+  rules?: import("../connections/connectionRules").ConnectionRulesPort;
   prepareExisting?: () => Promise<void>;
   subscribeIndex?: (listener: () => void) => () => void;
 }
@@ -43,6 +45,7 @@ export class WorkbenchData {
       this.emit();
     };
     this.removers = [dependencies.topology.subscribe(changed)];
+    if (dependencies.rules) this.removers.push(dependencies.rules.subscribe(changed));
     if (dependencies.tags) this.removers.push(dependencies.tags.subscribe(changed));
     if (this.semantic) this.removers.push(this.semantic.subscribe(changed));
     if (this.comparison) this.removers.push(this.comparison.subscribe(changed));
@@ -74,6 +77,8 @@ export class WorkbenchData {
     if (task === "map") this.dependencies.tags?.refresh();
     const current = (): boolean => !this.disposed && epoch === this.epoch;
     try {
+      if (task === "connections" && this.dependencies.rules) { await this.dependencies.rules.load(); await this.dependencies.rules.refreshFolders(); }
+      if (!current()) return;
       if (this.dependencies.prepareExisting) await this.dependencies.prepareExisting();
       else await this.semantic?.prepareExisting?.();
       if (!current()) return;

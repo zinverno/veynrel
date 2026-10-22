@@ -24,6 +24,7 @@ export class ReviewListView {
   private restoring?: string;
   private reviewedOpen = false;
   private readonly facts?: import("./reviewFacts").ReviewFactsPort;
+  private closeRules?: () => void;
   private stopReview?: () => void;
   private map?: OptionalMap;
   private findings: readonly Finding[] = [];
@@ -31,6 +32,7 @@ export class ReviewListView {
   private query = "";
   private limit = 60;
   private selected?: WorkbenchPair;
+  private previousConnections: readonly WorkbenchPair[] = [];
   private scroll = 0;
   private generation = 0;
   private disposed = false;
@@ -45,6 +47,7 @@ export class ReviewListView {
     this.facts = pair.localFacts?.(() => this.render());
     this.remove = data.subscribe(() => this.render());
     this.removeDecisions = pair.decisions?.subscribe(() => this.render());
+    void data.dependencies.rules?.load().catch(() => {});
     void pair.decisions?.load().catch(() => {});
     this.render();
   }
@@ -63,6 +66,7 @@ export class ReviewListView {
   }
   suspend(): void {
     this.suspended = true; this.generation++;
+    this.closeRules?.(); this.closeRules = undefined;
     this.stopReview?.(); this.stopReview = undefined;
     this.map?.dispose(); this.map = undefined;
     this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
@@ -129,6 +133,10 @@ export class ReviewListView {
       const control = button(modes, t(`@workbench.${mode}`), () => { this.mode = mode; this.limit = 60; this.render(); }, `review-${mode}`);
       control.setAttribute("aria-pressed", String(this.mode === mode));
     }
+    if (this.mode === "connections" && this.data.dependencies.editRules) {
+      const count = this.data.dependencies.rules?.list().filter(r => r.enabled).length ?? 0;
+      button(toolbar, `${t("@rules.title")} (${count})`, () => { this.closeRules = this.data.dependencies.editRules!(); }, "review-rules");
+    }
     button(toolbar, t("@safeApply.history"), () => this.actions.history(), "review-history");
     button(toolbar, t("@review.map"), () => {
       this.scroll = this.scrollOwner.scrollTop; this.browser.hidden = true; this.detail.hidden = false; this.detail.empty(); this.generation++;
@@ -142,7 +150,9 @@ export class ReviewListView {
     search.addEventListener("input", () => { if (current()) { this.query = search.value; this.limit = 60; this.render(); } });
     button(searchRow, t("@review.refresh"), () => { void this.data.refresh(this.mode); }, "review-refresh", this.data.busy, true);
     const model = workbenchModel(this.data, this.findings.filter(f => f.state === "open"));
-    const all = this.mode === "repeats" ? model.repeats : model.connections;
+    if (model.comparisonCurrent) this.previousConnections = model.connections;
+    const staleConnections = ["stale", "loading"].includes(this.data.comparison?.getSnapshot().state ?? "");
+    const all = this.mode === "repeats" ? model.repeats : staleConnections ? this.previousConnections : model.connections;
     const includesQuery = (paths: readonly string[]) => paths.some(path => path.toLowerCase().includes(this.query.trim().toLowerCase()));
     const checking = (pair: WorkbenchPair) => this.pair.decisions?.state === "loading" ||
       this.pair.decisions?.hasPaths(pair.paths) && (!this.facts?.get(pair.paths) || this.facts.get(pair.paths)?.state === "checking");
@@ -154,6 +164,7 @@ export class ReviewListView {
       details.open = this.reviewedOpen;
       details.addEventListener("toggle", () => { if (current()) this.reviewedOpen = details.open; });
       details.createEl("p", { text: t("@decision.scope") });
+      if (this.mode === "connections" && this.data.dependencies.rules?.list().some(r => r.enabled)) details.createEl("p", { text: t("@rules.reviewed") });
       for (const record of reviewed) {
         const row = details.createDiv({ cls: "veynrel-review-toolbar" });
         row.createSpan({ text: record.notes.map(n => n.path.replace(/\.md$/iu, "")).join(" · ") });
@@ -180,6 +191,18 @@ export class ReviewListView {
       if (this.data.duplicates) coverage.createEl("pre", { text: JSON.stringify(this.data.duplicates.revision, null, 2) });
     } else {
       const semantic = this.data.semantic?.getSnapshot();
+      const rules = this.data.dependencies.rules;
+      if (rules?.state === "error") status.createEl("p", { text: t("@rules.loadError"), attr: { role: "alert" } });
+      const enabledRules = rules?.list().filter(r => r.enabled) ?? [];
+      if (enabledRules.length === 1) {
+        const r = enabledRules[0];
+        status.createEl("p", { text: `${t(`@rules.${r.mode}`)} · ${r.selector.kind === "tag" ? "#" : ""}${r.selector.value}` });
+      } else if (enabledRules.length) status.createEl("p", { text: t("@rules.activeHint", { count: enabledRules.length }) });
+      if (semantic?.selection) {
+        const s = semantic.selection;
+        status.createEl("p", { text: t("@rules.coverage", { eligible: s.eligibleNoteCount, excluded: s.excludedNoteCount, pairs: s.excludedPairCount, unknown: s.unknownNoteCount, pending: s.unknownPairCount }), attr: { "data-rules-coverage": "" } });
+      }
+      if (semantic?.state === "stale" || this.data.comparison?.getSnapshot().state === "stale") status.createEl("p", { text: t("@rules.refresh") });
       if (semantic?.reason === "too-large") status.createEl("p", { text: t("@workbench.cap", { cap: semantic.supportedNoteCount, count: semantic.indexedNoteCount ?? "—" }) });
       const coverage = healthDetails(status, t("@workbench.coverage"), "review-coverage");
       coverage.createEl("p", { text: t("@workbench.ranking") });
