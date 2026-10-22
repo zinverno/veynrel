@@ -3093,3 +3093,47 @@
 /* Compact native rules form; no changes to the accepted pair presentation. */
 .veynrel-connection-rules select { max-width: 100%; min-width: 0; white-space: normal; height: auto; }
 .veynrel-connection-rules .veynrel-review-status { border-top: 1px solid var(--background-modifier-border); padding-block: 8px; overflow-wrap: anywhere; }
+
+/* The optional map lives inside the list's return route, with a bounded flex height. */
+.veynrel-shell-main > div:has(> .veynrel-review [data-review-surface="map"]:not([hidden])),
+.veynrel-review:has(> [data-review-surface="map"]:not([hidden])) { height: 100%; min-height: 0; }
+.veynrel-review-detail[data-review-surface="map"] { display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 0; }
+.veynrel-review-detail[data-review-surface="map"] > button { align-self: flex-start; flex-shrink: 0; }
+.veynrel-review-map-host { flex: 1; min-height: 0; }
+.veynrel-review [hidden], .veynrel-home-folders[hidden] { display: none; }
+.veynrel-review-list > h1 { margin-bottom: 8px; }
+.veynrel-review-list > p { color: var(--text-muted); }
+.veynrel-review-queues { display: flex; gap: 4px; width: fit-content; padding: 4px; margin-block: 20px 14px; background: var(--background-secondary); border-radius: var(--radius-m); }
+.veynrel-review-queues button { box-shadow: none; background: transparent; border: 1px solid transparent; }
+.veynrel-review-queues button[aria-pressed="true"] { background: var(--background-primary); border-color: var(--background-modifier-border); font-weight: var(--font-semibold); color: var(--text-normal); }
+.veynrel-review .veynrel-review-status { padding: 12px 16px; background: var(--background-secondary); border-radius: var(--radius-m); }
+.veynrel-review .veynrel-review-status .veynrel-details { margin-top: 8px; }
+.veynrel-review-results { display: grid; gap: 8px; }
+.veynrel-review-row { border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); padding: 16px; }
+.veynrel-review-facts { border-inline-start: 2px solid var(--background-modifier-border); padding-inline-start: 12px; }
+.veynrel-reviewed > p { color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-reviewed-row { display: flex; align-items: center; gap: 16px; padding: 16px; margin-block: 8px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); }
+.veynrel-reviewed-row > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.veynrel-reviewed-row button { flex-shrink: 0; }
+.veynrel-home-folders { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 8px; padding: 0 20px 20px; }
+.veynrel-home-folders button { display: grid; gap: 4px; height: auto; min-width: 0; padding: 12px; text-align: start; white-space: normal; overflow-wrap: anywhere; }
+.veynrel-home-folders small { color: var(--text-muted); }
+.veynrel-health-view .veynrel-core-foot { position: static; flex-wrap: wrap; padding: 12px 20px; }
+.veynrel-recall, .veynrel-recall-authoring { max-width: 60rem; margin-inline: auto; }
+.veynrel-recall-overview, .veynrel-recall-authoring { padding: 20px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-l); background: var(--background-primary); }
+.veynrel-recall-overview { margin-top: 20px; }
+.veynrel-recall-overview > p:first-child, .veynrel-recall-authoring > h2 { margin-top: 0; }
+.veynrel-health-view .veynrel-recall-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-block: 20px; }
+.veynrel-health-view .veynrel-recall-stats > div { padding: 16px; background: var(--background-secondary); border-radius: var(--radius-m); }
+.veynrel-health-view .veynrel-recall-stats > div:first-child dd { color: var(--text-accent); }
+.veynrel-recall-overview .veynrel-recall-actions { margin-block: 16px 12px; }
+.veynrel-recall-authoring { margin-top: 16px; }
+.veynrel-recall-authoring h2 { font-size: var(--h3-size); }
+@container (max-width: 500px) {
+  .veynrel-reviewed-row { align-items: stretch; flex-direction: column; gap: 12px; }
+  .veynrel-recall-overview, .veynrel-recall-authoring { padding: 14px; }
+  .veynrel-health-view .veynrel-recall-stats { gap: 6px; }
+  .veynrel-health-view .veynrel-recall-stats > div { padding: 10px; }
+  .veynrel-review-queues { width: 100%; }
+  .veynrel-review-queues button { flex: 1; white-space: normal; height: auto; min-height: 36px; }
+}

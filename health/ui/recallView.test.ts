@@ -105,6 +105,17 @@ async function reviewFixture() {
 }
 
 const recallCard = (f: ReturnType<typeof fixture>) => f.content.querySelector('[data-dimension="recall"]')!;
+it("shows authoring inline and groups due/active/new with the next action, without automatic inventory", async () => {
+  const f = fixture(undefined, true, true); await f.view.onOpen(); f.action("nav-recall").click(); await flush();
+  expect(f.content.action("recall-authoring-about")).toBeUndefined();
+  expect(f.content.texts()).toContain("Turn a note into review cards");
+  expect(f.vault.read).not.toHaveBeenCalled();
+  f.action("recall-refresh").click(); await vi.waitFor(() => expect(f.content.action("recall-start")).toBeDefined());
+  const overview = f.content.all().find(e => e.cls === "veynrel-recall-overview")!;
+  expect(overview.all().filter(e => e.tag === "dt")).toHaveLength(3);
+  expect(overview.action("recall-start")).toBeDefined(); expect(overview.action("recall-refresh")).toBeDefined();
+  expect(f.build).not.toHaveBeenCalled(); await f.view.onClose();
+});
 const healthBytes = (f: ReturnType<typeof fixture>) => [...f.files].filter(([path]) => path.startsWith(`${root}/`));
 
 describe("Recall authoring presentation", () => {

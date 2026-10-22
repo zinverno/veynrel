@@ -72,26 +72,29 @@ export function renderRecall(parent: HTMLElement, model: RecallViewModel, action
     healthButton(section, t("@recall.back"), actions.back, "recall-back").addClass("veynrel-quiet");
     return () => {};
   }
-  section.createEl("p", { text: model.mode === "first-run" ? t("@recall.first-run") : model.introduction, cls: "veynrel-health-muted" });
-  if (model.mode === "first-run") {
-    section.createEl("p", { text: t("@recall.syntax") });
-    const example = section.createEl("pre").createEl("code");
-    example.textContent = "## Flashcards\n\nquestion::answer";
-  } else if (model.mode === "empty") {
-    section.createEl("h2", { text: model.emptyTitle });
-    section.createEl("p", { text: t("@recall.empty-help") });
-  } else {
-    const stats = section.createEl("dl", { cls: "veynrel-recall-stats" });
+  const overview = section.createDiv({ cls: "veynrel-recall-overview" });
+  overview.createEl("p", { text: model.mode === "first-run" ? t("@recall.first-run") : model.introduction, cls: "veynrel-health-muted" });
+  if (model.mode !== "first-run" && model.stats.length) {
+    const stats = overview.createEl("dl", { cls: "veynrel-recall-stats" });
     for (const stat of model.stats) {
       const item = stats.createDiv(); item.createEl("dt", { text: stat.label }); item.createEl("dd", { text: String(stat.value) });
     }
-    if (model.start) healthButton(section, t("@recall.start"), actions.start, "recall-start", model.busy, true);
-    else section.createEl("p", { text: t("@recall.no-due") });
-    if (model.nextDue) section.createEl("p", { text: t("@recall.next-at", { date: model.nextDue }) });
   }
-  const controls = section.createDiv({ cls: "veynrel-recall-actions" });
+  if (model.mode === "first-run") {
+    overview.createEl("p", { text: t("@recall.syntax") });
+    const example = overview.createEl("pre").createEl("code");
+    example.textContent = "## Flashcards\n\nquestion::answer";
+  } else if (model.mode === "empty") {
+    overview.createEl("h2", { text: model.emptyTitle });
+    overview.createEl("p", { text: t("@recall.empty-help") });
+  } else {
+    if (!model.start) overview.createEl("p", { text: t("@recall.no-due") });
+    if (model.nextDue) overview.createEl("p", { text: t("@recall.next-at", { date: model.nextDue }) });
+  }
+  const controls = overview.createDiv({ cls: "veynrel-recall-actions" });
+  if (model.start) healthButton(controls, t("@recall.start"), actions.start, "recall-start", model.busy, true);
   healthButton(controls, t(model.mode === "first-run" ? "@recall.find" : "@recall.refresh"), actions.refresh, "recall-refresh", model.busy, model.mode === "first-run").addClass("veynrel-quiet");
-  section.createEl("p", { text: t("@recall.source-help"), cls: "veynrel-health-muted" });
+  overview.createEl("p", { text: t("@recall.source-help"), cls: "veynrel-health-muted" });
   if (!model.inventoryEstablished && model.mode !== "first-run") section.createEl("p", { text: t("@recall.inventory-not-established"), cls: "veynrel-health-muted" });
   return () => {};
 }

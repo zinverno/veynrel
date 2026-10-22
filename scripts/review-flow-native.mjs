@@ -5,6 +5,7 @@ import {generate} from './acceptance-lab/generate.mjs';
 import {archiveChain,swapBuild,scaleChecks,stateChecks} from './beta-integration-native.mjs';
 import {reviewRuleChecks} from './review-rules-native.mjs';
 import {reviewDecisionChecks} from './review-decisions-native.mjs';
+import {polishChecks} from './beta-ux-polish-native.mjs';
 import os from 'node:os';
 import path from 'node:path';
 import {createServer} from 'node:http';
@@ -37,6 +38,9 @@ const rulePaths=mode==='rules'?['Tasks','Theory'].flatMap(group=>Array.from({len
 for(const p of rulePaths){fs.mkdirSync(path.dirname(vault+'/'+p),{recursive:true});const task=p.includes('/Tasks/'),i=Number(p.match(/(\d+)\.md$/u)[1]);
  fs.writeFileSync(vault+'/'+p,(task&&i%2===0?'---\ntags: [practice/task, topic/cache]\n---\n\n':task?'#practice/task #topic/cache\n\n':'#topic/cache\n\n')+(task?fixture.a:fixture.b));}
 let indexPaths=[...pairPaths,...unsupportedPaths,...combinePaths,...rulePaths];
+if(mode?.startsWith('polish-')){
+ for(let i=1;i<=8;i++){const p=`Area ${i}/Learning ${i}.md`;fs.mkdirSync(path.dirname(vault+'/'+p),{recursive:true});fs.writeFileSync(vault+'/'+p,`# Synthetic learning ${i}\n\nA short explanation for the interface fixture.\n`);indexPaths.push(p);}
+}
 const scaleCount=mode?.startsWith('scale-')?Number(mode.slice(6)):undefined;
 if(scaleCount!==undefined){
  assert([0,154,500,1000].includes(scaleCount));
@@ -51,6 +55,10 @@ const server=createServer(async(req,res)=>{
  if(req.method!=='POST'||req.url!=='/v1/chat/completions'){res.writeHead(400).end();return;}
  let body='';for await(const chunk of req){body+=chunk;if(body.length>128*1024){res.writeHead(413).end();return;}}
  requests.push(body);
+ if(mode?.startsWith('polish-')){
+  assert(JSON.parse(body).messages.some(m=>m.content.includes('Synthetic learning')));
+  res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:'What does an index support?::Efficient lookup.\nWhat is a cache?::Stored reusable results.'}}]}));return;
+ }
  const {alternatives: _legacyAlternatives,...response}=structuredClone(fixture.response);
  let request;try{request=JSON.parse(JSON.parse(body).messages[1].content);}catch{res.writeHead(400,{'Content-Type':'application/json'}).end(JSON.stringify({error:{message:'Only Relationship Analyzer synthetic fixtures are accepted'}}));return;}
  assert.equal(request.schema,'veynrel.relationship.refs.v2');
@@ -156,7 +164,11 @@ try{
    await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-intent-action=primary]')");await wait("[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
    assert.equal(requests.at(-1),bodies.at(-1));
  };
- if(mode==='state'){
+ if(mode?.startsWith('polish-')){
+   await ev('hv.workbenchHost.create=realHostCreate;void 0');
+   await polishChecks({ev,wait,click,clickSelector,field,shot,startVideo,stopVideo,pass,openPair,locale,cdp,pause,settle,
+     root,vault,dir,before,markdown,requests,checks,metrics,screenshots,sourceCommit,after:mode==='polish-after'});
+ } else if(mode==='state'){
    await stateChecks({ev,wait,click,clickSelector,openPair,root,dir,vault,before,markdown,requests,shot,sourceCommit});
  } else if(scaleCount!==undefined){
    await scaleChecks({ev,wait,click,clickSelector,field,shot,closeModals,root,vault,before,markdown,checks,metrics,requests,sourceCommit,count:scaleCount});

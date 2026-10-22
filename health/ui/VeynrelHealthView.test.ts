@@ -1913,6 +1913,21 @@ describe("Stage 1 native home and scope boundaries", () => {
     f.content.action("scope-all").click(); expect(f.content.action("open-scope").disabled).toBe(false);
     await f.view.onClose();
   });
+  it("exposes every omitted root folder through an explicit count and keeps the selected folder visible", async () => {
+    const f = fixture();
+    f.vault.getAllFolders.mockReturnValue(Array.from({ length: 11 }, (_, i) => ({ path: `Area ${String(i).padStart(2, "0")}` })));
+    await f.view.onOpen();
+    const more = f.content.action("home-more-folders");
+    expect(more.text).toBe("5 more folders"); expect(more.attrs["aria-expanded"]).toBe("false");
+    expect(f.content.all().filter(e => e.attrs["data-home-folder"])).toHaveLength(5);
+    more.click(); expect(more.attrs["aria-expanded"]).toBe("true");
+    f.content.action("home-folder-Area%2010").click();
+    expect(f.content.action("scope-5").attrs["title"]).toBe("Area 10");
+    expect(f.content.action("scope-5").attrs["aria-pressed"]).toBe("true");
+    expect(f.content.all().filter(e => e.attrs["data-home-folder"])).toHaveLength(5);
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+    await f.view.onClose();
+  });
   it("keeps catalog details closed and preserves every launcher without choosing an editor", async () => {
     const f = fixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
     const details = f.content.all().filter(e => e.tag === "details");
