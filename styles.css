@@ -2982,3 +2982,21 @@
   .veynrel-review-row { grid-template-columns: minmax(0, 1fr); }
   .veynrel-review-row p { grid-row: auto; }
 }
+
+/* Review flow: one scroll owner; exact source/diff details remain keyboard accessible. */
+.veynrel-review .ai-relationship { max-height: none; margin-block: 8px; }
+.veynrel-review .ai-relationship-body { overflow: visible; }
+.veynrel-review :is(h1, h2, h3, h4, p) { margin-block: 8px; }
+.veynrel-review-toolbar { margin-block: 8px; gap: 8px; }
+.veynrel-review-results { margin-block: 12px; }
+.veynrel-review-row { padding-block: 12px; gap: 12px; }
+.veynrel-review-facts { min-width: 0; display: grid; gap: 4px; }
+.veynrel-review .ai-relationship-summary { gap: 8px; margin-block: 12px; }
+.veynrel-review [data-intent-origin] { padding-block: 4px; }
+.ai-consolidation-summary p { margin-block: 6px; overflow-wrap: anywhere; }
+.ai-review-actions { position: sticky; bottom: 0; padding-block: 10px; background: var(--background-primary); z-index: 1; }
+.veynrel-review .mod-cta, .ai-change-planner .mod-cta { background: var(--interactive-accent); color: var(--text-on-accent); }
+.veynrel-review button:disabled, .ai-change-planner button:disabled { opacity: .65; }
+@media (max-width: 700px) { .veynrel-review-facts { grid-column: 1 / -1; } }
+
+.veynrel-review .veynrel-review-facts p { margin: 0; }

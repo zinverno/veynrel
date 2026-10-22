@@ -953,12 +953,11 @@ describe("read-only Pair Inspector UI", () => {
     const planning = () => f.content.findByClass("ai-change-planner")[0];
     const analysis = () => f.content.findByClass("ai-relationship")[0];
     expect(notes().hidden).toBe(false); expect(planning().hidden).toBe(true);
-    expect(f.content.findByClass("ai-pair-excerpt").map(el => el.text)).toEqual([...f.bodies.values()]);
+    expect(f.content.findByClass("ai-pair-source").map(el => el.text)).toEqual([...f.bodies.values()]);
     f.action("analyze").trigger("click"); await flush(); expect(notes().hidden).toBe(true);
     f.action("confirm").trigger("click"); await flush(); expect(f.stage()).toBe("result");
-    f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "open")!.trigger("click"); await flush();
-    expect(analysis().hidden).toBe(true); expect(planning().hidden).toBe(false);
-    f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "back-result")!.trigger("click");
+    const unavailable = f.content.findByTag("button").find(el => el.attributes.get("data-planner-action") === "open")!;
+    expect(unavailable.disabled).toBe(true); unavailable.trigger("click"); await flush();
     expect(analysis().hidden).toBe(false); expect(planning().hidden).toBe(true); expect(f.complete).toHaveBeenCalledOnce();
     f.action("dismiss").trigger("click"); expect(f.action("analyze").hidden).toBe(false); expect(notes().hidden).toBe(false);
     f.action("analyze").trigger("click"); await flush(); f.action("confirm").trigger("click"); await flush();
@@ -1151,9 +1150,9 @@ describe("read-only Pair Inspector UI", () => {
     button("build").trigger("click"); await flush(); expect(f.content.findByClass("ai-planner-result")).toHaveLength(1);
     const beforeEvent = f.app.vault.read.mock.calls.length; f.app.metadataCache.emit("resolved");
     expect(f.content.findByClass("ai-planner-result")).toHaveLength(0); expect(f.stage()).toBe("result");
-    expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+    expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent + 2); expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
     f.modal.close(); expect(f.content.children).toHaveLength(0);
-    oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent);
+    oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(beforeEvent + 2);
     setLanguage("ru");
   });
 

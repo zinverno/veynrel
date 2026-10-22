@@ -1,3 +1,4 @@
+import { keepReviewSeparate } from "./reviewDecisions";
 import type { App } from "obsidian";
 import type { TAbstractFile } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
@@ -20,15 +21,18 @@ import { readMergeIncoming } from "./obsidianMergeApply";
 import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { obsidianSafeApplyPort } from "./obsidianSafeApply";
 import { EmptyAtomApplyModal } from "./emptyAtomApplyModal";
+import { RecommendationPreflight } from "./recommendationPreflight";
+import { recommendationIntent } from "./recommendationIntent";
 import { focusStatus } from "./consolidationUx";
 
-/** One disposable view: listeners only invalidate; reading requires open or refresh. */
+/** Disposable pair owner; metadata readiness may recheck availability, never rerun analysis. */
 export class PairReview {
   private openState = false;
   private generation = 0;
   private readonly cleanup: (() => void)[] = [];
   private relationship?: RelationshipSession;
   private planner?: ChangePlannerSession;
+  private preflight?: RecommendationPreflight;
 
   constructor(private readonly app: App, private readonly contentEl: HTMLElement, private readonly paths: readonly [string, string],
     private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService) {}
@@ -54,8 +58,18 @@ export class PairReview {
     backResult.addEventListener("click", () => {
       if (!this.openState) return;
       this.planner?.close(); this.planner = undefined; planning.empty(); planning.hidden = true;
-      analysis.hidden = false; backResult.hidden = true; focusStatus(analysis);
+      analysis.hidden = false; backResult.hidden = true; renderAnalysis(); checkAvailability(); focusStatus(analysis);
     });
+    const pendingMetadata = new Set<string>();
+    let renderAnalysis = () => {};
+    this.preflight = new RecommendationPreflight(async () => {
+      if (this.paths.some(path => pendingMetadata.has(path))) throw new Error("metadata");
+      return readPlannerPair(this.app, this.paths);
+    }, () => renderAnalysis());
+    const checkAvailability = () => {
+      const expected = this.relationship?.analysisSource;
+      if (expected) void this.preflight!.check(expected, () => this.openState && this.relationship?.analysisSource === expected);
+    };
     if (this.createRelationship) {
       const analyze = controls.createEl("button", { text: tr("@relationship.analyze"), attr: { type: "button", "data-relationship-action": "analyze" } });
       analyze.addEventListener("click", () => {
@@ -77,7 +91,8 @@ export class PairReview {
             const prepare = (selection: IntentSelection) => {
               if (analysis.hidden || this.relationship?.analysisSource !== expected || this.planner?.busy) return;
               const source = this.relationship?.analysisSource;
-              if (!source || !this.openState) return;
+              if (!source || !this.openState || this.preflight?.view.state !== "ready" ||
+                recommendationIntent(source, selection, this.preflight.view.pair, this.preflight.view.linktexts).status === "unavailable") return;
               this.planner?.close();
               this.planner = new ChangePlannerSession({ analysis: () => this.relationship?.analysisSource, read: () => readPlannerPair(this.app, this.paths),
                 incoming: () => readMergeIncoming(this.app, this.paths),
@@ -112,7 +127,13 @@ export class PairReview {
               } : undefined, selection);
               void this.planner.prepare();
             };
-            renderRelationshipView(analysis, this.relationship, prepare);
+            renderAnalysis = () => { if (this.openState && this.relationship && !analysis.hidden)
+              renderRelationshipView(analysis, this.relationship, prepare, this.preflight?.view, () => {
+                if (expected && this.relationship?.analysisSource === expected) keepReviewSeparate(this.app, expected.pair);
+              }); };
+            this.preflight?.invalidate();
+            renderAnalysis();
+            checkAvailability();
             if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) {
               focusStatus(analysis);
               analysis.scrollIntoView({ block: "start" });
@@ -132,21 +153,24 @@ export class PairReview {
       if (!this.openState) return;
       this.generation++;
       this.planner?.invalidate();
+      this.preflight?.invalidate();
       notes.setAttribute("aria-busy", "false");
       status.setAttribute("data-state", "stale");
       status.setText(tr("@consolidation.stale"));
     };
     const sourceChanged = (file: TAbstractFile, oldPath?: string) => {
+      pendingMetadata.add(file.path);
       invalidate();
       if (this.paths.some(path => [file.path, oldPath].some(changed => changed !== undefined && (path === changed || path.startsWith(`${changed}/`))))) this.relationship?.invalidate();
     };
-    // Any vault change can affect incoming references; do no work until Refresh.
+    // Vault changes revoke planner dependencies; metadata readiness rechecks only local availability.
     for (const ref of [this.app.vault.on("create", sourceChanged), this.app.vault.on("modify", sourceChanged),
       this.app.vault.on("delete", sourceChanged), this.app.vault.on("rename", sourceChanged)]) {
       this.cleanup.push(() => this.app.vault.offref(ref));
     }
     if (this.app.metadataCache) {
-      for (const ref of [this.app.metadataCache.on("changed", invalidate), this.app.metadataCache.on("resolved", invalidate)]) {
+      for (const ref of [this.app.metadataCache.on("changed", file => { pendingMetadata.delete(file.path); invalidate(); checkAvailability(); }),
+        this.app.metadataCache.on("resolved", () => { invalidate(); checkAvailability(); })]) {
         this.cleanup.push(() => this.app.metadataCache.offref(ref));
       }
     }
@@ -174,6 +198,7 @@ export class PairReview {
     this.openState = false;
     this.generation++;
     this.planner?.close(); this.planner = undefined;
+    this.preflight?.close(); this.preflight = undefined;
     this.relationship?.close(); this.relationship = undefined;
     for (const remove of this.cleanup.splice(0)) remove();
     this.contentEl.empty();
@@ -193,9 +218,6 @@ export class PairReview {
     } });
     open.addEventListener("click", () => { void openDiscoveryResult(this.app, note.path, undefined, () => {}); });
 
-    const excerpt = note.preview!.slice(0, 650);
-    card.createEl("pre", { text: excerpt, cls: "ai-pair-excerpt", attr: { tabindex: "0" } });
-    if (excerpt.length < note.characters!) card.createEl("small", { text: tr("@review.excerpt") });
     const source = card.createEl("details"); source.createEl("summary", { text: tr("@consolidation.source") });
     source.createEl("p", { text: tr("@consolidation.size", { bytes: note.bytes!, characters: note.characters! }) });
     if (note.preview!.length < note.characters!) card.createEl("p", { text: tr("@consolidation.truncated", { shown: note.preview!.length, total: note.characters! }) });

@@ -113,7 +113,7 @@ export class ChangePlannerView {
     }
   }
   private button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
-    const button = parent.createEl("button", { text: tr(`@planner.${key}`), attr: { type: "button", "data-planner-action": key } });
+    const button = parent.createEl("button", { text: tr(`@planner.${key}`), cls: key === "build" ? "mod-cta" : "", attr: { type: "button", "data-planner-action": key } });
     button.addEventListener("click", action); return button;
   }
   private changed(): void {
@@ -124,11 +124,11 @@ export class ChangePlannerView {
     const root = this.container, view = this.session.view;
     root.empty(); workflowStep(root, view.atomizationPlan || view.plan && !view.plan.edit ? "previewOnly" :
       view.plan || view.multiPlan || view.mergePlan || view.groupPlan || view.bundlePlan || view.emptyAtomPlan ? "preview" : this.intentSelection ? "parameters" : "action");
-    const intent = this.intentSelection ? recommendationIntent(this.analysis, this.intentSelection, view.input?.pair) : undefined;
+    const intent = this.intentSelection ? recommendationIntent(this.analysis, this.intentSelection, view.input?.pair, view.input?.linktexts) : undefined;
     root.createEl("h3", { text: tr(intent ? `@intent.title.${intent.family}` : "@planner.title") });
     if (intent) {
       root.createEl("p", { text: tr(`@intent.origin.${intent.origin}`), attr: { "data-intent-origin": intent.origin } });
-      if (intent.reason) root.createEl("p", { text: intent.reason });
+
     }
     root.createEl("p", { text: tr(intent ? this.operation === "add_reciprocal_links" ? "@multi.warning" : this.operation === "write_atom_to_empty_note" ? "@emptyAtom.scope" : `@intent.effect.${intent.family}` : this.operation === "write_atom_to_empty_note" ? "@emptyAtom.scope" : this.operation === "atomization_preview" ? "@atom.scope" : this.operation === "copy_context_bundle" ? "@bundle.scope" : this.operation === "copy_context_group" ? "@group.scope" : this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
     root.createDiv({ text: tr(view.stage === "error" ? view.atomizationError ? `@atom.error.${view.atomizationError}` : view.bundleError ? `@bundle.error.${view.bundleError}` : view.groupError ? `@group.error.${view.groupError}` : view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : intent && view.stage === "choosing" ? "@intent.parameters" : `@planner.stage.${view.stage}`),
@@ -155,7 +155,10 @@ export class ChangePlannerView {
     sourceLabel.hidden = this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" || this.operation === "copy_context_bundle" || this.operation === "copy_context_group" || this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
     const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
     source.createEl("option", { text: tr("@planner.choose"), value: "" });
-    view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
+    view.input.pair.forEach((note, i) => {
+      const option = source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) });
+      if (intent?.family === "link" && this.operation === "add_link") option.disabled = !changeRangeOptions(this.analysis, view.input!.pair, "add_link", i as 0 | 1).ranges.length;
+    });
     source.disabled = intent?.family === "embed";
     source.value = this.sourceChosen ? String(this.side) : "";
     source.addEventListener("change", () => { this.sourceChosen = source.value === "0" || source.value === "1"; this.side = source.value === "1" ? 1 : 0; if (!intent) this.operation = ""; this.selection = null; this.changed(); });
@@ -243,7 +246,7 @@ export class ChangePlannerView {
     result.createEl("p", { text: tr("@planner.preserved") });
     result.createEl("p", { text: tr("@planner.limits") });
     if (plan.edit && this.review) {
-      const check = result.createEl("button", { text: tr("@safeApply.review"), attr: { type: "button", "data-safe-action": "review" } });
+      const check = result.createEl("button", { text: tr("@safeApply.review"), cls: "mod-cta", attr: { type: "button", "data-safe-action": "review" } });
       check.addEventListener("click", () => this.review!(plan));
     }
     for (const limitation of plan.modelLimitations) result.createEl("p", { text: limitation });

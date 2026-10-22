@@ -56,7 +56,7 @@ import type { Finding } from "../domain/finding";
 
 const paths = ["Practice/Task.md", "Theory/Task.md"];
 const finding = { id: "saved", state: "open", type: "semantic-duplicate", notePaths: paths, evidence: [] } as unknown as Finding;
-function setup(scopePaths = paths) {
+function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairReviewPort["localFacts"]) {
   setLanguage("en");
   dom.document.activeElement = undefined;
   const root = new dom.Element();
@@ -67,7 +67,7 @@ function setup(scopePaths = paths) {
   }, false);
   const close = vi.fn(), mount = vi.fn((_container: HTMLElement, _paths: readonly [string, string]) => close), history = vi.fn();
   const map = vi.fn(() => ({ update: vi.fn(), dispose: vi.fn() }));
-  const view = new ReviewListView(root as unknown as HTMLElement, data, { mount }, { map, history, settings: vi.fn() }, root as unknown as HTMLElement);
+  const view = new ReviewListView(root as unknown as HTMLElement, data, { mount, localFacts }, { map, history, settings: vi.fn() }, root as unknown as HTMLElement);
   view.update([finding]);
   const action = (key: string) => root.querySelector(`[data-health-action="${key}"]`)!;
   return { root, data, view, mount, close, map, history, forbidden, action };
@@ -114,4 +114,22 @@ describe("standalone review list", () => {
     const text = f.root.all().map(e => e.text).join(" "); expect(text).toContain(paths[0]); expect(text).toContain(scope[1]);
     f.view.dispose();
   });
+});
+
+it("local Apply/Undo facts retain the candidate and never present stale observations as fresh", () => {
+  let notify = () => {};
+  let fact: import("./reviewFacts").ReviewFact = { state: "ready", links: [false, false] };
+  const local = { get: () => fact, track: vi.fn(), refresh: vi.fn(), reopen: vi.fn(), dispose: vi.fn() };
+  const f = setup(paths, changed => { notify = changed; return local; });
+  const id = f.root.querySelector("[data-pair-id]")!.attrs["data-pair-id"];
+  fact = { state: "ready", links: [true, false], changed: true, operation: { id: "op", paths, state: "applied", created: 1, operation: "add_link" } };
+  notify();
+  let text = f.root.all().map(e => e.text).join(" ");
+  expect(text).toContain("semantic freshness is unconfirmed"); expect(text).toContain("Link A → B already exists.");
+  expect(f.root.querySelector("[data-pair-id]")!.attrs["data-pair-id"]).toBe(id);
+  fact = { ...fact, links: [false, false], operation: { ...fact.operation!, state: "undone" } }; notify();
+  text = f.root.all().map(e => e.text).join(" ");
+  expect(text).toContain("Change undone."); expect(text).not.toContain("Link A → B already exists.");
+  expect(f.root.querySelector("[data-pair-id]")!.attrs["data-pair-id"]).toBe(id);
+  f.view.dispose(); expect(local.dispose).toHaveBeenCalledOnce();
 });

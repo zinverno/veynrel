@@ -17,6 +17,7 @@ export class ReviewListView {
   private readonly browser: HTMLElement;
   private readonly detail: HTMLElement;
   private readonly remove: () => void;
+  private readonly facts?: import("./reviewFacts").ReviewFactsPort;
   private stopReview?: () => void;
   private map?: OptionalMap;
   private findings: readonly Finding[] = [];
@@ -35,6 +36,7 @@ export class ReviewListView {
     this.browser = this.element.createDiv({ cls: "veynrel-review-list" });
     this.detail = this.element.createDiv({ cls: "veynrel-review-detail" });
     this.detail.hidden = true;
+    this.facts = pair.localFacts?.(() => this.render());
     this.remove = data.subscribe(() => this.render());
     this.render();
   }
@@ -57,9 +59,9 @@ export class ReviewListView {
     this.map?.dispose(); this.map = undefined;
     this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
   }
-  dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.data.dispose(); }
+  dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.facts?.dispose(); this.data.dispose(); }
   private back(): void {
-    this.suspend(); this.suspended = false; this.render();
+    this.suspend(); this.suspended = false; this.facts?.refresh(); this.render();
     this.scrollOwner.scrollTop = this.scroll;
     const target = Array.from(this.browser.querySelectorAll<HTMLElement>("[data-pair-id]")).find(el => el.getAttribute("data-pair-id") === this.selected?.id);
     target?.focus({ preventScroll: true });
@@ -113,11 +115,15 @@ export class ReviewListView {
     const model = workbenchModel(this.data, this.findings.filter(f => f.state === "open"));
     const all = this.mode === "repeats" ? model.repeats : model.connections;
     const matches = all.filter(pair => pair.paths.some(path => path.toLowerCase().includes(this.query.trim().toLowerCase())));
+    const linkedCount = this.mode === "connections" ? matches.filter(p => this.facts?.get(p.paths)?.links?.some(Boolean)).length : 0;
     const state = this.mode === "repeats" ? this.data.duplicateState : this.data.connectionError ? "error" : this.data.comparison?.getSnapshot().state ?? "idle";
     const status = this.browser.createDiv({ cls: "veynrel-review-status", attr: { role: "status", "aria-live": "polite" } });
-    status.createEl("p", { text: t(`@workbench.state.${this.data.busy ? "loading" : state}`) });
+    const changedSources = matches.some(p => this.facts?.get(p.paths)?.changed);
+    status.createEl("p", { text: t(this.data.busy ? "@workbench.state.loading" : changedSources ? "@flow.observations-stale" :
+      state === "ready" ? "@flow.candidates-loaded" : `@workbench.state.${state}`) });
     if (state === "unavailable") button(status, t("@workbench.setup"), () => this.actions.settings(), "review-settings");
-    if (all.length || state === "ready") status.createEl("p", { text: t("@review.count", { shown: Math.min(matches.length, this.limit), total: matches.length, all: all.length }) });
+    if (all.length || state === "ready") status.createEl("p", { text: t("@review.count", { shown: Math.min(matches.length - linkedCount, this.limit), total: matches.length - linkedCount, all: all.length }) });
+    if (linkedCount) status.createEl("p", { text: t("@flow.linked-count", { count: linkedCount }) });
     if (this.mode === "repeats") {
       status.createEl("small", { text: t("@review.global-limit") });
       const coverage = healthDetails(status, t("@workbench.coverage"), "review-coverage");
@@ -134,17 +140,36 @@ export class ReviewListView {
     }
     if (!this.data.scope.paths.length) this.browser.createEl("p", { text: t("@workbench.no-notes") });
     else if (!matches.length && (all.length || state === "ready")) this.browser.createEl("p", { text: t(this.query ? "@workbench.no-search" : this.mode === "repeats" ? "@workbench.no-candidates" : "@workbench.no-connections") });
+    this.facts?.track(matches.slice(0, this.limit).map(p => p.paths));
     const list = this.browser.createEl("ol", { cls: "veynrel-review-results" });
     for (const pair of matches.slice(0, this.limit)) {
       const row = list.createEl("li", { cls: "veynrel-review-row" });
       if (this.selected?.id === pair.id) row.addClass("is-selected");
       const names = row.createDiv({ cls: "veynrel-review-names" });
       pair.paths.forEach(path => {
-        const name = names.createDiv(); name.createEl("strong", { text: path.split("/").pop()!.replace(/\.md$/iu, "") });
-        name.createEl("small", { text: path, cls: "veynrel-review-path" });
+        const name = names.createDiv(); name.createEl("strong", { text: (pair.paths[0].split("/").pop() === pair.paths[1].split("/").pop() ? path.split("/").slice(-2).join("/") : path.split("/").pop()!).replace(/\.md$/iu, "") });
+
       });
-      row.createEl("p", { text: this.basis(pair) });
-      const compare = button(row, t("@review.compare"), () => this.openPair(pair), `review-pair-${encodeURIComponent(pair.id)}`);
+      const paths = names.createEl("details"); paths.createEl("summary", { text: t("@flow.paths") });
+      for (const path of pair.paths) paths.createEl("small", { text: path, cls: "veynrel-review-path" });
+      const facts = this.facts?.get(pair.paths);
+      const state = row.createDiv({ cls: "veynrel-review-facts" });
+      const achieved = this.mode === "connections" && facts?.links?.some(Boolean);
+      row.setAttribute("data-review-state", achieved ? "linked" : "candidate");
+      state.createEl("p", { text: achieved ? t("@flow.link-achieved") : facts?.operation ? t("@flow.saved-observation") :
+        this.mode === "connections" && facts?.state !== "ready" ? t("@flow.connection-observation") : this.basis(pair) });
+      if (facts) {
+        if (facts.state !== "ready") state.createEl("p", { text: t(`@flow.local.${facts.state}`) });
+        if (facts.links) state.createEl("p", { text: t(facts.links[0] && facts.links[1] ? "@flow.links.both" : facts.links[0] ? "@flow.links.forward" : facts.links[1] ? "@flow.links.backward" : "@flow.links.none") });
+        if (facts.operation) state.createEl("p", { text: t(facts.operation.state === "applied" ? "@flow.applied" : facts.operation.state === "undone" ? "@flow.undone" : "@flow.history-check") });
+        if (facts.changed) state.createEl("p", { text: t("@flow.observation-stale") });
+        if (facts.kept) {
+          state.createEl("p", { text: t("@flow.kept") });
+          button(state, t("@flow.reopen"), () => this.facts?.reopen(pair.paths), `review-reopen-${encodeURIComponent(pair.id)}`);
+        }
+        if (facts.historyUnknown) state.createEl("p", { text: t("@flow.history-unknown") });
+      }
+      const compare = button(row, t(this.mode === "connections" && facts?.links?.some(Boolean) ? "@flow.inspect-linked" : "@review.compare"), () => this.openPair(pair), `review-pair-${encodeURIComponent(pair.id)}`);
       compare.setAttribute("data-pair-id", pair.id);
       compare.setAttribute("aria-label", `${t("@review.compare")}: ${pair.paths.join(" · ")}`);
     }

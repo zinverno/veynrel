@@ -64,7 +64,7 @@ async function route(actionName = "add_link", selection: IntentSelection = { ori
     new ChangePlannerView(html(root), session, analysis, review, undefined, merge, undefined, undefined, undefined, chosen);
     void session.prepare();
   };
-  renderRelationshipView(html(result), relationship, start);
+  renderRelationshipView(html(result), relationship, start, { state: "ready", pair: f.pair });
   const key = selection.origin === "primary" ? "primary" : selection.origin === "alternative" ? `alternative-${selection.index}` : selection.action;
   action(result, "data-intent-action", key).click();
   if (!["no_change", "manual_review"].includes(actionName)) await vi.waitFor(() => expect(session.view.stage).toBe("choosing"));

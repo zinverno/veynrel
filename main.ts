@@ -231,7 +231,7 @@ export default class AIHubPlugin extends Plugin {
           this.register(() => authoring.dispose());
           return authoring;
         }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController),
-        { mount: (container, paths) => this.semanticController.mountPairReview(container, paths) },
+        { mount: (container, paths) => this.semanticController.mountPairReview(container, paths), localFacts: changed => this.semanticController.createReviewFacts(changed) },
         paths => createWorkbenchMetadata(this.app, paths, this.getTaxonomyProfilePort()));
 
       this.addCommand({

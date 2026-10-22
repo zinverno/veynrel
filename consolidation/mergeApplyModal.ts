@@ -1,3 +1,4 @@
+import { refreshReviewFacts, reviewOutcome } from "./reviewRefresh";
 import { ReviewLifetime } from "./reviewLifetime";
 import { reviewSummary, diagnosticPanel, historyHeading, historyUnavailable, focusStatus } from "./consolidationUx";
 import { App, Modal } from "obsidian";
@@ -23,13 +24,14 @@ function preview(root: HTMLElement, r: MergeRecord, undo = false): void {
     d.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-merge-apply-text": key } });
   }
   renderPlanDiff(root, before, after);
-  root.createEl("h4", { text: tr("@merge.copied") });
+  const ranges = root.createEl("details"); ranges.createEl("summary", { text: tr("@merge.copied") });
+  ranges.createEl("h4", { text: tr("@merge.copied") });
   for (const t of r.transfers) {
-    root.createEl("p", { text: `${t.range.start}–${t.range.end}` });
-    root.createEl("pre", { text: t.range.text, cls: "ai-pair-source", attr: { tabindex: "0", "data-merge-apply-text": "copied" } });
+    ranges.createEl("p", { text: `${t.range.start}–${t.range.end}` });
+    ranges.createEl("pre", { text: t.range.text, cls: "ai-pair-source", attr: { tabindex: "0", "data-merge-apply-text": "copied" } });
   }
-  root.createEl("p", { text: tr("@planner.range", { start: r.insertion.anchor.start, end: r.insertion.anchor.end, point: r.insertion.edit.start }) });
-  root.createEl("pre", { text: r.insertion.anchor.text, cls: "ai-pair-source", attr: { tabindex: "0", "data-merge-apply-text": "anchor" } });
+  ranges.createEl("p", { text: tr("@planner.range", { start: r.insertion.anchor.start, end: r.insertion.anchor.end, point: r.insertion.edit.start }) });
+  ranges.createEl("pre", { text: r.insertion.anchor.text, cls: "ai-pair-source", attr: { tabindex: "0", "data-merge-apply-text": "anchor" } });
   diagnosticPanel(root).createEl("p", { text: `${r.secondary.path} · SHA-256: ${r.secondary.hash}`, cls: "ai-pair-path" });
 }
 /** A new, revocable consent ticket; displaying the checked plan never writes Markdown. */
@@ -71,6 +73,7 @@ export class MergeApplyModal extends Modal {
     this.busy = true; this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.working"), attr: { role: "status", "aria-live": "polite" } }); focusStatus(this.contentEl);
     try {
       await this.service.execute(this.review);
+      refreshReviewFacts(this.app, reviewOutcome(this.review.record, this.review.action === "apply" ? "applied" : "undone"));
       if (!this.active) return;
       this.contentEl.empty(); this.contentEl.createEl("p", { text: tr(this.review.action === "apply" ? "@mergeApply.applied" : "@mergeApply.undone"), attr: { role: "status" } });
       control(this.contentEl, "history", () => { this.close(); void this.pending.then(this.history); }); focusStatus(this.contentEl);

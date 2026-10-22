@@ -1,3 +1,4 @@
+import { createReviewFacts } from "../consolidation/obsidianReviewFacts";
 import type { SafeApplyService } from "../consolidation/safeApply";
 import type { GlobalSemanticAnalysis, GlobalSemanticOptions, SemanticFocusAnalysis } from "./globalSemanticMap";
 import { DecisionsError, OpenRouterDecisionsProvider, testDecisionsConnection } from "../decisions/openRouterDecisions";
@@ -717,6 +718,8 @@ export class ObsidianSemanticController {
     if (!this.ensureEnabled()) return;
     this.openDuplicatesModal(this.plugin.app, this);
   }
+
+  createReviewFacts(changed: () => void) { return createReviewFacts(this.plugin.app, changed); }
 
   mountPairReview(container: HTMLElement, paths: readonly [string, string]): () => void {
     if (this.isDisposed()) return () => {};
