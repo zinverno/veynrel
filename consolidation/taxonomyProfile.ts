@@ -1,3 +1,5 @@
+import { taxonomyToken } from "../utils/taxonomyToken";
+export { taxonomyToken } from "../utils/taxonomyToken";
 export const TAXONOMY_PURPOSES = ["role", "difficulty", "domain", "topic", "other"] as const;
 export type TaxonomyPurpose = typeof TAXONOMY_PURPOSES[number];
 export interface TaxonomyCategory {
@@ -20,11 +22,7 @@ export interface TaxonomyProfilePort {
 export class TaxonomyError extends Error {
   constructor(readonly reason: "invalid" | "conflict" | "cancelled" | "save" | "scan") { super(reason); }
 }
-export function taxonomyToken(value: unknown): value is string {
-  return typeof value === "string" && value.length > 0 && value.length <= 512 &&
-    !/[\s#]/u.test(value) && !Array.from(value).some(char => char.charCodeAt(0) < 32 || char.charCodeAt(0) === 127) &&
-    value.split("/").every(part => part.length > 0);
-}
+
 function keys(value: unknown, fields: string[]): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value) &&
     Object.keys(value).length === fields.length && fields.every(key => Object.prototype.hasOwnProperty.call(value, key));

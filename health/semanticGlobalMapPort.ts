@@ -1,3 +1,5 @@
+export type { ConnectionSelectionSource } from "./connections/connectionSelection";
+import type { ConnectionSelectionSource, ConnectionSelectionSummary } from "./connections/connectionSelection";
 import type { SemanticIndexRevision } from "./semanticHealthAnalysisPort";
 
 export interface SemanticGlobalNode {
@@ -28,6 +30,7 @@ export interface SemanticGlobalMap {
 export interface SemanticGlobalMapProductSnapshot {
   readonly state: "idle" | "loading" | "ready" | "stale" | "unavailable" | "error";
   readonly busy: boolean;
+  readonly selection?: ConnectionSelectionSummary;
   readonly reason?: "too-large" | "core-unavailable" | "unavailable" | "changed" | "invalid" | "failed";
   readonly supportedNoteCount: number;
   readonly indexedNoteCount?: number;
@@ -47,7 +50,7 @@ export interface SemanticGlobalSearchResult { readonly nodes: readonly SemanticG
 /** Explicit, read-only, session-only exploration. No setup, persistence or index mutation API. */
 export interface SemanticGlobalMapPort {
   /** Independent view-local projection; no computation occurs until load/refresh. */
-  createScoped?(scope: SemanticMapScope): SemanticGlobalMapPort;
+  createScoped?(scope: SemanticMapScope, selection?: ConnectionSelectionSource): SemanticGlobalMapPort;
   /** Explicitly inspect/load an existing index through its owner; never build embeddings. */
   prepareExisting?(): Promise<void>;
   getSnapshot(): SemanticGlobalMapProductSnapshot;

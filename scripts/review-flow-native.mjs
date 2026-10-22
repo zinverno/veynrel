@@ -1,6 +1,7 @@
 // Synthetic HTTP envelopes over loopback; real requestUrl/parser/session/validator/executors.
 // node scripts/review-flow-native.mjs ~/projects/veynrel-artifacts/veynrel-review-flow-native-<new-name> [frozen-build] [decisions]
 import fs from 'node:fs';
+import {reviewRuleChecks} from './review-rules-native.mjs';
 import {reviewDecisionChecks} from './review-decisions-native.mjs';
 import os from 'node:os';
 import path from 'node:path';
@@ -30,8 +31,11 @@ const prefix='---\ntags: [synthetic]\n---\n\n# Cache study\n\n**A formatted obse
 fixture.a=prefix+fixture.a;fixture.b=prefix+fixture.b;
 for(const [i,p] of unsupportedPaths.entries()){fs.mkdirSync(vault+'/'+p.split('/').slice(0,-1).join('/'),{recursive:true});fs.writeFileSync(vault+'/'+p,(i===0?fixture.a:fixture.b).replace('A cache keeps reusable results.','**A cache keeps reusable results.**'));}
 for(const [i,p] of pairPaths.entries()){fs.mkdirSync(vault+'/'+p.split('/').slice(0,-1).join('/'),{recursive:true});fs.writeFileSync(vault+'/'+p,i===0?fixture.a:fixture.b);}
-const indexPaths=[...pairPaths,...unsupportedPaths,...combinePaths];
-fs.writeFileSync(root+'/fixture-description.json',JSON.stringify({notes:6,indexed:6,provenance:'Synthetic chat/completions envelopes, NOT intercepted user HTTP. Loopback HTTP only; real requestUrl, parser, validator, planners and executors. Artificial vectors do not test embedding quality.'},null,2));
+const rulePaths=mode==='rules'?['Tasks','Theory'].flatMap(group=>Array.from({length:6},(_,i)=>`Rules/${group}/${group==='Tasks'?'Exercise':'Explanation'} ${i}.md`)):[];
+for(const p of rulePaths){fs.mkdirSync(path.dirname(vault+'/'+p),{recursive:true});const task=p.includes('/Tasks/'),i=Number(p.match(/(\d+)\.md$/u)[1]);
+ fs.writeFileSync(vault+'/'+p,(task&&i%2===0?'---\ntags: [practice/task, topic/cache]\n---\n\n':task?'#practice/task #topic/cache\n\n':'#topic/cache\n\n')+(task?fixture.a:fixture.b));}
+const indexPaths=[...pairPaths,...unsupportedPaths,...combinePaths,...rulePaths];
+fs.writeFileSync(root+'/fixture-description.json',JSON.stringify({notes:indexPaths.length,indexed:indexPaths.length,provenance:'Synthetic chat/completions envelopes, NOT intercepted user HTTP. Loopback HTTP only; real requestUrl, parser, validator, planners and executors. Artificial vectors do not test embedding quality.'},null,2));
 const requests=[];let scenario='add_link';
 const server=createServer(async(req,res)=>{
  if(req.method!=='POST'||req.url!=='/v1/chat/completions'){res.writeHead(400).end();return;}
@@ -51,7 +55,7 @@ await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0
 const endpoint='http://127.0.0.1:'+server.address().port+'/v1';
 await bundle({absWorkingDir:ROOT,entryPoints:['scripts/knowledge-workbench-fixture.ts'],bundle:true,platform:'node',format:'cjs',outfile:root+'/fixture.cjs',
  plugins:[{name:'fixture-host',setup(b){b.onResolve({filter:/^obsidian$/},()=>({path:'obsidian',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export const getLanguage=()=>"en";'}));}}]});
-const files=await createRequire(import.meta.url)(root+'/fixture.cjs').workbenchFixture(indexPaths);
+const files=await createRequire(import.meta.url)(root+'/fixture.cjs').workbenchFixture(indexPaths,mode==='rules');
 fs.mkdirSync(dir+'/semantic-index');
 for(const [p,v]of files)fs.writeFileSync(dir+'/semantic-index/'+p.split('/').pop(),typeof v==='string'?v:Buffer.from(v));
 for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync(build+'/'+name,dir+'/'+name);
@@ -139,7 +143,10 @@ try{
    await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-intent-action=primary]')");await wait("[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
    assert.equal(requests.at(-1),bodies.at(-1));
  };
- if(mode==='decisions') {
+ if(mode==='rules') {
+   await reviewRuleChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,openPair,locale,field,cdp,pause,settle,
+     vault,dir,root,rulePaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
+ } else if(mode==='decisions') {
    await reviewDecisionChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,openPair,locale,field,cdp,pause,settle,
      vault,dir,root,pairPaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
  } else {

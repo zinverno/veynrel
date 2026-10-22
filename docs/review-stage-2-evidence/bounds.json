@@ -1,0 +1,39 @@
+[
+  {
+    "n": 154,
+    "state": "ready",
+    "analysisMs": 32.320724,
+    "projectionMs": 10.322372999999999,
+    "represented": 154,
+    "selection": {
+      "revision": "2:1",
+      "eligibleNoteCount": 154,
+      "excludedNoteCount": 0,
+      "unknownNoteCount": 0,
+      "excludedPairCount": 2926,
+      "unknownPairCount": 0
+    }
+  },
+  {
+    "n": 500,
+    "state": "ready",
+    "analysisMs": 216.79431400000004,
+    "projectionMs": 35.44282000000004,
+    "represented": 500,
+    "selection": {
+      "revision": "2:1",
+      "eligibleNoteCount": 500,
+      "excludedNoteCount": 0,
+      "unknownNoteCount": 0,
+      "excludedPairCount": 31125,
+      "unknownPairCount": 0
+    }
+  },
+  {
+    "n": 1000,
+    "state": "too-large",
+    "analysisMs": 11.417400999999984,
+    "projectionMs": 0.013986000000045351,
+    "represented": 0
+  }
+]

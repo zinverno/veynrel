@@ -1,3 +1,4 @@
+import type { ConnectionSelection, ConnectionSelectionSummary } from "../health/connections/connectionSelection";
 /** Safe engine output. No vectors or stored chunk text cross this boundary. */
 export const GLOBAL_SEMANTIC_NEIGHBORS = 5;
 export const GLOBAL_SEMANTIC_DOCUMENT_CAP = 500;
@@ -20,10 +21,12 @@ export interface GlobalSemanticProgress { readonly completedPairs: number; reado
 export interface GlobalSemanticOptions {
   /** Exact canonical paths from the selected metadata scope, before pairwise analysis. */
   readonly paths?: readonly string[];
+  readonly selection?: ConnectionSelection;
   readonly signal?: AbortSignal;
   readonly onProgress?: (progress: GlobalSemanticProgress) => void;
 }
 export type GlobalSemanticAnalysis = {
+  readonly selection?: ConnectionSelectionSummary;
   readonly indexedNoteCount: number;
   readonly mappedNoteCount: number;
 } & ({ readonly state: "ready"; readonly nodes: readonly GlobalSemanticDocument[]; readonly edges: readonly GlobalSemanticRelationship[] }

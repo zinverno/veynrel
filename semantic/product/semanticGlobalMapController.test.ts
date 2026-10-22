@@ -182,3 +182,34 @@ describe("view-local scope owners", () => {
     expect(scoped.getSnapshot().map).toBeUndefined(); scoped.dispose(); f.port.dispose();
   });
 });
+
+it("scoped review selection invalidates pending policy/metadata results and detaches with its owner", async () => {
+  const f = fixture(), callbacks = new Set<() => void>(); let revision = "1";
+  const selection = { capture: () => ({ revision, document: () => "allow" as const, pair: () => "allow" as const, unknown: () => false }),
+    subscribe: (fn: () => void) => { callbacks.add(fn); return () => { callbacks.delete(fn); }; } };
+  const paths = analysis().nodes.map(n => n.path), port = f.port.createScoped({ id: "review", revision: 1, paths }, selection);
+  const gate = deferred<GlobalSemanticAnalysis>(); f.engine.analyzeGlobalSemanticMap.mockReturnValueOnce(gate.promise);
+  const pending = port.refresh(); await Promise.resolve();
+  const options = f.engine.analyzeGlobalSemanticMap.mock.calls[0][0]!;
+  expect(options.selection?.revision).toBe("1");
+  revision = "2"; callbacks.forEach(fn => fn());
+  expect(options.signal?.aborted).toBe(true); gate.resolve(analysis()); await pending;
+  expect(port.getSnapshot().state).toBe("stale"); expect(port.getSnapshot().map).toBeUndefined();
+  f.engine.analyzeGlobalSemanticMap.mockImplementation(async options => ({ ...analysis(), ...(options?.selection ? { selection: { revision: options.selection.revision, eligibleNoteCount: 8, excludedNoteCount: 0, unknownNoteCount: 0, excludedPairCount: 0, unknownPairCount: 0 } } : {}) }));
+  await port.refresh(); expect(f.engine.analyzeGlobalSemanticMap.mock.lastCall![0]?.selection?.revision).toBe("2");
+  expect(port.getSnapshot().state).toBe("ready");
+  await f.port.refresh(); expect(f.engine.analyzeGlobalSemanticMap.mock.lastCall![0]?.selection).toBeUndefined();
+  port.dispose(); expect(callbacks.size).toBe(0); f.port.dispose();
+});
+
+it("checks captured participation revision even if a source notification is delayed; capture failures stay errors", async () => {
+  const f = fixture(); let revision = "old", fail = false;
+  const selection = { capture: () => { if (fail) throw Error("metadata read"); return { revision, document: () => "allow" as const, pair: () => "allow" as const, unknown: () => false }; }, subscribe: () => () => {} };
+  const port = f.port.createScoped({ id: "selected-folder", revision: 2, paths: analysis().nodes.map(n => n.path) }, selection);
+  const gate = deferred<GlobalSemanticAnalysis>(); f.engine.analyzeGlobalSemanticMap.mockReturnValueOnce(gate.promise);
+  const pending = port.refresh(); await Promise.resolve(); revision = "new"; gate.resolve(analysis()); await pending;
+  expect(port.getSnapshot().state).toBe("stale"); expect(port.getSnapshot().map).toBeUndefined();
+  fail = true; await port.refresh(); expect(port.getSnapshot().state).toBe("error"); expect(f.engine.analyzeGlobalSemanticMap).toHaveBeenCalledOnce();
+  f.engine.analyzeGlobalSemanticMap.mockImplementation(async options => ({ ...analysis(), selection: { revision: options!.selection!.revision, eligibleNoteCount: 8, excludedNoteCount: 0, unknownNoteCount: 0, excludedPairCount: 0, unknownPairCount: 0 } }));
+  fail = false; await port.refresh(); expect(port.getSnapshot().state).toBe("ready"); port.dispose(); f.port.dispose();
+});
