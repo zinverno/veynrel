@@ -1,0 +1,25 @@
+{
+  "version": "2.1.0",
+  "build": "unknown",
+  "wireSchema": "veynrel.relationship.refs.v2",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "stage": "consistency",
+  "code": "inconsistent",
+  "dispatchAttempted": true,
+  "finishReason": "stop",
+  "notPerformed": [
+    "accepted_result",
+    "recommendation_preflight",
+    "planning",
+    "apply"
+  ],
+  "issues": [
+    {
+      "field": "recommendation",
+      "code": "action_relation_mismatch",
+      "relation": "related_distinct",
+      "action": "consider_merge"
+    }
+  ]
+}

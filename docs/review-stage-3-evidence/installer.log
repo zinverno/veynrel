@@ -1,0 +1,1 @@
+{"status":"PASS","root":"<artifact-root>/beta-integration-validation/scratch/veynrel-workbench-install-test-Q52p8R","checks":["exact install","external three-file backup","settings/index/journals unchanged","original refused","tamper refused before writes","symlink target refused"]}

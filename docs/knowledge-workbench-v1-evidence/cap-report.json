@@ -1,0 +1,180 @@
+{
+  "status": "PASS",
+  "mode": "cap501",
+  "checks": [
+    "Real native home; one sidebar and no old primary rail",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Workbench opening is passive",
+    "Explicit local refresh does not read Markdown, embed, call a model or write",
+    "501 eligible documents are explicitly capped",
+    "1000-note list survives the semantic cap",
+    "Choosing an actual smaller folder recomputes before the cap",
+    "List and selected pair retain exact distinct paths",
+    "No network during any scenario"
+  ],
+  "metrics": {
+    "openMs": 213.39411799999993,
+    "process": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "tools": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 2374.125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 2452.671875,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": [
+        {
+          "x": 284,
+          "y": 277.7144470214844,
+          "width": 1366,
+          "height": 269.6719055175781,
+          "top": 277.7144470214844,
+          "right": 1650,
+          "bottom": 547.3863525390625,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 571.3863525390625,
+          "width": 1366,
+          "height": 388.359375,
+          "top": 571.3863525390625,
+          "right": 1650,
+          "bottom": 959.7457275390625,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 983.7457275390625,
+          "width": 1366,
+          "height": 269.671875,
+          "top": 983.7457275390625,
+          "right": 1650,
+          "bottom": 1253.4176025390625,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1277.4176025390625,
+          "width": 1366,
+          "height": 507.046875,
+          "top": 1277.4176025390625,
+          "right": 1650,
+          "bottom": 1784.4644775390625,
+          "left": 284
+        },
+        {
+          "x": 284,
+          "y": 1808.4644775390625,
+          "width": 1366,
+          "height": 590.3592529296875,
+          "top": 1808.4644775390625,
+          "right": 1650,
+          "bottom": 2398.82373046875,
+          "left": 284
+        }
+      ]
+    },
+    "health": {
+      "view": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "shell": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1638,
+        "height": 1071.453125,
+        "top": 78.546875,
+        "right": 1682,
+        "bottom": 1150,
+        "left": 44
+      },
+      "overflow": 0,
+      "scrollOwner": "auto",
+      "sidebarHeight": 1001.453125,
+      "groups": []
+    },
+    "positions": [
+      [
+        "Workbench/A/Cache.md",
+        "264.4937587415362",
+        "280"
+      ],
+      [
+        "Workbench/B/Cache.md",
+        "535.5062412584638",
+        "280"
+      ]
+    ]
+  },
+  "screenshots": [
+    "process.png",
+    "tools.png",
+    "tools-bottom.png",
+    "health.png",
+    "cap501.png",
+    "workbench-candidate-both-layers.png"
+  ],
+  "sourceCommit": "dd683ee2c5a9a5b1a71a392c7a5f9812d955ecf6",
+  "hashes": {
+    "main.js": "5794f05eb5bc11c35aeacf33f62187e89d0a92c388d4acba23167cba872e0c2e",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "bc5dec00da1ab6d6b08917555501c191e576fdc1ac21c85a8c87a2170059ffe6"
+  },
+  "io": {
+    "reads": 0,
+    "writes": 0,
+    "network": 0,
+    "enumerations": 12
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "status": "native checks passed; user UX acceptance separate",
+  "checks": [
+    "Cold direct command opens one list without map data",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Direct command opens one standalone list without graphical data or IO",
+    "Missing index is unavailable, not a successful zero result",
+    "No map construction, model network or graphical data during full route"
+  ],
+  "metrics": {
+    "openMs": 258.29749100000026,
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "screenshots": [
+    "list-before-search.png",
+    "list-no-index.png"
+  ],
+  "sourceCommit": "f894125090038a0c61039f750932955149dd51de",
+  "hashes": {
+    "main.js": "b21d4cc9635382a42356666f1671e7e23d451b166080890dd30eba2e422159fd",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "2993fd7570240eecf58c852c4983d5a32dfe44f55ef21fc8f0cd9bf59000d999"
+  },
+  "io": {
+    "reads": 0,
+    "writes": 0,
+    "network": 0,
+    "enumerations": 29
+  }
+}

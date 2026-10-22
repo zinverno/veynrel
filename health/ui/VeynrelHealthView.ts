@@ -1,3 +1,11 @@
+import { ReviewListView } from "../workbench/reviewListView";
+import { WorkbenchView } from "../workbench/workbenchView";
+import type { WorkbenchData, PairReviewPort } from "../workbench/workbenchData";
+import type { SemanticMapScope } from "../semanticGlobalMapPort";
+import { includesScope } from "../workspace/vaultScope";
+import { VaultScopeIndex } from "../workspace/vaultScope";
+import { renderWorkspaceShell } from "../workspace/renderWorkspaceShell";
+import { renderWorkspaceHome, renderScopeNotes, workspaceHeading, scopeName } from "../workspace/renderWorkspaceHome";
 import type { ConnectionComparisonPort } from "../connectionComparisonPort";
 import { renderConnectionComparison, newConnectionComparisonViewState, connectionComparisonStatus } from "../connections/renderConnectionComparison";
 import { syncConnectionComparison } from "../connections/connectionComparisonViewState";
@@ -6,12 +14,12 @@ import { renderSemanticGlobalMap, globalSemanticMapStatus } from "./renderSemant
 import { newSemanticGlobalMapViewState } from "./renderSemanticGlobalMapGraph";
 import { ItemView } from "obsidian";
 import type { WorkspaceLeaf } from "obsidian";
-import { t } from "../../i18n";
+import { t, currentLanguage } from "../../i18n";
 import type { HealthPluginController } from "../obsidian/healthPluginController";
 import { VEYNREL_HEALTH_VIEW_TYPE } from "../obsidian/openHealthView";
 import { openHealthNote, openHealthNotePair, resolveHealthNote } from "../obsidian/openHealthNote";
 import { healthHomeViewModel } from "./healthHomeViewModel";
-import { healthButton, renderHealthHome } from "./renderHealthHome";
+import { healthButton, healthDetails, renderHealthHome, renderHealthProfile } from "./renderHealthHome";
 import { HealthRecoveryModal } from "./healthRecoveryModal";
 import { healthOnboardingViewModel } from "./healthOnboardingViewModel";
 import { renderHealthOnboarding } from "./renderHealthOnboarding";
@@ -49,7 +57,7 @@ import { settingsViewModel } from "./settingsViewModel";
 import type { ProductSettingsAction } from "./settingsViewModel";
 import { renderProductSettings } from "./renderProductSettings";
 import type { VaultTopologyPort } from "../topology/types";
-import { renderTopology, renderTopologyPreview } from "../topology/renderTopology";
+import { renderTopology } from "../topology/renderTopology";
 import { newTopologyViewState } from "../topology/renderTopologyMap";
 import { topologyStatus } from "../topology/topologyPresentation";
 
@@ -84,13 +92,29 @@ export class VeynrelHealthView extends ItemView {
   private cleanupRecall?: () => void;
   private recallFocusKey?: string;
   private dueWakeup?: number;
+  private dueWindow?: Window;
   private semanticSetup?: SemanticSetupState;
   private epoch = 0;
   private body?: HTMLElement;
   private status?: HTMLElement;
   private navigationMessage?: string;
   private changingProfile = false;
-  private route: VeynrelHealthRoute = { page: "health" };
+  private route: VeynrelHealthRoute = { page: "home" };
+  private areaIndex?: VaultScopeIndex;
+  private workbench?: ReviewListView;
+  private workbenchRevision = -1;
+  private shellMain?: HTMLElement;
+  private shellLanguage = currentLanguage();
+  private shellRevision = -1;
+  private scopeAcknowledged = false;
+  private scopeRevision = 0;
+  private pendingTool?: VeynrelToolAction;
+  private noteQuery = "";
+  private noteLimit = 80;
+  private motion = true;
+  private shellState = { menuOpen: false };
+  private sceneObserver?: IntersectionObserver;
+  private stopVisibility?: () => void;
   private findingMutationErrorRoute?: FindingsRoute;
   private expandedPaths = false;
   private expandedSnooze = false;
@@ -99,7 +123,8 @@ export class VeynrelHealthView extends ItemView {
   constructor(leaf: WorkspaceLeaf, private readonly controller: HealthPluginController, private readonly tools: VeynrelToolsPort,
     private readonly semantic?: SemanticIntelligencePort, private readonly recall?: RecallProductPort,
     private readonly deep?: DeepIntelligencePort, private readonly authoring?: RecallAuthoringPort, private readonly connect?: ConnectPort,
-    private readonly topology?: VaultTopologyPort, private readonly neighborhood?: SemanticNeighborhoodPort, private readonly globalMap?: SemanticGlobalMapPort, private readonly comparison?: ConnectionComparisonPort) { super(leaf); }
+    private readonly topology?: VaultTopologyPort, private readonly neighborhood?: SemanticNeighborhoodPort, private readonly globalMap?: SemanticGlobalMapPort, private readonly comparison?: ConnectionComparisonPort,
+    private readonly workbenchHost?: { pair: PairReviewPort; create(scope: SemanticMapScope, graphical?: boolean): WorkbenchData }) { super(leaf); }
   getViewType(): string { return VEYNREL_HEALTH_VIEW_TYPE; }
   getDisplayText(): string { return t("@health.title"); }
   getIcon(): string { return "activity"; }
@@ -111,6 +136,22 @@ export class VeynrelHealthView extends ItemView {
     this.status = this.contentEl.createDiv({ cls: "veynrel-health-status", attr: { role: "status", "aria-live": "polite", "aria-atomic": "true" } });
     this.status.setText(t("@health.loading"));
     this.body = this.contentEl.createDiv({ cls: "veynrel-workspace" });
+    this.areaIndex = new VaultScopeIndex(this.app.vault, () => {
+      this.scopeRevision++; this.scopeAcknowledged = false; this.pendingTool = undefined; this.knowledgeConfirmation = undefined;
+      if (this.route.page === "recall") this.leaveRecall();
+      this.render();
+    });
+    const ownerWindow = this.contentEl.ownerDocument.defaultView;
+    if (ownerWindow?.IntersectionObserver) {
+      this.sceneObserver = new ownerWindow.IntersectionObserver(entries => {
+        this.contentEl.setAttribute("data-scene-visible", String(entries.some(entry => entry.isIntersecting)));
+      });
+      this.sceneObserver.observe(this.contentEl);
+    }
+    const ownerDocument = this.contentEl.ownerDocument;
+    const visibility = (): void => this.contentEl.setAttribute("data-document-hidden", String(ownerDocument.hidden));
+    ownerDocument.addEventListener?.("visibilitychange", visibility); visibility();
+    this.stopVisibility = () => ownerDocument.removeEventListener?.("visibilitychange", visibility);
     try {
       await this.controller.getHealthService();
       if (epoch !== this.epoch) return;
@@ -156,6 +197,11 @@ export class VeynrelHealthView extends ItemView {
   }
 
   async onClose(): Promise<void> {
+    this.workbench?.dispose(); this.workbench = undefined; this.shellMain = undefined;
+    this.areaIndex?.dispose(); this.areaIndex = undefined;
+    this.sceneObserver?.disconnect(); this.sceneObserver = undefined;
+    this.stopVisibility?.(); this.stopVisibility = undefined;
+    this.scopeAcknowledged = false; this.pendingTool = undefined; this.shellState.menuOpen = false; this.noteQuery = ""; this.noteLimit = 80;
     this.clearKnowledgeElapsedTimer();
     this.unsubscribeComparison?.(); this.unsubscribeComparison = undefined; this.comparisonView = newConnectionComparisonViewState();
     this.unsubscribeGlobalMap?.(); this.unsubscribeGlobalMap = undefined;
@@ -165,7 +211,7 @@ export class VeynrelHealthView extends ItemView {
     this.epoch++; this.unsubscribe?.(); this.unsubscribe = undefined;
     this.unsubscribeTopology?.(); this.unsubscribeTopology = undefined;
     this.cleanupTopology?.(); this.cleanupTopology = undefined; this.topologyView = newTopologyViewState();
-    this.leaveRecall();
+    this.leaveRecall(); this.dueWindow = undefined;
     this.unsubscribeSemantic?.(); this.unsubscribeSemantic = undefined; this.semanticSetup = undefined;
     this.unsubscribeDeep?.(); this.unsubscribeDeep = undefined; this.deepSetup = undefined;
     this.unsubscribeAuthoring?.(); this.unsubscribeAuthoring = undefined;
@@ -175,13 +221,13 @@ export class VeynrelHealthView extends ItemView {
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.changingProfile = false;
-    this.route = { page: "health" }; this.expandedPaths = false; this.expandedSnooze = false; this.focusDestination = undefined;
+    this.route = { page: "home" }; this.expandedPaths = false; this.expandedSnooze = false; this.focusDestination = undefined;
     this.contentEl.empty();
     // Scans belong to the plugin controller and continue after this view closes.
   }
 
   private render(): void {
-    if (!this.body || !this.status) return;
+    if (!this.body || !this.status || !this.areaIndex) return;
     this.clearKnowledgeElapsedTimer();
     const state = this.controller.getState();
     const model = healthHomeViewModel(state, Boolean(resolveHealthNote(this.app, this.controller.getRecommendationPath())));
@@ -198,16 +244,17 @@ export class VeynrelHealthView extends ItemView {
     const choose = (profile: VaultProfile): void => { void this.savePreferences({ profile, profileChosen: true }); };
     const normal = onboarding.step === "complete";
     if (!normal && this.route.page === "recall") this.leaveRecall();
-    if (!normal) this.route = { page: "health" };
+    if (!normal) this.route = { page: "home" };
     if (!normal) { this.connectSetup = undefined; this.connectConfirmation = undefined; this.semanticSetup = undefined; this.deepSetup = undefined; this.knowledgeConfirmation = undefined; }
     // A newer scan/mutation or a dominant recovery/onboarding surface ends the failed interaction.
     if (state.busy || !normal) this.findingMutationErrorRoute = undefined;
     this.cleanupGlobalMap?.(); this.cleanupGlobalMap = undefined;
     this.cleanupRecall?.(); this.cleanupRecall = undefined;
     this.cleanupTopology?.(); this.cleanupTopology = undefined;
-    if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
+    if (this.dueWakeup !== undefined) this.dueWindow?.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;
     const enteringPage = this.body.getAttribute("data-page") !== this.route.page;
+    const searchSelection = focusKey === "scope-search" ? [(active as HTMLInputElement).selectionStart, (active as HTMLInputElement).selectionEnd] : undefined;
     const scrollTop = this.contentEl.scrollTop;
     const scrollLeft = this.contentEl.scrollLeft;
     const disclosures = new Map<string, boolean>();
@@ -215,29 +262,79 @@ export class VeynrelHealthView extends ItemView {
       disclosures.set(detail.getAttribute("data-health-disclosure")!, detail.open);
     }
     this.body.setAttribute("data-page", this.route.page);
-    this.body.empty();
-    if (normal) {
-      const nav = this.body.createEl("nav", { cls: "veynrel-findings-navigation", attr: { "aria-label": t("@findings.navigation") } });
-      const pages: Array<Exclude<VeynrelHealthRoute["page"], "topology" | "semantic-neighborhood" | "semantic-map" | "connection-opportunities">> = ["health", "findings", "discover", ...(this.recall ? ["recall" as const] : []), ...(this.connect ? ["connect" as const] : []), "tools", "settings"];
-      const labels = { health: "@findings.health", findings: "@findings.title", discover: "@discover.title", recall: "@recall.title", connect: "@connect.nav", tools: "@health.tools", settings: "@settings.title" };
-      for (const page of pages) {
-        const button = healthButton(nav, t(labels[page]),
-          () => this.navigate(page === "findings" ? findingsRoute() : { page }), `nav-${page}`);
-        const current = this.route.page === page || this.route.page === "topology" && page === "health" || (this.route.page === "semantic-neighborhood" || this.route.page === "semantic-map" || this.route.page === "connection-opportunities") && page === "discover";
-        button.setAttribute("aria-pressed", String(current));
-        if (current) button.setAttribute("aria-current", "page");
-      }
+    const scope = this.areaIndex;
+    if (!normal || enteringPage || !this.shellMain || this.shellRevision !== this.scopeRevision || this.shellLanguage !== currentLanguage()) {
+      this.body.empty();
+      this.shellMain = normal ? renderWorkspaceShell(this.body, this.route, scope, this.app.vault.getName(),
+        route => this.navigate(route), path => this.selectScope(path), this.shellState) : undefined;
+      this.shellRevision = this.scopeRevision; this.shellLanguage = currentLanguage();
     }
-    const feedback = this.body.createDiv({ cls: "veynrel-workspace-message", attr: { "data-workspace-message": "true" } });
-    const surface = this.body.createDiv({ cls: enteringPage ? "veynrel-health-page-enter" : "" });
-    const deepSnapshot = normal && this.route.page === "health" ? this.deep?.getSnapshot() : undefined;
-    const semanticSnapshot = normal && (this.route.page === "health" || this.route.page === "discover") ? this.semantic?.getSnapshot() : undefined;
+    const main = this.shellMain ?? this.body;
+    // Keep the mounted pair session and browser DOM alive during unrelated source notifications.
+    if (normal && !this.focusDestination && this.route.page === "discover" && this.workbench && this.workbenchRevision === this.scopeRevision &&
+      main.contains(this.workbench.element)) {
+      this.workbench.update(this.controller.listFindings()); return;
+    }
+    main.empty();
+    const feedback = main.createDiv({ cls: "veynrel-workspace-message", attr: { "data-workspace-message": "true" } });
+    const surface = main.createDiv({ cls: enteringPage ? "veynrel-health-page-enter" : "" });
+    const scoped = scope.selection.kind === "folder";
+    const gate = (target: HTMLElement, proceed: () => void): void => {
+      const box = target.createDiv({ cls: "veynrel-scope-handoff" });
+      box.createEl("p", { text: t("@workspace.handoff-description", { scope: scopeName(scope) }) });
+      box.createEl("p", { text: this.pendingTool ? t(`@tools.${this.pendingTool}.description`) : t(this.route.page === "recall"
+        ? "@workspace.global-queue" : ["health", "findings"].includes(this.route.page) ? "@workspace.health-coverage" : this.route.page === "topology" ? "@workspace.topology-coverage" : "@workspace.map-coverage") });
+      const revision = this.scopeRevision, route = this.route;
+      let consumed = false;
+      healthButton(box, t("@workspace.continue"), () => {
+        if (!consumed && this.scopeRevision === revision && this.route === route) { consumed = true; proceed(); }
+      }, "scope-continue");
+    };
+    const routeNeedsScope = ["health", "findings", "recall", "topology", "semantic-map", "semantic-neighborhood", "connection-opportunities"].includes(this.route.page);
+    const gated = normal && scoped && routeNeedsScope && !this.scopeAcknowledged;
+    if (normal && this.pendingTool) {
+      const action = this.pendingTool, route = this.route;
+      gate(surface, () => { this.pendingTool = undefined; this.render(); void this.launchTool(action, route, true); });
+      healthButton(surface, t("@workspace.cancel"), () => { this.pendingTool = undefined; this.render(); }, "scope-cancel");
+    }
+    if (normal && scoped && routeNeedsScope && this.scopeAcknowledged) surface.createEl("p", { cls: "veynrel-scope-handoff", text: t("@workspace.actual-scope") });
+    const deepSnapshot = normal && (this.route.page === "health" || this.route.page === "settings") ? this.deep?.getSnapshot() : undefined;
+    const semanticSnapshot = normal && (this.route.page === "settings" || this.route.page === "discover") ? this.semantic?.getSnapshot() : undefined;
     const discover = normal && this.route.page === "discover" ? discoverViewModel(semanticSnapshot, state) : undefined;
     const recallSnapshot = normal && this.route.page === "recall" ? this.recall?.getSnapshot() : undefined;
     const recall = recallSnapshot ? recallViewModel(recallSnapshot) : undefined;
     const authoring = recall && !recallSnapshot?.session ? this.authoring?.getSnapshot() : undefined;
     const connectSnapshot = normal && this.route.page === "connect" ? this.connect?.getSnapshot() : undefined;
-    if (normal && this.route.page === "connection-opportunities" && this.comparison) {
+    if (normal && ["health", "findings"].includes(this.route.page) && !gated) {
+      const entries = surface.createDiv({ cls: "veynrel-check-entries" });
+      const findings = healthButton(entries, t("@workspace.findings"), () => this.navigate(findingsRoute()), "nav-findings");
+      if (this.route.page === "findings") findings.setAttribute("aria-current", "page");
+      const route = this.route;
+      healthButton(entries, t("@workspace.audit"), () => { void this.launchTool("openDeepAudit", route); }, "check-audit");
+    }
+    if (gated) {
+      gate(surface, () => { this.scopeAcknowledged = true; this.render(); if (this.route.page === "recall") void this.recall?.initialize(); });
+    } else if (normal && this.route.page === "home") {
+      renderWorkspaceHome(surface, scope, this.app.vault.getName(), state, this.controller.listFindings(), this.motion, {
+        select: path => this.selectScope(path), open: () => this.navigate({ page: "discover" }),
+        recall: () => this.navigate({ page: "recall" }), check: () => this.navigate({ page: "health" }),
+        process: () => this.navigate({ page: "process" }), motion: () => { this.motion = !this.motion; this.render(); },
+      });
+      const due = state.snapshot?.recall;
+      if (scope.selection.kind === "all" && due?.loadState === "ready" && !due.firstRun && due.due === 0 && due.nextDueAt !== undefined) this.wakeAt(due.nextDueAt);
+    } else if (normal && (this.route.page === "process" || this.route.page === "history")) {
+      const route = this.route;
+      workspaceHeading(surface, t(`@workspace.${route.page}`), t(`@workspace.${route.page}-description`));
+      if (route.page === "process") healthButton(surface, t("@workbench.process-entry"), () => this.navigate({ page: "discover" }), "process-workbench", false, true);
+      surface.createEl("p", { text: t(route.page === "process" ? "@workspace.batch-scope" : "@workspace.batch-history") });
+      const actions: VeynrelToolAction[] = route.page === "process" ? ["openBatchProcessing", "generateMocs"] : ["openOperationHistory", "openBatchProcessing"];
+      for (const action of actions) {
+        const row = surface.createDiv({ cls: "veynrel-tool-entry" });
+        row.createEl("p", { text: t(`@tools.${action}.description`) });
+        healthButton(row, t(`@tools.${action}`), () => { void this.launchTool(action, route); }, `tool-${action}`);
+      }
+      if (route.page === "process") healthButton(surface, t("@workspace.open-recall"), () => this.navigate({ page: "recall" }), "process-recall");
+    } else if (normal && this.route.page === "connection-opportunities" && this.comparison) {
       renderConnectionComparison(surface, this.comparison, this.comparisonView, {
         back: () => this.navigate({ page: "discover" }), openNote: (path) => { void this.openNote(path); },
         openPair: (left, right) => { void this.openPair(left, right); },
@@ -255,15 +352,26 @@ export class VeynrelHealthView extends ItemView {
       });
     } else if (normal && this.route.page === "topology" && this.topology) {
       this.cleanupTopology = renderTopology(surface, this.topology, this.topologyView, {
-        back: () => this.navigate({ page: "health" }), openNote: (path) => { void this.openNote(path); },
+        back: () => this.navigate({ page: "discover" }), openNote: (path) => { void this.openNote(path); },
       });
     } else if (normal && this.route.page === "tools") {
       const route = this.route;
       renderTools(surface, toolsViewModel(), (action) => { void this.launchTool(action, route); }, (page) => this.navigate({ page }));
     } else if (normal && this.route.page === "settings") {
       const route = this.route;
-      renderProductSettings(surface, settingsViewModel(this.deep?.getSnapshot(), this.semantic?.getSnapshot(), this.connect?.getSnapshot()),
-        (action) => { if (this.route === route) this.settingsAction(action); });
+      if (this.deepSetup) this.renderDeep(surface);
+      else if (this.semanticSetup) this.renderSemantic(surface);
+      else {
+        renderProductSettings(surface, settingsViewModel(this.deep?.getSnapshot(), this.semantic?.getSnapshot(), this.connect?.getSnapshot()),
+          (action) => { if (this.route === route) this.settingsAction(action); });
+        renderHealthProfile(surface, model, {
+          changeProfile: () => { this.changingProfile = !this.changingProfile; this.render(); }, chooseProfile: choose,
+        }, this.changingProfile);
+        const details = healthDetails(surface, t("@polish.connection-actions"), "connection-actions");
+        details.createEl("p", { text: t("@polish.scope.index") });
+        if (scoped && !this.scopeAcknowledged) gate(details, () => { this.scopeAcknowledged = true; this.render(); });
+        else { this.renderSemantic(details); this.renderDeep(details); }
+      }
     } else if (connectSnapshot) {
       this.renderConnect(surface);
     } else if (recall && this.recall) {
@@ -279,7 +387,7 @@ export class VeynrelHealthView extends ItemView {
         renderRecallAuthoring(surface, authoring, {
           request: () => { this.focusDestination = "recall-authoring"; author.requestGeneration(); },
           generate: () => { void author.generate(); }, cancel: () => author.cancelConfirmation(),
-          configure: () => this.navigate({ page: "health" }),
+          configure: () => this.navigate({ page: "settings" }),
         });
       }
       const card = recallSnapshot?.session?.card;
@@ -290,12 +398,46 @@ export class VeynrelHealthView extends ItemView {
       if (!recallSnapshot?.session && !recallSnapshot?.summary?.due && recallSnapshot?.nextDueAt !== undefined) {
         this.wakeAt(recallSnapshot.nextDueAt);
       }
+    } else if (discover && this.workbenchHost) {
+      if (!this.workbench || this.workbenchRevision !== this.scopeRevision) {
+        const previous = this.workbench;
+        previous?.dispose();
+        const selection = scope.selection;
+        const data = this.workbenchHost.create({ id: selection.kind === "all" ? "all" : `folder:${selection.path}`,
+          revision: this.scopeRevision, paths: scope.snapshot.paths.filter(path => includesScope(selection, path)) }, false);
+        this.workbench = new ReviewListView(surface, data, this.workbenchHost.pair, {
+          history: () => this.tools.openOperationHistory(), settings: () => this.navigate({ page: "settings" }),
+          map: parent => new WorkbenchView(parent, this.workbenchHost!.create(data.scope, true), this.workbenchHost!.pair, {
+          openNote: path => { void this.openNote(path); }, search: () => this.semantic?.openSearch(),
+          settings: () => this.navigate({ page: "settings" }), history: () => this.tools.openOperationHistory(),
+          similar: () => this.semantic?.openSimilarNotes(), advanced: page => this.navigate({ page }),
+        }, this.contentEl),
+        }, this.contentEl);
+        this.workbench.inheritNavigation(previous);
+        this.workbenchRevision = this.scopeRevision;
+      } else surface.appendChild(this.workbench.element);
+      this.workbench.update(this.controller.listFindings());
     } else if (discover) {
-      renderDiscover(surface, discover, (action) => this.semanticAction(action), this.neighborhood ? () => {
-        this.navigate({ page: "semantic-neighborhood", returnTo: "discover" }); void this.neighborhood!.prepare();
-      } : undefined, this.globalMap ? () => { this.navigate({ page: "semantic-map" }); void this.globalMap!.load(); } : undefined,
-      this.comparison ? () => { this.navigate({ page: "connection-opportunities" }); void this.comparison!.load(); } : undefined,
-      () => this.tools.openOperationHistory());
+      workspaceHeading(surface, t("@workspace.map"), scopeName(scope));
+      const blocked = scoped && !this.scopeAcknowledged;
+      const route = this.route, revision = this.scopeRevision;
+      const current = (): boolean => this.route === route && this.scopeRevision === revision && !blocked;
+      const explore = (page: "topology" | "semantic-neighborhood" | "semantic-map" | "connection-opportunities", load?: () => Promise<void>): void => {
+        if (!current()) return;
+        this.navigate({ page }, true); void load?.();
+      };
+      renderDiscover(surface, discover, action => { if (current()) this.semanticAction(action); },
+        this.neighborhood ? () => explore("semantic-neighborhood", () => this.neighborhood!.prepare()) : undefined,
+        this.globalMap ? () => explore("semantic-map", () => this.globalMap!.load()) : undefined,
+        this.comparison ? () => explore("connection-opportunities", () => this.comparison!.load()) : undefined,
+        () => { if (current()) this.tools.openOperationHistory(); }, {
+          topology: this.topology ? () => explore("topology") : undefined, blocked,
+          confirmScope: blocked ? target => gate(target, () => { this.scopeAcknowledged = true; this.render(); }) : undefined,
+        });
+      renderScopeNotes(surface, scope, this.noteQuery, this.noteLimit, {
+        search: query => { this.noteQuery = query; this.noteLimit = 80; this.render(); },
+        more: () => { this.noteLimit += 80; this.render(); }, open: path => { void this.openNote(path); },
+      });
     } else if (normal && this.route.page === "findings") {
       const route = this.route;
       const inbox = findingsInboxViewModel({ findings: this.controller.listFindings(), route,
@@ -317,12 +459,8 @@ export class VeynrelHealthView extends ItemView {
         togglePaths: () => { this.expandedPaths = !this.expandedPaths; this.render(); },
         toggleSnooze: () => { this.expandedSnooze = !this.expandedSnooze; this.render(); },
       }, this.expandedPaths, this.expandedSnooze);
-    } else if (normal && this.deepSetup && this.deep) {
-      this.renderDeep(surface);
-    } else if (normal && this.semanticSetup && this.semantic) {
-      this.renderSemantic(surface);
     } else if (normal || onboarding.step === "recovery") {
-      renderHealthHome(surface, model, {
+      renderHealthHome(surface.createDiv(), model, {
         scan, openNote,
         recover: () => {
           if (this.controller.getState().busy || !model.recovery) return;
@@ -333,13 +471,11 @@ export class VeynrelHealthView extends ItemView {
         findings: normal ? (dimension) => this.navigate(findingsRoute({ dimension: dimension ?? "all" })) : undefined,
         recall: normal && this.recall ? () => this.navigate({ page: "recall" }) : undefined,
         reviewFinding: normal ? (selectedFindingId) => this.navigate(findingsRoute({ selectedFindingId })) : undefined,
-      }, this.changingProfile, normal && this.topology ? (home) => renderTopologyPreview(home, this.topology!, () => this.navigate({ page: "topology" })) : undefined);
+      }, normal && this.deep ? container => this.renderDeep(container) : undefined);
       const recallHealth = state.snapshot?.recall;
       if (normal && recallHealth?.loadState === "ready" && recallHealth.active > 0 && recallHealth.due === 0 && recallHealth.nextDueAt !== undefined) {
         this.wakeAt(recallHealth.nextDueAt);
       }
-      if (normal && this.semantic) this.renderSemantic(surface);
-      if (normal && this.deep) this.renderDeep(surface);
     } else {
       renderHealthOnboarding(surface, onboarding, model, state, {
         scan, openNote, choose,
@@ -396,7 +532,10 @@ export class VeynrelHealthView extends ItemView {
     } else if (hadFocus) {
       const target = focusKey ? this.body.querySelector<HTMLButtonElement>(`[data-health-action="${focusKey}"]`) : null;
       if (enteringPage || !normal) heading()?.focus();
-      else if (target && !target.disabled) target.focus({ preventScroll: true });
+      else if (target && !target.disabled) {
+        target.focus({ preventScroll: true });
+        if (searchSelection) (target as unknown as HTMLInputElement).setSelectionRange(searchSelection[0], searchSelection[1]);
+      }
       else if (!focusKey && (active.getAttribute("data-health-heading") || active.getAttribute("data-findings-heading"))) heading()?.focus({ preventScroll: true });
       else {
         // Keep the keyboard near a temporarily disabled action. Carry its key on
@@ -413,17 +552,32 @@ export class VeynrelHealthView extends ItemView {
       this.contentEl.scrollLeft = scrollLeft;
     }
     // Metadata only, after onboarding/recovery. Product notifications flow through the Health controller.
-    if (normal && this.route.page === "health") this.controller.initializeRecall();
+    if (normal && (this.route.page === "home" || this.route.page === "health" && !gated)) this.controller.initializeRecall();
+  }
+
+  private selectScope(path?: string): void {
+    if (!this.areaIndex) return;
+    this.workbench?.suspend();
+    this.areaIndex.select(path); this.scopeRevision++; this.scopeAcknowledged = false; this.pendingTool = undefined;
+    this.noteQuery = ""; this.noteLimit = 80;
+    this.knowledgeConfirmation = undefined; this.authoring?.cancelConfirmation();
+    this.semanticSetup = undefined; this.deepSetup = undefined; this.connectConfirmation = undefined; this.connectResult = undefined;
+    if (this.route.page === "recall") this.leaveRecall();
+    this.render();
   }
 
   private wakeAt(dueAt: number): void {
     // A deadline crossed during rendering still gets a wakeup; long delays are bounded and rechecked.
-    this.dueWakeup = window.setTimeout(() => this.render(), Math.max(0, Math.min(dueAt - Date.now(), 2_147_483_647)));
+    this.dueWindow = this.contentEl.ownerDocument.defaultView ?? window;
+    this.dueWakeup = this.dueWindow.setTimeout(() => this.render(), Math.max(0, Math.min(dueAt - Date.now(), 2_147_483_647)));
   }
 
   /** Transient product navigation only; never persisted and never starts analysis. */
-  private navigate(route: VeynrelHealthRoute): void {
+  openReviewVault(): void { this.navigate({ page: "discover" }); }
+
+  private navigate(route: VeynrelHealthRoute, acknowledgeScope = false): void {
     if (!this.body || healthOnboardingViewModel(this.controller.getState()).step !== "complete") return;
+    if (this.route.page === "discover" && route.page !== "discover") this.workbench?.suspend();
     if (this.route.page === "recall") this.leaveRecall();
     if (route.page === "recall" && this.recall) {
       VeynrelHealthView.recallViews.get(this.recall)?.navigate({ page: "health" });
@@ -433,24 +587,29 @@ export class VeynrelHealthView extends ItemView {
     this.deepSetup = undefined;
     this.knowledgeConfirmation = undefined;
     this.connectSetup = undefined; this.connectConfirmation = undefined; this.connectResult = undefined;
+    this.scopeAcknowledged = acknowledgeScope; this.pendingTool = undefined; this.shellState.menuOpen = false;
     this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
     this.changingProfile = false; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";
+    this.contentEl.scrollTop = 0;
     this.render();
-    if (route.page === "recall" && this.recall) {
+    if (route.page === "recall" && this.recall && this.areaIndex?.selection.kind === "all") {
       void this.recall.initialize();
     }
   }
 
-  private async launchTool(action: VeynrelToolAction, route: VeynrelHealthRoute): Promise<void> {
-    if (!this.body || this.route !== route || route.page !== "tools" || healthOnboardingViewModel(this.controller.getState()).step !== "complete") return;
-    const epoch = this.epoch;
+  private async launchTool(action: VeynrelToolAction, route: VeynrelHealthRoute, acknowledged = false): Promise<void> {
+    if (!this.body || this.route !== route || !["tools", "health", "findings", "topology", "process", "history"].includes(route.page) || healthOnboardingViewModel(this.controller.getState()).step !== "complete") return;
+    if (this.areaIndex?.selection.kind === "folder" && !acknowledged && !this.scopeAcknowledged) {
+      this.pendingTool = action; this.render(); return;
+    }
+    const epoch = this.epoch, scopeRevision = this.scopeRevision;
     if (this.navigationMessage) { this.navigationMessage = undefined; this.render(); }
     try { await this.tools[action](); }
     catch {
       // Workflow UI owns detailed results. A failed launcher never exposes raw errors.
-      if (this.epoch === epoch && this.route === route) {
+      if (this.epoch === epoch && this.route === route && this.scopeRevision === scopeRevision) {
         this.navigationMessage = t("@tools.launch-failed"); this.render();
       }
     }
@@ -466,7 +625,7 @@ export class VeynrelHealthView extends ItemView {
   private leaveRecall(): void {
     this.authoring?.cancelConfirmation();
     this.cleanupRecall?.(); this.cleanupRecall = undefined; this.recallFocusKey = undefined;
-    if (this.dueWakeup !== undefined) window.clearTimeout(this.dueWakeup);
+    if (this.dueWakeup !== undefined) this.dueWindow?.clearTimeout(this.dueWakeup);
     this.dueWakeup = undefined;
     if (this.recall && VeynrelHealthView.recallViews.get(this.recall) === this) {
       VeynrelHealthView.recallViews.delete(this.recall);
@@ -497,14 +656,14 @@ export class VeynrelHealthView extends ItemView {
   private openSemanticSetup(): void {
     this.deepSetup = undefined;
     this.knowledgeConfirmation = undefined;
-    this.route = { page: "health" }; this.semanticSetup = { step: "choose" };
+    this.route = { page: "settings" }; this.scopeAcknowledged = false; this.pendingTool = undefined; this.semanticSetup = { step: "choose" };
     this.changingProfile = false; this.navigationMessage = undefined;
     this.focusDestination = "heading"; this.render();
   }
 
   private openDeepSetup(): void {
     this.semanticSetup = undefined; this.knowledgeConfirmation = undefined;
-    this.route = { page: "health" }; this.deepSetup = { step: "choose" };
+    this.route = { page: "settings" }; this.scopeAcknowledged = false; this.pendingTool = undefined; this.deepSetup = { step: "choose" };
     this.changingProfile = false; this.navigationMessage = undefined;
     this.focusDestination = "heading"; this.render();
   }
@@ -573,7 +732,7 @@ export class VeynrelHealthView extends ItemView {
       cancelKnowledge: () => this.controller.cancelDeepScan(),
       dismissConfirmation: () => { this.knowledgeConfirmation = undefined; this.focusDestination = "heading"; this.render(); },
     }, { consent: this.knowledgeConfirmation, available: Boolean(this.controller.getKnowledgeConsent()), running: Boolean(this.controller.getState().deepScanRunning),
-      busy: this.controller.getState().busy, status: knowledgeScanStatus(this.controller.getState()), progress: this.controller.getState().deepProgress });
+      busy: this.controller.getState().busy, status: knowledgeScanStatus(this.controller.getState()), progress: this.controller.getState().deepProgress }, this.route.page === "settings");
     const progress = this.controller.getState().deepProgress;
     const elapsed = surface.querySelector<HTMLElement>("[data-knowledge-elapsed]");
     if (progress && elapsed) {

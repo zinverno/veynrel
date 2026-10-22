@@ -46,7 +46,7 @@ const dom = vi.hoisted(() => {
 vi.mock("obsidian", async () => {
   // eslint-disable-next-line import/no-extraneous-dependencies -- Test-only native YAML substitute.
   const yaml = await import("js-yaml") as { load(s: string): unknown };
-  return { Modal: dom.Modal, TFile: class {}, MarkdownView: class {}, getLanguage: () => "en", parseYaml: (s: string) => yaml.load(s),
+  return { setIcon: vi.fn(), Modal: dom.Modal, TFile: class {}, MarkdownView: class {}, getLanguage: () => "en", parseYaml: (s: string) => yaml.load(s),
     parseLinktext: (s: string) => ({ path: s.split("#")[0], subpath: s.includes("#") ? s.slice(s.indexOf("#")) : "" }) };
 });
 
@@ -90,7 +90,7 @@ it.each(["ru", "en"] as const)("%s keeps exact consent private, collapsed and se
   setLanguage(language);
   const node = new dom.Element(), confirm = vi.fn(), cancel = vi.fn();
   const session = { view: { stage: "consent", consent: { provider: "Synthetic", model: "offline", endpoint: "https://example.test/v1/chat/completions",
-    paths: ["A.md", "B.md"], characters: [12, 13], bytes: 99, body: '{"exact":"source"}' } }, confirm, cancel } as unknown as RelationshipSession;
+    paths: ["A.md", "B.md"], characters: [12, 13], bytes: 99, maxTokens: 8192, reasoning: "disabled", body: '{"exact":"source"}' } }, confirm, cancel } as unknown as RelationshipSession;
   renderRelationshipView(element(node), session);
   expect(confirm).not.toHaveBeenCalled();
   expect(node.querySelectorAll("details").every(e => !e.open && !Object.prototype.hasOwnProperty.call(e.attrs, "open"))).toBe(true);

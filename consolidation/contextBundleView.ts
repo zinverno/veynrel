@@ -13,7 +13,7 @@ function source(root: HTMLElement, label: string, text: string, key: string, ope
 }
 /** The plan stays read-only; optional execution opens a separate consent flow. */
 export function renderContextBundlePlanner(root: HTMLElement, session: ChangePlannerSession, analysis: RelationshipAnalysis,
-  choice: ContextBundleChoice, change: (c: ContextBundleChoice) => void, review?: (plan: ContextBundlePlan) => void): void {
+  choice: ContextBundleChoice, change: (c: ContextBundleChoice) => void, review?: (plan: ContextBundlePlan) => void, canonicalChosen = false): void {
   const input = session.view.input; if (!input) return;
   const select = (key: string, options: [string, string][], value: string, onChange: (v: string) => void) => {
     const label = root.createEl("label", { text: tr(`@bundle.${key}`), cls: "ai-planner-location" });
@@ -35,7 +35,7 @@ export function renderContextBundlePlanner(root: HTMLElement, session: ChangePla
   root.createEl("p", { text: tr("@merge.dependencyScope") });
   for (const c of analysis.result.claims) source(root, `${tr(`@relationship.kind.${c.kind}`)}: ${c.text}`, [c.quoteA, c.quoteB].filter(Boolean).join("\n"), `hint-${c.id}`);
   for (const text of analysis.result.limitations) root.createEl("p", { text });
-  select("canonical", input.pair.map((n, i) => [String(i), `${i === 0 ? "A" : "B"}: ${n.path}`]), choice.canonical === null ? "" : String(choice.canonical),
+  if (!canonicalChosen) select("canonical", input.pair.map((n, i) => [String(i), `${i === 0 ? "A" : "B"}: ${n.path}`]), choice.canonical === null ? "" : String(choice.canonical),
     value => change({ ...emptyBundleChoice(), canonical: value === "" ? null : value === "0" ? 0 : 1 }));
   let valid = false;
   if (choice.canonical !== null) {

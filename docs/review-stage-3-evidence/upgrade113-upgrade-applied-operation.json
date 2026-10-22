@@ -1,0 +1,11 @@
+{
+  "retainedFiles": [
+    "consolidation-operations/f78d00e2a0e193e8df276a1a8a04127e1e87a4a8d95ffdd54b0f6f3088c5037e/applied.json",
+    "consolidation-operations/f78d00e2a0e193e8df276a1a8a04127e1e87a4a8d95ffdd54b0f6f3088c5037e/backup.json",
+    "consolidation-operations/f78d00e2a0e193e8df276a1a8a04127e1e87a4a8d95ffdd54b0f6f3088c5037e/record.json",
+    "data.json",
+    "semantic-index/vector-index.bin",
+    "semantic-index/vector-manifest.json"
+  ],
+  "output": "Backup: <artifact-root>/veynrel-review-flow-native-beta-upgrade113-48edb0b-r2/installer-state/veynrel-workbench-install/backup.Lqm1P8ZD\nClose this test vault in Obsidian before installing. Target: <artifact-root>/veynrel-review-flow-native-beta-upgrade113-48edb0b-r2/vault\nmain.js: OK\nmanifest.json: OK\nstyles.css: OK\nInstalled source 48edb0b51c469a6efbd3a36f11136144df29f9f3\nSettings, semantic index and journals were preserved. Reopen the test vault and enable/reload Veynrel.\n"
+}

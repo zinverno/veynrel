@@ -1,5 +1,9 @@
 # Veynrel product information architecture
 
+Stage 1 replaces the primary navigation described below with the
+[native workspace shell](ux-reboot-stage-1.md). Existing owners and their safety
+contracts remain in place; use that report for the current entry points.
+
 The visible primary navigation is **Health | Findings | Discover | Recall |
 Connect | Tools | Settings** (Recall and Connect appear when their ports are available).
 Tools is a primary workspace tab: its existing `{ page: "tools" }` route selects

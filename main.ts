@@ -1,3 +1,4 @@
+import { registerReviewDecisions, reviewDecisions } from "./consolidation/reviewDecisions";
 import { createSafeApplyService } from "./consolidation/obsidianSafeApply";
 import type { SafeApplyService } from "./consolidation/safeApply";
 import { OperationHistoryModal } from "./consolidation/safeApplyModal";
@@ -68,7 +69,6 @@ import {
 import type { CompanionSettings, StoredCompanionSettings } from "./companionSync";
 import { ObsidianSemanticController } from "./semantic";
 import { RelationshipSession, readRelationshipPair } from "./consolidation/relationshipSession";
-import { RELATIONSHIP_OPTIONS } from "./consolidation/relationshipPrompt";
 import { parseTaxonomyProfile, requireTaxonomyProfile, TaxonomyError } from "./consolidation/taxonomyProfile";
 import type { TagTaxonomyProfile, TaxonomyProfilePort } from "./consolidation/taxonomyProfile";
 import { TagRecommendationSession } from "./consolidation/tagRecommendationSession";
@@ -76,6 +76,7 @@ import { TAG_LIMITS, TAG_OPTIONS, TagRecommendationError } from "./consolidation
 import { readSavedNote } from "./consolidation/savedNote";
 import { isCanonicalMarkdownPath } from "./chunking/reconstructChunks";
 import { TagTaxonomyModal } from "./consolidation/taxonomyModal";
+import { createWorkbenchMetadata } from "./consolidation/workbenchMetadata";
 import { HealthPreferencesController, mergeHealthPreferences } from "./health/preferences";
 import type { HealthPreferences } from "./health/preferences";
 import type { VeynrelToolsPort } from "./health/toolsPort";
@@ -182,6 +183,7 @@ export default class AIHubPlugin extends Plugin {
   async onload() {
     try {
       await this.loadSettings();
+      this.register(registerReviewDecisions(this.app, this.manifest.id));
       setLanguage(this.settings.language ?? "auto");
       this.safeApply = createSafeApplyService(this.app, this.manifest.id);
       this.register(() => this.safeApply?.dispose());
@@ -192,7 +194,7 @@ export default class AIHubPlugin extends Plugin {
         safeApply: this.safeApply,
         relationshipSession: paths => new RelationshipSession({
           settings: this.getLanguageModelSettingsPort(), read: () => readRelationshipPair(this.app, paths),
-          complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...RELATIONSHIP_OPTIONS, signal }),
+          complete: (settings, system, user, signal, options) => callOpenRouter(settings, system, user, { ...options, signal }),
         }),
       });
       this.semanticController.registerCommands();
@@ -230,7 +232,9 @@ export default class AIHubPlugin extends Plugin {
           this.recallAuthoring = authoring;
           this.register(() => authoring.dispose());
           return authoring;
-        }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController));
+        }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController),
+        { decisions: reviewDecisions(this.app), mount: (container, paths, completed) => this.semanticController.mountPairReview(container, paths, completed), localFacts: changed => this.semanticController.createReviewFacts(changed) },
+        paths => createWorkbenchMetadata(this.app, paths, this.getTaxonomyProfilePort()));
 
       this.addCommand({
         id: "ai-hub-open-panel",

@@ -1,3 +1,4 @@
+import { createReviewFacts } from "../consolidation/obsidianReviewFacts";
 import type { SafeApplyService } from "../consolidation/safeApply";
 import type { GlobalSemanticAnalysis, GlobalSemanticOptions, SemanticFocusAnalysis } from "./globalSemanticMap";
 import { DecisionsError, OpenRouterDecisionsProvider, testDecisionsConnection } from "../decisions/openRouterDecisions";
@@ -5,6 +6,7 @@ import { mergeDecisionsSettings } from "../decisions/types";
 import type { DecisionsProvider, DecisionsSettings } from "../decisions/types";
 import { OverlapSession } from "../decisions/overlapSession";
 import { OverlapModal } from "../decisions/overlapModal";
+import { PairReview } from "../consolidation/pairReview";
 import { PairInspectorModal } from "../consolidation/pairInspectorModal";
 import type { RelationshipSession } from "../consolidation/relationshipSession";
 import { OpenRouterRerankProvider, rerankConfigured, testRerankConnection } from "../rerank/openRouterRerank";
@@ -259,6 +261,7 @@ function enqueueSharedSemanticMutation<T>(
 export class ObsidianSemanticController {
   private decisionsRevision = 0;
   private readonly overlapSessions = new Set<OverlapSession>();
+  private readonly pairReviews = new Set<PairReview>();
   private readonly pairInspectors = new Set<PairInspectorModal>();
   private readonly safeApply?: SafeApplyService;
   private readonly relationshipSession?: SemanticControllerDependencies["relationshipSession"];
@@ -500,6 +503,7 @@ export class ObsidianSemanticController {
   }
 
   dispose(): Promise<void> {
+    for (const review of this.pairReviews) review.close();
     for (const inspector of this.pairInspectors) inspector.close();
     this.notifyDecisionsSettingsChanged();
     this.notifyRerankSettingsChanged();
@@ -713,6 +717,17 @@ export class ObsidianSemanticController {
   openPotentialDuplicates(): void {
     if (!this.ensureEnabled()) return;
     this.openDuplicatesModal(this.plugin.app, this);
+  }
+
+  createReviewFacts(changed: () => void) { return createReviewFacts(this.plugin.app, changed); }
+
+  mountPairReview(container: HTMLElement, paths: readonly [string, string], completed?: (decision: import("../consolidation/reviewDecisions").ReviewDecision) => void): () => void {
+    if (this.isDisposed()) return () => {};
+    const review = new PairReview(this.plugin.app, container, paths,
+      this.relationshipSession ? () => this.relationshipSession!(paths) : undefined,
+      () => { this.pairReviews.delete(review); }, this.safeApply, completed);
+    this.pairReviews.add(review); review.open();
+    return () => review.close();
   }
 
   inspectPair(pair: SemanticDuplicatePair): void {

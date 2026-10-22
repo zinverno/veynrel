@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.1.0 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/veynrel-ux-stage-1
+
+
+ Test Files  163 passed (163)
+      Tests  4482 passed (4482)
+   Start at  18:09:42
+   Duration  27.75s (transform 7.98s, setup 0ms, import 21.07s, tests 64.72s, environment 17ms)

@@ -1,0 +1,1 @@
+{"status":"PASS","root":"<synthetic-installer-check>","checks":["exact install","external three-file backup","settings/index/journals unchanged","original refused","tamper refused before writes","symlink target refused"]}

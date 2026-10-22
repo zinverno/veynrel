@@ -1,3 +1,9 @@
+import { ConnectionRulesModal } from "./connectionRulesModal";
+import { createConnectionRules } from "./connectionRules";
+import { compileConnectionRules } from "../connections/connectionRules";
+import { WorkbenchData } from "../workbench/workbenchData";
+import type { PairReviewPort } from "../workbench/workbenchData";
+import type { WorkbenchTagsPort } from "../workbench/workbenchTags";
 import { ConnectionComparisonController } from "../connections/connectionComparisonController";
 import type { SemanticGlobalMapPort } from "../semanticGlobalMapPort";
 import { Notice } from "obsidian";
@@ -24,13 +30,28 @@ import type { SemanticNeighborhoodPort } from "../semanticNeighborhoodPort";
 
 export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferences: HealthPreferencesPort, semantic?: SemanticIntelligencePort,
   semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort,
-  createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort, neighborhood?: SemanticNeighborhoodPort, globalMap?: SemanticGlobalMapPort): void {
+  createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort, neighborhood?: SemanticNeighborhoodPort, globalMap?: SemanticGlobalMapPort, pairReview?: PairReviewPort,
+  createTags?: (paths: readonly string[]) => WorkbenchTagsPort): void {
+  const rules = createConnectionRules(plugin);
   const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
   const authoring = createAuthoring?.(recall);
   const topology = createObsidianVaultTopology(plugin.app);
-  const comparison = globalMap ? new ConnectionComparisonController(globalMap, topology) : undefined;
+  const createComparison = (map: SemanticGlobalMapPort): ConnectionComparisonController => new ConnectionComparisonController(map, topology);
+  const comparison = globalMap ? createComparison(globalMap) : undefined;
   const controller = new HealthPluginController(plugin.app, plugin.manifest.id, preferences, semanticAnalysis, new RecallHealthAdapter(recall), deepAnalysis);
-  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison));
+  plugin.registerView(VEYNREL_HEALTH_VIEW_TYPE, (leaf) => new VeynrelHealthView(leaf, controller, tools, semantic, recall, deep, authoring, connect, topology, neighborhood, globalMap, comparison, pairReview ? { pair: pairReview, create: (scope, graphical = false) => {
+    const tags = createTags?.(scope.paths);
+    const selection = !graphical && tags ? {
+      capture: () => compileConnectionRules(rules, tags.getSnapshot()),
+      subscribe: (listener: () => void) => { const a = rules.subscribe(listener), b = tags.subscribe(listener); return () => { a(); b(); }; },
+    } : undefined;
+    return new WorkbenchData(scope, {
+      topology, createSemantic: globalMap?.createScoped ? scope => globalMap.createScoped!(scope, selection) : undefined,
+      createComparison, duplicates: semanticAnalysis, tags, rules: graphical ? undefined : rules,
+      editRules: !graphical && tags ? () => { const modal = new ConnectionRulesModal(plugin.app, rules, tags, scope.paths); modal.open(); return () => modal.close(); } : undefined,
+      prepareExisting: () => globalMap?.prepareExisting?.() ?? Promise.resolve(), subscribeIndex: semantic ? listener => semantic.subscribe(listener) : undefined,
+    }, graphical);
+  } } : undefined));
   plugin.register(() => comparison?.dispose());
   plugin.register(() => globalMap?.dispose());
   plugin.register(() => neighborhood?.dispose());
@@ -38,9 +59,15 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
   plugin.register(() => controller.dispose());
   plugin.register(() => recall.dispose());
   let opening: Promise<void> | undefined;
-  const open = (): void => {
-    opening ??= openHealthView(plugin.app.workspace).catch(() => { new Notice(t("@health.open-failed")); }).finally(() => { opening = undefined; });
+  const open = (): Promise<void> => {
+    return opening ??= openHealthView(plugin.app.workspace).catch(() => { new Notice(t("@health.open-failed")); }).finally(() => { opening = undefined; });
   };
   plugin.addRibbonIcon("activity", t("@health.title"), open);
   plugin.addCommand({ id: "veynrel-open-health", name: t("@health.command"), callback: open });
+  plugin.addCommand({ id: "veynrel-review-vault", name: t("@review.title"), callback: () => {
+    void open().then(() => {
+      const view = plugin.app.workspace.getLeavesOfType(VEYNREL_HEALTH_VIEW_TYPE)[0]?.view;
+      if (view instanceof VeynrelHealthView) view.openReviewVault();
+    }).catch(() => { new Notice(t("@health.open-failed")); });
+  } });
 }

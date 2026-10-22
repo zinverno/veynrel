@@ -352,9 +352,28 @@ export class SemanticDiscoveryService {
     await yieldGlobalAnalysis();
     check();
     const prepared = this.prepareSnapshot();
-    const documents = prepared.documents.filter((document) => this.eligible(document));
-    const counts = { indexedNoteCount: prepared.documents.length, mappedNoteCount: documents.length };
-    if (documents.length > GLOBAL_SEMANTIC_DOCUMENT_CAP) return { ...counts, state: "too-large" };
+    const paths = options.paths === undefined ? undefined : new Set(options.paths.map(validatePath));
+    const scoped = paths ? prepared.documents.filter(document => paths.has(document.path)) : prepared.documents;
+    const eligible = scoped.filter((document) => this.eligible(document));
+    // A policy cannot bypass the selected semantic coverage cap.
+    if (eligible.length > GLOBAL_SEMANTIC_DOCUMENT_CAP) return { indexedNoteCount: scoped.length, mappedNoteCount: eligible.length, state: "too-large" };
+    const policy = options.selection;
+    const documents = policy ? eligible.filter(document => policy.document(document.path) !== "exclude") : eligible;
+    const selection = policy ? { revision: policy.revision, eligibleNoteCount: eligible.length,
+      excludedNoteCount: eligible.length - documents.length, unknownNoteCount: eligible.filter(d => policy.unknown(d.path)).length,
+      excludedPairCount: 0, unknownPairCount: 0 } : undefined;
+    if (selection && policy) {
+      let checked = 0;
+      for (let a = 0; a < eligible.length; a++) for (let b = a + 1; b < eligible.length; b++) {
+        const result = policy.pair(eligible[a].path, eligible[b].path);
+        if (result === "exclude") selection.excludedPairCount++;
+        else if (result === "unknown") selection.unknownPairCount++;
+        if (++checked % 2048 === 0) { await yieldGlobalAnalysis(); check(); }
+      }
+      check();
+    }
+    const counts = { indexedNoteCount: scoped.length, mappedNoteCount: documents.length, ...(selection ? { selection } : {}) };
+    if (selection?.excludedNoteCount && !documents.length) return { ...counts, state: "ready", nodes: [], edges: [] };
     const core = new Float64Array(this.dimensions);
     for (const document of documents) {
       validatePath(document.path);
@@ -382,9 +401,11 @@ export class SemanticDiscoveryService {
     progress();
     for (let left = 0; left < documents.length; left++) {
       for (let right = left + 1; right < documents.length; right++) {
-        const score = cosine(documents[left].vector!, documents[right].vector!);
-        offer(neighbors[left], documents[right].path, score);
-        offer(neighbors[right], documents[left].path, score);
+        if (!policy || policy.pair(documents[left].path, documents[right].path) === "allow") {
+          const score = cosine(documents[left].vector!, documents[right].vector!);
+          offer(neighbors[left], documents[right].path, score);
+          offer(neighbors[right], documents[left].path, score);
+        }
         if (++completedPairs % 2048 === 0) {
           progress(); await yieldGlobalAnalysis(); check();
         }

@@ -1,0 +1,11 @@
+> obsidian-ai-hub@2.1.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /tmp/veynrel-knowledge-workbench
+
+
+ Test Files  164 passed (164)
+      Tests  4507 passed (4507)
+   Start at  14:00:20
+   Duration  35.87s (transform 30.48s, setup 0ms, import 67.39s, tests 138.18s, environment 33ms)

@@ -1,3 +1,4 @@
+import { refreshReviewFacts, reviewOutcome } from "./reviewRefresh";
 import { ReviewLifetime } from "./reviewLifetime";
 import { reviewSummary, diagnosticPanel, historyHeading, historyUnavailable, focusStatus, copyDependencies } from "./consolidationUx";
 import { App, Modal } from "obsidian";
@@ -77,6 +78,7 @@ export class BundleApplyModal extends Modal {
     this.busy = true; this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.working"), attr: { role: "status", "aria-live": "polite" } }); focusStatus(this.contentEl);
     try {
       await this.service.execute(this.review);
+      refreshReviewFacts(this.app, reviewOutcome(this.review.record, this.review.action === "apply" ? "applied" : "undone"));
       if (!this.active) return;
       this.contentEl.empty(); this.contentEl.createEl("p", { text: tr(this.review.action === "apply" ? "@bundleApply.applied" : "@bundleApply.undone"), attr: { role: "status" } });
       control(this.contentEl, "history", () => { this.close(); void this.pending.then(this.history); }); focusStatus(this.contentEl);

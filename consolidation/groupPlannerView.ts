@@ -12,7 +12,7 @@ function source(root: HTMLElement, title: string, text: string, key: string, ope
 }
 /** Read-only choices; execution requires a separate review and private consent ticket. */
 export function renderGroupPlanner(root: HTMLElement, session: ChangePlannerSession, analysis: RelationshipAnalysis,
-  choice: GroupChoice, change: (choice: GroupChoice) => void, review?: (plan: GroupPlan) => void): void {
+  choice: GroupChoice, change: (choice: GroupChoice) => void, review?: (plan: GroupPlan) => void, canonicalChosen = false): void {
   const input = session.view.input;
   if (!input) return;
   const check = (key: "groupConfirmed" | "contextConfirmed" | "insertionConfirmed" | "distinctIntent") => {
@@ -34,7 +34,7 @@ export function renderGroupPlanner(root: HTMLElement, session: ChangePlannerSess
   for (const [i, note] of input.pair.entries()) source(root, `${i === 0 ? "A" : "B"}: ${note.path}`, note.content, `source-${i}`);
   for (const text of analysis.result.limitations) root.createEl("p", { text });
   if (analysis.result.relation === "related_distinct") { root.createEl("p", { text: tr("@group.distinct") }); check("distinctIntent"); }
-  select("canonical", input.pair.map((n, i) => [String(i), `${i === 0 ? "A" : "B"}: ${n.path}`]),
+  if (!canonicalChosen) select("canonical", input.pair.map((n, i) => [String(i), `${i === 0 ? "A" : "B"}: ${n.path}`]),
     choice.canonical === null ? "" : String(choice.canonical), value => change({ ...emptyGroupChoice(), canonical: value === "" ? null : value === "0" ? 0 : 1 }));
   if (choice.canonical !== null) {
     try {

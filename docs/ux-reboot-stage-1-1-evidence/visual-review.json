@@ -1,0 +1,102 @@
+{
+  "sourceCommit": "87e734464ca7648c8f2a81968806a857bf07a7e2",
+  "screenshots": [
+    {
+      "file": "before-home.png",
+      "source": "/tmp/veynrel-stage1-polish-final-before/compare-home.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "before-folder.png",
+      "source": "/tmp/veynrel-stage1-polish-final-before/compare-folder.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "before-map.png",
+      "source": "/tmp/veynrel-stage1-polish-final-before/compare-map.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "before-map-folder.png",
+      "source": "/tmp/veynrel-stage1-polish-final-before/compare-map-folder.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "before-tools.png",
+      "source": "/tmp/veynrel-stage1-polish-final-before/compare-tools.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "before-check-details.png",
+      "source": "/tmp/veynrel-stage1-polish-final-before/compare-check-details.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "after-home.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/compare-home.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "after-folder.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/compare-folder.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "after-map.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/compare-map.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "after-map-folder.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/compare-map-folder.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "after-tools.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/compare-tools.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "after-check-details.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/compare-check-details.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic Lab only."
+    },
+    {
+      "file": "home-en-light-434.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/home-en-light-434.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic fixture only."
+    },
+    {
+      "file": "home-zoom200.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/home-zoom200.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic fixture only."
+    },
+    {
+      "file": "home-wide-window-split.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/home-wide-window-split.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic fixture only."
+    },
+    {
+      "file": "home-popout.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/home-popout.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic fixture only."
+    },
+    {
+      "file": "home-reduced-motion.png",
+      "source": "/tmp/veynrel-stage1-polish-final-lab/home-reduced-motion.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic fixture only."
+    },
+    {
+      "file": "home-long-folder-390.png",
+      "source": "/tmp/veynrel-stage1-polish-final-small/home-long-folder-390.png",
+      "review": "Visually inspected native capture; no pixel edits; synthetic fixture only."
+    }
+  ],
+  "video": {
+    "file": "core-native.mp4",
+    "review": "Decoded frames at 1s and 3s visually inspected. Native screencast timestamps and seven DOM samples establish motion with stationary controls.",
+    "durationSeconds": 7,
+    "nativeFrames": 209,
+    "encodedFrames": 175
+  }
+}

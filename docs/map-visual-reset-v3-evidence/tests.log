@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.1.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /tmp/veynrel-map-visual-v3
+
+
+ Test Files  167 passed (167)
+      Tests  4542 passed (4542)
+   Start at  21:30:32
+   Duration  41.43s (transform 32.67s, setup 0ms, import 77.01s, tests 160.35s, environment 32ms)

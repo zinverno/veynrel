@@ -1,0 +1,14 @@
+{
+  "source": "f894125090038a0c61039f750932955149dd51de",
+  "markdownCount": 1002,
+  "afterUndoMatchesBefore": true,
+  "changedByApply": {
+    "Workbench/A/Cache.md": {
+      "before": "7caedcaffa11cda7db1a94f3af4683cfa576ec3278d171a65d5dc7c763e34b87",
+      "afterApply": "ff488efc740fb4f01fb8ff51d9b3802254a05fdc4bd5c78041ef229ce817d28d",
+      "afterUndo": "7caedcaffa11cda7db1a94f3af4683cfa576ec3278d171a65d5dc7c763e34b87"
+    }
+  },
+  "restoration": "Actual SafeApplyService Undo, no fixture copy restoration",
+  "networkRequests": 0
+}

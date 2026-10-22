@@ -8,11 +8,10 @@ const nav = ".veynrel-health-view .veynrel-findings-navigation";
 describe("workspace presentation contract", () => {
   it("shares one wide responsive shell, with bounded prose and an out-of-layout live region", () => {
     const shell = rule(".veynrel-health-view .veynrel-workspace");
-    expect(shell).toContain("max-width: 1400px;");
-    expect(shell).toContain("width: calc(100% - 32px);");
-    expect(shell).toContain("margin-inline: auto;");
-    expect(shell).toContain("padding-block: 16px;");
-    expect(css).toContain(".veynrel-health-view .veynrel-workspace { width: 100%; padding: 12px; }");
+    expect(shell).toContain("width: 100%;");
+    expect(shell).toContain("padding: 0;");
+    expect(rule(".veynrel-health-view .veynrel-shell")).toContain("grid-template-columns: 208px minmax(0, 1fr)");
+    expect(rule(".veynrel-health-view .veynrel-shell-main")).toContain("max-width: 1536px");
     expect(css).toContain("max-width: 80ch;");
     expect(css).not.toMatch(/max-width: (?:880|1120)px/u);
     const live = rule(".veynrel-health-view .veynrel-health-status");
@@ -21,23 +20,15 @@ describe("workspace presentation contract", () => {
     expect(live).not.toMatch(/display:\s*none|visibility:\s*hidden/u);
     expect(css).not.toContain(".veynrel-health-status:empty");
   });
-  it("uses a flat scrolling rail, transparent buttons, short separators and an accent underline", () => {
-    expect(rule(nav)).toContain("flex-wrap: nowrap;");
-    expect(rule(nav)).toContain("overflow-x: auto;");
-    expect(rule(nav)).toContain("scroll-padding-inline: var(--size-4-2);");
-    expect(rule(nav)).toContain("width: 100%;");
-    for (const selector of [nav, `${nav} button`, ".veynrel-topology-preview"]) {
-      expect(rule(selector)).toContain("border: 0;");
-      expect(rule(selector)).toContain("border-radius: 0;");
-      expect(rule(selector)).toContain("background: transparent;");
-    }
-    expect(rule(nav)).toContain("border-bottom: 1px solid var(--background-modifier-border);");
-    expect(rule(`${nav} button`)).toContain("flex: 1 0 auto;");
-    expect(rule(`${nav} button`)).toContain("white-space: nowrap;");
-    expect(rule(`${nav} button + button::before`)).toContain("border-inline-start:");
-    expect(rule(`${nav} button:focus-visible`)).toContain("outline:");
-    expect(css).toMatch(/\[aria-current="page"\],[^{]+\{[^}]*font-weight: var\(--font-semibold\);[^}]*box-shadow: inset 0 -2px var\(--interactive-accent\);/u);
-    expect(css).not.toMatch(/findings-navigation[^{}]*\{[^}]*flex-(?:basis: \d+%|wrap: wrap)/u);
+  it("replaces the rail with one sidebar, a narrow pane menu and an explicit selected marker", () => {
+    expect(css).not.toContain(nav);
+    expect(rule(".veynrel-health-view .veynrel-sidebar nav")).toContain("flex-direction: column");
+    expect(rule('.veynrel-health-view .veynrel-sidebar button[aria-current="page"]')).toContain("border-left-color:");
+    expect(css).toContain("@container (max-width: 760px)");
+    expect(css).toContain('[data-menu-open="true"] .veynrel-sidebar { display: block; }');
+    expect(css).toContain("grid-template-columns: minmax(0, 1.85fr) minmax(268px, 1fr)");
+    expect(css).toContain("@container (max-width: 600px)");
+    expect(css).toContain(".veynrel-topic-node { position: relative; left: auto; top: auto; transform: none;");
   });
 
   it("integrates the preview section while retaining the neutral map surface", () => {
@@ -50,7 +41,7 @@ describe("workspace presentation contract", () => {
     expect(css).not.toMatch(/clip-path|column-gap|!important/u);
     expect(css).not.toMatch(/\.veynrel-(?:workspace|topology-detail|neighborhood|neighborhood-card|global-map)\s+\*/u);
     for (const selector of [".veynrel-health-page-enter", ".veynrel-topology-content", ".veynrel-topology-inspector-content",
-      ".veynrel-findings-navigation button", ".veynrel-topology-detail :is(button, input, summary)", ".veynrel-neighborhood-list button",
+      ".veynrel-health-view .veynrel-core-geometry", ".veynrel-topology-detail :is(button, input, summary)", ".veynrel-neighborhood-list button",
       ".ai-hub-provider-card", ".ai-hub-model-chip", ".ai-hub-test-btn"])
       expect(css.split("@media (prefers-reduced-motion: reduce)").slice(1).some((block) => block.split("\n}")[0].includes(selector))).toBe(true);
     expect(shared).toContain(".veynrel-semantic-exploration, .veynrel-connect-overview { grid-template-columns: minmax(0, 1fr); }");

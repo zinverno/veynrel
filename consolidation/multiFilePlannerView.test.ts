@@ -57,7 +57,7 @@ describe("combined plan controls and preview", () => {
   it("switching back keeps the original single-file Safe Apply review and no-change behavior", async () => {
     const f = await setup(); f.select("operation", "add_reciprocal_links"); f.select("range-0", "1"); f.select("range-1", "2");
     f.check("confirm-0"); f.check("confirm-1"); await f.build();
-    f.select("operation", "add_link"); expect(f.session.view.multiPlan).toBeUndefined();
+    f.select("operation", "add_link"); f.select("source", "0"); f.select("operation", "add_link"); expect(f.session.view.multiPlan).toBeUndefined();
     f.select("range", "0"); f.check("confirm"); f.action("build").listeners.get("click")!();
     await vi.waitFor(() => expect(f.session.view.plan?.operation).toBe("add_link"));
     f.root.all().find(e => e.attrs["data-safe-action"] === "review")!.listeners.get("click")!();

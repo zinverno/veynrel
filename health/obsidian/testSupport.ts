@@ -34,6 +34,7 @@ export function appFixture() {
   const note = { path: "A.md", basename: "A", extension: "md", stat: { mtime: 1 } };
   const vault = { adapter: f.adapter, configDir: "Private/Config",
     on: vi.fn(), offref: vi.fn(),
+    getAllFolders: vi.fn(() => [] as Array<{ path: string }>), getName: vi.fn(() => "Test vault"),
     getMarkdownFiles: vi.fn(() => [note]),
     read: vi.fn(async () => "A sufficiently long note for testing the local health check."),
     getAbstractFileByPath: vi.fn((path: string) => path === note.path ? note : null),

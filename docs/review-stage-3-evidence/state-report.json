@@ -1,0 +1,59 @@
+{
+  "sourceCommit": "48edb0b51c469a6efbd3a36f11136144df29f9f3",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "connection-rules.json",
+      "kind": "empty",
+      "safe": true
+    },
+    {
+      "name": "connection-rules.json",
+      "kind": "corrupt",
+      "safe": true
+    },
+    {
+      "name": "connection-rules.json",
+      "kind": "unsupported",
+      "safe": true
+    },
+    {
+      "name": "connection-rules.json",
+      "kind": "unreadable",
+      "safe": true
+    },
+    {
+      "name": "connection-rules.json",
+      "kind": "backup",
+      "safe": true
+    },
+    {
+      "name": "review-decisions.json",
+      "kind": "empty",
+      "safe": true
+    },
+    {
+      "name": "review-decisions.json",
+      "kind": "corrupt",
+      "safe": true
+    },
+    {
+      "name": "review-decisions.json",
+      "kind": "unsupported",
+      "safe": true
+    },
+    {
+      "name": "review-decisions.json",
+      "kind": "unreadable",
+      "safe": true
+    },
+    {
+      "name": "review-decisions.json",
+      "kind": "backup",
+      "safe": true
+    }
+  ],
+  "httpRequests": 0,
+  "markdownUnchanged": true,
+  "limits": "Offline state corruption while stopped, not concurrent-process or Sync acceptance. Fixture state is explicitly restored between fault cases; Markdown is never restored by the harness."
+}

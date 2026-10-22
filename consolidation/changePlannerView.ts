@@ -21,15 +21,21 @@ import { renderAtomizationPlanner } from "./atomizationPlannerView";
 import { renderEmptyAtomPlanner } from "./emptyAtomPlannerView";
 import { emptyAtomChoice } from "./emptyAtomPlan";
 import type { AtomizationPlanV2 } from "./emptyAtomPlan";
+import { recommendationIntent, combineCapabilities, changeRangeOptions } from "./recommendationIntent";
+import type { IntentSelection, CombineOperation } from "./recommendationIntent";
 import { renderActionChoice } from "./consolidationActions";
 import { workflowStep, focusStatus } from "./consolidationUx";
+import { reviewNoteChoices } from "./reviewPresentation";
 
 const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical: null, transfers: [], insertion: null, insertionConfirmed: false });
 
 /** Text-only controls and preview; no Markdown renderer or application protocol. */
 export class ChangePlannerView {
   private operation: PlanOperation | "add_reciprocal_links" | "merge_knowledge" | "copy_context_group" | "copy_context_bundle" | "atomization_preview" | "write_atom_to_empty_note" | "" = "";
+  private combineCanonical: 0 | 1 | null = null;
+  private combineOperation: CombineOperation | null = null;
   private side: 0 | 1 = 0;
+  private sourceChosen = false;
   private selection: PlanRange | null = null;
   private confirmed = false;
   private multiSelections: [PlanRange | null, PlanRange | null] = [null, null];
@@ -42,7 +48,8 @@ export class ChangePlannerView {
   constructor(private readonly container: HTMLElement, private readonly session: ChangePlannerSession,
     private readonly analysis: RelationshipAnalysis, private readonly review?: (plan: ChangePlan) => void,
     private readonly reviewMulti?: (plan: MultiFilePlan) => void, private readonly reviewMerge?: (plan: MergePlan) => void, private readonly reviewBundle?: (plan: ContextBundlePlan) => void, private readonly reviewGroup?: (plan: GroupPlan) => void,
-    private readonly reviewEmptyAtom?: (plan: AtomizationPlanV2) => void) {
+    private readonly reviewEmptyAtom?: (plan: AtomizationPlanV2) => void, private readonly intentSelection?: IntentSelection) {
+    this.resetIntent();
     session.onChange = () => {
       const active = container.ownerDocument?.activeElement;
       const field = active?.getAttribute("data-planner-field");
@@ -56,8 +63,53 @@ export class ChangePlannerView {
     };
     this.render();
   }
+  private resetIntent(): void {
+    if (!this.intentSelection) return;
+    const intent = recommendationIntent(this.analysis, this.intentSelection);
+    this.operation = intent.operation ?? "";
+    this.sourceChosen = intent.direction !== null; this.side = intent.direction ?? 0;
+    this.combineCanonical = null; this.combineOperation = null;
+  }
+  private renderCombine(root: HTMLElement): void {
+    const pair = this.session.view.input!.pair;
+    reviewNoteChoices(root, pair.map(n => n.path), this.combineCanonical, "combine-canonical", tr("@intent.canonical"), side => {
+      this.combineCanonical = side;
+      this.combineOperation = null; this.changed();
+    });
+    if (this.combineCanonical === null) return;
+    const canonical = this.combineCanonical, capabilities = combineCapabilities(this.analysis, pair, canonical);
+    const usable = capabilities.filter(c => !c.reason);
+    root.createEl("p", { text: tr("@intent.combineDirection", { target: pair[canonical].path, source: pair[canonical === 0 ? 1 : 0].path }) });
+    if (!usable.length) {
+      root.createEl("p", { text: tr("@intent.combineUnavailable"), attr: { role: "status", "data-intent-unavailable": "" } });
+      for (const c of capabilities) root.createEl("p", { text: `${tr(`@intent.variant.${c.operation}`)}: ${tr(c.reason!)}` });
+      return;
+    }
+    // A single supported representation is proposed; all fragment and insertion confirmations stay empty.
+    const operation = this.combineOperation ?? (usable.length === 1 ? usable[0].operation : null);
+    if (usable.length > 1) {
+      const label = root.createEl("label", { text: tr("@intent.material"), cls: "ai-planner-location" });
+      const select = label.createEl("select", { attr: { "data-planner-field": "combine-material" } });
+      select.createEl("option", { text: tr("@planner.choose"), value: "" });
+      for (const c of usable) select.createEl("option", { text: tr(`@intent.variant.${c.operation}`), value: c.operation });
+      select.value = operation ?? "";
+      select.addEventListener("change", () => { this.combineOperation = usable.find(c => c.operation === select.value)?.operation ?? null; this.changed(); });
+    }
+    if (!operation) return;
+    root.createEl("h4", { text: tr(`@intent.variant.${operation}`) });
+    if (operation === "merge_knowledge") {
+      this.mergeChoice = { ...this.mergeChoice, canonical };
+      renderMergePlanner(root, this.session, this.analysis, this.mergeChoice, choice => { this.mergeChoice = choice; this.session.changeSelection(); }, this.reviewMerge, true);
+    } else if (operation === "copy_context_group") {
+      this.groupChoice = { ...this.groupChoice, canonical };
+      renderGroupPlanner(root, this.session, this.analysis, this.groupChoice, choice => { this.groupChoice = choice; this.session.changeSelection(); }, this.reviewGroup, true);
+    } else {
+      this.bundleChoice = { ...this.bundleChoice, canonical };
+      renderContextBundlePlanner(root, this.session, this.analysis, this.bundleChoice, choice => { this.bundleChoice = choice; this.session.changeSelection(); }, this.reviewBundle, true);
+    }
+  }
   private button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
-    const button = parent.createEl("button", { text: tr(`@planner.${key}`), attr: { type: "button", "data-planner-action": key } });
+    const button = parent.createEl("button", { text: tr(key === "build" && this.intentSelection ? "@final.previewChange" : `@planner.${key}`), cls: key === "build" ? "mod-cta" : "", attr: { type: "button", "data-planner-action": key } });
     button.addEventListener("click", action); return button;
   }
   private changed(): void {
@@ -67,28 +119,47 @@ export class ChangePlannerView {
   render(): void {
     const root = this.container, view = this.session.view;
     root.empty(); workflowStep(root, view.atomizationPlan || view.plan && !view.plan.edit ? "previewOnly" :
-      view.plan || view.multiPlan || view.mergePlan || view.groupPlan || view.bundlePlan || view.emptyAtomPlan ? "preview" : "action");
-    root.createEl("h3", { text: tr("@planner.title") });
-    root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" ? "@emptyAtom.scope" : this.operation === "atomization_preview" ? "@atom.scope" : this.operation === "copy_context_bundle" ? "@bundle.scope" : this.operation === "copy_context_group" ? "@group.scope" : this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
-    root.createDiv({ text: tr(view.stage === "error" ? view.atomizationError ? `@atom.error.${view.atomizationError}` : view.bundleError ? `@bundle.error.${view.bundleError}` : view.groupError ? `@group.error.${view.groupError}` : view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : `@planner.stage.${view.stage}`),
+      view.plan || view.multiPlan || view.mergePlan || view.groupPlan || view.bundlePlan || view.emptyAtomPlan ? "preview" : this.intentSelection ? "parameters" : "action");
+    const intent = this.intentSelection ? recommendationIntent(this.analysis, this.intentSelection, view.input?.pair, view.input?.linktexts) : undefined;
+    root.createEl("h3", { text: tr(intent ? `@intent.title.${intent.family}` : "@planner.title") });
+    if (intent) {
+      root.createEl("p", { text: tr(`@intent.origin.${intent.origin}`), attr: { "data-intent-origin": intent.origin } });
+
+    }
+    root.createEl("p", { text: tr(intent ? this.operation === "add_reciprocal_links" ? "@multi.warning" : this.operation === "write_atom_to_empty_note" ? "@emptyAtom.scope" : `@intent.effect.${intent.family}` : this.operation === "write_atom_to_empty_note" ? "@emptyAtom.scope" : this.operation === "atomization_preview" ? "@atom.scope" : this.operation === "copy_context_bundle" ? "@bundle.scope" : this.operation === "copy_context_group" ? "@group.scope" : this.operation === "merge_knowledge" ? "@merge.scope" : this.operation === "add_reciprocal_links" ? "@multi.warning" : "@planner.scope") });
+    root.createDiv({ text: tr(view.stage === "error" ? view.atomizationError ? `@atom.error.${view.atomizationError}` : view.bundleError ? `@bundle.error.${view.bundleError}` : view.groupError ? `@group.error.${view.groupError}` : view.mergeError ? `@merge.error.${view.mergeError}` : `@planner.error.${view.error}` : intent && view.stage === "choosing" ? "@intent.parameters" : `@planner.stage.${view.stage}`),
       attr: { role: "status", "aria-live": "polite", "data-planner-stage": view.stage } });
     if (view.stage === "loading") { this.button(root, "cancel", () => this.session.cancel()); return; }
     if (!view.input) {
       this.button(root, "prepare", () => {
         this.emptyChoice = emptyAtomChoice();
         this.selection = null; this.operation = ""; this.confirmed = false; this.multiSelections = [null, null]; this.multiConfirmed = [false, false]; this.mergeChoice = emptyMerge(); this.groupChoice = emptyGroupChoice(); this.bundleChoice = emptyBundleChoice(); this.atomizationChoice = emptyAtomizationChoice();
+        this.resetIntent();
         void this.session.prepare();
       }); return;
     }
-    root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" ? "@atom.supported" : this.operation === "copy_context_bundle" ? "@bundle.supported" : this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
+    if (intent?.status === "unavailable") {
+      if (intent.family !== "combine" || this.combineCanonical === null) for (const reason of intent.limitations) root.createEl("p", { text: tr(reason), attr: { "data-intent-unavailable": "", role: "status" } });
+      if (intent.family === "combine") this.renderCombine(root);
+      return;
+    }
+    if (intent?.family === "combine") { this.renderCombine(root); return; }
+    if (intent && !intent.operation) return;
+    if (!intent || !["add_link", "replace_with_embed"].includes(this.operation)) root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" ? "@atom.supported" : this.operation === "copy_context_bundle" ? "@bundle.supported" : this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
-    const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
-    sourceLabel.hidden = this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" || this.operation === "copy_context_bundle" || this.operation === "copy_context_group" || this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
-    const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
-    view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
-    source.value = String(this.side);
-    source.addEventListener("change", () => { this.side = source.value === "1" ? 1 : 0; this.operation = ""; this.selection = null; this.changed(); });
-    renderActionChoice(controls, this.operation, !!permittedEmbed(this.analysis, this.side), value => {
+    if (intent?.family === "link" && this.operation === "add_link") reviewNoteChoices(controls, view.input.pair.map(n => n.path), this.sourceChosen ? this.side : null,
+      "source", tr("@intent.linkSource"), side => { this.sourceChosen = true; this.side = side; this.selection = null; this.changed(); },
+      view.input.pair.map((_, side) => !changeRangeOptions(this.analysis, view.input!.pair, "add_link", side as 0 | 1, view.input!.linktexts[side === 0 ? 1 : 0]).ranges.length));
+    if (!intent) {
+      const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
+      sourceLabel.hidden = ["write_atom_to_empty_note", "atomization_preview", "copy_context_bundle", "copy_context_group", "add_reciprocal_links", "merge_knowledge"].includes(this.operation);
+      const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
+      source.createEl("option", { text: tr("@planner.choose"), value: "" });
+      view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
+      source.value = this.sourceChosen ? String(this.side) : "";
+      source.addEventListener("change", () => { this.sourceChosen = source.value === "0" || source.value === "1"; this.side = source.value === "1" ? 1 : 0; this.operation = ""; this.selection = null; this.changed(); });
+    }
+    if (!intent) renderActionChoice(controls, this.operation, this.sourceChosen && !!permittedEmbed(this.analysis, this.side), value => {
       this.operation = value; this.selection = null; this.changed();
     });
     if (!this.operation) { root.createEl("p", { text: tr("@ux.noSelection") }); return; }
@@ -119,22 +190,26 @@ export class ChangePlannerView {
       }, (side, confirmed) => { this.multiConfirmed[side] = confirmed; this.session.changeSelection(); }, this.reviewMulti);
       return;
     }
+    if (["add_link", "replace_with_embed"].includes(this.operation) && !this.sourceChosen) {
+      root.createEl("p", { text: tr("@planner.source") }); return;
+    }
     const note = view.input.pair[this.side], target = view.input.pair[this.side === 0 ? 1 : 0];
     root.createEl("p", { text: tr("@planner.direction", { source: note.path, target: target.path }) });
     if (this.operation && this.operation !== "no_change") {
-      root.createEl("p", { text: tr("@planner.selectionScope") });
-      const label = root.createEl("label", { cls: "ai-planner-location", text: tr("@planner.location") });
+      if (!intent) root.createEl("p", { text: tr("@planner.selectionScope") });
+      const label = root.createEl("label", { cls: "ai-planner-location", text: tr(intent ? this.operation === "add_link" ? "@intent.linkLocation" : "@intent.embedRange" : "@planner.location") });
       const select = label.createEl("select", { attr: { "data-planner-field": "range" } });
       select.createEl("option", { text: tr("@planner.choose"), value: "" });
-      const ranges = paragraphRanges(note);
-      for (const [i, range] of ranges.entries()) select.createEl("option", { text: `${range.start}–${range.end}: ${range.text.slice(0, 90)}`, value: String(i) });
+      const options = intent ? changeRangeOptions(this.analysis, view.input.pair, this.operation, this.side, view.input.linktexts[this.side === 0 ? 1 : 0]) : undefined;
+      const ranges = options?.ranges ?? paragraphRanges(note);
+      for (const [i, range] of ranges.entries()) select.createEl("option", { text: `${intent ? i + 1 : `${range.start}–${range.end}`}: ${range.text.slice(0, 90)}`, value: String(i) });
       select.value = this.selection ? String(ranges.findIndex(range => range.start === this.selection!.start && range.end === this.selection!.end)) : "";
       select.addEventListener("change", () => { this.selection = select.value === "" ? null : ranges[Number(select.value)]; this.changed(); });
-      if (!ranges.length) root.createEl("p", { text: tr(note.cache?.sections ? "@planner.noParagraphs" : "@planner.error.metadata") });
+      if (!ranges.length) root.createEl("p", { text: tr(options?.reason ?? (note.cache?.sections ? "@planner.noParagraphs" : "@planner.error.metadata")), attr: { "data-intent-unavailable": "" } });
       const original = root.createEl("details"); original.createEl("summary", { text: tr("@planner.savedSource") });
       original.createEl("pre", { text: note.content, cls: "ai-pair-source", attr: { tabindex: "0" } });
       if (this.selection) {
-        root.createEl("p", { text: tr("@planner.range", { start: this.selection.start, end: this.selection.end,
+        (intent ? original : root).createEl("p", { text: tr("@planner.range", { start: this.selection.start, end: this.selection.end,
           point: this.operation === "add_link" ? this.selection.end : this.selection.start }) });
         root.createEl("pre", { text: this.selection.text, cls: "ai-pair-source", attr: { tabindex: "0", "data-planner-selection": "" } });
         const label = root.createEl("label", { cls: "ai-planner-confirm" });
@@ -168,7 +243,7 @@ export class ChangePlannerView {
     result.createEl("p", { text: tr("@planner.preserved") });
     result.createEl("p", { text: tr("@planner.limits") });
     if (plan.edit && this.review) {
-      const check = result.createEl("button", { text: tr("@safeApply.review"), attr: { type: "button", "data-safe-action": "review" } });
+      const check = result.createEl("button", { text: tr("@safeApply.review"), cls: "mod-cta", attr: { type: "button", "data-safe-action": "review" } });
       check.addEventListener("click", () => this.review!(plan));
     }
     for (const limitation of plan.modelLimitations) result.createEl("p", { text: limitation });

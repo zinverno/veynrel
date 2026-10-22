@@ -1,0 +1,55 @@
+{
+  "status": "native checks passed; user UX acceptance separate",
+  "checks": [
+    "Cold direct command opens one list without map data",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Direct command opens one standalone list without graphical data or IO",
+    "Repeat search does not mount a map",
+    "Length error from actual HTTP parser; no planner, writes or leaked reasoning",
+    "No automatic retry after limit; first consent equals HTTP body byte-for-byte",
+    "Fresh consent → real transport parser → strict evidence validator → result",
+    "Real Apply → history → separate Undo restores every Markdown SHA256",
+    "List search and selected pair survive return; no analysis consent survives",
+    "No map construction or renderer network; exactly two loopback HTTP completions"
+  ],
+  "metrics": {
+    "openMs": 220.87096900000006,
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "screenshots": [
+    "list-before-search.png",
+    "list.png",
+    "consent-budget.png",
+    "length-error-ru.png",
+    "fresh-consent-en.png",
+    "validated-result.png",
+    "exact-review.png",
+    "applied-result.png",
+    "history.png",
+    "undo-review.png",
+    "return-to-list.png"
+  ],
+  "sourceCommit": "b17ba8cb32e1049622667c1b43012deebaeaa2e1",
+  "hashes": {
+    "main.js": "f5aad93d6c32fb51f970812e7b5fe2d1f5f10d8d29433fc7b91754cdc60cfe67",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "2993fd7570240eecf58c852c4983d5a32dfe44f55ef21fc8f0cd9bf59000d999"
+  },
+  "io": {
+    "reads": 32,
+    "writes": 2,
+    "network": 0,
+    "enumerations": 2
+  },
+  "httpRequests": 2,
+  "consentMatches": [
+    true,
+    true
+  ],
+  "httpDestination": "loopback only",
+  "liveModel": "NOT RUN"
+}

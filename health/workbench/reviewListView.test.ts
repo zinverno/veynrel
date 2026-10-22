@@ -1,0 +1,197 @@
+import { describe, expect, it, vi } from "vitest";
+const dom = vi.hoisted(() => {
+  const document: { activeElement?: Element } = {};
+  class Element {
+    closest() { return null; }
+    hidden = false; scrollTop = 0; selectionStart = 0; selectionEnd = 0;
+    contains(el: Element) { return this.all().includes(el); }
+    setSelectionRange() {}
+    children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; cls = "";
+    value = ""; disabled = false; checked = false; open = false; parentElement?: Element; ownerDocument = document;
+    listeners = new Map<string, () => void>();
+    empty() { this.children = []; this.text = ""; }
+    addClass(...names: string[]) { this.cls += ` ${names.join(" ")}`; }
+    setText(text: string) { this.text = text; }
+    setAttribute(key: string, value: string) { this.attrs[key] = value; }
+    getAttribute(key: string) { return this.attrs[key] ?? null; }
+    create(tag: string, options: { text?: string; attr?: Record<string, string>; cls?: string; value?: string } = {}) {
+      const el = new Element(); el.tag = tag; el.text = options.text ?? ""; el.attrs = options.attr ?? {}; el.cls = options.cls ?? ""; el.value = options.value ?? "";
+      el.parentElement = this; this.children.push(el); return el;
+    }
+    createEl(tag: string, options = {}) { return this.create(tag, options); }
+    createDiv(options = {}) { return this.create("div", options); }
+    createSpan(options = {}) { return this.create("span", options); }
+    addEventListener(key: string, fn: () => void) { this.listeners.set(key, fn); }
+    all(): Element[] { return [this, ...this.children.flatMap(e => e.all())]; }
+    matches(selector: string): boolean {
+      return selector.split(",").some(part => {
+        const value = part.trim(), match = /^\[([^=\]]+)(?:="([^"]*)")?\]$/u.exec(value);
+        return match ? this.attrs[match[1]] !== undefined && (match[2] === undefined || this.attrs[match[1]] === match[2]) : this.tag === value;
+      });
+    }
+    querySelector(selector: string) { return this.all().slice(1).find(el => el.matches(selector)); }
+    querySelectorAll(selector: string) { return this.all().slice(1).filter(el => el.matches(selector)); }
+    focus() { document.activeElement = this; }
+    click() { if (!this.disabled) this.listeners.get("click")?.(); }
+    change(value?: string) { if (value !== undefined) this.value = value; this.listeners.get("change")?.(); }
+  }
+  const modals: Modal[] = [];
+  class Modal {
+    contentEl = new Element(); titleEl = new Element(); modalEl = new Element(); opened = false;
+    constructor(readonly app: unknown) { modals.push(this); }
+    onOpen() {} onClose() {}
+    open() { this.opened = true; this.onOpen(); }
+    close() { this.opened = false; this.onClose(); }
+  }
+  return { Element, Modal, modals, document };
+});
+vi.mock("obsidian", () => ({ getLanguage: () => "en", setIcon: vi.fn() }));
+vi.mock("./workbenchSimulation", () => ({ WorkbenchSimulation: class { constructor() { throw Error("Simulation must not exist on list route"); } } }));
+vi.mock("./workbenchGraph", () => ({ renderWorkbenchGraph: () => { throw Error("Renderer must not run"); } }));
+import { setLanguage } from "../../i18n";
+import type { ReviewDecision, ReviewDecisionsPort } from "./reviewDecisionsPort";
+import { ReviewFacts } from "./reviewFacts";
+import { ReviewListView } from "./reviewListView";
+import { WorkbenchData } from "./workbenchData";
+import { pairId } from "./workbenchModel";
+import type { Finding } from "../domain/finding";
+
+const paths = ["Practice/Task.md", "Theory/Task.md"];
+const finding = { id: "saved", state: "open", type: "semantic-duplicate", notePaths: paths, evidence: [] } as unknown as Finding;
+function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairReviewPort["localFacts"], decisions?: ReviewDecisionsPort) {
+  setLanguage("en");
+  dom.document.activeElement = undefined;
+  const root = new dom.Element();
+  const forbidden = vi.fn(() => { throw Error("Graphical dependency called"); });
+  const data = new WorkbenchData({ id: "all", revision: 1, paths: scopePaths }, {
+    topology: { getSnapshot: () => ({ state: "idle" }), subscribe: () => () => {}, refresh: forbidden, load: forbidden, dispose: vi.fn() },
+    createSemantic: forbidden, createComparison: forbidden,
+  }, false);
+  const close = vi.fn(), mount = vi.fn((_container: HTMLElement, _paths: readonly [string, string], _completed?: (decision: ReviewDecision) => void) => close), history = vi.fn();
+  const map = vi.fn(() => ({ update: vi.fn(), dispose: vi.fn() }));
+  const view = new ReviewListView(root as unknown as HTMLElement, data, { mount, localFacts, decisions }, { map, history, settings: vi.fn() }, root as unknown as HTMLElement);
+  view.update([finding]);
+  const action = (key: string) => root.querySelector(`[data-health-action="${key}"]`)!;
+  return { root, data, view, mount, close, map, history, forbidden, action };
+}
+describe("standalone review list", () => {
+  it("opens, searches, compares and returns with no graphical construction or work", async () => {
+    const f = setup();
+    expect(f.root.all().map(e => e.text).join(" ")).toContain("Saved finding");
+    const search = f.action("review-search"); search.value = "Task"; search.listeners.get("input")!();
+    const compare = f.root.querySelector("[data-pair-id]")!;
+    f.root.scrollTop = 230; compare.click(); compare.click();
+    expect(f.mount).toHaveBeenCalledOnce(); expect(f.mount.mock.calls[0][1]).toEqual(paths);
+    const back = f.action("review-back"); back.click();
+    expect(f.close).toHaveBeenCalledOnce(); expect(f.root.scrollTop).toBe(230);
+    expect(f.action("review-search").value).toBe("Task");
+    expect(dom.document.activeElement?.attrs["data-pair-id"]).toBe(pairId(...paths as [string, string]));
+    f.root.querySelector("[data-pair-id]")!.click(); back.click(); expect(f.close).toHaveBeenCalledOnce();
+    f.view.suspend(); expect(f.close).toHaveBeenCalledTimes(2);
+    f.view.update([finding]); f.action("review-history").click(); expect(f.history).toHaveBeenCalledOnce();
+    await f.data.refresh("repeats"); expect(f.forbidden).not.toHaveBeenCalled(); expect(f.map).not.toHaveBeenCalled(); f.view.dispose();
+  });
+  it("separates ItemViews and creates/disposes a map only after its explicit action", () => {
+    const a = setup(), b = setup(); a.action("review-map").click(); expect(a.map).toHaveBeenCalledOnce(); expect(b.map).not.toHaveBeenCalled();
+    const graphical = a.map.mock.results[0].value as { dispose: ReturnType<typeof vi.fn> }; a.action("review-back").click(); expect(graphical.dispose).toHaveBeenCalledOnce();
+    expect(b.mount).not.toHaveBeenCalled(); a.view.dispose(); b.view.dispose();
+  });
+  it("inherits only navigation on scope replacement, never a live pair owner", () => {
+    const a = setup(), b = setup();
+    const search = a.action("review-search"); search.value = "Task"; search.listeners.get("input")!();
+    a.root.querySelector("[data-pair-id]")!.click(); a.view.dispose(); b.view.inheritNavigation(a.view);
+    expect(a.close).toHaveBeenCalledOnce(); expect(b.mount).not.toHaveBeenCalled();
+    expect(b.action("review-search").value).toBe("Task"); b.view.dispose();
+  });
+  it("keeps all saved candidates in source order across pages and distinguishes same basenames", () => {
+    const scope = [paths[0], ...Array.from({ length: 133 }, (_, i) => `Theory/${i}/Task.md`)];
+    const f = setup(scope);
+    f.view.update(scope.slice(1).map((path, i) => ({ ...finding, notePaths: [paths[0], path], id: String(i) })));
+    expect(f.root.querySelectorAll("[data-pair-id]")).toHaveLength(60);
+    f.action("review-more").focus(); f.action("review-more").click();
+    expect(f.root.querySelectorAll("[data-pair-id]")).toHaveLength(120);
+    expect(dom.document.activeElement?.attrs["data-health-action"]).toBe("review-more");
+    f.action("review-more").click(); expect(f.root.querySelectorAll("[data-pair-id]")).toHaveLength(133);
+    expect(f.root.querySelectorAll("[data-pair-id]").map(el => el.attrs["data-pair-id"])).toEqual(scope.slice(1).map(path => pairId(paths[0], path)));
+    const text = f.root.all().map(e => e.text).join(" "); expect(text).toContain(paths[0]); expect(text).toContain(scope[1]);
+    f.view.dispose();
+  });
+});
+
+it("local Apply/Undo facts retain the candidate and never present stale observations as fresh", () => {
+  let notify = () => {};
+  let fact: import("./reviewFacts").ReviewFact = { state: "ready", links: [false, false] };
+  const local = { get: () => fact, track: vi.fn(), refresh: vi.fn(), reopen: vi.fn(), dispose: vi.fn() };
+  const f = setup(paths, changed => { notify = changed; return local; });
+  const id = f.root.querySelector("[data-pair-id]")!.attrs["data-pair-id"];
+  fact = { state: "ready", links: [true, false], changed: true, operation: { id: "op", paths, state: "applied", created: 1, operation: "add_link" } };
+  notify();
+  let text = f.root.all().map(e => e.text).join(" ");
+  expect(text).toContain("semantic freshness is unconfirmed"); expect(text).toContain("Link A → B already exists.");
+  expect(f.root.querySelector("[data-pair-id]")!.attrs["data-pair-id"]).toBe(id);
+  fact = { ...fact, links: [false, false], operation: { ...fact.operation!, state: "undone" } }; notify();
+  text = f.root.all().map(e => e.text).join(" ");
+  expect(text).toContain("Change undone."); expect(text).not.toContain("Link A → B already exists.");
+  expect(f.root.querySelector("[data-pair-id]")!.attrs["data-pair-id"]).toBe(id);
+  f.view.dispose(); expect(local.dispose).toHaveBeenCalledOnce();
+});
+
+
+it("saved decisions filter active pairs and counts, preserve return context, and restore after a new list owner", async () => {
+  const record: ReviewDecision = { id: 'decision', notes: [{ path: paths[0], created: 1, hash: 'a' }, { path: paths[1], created: 1, hash: 'b' }] };
+  const listeners = new Set<() => void>();
+  let saved: string | null = null;
+  const storage = { read: async () => saved, write: vi.fn(async (text: string) => { saved = text; }) };
+  const decisions: ReviewDecisionsPort = {
+    state: 'ready', list: () => saved ? [record] : [], hasPaths: () => !!saved, load: async () => {},
+    subscribe: changed => { listeners.add(changed); return () => { listeners.delete(changed); }; },
+    restore: async () => { await storage.write(''); listeners.forEach(fn => fn()); },
+  };
+  const local = (changed: () => void) => new ReviewFacts({
+    read: async () => ({ signatures: ['a', 'b'], links: [false, false], kept: !!saved }),
+    history: async () => [], subscribe: notify => decisions.subscribe(() => notify()),
+  }, changed);
+  let f = setup(paths, local, decisions); await decisions.load();
+  await vi.waitFor(() => expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(1));
+  const search = f.action('review-search'); search.value = 'Task'; search.listeners.get('input')!();
+  f.root.scrollTop = 230; f.root.querySelector('[data-pair-id]')!.click();
+  await storage.write('decision'); listeners.forEach(fn => fn()); f.mount.mock.calls[0][2]!(record);
+  await vi.waitFor(() => expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0));
+  expect(f.root.scrollTop).toBe(230); expect(f.action('review-search').value).toBe('Task');
+  expect(f.close).toHaveBeenCalledOnce(); expect(f.root.all().map(e => e.text).join(' ')).toContain('Pair left unchanged');
+  expect(f.data.scope.paths).toEqual(paths);
+  f.view.update([finding]); await f.data.refresh('repeats');
+  expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0);
+  f.view.dispose(); f = setup(paths, local, decisions); await decisions.load();
+  await vi.waitFor(() => expect(f.root.querySelector('[data-review-restore]')).toBeDefined());
+  expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0);
+  storage.write.mockRejectedValueOnce(Error('disk'));
+  f.root.querySelector('[data-review-restore]')!.click();
+  await vi.waitFor(() => expect(f.root.all().map(e => e.text).join(' ')).toContain('Could not undo'));
+  expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0);
+  f.root.querySelector('[data-review-restore]')!.click();
+  await vi.waitFor(() => expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(1));
+  expect(f.forbidden).not.toHaveBeenCalled(); f.view.dispose();
+});
+
+it("offers the shared rules editor only in Connections; opening does not compute, write or mount the map", async () => {
+  const { ConnectionRules } = await import("../connections/connectionRules");
+  const write = vi.fn(async () => {}), rules = new ConnectionRules({ read: async () => null, write }, async () => null);
+  await rules.load(); const f = setup(), close = vi.fn(), edit = vi.fn(() => close);
+  f.data.dependencies.rules = rules; f.data.dependencies.editRules = edit; f.view.update([finding]);
+  expect(f.action("review-rules")).toBeUndefined(); f.action("review-connections").click();
+  expect(f.action("review-rules").text).toContain("(0)"); f.action("review-rules").click();
+  expect(edit).toHaveBeenCalledOnce(); expect(write).not.toHaveBeenCalled(); expect(f.map).not.toHaveBeenCalled(); expect(f.forbidden).not.toHaveBeenCalled();
+  f.view.dispose(); expect(close).toHaveBeenCalledOnce();
+});
+
+
+it("does not describe policy-excluded or unverified coverage as absence of possible connections", () => {
+  const f = setup();
+  f.data.semantic = { getSnapshot: () => ({ state: "ready", busy: false, supportedNoteCount: 500,
+    selection: { revision: "1", eligibleNoteCount: 2, excludedNoteCount: 0, unknownNoteCount: 2, excludedPairCount: 0, unknownPairCount: 1 } }), dispose: vi.fn() } as never;
+  f.data.comparison = { getSnapshot: () => ({ state: "ready" }), dispose: vi.fn() } as never;
+  f.action("review-connections").click();
+  expect(f.root.all().map(e => e.text).join(" ")).toContain("No suggestions are available under the current rules");
+  f.view.dispose();
+});

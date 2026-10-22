@@ -1,3 +1,9 @@
+import { diagnoseRelationshipEvidence } from "./relationshipDiagnostics";
+import type { EvidenceDiagnostic } from "./relationshipDiagnostics";
+
+export const RELATIONSHIP_WIRE_SCHEMA = "veynrel.relationship.refs.v1";
+export const RELATIONSHIP_SINGLE_SCHEMA = "veynrel.relationship.refs.v2";
+
 export const RELATIONS = ["same_information", "partial_overlap", "related_distinct", "conflicting", "unrelated", "insufficient_context"] as const;
 export const ACTIONS = ["consider_merge", "consider_embed_b_in_a", "consider_embed_a_in_b", "consider_atomize", "add_link", "no_change", "manual_review"] as const;
 export const CLAIM_KINDS = ["shared", "unique_a", "unique_b", "context_a", "context_b", "standalone_a", "standalone_b", "conflict", "version_difference", "comparison"] as const;
@@ -21,9 +27,9 @@ export interface RelationshipResult {
   limitations: string[];
 }
 export type RelationshipFailure = "source" | "tooLarge" | "configuration" | "invalidResponse" | "unverifiedEvidence" | "inconsistent" | "transport"
-  | "timeout" | "aborted" | "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope";
+  | "timeout" | "aborted" | "network" | "http" | "provider" | "emptyResponse" | "invalidEnvelope" | "outputLimit" | "refused" | "unexpectedCompletion";
 export class RelationshipError extends Error {
-  constructor(readonly reason: RelationshipFailure) { super(reason); }
+  constructor(readonly reason: RelationshipFailure, readonly diagnostics: readonly EvidenceDiagnostic[] = []) { super(reason); }
 }
 function requireValid(ok: unknown, reason: RelationshipFailure = "invalidResponse"): asserts ok {
   if (!ok) throw new RelationshipError(reason);
@@ -61,6 +67,14 @@ function optionalQuote(value: unknown, source: string): string | null {
 
 /** Exact source presence is verified; the model's interpretation is never verified fact. */
 export function validateRelationshipResponse(raw: string, a: string, b: string): RelationshipResult {
+  try { return validateStrict(raw, a, b); }
+  catch (error) {
+    if (error instanceof RelationshipError) throw new RelationshipError(error.reason, diagnoseRelationshipEvidence(raw, a, b));
+    throw error;
+  }
+}
+
+function validateStrict(raw: string, a: string, b: string): RelationshipResult {
   requireValid(typeof raw === "string" && raw.length <= 64000);
   let parsed: unknown;
   try { parsed = JSON.parse(raw); } catch { throw new RelationshipError("invalidResponse"); }

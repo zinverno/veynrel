@@ -811,3 +811,105 @@ describe("Global Semantic Map exact analysis", () => {
     expect(f.store.mutations).toBe(0);
   });
 });
+
+
+describe("explicit scoped global map compatibility", () => {
+  it.each([0, 1, 150, 500, 501])("caps %i eligible documents before any pairwise work", async count => {
+    const f = similarHarness(Array.from({ length: count }, (_, i) => entry(`s${i}`, `Scope/N${String(i).padStart(4, "0")}.md`, [1, i / 1000])));
+    const progress = vi.fn();
+    const result = await f.service.analyzeGlobalSemanticMap({ paths: f.service.listIndexedPaths(), onProgress: progress });
+    expect(result.state).toBe(count > 500 ? "too-large" : count === 0 ? "core-unavailable" : "ready");
+    expect(result.mappedNoteCount).toBe(count);
+    if (count > 500 || count === 0) expect(progress).not.toHaveBeenCalled();
+    else expect(progress).toHaveBeenLastCalledWith({ completedPairs: count * (count - 1) / 2, totalPairs: count * (count - 1) / 2 });
+    expect(f.store.mutations).toBe(0);
+  });
+  it("recalculates within a real subset of 501, preserving unscoped ranking and eligibility", async () => {
+    const rows = Array.from({ length: 501 }, (_, i) => entry(`s${i}`, `${i < 150 ? "Scope" : "Scope-old"}/N${i}.md`, [1, i / 800]));
+    rows.push(entry("short", "Scope/Short.md", [1, 0], 0, "tiny"));
+    const f = similarHarness(rows), chosen = rows.filter(row => row.path.startsWith("Scope/"));
+    const progress = vi.fn();
+    const globalBefore = await f.service.analyzeGlobalSemanticMap(); expect(globalBefore.state).toBe("too-large");
+    const scoped = await f.service.analyzeGlobalSemanticMap({ paths: chosen.map(row => row.path), onProgress: progress });
+    expect(scoped).toEqual(await similarHarness(chosen).service.analyzeGlobalSemanticMap());
+    expect(scoped).toMatchObject({ state: "ready", indexedNoteCount: 151, mappedNoteCount: 150 });
+    expect(progress).toHaveBeenLastCalledWith({ completedPairs: 11175, totalPairs: 11175 });
+    expect(await f.service.analyzeGlobalSemanticMap()).toEqual(globalBefore);
+    expect(f.store.mutations).toBe(0);
+  });
+});
+
+
+describe("review connection rules before top-five", () => {
+  it("recovers the sixth explanation in the actual comparison source, with recomputed ranks; duplicates stay", async () => {
+    const { ConnectionRules, compileConnectionRules } = await import("../health/connections/connectionRules");
+    const { projectGlobalSemanticMap } = await import("./product/semanticGlobalMapModel");
+    const { deriveConnectionComparison } = await import("../health/connections/deriveConnectionComparison");
+    const tasks = Array.from({ length: 6 }, (_, i) => entry(`t${i}`, `Tasks/${i}.md`, [1, i / 100]));
+    // Five explanations also keep the task out of their original top-five union.
+    const theories = Array.from({ length: 6 }, (_, i) => entry(`e${i}`, `Theory/${i}.md`, [1, .3 + i / 100]));
+    const rows = [...tasks, ...theories], f = similarHarness(rows);
+    const rules = new ConnectionRules({ read: async () => null, write: async () => {} }, async () => null);
+    await rules.load();
+    const metadata = { revision: 1, categories: [], notes: rows.map(r => ({ path: r.path, state: "known" as const, tags: r.path.startsWith("Tasks/") ? ["practice/task"] : [] })) };
+    const original = await f.service.analyzeGlobalSemanticMap();
+    expect(await f.service.analyzeGlobalSemanticMap({ selection: compileConnectionRules(rules, metadata) })).toEqual(original);
+    if (original.state !== "ready") throw Error();
+    expect(original.nodes.find(n => n.path === "Tasks/0.md")!.neighbors.every(n => n.path.startsWith("Tasks/"))).toBe(true);
+    const duplicates = f.service.findPotentialDuplicates();
+    await rules.add("within", { kind: "tag", value: "practice/task" });
+    const policy = compileConnectionRules(rules, metadata);
+    const result = await f.service.analyzeGlobalSemanticMap({ selection: policy });
+    if (result.state !== "ready") throw Error();
+    expect(result.nodes.find(n => n.path === "Tasks/0.md")!.neighbors[0].path).toBe("Theory/0.md");
+    expect(result.selection).toMatchObject({ excludedPairCount: 15, excludedNoteCount: 0, unknownPairCount: 0 });
+    const revision = { vectorGeneration: 1, configurationRevision: 1, runtimeRevision: 1, vectorCount: 12, dimensions: 2, provider: "synthetic", model: "synthetic" };
+    const map = projectGlobalSemanticMap(result, revision, 1, policy)!;
+    const topology = { nodes: rows.map(r => ({ path: r.path, basename: r.path, linksAvailable: true })), edges: [], noteCount: 12, complete: true,
+      revision: { noteCount: 12, signature: "synthetic", complete: true } };
+    const comparison = deriveConnectionComparison(map, topology as never, 1);
+    expect(comparison.pairs.some(p => p.category === "candidate" && p.leftPath === "Tasks/0.md" && p.rightPath === "Theory/0.md" && p.semantic?.leftRank === 1)).toBe(true);
+    expect(comparison.pairs.some(p => p.leftPath.startsWith("Tasks/") && p.rightPath.startsWith("Tasks/"))).toBe(false);
+    for (const edges of [[{ source: "Tasks/0.md", target: "Theory/0.md" }], [{ source: "Tasks/0.md", target: "Theory/0.md" }, { source: "Theory/0.md", target: "Tasks/0.md" }]]) {
+      const linked = deriveConnectionComparison(map, { ...topology, edges } as never, 1);
+      expect(linked.pairs.find(p => p.leftPath === "Tasks/0.md" && p.rightPath === "Theory/0.md")?.category).toBe("aligned");
+    }
+    const unknownLinks = deriveConnectionComparison(map, { ...topology, nodes: topology.nodes.map(n => ({ ...n, linksAvailable: n.path !== "Tasks/0.md" })) } as never, 1);
+    expect(unknownLinks.pairs.some(p => [p.leftPath, p.rightPath].includes("Tasks/0.md"))).toBe(false);
+    expect(unknownLinks.unclassifiedSemanticPairCount).toBeGreaterThan(0);
+    expect(f.service.findPotentialDuplicates()).toEqual(duplicates);
+    expect(await f.service.analyzeGlobalSemanticMap()).toEqual(original);
+    expect(f.store.mutations).toBe(0);
+  });
+});
+
+it("connection policy excludes unknown pairs without inventing absence, full exclusion precedes neighbors, and cannot bypass 500", async () => {
+  const { ConnectionRules, compileConnectionRules } = await import("../health/connections/connectionRules");
+  const rules = new ConnectionRules({ read: async () => null, write: async () => {} }, async () => null);
+  await rules.load(); await rules.add("exclude", { kind: "tag", value: "task" });
+  const meta = { revision: 1, categories: [], notes: [
+    { path: "A.md", state: "known" as const, tags: ["task"] }, { path: "B.md", state: "known" as const, tags: [] },
+    { path: "C.md", state: "unknown" as const, tags: [] }, { path: "D.md", state: "known" as const, tags: [] }] };
+  const policy = compileConnectionRules(rules, meta)!;
+  const f = similarHarness(meta.notes.map((n, i) => entry(String(i), n.path, [1, i / 100])));
+  const result = await f.service.analyzeGlobalSemanticMap({ selection: policy }); if (result.state !== "ready") throw Error();
+  expect(result.nodes.map(n => n.path)).toEqual(["B.md", "C.md", "D.md"]);
+  expect(result.edges).toHaveLength(1); expect(result.edges[0]).toMatchObject({ left: "B.md", right: "D.md" });
+  expect(result.selection).toMatchObject({ excludedNoteCount: 1, excludedPairCount: 3, unknownNoteCount: 1, unknownPairCount: 2 });
+  const { projectGlobalSemanticMap } = await import("./product/semanticGlobalMapModel");
+  const revision = { vectorGeneration: 1, configurationRevision: 1, runtimeRevision: 1, vectorCount: 4, dimensions: 2, provider: "synthetic", model: "synthetic" };
+  expect(() => projectGlobalSemanticMap(result, revision, 1, policy)).not.toThrow();
+  const allPolicy = compileConnectionRules(rules, { ...meta, notes: meta.notes.map(n => ({ ...n, state: "known" as const, tags: ["task"] })) })!;
+  const empty = await f.service.analyzeGlobalSemanticMap({ selection: allPolicy });
+  expect(empty).toMatchObject({ state: "ready", mappedNoteCount: 0, nodes: [], edges: [] });
+  expect(projectGlobalSemanticMap(empty, revision, 1, allPolicy)?.nodes).toEqual([]);
+  expect(() => projectGlobalSemanticMap(empty, revision, 1)).toThrow();
+  const fewPolicy = compileConnectionRules(rules, { ...meta, notes: meta.notes.map(n => ({ ...n, state: "known" as const, tags: n.path === "D.md" ? [] : ["task"] })) })!;
+  const one = await f.service.analyzeGlobalSemanticMap({ selection: fewPolicy });
+  expect(projectGlobalSemanticMap(one, revision, 1, fewPolicy)?.nodes).toHaveLength(1);
+
+  const all = similarHarness(Array.from({ length: 1000 }, (_, i) => entry(String(i), `${i}.md`, [1, 0])));
+  const excluded = { revision: "test", document: () => "exclude" as const, pair: vi.fn(() => "exclude" as const), unknown: () => false };
+  expect(await all.service.analyzeGlobalSemanticMap({ selection: excluded })).toMatchObject({ state: "too-large", mappedNoteCount: 1000 });
+  expect(excluded.pair).not.toHaveBeenCalled(); expect(all.store.mutations).toBe(0);
+});

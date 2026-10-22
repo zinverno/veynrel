@@ -1,0 +1,116 @@
+{
+  "status": "native evidence binding verified on synthetic loopback responses",
+  "checks": [
+    "Cold direct command opens one list without map data",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Direct command opens one standalone list without graphical data or IO",
+    "Repeat search does not mount a map",
+    "reference_unknown through actual transport refuses planner and preserves data",
+    "reference_side_mismatch through actual transport refuses planner and preserves data",
+    "missing_standalone_evidence through actual transport refuses planner and preserves data",
+    "Merge recommendation asks canonical and eligible material without catalogue",
+    "en-merge theme-dark 1280 localized and fits",
+    "en-merge theme-dark 390 localized and fits",
+    "en-merge theme-light 1280 localized and fits",
+    "en-merge theme-light 390 localized and fits",
+    "Merge insertion remains unconfirmed",
+    "Merge: canonical-only real Apply/history/separate Undo; secondary unchanged and all Markdown SHA256 restored",
+    "ru-list theme-dark 1280 localized and fits",
+    "ru-list theme-dark 390 localized and fits",
+    "ru-list theme-light 1280 localized and fits",
+    "ru-list theme-light 390 localized and fits",
+    "No map construction or renderer network; four explicit loopback completions",
+    "All four disclosed consent bodies exactly match sent HTTP bodies"
+  ],
+  "metrics": {
+    "openMs": 303.0001659999998,
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "screenshots": [
+    "list-before-search.png",
+    "refusal-consent-0.png",
+    "diagnostic-reference_unknown.png",
+    "refusal-consent-1.png",
+    "diagnostic-reference_side_mismatch.png",
+    "refusal-consent-2.png",
+    "diagnostic-missing_standalone_evidence.png",
+    "consent-4.png",
+    "merge-recommendation-en.png",
+    "merge-parameters-en.png",
+    "en-merge-theme-dark-1280.png",
+    "en-merge-theme-dark-390.png",
+    "en-merge-theme-light-1280.png",
+    "en-merge-theme-light-390.png",
+    "merge-exact-review.png",
+    "merge-applied.png",
+    "merge-history.png",
+    "merge-undo-review.png",
+    "merge-return-list.png",
+    "ru-list.png",
+    "ru-list-theme-dark-1280.png",
+    "ru-list-theme-dark-390.png",
+    "ru-list-theme-light-1280.png",
+    "ru-list-theme-light-390.png"
+  ],
+  "sourceCommit": "fc1cbbc5962d5faae4309986f73082065c46da4c",
+  "hashes": {
+    "main.js": "34279c763b39539ab61c64eae377201868e213a6fa41ed25d662d5ada475d664",
+    "manifest.json": "1d701d48f24d7303b0f9c1657756260f9f72b3227a07bedeb239c64bd55a8282",
+    "styles.css": "2993fd7570240eecf58c852c4983d5a32dfe44f55ef21fc8f0cd9bf59000d999"
+  },
+  "io": {
+    "reads": 69,
+    "writes": 2,
+    "network": 0,
+    "enumerations": 2
+  },
+  "httpRequests": 4,
+  "requestBytes": [
+    8710,
+    8710,
+    8710,
+    8710
+  ],
+  "catalogues": [
+    {
+      "fragments": 9,
+      "uncoveredCharacters": [
+        0,
+        0
+      ]
+    },
+    {
+      "fragments": 9,
+      "uncoveredCharacters": [
+        0,
+        0
+      ]
+    },
+    {
+      "fragments": 9,
+      "uncoveredCharacters": [
+        0,
+        0
+      ]
+    },
+    {
+      "fragments": 9,
+      "uncoveredCharacters": [
+        0,
+        0
+      ]
+    }
+  ],
+  "consentMatches": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "httpDestination": "loopback only",
+  "liveModel": "NOT RUN"
+}
