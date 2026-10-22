@@ -66,11 +66,12 @@ async function route(actionName = "add_link", selection: IntentSelection = { ori
     new ChangePlannerView(html(root), session, analysis, review, undefined, merge, undefined, undefined, undefined, chosen);
     void session.prepare();
   };
-  renderRelationshipView(html(result), relationship, start, { state: "ready", pair: f.pair });
+  const keep = vi.fn(async () => {});
+  renderRelationshipView(html(result), relationship, start, { state: "ready", pair: f.pair }, keep);
   const key = selection.origin === "primary" ? "primary" : selection.origin === "alternative" ? `alternative-${selection.index}` : selection.action;
   action(result, "data-intent-action", key).click();
   if (!["no_change", "manual_review"].includes(actionName)) await vi.waitFor(() => expect(session.view.stage).toBe("choosing"));
-  return { ...f, analysis, relationship, session, root, result, review, merge, settings };
+  return { ...f, analysis, relationship, session, root, result, review, merge, settings, keep };
 }
 
 describe("validated transport response → intent → existing planner → exact review", () => {
@@ -122,7 +123,9 @@ describe("validated transport response → intent → existing planner → exact
   });
   it.each(["no_change", "manual_review"])("%s never opens a planner", async name => {
     const f = await route(name); expect(f.session.view.stage).toBe("idle"); expect(f.root.all()).toHaveLength(1);
-    expect(f.relationship.view.stage).toBe(name === "no_change" ? "dismissed" : "result");
+    expect(f.relationship.view.stage).toBe("result");
+    expect(f.keep).toHaveBeenCalledTimes(name === "no_change" ? 1 : 0);
+    if (name === "no_change") expect(text(f.result)).toContain(t("@decision.reversible"));
     expect(requestUrl).toHaveBeenCalledTimes(1);
   });
   it("close, settings changes and old result buttons cannot revive the analysis or late plan", async () => {

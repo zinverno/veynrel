@@ -8,14 +8,12 @@ export interface ReviewFactsPort {
   get(paths: ReviewPaths): ReviewFact | undefined;
   track(pairs: readonly ReviewPaths[]): void;
   refresh(): void;
-  reopen(paths: ReviewPaths): void;
   dispose(): void;
 }
 interface Observation { signatures: readonly string[]; links?: readonly [boolean, boolean]; missing?: boolean; kept?: boolean }
 export interface ReviewFactsDependencies {
   read(paths: ReviewPaths): Promise<Observation>;
   history(): Promise<readonly ReviewOperation[]>;
-  reopen?(paths: ReviewPaths): void;
   subscribe(changed: (paths?: readonly string[]) => void): () => void;
 }
 const key = (paths: ReviewPaths) => JSON.stringify(paths);
@@ -38,12 +36,11 @@ export class ReviewFacts implements ReviewFactsPort {
     }
     void this.drain();
   }
-  reopen(paths: ReviewPaths): void { this.deps.reopen?.(paths); }
   refresh(): void { this.invalidate(); }
   private invalidate(paths?: readonly string[]): void {
     if (this.disposed) return;
     for (const [id, entry] of this.entries) if (!paths || entry.paths.some(p => paths.some(q => p === q || p.startsWith(q + "/")))) {
-      entry.epoch++; entry.fact = { ...entry.fact, state: "checking", links: undefined }; this.dirty.add(id);
+      entry.epoch++; entry.fact = { ...entry.fact, state: "checking", links: undefined, kept: undefined }; this.dirty.add(id);
     }
     this.changed(); void this.drain();
   }

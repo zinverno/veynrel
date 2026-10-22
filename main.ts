@@ -1,3 +1,4 @@
+import { registerReviewDecisions, reviewDecisions } from "./consolidation/reviewDecisions";
 import { createSafeApplyService } from "./consolidation/obsidianSafeApply";
 import type { SafeApplyService } from "./consolidation/safeApply";
 import { OperationHistoryModal } from "./consolidation/safeApplyModal";
@@ -182,6 +183,7 @@ export default class AIHubPlugin extends Plugin {
   async onload() {
     try {
       await this.loadSettings();
+      this.register(registerReviewDecisions(this.app, this.manifest.id));
       setLanguage(this.settings.language ?? "auto");
       this.safeApply = createSafeApplyService(this.app, this.manifest.id);
       this.register(() => this.safeApply?.dispose());
@@ -231,7 +233,7 @@ export default class AIHubPlugin extends Plugin {
           this.register(() => authoring.dispose());
           return authoring;
         }, connect, new SemanticNeighborhoodController(this.semanticController), new SemanticGlobalMapController(this.semanticController),
-        { mount: (container, paths) => this.semanticController.mountPairReview(container, paths), localFacts: changed => this.semanticController.createReviewFacts(changed) },
+        { decisions: reviewDecisions(this.app), mount: (container, paths, completed) => this.semanticController.mountPairReview(container, paths, completed), localFacts: changed => this.semanticController.createReviewFacts(changed) },
         paths => createWorkbenchMetadata(this.app, paths, this.getTaxonomyProfilePort()));
 
       this.addCommand({

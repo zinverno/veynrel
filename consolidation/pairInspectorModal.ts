@@ -1,4 +1,4 @@
-import { App, Modal } from "obsidian";
+import { App, Modal, Notice } from "obsidian";
 import { t } from "../i18n";
 import type { RelationshipSession } from "./relationshipSession";
 import type { SafeApplyService } from "./safeApply";
@@ -11,7 +11,7 @@ export class PairInspectorModal extends Modal {
     private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService) { super(app); }
   onOpen(): void {
     this.modalEl.addClass("ai-pair-inspector-modal"); this.titleEl.setText(t("@consolidation.title"));
-    this.review = new PairReview(this.app, this.contentEl, this.paths, this.createRelationship, this.release, this.safeApply);
+    this.review = new PairReview(this.app, this.contentEl, this.paths, this.createRelationship, this.release, this.safeApply, () => { this.close(); new Notice(t("@decision.saved")); });
     this.review.open();
   }
   onClose(): void { this.review?.close(); this.review = undefined; }

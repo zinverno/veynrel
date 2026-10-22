@@ -1,3 +1,4 @@
+import type { ReviewDecision } from "./reviewDecisionsPort";
 import { currentLanguage, t } from "../../i18n";
 import type { Finding } from "../domain/finding";
 import { healthButton, healthDetails } from "../ui/renderHealthHome";
@@ -17,6 +18,11 @@ export class ReviewListView {
   private readonly browser: HTMLElement;
   private readonly detail: HTMLElement;
   private readonly remove: () => void;
+  private readonly removeDecisions?: () => void;
+  private decision?: ReviewDecision;
+  private decisionError = false;
+  private restoring?: string;
+  private reviewedOpen = false;
   private readonly facts?: import("./reviewFacts").ReviewFactsPort;
   private stopReview?: () => void;
   private map?: OptionalMap;
@@ -38,6 +44,8 @@ export class ReviewListView {
     this.detail.hidden = true;
     this.facts = pair.localFacts?.(() => this.render());
     this.remove = data.subscribe(() => this.render());
+    this.removeDecisions = pair.decisions?.subscribe(() => this.render());
+    void pair.decisions?.load().catch(() => {});
     this.render();
   }
   update(findings: readonly Finding[]): void {
@@ -59,12 +67,12 @@ export class ReviewListView {
     this.map?.dispose(); this.map = undefined;
     this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
   }
-  dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.facts?.dispose(); this.data.dispose(); }
+  dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.removeDecisions?.(); this.facts?.dispose(); this.data.dispose(); }
   private back(): void {
     this.suspend(); this.suspended = false; this.facts?.refresh(); this.render();
     this.scrollOwner.scrollTop = this.scroll;
     const target = Array.from(this.browser.querySelectorAll<HTMLElement>("[data-pair-id]")).find(el => el.getAttribute("data-pair-id") === this.selected?.id);
-    target?.focus({ preventScroll: true });
+    (target ?? this.browser.querySelector<HTMLElement>("[data-decision-undo], [data-review-heading]"))?.focus({ preventScroll: true });
   }
   private openPair(pair: WorkbenchPair): void {
     if (this.stopReview || this.disposed) return;
@@ -73,9 +81,22 @@ export class ReviewListView {
     const generation = this.generation;
     healthButton(this.detail, t("@review.back"), () => { if (generation === this.generation) this.back(); }, "review-back");
     this.detail.createEl("p", { text: t(`@review.origin.${pair.basis}`), cls: "veynrel-review-basis" });
-    this.stopReview = this.pair.mount(this.detail.createDiv(), pair.paths);
+    this.stopReview = this.pair.mount(this.detail.createDiv(), pair.paths, decision => {
+      if (this.disposed || generation !== this.generation) return;
+      this.decision = decision; this.decisionError = false; this.back();
+    });
     this.scrollOwner.scrollTop = 0;
     this.detail.querySelector<HTMLElement>("[data-pair-heading]")?.focus({ preventScroll: true });
+  }
+  private async restoreDecision(id: string): Promise<void> {
+    if (this.restoring || !this.pair.decisions) return;
+    this.restoring = id; this.decisionError = false; this.render();
+    try {
+      await this.pair.decisions.restore(id);
+      if (this.decision?.id === id) this.decision = undefined;
+      this.facts?.refresh();
+    } catch { this.decisionError = true; }
+    finally { this.restoring = undefined; this.render(); }
   }
   private basis(pair: WorkbenchPair): string {
     return t(pair.basis === "duplicate" && this.data.duplicateState !== "ready" ? "@review.old-result" : `@review.basis.${pair.basis}`);
@@ -94,6 +115,14 @@ export class ReviewListView {
       healthButton(parent, label, () => { if (current()) action(); }, id, disabled, primary);
     this.browser.createEl("h1", { text: t("@review.title"), attr: { tabindex: "-1", "data-review-heading": "true" } });
     this.browser.createEl("p", { text: t("@review.description") });
+    if (this.decision && this.pair.decisions?.list().some(r => r.id === this.decision!.id)) {
+      const notice = this.browser.createDiv({ cls: "veynrel-review-status veynrel-review-toolbar", attr: { role: "status", "data-review-decision-saved": "" } });
+      notice.createSpan({ text: t("@decision.saved") });
+      const undo = button(notice, t("@decision.undo"), () => { void this.restoreDecision(this.decision!.id); }, "review-undo-decision", !!this.restoring);
+      undo.setAttribute("data-decision-undo", "");
+    }
+    if (this.decisionError) this.browser.createEl("p", { text: t("@decision.restoreError"), attr: { role: "alert" } });
+    if (this.pair.decisions?.state === "error") this.browser.createEl("p", { text: t("@decision.loadError"), attr: { role: "status" } });
     const toolbar = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
     const modes = toolbar.createDiv({ cls: "veynrel-review-modes", attr: { "aria-label": t("@workbench.scenarios") } });
     for (const mode of ["repeats", "connections"] as const) {
@@ -114,15 +143,34 @@ export class ReviewListView {
     button(searchRow, t("@review.refresh"), () => { void this.data.refresh(this.mode); }, "review-refresh", this.data.busy, true);
     const model = workbenchModel(this.data, this.findings.filter(f => f.state === "open"));
     const all = this.mode === "repeats" ? model.repeats : model.connections;
-    const matches = all.filter(pair => pair.paths.some(path => path.toLowerCase().includes(this.query.trim().toLowerCase())));
+    const includesQuery = (paths: readonly string[]) => paths.some(path => path.toLowerCase().includes(this.query.trim().toLowerCase()));
+    const checking = (pair: WorkbenchPair) => this.pair.decisions?.state === "loading" ||
+      this.pair.decisions?.hasPaths(pair.paths) && (!this.facts?.get(pair.paths) || this.facts.get(pair.paths)?.state === "checking");
+    const activePairs = all.filter(pair => !checking(pair) && !this.facts?.get(pair.paths)?.kept);
+    const matches = activePairs.filter(pair => includesQuery(pair.paths));
+    const reviewed = this.pair.decisions?.list().filter(r => r.notes.every(n => this.data.scope.paths.includes(n.path)) && includesQuery(r.notes.map(n => n.path))) ?? [];
+    if (reviewed.length) {
+      const details = healthDetails(this.browser, t("@decision.reviewed", { count: reviewed.length }), "review-reviewed");
+      details.open = this.reviewedOpen;
+      details.addEventListener("toggle", () => { if (current()) this.reviewedOpen = details.open; });
+      details.createEl("p", { text: t("@decision.scope") });
+      for (const record of reviewed) {
+        const row = details.createDiv({ cls: "veynrel-review-toolbar" });
+        row.createSpan({ text: record.notes.map(n => n.path.replace(/\.md$/iu, "")).join(" · ") });
+        const restore = button(row, t("@flow.reopen"), () => { void this.restoreDecision(record.id); }, `review-restore-${record.id}`, !!this.restoring);
+        restore.setAttribute("data-review-restore", record.id);
+      }
+    }
     const linkedCount = this.mode === "connections" ? matches.filter(p => this.facts?.get(p.paths)?.links?.some(Boolean)).length : 0;
     const state = this.mode === "repeats" ? this.data.duplicateState : this.data.connectionError ? "error" : this.data.comparison?.getSnapshot().state ?? "idle";
     const status = this.browser.createDiv({ cls: "veynrel-review-status", attr: { role: "status", "aria-live": "polite" } });
+    const waiting = all.some(checking);
+    if (waiting) status.createEl("p", { text: t("@decision.loading") });
     const changedSources = matches.some(p => this.facts?.get(p.paths)?.changed);
     status.createEl("p", { text: t(this.data.busy ? "@workbench.state.loading" : changedSources ? "@flow.observations-stale" :
       state === "ready" ? "@flow.candidates-loaded" : `@workbench.state.${state}`) });
     if (state === "unavailable") button(status, t("@workbench.setup"), () => this.actions.settings(), "review-settings");
-    if (all.length || state === "ready") status.createEl("p", { text: t("@review.count", { shown: Math.min(matches.length - linkedCount, this.limit), total: matches.length - linkedCount, all: all.length }) });
+    if (all.length || state === "ready") status.createEl("p", { text: t("@review.count", { shown: Math.min(matches.length - linkedCount, this.limit), total: matches.length - linkedCount, all: activePairs.length }) });
     if (linkedCount) status.createEl("p", { text: t("@flow.linked-count", { count: linkedCount }) });
     if (this.mode === "repeats") {
       status.createEl("small", { text: t("@review.global-limit") });
@@ -139,8 +187,8 @@ export class ReviewListView {
       if (topology.state === "ready" && topology.map?.complete === false) coverage.createEl("p", { text: t("@workbench.links-partial") });
     }
     if (!this.data.scope.paths.length) this.browser.createEl("p", { text: t("@workbench.no-notes") });
-    else if (!matches.length && (all.length || state === "ready")) this.browser.createEl("p", { text: t(this.query ? "@workbench.no-search" : this.mode === "repeats" ? "@workbench.no-candidates" : "@workbench.no-connections") });
-    this.facts?.track(matches.slice(0, this.limit).map(p => p.paths));
+    else if (!waiting && !matches.length && (all.length || state === "ready")) this.browser.createEl("p", { text: t(all.some(p => includesQuery(p.paths) && this.facts?.get(p.paths)?.kept) ? "@decision.noActive" : this.query ? "@workbench.no-search" : this.mode === "repeats" ? "@workbench.no-candidates" : "@workbench.no-connections") });
+    this.facts?.track([...new Map([...matches.slice(0, this.limit), ...all.filter(p => this.pair.decisions?.hasPaths(p.paths))].map(p => [p.id, p])).values()].map(p => p.paths));
     const list = this.browser.createEl("ol", { cls: "veynrel-review-results" });
     for (const pair of matches.slice(0, this.limit)) {
       const row = list.createEl("li", { cls: "veynrel-review-row" });
@@ -163,10 +211,6 @@ export class ReviewListView {
         if (facts.links) state.createEl("p", { text: t(facts.links[0] && facts.links[1] ? "@flow.links.both" : facts.links[0] ? "@flow.links.forward" : facts.links[1] ? "@flow.links.backward" : "@flow.links.none") });
         if (facts.operation) state.createEl("p", { text: t(facts.operation.state === "applied" ? "@flow.applied" : facts.operation.state === "undone" ? "@flow.undone" : "@flow.history-check") });
         if (facts.changed) state.createEl("p", { text: t("@flow.observation-stale") });
-        if (facts.kept) {
-          state.createEl("p", { text: t("@flow.kept") });
-          button(state, t("@flow.reopen"), () => this.facts?.reopen(pair.paths), `review-reopen-${encodeURIComponent(pair.id)}`);
-        }
         if (facts.historyUnknown) state.createEl("p", { text: t("@flow.history-unknown") });
       }
       const compare = button(row, t(this.mode === "connections" && facts?.links?.some(Boolean) ? "@flow.inspect-linked" : "@review.compare"), () => this.openPair(pair), `review-pair-${encodeURIComponent(pair.id)}`);

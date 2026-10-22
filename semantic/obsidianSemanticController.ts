@@ -721,11 +721,11 @@ export class ObsidianSemanticController {
 
   createReviewFacts(changed: () => void) { return createReviewFacts(this.plugin.app, changed); }
 
-  mountPairReview(container: HTMLElement, paths: readonly [string, string]): () => void {
+  mountPairReview(container: HTMLElement, paths: readonly [string, string], completed?: (decision: import("../consolidation/reviewDecisions").ReviewDecision) => void): () => void {
     if (this.isDisposed()) return () => {};
     const review = new PairReview(this.plugin.app, container, paths,
       this.relationshipSession ? () => this.relationshipSession!(paths) : undefined,
-      () => { this.pairReviews.delete(review); }, this.safeApply);
+      () => { this.pairReviews.delete(review); }, this.safeApply, completed);
     this.pairReviews.add(review); review.open();
     return () => review.close();
   }

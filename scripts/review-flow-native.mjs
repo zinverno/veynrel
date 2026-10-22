@@ -1,6 +1,7 @@
 // Synthetic HTTP envelopes over loopback; real requestUrl/parser/session/validator/executors.
-// node scripts/review-flow-native.mjs ~/projects/veynrel-artifacts/veynrel-review-flow-native-<new-name> [frozen-build]
+// node scripts/review-flow-native.mjs ~/projects/veynrel-artifacts/veynrel-review-flow-native-<new-name> [frozen-build] [decisions]
 import fs from 'node:fs';
+import {reviewDecisionChecks} from './review-decisions-native.mjs';
 import os from 'node:os';
 import path from 'node:path';
 import {createServer} from 'node:http';
@@ -11,7 +12,7 @@ import {build as bundle} from 'esbuild';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
-const [root,build=ROOT]=process.argv.slice(2);
+const [root,build=ROOT,mode]=process.argv.slice(2);
 const sourceCommit=fs.existsSync(build+'/SOURCE_COMMIT')?fs.readFileSync(build+'/SOURCE_COMMIT','utf8').trim():undefined;
 assert(root&&path.dirname(root)===path.join(os.homedir(),'projects/veynrel-artifacts')&&path.basename(root).startsWith('veynrel-review-flow-native-')&&!root.includes('..')&&!fs.existsSync(root));
 
@@ -138,6 +139,10 @@ try{
    await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-intent-action=primary]')");await wait("[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
    assert.equal(requests.at(-1),bodies.at(-1));
  };
+ if(mode==='decisions') {
+   await reviewDecisionChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,openPair,locale,field,cdp,pause,settle,
+     vault,dir,root,pairPaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
+ } else {
  const smoke=async(prefix)=>{
    const viewport=await ev('({width:innerWidth,height:innerHeight})'),recording=!!onFrame;
    if(recording)await cdp('Page.stopScreencast');
@@ -243,8 +248,12 @@ try{
      await wait("!!document.querySelector('[data-planner-field=range]')");
      await pass('Embed keeps known direction without repeated question',"!document.querySelector('[data-planner-field=source]')&&!document.querySelector('[data-planner-field=confirm]')?.checked");await field('[data-planner-field=range]','0');await shot('embed-parameters');
    } else if(kind==='manual_review')await pass('Manual review opens exact evidence without planner',"!document.querySelector('[data-review-evidence]').hidden&&!document.querySelector('[data-planner-field=range]')");
-   else await pass('No change remains a session decision without planner',"!document.querySelector('[data-planner-field=range]')&&[...engine.pairReviews].at(-1).relationship.view.stage==='dismissed'");
-   assert.equal(requests.length,calls);assert.deepEqual(markdown(vault),before);await click('review-back');
+   else {
+     await wait("!!document.querySelector('[data-review-decision-saved]')");
+     await pass('No change saves a pair decision without planner',"!hv.workbench.stopReview&&!!document.querySelector('[data-review-decision-saved]')");
+     await click('review-undo-decision');
+   }
+   assert.equal(requests.length,calls);assert.deepEqual(markdown(vault),before);if(kind!=='no_change')await click('review-back');
  }
  scenario='invalid';await startVideo('rejected-primary-report');
  await openPair('Cache');await clickSelector('[data-relationship-action=analyze]');await wait("!!document.querySelector('[data-relationship-action=confirm]')");
@@ -288,6 +297,7 @@ try{
  fs.writeFileSync(root+'/after-manual-edits.json',JSON.stringify(markdown(vault),null,2));
  fs.writeFileSync(root+'/report.json',JSON.stringify({status:'native synthetic regression',checks,metrics,screenshots,sourceCommit,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io'),httpRequests:requests.length,consentMatches:requests.map((b,i)=>b===bodies[i]),httpDestination:'loopback only',liveModel:'NOT RUN; authorization ended'},null,2));
  console.log(JSON.stringify({status:'PASS',checks:checks.length,root}));
+ }
 } catch(error){
  fs.writeFileSync(root+'/failure.txt',String(error.stack));if(socket?.readyState===1){try{const p=++id;const shot=await new Promise((resolve,reject)=>{pending.set(p,{resolve,reject});socket.send(JSON.stringify({id:p,method:'Page.captureScreenshot',params:{format:'png'}}))});fs.writeFileSync(root+'/failure.png',Buffer.from(shot.data,'base64'));}catch{}}
  throw error;

@@ -39,15 +39,6 @@ describe("recommendation preflight", () => {
   });
 });
 
-it("an explicit keep decision is reversible and bound to identities and source versions, not candidate removal", async () => {
-  const { keepReviewSeparate, reviewKeptSeparate, reopenReview } = await import("./reviewDecisions");
-  const f = mergeFixture(), app = {} as App;
-  keepReviewSeparate(app, f.pair); expect(reviewKeptSeparate(app, f.pair)).toBe(true);
-  expect(reviewKeptSeparate(app, [{ ...f.pair[0], modified: 3 }, f.pair[1]])).toBe(false);
-  expect(reviewKeptSeparate(app, [{ ...f.pair[0], content: "changed" }, f.pair[1]])).toBe(false);
-  expect(reviewKeptSeparate(app, [{ ...f.pair[0], file: { ...f.pair[0].file } }, f.pair[1]])).toBe(false);
-  reopenReview(app, f.pair.map(n => n.path)); expect(reviewKeptSeparate(app, f.pair)).toBe(false);
-});
 
 it("uses verified resolver linktexts instead of assuming a canonical-looking path resolves", async () => {
   const f = mergeFixture();

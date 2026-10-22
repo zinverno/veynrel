@@ -1,4 +1,7 @@
-import { keepReviewSeparate } from "./reviewDecisions";
+import { reviewDecisions } from "./reviewDecisions";
+import type { ReviewDecision } from "./reviewDecisions";
+import { readRelationshipPair } from "./relationshipSession";
+import type { RelationshipPair } from "./relationshipSession";
 import type { App } from "obsidian";
 import type { TAbstractFile } from "obsidian";
 import { dateLocale, t as tr } from "../i18n";
@@ -36,7 +39,7 @@ export class PairReview {
   private preflight?: RecommendationPreflight;
 
   constructor(private readonly app: App, private readonly contentEl: HTMLElement, private readonly paths: readonly [string, string],
-    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService) {}
+    private readonly createRelationship?: () => RelationshipSession, private readonly release: () => void = () => {}, private readonly safeApply?: SafeApplyService, private readonly completed?: (decision: ReviewDecision) => void) {}
 
   open(): void {
     this.openState = true;
@@ -51,6 +54,29 @@ export class PairReview {
       const history = controls.createEl("button", { text: tr("@safeApply.history"), attr: { type: "button", "data-safe-action": "history" } });
       history.addEventListener("click", () => new OperationHistoryModal(this.app, this.safeApply!).open());
     }
+    let shownPair: RelationshipPair | undefined, savingDecision = false;
+    const keep = controls.createEl("button", { text: tr("@flow.keep"), attr: { type: "button", "data-review-keep": "" } });
+    keep.disabled = true;
+    const decisionStatus = this.contentEl.createDiv({ cls: "ai-review-caption", attr: { role: "status", "aria-live": "polite", tabindex: "-1", "data-review-decision-status": "" } });
+    const leaveAsIs = async (expected: RelationshipPair | undefined) => {
+      if (!this.openState || savingDecision || !expected) return;
+      savingDecision = true; keep.disabled = true; decisionStatus.setText(tr("@decision.saving"));
+      try {
+        const current = await readRelationshipPair(this.app, this.paths);
+        if (!this.openState) return;
+        if (!expected.every(n => current.some(c => n.path === c.path && n.file === c.file && n.content === c.content))) {
+          decisionStatus.setText(tr("@decision.stale")); decisionStatus.focus(); return;
+        }
+        const store = reviewDecisions(this.app);
+        if (!store) throw Error("Decisions unavailable");
+        const decision = await store.keep(expected);
+        if (!this.openState) return;
+        decisionStatus.setText(tr("@decision.saved"));
+        this.completed?.(decision);
+      } catch { if (this.openState) { decisionStatus.setText(tr("@decision.error")); decisionStatus.focus(); } }
+      finally { savingDecision = false; keep.disabled = !shownPair; }
+    };
+    keep.addEventListener("click", () => { if (!keep.disabled && !keep.hidden) void leaveAsIs(shownPair); });
     const analysis = this.contentEl.createDiv({ cls: "ai-relationship" });
     const planning = this.contentEl.createDiv({ cls: "ai-change-planner" });
     planning.hidden = true;
@@ -85,7 +111,7 @@ export class PairReview {
             const initial = ["idle", "cancelled", "stale", "dismissed"].includes(stage);
             notes.hidden = !initial; limits.hidden = !initial; status.hidden = !initial;
             intro.hidden = !initial;
-            refresh.hidden = !initial; analyze.hidden = !initial;
+            refresh.hidden = !initial; analyze.hidden = !initial; keep.hidden = !initial;
             analysis.hidden = false; planning.hidden = true; backResult.hidden = true;
             analyze.setText(tr(this.relationship.view.stage === "result" ? "@relationship.reanalyze" : "@relationship.analyze"));
             this.planner?.close(); this.planner = undefined; planning.empty();
@@ -131,8 +157,8 @@ export class PairReview {
               void this.planner.prepare();
             };
             renderAnalysis = () => { if (this.openState && this.relationship && !analysis.hidden)
-              renderRelationshipView(analysis, this.relationship, prepare, this.preflight?.view, () => {
-                if (expected && this.relationship?.analysisSource === expected) keepReviewSeparate(this.app, expected.pair);
+              renderRelationshipView(analysis, this.relationship, prepare, this.preflight?.view, async () => {
+                if (expected && this.relationship?.analysisSource === expected) await leaveAsIs(expected.pair);
               }, () => { if (this.openState) { notes.hidden = false; limits.hidden = false; notes.scrollIntoView({ block: "start" }); } }); };
             this.preflight?.invalidate();
             renderAnalysis();
@@ -181,12 +207,15 @@ export class PairReview {
       if (!this.openState) return;
       this.relationship?.invalidate();
       const generation = ++this.generation;
+      shownPair = undefined; keep.disabled = true; decisionStatus.setText("");
       notes.empty();
       notes.setAttribute("aria-busy", "true");
       status.setAttribute("data-state", "loading");
       status.setText(tr("@consolidation.loading"));
       const snapshots = await Promise.all(this.paths.map(path => readPairNote(this.app, path)));
       if (!this.openState || generation !== this.generation) return;
+      if (snapshots[0].saved && snapshots[1].saved) shownPair = [snapshots[0].saved, snapshots[1].saved];
+      keep.disabled = !shownPair || savingDecision;
       notes.setAttribute("aria-busy", "false");
       status.setAttribute("data-state", "ready");
       status.setText(tr("@consolidation.loaded"));

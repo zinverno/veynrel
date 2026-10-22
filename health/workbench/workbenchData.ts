@@ -8,7 +8,8 @@ import type { WorkbenchTagsPort } from "./workbenchTags";
 /** Context is navigation only. The host creates a fresh session; no serialized write authority. */
 export interface PairReviewPort {
   localFacts?(changed: () => void): import("./reviewFacts").ReviewFactsPort;
-  mount(container: HTMLElement, paths: readonly [string, string]): () => void;
+  decisions?: import("./reviewDecisionsPort").ReviewDecisionsPort;
+  mount(container: HTMLElement, paths: readonly [string, string], completed?: (decision: import("./reviewDecisionsPort").ReviewDecision) => void): () => void;
 }
 export interface WorkbenchDependencies {
   topology: VaultTopologyPort;

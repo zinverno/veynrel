@@ -9,7 +9,7 @@ import { renderRelationshipFailure } from "./relationshipFailureView";
 
 /** All model prose and literal excerpts are text nodes, never rendered Markdown/HTML. */
 export function renderRelationshipView(container: HTMLElement, session: RelationshipSession, prepare?: (selection: IntentSelection) => void,
-  availability?: RecommendationAvailability, keepSeparate?: () => void, sources?: () => void): void {
+  availability?: RecommendationAvailability, keepSeparate?: () => Promise<void>, sources?: () => void): void {
   container.empty();
   const view = session.view, body = container.createDiv({ cls: "ai-relationship-body" });
   const status = body.createDiv({ cls: "ai-review-stage", text: tr(view.result ? "@final.decisionStage" : view.stage === "error" ? "@final.errorStage" : `@relationship.stage.${view.stage}`),
@@ -57,7 +57,7 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
     const section = parent.createEl("section", { cls: "ai-review-proposal", attr: { "data-intent-origin": intent.origin } });
     const tile = section.createEl("button", { cls: "ai-review-decision", attr: { type: "button", "data-intent-action":
       selection.origin === "alternative" ? `alternative-${selection.index}` : selection.origin === "user" ? selection.action : "primary", "data-planner-action": "open" } });
-    tile.disabled = pending || unavailable;
+    tile.disabled = pending || unavailable || intent.family === "keep" && !keepSeparate;
     reviewIcon(tile, unavailable ? "circle-alert" : { link: "link", embed: "file-input", combine: "combine", atom: "scissors", keep: "check", manual: "scan-text" }[intent.family]);
     const content = tile.createSpan({ cls: "ai-review-decision-copy" });
     content.createSpan({ cls: "ai-review-eyebrow", text: `${tr(selection.origin === "user" ? "@final.interfaceOption" : `@intent.origin.${selection.origin}`)} · ${tr(pending ? "@flow.preflight.checking" : unavailable ? "@final.unavailable" : "@final.canPrepare")}` });
@@ -70,14 +70,14 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
     for (const reason of intent.limitations) section.createEl("p", { cls: "ai-review-restriction", text: tr(reason === "@planner.error.existing" ? "@flow.already-linked" : reason === "@planner.error.protected" ? "@flow.protected" : reason === "@planner.error.evidence" ? "@flow.evidence" : reason), attr: { "data-intent-unavailable": "" } });
     tile.addEventListener("click", () => {
       if (tile.disabled || !container.contains(tile) || session.analysisSource !== analysis) return;
-      if (intent.family === "keep") { keepSeparate?.(); session.dismiss(); }
+      if (intent.family === "keep") { tile.disabled = true; void keepSeparate?.().finally(() => { tile.disabled = false; }); }
       else if (intent.family === "manual") inspectEvidence();
       else prepare?.(selection);
     });
     return unavailable;
   };
   const unavailable = propose(body, { origin: "primary" });
-  body.createEl("small", { text: tr("@final.prepareOnly"), cls: "ai-review-caption" });
+  body.createEl("small", { text: tr(result.recommendation.action === "no_change" ? "@decision.reversible" : "@final.prepareOnly"), cls: "ai-review-caption" });
   const summary = body.createDiv({ cls: "ai-relationship-summary" });
   for (const [key, claims] of [["shared", result.claims.filter(c => c.kind === "shared")], ["differences", result.claims.filter(c => c.kind !== "shared")]] as const) {
     if (!claims.length) continue;
@@ -117,7 +117,6 @@ export function renderRelationshipView(container: HTMLElement, session: Relation
   }
   if (keepSeparate && result.recommendation.action !== "no_change") {
     const keep = actions.createEl("button", { text: tr("@flow.keep"), attr: { type: "button", "data-review-keep": "" } });
-    keep.addEventListener("click", () => { if (container.contains(keep) && session.analysisSource === analysis) { keepSeparate(); session.dismiss(); } });
+    keep.addEventListener("click", () => { if (container.contains(keep) && session.analysisSource === analysis) { keep.disabled = true; void keepSeparate().finally(() => { keep.disabled = false; }); } });
   }
-  button("dismiss", () => session.dismiss());
 }
