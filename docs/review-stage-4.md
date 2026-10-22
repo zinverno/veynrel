@@ -28,7 +28,9 @@ main. No independent merging/cherry-picking of #106–114.
 ## Scope and reproducible gates
 
 Only distribution/version metadata, its existing compatibility test, docs and
-a short mode in the existing native harness change. Runtime source, CSS,
+a short mode in the existing native harness change. Two newly triggered
+metadata-dependent settings advisories are individually reviewed in the existing
+lint checker; see the beta addendum in obsidian-review-audit.md. Runtime source, CSS,
 workflows, data formats and dependencies are untouched. The bundle imports
 manifest in relationshipReport; any generated-byte difference must be compared
 and accounted for rather than described as docs-only.

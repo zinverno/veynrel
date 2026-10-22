@@ -188,3 +188,22 @@ The public score **has not changed**. This branch does not bump a version, publi
 The current documented scanner would omit the **2,644 unsafe-type warnings**; resolving Obsidian types would also remove the **eight intrinsic-error union warnings**. That depends on the hosted service actually using its documented/current configuration or fixing dependency resolution, not on disguising source types in this PR. The retained fetch/settings advisories should still be expected. The future release-provenance workflow can address the two named asset-attestation notices once a release is intentionally published, its assets match the build, and attestation/rescan finishes.
 
 Before the next Vault Audit AI release: review and merge this PR separately if desired; complete native smoke tests; address development dependency advisories in a focused update; supply the exact type-resolution and scope evidence to Obsidian and request a rescan/clarification. Check the public result after that scan. Do not split Companion or promise a clean scorecard on the strength of local exclusions.
+
+## 2.2.0 beta packaging: two metadata-triggered advisories
+
+Raising only the beta minAppVersion from 1.8.7 to 1.13.7 activates two additional
+scanner suggestions in unchanged `settings.ts`: `no-deprecated-display` (805)
+and `prefer-update-over-display` (845). The retained `display()` renders the
+same definitions for older hosts. `refreshSettings()` already checks
+`requireApiVersion("1.13.0") && hasSettingsUpdate(this)` and calls `update()` on
+current hosts; only the guarded fallback calls `display()`. The rule does not
+account for that runtime guard. Removing the compatibility path would change
+the accepted runtime during a packaging-only task, without improving this beta.
+
+Both warnings remain printed and are individually counted (one occurrence per
+file/rule) by the existing reviewed-advisory mechanism. No ESLint rule, error,
+bundle-coverage check or unexpected-warning rejection is disabled. Existing
+settings compatibility tests and the packaged native settings/language path
+exercise the retained definitions; this is not a claim that older hosts were
+newly native-tested. The initial failed lint log is retained in the local kit.
+The remaining original advisory is streaming fetch at api.ts:442.
