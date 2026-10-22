@@ -183,9 +183,9 @@ try{
  await click('review-back');await locale('ru');await analyze('Table');await shot('unavailable-ru');await smoke('result-ru');
  await click('review-back');await shot('list-ru');
  await cdp('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
- await ev("require('@electron/remote').webContents.getFocusedWebContents().setZoomFactor(2);void 0");await pause(400);await shot('zoom-200-list');
+ await ev("require('@electron/remote').getCurrentWebContents().setZoomFactor(2);void 0");await pause(400);await shot('zoom-200-list');
  await pass('200% application zoom remains within pane',"hv.contentEl.scrollWidth<=hv.contentEl.clientWidth+1");
- await ev("require('@electron/remote').webContents.getFocusedWebContents().setZoomFactor(1);void 0");
+ await ev("require('@electron/remote').getCurrentWebContents().setZoomFactor(1);void 0");
  assert.deepEqual(markdown(vault),before);assert.equal(requests.length,3);
  await pass('No map renderer, background completions or renderer fetch','graphicalCreations===0&&io.network===0&&!hv.workbench.data.semantic');
  // Long payload remains disclosed; these consent previews are cancelled without any completion.
