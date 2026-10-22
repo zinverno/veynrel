@@ -21,26 +21,29 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 const markdown=base=>Object.fromEntries(fs.readdirSync(base,{recursive:true}).filter(p=>p.endsWith('.md')&&fs.statSync(base+'/'+p).isFile()).sort().map(p=>[p,sha(fs.readFileSync(base+'/'+p))]));
 const pairPaths=['Workbench/A/Cache.md','Workbench/B/Cache.md'];
 const fixture=JSON.parse(fs.readFileSync(ROOT+'/tests/fixtures/merge-planner.json','utf8'));
+const combinePaths=['Combine/A/MergeCase.md','Combine/B/MergeCase.md'];
+for(const [i,p] of combinePaths.entries()){fs.mkdirSync(vault+'/'+p.split('/').slice(0,-1).join('/'),{recursive:true});fs.writeFileSync(vault+'/'+p,i===0?fixture.a:fixture.b);}
+const plainB=fixture.b;
 const unsupportedPaths=['Unsupported/A/Table.md','Unsupported/B/Table.md'];
 const prefix='---\ntags: [synthetic]\n---\n\n# Cache study\n\n**A formatted observation** uses `code` and [[Reference]].\n\n';
 fixture.a=prefix+fixture.a;fixture.b=prefix+fixture.b;
 for(const [i,p] of unsupportedPaths.entries()){fs.mkdirSync(vault+'/'+p.split('/').slice(0,-1).join('/'),{recursive:true});fs.writeFileSync(vault+'/'+p,(i===0?fixture.a:fixture.b).replace('A cache keeps reusable results.','**A cache keeps reusable results.**'));}
 for(const [i,p] of pairPaths.entries()){fs.mkdirSync(vault+'/'+p.split('/').slice(0,-1).join('/'),{recursive:true});fs.writeFileSync(vault+'/'+p,i===0?fixture.a:fixture.b);}
-const indexPaths=[...pairPaths,...unsupportedPaths];
-fs.writeFileSync(root+'/fixture-description.json',JSON.stringify({notes:4,indexed:4,provenance:'Synthetic chat/completions envelopes, NOT intercepted user HTTP. Loopback HTTP only; real requestUrl, parser, validator, planners and executors. Artificial vectors do not test embedding quality.'},null,2));
-const requests=[];
+const indexPaths=[...pairPaths,...unsupportedPaths,...combinePaths];
+fs.writeFileSync(root+'/fixture-description.json',JSON.stringify({notes:6,indexed:6,provenance:'Synthetic chat/completions envelopes, NOT intercepted user HTTP. Loopback HTTP only; real requestUrl, parser, validator, planners and executors. Artificial vectors do not test embedding quality.'},null,2));
+const requests=[];let scenario='add_link';
 const server=createServer(async(req,res)=>{
  if(req.method!=='POST'||req.url!=='/v1/chat/completions'){res.writeHead(400).end();return;}
  let body='';for await(const chunk of req){body+=chunk;if(body.length>128*1024){res.writeHead(413).end();return;}}
  requests.push(body);
- const response=structuredClone(fixture.response);
+ const {alternatives: _legacyAlternatives,...response}=structuredClone(fixture.response);
  const request=JSON.parse(JSON.parse(body).messages[1].content);
- assert.equal(request.schema,'veynrel.relationship.refs.v1');
+ assert.equal(request.schema,'veynrel.relationship.refs.v2');
  const wire={...response,schema:request.schema,claims:response.claims.map(({quoteA,quoteB,...claim})=>({...claim,
  evidenceA:quoteA===null?null:request.evidence.find(f=>f.side==='A'&&f.text.includes(quoteA)).id,
  evidenceB:quoteB===null?null:request.evidence.find(f=>f.side==='B'&&f.text.includes(quoteB)).id}))};
- wire.recommendation={action:requests.length===1?'add_link':'consider_embed_b_in_a',reason:requests.length===1?'Synthetic recommendation for UI regression, not model quality.':'Synthetic diagnostic rationale. Not a semantic preservation guarantee. '.repeat(18),evidence:['shared']};
- wire.alternatives=[{action:requests.length===1?'no_change':'add_link',reason:'A separately checked alternative.',evidence:['shared']}];
+ wire.recommendation={action:scenario==='invalid'?'consider_merge':scenario,reason:'Synthetic diagnostic recommendation. Both documents remain independently useful.',evidence:['shared']};
+ if(scenario==='invalid')wire.relation='related_distinct';
  res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:JSON.stringify(wire)}}],usage:{completion_tokens:300,completion_tokens_details:{reasoning_tokens:0}}}));
 });
 await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve)});
@@ -123,7 +126,9 @@ try{
  const bodies=[];
  const openPair=async(name)=>{
    await wait('!hv.workbench.facts?.running&&!hv.workbench.facts?.dirty.size');await settle();
-   const id=await ev(`(()=>{const e=[...document.querySelectorAll('[data-pair-id]')].find(e=>e.parentElement.textContent.includes(${JSON.stringify(name)}));if(!e)throw Error('pair missing');return e.dataset.pairId})()`);
+   const paths=name==='Table'?unsupportedPaths:name==='MergeCase'?combinePaths:pairPaths;
+   const id=JSON.stringify([...paths].sort());
+   assert(await ev(`!![...document.querySelectorAll('[data-pair-id]')].find(e=>e.dataset.pairId===${JSON.stringify(id)})`),'exact canonical pair exists');
    await clickSelector(`[data-pair-id=${JSON.stringify(id)}]`);await wait("document.querySelectorAll('.ai-pair-note').length===2");
  };
  const analyze=async(name)=>{
@@ -139,9 +144,23 @@ try{
    for(const theme of ['theme-dark','theme-light'])for(const width of [1280,390]){
      await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});
      await ev(`document.body.removeClass('theme-light','theme-dark');document.body.addClass('${theme}');void 0`);
-     await ev(`hv.contentEl.querySelector('[data-planner-field=range],[data-planner-field=combine-canonical],[data-intent-unavailable]')?.scrollIntoView({block:'center'});void 0`);
+     await ev(`hv.contentEl.querySelector('.ai-pair-inspector h2')?.scrollIntoView({block:'start'});void 0`);
      await pass(prefix+' '+theme+' '+width+' localized and fits',"!/@intent\\./.test(hv.contentEl.textContent)&&[...hv.contentEl.querySelectorAll('.ai-change-planner,.ai-change-planner select,.ai-change-planner pre,.ai-relationship')].filter(e=>e.offsetWidth).every(e=>e.scrollWidth<=e.clientWidth+1)");
+     const contrast=await ev(`(()=>{
+       const canvas=document.createElement('canvas');canvas.width=canvas.height=1;const ctx=canvas.getContext('2d');
+       const lum=p=>[...p].slice(0,3).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0);
+       return [...document.querySelectorAll('.ai-pair-inspector *, .modal .ai-change-planner *')].filter(e=>e.getClientRects().length&&[...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim())&&!e.closest(':disabled,[hidden],svg')).map(e=>{
+         ctx.clearRect(0,0,1,1);const chain=[];for(let n=e;n;n=n.parentElement)chain.unshift(n);
+         for(const n of chain){ctx.fillStyle=getComputedStyle(n).backgroundColor;ctx.fillRect(0,0,1,1)}const bg=lum(ctx.getImageData(0,0,1,1).data);
+         const style=getComputedStyle(e);ctx.fillStyle=style.color;ctx.fillRect(0,0,1,1);const fg=lum(ctx.getImageData(0,0,1,1).data);
+         return {className:e.className,ratio:(Math.max(fg,bg)+.05)/(Math.min(fg,bg)+.05),large:parseFloat(style.fontSize)>=24};
+       });})()`);
+     metrics.contrast??=[];metrics.contrast.push({prefix,theme,width,values:contrast});assert(contrast.every(c=>c.ratio>=(c.large?3:4.5)),JSON.stringify(contrast));
      await shot(prefix+'-'+theme+'-'+width);
+     if(width===390){
+       const visible=await ev(`(()=>{const e=document.querySelector('.modal [data-merge-apply-action=confirm]')||[...hv.contentEl.querySelectorAll('[data-relationship-action=confirm],[data-relationship-action=report],.ai-review-decision:not(:disabled)')].find(e=>e.getClientRects().length);if(!e)return true;e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.bottom>0&&r.top<innerHeight})()`);assert(visible,'main control reachable at 390');await shot(prefix+'-action-'+theme+'-'+width);
+     }
+     if(prefix.startsWith('diff-')){await ev("document.querySelector('.modal .ai-proposal-diff-panel')?.scrollIntoView({block:'center'});void 0");await shot(prefix+'-content-'+theme+'-'+width);}
    }
    await cdp('Emulation.setDeviceMetricsOverride',{...viewport,deviceScaleFactor:1,mobile:false});
    if(recording)await cdp('Page.startScreencast',{format:'jpeg',quality:70,maxWidth:1694,maxHeight:1080,everyNthFrame:1});
@@ -149,8 +168,11 @@ try{
  await startVideo('review-apply-list-reopen-history-undo');
  await locale('en');await analyze('Cache');await shot('link-result');await pause(900);
  await pass('Read-only preflight completes before primary action',"!document.querySelector('[data-intent-action=primary]').disabled&&[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
- await clickSelector('[data-intent-action=primary]');await wait("!!document.querySelector('[data-planner-field=source]')");
- await field('[data-planner-field=source]','0');await field('[data-planner-field=range]','0');
+ await pass('Whole primary card is one button without nested tab stops',"document.querySelector('[data-intent-action=primary]').tagName==='BUTTON'&&!document.querySelector('[data-intent-action=primary]').querySelector('button,a,input,[tabindex]')");
+ await ev("document.querySelector('[data-intent-action=primary]').focus();void 0");
+ await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,text:'\r',unmodifiedText:'\r'});await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});
+ await wait("!!document.querySelector('[data-planner-field=source]')");assert.equal(requests.length,1);assert.deepEqual(markdown(vault),before);
+ await clickSelector('[data-planner-field=source][value="0"]');await field('[data-planner-field=range]','0');
  await shot('link-parameters');await pause(900);
  await pass('Parameters are proposed, never confirmation',"!document.querySelector('[data-planner-field=confirm]').checked&&document.querySelector('[data-planner-action=build]').disabled");
  await clickSelector('[data-planner-field=confirm]');await clickSelector('[data-planner-action=build]');await wait("!!document.querySelector('[data-safe-action=review]')");
@@ -177,9 +199,9 @@ try{
  assert.deepEqual(markdown(vault),before);fs.writeFileSync(root+'/after-undo.json',JSON.stringify(markdown(vault),null,2));await shot('undone');await closeModals();await click('review-back');
  await wait("document.querySelector('.veynrel-review-results').textContent.includes('Change undone.')");await shot('list-after-undo');await pause(1300);await stopVideo();
  checks.push('Actual Apply then list then reopen/history/separate Undo; all Markdown hashes restored; one explicit loopback completion');
- await startVideo('unavailable-before-navigation');await analyze('Table');
+ scenario='consider_embed_b_in_a';await startVideo('unavailable-before-navigation');await analyze('Table');
  await pass('Unsupported embed is disabled on result before navigation',"document.querySelector('[data-intent-action=primary]').disabled&&!!document.querySelector('[data-intent-unavailable]')&&!document.querySelector('[data-planner-field=range]')");
- await shot('unavailable-embed');await pause(1700);await smoke('result-en');await stopVideo();
+ await shot('unavailable-embed');await pause(1700);await stopVideo();await smoke('result-en');
  await click('review-back');await locale('ru');await analyze('Table');await shot('unavailable-ru');await smoke('result-ru');
  await click('review-back');await shot('list-ru');
  await cdp('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
@@ -198,6 +220,46 @@ try{
    await ev("require('@electron/remote').getCurrentWebContents().setZoomFactor(1);void 0");
    await clickSelector('[data-relationship-action=cancel]');await click('review-back');assert.equal(requests.length,3);
  }
+ // All additional decisions use new explicit consent and the real transport. No writes.
+ for(const kind of ['consider_merge','consider_embed_b_in_a','no_change','manual_review']) {
+   scenario=kind;await locale('ru');await analyze(kind==='consider_merge'?'MergeCase':'Cache');await shot('decision-'+kind);
+   if(kind==='consider_merge')await smoke('decision-ru');
+   const calls=requests.length;
+   if(kind==='manual_review'){
+     await ev("document.querySelector('[data-intent-action=primary]').focus();void 0");
+     await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',windowsVirtualKeyCode:32,text:' '});await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32});
+   }else await clickSelector('[data-intent-action=primary]');
+   if(kind==='consider_merge') {
+     await wait("!!document.querySelector('[data-planner-field=combine-canonical]')");
+     await pass('Combine asks canonical without default consent',"![...document.querySelectorAll('[data-planner-field=combine-canonical]')].some(e=>e.checked)");
+     await clickSelector('[data-planner-field=combine-canonical][value="0"]');
+     if(await ev("!!document.querySelector('[data-planner-field=combine-material]')"))await field('[data-planner-field=combine-material]','merge_knowledge');
+     await wait("!!document.querySelector('[data-planner-field=merge-location]')");await shot('combine-material');await smoke('parameters-ru');
+     await clickSelector(`[data-planner-field=merge-transfer-${plainB.indexOf('Срок хранения')}]`);await field('[data-planner-field=merge-location]','0');
+     await pass('Combine parameters do not grant insertion consent',"!document.querySelector('[data-planner-field=merge-confirm]').checked");
+     await clickSelector('[data-planner-field=merge-confirm]');await clickSelector('[data-merge-action=build]');await wait("!!document.querySelector('[data-merge-plan]')");
+     await clickSelector('[data-merge-apply-action=review]');await wait("!!document.querySelector('.modal [data-merge-apply-action=confirm]')");await shot('combine-exact-review');await smoke('diff-ru');await closeModals();
+   } else if(kind==='consider_embed_b_in_a') {
+     await wait("!!document.querySelector('[data-planner-field=range]')");
+     await pass('Embed keeps known direction without repeated question',"!document.querySelector('[data-planner-field=source]')&&!document.querySelector('[data-planner-field=confirm]')?.checked");await field('[data-planner-field=range]','0');await shot('embed-parameters');
+   } else if(kind==='manual_review')await pass('Manual review opens exact evidence without planner',"!document.querySelector('[data-review-evidence]').hidden&&!document.querySelector('[data-planner-field=range]')");
+   else await pass('No change remains a session decision without planner',"!document.querySelector('[data-planner-field=range]')&&[...engine.pairReviews].at(-1).relationship.view.stage==='dismissed'");
+   assert.equal(requests.length,calls);assert.deepEqual(markdown(vault),before);await click('review-back');
+ }
+ scenario='invalid';await startVideo('rejected-primary-report');
+ await openPair('Cache');await clickSelector('[data-relationship-action=analyze]');await wait("!!document.querySelector('[data-relationship-action=confirm]')");
+ bodies.push(await ev("document.querySelector('.ai-relationship pre').textContent"));await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-relationship-action=report]')");assert.equal(requests.at(-1),bodies.at(-1));
+ await pass('Invalid primary has no result or planner authority',"![...engine.pairReviews].at(-1).relationship.analysisSource&&!document.querySelector('[data-intent-action=primary]')");
+ await shot('rejected-primary');await smoke('error-ru');await clickSelector('[data-relationship-action=report]');await shot('error-report');await clickSelector('[data-relationship-action=copy-report]');await pause(250);
+ const copied=await ev("require('@electron/remote').clipboard.readText()");const report=JSON.parse(copied);
+ assert.equal(report.stage,'consistency');assert.deepEqual(report.issues,[{field:'recommendation',code:'action_relation_mismatch',relation:'related_distinct',action:'consider_merge'}]);
+ assert(!/Cache|Workbench|synthetic-not-a-real-key|localhost|127\.0|cache keeps|requestBody|quoteA|headers/.test(copied));
+ fs.writeFileSync(root+'/copied-error-report.json',JSON.stringify(report,null,2));checks.push('Native copy contains only allowlisted diagnostics with actual enums, no note data');
+ await stopVideo();await click('review-back');
+ const expectedRequests=requests.length;assert.equal(expectedRequests,8);
+ // A real split hosts the same review route with its own owner.
+ await ev("window.splitLeaf=app.workspace.getLeaf('split','vertical');await splitLeaf.setViewState({type:'veynrel-health',active:true});splitLeaf.view.openReviewVault();void 0");
+ await wait("!!splitLeaf.view.workbench?.data");await shot('real-split');await ev('splitLeaf.detach();void 0');
  // A genuine second native window shares updates, but not consent or planner authority.
  await locale('en');
  await ev("window.secondLeaf=app.workspace.openPopoutLeaf({width:820,height:760});await secondLeaf.setViewState({type:'veynrel-health',active:true});secondLeaf.view.openReviewVault();void 0");
@@ -220,7 +282,7 @@ try{
  await ev("await app.vault.delete(app.vault.getFileByPath('Workbench/A/Renamed.md'));void 0");
  await pass('Rename/delete never restore a pair session or consent',"!hv.workbench.stopReview&&!secondLeaf.view.workbench.stopReview");
  await ev('secondLeaf.detach();void 0');
- assert.equal(requests.length,3);checks.push('Post-Undo manual edit/rename/delete are separate synthetic checks; no synthetic restore is counted as Undo');
+ assert.equal(requests.length,expectedRequests);checks.push('Post-Undo manual edit/rename/delete are separate synthetic checks; no synthetic restore is counted as Undo');
  metrics.localPairRecheck=await ev("({count:factChecks.length,meanMs:factChecks.reduce((a,b)=>a+b,0)/factChecks.length,maxMs:Math.max(...factChecks),p95Ms:[...factChecks].sort((a,b)=>a-b)[Math.floor(factChecks.length*.95)]})");
  metrics.runtime=await ev("({obsidian:require('@electron/remote').app.getVersion(),electron:process.versions.electron})");
  fs.writeFileSync(root+'/after-manual-edits.json',JSON.stringify(markdown(vault),null,2));

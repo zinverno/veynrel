@@ -1,4 +1,4 @@
-import { ACTIONS, CLAIM_KINDS, RELATIONS, RELATIONSHIP_WIRE_SCHEMA } from "./relationshipContract";
+import { ACTIONS, CLAIM_KINDS, RELATIONS, RELATIONSHIP_SINGLE_SCHEMA } from "./relationshipContract";
 import type { CallOptions } from "../api";
 import type { LanguageModelSettingsSnapshot } from "../deep/product/languageModelSettingsPort";
 
@@ -25,26 +25,25 @@ Rules:
 7. Recommendations are preliminary possibilities, not facts, instructions to apply, executable operations or Markdown diffs. Do not promise information preservation. Do not produce percentages, accuracy/confidence/overlap scores.
 8. If choosing a source, changing links/embeds, splitting a section or merging needs other notes, tags or dependencies checked, state this limitation; those were NOT analyzed. Any absence/uniqueness judgment is only relative to these two saved texts.
 Return exactly one JSON object, no fences, with these keys and no extra keys:
-{"schema":"${RELATIONSHIP_WIRE_SCHEMA}","relation":"one enum value","claims":[{"id":"c1","kind":"context_a","text":"one substantive finding","evidenceA":"ID of an A catalogue fragment","evidenceB":null}],"explanation":{"text":"why this relation","evidence":["c1"]},"recommendation":{"action":"one action","reason":"why this preliminary action, preserving context","evidence":["c1"]},"alternatives":[],"limitations":["uncertainty and missing checks"]}
+{"schema":"${RELATIONSHIP_SINGLE_SCHEMA}","relation":"one enum value","claims":[{"id":"c1","kind":"context_a","text":"one substantive finding","evidenceA":"ID of an A catalogue fragment","evidenceB":null}],"explanation":{"text":"why this relation","evidence":["c1"]},"recommendation":{"action":"one action","reason":"why this preliminary action, preserving context","evidence":["c1"]},"limitations":["uncertainty and missing checks"]}
 relation: ${RELATIONS.join(", ")}.
 action: ${ACTIONS.join(", ")}.
 claim kind: ${CLAIM_KINDS.join(", ")}.
 There are TWO DIFFERENT ID namespaces. First write supported claims, assigning your own short claim IDs such as c1, c2. Then cite those claims in the conclusions:
 - Catalogue fragment IDs are permitted ONLY in claims[*].evidenceA and claims[*].evidenceB. Copy them exactly from the supplied catalogue, with the correct side.
-- explanation.evidence, recommendation.evidence and alternatives[*].evidence contain ONLY IDs declared in your own claims[].id. They NEVER contain catalogue fragment IDs, even though the input catalogue is named evidence.
+- explanation.evidence, recommendation.evidence contain ONLY IDs declared in your own claims[].id. They NEVER contain catalogue fragment IDs, even though the input catalogue is named evidence.
 - Example: a claim with id "c1" and evidenceA "<A fragment ID>" is cited as ["c1"], never as ["<A fragment ID>"]. Do not put a fragment ID in explanation.evidence even if that fragment supports the explanation. Cite the supported claim instead. Do not create unsupported claims just to supply an ID.
-Every substantive conclusion, including possible unique content, contextual examples, standalone sections and each action/alternative, must cite claim IDs. Both evidenceA and evidenceB keys are always required; their values are catalogue fragment IDs or JSON null according to the claim kind:
+Every substantive conclusion, including possible unique content, contextual examples, standalone sections and the primary action, must cite claim IDs. Both evidenceA and evidenceB keys are always required; their values are catalogue fragment IDs or JSON null according to the claim kind:
 - shared, conflict, version_difference, comparison: BOTH evidenceA and evidenceB must be IDs from their respective sides of the catalogue.
 - unique_a, context_a, standalone_a: evidenceA is required; evidenceB may be null.
 - unique_b, context_b, standalone_b: evidenceB is required; evidenceA may be null.
 Only include an opposite-side reference when it meaningfully supports the claim. Otherwise use null. For evidenceA/evidenceB select only supplied fragment IDs from the correct side. Never return quote strings, offsets, paths, a different schema, or invented fragment IDs. Local code resolves fragment IDs into the exact frozen source slices. A fragment ID proves literal provenance, NOT semantic truth, uniqueness, standalone value, or absence of equivalent information in the other note. Null means no excerpt supplied, not proof of absence.
-At most 8 claims, 3 alternatives, 8 limitations. Prose fields at most 1600 characters; claim IDs at most 32. If available fragments cannot support the finding, use insufficient_context with empty claims and evidence lists, manual_review/no_change, and explain the limitation. Never paraphrase or repair evidence.
+At most 8 claims, 8 limitations. Prose fields at most 1600 characters; claim IDs at most 32. If available fragments cannot support the finding, use insufficient_context with empty claims and evidence lists, manual_review/no_change, and explain the limitation. Never paraphrase or repair evidence.
 One substantive, supportable thought per claim. A fragment about materialization does not also prove a claim about DML and explicit column lists. Split separately supported thoughts; omit unsupported ones.
 For same_information/partial_overlap include a shared claim. same_information must not include unique/context/standalone claims; choose partial_overlap or related_distinct when those matter. Conflicts/version differences require conflicting or insufficient_context. conflicting/unrelated/insufficient_context allow only manual_review or no_change.
-Validate EACH recommendation independently: the primary recommendation AND EVERY alternative obey exactly the same evidence rules. Evidence is not inherited from the relation, explanation, primary action or another alternative.
+Validate the single recommendation against its own cited claims. Evidence is not inherited from the relation or explanation.
 - consider_merge, consider_embed_b_in_a and consider_embed_a_in_b require same_information/partial_overlap AND at least one claim of kind shared in THAT recommendation's own evidence list. unique/context claims alone never justify merging or embedding.
-- Example: if c1 is shared and c6/c7 are unique_b, an embed alternative with evidence ["c6","c7"] is INVALID, even if the primary merge cites c1. Cite ["c1","c6","c7"] only if those claims actually support that alternative; otherwise omit the alternative or choose manual_review/no_change. Never relabel unique evidence as shared to satisfy the schema.
 - consider_atomize requires a separately supported substantive standalone_a/standalone_b claim in THAT recommendation's own evidence list. unique_a/unique_b are NOT standalone evidence. Do not relabel them to justify atomization; omit that action if independence is not supported.
-- Before returning, check EVERY explanation/recommendation/alternative evidence list against your claims[].id, and EVERY evidenceA/evidenceB against the supplied catalogue. Every cited claim must have evidence of the required kind. Do not invent, rewrite or repair evidence.
-By default return alternatives: [] and ONE principal recommendation. Do not generate additional actions just to fill the schema. If an alternative is necessary, it must not duplicate the primary action and must independently pass every rule above.`;
+- Before returning, check EVERY explanation/recommendation evidence list against your claims[].id, and EVERY evidenceA/evidenceB against the supplied catalogue. Every cited claim must have evidence of the required kind. Do not invent, rewrite or repair evidence.
+Return exactly ONE primary recommendation. The alternatives field is forbidden in this schema, even when empty. Do not generate any additional action fields.`;
 }

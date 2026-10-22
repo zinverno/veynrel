@@ -24,6 +24,7 @@ import { EmptyAtomApplyModal } from "./emptyAtomApplyModal";
 import { RecommendationPreflight } from "./recommendationPreflight";
 import { recommendationIntent } from "./recommendationIntent";
 import { focusStatus } from "./consolidationUx";
+import { reviewPair } from "./reviewPresentation";
 
 /** Disposable pair owner; metadata readiness may recheck availability, never rerun analysis. */
 export class PairReview {
@@ -41,8 +42,8 @@ export class PairReview {
     this.openState = true;
     this.contentEl.empty();
     this.contentEl.addClass("ai-pair-inspector");
-    this.contentEl.createEl("h2", { text: tr("@review.pair-title"), attr: { tabindex: "-1", "data-pair-heading": "true" } });
-    this.contentEl.createEl("p", { text: this.paths.map((path, i) => `${i === 0 ? "A" : "B"}: ${path.split("/").slice(-2).join("/").replace(/\.md$/iu, "")}`).join(" ↔ "), cls: "ai-pair-titles" });
+    const heading = this.contentEl.createEl("h2", { text: tr("@review.pair-title"), attr: { tabindex: "-1", "data-pair-heading": "true" } });
+    reviewPair(this.contentEl, this.paths);
     const intro = this.contentEl.createEl("p", { text: tr("@review.pair-description"), cls: "ai-pair-intro" });
     const controls = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-pair-actions" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
@@ -58,7 +59,7 @@ export class PairReview {
     backResult.addEventListener("click", () => {
       if (!this.openState) return;
       this.planner?.close(); this.planner = undefined; planning.empty(); planning.hidden = true;
-      analysis.hidden = false; backResult.hidden = true; renderAnalysis(); checkAvailability(); focusStatus(analysis);
+      analysis.hidden = false; backResult.hidden = true; heading.setText(tr("@final.headingResult")); renderAnalysis(); checkAvailability(); focusStatus(analysis);
     });
     const pendingMetadata = new Set<string>();
     let renderAnalysis = () => {};
@@ -80,7 +81,8 @@ export class PairReview {
             if (!this.openState || !this.relationship) return;
             analyze.disabled = this.relationship.busy;
             const stage = this.relationship.view.stage;
-            const initial = ["idle", "cancelled", "error", "stale", "dismissed"].includes(stage);
+            heading.setText(tr(stage === "result" ? "@final.headingResult" : stage === "error" ? "@final.headingError" : "@review.pair-title"));
+            const initial = ["idle", "cancelled", "stale", "dismissed"].includes(stage);
             notes.hidden = !initial; limits.hidden = !initial; status.hidden = !initial;
             intro.hidden = !initial;
             refresh.hidden = !initial; analyze.hidden = !initial;
@@ -100,6 +102,7 @@ export class PairReview {
                 emptyTargets: () => this.app.vault.getMarkdownFiles().filter(f => !this.paths.includes(f.path) && f.stat.size === 0).map(f => f.path).sort(),
                 atomizationObservation: (path, source) => readAtomizationObservation(this.app, path, source) });
               const planner = this.planner;
+              heading.setText(tr(`@intent.cta.${recommendationIntent(source, selection).family}`));
               analysis.hidden = true; planning.hidden = false; backResult.hidden = false;
               new ChangePlannerView(planning, planner, source, this.safeApply ? plan => {
                 new SafeApplyModal(this.app, this.safeApply!, current => this.safeApply!.review(plan, source,
@@ -130,13 +133,13 @@ export class PairReview {
             renderAnalysis = () => { if (this.openState && this.relationship && !analysis.hidden)
               renderRelationshipView(analysis, this.relationship, prepare, this.preflight?.view, () => {
                 if (expected && this.relationship?.analysisSource === expected) keepReviewSeparate(this.app, expected.pair);
-              }); };
+              }, () => { if (this.openState) { notes.hidden = false; limits.hidden = false; notes.scrollIntoView({ block: "start" }); } }); };
             this.preflight?.invalidate();
             renderAnalysis();
             checkAvailability();
             if (["consent", "result", "error", "cancelled"].includes(this.relationship.view.stage)) {
               focusStatus(analysis);
-              analysis.scrollIntoView({ block: "start" });
+              (this.contentEl.closest(".veynrel-review-detail") ?? heading).scrollIntoView({ block: "start" });
             }
           };
         }

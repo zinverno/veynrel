@@ -14,7 +14,7 @@ export function reviewSummary(root: HTMLElement, changed: readonly string[], pre
 
 export function diagnosticPanel(root: HTMLElement, id?: string): HTMLDetailsElement {
   const details = root.createEl("details", { cls: "ai-consolidation-diagnostics" });
-  details.createEl("summary", { text: tr("@ux.diagnostics") });
+  details.createEl("summary", { text: tr("@final.technical") });
   if (id) details.createEl("p", { text: id, cls: "ai-pair-path" });
   return details;
 }

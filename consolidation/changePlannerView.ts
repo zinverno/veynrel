@@ -25,6 +25,7 @@ import { recommendationIntent, combineCapabilities, changeRangeOptions } from ".
 import type { IntentSelection, CombineOperation } from "./recommendationIntent";
 import { renderActionChoice } from "./consolidationActions";
 import { workflowStep, focusStatus } from "./consolidationUx";
+import { reviewNoteChoices } from "./reviewPresentation";
 
 const emptyMerge = (): MergeChoice => ({ operation: "merge_knowledge", canonical: null, transfers: [], insertion: null, insertionConfirmed: false });
 
@@ -71,13 +72,8 @@ export class ChangePlannerView {
   }
   private renderCombine(root: HTMLElement): void {
     const pair = this.session.view.input!.pair;
-    const label = root.createEl("label", { text: tr("@intent.canonical"), cls: "ai-planner-location" });
-    const select = label.createEl("select", { attr: { "data-planner-field": "combine-canonical" } });
-    select.createEl("option", { text: tr("@planner.choose"), value: "" });
-    pair.forEach((note, side) => select.createEl("option", { text: note.path, value: String(side) }));
-    select.value = this.combineCanonical === null ? "" : String(this.combineCanonical);
-    select.addEventListener("change", () => {
-      this.combineCanonical = select.value === "" ? null : select.value === "0" ? 0 : 1;
+    reviewNoteChoices(root, pair.map(n => n.path), this.combineCanonical, "combine-canonical", tr("@intent.canonical"), side => {
+      this.combineCanonical = side;
       this.combineOperation = null; this.changed();
     });
     if (this.combineCanonical === null) return;
@@ -113,7 +109,7 @@ export class ChangePlannerView {
     }
   }
   private button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
-    const button = parent.createEl("button", { text: tr(`@planner.${key}`), cls: key === "build" ? "mod-cta" : "", attr: { type: "button", "data-planner-action": key } });
+    const button = parent.createEl("button", { text: tr(key === "build" && this.intentSelection ? "@final.previewChange" : `@planner.${key}`), cls: key === "build" ? "mod-cta" : "", attr: { type: "button", "data-planner-action": key } });
     button.addEventListener("click", action); return button;
   }
   private changed(): void {
@@ -151,17 +147,18 @@ export class ChangePlannerView {
     if (intent && !intent.operation) return;
     if (!intent || !["add_link", "replace_with_embed"].includes(this.operation)) root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" ? "@atom.supported" : this.operation === "copy_context_bundle" ? "@bundle.supported" : this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
-    const sourceLabel = controls.createEl("label", { text: tr(intent ? this.operation === "add_link" ? "@intent.linkSource" : "@intent.embedSource" : "@planner.source") });
-    sourceLabel.hidden = this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" || this.operation === "copy_context_bundle" || this.operation === "copy_context_group" || this.operation === "add_reciprocal_links" || this.operation === "merge_knowledge";
-    const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
-    source.createEl("option", { text: tr("@planner.choose"), value: "" });
-    view.input.pair.forEach((note, i) => {
-      const option = source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) });
-      if (intent?.family === "link" && this.operation === "add_link") option.disabled = !changeRangeOptions(this.analysis, view.input!.pair, "add_link", i as 0 | 1).ranges.length;
-    });
-    source.disabled = intent?.family === "embed";
-    source.value = this.sourceChosen ? String(this.side) : "";
-    source.addEventListener("change", () => { this.sourceChosen = source.value === "0" || source.value === "1"; this.side = source.value === "1" ? 1 : 0; if (!intent) this.operation = ""; this.selection = null; this.changed(); });
+    if (intent?.family === "link" && this.operation === "add_link") reviewNoteChoices(controls, view.input.pair.map(n => n.path), this.sourceChosen ? this.side : null,
+      "source", tr("@intent.linkSource"), side => { this.sourceChosen = true; this.side = side; this.selection = null; this.changed(); },
+      view.input.pair.map((_, side) => !changeRangeOptions(this.analysis, view.input!.pair, "add_link", side as 0 | 1, view.input!.linktexts[side === 0 ? 1 : 0]).ranges.length));
+    if (!intent) {
+      const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
+      sourceLabel.hidden = ["write_atom_to_empty_note", "atomization_preview", "copy_context_bundle", "copy_context_group", "add_reciprocal_links", "merge_knowledge"].includes(this.operation);
+      const source = sourceLabel.createEl("select", { attr: { "data-planner-field": "source" } });
+      source.createEl("option", { text: tr("@planner.choose"), value: "" });
+      view.input.pair.forEach((note, i) => source.createEl("option", { text: `${i === 0 ? "A" : "B"}: ${note.path}`, value: String(i) }));
+      source.value = this.sourceChosen ? String(this.side) : "";
+      source.addEventListener("change", () => { this.sourceChosen = source.value === "0" || source.value === "1"; this.side = source.value === "1" ? 1 : 0; this.operation = ""; this.selection = null; this.changed(); });
+    }
     if (!intent) renderActionChoice(controls, this.operation, this.sourceChosen && !!permittedEmbed(this.analysis, this.side), value => {
       this.operation = value; this.selection = null; this.changed();
     });

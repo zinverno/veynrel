@@ -7,12 +7,14 @@ import type { LanguageModelSettingsPort, LanguageModelSettingsSnapshot } from ".
 import { validAnalysisSettings } from "../deep/product/validateLanguageModelSettings";
 import { readSavedNote, sameSavedNote } from "./savedNote";
 import type { SavedNote } from "./savedNote";
-import { RelationshipError } from "./relationshipContract";
+import { RelationshipError, RELATIONSHIP_SINGLE_SCHEMA } from "./relationshipContract";
 import { prepareEvidenceCatalog, evidenceRequest, validateEvidenceResponse } from "./relationshipEvidence";
 import type { EvidenceCatalog } from "./relationshipEvidence";
 import type { EvidenceDiagnostic } from "./relationshipDiagnostics";
 import type { RelationshipFailure, RelationshipResult } from "./relationshipContract";
 import { RELATIONSHIP_LIMITS, relationshipOptions, relationshipPrompt } from "./relationshipPrompt";
+import { relationshipReport } from "./relationshipReport";
+import type { RelationshipAttempt } from "./relationshipReport";
 
 export type RelationshipPair = readonly [SavedNote, SavedNote];
 export interface RelationshipAnalysis { pair: RelationshipPair; result: RelationshipResult; provider: string; model: string }
@@ -57,6 +59,10 @@ export class RelationshipSession {
   view: RelationshipView = { stage: "idle" };
   onChange: () => void = () => {};
   private analysis?: RelationshipAnalysis;
+  private attempt?: RelationshipAttempt;
+  get errorReport(): ReturnType<typeof relationshipReport> | undefined {
+    return this.view.stage === "error" ? relationshipReport(this.view, this.attempt) : undefined;
+  }
   private generation = 0;
   private closed = false;
   private request?: AbortController;
@@ -82,6 +88,7 @@ export class RelationshipSession {
   }
   private publish(view: RelationshipView): void { if (!this.closed) { this.view = view; this.onChange(); } }
   private clear(stage: "stale" | "cancelled" | "dismissed"): void {
+    this.attempt = undefined;
     this.generation++; this.request?.abort(); this.request = undefined; this.prepared = undefined; this.analysis = undefined;
     this.publish({ stage });
   }
@@ -96,6 +103,7 @@ export class RelationshipSession {
     if (this.closed || this.busy) return;
     const generation = ++this.generation, settings = { ...this.deps.settings.get() }, stamp = JSON.stringify(settings);
     this.prepared = undefined; this.analysis = undefined; this.settingsStamp = stamp;
+    this.attempt = { provider: settings.provider, model: settings.model, dispatched: false, completed: false };
     this.publish({ stage: "preparing" });
     try {
       if (!validAnalysisSettings(settings)) throw new RelationshipError("configuration");
@@ -125,12 +133,14 @@ export class RelationshipSession {
       const before = await this.deps.read();
       if (!this.current(generation, stamp)) return;
       if (!samePair(prepared.pair, before)) { this.invalidate(); return; }
+      this.attempt!.dispatched = true;
       const raw = await this.deps.complete(prepared.settings, prepared.system, prepared.user, request.signal, prepared.options);
       if (!this.current(generation, stamp)) return;
+      this.attempt!.completed = true;
       const after = await this.deps.read();
       if (!this.current(generation, stamp)) return;
       if (!samePair(prepared.pair, after)) { this.invalidate(); return; }
-      const result = validateEvidenceResponse(raw, prepared.catalog, after);
+      const result = validateEvidenceResponse(raw, prepared.catalog, after, RELATIONSHIP_SINGLE_SCHEMA);
       this.prepared = undefined;
       this.analysis = { pair: after, result, provider: PROVIDER_PROFILES[prepared.settings.provider].label, model: prepared.settings.model };
       this.publish({ stage: "result", result });

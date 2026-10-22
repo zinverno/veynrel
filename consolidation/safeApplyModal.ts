@@ -21,6 +21,7 @@ import type { HistoryPresentation } from "./consolidationHistory";
 import { reviewSummary, diagnosticPanel, historyHeading, historyUnavailable, focusStatus } from "./consolidationUx";
 import type { ChangePlan } from "./changePlan";
 import { ReviewLifetime } from "./reviewLifetime";
+import { reviewIcon, reviewPair } from "./reviewPresentation";
 
 function button(parent: HTMLElement, key: string, action: () => void): HTMLButtonElement {
   const el = parent.createEl("button", { text: tr(`@safeApply.${key}`), attr: { type: "button", "data-safe-action": key } });
@@ -157,8 +158,13 @@ export class SafeApplyModal extends Modal {
       refreshReviewFacts(this.app, this.context ? { id: this.review.id, paths: [this.context.sourcePath, this.context.targetPath],
         created: Date.now(), operation: this.context.operation, state: this.undo ? "undone" : "applied" } : undefined);
       if (!this.active) return;
-      this.contentEl.empty(); this.contentEl.createEl("p", { text: tr(this.undo ? "@safeApply.undone" : this.context?.operation === "add_link" ? "@flow.link-written" : this.context?.operation === "replace_with_embed" ? "@flow.embed-written" : "@safeApply.applied"), attr: { role: "status" } });
-      this.contentEl.createEl("p", { text: this.context ? `${this.context.sourcePath} → ${this.context.targetPath}` : this.review.sourcePath, cls: "ai-pair-path" });
+      this.contentEl.empty();
+      this.titleEl.setText(tr(this.undo ? "@safeApply.state.undone" : "@safeApply.state.applied"));
+      const outcome = this.contentEl.createEl("section", { cls: "ai-review-panel ai-review-outcome", attr: { role: "status" } });
+      reviewIcon(outcome, "circle-check");
+      outcome.createEl("h3", { text: tr(this.undo ? "@safeApply.undone" : this.context?.operation === "add_link" ? "@flow.link-written" : this.context?.operation === "replace_with_embed" ? "@flow.embed-written" : "@safeApply.applied") });
+      if (this.context) reviewPair(this.contentEl, [this.context.sourcePath, this.context.targetPath]);
+      else this.contentEl.createEl("p", { text: this.review.sourcePath, cls: "ai-pair-path" });
       const done = this.contentEl.createEl("button", { text: tr("@flow.close-result"), cls: "mod-cta", attr: { type: "button", "data-safe-action": "done" } });
       done.addEventListener("click", () => this.close());
       if (!this.undo) button(this.contentEl, "undo", () => {

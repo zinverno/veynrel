@@ -179,7 +179,7 @@ const mocks = vi.hoisted(() => {
   return { FakeElement, TFile, MarkdownView, Notice, Modal };
 });
 
-vi.mock("obsidian", () => ({
+vi.mock("obsidian", () => ({ setIcon: vi.fn(),
   App: class {},
   MarkdownView: mocks.MarkdownView,
   Modal: mocks.Modal,
@@ -937,7 +937,7 @@ describe("read-only Pair Inspector UI", () => {
       const all = f.content.findByTag("p").map(el => el.text).join("\n") + f.content.findByTag("div").map(el => el.text).join("\n");
       expect(all).not.toContain("synthetic-private-reasoning");
       if (!completed) {
-        expect(session.view.error).toBe("outputLimit"); expect(all).toContain("Модель достигла лимита генерации до завершения анализа");
+        expect(session.view.error).toBe("outputLimit"); expect([...f.content.findByTag("h3"), ...f.content.findByTag("p")].map(e => e.text).join("\n")).toContain("Модель достигла лимита генерации до завершения анализа");
         expect(all).not.toContain("invalidEnvelope");
       }
       if (variant === "bad-quote") expect(session.view.error).toBe("unverifiedEvidence");
@@ -1083,15 +1083,15 @@ describe("read-only Pair Inspector UI", () => {
       f.modal.open(); await flush(); f.action("analyze").trigger("click"); await flush();
       expect(f.complete).not.toHaveBeenCalled(); f.action("confirm").trigger("click"); await flush();
       expect(f.stage()).toBe("result"); expect(f.complete).toHaveBeenCalledOnce();
-      const cards = f.content.findByClass("ai-semantic-duplicate-card"); expect(cards).toHaveLength(item.response.claims.length);
+      const cards = f.content.findByTag("article"); expect(cards).toHaveLength(item.response.claims.length);
       item.response.claims.forEach((claim, i) => {
-        const quotes = cards[i].findByTag("pre").map(el => el.text);
+        const quotes = cards[i].findByTag("blockquote").map(el => el.text);
         expect(quotes).toEqual([claim.quoteA, claim.quoteB].filter(quote => quote !== null));
         for (const [side, quote] of [["A", claim.quoteA], ["B", claim.quoteB]] as const) {
-          expect(cards[i].findByTag("p").some(el => el.text === t("@relationship.verifiedQuote", { side }))).toBe(quote !== null);
+          expect(cards[i].findByTag("strong").some(el => el.text.startsWith(`${side} · `))).toBe(quote !== null);
         }
       });
-      expect(f.content.findByTag("p").some(el => el.text === t("@relationship.evidenceScope"))).toBe(true);
+      expect(f.content.findByTag("small").some(el => el.text === t("@relationship.evidenceScope"))).toBe(true);
       expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled(); f.modal.close();
     }
     setLanguage("ru");
@@ -1132,7 +1132,7 @@ describe("read-only Pair Inspector UI", () => {
     const reads = f.app.vault.read.mock.calls.length; expect(button("open")).toBeDefined(); expect(button("build")).toBeUndefined();
     const oldPrepare = button("open");
     oldPrepare.trigger("click"); oldPrepare.trigger("click"); await flush(); expect(f.app.vault.read).toHaveBeenCalledTimes(reads + 2);
-    expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "source")!.value).toBe("0");
+    expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "source")).toBeUndefined(); // Validated embed direction is already fixed.
     expect(f.content.findByTag("select").find(el => el.attributes.get("data-planner-field") === "operation")).toBeUndefined();
     expect(button("build").disabled).toBe(true);
     select("range", "0"); expect(button("build").disabled).toBe(true);

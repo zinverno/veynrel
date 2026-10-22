@@ -1,4 +1,4 @@
-import { RELATIONSHIP_WIRE_SCHEMA, RelationshipError, validateRelationshipResponse } from "./relationshipContract";
+import { RELATIONSHIP_WIRE_SCHEMA, RELATIONSHIP_SINGLE_SCHEMA, RelationshipError, validateRelationshipResponse } from "./relationshipContract";
 import type { RelationshipResult } from "./relationshipContract";
 import type { EvidenceDiagnostic } from "./relationshipDiagnostics";
 import { sameSavedNote } from "./savedNote";
@@ -63,7 +63,7 @@ export function prepareEvidenceCatalog(input: RelationshipPair): EvidenceCatalog
 }
 
 export function evidenceRequest(catalog: EvidenceCatalog): string {
-  return JSON.stringify({ schema: RELATIONSHIP_WIRE_SCHEMA, A: catalog.pair[0].content, B: catalog.pair[1].content,
+  return JSON.stringify({ schema: RELATIONSHIP_SINGLE_SCHEMA, A: catalog.pair[0].content, B: catalog.pair[1].content,
     evidence: catalog.fragments.map(({ id, side, text }) => ({ id, side, text })), uncoveredCharacters: catalog.uncoveredCharacters });
 }
 
@@ -73,14 +73,16 @@ function shape(value: unknown, keys: string[]): Record<string, unknown> {
   return value as Record<string, unknown>;
 }
 
-/** One explicit wire schema only. Bind references, then cross the unchanged strict validation barrier. */
-export function validateEvidenceResponse(raw: string, catalog: EvidenceCatalog, current: RelationshipPair): RelationshipResult {
+/** Versioned input shapes; legacy alternatives are validated, never discarded. */
+export function validateEvidenceResponse(raw: string, catalog: EvidenceCatalog, current: RelationshipPair, expectedSchema?: string): RelationshipResult {
   if (!catalog.pair.every((note, i) => sameSavedNote(note, current[i]))) throw new RelationshipError("source", [{ field: "catalog", code: "catalog_stale" }]);
   if (typeof raw !== "string" || raw.length > 64000) throw new RelationshipError("invalidResponse");
   let parsed: unknown;
   try { parsed = JSON.parse(raw); } catch { throw new RelationshipError("invalidResponse"); }
-  const root = shape(parsed, ["schema", "relation", "explanation", "claims", "recommendation", "alternatives", "limitations"]);
-  if (root.schema !== RELATIONSHIP_WIRE_SCHEMA || !Array.isArray(root.claims) || root.claims.length > 8)
+  const schema = parsed && typeof parsed === "object" ? (parsed as { schema?: unknown }).schema : undefined;
+  const single = schema === RELATIONSHIP_SINGLE_SCHEMA;
+  const root = shape(parsed, ["schema", "relation", "explanation", "claims", "recommendation", ...(single ? [] : ["alternatives"]), "limitations"]);
+  if ((!single && schema !== RELATIONSHIP_WIRE_SCHEMA) || (expectedSchema !== undefined && schema !== expectedSchema) || !Array.isArray(root.claims) || root.claims.length > 8)
     throw new RelationshipError("invalidResponse", [{ field: "response", code: "wire_schema_invalid" }]);
   const diagnostics: EvidenceDiagnostic[] = [];
   const claims = root.claims.map((value, i) => {
@@ -98,5 +100,5 @@ export function validateEvidenceResponse(raw: string, catalog: EvidenceCatalog, 
   });
   if (diagnostics.length) throw new RelationshipError("unverifiedEvidence", diagnostics);
   return validateRelationshipResponse(JSON.stringify({ relation: root.relation, explanation: root.explanation, claims,
-    recommendation: root.recommendation, alternatives: root.alternatives, limitations: root.limitations }), catalog.pair[0].content, catalog.pair[1].content);
+    recommendation: root.recommendation, alternatives: single ? [] : root.alternatives, limitations: root.limitations }), catalog.pair[0].content, catalog.pair[1].content);
 }
