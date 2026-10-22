@@ -209,8 +209,10 @@ export class ReviewListView {
       const topology = this.data.dependencies.topology.getSnapshot();
       if (topology.state === "ready" && topology.map?.complete === false) coverage.createEl("p", { text: t("@workbench.links-partial") });
     }
+    const participation = this.mode === "connections" ? this.data.semantic?.getSnapshot().selection : undefined;
+    const policyEmpty = participation && (participation.excludedPairCount > 0 || participation.unknownPairCount > 0 || participation.excludedNoteCount > 0);
     if (!this.data.scope.paths.length) this.browser.createEl("p", { text: t("@workbench.no-notes") });
-    else if (!waiting && !matches.length && (all.length || state === "ready")) this.browser.createEl("p", { text: t(all.some(p => includesQuery(p.paths) && this.facts?.get(p.paths)?.kept) ? "@decision.noActive" : this.query ? "@workbench.no-search" : this.mode === "repeats" ? "@workbench.no-candidates" : "@workbench.no-connections") });
+    else if (!waiting && !matches.length && (all.length || state === "ready")) this.browser.createEl("p", { text: t(all.some(p => includesQuery(p.paths) && this.facts?.get(p.paths)?.kept) ? "@decision.noActive" : this.query ? "@workbench.no-search" : this.mode === "repeats" ? "@workbench.no-candidates" : policyEmpty ? "@rules.noCandidates" : "@workbench.no-connections") });
     this.facts?.track([...new Map([...matches.slice(0, this.limit), ...all.filter(p => this.pair.decisions?.hasPaths(p.paths))].map(p => [p.id, p])).values()].map(p => p.paths));
     const list = this.browser.createEl("ol", { cls: "veynrel-review-results" });
     for (const pair of matches.slice(0, this.limit)) {

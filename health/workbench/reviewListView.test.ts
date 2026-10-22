@@ -184,3 +184,14 @@ it("offers the shared rules editor only in Connections; opening does not compute
   expect(edit).toHaveBeenCalledOnce(); expect(write).not.toHaveBeenCalled(); expect(f.map).not.toHaveBeenCalled(); expect(f.forbidden).not.toHaveBeenCalled();
   f.view.dispose(); expect(close).toHaveBeenCalledOnce();
 });
+
+
+it("does not describe policy-excluded or unverified coverage as absence of possible connections", () => {
+  const f = setup();
+  f.data.semantic = { getSnapshot: () => ({ state: "ready", busy: false, supportedNoteCount: 500,
+    selection: { revision: "1", eligibleNoteCount: 2, excludedNoteCount: 0, unknownNoteCount: 2, excludedPairCount: 0, unknownPairCount: 1 } }), dispose: vi.fn() } as never;
+  f.data.comparison = { getSnapshot: () => ({ state: "ready" }), dispose: vi.fn() } as never;
+  f.action("review-connections").click();
+  expect(f.root.all().map(e => e.text).join(" ")).toContain("No suggestions are available under the current rules");
+  f.view.dispose();
+});
