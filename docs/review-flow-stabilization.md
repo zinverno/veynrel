@@ -28,7 +28,7 @@ The list has one action per row, current facts and a compact operation outcome. 
 
 ## Verification
 
-- Full suite before the last presentation-only tightening: 172 files, 4,680 tests passed with `--maxWorkers=2`; subsequent focused UI/state regressions also run. Final counts and exact-head CI are recorded in delivery evidence.
+- Full suite: 172 files, 4,681 tests passed with `--maxWorkers=2` (50.07 s), including the final compact-parameter presentation. Exact-head CI is recorded in delivery evidence.
 - `typecheck`, production `build`, Obsidian `lint`: pass. The pre-existing `api.ts:442` streaming-fetch advisory remains; no new lint warnings are accepted.
 - `audit:proposals`: all five mutations killed; restored tests pass. `git diff --check`: pass.
 - Installer fixture: exact three-file installation, external backup, settings/index/journal preservation, original-vault refusal, tamper and symlink refusal. The fixed TEST wrapper is syntax-checked, **not executed**.
@@ -40,7 +40,7 @@ The native candidate run completed 35 checks: continuous Apply → list → same
 
 Candidate measurement: 33 local pair rechecks, mean 44.8 ms, p95 311.4 ms, max 365.3 ms; opening 391 ms. This includes snapshot reads and local hashing under recording, not semantic inference or a general performance claim. Frozen-build measurements supersede these in the delivery report.
 
-Native-development failures were retained locally: an invalid synthetic duplicate recommendation, then screenshot/probe errors (top-level await, remote buffer serialization, and popout `about:blank` target selection). None was reported as a product-route PASS. The final harness fixes them and must pass again against the frozen source.
+Native-development failures were retained locally: an invalid synthetic duplicate recommendation, then screenshot/probe errors (top-level await, remote buffer serialization, and popout `about:blank` target selection). The first frozen run also timed out opening a pair after locale/viewport switching. The harness now waits for local fact checks and the settled layout before obtaining click coordinates; the next complete run passed all 35 checks. It never retries Apply or provider requests. None of the incomplete runs was reported as complete acceptance.
 
 ## Limits
 

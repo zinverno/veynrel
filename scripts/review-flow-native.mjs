@@ -100,7 +100,8 @@ try{
  await cdp('Page.bringToFront');
  const field=async(selector,value,event='change')=>ev(`{const e=document.querySelector(${JSON.stringify(selector)});e.value=${JSON.stringify(value)};e.dispatchEvent(new Event('${event}',{bubbles:true}));}void 0`);
  const clickSelector=async selector=>{
-  const rect=await ev(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e||e.disabled)throw Error('Missing or disabled control');e.scrollIntoView({block:'center'});return e.getBoundingClientRect().toJSON()})()`);
+  await ev(`document.querySelector(${JSON.stringify(selector)})?.scrollIntoView({block:'center'});void 0`);await settle();
+  const rect=await ev(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e||e.disabled)throw Error('Missing or disabled control');return e.getBoundingClientRect().toJSON()})()`);
   assert(rect.width>0&&rect.height>0,selector+' is visible');
   await cdp('Input.dispatchMouseEvent',{type:'mousePressed',x:rect.x+rect.width/2,y:rect.y+rect.height/2,button:'left',clickCount:1});
   await cdp('Input.dispatchMouseEvent',{type:'mouseReleased',x:rect.x+rect.width/2,y:rect.y+rect.height/2,button:'left',clickCount:1});await settle();if(onFrame)await pause(450);
@@ -121,6 +122,7 @@ try{
  await pass('Repeat search does not mount a map',"hv.workbench.data.duplicateState==='ready'&&!hv.workbench.data.semantic&&!hv.workbench.data.comparison&&graphicalCreations===0");
  const bodies=[];
  const openPair=async(name)=>{
+   await wait('!hv.workbench.facts?.running&&!hv.workbench.facts?.dirty.size');await settle();
    const id=await ev(`(()=>{const e=[...document.querySelectorAll('[data-pair-id]')].find(e=>e.parentElement.textContent.includes(${JSON.stringify(name)}));if(!e)throw Error('pair missing');return e.dataset.pairId})()`);
    await clickSelector(`[data-pair-id=${JSON.stringify(id)}]`);await wait("document.querySelectorAll('.ai-pair-note').length===2");
  };

@@ -205,14 +205,14 @@ export class ChangePlannerView {
       select.createEl("option", { text: tr("@planner.choose"), value: "" });
       const options = intent ? changeRangeOptions(this.analysis, view.input.pair, this.operation, this.side, view.input.linktexts[this.side === 0 ? 1 : 0]) : undefined;
       const ranges = options?.ranges ?? paragraphRanges(note);
-      for (const [i, range] of ranges.entries()) select.createEl("option", { text: `${range.start}–${range.end}: ${range.text.slice(0, 90)}`, value: String(i) });
+      for (const [i, range] of ranges.entries()) select.createEl("option", { text: `${intent ? i + 1 : `${range.start}–${range.end}`}: ${range.text.slice(0, 90)}`, value: String(i) });
       select.value = this.selection ? String(ranges.findIndex(range => range.start === this.selection!.start && range.end === this.selection!.end)) : "";
       select.addEventListener("change", () => { this.selection = select.value === "" ? null : ranges[Number(select.value)]; this.changed(); });
       if (!ranges.length) root.createEl("p", { text: tr(options?.reason ?? (note.cache?.sections ? "@planner.noParagraphs" : "@planner.error.metadata")), attr: { "data-intent-unavailable": "" } });
       const original = root.createEl("details"); original.createEl("summary", { text: tr("@planner.savedSource") });
       original.createEl("pre", { text: note.content, cls: "ai-pair-source", attr: { tabindex: "0" } });
       if (this.selection) {
-        root.createEl("p", { text: tr("@planner.range", { start: this.selection.start, end: this.selection.end,
+        (intent ? original : root).createEl("p", { text: tr("@planner.range", { start: this.selection.start, end: this.selection.end,
           point: this.operation === "add_link" ? this.selection.end : this.selection.start }) });
         root.createEl("pre", { text: this.selection.text, cls: "ai-pair-source", attr: { tabindex: "0", "data-planner-selection": "" } });
         const label = root.createEl("label", { cls: "ai-planner-confirm" });
