@@ -22,7 +22,9 @@ publication is explicitly authorized. A published beta stays opt-in.
    files **outside the vault**, then replace only those three files. If the
    plugin directory is new, create it. Do not extract over the whole config
    directory. The optional zip contains only those files and this instruction.
-5. Reopen Obsidian, enable Veynrel, and verify version **2.2.0**. Use Obsidian
+5. Fully quit and reopen Obsidian, enable Veynrel, and verify version **2.2.0**.
+   A disable/enable cycle alone can retain the previous manifest in memory.
+   Use Obsidian
    ≥1.13.7 desktop for this beta. Open **Vault review / Разбор хранилища** from
    the command palette. Choose a scope and refresh the desired candidate list.
 
@@ -38,7 +40,7 @@ The package contains none of them and introduces no data migration.
 To roll back, stop/disable Veynrel and restore **only the three plugin files**
 from the same prior external backup (or the exact prior release's three assets).
 For a fresh install, remove only files explicitly recorded as previously absent.
-Restart/enable the plugin. Keep new rules, decisions and journals on disk; do not
+Fully restart Obsidian and enable the plugin. Keep new rules, decisions and journals on disk; do not
 pretend rollback of code also rolls back data or later formats. For Undo of new
 operations, retain a compatible checked build and its journals. Stable 2.1.0
 does not expose the later review UI. File replacement is not a three-file atomic
@@ -52,7 +54,8 @@ Obsidian или выключите плагин. Проверьте SHA256 тр�
 сохраните прежние три файла вне vault и замените только их в
 `<vault>/<configDir>/plugins/ai-knowledge-hub/`. Учитывайте нестандартный
 configDir. Не заменяйте всю `.obsidian`, настройки, индекс, Recall, правила,
-решения и журналы. После включения проверьте версию 2.2.0.
+решения и журналы. Полностью перезапустите Obsidian и проверьте версию 2.2.0;
+простое выключение/включение плагина может сохранить старый manifest в памяти.
 
 Откат возвращает только три файла плагина из прежнего комплекта. Это не откат
 данных. Сохраняйте журналы и совместимую проверенную сборку для Undo новых

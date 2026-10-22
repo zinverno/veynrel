@@ -96,7 +96,14 @@ try{
  await wait("!!document.querySelector('.mod-trust-folder')||!!app.plugins.plugins['ai-knowledge-hub']");
  await ev("document.querySelector('.mod-trust-folder')&&[...document.querySelectorAll('.mod-trust-folder button')].find(e=>e.textContent==='Trust author and enable plugins').click();void 0");
  await wait("!!app.commands.commands['ai-knowledge-hub:veynrel-open-health']");
- if(mode==='upgrade'||(releaseSmoke&&previousBuild))await swapBuild({ev,wait,root,dir,vault,build},build,'boot');
+ if(mode==='upgrade'||(releaseSmoke&&previousBuild))await swapBuild({ev,wait,root,dir,vault,build,reload:releaseSmoke?async()=>{
+   await cdp('Page.reload');
+   for(let i=0;i<150;i++){
+     try{if(await ev("typeof app!=='undefined'&&app.plugins?.plugins['ai-knowledge-hub']?.manifest.version==='2.2.0'"))return;}catch{} // The old execution context is destroyed by reload.
+     await pause(100);
+   }
+   throw Error('Reload did not load the packaged manifest');
+ }:undefined},build,'boot');
  await ev(`window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;window.io={reads:0,writes:0,network:0,enumerations:0};
  for(const key of ['read','cachedRead']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.reads++;return original(...args)}};
  for(const key of ['create','modify','append','process','delete','rename']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.writes++;return original(...args)}};
