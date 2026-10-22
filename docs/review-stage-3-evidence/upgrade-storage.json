@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "case": 0,
+      "old": null,
+      "retained": [
+        "data.json",
+        "review-decisions.json",
+        "review-decisions.json.bak",
+        "connection-rules.json",
+        "connection-rules.json.bak",
+        "semantic-index/preservation-probe.bin",
+        "recall/cards.json",
+        "recall/recovery/old.json",
+        "consolidation-operations/preservation-probe/record.json"
+      ],
+      "install": true,
+      "rollback": true
+    },
+    {
+      "case": 1,
+      "old": {
+        "version": "2.1.0",
+        "sha256": "b486f747a407aa4aee5229378aa5446d6c766a45a1087c46bff966d3e736031c"
+      },
+      "retained": [
+        "data.json",
+        "review-decisions.json",
+        "review-decisions.json.bak",
+        "connection-rules.json",
+        "connection-rules.json.bak",
+        "semantic-index/preservation-probe.bin",
+        "recall/cards.json",
+        "recall/recovery/old.json",
+        "consolidation-operations/preservation-probe/record.json"
+      ],
+      "install": true,
+      "rollback": true
+    },
+    {
+      "case": 2,
+      "old": {
+        "version": "2.1.0",
+        "sha256": "6c1f9080a02de2fefed4ccdafe1f5ef81603135aef64feffd878a8834dd24d5b"
+      },
+      "retained": [
+        "data.json",
+        "review-decisions.json",
+        "review-decisions.json.bak",
+        "connection-rules.json",
+        "connection-rules.json.bak",
+        "semantic-index/preservation-probe.bin",
+        "recall/cards.json",
+        "recall/recovery/old.json",
+        "consolidation-operations/preservation-probe/record.json"
+      ],
+      "install": true,
+      "rollback": true
+    },
+    {
+      "case": 3,
+      "old": {
+        "version": "2.1.0",
+        "sha256": "36a96370a66e1a02e152998c07556ab7bf79c7ebcbd712848c340107e5e56f94"
+      },
+      "retained": [
+        "data.json",
+        "review-decisions.json",
+        "review-decisions.json.bak",
+        "connection-rules.json",
+        "connection-rules.json.bak",
+        "semantic-index/preservation-probe.bin",
+        "recall/cards.json",
+        "recall/recovery/old.json",
+        "consolidation-operations/preservation-probe/record.json"
+      ],
+      "install": true,
+      "rollback": true
+    },
+    {
+      "replacementFailure": true,
+      "externalBackupRestoration": true,
+      "automaticRollback": false
+    }
+  ],
+  "limits": "Opaque byte-retention probes do not assert journal/index schema compatibility. Native valid previous-operation Undo is checked separately. No cross-process or Sync claim."
+}

@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "48edb0b51c469a6efbd3a36f11136144df29f9f3",
+  "count": 0,
+  "checks": [
+    "Cold direct command opens one list without map data",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Direct command opens one standalone list without graphical data or IO",
+    "Repeat search does not mount a map",
+    "Full inventory; explicit calculation and cap; repeated view disposal; no Markdown changes or HTTP"
+  ],
+  "metrics": {
+    "openMs": 264.57122700000014,
+    "connectionsMs": 63.87866299999996,
+    "semantic": {
+      "state": "unavailable",
+      "reason": "unavailable",
+      "supported": 500
+    },
+    "disposedOwners": [
+      {
+        "disposed": true,
+        "dataDisposed": true,
+        "listeners": 0,
+        "factsDisposed": true,
+        "semanticDisposed": true
+      },
+      {
+        "disposed": true,
+        "dataDisposed": true,
+        "listeners": 0,
+        "factsDisposed": true
+      },
+      {
+        "disposed": true,
+        "dataDisposed": true,
+        "listeners": 0,
+        "factsDisposed": true
+      },
+      {
+        "disposed": true,
+        "dataDisposed": true,
+        "listeners": 0,
+        "factsDisposed": true
+      }
+    ]
+  },
+  "httpRequests": 0,
+  "originalMarkdown": {},
+  "finalMarkdown": {}
+}

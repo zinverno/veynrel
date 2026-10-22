@@ -32,12 +32,18 @@ export async function reviewRuleChecks(c) {
  await click('review-repeats');await refresh();
  await pass('Exercise duplicate remains in Repeats; rules button is absent there',`!!document.querySelector(${JSON.stringify(pairSelector('Rules/Tasks/Exercise 0.md','Rules/Tasks/Exercise 1.md'))})&&!document.querySelector('[data-health-action=review-rules]')`);
  await shot('04-exercise-duplicates');await click('review-connections');await ready();
+ await clickSelector(targetPair);await wait("!!document.querySelector('[data-review-keep]:not(:disabled)')");await clickSelector('[data-review-keep]');await wait("!!document.querySelector('[data-review-decision-saved]')");await ready();
+ await pass('Rule and saved pair decision coexist',`!document.querySelector(${JSON.stringify(targetPair)})&&hv.workbench.pair.decisions.list().length===1`);
+ if(c.upgrade)await c.upgrade();
  await ev("await app.plugins.disablePlugin('ai-knowledge-hub');await app.plugins.enablePlugin('ai-knowledge-hub');window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;app.commands.executeCommandById('ai-knowledge-hub:veynrel-review-vault');void 0");
  await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.workbench");await ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0");
  await field('[data-health-action=scope-picker]','Rules');await click('review-connections');await refresh();
  assert.equal((await counts()).taskTask,0);
  await pass('Real plugin restart preserves enabled rule',"hv.workbench.data.dependencies.rules.list().length===1&&hv.workbench.data.dependencies.rules.list()[0].enabled");
+ await pass('Restart retains exact pair decision with rule',`!document.querySelector(${JSON.stringify(targetPair)})&&hv.workbench.pair.decisions.list().length===1`);
  await shot('05-after-restart');await click('review-rules');await clickSelector('[data-rule-id]');await shot('06-disabled-rule');await click('rules-close');await refresh();
+ await pass('Disabling a rule does not discard pair decisions','hv.workbench.pair.decisions.list().length===1');
+ await click('review-reviewed');await clickSelector('[data-review-restore]');await ready();
  const disabled=await counts();assert.deepEqual(disabled.ids,baseline.ids);for(const key of ['taskTask','taskTheory','other'])assert.equal(disabled[key],baseline[key]);
  await shot('07-restored-original-selection');await stopVideo();
  checks.push('Disabling rule restores the original candidates and ordering inputs');
@@ -54,8 +60,8 @@ export async function reviewRuleChecks(c) {
  await click('review-connections');await click('review-reviewed');await clickSelector('[data-review-restore]');await ready();
  await pass('Restoring a pair decision does not bypass the full-exclusion rule',`!document.querySelector(${JSON.stringify(pairSelector('Rules/Tasks/Exercise 0.md','Rules/Tasks/Exercise 1.md'))})`);
  // Two ItemViews share the same in-memory policy owner; no independent stale copies.
- await ev("window.rulesOwner=hv.workbench.data.dependencies.rules;window.secondLeaf=app.workspace.getLeaf('split');await secondLeaf.setViewState({type:'veynrel-health',active:true});secondLeaf.view.openReviewVault();void 0");
- await wait('!!secondLeaf.view.workbench');await pass('Two native views share one policy owner',"secondLeaf.view.workbench.data.dependencies.rules===rulesOwner");
+ await ev("window.rulesOwner=hv.workbench.data.dependencies.rules;window.secondLeaf=app.workspace.openPopoutLeaf({width:820,height:760});await secondLeaf.setViewState({type:'veynrel-health',active:true});secondLeaf.view.openReviewVault();void 0");
+ await wait('!!secondLeaf.view.workbench');await pass('Real popout and main view share one policy owner',"secondLeaf.view.workbench.data.dependencies.rules===rulesOwner");
  await ev('secondLeaf.detach();void 0');
  // Real adapter failure must leave the durable policy untouched.
  const disk=fs.readFileSync(dir+'/connection-rules.json','utf8');

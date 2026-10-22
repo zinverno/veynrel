@@ -1,6 +1,8 @@
 // Synthetic HTTP envelopes over loopback; real requestUrl/parser/session/validator/executors.
 // node scripts/review-flow-native.mjs ~/projects/veynrel-artifacts/veynrel-review-flow-native-<new-name> [frozen-build] [decisions]
 import fs from 'node:fs';
+import {generate} from './acceptance-lab/generate.mjs';
+import {archiveChain,swapBuild,scaleChecks,stateChecks} from './beta-integration-native.mjs';
 import {reviewRuleChecks} from './review-rules-native.mjs';
 import {reviewDecisionChecks} from './review-decisions-native.mjs';
 import os from 'node:os';
@@ -13,7 +15,7 @@ import {build as bundle} from 'esbuild';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
-const [root,build=ROOT,mode]=process.argv.slice(2);
+const [root,build=ROOT,mode,previousBuild]=process.argv.slice(2);
 const sourceCommit=fs.existsSync(build+'/SOURCE_COMMIT')?fs.readFileSync(build+'/SOURCE_COMMIT','utf8').trim():undefined;
 assert(root&&path.dirname(root)===path.join(os.homedir(),'projects/veynrel-artifacts')&&path.basename(root).startsWith('veynrel-review-flow-native-')&&!root.includes('..')&&!fs.existsSync(root));
 
@@ -34,7 +36,15 @@ for(const [i,p] of pairPaths.entries()){fs.mkdirSync(vault+'/'+p.split('/').slic
 const rulePaths=mode==='rules'?['Tasks','Theory'].flatMap(group=>Array.from({length:6},(_,i)=>`Rules/${group}/${group==='Tasks'?'Exercise':'Explanation'} ${i}.md`)):[];
 for(const p of rulePaths){fs.mkdirSync(path.dirname(vault+'/'+p),{recursive:true});const task=p.includes('/Tasks/'),i=Number(p.match(/(\d+)\.md$/u)[1]);
  fs.writeFileSync(vault+'/'+p,(task&&i%2===0?'---\ntags: [practice/task, topic/cache]\n---\n\n':task?'#practice/task #topic/cache\n\n':'#topic/cache\n\n')+(task?fixture.a:fixture.b));}
-const indexPaths=[...pairPaths,...unsupportedPaths,...combinePaths,...rulePaths];
+let indexPaths=[...pairPaths,...unsupportedPaths,...combinePaths,...rulePaths];
+const scaleCount=mode?.startsWith('scale-')?Number(mode.slice(6)):undefined;
+if(scaleCount!==undefined){
+ assert([0,154,500,1000].includes(scaleCount));
+ for(const p of indexPaths)fs.unlinkSync(vault+'/'+p);
+ const notes=generate({count:1000,seed:'beta-stage-3-synthetic'}).notes.slice(0,scaleCount);
+ for(const n of notes){fs.mkdirSync(path.dirname(vault+'/'+n.path),{recursive:true});fs.writeFileSync(vault+'/'+n.path,n.text);}
+ indexPaths=notes.map(n=>n.path);
+}
 fs.writeFileSync(root+'/fixture-description.json',JSON.stringify({notes:indexPaths.length,indexed:indexPaths.length,provenance:'Synthetic chat/completions envelopes, NOT intercepted user HTTP. Loopback HTTP only; real requestUrl, parser, validator, planners and executors. Artificial vectors do not test embedding quality.'},null,2));
 const requests=[];let scenario='add_link';
 const server=createServer(async(req,res)=>{
@@ -42,14 +52,16 @@ const server=createServer(async(req,res)=>{
  let body='';for await(const chunk of req){body+=chunk;if(body.length>128*1024){res.writeHead(413).end();return;}}
  requests.push(body);
  const {alternatives: _legacyAlternatives,...response}=structuredClone(fixture.response);
- const request=JSON.parse(JSON.parse(body).messages[1].content);
+ let request;try{request=JSON.parse(JSON.parse(body).messages[1].content);}catch{res.writeHead(400,{'Content-Type':'application/json'}).end(JSON.stringify({error:{message:'Only Relationship Analyzer synthetic fixtures are accepted'}}));return;}
  assert.equal(request.schema,'veynrel.relationship.refs.v2');
  const wire={...response,schema:request.schema,claims:response.claims.map(({quoteA,quoteB,...claim})=>({...claim,
  evidenceA:quoteA===null?null:request.evidence.find(f=>f.side==='A'&&f.text.includes(quoteA)).id,
  evidenceB:quoteB===null?null:request.evidence.find(f=>f.side==='B'&&f.text.includes(quoteB)).id}))};
- wire.recommendation={action:scenario==='invalid'?'consider_merge':scenario,reason:'Synthetic diagnostic recommendation. Both documents remain independently useful.',evidence:['shared']};
+ wire.recommendation={action:scenario==='invalid'?'consider_merge':['length','unknown-id','wrong-schema'].includes(scenario)?'add_link':scenario,reason:'Synthetic diagnostic recommendation. Both documents remain independently useful.',evidence:['shared']};
  if(scenario==='invalid')wire.relation='related_distinct';
- res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:JSON.stringify(wire)}}],usage:{completion_tokens:300,completion_tokens_details:{reasoning_tokens:0}}}));
+ if(scenario==='unknown-id')wire.explanation.evidence=['unoffered-claim'];
+ if(scenario==='wrong-schema')wire.schema='veynrel.relationship.refs.v1';
+ res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:scenario==='length'?'length':'stop',message:{role:'assistant',content:JSON.stringify(wire)}}],usage:{completion_tokens:300,completion_tokens_details:{reasoning_tokens:0}}}));
 });
 await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve)});
 const endpoint='http://127.0.0.1:'+server.address().port+'/v1';
@@ -58,7 +70,7 @@ await bundle({absWorkingDir:ROOT,entryPoints:['scripts/knowledge-workbench-fixtu
 const files=await createRequire(import.meta.url)(root+'/fixture.cjs').workbenchFixture(indexPaths,mode==='rules');
 fs.mkdirSync(dir+'/semantic-index');
 for(const [p,v]of files)fs.writeFileSync(dir+'/semantic-index/'+p.split('/').pop(),typeof v==='string'?v:Buffer.from(v));
-for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync(build+'/'+name,dir+'/'+name);
+for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync((previousBuild??build)+'/'+name,dir+'/'+name);
 fs.writeFileSync(dir+'/data.json',JSON.stringify({language:'ru',provider:'openrouter',model:'deepseek/deepseek-v4-flash-0731',baseUrl:endpoint,apiKey:'synthetic-not-a-real-key',semanticAutoSyncSuspended:true,semantic:{enabled:true,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 fs.writeFileSync(vault+'/.obsidian/community-plugins.json','["ai-knowledge-hub"]');
 fs.writeFileSync(vault+'/.obsidian/app.json','{"checkForUpdates":false}');
@@ -80,6 +92,7 @@ try{
  await wait("!!document.querySelector('.mod-trust-folder')||!!app.plugins.plugins['ai-knowledge-hub']");
  await ev("document.querySelector('.mod-trust-folder')&&[...document.querySelectorAll('.mod-trust-folder button')].find(e=>e.textContent==='Trust author and enable plugins').click();void 0");
  await wait("!!app.commands.commands['ai-knowledge-hub:veynrel-open-health']");
+ if(mode==='upgrade')await swapBuild({ev,wait,root,dir,vault,build},build,'boot');
  await ev(`window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;window.io={reads:0,writes:0,network:0,enumerations:0};
  for(const key of ['read','cachedRead']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.reads++;return original(...args)}};
  for(const key of ['create','modify','append','process','delete','rename']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.writes++;return original(...args)}};
@@ -125,9 +138,9 @@ try{
  await wait("!!document.querySelector('[data-health-action=review-refresh]')");
  await pass('Direct command opens one standalone list without graphical data or IO',"app.workspace.getLeavesOfType('veynrel-health').length===1&&!hv.workbench.data.semantic&&!hv.workbench.data.comparison&&graphicalCreations===0&&io.reads===0&&io.writes===0&&io.network===0");
  await shot('list-before-search');
- await wait('app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))');
+ await wait('app.vault.getMarkdownFiles().every(f=>f.stat.size===0||!!app.metadataCache.getFileCache(f))');
  await click('review-refresh');await wait('!hv.workbench.data.busy');
- await pass('Repeat search does not mount a map',"hv.workbench.data.duplicateState==='ready'&&!hv.workbench.data.semantic&&!hv.workbench.data.comparison&&graphicalCreations===0");
+ await pass('Repeat search does not mount a map',"(hv.workbench.data.duplicateState==='ready'||"+(scaleCount!==undefined)+")&&!hv.workbench.data.semantic&&!hv.workbench.data.comparison&&graphicalCreations===0");
  const bodies=[];
  const openPair=async(name)=>{
    await wait('!hv.workbench.facts?.running&&!hv.workbench.facts?.dirty.size');await settle();
@@ -143,9 +156,13 @@ try{
    await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-intent-action=primary]')");await wait("[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
    assert.equal(requests.at(-1),bodies.at(-1));
  };
- if(mode==='rules') {
+ if(mode==='state'){
+   await stateChecks({ev,wait,click,clickSelector,openPair,root,dir,vault,before,markdown,requests,shot,sourceCommit});
+ } else if(scaleCount!==undefined){
+   await scaleChecks({ev,wait,click,clickSelector,field,shot,closeModals,root,vault,before,markdown,checks,metrics,requests,sourceCommit,count:scaleCount});
+ } else if(mode==='rules') {
    await reviewRuleChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,openPair,locale,field,cdp,pause,settle,
-     vault,dir,root,rulePaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
+     vault,dir,root,rulePaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit,upgrade:previousBuild?()=>swapBuild({ev,wait,root,dir,vault,build},build,'rules-decisions'):undefined});
  } else if(mode==='decisions') {
    await reviewDecisionChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,openPair,locale,field,cdp,pause,settle,
      vault,dir,root,pairPaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
@@ -199,9 +216,12 @@ try{
  assert.equal(fs.readFileSync(vault+'/'+pairPaths[0],'utf8'),await ev('plan.after'));assert.equal(fs.readFileSync(vault+'/'+pairPaths[1],'utf8'),fixture.b);
  fs.writeFileSync(root+'/after-apply.json',JSON.stringify(markdown(vault),null,2));await shot('applied');await pause(1100);
  await clickSelector('.modal [data-safe-action=done]');await click('review-back');
- await wait("[...document.querySelectorAll('.veynrel-review-row')].some(r=>r.textContent.includes('Link A → B already exists.')&&r.textContent.includes('change applied.'))");
+ if(mode==='upgrade-operation'){await swapBuild({ev,wait,root,dir,vault,build},build,'applied-operation');await click('review-refresh');await wait('!hv.workbench.data.busy');}
+ await wait("[...document.querySelectorAll('.veynrel-review-row')].some(r=>r.textContent.includes('Link A → B already exists.'))");
+ if(mode!=='upgrade-operation')await pass('Confirmed outcome in list',"document.querySelector('.veynrel-review-results').textContent.includes('change applied.')");
  await shot('list-after-apply');await pause(1400);
- await pass('Applied link and stale overlap remain visible without another completion',"document.querySelector('.veynrel-review-results').textContent.includes('Content overlap has not been separately resolved.')&&graphicalCreations===0");
+ if(mode==='upgrade-operation')await pass('Restart keeps the linked candidate without a background journal read',"!!document.querySelector('[data-pair-id]')&&graphicalCreations===0");
+ else await pass('Applied link and stale overlap remain visible without another completion',"document.querySelector('.veynrel-review-results').textContent.includes('Content overlap has not been separately resolved.')&&graphicalCreations===0");
  assert.equal(requests.length,1);
  await openPair('Cache');await clickSelector('[data-safe-action=history]');
  await wait("!!document.querySelector('.ai-operation-history [data-safe-action=undo]')");await shot('reopened-history');await pause(1100);
@@ -250,7 +270,8 @@ try{
      await clickSelector(`[data-planner-field=merge-transfer-${plainB.indexOf('Срок хранения')}]`);await field('[data-planner-field=merge-location]','0');
      await pass('Combine parameters do not grant insertion consent',"!document.querySelector('[data-planner-field=merge-confirm]').checked");
      await clickSelector('[data-planner-field=merge-confirm]');await clickSelector('[data-merge-action=build]');await wait("!!document.querySelector('[data-merge-plan]')");
-     await clickSelector('[data-merge-apply-action=review]');await wait("!!document.querySelector('.modal [data-merge-apply-action=confirm]')");await shot('combine-exact-review');await smoke('diff-ru');await closeModals();
+     await clickSelector('[data-merge-apply-action=review]');await wait("!!document.querySelector('.modal [data-merge-apply-action=confirm]')");await shot('combine-exact-review');await smoke('diff-ru');
+     if(mode==='integration')await archiveChain({ev,wait,clickSelector,field,shot,closeModals,markdown,vault,root,before,checks});else await closeModals();
    } else if(kind==='consider_embed_b_in_a') {
      await wait("!!document.querySelector('[data-planner-field=range]')");
      await pass('Embed keeps known direction without repeated question',"!document.querySelector('[data-planner-field=source]')&&!document.querySelector('[data-planner-field=confirm]')?.checked");await field('[data-planner-field=range]','0');await shot('embed-parameters');
@@ -272,7 +293,12 @@ try{
  assert(!/Cache|Workbench|synthetic-not-a-real-key|localhost|127\.0|cache keeps|requestBody|quoteA|headers/.test(copied));
  fs.writeFileSync(root+'/copied-error-report.json',JSON.stringify(report,null,2));checks.push('Native copy contains only allowlisted diagnostics with actual enums, no note data');
  await stopVideo();await click('review-back');
- const expectedRequests=requests.length;assert.equal(expectedRequests,8);
+ if(mode==='integration')for(const failure of ['length','unknown-id','wrong-schema']){
+   scenario=failure;await openPair('Cache');await clickSelector('[data-relationship-action=analyze]');await wait("!!document.querySelector('[data-relationship-action=confirm]')");
+   bodies.push(await ev("document.querySelector('.ai-relationship pre').textContent"));await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-relationship-action=report]')");
+   assert.equal(requests.at(-1),bodies.at(-1));await pass('Real transport refuses '+failure,"![...engine.pairReviews].at(-1).relationship.analysisSource&&!document.querySelector('[data-intent-action=primary],[data-safe-action=review]')");await shot('transport-'+failure);await click('review-back');
+ }
+ const expectedRequests=requests.length;assert.equal(expectedRequests,mode==='integration'?11:8);
  // A real split hosts the same review route with its own owner.
  await ev("window.splitLeaf=app.workspace.getLeaf('split','vertical');await splitLeaf.setViewState({type:'veynrel-health',active:true});splitLeaf.view.openReviewVault();void 0");
  await wait("!!splitLeaf.view.workbench?.data");await shot('real-split');await ev('splitLeaf.detach();void 0');
@@ -302,7 +328,7 @@ try{
  metrics.localPairRecheck=await ev("({count:factChecks.length,meanMs:factChecks.reduce((a,b)=>a+b,0)/factChecks.length,maxMs:Math.max(...factChecks),p95Ms:[...factChecks].sort((a,b)=>a-b)[Math.floor(factChecks.length*.95)]})");
  metrics.runtime=await ev("({obsidian:require('@electron/remote').app.getVersion(),electron:process.versions.electron})");
  fs.writeFileSync(root+'/after-manual-edits.json',JSON.stringify(markdown(vault),null,2));
- fs.writeFileSync(root+'/report.json',JSON.stringify({status:'native synthetic regression',checks,metrics,screenshots,sourceCommit,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io'),httpRequests:requests.length,consentMatches:requests.map((b,i)=>b===bodies[i]),httpDestination:'loopback only',liveModel:'NOT RUN; authorization ended'},null,2));
+ fs.writeFileSync(root+'/report.json',JSON.stringify({status:'native synthetic regression',checks,metrics,screenshots,sourceCommit,previousBuild:previousBuild?{manifest:JSON.parse(fs.readFileSync(previousBuild+'/manifest.json','utf8')),mainSha:sha(fs.readFileSync(previousBuild+'/main.js'))}:undefined,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io'),httpRequests:requests.length,consentMatches:requests.map((b,i)=>b===bodies[i]),httpDestination:'loopback only',liveModel:'NOT RUN; authorization ended'},null,2));
  console.log(JSON.stringify({status:'PASS',checks:checks.length,root}));
  }
 } catch(error){
