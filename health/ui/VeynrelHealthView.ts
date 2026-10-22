@@ -53,6 +53,7 @@ import { connectResultMessage, connectViewModel } from "./connectViewModel";
 import type { VeynrelToolsPort, VeynrelToolAction } from "../toolsPort";
 import { toolsViewModel } from "./toolsViewModel";
 import { renderTools } from "./renderTools";
+import { renderProcessing, type ProcessingClusters } from "./renderProcessing";
 import { settingsViewModel } from "./settingsViewModel";
 import type { ProductSettingsAction } from "./settingsViewModel";
 import { renderProductSettings } from "./renderProductSettings";
@@ -109,6 +110,8 @@ export class VeynrelHealthView extends ItemView {
   private scopeAcknowledged = false;
   private scopeRevision = 0;
   private pendingTool?: VeynrelToolAction;
+  private processingClusters: ProcessingClusters = "loading";
+  private processingRevision = 0;
   private noteQuery = "";
   private noteLimit = 80;
   private motion = true;
@@ -322,18 +325,24 @@ export class VeynrelHealthView extends ItemView {
       });
       const due = state.snapshot?.recall;
       if (scope.selection.kind === "all" && due?.loadState === "ready" && !due.firstRun && due.due === 0 && due.nextDueAt !== undefined) this.wakeAt(due.nextDueAt);
-    } else if (normal && (this.route.page === "process" || this.route.page === "history")) {
+    } else if (normal && this.route.page === "process") {
       const route = this.route;
-      workspaceHeading(surface, t(`@workspace.${route.page}`), t(`@workspace.${route.page}-description`));
-      if (route.page === "process") healthButton(surface, t("@workbench.process-entry"), () => this.navigate({ page: "discover" }), "process-workbench", false, true);
-      surface.createEl("p", { text: t(route.page === "process" ? "@workspace.batch-scope" : "@workspace.batch-history") });
-      const actions: VeynrelToolAction[] = route.page === "process" ? ["openBatchProcessing", "generateMocs"] : ["openOperationHistory", "openBatchProcessing"];
-      for (const action of actions) {
+      renderProcessing(surface, this.processingClusters, {
+        review: () => { if (this.route === route) this.navigate({ page: "discover" }); },
+        batch: () => { void this.launchTool("openBatchProcessing", route); },
+        mocs: () => { void this.launchTool("generateMocs", route); },
+        audit: () => { void this.launchTool("openDeepAudit", route); },
+        refresh: () => { void this.refreshProcessing(route); },
+      });
+    } else if (normal && this.route.page === "history") {
+      const route = this.route;
+      workspaceHeading(surface, t("@workspace.history"), t("@workspace.history-description"));
+      surface.createEl("p", { text: t("@workspace.batch-history") });
+      for (const action of ["openOperationHistory", "openBatchProcessing"] as const) {
         const row = surface.createDiv({ cls: "veynrel-tool-entry" });
         row.createEl("p", { text: t(`@tools.${action}.description`) });
         healthButton(row, t(`@tools.${action}`), () => { void this.launchTool(action, route); }, `tool-${action}`);
       }
-      if (route.page === "process") healthButton(surface, t("@workspace.open-recall"), () => this.navigate({ page: "recall" }), "process-recall");
     } else if (normal && this.route.page === "connection-opportunities" && this.comparison) {
       renderConnectionComparison(surface, this.comparison, this.comparisonView, {
         back: () => this.navigate({ page: "discover" }), openNote: (path) => { void this.openNote(path); },
@@ -593,9 +602,22 @@ export class VeynrelHealthView extends ItemView {
     this.findingMutationErrorRoute = undefined;
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";
     this.contentEl.scrollTop = 0;
+    if (route.page === "process") this.processingClusters = "loading";
     this.render();
+    if (route.page === "process") void this.refreshProcessing(route);
     if (route.page === "recall" && this.recall && this.areaIndex?.selection.kind === "all") {
       void this.recall.initialize();
+    }
+  }
+
+  private async refreshProcessing(route: VeynrelHealthRoute): Promise<void> {
+    if (!this.body || this.route !== route || route.page !== "process") return;
+    const revision = ++this.processingRevision, epoch = this.epoch;
+    let status: ProcessingClusters;
+    try { status = this.tools.savedMocClusterCount ? await this.tools.savedMocClusterCount() : "error"; }
+    catch { status = "error"; }
+    if (this.body && this.route === route && this.epoch === epoch && this.processingRevision === revision) {
+      this.processingClusters = status; this.render();
     }
   }
 

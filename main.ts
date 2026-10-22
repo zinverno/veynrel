@@ -1,3 +1,4 @@
+import { MocPreparationModal, prepareMocs, type MocPreparation } from "./mocPreparation";
 import { registerReviewDecisions, reviewDecisions } from "./consolidation/reviewDecisions";
 import { createSafeApplyService } from "./consolidation/obsidianSafeApply";
 import type { SafeApplyService } from "./consolidation/safeApply";
@@ -125,6 +126,9 @@ export default class AIHubPlugin extends Plugin {
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
   private safeApply?: SafeApplyService;
+  private mocTask?: Promise<void>;
+  private mocModal?: MocPreparationModal;
+  private mocEpoch = 0;
   private readonly taxonomyModals = new Set<TagTaxonomyModal>();
 
   getSemanticController(): ObsidianSemanticController {
@@ -143,6 +147,7 @@ export default class AIHubPlugin extends Plugin {
       openAskVault: () => this.semanticController.openAskVault(),
       openDeepAudit: () => this.openAuditModeModal(),
       generateMocs: () => this.generateMOCsFromClusters(),
+      savedMocClusterCount: async () => (await this.getIndex()).getClusters().length,
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
       openOperationHistory: () => { if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open(); },
@@ -201,6 +206,7 @@ export default class AIHubPlugin extends Plugin {
       this.addCommand({ id: "review-ai-change-proposals", name: "Review AI change proposals", callback: () => this.openProposalReview() });
       this.semanticController.registerAutomaticSync();
       this.register(() => void this.semanticController.dispose());
+      this.register(() => { this.mocEpoch++; this.mocModal?.close(); });
       this.register(() => { for (const modal of this.taxonomyModals) modal.close(); });
 
       const { registerHealth } = await import("./health/obsidian/registerHealth");
@@ -1612,26 +1618,39 @@ export default class AIHubPlugin extends Plugin {
   }
 
   // === MOC из кластеров аудита ===
-  async generateMOCsFromClusters() {
-    const index = await this.getIndex();
-    const clusters = index.getClusters();
-    if (clusters.length === 0) {
-      new Notice(tr("Сначала запустите глубокий аудит"));
-      return;
-    }
+  generateMOCsFromClusters(): Promise<void> {
+    if (this.mocTask) return this.mocTask;
+    const task = this.confirmMocs().finally(() => { this.mocTask = undefined; });
+    this.mocTask = task;
+    return task;
+  }
 
-    // LLM понадобится только для кластеров без описания
-    if (clusters.some((c) => !(c.description ?? "").trim())) {
-      const err = validateSettings(this.settings);
-      if (err) {
-        new Notice(err);
-        return;
+  private async confirmMocs(): Promise<void> {
+    const epoch = this.mocEpoch;
+    try {
+      const index = await this.getIndex();
+      const prepared = await prepareMocs(this.app, index.getClusters(), this.settings);
+      if (epoch !== this.mocEpoch) return;
+      const choice = await new Promise<"confirm" | "audit" | "cancel">(resolve => {
+        this.mocModal = new MocPreparationModal(this.app, prepared, resolve);
+        this.mocModal.open();
+      });
+      this.mocModal = undefined;
+      if (epoch !== this.mocEpoch || choice === "cancel") return;
+      if (choice === "audit") { await this.openAuditModeModal(); return; }
+      const current = await prepareMocs(this.app, index.getClusters(), this.settings);
+      if (epoch !== this.mocEpoch) return;
+      if (current.error || current.signature !== prepared.signature) {
+        new Notice(tr("@processing.stale")); return;
       }
+      await this.executePreparedMocs(prepared);
+    } catch {
+      if (epoch === this.mocEpoch) new Notice(tr("@processing.failed"));
     }
+  }
 
-    const folder = normalizePath(
-      this.settings.mocFolder.replace(/\/+$/, "") || "MOCs",
-    );
+  private async executePreparedMocs(prepared: MocPreparation): Promise<void> {
+    const { clusters, folder, model } = prepared;
     if (!(await this.ensureFolder(folder))) {
       notify("error", tr("Не удалось создать папку: {p}", { p: folder }));
       return;
@@ -1670,7 +1689,7 @@ export default class AIHubPlugin extends Plugin {
           // Описания из reduce нет — один запрос к LLM на кластер
           desc = (
             await callOpenRouter(
-              this.settings,
+              model,
               tr("@moc_desc_sys"),
               tr("@moc_desc_user", {
                 name,

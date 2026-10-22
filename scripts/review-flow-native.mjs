@@ -6,6 +6,7 @@ import {archiveChain,swapBuild,scaleChecks,stateChecks} from './beta-integration
 import {reviewRuleChecks} from './review-rules-native.mjs';
 import {reviewDecisionChecks} from './review-decisions-native.mjs';
 import {polishChecks} from './beta-ux-polish-native.mjs';
+import {processingChecks} from './processing-native.mjs';
 import os from 'node:os';
 import path from 'node:path';
 import {createServer} from 'node:http';
@@ -55,6 +56,10 @@ const server=createServer(async(req,res)=>{
  if(req.method!=='POST'||req.url!=='/v1/chat/completions'){res.writeHead(400).end();return;}
  let body='';for await(const chunk of req){body+=chunk;if(body.length>128*1024){res.writeHead(413).end();return;}}
  requests.push(body);
+ if(mode?.startsWith('processing-')){
+  assert(JSON.parse(body).messages.some(m=>m.content.includes('Synthetic topic')));
+  res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:'Synthetic topic description from loopback.'}}]}));return;
+ }
  if(mode?.startsWith('polish-')){
   assert(JSON.parse(body).messages.some(m=>m.content.includes('Synthetic learning')));
   res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:'What does an index support?::Efficient lookup.\nWhat is a cache?::Stored reusable results.'}}]}));return;
@@ -164,7 +169,10 @@ try{
    await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-intent-action=primary]')");await wait("[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
    assert.equal(requests.at(-1),bodies.at(-1));
  };
- if(mode?.startsWith('polish-')){
+ if(mode?.startsWith('processing-')){
+   await processingChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,locale,cdp,pause,settle,closeModals,
+     root,vault,dir,before,markdown,requests,checks,metrics,screenshots,sourceCommit,after:mode==='processing-after'});
+ } else if(mode?.startsWith('polish-')){
    await ev('hv.workbenchHost.create=realHostCreate;void 0');
    await polishChecks({ev,wait,click,clickSelector,field,shot,startVideo,stopVideo,pass,openPair,locale,cdp,pause,settle,
      root,vault,dir,before,markdown,requests,checks,metrics,screenshots,sourceCommit,after:mode==='polish-after'});

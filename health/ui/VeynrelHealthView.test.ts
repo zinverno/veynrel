@@ -1862,6 +1862,45 @@ describe("safe pair opening", () => {
   });
 });
 
+describe("Processing entry", () => {
+  it("shows three cards, routes to the existing list, and launches batch without scope arguments", async () => {
+    const f = fixture(); Object.assign(f.tools, { savedMocClusterCount: vi.fn(async () => 3) });
+    await f.view.onOpen(); f.content.action("nav-process").click(); await flush();
+    expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-card"))).toHaveLength(3);
+    expect(f.content.action("process-recall")).toBeUndefined();
+    expect(f.content.texts()).toContain("Saved clusters: 3");
+    f.content.action("tool-openBatchProcessing").click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledWith();
+    f.content.action("tool-generateMocs").click(); expect(f.tools.generateMocs).toHaveBeenCalledTimes(1);
+    f.content.action("process-workbench").click(); expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    await f.view.onClose();
+  });
+  it("disables MOC while loading, offers audit for no clusters and ignores a detached response", async () => {
+    const f = fixture(); let resolve!: (value: number) => void;
+    Object.assign(f.tools, { savedMocClusterCount: vi.fn(() => new Promise<number>(r => { resolve = r; })) });
+    await f.view.onOpen(); f.content.action("nav-process").click();
+    const stale = f.content.action("tool-generateMocs"); expect(stale.disabled).toBe(true); stale.click();
+    expect(f.tools.generateMocs).not.toHaveBeenCalled(); resolve(0); await flush();
+    expect(f.content.action("tool-generateMocs")).toBeUndefined();
+    expect(f.content.texts()).toContain("Run a deep audit first");
+    f.content.action("tool-openDeepAudit").click(); expect(f.tools.openDeepAudit).toHaveBeenCalledOnce();
+    f.content.action("process-refresh").click(); f.content.action("nav-home").click(); resolve(9); await flush();
+    expect(f.content.texts()).not.toContain("Saved clusters: 9");
+    await f.view.onClose();
+  });
+  it("reports read and launcher failures without private errors; retry reloads the saved count", async () => {
+    const f = fixture(); const count = vi.fn().mockRejectedValueOnce(new Error("private")).mockResolvedValue(2);
+    Object.assign(f.tools, { savedMocClusterCount: count });
+    await f.view.onOpen(); f.content.action("nav-process").click(); await flush();
+    expect(f.content.texts()).toContain("Could not read saved clusters");
+    expect(f.content.action("tool-generateMocs")).toBeUndefined(); f.content.action("process-refresh").click(); await flush();
+    expect(f.content.texts()).toContain("Saved clusters: 2");
+    f.tools.openBatchProcessing.mockImplementationOnce(() => { throw new Error("private"); });
+    f.content.action("tool-openBatchProcessing").click(); await flush();
+    expect(f.content.texts()).toContain(t("@tools.launch-failed")); expect(f.content.texts()).not.toContain("private");
+    await f.view.onClose();
+  });
+});
+
 describe("Stage 1 native home and scope boundaries", () => {
   it("opens the approved home with real metadata and preserves selection independently in two views", async () => {
     const f = fixture();
