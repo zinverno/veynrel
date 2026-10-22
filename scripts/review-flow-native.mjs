@@ -99,7 +99,7 @@ try{
  if(mode==='upgrade'||(releaseSmoke&&previousBuild))await swapBuild({ev,wait,root,dir,vault,build,reload:releaseSmoke?async()=>{
    await cdp('Page.reload');
    for(let i=0;i<150;i++){
-     try{if(await ev("typeof app!=='undefined'&&app.plugins?.plugins['ai-knowledge-hub']?.manifest.version==='2.2.0'"))return;}catch{} // The old execution context is destroyed by reload.
+     try{if(await ev("typeof app!=='undefined'&&app.workspace?.layoutReady&&!!app.commands?.commands['ai-knowledge-hub:veynrel-review-vault']&&app.plugins?.plugins['ai-knowledge-hub']?.manifest.version==='2.2.0'"))return;}catch{} // The old execution context is destroyed by reload.
      await pause(100);
    }
    throw Error('Reload did not load the packaged manifest');
