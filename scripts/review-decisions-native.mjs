@@ -23,8 +23,8 @@ export async function reviewDecisionChecks(c) {
  assert.equal(JSON.parse(fs.readFileSync(dataPath,'utf8')).decisions.length,1);unchanged();
  await click('review-refresh');await wait('!hv.workbench.data.busy');await ready();
  await pass('Candidate refresh preserves the decision',`!(${exists})`);await shot('04-refresh');
- await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");
- await ev("hv.openReviewVault();void 0");await wait("!!document.querySelector('[data-health-action=review-refresh]')");
+ await click('nav-home');await wait("hv.route.page==='home'");
+ await click('nav-discover');await wait("hv.route.page==='discover'&&!!document.querySelector('[data-health-action=review-refresh]')");
  await click('review-refresh');await wait('!hv.workbench.data.busy');await ready();
  await pass('Switching section does not restore an unchanged pair',`!(${exists})`);
  await shot('05-before-restart');await pause(800);

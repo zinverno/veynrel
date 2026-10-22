@@ -32,7 +32,7 @@
     "Leave control fits en theme-light 390"
   ],
   "metrics": {
-    "openMs": 291.8854540000002,
+    "openMs": 271.9323169999998,
     "runtime": {
       "obsidian": "1.13.7",
       "electron": "43.6.0"

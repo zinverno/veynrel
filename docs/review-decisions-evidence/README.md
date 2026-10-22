@@ -8,7 +8,7 @@ Product/build source: `dd8191ebacc49fa0acf992a6281213de31658514`. Frozen bytes a
 - **0 HTTP analysis requests**. Consent was prepared and cancelled, not sent. No paid diagnostics.
 - Frozen `main.js`, `manifest.json`, `styles.css`, SHA256SUMS, SOURCE_COMMIT and the fixed-target bash installer are delivered outside the repository. Installer fixtures preserve the new decision state as well as settings/index/journals; the TEST installer was syntax-checked, never run.
 
-[Continuous 11-second native recording](leave-refresh-restart-restore.mp4): pair → Leave as is → prior scoped/searched list → refresh → real plugin disable/enable → still absent → Reviewed → restore. The screen capture contains real successive native frames, not an HTML demonstration. The plugin restart uses Obsidian’s plugin manager API on this isolated profile.
+[Continuous native recording](leave-refresh-restart-restore.mp4): pair → Leave as is → prior scoped/searched list → refresh → real plugin disable/enable → still absent → Reviewed → restore. The screen capture contains real successive native frames, not an HTML demonstration. Section switching uses actual Home and Vault review sidebar clicks; the plugin restart uses Obsidian’s plugin manager API on this isolated profile.
 
 Useful full frames: [saved confirmation](03-left-unchanged.png), [after restart](06-after-restart.png), [Reviewed](07-reviewed.png), [restored pair](08-restored.png), [save failure](09-save-refused.png), [changed content](10-changed-text.png), [narrow light UI](pair-ru-theme-light-390.png). Additional full frames cover both locales/themes.
 
