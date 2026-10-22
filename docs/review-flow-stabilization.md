@@ -1,5 +1,7 @@
 # Review flow stabilization
 
+The final decision-first pass on the same PR is documented in [final-review-pass.md](final-review-pass.md). This report retains the earlier frozen-source evidence.
+
 Dependent on draft #112 (`eb998837064521a71ac3354822d59d5d21c00c1d`), preserving #110 output limits, #112 snapshot-bound evidence IDs and #111 recommendation → planner. This is a list-first flow correction, not approval of the earlier map design.
 
 ## State and ownership

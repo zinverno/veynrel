@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "target": "disposable synthetic fixture only",
+  "fixedWrapper": "bash -n PASS; not installed in TEST",
+  "checks": [
+    "exact three-file install",
+    "external backup",
+    "preserve settings/index/journals",
+    "refuse original name",
+    "refuse tamper before write",
+    "refuse symlink target"
+  ]
+}
