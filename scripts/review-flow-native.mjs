@@ -16,6 +16,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
 const [root,build=ROOT,mode,previousBuild]=process.argv.slice(2);
+const releaseSmoke=mode==='release';
 const sourceCommit=fs.existsSync(build+'/SOURCE_COMMIT')?fs.readFileSync(build+'/SOURCE_COMMIT','utf8').trim():undefined;
 assert(root&&path.dirname(root)===path.join(os.homedir(),'projects/veynrel-artifacts')&&path.basename(root).startsWith('veynrel-review-flow-native-')&&!root.includes('..')&&!fs.existsSync(root));
 
@@ -70,7 +71,10 @@ await bundle({absWorkingDir:ROOT,entryPoints:['scripts/knowledge-workbench-fixtu
 const files=await createRequire(import.meta.url)(root+'/fixture.cjs').workbenchFixture(indexPaths,mode==='rules');
 fs.mkdirSync(dir+'/semantic-index');
 for(const [p,v]of files)fs.writeFileSync(dir+'/semantic-index/'+p.split('/').pop(),typeof v==='string'?v:Buffer.from(v));
-for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync((previousBuild??build)+'/'+name,dir+'/'+name);
+if(releaseSmoke&&!previousBuild){
+ const output=execFileSync('bash',[build+'/install-knowledge-workbench.sh',vault],{encoding:'utf8',env:{...process.env,XDG_STATE_HOME:root+'/install-state'}});
+ fs.writeFileSync(root+'/clean-install.log',output);
+}else for(const name of ['main.js','styles.css','manifest.json'])fs.copyFileSync((previousBuild??build)+'/'+name,dir+'/'+name);
 fs.writeFileSync(dir+'/data.json',JSON.stringify({language:'ru',provider:'openrouter',model:'deepseek/deepseek-v4-flash-0731',baseUrl:endpoint,apiKey:'synthetic-not-a-real-key',semanticAutoSyncSuspended:true,semantic:{enabled:true,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 fs.writeFileSync(vault+'/.obsidian/community-plugins.json','["ai-knowledge-hub"]');
 fs.writeFileSync(vault+'/.obsidian/app.json','{"checkForUpdates":false}');
@@ -92,7 +96,7 @@ try{
  await wait("!!document.querySelector('.mod-trust-folder')||!!app.plugins.plugins['ai-knowledge-hub']");
  await ev("document.querySelector('.mod-trust-folder')&&[...document.querySelectorAll('.mod-trust-folder button')].find(e=>e.textContent==='Trust author and enable plugins').click();void 0");
  await wait("!!app.commands.commands['ai-knowledge-hub:veynrel-open-health']");
- if(mode==='upgrade')await swapBuild({ev,wait,root,dir,vault,build},build,'boot');
+ if(mode==='upgrade'||(releaseSmoke&&previousBuild))await swapBuild({ev,wait,root,dir,vault,build},build,'boot');
  await ev(`window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;window.io={reads:0,writes:0,network:0,enumerations:0};
  for(const key of ['read','cachedRead']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.reads++;return original(...args)}};
  for(const key of ['create','modify','append','process','delete','rename']){const original=app.vault[key].bind(app.vault);app.vault[key]=(...args)=>{io.writes++;return original(...args)}};
@@ -167,6 +171,24 @@ try{
    await reviewDecisionChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,openPair,locale,field,cdp,pause,settle,
      vault,dir,root,pairPaths,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
  } else {
+ if(releaseSmoke){
+   await pass('Packaged desktop beta loaded',"plugin.manifest.version==='2.2.0'&&plugin.manifest.minAppVersion==='1.13.7'&&plugin.manifest.isDesktopOnly===true");
+   await click('review-connections');await click('review-rules');
+   await field('#rules-mode','within');await field('#rules-kind','folder');await field('#rules-target','Unsupported');await click('rules-save');
+   await wait("!document.querySelector('#rules-target')");await click('review-repeats');await click('review-refresh');await wait('!hv.workbench.data.busy');
+   await openPair('MergeCase');await clickSelector('[data-review-keep]');await wait("!!document.querySelector('[data-review-decision-saved]')");
+   const saved=Object.fromEntries(['connection-rules.json','review-decisions.json'].map(n=>[n,fs.readFileSync(dir+'/'+n,'utf8')]));
+   await shot('saved-rule-and-decision');
+   await ev("await app.plugins.disablePlugin('ai-knowledge-hub');await app.plugins.enablePlugin('ai-knowledge-hub');window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.engine=plugin.semanticController;app.commands.executeCommandById('ai-knowledge-hub:veynrel-review-vault');void 0");
+   await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.workbench");await ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0");
+   await click('review-refresh');await wait('!hv.workbench.data.busy&&!hv.workbench.facts?.running&&!hv.workbench.facts?.dirty.size');
+   await pass('Rule and exact-version decision survive actual plugin restart',"hv.workbench.data.dependencies.rules.list().length===1&&hv.workbench.data.dependencies.rules.list()[0].enabled&&hv.workbench.pair.decisions.list().length===1");
+   const reviewedId=JSON.stringify([...combinePaths].sort());
+   await pass('Unchanged reviewed pair stays out of active list',`![...document.querySelectorAll('[data-pair-id]')].some(e=>e.dataset.pairId===${JSON.stringify(reviewedId)})`);
+   for(const [n,value] of Object.entries(saved))assert.equal(fs.readFileSync(dir+'/'+n,'utf8'),value);
+   assert.deepEqual(markdown(vault),before);assert.equal(requests.length,0);await shot('restart-list');
+   await ev("window.realHostCreate=hv.workbenchHost.create;hv.workbenchHost.create=(scope,graphical)=>{if(graphical){graphicalCreations++;throw Error('Map forbidden in release smoke')}return realHostCreate(scope,graphical)};void 0");
+ }
  const smoke=async(prefix)=>{
    const viewport=await ev('({width:innerWidth,height:innerHeight})'),recording=!!onFrame;
    if(recording)await cdp('Page.stopScreencast');
@@ -231,6 +253,7 @@ try{
  assert.deepEqual(markdown(vault),before);fs.writeFileSync(root+'/after-undo.json',JSON.stringify(markdown(vault),null,2));await shot('undone');await closeModals();await click('review-back');
  await wait("document.querySelector('.veynrel-review-results').textContent.includes('Change undone.')");await shot('list-after-undo');await pause(1300);await stopVideo();
  checks.push('Actual Apply then list then reopen/history/separate Undo; all Markdown hashes restored; one explicit loopback completion');
+ if(!releaseSmoke){
  scenario='consider_embed_b_in_a';await startVideo('unavailable-before-navigation');await analyze('Table');
  await pass('Unsupported embed is disabled on result before navigation',"document.querySelector('[data-intent-action=primary]').disabled&&!!document.querySelector('[data-intent-unavailable]')&&!document.querySelector('[data-planner-field=range]')");
  await shot('unavailable-embed');await pause(1700);await stopVideo();await smoke('result-en');
@@ -326,8 +349,9 @@ try{
  await ev('secondLeaf.detach();void 0');
  assert.equal(requests.length,expectedRequests);checks.push('Post-Undo manual edit/rename/delete are separate synthetic checks; no synthetic restore is counted as Undo');
  metrics.localPairRecheck=await ev("({count:factChecks.length,meanMs:factChecks.reduce((a,b)=>a+b,0)/factChecks.length,maxMs:Math.max(...factChecks),p95Ms:[...factChecks].sort((a,b)=>a-b)[Math.floor(factChecks.length*.95)]})");
+ } else {assert.equal(requests.length,1);assert.deepEqual(markdown(vault),before);}
  metrics.runtime=await ev("({obsidian:require('@electron/remote').app.getVersion(),electron:process.versions.electron})");
- fs.writeFileSync(root+'/after-manual-edits.json',JSON.stringify(markdown(vault),null,2));
+ fs.writeFileSync(root+(releaseSmoke?'/final-markdown.json':'/after-manual-edits.json'),JSON.stringify(markdown(vault),null,2));
  fs.writeFileSync(root+'/report.json',JSON.stringify({status:'native synthetic regression',checks,metrics,screenshots,sourceCommit,previousBuild:previousBuild?{manifest:JSON.parse(fs.readFileSync(previousBuild+'/manifest.json','utf8')),mainSha:sha(fs.readFileSync(previousBuild+'/main.js'))}:undefined,hashes:Object.fromEntries(['main.js','manifest.json','styles.css'].map(p=>[p,sha(fs.readFileSync(dir+'/'+p))])),io:await ev('io'),httpRequests:requests.length,consentMatches:requests.map((b,i)=>b===bodies[i]),httpDestination:'loopback only',liveModel:'NOT RUN; authorization ended'},null,2));
  console.log(JSON.stringify({status:'PASS',checks:checks.length,root}));
  }
