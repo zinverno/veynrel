@@ -120,11 +120,11 @@ it.each(["1.8.0", "1.9.0"])("loads the actual published %s fixture without rewri
   expect(files).toEqual(unchanged); expect(mutate).not.toHaveBeenCalled();
 });
 
-it("prepares a consistent 2.1.0 candidate with the existing plugin identity and minimum", () => {
+it("prepares a consistent 2.2.1 candidate with the existing plugin identity and minimum", () => {
   const pkg = JSON.parse(readFileSync(new URL("package.json", import.meta.url), "utf8")) as { version: string };
   const lock = JSON.parse(readFileSync(new URL("package-lock.json", import.meta.url), "utf8")) as { version: string; packages: { "": { version: string } } };
   const versions = JSON.parse(readFileSync(new URL("versions.json", import.meta.url), "utf8")) as Record<string, string>;
-  expect(pkg.version).toBe("2.1.0"); expect(currentManifest.version).toBe(pkg.version);
+  expect(pkg.version).toBe("2.2.1"); expect(currentManifest.version).toBe(pkg.version);
   expect(lock.version).toBe(pkg.version); expect(lock.packages[""].version).toBe(pkg.version);
   expect(versions[pkg.version]).toBe("1.8.7"); expect(currentManifest.minAppVersion).toBe("1.8.7");
   expect(currentManifest).toMatchObject({ id: "ai-knowledge-hub", name: "Veynrel", isDesktopOnly: false });
