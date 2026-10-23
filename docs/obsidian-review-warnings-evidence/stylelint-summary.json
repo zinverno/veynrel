@@ -1,0 +1,15 @@
+{
+  "config": "stylelint-config-obsidianmd@0.1.0 (unmodified)",
+  "runner": "stylelint@17.16.0",
+  "before": {
+    "error": 1190,
+    "warning": 15
+  },
+  "after": {
+    "error": 1187,
+    "warning": 0
+  },
+  "hasBefore": 10,
+  "hasAfter": 0,
+  "rawFullConfiguration": "FAIL: standard-rule errors retained as requested; no rule override"
+}

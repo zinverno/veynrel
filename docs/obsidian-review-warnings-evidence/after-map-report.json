@@ -1,0 +1,848 @@
+{
+  "phase": "after",
+  "sourceCommit": "4ba9862b3537a3fc5adb8eada17b1fdcf2513acb",
+  "checks": [
+    "Cold direct command opens one list without map data",
+    "Exact Markdown count",
+    "Opening is metadata-only with zero network/writes",
+    "Direct command opens one standalone list without graphical data or IO",
+    "Repeat search does not mount a map",
+    "Initial cooling keeps the entire small fixture in the canvas",
+    "Escape collapses the map without closing the list route",
+    "Leaving map clears layout ownership",
+    "All 11 top-level folders remain reachable without footer overlap",
+    "Authoring creates two cards through loopback and existing bridge",
+    "Only explicit synthetic authoring changed Markdown; refresh/review/navigation did not",
+    "home fits ru/theme-dark/1280",
+    "recall fits ru/theme-dark/1280",
+    "discover fits ru/theme-dark/1280",
+    "home fits ru/theme-dark/390",
+    "recall fits ru/theme-dark/390",
+    "discover fits ru/theme-dark/390",
+    "home fits ru/theme-light/1280",
+    "recall fits ru/theme-light/1280",
+    "discover fits ru/theme-light/1280",
+    "home fits ru/theme-light/390",
+    "recall fits ru/theme-light/390",
+    "discover fits ru/theme-light/390",
+    "home fits en/theme-dark/1280",
+    "recall fits en/theme-dark/1280",
+    "discover fits en/theme-dark/1280",
+    "home fits en/theme-dark/390",
+    "recall fits en/theme-dark/390",
+    "discover fits en/theme-dark/390",
+    "home fits en/theme-light/1280",
+    "recall fits en/theme-light/1280",
+    "discover fits en/theme-light/1280",
+    "home fits en/theme-light/390",
+    "recall fits en/theme-light/390",
+    "discover fits en/theme-light/390"
+  ],
+  "metrics": {
+    "openMs": 332.63532199999963,
+    "map-initial": {
+      "viewport": {
+        "width": 1694,
+        "height": 1080
+      },
+      "svg": {
+        "x": 271,
+        "y": 330.4375,
+        "width": 1404,
+        "height": 695.5625,
+        "top": 330.4375,
+        "right": 1675,
+        "bottom": 1026,
+        "left": 271
+      },
+      "host": {
+        "x": 270,
+        "y": 210.546875,
+        "width": 1406,
+        "height": 860.453125,
+        "top": 210.546875,
+        "right": 1676,
+        "bottom": 1071,
+        "left": 270
+      },
+      "main": {
+        "x": 252,
+        "y": 152.546875,
+        "width": 1442,
+        "height": 926.453125,
+        "top": 152.546875,
+        "right": 1694,
+        "bottom": 1079,
+        "left": 252
+      },
+      "scrollWidth": 1650,
+      "width": 1650
+    },
+    "map-expanded": {
+      "viewport": {
+        "width": 1694,
+        "height": 1080
+      },
+      "svg": {
+        "x": 55,
+        "y": 252.4375,
+        "width": 1628,
+        "height": 816.5625,
+        "top": 252.4375,
+        "right": 1683,
+        "bottom": 1069,
+        "left": 55
+      },
+      "host": {
+        "x": 54,
+        "y": 132.546875,
+        "width": 1630,
+        "height": 937.453125,
+        "top": 132.546875,
+        "right": 1684,
+        "bottom": 1070,
+        "left": 54
+      },
+      "main": {
+        "x": 44,
+        "y": 78.546875,
+        "width": 1650,
+        "height": 1001.453125,
+        "top": 78.546875,
+        "right": 1694,
+        "bottom": 1080,
+        "left": 44
+      },
+      "scrollWidth": 1650,
+      "width": 1650
+    },
+    "map-collapsed": {
+      "viewport": {
+        "width": 1694,
+        "height": 1080
+      },
+      "svg": {
+        "x": 271,
+        "y": 330.4375,
+        "width": 1404,
+        "height": 695.5625,
+        "top": 330.4375,
+        "right": 1675,
+        "bottom": 1026,
+        "left": 271
+      },
+      "host": {
+        "x": 270,
+        "y": 210.546875,
+        "width": 1406,
+        "height": 860.453125,
+        "top": 210.546875,
+        "right": 1676,
+        "bottom": 1071,
+        "left": 270
+      },
+      "main": {
+        "x": 252,
+        "y": 152.546875,
+        "width": 1442,
+        "height": 926.453125,
+        "top": 152.546875,
+        "right": 1694,
+        "bottom": 1079,
+        "left": 252
+      },
+      "scrollWidth": 1650,
+      "width": 1650
+    },
+    "map-ru-theme-dark-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 271,
+        "y": 330.328125,
+        "width": 990,
+        "height": 615.671875,
+        "top": 330.328125,
+        "right": 1261,
+        "bottom": 946,
+        "left": 271
+      },
+      "host": {
+        "x": 270,
+        "y": 210.4375,
+        "width": 992,
+        "height": 780.5625,
+        "top": 210.4375,
+        "right": 1262,
+        "bottom": 991,
+        "left": 270
+      },
+      "main": {
+        "x": 252,
+        "y": 152.4375,
+        "width": 1028,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 1280,
+        "bottom": 999,
+        "left": 252
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "expanded-ru-theme-dark-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 55,
+        "y": 252.328125,
+        "width": 1214,
+        "height": 736.671875,
+        "top": 252.328125,
+        "right": 1269,
+        "bottom": 989,
+        "left": 55
+      },
+      "host": {
+        "x": 54,
+        "y": 132.4375,
+        "width": 1216,
+        "height": 857.5625,
+        "top": 132.4375,
+        "right": 1270,
+        "bottom": 990,
+        "left": 54
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 1236,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 1280,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "map-ru-theme-dark-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 444.3125,
+        "width": 328,
+        "height": 456.796875,
+        "top": 444.3125,
+        "right": 381,
+        "bottom": 901.109375,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 204.4375,
+        "width": 330,
+        "height": 786.5625,
+        "top": 204.4375,
+        "right": 382,
+        "bottom": 991,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 152.4375,
+        "width": 346,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 390,
+        "bottom": 999,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "expanded-ru-theme-dark-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 370.3125,
+        "width": 328,
+        "height": 620.6875,
+        "top": 370.3125,
+        "right": 381,
+        "bottom": 991,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 130.4375,
+        "width": 330,
+        "height": 861.5625,
+        "top": 130.4375,
+        "right": 382,
+        "bottom": 992,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 346,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 390,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "map-ru-theme-light-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 271,
+        "y": 330.328125,
+        "width": 990,
+        "height": 615.671875,
+        "top": 330.328125,
+        "right": 1261,
+        "bottom": 946,
+        "left": 271
+      },
+      "host": {
+        "x": 270,
+        "y": 210.4375,
+        "width": 992,
+        "height": 780.5625,
+        "top": 210.4375,
+        "right": 1262,
+        "bottom": 991,
+        "left": 270
+      },
+      "main": {
+        "x": 252,
+        "y": 152.4375,
+        "width": 1028,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 1280,
+        "bottom": 999,
+        "left": 252
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "expanded-ru-theme-light-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 55,
+        "y": 252.328125,
+        "width": 1214,
+        "height": 736.671875,
+        "top": 252.328125,
+        "right": 1269,
+        "bottom": 989,
+        "left": 55
+      },
+      "host": {
+        "x": 54,
+        "y": 132.4375,
+        "width": 1216,
+        "height": 857.5625,
+        "top": 132.4375,
+        "right": 1270,
+        "bottom": 990,
+        "left": 54
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 1236,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 1280,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "map-ru-theme-light-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 444.3125,
+        "width": 328,
+        "height": 456.796875,
+        "top": 444.3125,
+        "right": 381,
+        "bottom": 901.109375,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 204.4375,
+        "width": 330,
+        "height": 786.5625,
+        "top": 204.4375,
+        "right": 382,
+        "bottom": 991,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 152.4375,
+        "width": 346,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 390,
+        "bottom": 999,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "expanded-ru-theme-light-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 370.3125,
+        "width": 328,
+        "height": 620.6875,
+        "top": 370.3125,
+        "right": 381,
+        "bottom": 991,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 130.4375,
+        "width": 330,
+        "height": 861.5625,
+        "top": 130.4375,
+        "right": 382,
+        "bottom": 992,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 346,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 390,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "map-en-theme-dark-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 271,
+        "y": 330.328125,
+        "width": 990,
+        "height": 615.671875,
+        "top": 330.328125,
+        "right": 1261,
+        "bottom": 946,
+        "left": 271
+      },
+      "host": {
+        "x": 270,
+        "y": 210.4375,
+        "width": 992,
+        "height": 780.5625,
+        "top": 210.4375,
+        "right": 1262,
+        "bottom": 991,
+        "left": 270
+      },
+      "main": {
+        "x": 252,
+        "y": 152.4375,
+        "width": 1028,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 1280,
+        "bottom": 999,
+        "left": 252
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "expanded-en-theme-dark-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 55,
+        "y": 252.328125,
+        "width": 1214,
+        "height": 736.671875,
+        "top": 252.328125,
+        "right": 1269,
+        "bottom": 989,
+        "left": 55
+      },
+      "host": {
+        "x": 54,
+        "y": 132.4375,
+        "width": 1216,
+        "height": 857.5625,
+        "top": 132.4375,
+        "right": 1270,
+        "bottom": 990,
+        "left": 54
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 1236,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 1280,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "map-en-theme-dark-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 402.3125,
+        "width": 328,
+        "height": 498.796875,
+        "top": 402.3125,
+        "right": 381,
+        "bottom": 901.109375,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 204.4375,
+        "width": 330,
+        "height": 786.5625,
+        "top": 204.4375,
+        "right": 382,
+        "bottom": 991,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 152.4375,
+        "width": 346,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 390,
+        "bottom": 999,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "expanded-en-theme-dark-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 328.3125,
+        "width": 328,
+        "height": 662.6875,
+        "top": 328.3125,
+        "right": 381,
+        "bottom": 991,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 130.4375,
+        "width": 330,
+        "height": 861.5625,
+        "top": 130.4375,
+        "right": 382,
+        "bottom": 992,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 346,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 390,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "map-en-theme-light-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 271,
+        "y": 330.328125,
+        "width": 990,
+        "height": 615.671875,
+        "top": 330.328125,
+        "right": 1261,
+        "bottom": 946,
+        "left": 271
+      },
+      "host": {
+        "x": 270,
+        "y": 210.4375,
+        "width": 992,
+        "height": 780.5625,
+        "top": 210.4375,
+        "right": 1262,
+        "bottom": 991,
+        "left": 270
+      },
+      "main": {
+        "x": 252,
+        "y": 152.4375,
+        "width": 1028,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 1280,
+        "bottom": 999,
+        "left": 252
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "expanded-en-theme-light-1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "svg": {
+        "x": 55,
+        "y": 252.328125,
+        "width": 1214,
+        "height": 736.671875,
+        "top": 252.328125,
+        "right": 1269,
+        "bottom": 989,
+        "left": 55
+      },
+      "host": {
+        "x": 54,
+        "y": 132.4375,
+        "width": 1216,
+        "height": 857.5625,
+        "top": 132.4375,
+        "right": 1270,
+        "bottom": 990,
+        "left": 54
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 1236,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 1280,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 1236,
+      "width": 1236
+    },
+    "map-en-theme-light-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 402.3125,
+        "width": 328,
+        "height": 498.796875,
+        "top": 402.3125,
+        "right": 381,
+        "bottom": 901.109375,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 204.4375,
+        "width": 330,
+        "height": 786.5625,
+        "top": 204.4375,
+        "right": 382,
+        "bottom": 991,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 152.4375,
+        "width": 346,
+        "height": 846.5625,
+        "top": 152.4375,
+        "right": 390,
+        "bottom": 999,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "expanded-en-theme-light-390": {
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "svg": {
+        "x": 53,
+        "y": 328.3125,
+        "width": 328,
+        "height": 662.6875,
+        "top": 328.3125,
+        "right": 381,
+        "bottom": 991,
+        "left": 53
+      },
+      "host": {
+        "x": 52,
+        "y": 130.4375,
+        "width": 330,
+        "height": 861.5625,
+        "top": 130.4375,
+        "right": 382,
+        "bottom": 992,
+        "left": 52
+      },
+      "main": {
+        "x": 44,
+        "y": 78.4375,
+        "width": 346,
+        "height": 921.5625,
+        "top": 78.4375,
+        "right": 390,
+        "bottom": 1000,
+        "left": 44
+      },
+      "scrollWidth": 346,
+      "width": 346
+    },
+    "runtime": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0"
+    }
+  },
+  "screenshots": [
+    "list-before-search.png",
+    "review-new.png",
+    "review-pair.png",
+    "review-left.png",
+    "review-reviewed.png",
+    "review-restored.png",
+    "map-initial.png",
+    "map-settled.png",
+    "map-expanded.png",
+    "map-loaded.png",
+    "map-collapsed.png",
+    "map-selection.png",
+    "map-pinned.png",
+    "map-pinned-closed.png",
+    "map-pinned-reopened.png",
+    "map-pinned-200.png",
+    "map-left-page.png",
+    "map-reopened.png",
+    "map-return.png",
+    "home-initial.png",
+    "home-more.png",
+    "home-selected.png",
+    "recall-first.png",
+    "recall-empty.png",
+    "recall-consent.png",
+    "recall-ready.png",
+    "recall-refreshed.png",
+    "recall-question.png",
+    "recall-answer.png",
+    "recall-after.png",
+    "home-ru-theme-dark-1280.png",
+    "recall-ru-theme-dark-1280.png",
+    "discover-ru-theme-dark-1280.png",
+    "map-ru-theme-dark-1280.png",
+    "expanded-ru-theme-dark-1280.png",
+    "home-ru-theme-dark-390.png",
+    "recall-ru-theme-dark-390.png",
+    "discover-ru-theme-dark-390.png",
+    "map-ru-theme-dark-390.png",
+    "expanded-ru-theme-dark-390.png",
+    "home-ru-theme-light-1280.png",
+    "recall-ru-theme-light-1280.png",
+    "discover-ru-theme-light-1280.png",
+    "map-ru-theme-light-1280.png",
+    "expanded-ru-theme-light-1280.png",
+    "home-ru-theme-light-390.png",
+    "recall-ru-theme-light-390.png",
+    "discover-ru-theme-light-390.png",
+    "map-ru-theme-light-390.png",
+    "expanded-ru-theme-light-390.png",
+    "home-en-theme-dark-1280.png",
+    "recall-en-theme-dark-1280.png",
+    "discover-en-theme-dark-1280.png",
+    "map-en-theme-dark-1280.png",
+    "expanded-en-theme-dark-1280.png",
+    "home-en-theme-dark-390.png",
+    "recall-en-theme-dark-390.png",
+    "discover-en-theme-dark-390.png",
+    "map-en-theme-dark-390.png",
+    "expanded-en-theme-dark-390.png",
+    "home-en-theme-light-1280.png",
+    "recall-en-theme-light-1280.png",
+    "discover-en-theme-light-1280.png",
+    "map-en-theme-light-1280.png",
+    "expanded-en-theme-light-1280.png",
+    "home-en-theme-light-390.png",
+    "recall-en-theme-light-390.png",
+    "discover-en-theme-light-390.png",
+    "map-en-theme-light-390.png",
+    "expanded-en-theme-light-390.png"
+  ],
+  "httpRequests": 1,
+  "httpDestination": "loopback only",
+  "liveModel": "NOT RUN",
+  "markdownChanged": [
+    "Area 1/Learning 1.md"
+  ]
+}

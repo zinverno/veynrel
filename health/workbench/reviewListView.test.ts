@@ -13,6 +13,7 @@ const dom = vi.hoisted(() => {
     addClass(...names: string[]) { this.cls += ` ${names.join(" ")}`; }
     setText(text: string) { this.text = text; }
     setAttribute(key: string, value: string) { this.attrs[key] = value; }
+    removeAttribute(key: string) { delete this.attrs[key]; }
     getAttribute(key: string) { return this.attrs[key] ?? null; }
     create(tag: string, options: { text?: string; attr?: Record<string, string>; cls?: string; value?: string } = {}) {
       const el = new Element(); el.tag = tag; el.text = options.text ?? ""; el.attrs = options.attr ?? {}; el.cls = options.cls ?? ""; el.value = options.value ?? "";
@@ -49,6 +50,7 @@ vi.mock("obsidian", () => ({ getLanguage: () => "en", setIcon: vi.fn() }));
 vi.mock("./workbenchSimulation", () => ({ WorkbenchSimulation: class { constructor() { throw Error("Simulation must not exist on list route"); } } }));
 vi.mock("./workbenchGraph", () => ({ renderWorkbenchGraph: () => { throw Error("Renderer must not run"); } }));
 import { setLanguage } from "../../i18n";
+import { reviewNoteChoices } from "../../consolidation/reviewPresentation";
 import type { ReviewDecision, ReviewDecisionsPort } from "./reviewDecisionsPort";
 import { ReviewFacts } from "./reviewFacts";
 import { ReviewListView } from "./reviewListView";
@@ -58,6 +60,21 @@ import type { Finding } from "../domain/finding";
 
 const paths = ["Practice/Task.md", "Theory/Task.md"];
 const finding = { id: "saved", state: "open", type: "semantic-duplicate", notePaths: paths, evidence: [] } as unknown as Finding;
+it('keeps choice-card state equal to native radio state on initial render, change, disabled and rerender', () => {
+  const parent = new dom.Element(), change = vi.fn();
+  for (const selected of [null, 0, 1]) {
+    parent.empty(); reviewNoteChoices(parent as unknown as HTMLElement, paths, selected, 'source', 'Source', change);
+    const cards = parent.querySelectorAll('label'), radios = parent.querySelectorAll('input');
+    expect(cards.map(c => c.attrs['data-selected'])).toEqual([String(selected === 0), String(selected === 1)]);
+    radios[0].checked = false; radios[1].checked = true; radios[1].change();
+    expect(cards.map(c => c.attrs['data-selected'])).toEqual(['false', 'true']); expect(change).toHaveBeenLastCalledWith(1);
+  }
+  parent.empty(); change.mockClear();
+  reviewNoteChoices(parent as unknown as HTMLElement, paths, 0, 'source', 'Source', change, [true, false]);
+  const radios = parent.querySelectorAll('input'); expect(radios[0].disabled).toBe(true);
+  radios[0].change(); expect(change).not.toHaveBeenCalled();
+  expect(parent.querySelectorAll('label').map(c => c.attrs['data-selected'])).toEqual(['true', 'false']);
+});
 function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairReviewPort["localFacts"], decisions?: ReviewDecisionsPort) {
   setLanguage("en");
   dom.document.activeElement = undefined;
@@ -95,6 +112,21 @@ describe("standalone review list", () => {
     const a = setup(), b = setup(); a.action("review-map").click(); expect(a.map).toHaveBeenCalledOnce(); expect(b.map).not.toHaveBeenCalled();
     const graphical = a.map.mock.results[0].value as { dispose: ReturnType<typeof vi.fn> }; a.action("review-back").click(); expect(graphical.dispose).toHaveBeenCalledOnce();
     expect(b.mount).not.toHaveBeenCalled(); a.view.dispose(); b.view.dispose();
+  });
+  it("owns map layout only while mounted, including reparenting, return and disposal", () => {
+    const f = setup(), element = f.root.children[0], replacement = new dom.Element();
+    expect(f.root.attrs['data-review-map']).toBeUndefined();
+    f.action('review-map').click();
+    expect(f.root.attrs['data-review-map']).toBe('true'); expect(element.attrs['data-review-map']).toBe('true');
+    element.parentElement = replacement; replacement.children.push(element); f.view.update([finding]);
+    expect(f.root.attrs['data-review-map']).toBeUndefined(); expect(replacement.attrs['data-review-map']).toBe('true');
+    f.action('review-back').click();
+    expect(replacement.attrs['data-review-map']).toBeUndefined(); expect(element.attrs['data-review-map']).toBeUndefined();
+    f.root.querySelector('[data-pair-id]')!.click();
+    expect(f.root.querySelector('[data-review-surface="pair"]')?.hidden).toBe(false);
+    f.view.suspend(); expect(f.root.querySelector('[data-review-surface="pair"]')).toBeUndefined();
+    f.view.update([finding]); f.action('review-map').click(); f.view.dispose();
+    expect(replacement.attrs['data-review-map']).toBeUndefined(); expect(element.attrs['data-review-map']).toBeUndefined();
   });
   it("inherits only navigation on scope replacement, never a live pair owner", () => {
     const a = setup(), b = setup();

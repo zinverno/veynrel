@@ -1,0 +1,422 @@
+[
+  {
+    "name": "list-before-search",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "review-new",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "review-pair",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "review-left",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "review-reviewed",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "review-restored",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-initial",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-settled",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-expanded",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-loaded",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-collapsed",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-selection",
+    "nodes": 12,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-pinned",
+    "nodes": 12,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-pinned-closed",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-pinned-reopened",
+    "nodes": 12,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-pinned-200",
+    "nodes": 12,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-left-page",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-reopened",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-return",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-initial",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-more",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-selected",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-first",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-empty",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-consent",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-ready",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-refreshed",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-question",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-answer",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-after",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-ru-theme-dark-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-ru-theme-dark-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-ru-theme-dark-1280",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-ru-theme-dark-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-ru-theme-dark-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-ru-theme-dark-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-ru-theme-dark-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-ru-theme-dark-390",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-ru-theme-dark-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-ru-theme-dark-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-ru-theme-light-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-ru-theme-light-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-ru-theme-light-1280",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-ru-theme-light-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-ru-theme-light-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-ru-theme-light-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-ru-theme-light-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-ru-theme-light-390",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-ru-theme-light-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-ru-theme-light-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-en-theme-dark-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-en-theme-dark-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-en-theme-dark-1280",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-en-theme-dark-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-en-theme-dark-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-en-theme-dark-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-en-theme-dark-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-en-theme-dark-390",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-en-theme-dark-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-en-theme-dark-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-en-theme-light-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-en-theme-light-1280",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-en-theme-light-1280",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-en-theme-light-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-en-theme-light-1280",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "home-en-theme-light-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "recall-en-theme-light-390",
+    "nodes": 4,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "discover-en-theme-light-390",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "map-en-theme-light-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "expanded-en-theme-light-390",
+    "nodes": 11,
+    "differences": [],
+    "selected": true
+  }
+]

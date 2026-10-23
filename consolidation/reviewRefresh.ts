@@ -10,8 +10,9 @@ type ReviewRecord = OperationRecord | MultiRecord | MergeRecord | GroupRecord | 
 const listeners = new WeakMap<App, Set<(paths?: readonly string[]) => void>>();
 const outcomes = new WeakMap<App, Map<string, ReviewOperation>>();
 export function subscribeReviewRefresh(app: App, listener: (paths?: readonly string[]) => void): () => void {
-  let set = listeners.get(app); if (!set) listeners.set(app, set = new Set());
-  set.add(listener); return () => { set!.delete(listener); };
+  const set = listeners.get(app) ?? new Set<(paths?: readonly string[]) => void>();
+  listeners.set(app, set);
+  set.add(listener); return () => { set.delete(listener); };
 }
 export function reviewOutcome(record: ReviewRecord, state: string): ReviewOperation {
   const paths = "sourcePath" in record ? [record.sourcePath, record.targetPath] : "files" in record ? record.files.map(f => f.path) :

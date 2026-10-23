@@ -21,9 +21,21 @@ export async function polishChecks(c) {
  await measure('map-initial');await shot('map-initial');
  if(after){await wait('hv.workbench.map.simulation.alpha===0');await pass('Initial cooling keeps the entire small fixture in the canvas',"(()=>{const s=document.querySelector('svg[data-camera]').getBoundingClientRect();return [...document.querySelectorAll('.veynrel-workbench-node')].every(e=>{const r=e.getBoundingClientRect();return r.x>=s.x&&r.y>=s.y&&r.right<=s.right&&r.bottom<=s.bottom})})()");await shot('map-settled');}
  await click('workbench-expand');await pause(500);await measure('map-expanded');await shot('map-expanded');
- if(after){await ev("document.querySelector('svg[data-camera]').focus();void 0");await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape'});await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape'});await pass('Escape collapses the map without closing the list route',"!!document.querySelector('svg[data-camera]')&&!document.querySelector('.is-map-expanded')");await keyboard('workbench-expand');}
+ if(after){await cdp('Page.bringToFront');await ev("require('@electron/remote').getCurrentWindow().focus();document.querySelector('svg[data-camera]').focus();void 0");await wait("document.hasFocus()&&document.activeElement===document.querySelector('svg[data-camera]')");await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await settle();await pass('Escape collapses the map without closing the list route',"!!document.querySelector('svg[data-camera]')&&!document.querySelector('.is-map-expanded')");await keyboard('workbench-expand');}
  await click('workbench-refresh');await wait('!hv.workbench.map.data.busy');await pause(900);await shot('map-loaded');
  await click('workbench-expand');await pause(300);await measure('map-collapsed');await shot('map-collapsed');
+ if(process.env.VEYNREL_BASELINE_CSS){
+  await clickSelector('.veynrel-workbench-node[data-path]');await shot('map-selection');
+  await click('workbench-pin');await shot('map-pinned');
+  await click('workbench-detail-close');await shot('map-pinned-closed');
+  await clickSelector('.veynrel-workbench-node[data-path]');await shot('map-pinned-reopened');
+  await ev("require('@electron/remote').getCurrentWebContents().setZoomFactor(2);void 0");
+  await pause(300);await shot('map-pinned-200');
+  await ev("require('@electron/remote').getCurrentWebContents().setZoomFactor(1);void 0");
+  await click('nav-home');await shot('map-left-page');
+  await pass('Leaving map clears layout ownership',"!document.querySelector('[data-workbench-mounted],[data-workbench-host],[data-review-map]')");
+  await click('nav-discover');await click('review-map');await shot('map-reopened');
+ }
  await click('review-back');await ready();await shot('map-return');await stopVideo();
  await startVideo('home');await click('nav-home');await wait("hv.route.page==='home'");await shot('home-initial');
  if(after){await click('home-more-folders');await shot('home-more');await pass('All 11 top-level folders remain reachable without footer overlap',"document.querySelectorAll('.veynrel-topic-node').length+document.querySelectorAll('[data-home-folder]').length===11&&document.querySelector('.veynrel-core-foot').getBoundingClientRect().bottom<=document.querySelector('.veynrel-home-folders').getBoundingClientRect().top");await clickSelector('[data-home-folder="Workbench"]');await shot('home-selected');await click('scope-all');}

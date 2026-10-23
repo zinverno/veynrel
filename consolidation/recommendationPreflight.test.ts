@@ -36,6 +36,10 @@ describe("recommendation preflight", () => {
     const remove = subscribeReviewRefresh(app, a); subscribeReviewRefresh(app, () => { throw Error(); });
     subscribeReviewRefresh(other, b); refreshReviewFacts(app); expect(a).toHaveBeenCalledOnce(); expect(b).not.toHaveBeenCalled();
     remove(); refreshReviewFacts(app); expect(a).toHaveBeenCalledOnce();
+    const c = vi.fn(), removeC = subscribeReviewRefresh(app, c), removeAgain = subscribeReviewRefresh(app, a);
+    removeC(); removeC(); refreshReviewFacts(app);
+    expect(c).not.toHaveBeenCalled(); expect(a).toHaveBeenCalledTimes(2); expect(b).not.toHaveBeenCalled();
+    removeAgain(); refreshReviewFacts(app); expect(a).toHaveBeenCalledTimes(2);
   });
 });
 

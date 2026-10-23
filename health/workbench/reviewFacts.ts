@@ -59,8 +59,9 @@ export class ReviewFacts implements ReviewFactsPort {
           try { observation = await this.deps.read(entry.paths); } catch { /* Unknown is not an absent link. */ }
           if (this.disposed || this.entries.get(id) !== entry || entry.epoch !== epoch) continue;
           const operation = history?.filter(o => entry.paths.every(p => o.paths.includes(p))).sort((a, b) => b.created - a.created)[0];
+          const signatures = observation?.signatures;
           entry.fact = { state: observation?.missing ? "missing" : observation?.links ? "ready" : "unknown",
-            links: observation?.links, kept: observation?.kept, changed: entry.fact.changed || !!(entry.baseline && observation && entry.baseline.some((s, i) => s !== observation!.signatures[i])),
+            links: observation?.links, kept: observation?.kept, changed: entry.fact.changed || !!(entry.baseline && signatures && entry.baseline.some((s, i) => s !== signatures[i])),
             operation: history ? operation : entry.fact.operation, historyUnknown: !history };
           if (observation && !entry.baseline) entry.baseline = observation.signatures;
         }

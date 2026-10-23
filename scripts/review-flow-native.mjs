@@ -8,6 +8,7 @@ import {reviewDecisionChecks} from './review-decisions-native.mjs';
 import {polishChecks} from './beta-ux-polish-native.mjs';
 import {atomizationChecks} from './generative-atomization-native.mjs';
 import {processingChecks} from './processing-native.mjs';
+import {styleComparison} from './review-style-native.mjs';
 import os from 'node:os';
 import path from 'node:path';
 import {createServer} from 'node:http';
@@ -125,7 +126,8 @@ try{
  await pass('Cold direct command opens one list without map data',"app.workspace.getLeavesOfType('veynrel-health').length===1&&!hv.workbench.data.semantic&&!hv.workbench.data.comparison&&!hv.contentEl.querySelector('svg[data-camera]')");
  await pass('Exact Markdown count',`hv.areaIndex.snapshot.paths.length===${Object.keys(before).length}`);
  await pass('Opening is metadata-only with zero network/writes','io.reads===0&&io.writes===0&&io.network===0');
- const shot=async(name,keepPointer=false)=>{if(!keepPointer)await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:2,y:2});await pause(150);await settle();const data=await cdp('Page.captureScreenshot',{format:'png'});const file=name+'.png';fs.writeFileSync(root+'/'+file,Buffer.from(data.data,'base64'));screenshots.push(file);};
+ const compareStyles=process.env.VEYNREL_BASELINE_CSS?styleComparison(ev,process.env.VEYNREL_BASELINE_CSS,root):undefined;
+ const shot=async(name,keepPointer=false)=>{if(!keepPointer)await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:2,y:2});await pause(150);await settle();await compareStyles?.(name);const data=await cdp('Page.captureScreenshot',{format:'png'});const file=name+'.png';fs.writeFileSync(root+'/'+file,Buffer.from(data.data,'base64'));screenshots.push(file);};
  const locale=async language=>{
    await ev('app.setting.open();app.setting.openTabById("ai-knowledge-hub");void 0');
    await wait("!![...app.setting.modalEl.querySelectorAll('select')].find(e=>[...e.options].some(o=>o.value==='ru'))");
@@ -227,6 +229,16 @@ try{
  await ev("document.querySelector('[data-intent-action=primary]').focus();void 0");
  await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,text:'\r',unmodifiedText:'\r'});await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});
  await wait("!!document.querySelector('[data-planner-field=source]')");assert.equal(requests.length,1);assert.deepEqual(markdown(vault),before);
+ if(compareStyles){
+   await shot('choice-initial');
+   await clickSelector('[data-planner-field=source][value="1"]');await shot('choice-mouse-b');
+   await ev("document.querySelector('[data-planner-field=source][value=\"1\"]').focus();void 0");
+   await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowLeft',code:'ArrowLeft',windowsVirtualKeyCode:37});
+   await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowLeft',code:'ArrowLeft',windowsVirtualKeyCode:37});
+   await pass('Keyboard selects A and rerender keeps checked styling',"document.querySelector('[data-planner-field=source][value=\"0\"]').checked");
+   await shot('choice-keyboard-a');
+   await smoke('choices-en');
+ }
  await clickSelector('[data-planner-field=source][value="0"]');await field('[data-planner-field=range]','0');
  await shot('link-parameters');await pause(900);
  await pass('Parameters are proposed, never confirmation',"!document.querySelector('[data-planner-field=confirm]').checked&&document.querySelector('[data-planner-action=build]').disabled");
@@ -324,7 +336,18 @@ try{
    bodies.push(await ev("document.querySelector('.ai-relationship pre').textContent"));await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-relationship-action=report]')");
    assert.equal(requests.at(-1),bodies.at(-1));await pass('Real transport refuses '+failure,"![...engine.pairReviews].at(-1).relationship.analysisSource&&!document.querySelector('[data-intent-action=primary],[data-safe-action=review]')");await shot('transport-'+failure);await click('review-back');
  }
- const expectedRequests=requests.length;assert.equal(expectedRequests,mode==='integration'?11:8);
+ if(compareStyles){
+   // Separate post-Undo fixture edit makes B unavailable through the real preflight.
+   await ev(`await app.vault.modify(app.vault.getFileByPath(${JSON.stringify(pairPaths[1])}),${JSON.stringify(fixture.b+'\n[[Workbench/A/Cache]]\n')});void 0`);
+   await wait(`!!app.metadataCache.resolvedLinks[${JSON.stringify(pairPaths[1])}]?.[${JSON.stringify(pairPaths[0])}]`);
+   scenario='add_link';await analyze('Cache');await clickSelector('[data-intent-action=primary]');
+   await wait("!!document.querySelector('[data-planner-field=source]')");
+   await pass('Existing B to A link disables only B in real planner',"document.querySelector('[data-planner-field=source][value=\"1\"]').disabled&&!document.querySelector('[data-planner-field=source][value=\"0\"]').disabled");
+   await clickSelector('.ai-review-choice:has(input[value="1"])');
+   await pass('Disabled direction cannot be selected',"!document.querySelector('[data-planner-field=source][value=\"1\"]').checked");
+   await shot('choice-disabled');await smoke('choice-disabled-ru');await click('review-back');
+ }
+ const expectedRequests=requests.length;assert.equal(expectedRequests,(mode==='integration'?11:8)+(compareStyles?1:0));
  // A real split hosts the same review route with its own owner.
  await ev("window.splitLeaf=app.workspace.getLeaf('split','vertical');await splitLeaf.setViewState({type:'veynrel-health',active:true});splitLeaf.view.openReviewVault();void 0");
  await wait("!!splitLeaf.view.workbench?.data");await shot('real-split');await ev('splitLeaf.detach();void 0');
@@ -344,7 +367,12 @@ try{
  await wait(`hv.workbench.facts.get(${JSON.stringify(pairPaths)})?.state==='ready'&&secondLeaf.view.workbench.facts.get(${JSON.stringify(pairPaths)})?.changed`);
  await pass('Manual edit is stale in both windows with no completion',`hv.workbench.facts.get(${JSON.stringify(pairPaths)}).changed&&secondLeaf.view.workbench.facts.get(${JSON.stringify(pairPaths)}).changed`);
  await shot('manual-edit-list');
- await ev(`await app.fileManager.renameFile(app.vault.getFileByPath(${JSON.stringify(pairPaths[0])}),'Workbench/A/Renamed.md');void 0`);
+ if(compareStyles){
+   await ev(`window.fixtureRename=app.fileManager.renameFile(app.vault.getFileByPath(${JSON.stringify(pairPaths[0])}),'Workbench/A/Renamed.md');void 0`);
+   await wait("[...document.querySelectorAll('.modal button')].some(e=>e.textContent==='Just once')");
+   await ev("[...document.querySelectorAll('.modal button')].find(e=>e.textContent==='Just once').setAttribute('data-native-rename','once');void 0");
+   await shot('native-rename-confirmation');await clickSelector('[data-native-rename=once]');await ev('await fixtureRename;void 0');
+ } else await ev(`await app.fileManager.renameFile(app.vault.getFileByPath(${JSON.stringify(pairPaths[0])}),'Workbench/A/Renamed.md');void 0`);
  await wait(`!hv.workbench.data.scope.paths.includes(${JSON.stringify(pairPaths[0])})||hv.workbench.facts.get(${JSON.stringify(pairPaths)})?.state==='missing'`);
  await shot('manual-rename-list');
  await ev("await app.vault.delete(app.vault.getFileByPath('Workbench/A/Renamed.md'));void 0");
