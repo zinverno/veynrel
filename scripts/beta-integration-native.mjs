@@ -5,7 +5,12 @@ import {execFileSync} from 'node:child_process';
 
 export async function archiveChain(c) {
  const {ev,wait,clickSelector:click,field,shot,closeModals,markdown,vault,root,before,checks}=c;
- const history=async()=>{await closeModals();await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history');void 0");await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]:not(:disabled)')&&!plugin.safeApply.busy");};
+ const history=async()=>{
+  await closeModals();await ev("app.commands.executeCommandById('ai-knowledge-hub:consolidation-operation-history');void 0");
+  await wait("!!document.querySelector('.ai-operation-history [data-safe-action=refresh]:not(:disabled)')&&!plugin.safeApply.busy");
+  if(!await ev("!!document.querySelector('.ai-operation-history [data-operation-id]')"))await click('.ai-operation-history [data-safe-action=refresh]');
+  await wait("!!document.querySelector('.ai-operation-history [data-operation-id]')&&!plugin.safeApply.busy");
+ };
  const merge=await ev('[...engine.pairReviews].at(-1).planner.view.mergePlan');
  await click('.modal [data-merge-apply-action=confirm]');await wait("!plugin.safeApply.busy&&!!document.querySelector('.modal [data-merge-apply-action=history]')");
  assert.equal(fs.readFileSync(vault+'/'+merge.canonical.path,'utf8'),merge.canonical.after);
