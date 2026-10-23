@@ -31,9 +31,23 @@ As your knowledge base grows, Veynrel helps you understand its state beyond fold
 
 Local Health and Recall work without an AI provider. Semantic and language-model features are optional and only run when explicitly configured and used.
 
+## New in 2.2.1
+
+**Review vault** starts with a candidate list; the optional map runs only when opened. **New / Reviewed** separates active work from persistent **Leave as is** decisions for the exact saved versions of a pair. Changing either note makes the pair eligible again; restoring a decision is separate from Markdown Undo.
+
+Open a pair → consent to the displayed analysis request → inspect its recommendation and evidence → prepare the supported action → review the exact change → **Apply**. History offers a separate **Undo** where the executor supports it. Availability is checked before preparation; a new link updates local facts without declaring semantic overlap resolved. Merge, Group and Bundle explain their actual effects instead of promising automatic full-file fusion.
+
+Connection rules can prevent suggestions **within a tag/folder group**, or **exclude the group from connection search**. They run before top-K: exercises can still connect to explanations while exercise-to-exercise suggestions are omitted. Duplicate discovery remains separate.
+
+**Processing** brings single-note atomization, Batch and MOC together. Atomization has note selection, AI consent, proposal preview/exclusion and a separate exact write confirmation. It retains the original content and reports partial writes; **it has no universal Undo**. MOC preparation shows saved clusters, destinations, create/update effects and any paid model requests before confirmation. Batch keeps its own note selection.
+
+Home exposes remaining top-level folders through **More folders**. Recall separates review, inventory and card creation while preserving FSRS scheduling. Map opening, expanded/collapsed layout, keyboard access and RU/EN theme presentation are polished. Obsidian Review compatibility fixes remove the reported assertions and stylesheet `:has()` without changing the workflow.
+
+[EN/RU release notes](docs/releases/2.2.1.md) · [Install, update and rollback](docs/release-2.2.1-install.md).
+
 ## A look inside
 
-Veynrel 2.0.1 in Obsidian. Select an image to inspect it at full size.
+Historical Veynrel 2.0.1 screenshots in Obsidian; the 2.2.1 workspace adds the list-first Review and Processing flows described above. Select an image to inspect it at full size.
 
 <table>
   <tr>
@@ -63,21 +77,23 @@ Veynrel 2.0.1 in Obsidian. Select an image to inspect it at full size.
 1. [Install Veynrel](#installation), then use its ribbon icon or **Open Veynrel Health** command.
 2. Choose a profile and **run local Health**. Inspect the recommendation and Findings; no AI provider is required.
 3. Optionally enable **Semantic Intelligence**: choose an embedding provider/model, test the connection and explicitly build the first index.
-4. Open **Discover** to explore Semantic Neighborhood, Global Semantic Map and Connection Opportunities.
+4. Open **Review vault** to inspect candidates, or explicitly open its optional map. The existing semantic tools remain available.
 5. If you want spaced repetition, add flashcards and choose **Find flashcards** in Recall.
 6. Configure **Deep Intelligence** for Knowledge Health or advanced AI workflows, and **Connect** for Companion, only if needed.
 
 ## One workspace
 
 ```text
-Health | Findings | Discover | Recall | Connect | Tools | Settings
+Home | Review vault | Recall | Health | Processing | Connect | Tools | Settings
 ```
 
 | Page | What you can do |
 | --- | --- |
 | **Health** | See Vault Pulse, recommendations, four dimensions of knowledge health and Vault Topology. |
 | **Findings** | Review evidence and decide what to address, dismiss or revisit. |
-| **Discover** | Search by meaning, explore semantic maps and inspect connection candidates. |
+| **Home** | Choose an area and inspect local overview counts; reveal all top-level folders. |
+| **Review vault** | Review candidates and persistent decisions; open an optional map or a pair. |
+| **Processing** | Prepare single-note atomization, batch processing or MOC generation. |
 | **Recall** | Review your flashcards with native FSRS-6 scheduling. |
 | **Connect** | Configure Companion, synchronize its mirror and review external proposals. |
 | **Tools** | Launch advanced audits, Ask your Vault, batch processing and MOC generation. |
@@ -179,7 +195,7 @@ AI card generation is optional and explicit: it uses your configured language mo
 
 Manual mirror sync requires confirmation. Enabling Connect also permits disclosed incremental synchronization after subsequent semantic changes. The mirror can contain Markdown, chunk text, metadata and embeddings; use an endpoint you trust. [Connect data flow and setup](docs/veynrel-connect.md).
 
-**Tools** keeps Ask your Vault, Deep Audit / Single Audit, batch processing, MOC generation and legacy reports available. Editor workflows—AI writing, selection transforms, Dataview generation and atomization—remain separate, through the command palette and editor context menu. Existing command IDs remain compatible with hotkeys and automation.
+**Tools** keeps Ask your Vault, Deep Audit / Single Audit, batch processing, MOC generation and legacy reports available. Editor workflows—AI writing, selection transforms and Dataview generation—remain available through the command palette and editor context menu. Atomization uses the same consent/preview/write route from Processing, the command and the editor menu. Existing command IDs remain compatible with hotkeys and automation.
 
 **[Tag Taxonomy Profile v1](docs/tag-taxonomy-profile-v1.md)** adds a local Tools dialog: explicitly scan Obsidian's tag metadata, browse the existing hierarchy and note counts, edit independent category policies, then review and save confirmed rules in Veynrel settings. The temporary inventory is not persisted. Opening the dialog performs no scan; inventory scanning and profile editing use no LLM, embeddings, Decisions or Markdown edits.
 
@@ -255,12 +271,15 @@ Obsidian vault
 
 - The first semantic build and rebuilds after incompatible embedding-space changes are explicit.
 - Global Semantic Map exact mode supports **up to 500 eligible mapped notes**; Connection Opportunities shares that limit.
-- Connection Opportunities uses a sparse **top-5** semantic graph. It cannot prove a Markdown link should exist; candidate reviews are **session-only**, not persisted.
+- The legacy Connection Opportunities surface uses a sparse **top-5** semantic graph and session-only annotations. The separate Review vault queue persists **Leave as is** decisions for exact Markdown versions. Neither surface proves that a link should exist.
+- External models may charge for analysis/generation; inspect the recipient and disclosed content before consent.
+- Generative atomization and MOC are not the journaled consolidation executor and have no universal Undo; partial writes need the reported file list and your backup.
+- Rules and pair decisions do not provide conflict resolution for concurrent processes or Sync.
 - Recall has no decks, review-history views or optimizer analytics.
 - Semantic search uses a local linear scan; duplicate detection uses pairwise comparison suited to personal vault sizes.
 - Ask your Vault is a one-shot flow, and Knowledge Health is an AI-assisted review signal, not factual verification.
 - Companion remains **self-hosted**, with no hosted Veynrel account service.
-- Verification of the newer visual/native surfaces is strongest on **Linux desktop**. Mobile and other desktop environments are not equally covered for every surface.
+- Compatibility metadata remains Obsidian **1.8.7+**, desktop and mobile. Runtime type compatibility is checked against the official 1.8.7 API; native acceptance is on **Linux / Obsidian 1.13.7**. Physical mobile, Windows/macOS, screen readers and a native 1.8.7 run are not verified; narrow desktop emulation is not a mobile-device test.
 
 ## Development and contributing
 
