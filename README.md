@@ -1,287 +1,118 @@
 # Veynrel
 
-![Veynrel](assets/brand/veynrel-readme-cover.png)
+![Veynrel 2.2.1 — Review your notes. Choose what changes.](assets/showcase/2.2.1/cover.png)
 
-<p align="center">
-  <strong>See what needs attention in your Obsidian vault. Discover the connections you didn't explicitly create.</strong>
-</p>
+**Find connections worth reviewing. Decide what to keep, link or change in your Obsidian notes.**
 
-<p align="center">
-  Knowledge health, semantic exploration and native spaced repetition for Obsidian.
-</p>
+Veynrel brings a candidate list, evidence-led pair review, guarded Markdown changes and native spaced repetition into one workspace. Start with local checks; add semantic search and AI analysis when you need them.
 
-<p align="center">
-  <a href="https://github.com/zinverno/veynrel/releases">Releases</a>
-  · <a href="https://github.com/zinverno/veynrel/stargazers">Star Veynrel</a>
-  · <a href="LICENSE">MIT License</a>
-</p>
+[Install](#installation) · [2.2.1 release notes](docs/releases/2.2.1.md) · [Releases](https://github.com/zinverno/veynrel/releases) · [MIT license](LICENSE)
 
-<p align="center">
-  <img
-    src="assets/showcase/2.0.1/veynrel-demo.gif"
-    width="960"
-    alt="Veynrel Health and semantic exploration workflow">
-</p>
+<p align="center"><a href="assets/showcase/2.2.1/review-to-apply.gif"><img src="assets/showcase/2.2.1/review-to-apply.gif" width="1000" alt="In real Obsidian: consent to pair analysis, inspect a link recommendation, prepare an exact preview and separately confirm Apply"></a></p>
 
-As your knowledge base grows, Veynrel helps you understand its state beyond folders and search results. Three primary concepts guide the workspace:
+*Veynrel 2.2.1 in real Obsidian, using synthetic notes and a local controlled model response. These demonstrations show the workflow, not AI quality. [Media details](assets/showcase/2.2.1/README.md).*
 
-- **Health** surfaces broken links, structural problems and disconnected areas as reviewable findings.
-- **Discover** offers semantic search, semantic neighborhoods and the Global Semantic Map.
-- **Recall** provides native FSRS-6 spaced repetition.
+## From a candidate to a considered change
 
-Local Health and Recall work without an AI provider. Semantic and language-model features are optional and only run when explicitly configured and used.
+1. **Choose an area.** Home shows your folders; **More folders** reveals the rest.
+2. **Review a pair.** Find repeats, overlaps or possible connections. Compare the saved notes before deciding whether to request AI analysis.
+3. **Inspect the recommendation.** Confirm the displayed request first. The result shows evidence and a primary action; availability is checked before preparation.
+4. **Review the exact change.** Choose the missing parameters, inspect the before/after preview, then separately confirm **Apply**.
+5. **Keep control.** Supported consolidation operations have History and a separate guarded **Undo**. Or choose **Leave as is**: the decision survives restart for those exact saved versions and can be restored from **Reviewed**.
 
-## New in 2.2.1
+Adding a link updates local facts; it does not declare an overlap solved. A high similarity score does not prove duplication.
 
-**Review vault** starts with a candidate list; the optional map runs only when opened. **New / Reviewed** separates active work from persistent **Leave as is** decisions for the exact saved versions of a pair. Changing either note makes the pair eligible again; restoring a decision is separate from Markdown Undo.
-
-Open a pair → consent to the displayed analysis request → inspect its recommendation and evidence → prepare the supported action → review the exact change → **Apply**. History offers a separate **Undo** where the executor supports it. Availability is checked before preparation; a new link updates local facts without declaring semantic overlap resolved. Merge, Group and Bundle explain their actual effects instead of promising automatic full-file fusion.
-
-Connection rules can prevent suggestions **within a tag/folder group**, or **exclude the group from connection search**. They run before top-K: exercises can still connect to explanations while exercise-to-exercise suggestions are omitted. Duplicate discovery remains separate.
-
-**Processing** brings single-note atomization, Batch and MOC together. Atomization has note selection, AI consent, proposal preview/exclusion and a separate exact write confirmation. It retains the original content and reports partial writes; **it has no universal Undo**. MOC preparation shows saved clusters, destinations, create/update effects and any paid model requests before confirmation. Batch keeps its own note selection.
-
-Home exposes remaining top-level folders through **More folders**. Recall separates review, inventory and card creation while preserving FSRS scheduling. Map opening, expanded/collapsed layout, keyboard access and RU/EN theme presentation are polished. Obsidian Review compatibility fixes remove the reported assertions and stylesheet `:has()` without changing the workflow.
-
-[EN/RU release notes](docs/releases/2.2.1.md) · [Install, update and rollback](docs/release-2.2.1-install.md).
-
-## A look inside
-
-Historical Veynrel 2.0.1 screenshots in Obsidian; the 2.2.1 workspace adds the list-first Review and Processing flows described above. Select an image to inspect it at full size.
+## Inside the workspace
 
 <table>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="assets/showcase/2.0.1/health-dashboard.png"><img src="assets/showcase/2.0.1/health-dashboard.png" width="600" alt="Health dashboard with Vault Pulse, a broken-link recommendation and four areas of attention"></a>
-      <br><strong>Health</strong> — see what needs attention and why.
-    </td>
-    <td width="50%" valign="top">
-      <a href="assets/showcase/2.0.1/semantic-map.png"><img src="assets/showcase/2.0.1/semantic-map.png" width="600" alt="Global Semantic Map with the vault semantic core, a selected note and its nearest semantic neighbors"></a>
-      <br><strong>Semantic Map</strong> — explore the structure of your indexed knowledge.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="assets/showcase/2.0.1/knowledge-progress.png"><img src="assets/showcase/2.0.1/knowledge-progress.png" width="600" alt="Knowledge Health language-model analysis showing the current stage, processed batch count and elapsed time"></a>
-      <br><strong>Knowledge Health</strong> — follow real analysis stages and progress on larger vaults.
-    </td>
-    <td width="50%" valign="top">
-      <a href="assets/showcase/2.0.1/audit-modes.png"><img src="assets/showcase/2.0.1/audit-modes.png" width="600" alt="Vault audit selector with changed-note, full detailed and overview modes, note counts and cache behavior"></a>
-      <br><strong>Vault Audit</strong> — choose between changed-note, full detailed and overview workflows.
-    </td>
-  </tr>
+<tr>
+<td width="50%"><a href="assets/showcase/2.2.1/home.png"><img src="assets/showcase/2.2.1/home.png" width="600" alt="Home with top-level folders, a whole-vault overview and five more folders"></a><br><strong>Choose an area</strong> — a clear starting point for your vault.</td>
+<td width="50%"><a href="assets/showcase/2.2.1/recommendation.png"><img src="assets/showcase/2.2.1/recommendation.png" width="600" alt="Pair review with a clickable Link notes recommendation and shared and distinct evidence"></a><br><strong>Make a decision</strong> — inspect the evidence and prepare the proposed action.</td>
+</tr>
+<tr>
+<td><a href="assets/showcase/2.2.1/processing.png"><img src="assets/showcase/2.2.1/processing.png" width="600" alt="Processing with Atomize a note, Batch processing and Create MOCs cards"></a><br><strong>Process deliberately</strong> — each tool explains its effect before you begin.</td>
+<td><a href="assets/showcase/2.2.1/recall.png"><img src="assets/showcase/2.2.1/recall.png" width="600" alt="Recall with due, active and new card counts and a Start review action"></a><br><strong>Remember what you wrote</strong> — local FSRS-6 review.</td>
+</tr>
 </table>
 
-## Quick start
+More: [candidate list](assets/showcase/2.2.1/review.png) · [atomization proposals](assets/showcase/2.2.1/atomization-preview.png) · [History → Undo](assets/showcase/2.2.1/history-undo.gif) · [atomization workflow](assets/showcase/2.2.1/atomization.gif) · [Recall workflow](assets/showcase/2.2.1/recall.gif).
 
-1. [Install Veynrel](#installation), then use its ribbon icon or **Open Veynrel Health** command.
-2. Choose a profile and **run local Health**. Inspect the recommendation and Findings; no AI provider is required.
-3. Optionally enable **Semantic Intelligence**: choose an embedding provider/model, test the connection and explicitly build the first index.
-4. Open **Review vault** to inspect candidates, or explicitly open its optional map. The existing semantic tools remain available.
-5. If you want spaced repetition, add flashcards and choose **Find flashcards** in Recall.
-6. Configure **Deep Intelligence** for Knowledge Health or advanced AI workflows, and **Connect** for Companion, only if needed.
+## Find useful relationships
 
-## One workspace
+- **Local Health** finds broken links, structural issues and exact duplicates without an AI provider. Findings retain evidence and coverage information.
+- **Semantic search and Similar Notes** use an embedding index to surface related material. The optional map combines known links, semantic neighbors and tag membership; opening Review starts with the list.
+- **Connection rules** can suppress suggestions within a tag or folder, or exclude that group from connection search. They run **before top-K**: exercises can still connect to explanations even when the five closest results are other exercises. Duplicate discovery remains separate.
+- **Pair analysis** uses two saved sources, explicit consent and locally checked evidence. Model interpretation remains a suggestion for you to assess.
 
-```text
-Home | Review vault | Recall | Health | Processing | Connect | Tools | Settings
-```
+[Connection rules](docs/review-stage-2.md) · [Semantic search and index](docs/global-semantic-map.md) · [Relationship Analyzer](docs/relationship-analyzer-v1.md).
 
-| Page | What you can do |
-| --- | --- |
-| **Health** | See Vault Pulse, recommendations, four dimensions of knowledge health and Vault Topology. |
-| **Findings** | Review evidence and decide what to address, dismiss or revisit. |
-| **Home** | Choose an area and inspect local overview counts; reveal all top-level folders. |
-| **Review vault** | Review candidates and persistent decisions; open an optional map or a pair. |
-| **Processing** | Prepare single-note atomization, batch processing or MOC generation. |
-| **Recall** | Review your flashcards with native FSRS-6 scheduling. |
-| **Connect** | Configure Companion, synchronize its mirror and review external proposals. |
-| **Tools** | Launch advanced audits, Ask your Vault, batch processing and MOC generation. |
-| **Settings** | Check capability state and configure the services you use. |
+## Prepare changes, not surprises
 
-## Health and Findings
+Supported consolidation routes include links, embeds, copying selected material with **Merge**, and preserving context with **Group** or **Bundle**. They are bounded Markdown operations, not automatic full-file fusion. Preflight and the final review can refuse unsupported structures or changed sources. Archiving is a separate reviewed operation with its own dependencies.
 
-**Vault Pulse → recommendation → current data.** Health shows concrete Findings and coverage instead of an opaque 0–100 score, across four dimensions:
+**Atomize a note** proposes separate notes from one source. Select the note, confirm AI analysis, review each proposal, exclude unwanted ones, then confirm the exact files and source-link block. The original content stays. **Generative atomization has no universal Undo** and reports partial writes explicitly.
 
-- **Structure:** broken links, orphan notes, weak structure and disconnected areas.
-- **Connections:** explicit relationships, exact duplicates and semantic duplicate findings.
-- **Recall:** cards due for native review.
-- **Knowledge:** explicit AI-assisted signals about underdeveloped notes.
+**MOC creation** uses saved deep-audit clusters and confirms destinations, create/update effects and any model use before execution. **Batch processing** has its own file selection and confirmation. Neither inherits the consolidation journal's Undo contract.
 
-The current-data dashboard brings findings, last-check information, Recall and Knowledge state together. **Vault Topology** lets you inspect actual Markdown links in a map with note details. The local Health scan requires no AI.
+[Safe Apply and Undo](docs/safe-apply-undo-v1.md) · [Generative atomization](docs/processing-atomization.md) · [Processing and MOC](docs/processing-ux-followup.md).
 
-**Findings is your action inbox.** Review evidence, open affected notes, dismiss, snooze or reopen a Finding. Supported checks automatically resolve findings when a subsequent analysis confirms the issue has disappeared.
+## Recall without an AI provider
 
-## Discover by meaning
-
-- **Search & find:** semantic search, related notes and potential semantic duplicates.
-- **Visual exploration:** Semantic Neighborhood, Global Semantic Map with selected-note focus, and Connection Opportunities.
-- **Semantic Health:** explicitly check for semantic duplicates and review the resulting Findings.
-
-These features reuse the existing semantic index. Similarity is a discovery signal, not proof that notes are identical or agree.
-
-**Optional [Rerank](docs/rerank-v1.md)** adds **Refine results** to the existing semantic search. New installations default to off/manual. In manual mode, **Search** gets one pool of up to 30 candidates and shows the original top 10; only **Refine results** sends the query and verified current fragments to OpenRouter using your separate key. Refinement makes no second embedding request. Switch between **Original order** and **After refinement** locally, without another API call. A failed refinement preserves eligible original results; an explicit retry may incur another charge.
-
-New Rerank settings start with `voyageai/rerank-3-lite`; supported custom model IDs remain available. Existing explicit models are preserved, and previously enabled settings without a model retain their effective Cohere configuration. See the [2.1.0 release notes](docs/releases/2.1.0.md).
-
-Existing enabled installations keep **automatic** refinement after upgrading; disabled installations adopt manual mode. Choose either mode beside the Rerank switch in settings. Existing model IDs, keys and the semantic index are preserved. Rerank is optional: the [hard benchmark](docs/rerank-hard-benchmark-v1.md) improved nDCG@10 on 11/24 positive queries, left 11 unchanged and regressed on 2; semantic search already had a relevant top result on 23/24. These small synthetic results do not guarantee improvement. The index, maps, RAG and Companion are unaffected.
-
-**Optional [Decisions v1](docs/decisions-v1.md)** adds **Assess overlap** to potential duplicate pairs. Review two current fragments, then explicitly send exactly that text to OpenRouter using an independent model setting and API key. It is off by default, works independently of rerank, and makes no automatic vault or index changes. The five-category model assessment applies only to the displayed fragments; a shared topic or high confidence does not confirm a duplicate. Requests are billed to your account.
-
-**[Pair Inspector](docs/pair-inspector.md)** adds **Inspect structure** to each Potential duplicates pair. View the two current saved Markdown sources, tags, links, embed references and available Obsidian metadata. This explicit, read-only action needs no Decisions setting, API key or model request. Embedded content is not expanded; cache and preview limits are disclosed.
-
-**[Relationship Analyzer v1](docs/relationship-analyzer-v1.md)** optionally analyzes those two saved sources using the existing Deep Intelligence model. Review the exact request and confirm before sending. Results are preliminary recommendations with literal quote checks, not proven duplication or ready-to-apply operations. Oversized pairs are refused; nothing edits Markdown or runs automatically.
-
-**[Change Planner v1](docs/change-planner-v1.md)** turns a current relationship result into a local, read-only Markdown plan. Choose a paragraph and confirm its exact location to preview a normal link or a recommended embed replacement, with complete before/after text and a safe diff. No-change is supported; nothing applies, persists or calls a model during planning.
-
-**[Atomization into an existing empty note](docs/atomization-existing-empty-note-v1.md)** copies a verified paragraph or complete section and its context into a note you created yourself. A separate final review authorizes filling that empty file; a separately reviewed Undo restores empty contents and keeps the file. Both source notes remain unchanged. Automatic new-file creation stays disabled in this consolidation route. The separate [generative atomization workflow](docs/processing-atomization.md) creates reviewed model proposals only after AI consent and a separate write confirmation; it has no universal Undo.
-
-**[Safe Apply & Undo v1](docs/safe-apply-undo-v1.md)** adds a separate final review for one planned link or embed edit, verified local recovery copies, operation history and guarded undo after restart. Changed sources or open editors block automatic writing; later user edits block automatic undo.
-
-Decisions and Rerank omit filename-derived fallback headings from outgoing fragments while preserving authored headings and body text. Names or paths written in the note itself are still sent; this is not anonymization. Indexing, embeddings, RAG and Companion retain their existing behavior. See the [outbound provenance fix evidence](docs/outbound-fragment-provenance.md).
-
-| Relationship view | What it shows |
-| --- | --- |
-| **Vault Topology** (Health) | The Markdown links you actually created. |
-| **Semantic Neighborhood** | One note and its closest semantic neighbors. |
-| **Global Semantic Map** | The whole eligible indexed semantic space, within the current map limit. |
-| **Connection Opportunities** | Semantic top-5 relationships compared with explicit Markdown links. |
-
-### Global Semantic Map
-
-Distance from the center reflects semantic similarity to the current center: **closer means more similar**. The default center is the **vault semantic core**; any mapped note can explicitly become the focus, with a simple reset to the core.
-
-Node size reflects **semantic connectedness**, not importance or note quality. Map exploration reuses existing embeddings and makes no new embedding requests. See the [map guide](docs/global-semantic-map.md) for details.
-
-### Connection Opportunities
-
-Inspect connection candidates with semantic evidence beside the Markdown relationship:
-
-| Category | Meaning |
-| --- | --- |
-| **Candidate** | A semantic top-5 relationship with no known Markdown link in either direction. |
-| **Aligned** | A semantic top-5 relationship that also has Markdown linkage. |
-| **Explicit-only** | A Markdown-linked pair outside the sparse semantic top-5 graph. |
-
-**Explicit-only does not mean semantically unrelated.** Candidates are invitations to inspect, not proof that a link should exist. Coverage notices identify relationships that could not be compared.
-
-Review aids include mutual top-3, mutual top-5 and one-sided evidence; shared semantic neighbors; and an optional **Hide Excalidraw notes** presentation filter. Mark a candidate **Useful / Not useful / Unsure** during the current session. These annotations are not persisted, and no Markdown links are created automatically.
-
-More: [Connection Opportunities](docs/connection-opportunities.md) · [candidate evidence and review](docs/connection-candidate-quality.md).
-
-[Reproducible case study](docs/case-studies/connection-opportunities/index.md): 40 synthetic notes in real Obsidian, ten inspected candidates and one explicitly added link. Includes source data, real screenshots and counterexamples; human usefulness was not assessed in this baseline.
-[Russian continuation](docs/case-studies/connection-opportunities/ru/index.md): local multilingual embeddings, a verified Candidate → Aligned transition, and three native screenshots. Includes the author-approved aggregate assessment and three example paraphrases; individual responses remain private.
-
-## Remember with Recall
-
-Native spaced repetition uses **FSRS-6**, a due queue and local scheduling. No third-party spaced repetition plugin is required.
-
-Write one `Question::Answer` card per line under a Markdown heading named exactly **`Flashcards`** (case-sensitive):
+Write one `Question::Answer` per line under a heading named exactly **Flashcards**:
 
 ```markdown
 ## Flashcards
 
-What is retrieval practice::Actively recalling information instead of rereading it
-Why use spaced repetition::It schedules reviews near the point of forgetting
+What does a cache store?::Reusable results.
+Why invalidate a value?::Its source may have changed.
 ```
 
-Choose **Find flashcards**, start a review, reveal the answer and rate **Again / Hard / Good / Easy** (keys **1–4**). Schedules survive restarts.
+Open **Review** in the sidebar (the Recall screen), find your flashcards and start a session. Reveal the answer, then rate **Again / Hard / Good / Easy** with buttons or keys **1–4**. Local FSRS-6 schedules survive restart. AI card generation is optional.
 
-AI card generation is optional and explicit: it uses your configured language model and appends generated cards to the note for native Recall. [Recall guide](docs/recall-review-experience.md).
+[Recall guide](docs/recall-review-experience.md).
 
-## Connect, Tools and Settings
+## Start small
 
-**Connect** works with the optional, self-hosted [Veynrel Companion](https://github.com/zinverno/veynrel-companion). It makes a synchronized mirror available to MCP clients for note reading, semantic search and change proposals. External agents **cannot directly write your vault through the proposal workflow**: you inspect each proposal in Obsidian and choose **Approve** or **Reject**.
+1. Install Veynrel and open it from the ribbon or **Open Veynrel Health** command.
+2. Choose an area on Home. Run a local check from **Check**; no provider is needed.
+3. For semantic features, configure an embedding provider in Settings and explicitly build the first index.
+4. Open **Review vault** and refresh candidates. Configure the language model only if you want pair analysis or generative tools.
+5. Use **Review / Recall** for authored flashcards. **All tools** keeps advanced audits, Ask your Vault, tag tools and existing editor commands available.
 
-Manual mirror sync requires confirmation. Enabling Connect also permits disclosed incremental synchronization after subsequent semantic changes. The mirror can contain Markdown, chunk text, metadata and embeddings; use an endpoint you trust. [Connect data flow and setup](docs/veynrel-connect.md).
+[Optional self-hosted Companion](docs/veynrel-connect.md) provides a disclosed mirror and a proposal workflow for external clients. It is separate from local Review.
 
-**Tools** keeps Ask your Vault, Deep Audit / Single Audit, batch processing, MOC generation and legacy reports available. Editor workflows—AI writing, selection transforms and Dataview generation—remain available through the command palette and editor context menu. Atomization uses the same consent/preview/write route from Processing, the command and the editor menu. Existing command IDs remain compatible with hotkeys and automation.
+## Data and limits
 
-**[Tag Taxonomy Profile v1](docs/tag-taxonomy-profile-v1.md)** adds a local Tools dialog: explicitly scan Obsidian's tag metadata, browse the existing hierarchy and note counts, edit independent category policies, then review and save confirmed rules in Veynrel settings. The temporary inventory is not persisted. Opening the dialog performs no scan; inventory scanning and profile editing use no LLM, embeddings, Decisions or Markdown edits.
-
-**[Tag Recommendations v1](docs/tag-recommendations-v1.md)** extends that dialog with optional recommendations for one exact-path saved note, using the confirmed profile, a complete bounded local tag inventory and the existing Deep Intelligence model. Review the full request and confirm each send. Existing and proposed tags are separate; literal quotes and category policies are checked. Missing/stale metadata and oversized inputs are refused. Nothing applies tags or edits Markdown.
-
-**Settings** summarizes Deep Intelligence, Semantic Intelligence, Connect and Recall. Native **Obsidian Settings → Veynrel** provides advanced provider/model, embedding, Companion, Deep Audit, output and interface controls.
-
-Supported language-model providers include Ollama, OpenRouter, OpenAI, Groq and custom OpenAI-compatible endpoints. Embeddings support Ollama, OpenRouter and OpenAI-compatible endpoints. Language-model, embedding and Companion credentials are separate.
-
-## Local-first, explicit AI
-
-| Activity | Where the work happens |
+| Work | Where it runs |
 | --- | --- |
-| Local Health and Vault Topology | On your device; no AI provider required. |
-| Recall discovery and scheduling | Locally, using native FSRS-6. |
-| Semantic indexing / search | A remote embedding provider receives required note chunks / the search query. A local Ollama endpoint can keep embedding work local. |
-| Semantic maps / connection comparison | Existing index and link metadata; no new embeddings or provider calls. |
-| Knowledge Health / AI workflows | Explicit actions send the content needed for the task to your configured language model. |
-| Connect | The disclosed mirror goes to your configured Companion endpoint; proposed vault changes require Obsidian approval. |
+| Local Health, topology, Recall and saved decisions | On your device; no AI provider needed. |
+| Existing-index maps and connection comparison | Local vectors and link metadata; no new embedding request. |
+| Indexing and semantic text search | The configured embedding endpoint receives chunks or the query. Ollama can be local. |
+| Pair analysis and generative tools | The configured language-model endpoint receives the disclosed input. Remote providers may charge. |
+| Enabled Companion | Your configured server receives the disclosed mirror; proposals require review in Obsidian. |
 
-Opening the workspace does not itself scan, build an index, call a provider or synchronize Companion. The first semantic build is explicit; later Markdown edits can update an existing index incrementally. A local vector index does not make a remote provider local.
-
-Veynrel has no telemetry or analytics. Provider API keys are not sent to Companion, and the Companion token is not sent to AI providers. Review the policies of remote services before sending sensitive notes. Data-flow, storage and recovery details are in [`docs/`](docs/).
+- Semantic similarity is **not** a probability, proof of duplication or a verdict on note quality.
+- The exact semantic overview and connection comparison support **up to 500 eligible notes**. Choose a smaller area above the limit; rules do not bypass it.
+- The first index build is explicit. After configuration, incremental indexing and enabled Companion synchronization can run on later changes.
+- Undo is operation-specific. Changed files or dependencies can block it. Generative atomization, Batch and MOC do not have universal rollback; keep backups.
+- AI evidence checks verify source binding, not the truth of an interpretation. Synthetic demos do not validate a real model.
+- Native acceptance and these captures use Linux / Obsidian 1.13.7. The manifest declares Obsidian 1.8.7+ and mobile support, but physical mobile, Windows/macOS, screen readers and native 1.8.7 were not verified in this media pass.
 
 ## Installation
 
-### Obsidian Community Plugins
+In Obsidian, open **Settings → Community plugins → Browse**, search for **Veynrel**, then install and enable it.
 
-1. Open **Settings → Community plugins → Browse**.
-2. Search for **Veynrel**.
-3. Install and enable it.
-
-### Manual installation
-
-Download exactly these three files from the same [GitHub Release](https://github.com/zinverno/veynrel/releases):
-
-```text
-main.js
-manifest.json
-styles.css
-```
-
-Place them in:
+For manual installation, download `main.js`, `manifest.json` and `styles.css` from the **same** [stable release](https://github.com/zinverno/veynrel/releases/latest), and place them in:
 
 ```text
 <your-vault>/.obsidian/plugins/ai-knowledge-hub/
 ```
 
-Reload Obsidian and enable Veynrel.
+Reload Obsidian and enable Veynrel. The plugin ID is still **ai-knowledge-hub**; do not create a second `veynrel` folder or replace your settings/index/journal files.
 
-### Updating
+[Installation, update and rollback](docs/release-2.2.1-install.md) · [EN/RU release notes](docs/releases/2.2.1.md).
 
-The plugin ID remains **`ai-knowledge-hub`**. Existing users update normally; do not create a second `veynrel` plugin folder. Compatible settings and feature data continue to use the existing plugin directory.
-
-## How it fits together
-
-```text
-Obsidian vault
-├─ Local Health → Findings
-│                Vault Topology
-├─ Semantic Index → Search / Related / Duplicates
-│                   Semantic Neighborhood
-│                   Global Semantic Map → Selected-note focus
-│                   Connection Opportunities ← Markdown links
-├─ Recall → FSRS-6
-├─ Deep Intelligence → Knowledge Health / advanced AI workflows
-└─ Connect → Companion / MCP → proposals → approval in Obsidian
-```
-
-**Analysis may suggest. Veynrel shows evidence. You decide.**
-
-## Current limitations
-
-- The first semantic build and rebuilds after incompatible embedding-space changes are explicit.
-- Global Semantic Map exact mode supports **up to 500 eligible mapped notes**; Connection Opportunities shares that limit.
-- The legacy Connection Opportunities surface uses a sparse **top-5** semantic graph and session-only annotations. The separate Review vault queue persists **Leave as is** decisions for exact Markdown versions. Neither surface proves that a link should exist.
-- External models may charge for analysis/generation; inspect the recipient and disclosed content before consent.
-- Generative atomization and MOC are not the journaled consolidation executor and have no universal Undo; partial writes need the reported file list and your backup.
-- Rules and pair decisions do not provide conflict resolution for concurrent processes or Sync.
-- Recall has no decks, review-history views or optimizer analytics.
-- Semantic search uses a local linear scan; duplicate detection uses pairwise comparison suited to personal vault sizes.
-- Ask your Vault is a one-shot flow, and Knowledge Health is an AI-assisted review signal, not factual verification.
-- Companion remains **self-hosted**, with no hosted Veynrel account service.
-- Compatibility metadata remains Obsidian **1.8.7+**, desktop and mobile. Runtime type compatibility is checked against the official 1.8.7 API; native acceptance is on **Linux / Obsidian 1.13.7**. Physical mobile, Windows/macOS, screen readers and a native 1.8.7 run are not verified; narrow desktop emulation is not a mobile-device test.
-
-## Development and contributing
+## Development and support
 
 ```bash
 npm ci
@@ -292,14 +123,6 @@ npm run audit:proposals
 npm run build
 ```
 
-Veynrel and Companion are separate repositories. For integration development, clone [Companion](https://github.com/zinverno/veynrel-companion) beside this repository as `../veynrel-companion`, then run `npm run companion:smoke-sibling`.
-
-See [`docs/`](docs/) for architecture and storage contracts, or the [final UI/UX audit](docs/final-product-ui-ux.md) for native verification and known interface limitations. Issues, bug reports and pull requests are welcome.
-
-## Support Veynrel
-
-Veynrel is free and open source. [Star the repository](https://github.com/zinverno/veynrel/stargazers) or [support development on Boosty](https://boosty.to/veynrel).
-
-## License
+[Documentation](docs/) · [Report an issue](https://github.com/zinverno/veynrel/issues) · [Star Veynrel](https://github.com/zinverno/veynrel/stargazers) · [Support development](https://boosty.to/veynrel)
 
 [MIT](LICENSE) © 2026 Zinvernix
