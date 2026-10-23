@@ -1,0 +1,674 @@
+[
+  {
+    "name": "list-before-search",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-1",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "link-result",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-initial",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-mouse-b",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-keyboard-a",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choices-en-theme-dark-1280",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choices-en-theme-dark-390",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choices-en-action-theme-dark-390",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choices-en-theme-light-1280",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choices-en-theme-light-390",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choices-en-action-theme-light-390",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "link-parameters",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "exact-review",
+    "nodes": 18,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "applied",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "list-after-apply",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "reopened-history",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "separate-undo-review",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "undone",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "list-after-undo",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-2",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "unavailable-embed",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-en-theme-dark-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-en-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-en-action-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-en-theme-light-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-en-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-en-action-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-3",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "unavailable-ru",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-ru-theme-dark-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-ru-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-ru-action-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-ru-theme-light-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-ru-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "result-ru-action-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "list-ru",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "zoom-200-list",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-theme-dark-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-action-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-theme-light-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-action-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-ru-zoom200",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-theme-dark-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-action-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-theme-light-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-action-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-en-zoom200",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-4",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-consider_merge",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-ru-theme-dark-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-ru-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-ru-action-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-ru-theme-light-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-ru-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-ru-action-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "combine-material",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "parameters-ru-theme-dark-1280",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "parameters-ru-theme-dark-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "parameters-ru-action-theme-dark-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "parameters-ru-theme-light-1280",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "parameters-ru-theme-light-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "parameters-ru-action-theme-light-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "combine-exact-review",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-theme-dark-1280",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-content-theme-dark-1280",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-theme-dark-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-action-theme-dark-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-content-theme-dark-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-theme-light-1280",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-content-theme-light-1280",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-theme-light-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-action-theme-light-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "diff-ru-content-theme-light-390",
+    "nodes": 17,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "merge-applied",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "archive-separate-review",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "archive-blocks-parent",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "archive-parent-undone",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-5",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-consider_embed_b_in_a",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "embed-parameters",
+    "nodes": 8,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-6",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-no_change",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-7",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "decision-manual_review",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "rejected-primary",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-ru-theme-dark-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-ru-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-ru-action-theme-dark-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-ru-theme-light-1280",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-ru-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-ru-action-theme-light-390",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "error-report",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "transport-length",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "transport-unknown-id",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "transport-wrong-schema",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "consent-12",
+    "nodes": 7,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled-ru-theme-dark-1280",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled-ru-theme-dark-390",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled-ru-action-theme-dark-390",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled-ru-theme-light-1280",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled-ru-theme-light-390",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "choice-disabled-ru-action-theme-light-390",
+    "nodes": 19,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "real-split",
+    "nodes": 12,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "manual-edit-list",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "native-rename-confirmation",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  },
+  {
+    "name": "manual-rename-list",
+    "nodes": 6,
+    "differences": [],
+    "selected": true
+  }
+]
