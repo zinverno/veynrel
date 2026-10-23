@@ -32,8 +32,11 @@ export function prepareEvidenceCatalog(input: RelationshipPair): EvidenceCatalog
     let offered = 0, candidates = 0;
     // Lines also preserve formatted Markdown; this is evidence slicing, not an execution parser.
     lines: for (const line of source.matchAll(/[^\r\n]+/g)) {
-      for (let start = line.index!; start < line.index! + line[0].length && offered < EVIDENCE_LIMITS.fragmentsPerSide;) {
-        const end = boundary(source, Math.min(start + EVIDENCE_LIMITS.seedCharacters, line.index! + line[0].length));
+      const lineStart = line.index;
+      if (lineStart === undefined) continue;
+      const lineEnd = lineStart + line[0].length;
+      for (let start = lineStart; start < lineEnd && offered < EVIDENCE_LIMITS.fragmentsPerSide;) {
+        const end = boundary(source, Math.min(start + EVIDENCE_LIMITS.seedCharacters, lineEnd));
         const seed = source.slice(start, end);
         // Repeated seeds are considered once; the coverage counter discloses unoffered occurrences.
         if (seeds.has(seed) || !seed.trim()) { start = end; continue; }

@@ -38,6 +38,7 @@ export class ReviewListView {
   private disposed = false;
   private suspended = false;
   private language = currentLanguage();
+  private layoutHost?: HTMLElement | null;
   constructor(parent: HTMLElement, readonly data: WorkbenchData, private readonly pair: PairReviewPort,
     private readonly actions: ReviewActions, private readonly scrollOwner: HTMLElement) {
     this.element = parent.createDiv({ cls: "veynrel-review" });
@@ -55,6 +56,7 @@ export class ReviewListView {
     if (this.disposed) return;
     if (this.language !== currentLanguage()) { this.suspend(); this.language = currentLanguage(); }
     this.suspended = false;
+    this.syncLayout();
     this.findings = findings;
     if (this.map) this.map.update(findings); else this.render();
   }
@@ -70,7 +72,16 @@ export class ReviewListView {
     this.stopReview?.(); this.stopReview = undefined;
     this.map?.dispose(); this.map = undefined;
     this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
-    this.detail.setAttribute("data-review-surface", "pair");
+    this.detail.setAttribute("data-review-surface", "list");
+    this.syncLayout();
+  }
+  private syncLayout(): void {
+    const host = this.element.parentElement;
+    if (this.layoutHost !== host) this.layoutHost?.removeAttribute("data-review-map");
+    this.layoutHost = host;
+    const open = !this.detail.hidden && this.detail.getAttribute("data-review-surface") === "map";
+    if (open) { this.element.setAttribute("data-review-map", "true"); host?.setAttribute("data-review-map", "true"); }
+    else { this.element.removeAttribute("data-review-map"); host?.removeAttribute("data-review-map"); }
   }
   dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.removeDecisions?.(); this.facts?.dispose(); this.data.dispose(); }
   private back(): void {
@@ -84,6 +95,7 @@ export class ReviewListView {
     if (this.stopReview || this.disposed) return;
     this.selected = pair; this.scroll = this.scrollOwner.scrollTop; this.generation++;
     this.browser.hidden = true; this.detail.hidden = false; this.detail.empty();
+    this.detail.setAttribute("data-review-surface", "pair");
     const generation = this.generation;
     healthButton(this.detail, t("@review.back"), () => { if (generation === this.generation) this.back(); }, "review-back");
     this.detail.createEl("p", { text: t(`@review.origin.${pair.basis}`), cls: "veynrel-review-basis" });
@@ -144,6 +156,7 @@ export class ReviewListView {
     button(toolbar, t("@review.map"), () => {
       this.scroll = this.scrollOwner.scrollTop; this.browser.hidden = true; this.detail.hidden = false; this.detail.empty(); this.generation++;
       this.detail.setAttribute("data-review-surface", "map");
+      this.syncLayout();
       const mapGeneration = this.generation;
       healthButton(this.detail, t("@review.back"), () => { if (mapGeneration === this.generation) this.back(); }, "review-back");
       this.map = this.actions.map(this.detail.createDiv({ cls: "veynrel-review-map-host" })); this.map.update(this.findings);

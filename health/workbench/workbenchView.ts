@@ -52,6 +52,8 @@ export class WorkbenchView {
   private listScroll = 0;
   private pageScroll = 0;
   private language = currentLanguage();
+  private layoutShell?: Element | null;
+  private layoutHost?: HTMLElement | null;
   constructor(parent: HTMLElement, readonly data: WorkbenchData, private readonly pair: PairReviewPort, private readonly actions: WorkbenchActions,
     private readonly scrollOwner: HTMLElement) {
     this.element=parent.createDiv({cls:"veynrel-workbench"});
@@ -61,17 +63,27 @@ export class WorkbenchView {
     this.remove=data.subscribe(()=>this.render());this.render();
   }
   update(findings: readonly Finding[]): void {
+    if(this.disposed)return;
+    this.syncLayout(true);
     this.findings=findings;
     if(this.language!==currentLanguage()){this.language=currentLanguage();this.suspend();}
     this.render();
   }
   suspend(): void {
+    this.syncLayout(false);
     this.generation++;this.stopGraph?.();this.stopGraph=undefined;
     this.stopReview?.();this.stopReview=undefined;this.review.empty();this.review.hidden=true;this.browser.hidden=false;
   }
   dispose(): void {
     this.disposed=true;this.suspend();this.remove();this.removeMigration();this.data.dispose();this.element.removeEventListener("keydown",this.escape);
     this.element.closest(".veynrel-shell")?.classList.remove("is-map-expanded");
+  }
+  private syncLayout(mounted: boolean): void {
+    const shell=mounted?this.element.closest(".veynrel-shell"):null,host=mounted?this.element.parentElement:null;
+    if(this.layoutShell!==shell)this.layoutShell?.removeAttribute("data-workbench-mounted");
+    if(this.layoutHost!==host)this.layoutHost?.removeAttribute("data-workbench-host");
+    this.layoutShell=shell;this.layoutHost=host;
+    shell?.setAttribute("data-workbench-mounted","true");host?.setAttribute("data-workbench-host","true");
   }
   private escape = (event: KeyboardEvent): void => {
     const target=event.target as HTMLElement;
@@ -88,6 +100,7 @@ export class WorkbenchView {
   };
   private render(): void {
     if(this.disposed||this.stopReview)return;
+    this.syncLayout(true);
     const generation=++this.generation,current=():boolean=>!this.disposed&&generation===this.generation;
     const active=this.element.ownerDocument.activeElement as HTMLInputElement|null;
     const key=this.element.contains(active)?active?.getAttribute("data-health-action"):undefined;
@@ -181,6 +194,7 @@ export class WorkbenchView {
       list.scrollTop=this.listScroll;
     }
     if(selectedPaths.length&&this.showDetail){
+      work.setAttribute("data-detail-visible","true");
       const detail=work.createEl("section",{cls:"veynrel-workbench-selection",attr:{tabindex:"-1","data-workbench-selection":"true"}});
       const detailTools=detail.createDiv({cls:"veynrel-detail-tools"});
       button(detailTools,t(this.pinned?"@mapnav.unpin":"@mapnav.pin"),()=>{this.pinned=!this.pinned;this.render();},"workbench-pin");

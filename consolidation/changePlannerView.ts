@@ -147,9 +147,12 @@ export class ChangePlannerView {
     if (intent && !intent.operation) return;
     if (!intent || !["add_link", "replace_with_embed"].includes(this.operation)) root.createEl("p", { text: tr(this.operation === "write_atom_to_empty_note" || this.operation === "atomization_preview" ? "@atom.supported" : this.operation === "copy_context_bundle" ? "@bundle.supported" : this.operation === "copy_context_group" ? "@group.branch" : this.operation === "merge_knowledge" ? "@merge.supported" : this.operation === "add_reciprocal_links" ? "@multi.unsupported" : "@planner.unsupported") });
     const controls = root.createDiv({ cls: "ai-planner-controls" });
-    if (intent?.family === "link" && this.operation === "add_link") reviewNoteChoices(controls, view.input.pair.map(n => n.path), this.sourceChosen ? this.side : null,
-      "source", tr("@intent.linkSource"), side => { this.sourceChosen = true; this.side = side; this.selection = null; this.changed(); },
-      view.input.pair.map((_, side) => !changeRangeOptions(this.analysis, view.input!.pair, "add_link", side as 0 | 1, view.input!.linktexts[side === 0 ? 1 : 0]).ranges.length));
+    if (intent?.family === "link" && this.operation === "add_link") {
+      controls.setAttribute("data-note-choices", "true");
+      reviewNoteChoices(controls, view.input.pair.map(n => n.path), this.sourceChosen ? this.side : null,
+        "source", tr("@intent.linkSource"), side => { this.sourceChosen = true; this.side = side; this.selection = null; this.changed(); },
+        view.input.pair.map((_, side) => !changeRangeOptions(this.analysis, view.input!.pair, "add_link", side as 0 | 1, view.input!.linktexts[side === 0 ? 1 : 0]).ranges.length));
+    }
     if (!intent) {
       const sourceLabel = controls.createEl("label", { text: tr("@planner.source") });
       sourceLabel.hidden = ["write_atom_to_empty_note", "atomization_preview", "copy_context_bundle", "copy_context_group", "add_reciprocal_links", "merge_knowledge"].includes(this.operation);

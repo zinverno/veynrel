@@ -17,12 +17,18 @@ export function reviewNoteChoices(parent: HTMLElement, paths: readonly string[],
   field: string, label: string, change: (side: 0 | 1) => void, disabled: readonly boolean[] = []): void {
   const group = parent.createEl("fieldset", { cls: "ai-review-choices" }); group.createEl("legend", { text: label });
   const name = `review-${field}-${crypto.randomUUID()}`;
+  const choices: { card: HTMLElement; input: HTMLInputElement }[] = [];
   for (const [i, path] of paths.entries()) {
     const card = group.createEl("label", { cls: "ai-review-choice" });
     const input = card.createEl("input", { type: "radio", attr: { name, value: String(i), "data-planner-field": field } });
     input.value = String(i); input.checked = selected === i; input.disabled = !!disabled[i];
+    card.setAttribute("data-selected", String(input.checked)); choices.push({ card, input });
     const text = card.createSpan(); text.createEl("strong", { text: reviewName(path) }); text.createEl("small", { text: path });
     if (input.disabled) text.createEl("small", { text: tr("@final.directionUnavailable") });
-    input.addEventListener("change", () => { if (!input.disabled) change(input.value === "1" ? 1 : 0); });
+    input.addEventListener("change", () => {
+      if (input.disabled) return;
+      for (const choice of choices) choice.card.setAttribute("data-selected", String(choice.input.checked));
+      change(input.value === "1" ? 1 : 0);
+    });
   }
 }

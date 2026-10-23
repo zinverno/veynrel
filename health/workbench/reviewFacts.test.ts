@@ -39,6 +39,7 @@ describe("local review facts do not resolve semantic observations", () => {
     const f = fixture(); f.operation("applied"); f.facts.track([pair]); await ready(f);
     f.read.mockRejectedValueOnce(Error("unavailable")); f.emit(); await ready(f, "unknown");
     expect(f.facts.get(pair)?.operation?.state).toBe("applied"); expect(f.facts.get(pair)?.links).toBeUndefined();
+    expect(f.facts.get(pair)?.changed).toBe(false);
     f.history.mockRejectedValueOnce(Error("busy")); f.emit(); await ready(f);
     expect(f.facts.get(pair)?.historyUnknown).toBe(true); expect(f.facts.get(pair)?.operation?.state).toBe("applied");
     f.facts.dispose();
@@ -49,5 +50,17 @@ describe("local review facts do not resolve semantic observations", () => {
     f.facts.track([pair]); await vi.waitFor(() => expect(f.read).toHaveBeenCalled()); f.facts.dispose();
     const count = f.changed.mock.calls.length; resolve({ signatures: ["old", "old"], links: [true, true], missing: false });
     await Promise.resolve(); expect(f.facts.get(pair)).toBeUndefined(); expect(f.changed).toHaveBeenCalledTimes(count);
+  });
+  it("an older observation cannot replace a newer refresh", async () => {
+    const f = fixture(); f.facts.track([pair]); await ready(f);
+    let resolve!: (v: Awaited<ReturnType<typeof f.read>>) => void;
+    f.read.mockImplementationOnce(() => new Promise(r => { resolve = r; })); f.emit();
+    await vi.waitFor(() => expect(resolve).toBeTypeOf('function'));
+    const seen: unknown[] = []; f.changed.mockImplementation(() => { seen.push(f.facts.get(pair)?.links); });
+    f.data(['new', 'b'], [true, false]); f.emit();
+    resolve({ signatures: ['old', 'old'], links: [false, true], missing: false });
+    await ready(f);
+    expect(f.facts.get(pair)).toMatchObject({ links: [true, false], changed: true });
+    expect(seen).not.toContainEqual([false, true]); f.facts.dispose();
   });
 });
