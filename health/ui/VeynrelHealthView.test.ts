@@ -1193,10 +1193,10 @@ describe("final Tools and Settings IA", () => {
     expect(f.content.texts()).toContain("Knowledge Health"); expect(f.content.texts()).toContain("backups");
     const actions = f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"));
     expect(actions).toHaveLength(7);
-    for (const [name, operation] of Object.entries(f.tools)) {
+    for (const [name, operation] of Object.entries(f.tools).filter(([key]) => key !== "openAtomization")) {
       f.content.action(`tool-${name}`).click(); await flush(); expect(operation).toHaveBeenCalledTimes(1);
     }
-    for (const operation of Object.values(f.tools)) expect(operation).toHaveBeenCalledTimes(1);
+    for (const [name, operation] of Object.entries(f.tools)) expect(operation).toHaveBeenCalledTimes(name === "openAtomization" ? 0 : 1);
     passive(f); expect(f.controller.listFindings()).toEqual([]);
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
@@ -1863,7 +1863,7 @@ describe("safe pair opening", () => {
 });
 
 describe("Processing entry", () => {
-  it("shows three cards, routes to the existing list, and launches batch without scope arguments", async () => {
+  it("shows three cards, opens the Markdown picker, and launches batch without scope arguments", async () => {
     const f = fixture(); Object.assign(f.tools, { savedMocClusterCount: vi.fn(async () => 3) });
     await f.view.onOpen(); f.content.action("nav-process").click(); await flush();
     expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-card"))).toHaveLength(3);
@@ -1871,7 +1871,9 @@ describe("Processing entry", () => {
     expect(f.content.texts()).toContain("Saved clusters: 3");
     f.content.action("tool-openBatchProcessing").click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledWith();
     f.content.action("tool-generateMocs").click(); expect(f.tools.generateMocs).toHaveBeenCalledTimes(1);
-    f.content.action("process-workbench").click(); expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    f.content.action("process-atomization").click(); expect(f.tools.openAtomization).toHaveBeenCalledWith();
+    expect(f.content.action("process-workbench")).toBeUndefined();
+    f.content.action("nav-discover").click(); expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
     await f.view.onClose();
   });
   it("disables MOC while loading, offers audit for no clusters and ignores a detached response", async () => {
@@ -1971,7 +1973,7 @@ describe("Stage 1 native home and scope boundaries", () => {
     const f = fixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
     const details = f.content.all().filter(e => e.tag === "details");
     expect(details.length).toBeGreaterThan(10); expect(details.every(e => !e.open)).toBe(true);
-    for (const action of Object.keys(f.tools)) expect(f.content.action(`tool-${action}`)).toBeDefined();
+    for (const action of Object.keys(f.tools).filter(key => key !== "openAtomization")) expect(f.content.action(`tool-${action}`)).toBeDefined();
     expect(f.content.action("editor-selection").parentElement!.texts()).toContain("Select text in the intended note");
     expect(f.content.all().filter(e => e.attrs["data-health-action"] === "tool-openOperationHistory")).toHaveLength(1);
     for (const work of Object.values(f.tools)) expect(work).not.toHaveBeenCalled();

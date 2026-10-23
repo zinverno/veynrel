@@ -6,7 +6,7 @@ import { healthButton } from "./renderHealthHome";
 export type ProcessingClusters = number | "loading" | "error";
 
 export function renderProcessing(parent: HTMLElement, clusters: ProcessingClusters, actions: {
-  review: () => void; batch: () => void; mocs: () => void; audit: () => void; refresh: () => void;
+  atomization: () => void; batch: () => void; mocs: () => void; audit: () => void; refresh: () => void;
 }): void {
   const page = parent.createEl("section", { cls: "veynrel-processing" });
   workspaceHeading(page, t("@workspace.process"), t("@processing.intro"));
@@ -20,7 +20,7 @@ export function renderProcessing(parent: HTMLElement, clusters: ProcessingCluste
     item.createEl("p", { cls: "veynrel-processing-effect", text: t(`@processing.${key}-effect`) });
     return item;
   };
-  healthButton(card("review", "git-compare-arrows", true), t("@processing.review-action"), actions.review, "process-workbench", false, true);
+  healthButton(card("atomization", "git-fork", true), t("@processing.atomization-action"), actions.atomization, "process-atomization", false, true);
   healthButton(card("batch", "layers"), t("@processing.batch-action"), actions.batch, "tool-openBatchProcessing");
   const moc = card("moc", "network");
   const status = moc.createDiv({ cls: "veynrel-processing-status" });

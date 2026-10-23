@@ -3149,7 +3149,7 @@
 .veynrel-processing-card p { margin: 0; line-height: 1.5; }
 .veynrel-processing-effect { font-size: var(--font-ui-small); color: var(--text-muted); }
 .veynrel-processing-card button { margin-top: auto; height: auto; min-height: 36px; white-space: normal; text-align: start; }
-.veynrel-processing-card .mod-cta, .veynrel-moc-confirmation .mod-cta { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
+.veynrel-processing-card .mod-cta, .veynrel-moc-confirmation .mod-cta, .veynrel-atom-flow .mod-cta { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
 .veynrel-processing-status { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; font-size: var(--font-ui-small); padding-block: 8px; border-top: 1px solid var(--background-modifier-border); width: 100%; }
 .veynrel-moc-summary { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); padding: 20px; }
 .veynrel-moc-summary > span { color: var(--text-accent); }
@@ -3167,3 +3167,17 @@
   .veynrel-processing-card { padding: 18px; }
 }
 .veynrel-processing-card button.veynrel-processing-refresh { margin-top: 0; min-height: 28px; font-size: var(--font-ui-small); box-shadow: none; background: transparent; color: var(--text-muted); }
+
+/* Generative atomization shares the Processing / decision surface. */
+.modal.veynrel-atom-modal { width: min(760px, 94vw); }
+.veynrel-atom-flow { display: flex; flex-direction: column; gap: 12px; }
+.veynrel-atom-flow h3, .veynrel-atom-flow h4, .veynrel-atom-flow p { margin: 0; }
+.veynrel-atom-source, .veynrel-atom-proposal { padding: 16px; border: 1px solid var(--background-modifier-border); border-radius: 12px; background: var(--background-secondary); }
+.veynrel-atom-source { border-inline-start: 3px solid var(--interactive-accent); }
+.veynrel-atom-path { overflow-wrap: anywhere; color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-atom-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.veynrel-atom-actions button { height: auto; min-height: 34px; white-space: normal; }
+.veynrel-atom-choice { display: flex; align-items: baseline; gap: 10px; font-weight: var(--font-semibold); overflow-wrap: anywhere; }
+.veynrel-atom-literal { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 280px; overflow: auto; padding: 12px; border: 1px solid var(--background-modifier-border); border-radius: 8px; background: var(--background-primary); font-size: var(--font-ui-small); }
+.veynrel-atom-flow [role="alert"] { padding: 12px; border-inline-start: 3px solid var(--text-error); background: var(--background-secondary); }
+.veynrel-atom-flow :is(button, input, pre):focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }

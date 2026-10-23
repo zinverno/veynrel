@@ -328,7 +328,7 @@ export class VeynrelHealthView extends ItemView {
     } else if (normal && this.route.page === "process") {
       const route = this.route;
       renderProcessing(surface, this.processingClusters, {
-        review: () => { if (this.route === route) this.navigate({ page: "discover" }); },
+        atomization: () => { void this.launchTool("openAtomization", route, true); },
         batch: () => { void this.launchTool("openBatchProcessing", route); },
         mocs: () => { void this.launchTool("generateMocs", route); },
         audit: () => { void this.launchTool("openDeepAudit", route); },

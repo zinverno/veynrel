@@ -6,6 +6,7 @@ import {archiveChain,swapBuild,scaleChecks,stateChecks} from './beta-integration
 import {reviewRuleChecks} from './review-rules-native.mjs';
 import {reviewDecisionChecks} from './review-decisions-native.mjs';
 import {polishChecks} from './beta-ux-polish-native.mjs';
+import {atomizationChecks} from './generative-atomization-native.mjs';
 import {processingChecks} from './processing-native.mjs';
 import os from 'node:os';
 import path from 'node:path';
@@ -56,6 +57,9 @@ const server=createServer(async(req,res)=>{
  if(req.method!=='POST'||req.url!=='/v1/chat/completions'){res.writeHead(400).end();return;}
  let body='';for await(const chunk of req){body+=chunk;if(body.length>128*1024){res.writeHead(413).end();return;}}
  requests.push(body);
+ if(mode==='atomization'){
+  res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:JSON.stringify({atoms:[{title:'Atomic concept Alpha',body:'Synthetic first proposal. Check independence and accuracy manually.'},{title:'Atomic concept Beta',body:'Synthetic second proposal. The source is retained in full.'}]})}}]}));return;
+ }
  if(mode?.startsWith('processing-')){
   assert(JSON.parse(body).messages.some(m=>m.content.includes('Synthetic topic')));
   res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({choices:[{index:0,finish_reason:'stop',message:{role:'assistant',content:'Synthetic topic description from loopback.'}}]}));return;
@@ -169,7 +173,9 @@ try{
    await clickSelector('[data-relationship-action=confirm]');await wait("!!document.querySelector('[data-intent-action=primary]')");await wait("[...engine.pairReviews].at(-1).preflight.view.state==='ready'");
    assert.equal(requests.at(-1),bodies.at(-1));
  };
- if(mode?.startsWith('processing-')){
+ if(mode==='atomization'){
+   await atomizationChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,locale,cdp,pause,settle,closeModals,root,vault,dir,before,markdown,requests,checks,metrics,screenshots,sourceCommit});
+ } else if(mode?.startsWith('processing-')){
    await processingChecks({ev,wait,click,clickSelector,shot,startVideo,stopVideo,pass,locale,cdp,pause,settle,closeModals,
      root,vault,dir,before,markdown,requests,checks,metrics,screenshots,sourceCommit,after:mode==='processing-after'});
  } else if(mode?.startsWith('polish-')){

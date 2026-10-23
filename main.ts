@@ -1,3 +1,5 @@
+import { AtomizationPicker, GenerativeAtomizationModal } from "./atomization/generativeModal";
+import { sanitizeFileName, noteToWikiLink, pathKey } from "./utils/noteNames";
 import { MocPreparationModal, prepareMocs, type MocPreparation } from "./mocPreparation";
 import { registerReviewDecisions, reviewDecisions } from "./consolidation/reviewDecisions";
 import { createSafeApplyService } from "./consolidation/obsidianSafeApply";
@@ -8,7 +10,7 @@ import { mergeDecisionsSettings } from "./decisions/types";
 import { mergeRerankSettings } from "./rerank/types";
 import { collectDeepAuditFiles } from "./deep/deepScope";
 import { SemanticGlobalMapController } from "./semantic/product/semanticGlobalMapController";
-import { t as tr, tAll, setLanguage, dateLocale } from "./i18n";
+import { t as tr, setLanguage, dateLocale } from "./i18n";
 import {
   Plugin,
   Notice,
@@ -54,9 +56,6 @@ import {
   SingleAuditEngine,
   SingleAuditProgressModal,
   SingleAuditReport,
-  extractJSON,
-  smartTruncate,
-  withRetry,
 } from "./deepAudit";
 import { NoteIndexManager } from "./noteIndex";
 import { backupAndReplaceNote } from "./noteWrites";
@@ -122,6 +121,8 @@ export default class AIHubPlugin extends Plugin {
   lastPrompt = "";
   private noteIndexPromise: Promise<NoteIndexManager> | null = null;
   private atomizationTasks = new Map<TFile, Promise<void>>();
+  private atomizationModals = new Set<GenerativeAtomizationModal>();
+  private atomizationPicker?: AtomizationPicker;
   private recallAuthoring?: RecallAuthoringAdapter;
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
@@ -145,6 +146,11 @@ export default class AIHubPlugin extends Plugin {
   getToolsPort(): VeynrelToolsPort {
     return {
       openAskVault: () => this.semanticController.openAskVault(),
+      openAtomization: () => {
+        this.atomizationPicker?.close();
+        this.atomizationPicker = new AtomizationPicker(this.app, file => { void this.atomizeNote(file); });
+        this.atomizationPicker.open();
+      },
       openDeepAudit: () => this.openAuditModeModal(),
       generateMocs: () => this.generateMOCsFromClusters(),
       savedMocClusterCount: async () => (await this.getIndex()).getClusters().length,
@@ -207,6 +213,7 @@ export default class AIHubPlugin extends Plugin {
       this.semanticController.registerAutomaticSync();
       this.register(() => void this.semanticController.dispose());
       this.register(() => { this.mocEpoch++; this.mocModal?.close(); });
+      this.register(() => { this.atomizationPicker?.close(); for (const modal of this.atomizationModals) modal.dispose(); });
       this.register(() => { for (const modal of this.taxonomyModals) modal.close(); });
 
       const { registerHealth } = await import("./health/obsidian/registerHealth");
@@ -330,8 +337,8 @@ export default class AIHubPlugin extends Plugin {
 
       if (this.settings.showContextMenu) {
         this.registerEvent(
-          this.app.workspace.on("editor-menu", (menu, editor) => {
-            this.addContextMenuItems(menu, editor);
+          this.app.workspace.on("editor-menu", (menu, editor, info) => {
+            this.addContextMenuItems(menu, editor, info.file);
           }),
         );
       }
@@ -1129,7 +1136,7 @@ export default class AIHubPlugin extends Plugin {
   }
 
   // === Контекстное меню ===
-  addContextMenuItems(menu: Menu, editor: Editor) {
+  addContextMenuItems(menu: Menu, editor: Editor, sourceFile?: TFile | null) {
     const sel = editor.getSelection() || "";
 
     menu.addSeparator();
@@ -1177,8 +1184,7 @@ export default class AIHubPlugin extends Plugin {
         .setTitle(tr("Разбить заметку на атомарные"))
         .setIcon("git-fork")
         .onClick(() => {
-          const file = this.app.workspace.getActiveFile();
-          if (file) void this.atomizeNote(file);
+          if (sourceFile) void this.atomizeNote(sourceFile);
         }),
     );
   }
@@ -1754,136 +1760,20 @@ export default class AIHubPlugin extends Plugin {
   atomizeNote(file: TFile): Promise<void> {
     const existing = this.atomizationTasks.get(file);
     if (existing) return existing;
-    // Share generation as well as the append so concurrent requests cannot
-    // create a second set of notes whose links are then skipped.
     const pending = this.createAtomicNotes(file).finally(() => this.atomizationTasks.delete(file));
     this.atomizationTasks.set(file, pending);
     return pending;
   }
 
-  private async createAtomicNotes(file: TFile) {
-    const err = validateSettings(this.settings);
-    if (err) {
-      new Notice(err);
-      return;
-    }
-
-    const content = await this.app.vault.read(file);
-
-    // Секция уже есть (на любом языке интерфейса) — не дублируем.
-    // Варианты заголовка берутся из словарей i18n, а не из литералов
-    const hasAtomSection = (text: string) =>
-      tAll("## Атомарные заметки").some((h) => text.includes(h));
-    if (hasAtomSection(content)) {
-      new Notice(tr("Атомы уже создавались для этой заметки"));
-      return;
-    }
-
-    // Целевая папка: рядом с оригиналом (дефолт) или общая папка
-    let folder: string;
-    if (this.settings.atomsLocation === "folder") {
-      folder = normalizePath(
-        this.settings.atomsFolder.replace(/\/+$/, "") || "Atoms",
-      );
-      if (!(await this.ensureFolder(folder))) {
-        notify("error", tr("Не удалось создать папку: {p}", { p: folder }));
-        return;
-      }
-    } else {
-      const parent = file.parent?.path ?? "";
-      folder = parent === "/" ? "" : parent;
-    }
-
-    const notice = notify("loading", tr("Разбиваю на атомы..."));
-    try {
-      // Ретрай на случай битого JSON/хвостового текста от модели;
-      // контент режем, как остальные LLM-пути плагина
-      const atomsRaw = await withRetry(
-        async () => {
-          const response = await callOpenRouter(
-            this.settings,
-            tr("@atomize_prompt"),
-            smartTruncate(content, STREAM_CONTEXT_MAX_CHARS),
-            { maxTokens: MAX_TOKENS_AUDIT },
-          );
-          const parsed = extractJSON<
-            | { atoms?: Array<{ title?: string; body?: string }> }
-            | Array<{ title?: string; body?: string }>
-          >(response);
-          // Модель может вернуть голый массив вместо {"atoms": [...]}
-          return Array.isArray(parsed) ? parsed : (parsed.atoms ?? []);
-        },
-        1,
-        new AbortController().signal,
-      );
-      const atoms = atomsRaw
-        .map((a) => ({
-          title: (a?.title ?? "").replace(/\s+/g, " ").trim(),
-          body: (a?.body ?? "").trim(),
-        }))
-        .filter((a) => a.title && a.body);
-
-      if (atoms.length === 0) {
-        notice.hide();
-        new Notice(tr("Заметка уже атомарна"));
-        return;
-      }
-
-      // Занятые имена в целевой папке
-      const taken = new Set(this.mdFilesIn(folder).keys());
-
-      const createdPaths: string[] = [];
-      const errors: string[] = [];
-      for (const atom of atoms) {
-        // Ошибка одного атома не обрывает остальные
-        try {
-          const base = sanitizeFileName(atom.title) || "Atom";
-          const path = this.findFreePath(base, folder, (key) =>
-            taken.has(key),
-          );
-          taken.add(pathKey(path));
-
-          const atomContent = tr("@atom_note", {
-            iso: new Date().toISOString(),
-            title: atom.title,
-            body: atom.body,
-          });
-          await this.app.vault.create(path, atomContent);
-          createdPaths.push(path);
-        } catch (e) {
-          errors.push(
-            `${atom.title}: ${e instanceof Error ? e.message : String(e)}`,
-          );
-        }
-      }
-
-      if (createdPaths.length > 0) {
-        const links = createdPaths.map((p) => `- ${noteToWikiLink(p)}`).join("\n");
-        // Read and append atomically, preserving edits made during generation.
-        await this.app.vault.process(file, (fresh) => hasAtomSection(fresh)
-          ? fresh
-          : appendSection(fresh, `${tr("## Атомарные заметки")}\n\n${links}`));
-      }
-
-      notice.hide();
-      if (errors.length) {
-        notify(
-          "warning",
-          tr("✅ Готово! Успешно: {ok}, ошибок: {err}", {
-            ok: createdPaths.length,
-            err: errors.length,
-          }),
-        );
-        console.warn("[Veynrel] Atomize errors:", errors);
-      } else {
-        notify("success", tr("✅ Создано атомов: {n}", { n: createdPaths.length }));
-      }
-    } catch (err) {
-      notice.hide();
-      const msg = err instanceof Error ? err.message : String(err);
-      new Notice(`❌ Ошибка: ${msg}`);
-    }
+  private createAtomicNotes(file: TFile): Promise<void> {
+    return new Promise(resolve => {
+      const modal = new GenerativeAtomizationModal(this.app, file, () => this.settings, () => {
+        this.atomizationModals.delete(modal); resolve();
+      });
+      this.atomizationModals.add(modal); modal.open();
+    });
   }
+
 }
 
 // === ПРОГРЕСС-МОДАЛКИ ===
@@ -2022,38 +1912,6 @@ function extractFlashcards(raw: string): string {
     })
     .join("\n")
     .trim();
-}
-
-// === ИМЕНА ФАЙЛОВ И ССЫЛКИ ===
-/**
- * Единый санитайзер имени файла: срезает символы, запрещённые в именах
- * файлов и ломающие вики-ссылки, схлопывает пробелы, ограничивает длину.
- */
-function sanitizeFileName(name: string | undefined): string {
-  return (name ?? "")
-    .replace(/[\\/:*?"<>|#^[\]]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, 80)
-    .trim();
-}
-
-/**
- * Вики-ссылка на заметку по полному пути: цель однозначна даже при
- * одинаковых именах в разных папках, отображается короткое имя.
- */
-function noteToWikiLink(path: string): string {
-  const target = path.replace(/\.md$/, "");
-  const base = target.split("/").pop() || target;
-  return target === base ? `[[${target}]]` : `[[${target}|${base}]]`;
-}
-
-/**
- * Ключ пути: NFC + нижний регистр — совпадает с регистро- и
- * формо-независимыми ФС (Windows, macOS с NFD-именами).
- */
-function pathKey(p: string): string {
-  return p.normalize("NFC").toLowerCase();
 }
 
 /**

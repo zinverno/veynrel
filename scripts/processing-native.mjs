@@ -15,8 +15,8 @@ export async function processingChecks(c) {
   await ev("app.commands.executeCommandById('ai-knowledge-hub:ai-generate-mocs');void 0");await wait("!!document.querySelector('[data-health-action=moc-audit]')");await shot('moc-command-empty');
   await pass('Existing MOC command also uses preparation and offers audit when empty',"!document.querySelector('[data-health-action=moc-confirm]')");await click('moc-cancel');await wait('!plugin.mocTask');
   await click('tool-openDeepAudit');await wait("!!document.querySelector('.ai-hub-audit-modal .ai-hub-status-card')");await shot('processing-audit');await closeModals();
-  await keyboard('process-workbench');await wait("!!document.querySelector('[data-health-action=review-refresh]')");await shot('processing-review');
-  await pass('Primary action reuses list-first review without a map',"hv.route.page==='discover'&&graphicalCreations===0&&!document.querySelector('svg[data-camera]')");
+  await keyboard('nav-discover');await wait("!!document.querySelector('[data-health-action=review-refresh]')");await shot('processing-review');
+  await pass('Independent sidebar review remains list-first without a map',"hv.route.page==='discover'&&graphicalCreations===0&&!document.querySelector('svg[data-camera]')");
   await click('nav-process');await ready();
   await ev("hv.selectScope('Workbench');void 0");await click('tool-openBatchProcessing');await shot('processing-batch-scope');await click('scope-continue');
   await wait("!!document.querySelector('.ai-hub-filters select')");await shot('processing-batch');

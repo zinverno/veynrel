@@ -1,6 +1,7 @@
 import { expect, it, vi } from "vitest";
 import type { App, Editor, Menu, MenuItem, PluginManifest, TFile } from "obsidian";
 
+vi.mock("./atomization/generativeModal", () => ({ GenerativeAtomizationModal: vi.fn(function () { return { open() {} }; }), AtomizationPicker: class {} }));
 vi.mock("obsidian", () => ({
   Plugin: class { constructor(public app: App) {} },
   Notice: class {}, FuzzySuggestModal: class {}, Modal: class {}, PluginSettingTab: class {}, Component: class {},
@@ -28,27 +29,26 @@ it("keeps all six context actions using only public menu methods", async () => {
       items.push(record);
     },
   };
-  const plugin = AIHubPlugin.prototype;
-  plugin.addContextMenuItems(menu as unknown as Menu, { getSelection: () => "selection" } as Editor);
+  const plugin = new AIHubPlugin({} as App, {} as PluginManifest);
+  const source = { path: "Chosen/Note.md" } as TFile;
+  const atomize = vi.spyOn(plugin, "atomizeNote").mockResolvedValue();
+  plugin.addContextMenuItems(menu as unknown as Menu, { getSelection: () => "selection" } as Editor, source);
   expect(items).toHaveLength(6);
+  (items[5].click as () => void)(); expect(atomize).toHaveBeenCalledWith(source); atomize.mockRestore();
   expect(new Set(items.map(({ title }) => title)).size).toBe(6);
   expect(items.every(({ section, click }) => section === "ai-hub" && typeof click === "function")).toBe(true);
 });
 
-it("shares concurrent atomization work and permits a later attempt", async () => {
+it("shares the consent modal, performs no automatic generation, and permits a later launch", async () => {
   const { default: AIHubPlugin } = await vi.importActual<typeof import("./main")>("./main.ts");
-  const { DEFAULT_SETTINGS } = await import("./settings");
-  let finishRead!: (content: string) => void;
-  const pendingRead = new Promise<string>((resolve) => { finishRead = resolve; });
-  const read = vi.fn(() => pendingRead);
-  const plugin = new AIHubPlugin({ vault: { read } } as unknown as App, {} as PluginManifest);
-  plugin.settings = { ...DEFAULT_SETTINGS, model: "fixture", apiKey: "placeholder" };
+  const { GenerativeAtomizationModal } = await import("./atomization/generativeModal");
+  const plugin = new AIHubPlugin({} as App, {} as PluginManifest);
   const file = { path: "Projects/Alpha.md" } as TFile;
   const first = plugin.atomizeNote(file);
+  expect(plugin.atomizeNote(file)).toBe(first);
+  expect(vi.mocked(GenerativeAtomizationModal)).toHaveBeenCalledTimes(1);
+  const finish = vi.mocked(GenerativeAtomizationModal).mock.calls[0][3]; finish(); await first;
   const second = plugin.atomizeNote(file);
-  finishRead("## Atomic notes\n\n- [[Existing atom]]");
-  await Promise.all([first, second]);
-  expect(read).toHaveBeenCalledTimes(1);
-  await plugin.atomizeNote(file);
-  expect(read).toHaveBeenCalledTimes(2);
+  expect(vi.mocked(GenerativeAtomizationModal)).toHaveBeenCalledTimes(2);
+  vi.mocked(GenerativeAtomizationModal).mock.calls[1][3](); await second;
 });
