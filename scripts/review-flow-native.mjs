@@ -367,7 +367,12 @@ try{
  await wait(`hv.workbench.facts.get(${JSON.stringify(pairPaths)})?.state==='ready'&&secondLeaf.view.workbench.facts.get(${JSON.stringify(pairPaths)})?.changed`);
  await pass('Manual edit is stale in both windows with no completion',`hv.workbench.facts.get(${JSON.stringify(pairPaths)}).changed&&secondLeaf.view.workbench.facts.get(${JSON.stringify(pairPaths)}).changed`);
  await shot('manual-edit-list');
- await ev(`await app.fileManager.renameFile(app.vault.getFileByPath(${JSON.stringify(pairPaths[0])}),'Workbench/A/Renamed.md');void 0`);
+ if(compareStyles){
+   await ev(`window.fixtureRename=app.fileManager.renameFile(app.vault.getFileByPath(${JSON.stringify(pairPaths[0])}),'Workbench/A/Renamed.md');void 0`);
+   await wait("[...document.querySelectorAll('.modal button')].some(e=>e.textContent==='Just once')");
+   await ev("[...document.querySelectorAll('.modal button')].find(e=>e.textContent==='Just once').setAttribute('data-native-rename','once');void 0");
+   await shot('native-rename-confirmation');await clickSelector('[data-native-rename=once]');await ev('await fixtureRename;void 0');
+ } else await ev(`await app.fileManager.renameFile(app.vault.getFileByPath(${JSON.stringify(pairPaths[0])}),'Workbench/A/Renamed.md');void 0`);
  await wait(`!hv.workbench.data.scope.paths.includes(${JSON.stringify(pairPaths[0])})||hv.workbench.facts.get(${JSON.stringify(pairPaths)})?.state==='missing'`);
  await shot('manual-rename-list');
  await ev("await app.vault.delete(app.vault.getFileByPath('Workbench/A/Renamed.md'));void 0");
