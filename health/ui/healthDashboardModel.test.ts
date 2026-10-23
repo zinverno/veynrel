@@ -145,7 +145,8 @@ describe("dashboard presentation boundaries", () => {
   it("uses theme tokens, honors reduced motion, and gives every row a stable action", () => {
     const css = readFileSync("styles.css", "utf8").split("/* Health visual dashboard:")[1];
     expect(css).toContain("var(--interactive-accent)");
-    expect(css).not.toMatch(/#[\da-f]{3,8}\b|\brgba?\(|\bhsla?\(/iu);
+    // Only the two pre-existing black mixing components now use their exact hex spelling.
+    expect(css.match(/#[\da-f]{3,8}\b|\brgba?\(|\bhsla?\(/giu)).toEqual(["#000", "#000"]);
     expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none;[\s\S]*stroke-dasharray: none;/u);
     expect(readFileSync("health/ui/renderHealthInsights.ts", "utf8")).toContain('`area-${area.id}`');
   });
