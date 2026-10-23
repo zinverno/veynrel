@@ -123,6 +123,6 @@ npm run audit:proposals
 npm run build
 ```
 
-[Documentation](docs/) · [Report an issue](https://github.com/zinverno/veynrel/issues) · [Star Veynrel](https://github.com/zinverno/veynrel/stargazers) · [Support development](https://boosty.to/veynrel)
+[Documentation](docs/) · [Report an issue](https://github.com/zinverno/veynrel/issues) · [Star Veynrel](https://github.com/zinverno/veynrel) · [Support development](https://boosty.to/veynrel)
 
 [MIT](LICENSE) © 2026 Zinvernix
