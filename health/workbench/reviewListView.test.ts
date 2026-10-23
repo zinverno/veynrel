@@ -103,6 +103,14 @@ describe("standalone review list", () => {
     expect(a.close).toHaveBeenCalledOnce(); expect(b.mount).not.toHaveBeenCalled();
     expect(b.action("review-search").value).toBe("Task"); b.view.dispose();
   });
+  it("returns from the optional map to the same reviewed queue and visible keyboard target", () => {
+    const f = setup(); f.root.querySelector('[data-pair-id]')!.click(); f.action('review-back').click();
+    f.action('review-reviewed').click(); f.root.scrollTop = 120; f.action('review-map').click();
+    expect(f.root.scrollTop).toBe(0); f.action('review-back').click();
+    expect(f.root.scrollTop).toBe(120); expect(f.action('review-reviewed').attrs['aria-pressed']).toBe('true');
+    expect(dom.document.activeElement).toBe(f.action('review-reviewed'));
+    f.action('review-new').click(); expect(f.root.querySelector('[data-pair-id]')).toBeDefined(); f.view.dispose();
+  });
   it("keeps all saved candidates in source order across pages and distinguishes same basenames", () => {
     const scope = [paths[0], ...Array.from({ length: 133 }, (_, i) => `Theory/${i}/Task.md`)];
     const f = setup(scope);
@@ -163,6 +171,11 @@ it("saved decisions filter active pairs and counts, preserve return context, and
   f.view.update([finding]); await f.data.refresh('repeats');
   expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0);
   f.view.dispose(); f = setup(paths, local, decisions); await decisions.load();
+  expect(f.action('review-new').attrs['aria-pressed']).toBe('true');
+  expect(f.root.querySelector('[data-review-restore]')).toBeUndefined();
+  f.action('review-reviewed').click();
+  expect(f.action('review-reviewed').tag).toBe('button');
+  expect(f.action('review-reviewed').attrs['aria-pressed']).toBe('true');
   await vi.waitFor(() => expect(f.root.querySelector('[data-review-restore]')).toBeDefined());
   expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0);
   storage.write.mockRejectedValueOnce(Error('disk'));
@@ -171,6 +184,7 @@ it("saved decisions filter active pairs and counts, preserve return context, and
   expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(0);
   f.root.querySelector('[data-review-restore]')!.click();
   await vi.waitFor(() => expect(f.root.querySelectorAll('[data-pair-id]')).toHaveLength(1));
+  expect(f.action('review-new').attrs['aria-pressed']).toBe('true');
   expect(f.forbidden).not.toHaveBeenCalled(); f.view.dispose();
 });
 

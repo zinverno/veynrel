@@ -126,7 +126,11 @@ export function renderWorkbenchGraph(parent:HTMLElement,model:WorkbenchModel,sel
     if(oldWidth!==width||oldHeight!==height)measured=false;
     svg.setAttribute("viewBox",`0 0 ${width} ${height}`);
     if(media.matches&&!simulation.paused)simulation.settle();else simulation.tick();
-    if(!state.fitted&&items.length){state.viewport=fitPoints(items,canvasWorldWidth(width,height));state.fitted=true;}
+    if(!state.fitted&&items.length){
+      const fit=fitPoints(items,canvasWorldWidth(width,height));
+      // The initial compact seed expands while cooling; do not magnify it out of the canvas.
+      state.viewport=fit.zoom>1?zoomGraph(fit,1/fit.zoom,500,320,12,.05):fit;state.fitted=true;
+    }
     const view=state.viewport,scale=base*view.zoom,tx=width/2-500*base+view.x*base,ty=view.y*base;
     world.setAttribute("transform",`translate(${tx} ${ty}) scale(${scale})`);svg.setAttribute("data-camera",JSON.stringify(view));
     svg.setAttribute("data-simulation",JSON.stringify({alpha:simulation.alpha,ticks:simulation.ticks,revisions:simulation.revisions,paused:simulation.paused,reduced:media.matches}));

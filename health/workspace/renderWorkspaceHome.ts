@@ -47,6 +47,20 @@ export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex,
   const foot = scene.createDiv({ cls: "veynrel-core-foot" });
   foot.createSpan({ text: t("@workspace.order") });
   const toggle = healthButton(foot, t("@workspace.motion"), actions.motion, "workspace-motion"); toggle.setAttribute("aria-pressed", String(motion));
+  const remaining = index.snapshot.folders.filter(folder => !folder.path.includes("/") && !folders.some(shown => shown.path === folder.path));
+  if (remaining.length) {
+    const more = healthButton(foot, t("@polish.more-folders", { count: remaining.length }), () => {
+      list.hidden = !list.hidden; more.setAttribute("aria-expanded", String(!list.hidden));
+      more.setText(t(list.hidden ? "@polish.more-folders" : "@polish.hide-folders", { count: remaining.length }));
+    }, "home-more-folders");
+    more.setAttribute("aria-expanded", "false");
+    const list = scene.createDiv({ cls: "veynrel-home-folders", attr: { "aria-label": t("@workspace.order") } }); list.hidden = true;
+    for (const folder of remaining) {
+      const item = healthButton(list, "", () => actions.select(folder.path), `home-folder-${encodeURIComponent(folder.path)}`);
+      item.setAttribute("data-home-folder", folder.path);
+      item.createEl("strong", { text: folder.path }); item.createEl("small", { text: t("@workspace.notes", { n: folder.count }) });
+    }
+  }
   const panel = grid.createEl("section", { cls: "veynrel-scope-card" });
   panel.createEl("p", { cls: "veynrel-eyebrow", text: t("@workspace.focus") });
   const icon = panel.createDiv({ cls: "veynrel-scope-icon", attr: { "aria-hidden": "true" } }); setIcon(icon, index.selection.kind === "all" ? "layers" : "folder");
