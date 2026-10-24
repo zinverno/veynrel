@@ -1,0 +1,844 @@
+{
+  "schema": "veynrel.public-live-relationship-evaluation.v1",
+  "studyDate": "2026-10-24",
+  "note": "All input notes are synthetic. Raw model output is preserved as a string without postprocessing. Identifiers of original server responses, authorization details and machine paths are omitted.",
+  "runtime": {
+    "tag": "2.2.1",
+    "sha": "79fabc93bd946f0287b431721126efee0646f588"
+  },
+  "datasetSha256": "3437ac0ef2f2889fd3b2b078ac1b4b8220a119b00a5eabc1d5fa3c7cc1fba0be",
+  "productionPromptSha256": "33dbdb304a22f9dfaa2594e7169609d4991ced263a10b10dc502e8f1e96bbaac",
+  "generationService": "OpenRouter",
+  "inputEmbeddingVectors": "synthetic and fixed; this evaluation does not test embedding quality",
+  "summary": {
+    "pairsPreselected": 10,
+    "requestsSent": 10,
+    "completedResponses": 10,
+    "jsonValid": 10,
+    "refsV2Valid": 10,
+    "evidenceCheckAccepted": 10,
+    "productionValidatorAccepted": 10,
+    "technicalErrorCount": 0,
+    "errorOrTimeoutCount": 0,
+    "recommendedActionCounts": {
+      "consider_merge": 1,
+      "add_link": 5,
+      "manual_review": 4
+    },
+    "latencyMedianMs": 4065.0602004999996,
+    "latencyMinMs": 2435.188746,
+    "latencyMaxMs": 10000.305883999994,
+    "sumProviderReportedCostUSD": "0.00226901708",
+    "applyUndo": "PASS on LR01 only; copy-only merge updates one of 20 synthetic Markdown files, unchanged secondary, then undo restores all 20 initial hashes",
+    "humanUsefulnessAdjudication": "NOT ADJUDICATED",
+    "semanticQuality": "NOT MEASURED"
+  },
+  "cases": [
+    {
+      "id": "LR01",
+      "selectionCategory": "Почти одинаковая информация",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/01/A/Note.md",
+          "text": "The fictional Alder ferry desk checks the weather bulletin before opening the morning queue.\n\nThe desk lead records the check in the shift notebook.\n",
+          "sha256": "4ccbfca6a43ae69ccda0c8532e4478f6caa1e2a65ed5b3040061713ec12d8ae6"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/01/B/Note.md",
+          "text": "Before the morning queue opens, the fictional Alder ferry desk checks the weather bulletin.\n\nThe shift notebook contains the desk lead’s record of that check.\n",
+          "sha256": "90ef0a4f1e1053faaedc00d0789772b3e8ee1bda017cbdce163e97440d43b0be"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 3785.14,
+      "usage": {
+        "prompt_tokens": 1685,
+        "completion_tokens": 588,
+        "total_tokens": 2273
+      },
+      "providerReportedCostUSD": "0.000340459",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": true,
+        "needsUserParameterChoiceBeforePlan": true,
+        "exactPlanBuilt": true
+      },
+      "relation": "same_information",
+      "recommendedAction": "consider_merge",
+      "rawModelContent": "{\n  \"schema\": \"veynrel.relationship.refs.v2\",\n  \"relation\": \"same_information\",\n  \"claims\": [\n    {\n      \"id\": \"c1\",\n      \"kind\": \"shared\",\n      \"text\": \"Обе заметки утверждают, что вымышленная паромная служба Олдер проверяет бюллетень погоды перед открытием утренней очереди.\",\n      \"evidenceA\": \"b8c66831-d7c0-4f19-813e-31f1f0fdde89:A:0\",\n      \"evidenceB\": \"b8c66831-d7c0-4f19-813e-31f1f0fdde89:B:0\"\n    },\n    {\n      \"id\": \"c2\",\n      \"kind\": \"shared\",\n      \"text\": \"Обе заметки утверждают, что запись о проверке вносится в журнал смены руководителем службы.\",\n      \"evidenceA\": \"b8c66831-d7c0-4f19-813e-31f1f0fdde89:A:1\",\n      \"evidenceB\": \"b8c66831-d7c0-4f19-813e-31f1f0fdde89:B:1\"\n    }\n  ],\n  \"explanation\": {\n    \"text\": \"Заметки A и B содержат две идентичные пары фактов: проверка бюллетеня погоды перед открытием утренней очереди и фиксация этой проверки в журнале смены руководителем. Порядок предложений различается, но смысловое содержание полностью совпадает. Синтаксические вариации не создают дополнительной информации или контекста, поэтому информация дублируется.\",\n    \"evidence\": [\"c1\", \"c2\"]\n  },\n  \"recommendation\": {\n    \"action\": \"consider_merge\",\n    \"reason\": \"Обе заметки сообщают один и тот же набор фактов без каких-либо уникальных деталей или контекста. Слияние устранит дублирование, сохранив оба утверждения в единой заметке. Рекомендация предварительная и не учитывает внешние связи или теги.\",\n    \"evidence\": [\"c1\", \"c2\"]\n  },\n  \"limitations\": [\n    \"Другие заметки, теги или ссылки, связанные с этими текстами, не анализировались.\",\n    \"Обе заметки являются вымышленными и, вероятно, относятся к учебному контексту; их самостоятельная ценность вне данного набора не оценивалась.\"\n  ]\n}",
+      "rawModelContentSha256": "71812ace7484f952765ada151863ecf67df05a2939b9dfeabd8803fcd86e2281",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "b8c66831-d7c0-4f19-813e-31f1f0fdde89:A:0",
+          "fragment": "The fictional Alder ferry desk checks the weather bulletin before opening the morning queue."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "b8c66831-d7c0-4f19-813e-31f1f0fdde89:B:0",
+          "fragment": "Before the morning queue opens, the fictional Alder ferry desk checks the weather bulletin."
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "b8c66831-d7c0-4f19-813e-31f1f0fdde89:A:1",
+          "fragment": "The desk lead records the check in the shift notebook."
+        },
+        {
+          "claimId": "c2",
+          "side": "B",
+          "evidenceId": "b8c66831-d7c0-4f19-813e-31f1f0fdde89:B:1",
+          "fragment": "The shift notebook contains the desk lead’s record of that check."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "PASS",
+      "failureReasons": []
+    },
+    {
+      "id": "LR02",
+      "selectionCategory": "Частичное пересечение",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/03/A/Note.md",
+          "text": "In the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nThe owner of each cached answer is the service that created it.\n\nA cache miss returns control to that owner.\n",
+          "sha256": "dd8e3f6c1461dc8202cd48759bd050aad02a787328c57bad6c99b3c499884b90"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/03/B/Note.md",
+          "text": "In the fictional Finch service, a cache stores a reusable answer until its expiry time.\n\nIn the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer.\n\nThe guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy.\n",
+          "sha256": "ffdecbe2569ababf5e3bb08eff30c688c136f85c110513bbe5876a74f470415f"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 5867.32,
+      "usage": {
+        "prompt_tokens": 1861,
+        "completion_tokens": 771,
+        "total_tokens": 2632
+      },
+      "providerReportedCostUSD": "0.000283101",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": true,
+        "needsUserParameterChoiceBeforePlan": true,
+        "exactPlanBuilt": false
+      },
+      "relation": "partial_overlap",
+      "recommendedAction": "add_link",
+      "rawModelContent": "{\"schema\":\"veynrel.relationship.refs.v2\",\"relation\":\"partial_overlap\",\"claims\":[{\"id\":\"c1\",\"kind\":\"shared\",\"text\":\"Обе заметки содержат одинаковое утверждение о том, что в вымышленном сервисе Finch кеш хранит переиспользуемый ответ до истечения срока его действия.\",\"evidenceA\":\"13e0cdc2-4c29-4564-bd4a-07e525479f21:A:0\",\"evidenceB\":\"13e0cdc2-4c29-4564-bd4a-07e525479f21:B:0\"},{\"id\":\"c2\",\"kind\":\"context_b\",\"text\":\"Заметка B добавляет контекстный пример музейной демонстрации: синяя карточка истекает после следующей группы посетителей, и гид запрашивает свежий ответ у владельца.\",\"evidenceB\":\"13e0cdc2-4c29-4564-bd4a-07e525479f21:B:1\",\"evidenceA\":null},{\"id\":\"c3\",\"kind\":\"context_b\",\"text\":\"Заметка B уточняет, что гид использует колокольчик, а не таймер, для объявления следующей группы, и что это учебный реквизит, а не производственная политика.\",\"evidenceB\":\"13e0cdc2-4c29-4564-bd4a-07e525479f21:B:2\",\"evidenceA\":null}],\"explanation\":{\"text\":\"Заметки частично пересекаются: первое предложение B дословно совпадает с первым предложением A. Однако B содержит дополнительные контекстные примеры (музейная демонстрация, колокольчик), которых нет в A. A, в свою очередь, содержит отдельные утверждения о владельце кеша и возврате управления при промахе, которые в B отсутствуют. Это не полное дублирование информации.\",\"evidence\":[\"c1\",\"c2\",\"c3\"]},\"recommendation\":{\"action\":\"add_link\",\"reason\":\"Связь между заметками уместна: общий тезис о кеше Finch присутствует в обоих текстах, но каждая заметка несёт собственную дополнительную информацию. Добавление ссылки позволит сохранить контекстные примеры B на месте, не объединяя их с более формальным описанием A.\",\"evidence\":[\"c1\"]},\"limitations\":[\"Не анализировались другие заметки, теги или зависимости, которые могли бы повлиять на решение о связывании.\",\"Пример с колокольчиком в B помечен как учебный реквизит, но его отношение к производственной политике не проверялось.\",\"Отсутствие фрагментов A о владельце кеша и возврате управления в каталоге ограничивает возможность сделать дополнительные выводы о их уникальности.\",\"Вывод о частичном пересечении основан только на доступных фрагментах, а не на полном семантическом сравнении.\",\"Не оценивалось, является ли пример с синей карточкой независимо ценным или только иллюстрацией общего тезиса.\",\"Решение о возможном атомизировании примера не рассматривалось, так как не подтверждена его самостоятельная ценность.\",\"Различия в формулировках между A и B не анализировались на предмет потенциальных противоречий.\"] }",
+      "rawModelContentSha256": "120fa5d5b152ad4cff2c3280bc7d8e338427befe13f9879ea63acfcfcaf25db6",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "13e0cdc2-4c29-4564-bd4a-07e525479f21:A:0",
+          "fragment": "In the fictional Finch service, a cache stores a reusable answer until its expiry time."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "13e0cdc2-4c29-4564-bd4a-07e525479f21:B:0",
+          "fragment": "In the fictional Finch service, a cache stores a reusable answer until its expiry time."
+        },
+        {
+          "claimId": "c2",
+          "side": "B",
+          "evidenceId": "13e0cdc2-4c29-4564-bd4a-07e525479f21:B:1",
+          "fragment": "In the museum demonstration, a blue card expires after the next visitor group, so the guide asks the owner for a fresh answer."
+        },
+        {
+          "claimId": "c3",
+          "side": "B",
+          "evidenceId": "13e0cdc2-4c29-4564-bd4a-07e525479f21:B:2",
+          "fragment": "The guide uses a bell, not a timer, to announce the next group; this is a teaching prop rather than a production policy."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR03",
+      "selectionCategory": "Общая тема, разные контексты",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/12/A/Note.md",
+          "text": "На вымышленной выставке «Клён» схема для школьной группы содержит четыре остановки.\n\nЭта схема применяется только утром, когда открыта мастерская.\n",
+          "sha256": "52342322d285e8dc50d9457c35885f508aef07cc0684485929d7b94a720f9bfd"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/12/B/Note.md",
+          "text": "На вымышленной выставке «Клён» схема для вечерней группы содержит две остановки.\n\nВечером мастерская закрыта; это отдельная схема, а не исправление утренней.\n",
+          "sha256": "f166ec2750848de0a70f7dcdf1a730083c4ddb5ea5f9a4fc48458cd0badb6b87"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 2435.19,
+      "usage": {
+        "prompt_tokens": 1735,
+        "completion_tokens": 625,
+        "total_tokens": 2360
+      },
+      "providerReportedCostUSD": "0.0004179",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": false,
+        "needsUserParameterChoiceBeforePlan": false,
+        "exactPlanBuilt": false
+      },
+      "relation": "conflicting",
+      "recommendedAction": "manual_review",
+      "rawModelContent": "{\n  \"schema\": \"veynrel.relationship.refs.v2\",\n  \"relation\": \"conflicting\",\n  \"claims\": [\n    {\n      \"id\": \"c1\",\n      \"kind\": \"comparison\",\n      \"text\": \"Обе заметки описывают схемы на одной и той же выставке «Клён», но с разным числом остановок (четыре против двух) и в разных временных условиях.\",\n      \"evidenceA\": \"91b6b238-b762-4ffd-9eec-5a5fa15e802a:A:0\",\n      \"evidenceB\": \"91b6b238-b762-4ffd-9eec-5a5fa15e802a:B:0\"\n    },\n    {\n      \"id\": \"c2\",\n      \"kind\": \"conflict\",\n      \"text\": \"Заметка A утверждает, что её схема используется только утром, тогда как заметка B явно указывает, что вечерняя схема — отдельная, а не исправление утренней; условия применения различны и взаимоисключающие по времени суток.\",\n      \"evidenceA\": \"91b6b238-b762-4ffd-9eec-5a5fa15e802a:A:1\",\n      \"evidenceB\": \"91b6b238-b762-4ffd-9eec-5a5fa15e802a:B:1\"\n    }\n  ],\n  \"explanation\": {\n    \"text\": \"Обе записи относятся к одному контексту (выставка «Клён»), но содержат разные версии схемы: одна предназначена для утра с четырьмя остановками, другая — для вечера с двумя остановками. Запись B прямо подчёркивает, что это самостоятельная схема, а не правка утренней. Это противоречие условий использования исключает объединение или частичное перекрытие без дополнительного анализа.\",\n    \"evidence\": [\"c1\", \"c2\"]\n  },\n  \"recommendation\": {\n    \"action\": \"manual_review\",\n    \"reason\": \"Поскольку обе схемы описаны как действующие в разное время и имеют разный состав остановок, их нельзя автоматически считать дубликатами или частями одного целого. Требуется ручная проверка того, являются ли они независимыми вариантами или отражают изменение правил проведения экскурсий.\",\n    \"evidence\": [\"c1\", \"c2\"]\n  },\n  \"limitations\": [\n    \"Не анализировались другие заметки, теги или связи между ними.\",\n    \"Отсутствуют данные о том, какая из схем является актуальной или предпочтительной.\",\n    \"Невозможно определить, существует ли общий источник информации вне этих двух текстов.\"\n  ]\n}",
+      "rawModelContentSha256": "7168ba69085b59de102a3c7827f3c016917af2f7545486c94a1901996199dc53",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "91b6b238-b762-4ffd-9eec-5a5fa15e802a:A:0",
+          "fragment": "На вымышленной выставке «Клён» схема для школьной группы содержит четыре остановки."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "91b6b238-b762-4ffd-9eec-5a5fa15e802a:B:0",
+          "fragment": "На вымышленной выставке «Клён» схема для вечерней группы содержит две остановки."
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "91b6b238-b762-4ffd-9eec-5a5fa15e802a:A:1",
+          "fragment": "Эта схема применяется только утром, когда открыта мастерская."
+        },
+        {
+          "claimId": "c2",
+          "side": "B",
+          "evidenceId": "91b6b238-b762-4ffd-9eec-5a5fa15e802a:B:1",
+          "fragment": "Вечером мастерская закрыта; это отдельная схема, а не исправление утренней."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR04",
+      "selectionCategory": "Одна заметка дополняет другую",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/06/A/Note.md",
+          "text": "# Журнал решений\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Обсуждение\n\n### Смена ответственного\n\nЕсли ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением.\n",
+          "sha256": "ce601f3e4f2f373c8d629a448b313978876075d3313c83850db1b84bb093fbb3"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/06/B/Note.md",
+          "text": "# Формат решения\n\nВ учебном проекте «Сосна» решение содержит вопрос и выбранный вариант.\n\n## Хранение\n\nРешения упражнения нумеруются по порядку встречи.\n",
+          "sha256": "7557f6b633a15a6d0bf76c893264bef1bd1a644bc17b5a4c6c5f3a8b366e3d73"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 4344.98,
+      "usage": {
+        "prompt_tokens": 1945,
+        "completion_tokens": 735,
+        "total_tokens": 2680
+      },
+      "providerReportedCostUSD": "0.000184426",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": true,
+        "needsUserParameterChoiceBeforePlan": true,
+        "exactPlanBuilt": false
+      },
+      "relation": "partial_overlap",
+      "recommendedAction": "add_link",
+      "rawModelContent": "{\n  \"schema\": \"veynrel.relationship.refs.v2\",\n  \"relation\": \"partial_overlap\",\n  \"claims\": [\n    {\n      \"id\": \"c1\",\n      \"kind\": \"shared\",\n      \"text\": \"Обе заметки содержат одинаковое определение решения в учебном проекте «Сосна»: решение содержит вопрос и выбранный вариант.\",\n      \"evidenceA\": \"653b07d7-6c62-4166-a231-2aba03b040b8:A:1\",\n      \"evidenceB\": \"653b07d7-6c62-4166-a231-2aba03b040b8:B:1\"\n    },\n    {\n      \"id\": \"c2\",\n      \"kind\": \"unique_a\",\n      \"text\": \"Заметка A описывает процедуру смены ответственного: новый участник должен прочитать основания выбора перед продолжением.\",\n      \"evidenceA\": \"653b07d7-6c62-4166-a231-2aba03b040b8:A:4\",\n      \"evidenceB\": null\n    },\n    {\n      \"id\": \"c3\",\n      \"kind\": \"unique_b\",\n      \"text\": \"Заметка B описывает правило нумерации решений упражнения по порядку встречи.\",\n      \"evidenceB\": \"653b07d7-6c62-4166-a231-2aba03b040b8:B:3\",\n      \"evidenceA\": null\n    }\n  ],\n  \"explanation\": {\n    \"text\": \"Заметки частично пересекаются: обе содержат идентичное определение решения в проекте «Сосна» (c1). Однако каждая имеет уникальное содержание: A описывает процедуру смены ответственного (c2), а B — правило нумерации решений (c3). Эти уникальные части не дублируют друг друга и относятся к разным аспектам ведения журнала решений.\",\n    \"evidence\": [\"c1\", \"c2\", \"c3\"]\n  },\n  \"recommendation\": {\n    \"action\": \"add_link\",\n    \"reason\": \"Поскольку заметки имеют общее определение, но дополняют друг друга уникальными правилами, целесообразно добавить взаимные ссылки, чтобы сохранить контекст и обеспечить доступ к связанной информации без потери уникального содержания.\",\n    \"evidence\": [\"c1\", \"c2\", \"c3\"]\n  },\n  \"limitations\": [\n    \"Не проверялись другие заметки, теги или зависимости, которые могут влиять на решение о связывании.\",\n    \"Уникальность содержания оценена только относительно этих двух заметок.\",\n    \"Не анализировались возможные внешние ссылки или вложения, упомянутые в заметках.\",\n    \"Не проверялась актуальность или согласованность правил с другими документами проекта.\",\n    \"Не оценивалась возможность атомизации уникальных разделов, так как они не являются самостоятельными ценными разделами.\",\n    \"Не проверялось, не противоречат ли уникальные правила друг другу или другим источникам.\",\n    \"Не анализировалась структура заметок для возможного слияния, так как уникальное содержание различается.\",\n    \"Не проверялась необходимость обновления ссылок при изменении заметок.\"\n  ]\n}",
+      "rawModelContentSha256": "f328ccb7d70ea1ccc578f20344060d5b18e150fffda3873d99b34e56ba6379c9",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "653b07d7-6c62-4166-a231-2aba03b040b8:A:1",
+          "fragment": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "653b07d7-6c62-4166-a231-2aba03b040b8:B:1",
+          "fragment": "В учебном проекте «Сосна» решение содержит вопрос и выбранный вариант."
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "653b07d7-6c62-4166-a231-2aba03b040b8:A:4",
+          "fragment": "Если ответственный сменился в ходе упражнения, новый участник читает основания выбора перед продолжением."
+        },
+        {
+          "claimId": "c3",
+          "side": "B",
+          "evidenceId": "653b07d7-6c62-4166-a231-2aba03b040b8:B:3",
+          "fragment": "Решения упражнения нумеруются по порядку встречи."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR05",
+      "selectionCategory": "Потенциально подходящая Markdown-ссылка",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/05/A/Note.md",
+          "text": "# Finch queue guide\n\nA lease reserves a task for one worker in this fictional system.\n\n## Expiry\n\nAn expired lease returns the task to the waiting queue.\n",
+          "sha256": "505dd07507393ae7d35c100888bc467095836b9026242632f0242a0d301efbfc"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/05/B/Note.md",
+          "text": "# Finch workshop notes\n\nA lease reserves a task for one worker in this fictional system.\n\n## Paper exercise\n\n### Two workers\n\nFor this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry.\n\nThe facilitator keeps the bell schedule on a separate card.\n",
+          "sha256": "9941a54e26042e14e9932064756c4c8083f139c0710043aededa2ea09f53d6c9"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 4361.63,
+      "usage": {
+        "prompt_tokens": 1969,
+        "completion_tokens": 687,
+        "total_tokens": 2656
+      },
+      "providerReportedCostUSD": "0.00012401992",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": true,
+        "needsUserParameterChoiceBeforePlan": true,
+        "exactPlanBuilt": false
+      },
+      "relation": "partial_overlap",
+      "recommendedAction": "add_link",
+      "rawModelContent": "{\n  \"schema\": \"veynrel.relationship.refs.v2\",\n  \"relation\": \"partial_overlap\",\n  \"claims\": [\n    {\n      \"id\": \"c1\",\n      \"kind\": \"shared\",\n      \"text\": \"Both notes contain the identical sentence defining a lease as reserving a task for one worker in the fictional system.\",\n      \"evidenceA\": \"35c4ceaa-e7f9-4949-98be-07a780c8b3dc:A:1\",\n      \"evidenceB\": \"35c4ceaa-e7f9-4949-98be-07a780c8b3dc:B:1\"\n    },\n    {\n      \"id\": \"c2\",\n      \"kind\": \"unique_a\",\n      \"text\": \"Note A includes a section on lease expiry, stating that an expired lease returns the task to the waiting queue.\",\n      \"evidenceA\": \"35c4ceaa-e7f9-4949-98be-07a780c8b3dc:A:3\",\n      \"evidenceB\": null\n    },\n    {\n      \"id\": \"c3\",\n      \"kind\": \"unique_b\",\n      \"text\": \"Note B includes a paper exercise section describing amber envelopes as leased tasks and a reset bell as expiry, with the facilitator keeping the bell schedule on a separate card.\",\n      \"evidenceB\": \"35c4ceaa-e7f9-4949-98be-07a780c8b3dc:B:4\",\n      \"evidenceA\": null\n    }\n  ],\n  \"explanation\": {\n    \"text\": \"The two notes share a single identical definitional sentence about leases, but otherwise contain distinct content: note A focuses on the expiry behavior of leases, while note B provides a workshop exercise with concrete metaphors. The shared sentence is a common definition, but the surrounding material is context-specific and not duplicated.\",\n    \"evidence\": [\"c1\", \"c2\", \"c3\"]\n  },\n  \"recommendation\": {\n    \"action\": \"add_link\",\n    \"reason\": \"The notes are related through the shared lease definition, but each contains unique, context-dependent material. Adding a link between them would acknowledge the relationship without merging or embedding, preserving the distinct purposes of the guide and the workshop notes.\",\n    \"evidence\": [\"c1\", \"c2\", \"c3\"]\n  },\n  \"limitations\": [\n    \"Only the two supplied notes were analyzed; other notes, tags, or dependencies were not checked.\",\n    \"The shared sentence is common knowledge in the fictional system, but the user may choose a canonical source; no canonical note is assumed.\",\n    \"The paper exercise in note B is context-dependent and should not be moved or embedded without considering its workshop context.\",\n    \"The expiry section in note A is a separate concept; merging it with the workshop notes could lose the guide's focus.\",\n    \"No information about the intended audience or usage of these notes was available.\",\n    \"The evidence catalogue does not cover all characters; some content may lack unique fragments, but the full notes were supplied.\",\n    \"The recommendation to add a link is preliminary and does not specify where the link should be placed.\",\n    \"No contradictions or version differences were detected between the notes.\"\n  ]\n}",
+      "rawModelContentSha256": "f8e65da284451b5dd399381eedbba351865d8e9990fc26721747a5fb751970fb",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "35c4ceaa-e7f9-4949-98be-07a780c8b3dc:A:1",
+          "fragment": "A lease reserves a task for one worker in this fictional system."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "35c4ceaa-e7f9-4949-98be-07a780c8b3dc:B:1",
+          "fragment": "A lease reserves a task for one worker in this fictional system."
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "35c4ceaa-e7f9-4949-98be-07a780c8b3dc:A:3",
+          "fragment": "An expired lease returns the task to the waiting queue."
+        },
+        {
+          "claimId": "c3",
+          "side": "B",
+          "evidenceId": "35c4ceaa-e7f9-4949-98be-07a780c8b3dc:B:4",
+          "fragment": "For this paper exercise, amber envelopes represent leased tasks and a reset bell represents expiry."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR06",
+      "selectionCategory": "Похожее содержание, противоречащие условия",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/11/A/Note.md",
+          "text": "The fictional Finch lab uses revision R7 for the Tuesday exercise.\n\nIn revision R7, the waiting queue holds exactly sixteen jobs.\n",
+          "sha256": "27271d202e6608b1d1a496bb6121b34aa917755301b3d5490de2af446717eca7"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/11/B/Note.md",
+          "text": "The fictional Finch lab uses revision R7 for the Tuesday exercise.\n\nIn revision R7, the waiting queue holds exactly thirty-two jobs.\n",
+          "sha256": "45ae39b847531764c2f72dd0276e82e64046956917b927bdefb902df2b1ea69d"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 3386.27,
+      "usage": {
+        "prompt_tokens": 1665,
+        "completion_tokens": 556,
+        "total_tokens": 2221
+      },
+      "providerReportedCostUSD": "0.00009304524",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": false,
+        "needsUserParameterChoiceBeforePlan": false,
+        "exactPlanBuilt": false
+      },
+      "relation": "conflicting",
+      "recommendedAction": "manual_review",
+      "rawModelContent": "{\"schema\":\"veynrel.relationship.refs.v2\",\"relation\":\"conflicting\",\"claims\":[{\"id\":\"c1\",\"kind\":\"shared\",\"text\":\"Обе заметки описывают вымышленную лабораторию Finch, использующую ревизию R7 для упражнения во вторник.\",\"evidenceA\":\"58ac9b09-7218-4fb6-a382-0165aeb836a9:A:0\",\"evidenceB\":\"58ac9b09-7218-4fb6-a382-0165aeb836a9:B:0\"},{\"id\":\"c2\",\"kind\":\"conflict\",\"text\":\"Заметка A утверждает, что очередь ожидания в ревизии R7 содержит ровно шестнадцать заданий, тогда как заметка B утверждает, что она содержит ровно тридцать два задания.\",\"evidenceA\":\"58ac9b09-7218-4fb6-a382-0165aeb836a9:A:1\",\"evidenceB\":\"58ac9b09-7218-4fb6-a382-0165aeb836a9:B:1\"}],\"explanation\":{\"text\":\"Заметки совпадают в описании контекста (лаборатория Finch, ревизия R7, вторник), но прямо противоречат друг другу в ключевом фактическом параметре — количестве заданий в очереди ожидания. Это не частичное совпадение и не разные версии одного текста, а взаимоисключающие утверждения об одном и том же объекте.\",\"evidence\":[\"c1\",\"c2\"]},\"recommendation\":{\"action\":\"manual_review\",\"reason\":\"Поскольку заметки содержат прямое противоречие в числовом значении, их нельзя объединять или встраивать одну в другую без потери информации. Требуется ручная проверка, какое значение является корректным для ревизии R7, либо уточнение, относятся ли заметки к разным версиям или условиям.\",\"evidence\":[\"c2\"]},\"limitations\":[\"Не проверялись другие заметки, теги или зависимости, которые могли бы разрешить противоречие.\",\"Неизвестно, какая из заметок является более актуальной или авторитетной.\",\"Отсутствует контекст, объясняющий, почему значения различаются (например, разные условия упражнения).\",\"Решение о каноническом источнике оставлено за пользователем, так как анализ не выявил оснований для выбора.\"]}",
+      "rawModelContentSha256": "b4ddb90240661099a7d4e0660157b8e0f874cbb2d17840ebfd46e8367047646b",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "58ac9b09-7218-4fb6-a382-0165aeb836a9:A:0",
+          "fragment": "The fictional Finch lab uses revision R7 for the Tuesday exercise."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "58ac9b09-7218-4fb6-a382-0165aeb836a9:B:0",
+          "fragment": "The fictional Finch lab uses revision R7 for the Tuesday exercise."
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "58ac9b09-7218-4fb6-a382-0165aeb836a9:A:1",
+          "fragment": "In revision R7, the waiting queue holds exactly sixteen jobs."
+        },
+        {
+          "claimId": "c2",
+          "side": "B",
+          "evidenceId": "58ac9b09-7218-4fb6-a382-0165aeb836a9:B:1",
+          "fragment": "In revision R7, the waiting queue holds exactly thirty-two jobs."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR07",
+      "selectionCategory": "Разные версии одной идеи",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/13/A/Note.md",
+          "text": "Fictional Reed service handbook, revision 1.\n\nRevision 1 retries a rejected job immediately once.\n",
+          "sha256": "14a76b1832830b91ff13cebf7e359b4af7f0a05731add8c5e8fa9c4112c49a5b"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/13/B/Note.md",
+          "text": "Fictional Reed service handbook, revision 2.\n\nRevision 2 leaves rejected jobs for the next scheduled batch and does not retry immediately.\n",
+          "sha256": "25acd23b7a8eaa444040ea9101a998e4714df71453f48b7e6651ff503f5bb996"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 2586.61,
+      "usage": {
+        "prompt_tokens": 1677,
+        "completion_tokens": 426,
+        "total_tokens": 2103
+      },
+      "providerReportedCostUSD": "0.00007624692",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": false,
+        "needsUserParameterChoiceBeforePlan": false,
+        "exactPlanBuilt": false
+      },
+      "relation": "conflicting",
+      "recommendedAction": "manual_review",
+      "rawModelContent": "{\n  \"schema\": \"veynrel.relationship.refs.v2\",\n  \"relation\": \"conflicting\",\n  \"claims\": [\n    {\n      \"id\": \"c1\",\n      \"kind\": \"conflict\",\n      \"text\": \"Revision 1 specifies immediate single retry for rejected jobs, while revision 2 specifies no immediate retry, deferring to next scheduled batch.\",\n      \"evidenceA\": \"0b1969f2-9779-4a8b-8ce9-a9b1e4611edc:A:1\",\n      \"evidenceB\": \"0b1969f2-9779-4a8b-8ce9-a9b1e4611edc:B:1\"\n    }\n  ],\n  \"explanation\": {\n    \"text\": \"Обе заметки описывают поведение сервиса Reed при отклонённых заданиях, но предписывают противоположные действия: немедленный повтор один раз против отложенной обработки в следующем пакете. Это прямое противоречие, а не частичное совпадение или разные аспекты.\",\n    \"evidence\": [\"c1\"]\n  },\n  \"recommendation\": {\n    \"action\": \"manual_review\",\n    \"reason\": \"Поскольку версии несовместимы, их нельзя объединять или встраивать. Требуется ручное решение о том, какая версия актуальна, с учётом контекста и возможных внешних зависимостей.\",\n    \"evidence\": [\"c1\"]\n  },\n  \"limitations\": [\n    \"Не проверены другие заметки, теги или зависимости, которые могли бы указать на актуальную версию.\",\n    \"Неизвестно, какая ревизия новее или имеет приоритет в реальном использовании.\",\n    \"Отсутствует контекст о том, почему поведение изменилось, что могло бы помочь разрешить конфликт.\"\n  ]\n}",
+      "rawModelContentSha256": "77660937ee6778443928426d31589f5f9c0edee9fadfbe544bf93927040c7e0a",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "0b1969f2-9779-4a8b-8ce9-a9b1e4611edc:A:1",
+          "fragment": "Revision 1 retries a rejected job immediately once."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "0b1969f2-9779-4a8b-8ce9-a9b1e4611edc:B:1",
+          "fragment": "Revision 2 leaves rejected jobs for the next scheduled batch and does not retry immediately."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR08",
+      "selectionCategory": "Вероятно стоит сохранить обе без изменений",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/16/A/Note.md",
+          "text": "В учебном гербарии «Вяз» ветка дерева хранится вместе с этикеткой образца.\n\nЭтикетка связывает образец с датой прогулки.\n",
+          "sha256": "ad6912578483f23923a125382d21eca6671dd1a934b05dd06ac6d3422d350bd6"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/16/B/Note.md",
+          "text": "В учебном репозитории «Вяз» ветка хранит отдельную последовательность коммитов упражнения.\n\nНазвание ветки выбирает автор упражнения.\n",
+          "sha256": "69b3da058d03066a38a5ea64c1d6a234225497f75958a088532070e956d90986"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 10000.31,
+      "usage": {
+        "prompt_tokens": 1715,
+        "completion_tokens": 569,
+        "total_tokens": 2284
+      },
+      "providerReportedCostUSD": "0.000217651",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": true,
+        "needsUserParameterChoiceBeforePlan": true,
+        "exactPlanBuilt": false
+      },
+      "relation": "related_distinct",
+      "recommendedAction": "add_link",
+      "rawModelContent": "{\"schema\":\"veynrel.relationship.refs.v2\",\"relation\":\"related_distinct\",\"claims\":[{\"id\":\"c1\",\"kind\":\"comparison\",\"text\":\"Обе заметки используют слово «ветка», но A описывает физическую ветку в гербарии, а B — ветку в репозитории; это разные домены и разные смыслы термина.\",\"evidenceA\":\"b573fb92-cf4d-4ede-ae1a-63bda61428f9:A:0\",\"evidenceB\":\"b573fb92-cf4d-4ede-ae1a-63bda61428f9:B:0\"},{\"id\":\"c2\",\"kind\":\"unique_a\",\"text\":\"Заметка A связывает этикетку образца с датой прогулки — это специфичная для гербария деталь, которой нет в B.\",\"evidenceA\":\"b573fb92-cf4d-4ede-ae1a-63bda61428f9:A:1\",\"evidenceB\":null},{\"id\":\"c3\",\"kind\":\"unique_b\",\"text\":\"Заметка B упоминает, что название ветки выбирает автор упражнения — это элемент работы с репозиторием, отсутствующий в A.\",\"evidenceA\":null,\"evidenceB\":\"b573fb92-cf4d-4ede-ae1a-63bda61428f9:B:1\"}],\"explanation\":{\"text\":\"Заметки используют одинаковое слово «ветка», но относятся к разным понятиям: в A это ботаническая ветка с этикеткой, в B — ветка git с коммитами. Тематически близки только по термину, содержание же самостоятельное: дата прогулки в A и автор названия ветки в B — уникальные детали. Слияние или встраивание невозможно, так как контексты различны.\",\"evidence\":[\"c1\",\"c2\",\"c3\"]},\"recommendation\":{\"action\":\"add_link\",\"reason\":\"Между заметками есть терминологическое пересечение («ветка»), но содержание разное; связь может помочь пользователю заметить разницу смыслов, не смешивая контексты. Только добавление ссылки, без изменения текста.\",\"evidence\":[\"c1\"]},\"limitations\":[\"Отсутствие других заметок и тегов не анализировалось\",\"Решение только относительно этих двух текстов\",\"Дополнительные детали о гербарии или репозитории отсутствуют\",\"Название ветки в B может иметь иные значения, не охваченные фрагментами\"]}",
+      "rawModelContentSha256": "65dc00d20be65d80f5c0c7b64d236d969e8c014c961a94c62d43f8a7bd29a77d",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "b573fb92-cf4d-4ede-ae1a-63bda61428f9:A:0",
+          "fragment": "В учебном гербарии «Вяз» ветка дерева хранится вместе с этикеткой образца."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "b573fb92-cf4d-4ede-ae1a-63bda61428f9:B:0",
+          "fragment": "В учебном репозитории «Вяз» ветка хранит отдельную последовательность коммитов упражнения."
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "b573fb92-cf4d-4ede-ae1a-63bda61428f9:A:1",
+          "fragment": "Этикетка связывает образец с датой прогулки."
+        },
+        {
+          "claimId": "c3",
+          "side": "B",
+          "evidenceId": "b573fb92-cf4d-4ede-ae1a-63bda61428f9:B:1",
+          "fragment": "Название ветки выбирает автор упражнения."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR09",
+      "selectionCategory": "Два файла с одинаковым названием",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Study/Caching/Cache lifetime.md",
+          "text": "---\ntags: [synthetic]\n---\n\n# Cache study\n\n**A formatted observation** uses `code` and [[Reference]].\n\nКэш хранит результаты для повторного использования.\n\nПосле истечения срока жизни значение удаляется из кэша.\n\nВ учебном примере срок жизни равен пяти минутам.\n\nПовторяющееся наблюдение.\n\nПовторяющееся наблюдение.\n\nЗаключительное объяснение остаётся в исходной заметке.\n",
+          "sha256": "87a1960ff7359c33144db73ad15b5b19e42d21ec9bda2db09a804fe1d46b1bac"
+        },
+        {
+          "side": "B",
+          "path": "Study/Systems/Cache lifetime.md",
+          "text": "---\ntags: [synthetic]\n---\n\n# Cache study\n\n**A formatted observation** uses `code` and [[Reference]].\n\nКэш хранит результаты для повторного использования.\n\nТребования к свежести данных определяют срок их хранения.\n\nВ практическом примере задержка измеряется на одном устройстве.\n\nУказание источника сохраняется во второй заметке.\n",
+          "sha256": "c2cd8cd3f8eab9a654b73d537e5bbe5c2c0ae04d60844d4d35e203226017be7a"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 4493.63,
+      "usage": {
+        "prompt_tokens": 2529,
+        "completion_tokens": 812,
+        "total_tokens": 3341
+      },
+      "providerReportedCostUSD": "0.000372351",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": true,
+        "needsUserParameterChoiceBeforePlan": true,
+        "exactPlanBuilt": false
+      },
+      "relation": "partial_overlap",
+      "recommendedAction": "add_link",
+      "rawModelContent": "{\n  \"schema\": \"veynrel.relationship.refs.v2\",\n  \"relation\": \"partial_overlap\",\n  \"claims\": [\n    {\n      \"id\": \"c1\",\n      \"kind\": \"shared\",\n      \"text\": \"Обе заметки содержат одинаковую начальную часть: заголовок, тег, форматированное наблюдение и утверждение о том, что кэш хранит результаты для повторного использования.\",\n      \"evidenceA\": \"0f613eb4-7d23-4638-90e7-6c1e96412519:A:0\",\n      \"evidenceB\": \"0f613eb4-7d23-4638-90e7-6c1e96412519:B:0\"\n    },\n    {\n      \"id\": \"c2\",\n      \"kind\": \"unique_a\",\n      \"text\": \"В заметке A есть описание удаления значения из кэша после истечения срока жизни и учебный пример с пятиминутным сроком жизни.\",\n      \"evidenceA\": \"0f613eb4-7d23-4638-90e7-6c1e96412519:A:5\",\n      \"evidenceB\": null\n    },\n    {\n      \"id\": \"c3\",\n      \"kind\": \"unique_b\",\n      \"text\": \"В заметке B есть утверждение о том, что требования к свежести данных определяют срок хранения, и практический пример измерения задержки на одном устройстве.\",\n      \"evidenceB\": \"0f613eb4-7d23-4638-90e7-6c1e96412519:B:5\",\n      \"evidenceA\": null\n    }\n  ],\n  \"explanation\": {\n    \"text\": \"Заметки имеют общую основу: повторяются заголовок, тег, форматированное наблюдение и фраза о назначении кэша. Однако далее они расходятся: A содержит конкретный механизм удаления и учебный пример с пятиминутным сроком жизни, а B — общий принцип о свежести данных и практический пример измерения задержки. Эти дополнения контекстно зависимы и не дублируются.\",\n    \"evidence\": [\"c1\", \"c2\", \"c3\"]\n  },\n  \"recommendation\": {\n    \"action\": \"add_link\",\n    \"reason\": \"Поскольку заметки частично совпадают, но имеют и самостоятельные контекстные дополнения, разумно установить связь между ними, чтобы пользователь мог видеть оба источника без потери уникального содержания. Это сохраняет исходный контекст каждого примера и не требует слияния.\",\n    \"evidence\": [\"c1\", \"c2\", \"c3\"]\n  },\n  \"limitations\": [\n    \"Не проверялись другие заметки, теги и внешние ссылки; выводы только относительно двух предоставленных текстов.\",\n    \"Сходство начальных фрагментов не доказывает семантическую эквивалентность всего содержимого; это ограничение учтено.\",\n    \"Практический пример в B не имеет аналога в A, но его ценность вне контекста не оценивалась.\",\n    \"Учебный пример в A и практический пример в B могут быть независимо ценными, но атомизация не рекомендуется без дополнительного анализа окружения.\",\n    \"Отсутствие уникальных фрагментов в каталоге не означает отсутствия информации в полных текстах; выводы основаны на доступных отрывках.\",\n    \"Ссылки и вложения ([[Reference]] и т.п.) не анализировались, их целевое содержимое не учитывалось.\"\n  ]\n}",
+      "rawModelContentSha256": "2d2115638711ce579bf490b41c6b354586696010911e82dcb19b8c3efdf723ee",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "0f613eb4-7d23-4638-90e7-6c1e96412519:A:0",
+          "fragment": "---\ntags: [synthetic]\n---\n\n# Cache study\n\n**A formatted observation** uses `code` a"
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "0f613eb4-7d23-4638-90e7-6c1e96412519:B:0",
+          "fragment": "---\ntags: [synthetic]\n---\n\n# Cache study\n\n**A formatted observation** uses `code` a"
+        },
+        {
+          "claimId": "c2",
+          "side": "A",
+          "evidenceId": "0f613eb4-7d23-4638-90e7-6c1e96412519:A:5",
+          "fragment": "После истечения срока жизни значение удаляется из кэша."
+        },
+        {
+          "claimId": "c3",
+          "side": "B",
+          "evidenceId": "0f613eb4-7d23-4638-90e7-6c1e96412519:B:5",
+          "fragment": "Требования к свежести данных определяют срок их хранения."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    },
+    {
+      "id": "LR10",
+      "selectionCategory": "Неоднозначный или недостаточный контекст",
+      "notes": [
+        {
+          "side": "A",
+          "path": "Realistic/17/A/Note.md",
+          "text": "Set it to four.\n",
+          "sha256": "6b4c52e50896d0d9a121850d78d03646781e6f994869642eb3ecee5190c6a653"
+        },
+        {
+          "side": "B",
+          "path": "Realistic/17/B/Note.md",
+          "text": "Keep the previous one.\n",
+          "sha256": "28fc7e45b08fae555e3679e160328c9e47f2263246199f15a869bf5af262fe05"
+        }
+      ],
+      "requestedModel": "deepseek/deepseek-v4-flash-0731",
+      "returnedModel": "deepseek/deepseek-v4-flash-0731",
+      "generationSettings": {
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "temperature": 0,
+        "max_tokens": 8192,
+        "repetition_penalty": 1.15,
+        "frequency_penalty": 0.1,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "httpStatus": 200,
+      "finishReason": "stop",
+      "latencyMs": 2546.13,
+      "usage": {
+        "prompt_tokens": 1511,
+        "completion_tokens": 428,
+        "total_tokens": 1939
+      },
+      "providerReportedCostUSD": "0.000159817",
+      "checks": {
+        "validJSON": true,
+        "validRefsV2": true,
+        "evidencePassed": true,
+        "productionValidatorAccepted": true,
+        "preflightPassed": true,
+        "primaryActionAvailable": true,
+        "supportedMarkdownExecutorAvailable": false,
+        "needsUserParameterChoiceBeforePlan": false,
+        "exactPlanBuilt": false
+      },
+      "relation": "conflicting",
+      "recommendedAction": "manual_review",
+      "rawModelContent": "{\"schema\":\"veynrel.relationship.refs.v2\",\"relation\":\"conflicting\",\"claims\":[{\"id\":\"c1\",\"kind\":\"conflict\",\"text\":\"Заметка A предписывает установить значение равным четырём, тогда как заметка B требует сохранить предыдущее значение; эти указания противоречат друг другу.\",\"evidenceA\":\"af6f5eb3-84b0-4ecf-bd02-f55000b1edc0:A:0\",\"evidenceB\":\"af6f5eb3-84b0-4ecf-bd02-f55000b1edc0:B:0\"}],\"explanation\":{\"text\":\"Оба фрагмента напрямую выражают несовместимые инструкции относительно одного и того же параметра: A однозначно задаёт значение 4, B однозначно требует не менять прежнее значение. Никаких дополнительных условий или контекста, позволяющих снять противоречие, в доступных текстах нет.\",\"evidence\":[\"c1\"]},\"recommendation\":{\"action\":\"manual_review\",\"reason\":\"Инструкции явно конфликтуют, и без дополнительного контекста невозможно определить, какая из них должна быть приоритетной. Объединение или выбор одной из них недопустимы, поскольку противоречие отражает разные требования, а не совпадающую информацию. Требуется ручное решение пользователя.\",\"evidence\":[\"c1\"]},\"limitations\":[\"Доступны только два коротких фрагмента без какого-либо контекста, описывающего параметр, условия применения или источник инструкций.\",\"Не проверялись другие заметки, теги или зависимости, которые могли бы прояснить, какое значение является правильным.\",\"Вывод о конфликте основан исключительно на предоставленных текстах; отсутствие других данных не доказывает отсутствия более широкого контекста.\"]}",
+      "rawModelContentSha256": "90b1b87de68eb057fdbd2965fd6986bd7747b56eea6f0e0ebbbf65ec9ff2a0cb",
+      "groundedFragments": [
+        {
+          "claimId": "c1",
+          "side": "A",
+          "evidenceId": "af6f5eb3-84b0-4ecf-bd02-f55000b1edc0:A:0",
+          "fragment": "Set it to four."
+        },
+        {
+          "claimId": "c1",
+          "side": "B",
+          "evidenceId": "af6f5eb3-84b0-4ecf-bd02-f55000b1edc0:B:0",
+          "fragment": "Keep the previous one."
+        }
+      ],
+      "humanAdjudication": "NOT ADJUDICATED",
+      "applyUndo": "NOT RUN",
+      "failureReasons": []
+    }
+  ]
+}
