@@ -182,7 +182,7 @@ export class VeynrelStudioView extends ItemView {
   private setup(): void {
     const recipe = this.selected; if (!recipe) return;
     this.body.createEl("h2", { text: recipe.name[currentLanguage()] });
-    this.body.createEl("p", { text: errorMessage("editor") });
+    this.body.createEl("p", { text: l("Save selected notes before preparing. Saved notes can stay open during generation and review. Close their editors only before Apply; unsaved changes must be saved before sending.", "Сохраните выбранные заметки перед подготовкой. Во время генерации и просмотра сохранённые заметки могут оставаться открытыми. Закрыть редакторы нужно только перед Apply; несохранённые изменения нужно сохранить до отправки.") });
     const paths = this.owner.inventory(), chosen = new Set<string>();
     const mode = select(this.body, l("Selection", "Выбор"), [["files", l("Choose individual notes", "Выбрать отдельные заметки")], ["folder", l("Choose a folder including subfolders", "Выбрать папку с подпапками")]], "files");
     const picker = this.body.createDiv(), query = field(picker, l("Search full paths", "Поиск по полному пути"), ""), list = picker.createDiv({ cls: "veynrel-studio-picker" });
@@ -246,14 +246,14 @@ export class VeynrelStudioView extends ItemView {
       literal(card, l("Original saved Markdown", "Исходный сохранённый Markdown"), row.before);
       if (row.after !== null) {
         literal(card, l("Proposed Markdown", "Предлагаемый Markdown"), row.after); renderPlanDiff(card, row.before, row.after);
-        if (!runner.results && ["review", "cancelled"].includes(runner.state)) {
+        if (runner.canApply) {
           const label = card.createEl("label", { cls: "veynrel-studio-check" }), input = label.createEl("input", { type: "checkbox", attr: { "data-studio-select": row.path } });
           label.createSpan({ text: l("Include in Apply", "Включить в применение") }); input.checked = this.selectedRows.has(row.path);
           input.addEventListener("change", () => { if (input.checked) this.selectedRows.add(row.path); else this.selectedRows.delete(row.path); });
         }
       }
     }
-    if (!runner.results && ["review", "cancelled"].includes(runner.state)) button(this.body, l("Review selected writes", "Проверить выбранные записи"), "review-apply", () => {
+    if (runner.canApply) button(this.body, l("Review selected writes", "Проверить выбранные записи"), "review-apply", () => {
       const selected = [...this.selectedRows]; if (!selected.length) { this.errorEl.setText(errorMessage("scope")); return; }
       this.dialog((d, root) => {
         root.createEl("h2", { text: l("Confirm writing selected notes", "Подтвердите запись выбранных заметок") });

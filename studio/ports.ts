@@ -3,7 +3,8 @@ import type { SavedNote } from "../consolidation/savedNote";
 export interface StudioSource extends SavedNote { created: number }
 export interface StudioNotePort {
   read(path: string): Promise<StudioSource | null>;
-  guard(note: StudioSource): void;
+  readGuard(note: StudioSource): void;
+  writeGuard(note: StudioSource): void;
   process(note: StudioSource, before: string, after: string, check: () => void): Promise<void>;
 }
 export type StudioState = "idle" | "preparing" | "prepared" | "generating" | "review" | "applying" | "partial" | "completed" | "failed" | "cancelled" | "interrupted";

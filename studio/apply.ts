@@ -39,7 +39,7 @@ export class StudioApply {
   }
   private async fresh(expected: StudioSource): Promise<StudioSource> {
     const note = await this.port.read(expected.path);
-    ensure(note && sameSavedNote(note, expected) && note.created === expected.created, "conflict"); this.port.guard(note); return note;
+    ensure(note && sameSavedNote(note, expected) && note.created === expected.created, "conflict"); this.port.writeGuard(note); return note;
   }
   apply(review: ReviewSession, sources: readonly StudioSource[], selected: readonly string[], active: () => boolean): Promise<readonly ApplyResult[]> {
     return this.exclusive(async () => {
@@ -72,7 +72,7 @@ export class StudioApply {
           await this.blockers([c.path], record.id); await this.journal.intact(record);
           note = await this.fresh(expected);
           await this.journal.intact(record);
-          const check = () => { ensure(active() && !this.closed, "cancelled"); this.port.guard(note); };
+          const check = () => { ensure(active() && !this.closed, "cancelled"); this.port.writeGuard(note); };
           check(); issued = true;
           await this.port.process(note, c.before, c.after, check);
           // An issued write is always observed and journalled, even after cancellation/disposal.
@@ -103,7 +103,7 @@ export class StudioApply {
     else if (!applied && n.content === c.before && n.modified === c.modified && n.bytes === c.bytes) {
       row.state = intent ? "unconfirmed" : "skipped"; if (intent) row.recovery = "skipped";
     }
-    try { this.port.guard(n); await this.blockers([c.path], entry.id); }
+    try { this.port.writeGuard(n); await this.blockers([c.path], entry.id); }
     catch (e) { row.reason = e instanceof StudioError ? e.code : "storage"; row.canUndo = false; row.recovery = undefined; }
     return row;
   }
@@ -121,7 +121,7 @@ export class StudioApply {
     return this.exclusive(async () => {
       const entry = (await this.journal.entries()).find(e => e.id === id); ensure(entry?.record && entry.record.changes[index], "storage");
       const row = await this.inspect(entry, index); ensure(action === "undo" ? row.canUndo : row.recovery, row.reason === "editor" ? "editor" : "conflict");
-      const note = await this.port.read(row.path); ensure(note, "source"); this.port.guard(note);
+      const note = await this.port.read(row.path); ensure(note, "source"); this.port.writeGuard(note);
       const c = entry.record.changes[index];
       ensure(identity(note, c) && note.content === (action === "undo" || row.recovery === "applied" ? c.after : c.before), "conflict");
       const review: UndoReview = freeze({ id, index, path: c.path, before: note.content, after: action === "undo" ? c.before : note.content, action, ...(row.recovery ? { recovery: row.recovery } : {}) });
@@ -142,7 +142,7 @@ export class StudioApply {
       }
       if (!markAt(entry, index, "undo-intent")) await this.journal.mark(r, index, "undo-intent", note);
       await this.blockers([c.path], r.id); note = await this.fresh(ticket.note); await this.journal.intact(r);
-      const check = () => { ensure(!this.closed, "cancelled"); this.port.guard(note); };
+      const check = () => { ensure(!this.closed, "cancelled"); this.port.writeGuard(note); };
       check(); await this.port.process(note, c.after, c.before, check);
       const saved = await this.port.read(c.path);
       ensure(saved && saved.file === note.file && identity(saved, c) && saved.content === c.before, "conflict");
