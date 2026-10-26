@@ -30,7 +30,7 @@ export async function validateStudioRecord(value: unknown, id: string): Promise<
     ensure(object(c, ["path", "created", "modified", "bytes", "before", "after", "beforeHash", "afterHash", "action"]) && notePath(c.path) &&
       !paths.has(c.path) && timestamp(c.created) && timestamp(c.modified) && integer(c.bytes, 0, STUDIO_LIMITS.input * 4) &&
       typeof c.before === "string" && c.before.length <= STUDIO_LIMITS.input && text(c.after, STUDIO_LIMITS.input + STUDIO_LIMITS.output + 2) &&
-      c.bytes === bytes(c.before) && c.after !== c.before && ["replace", "append"].includes(String(c.action)) &&
+      c.bytes === bytes(c.before) && c.after !== c.before && (c.action === "replace" || c.action === "append") &&
       (c.action !== "append" || c.after.startsWith(`${c.before}\n\n`)) &&
       hash(c.beforeHash) && hash(c.afterHash) && await checksum(c.before) === c.beforeHash && await checksum(c.after) === c.afterHash, "storage");
     paths.add(c.path);
@@ -133,7 +133,7 @@ export class StudioJournal {
           const files = await s.adapter.list(dir); ensure(!files.folders.length && files.files.every(p => p === `${dir}/start.json` || p === `${dir}/finish.json`), "storage");
           if (await s.adapter.exists(`${dir}/finish.json`)) {
             const finish: unknown = JSON.parse(await s.read(`${dir}/finish.json`, 2000));
-            ensure(object(finish, ["schemaVersion", "id", "state"]) && finish.schemaVersion === 1 && finish.id === id && ["review", "cancelled", "failed"].includes(String(finish.state)), "storage");
+            ensure(object(finish, ["schemaVersion", "id", "state"]) && finish.schemaVersion === 1 && finish.id === id && typeof finish.state === "string" && ["review", "cancelled", "failed"].includes(finish.state), "storage");
             row.state = finish.state === "review" ? "interrupted" : finish.state as "cancelled" | "failed";
           }
         } catch { row.damaged = true; }

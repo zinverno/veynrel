@@ -15,6 +15,8 @@ describe("Studio declarative recipe boundary", () => {
     { parameters: { language: "ru", instructions: "", apiKey: "x" } }, { run: "eval(1)" }, { __extra: true },
     { limits: { maxInputCharacters: 1e8, maxOutputCharacters: 100, maxOutputTokens: 1000 } }, { constraints: [] },
     { name: { en: "x\0", ru: "x" } }, { steps: [{ type: "llm_transform", prompt: "x".repeat(8001) }] },
+    { source: ["builtin"] }, { output: { format: "markdown", action: ["replace"] } },
+    { parameters: { language: ["ru"], instructions: "" } },
   ])("rejects unsupported or unsafe fields %j", patch => {
     expect(() => validateRecipe({ ...BUILTIN_RECIPES[0], ...patch })).toThrow();
   });

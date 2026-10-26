@@ -83,6 +83,17 @@ describe("Studio consent and generation", () => {
     }
     expect(requestUrl).toHaveBeenCalledTimes(3); vi.unstubAllGlobals();
   });
+  it.each(["ollama", "openrouter", "openai", "groq", "custom"])("%s uses the shared transport with the exact consent body", async provider => {
+    const f = fixture(1); Object.assign(f.settings, { provider, apiKey: "synthetic-key" }); vi.stubGlobal("window", { setTimeout, clearTimeout });
+    vi.mocked(requestUrl).mockClear().mockResolvedValue({ status: 200, text: JSON.stringify({ choices: [{ message: { content: "Complete Markdown" }, finish_reason: "stop" }] }) } as never);
+    try {
+      const runner = new RecipeRunner({ notes: f.port, inventory: () => studioInventory(f.app), settings: { get: () => ({ ...f.settings }), update: async s => s, subscribe: () => () => {} }, complete: callOpenRouter }, f.writer);
+      const p = await runner.prepare(BUILTIN_RECIPES[0], BUILTIN_RECIPES[0].parameters, { paths: [f.files[0].path] }, 32768);
+      expect(requestUrl).not.toHaveBeenCalled(); const r = await runner.generate(p);
+      expect(requestUrl).toHaveBeenCalledTimes(1); expect(requestUrl).toHaveBeenCalledWith(expect.objectContaining({ url: p.endpoint, body: p.requests[0].body }));
+      expect(r.rows[0].after).toBe("Complete Markdown"); expect(f.vault.process).not.toHaveBeenCalled();
+    } finally { vi.unstubAllGlobals(); }
+  });
   it("uses frozen replace/append output, and edits to recipe/settings cannot change Review", async () => {
     const f = fixture(1), recipe = structuredClone(BUILTIN_RECIPES[0]); recipe.output.action = "append";
     const r = await f.generate(recipe); expect(r.rows[0].after).toBe(`${r.rows[0].before}\n\n# Structured\nPreserved facts.\n`);
@@ -153,6 +164,12 @@ describe("Studio guarded Apply and restart recovery", () => {
     vi.mocked(f.adapter.write).mockImplementation(async (path, raw) => { if (path.endsWith(suffix)) throw Error("disk"); await original(path, raw); });
     expect((await f.runner.apply(r, r.rows.map(x => x.path)))[0].outcome).toBe("failed"); expect(f.vault.process).not.toHaveBeenCalled();
   });
+  it("a write that resolves but stores torn backup bytes cannot authorize a note mutation", async () => {
+    const f = fixture(1), r = await f.generate(), write = vi.mocked(f.adapter.write).getMockImplementation()!;
+    vi.mocked(f.adapter.write).mockImplementation(async (path, raw) => write(path, path.endsWith("backup.json") ? "{" : raw));
+    expect((await f.runner.apply(r, [r.rows[0].path]))[0].outcome).toBe("failed"); expect(f.vault.process).not.toHaveBeenCalled();
+    expect((await f.journal.entries())[0].damaged).toBe(true);
+  });
   it.each(["before", "after", "receipt"])("classifies crash %s physical write without replaying it", async point => {
     const f = fixture(), r = await f.generate(), original = f.vault.process.getMockImplementation()!;
     if (point === "receipt") {
@@ -175,6 +192,23 @@ describe("Studio guarded Apply and restart recovery", () => {
     const restarted = f.restart(), [row] = await restarted.history(); expect(row).toMatchObject({ state: "damaged", canUndo: false });
     await expect(restarted.reviewUndo(r.id, 0, "undo")).rejects.toThrow(); expect(await disk.read(`${dir}/record.json`)).toBe(await disk.read(`${dir}/backup.json`));
     expect(f.vault.process).toHaveBeenCalledTimes(1);
+  });
+  it.each(["version", "extra", "action-array", "hash", "path", "identity", "marker", "root"])("strict journal rejects %s damage and refuses Undo", async fault => {
+    const f = fixture(1), r = await f.apply(), dir = `${f.journal.root}/${r.id}`, disk = f.journal.storage;
+    if (fault === "root") await disk.create(`${f.journal.root}/unknown.json`, "{}");
+    else if (fault === "marker") await disk.adapter.rename(`${dir}/0-applied.json`, `${dir}/00-applied.json`);
+    else {
+      const raw = JSON.parse(await disk.read(`${dir}/record.json`)) as { schemaVersion: number; changes: Record<string, unknown>[]; extra?: boolean };
+      if (fault === "version") raw.schemaVersion = 2;
+      if (fault === "extra") raw.extra = true;
+      if (fault === "action-array") raw.changes[0].action = ["replace"];
+      if (fault === "hash") raw.changes[0].beforeHash = "0".repeat(64);
+      if (fault === "path") raw.changes[0].path = "../outside.md";
+      if (fault === "identity") raw.changes[0].created = 99;
+      for (const name of ["record", "backup"]) await disk.adapter.write(`${dir}/${name}.json`, JSON.stringify(raw));
+    }
+    expect((await f.journal.entries()).some(e => e.damaged)).toBe(true);
+    await expect(f.restart().reviewUndo(r.id, 0, "undo")).rejects.toThrow(); expect(f.vault.process).toHaveBeenCalledTimes(1);
   });
   it("Undo refuses later user edits, even edits returning to identical text with a newer mtime", async () => {
     for (const mode of ["content", "mtime"]) {

@@ -35,13 +35,13 @@ export interface Recipe {
 }
 
 export function validateParameters(value: unknown): RecipeParameters {
-  ensure(object(value, ["language", "instructions"]) && ["source", "en", "ru"].includes(String(value.language)) &&
+  ensure(object(value, ["language", "instructions"]) && typeof value.language === "string" && ["source", "en", "ru"].includes(value.language) &&
     text(value.instructions, STUDIO_LIMITS.instructions, true), "parameters");
   return { language: value.language as RecipeParameters["language"], instructions: value.instructions };
 }
 export function validateRecipe(value: unknown): Recipe {
   ensure(object(value, ["schemaVersion", "id", "version", "source", "name", "description", "input", "parameters", "steps", "output", "limits", "constraints"]), "recipe");
-  ensure(value.schemaVersion === 1 && ["builtin", "user"].includes(String(value.source)) &&
+  ensure(value.schemaVersion === 1 && (value.source === "builtin" || value.source === "user") &&
     typeof value.id === "string" && new RegExp(`^${String(value.source)}\\.[a-z0-9][a-z0-9.-]{0,79}$`, "u").test(value.id) &&
     typeof value.version === "string" && /^(0|[1-9]\d{0,5})\.(0|[1-9]\d{0,5})\.(0|[1-9]\d{0,5})$/u.test(value.version), "recipe");
   for (const [key, max] of [["name", 120], ["description", 1200]] as const) {
@@ -51,7 +51,7 @@ export function validateRecipe(value: unknown): Recipe {
   validateParameters(value.parameters);
   ensure(Array.isArray(value.steps) && value.steps.length === 1 && object(value.steps[0], ["type", "prompt"]) &&
     value.steps[0].type === "llm_transform" && text(value.steps[0].prompt, 8000), "recipe");
-  ensure(object(value.output, ["format", "action"]) && value.output.format === "markdown" && ["replace", "append"].includes(String(value.output.action)), "recipe");
+  ensure(object(value.output, ["format", "action"]) && value.output.format === "markdown" && (value.output.action === "replace" || value.output.action === "append"), "recipe");
   ensure(object(value.limits, ["maxInputCharacters", "maxOutputCharacters", "maxOutputTokens"]) &&
     integer(value.limits.maxInputCharacters, 1, STUDIO_LIMITS.input) && integer(value.limits.maxOutputCharacters, 1, STUDIO_LIMITS.output) &&
     integer(value.limits.maxOutputTokens, 256, 8192), "recipe");
