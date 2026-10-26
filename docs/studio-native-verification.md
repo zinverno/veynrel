@@ -17,14 +17,35 @@ The responsive matrix closes Obsidian's system sidebars, then checks the library
 
 1. Install the built `main.js`, unchanged `manifest.json` and `styles.css` into a **test vault's** plugin directory. Enable Veynrel; configure a test/local model in its existing settings.
 2. Open **Open Veynrel Studio** from the command palette or the wand ribbon icon. Search Built-in / My recipes; create a recipe, save it, restart Obsidian and verify it remains. Export JSON with the select/copy control; importing a user recipe requires a new unique `user.*` ID.
-3. Choose a built-in and one or several saved notes, or explicitly select a folder. Save and close those note editors, including popouts. Verify the model's context budget. Press **Read selected notes & review request**.
+3. Choose a built-in and one or several saved notes, or explicitly select a folder. Save those notes and leave their editors open. Verify the model's context budget. Press **Read selected notes & review request**. If any editor has unsaved changes, Studio asks you to save and prepare again.
 4. Inspect each full path, count, provider/model/endpoint, context allowance and exact JSON body. Cancel here to send nothing. Separately agree to generation to create proposals.
-5. Inspect original/proposed literal Markdown and diff. Check only wanted files. Use **Review selected writes**, read the warning, then separately confirm Apply. Inspect each result; use Stop inside the Apply dialog to prevent later files.
+5. Inspect original/proposed literal Markdown and diff. Check only wanted files. Use **Review selected writes**, read the warning, then separately confirm Apply. An open affected editor blocks writing. Save and close all affected editors, including popouts, then confirm the same Review again: no new LLM request is made. This retry is available only when preflight prevented the operation from starting. Inspect each result; use Stop inside the Apply dialog to prevent later files.
 6. Open History. Review Undo and confirm separately; verify exact originals. Make a synthetic edit after Apply and verify Undo refuses it. Keep unconfirmed/damaged evidence and inspect the documented recovery options; never delete journals merely to enable an action.
 
 Remaining platform boundaries: real-model factual accuracy, paid endpoints, hardware power-loss durability, physical mobile/touch, screen-reader speech, third-party themes/editors, Windows/macOS and external Sync/multi-process races are not established by these tests.
 
-## Recorded acceptance — 2026-10-26 UTC / 2026-10-27 Moscow
+## Recorded UX follow-up — 2026-10-27
+
+Runtime source: `e763b1cfa929c75e199e204ce6ee8854e9be4b49`, based on PR head `50b99a7471fd6d610c65c3a117291f4debaf28ac`. [Current evidence](studio-ux-evidence/README.md) is separate from the original v1 evidence below. Build/native-installed hashes match. Linux Obsidian 1.13.7 / Electron 43.6.0.
+
+| Gate | Observed result |
+| --- | --- |
+| Full test suite | **4,872 passed / 181 files**. |
+| Studio suite | **110 passed / 3 files**, including **23 new cases**. The original implementation failed 14 of the first new regression cases before the fix. |
+| Typecheck / build / lint | Passed; 0 lint errors and the same existing `api.ts:442` advisory. A new test's unbound-method lint error was fixed by inspecting the spy call list; its assertion is unchanged. |
+| Proposal audit | **5/5 mutations killed**, restored baselines passed. Same sandbox child-output failure; unchanged audit rerun on the host passed. |
+| Native acceptance | **69 checks, 39 screenshots, 17 loopback calls**. No real/paid model. |
+| Before Apply | All **6 note SHA-256 hashes unchanged** through preparation/generation with the real editor open; write counter stayed **12 → 12** (earlier cases had already exercised Apply/Undo). |
+| Same Review after closing | ID unchanged, provider-call counter **11 → 11** across refused Apply, editor close and successful Apply. |
+| Saved/unsaved/popout | Real attached Markdown editor permits generation; unsaved buffer refuses it; two real windows permit saved reads, remaining popout blocks writing. The unsaved-buffer case suspends only that synthetic view's save scheduler. |
+| Restart | Real process restart followed by protected Undo restores originals without a provider call. Existing Apply/Undo SIGKILL cases still pass. |
+| Final vault | All **6/6 original hashes restored**; unrelated note never read by Studio. |
+
+The native run exposed persistent file pointers in core Backlinks/Outgoing links/Outline inspectors. Studio now distinguishes those bufferless inspectors from editable views, with unchanged legacy guard defaults. Earlier runs also hit modal activation/readiness timeouts; the final harness uses actual pointer events, explicit window focus (including after popout), readiness waits and renderer-exception capture. A restart attempt correctly refused Undo because Obsidian restored a recent editor layout after SIGKILL. The final harness explicitly verifies this refusal, then closes that test editor before confirming Undo. [Earlier attempts](studio-ux-evidence/earlier-attempts.json), including prior successful runs, are retained; failed runs are not counted as completed native acceptance. No timeout, old assertion or write check was relaxed.
+
+The three richer Markdown fixtures and [real-model manual protocol](studio-real-model-readiness.md) cover fact preservation, YAML/links/code, unknown exercise/nutrition values and quoted adversarial instructions. **Ollama was unavailable; real-model quality evaluation was NOT RUN.** Synthetic replies test transport and review boundaries, not factual accuracy or semantic prompt-injection resistance.
+
+## Original v1 acceptance — 2026-10-26 UTC / 2026-10-27 Moscow
 
 Runtime source: `fbb9c2c7face433fd8f3c0e387ba84f5fc227359`; subsequent commits add only documentation, harness and evidence. Build/native-installed files are SHA-256 identical, recorded in [build-info.json](studio-evidence/build-info.json). Actual runtime: Linux Obsidian **1.13.7**, Electron **43.6.0**.
 

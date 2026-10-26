@@ -12,10 +12,11 @@ const root = process.argv[2];
 assert(root?.startsWith('/tmp/veynrel-studio-native-') && !root.includes('..') && !fs.existsSync(root));
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(pluginDir, { recursive: true }); fs.mkdirSync(`${root}/profile`, { recursive: true });
+const fixture = (name, synthetic = false) => fs.readFileSync(`${ROOT}/docs/studio-fixtures/${name}${synthetic ? '.synthetic' : ''}.md`, 'utf8');
 const originals = {
-  'Formatting.md': '# heading\nfree text\n\n<img src="https://invalid.test/tracker">\n![[Untouched]]\n```js\nconsole.log("literal");\n```\n',
-  'Training.md': 'Сегодня жим лёжа 3 по 10 с 50 кг, потом приседания 4 по 8, 60 кг.\n',
-  'Nutrition.md': 'Завтрак: овсянка 100 г, яблоко. Обед: суп, количество не записал.\n',
+  'Formatting.md': fixture('formatting'),
+  'Training.md': fixture('training'),
+  'Nutrition.md': fixture('nutrition'),
   'Batch/a/same.md': 'Saved facts in A.\n', 'Batch/b/same.md': 'Saved facts in B.\n',
   'Untouched.md': '# Never selected\nThis note must not be read or changed by Studio.\n',
 };
@@ -27,8 +28,8 @@ const server = createServer(async (req, res) => {
   assert.equal(req.url, '/v1/chat/completions'); requests.push(raw);
   const body = JSON.parse(raw), system = body.messages[0].content, markdown = JSON.parse(body.messages[1].content).markdown;
   if (providerMode === 'defer') await new Promise(resolve => { releaseProvider = resolve; });
-  const content = system.includes('Structure the workout') ? '# Тренировка\n\n| Упражнение | Подходы | Повторы | Вес |\n| --- | --- | --- | --- |\n| Жим лёжа | 3 | 10 | 50 кг |\n| Приседания | 4 | 8 | 60 кг |\n' :
-    system.includes('Structure the food') ? '# Питание\n\n| Приём пищи | Продукт | Количество | КБЖУ |\n| --- | --- | --- | --- |\n| Завтрак | Овсянка | 100 г | неизвестно |\n| Завтрак | Яблоко | неизвестно | неизвестно |\n| Обед | Суп | неизвестно | неизвестно |\n' : `# Organized\n\n${markdown}`;
+  const content = system.includes('Structure the workout') ? fixture('training', true) :
+    system.includes('Structure the food') ? fixture('nutrition', true) : markdown === originals['Formatting.md'] ? fixture('formatting', true) : `# Organized\n\n${markdown}`;
   res.writeHead(200, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ choices: [{ message: { content }, finish_reason: providerMode === 'length' ? 'length' : 'stop' }] }));
 });
@@ -47,18 +48,29 @@ const start = () => spawn('/usr/bin/electron43', ['/usr/lib/obsidian/app.asar', 
 let child, socket, sequence = 0;
 const pending = new Map(), checks = [], screenshots = [];
 const report = { checks, artifacts, screenshots, fixture: 'Six synthetic Markdown files; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.',
+  beforeApply: [], exceptions: [],
   limits: 'Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.' };
 const cdp = (method, params = {}) => new Promise((resolve, reject) => { pending.set(++sequence, { resolve, reject }); socket.send(JSON.stringify({ id: sequence, method, params })); });
 const ev = async expression => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); assert(!r.exceptionDetails, JSON.stringify(r.exceptionDetails)); return r.result.value; };
 const wait = async expression => { for (let i = 0; i < 240; i++) { if (await ev(expression)) return; await pause(50); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-2000)')}`); };
 const pass = async (name, expr) => { assert(await ev(expr), name); checks.push(name); console.log(name); };
-const click = async (action, modal = false) => { const selector = `${modal ? '.veynrel-studio-dialog' : '.veynrel-studio'} [data-studio-action=${JSON.stringify(action)}]`; await wait(`!!document.querySelector(${JSON.stringify(selector)})`); await ev(`document.querySelector(${JSON.stringify(selector)}).click();void 0`); };
+const click = async (action, modal = false) => {
+  await cdp('Page.bringToFront'); await wait('document.hasFocus()');
+  const selector = `${modal ? '.veynrel-studio-dialog' : '.veynrel-studio'} [data-studio-action=${JSON.stringify(action)}]`;
+  await wait(`!!document.querySelector(${JSON.stringify(selector)})`);
+  // Use the native pointer/focus path, including off-screen controls and modal activation.
+  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
+  report.lastPointer = { action, point, hit: await ev(`document.elementFromPoint(${point.x},${point.y})?.outerHTML.slice(0,500)`) };
+  await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', ...point });
+  for (const type of ['mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, button: 'left', clickCount: 1, ...point });
+};
 const hashes = () => Object.fromEntries(Object.keys(originals).map(path => [path, sha(fs.readFileSync(`${vault}/${path}`))]));
 const initialHashes = hashes();
 async function connect() {
   let page; for (let i = 0; i < 200; i++) { try { page = (await (await fetch('http://127.0.0.1:9286/json/list')).json()).find(p => p.url.startsWith('app://obsidian.md/')); } catch {} if (page) break; await pause(100); }
   assert(page, 'native ready'); socket = new WebSocket(page.webSocketDebuggerUrl); await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
-  socket.onmessage = e => { const m = JSON.parse(e.data); if (m.id) { const p = pending.get(m.id); pending.delete(m.id); if (p) m.error ? p.reject(m.error) : p.resolve(m.result); } };
+  socket.onmessage = e => { const m = JSON.parse(e.data); if (m.method === 'Runtime.exceptionThrown') report.exceptions.push(m.params); if (m.id) { const p = pending.get(m.id); pending.delete(m.id); if (p) m.error ? p.reject(m.error) : p.resolve(m.result); } };
+  await cdp('Runtime.enable');
   await wait('!!window.app?.workspace?.layoutReady'); assert.equal(await ev('app.vault.adapter.basePath'), vault);
   await wait("!!app.plugins.plugins['ai-knowledge-hub']?.studio || !!document.querySelector('.mod-trust-folder')");
   if (await ev("!!document.querySelector('.mod-trust-folder')")) await ev("[...document.querySelectorAll('.mod-trust-folder button')].find(e=>/Trust author/.test(e.textContent)).click();void 0");
@@ -71,6 +83,7 @@ async function restart() {
 }
 async function open() { await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-studio');void 0"); await wait("!!document.querySelector('.veynrel-studio [data-studio-action=new]')"); }
 async function prepare(recipe, paths, folder = false) {
+  await ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0");
   await click('library'); await click(`recipe-${recipe}`); await click('choose-notes');
   if (folder) {
     await ev(`{const selects=document.querySelectorAll('.veynrel-studio-body select');selects[0].value='folder';selects[0].dispatchEvent(new Event('change'));selects[1].value=${JSON.stringify(paths)};selects[1].dispatchEvent(new Event('change'));}void 0`);
@@ -86,7 +99,9 @@ async function generate(expected) {
   assert.deepEqual(requests.slice(count), expected, 'request bodies exactly match consent');
 }
 async function apply(paths) {
-  await ev(`{for(const path of ${JSON.stringify(paths)})document.querySelector('[data-studio-select='+CSS.escape(path)+']').click();}void 0`);
+  await ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0");
+  await ev(`{for(const path of ${JSON.stringify(paths)}){const input=document.querySelector('[data-studio-select='+CSS.escape(path)+']');input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));}}void 0`);
+  report.lastApplySelection = await ev("app.workspace.getLeavesOfType('veynrel-studio').map(l=>({route:l.view.route,selected:[...l.view.selectedRows],review:l.view.reviewId,dialogs:l.view.dialogs.size}))");
   await click('review-apply'); await click('confirm-apply', true); await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
 }
 async function undoAll() {
@@ -110,6 +125,7 @@ try {
   await pass('Separate native Studio opens passively with three built-ins', "app.workspace.getLeavesOfType('veynrel-studio').length===1&&document.querySelectorAll('.veynrel-studio-grid article').length===3&&io.reads.length===0&&io.writes.length===0&&io.browserRequests===0");
   assert.equal(requests.length, 0); assert.deepEqual(hashes(), initialHashes);
   await click('recipe-builtin.smart-format'); await click('duplicate');
+  await wait("document.querySelectorAll('.veynrel-studio-dialog input').length>=2");
   await ev("{const inputs=document.querySelectorAll('.veynrel-studio-dialog input');inputs[0].value='My local recipe';inputs[1].value='Мой локальный сценарий';}void 0");
   await click('save-recipe', true); await wait("!document.querySelector('.veynrel-studio-dialog')");
   const userId = await ev("studio.registry.list().find(r=>r.source==='user').id");
@@ -149,10 +165,53 @@ try {
   await pass('Closing and reopening during generation retains one shared runner', "studio.runner.running&&studio.runner.state==='generating'");
   await click('cancel'); releaseProvider(); await wait('!studio.runner.running'); providerMode = 'normal';
   assert.equal(requests.at(-1), expected[0]); await pass('Cancellation does not start the next provider request', "studio.runner.review.rows.every(r=>r.status==='cancelled')");
-  expected = await prepare('builtin.smart-format', ['Formatting.md']); await generate(expected);
-  await ev("app.workspace.getLeaf('split').openFile(app.vault.getFileByPath('Formatting.md'))");
-  await apply(['Formatting.md']); await pass('A real open Markdown editor blocks Apply', "studio.runner.results[0].outcome==='conflict'&&studio.runner.results[0].reason==='editor'");
+  await ev("window.noteLeaf=app.workspace.getLeaf('split');noteLeaf.openFile(app.vault.getFileByPath('Training.md'),{state:{mode:'source',source:true}})");
+  report.openEditorDiagnostic = await ev("(()=>{const v=noteLeaf.view,leaves=[];app.workspace.iterateAllLeaves(l=>{leaves.push({type:l.view.getViewType(),name:l.view.constructor.name,file:l.view.file?.path,sameFile:l.view.file===app.vault.getFileByPath('Training.md'),state:l.getViewState(),viewData:typeof l.view.getViewData})});return {type:v.getViewType(),sameFile:v.file===app.vault.getFileByPath('Training.md'),viewData:typeof v.getViewData,editor:typeof v.editor,leaves}})()");
+  await pass('A separate saved Markdown editor is open alongside Studio', "noteLeaf.view.file.path==='Training.md'&&app.workspace.getLeavesOfType('veynrel-studio').length===1");
+  const beforeOpenRun = hashes(), writesBeforeOpenRun = await ev('io.writes.length');
+  expected = await prepare('builtin.training-journal', ['Training.md']); await shot('open-saved-consent');
+  await pass('Read guard permits the actual attached saved editor before generation', "app.workspace.getLeavesOfType('markdown').includes(noteLeaf)&&noteLeaf.view.getViewData()===JSON.parse(studio.runner.prepared.requests[0].user).markdown");
+  await generate(expected); await shot('open-saved-review');
+  assert.deepEqual(hashes(), beforeOpenRun); assert.equal(await ev('io.writes.length'), writesBeforeOpenRun);
+  report.beforeApply.push({ phase: 'open saved note: prepare and generate', before: beforeOpenRun, after: hashes(), writesBefore: writesBeforeOpenRun, writesAfter: await ev('io.writes.length') });
+  checks.push('No Markdown changed during open-editor preparation or generation');
+  const openRunId = await ev('studio.runner.review.id'), openRunCalls = requests.length;
+  await apply(['Training.md']);
+  await pass('Apply refuses the open editor and preserves an actionable immutable Review', "studio.runner.results[0].reason==='editor'&&studio.runner.canApply&&!!document.querySelector('[data-studio-action=review-apply]')");
+  assert.deepEqual(hashes(), beforeOpenRun); await shot('open-saved-apply-refused');
+  await ev("noteLeaf.detach();void 0"); await apply(['Training.md']);
+  assert.equal(requests.length, openRunCalls); assert.equal(await ev('studio.runner.review.id'), openRunId);
+  report.sameReviewApply = { reviewBefore: openRunId, reviewAfter: await ev('studio.runner.review.id'), requestsBefore: openRunCalls, requestsAfter: requests.length };
+  await pass('Closing the editor enables Apply of the same Review without another request', "studio.runner.results[0].outcome==='applied'");
+  await restart(); await open();
+  // Obsidian may restore a recent editor layout after SIGKILL. Prove refusal, then explicitly close it as a user would.
+  await ev("window.restoredLeaf=app.workspace.getLeavesOfType('markdown').find(l=>l.view.file?.path==='Training.md')??app.workspace.getLeaf('split');restoredLeaf.openFile(app.vault.getFileByPath('Training.md'),{state:{mode:'source',source:true}})");
+  await click('history'); await wait("!document.querySelector('.veynrel-studio-body').textContent.includes('Checking…')");
+  await pass('Restarted Undo refuses an open restored editor and performs no automatic write', "!document.querySelector('[data-studio-action=undo]')&&document.querySelector('.veynrel-studio-body').textContent.includes('Before writing')&&io.writes.length===0");
   await ev("for(const leaf of app.workspace.getLeavesOfType('markdown'))leaf.detach();void 0");
+  await undoAll(); assert.deepEqual(hashes(), beforeOpenRun); assert.equal(requests.length, openRunCalls);
+  checks.push('Undo after actual restart restores the open-note workflow without provider calls');
+  // Keep one real editor buffer unsaved by suspending only this synthetic view's save scheduler.
+  await ev("window.noteLeaf=app.workspace.getLeaf('split');noteLeaf.openFile(app.vault.getFileByPath('Training.md'),{state:{mode:'source',source:true}})");
+  await ev("window.realSave=noteLeaf.view.requestSave;noteLeaf.view.requestSave=()=>{};noteLeaf.view.editor.setValue('Unsaved synthetic workout');void 0");
+  const unsavedCalls = requests.length;
+  await ev("studio.runner.prepare(studio.registry.list().find(r=>r.id==='builtin.training-journal'),{language:'source',instructions:''},{paths:['Training.md']},32768).catch(e=>window.unsavedCode=e.code)");
+  await click('workflow');
+  await pass('Actual unsaved Markdown buffer refuses preparation with a save message', "unsavedCode==='unsaved'&&studio.runner.error==='unsaved'");
+  assert.equal(requests.length, unsavedCalls); assert.deepEqual(hashes(), beforeOpenRun); await shot('unsaved-editor-refused');
+  await ev(`noteLeaf.view.editor.setValue(${JSON.stringify(originals['Training.md'])});noteLeaf.view.requestSave=realSave;void 0`);
+  // Public popout API, two simultaneously loaded views of the same file.
+  await ev("window.popoutLeaf=app.workspace.openPopoutLeaf();popoutLeaf.openFile(app.vault.getFileByPath('Training.md'),{state:{mode:'source',source:true}})");
+  await wait("!!popoutLeaf.view.editor&&popoutLeaf.view.getViewData()===noteLeaf.view.getViewData()");
+  await pass('Real popout and main editor belong to different windows', "popoutLeaf.view.containerEl.ownerDocument.defaultView!==noteLeaf.view.containerEl.ownerDocument.defaultView");
+  expected = await prepare('builtin.training-journal', ['Training.md']); await generate(expected);
+  await pass('Two saved native editors including popout permit generation', "studio.runner.review.rows[0].status==='generated'");
+  await ev("noteLeaf.detach();void 0"); await apply(['Training.md']);
+  await pass('A remaining real popout still blocks Apply', "studio.runner.results[0].reason==='editor'&&studio.runner.canApply");
+  const popoutCalls = requests.length;
+  await ev("popoutLeaf.detach();void 0"); await apply(['Training.md']); await undoAll();
+  assert.equal(requests.length, popoutCalls); assert.deepEqual(hashes(), beforeOpenRun);
+  checks.push('Closing the popout permits the same reviewed Apply and protected Undo');
   expected = await prepare('builtin.smart-format', ['Batch/a/same.md', 'Batch/b/same.md']); await generate(expected);
   await ev("window.nativeProcess=app.vault.process;window.wroteFirst=false;app.vault.process=async function(...args){const result=await nativeProcess.apply(this,args);wroteFirst=true;await new Promise(r=>window.releaseWrite=r);return result};void 0");
   await ev("document.querySelectorAll('[data-studio-select]').forEach(e=>e.click());void 0"); await click('review-apply'); await click('confirm-apply', true); await wait('wroteFirst');
@@ -210,7 +269,7 @@ try {
   report.providerRequests = requests.length; report.before = initialHashes; report.after = hashes(); report.status = 'PASS';
 } catch (error) {
   report.status = 'FAIL'; report.error = String(error); console.error(error); process.exitCode = 1;
-  try { report.diagnostic = await ev("({io:window.io,state:window.studio?.runner.state,views:app.workspace.getLeavesOfType('veynrel-studio').length,cards:document.querySelectorAll('.veynrel-studio-grid article').length,text:document.body.innerText.slice(-3000)})"); await shot('failure'); } catch {}
+  try { report.diagnostic = await ev("({io:window.io,state:window.studio?.runner.state,views:app.workspace.getLeavesOfType('veynrel-studio').length,cards:document.querySelectorAll('.veynrel-studio-grid article').length,dialogs:app.workspace.getLeavesOfType('veynrel-studio').flatMap(l=>[...l.view.dialogs].map(d=>({active:d.active,main:d.contentEl.ownerDocument===document,text:d.contentEl.textContent}))),text:document.body.innerText.slice(-3000)})"); await shot('failure'); } catch {}
 }
 finally {
   fs.writeFileSync(`${root}/report.json`, JSON.stringify(report, null, 2) + '\n'); socket?.close();
