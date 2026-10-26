@@ -12,12 +12,41 @@ Consolidation journals establish the applicable contract: redundant immutable be
 
 Settings remain owned by the existing serialized `saveSettings` queue. Studio recipes and journals are separate files under the actual `Vault.configDir` and plugin ID, never settings fields or vault-root Markdown. The native view has its own type and plugin-scoped owner. UI uses existing Graphite/Amethyst conventions, CSS variables and the resolved RU/EN language.
 
-## Implementation plan
+## Modules and ownership
 
-1. Strict manifests, built-ins, serialized local registry with preserved corruption evidence.
-2. DOM-independent preparation, exact consent, sequential generation and immutable review.
-3. Guarded sequential Apply, redundant journal evidence, conservative restart inspection and separately confirmed Undo.
-4. Native Studio library/editor/scope/consent/review/history, one owner across tabs.
-5. Fault-injection tests, required repository gates, synthetic native verification, final safety review and PR.
+| Module | Responsibility |
+| --- | --- |
+| `recipe.ts`, `builtins.ts` | Strict v1 boundary, scope/size limits, three built-in recipes; no IO. |
+| `registry.ts`, `storage.ts` | Separate serialized local library, strict import/export and preserved originals/backups. |
+| `runner.ts` | One active run; pinned source and settings snapshots, exact request preparation, explicit consent, sequential generation, immutable ReviewSession. No DOM. |
+| `obsidianNotes.ts` | Canonical selected Markdown, bounded saved-source reads, shared native guards and `Vault.process`. |
+| `journal.ts`, `apply.ts` | Redundant immutable operation records, verified intents/receipts, sequential per-file outcomes, read-only inspection, fresh one-use Undo/recovery reviews. |
+| `registerStudio.ts`, `view.ts`, `messages.ts` | One plugin-scoped owner, separate `veynrel-studio` ItemView, command/ribbon, native controls, RU/EN and literal previews. |
+
+The shared model settings port is read only. `buildChatBody` constructs the exact displayed payload; `callOpenRouter` sends the same system/user/options through the existing Ollama, OpenRouter, OpenAI, Groq and Custom transport. Studio requests an explicit normal finish reason, rejects incomplete/refused/tool responses and never retries. Provider credentials stay in memory and the existing settings file; Studio does not include them in request previews, recipes, run receipts or operation journals.
+
+```mermaid
+flowchart LR
+  L[Local library] --> S[Explicit note selection]
+  S --> P[Read fixed saved sources and prepare exact requests]
+  P --> C[Separate data transmission consent]
+  C --> G[Sequential existing LLM transport]
+  G --> R[Immutable literal Review and diff]
+  R --> A[Select files and separately confirm Apply]
+  A --> J[Verified records and per-file intents]
+  J --> W[Guarded Vault.process and verified receipts]
+  W --> H[Explicit history inspection]
+  H --> U[Fresh Undo or recovery review and confirmation]
+```
+
+Opening Studio loads only plugin-owned recipe metadata. Inventory uses cached file paths, never note contents. Preparing a run explicitly reads only its fixed selected scope. One note is sent per request; paths identify local operations but are not included in the request body. Neighbors, embeddings and whole-vault content are not consulted. Choosing a folder is explicit and includes nested Markdown; scopes over 20 files are refused, not sampled. Hidden paths and the actual configuration directory are excluded.
+
+Closing a view detaches its observers and closes unconsumed confirmation dialogs. It does not cancel the shared runner. Reopening or opening a second tab observes the same engine. Stop during generation holds the owner until the issued request settles, discards that late response, and starts no next request. Stop during Apply is available inside its confirmation modal and completes observation/receipt work for an issued write before stopping. Plugin disposal cancels future work; existing async writes may still need startup inspection if the process exits.
+
+The workflow states are `idle`, `preparing`, `prepared`, `generating`, `review`, `applying`, `partial`, `completed`, `failed`, `cancelled`, `interrupted`. Preparation and full reviews are memory-only. A persisted start/finish receipt makes a lost generation/review visible after restart; it cannot resume or authorize Apply. History uses operation evidence for applied files. A fresh explicit run is necessary if a review was lost.
+
+The minimal v1 includes one `llm_transform` step, fixed language/additional-instruction parameters, and Markdown replace/append. Other handlers and formats can extend the discriminated manifest and runner/output boundary; the registry's local CRUD/persistence need not become an executor. Unsupported versions/formats remain rejected until implemented. There is no marketplace, authentication, public catalogue, Excalidraw adapter, dynamic code, recipe HTTP client or sync service.
 
 Reach: new `studio/` implementation and tests; registration only in `main.ts`; scoped styles; new documentation and native harness. No dependency, release metadata, semantic algorithm, Health/Recall schema, legacy Batch or existing Apply/Undo protocol changes.
+
+See [schema](studio-recipe-schema-v1.md), [safety and recovery](studio-safety-and-recovery.md) and [native verification](studio-native-verification.md).

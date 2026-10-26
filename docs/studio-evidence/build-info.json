@@ -1,0 +1,17 @@
+{
+  "base": "34c169840d4f078990728cecc50e6f23c2d1c22d",
+  "runtimeSourceCommit": "fbb9c2c7face433fd8f3c0e387ba84f5fc227359",
+  "artifacts": {
+    "main.js": "ee0082d4346bb9e3942a68d8b1fcf28ac318f406250c3491bf5062bf10737f03",
+    "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "nativeHarnessSha256": "713abafb105fe029aca5e91f5295e1ce6bcaa135c5b49bee62fe2646cd574efa",
+  "nativeChecks": 58,
+  "nativeScreenshots": 35,
+  "providerRequests": 16,
+  "runtime": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  }
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "attempt": "a",
+    "status": "FAIL",
+    "completedChecks": 0,
+    "error": "AssertionError [ERR_ASSERTION]: Separate native Studio opens passively with three built-ins",
+    "artifacts": {
+      "main.js": "d1a4e9c71cd508dae070273debf4a5e8b4b8f32d538b383984448f950a01d58d",
+      "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+      "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+    }
+  },
+  {
+    "attempt": "b",
+    "status": "FAIL",
+    "completedChecks": 12,
+    "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":0,\"scriptId\":\"224\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"SyntaxError\",\"description\":\"SyntaxError: await is only valid in async functions and the top level bodies of modules\",\"objectId\":\"-7713431262623828340.1.2\"}}",
+    "artifacts": {
+      "main.js": "835dcb1498bff66650229a5cc2326aae529278e7bd50434ccc130211865d39a9",
+      "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+      "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+    }
+  },
+  {
+    "attempt": "c",
+    "status": "FAIL",
+    "completedChecks": 23,
+    "error": "AssertionError [ERR_ASSERTION]: en/theme-dark/390: library has no horizontal overflow",
+    "artifacts": {
+      "main.js": "cb5f39ea1f8b6bd17430038febc254faac6810bb2716e0ea54098a3acacb0f6f",
+      "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+      "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+    }
+  },
+  {
+    "attempt": "d",
+    "status": "FAIL",
+    "completedChecks": 30,
+    "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":9,\"scriptId\":\"203\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"DOMException\",\"description\":\"SyntaxError: Failed to execute 'querySelector' on 'Document': '[data-studio-action=recipe-builtin.smart-format]' is not a valid selector.\\n    at <anonymous>:1:10\",\"objectId\":\"747280698530790042.1.2\",\"preview\":{\"type\":\"object\",\"subtype\":\"error\",\"description\":\"SyntaxError: Failed to execute 'querySelector' on 'Document': '[data-studio-action=recipe-builtin.smart-format]' is not a valid selector.\\n    at <anonymous>:1:10\",\"overflow\":false,\"properties\":[{\"name\":\"stack\",\"type\":\"string\",\"value\":\"SyntaxError: Failed to execute 'querySelector' on … is not a valid selector.\\n    at <anonymous>:1:10\"},{\"name\":\"code\",\"type\":\"number\",\"value\":\"12\"},{\"name\":\"name\",\"type\":\"string\",\"value\":\"SyntaxError\"},{\"name\":\"message\",\"type\":\"string\",\"value\":\"Failed to execute 'querySelector' on 'Document': '…e-builtin.smart-format]' is not a valid selector.\"}]}}}",
+    "artifacts": {
+      "main.js": "cb5f39ea1f8b6bd17430038febc254faac6810bb2716e0ea54098a3acacb0f6f",
+      "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+      "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+    }
+  },
+  {
+    "attempt": "e",
+    "status": "FAIL",
+    "completedChecks": 58,
+    "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":28,\"scriptId\":\"225\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Cannot read properties of undefined (reading 'electron')\\n    at <anonymous>:1:29\",\"objectId\":\"1843392455745158868.1.2\"}}",
+    "artifacts": {
+      "main.js": "ee0082d4346bb9e3942a68d8b1fcf28ac318f406250c3491bf5062bf10737f03",
+      "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+      "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+    }
+  }
+]
