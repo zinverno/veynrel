@@ -3181,3 +3181,35 @@
 .veynrel-atom-literal { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 280px; overflow: auto; padding: 12px; border: 1px solid var(--background-modifier-border); border-radius: 8px; background: var(--background-primary); font-size: var(--font-ui-small); }
 .veynrel-atom-flow [role="alert"] { padding: 12px; border-inline-start: 3px solid var(--text-error); background: var(--background-secondary); }
 .veynrel-atom-flow :is(button, input, pre):focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+
+/* Studio owns a separate native workspace; variables follow the active Obsidian theme. */
+.veynrel-studio { container-type: inline-size; overflow: auto; padding: 24px; color: var(--text-normal); background: var(--background-primary); }
+.veynrel-studio > header, .veynrel-studio > nav, .veynrel-studio > div { max-width: 1060px; margin-inline: auto; }
+.veynrel-studio h1 { font-size: 1.65rem; margin-block: 0 8px; letter-spacing: -.025em; }
+.veynrel-studio header p, .veynrel-studio-eyebrow { color: var(--text-muted); }
+.veynrel-studio-status { border-block: 1px solid var(--background-modifier-border); padding-block: 12px; margin-block: 18px; color: var(--text-accent); }
+.veynrel-studio-body { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.veynrel-studio-body > p, .veynrel-studio-card p { margin-block: 0 8px; }
+.veynrel-studio-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.veynrel-studio :is(button, input, select, textarea), .veynrel-studio-dialog :is(button, input, select, textarea) { max-width: 100%; }
+.veynrel-studio button, .veynrel-studio-dialog button { min-height: 36px; height: auto; white-space: normal; text-align: start; }
+.veynrel-studio .mod-cta, .veynrel-studio-dialog .mod-cta { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
+.veynrel-studio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.veynrel-studio-card { min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 20px; margin-block: 8px; border: 1px solid var(--background-modifier-border); border-radius: 12px; background: var(--background-secondary); overflow-wrap: anywhere; }
+.veynrel-studio-card h2, .veynrel-studio-card h3 { font-size: var(--font-ui-large); margin: 0; }
+.veynrel-studio-grid .veynrel-studio-card > button { margin-top: auto; align-self: flex-start; }
+.veynrel-studio-eyebrow { font-size: var(--font-ui-small); }
+.veynrel-studio-field { display: flex; flex-direction: column; gap: 6px; margin-block: 8px; min-width: 0; }
+.veynrel-studio-field :is(input, select, textarea) { width: 100%; }
+.veynrel-studio-field textarea { min-height: 100px; resize: vertical; }
+.veynrel-studio-picker { max-height: 300px; overflow: auto; border: 1px solid var(--background-modifier-border); border-radius: 8px; padding: 10px; }
+.veynrel-studio-check { display: flex; align-items: flex-start; gap: 10px; margin-block: 10px; overflow-wrap: anywhere; }
+.veynrel-studio-check input { flex-shrink: 0; margin-top: 3px; }
+.veynrel-studio-literal { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; padding: 12px; border: 1px solid var(--background-modifier-border); border-radius: 8px; background: var(--background-primary); font-size: var(--font-ui-small); }
+.veynrel-studio :is(summary, p, [role="status"]), .veynrel-studio-dialog { overflow-wrap: anywhere; }
+.veynrel-studio-warning { border-inline-start: 3px solid var(--text-warning); padding-inline-start: 12px; }
+.veynrel-studio [role="alert"]:not(:empty), .veynrel-studio-dialog [role="alert"]:not(:empty) { border-inline-start: 3px solid var(--text-error); padding: 12px; }
+.veynrel-studio :is(button, input, textarea, select, summary, pre):focus-visible, .veynrel-studio-dialog :is(button, input, textarea, select, summary, pre):focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+.veynrel-studio-dialog { display: flex; flex-direction: column; gap: 12px; }
+@container (max-width: 500px) { .veynrel-studio-card { padding: 14px; } .veynrel-studio-actions { align-items: stretch; } }
+@media (max-width: 500px) { .veynrel-studio { padding: 12px; } }
