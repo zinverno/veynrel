@@ -1,0 +1,11 @@
+{
+  "run": "/tmp/veynrel-diagram-native-20261027-l",
+  "visibleVaultFiles": [
+    "Drawings/Native.excalidraw.md",
+    "Source.md",
+    "Untouched.md"
+  ],
+  "extraSvgPngTemporaryFiles": [],
+  "outcome": "PASS",
+  "scope": "All files outside Obsidian configDir after final native run"
+}

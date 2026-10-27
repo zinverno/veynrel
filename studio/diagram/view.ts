@@ -1,0 +1,120 @@
+import type { StudioWorkspace } from "../registerStudio";
+import { l, status } from "../messages";
+import { button, field, literal, select } from "../ui";
+import { diagramError, diagramStatus } from "./messages";
+import { diagramPreview } from "./preview";
+import type { DiagramKind } from "./spec";
+import type { DiagramOptions } from "./layout";
+import type { DiagramProposal } from "./workflow";
+
+type Confirm = (title: string, description: string, action: string, work: () => Promise<unknown>, closed?: () => void) => void;
+export class DiagramPanel {
+  private setup = false;
+  private kind: DiagramKind = "structure";
+  private source = "";
+  private target = "";
+  private context = "32768";
+  private options: DiagramOptions = { direction: "down", theme: "neutral" };
+  private alive = true;
+  constructor(private readonly owner: StudioWorkspace, private readonly renderAgain: () => void, private readonly run: (work: () => Promise<unknown>) => void, private readonly confirm: Confirm) {}
+  dispose(): void { this.alive = false; }
+  private mode(kind: DiagramKind): string { return kind === "structure" ? l("Note structure", "Структурная схема заметки") : l("Process flowchart", "Блок-схема процесса"); }
+  private parameters(root: HTMLElement, options: DiagramOptions): { direction: HTMLSelectElement; theme: HTMLSelectElement } {
+    return {
+      direction: select(root, l("Direction", "Направление"), [["down", l("Top to bottom", "Сверху вниз")], ["right", l("Left to right", "Слева направо")]], options.direction),
+      theme: select(root, l("Appearance", "Оформление"), [["neutral", l("Neutral", "Нейтральное")], ["amethyst", "Graphite & Amethyst"]], options.theme),
+    };
+  }
+  render(root: HTMLElement): void {
+    const workflow = this.owner.diagrams, capability = workflow.adapter.capability();
+    root.createEl("h2", { text: l("Create diagram", "Создать схему") });
+    root.createEl("p", { text: l("Two built-in modes · one saved note · up to 30 nodes / 60 connections. Diagram recipes cannot be edited, imported, exported or published in Community v1.", "Два встроенных режима · одна сохранённая заметка · до 30 узлов / 60 связей. Diagram recipes нельзя редактировать, импортировать, экспортировать или публиковать в Community v1.") });
+    if (["unavailable", "incompatible"].includes(capability.state)) root.createEl("p", { text: diagramError(capability.state), attr: { role: "alert" } });
+    if (workflow.error) root.createEl("p", { text: diagramError(workflow.error), attr: { role: "alert" } });
+    if (workflow.running) {
+      root.createEl("p", { text: status(workflow.state) });
+      button(root, l("Stop subsequent actions", "Остановить последующие действия"), "diagram-cancel", () => workflow.cancel());
+      root.createEl("p", { text: l("An issued provider request cannot be recalled. Closing this tab keeps the shared operation available in Studio.", "Отправленный запрос нельзя отозвать у провайдера. Закрытие вкладки сохраняет общую операцию в Studio.") }); return;
+    }
+    if (!this.setup && workflow.prepared && workflow.state === "prepared") {
+      const p = workflow.prepared;
+      root.createEl("h3", { text: l("Consent to send data", "Согласие на передачу данных") });
+      root.createEl("p", { text: `${p.provider} · ${p.model} · ${p.endpoint}` });
+      root.createEl("p", { text: `${this.mode(p.kind)} · ${p.path} → ${p.target}` });
+      root.createEl("p", { text: l("The full saved note and the exact instructions below go to this endpoint. A cloud provider receives the text and may charge. No linked notes are read. No truncation or automatic JSON repair.", "Полный сохранённый текст и точные инструкции ниже будут переданы на этот адрес. Облачный провайдер получит текст и может взимать плату. Связанные заметки не читаются. Обрезки и автоматического исправления JSON нет.") });
+      root.createEl("p", { text: `${l("Conservative token allowance / context budget", "Консервативный резерв токенов / бюджет контекста")}: ${p.conservativeTokens} / ${p.contextTokens}` });
+      literal(root, l("Exact outgoing JSON body", "Точное отправляемое тело JSON"), p.body);
+      button(root, l("I agree — generate diagram", "Согласен — сгенерировать схему"), "diagram-generate", () => this.run(() => workflow.generate(p))).disabled = this.owner.operations.busy || ["unavailable", "incompatible"].includes(capability.state);
+      button(root, l("Cancel without sending", "Отменить без отправки"), "diagram-cancel", () => workflow.cancel()); return;
+    }
+    if (!this.setup && workflow.result) {
+      const r = workflow.result;
+      root.createEl("p", { text: `${diagramStatus(r.state)} · ${r.target}`, attr: { role: "status" } });
+      if (r.reason) root.createEl("p", { text: diagramError(r.reason) });
+      if (r.state === "created") button(root, l("Open in Excalidraw", "Открыть в Excalidraw"), "diagram-open", () => this.run(() => workflow.open(r.id)));
+      this.independent(root);
+    } else if (!this.setup && workflow.proposal) this.review(root, workflow.proposal);
+    if (!this.setup && (workflow.proposal || workflow.result)) {
+      button(root, l("Prepare a new diagram", "Подготовить новую схему"), "diagram-new", () => { this.setup = true; this.renderAgain(); }); return;
+    }
+    const kind = select(root, l("Mode", "Режим"), [["structure", this.mode("structure")], ["flowchart", this.mode("flowchart")]], this.kind);
+    kind.addEventListener("change", () => { this.kind = kind.value as DiagramKind; });
+    const source = select(root, l("Saved Markdown note", "Сохранённая Markdown-заметка"), [["", l("Select one note", "Выберите одну заметку")], ...this.owner.inventory().filter(p => !p.endsWith(".excalidraw.md")).map(p => [p, p] as [string, string])], this.source);
+    source.setAttribute("data-diagram-field", "source"); source.addEventListener("change", () => { this.source = source.value; });
+    const { direction, theme } = this.parameters(root, this.options);
+    direction.addEventListener("change", () => { this.options.direction = direction.value as DiagramOptions["direction"]; });
+    theme.addEventListener("change", () => { this.options.theme = theme.value as DiagramOptions["theme"]; });
+    const target = field(root, l("Exact new path in an existing vault folder (.excalidraw.md)", "Точный новый путь в существующей папке vault (.excalidraw.md)"), this.target);
+    target.setAttribute("data-diagram-field", "target"); target.addEventListener("input", () => { this.target = target.value; });
+    const context = field(root, l("Context budget verified for your model (tokens)", "Проверенный бюджет контекста модели (токены)"), this.context);
+    context.setAttribute("type", "number"); context.addEventListener("input", () => { this.context = context.value; });
+    root.createEl("p", { text: l("Keep the source editor open if it is saved. Unsaved or unverifiable buffers block sending. The destination folder must already exist.", "Сохранённый исходник можно оставить открытым. Несохранённый или непроверяемый буфер блокирует отправку. Папка назначения должна уже существовать.") });
+    button(root, l("Read note & review request", "Прочитать заметку и проверить запрос"), "diagram-prepare", () => {
+      this.setup = false; this.run(() => workflow.prepare(this.kind, this.source, this.target, this.options, Number(this.context)));
+    }).disabled = this.owner.operations.busy || ["unavailable", "incompatible"].includes(capability.state);
+    button(root, l("Refresh availability", "Обновить доступность"), "diagram-refresh", this.renderAgain);
+  }
+  private independent(root: HTMLElement): void {
+    root.createEl("p", { text: l("This is an independent drawing. The source note was not changed and needs no rollback. Diagram v1 has no automatic deletion or Undo.", "Это самостоятельный рисунок. Исходник не изменён, откат ему не нужен. Diagram v1 не удаляет рисунки автоматически и не поддерживает Undo.") });
+  }
+  private review(root: HTMLElement, proposal: DiagramProposal): void {
+    const workflow = this.owner.diagrams, p = proposal;
+    root.createEl("h3", { text: l("Review before creating", "Проверка перед созданием") });
+    root.createEl("p", { text: `${this.mode(p.spec.kind)} · ${p.source} → ${p.target}` });
+    root.createEl("p", { cls: "veynrel-studio-warning", text: l("Only the graph structure is validated, not its truth. Check every label and connection against the source. Cycles use outside routes; disconnected components have separate bands. Edge crossings are possible.", "Проверена структура графа, а не истинность содержания. Сверьте подписи и связи с источником. Циклы вынесены на внешние маршруты, несвязанные компоненты разделены. Пересечения рёбер возможны.") });
+    root.createEl("p", { text: l("Link/markup punctuation in model labels is displayed with inert fullwidth characters. Your own Excalidraw hooks can still act when you open a drawing; Studio does not control third-party hooks.", "Знаки ссылок и разметки в модельных подписях отображаются инертными полноширинными символами. Пользовательские hooks Excalidraw могут срабатывать при открытии; Studio не управляет сторонними hooks.") });
+    diagramPreview(root, p.plan.layout);
+    const list = root.createEl("details", { attr: { open: "" } }); list.createEl("summary", { text: l("Nodes and connections", "Узлы и связи") });
+    const nodes = list.createEl("ul"); for (const n of p.spec.nodes) nodes.createEl("li", { text: `${n.id}: ${n.label} (${n.shape})` });
+    const edges = list.createEl("ul"); for (const e of p.spec.edges) edges.createEl("li", { text: `${e.from} → ${e.to}${e.label ? `: ${e.label}` : ""}` });
+    literal(root, "DiagramSpec v1", JSON.stringify(p.spec, null, 2));
+    const { direction, theme } = this.parameters(root, p.plan.layout.options);
+    const target = field(root, l("Exact target path", "Точный целевой путь"), p.target);
+    const update = button(root, l("Update preview locally", "Обновить предпросмотр локально"), "diagram-revise", () => this.run(() => workflow.revise(p, { direction: direction.value as DiagramOptions["direction"], theme: theme.value as DiagramOptions["theme"] }, target.value)));
+    update.disabled = !workflow.canCreate;
+    const create = button(root, l("Create this drawing…", "Создать этот рисунок…"), "diagram-create-review", () => this.confirm(l("Confirm new drawing", "Подтвердите новый рисунок"),
+      `${p.target}\n${l("One new editable Excalidraw drawing. No overwrite, automatic renaming or Undo. The source stays unchanged.", "Один новый редактируемый рисунок Excalidraw. Без перезаписи, автопереименования и Undo. Исходник остаётся неизменным.")}`,
+      "diagram-confirm-create", () => workflow.create(p)));
+    create.disabled = !workflow.canCreate;
+    const invalidate = () => { create.disabled = true; };
+    direction.addEventListener("change", invalidate); theme.addEventListener("change", invalidate); target.addEventListener("input", invalidate);
+    button(root, l("Cancel creation", "Отменить создание"), "diagram-cancel", () => workflow.cancel()); this.independent(root);
+  }
+  async history(root: HTMLElement, current: () => boolean): Promise<void> {
+    const rows = await this.owner.diagrams.history(); if (!this.alive || !current()) return;
+    root.createEl("h3", { text: l("Diagram history", "История схем") }); this.independent(root);
+    for (const row of rows) {
+      const card = root.createEl("article", { cls: "veynrel-studio-card" });
+      card.createEl("h4", { text: row.entry.intent?.target ?? row.entry.id }); card.createEl("p", { text: diagramStatus(row.state) });
+      literal(card, l("Creation evidence", "Данные создания"), JSON.stringify({ id: row.entry.id, source: row.entry.intent?.source.path, sourceHash: row.entry.intent?.source.hash,
+        receipt: row.entry.receipt, damaged: row.entry.damaged, storage: this.owner.diagrams.journal.root }, null, 2));
+      if (row.state === "created") button(card, l("Open drawing", "Открыть рисунок"), "diagram-history-open", () => this.run(() => this.owner.diagrams.open(row.entry.id)));
+      if (row.recovery) button(card, l("Review observed outcome", "Проверить наблюдаемый исход"), "diagram-recovery", () => this.run(async () => {
+        const ticket = await this.owner.diagrams.reviewRecovery(row.entry.id);
+        if (!this.alive) { this.owner.diagrams.discardRecovery(ticket); return; }
+        this.confirm(l("Record verified outcome", "Зафиксировать проверенный исход"), `${ticket.target}: ${diagramStatus(ticket.state)}\n${l("Records evidence only. No creation, deletion or model request.", "Только фиксация данных. Без создания, удаления и запроса к модели.")}`,
+          "diagram-confirm-recovery", () => this.owner.diagrams.recover(ticket), () => this.owner.diagrams.discardRecovery(ticket));
+      }));
+    }
+  }
+}

@@ -8,6 +8,7 @@ import { ensure, freeze, integer, selectPaths, StudioError, text, validateParame
 import type { Recipe, RecipeParameters } from "./recipe";
 import type { ApplyResult, ReviewRow, ReviewSession, StudioNotePort, StudioSource, StudioState } from "./ports";
 import { StudioApply } from "./apply";
+import type { StudioProposal } from "./ports";
 
 export interface PreparedRun {
   id: string; recipe: Recipe; parameters: RecipeParameters; provider: string; model: string; endpoint: string; contextTokens: number;
@@ -34,13 +35,14 @@ export class RecipeRunner {
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener); }
   private emit(): void { for (const f of this.listeners) { try { f(); } catch { /* View failure cannot change workflow authority. */ } } }
   get running(): boolean { return this.busy; }
-  get canApply(): boolean { return !this.busy && !this.applied && !!this.review && ["review", "cancelled"].includes(this.state); }
+  get proposal(): StudioProposal | undefined { return this.review ? { kind: "markdown", review: this.review } : undefined; }
+  get canApply(): boolean { return !this.writer.operations.busy && !this.busy && !this.applied && !!this.review && ["review", "cancelled"].includes(this.state); }
   cancel(): void { this.cancelled = true; if (!this.busy) this.state = "cancelled"; this.emit(); }
   dispose(): void { this.closed = true; this.cancel(); this.writer.dispose(); this.listeners.clear(); }
   private active(): void { ensure(!this.cancelled && !this.closed, "cancelled"); }
   private async exclusive<T>(work: () => Promise<T>): Promise<T> {
-    ensure(!this.closed, "cancelled"); ensure(!this.busy, "busy"); this.busy = true;
-    try { return await work(); }
+    ensure(!this.closed, "cancelled"); ensure(!this.busy && !this.writer.operations.busy, "busy"); this.busy = true;
+    try { return await this.writer.operations.run(this, work); }
     catch (e) { this.error = e instanceof StudioError ? e.code : "storage"; this.state = this.cancelled ? "cancelled" : "failed"; throw e; }
     finally { this.busy = false; this.emit(); }
   }
@@ -123,7 +125,7 @@ export class RecipeRunner {
       if (preflight.some(r => r.outcome === "conflict")) { this.results = freeze(preflight); return this.results; }
       this.error = undefined;
       this.cancelled = false; this.applied = true; this.state = "applying"; this.emit();
-      this.results = await this.writer.apply(review, this.sources, selected, () => !this.cancelled && !this.closed);
+      this.results = await this.writer.apply(review, this.sources, selected, () => !this.cancelled && !this.closed, this);
       this.state = this.results.some(r => ["failed", "conflict", "unconfirmed"].includes(r.outcome)) ? "partial" : this.cancelled ? "cancelled" : "completed";
       return this.results;
     });

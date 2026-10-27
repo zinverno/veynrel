@@ -13,17 +13,17 @@ export class StudioStorage {
     const stat = await this.adapter.stat(path); ensure(stat?.type === "file" && stat.size <= max * 4, "storage");
     const raw = await this.adapter.read(path); ensure(raw.length <= max, "storage"); return raw;
   }
-  async mkdir(path: string): Promise<void> {
+  async mkdir(path: string, active: () => void = () => {}): Promise<void> {
     let parent = "";
     for (const part of path.split("/")) {
       parent = parent ? `${parent}/${part}` : part;
-      if (!await this.adapter.exists(parent)) await this.adapter.mkdir(parent);
+      if (!await this.adapter.exists(parent)) { active(); await this.adapter.mkdir(parent); }
       ensure((await this.adapter.stat(parent))?.type === "folder", "storage");
     }
   }
-  async create(path: string, raw: string): Promise<void> {
+  async create(path: string, raw: string, active: () => void = () => {}): Promise<void> {
     ensure(!await this.adapter.exists(path), "storage");
-    await this.mkdir(path.slice(0, path.lastIndexOf("/")));
-    await this.adapter.write(path, raw); ensure(await this.read(path) === raw, "storage");
+    await this.mkdir(path.slice(0, path.lastIndexOf("/")), active);
+    active(); await this.adapter.write(path, raw); ensure(await this.read(path) === raw, "storage");
   }
 }
