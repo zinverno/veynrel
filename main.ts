@@ -33,6 +33,7 @@ import {
   InsertionType,
 } from "./settings";
 import { validateSettings, callOpenRouter, streamOpenRouter, testConnection } from "./api";
+import type { StudioWorkspace } from "./studio/registerStudio";
 import {
   SELECTION_INSERTION_OPTIONS,
   INSERTION_OPTIONS,
@@ -127,6 +128,7 @@ export default class AIHubPlugin extends Plugin {
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
   private safeApply?: SafeApplyService;
+  private studio?: StudioWorkspace;
   private mocTask?: Promise<void>;
   private mocModal?: MocPreparationModal;
   private mocEpoch = 0;
@@ -196,6 +198,8 @@ export default class AIHubPlugin extends Plugin {
       await this.loadSettings();
       this.register(registerReviewDecisions(this.app, this.manifest.id));
       setLanguage(this.settings.language ?? "auto");
+      const { registerStudio } = await import("./studio/registerStudio");
+      this.studio = registerStudio(this, this.getLanguageModelSettingsPort());
       this.safeApply = createSafeApplyService(this.app, this.manifest.id);
       this.register(() => this.safeApply?.dispose());
       this.addCommand({ id: "consolidation-operation-history", name: tr("@ux.historyCommand"), callback: () => {

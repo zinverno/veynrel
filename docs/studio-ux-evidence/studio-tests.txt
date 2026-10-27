@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run studio --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-studio-v1
+
+
+ Test Files  3 passed (3)
+      Tests  110 passed (110)
+   Start at  01:17:19
+   Duration  1.79s (transform 1.49s, setup 0ms, import 1.87s, tests 392ms, environment 0ms)

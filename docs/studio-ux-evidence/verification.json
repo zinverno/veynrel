@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "e763b1cfa929c75e199e204ce6ee8854e9be4b49",
+  "priorHead": "50b99a7471fd6d610c65c3a117291f4debaf28ac",
+  "verifiedAt": "2026-10-26T22:22:57.181540+00:00",
+  "artifacts": {
+    "main.js": "8e320fa90c41c38c7d64d37577b6985ef35ab3bd63cb13fc64afc9dd3652f12d",
+    "styles.css": "01c19ceaa250a2687aef84049f9fa9ba67a33b19268fb4acad260b6b76248fd8",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "harnessSha256": "86c6757d86bf94c210fffb716bc84d34da6c151bd5be0180ac3826ebe7e27719",
+  "runtime": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "realModel": "NOT RUN: Ollama executable absent; loopback /api/tags unavailable inside and outside sandbox; no downloads or paid calls",
+  "checks": {
+    "allTests": 4872,
+    "testFiles": 181,
+    "studioTests": 110,
+    "newStudioTests": 23,
+    "auditKilled": 5,
+    "nativeChecks": 69,
+    "nativeScreenshots": 39,
+    "loopbackCalls": 17,
+    "restoredNoteHashes": 6
+  }
+}

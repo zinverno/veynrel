@@ -3,7 +3,7 @@ import { obsidianStructuralArchivePort } from "./obsidianStructuralArchive";
 import { EmptyAtomJournal } from "./emptyAtomJournal";
 import { obsidianEmptyAtomPort } from "./obsidianEmptyAtom";
 import { MarkdownView } from "obsidian";
-import type { App, FileView } from "obsidian";
+import type { App, FileView, View } from "obsidian";
 import { readSavedNote } from "./savedNote";
 import type { SavedNote } from "./savedNote";
 import { readPlannerPair } from "./changePlannerSession";
@@ -23,24 +23,25 @@ import { ArchiveJournal } from "./archiveJournal";
 import { obsidianArchivePort } from "./obsidianArchiveApply";
 
 /** Only public APIs. No locks exist for pending editor saves: v1 requires affected views to be closed. */
-export function guardSavedEditors(app: App, notes: readonly SavedNote[]): void {
+export function guardSavedEditors(app: App, notes: readonly SavedNote[], isReadOnlyView?: (view: View) => boolean): void {
   app.workspace.iterateAllLeaves(leaf => {
     const state = leaf.getViewState();
     const path = state.state?.file;
     const loadedFile = (leaf.view as Partial<FileView>).file;
     const note = notes.find(item => item.path === path || loadedFile === item.file || loadedFile?.path === item.path);
     if (!note) return;
+    if (isReadOnlyView?.(leaf.view)) return;
     // Inspect the public buffer, but even an equal buffer can have a queued save. Fail closed.
     requireSafe(leaf.view instanceof MarkdownView && leaf.view.getViewData() === note.content, "editor");
     requireSafe(false, "editor");
   });
 }
-export function obsidianSafeApplyPort(app: App): SafeApplyPort {
+export function obsidianSafeApplyPort(app: App, isReadOnlyView?: (view: View) => boolean): SafeApplyPort {
   const identity = (note: SavedNote) => {
     requireSafe(app.vault.getFileByPath(note.path) === note.file && note.file.path === note.path &&
       note.file.stat.mtime === note.modified && note.file.stat.size === note.bytes, "stale");
   };
-  const guard = (note: SavedNote) => { identity(note); guardSavedEditors(app, [note]); };
+  const guard = (note: SavedNote) => { identity(note); guardSavedEditors(app, [note], isReadOnlyView); };
   return {
     async check(plan, analysis) {
       const read = await readPlannerPair(app, [analysis.pair[0].path, analysis.pair[1].path]);
@@ -54,7 +55,7 @@ export function obsidianSafeApplyPort(app: App): SafeApplyPort {
           requireSafe(JSON.stringify(app.metadataCache.getFileCache(note.file)) === JSON.stringify(note.cache), "stale");
         }
         requireSafe(app.metadataCache.getFirstLinkpathDest(plan.targetPath.slice(0, -3), plan.sourcePath) === plan.target.file, "stale");
-        guardSavedEditors(app, read.pair);
+        guardSavedEditors(app, read.pair, isReadOnlyView);
       };
       check(); return check;
     },

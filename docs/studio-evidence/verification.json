@@ -1,0 +1,66 @@
+{
+  "runtimeSourceCommit": "fbb9c2c7face433fd8f3c0e387ba84f5fc227359",
+  "verifiedAtUtc": "2026-10-26T21:29:41Z",
+  "gates": {
+    "npm test -- --maxWorkers=4": {
+      "exit": 0,
+      "tests": 4849,
+      "files": 181,
+      "studioTests": 87,
+      "studioFiles": 3
+    },
+    "npm run typecheck": {
+      "exit": 0,
+      "projects": 2
+    },
+    "npm run build": {
+      "exit": 0
+    },
+    "npm run lint": {
+      "exit": 0,
+      "errors": 0,
+      "existingAdvisories": 1
+    },
+    "npm run audit:proposals": {
+      "exit": 0,
+      "mutationsKilled": 5,
+      "restoredBaselinesPassed": true
+    },
+    "git diff --check": {
+      "exit": 0
+    }
+  },
+  "native": {
+    "exit": 0,
+    "checks": 58,
+    "screenshots": 35,
+    "loopbackRequests": 16,
+    "originalMarkdownHashesRestored": 6
+  },
+  "review": {
+    "scope": "correctness, security, architecture, persistence and recovery source/callers; independent reviewer",
+    "finding": "enum String coercion accepted arrays",
+    "resolution": "explicit string validation and negative recipe/journal tests; follow-up 87/87 passed; no remaining finding"
+  },
+  "unchanged": [
+    "manifest.json",
+    "package.json",
+    "package-lock.json",
+    "versions.json",
+    "api.ts",
+    "noteWrites.ts",
+    "consolidation/",
+    "health/",
+    "recall/"
+  ],
+  "notVerified": [
+    "real model quality",
+    "paid providers",
+    "power-loss durability",
+    "external processes and Sync races",
+    "physical mobile",
+    "screen-reader speech",
+    "third-party themes",
+    "Windows/macOS"
+  ]
+}
