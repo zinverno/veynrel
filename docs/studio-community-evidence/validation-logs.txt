@@ -1,0 +1,54 @@
+FULL TEST SUITE
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run
+
+
+ RUN  v4.1.10 /tmp/veynrel-community-v1
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":227.61511900000005,"layoutMs":21.389755000000036}}
+
+ Test Files  183 passed (183)
+      Tests  4933 passed (4933)
+   Start at  05:53:27
+   Duration  36.23s (transform 32.05s, setup 0ms, import 72.37s, tests 140.41s, environment 36ms)
+
+
+LINT / TYPECHECK / BUILD
+
+> obsidian-ai-hub@2.2.1 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.2.1 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.2.1 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.2.1 build
+> node esbuild.config.mjs production
+
+
+/tmp/veynrel-community-v1/api.ts
+  442:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+/tmp/veynrel-community-v1/studio/community/transport.ts
+  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 2 problems (0 errors, 2 warnings)
+
+
+PROPOSAL AUDIT
+
+> obsidian-ai-hub@2.2.1 audit:proposals
+> node scripts/proposal-mutation-audit.mjs
+
+B: KILLED — approval skips base hash precondition
+D: KILLED — Vault write precedes successful claim
+E: KILLED — approval performs two Vault mutations
+F: KILLED — changed Vault content is applied after claim
+H: KILLED — Reject modifies Vault
+5/5 Stage 11 mutations killed; every restored test passed.

@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "pluginBase": "f9501a27209207da296fe69676fecaf19a0f1711",
+  "pluginRuntimeCommit": "ba5dbb8",
+  "pluginTests": {
+    "tests": 4933,
+    "files": 183
+  },
+  "communityTests": 61,
+  "typecheck": "PASS",
+  "build": "PASS",
+  "lint": {
+    "errors": 0,
+    "advisories": [
+      "api.ts existing streaming Fetch",
+      "studio/community/transport.ts explicit redirect and stream control"
+    ]
+  },
+  "proposalAudit": {
+    "mutationsKilled": 5,
+    "total": 5,
+    "restoredTests": "PASS"
+  },
+  "catalogTests": 8,
+  "websiteBrowserChecks": 13,
+  "nativeChecks": 43,
+  "nativeScreenshots": 21,
+  "nativeRuntime": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "nativeModel": "Synthetic loopback completions through existing callOpenRouter; not real-model quality evidence",
+  "publicSite": "https://zinverno.github.io/veynrel-recipes/",
+  "publicCatalog": "https://zinverno.github.io/veynrel-recipes/catalog/v1/index.json",
+  "deploymentRun": "https://github.com/zinverno/veynrel-recipes/actions/runs/40441180389",
+  "deploymentSource": "a29a537815d5ca2f0ba5b28e6066823eb8873204",
+  "publicationRoundtrip": {
+    "source": "native-public.json publication",
+    "catalogCopy": "/tmp/veynrel-community-submission-check",
+    "entry": "native-submission@1.10.0",
+    "validationTests": 8,
+    "generatedPages": 12,
+    "published": false
+  },
+  "earlierAttempts": [
+    {
+      "path": "/tmp/veynrel-community-native-local-1/report.json",
+      "status": "FAIL",
+      "reason": "390 px viewport with 300 px native sidebar left open; corrected fixture collapse matches existing native harness."
+    },
+    {
+      "path": "/tmp/veynrel-site-local-1/report.json",
+      "status": "FAIL",
+      "reason": "Missing favicon caused 404; added own SVG icon."
+    },
+    {
+      "path": "/tmp/veynrel-site-public-1/report.json",
+      "status": "FAIL",
+      "reason": "Search event fired before deferred script ready; wait for readyState and initialized result status."
+    },
+    {
+      "run": "https://github.com/zinverno/veynrel-recipes/actions/runs/40440954212",
+      "status": "FAIL",
+      "reason": "Default github-pages branch policy rejected feature branch; exact implementation branch added to allowlist."
+    }
+  ]
+}
