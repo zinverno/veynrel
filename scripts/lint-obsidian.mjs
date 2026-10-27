@@ -7,6 +7,7 @@ import { relative } from 'node:path';
 // Rationale for each retained advisory: docs/obsidian-review-audit.md.
 const reviewed = new Map([
   ['api.ts:no-restricted-globals', 1], // requestUrl cannot stream SSE.
+  ['studio/community/transport.ts:no-restricted-globals', 1], // requestUrl cannot veto redirects or bound streamed bodies.
 ]);
 const eslint = new ESLint();
 const results = await eslint.lintFiles('.');

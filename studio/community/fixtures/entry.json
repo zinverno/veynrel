@@ -1,0 +1,49 @@
+{
+  "id": "lecture-outline",
+  "version": "1.0.0",
+  "name": {
+    "en": "Lecture outline",
+    "ru": "Конспект лекции"
+  },
+  "description": {
+    "en": "Turn rough lecture notes into an outline with definitions and open questions.",
+    "ru": "Превратите черновик лекции в план с определениями и открытыми вопросами."
+  },
+  "author": {
+    "name": "Zinverno Labs",
+    "url": "https://github.com/zinverno"
+  },
+  "category": "learning",
+  "tags": [
+    "lecture",
+    "study",
+    "лекция"
+  ],
+  "compatibility": {
+    "recipeSchema": 1,
+    "studioApi": 1
+  },
+  "purpose": {
+    "en": "An outline for reviewing a lecture without filling gaps from model memory.",
+    "ru": "План для повторения лекции без заполнения пробелов знаниями модели."
+  },
+  "operations": [
+    "replace"
+  ],
+  "limitations": {
+    "en": "Misheard terms may remain wrong. Check formulas and definitions against the lecture; omitted material cannot be recovered.",
+    "ru": "Ошибочно записанные термины могут остаться неверными. Сверяйте формулы и определения с лекцией; пропуски нельзя восстановить."
+  },
+  "examples": {
+    "input": {
+      "en": "Topic: caching. Cache hit: requested item is in cache. TTL sets time to live. Example: weather data cached 5 min. Didn't record eviction policies.",
+      "ru": "Тема: кеширование. Cache hit — нужный элемент есть в кеше. TTL задаёт время жизни. Пример: погода кешируется 5 минут. Политики вытеснения не записал."
+    },
+    "output": {
+      "en": "# Caching\n## Key ideas\n- A cache hit means the requested item is in the cache.\n- TTL sets time to live.\n## Example from the source\nWeather data cached for 5 minutes.\n## Open questions\nEviction policies were not recorded.",
+      "ru": "# Кеширование\n## Основные идеи\n- Cache hit: нужный элемент есть в кеше.\n- TTL задаёт время жизни.\n## Пример из источника\nПогода кешируется на 5 минут.\n## Открытые вопросы\nПолитики вытеснения не записаны."
+    }
+  },
+  "recipeUrl": "https://zinverno.github.io/veynrel-recipes/catalog/v1/recipes/lecture-outline/1.0.0.json",
+  "sha256": "fb3a26f671f4061529147955d046890330f225526a65fd9dceef2e46c2f4b3b2"
+}

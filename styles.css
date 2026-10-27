@@ -3213,3 +3213,9 @@
 .veynrel-studio-dialog { display: flex; flex-direction: column; gap: 12px; }
 @container (max-width: 500px) { .veynrel-studio-card { padding: 14px; } .veynrel-studio-actions { align-items: stretch; } }
 @media (max-width: 500px) { .veynrel-studio { padding: 12px; } }
+.veynrel-community-list { display: flex; flex-direction: column; gap: 12px; margin-block: 16px; }
+.veynrel-community-row { border-bottom: 1px solid var(--background-modifier-border); padding: 12px 0; }
+.veynrel-community-row h3 { margin: 0; }
+.veynrel-community-row button, .veynrel-community-row select { margin: 6px; }
+.veynrel-community { overflow-wrap: anywhere; min-width: 0; }
+.veynrel-community > button { margin: 8px 8px 8px 0; white-space: normal; height: auto; min-height: 32px; }

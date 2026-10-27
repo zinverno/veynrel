@@ -38,7 +38,7 @@ describe("shared legacy and declarative settings inventory", () => {
   it("covers every existing durable UI binding without registration-time side effects", () => {
     const f = fixture(); const snapshot = structuredClone(f.settings);
     const rows = f.tab.getSettingDefinitions().flatMap((section) => section.items);
-    expect(rows).toHaveLength(baseline.rowCount + 11);
+    expect(rows).toHaveLength(baseline.rowCount + 12);
     expect(rows.flatMap((row) => row.keys).filter(key => !key.startsWith("rerank.") && !key.startsWith("decisions.")).sort()).toEqual(baseline.keys);
     expect(rows.flatMap((row) => row.keys).sort()).toEqual(exposedKeys);
     expect(f.settings).toEqual(snapshot);
@@ -118,7 +118,7 @@ it.each(["en", "ru"] as const)("keeps product and technical search aliases and b
     ["microscope", ["Deep Analysis", "Deep Audit"]],
     ["arrow-down-to-line", ["Writing & Output", "MOC", "Atoms", "Insertion"]],
   ]);
-  expect(groups.map((group) => group.icon)).toEqual(["brain", "cpu", "binary", "server", "microscope", "arrow-down-to-line", "layout-dashboard"]);
+  expect(groups.map((group) => group.icon)).toEqual(["wand-sparkles", "brain", "cpu", "binary", "server", "microscope", "arrow-down-to-line", "layout-dashboard"]);
   expect(groups.map((group) => group.heading).join(" ")).not.toMatch(/@settings|AI Hub|Vault Audit AI/u);
   for (const group of groups) for (const row of group.items) expect(row.aliases).toEqual(expect.arrayContaining(aliases.get(group.icon) ?? []));
   const output = groups.find((group) => group.icon === "arrow-down-to-line")!;

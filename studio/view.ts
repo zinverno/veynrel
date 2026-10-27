@@ -8,6 +8,10 @@ import type { Recipe } from "./recipe";
 import type { StudioWorkspace } from "./registerStudio";
 import type { StudioHistoryRow, UndoReview } from "./apply";
 import { errorMessage, l, status } from "./messages";
+import { CommunityPanel, categoryName, communityLink } from "./community/view";
+import { CATEGORIES, COMMUNITY_CONTRIBUTE } from "./community/schema";
+import type { CatalogEntry } from "./community/schema";
+import { publicationPackage } from "./community/publication";
 
 export const STUDIO_VIEW_TYPE = "veynrel-studio";
 const title = "Veynrel Studio";
@@ -43,7 +47,8 @@ class StudioDialog extends Modal {
 }
 
 export class VeynrelStudioView extends ItemView {
-  private route: "library" | "details" | "setup" | "workflow" | "history" = "library";
+  private route: "library" | "community" | "details" | "setup" | "workflow" | "history" = "library";
+  private community?: CommunityPanel;
   private selected?: Recipe;
   private search = "";
   private category = "all";
@@ -65,13 +70,18 @@ export class VeynrelStudioView extends ItemView {
     const header = this.contentEl.createEl("header"); header.createEl("h1", { text: title });
     header.createEl("p", { text: l("Local recipes. Deliberate changes.", "Локальные сценарии. Осознанные изменения.") });
     const nav = this.contentEl.createEl("nav", { cls: "veynrel-studio-actions", attr: { "aria-label": title } });
-    for (const [route, name] of [["library", l("Library", "Библиотека")], ["workflow", l("Run & review", "Запуск и проверка")], ["history", l("History", "История")]] as const) {
+    for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", "Community"], ["workflow", l("Run & review", "Запуск и проверка")], ["history", l("History", "История")]] as const) {
       button(nav, name, route, () => { this.route = route; this.render(); });
     }
     this.stateEl = this.contentEl.createDiv({ cls: "veynrel-studio-status", attr: { role: "status", "aria-live": "polite" } });
     this.errorEl = this.contentEl.createDiv({ attr: { role: "alert" } }); this.body = this.contentEl.createDiv({ cls: "veynrel-studio-body" });
     this.stop.push(this.owner.runner.subscribe(() => { this.updateStatus(); if (this.route === "workflow") this.render(); }));
     this.stop.push(this.owner.registry.subscribe(() => { if (this.route === "library" || this.route === "details") this.render(); }));
+    this.community = new CommunityPanel(this.owner.community, this.owner.installer, () => { if (this.alive && this.route === "community") this.render(); }, r => {
+      if (!this.alive) return; this.selected = r; this.route = "details"; this.render();
+    });
+    this.stop.push(this.owner.community.subscribe(() => { if (this.route === "community") this.render(); }));
+    await this.owner.installer.load();
     await this.owner.registry.load(); if (this.alive) this.render();
   }
   async onClose(): Promise<void> {
@@ -86,8 +96,9 @@ export class VeynrelStudioView extends ItemView {
     const d = new StudioDialog(this.app, build, () => { this.dialogs.delete(d); closed?.(); }); this.dialogs.add(d); d.open();
   }
   private render(): void {
-    if (!this.alive) return; this.historyEpoch++; this.body.empty(); this.errorEl.empty(); this.updateStatus();
+    if (!this.alive) return; this.historyEpoch++; this.body.empty(); this.body.removeClass("veynrel-community"); this.errorEl.empty(); this.updateStatus();
     if (this.route === "library") this.library();
+    if (this.route === "community") this.community?.render(this.body);
     if (this.route === "details") this.details();
     if (this.route === "setup") this.setup();
     if (this.route === "workflow") this.workflow();
@@ -121,6 +132,8 @@ export class VeynrelStudioView extends ItemView {
   private details(): void {
     const r = this.selected; if (!r) { this.route = "library"; this.render(); return; }
     this.body.createEl("h2", { text: r.name[currentLanguage()] }); this.body.createEl("p", { text: r.description[currentLanguage()] });
+    const origin = this.owner.installer.provenance(r.id);
+    if (origin) literal(this.body, l("Community origin", "Происхождение Community"), `${origin.entry.id} · ${origin.entry.author.name} · ${origin.entry.version}\n${origin.entry.recipeUrl}\nSHA-256: ${origin.entry.sha256}\n${origin.modified ? l("Locally modified", "Изменён локально") : l("Unmodified", "Без изменений")}`);
     this.body.createEl("p", { text: `${status(r.output.action)} · Markdown · ${l("one note per request", "одна заметка на запрос")} · v${r.version}` });
     literal(this.body, l("Model instruction & constraints", "Инструкция модели и ограничения"), `${r.steps[0].prompt}\n\n${r.constraints.join("\n")}`);
     this.body.createEl("p", { text: `${l("Limits: input characters / output characters / output tokens", "Лимиты: символы входа / символы выхода / токены выхода")}: ${r.limits.maxInputCharacters} / ${r.limits.maxOutputCharacters} / ${r.limits.maxOutputTokens}` });
@@ -132,12 +145,40 @@ export class VeynrelStudioView extends ItemView {
       button(root, l("Select JSON", "Выделить JSON"), "select-json", () => { input.focus(); input.select(); });
     }));
     if (r.source === "user") {
+      button(actions, l("Prepare community submission", "Подготовить публикацию в Community"), "publish", () => this.publishRecipe(r));
       button(actions, l("Edit", "Изменить"), "edit", () => this.edit(r, r));
       button(actions, l("Delete", "Удалить"), "delete", () => this.dialog((d, root) => {
         root.createEl("p", { text: `${l("Delete local recipe", "Удалить локальный сценарий")}: ${r.name[currentLanguage()]}?` });
         button(root, l("Confirm deletion", "Подтвердить удаление"), "confirm-delete", () => d.run(async () => { await this.owner.registry.remove(r); this.route = "library"; this.render(); }));
       }));
     }
+  }
+  private publishRecipe(recipe: Recipe): void {
+    this.dialog((_dialog, root) => {
+      root.createEl("h2", { text: l("Prepare a public recipe package", "Подготовить публичный пакет сценария") });
+      root.createEl("p", { text: l("Inspect the recipe for private information. Write fictional examples yourself. No notes, reviews, keys or history are collected. Default additional instructions are removed. Nothing is uploaded.", "Проверьте сценарий на личные данные. Напишите вымышленные примеры самостоятельно. Заметки, Review, ключи и история не собираются. Дополнительные инструкции по умолчанию удаляются. Ничего не отправляется.") });
+      literal(root, l("Recipe to publish", "Сценарий для публикации"), this.owner.registry.export(recipe));
+      const id = field(root, l("Public ID (lowercase slug)", "Публичный ID (латиница, дефисы)"), ""), author = field(root, l("Author name", "Имя автора"), ""), url = field(root, l("Author GitHub profile URL", "URL профиля автора на GitHub"), "");
+      const category = select(root, l("Category", "Категория"), CATEGORIES.map(c => [c, categoryName(c)] as [string, string]), "learning");
+      const tags = field(root, l("Tags (comma separated)", "Теги (через запятую)"), "");
+      const purposeEn = field(root, "Purpose (EN)", "", true), purposeRu = field(root, "Назначение (RU)", "", true);
+      const limitsEn = field(root, "Known risks and limitations (EN)", "", true), limitsRu = field(root, "Риски и ограничения (RU)", "", true);
+      const inputEn = field(root, "Fictional input (EN)", "", true), inputRu = field(root, "Вымышленный вход (RU)", "", true);
+      const outputEn = field(root, "Illustrative output (EN)", "", true), outputRu = field(root, "Пример результата (RU)", "", true);
+      const confirmation = root.createEl("label", { cls: "veynrel-studio-check" }), checked = confirmation.createEl("input", { type: "checkbox" });
+      confirmation.createSpan({ text: l("I inspected the recipe and explicitly authored these public examples.", "Я проверил сценарий и явно создал эти примеры для публикации.") });
+      const result = root.createDiv(), error = root.createDiv({ attr: { role: "alert" } });
+      button(root, l("Validate & export package", "Проверить и экспортировать пакет"), "export-publication", () => {
+        error.empty(); result.empty();
+        if (!checked.checked) { error.setText(l("Confirm your review first.", "Сначала подтвердите проверку.")); return; }
+        void publicationPackage(recipe, { id: id.value, author: { name: author.value, url: url.value }, category: category.value as CatalogEntry["category"], tags: tags.value.split(",").map(t => t.trim()),
+          purpose: { en: purposeEn.value, ru: purposeRu.value }, limitations: { en: limitsEn.value, ru: limitsRu.value }, examples: { input: { en: inputEn.value, ru: inputRu.value }, output: { en: outputEn.value, ru: outputRu.value } } })
+          .then(raw => { const output = field(result, l("Save this JSON as submission.json", "Сохраните этот JSON как submission.json"), raw, true); output.readOnly = true;
+            button(result, l("Select package JSON", "Выделить JSON пакета"), "select-publication", () => { output.focus(); output.select(); });
+            communityLink(result, l("Submit through a GitHub pull request ↗", "Предложить через GitHub pull request ↗"), COMMUNITY_CONTRIBUTE);
+          }).catch(() => error.setText(l("Invalid metadata or examples. Complete every RU/EN field and check the public ID and GitHub URL.", "Неверные метаданные или примеры. Заполните все поля RU/EN, проверьте ID и URL GitHub.")));
+      });
+    });
   }
   private edit(recipe: Recipe, expected?: Recipe): void {
     this.dialog((d, root) => {
