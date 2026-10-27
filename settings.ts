@@ -44,6 +44,8 @@ import { DEFAULT_RERANK_SETTINGS } from "./rerank/types";
 import type { RerankSettings } from "./rerank/types";
 import { RerankError } from "./rerank/openRouterRerank";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
+import { COMMUNITY_SITE } from "./studio/community/schema";
+import { l as studioLabel } from "./studio/messages";
 
 export interface AIHubSettings {
   // ── Провайдер ─────────────────────────────────────────────────────
@@ -191,6 +193,13 @@ export class AIHubSettingTab extends PluginSettingTab {
     const row = (keys: readonly string[], name: string, desc: string | undefined,
       render: (setting: Setting) => void): SettingsRow => ({ keys, name, ...(desc === undefined ? {} : { desc }), render });
     const sections: SettingsSection[] = [
+      {
+        type: "group", heading: "Veynrel Studio", icon: "wand-sparkles", items: [
+          row([], "Community", studioLabel("The public catalog uses the internet; no separate key is needed. Installed recipes use your configured model after explicit consent.", "Публичный каталог работает через интернет без отдельного ключа. Установленные сценарии используют вашу модель после явного согласия."), setting => {
+            setting.controlEl.createEl("a", { text: studioLabel("Open community website ↗", "Открыть сайт Community ↗"), href: COMMUNITY_SITE, attr: { target: "_blank", rel: "noopener noreferrer" } });
+          }),
+        ],
+      },
       {
         type: "group", heading: "", icon: "brain", items: [
           { ...row([], "Veynrel", tr("Настройки плагина"), (setting) => this.renderHero(this.customContainer(setting))), searchable: false }
