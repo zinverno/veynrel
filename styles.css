@@ -3002,7 +3002,6 @@
 .veynrel-review [data-intent-origin] { padding-block: 4px; }
 .ai-consolidation-summary p { margin-block: 6px; overflow-wrap: anywhere; }
 .ai-review-actions { position: sticky; bottom: 0; padding-block: 10px; background: var(--background-primary); z-index: 1; }
-.veynrel-review .mod-cta, .ai-change-planner .mod-cta { background: var(--interactive-accent); color: var(--text-on-accent); }
 .veynrel-review button:disabled, .ai-change-planner button:disabled { opacity: .65; }
 @media (max-width: 700px) { .veynrel-review-facts { grid-column: 1 / -1; } }
 
@@ -3090,7 +3089,7 @@
 .ai-review-outcome .ai-review-icon { color: var(--text-success); margin-bottom: .75rem; }
 .ai-safe-apply .ai-consolidation-summary { border: 1px solid var(--background-modifier-border); border-radius: .75rem; padding: 1rem; background: var(--background-secondary); }
 .ai-pair-inspector .ai-review-eyebrow, .ai-pair-inspector .ai-review-decision-next { color: color-mix(in srgb,var(--text-accent) 65%,var(--text-normal)); }
-.veynrel-review .mod-cta, .ai-change-planner .mod-cta, .ai-pair-inspector .ai-pair-actions button[data-relationship-action="analyze"] { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
+.ai-pair-inspector .ai-pair-actions button[data-relationship-action="analyze"] { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
 .ai-change-planner .ai-review-choice { display: flex; }
 .ai-change-planner .ai-review-choices { padding: 1rem; background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: .75rem; }
 .ai-change-planner .ai-review-choices legend { padding-inline: .5rem; }
@@ -3156,7 +3155,6 @@
 .veynrel-processing-card p { margin: 0; line-height: 1.5; }
 .veynrel-processing-effect { font-size: var(--font-ui-small); color: var(--text-muted); }
 .veynrel-processing-card button { margin-top: auto; height: auto; min-height: 36px; white-space: normal; text-align: start; }
-.veynrel-processing-card .mod-cta, .veynrel-moc-confirmation .mod-cta, .veynrel-atom-flow .mod-cta { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
 .veynrel-processing-status { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; font-size: var(--font-ui-small); padding-block: 8px; border-top: 1px solid var(--background-modifier-border); width: 100%; }
 .veynrel-moc-summary { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); padding: 20px; }
 .veynrel-moc-summary > span { color: var(--text-accent); }
@@ -3246,7 +3244,6 @@
   --studio-surface: var(--veynrel-surface);
   --studio-line: var(--background-modifier-border);
   --studio-focus: var(--interactive-accent);
-  --studio-action: var(--interactive-accent);
   --studio-radius: 6px;
   font-size: var(--font-ui-medium); line-height: 1.5;
 }
@@ -3270,7 +3267,6 @@
 .veynrel-studio-grid .veynrel-studio-card > button { grid-column: 1; align-self: start; margin: 0; }
 .veynrel-studio :is(button, input:not([type="checkbox"]):not([type="radio"]), select), .veynrel-studio-dialog :is(button, input:not([type="checkbox"]):not([type="radio"]), select) { min-height: 36px; font-size: 14px; }
 .veynrel-studio button, .veynrel-studio-dialog button { width: fit-content; }
-.veynrel-studio .mod-cta, .veynrel-studio-dialog .mod-cta { background: var(--studio-action); color: var(--text-on-accent); }
 .veynrel-studio :is(button, input, textarea, select, summary, pre):focus-visible, .veynrel-studio-dialog :is(button, input, textarea, select, summary, pre):focus-visible { outline-color: var(--studio-focus); }
 .veynrel-studio :is(h2, h3, p, button), .veynrel-studio-dialog :is(h2, h3, p, button) { overflow-wrap: anywhere; }
 .veynrel-studio-field { margin: 4px 0; }
@@ -3330,7 +3326,6 @@
 .veynrel-studio-example svg, .veynrel-studio-mode svg { color: var(--text-normal); }
 .veynrel-studio-example figcaption { margin-top: 4px; }
 .veynrel-studio-card h2 .svg-icon { width: 18px; height: 18px; margin-inline-end: 8px; vertical-align: middle; }
-.veynrel-studio .mod-cta:hover { background: var(--interactive-accent-hover); }
 .veynrel-studio-body > p { margin-block: 4px; }
 @container (max-width: 600px) {
   .veynrel-studio-modes { gap: 8px; }
@@ -3344,3 +3339,14 @@
 @container (max-width: 500px) { .veynrel-studio-search-row { grid-template-columns: minmax(0, 1fr); } }
 
 @container (max-width: 500px) { .veynrel-studio .veynrel-studio-modes { grid-template-columns: minmax(0, 1fr); } }
+
+/* Primary actions keep the host's neutral colors; weight and border also convey priority. */
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta {
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  border: 1px solid var(--text-muted);
+  font-weight: var(--font-semibold);
+  box-shadow: none;
+}
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta:hover:not(:disabled) { background: var(--interactive-hover); color: var(--text-normal); }
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta:focus { outline: 2px solid var(--text-normal); outline-offset: 3px; }

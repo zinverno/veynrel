@@ -68,6 +68,40 @@ const click = async (action, modal = false) => {
 };
 const shot = async name => { fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await cdp('Page.captureScreenshot', { format: 'png' })).data, 'base64')); report.screenshots.push(`${name}.png`); };
 async function studioOpen() { await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-studio');void 0"); await wait("!!document.querySelector('[data-studio-action=diagram]')"); await click('diagram'); }
+// CSS alpha backgrounds are composited over their actual ancestor surfaces, without rounding.
+function measuredColors(element) {
+ const win=element.ownerDocument.defaultView,s=win.getComputedStyle(element);
+ const rgba=value=>{if(!/^rgba?\(/.test(value))throw Error(`Unsupported computed color: ${value}`);const v=value.match(/[\d.]+/g).map(Number);return [v[0],v[1],v[2],v[3]??1]};
+ const layers=[];for(let e=element;e;e=e.parentElement){const c=rgba(win.getComputedStyle(e).backgroundColor);layers.push(c);if(c[3]===1)break;}
+ if(layers.at(-1)[3]!==1)throw Error('No measured opaque ancestor');
+ let background=[0,0,0];for(const c of layers.reverse())background=background.map((b,i)=>c[i]*c[3]+b*(1-c[3]));
+ const text=rgba(s.color);return {background:s.backgroundColor,text:s.color,border:s.borderColor,primary:s.getPropertyValue('--background-primary').trim(),secondary:s.getPropertyValue('--background-secondary').trim(),effectiveBackground:background,effectiveText:background.map((b,i)=>text[i]*text[3]+b*(1-text[3]))};
+}
+// Inspect real enabled controls with pointer hover and keyboard-visible focus.
+async function actionStates(selector, label) {
+ const samples=[];
+ for(const state of ['normal','hover','focus']) {
+  await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',x:1,y:1});
+  await ev("document.activeElement?.blur();void 0");
+  const point=await ev(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e||e.disabled)throw Error('Missing active action');e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()`);
+  if(state==='hover')await cdp('Input.dispatchMouseEvent',{type:'mouseMoved',...point});
+  if(state==='focus'){for(const type of ['keyDown','keyUp'])await cdp('Input.dispatchKeyEvent',{type,key:'Tab',code:'Tab'});await ev(`document.querySelector(${JSON.stringify(selector)}).focus();void 0`);for(const type of ['keyDown','keyUp'])await cdp('Input.dispatchKeyEvent',{type,key:'Shift',code:'ShiftLeft',modifiers:type==='keyDown'?8:0});}
+  await pause(150);
+  const sample=await ev(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),s=getComputedStyle(e);let p=e.parentElement;while(p.parentElement&&getComputedStyle(p).backgroundColor==='rgba(0, 0, 0, 0)')p=p.parentElement;
+   const probe=e.ownerDocument.createElement('span');e.append(probe);probe.style.background='var(--${state==='hover'?'interactive-hover':'interactive-normal'})';probe.style.color='var(--text-normal)';const ps=getComputedStyle(probe),tokens={background:ps.backgroundColor,text:ps.color};probe.remove();
+   return {...(${measuredColors.toString()})(e),image:s.backgroundImage,opacity:s.opacity,fontSize:s.fontSize,fontWeight:s.fontWeight,border:s.borderWidth,outline:s.outlineColor,outlineWidth:s.outlineWidth,outlineStyle:s.outlineStyle,offset:s.outlineOffset,surface:(${measuredColors.toString()})(p).effectiveBackground,focused:e.ownerDocument.activeElement===e,focusVisible:e.matches(':focus-visible'),hover:e.matches(':hover'),tokens};})()`);
+  const lum=c=>{if(!Array.isArray(c)){assert(c.startsWith('rgb('),c);c=c.match(/[\d.]+/g).slice(0,3)}return c.map(x=>{const n=Number(x)/255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4}).reduce((a,n,i)=>a+n*[.2126,.7152,.0722][i],0)};
+  const ratio=(a,b)=>{a=lum(a);b=lum(b);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
+  const measurement={label,state,...sample,textRatio:ratio(sample.effectiveText,sample.effectiveBackground),focusRatio:ratio(sample.outline,sample.surface)};
+  samples.push(measurement);report.actionSamples.push(measurement);
+  assert.equal(sample.text,sample.tokens.text,`${label} ${state}: text token`);assert.equal(sample.background,sample.tokens.background,`${label} ${state}: neutral surface token`);
+  assert.equal(sample.image,'none');assert.equal(sample.opacity,'1');assert(measurement.textRatio>=4.5,`${label} ${state}: text contrast ${measurement.textRatio}`);
+  assert(Number(sample.fontWeight)>=600&&parseFloat(sample.border)>=1,'priority also conveyed by weight and border');
+  if(state==='focus'){assert(sample.focused&&parseFloat(sample.outlineWidth)>=2&&sample.outlineStyle==='solid'&&parseFloat(sample.offset)>=2);assert(measurement.focusRatio>=3,`${label} focus contrast ${measurement.focusRatio}`);}
+  if(state==='hover')assert(sample.hover);
+ }
+ return samples;
+}
 async function locale(language) {
   await ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
   await ev(`{const s=[...app.setting.modalEl.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='ru'));s.value='${language}';s.dispatchEvent(new Event('change'));}void 0`);
@@ -97,17 +131,17 @@ try {
      const control=document.createElement('div');control.className='theme-native-control';document.querySelector('.workspace-leaf-content').append(control);
      const studioPrimary=studioEl.createEl('button',{cls:'mod-cta',text:'Measure'}),healthPrimary=health.createEl('button',{cls:'mod-cta',text:'Measure'});
      const normal=control.createEl('button',{text:'Native'}),primary=control.createEl('button',{text:'Native primary',cls:'mod-cta'}),field=control.createEl('input',{type:'text'});
-     const colors=e=>{const s=getComputedStyle(e);return {background:s.backgroundColor,text:s.color,border:s.borderColor,primary:s.getPropertyValue('--background-primary').trim(),secondary:s.getPropertyValue('--background-secondary').trim()}};
+     const colors=${measuredColors.toString()};
      const result={health:colors(health),studio:colors(studioEl),healthSurface:colors(health.querySelector('.veynrel-core-panel')),studioField:colors(studioEl.querySelector('input')),healthField:colors(health.querySelector('select')),nativeField:colors(field),nativeButton:colors(normal),nativePrimary:colors(primary),studioPrimary:colors(studioPrimary),healthPrimary:colors(healthPrimary)};control.remove();studioPrimary.remove();healthPrimary.remove();return result;})()`);
-   const luminance=color=>{assert(color.startsWith('rgb('),color);return color.match(/[\d.]+/g).slice(0,3).map(x=>{const n=Number(x)/255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4}).reduce((a,n,i)=>a+n*[.2126,.7152,.0722][i],0)};
+   const luminance=color=>{if(!Array.isArray(color)){assert(color.startsWith('rgb('),color);color=color.match(/[\d.]+/g).slice(0,3)}return color.map(x=>{const n=Number(x)/255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4}).reduce((a,n,i)=>a+n*[.2126,.7152,.0722][i],0)};
    const contrast=(a,b)=>{a=luminance(a);b=luminance(b);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
-   const ratios={text:contrast(sample.studio.text,sample.studio.background),healthSurface:contrast(sample.health.text,sample.healthSurface.background),nativePrimary:contrast(sample.nativePrimary.text,sample.nativePrimary.background),studioPrimary:contrast(sample.studioPrimary.text,sample.studioPrimary.background)};
+   const ratios={text:contrast(sample.studio.effectiveText,sample.studio.effectiveBackground),healthSurface:contrast(sample.healthSurface.effectiveText,sample.healthSurface.effectiveBackground),nativePrimary:contrast(sample.nativePrimary.effectiveText,sample.nativePrimary.effectiveBackground),studioPrimary:contrast(sample.studioPrimary.effectiveText,sample.studioPrimary.effectiveBackground)};
    report.matrix.push({name:name||'Default',mode,accent,...sample,ratios});
-   assert(ratios.text>=4.5 && ratios.healthSurface>=4.5,'primary and panel text contrast');
+   assert(ratios.text>=4.5 && ratios.healthSurface>=4.5 && ratios.studioPrimary>=4.5,'primary, panel and neutral action text contrast');
    assert.equal(sample.health.background,sample.studio.background,'same host primary');
-   assert.equal(sample.studioPrimary.background,sample.nativePrimary.background,'Studio native primary background');
-   assert.equal(sample.studioPrimary.text,sample.nativePrimary.text,'Studio native primary text');
-   assert.equal(sample.healthPrimary.background,sample.nativePrimary.background,'Health native primary background');
+   assert.equal(sample.studioPrimary.background,sample.nativeButton.background,'Studio native neutral background');
+   assert.equal(sample.studioPrimary.text,sample.nativeButton.text,'Studio native neutral text');
+   assert.equal(sample.healthPrimary.background,sample.nativeButton.background,'Health native neutral background');
    assert.equal(sample.health.text,sample.studio.text,'same host text');
    assert.equal(sample.studioField.background,sample.nativeField.background,'host field background');
    assert.equal(sample.healthField.background,sample.nativeField.background,'Health host field background');
@@ -156,6 +190,23 @@ try {
  await ev("app.customCss.setTheme('Minimal');app.changeTheme('moonstone');app.setAccentColor('#087f8c');void 0");await pause(300);
  assert.equal(await ev('JSON.stringify(d.proposal)'),frozen);assert.equal(report.requests.length,calls);await shot('review-theme-change');
  await pass('Live theme change leaves immutable diagram scene/payload and provider count unchanged');
+ report.actionSamples=[];
+ await ev("(async()=>{const leaf=app.workspace.getLeaf('split');await leaf.setViewState({type:'veynrel-health',active:true});app.workspace.leftSplit.expand()})()");
+ const proposalBeforeActions=await ev('JSON.stringify(d.proposal)'),requestCount=report.requests.length;
+ for(const name of ['Red Graphite','','Minimal'])for(const mode of ['obsidian','moonstone'])for(const accent of ['#7c009e','#087f8c']) {
+  await ev(`app.customCss.setTheme(${JSON.stringify(name)});app.changeTheme('${mode}');app.setAccentColor('${accent}');void 0`);await pause(400);
+  const label=`${name||'Default'}/${mode}/${accent}`;
+  await actionStates('.veynrel-health-view .veynrel-health-primary',`${label}/Health`);
+  await actionStates('[data-studio-action=diagram-create-review]',`${label}/Studio`);
+  if(name==='Red Graphite'&&mode==='obsidian'&&accent==='#7c009e')await shot('readable-red-graphite-health-studio');
+  await click('diagram-create-review');await wait("!!document.querySelector('[data-studio-action=diagram-confirm-create]')");
+  await actionStates('[data-studio-action=diagram-confirm-create]',`${label}/Confirmation`);
+  if(name==='Red Graphite'&&mode==='obsidian'&&accent==='#7c009e')await shot('readable-red-graphite-confirmation-focus');
+  for(const type of ['keyDown','keyUp'])await cdp('Input.dispatchKeyEvent',{type,key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await wait("!document.querySelector('.veynrel-studio-dialog')");
+ }
+ assert.equal(report.actionSamples.length,108);assert.equal(report.requests.length,requestCount);assert.equal(await ev('JSON.stringify(d.proposal)'),proposalBeforeActions);
+ await pass('108 actual active-action states: text >=4.5, focus >=3, neutral tokens, no operation or proposal change');
+ await ev("app.workspace.getLeavesOfType('veynrel-health').forEach(l=>l.detach());void 0");
  await ev("window.pop=app.workspace.openPopoutLeaf();pop.setViewState({type:'veynrel-studio',active:true})");await wait("!!pop.view.contentEl.querySelector('.veynrel-studio-body')");
  await ev("app.setAccentColor('#7c009e');app.changeTheme('obsidian');void 0");await pause(400);
  report.popout=await ev("(()=>{const e=pop.view.contentEl,w=e.ownerDocument.defaultView;return {differentWindow:w!==window,background:w.getComputedStyle(e).backgroundColor,primary:w.getComputedStyle(e).getPropertyValue('--background-primary'),theme:e.ownerDocument.body.className}})()");assert(report.popout.differentWindow);assert(report.popout.theme.includes('theme-dark'));
