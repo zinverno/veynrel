@@ -1,0 +1,28 @@
+{
+  "runtimeCommit": "bd811f262fab37db70651f8ce954a7e18b111037",
+  "artifacts": {
+    "main.js": "01efa94c128fa1b2f200d930f90ef1f8df0e3201a55552d1c5bea896cf2e6ab6",
+    "styles.css": "8f0c34205f2f7c15afa2340b2948d96a57c8adb56bc28ffe273de12cea9b2262",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "runs": {
+    "markdown": {
+      "path": "/tmp/veynrel-studio-native-ux-final-h",
+      "checks": 83,
+      "screenshots": 47,
+      "exceptions": 0
+    },
+    "diagram": {
+      "path": "/tmp/veynrel-diagram-native-ux-final-b",
+      "checks": 29,
+      "screenshots": 9,
+      "exceptions": 0
+    },
+    "community": {
+      "path": "/tmp/veynrel-community-native-ux-final-b",
+      "checks": 39,
+      "screenshots": 21,
+      "exceptions": 0
+    }
+  }
+}
