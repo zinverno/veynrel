@@ -306,7 +306,9 @@ try {
   for(const theme of ['theme-dark','theme-light']) {
     await ev(`document.body.removeClass('theme-dark','theme-light');document.body.addClass('${theme}');void 0`);
     const sample=await ev("(()=>{const c=document.createElement('canvas'),x=c.getContext('2d');const rgb=v=>{x.clearRect(0,0,1,1);x.fillStyle=v;x.fillRect(0,0,1,1);return [...x.getImageData(0,0,1,1).data].slice(0,3)};const lum=v=>rgb(v).map(n=>{n/=255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4}).reduce((a,n,i)=>a+n*[.2126,.7152,.0722][i],0);const e=document.querySelector('[data-studio-action=choose-notes]'),s=getComputedStyle(e),a=lum(s.color),b=lum(s.backgroundColor);return {foreground:s.color,background:s.backgroundColor,ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05)}})()");
-    assert(sample.ratio>=4.5,`${theme}: primary action text contrast`);report.contrast.push({theme,...sample});
+    report.contrast.push({theme,...sample});
+    report.nativePrimary = await ev("(()=>{const e=document.createElement('button');e.className='mod-cta';e.textContent='Native comparison';document.body.append(e);const s=getComputedStyle(e),result={foreground:s.color,background:s.backgroundColor};e.remove();return result})()");
+    assert(sample.ratio>=4.5,`${theme}: primary action text contrast`);
   }
   checks.push('Primary action text meets 4.5:1 in both native themes (computed colors)');
   report.version = await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");

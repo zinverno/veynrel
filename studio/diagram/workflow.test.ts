@@ -3,6 +3,7 @@ vi.mock("obsidian", () => {
   class FileView {} class EditableFileView extends FileView {}
   return { TFile: class {}, TFolder: class {}, FileView, EditableFileView, MarkdownView: class extends EditableFileView {}, getLanguage: () => "en", requestUrl: vi.fn() };
 });
+import { capabilityMessage } from "./messages";
 import { MarkdownView, requestUrl, TFile, TFolder } from "obsidian";
 import type { App } from "obsidian";
 import { callOpenRouter } from "../../api";
@@ -115,6 +116,27 @@ describe("optional native capability and element contract", () => {
     if (mode === "autoexport") f.excalidraw.settings.autoexportExcalidraw = true;
     if (mode === "getAPI") f.globalEA.getAPI = undefined as never;
     await expect(f.prepare()).rejects.toThrow(); expect(f.request).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+  });
+  it("reports each verified capability restriction without conflating API, version and export", () => {
+    const f = fixture();
+    f.excalidraw.manifest.version = "2.28.0";
+    expect(f.adapter.capability()).toMatchObject({ reason: "version", version: "2.28.0" });
+    f.excalidraw.settings.autoexportExcalidraw = true;
+    expect(f.adapter.capability().reason).toBe("version,autoexport");
+    f.excalidraw.manifest.version = EXCALIDRAW_VERSION;
+    expect(f.adapter.capability().reason).toBe("autoexport");
+    f.excalidraw.settings.autoexportExcalidraw = false; f.globalEA.getAPI = undefined as never;
+    expect(f.adapter.capability().reason).toBe("api");
+    expect(f.request).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled();
+  });
+  it("explains only confirmed restrictions and separates temporary errors", () => {
+    expect(capabilityMessage({ state: "incompatible", version: "2.28.0", reason: "version" })).toContain("2.28.0");
+    expect(capabilityMessage({ state: "incompatible", version: "2.28.0", reason: "version" })).not.toContain("экспорт");
+    expect(capabilityMessage({ state: "incompatible", reason: "autoexport" })).toContain(".excalidraw");
+    expect(capabilityMessage({ state: "incompatible", version: "2.28.0", reason: "version,autoexport" })).toContain(".excalidraw");
+    expect(capabilityMessage({ state: "error" })).not.toContain("2.29.0");
+    expect(capabilityMessage({ state: "unavailable", reason: "disabled" })).toContain("выключен");
+    expect(capabilityMessage({ state: "unavailable", reason: "not-installed" })).toContain("не установлен");
   });
   it("never resets or destroys the global workbench if a broken getAPI returns it", async () => {
     const f = fixture(); f.globalEA.getAPI = () => f.globalEA;

@@ -1,7 +1,7 @@
 import { currentLanguage } from "../i18n";
 export const l = (en: string, ru: string): string => currentLanguage() === "ru" ? ru : en;
 const statuses: Record<string, [string, string]> = {
-  idle: ["Ready", "Готово"], preparing: ["Reading selected saved notes", "Чтение выбранных сохранённых заметок"], prepared: ["Review the outgoing data", "Проверьте отправляемые данные"],
+  idle: ["No active operation", "Нет активной операции"], preparing: ["Reading selected saved notes", "Чтение выбранных сохранённых заметок"], prepared: ["Review the outgoing data", "Проверьте отправляемые данные"],
   generating: ["Generating sequentially", "Последовательная генерация"], review: ["Review proposals before writing", "Проверьте предложения перед записью"],
   applying: ["Applying selected changes", "Применение выбранных изменений"], partial: ["Partially completed — inspect each file", "Частично выполнено — проверьте каждый файл"],
   completed: ["Finished", "Завершено"], failed: ["Failed", "Ошибка"], cancelled: ["Stopped; already sent requests may still be billed", "Остановлено; уже отправленные запросы могут быть оплачены"],

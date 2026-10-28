@@ -1,4 +1,4 @@
-import { ItemView, Modal } from "obsidian";
+import { ItemView, Modal, setIcon } from "obsidian";
 import type { App, WorkspaceLeaf } from "obsidian";
 import { currentLanguage } from "../i18n";
 import { renderPlanDiff } from "../consolidation/planDiffView";
@@ -16,6 +16,7 @@ import { publicationPackage } from "./community/publication";
 export const STUDIO_VIEW_TYPE = "veynrel-studio";
 const title = "Veynrel Studio";
 import { button, literal, field, select, disclosure, toolbar, notePicker, connectionSummary } from "./ui";
+import { illustration } from "./illustrations";
 import { DiagramPanel } from "./diagram/view";
 import { diagramMessage } from "./diagram/messages";
 function message(e: unknown): string { return diagramMessage(e); }
@@ -81,7 +82,7 @@ export class VeynrelStudioView extends ItemView {
       button(nav, name, route, () => { this.navigate(route); });
     }
     const operation = toolbar(this.contentEl); operation.addClass("veynrel-studio-operation");
-    button(operation, l("Run & review", "Запуск и проверка"), "workflow", () => this.navigate("workflow"));
+    button(operation, l("Run & review", "Запуск и проверка"), "workflow", () => this.navigate(this.stateEl.dataset.route === "diagram" ? "diagram" : "workflow"));
     this.stateEl = operation.createDiv({ cls: "veynrel-studio-status", attr: { role: "status", "aria-live": "polite" } });
     this.errorEl = this.contentEl.createDiv({ attr: { role: "alert" } }); this.body = this.contentEl.createDiv({ cls: "veynrel-studio-body" });
     this.diagram = new DiagramPanel(this.owner, () => { if (this.alive && this.route === "diagram") this.render(); }, work => this.run(work),
@@ -104,7 +105,16 @@ export class VeynrelStudioView extends ItemView {
     this.alive = false; this.historyEpoch++; this.stop.splice(0).forEach(f => f());
     for (const dialog of this.dialogs) dialog.dispose(); this.dialogs.clear(); this.diagram?.dispose(); this.contentEl.empty();
   }
-  private updateStatus(): void { this.stateEl.setText(status(this.owner.diagrams.running || this.route === "diagram" ? this.owner.diagrams.state : this.owner.runner.state)); this.body.setAttribute("aria-busy", String(this.owner.operations.busy)); }
+  private updateStatus(): void {
+    const diagram = this.owner.diagrams, runner = this.owner.runner;
+    const useDiagram = diagram.running || diagram.state !== "idle" && (runner.state === "idle" || this.route === "diagram");
+    const state = useDiagram ? diagram.state : runner.state;
+    this.stateEl.dataset.route = useDiagram ? "diagram" : "workflow";
+    this.stateEl.parentElement!.hidden = state === "idle";
+    this.stateEl.setText(state === "idle" ? "" : status(state));
+    this.body.setAttribute("aria-busy", String(this.owner.operations.busy));
+  }
+
   private run(work: () => Promise<unknown>): void {
     this.errorEl.empty(); void work().catch(e => { if (this.alive) this.errorEl.setText(message(e)); });
   }
@@ -157,16 +167,26 @@ export class VeynrelStudioView extends ItemView {
     const actions = this.body.createDiv({ cls: "veynrel-studio-actions" });
     button(actions, l("New recipe", "Новый сценарий"), "new", () => this.edit(registry.duplicate(BUILTIN_RECIPES[0]))).disabled = registry.state !== "ready";
     button(actions, l("Import JSON", "Импорт JSON"), "import", () => this.importRecipe()).disabled = registry.state !== "ready";
-    const search = field(this.body, l("Search recipes", "Поиск сценариев"), this.search); search.setAttribute("data-studio-field", "search");
-    const category = select(this.body, l("Category", "Категория"), [["all", l("All recipes", "Все сценарии")], ["builtin", l("Built-in", "Встроенные")], ["user", l("My recipes", "Мои сценарии")], ["installed", l("Installed", "Установленные")]], this.category);
+    const filters = this.body.createDiv({ cls: "veynrel-studio-search-row" });
+    const search = field(filters, l("Search recipes", "Поиск сценариев"), this.search); search.setAttribute("data-studio-field", "search");
+    const category = select(filters, l("Category", "Категория"), [["all", l("All recipes", "Все сценарии")], ["builtin", l("Built-in", "Встроенные")], ["user", l("My recipes", "Мои сценарии")], ["installed", l("Installed", "Установленные")]], this.category);
     const cards = this.body.createDiv({ cls: "veynrel-studio-grid" });
     const renderCards = () => {
       cards.empty(); const lang = currentLanguage();
       const rows = registry.list().filter(r => (this.category === "all" || (this.owner.installer.provenance(r.id) ? "installed" : r.source) === this.category) && `${r.name[lang]} ${r.description[lang]}`.toLocaleLowerCase().includes(this.search.toLocaleLowerCase()));
       if (!rows.length) cards.createEl("p", { text: l("No recipes found.", "Сценарии не найдены.") });
       for (const r of rows) {
-        const card = cards.createEl("article", { cls: "veynrel-studio-card" }); card.createSpan({ text: this.owner.installer.provenance(r.id) ? l("Installed", "Установленный") : r.source === "builtin" ? l("Built-in", "Встроенный") : l("My recipe", "Мой сценарий"), cls: "veynrel-studio-eyebrow" });
-        card.createEl("h2", { text: r.name[lang] }); card.createEl("p", { text: r.description[lang] }); card.createSpan({ text: status(r.output.action), cls: "veynrel-studio-eyebrow" });
+        const card = cards.createEl("article", { cls: "veynrel-studio-card" });
+        const origin = this.owner.installer.provenance(r.id) ? l("Installed", "Установленный") : r.source === "builtin" ? l("Built-in", "Встроенный") : l("My recipe", "Мой сценарий");
+        if (this.category === "all") card.createSpan({ text: origin, cls: "veynrel-studio-eyebrow" });
+        card.setAttribute("aria-label", `${r.name[lang]} · ${origin}`);
+        const heading = card.createEl("h2");
+        const kind = r.source === "builtin" ? ({ "builtin.smart-format": "format", "builtin.training-journal": "training", "builtin.nutrition-journal": "nutrition" } as const)[r.id as "builtin.smart-format"] : undefined;
+        setIcon(heading.createSpan(), kind === "format" ? "list" : kind === "training" ? "dumbbell" : kind === "nutrition" ? "utensils" : "file-text");
+        heading.createSpan({ text: r.name[lang] });
+        card.createEl("p", { text: r.description[lang] });
+        card.createSpan({ text: r.output.action === "replace" ? l("Changes the original note after Review", "Изменит исходную заметку после проверки") : l("Adds a section after Review", "Добавит раздел после проверки"), cls: "veynrel-studio-eyebrow" });
+        if (kind) { const example = card.createEl("figure", { cls: "veynrel-studio-example" }); illustration(example, kind); example.createEl("figcaption", { text: l("Result illustration · not model output", "Пример структуры · не ответ модели") }); }
         button(card, l("View recipe", "Открыть сценарий"), `recipe-${r.id}`, () => { this.selected = r; this.navigate("details"); });
       }
     };
@@ -399,13 +419,12 @@ export class VeynrelStudioView extends ItemView {
   }
   private history(): void {
     const epoch = this.historyEpoch; this.body.createEl("h2", { text: l("Studio operation history", "История операций Studio") });
-    this.body.createEl("p", { text: l("Inspection reads only journal participants and never repeats generation or writes. Recovery actions require separate confirmation.", "Проверка читает только участников журнала и не повторяет генерацию или запись. Восстановление требует отдельного подтверждения.") });
     button(this.body, l("Refresh history", "Обновить историю"), "refresh-history", () => this.render());
     const list = this.body.createDiv(); list.createEl("p", { text: l("Checking…", "Проверка…") });
     this.run(async () => {
       const rows = await this.owner.writer.history(), runs = await this.owner.writer.journal.runs();
       if (!this.alive || epoch !== this.historyEpoch) return; list.empty();
-      if (!rows.length && !runs.length) list.createEl("p", { text: l("No Studio operations yet.", "Операций Studio пока нет.") });
+
       for (const run of runs.filter(r => !rows.some(row => row.entry.id === r.id))) {
         const card = list.createEl("article", { cls: "veynrel-studio-card" }); card.createEl("h3", { text: run.start?.recipeId ?? run.id });
         card.createEl("p", { text: status(run.damaged ? "damaged" : this.owner.runner.prepared?.id === run.id ? this.owner.runner.state : run.state) });
@@ -413,7 +432,17 @@ export class VeynrelStudioView extends ItemView {
         literal(card, l("Operation details", "Подробности операции"), JSON.stringify(run, null, 2));
       }
       for (const row of rows) this.historyRow(list, row);
-      await this.diagram?.history(list, () => this.alive && epoch === this.historyEpoch);
+      const diagrams = await this.diagram?.history(list, () => this.alive && epoch === this.historyEpoch);
+      if (!this.alive || epoch !== this.historyEpoch) return;
+      if (rows.length || runs.length || diagrams) list.createEl("p", { text: l("Recovery requires separate confirmation; inspection never repeats a request or write.", "Восстановление требует отдельного подтверждения; просмотр не повторяет запрос или запись.") });
+      if (!rows.length && !runs.length && !diagrams) {
+        const empty = list.createDiv({ cls: "veynrel-studio-empty" }); setIcon(empty.createSpan(), "history");
+        empty.createEl("h3", { text: l("No operations yet", "Пока нет операций") });
+        empty.createEl("p", { text: l("Choose a note task or create a diagram. Results will appear here.", "Выберите действие с заметкой или создайте схему. Результаты появятся здесь.") });
+        const actions = toolbar(empty);
+        button(actions, l("Process a note", "Обработать заметку"), "history-library", () => this.navigate("library"));
+        button(actions, l("Create diagram", "Создать схему"), "history-diagram", () => this.navigate("diagram"));
+      }
     });
   }
   private historyRow(root: HTMLElement, row: StudioHistoryRow): void {

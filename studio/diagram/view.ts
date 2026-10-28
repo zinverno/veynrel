@@ -1,14 +1,17 @@
 import type { StudioWorkspace } from "../registerStudio";
 import { l, status } from "../messages";
 import { button, field, literal, select, disclosure, toolbar, notePicker, connectionSummary } from "../ui";
-import { diagramError, diagramStatus } from "./messages";
+import { capabilityMessage, diagramError, diagramStatus } from "./messages";
 import { diagramPreview } from "./preview";
+import { illustration } from "../illustrations";
 import type { DiagramKind } from "./spec";
 import type { DiagramOptions } from "./layout";
 import type { DiagramProposal } from "./workflow";
 
+let nextPanelId = 0;
 type Confirm = (title: string, description: string, action: string, work: () => Promise<unknown>, closed?: () => void) => void;
 export class DiagramPanel {
+  private readonly radioGroup = `studio-diagram-${++nextPanelId}`;
   private setup = false;
   private kind: DiagramKind = "structure";
   private source = "";
@@ -21,7 +24,7 @@ export class DiagramPanel {
   private alive = true;
   constructor(private readonly owner: StudioWorkspace, private readonly renderAgain: () => void, private readonly run: (work: () => Promise<unknown>) => void, private readonly confirm: Confirm) {}
   dispose(): void { this.alive = false; }
-  private mode(kind: DiagramKind): string { return kind === "structure" ? l("Note structure", "Структурная схема заметки") : l("Process flowchart", "Блок-схема процесса"); }
+  private mode(kind: DiagramKind): string { return kind === "structure" ? l("Concepts & connections", "Связи и понятия") : l("Process steps", "Шаги процесса"); }
   private parameters(root: HTMLElement, options: DiagramOptions): { direction: HTMLSelectElement; theme: HTMLSelectElement } {
     return {
       direction: select(root, l("Direction", "Направление"), [["down", l("Top to bottom", "Сверху вниз")], ["right", l("Left to right", "Слева направо")]], options.direction),
@@ -32,7 +35,7 @@ export class DiagramPanel {
     const workflow = this.owner.diagrams, capability = workflow.adapter.capability();
     if (!workflow.proposal || this.setup) root.createEl("h2", { text: l("Create diagram", "Создать схему") });
     if (!workflow.proposal && !workflow.result) root.createEl("p", { text: l("Turn one saved note into an editable drawing. Up to 30 nodes / 60 connections.", "Превратите сохранённую заметку в редактируемый рисунок. До 30 узлов / 60 связей.") });
-    if (["unavailable", "incompatible"].includes(capability.state)) root.createEl("p", { text: diagramError(capability.state), attr: { role: "alert" } });
+    if (capability.state !== "ready") root.createEl("p", { text: capabilityMessage(capability), attr: { role: "status" } });
     if (workflow.error) root.createEl("p", { text: diagramError(workflow.error), attr: { role: "alert" } });
     if (workflow.running) {
       root.createEl("p", { text: status(workflow.state) });
@@ -60,31 +63,39 @@ export class DiagramPanel {
     if (!this.setup && (workflow.proposal || workflow.result)) {
       button(root, l("Prepare a new diagram", "Подготовить новую схему"), "diagram-new", () => { this.setup = true; this.renderAgain(); }); return;
     }
-    const kind = select(root, l("Mode", "Режим"), [["structure", this.mode("structure")], ["flowchart", this.mode("flowchart")]], this.kind);
-    kind.addEventListener("change", () => { this.kind = kind.value as DiagramKind; });
-    connectionSummary(root, this.owner.connection());
-    notePicker(root, this.owner.inventory().filter(p => !p.endsWith(".excalidraw.md")), this.picker, 1, () => { this.source = [...this.picker.chosen][0] ?? ""; });
-    const { direction, theme } = this.parameters(root, this.options);
-    direction.addEventListener("change", () => { this.options.direction = direction.value as DiagramOptions["direction"]; });
-    theme.addEventListener("change", () => { this.options.theme = theme.value as DiagramOptions["theme"]; });
-    const destination = toolbar(root);
+    const refresh = button(root, l("Refresh availability", "Обновить доступность"), "diagram-refresh", this.renderAgain);
+    const blocked = ["unavailable", "incompatible", "busy"].includes(capability.state);
+    const form = blocked ? disclosure(root, l("Saved draft · resolve availability first", "Черновик · сначала проверьте доступность")) : root;
+    notePicker(form, this.owner.inventory().filter(p => !p.endsWith(".excalidraw.md")), this.picker, 1, () => { this.source = [...this.picker.chosen][0] ?? ""; }, true);
+    const modes = form.createEl("fieldset", { cls: "veynrel-studio-modes" }); modes.createEl("legend", { text: l("Result structure · illustration", "Структура результата · пример") });
+    for (const value of ["structure", "flowchart"] as const) {
+      const label = modes.createEl("label", { cls: "veynrel-studio-mode" });
+      const input = label.createEl("input", { type: "radio", attr: { name: this.radioGroup, value, "data-studio-key": `diagram-kind-${value}` } }); input.checked = this.kind === value;
+      label.createSpan({ text: this.mode(value) }); illustration(label, value);
+      input.addEventListener("change", () => { if (input.checked) this.kind = value; });
+    }
+    const destination = toolbar(form);
     const folder = select(destination, l("Existing destination folder", "Существующая папка назначения"), [["", l("Vault root", "Корень хранилища")], ...this.owner.folders().filter(p => p !== "/" && p !== "").map(p => [p, p] as [string, string])], this.target.includes("/") ? this.target.slice(0, this.target.lastIndexOf("/")) : "");
     const name = field(destination, l("Drawing name", "Имя рисунка"), this.target.split("/").pop()?.replace(/\.excalidraw\.md$/u, "") ?? ""); name.setAttribute("data-diagram-field", "name");
-    const target = root.createEl("p", { cls: "veynrel-studio-destination", attr: { "data-diagram-field": "target", "aria-live": "polite" } });
+    const target = form.createEl("p", { cls: "veynrel-studio-destination", attr: { "data-diagram-field": "target", "aria-live": "polite" } });
     const updateTarget = () => { this.target = `${folder.value ? `${folder.value}/` : ""}${name.value}.excalidraw.md`; target.setText(this.target); };
     folder.addEventListener("change", updateTarget); name.addEventListener("input", updateTarget); updateTarget();
-    const advanced = disclosure(root, l("Advanced · context budget", "Дополнительно · бюджет контекста"));
+    const advanced = disclosure(form, l("Advanced · direction, appearance, context", "Дополнительно · направление, оформление, контекст"));
+    if (!blocked) advanced.append(refresh);
+    const { direction, theme } = this.parameters(advanced, this.options);
+    direction.addEventListener("change", () => { this.options.direction = direction.value as DiagramOptions["direction"]; });
+    theme.addEventListener("change", () => { this.options.theme = theme.value as DiagramOptions["theme"]; });
     const context = field(advanced, l("Context budget verified for your model (tokens)", "Проверенный бюджет контекста модели (токены)"), this.context);
     context.setAttribute("type", "number"); context.addEventListener("input", () => { this.context = context.value; });
     advanced.createEl("p", { text: l("Keep the verified model limit. No silent truncation.", "Укажите проверенный лимит модели. Скрытой обрезки нет.") });
-    root.createEl("p", { text: l("Keep the source editor open if it is saved. Unsaved or unverifiable buffers block sending. The destination folder must already exist.", "Сохранённый исходник можно оставить открытым. Несохранённый или непроверяемый буфер блокирует отправку. Папка назначения должна уже существовать.") });
-    button(root, l("Read note & review request", "Прочитать заметку и проверить запрос"), "diagram-prepare", () => {
+    advanced.createEl("p", { text: l("Keep the source editor open if it is saved. Unsaved or unverifiable buffers block sending. The destination folder must already exist.", "Сохранённый исходник можно оставить открытым. Несохранённый или непроверяемый буфер блокирует отправку. Папка назначения должна уже существовать.") });
+    connectionSummary(form, this.owner.connection());
+    button(form, l("Read note & review request", "Прочитать заметку и проверить запрос"), "diagram-prepare", () => {
       this.setup = false; this.run(() => workflow.prepare(this.kind, this.source, this.target, this.options, Number(this.context)));
     }).disabled = this.owner.operations.busy || ["unavailable", "incompatible"].includes(capability.state);
-    button(root, l("Refresh availability", "Обновить доступность"), "diagram-refresh", this.renderAgain);
   }
   private independent(root: HTMLElement): void {
-    root.createEl("p", { text: l("This is an independent drawing. The source note was not changed and needs no rollback. Diagram v1 has no automatic deletion or Undo.", "Это самостоятельный рисунок. Исходник не изменён, откат ему не нужен. Diagram v1 не удаляет рисунки автоматически и не поддерживает Undo.") });
+    root.createEl("p", { text: l("This is an independent drawing. The source note was not changed and needs no rollback. Drawings have no automatic deletion or Undo.", "Это самостоятельный рисунок. Исходник не изменён, откат ему не нужен. Автоматического удаления и Undo рисунков нет.") });
   }
   private review(root: HTMLElement, proposal: DiagramProposal): void {
     const workflow = this.owner.diagrams, p = proposal;
@@ -121,9 +132,9 @@ export class DiagramPanel {
     direction.addEventListener("change", invalidate); theme.addEventListener("change", invalidate); target.addEventListener("input", invalidate);
     button(actions, l("Cancel creation", "Отменить создание"), "diagram-cancel", () => workflow.cancel()); this.independent(root);
   }
-  async history(root: HTMLElement, current: () => boolean): Promise<void> {
-    const rows = await this.owner.diagrams.history(); if (!this.alive || !current()) return;
-    root.createEl("h3", { text: l("Diagram history", "История схем") }); this.independent(root);
+  async history(root: HTMLElement, current: () => boolean): Promise<number> {
+    const rows = await this.owner.diagrams.history(); if (!this.alive || !current() || !rows.length) return 0;
+    root.createEl("h3", { text: l("Diagram history", "История схем") });
     for (const row of rows) {
       const card = root.createEl("article", { cls: "veynrel-studio-card" });
       card.createEl("h4", { text: row.entry.intent?.target ?? row.entry.id }); card.createEl("p", { text: diagramStatus(row.state) });
@@ -138,5 +149,6 @@ export class DiagramPanel {
           "diagram-confirm-recovery", () => this.owner.diagrams.recover(ticket), () => this.owner.diagrams.discardRecovery(ticket));
       }));
     }
+    return rows.length;
   }
 }
