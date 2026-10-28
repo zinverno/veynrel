@@ -59,7 +59,7 @@ const click = async (action, modal = false) => {
   const selector = action.startsWith("community:") ? `.veynrel-community [data-community-action=${JSON.stringify(action.slice(10))}]` : `${modal ? '.veynrel-studio-dialog' : '.veynrel-studio'} [data-studio-action=${JSON.stringify(action)}]`;
   await wait(`!!document.querySelector(${JSON.stringify(selector)})`);
   // Use the native pointer/focus path, including off-screen controls and modal activation.
-  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
+  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});for(let a=e.parentElement;a;a=a.parentElement)if(a.tagName==='DETAILS')a.open=true;e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
   report.lastPointer = { action, point, hit: await ev(`document.elementFromPoint(${point.x},${point.y})?.outerHTML.slice(0,500)`) };
   await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', ...point });
   for (const type of ['mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, button: 'left', clickCount: 1, ...point });
@@ -89,7 +89,7 @@ async function prepare(recipe, paths, folder = false) {
   if (folder) {
     await ev(`{const selects=document.querySelectorAll('.veynrel-studio-body select');selects[0].value='folder';selects[0].dispatchEvent(new Event('change'));selects[1].value=${JSON.stringify(paths)};selects[1].dispatchEvent(new Event('change'));}void 0`);
   } else {
-    await ev(`{for(const path of ${JSON.stringify(paths)}){const label=[...document.querySelectorAll('.veynrel-studio-picker label')].find(e=>e.textContent===path);if(!label)throw Error('missing path '+path);label.querySelector('input').click();}}void 0`);
+    await ev(`{for(const i of document.querySelectorAll('.veynrel-studio-picker input:checked'))i.click();for(const path of ${JSON.stringify(paths)}){const label=[...document.querySelectorAll('.veynrel-studio-picker label')].find(e=>e.textContent===path);if(!label)throw Error('missing path '+path);label.querySelector('input').click();}}void 0`);
   }
   const count = requests.length; await click('prepare'); await wait("studio.runner.state==='prepared'&&!studio.runner.running");
   assert.equal(requests.length, count, 'preparation sends nothing');
@@ -153,9 +153,9 @@ try {
   child=start();await connect();await open();
   await click('community');await pass('Opening Studio and Community tab is passive',"io.reads.length===0&&io.writes.length===0&&studio.community.state==='idle'");assert.equal(catalogRequests.length,0);assert.equal(requests.length,0);
   await cc('refresh');await settled();await pass('Explicit online catalog loads eight real entries',"document.querySelectorAll('.veynrel-community-row').length===8&&studio.community.state==='ready'");
-  await ev("{const e=document.querySelector('[data-community-field=search]');e.value='лекция';e.dispatchEvent(new Event('input'))}void 0");
+  await ev("{const e=document.querySelector('[data-community-field=search]');e.value='лекция';e.dispatchEvent(new Event('input',{bubbles:true}))}void 0");
   await pass('Client search finds Russian tags',"document.querySelectorAll('.veynrel-community-row').length===1");
-  await ev("{const e=document.querySelector('[data-community-field=search]');e.value='';e.dispatchEvent(new Event('input'));const c=document.querySelector('[data-community-field=category]');c.value='work';c.dispatchEvent(new Event('change'))}void 0");
+  await ev("{const e=document.querySelector('[data-community-field=search]');e.value='';e.dispatchEvent(new Event('input',{bubbles:true}));const c=document.querySelector('[data-community-field=category]');c.value='work';c.dispatchEvent(new Event('change'))}void 0");
   await pass('Category filter selects two work recipes',"document.querySelectorAll('.veynrel-community-row').length===2");
   await ev("{const c=document.querySelector('[data-community-field=category]');c.value='all';c.dispatchEvent(new Event('change'))}void 0");
   await cc('inspect-lecture-outline');await settled();await shot('inspect-en-dark');
@@ -169,7 +169,7 @@ try {
   await generate(expected);await pass('Installed Community recipe runs via existing Runner and immutable Review',"studio.runner.state==='review'&&studio.runner.review.rows[0].status==='generated'&&io.writes.length===0");await shot('community-review');
   await apply(['Formatting.md']);assert.notEqual(fs.readFileSync(`${vault}/Formatting.md`,'utf8'),originals['Formatting.md']);await undoAll();assert.deepEqual(hashes(),initialHashes);checks.push('Community Apply/Undo restores exact original hashes');
   await click('library');await click('recipe-'+localId);await click('edit');await wait("!!document.querySelector('[data-studio-field=prompt]')");
-  await ev("{const e=document.querySelector('[data-studio-field=prompt]');e.value='My deliberately modified local prompt';e.dispatchEvent(new Event('input'))}void 0");await click('save-recipe',true);await wait("!document.querySelector('.veynrel-studio-dialog')");
+  await ev("{const e=document.querySelector('[data-studio-field=prompt]');e.value='My deliberately modified local prompt';e.dispatchEvent(new Event('input',{bubbles:true}))}void 0");await click('save-recipe',true);await wait("!document.querySelector('.veynrel-studio-dialog')");
   catalogMode='update';await click('community');await cc('refresh');await settled();await pass('Numeric update and locally modified status are visible',"document.querySelector('.veynrel-community').textContent.includes('update available')&&document.querySelector('.veynrel-community').textContent.includes('locally modified')");
   await cc('inspect-lecture-outline');await settled();await pass('Update compares instruction, constraints, format and operations',"document.querySelector('.veynrel-community').textContent.includes('1.0.0 → 1.10.0')&&document.querySelector('.veynrel-community').textContent.includes('Constraint changes')&&document.querySelector('.veynrel-community').textContent.includes('Format and operation changes')");
   await pass('Untrusted instruction remains literal with no element execution',"!window.attack&&!document.querySelector('.veynrel-community img,.veynrel-community script')");await shot('update-local-edits');
@@ -190,9 +190,9 @@ try {
   await locale('en');await cdp('Emulation.setDeviceMetricsOverride',{width:1200,height:900,deviceScaleFactor:1,mobile:false});await click('library');await click('recipe-'+localId);await click('publish');
   await wait("!!document.querySelector('[data-studio-action=export-publication]')");await pass('Publication form starts with empty author-created examples',"[...document.querySelectorAll('.veynrel-studio-dialog textarea')].filter(e=>!e.readOnly).every(e=>e.value==='')");
   const publicationFields={ 'Public ID (lowercase slug)':'native-submission','Author name':'Synthetic Author','Author GitHub profile URL':'https://github.com/zinverno','Tags (comma separated)':'synthetic, learning','Purpose (EN)':'Synthetic native publication test','Назначение (RU)':'Вымышленный тест публикации','Known risks and limitations (EN)':'Check output manually.','Риски и ограничения (RU)':'Проверьте результат вручную.','Fictional input (EN)':'Fictional input.','Вымышленный вход (RU)':'Вымышленный вход.','Illustrative output (EN)':'Fictional output.','Пример результата (RU)':'Вымышленный выход.'};
-  await ev(`{for(const [label,value]of Object.entries(${JSON.stringify(publicationFields)})){const e=[...document.querySelectorAll('.veynrel-studio-dialog label')].find(e=>e.querySelector('span')?.textContent===label).querySelector('input,textarea');e.value=value;e.dispatchEvent(new Event('input'));}document.querySelector('.veynrel-studio-dialog input[type=checkbox]').click()}void 0`);
+  await ev(`{for(const [label,value]of Object.entries(${JSON.stringify(publicationFields)})){const e=[...document.querySelectorAll('.veynrel-studio-dialog label')].find(e=>e.querySelector('span')?.textContent===label).querySelector('input,textarea');e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));}document.querySelector('.veynrel-studio-dialog input[type=checkbox]').click()}void 0`);
   const beforeExport=requests.length;await click('export-publication',true);await wait("!!document.querySelector('[data-studio-action=select-publication]')");
-  report.publication=await ev("JSON.parse(document.querySelector('.veynrel-studio-dialog textarea[readonly]').value)");assert(!JSON.stringify(report.publication).includes('Never selected'));assert.equal(requests.length,beforeExport);checks.push('Explicit publication produces valid package from authored fields with no model call');await shot('publication-package');await ev("for(const d of app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs)d.close();void 0");
+  report.publication=await ev("JSON.parse(document.querySelector('.veynrel-studio-dialog textarea[readonly]').value)");assert(!JSON.stringify(report.publication).includes('Never selected'));assert.equal(requests.length,beforeExport);checks.push('Explicit publication produces valid package from authored fields with no model call');await shot('publication-package');await ev("for(const d of app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs)d.close();void 0");await click('discard-draft',true);
   if(process.env.COMMUNITY_PUBLIC==='1'){
     await ev('studio.community.transport=productionCommunityTransport;window.allowPublicCommunity=true;void 0');await click('community');await cc('refresh');await settled();await pass('Production HTTPS transport loads deployed public catalog',"studio.community.state==='ready'");
     await cc('inspect-meeting-structure');await settled();await cc('install');await settled();

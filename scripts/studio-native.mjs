@@ -59,7 +59,7 @@ const click = async (action, modal = false) => {
   const selector = `${modal ? '.veynrel-studio-dialog' : '.veynrel-studio'} [data-studio-action=${JSON.stringify(action)}]`;
   await wait(`!!document.querySelector(${JSON.stringify(selector)})`);
   // Use the native pointer/focus path, including off-screen controls and modal activation.
-  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
+  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});for(let a=e.parentElement;a;a=a.parentElement)if(a.tagName==='DETAILS')a.open=true;e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
   report.lastPointer = { action, point, hit: await ev(`document.elementFromPoint(${point.x},${point.y})?.outerHTML.slice(0,500)`) };
   await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', ...point });
   for (const type of ['mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, button: 'left', clickCount: 1, ...point });
@@ -88,7 +88,7 @@ async function prepare(recipe, paths, folder = false) {
   if (folder) {
     await ev(`{const selects=document.querySelectorAll('.veynrel-studio-body select');selects[0].value='folder';selects[0].dispatchEvent(new Event('change'));selects[1].value=${JSON.stringify(paths)};selects[1].dispatchEvent(new Event('change'));}void 0`);
   } else {
-    await ev(`{for(const path of ${JSON.stringify(paths)}){const label=[...document.querySelectorAll('.veynrel-studio-picker label')].find(e=>e.textContent===path);if(!label)throw Error('missing path '+path);label.querySelector('input').click();}}void 0`);
+    await ev(`{for(const i of document.querySelectorAll('.veynrel-studio-picker input:checked'))i.click();for(const path of ${JSON.stringify(paths)}){const label=[...document.querySelectorAll('.veynrel-studio-picker label')].find(e=>e.textContent===path);if(!label)throw Error('missing path '+path);label.querySelector('input').click();}}void 0`);
   }
   const count = requests.length; await click('prepare'); await wait("studio.runner.state==='prepared'&&!studio.runner.running");
   assert.equal(requests.length, count, 'preparation sends nothing');
@@ -126,7 +126,7 @@ try {
   assert.equal(requests.length, 0); assert.deepEqual(hashes(), initialHashes);
   await click('recipe-builtin.smart-format'); await click('duplicate');
   await wait("document.querySelectorAll('.veynrel-studio-dialog input').length>=2");
-  await ev("{const inputs=document.querySelectorAll('.veynrel-studio-dialog input');inputs[0].value='My local recipe';inputs[1].value='Мой локальный сценарий';}void 0");
+  await ev("{document.querySelector('[data-studio-field=name-en]').value='My local recipe';document.querySelector('[data-studio-field=name-ru]').value='Мой локальный сценарий';}void 0");
   await click('save-recipe', true); await wait("!document.querySelector('.veynrel-studio-dialog')");
   const userId = await ev("studio.registry.list().find(r=>r.source==='user').id");
   await restart(); await open();
@@ -264,6 +264,51 @@ try {
   await pass('Two native tabs share one runner', "app.workspace.getLeavesOfType('veynrel-studio').length===2&&app.workspace.getLeavesOfType('veynrel-studio').every(l=>l.view.owner===studio)");
   assert.deepEqual(hashes(), initialHashes); checks.push('All six original Markdown hashes restored; unrelated note unchanged');
   await pass('Studio never read the unrelated note', "!io.reads.includes('Untouched.md')");
+  // UX regression uses the same native view and synthetic notes; no provider call.
+  await ev("app.workspace.getLeavesOfType('veynrel-studio').slice(1).forEach(l=>l.detach());void 0");
+  await locale('en'); await click('library'); await click('recipe-builtin.smart-format'); await click('choose-notes');
+  const uxReads = await ev('io.reads.length'), uxRequests = requests.length;
+  await ev("{const q=[...document.querySelectorAll('[data-studio-key]')].find(e=>e.dataset.studioKey==='Search full paths');q.value='same.md';q.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('.veynrel-studio-picker input').click();const t=document.querySelector('.veynrel-studio-body textarea');t.value='Retain this draft';t.dispatchEvent(new Event('input',{bubbles:true}));}void 0");
+  await click('library'); await click('recipe-builtin.smart-format'); await click('choose-notes');
+  await pass('Returning to preparation retains query, selected full path and instructions', "document.querySelector('.veynrel-studio-body textarea').value==='Retain this draft'&&document.querySelector('.veynrel-studio-picker input').checked&&document.querySelector('.veynrel-studio input[type=search]').value==='same.md'");
+  await ev("document.querySelector('.veynrel-studio-body textarea').focus();document.querySelector('.veynrel-studio-body textarea').setSelectionRange(3,8);studio.operations.emit();void 0");
+  await pass('Shared status notification preserves field, focus and caret', "document.activeElement?.tagName==='TEXTAREA'&&document.activeElement.selectionStart===3&&document.activeElement.value==='Retain this draft'");
+  await click('remove-note'); await pass('Selected note can be removed explicitly', "!document.querySelector('.veynrel-studio-picker input:checked')");
+  assert.equal(await ev('io.reads.length'),uxReads); assert.equal(requests.length,uxRequests);checks.push('Draft navigation/search/removal/status causes no note reads or provider requests');
+  await click('library'); await click('recipe-builtin.smart-format'); await click('duplicate');
+  await ev("{const e=document.querySelector('[data-studio-field=name-en]');e.value='Unsaved draft';e.dispatchEvent(new Event('input',{bubbles:true}));for(const d of app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs)d.close();}void 0");
+  await click('keep-draft',true);await pass('Closing a changed draft offers inline confirmation and keeps input',"document.querySelector('[data-studio-field=name-en]').value==='Unsaved draft'");
+  await ev("for(const d of app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs)d.close();void 0");await click('discard-draft',true);
+  await click('library');
+  // Presentation stress fixtures replace only the metadata list, never model output or engine authority.
+  await ev("window.originalUxList=studio.registry.list.bind(studio.registry);window.uxBase=studio.registry.list()[0];studio.registry.list=()=>Array.from({length:100},(_,i)=>({...uxBase,id:'user.ux-'+i,source:'user',name:{en:'Synthetic task '+i,ru:'Вымышленный сценарий '+i}}));window.uxStart=performance.now();app.workspace.getLeavesOfType('veynrel-studio')[0].view.render();window.uxRenderMs=performance.now()-uxStart;void 0");
+  await pass('100 synthetic recipe rows render with bounded DOM', "document.querySelectorAll('.veynrel-studio-grid article').length===100&&document.querySelector('.veynrel-studio').querySelectorAll('*').length<1500");
+  report.uxPerformance=await ev("({recipes:100,renderMs:uxRenderMs,elements:document.querySelector('.veynrel-studio').querySelectorAll('*').length})");await shot('ux-100-recipes');
+  await ev("{const q=document.querySelector('[data-studio-field=search]');q.value='no-such-task';q.dispatchEvent(new Event('input',{bubbles:true}));}void 0");
+  await pass('Empty task search has a readable state', "document.querySelector('.veynrel-studio-body').textContent.includes('No recipes found')&&document.querySelectorAll('.veynrel-studio-grid article').length===0");await shot('ux-empty-search');
+  await ev("studio.registry.list=originalUxList;app.workspace.getLeavesOfType('veynrel-studio')[0].view.search='';app.workspace.getLeavesOfType('veynrel-studio')[0].view.render();void 0");
+  await ev("(async()=>{await app.vault.createFolder('UX stress');for(let i=0;i<20;i++)await app.vault.create('UX stress/'+String(i).padStart(2,'0')+' — Длинное название синтетической заметки.md','# Synthetic note '+i+'\\nOnly fictional facts.');})()");
+  const stressExpected=await prepare('builtin.smart-format','UX stress',true);await generate(stressExpected);
+  await pass('20 real loopback results show one diff and no automatic selection', "studio.runner.review.rows.length===20&&document.querySelectorAll('[data-studio-select]').length===20&&!document.querySelector('[data-studio-select]:checked')&&document.querySelectorAll('.ai-proposal-diff').length===1");await shot('ux-20-results');
+  await click('library');
+  for(const width of [1440,1024,390]) {
+    await cdp('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:false});
+    await pass(`UX ${width}: native container fits`,"document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");await shot(`ux-library-${width}`);
+  }
+  await cdp('Emulation.setDeviceMetricsOverride',{width:1500,height:1000,deviceScaleFactor:1,mobile:false});
+  await ev("app.workspace.getLeaf('split').setViewState({type:'veynrel-studio',active:true})");
+  await pass('Actual native split measures near 720px',"app.workspace.getLeavesOfType('veynrel-studio').every(l=>l.view.contentEl.clientWidth>650&&l.view.contentEl.clientWidth<780)");await shot('ux-library-real-split');
+  await ev("app.workspace.getLeavesOfType('veynrel-studio').slice(1).forEach(l=>l.detach());require('electron').webFrame.setZoomFactor(2);void 0");
+  await pass('Native 200 percent zoom keeps controls within leaf',"document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");await shot('ux-200-percent');
+  await ev("require('electron').webFrame.setZoomFactor(1);void 0");
+  await click('library');await click('recipe-builtin.smart-format');
+  report.contrast=[];
+  for(const theme of ['theme-dark','theme-light']) {
+    await ev(`document.body.removeClass('theme-dark','theme-light');document.body.addClass('${theme}');void 0`);
+    const sample=await ev("(()=>{const c=document.createElement('canvas'),x=c.getContext('2d');const rgb=v=>{x.clearRect(0,0,1,1);x.fillStyle=v;x.fillRect(0,0,1,1);return [...x.getImageData(0,0,1,1).data].slice(0,3)};const lum=v=>rgb(v).map(n=>{n/=255;return n<=.04045?n/12.92:((n+.055)/1.055)**2.4}).reduce((a,n,i)=>a+n*[.2126,.7152,.0722][i],0);const e=document.querySelector('[data-studio-action=choose-notes]'),s=getComputedStyle(e),a=lum(s.color),b=lum(s.backgroundColor);return {foreground:s.color,background:s.backgroundColor,ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05)}})()");
+    assert(sample.ratio>=4.5,`${theme}: primary action text contrast`);report.contrast.push({theme,...sample});
+  }
+  checks.push('Primary action text meets 4.5:1 in both native themes (computed colors)');
   report.version = await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");
   assert(report.version.electron && report.version.obsidian, 'native runtime versions observed');
   report.providerRequests = requests.length; report.before = initialHashes; report.after = hashes(); report.status = 'PASS';

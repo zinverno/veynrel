@@ -9,9 +9,7 @@ import type { CatalogEntry, CommunityPreview } from "./schema";
 function button(root: HTMLElement, text: string, id: string, action: () => void): HTMLButtonElement {
   const b = root.createEl("button", { text, attr: { type: "button", "data-community-action": id } }); b.addEventListener("click", action); return b;
 }
-function literal(root: HTMLElement, heading: string, value: string): void {
-  root.createEl("h3", { text: heading }); root.createEl("pre", { text: value, cls: "veynrel-studio-literal", attr: { tabindex: "0", "aria-label": heading } });
-}
+import { literal } from "../ui";
 export function communityLink(root: HTMLElement, text: string, href: string): void {
   root.createEl("a", { text, href, attr: { target: "_blank", rel: "noopener noreferrer" } });
 }
@@ -21,6 +19,7 @@ export function categoryName(category: string): string {
 export class CommunityPanel {
   private search = "";
   private category = "all";
+  private versions = new Map<string, string>();
   private preview?: CommunityPreview;
   private expected?: Recipe;
   private pending = false;
@@ -33,7 +32,7 @@ export class CommunityPanel {
   }
   render(root: HTMLElement): void {
     root.addClass("veynrel-community");
-    root.createEl("h2", { text: "Community" });
+    root.createEl("h2", { text: l("Community", "Сообщество") });
     root.createEl("p", { text: l("Online public recipes. Installation does not run a model or read notes. Running later uses your configured model and separate consent.", "Публичные сценарии через интернет. Установка не запускает модель и не читает заметки. Для запуска используются ваша модель и отдельное согласие.") });
     communityLink(root, l("Community website ↗", "Сайт Community ↗"), COMMUNITY_SITE);
     const statusText = {
@@ -70,6 +69,7 @@ export class CommunityPanel {
         const versions = this.catalog.catalog!.entries.filter(v => v.id === e.id).sort((a, b) => compareVersions(b.version, a.version));
         const vl = row.createEl("label", { text: l("Version ", "Версия ") }), version = vl.createEl("select");
         for (const v of versions) version.createEl("option", { value: v.version, text: v.version });
+        version.value = this.versions.get(e.id) ?? versions[0].version; version.addEventListener("change", () => this.versions.set(e.id, version.value));
         button(row, l("Inspect recipe", "Изучить сценарий"), `inspect-${e.id}`, () => this.run(async () => {
           const selected = versions.find(v => v.version === version.value)!;
           this.preview = await this.catalog.preview(selected); this.expected = this.installer.installed(e.id)?.recipe;
@@ -82,13 +82,14 @@ export class CommunityPanel {
     const { entry: e, recipe: r } = p, lang = currentLanguage(), installed = this.installer.installed(e.id);
     button(root, l("Back to catalog", "К каталогу"), "back", () => { this.preview = undefined; this.renderView(); }).disabled = this.pending;
     root.createEl("h2", { text: e.name[lang] }); root.createEl("p", { text: e.description[lang] }); root.createEl("p", { text: e.purpose[lang] });
+    root.createEl("p", { text: `${e.author.name} · ${e.version} · ${categoryName(e.category)}` });
+    const examples = root.createDiv({ cls: "veynrel-studio-examples" });
+    for (const [heading, value] of [[l("Before · fictional example", "До · вымышленный пример"), e.examples.input[lang]], [l("After · illustrative example", "После · иллюстрация"), e.examples.output[lang]]]) { const part = examples.createDiv(); part.createEl("h3", { text: heading }); part.createEl("pre", { text: value, cls: "veynrel-studio-literal", attr: { tabindex: "0" } }); }
     literal(root, l("Source and integrity", "Источник и целостность"), `${e.author.name}\n${e.author.url}\n${e.id} · ${e.version}\n${COMMUNITY_SOURCE}\n${e.recipeUrl}\nSHA-256: ${e.sha256}`);
     root.createEl("p", { text: l("HTTPS protects transport. SHA-256 checks agreement with this catalog, not an independent signature. You still trust the catalog owner and must inspect the instructions.", "HTTPS защищает передачу. SHA-256 проверяет соответствие каталогу, а не независимую подпись. Вы доверяете владельцу каталога и должны проверить инструкции.") });
     communityLink(root, l("Public recipe page ↗", "Публичная страница сценария ↗"), recipePage(e));
     literal(root, l("Full model instruction", "Полная инструкция модели"), r.steps[0].prompt);
     literal(root, l("Constraints and known risks", "Ограничения и известные риски"), `${e.limitations[lang]}\n\n${r.constraints.join("\n")}\n${JSON.stringify(r.limits, null, 2)}`);
-    literal(root, l("Before · author-created example", "До · пример автора"), e.examples.input[lang]);
-    literal(root, l("After · illustrative, not a quality guarantee", "После · иллюстрация, не гарантия качества"), e.examples.output[lang]);
     literal(root, l("Complete recipe JSON", "Полный JSON сценария"), p.raw);
     if (installed) {
       root.createEl("p", { text: `${l("Installed / selected version", "Установленная / выбранная версия")}: ${installed.entry.version} → ${e.version}` });

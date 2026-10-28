@@ -3234,3 +3234,81 @@
 .veynrel-diagram-preview svg { display: block; max-width: none; }
 .veynrel-diagram-preview:focus-visible { outline: 2px solid var(--interactive-accent); }
 .veynrel-studio details ul { overflow-wrap: anywhere; }
+
+/* Studio UX: local semantic tokens; never override the user's global accent. */
+.veynrel-studio, .veynrel-studio-dialog {
+  --studio-surface: var(--background-secondary);
+  --studio-line: var(--background-modifier-border);
+  --studio-focus: var(--color-purple);
+  --studio-action: oklch(from var(--color-purple) min(l, .5) c h);
+  --studio-radius: 6px;
+  font-size: var(--font-ui-medium); line-height: 1.5;
+}
+.theme-light .veynrel-studio, .theme-light .veynrel-studio-dialog { --studio-focus: var(--color-purple); --studio-action: oklch(from var(--color-purple) min(l, .5) c h); }
+.veynrel-studio { padding: 16px; }
+.veynrel-studio > header, .veynrel-studio > nav, .veynrel-studio > div { max-width: 1280px; }
+.veynrel-studio > header { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 12px; }
+.veynrel-studio h1 { font-size: 20px; margin: 0; }
+.veynrel-studio > header p { margin: 0; font-size: 14px; }
+.veynrel-studio h2 { font-size: 18px; margin: 8px 0; }
+.veynrel-studio h3 { font-size: 16px; margin: 8px 0; }
+.veynrel-studio > nav { border-bottom: 1px solid var(--studio-line); padding-bottom: 8px; gap: 4px; }
+.veynrel-studio > nav button { background: transparent; box-shadow: none; border-radius: 4px; }
+.veynrel-studio > nav button[aria-current="true"] { background: var(--studio-surface); box-shadow: inset 0 -2px var(--studio-focus); }
+.veynrel-studio > .veynrel-studio-operation { padding-block: 8px; margin-bottom: 8px; }
+.veynrel-studio-status { border: 0; padding: 0; margin: 0; color: var(--text-muted); font-size: 14px; flex: 1; }
+.veynrel-studio-body { gap: 10px; }
+.veynrel-studio .veynrel-studio-grid { display: flex; flex-direction: column; gap: 0; }
+.veynrel-studio .veynrel-studio-card { border: 0; border-bottom: 1px solid var(--studio-line); border-radius: 0; padding: 16px 0; margin: 0; gap: 6px; background: transparent; }
+.veynrel-studio-grid .veynrel-studio-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 20px; }
+.veynrel-studio-grid .veynrel-studio-card > :not(button) { grid-column: 1; }
+.veynrel-studio-grid .veynrel-studio-card > button { grid-column: 2; grid-row: 2 / span 2; align-self: center; margin: 0; }
+.veynrel-studio :is(button, input:not([type="checkbox"]), select), .veynrel-studio-dialog :is(button, input:not([type="checkbox"]), select) { min-height: 36px; font-size: 14px; }
+.veynrel-studio button, .veynrel-studio-dialog button { width: fit-content; }
+.veynrel-studio .mod-cta, .veynrel-studio-dialog .mod-cta { background: var(--studio-action); color: var(--text-on-accent); }
+.veynrel-studio :is(button, input, textarea, select, summary, pre):focus-visible, .veynrel-studio-dialog :is(button, input, textarea, select, summary, pre):focus-visible { outline-color: var(--studio-focus); }
+.veynrel-studio :is(h2, h3, p, button), .veynrel-studio-dialog :is(h2, h3, p, button) { overflow-wrap: anywhere; }
+.veynrel-studio-field { margin: 4px 0; }
+.veynrel-studio-actions > .veynrel-studio-field { flex: 1; min-width: min(180px, 100%); }
+.veynrel-studio-disclosure { border-top: 1px solid var(--studio-line); padding-block: 6px; }
+.veynrel-studio summary, .veynrel-studio-dialog summary { cursor: pointer; min-height: 32px; padding-block: 4px; }
+.veynrel-studio-disclosure > .veynrel-studio-actions { padding-block: 8px; }
+.veynrel-studio-body > button { align-self: flex-start; }
+.veynrel-studio-picker { max-height: 220px; padding: 4px 12px; }
+.veynrel-studio-picked-row { display: flex; align-items: center; gap: 12px; margin-block: 4px; }
+.veynrel-studio-picked-row > span { flex: 1; overflow-wrap: anywhere; }
+.veynrel-studio-picked { font-size: 14px; }
+.veynrel-studio-review { display: grid; grid-template-columns: minmax(180px, 25%) minmax(0, 1fr); gap: 20px; }
+.veynrel-studio-review-files { max-height: 65vh; overflow: auto; }
+.veynrel-studio-review-file { border-bottom: 1px solid var(--studio-line); padding-block: 8px; }
+.veynrel-studio-review-file > button { display: block; width: 100%; text-align: start; box-shadow: none; background: transparent; }
+.veynrel-studio-review-file > button[aria-pressed="true"] { box-shadow: inset 3px 0 var(--studio-focus); background: var(--studio-surface); }
+.veynrel-studio-review-detail { min-width: 0; }
+.veynrel-studio .ai-proposal-diff { max-width: 100%; }
+.veynrel-studio-diagram-stage { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.veynrel-studio-canvas { min-width: 0; }
+.veynrel-studio-canvas .veynrel-studio-actions { margin-bottom: 8px; }
+.veynrel-studio .veynrel-diagram-preview { height: 56vh; min-height: 320px; max-height: 720px; cursor: grab; touch-action: none; }
+.veynrel-studio .veynrel-diagram-preview:active { cursor: grabbing; }
+.veynrel-studio-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.veynrel-studio-connection, .veynrel-studio-destination { font-size: 14px; padding: 8px 12px; background: var(--studio-surface); border-radius: var(--studio-radius); }
+@container (min-width: 900px) {
+  .veynrel-studio-diagram-stage:has(> details[open]) { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
+}
+@container (max-width: 600px) {
+  .veynrel-studio-review, .veynrel-studio-examples { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-studio-review-files { max-height: 220px; }
+  .veynrel-studio-grid .veynrel-studio-card { display: flex; }
+  .veynrel-studio-grid .veynrel-studio-card > button { align-self: flex-start; }
+  .veynrel-studio .veynrel-diagram-preview { height: 48vh; min-height: 300px; }
+}
+.veynrel-studio > .veynrel-studio-operation > button { flex-shrink: 0; }
+.veynrel-studio > .veynrel-studio-operation > .veynrel-studio-status { min-width: min(220px, 100%); }
+.veynrel-studio :is(input[type="checkbox"]), .veynrel-studio-dialog :is(input[type="checkbox"]) { min-height: 0; }
+.veynrel-studio > .veynrel-studio-operation > button { background: transparent; box-shadow: none; padding-inline: 0; color: var(--text-accent); }
+@container (max-width: 600px) {
+  .veynrel-studio > header p { display: none; }
+  .veynrel-studio > .veynrel-studio-operation > .veynrel-studio-status { min-width: 0; font-size: 13px; }
+}
+.veynrel-studio-dialog fieldset { border: 1px solid var(--studio-line); border-radius: var(--studio-radius); padding: 12px; min-width: 0; }
+.veynrel-studio-dialog legend { padding-inline: 6px; font-weight: 600; }

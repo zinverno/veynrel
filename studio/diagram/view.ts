@@ -1,6 +1,6 @@
 import type { StudioWorkspace } from "../registerStudio";
 import { l, status } from "../messages";
-import { button, field, literal, select } from "../ui";
+import { button, field, literal, select, disclosure, toolbar, notePicker, connectionSummary } from "../ui";
 import { diagramError, diagramStatus } from "./messages";
 import { diagramPreview } from "./preview";
 import type { DiagramKind } from "./spec";
@@ -13,6 +13,9 @@ export class DiagramPanel {
   private kind: DiagramKind = "structure";
   private source = "";
   private target = "";
+  private picker = { chosen: new Set<string>(), query: "" };
+  private reviewDraft?: { proposal: DiagramProposal; options: DiagramOptions; target: string };
+  private preview?: { plan: DiagramProposal["plan"]; element: HTMLElement };
   private context = "32768";
   private options: DiagramOptions = { direction: "down", theme: "neutral" };
   private alive = true;
@@ -27,14 +30,14 @@ export class DiagramPanel {
   }
   render(root: HTMLElement): void {
     const workflow = this.owner.diagrams, capability = workflow.adapter.capability();
-    root.createEl("h2", { text: l("Create diagram", "Создать схему") });
-    root.createEl("p", { text: l("Two built-in modes · one saved note · up to 30 nodes / 60 connections. Diagram recipes cannot be edited, imported, exported or published in Community v1.", "Два встроенных режима · одна сохранённая заметка · до 30 узлов / 60 связей. Diagram recipes нельзя редактировать, импортировать, экспортировать или публиковать в Community v1.") });
+    if (!workflow.proposal || this.setup) root.createEl("h2", { text: l("Create diagram", "Создать схему") });
+    if (!workflow.proposal && !workflow.result) root.createEl("p", { text: l("Turn one saved note into an editable drawing. Up to 30 nodes / 60 connections.", "Превратите сохранённую заметку в редактируемый рисунок. До 30 узлов / 60 связей.") });
     if (["unavailable", "incompatible"].includes(capability.state)) root.createEl("p", { text: diagramError(capability.state), attr: { role: "alert" } });
     if (workflow.error) root.createEl("p", { text: diagramError(workflow.error), attr: { role: "alert" } });
     if (workflow.running) {
       root.createEl("p", { text: status(workflow.state) });
       button(root, l("Stop subsequent actions", "Остановить последующие действия"), "diagram-cancel", () => workflow.cancel());
-      root.createEl("p", { text: l("An issued provider request cannot be recalled. Closing this tab keeps the shared operation available in Studio.", "Отправленный запрос нельзя отозвать у провайдера. Закрытие вкладки сохраняет общую операцию в Studio.") }); return;
+      root.createEl("p", { text: l("An issued provider request cannot be recalled and may still be charged. Closing this tab keeps the shared operation available in Studio.", "Отправленный запрос нельзя отозвать у провайдера; он всё ещё может быть оплачен. Закрытие вкладки сохраняет общую операцию в Studio.") }); return;
     }
     if (!this.setup && workflow.prepared && workflow.state === "prepared") {
       const p = workflow.prepared;
@@ -59,15 +62,21 @@ export class DiagramPanel {
     }
     const kind = select(root, l("Mode", "Режим"), [["structure", this.mode("structure")], ["flowchart", this.mode("flowchart")]], this.kind);
     kind.addEventListener("change", () => { this.kind = kind.value as DiagramKind; });
-    const source = select(root, l("Saved Markdown note", "Сохранённая Markdown-заметка"), [["", l("Select one note", "Выберите одну заметку")], ...this.owner.inventory().filter(p => !p.endsWith(".excalidraw.md")).map(p => [p, p] as [string, string])], this.source);
-    source.setAttribute("data-diagram-field", "source"); source.addEventListener("change", () => { this.source = source.value; });
+    connectionSummary(root, this.owner.connection());
+    notePicker(root, this.owner.inventory().filter(p => !p.endsWith(".excalidraw.md")), this.picker, 1, () => { this.source = [...this.picker.chosen][0] ?? ""; });
     const { direction, theme } = this.parameters(root, this.options);
     direction.addEventListener("change", () => { this.options.direction = direction.value as DiagramOptions["direction"]; });
     theme.addEventListener("change", () => { this.options.theme = theme.value as DiagramOptions["theme"]; });
-    const target = field(root, l("Exact new path in an existing vault folder (.excalidraw.md)", "Точный новый путь в существующей папке vault (.excalidraw.md)"), this.target);
-    target.setAttribute("data-diagram-field", "target"); target.addEventListener("input", () => { this.target = target.value; });
-    const context = field(root, l("Context budget verified for your model (tokens)", "Проверенный бюджет контекста модели (токены)"), this.context);
+    const destination = toolbar(root);
+    const folder = select(destination, l("Existing destination folder", "Существующая папка назначения"), [["", l("Vault root", "Корень хранилища")], ...this.owner.folders().filter(p => p !== "/" && p !== "").map(p => [p, p] as [string, string])], this.target.includes("/") ? this.target.slice(0, this.target.lastIndexOf("/")) : "");
+    const name = field(destination, l("Drawing name", "Имя рисунка"), this.target.split("/").pop()?.replace(/\.excalidraw\.md$/u, "") ?? ""); name.setAttribute("data-diagram-field", "name");
+    const target = root.createEl("p", { cls: "veynrel-studio-destination", attr: { "data-diagram-field": "target", "aria-live": "polite" } });
+    const updateTarget = () => { this.target = `${folder.value ? `${folder.value}/` : ""}${name.value}.excalidraw.md`; target.setText(this.target); };
+    folder.addEventListener("change", updateTarget); name.addEventListener("input", updateTarget); updateTarget();
+    const advanced = disclosure(root, l("Advanced · context budget", "Дополнительно · бюджет контекста"));
+    const context = field(advanced, l("Context budget verified for your model (tokens)", "Проверенный бюджет контекста модели (токены)"), this.context);
     context.setAttribute("type", "number"); context.addEventListener("input", () => { this.context = context.value; });
+    advanced.createEl("p", { text: l("Keep the verified model limit. No silent truncation.", "Укажите проверенный лимит модели. Скрытой обрезки нет.") });
     root.createEl("p", { text: l("Keep the source editor open if it is saved. Unsaved or unverifiable buffers block sending. The destination folder must already exist.", "Сохранённый исходник можно оставить открытым. Несохранённый или непроверяемый буфер блокирует отправку. Папка назначения должна уже существовать.") });
     button(root, l("Read note & review request", "Прочитать заметку и проверить запрос"), "diagram-prepare", () => {
       this.setup = false; this.run(() => workflow.prepare(this.kind, this.source, this.target, this.options, Number(this.context)));
@@ -79,26 +88,38 @@ export class DiagramPanel {
   }
   private review(root: HTMLElement, proposal: DiagramProposal): void {
     const workflow = this.owner.diagrams, p = proposal;
-    root.createEl("h3", { text: l("Review before creating", "Проверка перед созданием") });
+    if (this.reviewDraft?.proposal !== p) this.reviewDraft = { proposal: p, options: { ...p.plan.layout.options }, target: p.target };
+    const draft = this.reviewDraft;
+    root.createEl("h2", { text: l("Review before creating", "Проверка перед созданием") });
     root.createEl("p", { text: `${this.mode(p.spec.kind)} · ${p.source} → ${p.target}` });
-    root.createEl("p", { cls: "veynrel-studio-warning", text: l("Only the graph structure is validated, not its truth. Check every label and connection against the source. Cycles use outside routes; disconnected components have separate bands. Edge crossings are possible.", "Проверена структура графа, а не истинность содержания. Сверьте подписи и связи с источником. Циклы вынесены на внешние маршруты, несвязанные компоненты разделены. Пересечения рёбер возможны.") });
-    root.createEl("p", { text: l("Link/markup punctuation in model labels is displayed with inert fullwidth characters. Your own Excalidraw hooks can still act when you open a drawing; Studio does not control third-party hooks.", "Знаки ссылок и разметки в модельных подписях отображаются инертными полноширинными символами. Пользовательские hooks Excalidraw могут срабатывать при открытии; Studio не управляет сторонними hooks.") });
-    diagramPreview(root, p.plan.layout);
-    const list = root.createEl("details", { attr: { open: "" } }); list.createEl("summary", { text: l("Nodes and connections", "Узлы и связи") });
+    root.createEl("p", { text: `${p.spec.nodes.length} ${l("nodes", "узлов")} · ${p.spec.edges.length} ${l("connections", "связей")}. ${l("Check labels and connections against the source; structure validation does not prove truth.", "Сверьте подписи и связи с исходником: проверка структуры не доказывает истинность.")}` });
+    const actions = toolbar(root);
+    const stage = root.createDiv({ cls: "veynrel-studio-diagram-stage" });
+    if (!this.preview || this.preview.plan !== p.plan) {
+      const element = root.createDiv({ cls: "veynrel-studio-canvas" });
+      diagramPreview(element, p.plan.layout); this.preview = { plan: p.plan, element };
+    }
+    stage.append(this.preview.element);
+    const inspector = disclosure(stage, l("Inspect graph & technical details", "Структура и технические данные"));
+    const list = disclosure(inspector, l("Nodes and connections", "Узлы и связи"));
     const nodes = list.createEl("ul"); for (const n of p.spec.nodes) nodes.createEl("li", { text: `${n.id}: ${n.label} (${n.shape})` });
     const edges = list.createEl("ul"); for (const e of p.spec.edges) edges.createEl("li", { text: `${e.from} → ${e.to}${e.label ? `: ${e.label}` : ""}` });
-    literal(root, "DiagramSpec v1", JSON.stringify(p.spec, null, 2));
-    const { direction, theme } = this.parameters(root, p.plan.layout.options);
-    const target = field(root, l("Exact target path", "Точный целевой путь"), p.target);
-    const update = button(root, l("Update preview locally", "Обновить предпросмотр локально"), "diagram-revise", () => this.run(() => workflow.revise(p, { direction: direction.value as DiagramOptions["direction"], theme: theme.value as DiagramOptions["theme"] }, target.value)));
+    inspector.createEl("p", { text: l("Edge crossings are possible. Model markup stays inert. Third-party Excalidraw hooks may run when you open the drawing.", "Возможны пересечения рёбер. Модельная разметка инертна. При открытии могут работать сторонние hooks Excalidraw.") });
+    literal(inspector, "DiagramSpec v1", JSON.stringify(p.spec, null, 2));
+    const controls = toolbar(disclosure(inspector, l("Direction & appearance", "Направление и оформление")));
+    const { direction, theme } = this.parameters(controls, draft.options);
+    const target = field(inspector, l("Exact target path", "Точный целевой путь"), draft.target);
+    const update = button(controls, l("Update preview locally", "Обновить предпросмотр локально"), "diagram-revise", () => this.run(() => workflow.revise(p, { direction: direction.value as DiagramOptions["direction"], theme: theme.value as DiagramOptions["theme"] }, target.value)));
     update.disabled = !workflow.canCreate;
-    const create = button(root, l("Create this drawing…", "Создать этот рисунок…"), "diagram-create-review", () => this.confirm(l("Confirm new drawing", "Подтвердите новый рисунок"),
+    const create = button(actions, l("Create this drawing…", "Создать этот рисунок…"), "diagram-create-review", () => this.confirm(l("Confirm new drawing", "Подтвердите новый рисунок"),
       `${p.target}\n${l("One new editable Excalidraw drawing. No overwrite, automatic renaming or Undo. The source stays unchanged.", "Один новый редактируемый рисунок Excalidraw. Без перезаписи, автопереименования и Undo. Исходник остаётся неизменным.")}`,
       "diagram-confirm-create", () => workflow.create(p)));
     create.disabled = !workflow.canCreate;
-    const invalidate = () => { create.disabled = true; };
+    const dirty = controls.createSpan({ attr: { role: "status" } });
+    const invalidate = () => { draft.options = { direction: direction.value as DiagramOptions["direction"], theme: theme.value as DiagramOptions["theme"] }; draft.target = target.value; create.disabled = true; dirty.setText(l("Changed · update preview before creating", "Параметры изменены · обновите предпросмотр")); };
+    if (draft.target !== p.target || draft.options.direction !== p.plan.layout.options.direction || draft.options.theme !== p.plan.layout.options.theme) invalidate();
     direction.addEventListener("change", invalidate); theme.addEventListener("change", invalidate); target.addEventListener("input", invalidate);
-    button(root, l("Cancel creation", "Отменить создание"), "diagram-cancel", () => workflow.cancel()); this.independent(root);
+    button(actions, l("Cancel creation", "Отменить создание"), "diagram-cancel", () => workflow.cancel()); this.independent(root);
   }
   async history(root: HTMLElement, current: () => boolean): Promise<void> {
     const rows = await this.owner.diagrams.history(); if (!this.alive || !current()) return;
@@ -106,6 +127,7 @@ export class DiagramPanel {
     for (const row of rows) {
       const card = root.createEl("article", { cls: "veynrel-studio-card" });
       card.createEl("h4", { text: row.entry.intent?.target ?? row.entry.id }); card.createEl("p", { text: diagramStatus(row.state) });
+      if (row.entry.intent) card.createEl("p", { text: `${new Date(row.entry.intent.createdAt).toLocaleString()} · ${row.entry.intent.source.path}` });
       literal(card, l("Creation evidence", "Данные создания"), JSON.stringify({ id: row.entry.id, source: row.entry.intent?.source.path, sourceHash: row.entry.intent?.source.hash,
         receipt: row.entry.receipt, damaged: row.entry.damaged, storage: this.owner.diagrams.journal.root }, null, 2));
       if (row.state === "created") button(card, l("Open drawing", "Открыть рисунок"), "diagram-history-open", () => this.run(() => this.owner.diagrams.open(row.entry.id)));
