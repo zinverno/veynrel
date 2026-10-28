@@ -1,0 +1,35 @@
+[
+  {
+    "run": "veynrel-diagram-native-actions-theme1",
+    "note": "Alpha background measurement unsupported; harness fixed.",
+    "report": "attempts/theme1.json"
+  },
+  {
+    "run": "veynrel-diagram-native-actions-theme2",
+    "note": "Programmatic modal focus had no focus-visible; inspected.",
+    "report": "attempts/theme2.json"
+  },
+  {
+    "run": "veynrel-diagram-native-actions-theme3",
+    "note": "Dialog close selector absent; replaced with actual Escape.",
+    "report": "attempts/theme3.json"
+  },
+  {
+    "run": "veynrel-diagram-native-actions-theme4",
+    "note": "ABORTED: renderer absent and CDP unresponsive during concurrent checks; cause not established."
+  },
+  {
+    "run": "veynrel-diagram-native-actions-theme5",
+    "note": "Minimal programmatic focus invisible; fixed owned primary :focus outline.",
+    "report": "attempts/theme5.json"
+  },
+  {
+    "run": "veynrel-diagram-native-actions-theme6",
+    "note": "PASS before final scope cleanup; all 108 states.",
+    "report": "attempts/theme6.json"
+  },
+  {
+    "run": "veynrel-diagram-native-actions-theme-final",
+    "note": "ABORTED: renderer absent and CDP unresponsive during concurrent lint; cause not established."
+  }
+]

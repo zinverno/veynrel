@@ -63,7 +63,7 @@ async function connect() {
 const click = async (action, modal = false) => {
   const selector = `${modal ? '.veynrel-studio-dialog' : '.veynrel-studio'} [data-studio-action="${action}"]`;
   await cdp('Page.bringToFront'); await wait(`!!document.querySelector(${JSON.stringify(selector)})`);
-  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(r));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
+  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});for(let a=e.parentElement;a;a=a.parentElement)if(a.tagName==='DETAILS')a.open=true;e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(r));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
   for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, ...point, ...(type === 'mouseMoved' ? {} : { button: 'left', clickCount: 1 }) });
 };
 const shot = async name => { fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await cdp('Page.captureScreenshot', { format: 'png' })).data, 'base64')); report.screenshots.push(`${name}.png`); };
@@ -107,7 +107,7 @@ try {
   await wait("d.adapter.capability().state==='ready'"); await click('diagram-refresh');
   await ev("(async()=>{const leaf=app.workspace.getLeaf('split');await leaf.openFile(app.vault.getFileByPath('Source.md'));await app.workspace.revealLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0]);})()");
   // First path uses the actual Studio controls, consent button, preview and final confirmation.
-  await ev("{const k=document.querySelector('.veynrel-studio-body select');k.value='flowchart';k.dispatchEvent(new Event('change'));const s=document.querySelector('[data-diagram-field=source]');s.value='Source.md';s.dispatchEvent(new Event('change'));const t=document.querySelector('[data-diagram-field=target]');t.value='Drawings/Native.excalidraw.md';t.dispatchEvent(new Event('input'));}void 0");
+  await ev("{document.querySelector('.veynrel-studio input[value=flowchart]').click();const query=document.querySelector('.veynrel-studio input[type=search]');query.value='Source';query.dispatchEvent(new Event('input'));const source=[...document.querySelectorAll('.veynrel-studio-picker label')].find(e=>e.textContent==='Source.md');source.querySelector('input').click();const folder=[...document.querySelectorAll('.veynrel-studio-field')].find(e=>e.textContent.includes('Existing destination folder')).querySelector('select');folder.value='Drawings';folder.dispatchEvent(new Event('change'));const t=document.querySelector('[data-diagram-field=name]');t.value='Native';t.dispatchEvent(new Event('input'));}void 0");
   await click('diagram-prepare'); await wait("!d.running&&d.state==='prepared'"); assert.equal(report.requests.length, 0);
   const body = await ev('d.prepared.body'); await shot('consent-en-dark');
   await click('diagram-generate'); await wait("!d.running&&d.state==='review'"); assert.deepEqual(report.requests, [body]);
@@ -128,6 +128,16 @@ try {
   await click('diagram-fit'); await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab'}); await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab'});
   await pass('Keyboard Tab reaches preview zoom control', "document.activeElement?.getAttribute('data-studio-action')==='diagram-zoom-in'");
   await ev("(async()=>{const leaf=app.workspace.getLeaf('split');await leaf.openFile(app.vault.getFileByPath('Source.md'));await app.workspace.revealLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0]);})()");
+  await pass('Preview does not consume global modifier shortcuts', "(()=>{const e=new KeyboardEvent('keydown',{key:'+',ctrlKey:true,cancelable:true});document.querySelector('.veynrel-diagram-preview').dispatchEvent(e);return !e.defaultPrevented})()");
+  const uxRequestCount = report.requests.length;
+  await click('diagram-zoom-in');
+  await ev("window.uxPreview=document.querySelector('.veynrel-diagram-preview');window.uxZoom=uxPreview.querySelector('svg').style.width;d.emit();void 0");
+  await pass('Unrelated workflow event retains exact preview DOM and zoom', "document.querySelector('.veynrel-diagram-preview')===uxPreview&&uxPreview.querySelector('svg').style.width===uxZoom");
+  await ev("{const e=[...document.querySelectorAll('.veynrel-studio-field')].find(e=>e.textContent.includes('Direction')).querySelector('select');for(let a=e.parentElement;a;a=a.parentElement)if(a.tagName==='DETAILS')a.open=true;e.value=e.value==='down'?'right':'down';e.dispatchEvent(new Event('change'));}void 0");
+  await pass('Changed appearance invalidates create until local preview update', "document.querySelector('[data-studio-action=diagram-create-review]').disabled");
+  await ev('d.emit();void 0');await pass('Status event preserves changed preview draft and keeps create blocked',"document.querySelector('[data-studio-action=diagram-create-review]').disabled");
+  await click('diagram-revise'); await wait("!d.running&&!document.querySelector('[data-studio-action=diagram-create-review]').disabled");
+  assert.equal(report.requests.length,uxRequestCount);report.checks.push('Actual local preview action changes no provider request count');
   await click('diagram-create-review'); await click('diagram-confirm-create', true); await wait('!d.running&&!!d.result');
   report.firstResult = await ev('d.result'); assert.equal(report.firstResult.state, 'created');
   await pass('Creates exactly the reviewed file while the saved source editor stays open', "io.creates.length===1&&io.creates[0]===d.proposal.target&&app.workspace.getLeavesOfType('markdown').some(l=>l.view.file?.path==='Source.md')");

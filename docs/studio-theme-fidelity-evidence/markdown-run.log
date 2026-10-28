@@ -1,0 +1,80 @@
+Separate native Studio opens passively with three built-ins
+User recipe survives a real process restart
+Exact consent lists the saved note and configured loopback endpoint
+smart-format: real shared HTTP transport produces review before writes
+Untrusted Markdown, HTML and embeds remain literal
+training-journal: real shared HTTP transport produces review before writes
+nutrition-journal: real shared HTTP transport produces review before writes
+Changed source refuses Apply and preserves user text
+Incomplete provider completion refuses an applicable result
+Closing and reopening during generation retains one shared runner
+Cancellation does not start the next provider request
+A separate saved Markdown editor is open alongside Studio
+Read guard permits the actual attached saved editor before generation
+Apply refuses the open editor and preserves an actionable immutable Review
+Closing the editor enables Apply of the same Review without another request
+Restarted Undo refuses an open restored editor and performs no automatic write
+Actual unsaved Markdown buffer refuses preparation with a save message
+Real popout and main editor belong to different windows
+Two saved native editors including popout permit generation
+A remaining real popout still blocks Apply
+Native mass Apply cancellation confirms first write and skips second
+SIGKILL after physical Apply is unconfirmed with zero automatic writes
+Manual recovery acknowledges current result without changing the note
+SIGKILL after physical Undo is verified manually without a second write
+en/theme-dark/1200: library has no horizontal overflow
+en/theme-dark/390: library has no horizontal overflow
+en/theme-light/1200: library has no horizontal overflow
+en/theme-light/390: library has no horizontal overflow
+en/theme-dark/1200/consent: no horizontal overflow
+en/theme-dark/390/consent: no horizontal overflow
+en/theme-light/1200/consent: no horizontal overflow
+en/theme-light/390/consent: no horizontal overflow
+en/theme-dark/1200/review: no horizontal overflow
+en/theme-dark/390/review: no horizontal overflow
+en/theme-light/1200/review: no horizontal overflow
+en/theme-light/390/review: no horizontal overflow
+en/theme-dark/1200/history: no horizontal overflow
+en/theme-dark/390/history: no horizontal overflow
+en/theme-light/1200/history: no horizontal overflow
+en/theme-light/390/history: no horizontal overflow
+ru/theme-dark/1200: library has no horizontal overflow
+ru/theme-dark/390: library has no horizontal overflow
+ru/theme-light/1200: library has no horizontal overflow
+ru/theme-light/390: library has no horizontal overflow
+ru/theme-dark/1200/consent: no horizontal overflow
+ru/theme-dark/390/consent: no horizontal overflow
+ru/theme-light/1200/consent: no horizontal overflow
+ru/theme-light/390/consent: no horizontal overflow
+ru/theme-dark/1200/review: no horizontal overflow
+ru/theme-dark/390/review: no horizontal overflow
+ru/theme-light/1200/review: no horizontal overflow
+ru/theme-light/390/review: no horizontal overflow
+ru/theme-dark/1200/history: no horizontal overflow
+ru/theme-dark/390/history: no horizontal overflow
+ru/theme-light/1200/history: no horizontal overflow
+ru/theme-light/390/history: no horizontal overflow
+Native keyboard Enter opens recipe details
+Two native tabs share one runner
+Studio never read the unrelated note
+Returning to preparation retains query, selected full path and instructions
+Shared status notification preserves field, focus and caret
+Selected note can be removed explicitly
+Closing a changed draft offers inline confirmation and keeps input
+100 synthetic recipe rows render with bounded DOM
+Empty task search has a readable state
+20 real loopback results show one diff and no automatic selection
+UX 1440: native container fits
+UX 1024: native container fits
+UX 390: native container fits
+Actual native split measures near 720px
+Native 200 percent zoom keeps controls within leaf
+AssertionError [ERR_ASSERTION]: theme-dark: primary action text contrast
+    at file:///tmp/veynrel-studio-ux-reset/scripts/studio-native.mjs:311:5 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

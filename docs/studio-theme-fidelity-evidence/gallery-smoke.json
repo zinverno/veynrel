@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "httpReferences": 40,
+  "chromium": "headless isolated profile",
+  "externalAssets": false
+}

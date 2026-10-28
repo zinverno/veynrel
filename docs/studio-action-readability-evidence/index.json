@@ -1,0 +1,81 @@
+{
+  "runtimeSha": "130e7f198c6e7c40db76fad92d917938547cb436",
+  "build": {
+    "main.js": "282faeaf80bf75cd960b1164d27edd9cb1df9ceacf6a8cfe22b9959482731831",
+    "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "functional": {
+    "theme": {
+      "status": "PASS",
+      "checks": 31
+    },
+    "markdown": {
+      "status": "PASS",
+      "checks": 83
+    },
+    "diagram": {
+      "status": "PASS",
+      "checks": 30
+    },
+    "community": {
+      "status": "PASS",
+      "checks": 39
+    }
+  },
+  "readability": {
+    "states": 108,
+    "textThreshold": 4.5,
+    "minimumTextRatio": 7.5331236666253725,
+    "focusThreshold": 3,
+    "minimumFocusRatio": 9.910254775285186,
+    "themes": [
+      "Default",
+      "Minimal 8.2.2",
+      "Red Graphite 1.0.5"
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "accents": [
+      "#7c009e",
+      "#087f8c"
+    ]
+  },
+  "inheritance": {
+    "status": "PASS",
+    "pairs": 12,
+    "contract": "neutral interactive/text tokens, not filled mod-cta; surfaces and fields unchanged"
+  },
+  "rendererExceptions": {
+    "theme": [],
+    "markdown": [],
+    "diagram": [],
+    "community": []
+  },
+  "rendererLimitation": "getZoomFactor recurred in earlier full run; not reproduced in matched minimal without/with plugin or final full run. Cause unresolved; not declared fixed or independent. See zoom/.",
+  "checks": {
+    "unit": "5032/185 PASS",
+    "typecheck": "PASS (lint prerequisite)",
+    "build": "PASS",
+    "lint": "PASS, two existing fetch advisories",
+    "mutationAudit": "5/5 killed"
+  },
+  "notRun": [
+    "Owner acceptance",
+    "Real-model quality",
+    "Screen-reader speech",
+    "Arbitrary third-party themes"
+  ],
+  "zoomComparison": {
+    "artifacts": {
+      "main.js": "282faeaf80bf75cd960b1164d27edd9cb1df9ceacf6a8cfe22b9959482731831",
+      "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+      "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+    },
+    "report": "zoom/comparison-final.json",
+    "withoutPlugin": "No exception reproduced",
+    "withPlugin": "No exception reproduced"
+  }
+}

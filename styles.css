@@ -2029,7 +2029,7 @@
 .veynrel-health-home .veynrel-health-recommendation {
   margin-block: 20px;
   border: 0;
-  background: var(--background-primary-alt);
+  background: var(--background-primary-alt, var(--background-secondary));
 }
 .veynrel-health-home .veynrel-health-recommendation h3 { margin-block: 8px; }
 .veynrel-health-home .veynrel-health-recommendation p { margin-block: var(--size-4-2) var(--size-4-3); }
@@ -2590,11 +2590,21 @@
   .ai-consolidation-summary { padding-inline: 8px; }
 }
 
+/* Local aliases follow the host theme live, including popout documents. */
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog) {
+  --veynrel-background: var(--background-primary);
+  --veynrel-surface: var(--background-primary-alt, var(--background-secondary));
+  --veynrel-field: var(--background-modifier-form-field);
+  --veynrel-border: var(--background-modifier-border);
+  background: var(--veynrel-background);
+  color: var(--text-normal);
+}
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog) :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select) { background: var(--veynrel-field); color: var(--text-normal); }
 /* Stage 1 native workspace. Tokens inherit the active Obsidian theme/accent. */
 .view-content.veynrel-health-view {
-  --vx-bg: color-mix(in srgb, var(--background-primary) 96%, var(--interactive-accent));
-  --vx-surface: color-mix(in srgb, var(--background-secondary) 94%, var(--interactive-accent));
-  --vx-selected: color-mix(in srgb, var(--interactive-accent) 15%, var(--vx-bg));
+  --vx-bg: var(--veynrel-background);
+  --vx-surface: var(--veynrel-surface);
+  --vx-selected: var(--background-modifier-active-hover);
   padding: 0;
   background: var(--vx-bg);
 }
@@ -2709,12 +2719,9 @@
   .veynrel-health-view .veynrel-scope-card { padding: 20px; }
 }
 
-.theme-dark .veynrel-health-view {
-  --vx-bg: color-mix(in srgb, color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent)) 68%, #000);
-  --vx-surface: color-mix(in srgb, color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent)) 88%, #000);
-}
+
 .veynrel-health-view .veynrel-sidebar { background: var(--vx-bg); }
-.veynrel-health-view .veynrel-topic-node { background: color-mix(in srgb, var(--vx-surface) 92%, var(--text-normal)); }
+.veynrel-health-view .veynrel-topic-node { background: var(--background-primary-alt, var(--background-secondary)); }
 .veynrel-health-view .veynrel-scope-metrics { margin-top: 16px; }
 .veynrel-health-view .veynrel-tool-entry { margin-block: 24px; }
 
@@ -2995,7 +3002,6 @@
 .veynrel-review [data-intent-origin] { padding-block: 4px; }
 .ai-consolidation-summary p { margin-block: 6px; overflow-wrap: anywhere; }
 .ai-review-actions { position: sticky; bottom: 0; padding-block: 10px; background: var(--background-primary); z-index: 1; }
-.veynrel-review .mod-cta, .ai-change-planner .mod-cta { background: var(--interactive-accent); color: var(--text-on-accent); }
 .veynrel-review button:disabled, .ai-change-planner button:disabled { opacity: .65; }
 @media (max-width: 700px) { .veynrel-review-facts { grid-column: 1 / -1; } }
 
@@ -3083,7 +3089,7 @@
 .ai-review-outcome .ai-review-icon { color: var(--text-success); margin-bottom: .75rem; }
 .ai-safe-apply .ai-consolidation-summary { border: 1px solid var(--background-modifier-border); border-radius: .75rem; padding: 1rem; background: var(--background-secondary); }
 .ai-pair-inspector .ai-review-eyebrow, .ai-pair-inspector .ai-review-decision-next { color: color-mix(in srgb,var(--text-accent) 65%,var(--text-normal)); }
-.veynrel-review .mod-cta, .ai-change-planner .mod-cta, .ai-pair-inspector .ai-pair-actions button[data-relationship-action="analyze"] { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
+.ai-pair-inspector .ai-pair-actions button[data-relationship-action="analyze"] { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
 .ai-change-planner .ai-review-choice { display: flex; }
 .ai-change-planner .ai-review-choices { padding: 1rem; background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: .75rem; }
 .ai-change-planner .ai-review-choices legend { padding-inline: .5rem; }
@@ -3141,7 +3147,7 @@
 .veynrel-processing { max-width: 66rem; margin-inline: auto; }
 .veynrel-processing-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
 .veynrel-processing-card { display: flex; flex-direction: column; align-items: flex-start; padding: 24px; gap: 14px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-l); background: var(--background-primary); min-width: 0; }
-.veynrel-processing-card.is-primary { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--interactive-accent) 60%, var(--background-modifier-border)); background: color-mix(in srgb, var(--interactive-accent) 6%, var(--background-primary)); }
+.veynrel-processing-card.is-primary { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--interactive-accent) 60%, var(--background-modifier-border)); background: var(--background-secondary); }
 .veynrel-processing-heading { display: flex; align-items: center; gap: 12px; }
 .veynrel-processing-heading > span { display: flex; color: var(--text-accent); flex-shrink: 0; }
 .veynrel-processing-card h2 { font-size: var(--font-ui-large); line-height: 1.35; margin: 0; }
@@ -3149,7 +3155,6 @@
 .veynrel-processing-card p { margin: 0; line-height: 1.5; }
 .veynrel-processing-effect { font-size: var(--font-ui-small); color: var(--text-muted); }
 .veynrel-processing-card button { margin-top: auto; height: auto; min-height: 36px; white-space: normal; text-align: start; }
-.veynrel-processing-card .mod-cta, .veynrel-moc-confirmation .mod-cta, .veynrel-atom-flow .mod-cta { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
 .veynrel-processing-status { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; font-size: var(--font-ui-small); padding-block: 8px; border-top: 1px solid var(--background-modifier-border); width: 100%; }
 .veynrel-moc-summary { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); padding: 20px; }
 .veynrel-moc-summary > span { color: var(--text-accent); }
@@ -3193,7 +3198,6 @@
 .veynrel-studio-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .veynrel-studio :is(button, input, select, textarea), .veynrel-studio-dialog :is(button, input, select, textarea) { max-width: 100%; }
 .veynrel-studio button, .veynrel-studio-dialog button { min-height: 36px; height: auto; white-space: normal; text-align: start; }
-.veynrel-studio .mod-cta, .veynrel-studio-dialog .mod-cta { background: oklch(from var(--interactive-accent) min(l, .5) c h); color: var(--text-on-accent); }
 .veynrel-studio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
 .veynrel-studio-card { min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 20px; margin-block: 8px; border: 1px solid var(--background-modifier-border); border-radius: 12px; background: var(--background-secondary); overflow-wrap: anywhere; }
 .veynrel-studio-card h2, .veynrel-studio-card h3 { font-size: var(--font-ui-large); margin: 0; }
@@ -3234,3 +3238,115 @@
 .veynrel-diagram-preview svg { display: block; max-width: none; }
 .veynrel-diagram-preview:focus-visible { outline: 2px solid var(--interactive-accent); }
 .veynrel-studio details ul { overflow-wrap: anywhere; }
+
+/* Studio UX: local semantic tokens; never override the user's global accent. */
+.veynrel-studio, .veynrel-studio-dialog {
+  --studio-surface: var(--veynrel-surface);
+  --studio-line: var(--background-modifier-border);
+  --studio-focus: var(--interactive-accent);
+  --studio-radius: 6px;
+  font-size: var(--font-ui-medium); line-height: 1.5;
+}
+.veynrel-studio { padding: 16px; }
+.veynrel-studio > header, .veynrel-studio > nav, .veynrel-studio > div { max-width: 1280px; }
+.veynrel-studio > header { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 12px; }
+.veynrel-studio h1 { font-size: 20px; margin: 0; }
+.veynrel-studio > header p { margin: 0; font-size: 14px; }
+.veynrel-studio h2 { font-size: 18px; margin: 8px 0; }
+.veynrel-studio h3 { font-size: 16px; margin: 8px 0; }
+.veynrel-studio > nav { border-bottom: 1px solid var(--studio-line); padding-bottom: 8px; gap: 4px; }
+.veynrel-studio > nav button { background: transparent; box-shadow: none; border-radius: 4px; }
+.veynrel-studio > nav button[aria-current="true"] { background: var(--studio-surface); box-shadow: inset 0 -2px var(--studio-focus); }
+.veynrel-studio > .veynrel-studio-operation { padding-block: 8px; margin-bottom: 8px; }
+.veynrel-studio-status { border: 0; padding: 0; margin: 0; color: var(--text-muted); font-size: 14px; flex: 1; }
+.veynrel-studio-body { gap: 10px; }
+.veynrel-studio .veynrel-studio-grid { display: flex; flex-direction: column; gap: 0; }
+.veynrel-studio .veynrel-studio-card { border: 0; border-bottom: 1px solid var(--studio-line); border-radius: 0; padding: 16px 0; margin: 0; gap: 6px; background: transparent; }
+.veynrel-studio-grid .veynrel-studio-card { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 6px 20px; }
+.veynrel-studio-grid .veynrel-studio-card > :not(button) { grid-column: 1; }
+.veynrel-studio-grid .veynrel-studio-card > button { grid-column: 1; align-self: start; margin: 0; }
+.veynrel-studio :is(button, input:not([type="checkbox"]):not([type="radio"]), select), .veynrel-studio-dialog :is(button, input:not([type="checkbox"]):not([type="radio"]), select) { min-height: 36px; font-size: 14px; }
+.veynrel-studio button, .veynrel-studio-dialog button { width: fit-content; }
+.veynrel-studio :is(button, input, textarea, select, summary, pre):focus-visible, .veynrel-studio-dialog :is(button, input, textarea, select, summary, pre):focus-visible { outline-color: var(--studio-focus); }
+.veynrel-studio :is(h2, h3, p, button), .veynrel-studio-dialog :is(h2, h3, p, button) { overflow-wrap: anywhere; }
+.veynrel-studio-field { margin: 4px 0; }
+.veynrel-studio-actions > .veynrel-studio-field { flex: 1; min-width: min(180px, 100%); }
+.veynrel-studio-disclosure { border-top: 1px solid var(--studio-line); padding-block: 6px; }
+.veynrel-studio summary, .veynrel-studio-dialog summary { cursor: pointer; min-height: 32px; padding-block: 4px; }
+.veynrel-studio-disclosure > .veynrel-studio-actions { padding-block: 8px; }
+.veynrel-studio-body > button { align-self: flex-start; }
+.veynrel-studio-picker { max-height: 220px; padding: 4px 12px; }
+.veynrel-studio-picked-row { display: flex; align-items: center; gap: 12px; margin-block: 4px; }
+.veynrel-studio-picked-row > span { flex: 1; overflow-wrap: anywhere; }
+.veynrel-studio-picked { font-size: 14px; }
+.veynrel-studio-review { display: grid; grid-template-columns: minmax(180px, 25%) minmax(0, 1fr); gap: 20px; }
+.veynrel-studio-review-files { max-height: 65vh; overflow: auto; }
+.veynrel-studio-review-file { border-bottom: 1px solid var(--studio-line); padding-block: 8px; }
+.veynrel-studio-review-file > button { display: block; width: 100%; text-align: start; box-shadow: none; background: transparent; }
+.veynrel-studio-review-file > button[aria-pressed="true"] { box-shadow: inset 3px 0 var(--studio-focus); background: var(--studio-surface); }
+.veynrel-studio-review-detail { min-width: 0; }
+.veynrel-studio .ai-proposal-diff { max-width: 100%; }
+.veynrel-studio-diagram-stage { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.veynrel-studio-canvas { min-width: 0; }
+.veynrel-studio-canvas .veynrel-studio-actions { margin-bottom: 8px; }
+.veynrel-studio .veynrel-diagram-preview { height: 56vh; min-height: 320px; max-height: 720px; cursor: grab; touch-action: none; }
+.veynrel-studio .veynrel-diagram-preview:active { cursor: grabbing; }
+.veynrel-studio-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.veynrel-studio-connection, .veynrel-studio-destination { font-size: 14px; padding: 8px 12px; background: var(--studio-surface); border-radius: var(--studio-radius); }
+@container (min-width: 900px) {
+  .veynrel-studio-diagram-stage:has(> details[open]) { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
+}
+@container (max-width: 600px) {
+  .veynrel-studio-review, .veynrel-studio-examples { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-studio-review-files { max-height: 220px; }
+  .veynrel-studio-grid .veynrel-studio-card { display: flex; }
+  .veynrel-studio-grid .veynrel-studio-card > button { align-self: flex-start; }
+  .veynrel-studio .veynrel-diagram-preview { height: 48vh; min-height: 300px; }
+}
+.veynrel-studio > .veynrel-studio-operation > button { flex-shrink: 0; }
+.veynrel-studio > .veynrel-studio-operation > .veynrel-studio-status { min-width: min(220px, 100%); }
+.veynrel-studio :is(input[type="checkbox"]), .veynrel-studio-dialog :is(input[type="checkbox"]) { min-height: 0; }
+.veynrel-studio > .veynrel-studio-operation > button { background: transparent; box-shadow: none; padding-inline: 0; color: var(--text-accent); }
+@container (max-width: 600px) {
+  .veynrel-studio > header p { display: none; }
+  .veynrel-studio > .veynrel-studio-operation > .veynrel-studio-status { min-width: 0; font-size: 13px; }
+}
+.veynrel-studio-dialog fieldset { border: 1px solid var(--studio-line); border-radius: var(--studio-radius); padding: 12px; min-width: 0; }
+.veynrel-studio-dialog legend { padding-inline: 6px; font-weight: 600; }
+
+.veynrel-studio [hidden] { display: none; }
+.veynrel-studio .veynrel-studio-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; }
+.veynrel-studio-mode { border: 1px solid var(--veynrel-border); border-radius: 6px; padding: 10px; display: grid; grid-template-columns: auto 1fr; gap: 6px; cursor: pointer; }
+.veynrel-studio-mode:has(:checked) { border-color: var(--interactive-accent); background: var(--background-modifier-active-hover); }
+.veynrel-studio-mode input { min-height: 0; }
+.veynrel-studio-mode svg { grid-column: 1 / -1; width: 100%; height: 65px; }
+.veynrel-studio-example { color: var(--text-muted); font-size: 12px; }
+.veynrel-studio-grid .veynrel-studio-card > .veynrel-studio-example { grid-column: 2; grid-row: 1 / span 5; align-self: center; }
+.veynrel-studio-example svg { display: block; width: 100%; height: 78px; }
+.veynrel-studio-example svg, .veynrel-studio-mode svg { color: var(--text-normal); }
+.veynrel-studio-example figcaption { margin-top: 4px; }
+.veynrel-studio-card h2 .svg-icon { width: 18px; height: 18px; margin-inline-end: 8px; vertical-align: middle; }
+.veynrel-studio-body > p { margin-block: 4px; }
+@container (max-width: 600px) {
+  .veynrel-studio-modes { gap: 8px; }
+  .veynrel-studio-grid .veynrel-studio-card > .veynrel-studio-example { width: min(220px, 100%); margin: 0; }
+}
+
+.veynrel-studio-picker:empty { display: none; }
+.veynrel-studio .veynrel-studio-example { margin: 0; }
+.veynrel-studio .veynrel-studio-mode input { align-self: start; }
+.veynrel-studio-search-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(140px, 1fr); gap: 12px; }
+@container (max-width: 500px) { .veynrel-studio-search-row { grid-template-columns: minmax(0, 1fr); } }
+
+@container (max-width: 500px) { .veynrel-studio .veynrel-studio-modes { grid-template-columns: minmax(0, 1fr); } }
+
+/* Primary actions keep the host's neutral colors; weight and border also convey priority. */
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta {
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  border: 1px solid var(--text-muted);
+  font-weight: var(--font-semibold);
+  box-shadow: none;
+}
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta:hover:not(:disabled) { background: var(--interactive-hover); color: var(--text-normal); }
+:is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta:focus { outline: 2px solid var(--text-normal); outline-offset: 3px; }

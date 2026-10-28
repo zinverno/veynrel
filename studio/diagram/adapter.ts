@@ -160,9 +160,15 @@ export class ExcalidrawAdapter implements DiagramAdapter {
   }
   capability(): Capability {
     const p = this.plugin();
-    if (!p) return { state: "unavailable" };
-    if (p.manifest?.version !== EXCALIDRAW_VERSION || typeof p.ea?.getAPI !== "function" || p.ea.destroyed || p.settings?.autoexportExcalidraw)
-      return { state: "incompatible", version: p.manifest?.version, reason: p.settings?.autoexportExcalidraw ? "autoexport" : "version" };
+    if (!p) {
+      const installed = (this.app as unknown as { plugins?: { manifests?: Record<string, unknown> } }).plugins?.manifests?.[EXCALIDRAW_ID];
+      return { state: "unavailable", reason: installed ? "disabled" : "not-installed" };
+    }
+    const reasons: string[] = [];
+    if (p.manifest?.version !== EXCALIDRAW_VERSION) reasons.push("version");
+    if (typeof p.ea?.getAPI !== "function" || p.ea.destroyed) reasons.push("api");
+    if (p.settings?.autoexportExcalidraw) reasons.push("autoexport");
+    if (reasons.length) return { state: "incompatible", version: p.manifest?.version, reason: reasons.join(",") };
     return { state: this.busy ? "busy" : this.failed ? "error" : "ready", version: p.manifest.version };
   }
   private ready(): ExcalidrawPlugin {

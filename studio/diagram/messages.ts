@@ -1,3 +1,5 @@
+import { EXCALIDRAW_VERSION } from "./adapter";
+import type { Capability } from "./adapter";
 import { errorMessage, l } from "../messages";
 import { StudioError } from "../recipe";
 import { DiagramError } from "./spec";
@@ -7,7 +9,7 @@ const errors: Record<string, [string, string]> = {
   limit: ["The diagram exceeds a limit: 30 nodes, 60 edges, label lengths or bounded canvas. Nothing was silently removed.", "Схема превышает лимит: 30 узлов, 60 связей, длина подписей или размер холста. Ничего не удалено молча."],
   unavailable: ["Enable the optional Obsidian Excalidraw plugin to create diagrams. Studio does not install or enable it automatically. Other Studio features remain available.", "Для схем нужен включённый плагин Obsidian Excalidraw. Studio не устанавливает и не включает его автоматически. Остальные функции Studio доступны."],
   reloaded: ["Excalidraw was reloaded after this preview. Update the preview locally and confirm the new Review; no model request is needed.", "Excalidraw перезагружен после предпросмотра. Обновите предпросмотр локально и подтвердите новый Review; запрос к модели не нужен."],
-  incompatible: ["This adapter supports Excalidraw 2.29.0. Also turn off its automatic .excalidraw export before creating/opening here. Studio does not change global settings.", "Адаптер поддерживает Excalidraw 2.29.0. Также отключите автоматический экспорт .excalidraw перед созданием/открытием здесь. Studio не меняет глобальные настройки."],
+  incompatible: ["Excalidraw compatibility changed. Return to Create diagram and refresh availability for the exact reason.", "Совместимость Excalidraw изменилась. Вернитесь в «Создать схему» и обновите доступность, чтобы увидеть точную причину."],
   adapter: ["Excalidraw could not build or verify the native scene. Check its availability and inspect history after a creation attempt.", "Excalidraw не смог построить или проверить нативную сцену. Проверьте доступность плагина и историю после попытки создания."],
   path: ["Enter an exact visible vault path ending in .excalidraw.md, inside an existing folder. Hidden/service paths, traversal and ambiguous names are not allowed.", "Укажите точный путь внутри vault с окончанием .excalidraw.md, в существующей папке. Скрытые/служебные пути, выход из папок и неоднозначные имена запрещены."],
   occupied: ["This filename or a case/Unicode equivalent is occupied. Choose another exact path and update Review; Studio never renames or overwrites automatically.", "Имя или его эквивалент по регистру/Unicode уже заняты. Выберите другой точный путь и обновите Review; Studio не переименовывает и не перезаписывает автоматически."],
@@ -23,4 +25,19 @@ export function diagramStatus(state: string): string {
     "changed-unavailable": ["Result later changed or is unavailable", "Результат позже изменён или недоступен"], damaged: ["Journal evidence is damaged", "Данные журнала повреждены"],
   };
   return values[state] ? l(...values[state]) : state;
+}
+
+export function capabilityMessage(capability: Capability): string {
+  if (capability.state === "unavailable") return capability.reason === "disabled"
+    ? l("Excalidraw is installed but disabled. Enable it in Settings → Community plugins, then refresh availability.", "Excalidraw установлен, но выключен. Включите его в Настройки → Сторонние плагины, затем обновите доступность.")
+    : l("Excalidraw is not installed. Install and enable it in Settings → Community plugins, then refresh availability.", "Excalidraw не установлен. Установите и включите его в Настройки → Сторонние плагины, затем обновите доступность.");
+  const reasons = capability.reason?.split(",") ?? [];
+  const messages: string[] = [];
+  if (reasons.includes("version")) messages.push(l(`Detected Excalidraw ${capability.version ?? "unknown"}; supported: ${EXCALIDRAW_VERSION}. Check the installed version.`, `Обнаружен Excalidraw ${capability.version ?? "неизвестной версии"}; поддерживается ${EXCALIDRAW_VERSION}. Проверьте установленную версию.`));
+  if (reasons.includes("autoexport")) messages.push(l("Automatic .excalidraw export is enabled. Turn it off in Excalidraw settings, then refresh availability.", "Включён автоматический экспорт .excalidraw. Отключите его в настройках Excalidraw, затем обновите доступность."));
+  if (reasons.includes("api")) messages.push(l("The Excalidraw API is unavailable. Reload the plugin, then refresh availability.", "API Excalidraw недоступен. Перезагрузите плагин, затем обновите доступность."));
+  if (messages.length) return messages.join(" ");
+  if (capability.state === "busy") return l("Excalidraw is busy. Wait for the current operation.", "Excalidraw занят. Дождитесь текущей операции.");
+  if (capability.state === "error" || capability.state === "incompatible") return l("Excalidraw availability could not be verified. Refresh availability; inspect history after a creation attempt.", "Не удалось подтвердить доступность Excalidraw. Обновите доступность; после попытки создания проверьте историю.");
+  return "";
 }

@@ -1,0 +1,52 @@
+[
+  {
+    "enabled": false,
+    "steps": [
+      "main zoom 2; popout false",
+      "main zoom 1; popout false",
+      "main zoom 2; popout false",
+      "main zoom 1; popout false",
+      "main zoom 2; popout true",
+      "main zoom 1; popout true",
+      "main zoom 2; popout true",
+      "main zoom 1; popout true",
+      "zoom 2 after closing active popout",
+      "zoom 1 after closing active popout"
+    ],
+    "exceptions": [],
+    "plugins": [],
+    "versions": {
+      "electron": "43.6.0",
+      "obsidian": "New tab - vault - Obsidian 1.13.7",
+      "chrome": "150.0.7871.250"
+    },
+    "completed": true
+  },
+  {
+    "enabled": true,
+    "steps": [
+      "main zoom 2; popout false",
+      "main zoom 1; popout false",
+      "main zoom 2; popout false",
+      "main zoom 1; popout false",
+      "main zoom 2; popout true",
+      "main zoom 1; popout true",
+      "main zoom 2; popout true",
+      "main zoom 1; popout true",
+      "zoom 2 after closing active popout",
+      "zoom 1 after closing active popout",
+      "Studio zoom 2",
+      "Studio zoom 1"
+    ],
+    "exceptions": [],
+    "plugins": [
+      "ai-knowledge-hub"
+    ],
+    "versions": {
+      "electron": "43.6.0",
+      "obsidian": "New tab - vault - Obsidian 1.13.7",
+      "chrome": "150.0.7871.250"
+    },
+    "completed": true
+  }
+]

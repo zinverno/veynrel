@@ -37,9 +37,11 @@ describe("workspace presentation contract", () => {
   });
   it("shares theme-owned presentation and disables nonessential motion throughout the workspace", () => {
     const shared = css.split("/* Shared workspace presentation")[1];
-    expect(shared.match(/#[\da-f]{3,8}\b|\brgba?\(|\bhsla?\(/giu)).toEqual(["#000", "#000"]);
-    expect(rule(".theme-dark .veynrel-health-view")).toContain("--vx-bg: color-mix(in srgb, color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent)) 68%, #000);");
-    expect(rule(".theme-dark .veynrel-health-view")).toContain("--vx-surface: color-mix(in srgb, color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent)) 88%, #000);");
+    expect(shared.match(/#[\da-f]{3,8}\b|\brgba?\(|\bhsla?\(/giu)).toBeNull();
+    expect(rule(".view-content.veynrel-health-view")).toContain("--vx-bg: var(--veynrel-background);");
+    expect(rule(".view-content.veynrel-health-view")).toContain("--vx-surface: var(--veynrel-surface);");
+    expect(css).not.toContain(".theme-dark .veynrel-health-view {");
+    expect(css).not.toContain("--studio-focus: var(--color-purple)");
     expect(css).not.toMatch(/clip-path|column-gap|!important/u);
     expect(css).not.toMatch(/\.veynrel-(?:workspace|topology-detail|neighborhood|neighborhood-card|global-map)\s+\*/u);
     for (const selector of [".veynrel-health-page-enter", ".veynrel-topology-content", ".veynrel-topology-inspector-content",

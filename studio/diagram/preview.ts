@@ -36,8 +36,26 @@ export function diagramPreview(root: HTMLElement, plan: DiagramLayout): void {
   add("rect", { x: 40, y: plan.height - 70, width: 240, height: 50, fill: palette.fill, stroke: palette.stroke, "stroke-width": 2 });
   text({ x: 40, y: plan.height - 58, width: 240, height: 25, text: "Источник / Source" });
   let scale = 1;
-  const zoom = (next: number) => { scale = Math.max(1, Math.min(8, next)); svg.style.setProperty("width", `${scale * 100}%`); svg.style.setProperty("min-height", `${scale * 300}px`); };
-  button(controls, l("Fit", "Вписать"), "diagram-fit", () => zoom(1));
+  const zoom = (next: number) => {
+    scale = Math.max(1, Math.min(8, next));
+    svg.style.setProperty("width", `${scale * 100}%`); svg.style.setProperty("height", `${scale * 100}%`);
+  };
+  button(controls, l("Fit", "Вписать"), "diagram-fit", () => { zoom(1); frame.scrollTo(0, 0); });
   button(controls, l("Zoom in", "Увеличить"), "diagram-zoom-in", () => zoom(scale * 1.5));
-  button(controls, l("Zoom out", "Уменьшить"), "diagram-zoom-out", () => zoom(scale / 1.5)); zoom(1);
+  button(controls, l("Zoom out", "Уменьшить"), "diagram-zoom-out", () => zoom(scale / 1.5));
+  frame.addEventListener("keydown", event => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.key === "+" || event.key === "=") { event.preventDefault(); zoom(scale * 1.5); }
+    if (event.key === "-") { event.preventDefault(); zoom(scale / 1.5); }
+    if (event.key === "0") { event.preventDefault(); zoom(1); frame.scrollTo(0, 0); }
+  });
+  let drag: { x: number; y: number; left: number; top: number } | undefined;
+  frame.addEventListener("pointerdown", event => {
+    if (event.button !== 0) return;
+    drag = { x: event.clientX, y: event.clientY, left: frame.scrollLeft, top: frame.scrollTop };
+    frame.setPointerCapture(event.pointerId); frame.focus();
+  });
+  frame.addEventListener("pointermove", event => { if (drag) frame.scrollTo(drag.left + drag.x - event.clientX, drag.top + drag.y - event.clientY); });
+  frame.addEventListener("pointerup", () => { drag = undefined; }); frame.addEventListener("pointercancel", () => { drag = undefined; });
+  zoom(1);
 }

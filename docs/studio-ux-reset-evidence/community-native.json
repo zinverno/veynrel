@@ -1,0 +1,219 @@
+{
+  "checks": [
+    "Opening Studio and Community tab is passive",
+    "Explicit online catalog loads eight real entries",
+    "Client search finds Russian tags",
+    "Category filter selects two work recipes",
+    "Verified card shows full prompt, constraints, examples, source and SHA-256",
+    "Install is local user recipe, no notes/model/writes",
+    "Installed recipe and origin survive a real process restart",
+    "Same version is Installed; repeat install does not add duplicates",
+    "Prepared exact request awaits explicit consent",
+    "Installed Community recipe runs via existing Runner and immutable Review",
+    "Community Apply/Undo restores exact original hashes",
+    "Numeric update and locally modified status are visible",
+    "Update compares instruction, constraints, format and operations",
+    "Untrusted instruction remains literal with no element execution",
+    "Explicit update keeps modified local copy and installs exact new version",
+    "Offline restart uses verified stale cache",
+    "Previously downloaded recipe opens offline",
+    "Delisting does not delete installed recipes",
+    "en/theme-dark/1200: native Community has no horizontal overflow",
+    "en/theme-dark/1200: full Community card stays within panel",
+    "en/theme-dark/390: native Community has no horizontal overflow",
+    "en/theme-dark/390: full Community card stays within panel",
+    "en/theme-light/1200: native Community has no horizontal overflow",
+    "en/theme-light/1200: full Community card stays within panel",
+    "en/theme-light/390: native Community has no horizontal overflow",
+    "en/theme-light/390: full Community card stays within panel",
+    "ru/theme-dark/1200: native Community has no horizontal overflow",
+    "ru/theme-dark/1200: full Community card stays within panel",
+    "ru/theme-dark/390: native Community has no horizontal overflow",
+    "ru/theme-dark/390: full Community card stays within panel",
+    "ru/theme-light/1200: native Community has no horizontal overflow",
+    "ru/theme-light/1200: full Community card stays within panel",
+    "ru/theme-light/390: native Community has no horizontal overflow",
+    "ru/theme-light/390: full Community card stays within panel",
+    "Publication form starts with empty author-created examples",
+    "Explicit publication produces valid package from authored fields with no model call",
+    "Corrupt cache is discarded; installed local recipes survive",
+    "Damaged origin storage blocks new installs without losing local Registry",
+    "All original note hashes restored and catalog received no private content"
+  ],
+  "artifacts": {
+    "main.js": "01efa94c128fa1b2f200d930f90ef1f8df0e3201a55552d1c5bea896cf2e6ab6",
+    "styles.css": "8f0c34205f2f7c15afa2340b2948d96a57c8adb56bc28ffe273de12cea9b2262",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "screenshots": [
+    "inspect-en-dark.png",
+    "community-review.png",
+    "update-local-edits.png",
+    "offline-cached.png",
+    "community-en-theme-dark-1200.png",
+    "community-card-en-theme-dark-1200.png",
+    "community-en-theme-dark-390.png",
+    "community-card-en-theme-dark-390.png",
+    "community-en-theme-light-1200.png",
+    "community-card-en-theme-light-1200.png",
+    "community-en-theme-light-390.png",
+    "community-card-en-theme-light-390.png",
+    "community-ru-theme-dark-1200.png",
+    "community-card-ru-theme-dark-1200.png",
+    "community-ru-theme-dark-390.png",
+    "community-card-ru-theme-dark-390.png",
+    "community-ru-theme-light-1200.png",
+    "community-card-ru-theme-light-1200.png",
+    "community-ru-theme-light-390.png",
+    "community-card-ru-theme-light-390.png",
+    "publication-package.png"
+  ],
+  "fixture": "Isolated synthetic vault; test HTTP catalog injected via CommunityTransport, actual RecipeRegistry/Runner/Review/Apply/Undo; no personal notes or provider keys.",
+  "beforeApply": [],
+  "exceptions": [],
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "community:refresh",
+    "point": {
+      "x": 134.171875,
+      "y": 418.03125
+    },
+    "hit": "<button type=\"button\" data-community-action=\"refresh\">Open online catalog</button>"
+  },
+  "lastApplySelection": [
+    {
+      "route": "workflow",
+      "selected": [
+        "Formatting.md"
+      ],
+      "review": "c71cb00a-e7aa-448b-a060-2f8ab1e4e2f8",
+      "dialogs": 0
+    }
+  ],
+  "publication": {
+    "schemaVersion": 1,
+    "entry": {
+      "id": "native-submission",
+      "author": {
+        "name": "Synthetic Author",
+        "url": "https://github.com/zinverno"
+      },
+      "category": "learning",
+      "tags": [
+        "synthetic",
+        "learning"
+      ],
+      "purpose": {
+        "en": "Synthetic native publication test",
+        "ru": "Вымышленный тест публикации"
+      },
+      "limitations": {
+        "en": "Check output manually.",
+        "ru": "Проверьте результат вручную."
+      },
+      "examples": {
+        "input": {
+          "en": "Fictional input.",
+          "ru": "Вымышленный вход."
+        },
+        "output": {
+          "en": "Fictional output.",
+          "ru": "Вымышленный выход."
+        }
+      },
+      "name": {
+        "en": "Lecture outline",
+        "ru": "Конспект лекции"
+      },
+      "description": {
+        "en": "Turn rough lecture notes into an outline with definitions and open questions.",
+        "ru": "Превратите черновик лекции в план с определениями и открытыми вопросами."
+      },
+      "version": "1.10.0",
+      "compatibility": {
+        "recipeSchema": 1,
+        "studioApi": 1
+      },
+      "operations": [
+        "append"
+      ],
+      "recipeUrl": "https://zinverno.github.io/veynrel-recipes/catalog/v1/recipes/native-submission/1.10.0.json",
+      "sha256": "f132347f0f938821143185c1f3ad647e289b46f986de3bf97b57c4fce33a73e4"
+    },
+    "recipe": "{\n  \"schemaVersion\": 1,\n  \"id\": \"user.native-submission\",\n  \"version\": \"1.10.0\",\n  \"source\": \"user\",\n  \"name\": {\n    \"en\": \"Lecture outline\",\n    \"ru\": \"Конспект лекции\"\n  },\n  \"description\": {\n    \"en\": \"Turn rough lecture notes into an outline with definitions and open questions.\",\n    \"ru\": \"Превратите черновик лекции в план с определениями и открытыми вопросами.\"\n  },\n  \"input\": {\n    \"mode\": \"per_note\"\n  },\n  \"parameters\": {\n    \"language\": \"source\",\n    \"instructions\": \"\"\n  },\n  \"steps\": [\n    {\n      \"type\": \"llm_transform\",\n      \"prompt\": \"Organize source facts only. Literal example: <img src=x onerror=\\\"window.attack=1\\\">\"\n    }\n  ],\n  \"output\": {\n    \"format\": \"markdown\",\n    \"action\": \"append\"\n  },\n  \"limits\": {\n    \"maxInputCharacters\": 16000,\n    \"maxOutputCharacters\": 24000,\n    \"maxOutputTokens\": 4096\n  },\n  \"constraints\": [\n    \"Preserve supplied facts.\"\n  ]\n}\n"
+  },
+  "version": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "providerRequests": 1,
+  "catalogRequests": [
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/recipes/lecture-outline/1.0.0.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/recipes/lecture-outline/1.10.0.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/recipes/lecture-outline/1.0.0.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    }
+  ],
+  "before": {
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "after": {
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "status": "PASS"
+}

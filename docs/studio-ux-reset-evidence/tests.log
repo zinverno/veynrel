@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-studio-ux-reset
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":126.256438,"layoutMs":9.722763000000043}}
+
+ Test Files  185 passed (185)
+      Tests  5030 passed (5030)
+   Start at  06:47:29
+   Duration  30.33s (transform 8.97s, setup 0ms, import 24.38s, tests 68.42s, environment 19ms)
