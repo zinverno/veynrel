@@ -1,0 +1,22 @@
+{
+  "runtimeSHA": "03a10bf2416762e514f9bebe38259a6d6547d7f5",
+  "baselineRuntimeSHA": "bd811f262fab37db70651f8ce954a7e18b111037",
+  "artifacts": {
+    "main.js": "282faeaf80bf75cd960b1164d27edd9cb1df9ceacf6a8cfe22b9959482731831",
+    "styles.css": "293c1226f4534d07b2ac146e191f5ad2a8138cd8463d4d4e686e75d13a80649d",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "gates": {
+    "unit": "5032 / 185 PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "lint": "PASS; two accepted advisories",
+    "audit": "5/5 killed",
+    "theme": "30 checks PASS; zero renderer exceptions",
+    "diagram": "30 checks PASS; zero renderer exceptions",
+    "community": "39 checks PASS; zero renderer exceptions",
+    "markdown": "82 checks passed; suite FAIL at 4.2596 contrast < 4.5; host zoom exception captured",
+    "ownerAcceptance": "NOT RUN",
+    "realModels": "NOT RUN"
+  }
+}

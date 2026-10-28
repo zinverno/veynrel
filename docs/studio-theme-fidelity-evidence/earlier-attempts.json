@@ -1,0 +1,178 @@
+[
+  {
+    "attempt": "after1",
+    "outcome": "PASS",
+    "error": null,
+    "exceptions": [],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "after2",
+    "outcome": "PASS",
+    "error": null,
+    "exceptions": [],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "matrix1",
+    "outcome": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: host field background\n+ actual - expected\n\n+ 'rgb(0, 0, 0)'\n- 'rgb(59, 59, 59)'\n       ^\n\n    at file:///tmp/veynrel-studio-ux-reset/scripts/studio-theme-native.mjs:102:11",
+    "exceptions": [],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "matrix2",
+    "outcome": "PASS",
+    "error": null,
+    "exceptions": [],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "matrix3",
+    "outcome": "PASS",
+    "error": null,
+    "exceptions": [],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "final4",
+    "outcome": "PASS",
+    "error": null,
+    "exceptions": [
+      {
+        "timestamp": 1793197155795.901,
+        "exceptionDetails": {
+          "exceptionId": 1,
+          "text": "Uncaught",
+          "lineNumber": 0,
+          "columnNumber": 1055197,
+          "scriptId": "143",
+          "url": "app://obsidian.md/app.js",
+          "stackTrace": {
+            "callFrames": [
+              {
+                "functionName": "Xg",
+                "scriptId": "143",
+                "url": "app://obsidian.md/app.js",
+                "lineNumber": 0,
+                "columnNumber": 1055197
+              },
+              {
+                "functionName": "",
+                "scriptId": "143",
+                "url": "app://obsidian.md/app.js",
+                "lineNumber": 0,
+                "columnNumber": 1055176
+              }
+            ]
+          },
+          "exception": {
+            "type": "object",
+            "subtype": "error",
+            "className": "TypeError",
+            "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+            "objectId": "6252502712825101574.1.1",
+            "preview": {
+              "type": "object",
+              "subtype": "error",
+              "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+              "overflow": false,
+              "properties": [
+                {
+                  "name": "stack",
+                  "type": "string",
+                  "value": "TypeError: e.isShown is not a function\n    at Xg (…055198)\n    at app://obsidian.md/app.js:1:1055177"
+                },
+                {
+                  "name": "message",
+                  "type": "string",
+                  "value": "e.isShown is not a function"
+                }
+              ]
+            }
+          },
+          "executionContextId": 1
+        }
+      }
+    ],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "final5",
+    "outcome": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: No renderer exceptions\n\n1 !== 0\n\n    at file:///tmp/veynrel-studio-ux-reset/scripts/studio-theme-native.mjs:160:27",
+    "exceptions": [
+      {
+        "timestamp": 1793197454154.077,
+        "exceptionDetails": {
+          "exceptionId": 1,
+          "text": "Uncaught",
+          "lineNumber": 0,
+          "columnNumber": 1055197,
+          "scriptId": "143",
+          "url": "app://obsidian.md/app.js",
+          "stackTrace": {
+            "callFrames": [
+              {
+                "functionName": "Xg",
+                "scriptId": "143",
+                "url": "app://obsidian.md/app.js",
+                "lineNumber": 0,
+                "columnNumber": 1055197
+              },
+              {
+                "functionName": "",
+                "scriptId": "143",
+                "url": "app://obsidian.md/app.js",
+                "lineNumber": 0,
+                "columnNumber": 1055176
+              }
+            ]
+          },
+          "exception": {
+            "type": "object",
+            "subtype": "error",
+            "className": "TypeError",
+            "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+            "objectId": "3230056343358956299.1.1",
+            "preview": {
+              "type": "object",
+              "subtype": "error",
+              "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+              "overflow": false,
+              "properties": [
+                {
+                  "name": "stack",
+                  "type": "string",
+                  "value": "TypeError: e.isShown is not a function\n    at Xg (…055198)\n    at app://obsidian.md/app.js:1:1055177"
+                },
+                {
+                  "name": "message",
+                  "type": "string",
+                  "value": "e.isShown is not a function"
+                }
+              ]
+            }
+          },
+          "executionContextId": 1
+        }
+      }
+    ],
+    "limitation": "Intermediate harness; matrix2 setTheme did not switch mode. final4 recorded PASS despite exception; final6 adds zero-exception assertion."
+  },
+  {
+    "attempt": "additional baseline 1/2",
+    "outcome": "BLOCKED_RENDERER_DISPOSED",
+    "action": "Stopped only own isolated processes. Third attempt without Debugger.enable captured seven frames; cause not proven."
+  },
+  {
+    "attempt": "first full unit run",
+    "outcome": "FAIL",
+    "cause": "Two old theme assertions required exactly two #000 mix literals. Replaced with strict no-literal-color and direct host aliases assertions."
+  },
+  {
+    "attempt": "first Community invocation",
+    "outcome": "FAIL_BEFORE_LAUNCH",
+    "cause": "Required local catalog CLI argument omitted; corrected in final run."
+  }
+]

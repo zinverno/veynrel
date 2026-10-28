@@ -1,0 +1,79 @@
+{
+  "checks": [],
+  "screenshots": [
+    "diagram-1024.png",
+    "library-1024.png",
+    "history-1024.png",
+    "diagram-390.png",
+    "library-390.png",
+    "history-390.png",
+    "pair-real-split.png"
+  ],
+  "exceptions": [],
+  "network": [
+    {
+      "url": "app://obsidian.md/public/fonts/01dcbad1bac635f9c9cd.woff2",
+      "type": "Font"
+    },
+    {
+      "url": "app://obsidian.md/public/fonts/c504db5c06caaf7cdfba.woff2",
+      "type": "Font"
+    },
+    {
+      "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=",
+      "type": "Image"
+    },
+    {
+      "url": "app://obsidian.md/worker.js",
+      "type": "Script"
+    },
+    {
+      "url": "blob:app://obsidian.md/d5af78cc-f6cb-4543-a83f-c9a2f3bf0895",
+      "type": "Script"
+    },
+    {
+      "url": "blob:app://obsidian.md/e2aa644e-f8dd-4fb8-ac57-6a959bb256cf",
+      "type": "Script"
+    },
+    {
+      "url": "blob:app://obsidian.md/16b3fb7d-edfc-42dc-96dc-ba90c0c3723a",
+      "type": "Script"
+    },
+    {
+      "url": "data:image/svg+xml,%3Csvg%20aria-hidden%3D%22true%22%20focusable%3D%22false%22%20data-prefix%3D%22fas%22%20data-icon%3D%22image%22%20class%3D%22svg-inline--fa%20fa-image%20fa-w-16%22%20role%3D%22img%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Cpath%20fill%3D%22%23888%22%20d%3D%22M464%20448H48c-26.51%200-48-21.49-48-48V112c0-26.51%2021.49-48%2048-48h416c26.51%200%2048%2021.49%2048%2048v288c0%2026.51-21.49%2048-48%2048zM112%20120c-30.928%200-56%2025.072-56%2056s25.072%2056%2056%2056%2056-25.072%2056-56-25.072-56-56-56zM64%20384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971%200L208%20320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971%200L64%20336v48z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E",
+      "type": "Image"
+    },
+    {
+      "url": "data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20668%20668%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xml%3Aspace%3D%22preserve%22%20style%3D%22fill-rule%3Aevenodd%3Bclip-rule%3Aevenodd%3Bstroke-linejoin%3Around%3Bstroke-miterlimit%3A2%22%3E%3Cpath%20d%3D%22M464%20448H48c-26.51%200-48-21.49-48-48V112c0-26.51%2021.49-48%2048-48h416c26.51%200%2048%2021.49%2048%2048v288c0%2026.51-21.49%2048-48%2048ZM112%20120c-30.928%200-56%2025.072-56%2056s25.072%2056%2056%2056%2056-25.072%2056-56-25.072-56-56-56ZM64%20384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971%200L208%20320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971%200L64%20336v48Z%22%20style%3D%22fill%3A%23888%3Bfill-rule%3Anonzero%22%20transform%3D%22matrix(.81709%200%200%20.81709%20124.825%20145.825)%22%2F%3E%3Cpath%20d%3D%22M256%208C119.034%208%208%20119.033%208%20256c0%20136.967%20111.034%20248%20248%20248s248-111.034%20248-248S392.967%208%20256%208Zm130.108%20117.892c65.448%2065.448%2070%20165.481%2020.677%20235.637L150.47%20105.216c70.204-49.356%20170.226-44.735%20235.638%2020.676ZM125.892%20386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53%20406.784c-70.203%2049.356-170.226%2044.736-235.638-20.676Z%22%20style%3D%22fill%3A%23888%3Bfill-rule%3Anonzero%22%20transform%3D%22matrix(.30366%200%200%20.30366%20506.822%2060.065)%22%2F%3E%3C%2Fsvg%3E",
+      "type": "Image"
+    },
+    {
+      "url": "data:image/svg+xml, %3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%231971c2%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22feather%20feather-external-link%22%3E%3Cpath%20d%3D%22M18%2013v6a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2V8a2%202%200%200%201%202-2h6%22%3E%3C%2Fpath%3E%3Cpolyline%20points%3D%2215%203%2021%203%2021%209%22%3E%3C%2Fpolyline%3E%3Cline%20x1%3D%2210%22%20y1%3D%2214%22%20x2%3D%2221%22%20y2%3D%223%22%3E%3C%2Fline%3E%3C%2Fsvg%3E",
+      "type": "Image"
+    },
+    {
+      "url": "data:image/svg+xml, %3Csvg%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%20width%3D%2216%22%20%20height%3D%2216%22%20%20viewBox%3D%220%200%2024%2024%22%20%20fill%3D%22none%22%20%20stroke%3D%22%231971c2%22%20%20stroke-width%3D%222%22%20%20stroke-linecap%3D%22round%22%20%20stroke-linejoin%3D%22round%22%20%20class%3D%22icon%20icon-tabler%20icons-tabler-outline%20icon-tabler-arrow-big-right-line%22%3E%3Cpath%20stroke%3D%22none%22%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M12%209v-3.586a1%201%200%200%201%201.707%20-.707l6.586%206.586a1%201%200%200%201%200%201.414l-6.586%206.586a1%201%200%200%201%20-1.707%20-.707v-3.586h-6v-6h6z%22%20%2F%3E%3Cpath%20d%3D%22M3%209v6%22%20%2F%3E%3C%2Fsvg%3E",
+      "type": "Image"
+    },
+    {
+      "url": "data:image/svg+xml; utf8, <svg width=\"12px\" height=\"10px\" viewBox=\"0 0 12 8\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\"><g transform=\"translate%28-4.000000, -6.000000%29\" fill=\"%23000000\"><path d=\"M8.1043257,14.0367999 L4.52468714,10.5420499 C4.32525014,10.3497722 4.32525014,10.0368095 4.52468714,9.8424863 L5.24777413,9.1439454 C5.44721114,8.95166768 5.77142411,8.95166768 5.97086112,9.1439454 L8.46638057,11.5903727 L14.0291389,6.1442083 C14.2285759,5.95193057 14.5527889,5.95193057 14.7522259,6.1442083 L15.4753129,6.84377194 C15.6747499,7.03604967 15.6747499,7.35003511 15.4753129,7.54129009 L8.82741268,14.0367999 C8.62797568,14.2290777 8.3037627,14.2290777 8.1043257,14.0367999\"></path></g></g></svg>",
+      "type": "Image"
+    },
+    {
+      "url": "app://obsidian.md/app.css",
+      "type": "Stylesheet"
+    }
+  ],
+  "artifacts": {
+    "ai-knowledge-hub/main.js": "01efa94c128fa1b2f200d930f90ef1f8df0e3201a55552d1c5bea896cf2e6ab6",
+    "ai-knowledge-hub/styles.css": "8f0c34205f2f7c15afa2340b2948d96a57c8adb56bc28ffe273de12cea9b2262",
+    "ai-knowledge-hub/manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b",
+    "obsidian-excalidraw-plugin/main.js": "4da2084a4eafe7d328484fa5742004b9fb990346c4c84fde924b885a5ecc1c17",
+    "obsidian-excalidraw-plugin/styles.css": "173e9c161a01c53b3c173344e023de4d327fd0658e476961b46b0e6a93117ded",
+    "obsidian-excalidraw-plugin/manifest.json": "4880b885c50643ef848d31cea829776ca2e96747353aee334d71e875f79d31c0"
+  },
+  "versions": {},
+  "requests": [],
+  "limits": "Synthetic model via real callOpenRouter/requestUrl HTTP path. No paid API or real-model quality claim. Linux desktop only; no physical mobile or screen-reader claim.",
+  "outcome": "BASELINE_CAPTURED"
+}

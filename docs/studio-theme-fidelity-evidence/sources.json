@@ -1,0 +1,32 @@
+{
+  "userFeedback": {
+    "01_create_diagram.png": "64481609a5cacebf7d00113fa74fef4b3426c0cfe2465c948017afd942c3f2db",
+    "02_library.png": "7b7cc39bf7d93f757ab9853618b17750978450596d0def7279677ca6ef0ac856",
+    "03_history_empty.png": "795f223531159b3b2ebc93ecdb29d0cd1cf76551d6f2e91afc2adf9c43333eda",
+    "04_health_home.png": "7372aa442a123fe6b46a880cac9e12f13518bbf09ba32fc3bb05552834f02c1b"
+  },
+  "themes": {
+    "Red Graphite": {
+      "manifest": {
+        "name": "Red Graphite",
+        "version": "1.0.5",
+        "minAppVersion": "1.0.0",
+        "author": "Sean Williams",
+        "authorUrl": "https://github.com/seanwcom/Red-Graphite-for-Obsidian"
+      },
+      "cssSHA256": "d92311c2948d7c9c014b01b5ffb5b9dab40f492702e0409089ca36bd94a32151"
+    },
+    "Minimal": {
+      "manifest": {
+        "name": "Minimal",
+        "version": "8.2.2",
+        "minAppVersion": "1.9.0",
+        "author": "@kepano",
+        "authorUrl": "https://twitter.com/kepano",
+        "fundingUrl": "https://www.buymeacoffee.com/kepano"
+      },
+      "cssSHA256": "83e4a5ab9d2fce41029e694f5c53c0f499cc418fd5dc4889f89c11d22be848b1"
+    }
+  },
+  "localSnippetCount": 10
+}
