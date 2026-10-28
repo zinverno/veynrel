@@ -22,4 +22,3 @@
   13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
 
 ✖ 2 problems (0 errors, 2 warnings)
-

@@ -1,4 +1,3 @@
 
 > obsidian-ai-hub@2.2.1 typecheck
 > tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
-
