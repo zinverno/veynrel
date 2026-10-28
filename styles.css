@@ -3219,3 +3219,18 @@
 .veynrel-community-row button, .veynrel-community-row select { margin: 6px; }
 .veynrel-community { overflow-wrap: anywhere; min-width: 0; }
 .veynrel-community > button { margin: 8px 8px 8px 0; white-space: normal; height: auto; min-height: 32px; }
+
+/* Studio's inert SVG preview shares the native scene's fixed geometry. */
+.veynrel-diagram-preview {
+  width: 100%;
+  height: 420px;
+  max-height: 60vh;
+  min-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-secondary);
+}
+.veynrel-diagram-preview svg { display: block; max-width: none; }
+.veynrel-diagram-preview:focus-visible { outline: 2px solid var(--interactive-accent); }
+.veynrel-studio details ul { overflow-wrap: anywhere; }

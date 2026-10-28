@@ -1,0 +1,22 @@
+{
+  "studio/apply.ts": "34cc17f6b7e0b2a22bc3076c2010464f0d58af13b08ac65d4b22f5bb63b05dbb",
+  "studio/ports.ts": "c248de3f64bef77b52d9d7ae43b1223c91e558413e6d6252c360fd182207ee34",
+  "studio/registerStudio.ts": "a9b6f0992a1ec221258bdb11f48829b54a361a6366e50ded77f4adc1d842252b",
+  "studio/runner.ts": "ac320c8e13d2b979b87228697fb3e2211b5077f7db09bde79a68cddcf65c0e2c",
+  "studio/storage.ts": "6f2eec37d522b865fb2b1d4c37726f1bb93208b2419c138229b3cf7eda89e16b",
+  "studio/view.ts": "ab602a1bb4f3450d6b19efb3e4fbb99f369c08685d469aa54c9708cfdee77e56",
+  "studio/operations.ts": "a0df4e4edcb750c7958a19261c9a16f5ef58658ffd9dfbecd2b7fe148fe00f80",
+  "studio/ui.ts": "bf9144f67cda59cff5b928551f77d6f0a4243b93daa786b339e9b2f72aa72ce3",
+  "styles.css": "0a8f5be6093db2fc6620065cd6b76bbb7e17dbb2a72462e610a5e35c44198ffe",
+  "scripts/studio-excalidraw-native.mjs": "5b6a5549b0308ab770eb6954eff966ae7d77656fcb46dbb813f9b975552a129c",
+  "studio/diagram/adapter.ts": "0f9f08d8634860bd30032eaa5120dd45ff6c0c5249ca455593d3a6524456e858",
+  "studio/diagram/journal.ts": "465dd71182ca091b7849bcae2ed9d9aa97dc13557c6e6b7e4f371515cea7eba5",
+  "studio/diagram/layout.ts": "fccd6a7319a1dca8ec60a852e85ba985063a9c97d3a2d65eac2905c018f08e9b",
+  "studio/diagram/messages.ts": "d41a8e1976f0a807e271b1287e1b832208b78112a5e1a2803267452962f8594c",
+  "studio/diagram/preview.ts": "ad97e97d67922c5451eea904294d9e6b0744e97d9fb2b5e0a0a97f104d05d2d2",
+  "studio/diagram/spec.test.ts": "b9e04ab01c8d3e8a6ff43fcf5d93b7e27df4698aca3d41d47a377d42ae8c028a",
+  "studio/diagram/spec.ts": "ed038baafcb1a4de766913fab4651f50ca88fe0f64c4790cacc7a5bd57721ba6",
+  "studio/diagram/view.ts": "683d248a5c648b3d2c4f9d8232a546d5dabb437de3da9343aca8b57919bece8e",
+  "studio/diagram/workflow.test.ts": "4e44f82c157d5fcb0bebf18a78d43ed3359201a9daece31a6efe115c7e37254d",
+  "studio/diagram/workflow.ts": "1299f24049ea35b77058a18ac461cfcd5d73bb4d8b0b3b673fdbdc9deed6d14c"
+}

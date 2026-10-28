@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-studio-excalidraw
+
+
+ Test Files  185 passed (185)
+      Tests  5030 passed (5030)
+   Start at  17:26:00
+   Duration  57.98s (transform 21.71s, setup 0ms, import 48.27s, tests 134.02s, environment 34ms)

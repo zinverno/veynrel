@@ -13,15 +13,21 @@ import { l } from "./messages";
 import { CommunityCatalog } from "./community/catalog";
 import { CommunityInstaller } from "./community/install";
 import { communityTransport } from "./community/transport";
+import { StudioOperations } from "./operations";
+import { ExcalidrawAdapter } from "./diagram/adapter";
+import { DiagramJournal } from "./diagram/journal";
+import { DiagramWorkflow } from "./diagram/workflow";
 
-export interface StudioWorkspace { registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[] }
+export interface StudioWorkspace { registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; diagrams: DiagramWorkflow; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[] }
 const studioTitle = "Veynrel Studio";
 export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPort): StudioWorkspace {
   const storage = new StudioStorage(plugin.app.vault.adapter, plugin.app.vault.configDir, plugin.manifest.id);
-  const notes = studioNotePort(plugin.app), writer = new StudioApply(new StudioJournal(storage), notes);
+  const operations = new StudioOperations(), notes = studioNotePort(plugin.app), writer = new StudioApply(new StudioJournal(storage), notes, operations);
+  const port = { notes, inventory: () => studioInventory(plugin.app), settings, complete: callOpenRouter };
   const registry = new RecipeRegistry(storage);
-  const owner: StudioWorkspace = { registry, writer, community: new CommunityCatalog(storage, communityTransport), installer: new CommunityInstaller(storage, registry), inventory: () => studioInventory(plugin.app),
-    runner: new RecipeRunner({ notes, inventory: () => studioInventory(plugin.app), settings, complete: callOpenRouter }, writer) };
+  const owner: StudioWorkspace = { registry, writer, operations, diagrams: new DiagramWorkflow(port, new ExcalidrawAdapter(plugin.app), new DiagramJournal(storage), operations),
+    community: new CommunityCatalog(storage, communityTransport), installer: new CommunityInstaller(storage, registry), inventory: port.inventory,
+    runner: new RecipeRunner(port, writer) };
   plugin.registerView(STUDIO_VIEW_TYPE, leaf => new VeynrelStudioView(leaf, owner));
   let opening: Promise<void> | undefined;
   const open = () => opening ??= (async () => {
@@ -30,6 +36,6 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
   })().catch(() => { new Notice(l("Could not open Veynrel Studio", "Не удалось открыть Veynrel Studio")); }).finally(() => { opening = undefined; });
   plugin.addCommand({ id: "veynrel-open-studio", name: l("Open Veynrel Studio", "Открыть Veynrel Studio"), callback: open });
   plugin.addRibbonIcon("wand-sparkles", studioTitle, open);
-  plugin.register(() => { owner.runner.dispose(); for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach(); });
+  plugin.register(() => { owner.diagrams.dispose(); owner.runner.dispose(); operations.dispose(); for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach(); });
   return owner;
 }

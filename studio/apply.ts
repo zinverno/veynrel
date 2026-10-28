@@ -4,6 +4,7 @@ import { ensure, freeze, StudioError } from "./recipe";
 import { StudioJournal } from "./journal";
 import type { JournalEntry, MarkKind, StudioChange, StudioMark, StudioRecord } from "./journal";
 import type { ApplyResult, ReviewSession, StudioNotePort, StudioSource } from "./ports";
+import { StudioOperations } from "./operations";
 
 export interface StudioHistoryRow {
   entry: JournalEntry; index: number; path: string;
@@ -21,12 +22,12 @@ export class StudioApply {
   private busy = false;
   private closed = false;
   private tickets = new Map<UndoReview, UndoTicket>();
-  constructor(readonly journal: StudioJournal, private readonly port: StudioNotePort) {}
+  constructor(readonly journal: StudioJournal, private readonly port: StudioNotePort, readonly operations = new StudioOperations()) {}
   dispose(): void { this.closed = true; this.tickets.clear(); }
   discard(review: UndoReview): void { this.tickets.delete(review); }
-  private async exclusive<T>(work: () => Promise<T>): Promise<T> {
+  private async exclusive<T>(work: () => Promise<T>, owner: object = this): Promise<T> {
     ensure(!this.closed, "cancelled"); ensure(!this.busy, "busy"); this.busy = true;
-    try { return await work(); } finally { this.busy = false; }
+    try { return await this.operations.run(owner, work); } finally { this.busy = false; }
   }
   private async blockers(paths: readonly string[], own?: string): Promise<void> {
     const entries = await this.journal.entries();
@@ -41,7 +42,7 @@ export class StudioApply {
     const note = await this.port.read(expected.path);
     ensure(note && sameSavedNote(note, expected) && note.created === expected.created, "conflict"); this.port.writeGuard(note); return note;
   }
-  apply(review: ReviewSession, sources: readonly StudioSource[], selected: readonly string[], active: () => boolean): Promise<readonly ApplyResult[]> {
+  apply(review: ReviewSession, sources: readonly StudioSource[], selected: readonly string[], active: () => boolean, owner: object = this): Promise<readonly ApplyResult[]> {
     return this.exclusive(async () => {
       ensure(new Set(selected).size === selected.length && selected.length > 0 && selected.every(path => review.rows.some(r => r.path === path && r.status === "generated" && r.after !== null)), "scope");
       const results: ApplyResult[] = review.rows.map(r => ({ path: r.path, outcome: "skipped" }));
@@ -87,7 +88,7 @@ export class StudioApply {
         }
       }
       return freeze(results);
-    });
+    }, owner);
   }
   private async inspect(entry: JournalEntry, index: number): Promise<StudioHistoryRow> {
     const c = entry.record!.changes[index], row: StudioHistoryRow = { entry, index, path: c.path, state: "conflict", canUndo: false };

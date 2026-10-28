@@ -3,7 +3,7 @@ import type { App, WorkspaceLeaf } from "obsidian";
 import { currentLanguage } from "../i18n";
 import { renderPlanDiff } from "../consolidation/planDiffView";
 import { BUILTIN_RECIPES } from "./builtins";
-import { ensure, parseRecipe, StudioError, validateRecipe } from "./recipe";
+import { ensure, parseRecipe, validateRecipe } from "./recipe";
 import type { Recipe } from "./recipe";
 import type { StudioWorkspace } from "./registerStudio";
 import type { StudioHistoryRow, UndoReview } from "./apply";
@@ -15,22 +15,10 @@ import { publicationPackage } from "./community/publication";
 
 export const STUDIO_VIEW_TYPE = "veynrel-studio";
 const title = "Veynrel Studio";
-function button(root: HTMLElement, name: string, action: string, click: () => void): HTMLButtonElement {
-  const b = root.createEl("button", { text: name, attr: { type: "button", "data-studio-action": action } }); b.addEventListener("click", click); return b;
-}
-function literal(root: HTMLElement, name: string, value: string): void {
-  const d = root.createEl("details"); d.createEl("summary", { text: name });
-  d.createEl("pre", { text: value, cls: "veynrel-studio-literal", attr: { tabindex: "0", "aria-label": name } });
-}
-function field(root: HTMLElement, name: string, value: string, multi = false): HTMLInputElement | HTMLTextAreaElement {
-  const label = root.createEl("label", { cls: "veynrel-studio-field" }); label.createSpan({ text: name });
-  const input = multi ? label.createEl("textarea") : label.createEl("input", { type: "text" }); input.value = value; return input;
-}
-function select(root: HTMLElement, name: string, options: readonly [string, string][], value: string): HTMLSelectElement {
-  const label = root.createEl("label", { cls: "veynrel-studio-field" }); label.createSpan({ text: name }); const input = label.createEl("select");
-  for (const [v, text] of options) input.createEl("option", { value: v, text }); input.value = value; return input;
-}
-function message(e: unknown): string { return errorMessage(e instanceof StudioError ? e.code : "storage"); }
+import { button, literal, field, select } from "./ui";
+import { DiagramPanel } from "./diagram/view";
+import { diagramMessage } from "./diagram/messages";
+function message(e: unknown): string { return diagramMessage(e); }
 
 class StudioDialog extends Modal {
   active = false;
@@ -47,8 +35,9 @@ class StudioDialog extends Modal {
 }
 
 export class VeynrelStudioView extends ItemView {
-  private route: "library" | "community" | "details" | "setup" | "workflow" | "history" = "library";
+  private route: "library" | "community" | "details" | "setup" | "workflow" | "history" | "diagram" = "library";
   private community?: CommunityPanel;
+  private diagram?: DiagramPanel;
   private selected?: Recipe;
   private search = "";
   private category = "all";
@@ -70,11 +59,18 @@ export class VeynrelStudioView extends ItemView {
     const header = this.contentEl.createEl("header"); header.createEl("h1", { text: title });
     header.createEl("p", { text: l("Local recipes. Deliberate changes.", "Локальные сценарии. Осознанные изменения.") });
     const nav = this.contentEl.createEl("nav", { cls: "veynrel-studio-actions", attr: { "aria-label": title } });
-    for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", "Community"], ["workflow", l("Run & review", "Запуск и проверка")], ["history", l("History", "История")]] as const) {
+    for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", "Community"], ["diagram", l("Create diagram", "Создать схему")], ["workflow", l("Run & review", "Запуск и проверка")], ["history", l("History", "История")]] as const) {
       button(nav, name, route, () => { this.route = route; this.render(); });
     }
     this.stateEl = this.contentEl.createDiv({ cls: "veynrel-studio-status", attr: { role: "status", "aria-live": "polite" } });
     this.errorEl = this.contentEl.createDiv({ attr: { role: "alert" } }); this.body = this.contentEl.createDiv({ cls: "veynrel-studio-body" });
+    this.diagram = new DiagramPanel(this.owner, () => { if (this.alive && this.route === "diagram") this.render(); }, work => this.run(work),
+      (title, description, action, work, closed) => this.dialog((d, root) => {
+        root.createEl("h2", { text: title }); root.createEl("p", { text: description });
+        button(root, l("Confirm", "Подтвердить"), action, () => d.run(work));
+      }, closed));
+    this.stop.push(this.owner.diagrams.subscribe(() => { this.updateStatus(); if (this.route === "diagram") this.render(); }));
+    this.stop.push(this.owner.operations.subscribe(() => this.updateStatus()));
     this.stop.push(this.owner.runner.subscribe(() => { this.updateStatus(); if (this.route === "workflow") this.render(); }));
     this.stop.push(this.owner.registry.subscribe(() => { if (this.route === "library" || this.route === "details") this.render(); }));
     this.community = new CommunityPanel(this.owner.community, this.owner.installer, () => { if (this.alive && this.route === "community") this.render(); }, r => {
@@ -86,9 +82,9 @@ export class VeynrelStudioView extends ItemView {
   }
   async onClose(): Promise<void> {
     this.alive = false; this.historyEpoch++; this.stop.splice(0).forEach(f => f());
-    for (const dialog of this.dialogs) dialog.close(); this.dialogs.clear(); this.contentEl.empty();
+    for (const dialog of this.dialogs) dialog.close(); this.dialogs.clear(); this.diagram?.dispose(); this.contentEl.empty();
   }
-  private updateStatus(): void { this.stateEl.setText(status(this.owner.runner.state)); this.body.setAttribute("aria-busy", String(this.owner.runner.running)); }
+  private updateStatus(): void { this.stateEl.setText(status(this.owner.diagrams.running || this.route === "diagram" ? this.owner.diagrams.state : this.owner.runner.state)); this.body.setAttribute("aria-busy", String(this.owner.operations.busy)); }
   private run(work: () => Promise<unknown>): void {
     this.errorEl.empty(); void work().catch(e => { if (this.alive) this.errorEl.setText(message(e)); });
   }
@@ -103,6 +99,7 @@ export class VeynrelStudioView extends ItemView {
     if (this.route === "setup") this.setup();
     if (this.route === "workflow") this.workflow();
     if (this.route === "history") this.history();
+    if (this.route === "diagram") this.diagram?.render(this.body);
   }
   private library(): void {
     const registry = this.owner.registry;
@@ -324,6 +321,7 @@ export class VeynrelStudioView extends ItemView {
         literal(card, l("Operation details", "Подробности операции"), JSON.stringify(run, null, 2));
       }
       for (const row of rows) this.historyRow(list, row);
+      await this.diagram?.history(list, () => this.alive && epoch === this.historyEpoch);
     });
   }
   private historyRow(root: HTMLElement, row: StudioHistoryRow): void {

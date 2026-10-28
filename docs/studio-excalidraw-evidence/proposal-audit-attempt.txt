@@ -1,0 +1,23 @@
+
+> obsidian-ai-hub@2.2.1 audit:proposals
+> node scripts/proposal-mutation-audit.mjs
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /[1-9][0-9]* passed/. Input:
+
+''
+
+    at passes (file:///tmp/veynrel-studio-excalidraw/scripts/proposal-mutation-audit.mjs:35:97)
+    at file:///tmp/veynrel-studio-excalidraw/scripts/proposal-mutation-audit.mjs:44:5 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '',
+  expected: /[1-9][0-9]* passed/,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.14.1
