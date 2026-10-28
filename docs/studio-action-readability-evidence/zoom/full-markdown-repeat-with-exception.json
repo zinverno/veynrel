@@ -1,0 +1,471 @@
+{
+  "checks": [
+    "Separate native Studio opens passively with three built-ins",
+    "User recipe survives a real process restart",
+    "Exact consent lists the saved note and configured loopback endpoint",
+    "smart-format: real shared HTTP transport produces review before writes",
+    "Untrusted Markdown, HTML and embeds remain literal",
+    "smart-format: native Apply / history / Undo restores exact bytes",
+    "training-journal: real shared HTTP transport produces review before writes",
+    "training-journal: native Apply / history / Undo restores exact bytes",
+    "nutrition-journal: real shared HTTP transport produces review before writes",
+    "nutrition-journal: native Apply / history / Undo restores exact bytes",
+    "Manual multi-select keeps homonyms distinct and applies only checked file",
+    "Explicit folder selection includes both nested canonical paths",
+    "Changed source refuses Apply and preserves user text",
+    "Incomplete provider completion refuses an applicable result",
+    "Cancel before generation sends zero requests",
+    "Closing and reopening during generation retains one shared runner",
+    "Cancellation does not start the next provider request",
+    "A separate saved Markdown editor is open alongside Studio",
+    "Read guard permits the actual attached saved editor before generation",
+    "No Markdown changed during open-editor preparation or generation",
+    "Apply refuses the open editor and preserves an actionable immutable Review",
+    "Closing the editor enables Apply of the same Review without another request",
+    "Restarted Undo refuses an open restored editor and performs no automatic write",
+    "Undo after actual restart restores the open-note workflow without provider calls",
+    "Actual unsaved Markdown buffer refuses preparation with a save message",
+    "Real popout and main editor belong to different windows",
+    "Two saved native editors including popout permit generation",
+    "A remaining real popout still blocks Apply",
+    "Closing the popout permits the same reviewed Apply and protected Undo",
+    "Native mass Apply cancellation confirms first write and skips second",
+    "SIGKILL after physical Apply is unconfirmed with zero automatic writes",
+    "Manual recovery acknowledges current result without changing the note",
+    "SIGKILL after physical Undo is verified manually without a second write",
+    "en/theme-dark/1200: library has no horizontal overflow",
+    "en/theme-dark/390: library has no horizontal overflow",
+    "en/theme-light/1200: library has no horizontal overflow",
+    "en/theme-light/390: library has no horizontal overflow",
+    "en/theme-dark/1200/consent: no horizontal overflow",
+    "en/theme-dark/390/consent: no horizontal overflow",
+    "en/theme-light/1200/consent: no horizontal overflow",
+    "en/theme-light/390/consent: no horizontal overflow",
+    "en/theme-dark/1200/review: no horizontal overflow",
+    "en/theme-dark/390/review: no horizontal overflow",
+    "en/theme-light/1200/review: no horizontal overflow",
+    "en/theme-light/390/review: no horizontal overflow",
+    "en/theme-dark/1200/history: no horizontal overflow",
+    "en/theme-dark/390/history: no horizontal overflow",
+    "en/theme-light/1200/history: no horizontal overflow",
+    "en/theme-light/390/history: no horizontal overflow",
+    "ru/theme-dark/1200: library has no horizontal overflow",
+    "ru/theme-dark/390: library has no horizontal overflow",
+    "ru/theme-light/1200: library has no horizontal overflow",
+    "ru/theme-light/390: library has no horizontal overflow",
+    "ru/theme-dark/1200/consent: no horizontal overflow",
+    "ru/theme-dark/390/consent: no horizontal overflow",
+    "ru/theme-light/1200/consent: no horizontal overflow",
+    "ru/theme-light/390/consent: no horizontal overflow",
+    "ru/theme-dark/1200/review: no horizontal overflow",
+    "ru/theme-dark/390/review: no horizontal overflow",
+    "ru/theme-light/1200/review: no horizontal overflow",
+    "ru/theme-light/390/review: no horizontal overflow",
+    "ru/theme-dark/1200/history: no horizontal overflow",
+    "ru/theme-dark/390/history: no horizontal overflow",
+    "ru/theme-light/1200/history: no horizontal overflow",
+    "ru/theme-light/390/history: no horizontal overflow",
+    "Native keyboard Enter opens recipe details",
+    "Two native tabs share one runner",
+    "All six original Markdown hashes restored; unrelated note unchanged",
+    "Studio never read the unrelated note",
+    "Returning to preparation retains query, selected full path and instructions",
+    "Shared status notification preserves field, focus and caret",
+    "Selected note can be removed explicitly",
+    "Draft navigation/search/removal/status causes no note reads or provider requests",
+    "Closing a changed draft offers inline confirmation and keeps input",
+    "100 synthetic recipe rows render with bounded DOM",
+    "Empty task search has a readable state",
+    "20 real loopback results show one diff and no automatic selection",
+    "UX 1440: native container fits",
+    "UX 1024: native container fits",
+    "UX 390: native container fits",
+    "Actual native split measures near 720px",
+    "Native 200 percent zoom keeps controls within leaf",
+    "Primary action text meets 4.5:1 in both native themes (computed colors)"
+  ],
+  "artifacts": {
+    "main.js": "282faeaf80bf75cd960b1164d27edd9cb1df9ceacf6a8cfe22b9959482731831",
+    "styles.css": "b4cd9df3dd34c06a2310975b1e8ef2079a2091bff58b30d74b6b232a08d507d1",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "screenshots": [
+    "consent-en-dark.png",
+    "review-en-dark.png",
+    "open-saved-consent.png",
+    "open-saved-review.png",
+    "open-saved-apply-refused.png",
+    "unsaved-editor-refused.png",
+    "interrupted-apply.png",
+    "library-en-theme-dark-1200.png",
+    "library-en-theme-dark-390.png",
+    "library-en-theme-light-1200.png",
+    "library-en-theme-light-390.png",
+    "consent-en-theme-dark-1200.png",
+    "consent-en-theme-dark-390.png",
+    "consent-en-theme-light-1200.png",
+    "consent-en-theme-light-390.png",
+    "review-en-theme-dark-1200.png",
+    "review-en-theme-dark-390.png",
+    "review-en-theme-light-1200.png",
+    "review-en-theme-light-390.png",
+    "history-en-theme-dark-1200.png",
+    "history-en-theme-dark-390.png",
+    "history-en-theme-light-1200.png",
+    "history-en-theme-light-390.png",
+    "library-ru-theme-dark-1200.png",
+    "library-ru-theme-dark-390.png",
+    "library-ru-theme-light-1200.png",
+    "library-ru-theme-light-390.png",
+    "consent-ru-theme-dark-1200.png",
+    "consent-ru-theme-dark-390.png",
+    "consent-ru-theme-light-1200.png",
+    "consent-ru-theme-light-390.png",
+    "review-ru-theme-dark-1200.png",
+    "review-ru-theme-dark-390.png",
+    "review-ru-theme-light-1200.png",
+    "review-ru-theme-light-390.png",
+    "history-ru-theme-dark-1200.png",
+    "history-ru-theme-dark-390.png",
+    "history-ru-theme-light-1200.png",
+    "history-ru-theme-light-390.png",
+    "ux-100-recipes.png",
+    "ux-empty-search.png",
+    "ux-20-results.png",
+    "ux-library-1440.png",
+    "ux-library-1024.png",
+    "ux-library-390.png",
+    "ux-library-real-split.png",
+    "ux-200-percent.png"
+  ],
+  "fixture": "Six synthetic Markdown files; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "beforeApply": [
+    {
+      "phase": "open saved note: prepare and generate",
+      "before": {
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "after": {
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "writesBefore": 12,
+      "writesAfter": 12
+    }
+  ],
+  "exceptions": [
+    {
+      "timestamp": 1793208111466.353,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "144",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "144",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "144",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "144",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "-6287530279846660482.2.1",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 2
+      }
+    }
+  ],
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "recipe-builtin.smart-format",
+    "point": {
+      "x": 176.84375,
+      "y": 539.546875
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"recipe-builtin.smart-format\">View recipe</button>"
+  },
+  "lastApplySelection": [
+    {
+      "route": "workflow",
+      "selected": [
+        "Training.md"
+      ],
+      "review": "43bdf628-6793-421d-81b9-7f477674df4c",
+      "dialogs": 0
+    }
+  ],
+  "openEditorDiagnostic": {
+    "type": "markdown",
+    "sameFile": true,
+    "viewData": "function",
+    "editor": "object",
+    "leaves": [
+      {
+        "type": "veynrel-studio",
+        "name": "VeynrelStudioView",
+        "sameFile": false,
+        "state": {
+          "type": "veynrel-studio",
+          "state": {},
+          "icon": "wand-sparkles",
+          "title": "Veynrel Studio"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "markdown",
+        "name": "t",
+        "file": "Training.md",
+        "sameFile": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Training.md",
+            "mode": "source",
+            "source": true
+          },
+          "icon": "lucide-file",
+          "title": "Training"
+        },
+        "viewData": "function"
+      },
+      {
+        "type": "file-explorer",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical",
+            "autoReveal": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "search",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          },
+          "icon": "lucide-search",
+          "title": "Search"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "bookmarks",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "bookmarks",
+          "state": {
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "backlink",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "backlink",
+          "state": {
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "outgoing-link",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "tag",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "all-properties",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "all-properties",
+          "state": {
+            "sortOrder": "frequency",
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-archive",
+          "title": "All properties"
+        },
+        "viewData": "undefined"
+      },
+      {
+        "type": "outline",
+        "name": "t",
+        "sameFile": false,
+        "state": {
+          "type": "outline",
+          "state": {
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
+        },
+        "viewData": "undefined"
+      }
+    ]
+  },
+  "sameReviewApply": {
+    "reviewBefore": "147602bf-0347-4aac-9d65-da823dec2ba4",
+    "reviewAfter": "147602bf-0347-4aac-9d65-da823dec2ba4",
+    "requestsBefore": 11,
+    "requestsAfter": 11
+  },
+  "uxPerformance": {
+    "recipes": 100,
+    "renderMs": 48,
+    "elements": 1429
+  },
+  "contrast": [
+    {
+      "theme": "theme-dark",
+      "foreground": "rgb(218, 218, 218)",
+      "background": "rgb(51, 51, 51)",
+      "ratio": 9.038012173372909
+    },
+    {
+      "theme": "theme-light",
+      "foreground": "rgb(34, 34, 34)",
+      "background": "rgb(255, 255, 255)",
+      "ratio": 15.909984431773273
+    }
+  ],
+  "nativePrimary": {
+    "foreground": "rgb(255, 255, 255)",
+    "background": "rgb(152, 115, 247)"
+  },
+  "version": {
+    "electron": "43.6.0",
+    "obsidian": "1.13.7"
+  },
+  "providerRequests": 37,
+  "before": {
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "after": {
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "status": "PASS"
+}
