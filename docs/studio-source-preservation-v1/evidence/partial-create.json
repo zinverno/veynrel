@@ -1,0 +1,12 @@
+[
+  {
+    "path": "Batch/a/same.md",
+    "outcome": "unconfirmed",
+    "target": "Batch/a/same — Studio.md",
+    "reason": "storage"
+  },
+  {
+    "path": "Batch/b/same.md",
+    "outcome": "skipped"
+  }
+]

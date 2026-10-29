@@ -1,0 +1,81 @@
+[
+  {
+    "attempt": "a",
+    "status": "FAIL",
+    "checks": 3,
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '---\\r\\n' +\n- '﻿---\\r\\n' +\n    '# source comment\\r\\n' +\n    'id: \"source-007\"\\r\\n' +\n    'aliases: [Stable]\\r\\n' +\n    '---\\r\\n' +\n    '# Facts\\r\\n' +\n\n    at file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:147:10",
+    "exceptions": 0,
+    "build": "d140a08ee46dd3ea68eb714fc3a063b80545fe7f0a7e64a17fc2c1ade0baa4e6"
+  },
+  {
+    "attempt": "b",
+    "status": "FAIL",
+    "checks": 9,
+    "error": "Error: Timeout: !!document.querySelector('.veynrel-studio [data-studio-action=new]'); vault\nBatch\nFormatting\nNutrition\nProperties\nSaved draft\nTraining\nUntouched\nVeynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes · create diagrams\n\nLibrary\nCommunity\nCreate diagram\nHistory\nStudio operation history\nRefresh history\nbuiltin.smart-format\n\nInterrupted; no automatic retry\n\n10/29/2026, 9:41:50 PM · Properties.md\n\nOperation details\nProperties.md → Saved draft.md\n\nSeparate Markdown note · Separate note created\n\nSource unchanged by this operation. No automatic Undo or deletion.\n\nCreation evidence\nOpen result in source mode\n\nRecovery requires separate confirmation; inspection never repeats a request or write.\n    at wait (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:57:127)\n    at async open (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:87:117)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:170:87",
+    "exceptions": 0,
+    "build": "7ebbdcaffac35c6828c3d014e9f9328d63533ea68d82356b4d20c5a3f7d2ef13"
+  },
+  {
+    "attempt": "c",
+    "status": "FAIL",
+    "checks": 11,
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '---\\n# source comment\\nid: \"source-007\"\\naliases: [Stable]\\n---\\n# Fact'\n- '﻿---\\r\\n# source comment\\r\\nid: \"source-007\"\\r\\naliases: [Stable]\\r\\n---\\r\\n'\n\n    at file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:177:98",
+    "exceptions": 0,
+    "build": "06d51da764d85ee96753ae22f49326a560b95d38bf00bb313ed0ff00485c1002"
+  },
+  {
+    "attempt": "d",
+    "status": "FAIL",
+    "checks": 17,
+    "error": "AssertionError [ERR_ASSERTION]: en/obsidian/390: Review fits without horizontal page overflow\n    at pass (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:58:38)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:199:7",
+    "exceptions": 0,
+    "build": "3073eb7358680a6d8b79b85674e6f273d12ac6a10592503437b7dc04e29606f8"
+  },
+  {
+    "attempt": "e",
+    "status": "FAIL",
+    "checks": 9,
+    "error": "Error: Timeout: !!document.querySelector('[data-studio-ack]'); vault\nBatch\nFormatting\nNutrition\nProperties\nSaved draft\nTraining\nUntouched\nVeynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes · create diagrams\n\nLibrary\nCommunity\nCreate diagram\nHistory\nRun & review\nReview proposals before writing\nReview changes\n\nMeaning is not automatically verified. Inspect the final literal Markdown and diff; select the files to write.\n\nSave result to\nSeparate note — source unchanged\nSource note — replace body / append section\n\nOriginal YAML is preserved exactly. The recipe replaces the body or appends a section; it cannot change properties.\n\n1 / 1 · source changes\nChange sources: 1\nProperties.md\nGenerated — human review required\nInclude in writing\nProperties.md\n\nReplace · Generated — human review required\n\nOriginal saved Markdown\nRaw model response\n\nProposed property changes are not applied.\n\nSource properties / excluded model properties\n\nProperties.md → Properties.md\n\nExact document to write\n﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n\nSource → final document diff\nLocal observations: 3 · limited patterns\n    at wait (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:57:127)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:172:31",
+    "exceptions": 0,
+    "build": "3073eb7358680a6d8b79b85674e6f273d12ac6a10592503437b7dc04e29606f8"
+  },
+  {
+    "attempt": "final",
+    "status": "FAIL",
+    "checks": 17,
+    "error": "AssertionError [ERR_ASSERTION]: en/obsidian/390: Review fits without horizontal page overflow\n    at pass (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:58:38)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:201:7",
+    "exceptions": 0,
+    "build": "3073eb7358680a6d8b79b85674e6f273d12ac6a10592503437b7dc04e29606f8"
+  },
+  {
+    "attempt": "ui-final",
+    "status": "FAIL",
+    "checks": 21,
+    "error": "Error: Timeout: !!document.querySelector('.veynrel-studio-dialog'); Veynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nПреобразуйте заметки · создавайте схемы\n\nБиблиотека\nСообщество\nСоздать схему\nИстория\nЗапуск и проверка\nПроверьте предложения перед записью\nПроверка изменений\n\nСмысл автоматически не проверен. Проверьте итоговый Markdown и diff; выберите файлы для записи.\n\nКуда сохранить результат\nОтдельная заметка — исходник без изменений\nИсходная заметка — заменить тело / добавить раздел\n\nТолько папка исходника. Его свойства не копируются; добавляется ссылка на источник. Контекст ссылок всё ещё может измениться. Открытие результата — отдельно, в исходном режиме.\n\n1 / 1 · новых заметок; исходники не изменятся\nСоздать заметки: 1\nProperties.md\nСгенерировано — требуется проверка человеком\nВключить в запись\nProperties.md\n\nЗаменить · Сгенерировано — требуется проверка человеком\n\nИсходный сохранённый Markdown\nСырой ответ модели\n\nПредложенные изменения свойств не применяются.\n\nСвойства исходника / исключённые свойства модели\n\nProperties.md → Properties — Studio.md\n\nИмя результата (.md), в той же папке\nТочный документ для записи\nSource / Источник: [[Properties.md]]\n\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n\nDiff: исходник → итоговый документ\nЛокальные замечания: 5 · ограниченные шаблоны\n    at wait (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:57:127)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:207:3",
+    "exceptions": 0,
+    "build": "3073eb7358680a6d8b79b85674e6f273d12ac6a10592503437b7dc04e29606f8"
+  },
+  {
+    "attempt": "accepted",
+    "status": "FAIL",
+    "checks": 21,
+    "error": "Error: Timeout: !!document.querySelector('.veynrel-studio-dialog'); Veynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nПреобразуйте заметки · создавайте схемы\n\nБиблиотека\nСообщество\nСоздать схему\nИстория\nЗапуск и проверка\nПроверьте предложения перед записью\nПроверка изменений\n\nСмысл автоматически не проверен. Проверьте итоговый Markdown и diff; выберите файлы для записи.\n\nКуда сохранить результат\nОтдельная заметка — исходник без изменений\nИсходная заметка — заменить тело / добавить раздел\n\nТолько папка исходника. Его свойства не копируются; добавляется ссылка на источник. Контекст ссылок всё ещё может измениться. Открытие результата — отдельно, в исходном режиме.\n\n1 / 1 · новых заметок; исходники не изменятся\nСоздать заметки: 1\nProperties.md\nСгенерировано — требуется проверка человеком\nВключить в запись\nProperties.md\n\nЗаменить · Сгенерировано — требуется проверка человеком\n\nИсходный сохранённый Markdown\nСырой ответ модели\n\nПредложенные изменения свойств не применяются.\n\nСвойства исходника / исключённые свойства модели\n\nProperties.md → Properties — Studio.md\n\nИмя результата (.md), в той же папке\nТочный документ для записи\nSource / Источник: [[Properties.md]]\n\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n\nDiff: исходник → итоговый документ\nЛокальные замечания: 5 · ограниченные шаблоны\n    at wait (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:57:127)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-source-preservation-native.mjs:207:3",
+    "exceptions": 0,
+    "build": "3073eb7358680a6d8b79b85674e6f273d12ac6a10592503437b7dc04e29606f8"
+  },
+  {
+    "attempt": "keyboard",
+    "status": "PASS",
+    "checks": 23,
+    "error": null,
+    "exceptions": 0,
+    "build": "3073eb7358680a6d8b79b85674e6f273d12ac6a10592503437b7dc04e29606f8"
+  },
+  {
+    "attempt": "final-build",
+    "status": "PASS",
+    "checks": 23,
+    "exceptions": 0,
+    "build": "c8549e2af58e5d93a14ecb8f2f75fe0d59d6204a2145404eb948a6d638b684d9"
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "outcome": "FAIL",
+  "checks": [
+    "Veynrel works with Excalidraw disabled; diagram sending is blocked",
+    "Real transport produces SVG preview and structure with zero drawing writes",
+    "Inert model labels do not resolve hidden notes or resources",
+    "390px preview fits the Studio pane",
+    "Russian Review renders native controls and remains within 390px",
+    "Keyboard Tab reaches preview zoom control",
+    "Preview does not consume global modifier shortcuts",
+    "Unrelated workflow event retains exact preview DOM and zoom",
+    "Changed appearance invalidates create until local preview update",
+    "Status event preserves changed preview draft and keeps create blocked",
+    "Actual local preview action changes no provider request count",
+    "Creates exactly the reviewed file while the saved source editor stays open",
+    "Repeated confirmation does not create a second drawing",
+    "Actual Excalidraw opens separate native shapes/text/arrows with live bindings"
+  ],
+  "error": "Error: Timeout: xapi.getSceneElements().find(e=>e.id==='vt000000').text===\"Edited request\"; Veynrel Studio\nNative.excalidraw\nDrawings\n/\nNative.excalidraw\nDouble-click or press Enter to edit text\nShapes\nV\nR\nD\nO\nA\nL\nP\nT\nN\nE\n39%\n0 backlinks\n3 properties\n224 words\n8,094 characters\n    at wait (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-excalidraw-native.mjs:75:127)\n    at async editText (file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-excalidraw-native.mjs:121:3)\n    at async file:///tmp/veynrel-studio-source-preservation-v1/scripts/studio-excalidraw-native.mjs:182:3",
+  "exceptions": [],
+  "artifacts": {
+    "ai-knowledge-hub/main.js": "c8549e2af58e5d93a14ecb8f2f75fe0d59d6204a2145404eb948a6d638b684d9",
+    "ai-knowledge-hub/styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "ai-knowledge-hub/manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b",
+    "obsidian-excalidraw-plugin/main.js": "4da2084a4eafe7d328484fa5742004b9fb990346c4c84fde924b885a5ecc1c17",
+    "obsidian-excalidraw-plugin/styles.css": "173e9c161a01c53b3c173344e023de4d327fd0658e476961b46b0e6a93117ded",
+    "obsidian-excalidraw-plugin/manifest.json": "4880b885c50643ef848d31cea829776ca2e96747353aee334d71e875f79d31c0",
+    "obsidianAsar": "8588f1fd23c9f63d3507a9740d656252cf0fbe0538e00e5d8eb7660533416c52"
+  }
+}

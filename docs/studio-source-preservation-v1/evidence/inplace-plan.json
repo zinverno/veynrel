@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "7f35ae89-ee27-4134-8209-1af1b06b627f",
+  "reviewId": "b9984891-44cf-4c85-ad92-f414681995e7",
+  "destination": "source",
+  "policyVersion": 1,
+  "checksVersion": 1,
+  "requiresAcknowledgement": true,
+  "rows": [
+    {
+      "source": {
+        "path": "Properties.md",
+        "identity": 1,
+        "hash": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "created": 1793300387045,
+        "modified": 1793300387045,
+        "bytes": 182
+      },
+      "target": "Properties.md",
+      "output": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+      "outputHash": "e05e0bb39ff1715984aa4983ca3701e24a8265b2e80bc0f720240f173cf0dbae",
+      "action": "replace"
+    }
+  ]
+}

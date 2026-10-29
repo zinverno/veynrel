@@ -1,0 +1,162 @@
+{
+  "lf": {
+    "text": "---\na: 1\n---\nBody",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "a: 1\n",
+      "from": 4,
+      "to": 9,
+      "contentStart": 13
+    },
+    "parsed": {
+      "a": 1
+    }
+  },
+  "crlf": {
+    "text": "---\r\na: 1\r\n---\r\nBody",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "a: 1\r\n",
+      "from": 5,
+      "to": 11,
+      "contentStart": 16
+    },
+    "parsed": {
+      "a": 1
+    }
+  },
+  "bom": {
+    "text": "﻿---\na: 1\n---\nBody",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "dots": {
+    "text": "---\na: 1\n...\nBody",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "spaces": {
+    "text": "---  \na: 1\n--- \nBody",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "empty": {
+    "text": "---\n---\nBody",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "",
+      "from": 4,
+      "to": 4,
+      "contentStart": 8
+    },
+    "parsed": null
+  },
+  "unclosed": {
+    "text": "---\na: 1\nBody",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "rule": {
+    "text": "---\nSome prose\n---\nBody",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "Some prose\n",
+      "from": 4,
+      "to": 15,
+      "contentStart": 19
+    },
+    "parsed": "Some prose"
+  },
+  "heading": {
+    "text": "# Header\n---\na: 1\n---",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "fence": {
+    "text": "```yaml\na: 1\n```",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "leading": {
+    "text": "\n---\na: 1\n---",
+    "boundary": {
+      "exists": false,
+      "contentStart": 0,
+      "from": 0,
+      "to": 0,
+      "frontmatter": ""
+    },
+    "parsed": null
+  },
+  "ending": {
+    "text": "---\na: 1\n---",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "a: 1\n",
+      "from": 4,
+      "to": 9,
+      "contentStart": 12
+    },
+    "parsed": {
+      "a": 1
+    }
+  },
+  "malformed": {
+    "text": "---\na: [\n---\nBody",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "a: [\n",
+      "from": 4,
+      "to": 9,
+      "contentStart": 13
+    },
+    "error": "YAMLParseError: Flow sequence in block collection must be sufficiently indented and end with a ] at line 2, column 1:\n\na: [\n\n^\n"
+  },
+  "scalar": {
+    "text": "---\nhello\n---\nBody",
+    "boundary": {
+      "exists": true,
+      "frontmatter": "hello\n",
+      "from": 4,
+      "to": 10,
+      "contentStart": 14
+    },
+    "parsed": "hello"
+  }
+}

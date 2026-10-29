@@ -1,0 +1,4 @@
+# Literal UTF-8 native evidence: retain BOM/CRLF bytes; CR at EOL is intentional.
+before/Properties.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+inplace-after.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+inplace-undone.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
