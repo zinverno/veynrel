@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-studio-source-preservation-v1
+
+
+ Test Files  191 passed (191)
+      Tests  5144 passed (5144)
+   Start at  21:56:16
+   Duration  62.16s (transform 19.69s, setup 0ms, import 48.05s, tests 147.48s, environment 38ms)

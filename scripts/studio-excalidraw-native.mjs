@@ -116,8 +116,8 @@ async function editText(id, value) {
   await cdp('Input.dispatchMouseEvent', {type:'mouseMoved',...point});
   for (const clickCount of [1,2]) for (const type of ['mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, ...point, button: 'left', clickCount });
   await wait("!!document.querySelector('textarea.excalidraw-wysiwyg')");
-  await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'a', code: 'KeyA', modifiers: 2 }); await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'a', code: 'KeyA', modifiers: 2 });
-  await cdp('Input.insertText', { text: value }); await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape' }); await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape' });
+  await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'a', code: 'KeyA', windowsVirtualKeyCode: 65, nativeVirtualKeyCode: 65, modifiers: 2 }); await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'a', code: 'KeyA', windowsVirtualKeyCode: 65, nativeVirtualKeyCode: 65, modifiers: 2 });
+  await cdp('Input.insertText', { text: value }); await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 }); await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
   await wait(`xapi.getSceneElements().find(e=>e.id==='${id}').text===${JSON.stringify(value)}`);
 }
 async function restart() { report.transportTiming = await ev('studioTransportTiming'); fs.writeFileSync(`${config}/plugins/ai-knowledge-hub/data.json`, JSON.stringify({ language: 'en', provider: 'openrouter', model: 'synthetic/diagram', baseUrl: 'https://openrouter.ai/api/v1', apiKey: 'synthetic-not-a-key', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } })); socket.close(); const ended = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await ended; child = start(); await connect(); }

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "images": 16,
+  "httpResources": 36,
+  "filters": true,
+  "widths": [
+    390,
+    1280
+  ],
+  "externalResources": 0
+}

@@ -1,0 +1,43 @@
+{
+  "read": "---\r\nid: source\r\n---\r\nBody",
+  "binary": [
+    239,
+    187,
+    191,
+    45,
+    45,
+    45,
+    13,
+    10,
+    105,
+    100,
+    58,
+    32,
+    115,
+    111,
+    117,
+    114,
+    99,
+    101,
+    13,
+    10,
+    45,
+    45,
+    45,
+    13,
+    10,
+    66,
+    111,
+    100,
+    121
+  ],
+  "current": "﻿---\r\nid: source\r\n---\r\nBody",
+  "after": "---\r\nid: source\r\n---\r\nChanged",
+  "buffer": "---\nid: source\n---\nChanged",
+  "stat": {
+    "ctime": 1793299162239,
+    "mtime": 1793299163742,
+    "size": 32
+  },
+  "disk": "﻿---\r\nid: source\r\n---\r\nChanged"
+}

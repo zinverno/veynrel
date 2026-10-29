@@ -29,7 +29,18 @@ export function studioNotePort(app: App): StudioNotePort {
       if (!file || file.stat.size > (STUDIO_LIMITS.input + STUDIO_LIMITS.output + 2) * 4) return null;
       const created = file.stat.ctime, note = await readSavedNote(app, path);
       if (note.state !== "ready" || note.file !== file || file.stat.ctime !== created) return null;
-      return { ...note, created };
+      let content = note.content;
+      // Native Vault.read strips UTF-8 BOM; Vault.process retains it. Recover only that proven byte difference.
+      if (new TextEncoder().encode(content).length !== note.bytes) {
+        try {
+          const raw = await app.vault.readBinary(file);
+          const exact = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(raw);
+          if (raw.byteLength !== note.bytes || exact !== `\uFEFF${content}` || app.vault.getFileByPath(path) !== file ||
+            file.stat.ctime !== created || file.stat.mtime !== note.modified || file.stat.size !== note.bytes) return null;
+          content = exact;
+        } catch { return null; }
+      }
+      return { ...note, content, created };
     },
     readGuard(note) {
       ensure(app.vault.getFileByPath(note.path) === note.file && note.file.path === note.path &&
@@ -41,7 +52,9 @@ export function studioNotePort(app: App): StudioNotePort {
           if (isReadOnlyInspector(leaf.view)) return;
           // Reading tolerates queued saves only while every loaded buffer equals the fixed saved source.
           ensure(leaf.view instanceof MarkdownView && file === note.file, "read-editor");
-          ensure(leaf.view.getViewData() === note.content, "unsaved");
+          // Core Markdown buffers omit BOM and normalize CRLF; all other content must match exactly.
+          const buffer = leaf.view.getViewData();
+          ensure(buffer === note.content || buffer === note.content.replace(/^\uFEFF/u, "").replace(/\r\n/gu, "\n"), "unsaved");
         });
       } catch (e) { throw e instanceof StudioError ? e : new StudioError("read-editor"); }
     },

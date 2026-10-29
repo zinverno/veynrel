@@ -1,6 +1,7 @@
 import { currentLanguage } from "../i18n";
 export const l = (en: string, ru: string): string => currentLanguage() === "ru" ? ru : en;
 const statuses: Record<string, [string, string]> = {
+  created: ["Separate note created", "Отдельная заметка создана"], modified: ["Result changed or missing", "Результат изменён или отсутствует"], "not-created": ["Confirmed absent", "Отсутствие подтверждено"],
   idle: ["No active operation", "Нет активной операции"], preparing: ["Reading selected saved notes", "Чтение выбранных сохранённых заметок"], prepared: ["Review the outgoing data", "Проверьте отправляемые данные"],
   generating: ["Generating sequentially", "Последовательная генерация"], review: ["Review proposals before writing", "Проверьте предложения перед записью"],
   applying: ["Applying selected changes", "Применение выбранных изменений"], partial: ["Partially completed — inspect each file", "Частично выполнено — проверьте каждый файл"],
@@ -12,6 +13,9 @@ const statuses: Record<string, [string, string]> = {
 };
 export function status(value: string): string { const pair = statuses[value]; return pair ? l(...pair) : value; }
 const errors: Record<string, [string, string]> = {
+  frontmatter: ["Properties cannot be safely separated or preserved in this document. Nothing was written. Studio supports exact --- delimiters and mapping YAML; inspect the literal text.", "Нельзя безопасно выделить или сохранить свойства этого документа. Ничего не записано. Studio поддерживает точные разделители --- и YAML-объект; проверьте исходный текст."],
+  target: ["The exact destination is unavailable or unsupported. Choose a different Markdown name in the source folder and confirm a new plan. No overwrite or automatic rename.", "Точный путь недоступен или не поддерживается. Выберите другое имя Markdown в папке исходника и подтвердите новый план. Перезаписи и автоматического переименования нет."],
+  acknowledgement: ["Explicitly acknowledge the observations for this exact source-write plan. Hard guards still apply.", "Явно подтвердите просмотр замечаний для этого плана изменения исходников. Защитные проверки остаются обязательными."],
   recipe: ["Invalid recipe. Only schema v1, one llm_transform step and Markdown replace/append are supported.", "Некорректный сценарий. Поддерживается схема v1, один шаг llm_transform и Markdown replace/append."],
   parameters: ["Check the language, instruction length and context budget (1,024–262,144).", "Проверьте язык, длину инструкции и бюджет контекста (1 024–262 144)."],
   scope: ["Select 1–20 existing Markdown files. Folder selection includes subfolders; nothing is silently sampled.", "Выберите 1–20 существующих Markdown-файлов. Папка включает подпапки; выборка не сокращается автоматически."],

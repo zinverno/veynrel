@@ -1,0 +1,17 @@
+# Exact UTF-8 source envelope, policy 1
+
+Supported frontmatter starts at byte/string start after an optional UTF-8 BOM, with an exact `---` followed by LF or CRLF. The closing line is exactly `---`, with LF/CRLF or EOF. Its entire original range is preserved: BOM, comments, ordering, quotes, indentation, anchors, multiline values and closing delimiter. A closing delimiter at EOF needs one explicitly assembled LF before a replacement body; the original range remains an unchanged prefix.
+
+Obsidian's `parseYaml` validates only that the enclosed YAML is a mapping or empty/null. Its parsed value is discarded. There is no dump, YAML serialization or `processFrontMatter`. Proposed model frontmatter is excluded; the raw response and source/proposed property comparison remain available. Missing model properties are restored from the exact source range under the policy announced before generation. Property editing is unsupported, including recipes requesting it. Ambiguous, malformed, scalar/array, unclosed, dotted (`...`), whitespace-padded or displaced initial delimiters fail that result closed. Body/fenced YAML and later horizontal rules remain body text. A leading ambiguous horizontal-rule/frontmatter form is refused, not guessed.
+
+For replace, source output is original prefix + response body; a separate output contains response body without either YAML block. For append, source output is **the whole original string**, two LF characters and the response body. Separate output contains original body, two LF characters and response body. The provenance line is then added outside that body.
+
+## Native evidence and BOM
+
+The direct Obsidian 1.13.7 boundary probe is retained in `evidence/frontmatter-native.json`. `getFrontMatterInfo` recognizes exact LF/CRLF/EOF delimiters; it does not recognize a raw leading BOM, dots or padded delimiters. It recognizes scalar/malformed boundaries without establishing valid properties. Studio deliberately protects an optional BOM before applying the boundary policy and rejects ambiguous/invalid YAML mappings.
+
+The separate native IO probe (`evidence/native-io.json`) found that `Vault.read` strips UTF-8 BOM, while `Vault.process` supplies the literal BOM and writes the returned literal string. Studio recovers only this demonstrated three-byte difference with `Vault.readBinary`, fatal UTF-8 decoding with BOM retention, and repeated identity/stat checks. Any other observed byte-size discrepancy fails closed. Core Markdown buffers normalize CRLF to LF and omit BOM; Read Guard accepts that exact representation or the exact saved string, with all other content required equal. Write Guard still blocks affected editable leaves, including popouts.
+
+Native tests compare actual UTF-8 file hashes, Review payload, created content and Apply/Undo restoration. This is not a promise for arbitrary encodings. Opening/closing an unmodified BOM/CRLF note in the native editor can itself normalize its bytes on save; an early native run observed this outside Studio's write calls. Final byte-preservation tests keep that file closed during Apply/Undo; saved/unsafe-editor scenarios use independent LF fixtures. Studio does not lock out editor saves or arbitrary third-party writes.
+
+References: [Obsidian Vault API](https://docs.obsidian.md/Plugins/Vault), [API declarations](https://github.com/obsidianmd/obsidian-api/blob/master/obsidian.d.ts), [Properties](https://obsidian.md/help/properties). Actual installed native behavior is the evidence above, not a regex-only comparison.

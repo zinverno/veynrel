@@ -7,9 +7,11 @@ export interface StudioChange {
   path: string; created: number; modified: number; bytes: number; before: string; after: string;
   beforeHash: string; afterHash: string; action: "replace" | "append";
 }
+export interface SourceWriteConfirmation { id: string; policyVersion: 1; checksVersion: 1; acknowledged: boolean }
 export interface StudioRecord {
-  schemaVersion: 1; operation: "studio_transform"; id: string; createdAt: number; recipeId: string; recipeVersion: string;
+  schemaVersion: 1 | 2; operation: "studio_transform"; id: string; createdAt: number; recipeId: string; recipeVersion: string;
   changes: readonly StudioChange[];
+  confirmation?: SourceWriteConfirmation;
 }
 export type MarkKind = "apply-intent" | "applied" | "undo-intent" | "undone" | "skipped";
 export interface StudioMark {
@@ -22,9 +24,12 @@ export interface RunHistory { start?: RunReceipt; id: string; state: StudioState
 const timestamp = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v) && v >= 0;
 const bytes = (s: string) => new TextEncoder().encode(s).length;
 export async function validateStudioRecord(value: unknown, id: string): Promise<StudioRecord> {
-  ensure(object(value, ["schemaVersion", "operation", "id", "createdAt", "recipeId", "recipeVersion", "changes"]) &&
-    value.schemaVersion === 1 && value.operation === "studio_transform" && uuid(id) && value.id === id && timestamp(value.createdAt) &&
+  const baseKeys = ["schemaVersion", "operation", "id", "createdAt", "recipeId", "recipeVersion", "changes"];
+  ensure((object(value, baseKeys) && value.schemaVersion === 1 || object(value, [...baseKeys, "confirmation"]) && value.schemaVersion === 2) &&
+    value.operation === "studio_transform" && uuid(id) && value.id === id && timestamp(value.createdAt) &&
     text(value.recipeId, 100) && text(value.recipeVersion, 30) && Array.isArray(value.changes) && value.changes.length > 0 && value.changes.length <= STUDIO_LIMITS.files, "storage");
+  if (value.schemaVersion === 2) ensure(object(value.confirmation, ["id", "policyVersion", "checksVersion", "acknowledged"]) && uuid(value.confirmation.id) &&
+    value.confirmation.policyVersion === 1 && value.confirmation.checksVersion === 1 && typeof value.confirmation.acknowledged === "boolean", "storage");
   const paths = new Set<string>();
   for (const c of value.changes) {
     ensure(object(c, ["path", "created", "modified", "bytes", "before", "after", "beforeHash", "afterHash", "action"]) && notePath(c.path) &&

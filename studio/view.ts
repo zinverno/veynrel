@@ -19,6 +19,10 @@ import { button, literal, field, select, disclosure, toolbar, notePicker, connec
 import { illustration } from "./illustrations";
 import { DiagramPanel } from "./diagram/view";
 import { diagramMessage } from "./diagram/messages";
+import { suggestedTarget, parentPath } from "./markdownTarget";
+import type { MarkdownDestination, StudioWritePlan } from "./writePlan";
+import { linkContextFindings } from "./preservationChecks";
+import type { MarkdownCreateHistory } from "./markdownCreate";
 function message(e: unknown): string { return diagramMessage(e); }
 
 class StudioDialog extends Modal {
@@ -66,6 +70,8 @@ export class VeynrelStudioView extends ItemView {
   private selectedRows = new Set<string>();
   private reviewId?: string;
   private reviewPath = "";
+  private destination: MarkdownDestination = "new-note";
+  private targetNames = new Map<string, string>();
   private setupDrafts = new Map<string, { chosen: Set<string>; query: string; mode: string; folder: string; language: string; instructions: string; context: string }>();
   private renderedRoute = "";
   private routeScroll = new Map<string, number>();
@@ -185,7 +191,7 @@ export class VeynrelStudioView extends ItemView {
         setIcon(heading.createSpan(), kind === "format" ? "list" : kind === "training" ? "dumbbell" : kind === "nutrition" ? "utensils" : "file-text");
         heading.createSpan({ text: r.name[lang] });
         card.createEl("p", { text: r.description[lang] });
-        card.createSpan({ text: r.output.action === "replace" ? l("Changes the original note after Review", "Изменит исходную заметку после проверки") : l("Adds a section after Review", "Добавит раздел после проверки"), cls: "veynrel-studio-eyebrow" });
+        card.createSpan({ text: l("Save separately after Review · changing the source is optional", "После проверки — отдельная заметка; изменение исходника по выбору"), cls: "veynrel-studio-eyebrow" });
         if (kind) { const example = card.createEl("figure", { cls: "veynrel-studio-example" }); illustration(example, kind); example.createEl("figcaption", { text: l("Result illustration · not model output", "Пример структуры · не ответ модели") }); }
         button(card, l("View recipe", "Открыть сценарий"), `recipe-${r.id}`, () => { this.selected = r; this.navigate("details"); });
       }
@@ -357,6 +363,7 @@ export class VeynrelStudioView extends ItemView {
     }
     if (prepared && runner.state === "prepared") {
       this.body.createEl("h2", { text: l("Consent to send data", "Согласие на передачу данных") });
+      this.body.createEl("p", { text: l("Properties policy: source YAML stays exact when changing the source; separate notes omit properties. Proposed model YAML is excluded and shown for comparison. Property editing is not supported. Generation does not authorize writing.", "Политика свойств: при изменении исходника его YAML сохраняется точно; отдельная заметка создаётся без свойств. YAML модели исключается и показывается для сравнения. Изменение свойств не поддерживается. Генерация не разрешает запись.") });
       this.body.createEl("p", { text: `${prepared.provider} · ${prepared.model} · ${prepared.endpoint}` });
       this.body.createEl("p", { text: `${l("Notes", "Заметки")}: ${prepared.requests.length} · ${l("Context budget", "Бюджет контекста")}: ${prepared.contextTokens}` });
       this.body.createEl("p", { cls: "veynrel-studio-warning", text: l("Each request sends the full saved note plus the displayed recipe instructions to the configured endpoint. A cloud provider receives this data and may charge for it. Exact cost is unknown. Nothing is sent until you confirm below.", "Каждый запрос передаёт полный сохранённый текст заметки и показанные инструкции на настроенный адрес. Облачный провайдер получает эти данные и может взимать плату. Точная стоимость неизвестна. Передача начнётся только после подтверждения ниже.") });
@@ -372,11 +379,23 @@ export class VeynrelStudioView extends ItemView {
     if (!review) {
       this.body.createEl("p", { text: l("Choose a recipe in the library to start. Interrupted requests are never retried automatically.", "Для запуска выберите сценарий в библиотеке. Прерванные запросы автоматически не повторяются.") }); return;
     }
-    if (this.reviewId !== review.id) { this.reviewId = review.id; this.selectedRows.clear(); }
+    if (this.reviewId !== review.id) { this.reviewId = review.id; this.selectedRows.clear(); this.destination = "new-note"; this.targetNames.clear(); }
     this.body.createEl("h2", { text: l("Review changes", "Проверка изменений") });
-    this.body.createEl("p", { text: l("Generated text may contain errors. Read the literal Markdown and diff. Check only the files you want to apply; the snapshot cannot be edited here.", "Сгенерированный текст может содержать ошибки. Проверьте исходный Markdown и diff. Отметьте файлы для применения; снимок здесь не редактируется.") });
-    const count = this.body.createDiv({ attr: { role: "status" } });
-    const updateCount = () => count.setText(`${l("Selected changes", "Выбрано изменений")}: ${this.selectedRows.size} / ${review.rows.length}`);
+    this.body.createEl("p", { text: l("Meaning is not automatically verified. Inspect the final literal Markdown and diff; select the files to write.", "Смысл автоматически не проверен. Проверьте итоговый Markdown и diff; выберите файлы для записи.") });
+    const destination = select(this.body, l("Save result to", "Куда сохранить результат"), [["new-note", l("Separate note — source unchanged", "Отдельная заметка — исходник без изменений")], ["source", l("Source note — replace body / append section", "Исходная заметка — заменить тело / добавить раздел")]], this.destination);
+    destination.dataset.studioDestination = "true"; destination.disabled = !runner.canApply;
+    destination.addEventListener("change", () => { this.destination = destination.value as MarkdownDestination; runner.discardWritePlan(); this.render(); });
+    this.body.createEl("p", { text: this.destination === "new-note" ? l("Same folder only. Source properties are not copied; a source link is added. Links can still change context. Results open separately in source mode.", "Только папка исходника. Его свойства не копируются; добавляется ссылка на источник. Контекст ссылок всё ещё может измениться. Открытие результата — отдельно, в исходном режиме.") : l("Original YAML is preserved exactly. The recipe replaces the body or appends a section; it cannot change properties.", "Исходный YAML сохраняется точно. Сценарий заменяет тело или добавляет раздел; свойства он не изменяет.") });
+    const targetFor = (path: string) => {
+      if (this.destination === "source") return path;
+      if (!this.targetNames.has(path)) this.targetNames.set(path, suggestedTarget(path, this.owner.creator.targets.paths()));
+      return this.targetNames.get(path)!;
+    };
+    const count = this.body.createDiv({ attr: { role: "status" } }); let writeButton: HTMLButtonElement | undefined;
+    const updateCount = () => {
+      count.setText(`${this.selectedRows.size} / ${review.rows.length} · ${this.destination === "new-note" ? l("new notes; sources unchanged", "новых заметок; исходники не изменятся") : l("source changes", "изменений исходников")}`);
+      writeButton?.setText(`${this.destination === "new-note" ? l("Create notes", "Создать заметки") : l("Change sources", "Изменить исходники")}: ${this.selectedRows.size}`);
+    };
     updateCount();
     const applyActions = toolbar(this.body);
     const workspace = this.body.createDiv({ cls: "veynrel-studio-review" }), files = workspace.createDiv({ cls: "veynrel-studio-review-files" }), detail = workspace.createDiv({ cls: "veynrel-studio-review-detail" });
@@ -388,7 +407,36 @@ export class VeynrelStudioView extends ItemView {
       detail.createEl("p", { text: `${status(row.action)} · ${status(result?.outcome ?? row.status)}` });
       if (row.reason || result?.reason) detail.createEl("p", { text: errorMessage(result?.reason ?? row.reason!), attr: { role: "alert" } });
       literal(detail, l("Original saved Markdown", "Исходный сохранённый Markdown"), row.before);
-      if (row.after !== null) { literal(detail, l("Proposed Markdown", "Предлагаемый Markdown"), row.after); renderPlanDiff(detail, row.before, row.after); }
+      if (row.rawResponse !== undefined) literal(detail, l("Raw model response", "Сырой ответ модели"), row.rawResponse);
+      if (row.document?.proposedPrefix) {
+        detail.createEl("p", { text: l("Proposed property changes are not applied.", "Предложенные изменения свойств не применяются.") });
+        literal(detail, l("Source properties / excluded model properties", "Свойства исходника / исключённые свойства модели"), `${row.document.sourcePrefix}\n→\n${row.document.proposedPrefix}`);
+      }
+      if (row.after !== null) {
+        const target = targetFor(row.path), pair = detail.createEl("p", { text: `${row.path} → ${target}` });
+        if (this.destination === "new-note" && runner.canApply) {
+          const name = field(detail, l("Result filename (.md), in the same folder", "Имя результата (.md), в той же папке"), target.slice(parentPath(target).length + (parentPath(target) ? 1 : 0)));
+          name.dataset.studioTarget = row.path;
+          name.addEventListener("input", () => { this.targetNames.set(row.path, `${parentPath(row.path) ? parentPath(row.path) + "/" : ""}${name.value}`); runner.discardWritePlan(); pair.setText(`${row.path} → ${targetFor(row.path)}`); });
+        }
+        try {
+          const output = runner.previewOutput(row, this.destination, target);
+          detail.createEl("h4", { text: l("Exact document to write", "Точный документ для записи") });
+          detail.createEl("pre", { text: output, cls: "veynrel-studio-literal", attr: { tabindex: "0", "data-studio-final": row.path } });
+          const diff = disclosure(detail, l("Source → final document diff", "Diff: исходник → итоговый документ"));
+          renderPlanDiff(diff, row.before, output);
+          const observations = [...(row.checks?.findings ?? []), ...(this.destination === "new-note" ? linkContextFindings(row.document?.separateBody ?? "", row.path) : [])];
+          const findings = disclosure(detail, `${l("Local observations", "Локальные замечания")}: ${Math.min(observations.length, 60)} · ${row.checks?.coverage === "partial" || observations.length >= 60 ? l("incomplete", "неполная проверка") : l("limited patterns", "ограниченные шаблоны")}`);
+          findings.createEl("p", { text: l("No findings does not prove meaning was preserved. Checks cover only documented text patterns.", "Отсутствие замечаний не доказывает сохранение смысла. Проверяются только описанные текстовые шаблоны.") });
+          for (const finding of observations.slice(0, 60)) {
+            const kind = { code: l("Code", "Код"), link: l("Link", "Ссылка"), number: l("Number", "Число"), qualifier: l("Qualifier", "Приблизительность"), time: l("Time", "Время"), attribution: l("Attribution", "Атрибуция"), "link-context": l("Link context", "Контекст ссылки") }[finding.kind];
+            const item = findings.createDiv(); item.createEl("p", { text: `${kind} · ${l("body line", "строка тела")} ${finding.before.line} → ${finding.after?.line ?? "—"}: ${finding.kind === "link-context" ? l("Check the link context in the new note", "Проверьте контекст ссылки в новой заметке") : l("Source fragment not found in the result", "Исходный фрагмент не найден в результате")}` });
+            item.createEl("pre", { text: `${finding.before.text}\n→\n${finding.after?.text ?? l("No matching fragment", "Нет соответствующего фрагмента")}`, cls: "veynrel-studio-literal" });
+            button(item, l("Go to diff", "Перейти к diff"), "finding-diff", () => { diff.open = true; diff.scrollIntoView({ block: "start" }); });
+          }
+        } catch (e) { detail.createEl("p", { text: message(e), attr: { role: "alert" } }); }
+      }
+      if (result?.outcome === "created" && result.target) button(detail, l("Open result in source mode", "Открыть результат в исходном режиме"), "markdown-open", () => this.run(() => this.owner.creator.targets.open(result.target!)));
       files.querySelectorAll<HTMLElement>("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.path === this.reviewPath)));
     };
     for (const row of review.rows) {
@@ -397,45 +445,61 @@ export class VeynrelStudioView extends ItemView {
       item.createSpan({ text: status(runner.results?.find(r => r.path === row.path)?.outcome ?? row.status), cls: "veynrel-studio-eyebrow" });
       if (row.after !== null && runner.canApply) {
         const label = item.createEl("label", { cls: "veynrel-studio-check" }), input = label.createEl("input", { type: "checkbox", attr: { "data-studio-select": row.path } });
-        label.createSpan({ text: l("Include in Apply", "Включить в применение") }); input.checked = this.selectedRows.has(row.path);
-        input.addEventListener("change", () => { if (input.checked) this.selectedRows.add(row.path); else this.selectedRows.delete(row.path); updateCount(); });
+        label.createSpan({ text: l("Include in writing", "Включить в запись") }); input.checked = this.selectedRows.has(row.path);
+        input.addEventListener("change", () => { if (input.checked) this.selectedRows.add(row.path); else this.selectedRows.delete(row.path); runner.discardWritePlan(); updateCount(); });
       }
     }
     show();
-    if (runner.canApply) button(applyActions, l("Review selected writes", "Проверить выбранные записи"), "review-apply", () => {
+    if (runner.canApply) writeButton = button(applyActions, "", "review-apply", () => {
       const selected = [...this.selectedRows]; if (!selected.length) { this.errorEl.setText(errorMessage("scope")); return; }
-      this.dialog((d, root) => {
-        root.createEl("h2", { text: l("Confirm writing selected notes", "Подтвердите запись выбранных заметок") });
-        root.createEl("p", { text: errorMessage("editor") });
-        root.createEl("p", { text: l("Files are written sequentially, not as one transaction. Partial completion is possible. Undo requires the exact recorded result to remain unchanged.", "Файлы записываются последовательно, без общей транзакции. Возможно частичное выполнение. Undo требует неизменённого записанного результата.") });
-        for (const path of selected) root.createEl("p", { text: path });
-        const stop = button(root, l("Stop after the current file", "Остановить после текущего файла"), "cancel-apply", () => { if (d.pending) runner.cancel(); }); stop.disabled = true;
-        const confirm = button(root, l("Apply these changes", "Применить эти изменения"), "confirm-apply", () => {
-          if (d.pending || !d.active) return;
-          stop.disabled = false; confirm.disabled = true; d.run(() => runner.apply(review, selected));
-        }); confirm.addClass("mod-cta");
+      this.run(async () => {
+        const plan = await runner.reviewWrite(review, this.destination, selected.map(path => ({ path, target: targetFor(path) })));
+        if (!this.alive) { runner.discardWritePlan(plan); return; } this.writeDialog(plan);
       });
     });
+    updateCount();
+  }
+  private writeDialog(plan: StudioWritePlan): void {
+    const runner = this.owner.runner;
+    this.dialog((d, root) => {
+      const create = plan.destination === "new-note";
+      root.createEl("h2", { text: `${create ? l("Create notes", "Создать заметки") : l("Change source notes", "Изменить исходники")}: ${plan.rows.length}` });
+      root.createEl("p", { text: create ? l("Sources stay unchanged. No automatic Undo/delete for created notes. Opening is a separate action.", "Исходники останутся без изменений. Автоматической отмены/удаления созданных заметок нет. Открытие — отдельное действие.") : errorMessage("editor") });
+      root.createEl("p", { text: l("Sequential writes, possible partial completion. Exact paths only: no overwrite, suffix or rename after consent. Meaning is not automatically verified.", "Последовательная запись, возможно частичное выполнение. Только точные пути: без перезаписи, suffix и переименования после согласия. Смысл автоматически не проверен.") });
+      for (const row of plan.rows) { root.createEl("p", { text: `${row.source.path} → ${row.target}` }); literal(root, l("Exact final Markdown", "Точный итоговый Markdown"), row.output); }
+      let ack: HTMLInputElement | undefined;
+      if (plan.requiresAcknowledgement) {
+        const label = root.createEl("label", { cls: "veynrel-studio-check" }); ack = label.createEl("input", { type: "checkbox", attr: { "data-studio-ack": "true" } });
+        label.createSpan({ text: l("I reviewed the local observations and excluded property changes for this exact plan and choose to change the sources.", "Я просмотрел локальные замечания и исключённые изменения свойств этого плана и выбираю изменение исходников.") });
+      }
+      const stop = button(root, l("Stop after the current file", "Остановить после текущего файла"), "cancel-apply", () => { if (d.pending) runner.cancel(); }); stop.disabled = true;
+      const confirm = button(root, `${create ? l("Create", "Создать") : l("Change sources", "Изменить исходники")}: ${plan.rows.length}`, "confirm-apply", () => {
+        if (d.pending || !d.active) return; stop.disabled = false;
+        d.run(() => runner.confirmWrite(plan, ack?.checked ?? false));
+      });
+      if (ack) { confirm.disabled = true; ack.addEventListener("change", () => { confirm.disabled = !ack!.checked; }); }
+    }, () => runner.discardWritePlan(plan));
   }
   private history(): void {
     const epoch = this.historyEpoch; this.body.createEl("h2", { text: l("Studio operation history", "История операций Studio") });
     button(this.body, l("Refresh history", "Обновить историю"), "refresh-history", () => this.render());
     const list = this.body.createDiv(); list.createEl("p", { text: l("Checking…", "Проверка…") });
     this.run(async () => {
-      const rows = await this.owner.writer.history(), runs = await this.owner.writer.journal.runs();
+      const rows = await this.owner.writer.history(), runs = await this.owner.writer.journal.runs(), created = await this.owner.creator.history();
       if (!this.alive || epoch !== this.historyEpoch) return; list.empty();
 
-      for (const run of runs.filter(r => !rows.some(row => row.entry.id === r.id))) {
+      for (const run of runs.filter(r => !rows.some(row => row.entry.id === r.id) && !created.some(row => row.entry.intent?.plan.reviewId === r.id))) {
         const card = list.createEl("article", { cls: "veynrel-studio-card" }); card.createEl("h3", { text: run.start?.recipeId ?? run.id });
         card.createEl("p", { text: status(run.damaged ? "damaged" : this.owner.runner.prepared?.id === run.id ? this.owner.runner.state : run.state) });
         if (run.start) card.createEl("p", { text: `${new Date(run.start.createdAt).toLocaleString()} · ${run.start.paths.join(", ")}` });
         literal(card, l("Operation details", "Подробности операции"), JSON.stringify(run, null, 2));
       }
       for (const row of rows) this.historyRow(list, row);
+      for (const row of created) this.createHistoryRow(list, row);
       const diagrams = await this.diagram?.history(list, () => this.alive && epoch === this.historyEpoch);
       if (!this.alive || epoch !== this.historyEpoch) return;
-      if (rows.length || runs.length || diagrams) list.createEl("p", { text: l("Recovery requires separate confirmation; inspection never repeats a request or write.", "Восстановление требует отдельного подтверждения; просмотр не повторяет запрос или запись.") });
-      if (!rows.length && !runs.length && !diagrams) {
+      if (rows.length || runs.length || diagrams || created.length) list.createEl("p", { text: l("Recovery requires separate confirmation; inspection never repeats a request or write.", "Восстановление требует отдельного подтверждения; просмотр не повторяет запрос или запись.") });
+      if (!rows.length && !runs.length && !diagrams && !created.length) {
         const empty = list.createDiv({ cls: "veynrel-studio-empty" }); setIcon(empty.createSpan(), "history");
         empty.createEl("h3", { text: l("No operations yet", "Пока нет операций") });
         empty.createEl("p", { text: l("Choose a note task or create a diagram. Results will appear here.", "Выберите действие с заметкой или создайте схему. Результаты появятся здесь.") });
@@ -444,6 +508,25 @@ export class VeynrelStudioView extends ItemView {
         button(actions, l("Create diagram", "Создать схему"), "history-diagram", () => this.navigate("diagram"));
       }
     });
+  }
+  private createHistoryRow(root: HTMLElement, row: MarkdownCreateHistory): void {
+    const card = root.createEl("article", { cls: "veynrel-studio-card" }); card.createEl("h3", { text: `${row.source} → ${row.target || row.entry.id}` });
+    card.createEl("p", { text: `${l("Separate Markdown note", "Отдельная Markdown-заметка")} · ${status(row.state)}` });
+    card.createEl("p", { text: l("Source unchanged by this operation. No automatic Undo or deletion.", "Эта операция не изменяет исходник. Автоматической отмены или удаления нет.") });
+    literal(card, l("Creation evidence", "Данные создания"), JSON.stringify({ id: row.entry.id, plan: row.entry.intent?.plan.id, index: row.index,
+      marks: row.entry.marks.filter(m => m.index === row.index), damaged: row.entry.damaged }, null, 2));
+    if (row.state === "created" || row.state === "modified") button(card, l("Open result in source mode", "Открыть результат в исходном режиме"), "markdown-open", () => this.run(() => this.owner.creator.targets.open(row.target)));
+    if (row.observed) button(card, l("Review observed outcome", "Проверить наблюдаемый исход"), "markdown-recover", () => this.run(async () => {
+      const ticket = await this.owner.creator.reviewRecovery(row.entry.id, row.index);
+      if (!this.alive) { this.owner.creator.discard(ticket); return; }
+      this.dialog((d, body) => {
+        body.createEl("h2", { text: l("Record observed state only", "Записать только наблюдаемое состояние") });
+        body.createEl("p", { text: `${ticket.target} · ${status(ticket.state)}` });
+        body.createEl("p", { text: l("This creates only a receipt. It never creates, rewrites or deletes the note, or calls the model.", "Будет создана только квитанция. Заметка не создаётся, не переписывается и не удаляется; запроса к модели нет.") });
+        literal(body, l("Observed Markdown", "Наблюдаемый Markdown"), ticket.output);
+        button(body, l("Confirm observation", "Подтвердить наблюдение"), "markdown-confirm-recovery", () => d.run(async () => { await this.owner.creator.executeRecovery(ticket); this.render(); }));
+      }, () => this.owner.creator.discard(ticket));
+    }));
   }
   private historyRow(root: HTMLElement, row: StudioHistoryRow): void {
     const card = root.createEl("article", { cls: "veynrel-studio-card" }); card.createEl("h3", { text: row.path || row.entry.id }); card.createEl("p", { text: `${status(row.state)} · ${row.entry.record ? status(row.entry.record.changes[row.index]?.action ?? "") : ""} · ${row.entry.record ? new Date(row.entry.record.createdAt).toLocaleString() : l("Unknown time", "Время неизвестно")}` });

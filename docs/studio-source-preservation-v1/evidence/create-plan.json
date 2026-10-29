@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "114df151-253f-4dd2-b6a0-cfde1546ecdf",
+  "reviewId": "7c42a2d1-6566-4a36-b83f-6e740fa13bcc",
+  "destination": "new-note",
+  "policyVersion": 1,
+  "checksVersion": 1,
+  "requiresAcknowledgement": false,
+  "rows": [
+    {
+      "source": {
+        "path": "Properties.md",
+        "identity": 1,
+        "hash": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "created": 1793300387045,
+        "modified": 1793300387045,
+        "bytes": 182
+      },
+      "target": "Saved draft.md",
+      "output": "Source / Источник: [[Properties.md]]\n\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+      "outputHash": "24a41385d495361d759c5e979202b4fc8cbb08dd0e77a1dd67c038333860ca51",
+      "action": "replace"
+    }
+  ]
+}

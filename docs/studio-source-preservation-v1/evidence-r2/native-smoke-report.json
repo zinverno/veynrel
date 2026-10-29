@@ -1,0 +1,101 @@
+{
+  "checks": [
+    "Markdown workflow has no Excalidraw dependency",
+    "Passive Studio opens with zero model/note read/write",
+    "Shipped Python responder accepts actual production Ollama header and UI saves the exact separate-note payload"
+  ],
+  "artifacts": {
+    "main.js": "c8549e2af58e5d93a14ecb8f2f75fe0d59d6204a2145404eb948a6d638b684d9",
+    "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "screenshots": [
+    "smoke-explicit-consent.png",
+    "smoke-write-confirmation.png",
+    "smoke-created.png"
+  ],
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "beforeApply": [],
+  "exceptions": [],
+  "themeTransitions": [],
+  "themeCaptures": [],
+  "mode": "shipped-smoke-kit",
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "confirm-apply",
+    "point": {
+      "x": 429.5078125,
+      "y": 698.28125
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"confirm-apply\" class=\"mod-cta\">Create: 1</button>"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "excalidrawInstalled": false
+  },
+  "smokeHttp": [
+    {
+      "status": 200,
+      "authorization": "ollama-sentinel",
+      "expectedPath": true
+    }
+  ],
+  "requests": 1,
+  "initialHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb",
+    "Source.md": "931c01f3b7a2fb516763f246d11b5bb398613178fe4192c76e43346912d14dfb"
+  },
+  "finalHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb",
+    "Source.md": "931c01f3b7a2fb516763f246d11b5bb398613178fe4192c76e43346912d14dfb"
+  },
+  "status": "PASS",
+  "io": {
+    "reads": [
+      "Source.md",
+      "Source.md",
+      "Source.md",
+      "Source.md",
+      "Source.md",
+      "Source.md",
+      "Source — Studio.md",
+      "Source — Studio.md"
+    ],
+    "writes": [],
+    "browserRequests": 0,
+    "creates": [
+      "Source — Studio.md"
+    ],
+    "journals": [
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/254abcce-2e18-48d7-ba8f-890b2785cb11/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/254abcce-2e18-48d7-ba8f-890b2785cb11/finish.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/272d540f-9623-4a76-a6b5-fa9853bbea6e/intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/272d540f-9623-4a76-a6b5-fa9853bbea6e/0-dispatch.json",
+      "Source — Studio.md",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/272d540f-9623-4a76-a6b5-fa9853bbea6e/0-created.json"
+    ]
+  },
+  "smokeKitHashes": {
+    "loopback.py": "2792fd589eedd1882d0a31cd4c56707cbbd02ca6e90917cdcf53707310547bc6",
+    "synthetic-response.md": "578eaadc17d0b1f2e9770c9654e14271485536067027325f9a01ee9a8c6c732a",
+    "vault/Source.md": "931c01f3b7a2fb516763f246d11b5bb398613178fe4192c76e43346912d14dfb"
+  }
+}

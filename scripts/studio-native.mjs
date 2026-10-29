@@ -98,11 +98,22 @@ async function generate(expected) {
   const count = requests.length; await click('generate'); await wait("!studio.runner.running&&['review','failed','cancelled'].includes(studio.runner.state)");
   assert.deepEqual(requests.slice(count), expected, 'request bodies exactly match consent');
 }
+async function sourceMode() {
+  await ev("{const e=document.querySelector('[data-studio-destination]');e.value='source';e.dispatchEvent(new Event('change'));}void 0");
+}
+async function confirmSourceWrite() {
+  await click('review-apply');
+  await wait("!studio.operations.busy&&(!!document.querySelector('.veynrel-studio-dialog')||!!app.workspace.getLeavesOfType('veynrel-studio').find(l=>l.view.route==='workflow')?.view.errorEl.textContent)");
+  if (!await ev("!!document.querySelector('.veynrel-studio-dialog')")) return;
+  await ev("document.querySelector('[data-studio-ack]')?.click();void 0");
+  await click('confirm-apply', true);
+}
 async function apply(paths) {
+  await sourceMode();
   await ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0");
   await ev(`{for(const path of ${JSON.stringify(paths)}){const input=document.querySelector('[data-studio-select='+CSS.escape(path)+']');input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));}}void 0`);
   report.lastApplySelection = await ev("app.workspace.getLeavesOfType('veynrel-studio').map(l=>({route:l.view.route,selected:[...l.view.selectedRows],review:l.view.reviewId,dialogs:l.view.dialogs.size}))");
-  await click('review-apply'); await click('confirm-apply', true); await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
+  await confirmSourceWrite(); await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
 }
 async function undoAll() {
   await click('history'); await wait("!!document.querySelector('[data-studio-action=undo]')");
@@ -214,14 +225,14 @@ try {
   checks.push('Closing the popout permits the same reviewed Apply and protected Undo');
   expected = await prepare('builtin.smart-format', ['Batch/a/same.md', 'Batch/b/same.md']); await generate(expected);
   await ev("window.nativeProcess=app.vault.process;window.wroteFirst=false;app.vault.process=async function(...args){const result=await nativeProcess.apply(this,args);wroteFirst=true;await new Promise(r=>window.releaseWrite=r);return result};void 0");
-  await ev("document.querySelectorAll('[data-studio-select]').forEach(e=>e.click());void 0"); await click('review-apply'); await click('confirm-apply', true); await wait('wroteFirst');
+  await sourceMode(); await ev("document.querySelectorAll('[data-studio-select]').forEach(e=>e.click());void 0"); await confirmSourceWrite(); await wait('wroteFirst');
   await click('cancel-apply', true); await ev('releaseWrite();void 0'); await wait('!studio.runner.running');
   await ev('app.vault.process=nativeProcess;void 0');
   await pass('Native mass Apply cancellation confirms first write and skips second', "studio.runner.results[0].outcome==='applied'&&studio.runner.results[1].outcome==='skipped'"); await undoAll();
   // Real owned-process SIGKILL between Vault.process completion and the applied receipt.
   expected = await prepare('builtin.smart-format', ['Formatting.md']); await generate(expected);
   await ev("window.nativeProcess=app.vault.process;window.crashReached=false;app.vault.process=async function(...args){const result=await nativeProcess.apply(this,args);crashReached=true;await new Promise(()=>{});return result};void 0");
-  await ev("document.querySelector('[data-studio-select]').click();void 0"); await click('review-apply'); await click('confirm-apply', true); await wait('crashReached');
+  await sourceMode(); await ev("document.querySelector('[data-studio-select]').click();void 0"); await confirmSourceWrite(); await wait('crashReached');
   assert.notEqual(fs.readFileSync(`${vault}/Formatting.md`, 'utf8'), originals['Formatting.md']); const beforeRestartCalls = requests.length;
   await restart(); await open(); await click('history'); await wait("!!document.querySelector('[data-studio-action=recover]')");
   await pass('SIGKILL after physical Apply is unconfirmed with zero automatic writes', "io.writes.length===0&&document.querySelector('.veynrel-studio-body').textContent.includes('Unconfirmed')");

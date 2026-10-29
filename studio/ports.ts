@@ -1,5 +1,7 @@
 import type { SavedNote } from "../consolidation/savedNote";
 import type { DiagramProposal } from "./diagram/workflow";
+import type { PreservedDocument } from "./documentEnvelope";
+import type { PreservationChecks } from "./preservationChecks";
 
 export type StudioProposal = { kind: "markdown"; review: ReviewSession } | DiagramProposal;
 
@@ -14,7 +16,8 @@ export type StudioState = "idle" | "preparing" | "prepared" | "generating" | "re
 export interface ReviewRow {
   path: string; before: string; after: string | null; action: "replace" | "append";
   status: "generated" | "failed" | "cancelled"; reason?: string;
+  rawResponse?: string; document?: PreservedDocument; checks?: PreservationChecks;
 }
 export interface ReviewSession { id: string; recipeId: string; recipeVersion: string; rows: readonly ReviewRow[] }
-export type ApplyOutcome = "applied" | "skipped" | "conflict" | "failed" | "unconfirmed";
-export interface ApplyResult { path: string; outcome: ApplyOutcome; reason?: string }
+export type ApplyOutcome = "applied" | "created" | "skipped" | "conflict" | "failed" | "unconfirmed";
+export interface ApplyResult { path: string; target?: string; outcome: ApplyOutcome; reason?: string }

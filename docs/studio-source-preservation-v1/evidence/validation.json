@@ -1,0 +1,23 @@
+{
+  "base": "4ef4d2893c944467657f9b54a64d826fb9f96e84",
+  "runtime": "9c5b55491ab9e4462a10d4b59b5011ce9ce1ec16",
+  "branch": "feat/studio-source-preservation-v1",
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "newChargesUSD": 0,
+  "tests": {
+    "files": 191,
+    "passed": 5144
+  },
+  "native": {
+    "sourcePreservation": 23,
+    "markdown": 83,
+    "community": 39,
+    "diagram": 35
+  },
+  "build": {
+    "main.js": "c8549e2af58e5d93a14ecb8f2f75fe0d59d6204a2145404eb948a6d638b684d9",
+    "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  }
+}

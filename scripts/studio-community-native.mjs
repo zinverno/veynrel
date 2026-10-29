@@ -99,11 +99,22 @@ async function generate(expected) {
   const count = requests.length; await click('generate'); await wait("!studio.runner.running&&['review','failed','cancelled'].includes(studio.runner.state)");
   assert.deepEqual(requests.slice(count), expected, 'request bodies exactly match consent');
 }
+async function sourceMode() {
+  await ev("{const e=document.querySelector('[data-studio-destination]');e.value='source';e.dispatchEvent(new Event('change'));}void 0");
+}
+async function confirmSourceWrite() {
+  await click('review-apply');
+  await wait("!studio.operations.busy&&(!!document.querySelector('.veynrel-studio-dialog')||!!app.workspace.getLeavesOfType('veynrel-studio').find(l=>l.view.route==='workflow')?.view.errorEl.textContent)");
+  if (!await ev("!!document.querySelector('.veynrel-studio-dialog')")) return;
+  await ev("document.querySelector('[data-studio-ack]')?.click();void 0");
+  await click('confirm-apply', true);
+}
 async function apply(paths) {
+  await sourceMode();
   await ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0");
   await ev(`{for(const path of ${JSON.stringify(paths)}){const input=document.querySelector('[data-studio-select='+CSS.escape(path)+']');input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));}}void 0`);
   report.lastApplySelection = await ev("app.workspace.getLeavesOfType('veynrel-studio').map(l=>({route:l.view.route,selected:[...l.view.selectedRows],review:l.view.reviewId,dialogs:l.view.dialogs.size}))");
-  await click('review-apply'); await click('confirm-apply', true); await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
+  await confirmSourceWrite(); await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
 }
 async function undoAll() {
   await click('history'); await wait("!!document.querySelector('[data-studio-action=undo]')");

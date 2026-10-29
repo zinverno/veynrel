@@ -1,0 +1,835 @@
+{
+  "checks": [
+    "Markdown workflow has no Excalidraw dependency",
+    "Passive Studio opens with zero model/note read/write",
+    "New Review defaults to separate note and keeps raw YAML excluded from actual source output",
+    "Destination/theme rerender preserves selected row and edited target name",
+    "Destination/name/theme preview changes issue no model, note read, note write or journal write",
+    "Create writes one target, no source process, and does not open target automatically",
+    "Creation history has no spurious interrupted generation",
+    "Restart history observes creation without any automatic create/write",
+    "Explicit opening uses source mode",
+    "Inplace observations need an unchecked explicit acknowledgement",
+    "Exact BOM/CRLF/YAML Apply payload and guarded Undo restore UTF-8 hashes without another request",
+    "Create refuses actual unsaved editor buffer with no note write",
+    "Real saved source editor is open for create-only",
+    "Only explicitly selected batch row is created",
+    "Injected receipt failure leaves first unconfirmed and second skipped",
+    "Restart after receipt failure never retries creates",
+    "Manual acknowledgement writes only receipt, never a note",
+    "en/dark/390: actual Review theme and overflow verified",
+    "en/dark/1300: actual Review theme and overflow verified",
+    "en/light/390: actual Review theme and overflow verified",
+    "en/light/1300: actual Review theme and overflow verified",
+    "ru/dark/390: actual Review theme and overflow verified",
+    "ru/dark/1300: actual Review theme and overflow verified",
+    "ru/light/390: actual Review theme and overflow verified",
+    "ru/light/1300: actual Review theme and overflow verified",
+    "Native keyboard Enter opens separate creation confirmation without writing",
+    "All original and unselected control UTF-8 hashes unchanged at completion"
+  ],
+  "artifacts": {
+    "main.js": "c8549e2af58e5d93a14ecb8f2f75fe0d59d6204a2145404eb948a6d638b684d9",
+    "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "screenshots": [
+    "consent-properties-policy.png",
+    "review-new-note-en-light-r2.png",
+    "confirm-create-en-split.png",
+    "created-en.png",
+    "history-after-restart.png",
+    "confirm-inplace-warning.png",
+    "create-unsaved-buffer-refusal.png",
+    "receipt-failure-partial.png",
+    "unconfirmed-after-restart.png",
+    "review-en-dark-390-r2.png",
+    "confirmation-en-dark-390-r2.png",
+    "review-en-dark-1300-r2.png",
+    "confirmation-en-dark-1300-r2.png",
+    "review-en-light-390-r2.png",
+    "confirmation-en-light-390-r2.png",
+    "review-en-light-1300-r2.png",
+    "confirmation-en-light-1300-r2.png",
+    "review-ru-dark-390-r2.png",
+    "confirmation-ru-dark-390-r2.png",
+    "review-ru-dark-1300-r2.png",
+    "confirmation-ru-dark-1300-r2.png",
+    "review-ru-light-390-r2.png",
+    "confirmation-ru-light-390-r2.png",
+    "review-ru-light-1300-r2.png",
+    "confirmation-ru-light-1300-r2.png",
+    "keyboard-create-confirmation.png",
+    "final-review.png"
+  ],
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "beforeApply": [],
+  "exceptions": [],
+  "themeTransitions": [
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 46,
+        "height": 871.71875,
+        "scrollWidth": 98,
+        "clientWidth": 34,
+        "viewport": 390
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 346,
+        "height": 871.71875,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 78.28125,
+        "width": 1256,
+        "height": 871.71875,
+        "scrollWidth": 1244,
+        "clientWidth": 1244,
+        "viewport": 1300
+      }
+    }
+  ],
+  "themeCaptures": [
+    {
+      "file": "review-new-note-en-light-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-dark-390-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-en-dark-390-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 39,
+      "y": 171.71875,
+      "width": 312,
+      "height": 606.5625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-en-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-en-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-light-390-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-en-light-390-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 39,
+      "y": 171.71875,
+      "width": 312,
+      "height": 606.5625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-en-light-1300-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-en-light-1300-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-dark-390-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-ru-dark-390-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 39,
+      "y": 160.46875,
+      "width": 312,
+      "height": 629.0625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-ru-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-ru-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-light-390-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-ru-light-390-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 39,
+      "y": 160.46875,
+      "width": 312,
+      "height": 629.0625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-ru-light-1300-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-ru-light-1300-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    }
+  ],
+  "mode": "source-preservation",
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "review-apply",
+    "point": {
+      "x": 135.96875,
+      "y": 514.375
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"review-apply\" class=\"mod-cta\">Создать заметки: 1</button>"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "excalidrawInstalled": false
+  },
+  "envelope": {
+    "before": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\r\nОколо 37 кг к четвергу. [[#Facts]] [relative](./sibling.md).\r\n```js\r\nconst n = 37;\r\n```\r\n",
+    "raw": "---\nid: model-999\naliases: [Model]\n---\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+    "document": {
+      "policyVersion": 1,
+      "sourcePrefix": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n",
+      "proposedPrefix": "---\nid: model-999\naliases: [Model]\n---\n",
+      "properties": true,
+      "body": "# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+      "separateBody": "# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+      "after": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n"
+    },
+    "checks": {
+      "version": 1,
+      "coverage": "supported-patterns",
+      "findings": [
+        {
+          "kind": "qualifier",
+          "before": {
+            "start": 9,
+            "end": 14,
+            "line": 2,
+            "text": "Около"
+          },
+          "after": null
+        },
+        {
+          "kind": "time",
+          "before": {
+            "start": 21,
+            "end": 31,
+            "line": 2,
+            "text": "к четвергу"
+          },
+          "after": null
+        },
+        {
+          "kind": "code",
+          "before": {
+            "start": 71,
+            "end": 98,
+            "line": 3,
+            "text": "```js\r\nconst n = 37;\r\n```\r\n"
+          },
+          "after": {
+            "start": 52,
+            "end": 76,
+            "line": 3,
+            "text": "```js\nconst n = 38;\n```\n"
+          }
+        }
+      ]
+    }
+  },
+  "keyboardFocus": {
+    "active": "<button type=\"button\" data-studio-action=\"review-apply\" class=\"mod-cta\">Создать заметки: 1</button>",
+    "focus": true,
+    "canApply": true,
+    "busy": false
+  },
+  "keyboardTrace": [
+    {
+      "type": "keydown",
+      "key": "Enter",
+      "target": "review-apply",
+      "prevented": false
+    },
+    {
+      "type": "keypress",
+      "key": "Enter",
+      "target": "review-apply",
+      "prevented": false
+    },
+    {
+      "type": "click",
+      "target": "review-apply",
+      "prevented": false
+    },
+    {
+      "type": "keyup",
+      "key": "Enter",
+      "target": "review-apply",
+      "prevented": false
+    }
+  ],
+  "requests": 9,
+  "initialHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "finalHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "io": {
+    "reads": [
+      "Properties.md",
+      "Batch/a/same — Studio.md",
+      "Batch/b/same — Studio.md",
+      "Saved draft.md",
+      "Batch/a/same — Studio.md",
+      "Batch/a/same — Studio.md",
+      "Batch/a/same — Studio.md",
+      "Properties.md",
+      "Batch/a/same — Studio.md",
+      "Batch/b/same — Studio.md",
+      "Saved draft.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md",
+      "Properties.md"
+    ],
+    "writes": [],
+    "browserRequests": 0,
+    "creates": [],
+    "journals": [
+      ".obsidian/core-plugins.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/9ca24eb1-6f2c-4c81-a074-677639742b7c/0-created.json",
+      ".obsidian/community-plugins.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/data.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/317d1e17-f706-4500-9f80-773c742d1aee/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/317d1e17-f706-4500-9f80-773c742d1aee/finish.json",
+      ".obsidian/workspace.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/plugins/ai-knowledge-hub/data.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/d64f0c12-7176-4839-89a7-bc01a61ac448/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/d64f0c12-7176-4839-89a7-bc01a61ac448/finish.json",
+      ".obsidian/workspace.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json"
+    ]
+  },
+  "status": "PASS"
+}

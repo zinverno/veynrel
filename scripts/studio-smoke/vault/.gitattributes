@@ -1,0 +1,2 @@
+# Exact UTF-8 synthetic fixture; retain its BOM and CRLF.
+BOM-CRLF.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

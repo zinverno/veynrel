@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "272d540f-9623-4a76-a6b5-fa9853bbea6e",
+  "reviewId": "254abcce-2e18-48d7-ba8f-890b2785cb11",
+  "destination": "new-note",
+  "policyVersion": 1,
+  "checksVersion": 1,
+  "requiresAcknowledgement": false,
+  "rows": [
+    {
+      "source": {
+        "path": "Source.md",
+        "identity": 1,
+        "hash": "931c01f3b7a2fb516763f246d11b5bb398613178fe4192c76e43346912d14dfb",
+        "created": 1793303718512,
+        "modified": 1793303718512,
+        "bytes": 175
+      },
+      "target": "Source — Studio.md",
+      "output": "Source / Источник: [[Source.md]]\n\n# Draft\n37 кг. [[#Facts]] [relative](./Sibling.md).\n```js\nconst n = 38;\n```\n",
+      "outputHash": "9dfe2ea790c70553d552454bbae3380b3ecc0ca047b7ad89ec90b2038a14852f",
+      "action": "replace"
+    }
+  ]
+}
