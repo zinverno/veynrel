@@ -1,9 +1,10 @@
 import { TFile, TFolder } from "obsidian";
-import type { App } from "obsidian";
+import type { App, WorkspaceLeaf } from "obsidian";
 import { atomKey, validateAtomizationPath } from "../../consolidation/atomizationPlan";
 import { freeze } from "../recipe";
-import { DiagramError, requireDiagram } from "./spec";
+import { DIAGRAM_LIMITS, DiagramError, requireDiagram } from "./spec";
 import type { DiagramSpec } from "./spec";
+import { fitNewDrawing } from "./viewport";
 import { layoutDiagram, PALETTES } from "./layout";
 import type { DiagramLayout, DiagramOptions, TextBox } from "./layout";
 
@@ -29,7 +30,8 @@ export interface DiagramEA {
   addText(x: number, y: number, text: string, options?: { width?: number; height?: number; textAlign?: string; textVerticalAlign?: string }, id?: string): string;
   addArrow(points: [number, number][], options: { startObjectId: string; endObjectId: string; startFixedPoint: [number, number]; endFixedPoint: [number, number]; startArrowHead: null; endArrowHead: "arrow" }, id?: string): string;
   getElements(): NativeElement[];
-  create(options: { exactPath: string; silent: true; validateBeforeCreate: () => void; frontmatterKeys: Record<string, string | boolean> }): Promise<string>;
+  getBoundingBox(elements: readonly NativeElement[]): { topX: number; topY: number; width: number; height: number };
+  create(options: { exactPath: string; silent: true; plaintext?: string; validateBeforeCreate: () => void; frontmatterKeys: Record<string, string | boolean> }): Promise<string>;
   decompressFromBase64(raw: string): string;
 }
 interface ExcalidrawPlugin { manifest: { version: string }; ea: DiagramEA; settings: { autoexportExcalidraw?: boolean } }
@@ -75,9 +77,9 @@ export function nativeScene(ea: DiagramEA, layout: DiagramLayout, sourcePath: st
   });
   ea.style.strokeColor = palette.stroke;
   const sourceElement = "vsource0";
-  ea.addRect(40, layout.height - 70, 240, 50, sourceElement);
+  Object.assign(ea.style, { fontSize: 16, strokeColor: palette.accent, backgroundColor: "transparent" });
+  text(layout.source, sourceElement);
   ea.elementsDict[sourceElement].link = `[[${sourcePath}]]`;
-  text({ x: 60, y: layout.height - 58, width: 200, height: 25, text: "Источник / Source" }, "vsource1", sourceElement);
   const elements = clone(ea.getElements());
   elements.forEach((e, i) => { e.seed = i + 1; e.versionNonce = i + 1; e.updated = 0; });
   const scene = { format: 1 as const, elements, canvas: clone(ea.canvas), sourcePath, sourceElement };
@@ -87,6 +89,8 @@ export function nativeScene(ea: DiagramEA, layout: DiagramLayout, sourcePath: st
 export function validateScene(scene: DiagramScene): void {
   requireDiagram(scene.format === 1 && scene.elements.length > 0 && scene.elements.length <= 183, "adapter");
   const ids = new Map(scene.elements.map(e => [e.id, e]));
+  requireDiagram(ids.get(scene.sourceElement)?.link === `[[${scene.sourcePath}]]` &&
+    ["rectangle", "text"].includes(ids.get(scene.sourceElement)!.type), "adapter");
   requireDiagram(ids.size === scene.elements.length, "adapter");
   for (const e of scene.elements) {
     requireDiagram(["rectangle", "ellipse", "diamond", "text", "arrow"].includes(e.type) && !e.isDeleted &&
@@ -139,7 +143,8 @@ function verifyMarkdownMetadata(raw: string, drawingOffset: number, elements: re
     if (e.type === "text") {
       const token = `${e.rawText ?? e.originalText ?? e.text} ^${e.id}`;
       requireDiagram(metadata.includes(token), "adapter"); metadata = metadata.replace(token, "");
-    } else if (e.link) {
+    }
+    if (e.link) {
       const original = `${e.link} ^${e.id}`, normalized = `${e.id}: ${e.link}`;
       requireDiagram(metadata.includes(original) || metadata.includes(normalized), "adapter");
       metadata = metadata.replace(metadata.includes(original) ? original : normalized, "");
@@ -152,6 +157,7 @@ function verifyMarkdownMetadata(raw: string, drawingOffset: number, elements: re
 export class ExcalidrawAdapter implements DiagramAdapter {
   private busy = false;
   private failed = false;
+  private firstOpen = new WeakMap<TFile, { modified: number; elements: readonly NativeElement[] }>();
   private planOwners = new WeakMap<DiagramPlan, ExcalidrawPlugin>();
   constructor(private readonly app: App) {}
   private plugin(): ExcalidrawPlugin | undefined {
@@ -178,7 +184,7 @@ export class ExcalidrawAdapter implements DiagramAdapter {
   private instance(plugin: ExcalidrawPlugin): DiagramEA {
     const ea = plugin.ea.getAPI();
     try {
-      requireDiagram(ea !== plugin.ea && !ea.targetView && !ea.destroyed && ["destroy", "measureText", "addRect", "addEllipse", "addDiamond", "addText", "addArrow", "getElements", "create", "decompressFromBase64"].every(k => typeof (ea as unknown as Record<string, unknown>)[k] === "function") &&
+      requireDiagram(ea !== plugin.ea && !ea.targetView && !ea.destroyed && ["destroy", "measureText", "addRect", "addEllipse", "addDiamond", "addText", "addArrow", "getElements", "getBoundingBox", "create", "decompressFromBase64"].every(k => typeof (ea as unknown as Record<string, unknown>)[k] === "function") &&
         Object.keys(ea.elementsDict).length === 0 && Object.keys(ea.imagesDict).length === 0, "incompatible");
       return ea;
     } catch (e) { if (ea !== plugin.ea) ea.destroy?.(); throw e; }
@@ -191,7 +197,11 @@ export class ExcalidrawAdapter implements DiagramAdapter {
         this.app.metadataCache.getFirstLinkpathDest(source.path, target) === source, "source-link");
       Object.assign(ea.style, { fontFamily: 2, fontSize: 20 });
       const layout = layoutDiagram(spec, options, t => ea.measureText(t));
-      const plan = freeze({ layout, scene: nativeScene(ea, layout, source.path) }); this.planOwners.set(plan, plugin); return plan;
+      const scene = nativeScene(ea, layout, source.path), bounds = ea.getBoundingBox(scene.elements);
+      requireDiagram([bounds.topX, bounds.topY, bounds.width, bounds.height].every(Number.isFinite) && bounds.width > 0 && bounds.height > 0 &&
+        bounds.topX + bounds.width + 24 <= DIAGRAM_LIMITS.canvas && bounds.topY + bounds.height + 24 <= DIAGRAM_LIMITS.canvas, "adapter");
+      const plan = freeze({ layout: { ...layout, width: bounds.topX + bounds.width + 24, height: bounds.topY + bounds.height + 24 }, scene });
+      this.planOwners.set(plan, plugin); return plan;
     } finally { ea.destroy(); }
   }
   verifyPlan(plan: DiagramPlan): void { requireDiagram(this.planOwners.get(plan) === this.ready(), "reloaded"); }
@@ -223,10 +233,15 @@ export class ExcalidrawAdapter implements DiagramAdapter {
     try {
       validateScene(plan.scene);
       ea.elementsDict = Object.fromEntries(clone(plan.scene.elements).map(e => [e.id, e])); ea.canvas = clone(plan.scene.canvas);
-      const result = await ea.create({ exactPath: path, silent: true, frontmatterKeys: { ...frontmatter }, validateBeforeCreate: () => {
+      // EA 2.29.0 omits text links from initial Markdown metadata; supply the exact code-owned entry at creation.
+      const attribution = plan.scene.elements.find(e => e.id === plan.scene.sourceElement)!;
+      const plaintext = attribution.type === "text" ? `## Element Links\n${attribution.id}: ${attribution.link}\n\n` : undefined;
+      const result = await ea.create({ exactPath: path, silent: true, plaintext, frontmatterKeys: { ...frontmatter }, validateBeforeCreate: () => {
         requireDiagram(plugin === this.plugin() && !ea.destroyed && !plugin.settings.autoexportExcalidraw, "unavailable"); this.targetSync(path); guard();
       } });
-      requireDiagram(result === path, "adapter"); this.failed = false;
+      requireDiagram(result === path, "adapter");
+      const file = this.app.vault.getFileByPath(path); if (file) this.firstOpen.set(file, { modified: file.stat.mtime, elements: plan.scene.elements });
+      this.failed = false;
     } catch (e) { this.failed = true; throw e; }
     finally { ea.destroy(); this.busy = false; }
   }
@@ -255,9 +270,20 @@ export class ExcalidrawAdapter implements DiagramAdapter {
   async open(path: string): Promise<void> {
     this.ready(); const file = this.app.vault.getFileByPath(path); requireDiagram(file, "open");
     try {
+      let existing: WorkspaceLeaf | undefined;
+      this.app.workspace.iterateAllLeaves(leaf => {
+        if (leaf.view.getViewType() === "excalidraw" && (leaf.view as { file?: TFile }).file === file) existing = leaf;
+      });
+      // Only a freshly created, unchanged file is eligible; history and later opens keep their camera.
+      const fresh = this.firstOpen.get(file);
+      const fit = !existing && fresh?.modified === file.stat.mtime;
+      this.firstOpen.delete(file);
+      if (existing) { await this.app.workspace.revealLeaf(existing); return; }
       const leaf = this.app.workspace.getLeaf("tab");
       await leaf.setViewState({ type: "excalidraw", state: { file: file.path }, active: true });
       requireDiagram(leaf.view.getViewType() === "excalidraw", "open"); await this.app.workspace.revealLeaf(leaf);
+      if (fit && fresh) fitNewDrawing(leaf.view, this.ready().ea, fresh.elements, () =>
+        this.app.vault.getFileByPath(path) === file && file.stat.mtime === fresh.modified && this.app.workspace.getMostRecentLeaf() === leaf);
     } catch { throw new DiagramError("open"); }
   }
 }

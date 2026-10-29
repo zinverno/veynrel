@@ -13,10 +13,10 @@ export function diagramPreview(root: HTMLElement, plan: DiagramLayout): void {
     const el = document.createElementNS(ns, tag); for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, String(value)); parent.append(el); return el;
   };
   add("rect", { width: plan.width, height: plan.height, fill: palette.canvas });
-  const text = (box: TextBox, background = false) => {
+  const text = (box: TextBox, background = false, fontSize = 20, color: string = palette.stroke) => {
     if (background) add("rect", { x: box.x - 4, y: box.y - 3, width: box.width + 8, height: box.height + 6, fill: palette.canvas });
-    const element = add("text", { x: box.x + box.width / 2, y: box.y, fill: palette.stroke, "font-family": "Helvetica, Arial, sans-serif", "font-size": 20, "text-anchor": "middle" });
-    box.text.split("\n").forEach((line, i) => { const span = add("tspan", { x: box.x + box.width / 2, y: box.y + 20 + i * 23 }, element); span.textContent = line; });
+    const element = add("text", { x: box.x + box.width / 2, y: box.y, fill: color, "font-family": "Helvetica, Arial, sans-serif", "font-size": fontSize, "text-anchor": "middle" });
+    box.text.split("\n").forEach((line, i) => { const span = add("tspan", { x: box.x + box.width / 2, y: box.y + fontSize + i * fontSize * 1.15 }, element); span.textContent = line; });
   };
   text(plan.title);
   for (const edge of plan.edges) {
@@ -33,8 +33,7 @@ export function diagramPreview(root: HTMLElement, plan: DiagramLayout): void {
     text(n.text);
   }
   for (const edge of plan.edges) if (edge.text) text(edge.text, true);
-  add("rect", { x: 40, y: plan.height - 70, width: 240, height: 50, fill: palette.fill, stroke: palette.stroke, "stroke-width": 2 });
-  text({ x: 40, y: plan.height - 58, width: 240, height: 25, text: "Источник / Source" });
+  text(plan.source, false, 16, palette.accent);
   let scale = 1;
   const zoom = (next: number) => {
     scale = Math.max(1, Math.min(8, next));

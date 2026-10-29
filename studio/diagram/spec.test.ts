@@ -66,6 +66,16 @@ describe("DiagramSpec strict data contract", () => {
   });
 });
 describe("bounded deterministic layout", () => {
+  it.each(["down", "right"] as const)("reserves measured long-label clearance %s", direction => {
+    const spec: DiagramSpec = { schemaVersion: 1, kind: "structure", title: "Short graph",
+      nodes: [{ id: "a", label: "A", shape: "rectangle" }, { id: "b", label: "B", shape: "rectangle" }],
+      edges: [{ id: "e", from: "a", to: "b", label: "a long relationship label with several words" }] };
+    const plan = layoutDiagram(spec, { direction, theme: "neutral" }, measure), edge = plan.edges[0];
+    const a = plan.nodes[0], b = plan.nodes[1], label = edge.text!;
+    expect(direction === "right" ? label.x >= a.x + a.width && label.x + label.width <= b.x
+      : label.y >= a.y + a.height && label.y + label.height <= b.y).toBe(true);
+    expect(plan.source.y).toBeGreaterThan(Math.max(...plan.nodes.map(n => n.y + n.height)));
+  });
   it.each(["down", "right"] as const)("places branches, cycles, self edges and components %s without node overlap", direction => {
     const plan = layoutDiagram(graph, { direction, theme: "neutral" }, measure);
     expect(plan).toEqual(layoutDiagram(graph, { direction, theme: "neutral" }, measure));

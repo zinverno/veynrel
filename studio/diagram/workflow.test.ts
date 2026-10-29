@@ -72,10 +72,11 @@ function fixture() {
         arrow.endBinding = { elementId: options.endObjectId, mode: "orbit", fixedPoint: options.endFixedPoint };
         for (const binding of [arrow.startBinding, arrow.endBinding]) api.elementsDict[binding.elementId].boundElements!.push({ id: result, type: "arrow" }); return result;
       },
-      getElements: () => Object.values(api.elementsDict), decompressFromBase64: () => { throw Error("not used"); },
+      getElements: () => Object.values(api.elementsDict),
+      getBoundingBox: els => ({ topX: Math.min(...els.map(e => e.x)), topY: Math.min(...els.map(e => e.y)), width: Math.max(...els.map(e => e.x + e.width)) - Math.min(...els.map(e => e.x)), height: Math.max(...els.map(e => e.y + e.height)) - Math.min(...els.map(e => e.y)) }), decompressFromBase64: () => { throw Error("not used"); },
       create: async options => {
         options.validateBeforeCreate();
-        const raw = `---\nexcalidraw-plugin: raw\nexcalidraw-autoexport: none\nexcalidraw-open-md: false\n---\n# Excalidraw Data\n\n## Text Elements\n${api.getElements().filter(e => e.type === "text").map(e => `${e.rawText} ^${e.id}\n\n`).join("")}${api.getElements().filter(e => e.type !== "text" && e.link).map(e => `${e.link} ^${e.id}\n\n`).join("")}%%\n## Drawing\n\x60\x60\x60json\n${JSON.stringify({ type: "excalidraw", elements: api.getElements(), files: {} })}\n\x60\x60\x60\n`;
+        const raw = `---\nexcalidraw-plugin: raw\nexcalidraw-autoexport: none\nexcalidraw-open-md: false\n---\n${options.plaintext ?? ""}# Excalidraw Data\n\n## Text Elements\n${api.getElements().filter(e => e.type === "text").map(e => `${e.rawText} ^${e.id}\n\n`).join("")}${api.getElements().filter(e => e.type !== "text" && e.link).map(e => `${e.link} ^${e.id}\n\n`).join("")}%%\n## Drawing\n\x60\x60\x60json\n${JSON.stringify({ type: "excalidraw", elements: api.getElements(), files: {} })}\n\x60\x60\x60\n`;
         await app.vault.create(options.exactPath, raw); return options.exactPath;
       },
     }; return api;
@@ -103,10 +104,30 @@ describe("optional native capability and element contract", () => {
     const f = fixture(), p = await f.generate(); validateScene(p.plan.scene);
     const els = p.plan.scene.elements;
     expect(els.filter(e => e.type === "arrow")).toHaveLength(2);
-    expect(els.filter(e => e.type === "text" && e.containerId)).toHaveLength(5);
+    expect(els.filter(e => e.type === "text" && e.containerId)).toHaveLength(4);
     expect(els.filter(e => e.link).map(e => e.link)).toEqual(["[[Source.md]]"]);
     expect(els.some(e => ["image", "embeddable", "iframe"].includes(e.type))).toBe(false);
     expect(f.instances.every(e => e.destroyed)).toBe(true); expect(f.globalEA.elementsDict).toEqual({}); expect(f.globalEA.destroyed).toBe(false);
+    expect(els.find(e => e.id === p.plan.scene.sourceElement)).toMatchObject({ type: "text", containerId: null, link: "[[Source.md]]" });
+    expect(els.some(e => e.id === "vsource1")).toBe(false);
+  });
+  it("requires the caption link in Markdown metadata as well as in the scene", async () => {
+    const f = fixture(), p = await f.generate(); await f.workflow.create(p);
+    const raw = f.files.get(p.target)!;
+    expect(raw).toContain("## Element Links\nvsource0: [[Source.md]]");
+    f.files.set(p.target, raw.replace("vsource0: [[Source.md]]", ""));
+    await expect(f.adapter.read(p.target)).rejects.toThrow("adapter");
+    const scene = copy(p.plan.scene); delete (scene.elements as NativeElement[]).find(e => e.id === scene.sourceElement)!.link;
+    expect(() => validateScene(scene)).toThrow("adapter");
+  });
+  it("only offers first-open fitting once for an unchanged file created by this adapter", async () => {
+    const f = fixture(), p = await f.generate(); await f.workflow.create(p);
+    const hooks = vi.fn(() => ({ onSceneChangeHook: {} }));
+    f.app.workspace.getLeaf.mockImplementation(() => ({ setViewState: vi.fn(async () => {}),
+      view: { getViewType: () => "excalidraw", getHookServer: hooks, isDirty: () => false } }));
+    await f.workflow.open(p.id); await f.workflow.open(p.id); expect(hooks).toHaveBeenCalledOnce();
+    const restarted = new ExcalidrawAdapter(f.app as unknown as App);
+    await restarted.open(p.target); expect(hooks).toHaveBeenCalledOnce();
   });
   it("sanitizes hostile model labels before they reach EA or Markdown serialization", async () => {
     const f = fixture(), hostile = '![[Hidden]] [x](https://bad.invalid) obsidian://open <svg>\n%% ^block';
