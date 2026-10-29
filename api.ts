@@ -76,6 +76,15 @@ export function buildChatBody(
     body["reasoning"] = { ...opts.reasoning };
   }
 
+  if (opts.structuredOutput) {
+    const { name, schema, endpoint } = opts.structuredOutput;
+    if (!isPublicOpenRouter(settings) || !/^[a-zA-Z0-9_-]{1,64}$/u.test(name) || !/^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/u.test(endpoint)) {
+      throw new StructuredOutputUnavailableError();
+    }
+    body["response_format"] = { type: "json_schema", json_schema: { name, strict: true, schema } };
+    body["provider"] = { only: [endpoint], order: [endpoint], allow_fallbacks: false, require_parameters: true };
+  }
+
   return body;
 }
 
@@ -305,6 +314,8 @@ export interface CallOptions {
   reasoning?: Readonly<{ enabled: false } | { effort: "low" }>;
   /** Structured analysis must receive an explicit normal completion. */
   requireFinishReason?: boolean;
+  /** Opt-in only after endpoint capability preflight; included in the consent body. */
+  structuredOutput?: Readonly<{ name: string; schema: Readonly<Record<string, unknown>>; endpoint: string }>;
 }
 
 /** Only safe categories and numeric status cross the transport boundary. */
@@ -313,6 +324,25 @@ export class ApiRequestError extends Error {
     super(message);
     this.name = "ApiRequestError";
   }
+}
+
+type PublicConnection = Pick<LanguageModelSettingsSnapshot, "provider" | "baseUrl" | "model">;
+export class StructuredOutputUnavailableError extends Error {
+  constructor() { super("Structured output capabilities cannot be verified for this connection."); }
+}
+export function isPublicOpenRouter(settings: PublicConnection): boolean {
+  return settings.provider === "openrouter" && settings.baseUrl === "https://openrouter.ai/api/v1";
+}
+
+/** Explicit metadata preflight only. Never receives credentials or note content. */
+export async function readOpenRouterEndpoints(settings: PublicConnection): Promise<unknown> {
+  if (!isPublicOpenRouter(settings) || settings.model.length > 200 || !/^[a-zA-Z0-9_-]+\/[a-zA-Z0-9_.:-]+$/u.test(settings.model) || [".", ".."].includes(settings.model.split("/")[1])) {
+    throw new StructuredOutputUnavailableError();
+  }
+  const res = await requestBuffered({ url: `${settings.baseUrl}/models/${settings.model.split("/").map(encodeURIComponent).join("/")}/endpoints`, method: "GET" }, 10_000);
+  if (res.status < 200 || res.status >= 300) throw httpError(res.status);
+  if (res.text.length > 2_000_000) throw new ApiRequestError("invalidEnvelope", "Endpoint metadata exceeds the limit.");
+  return parseJson(res.text);
 }
 
 // ─────────────────────────────────────────────

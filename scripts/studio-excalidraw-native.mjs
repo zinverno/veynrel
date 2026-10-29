@@ -26,15 +26,41 @@ for (const [id, from] of [['ai-knowledge-hub', ROOT], ['obsidian-excalidraw-plug
   const to = `${config}/plugins/${id}`; fs.mkdirSync(to);
   for (const name of ['main.js', 'styles.css', 'manifest.json']) { fs.copyFileSync(`${from}/${name}`, `${to}/${name}`); report.artifacts[`${id}/${name}`] = sha(fs.readFileSync(`${to}/${name}`)); }
 }
+const metadata = { data: { id: 'synthetic/diagram', endpoints: [{ tag: 'synthetic/loopback', supported_parameters: ['structured_outputs', 'response_format', 'max_tokens', 'temperature', 'repetition_penalty', 'frequency_penalty', 'reasoning'] }] } };
+report.metadata = [];
 let providerMode = 'normal', releaseProvider;
 const server = createServer(async (req, res) => {
-  let body = ''; for await (const chunk of req) body += chunk; assert.equal(req.url, '/v1/chat/completions'); report.requests.push(body);
+  let body = ''; for await (const chunk of req) body += chunk;
+  if (req.url === '/v1/models/synthetic/diagram/endpoints') {
+    assert.equal(req.method, 'GET'); assert.equal(body, ''); assert.equal(req.headers.authorization, undefined);
+    report.metadata.push({ method: req.method, url: req.url }); res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(metadata)); return;
+  }
+  assert.equal(req.url, '/v1/chat/completions'); report.requests.push(body);
+  assert.equal(JSON.parse(body).response_format.json_schema.strict, true);
+  assert.deepEqual(JSON.parse(body).provider, { only: ['synthetic/loopback'], order: ['synthetic/loopback'], allow_fallbacks: false, require_parameters: true });
   if (providerMode === 'defer') await new Promise(resolve => { releaseProvider = resolve; });
+  if (providerMode === 'late-http') { res.writeHead(503, { 'Content-Type': 'application/json' }); res.end('{"error":{"code":503}}'); return; }
   const kind = JSON.parse(body).messages[0].content.includes('structural diagram') ? 'structure' : 'flowchart';
-  res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ choices: [{ message: { content: JSON.stringify({ ...graph, kind }) }, finish_reason: providerMode === 'length' ? 'length' : 'stop' }] }));
+  const output = { ...graph, kind }; if (providerMode === 'missing-label') output.edges = graph.edges.map(({label, ...edge}) => edge);
+  res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ choices: [{ message: { content: JSON.stringify(output) }, finish_reason: providerMode === 'length' ? 'length' : 'stop' }] }));
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-fs.writeFileSync(`${config}/plugins/ai-knowledge-hub/data.json`, JSON.stringify({ language: 'en', provider: 'ollama', model: 'diagram-synthetic', baseUrl: `http://127.0.0.1:${server.address().port}/v1`, apiKey: '', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } }));
+// Harness loader executes the unmodified production bundle with a requestUrl URL-only redirect.
+// The frozen request body still traverses production buildChatBody/callOpenRouter and native requestUrl.
+const instrumentedDir = `${config}/plugins/ai-knowledge-hub`;
+fs.renameSync(`${instrumentedDir}/main.js`, `${instrumentedDir}/production-main.js`);
+fs.writeFileSync(`${instrumentedDir}/main.js`, `const fs=require('fs'),host=require('obsidian'),nativeRequest=host.requestUrl;
+window.studioTransportTiming=[];
+const api={...host,requestUrl:opts=>{
+  if(typeof opts!=='object')throw Error('unexpected request');const u=new URL(opts.url);
+  if(u.origin!=='https://openrouter.ai'||!['/api/v1/models/synthetic/diagram/endpoints','/api/v1/chat/completions'].includes(u.pathname))throw Error('blocked non-loopback request');
+  if(opts.method==='GET'&&(opts.headers||opts.body))throw Error('metadata leaked credentials or body');
+  const trace={phase:opts.method==='GET'?'preflight GET':'inference',clock:'renderer performance.now',dispatch:performance.now(),firstByte:null,bodyComplete:null,delivery:null,metadataSettlement:null};window.studioTransportTiming.push(trace);
+  return nativeRequest({...opts,url:'http://127.0.0.1:${server.address().port}'+u.pathname.replace('/api/v1','/v1'),headers:opts.method==='GET'?undefined:{'Content-Type':'application/json'}}).then(r=>{trace.delivery=performance.now();trace.status=r.status;return r},e=>{trace.delivery=performance.now();trace.status='transport error';throw e});
+}};
+const m={exports:{}};new Function('require','module','exports',fs.readFileSync(${JSON.stringify(`${instrumentedDir}/production-main.js`)},'utf8'))(name=>name==='obsidian'?api:require(name),m,m.exports);module.exports=m.exports;`);
+report.instrumentation = 'Unmodified production-main.js loaded through harness-only require adapter; only requestUrl destination/headers redirected to loopback. No remote inference route. First-byte/body-complete unavailable in buffered requestUrl; no billing settlement exists for synthetic responses.';
+fs.writeFileSync(`${config}/plugins/ai-knowledge-hub/data.json`, JSON.stringify({ language: 'en', provider: 'openrouter', model: 'synthetic/diagram', baseUrl: 'https://openrouter.ai/api/v1', apiKey: 'synthetic-not-a-key', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } }));
 fs.writeFileSync(`${config}/plugins/obsidian-excalidraw-plugin/data.json`, JSON.stringify({ checkForUpdates: false, showReleaseNotes: false, showWelcomeModal: false, autoexportSVG: true, autoexportPNG: true, autoexportExcalidraw: false, compress: true, matchTheme: true, enableOnloadScripts: false, startupScriptPath: '', templateFilePath: 'Untouched.md' }));
 // Begin with Excalidraw installed but disabled; enable only inside this disposable vault.
 fs.writeFileSync(`${config}/community-plugins.json`, '["ai-knowledge-hub"]');
@@ -58,6 +84,7 @@ async function connect() {
   if (await ev("!!document.querySelector('.mod-trust-folder')")) await ev("[...document.querySelectorAll('.mod-trust-folder button')].find(e=>/Trust author/.test(e.textContent)).click();void 0");
   await wait("!!app.plugins.plugins['ai-knowledge-hub']?.studio?.diagrams");
   await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.studio=plugin.studio;window.d=studio.diagrams;window.io={reads:[],creates:[]};const read=app.vault.read.bind(app.vault),create=app.vault.create.bind(app.vault);app.vault.read=async f=>{io.reads.push(f.path);return read(f)};app.vault.create=async(p,s,o)=>{io.creates.push(p);return create(p,s,o)};void 0");
+  await ev(`window.fetch=()=>{throw Error('blocked fetch')};XMLHttpRequest.prototype.send=function(){throw Error('blocked XHR')};void 0`);
   await cdp('Page.bringToFront');
 }
 const click = async (action, modal = false) => {
@@ -93,7 +120,7 @@ async function editText(id, value) {
   await cdp('Input.insertText', { text: value }); await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape' }); await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape' });
   await wait(`xapi.getSceneElements().find(e=>e.id==='${id}').text===${JSON.stringify(value)}`);
 }
-async function restart() { socket.close(); const ended = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await ended; child = start(); await connect(); }
+async function restart() { report.transportTiming = await ev('studioTransportTiming'); fs.writeFileSync(`${config}/plugins/ai-knowledge-hub/data.json`, JSON.stringify({ language: 'en', provider: 'openrouter', model: 'synthetic/diagram', baseUrl: 'https://openrouter.ai/api/v1', apiKey: 'synthetic-not-a-key', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } })); socket.close(); const ended = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGKILL'); await ended; child = start(); await connect(); }
 try {
   child = start(); await connect(); await studioOpen();
   report.versions = await ev("({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,chrome:process.versions.chrome,excalidraw:'2.29.0'})");
@@ -191,6 +218,22 @@ try {
   await pass('Two actual Studio leaves share the same busy diagram owner', "app.workspace.getLeavesOfType('veynrel-studio').every(l=>l.view.owner.diagrams===d)&&d.running&&studio.operations.busy");
   await pass('Markdown cannot start during diagram generation', "studio.runner.prepare(studio.registry.list()[0],{language:'source',instructions:''},{paths:['Source.md']},32768).then(()=>false,e=>e.code==='busy')");
   await ev('d.cancel();void 0'); releaseProvider(); await pass('Cancel discards the issued result and releases only after transport settles', 'pendingDiagram'); providerMode = 'normal';
+  providerMode = 'missing-label'; await prepare('Drawings/Invalid.excalidraw.md');
+  await pass('Missing required edge labels are rejected without repair or creation', "d.generate(d.prepared).then(()=>false,e=>e.code==='spec'&&!d.proposal&&!app.vault.getAbstractFileByPath('Drawings/Invalid.excalidraw.md'))"); providerMode = 'normal';
+  for (const late of ['success', 'http-error']) {
+    providerMode = 'defer'; releaseProvider = undefined; await prepare(`Drawings/Timeout-${late}.excalidraw.md`);
+    const beforeTimeout = report.requests.length;
+    await ev("window.timedDiagram=d.generate(d.prepared).then(()=>({unexpected:true}),e=>({code:e.code}));void 0");
+    while (!releaseProvider) await pause(20);
+    await pause(30_100);
+    await pass(`Native timeout stays distinct before late ${late}`, "(async()=>{const r=await timedDiagram;return r.code==='timeout'&&d.error==='timeout'&&!d.proposal&&!d.canCreate})()");
+    await shot(`timeout-${late}`);
+    await prepare(`Drawings/After-timeout-${late}.excalidraw.md`); const newId = await ev('d.prepared.id');
+    providerMode = late === 'success' ? 'normal' : 'late-http'; releaseProvider(); await pause(300);
+    assert.equal(report.requests.length, beforeTimeout + 1);
+    await pass(`Late ${late} cannot revive the old proposal or replace new consent`, `d.state==='prepared'&&d.prepared.id===${JSON.stringify(newId)}&&!d.proposal&&!app.vault.getAbstractFileByPath('Drawings/Timeout-${late}.excalidraw.md')`);
+    providerMode = 'normal';
+  }
   const count = report.requests.length; await restart(); assert.equal(report.requests.length, count);
   await pass('Restart never replays generation or creation', 'd.proposal===undefined&&io.creates.length===0');
   report.historyAfterRestart = await ev('d.history().then(rows=>rows.map(r=>({state:r.state,target:r.entry.intent?.target})))');
@@ -200,7 +243,7 @@ try {
   report.sourceHashes = Object.fromEntries(Object.keys(originals).map(path => [path, sha(fs.readFileSync(`${vault}/${path}`))]));
   report.finalScene = await ev("d.adapter.read('Drawings/Native.excalidraw.md')");
   fs.copyFileSync(`${vault}/Drawings/Native.excalidraw.md`, `${root}/edited.excalidraw.md`);
-  report.outcome = 'PASS';
+  report.finalTransportTiming = await ev('studioTransportTiming'); report.outcome = 'PASS';
 } catch (e) {
   report.outcome = 'FAIL'; report.error = String(e?.stack ?? e);
   try { report.ui = await ev('document.body.innerText.slice(-6000)'); report.runtime = await ev('({state:d.state,error:d.error,result:d.result,capability:d.adapter.capability()})'); await shot('failure'); } catch {}

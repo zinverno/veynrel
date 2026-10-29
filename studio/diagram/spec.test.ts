@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DIAGRAM_LIMITS, inertLabel, parseDiagramSpec, validateDiagramSpec } from "./spec";
+import { DIAGRAM_LIMITS, DIAGRAM_SCHEMA, inertLabel, parseDiagramSpec, validateDiagramSpec } from "./spec";
 import type { DiagramSpec } from "./spec";
 import { layoutDiagram } from "./layout";
 
@@ -12,6 +12,28 @@ export const graph: DiagramSpec = {
 };
 const measure = (s: string) => ({ width: Math.max(...s.split("\n").map(l => Array.from(l).length * 11)), height: s.split("\n").length * 23 });
 describe("DiagramSpec strict data contract", () => {
+  it("shares required keys, enums and bounds with the transport schema", () => {
+    const schema = DIAGRAM_SCHEMA, node = schema.properties.nodes.items, edge = schema.properties.edges.items;
+    for (const [shape, sample] of [[schema, graph], [node, graph.nodes[0]], [edge, graph.edges[0]]] as const) {
+      expect([...shape.required].sort()).toEqual(Object.keys(shape.properties).sort()); expect(shape.additionalProperties).toBe(false);
+      for (const key of shape.required) {
+        const changed = { ...sample } as Record<string, unknown>; delete changed[key];
+        expect(() => validateDiagramSpec(shape === schema ? changed : shape === node ? { ...graph, nodes: [changed] } : { ...graph, edges: [changed] })).toThrow();
+      }
+    }
+    for (const kind of schema.properties.kind.enum) for (const shape of node.properties.shape.enum) {
+      expect(validateDiagramSpec({ ...graph, kind, nodes: [{ id: "one", label: "Node", shape }], edges: [] }).kind).toBe(kind);
+    }
+    expect(schema.properties.nodes.maxItems).toBe(DIAGRAM_LIMITS.nodes); expect(schema.properties.edges.maxItems).toBe(DIAGRAM_LIMITS.edges);
+    for (const [max, change] of [
+      [schema.properties.title.maxLength, (s: string) => ({ ...graph, title: s })],
+      [node.properties.label.maxLength, (s: string) => ({ ...graph, nodes: graph.nodes.map(n => ({ ...n, label: s })) })],
+      [edge.properties.label.maxLength, (s: string) => ({ ...graph, edges: graph.edges.map(e => ({ ...e, label: s })) })],
+    ] as const) {
+      expect(() => validateDiagramSpec(change("x".repeat(max)))).not.toThrow(); expect(() => validateDiagramSpec(change("x".repeat(max + 1)))).toThrow();
+    }
+    expect(Object.isFrozen(edge.properties.label)).toBe(true);
+  });
   it("accepts Cyrillic, multiline labels, cycles and disconnected nodes immutably", () => {
     const spec = parseDiagramSpec(JSON.stringify(graph), "flowchart"); expect(spec).toEqual(graph); expect(Object.isFrozen(spec.nodes[0])).toBe(true);
   });

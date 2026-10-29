@@ -1,7 +1,7 @@
 import { isCanonicalMarkdownPath } from "../chunking/reconstructChunks";
 
 export const STUDIO_LIMITS = Object.freeze({ files: 20, recipes: 100, manifest: 24_000, input: 24_000, output: 48_000, instructions: 2_000 });
-export type StudioErrorCode = "recipe" | "parameters" | "scope" | "size" | "source" | "editor" | "unsaved" | "read-editor" | "settings" | "busy" | "stale" | "storage" | "response" | "provider" | "cancelled" | "used" | "conflict";
+export type StudioErrorCode = "recipe" | "parameters" | "scope" | "size" | "source" | "editor" | "unsaved" | "read-editor" | "settings" | "busy" | "stale" | "storage" | "response" | "provider" | "cancelled" | "used" | "conflict" | "timeout" | "aborted" | "http" | "network" | "capabilities";
 export class StudioError extends Error { constructor(readonly code: StudioErrorCode) { super(code); } }
 export function ensure(value: unknown, code: StudioErrorCode): asserts value { if (!value) throw new StudioError(code); }
 export function object(value: unknown, keys: readonly string[]): value is Record<string, unknown> {

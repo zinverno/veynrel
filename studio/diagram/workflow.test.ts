@@ -20,13 +20,16 @@ import { DiagramJournal } from "./journal";
 import { ExcalidrawAdapter, EXCALIDRAW_VERSION, sameScene, sceneSignature, validateScene } from "./adapter";
 import type { DiagramEA, NativeElement } from "./adapter";
 import { DiagramWorkflow } from "./workflow";
+import { DiagramCapabilities } from "./capabilities";
+import { DIAGRAM_SCHEMA, parseDiagramSpec } from "./spec";
+import { diagramError } from "./messages";
 import type { DiagramSpec } from "./spec";
 
 const graph: DiagramSpec = { schemaVersion: 1, kind: "flowchart", title: "Request",
   nodes: [{ id: "a", shape: "rectangle", label: "Receive" }, { id: "b", shape: "diamond", label: "Valid?" }, { id: "c", shape: "ellipse", label: "Accept" }],
   edges: [{ id: "e1", from: "a", to: "b", label: "" }, { id: "e2", from: "b", to: "c", label: "Yes" }] };
 const response = (content = JSON.stringify(graph), finish = "stop", refusal?: string) => ({ status: 200, text: JSON.stringify({ choices: [{ message: { content, ...(refusal ? { refusal } : {}) }, finish_reason: finish }] }) }) as never;
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 const copy = <T>(v: T): T => JSON.parse(JSON.stringify(v)) as T;
 function fixture() {
   vi.stubGlobal("window", { setTimeout, clearTimeout });
@@ -79,17 +82,19 @@ function fixture() {
   }
   const globalEA = ea(), excalidraw = { manifest: { version: EXCALIDRAW_VERSION }, ea: globalEA, settings: { autoexportExcalidraw: false } };
   app.plugins.plugins["obsidian-excalidraw-plugin"] = excalidraw;
-  const actualApp = app as unknown as App, notes = studioNotePort(actualApp), settings = { provider: "ollama" as const, model: "synthetic", baseUrl: "http://127.0.0.1:1234/v1", apiKey: "", temperature: 0.2, topK: 5 };
+  const actualApp = app as unknown as App, notes = studioNotePort(actualApp), settings = { provider: "openrouter" as const, model: "test/synthetic", baseUrl: "https://openrouter.ai/api/v1", apiKey: "synthetic-not-a-key", temperature: 0.2, topK: 5 };
   const operations = new StudioOperations(), storage = new StudioStorage(disk.adapter, app.vault.configDir, "ai-knowledge-hub"), adapter = new ExcalidrawAdapter(actualApp);
   const port = { notes, inventory: () => studioInventory(actualApp), settings: { get: () => ({ ...settings }), update: async (s: LanguageModelSettingsSnapshot) => s, subscribe: () => () => {} }, complete: callOpenRouter };
-  const journal = new DiagramJournal(storage), workflow = new DiagramWorkflow(port, adapter, journal, operations);
+  const metadata = vi.fn(async () => ({ data: { id: settings.model, endpoints: [{ tag: "synthetic/verified", supported_parameters: ["structured_outputs", "response_format", "max_tokens", "temperature", "repetition_penalty", "frequency_penalty", "reasoning"] }] } }));
+  const capabilities = new DiagramCapabilities(metadata);
+  const journal = new DiagramJournal(storage), workflow = new DiagramWorkflow(port, adapter, journal, operations, capabilities);
   const writer = new StudioApply(new StudioJournal(storage), notes, operations), runner = new RecipeRunner(port, writer);
   const request = vi.mocked(requestUrl); request.mockReset(); request.mockResolvedValue(response());
   const prepare = () => workflow.prepare("flowchart", "Source.md", "Drawings/Review.excalidraw.md", { direction: "down", theme: "neutral" }, 32768);
   const generate = async () => workflow.generate(await prepare());
-  return { ...disk, source, sourceContent, app, instances, globalEA, excalidraw, notes, settings, operations, storage, adapter, journal, workflow, writer, runner, request, prepare, generate,
+  return { metadata, ...disk, source, sourceContent, app, instances, globalEA, excalidraw, notes, settings, operations, storage, adapter, journal, workflow, writer, runner, request, prepare, generate,
     editor: (raw = sourceContent, inspectable = true) => { const view = Object.assign(inspectable ? new MarkdownView({} as never) : {}, { file: source, getViewData: () => raw, getViewType: () => "markdown" }); leaves = [{ view, getViewState: () => ({ state: { file: source.path } }) }]; return view; },
-    restart: () => new DiagramWorkflow(port, adapter, new DiagramJournal(storage), new StudioOperations()),
+    restart: () => new DiagramWorkflow(port, adapter, new DiagramJournal(storage), new StudioOperations(), capabilities),
   };
 }
 
@@ -144,6 +149,44 @@ describe("optional native capability and element contract", () => {
   });
 });
 describe("one shared workflow and exact consent over the real transport", () => {
+  it("freezes strict schema/route in consent and uses valid examples for both kinds", async () => {
+    const f = fixture(); expect(f.metadata).not.toHaveBeenCalled();
+    for (const kind of ["structure", "flowchart"] as const) {
+      const p = await f.workflow.prepare(kind, "Source.md", "Drawings/Review.excalidraw.md", { direction: "down", theme: "neutral" }, 32768);
+      const example = p.system.split("Illustrative shape example only, not source facts: ")[1].split("\n")[0];
+      const parsed = parseDiagramSpec(example, kind); if (kind === "flowchart") expect(parsed.edges.map(e => e.label)).toEqual(["Yes", "No"]);
+      expect(p.call.structuredOutput?.schema).toBe(DIAGRAM_SCHEMA); expect(Object.isFrozen(p.call.structuredOutput)).toBe(true);
+      expect(JSON.parse(p.body) as unknown).toMatchObject({ response_format: { json_schema: { schema: DIAGRAM_SCHEMA } },
+        provider: { only: ["synthetic/verified"], order: ["synthetic/verified"], require_parameters: true, allow_fallbacks: false } });
+    }
+    expect(f.metadata).toHaveBeenCalledOnce(); expect(f.metadata.mock.calls[0]).toEqual([{ provider: f.settings.provider, baseUrl: f.settings.baseUrl, model: f.settings.model }]);
+    expect(f.request).not.toHaveBeenCalled();
+  });
+  it("rejects unsupported or expired metadata without a model request or fallback", async () => {
+    vi.useFakeTimers(); const f = fixture(); f.metadata.mockResolvedValueOnce({ data: { id: f.settings.model, endpoints: [] } });
+    await expect(f.prepare()).rejects.toThrow("capabilities"); expect(f.workflow.prepared).toBeUndefined();
+    const p = await f.prepare(); await vi.advanceTimersByTimeAsync(300_000);
+    await expect(f.workflow.generate(p)).rejects.toThrow("capabilities"); expect(f.request).not.toHaveBeenCalled(); expect(f.metadata).toHaveBeenCalledTimes(2);
+  });
+  it.each(["success", "failure"])("keeps timeout terminal when the old request later returns %s", async outcome => {
+    vi.useFakeTimers(); const f = fixture(), p = await f.prepare(), before = new Map(f.files);
+    let resolve!: (v: never) => void, reject!: (e: Error) => void;
+    f.request.mockImplementationOnce(() => new Promise((a, b) => { resolve = a; reject = b; }) as never);
+    const result = f.workflow.generate(p).catch((e: unknown) => e);
+    await vi.advanceTimersByTimeAsync(30_001);
+    expect(await result).toMatchObject({ code: "timeout" }); expect(f.workflow.error).toBe("timeout");
+    expect(diagramError("timeout")).toMatch(/may continue and charge|может продолжить генерацию и списать деньги/u); expect(f.workflow.proposal).toBeUndefined(); expect(f.workflow.canCreate).toBe(false);
+    const next = await f.prepare();
+    if (outcome === "success") resolve(response()); else reject(Error("private-late-body"));
+    await vi.advanceTimersByTimeAsync(1);
+    expect(f.workflow.state).toBe("prepared"); expect(f.workflow.prepared).toBe(next); expect(f.workflow.proposal).toBeUndefined();
+    expect(f.files).toEqual(before); expect(f.request).toHaveBeenCalledOnce(); expect(f.app.vault.create).not.toHaveBeenCalled(); expect(f.app.vault.process).not.toHaveBeenCalled();
+    await expect(f.workflow.generate(p)).rejects.toThrow("stale");
+  });
+  it.each([[401, "private-body", "http"], [200, "private-json", "response"]])("preserves safe error category for HTTP %s", async (status, text, code) => {
+    const f = fixture(); f.request.mockResolvedValueOnce({ status, text } as never);
+    await expect(f.generate()).rejects.toMatchObject({ code }); expect(f.workflow.error).toBe(code); expect(f.workflow.proposal).toBeUndefined(); expect(f.app.vault.create).not.toHaveBeenCalled();
+  });
   it("sends nothing before consent; sends the exact displayed body; writes nothing before create", async () => {
     const f = fixture(); f.editor(); const before = new Map(f.files), p = await f.prepare();
     expect(f.request).not.toHaveBeenCalled(); expect(f.files).toEqual(before);

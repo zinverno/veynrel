@@ -8,6 +8,7 @@ import { ensure, freeze, integer, selectPaths, StudioError, text, validateParame
 import type { Recipe, RecipeParameters } from "./recipe";
 import type { ApplyResult, ReviewRow, ReviewSession, StudioNotePort, StudioSource, StudioState } from "./ports";
 import { StudioApply } from "./apply";
+import { providerError } from "./providerError";
 import type { StudioProposal } from "./ports";
 
 export interface PreparedRun {
@@ -96,7 +97,7 @@ export class RecipeRunner {
           row.after = after; row.status = "generated";
         } catch (e) {
           row.status = this.cancelled || this.closed ? "cancelled" : "failed";
-          row.reason = e instanceof StudioError ? e.code : "provider";
+          row.reason = this.cancelled || this.closed ? "cancelled" : providerError(e);
         }
         this.emit();
       }
