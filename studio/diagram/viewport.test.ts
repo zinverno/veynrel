@@ -30,12 +30,31 @@ describe("one-shot native first-open viewport", () => {
     f.ready(); expect(f.api.setViewport).toHaveBeenCalledExactlyOnceWith({ target: f.elements, fit: "contain", offsets: { ui: true }, animation: false });
     expect(f.view.getHookServer()).toBe(f.previous);
     f.settle(f.elements, f.state); expect(f.ea.clearViewDirty).not.toHaveBeenCalled();
-    f.settle(); expect(f.ea.clearViewDirty).toHaveBeenCalledOnce(); expect(f.ea.destroy).toHaveBeenCalledOnce();
+    f.settle(); expect(f.ea.clearViewDirty).toHaveBeenCalledOnce();
     f.ready(); f.settle(); expect(f.api.setViewport).toHaveBeenCalledOnce(); expect(f.ea.clearViewDirty).toHaveBeenCalledOnce();
+    f.events.dispatchEvent(new Event("pointerdown")); expect(f.ea.destroy).toHaveBeenCalledOnce();
   });
   it("also fits when scene readiness preceded hook registration", () => {
     const f = fixture(); f.api.getSceneElements.mockReturnValue(f.elements); f.start();
     expect(f.api.setViewport).toHaveBeenCalledOnce(); f.ready(); expect(f.api.setViewport).toHaveBeenCalledOnce();
+  });
+  it("corrects the host's later bound-text normalization once, then removes its observer", () => {
+    const f = fixture(); f.start(); f.ready(); f.settle();
+    const normalized = [{ ...f.elements[0], version: 2 }];
+    f.settle(normalized); expect(f.api.setViewport).toHaveBeenCalledTimes(2);
+    f.settle(normalized, { ...f.state, scrollY: 40 }); expect(f.ea.clearViewDirty).toHaveBeenCalledTimes(2); expect(f.ea.destroy).toHaveBeenCalledOnce();
+    f.settle([{ ...f.elements[0], version: 3 }]); expect(f.api.setViewport).toHaveBeenCalledTimes(2);
+  });
+  it.each(["pointerdown", "keydown", "wheel"])("never corrects native normalization after %s", event => {
+    const f = fixture(); f.start(); f.ready(); f.settle(); f.events.dispatchEvent(new Event(event));
+    f.settle([{ ...f.elements[0], version: 2 }]); expect(f.api.setViewport).toHaveBeenCalledOnce();
+  });
+  it.each(["element", "dirty", "background", "inactive"] as const)("does not mistake a later %s change for native normalization", condition => {
+    const f = fixture(); f.start(); f.ready(); f.settle();
+    if (condition === "dirty" || condition === "inactive") f[condition]();
+    f.settle([{ ...f.elements[0], version: 2, x: condition === "element" ? 40 : 24 }],
+      { ...f.state, scrollY: 20, viewBackgroundColor: condition === "background" ? "red" : "white" });
+    expect(f.api.setViewport).toHaveBeenCalledOnce(); expect(f.ea.clearViewDirty).toHaveBeenCalledOnce(); expect(f.ea.destroy).toHaveBeenCalledOnce();
   });
   it.each(["pointerdown", "keydown", "wheel"])("%s cancels delayed fit without discarding interaction", name => {
     const f = fixture(); f.start(); f.events.dispatchEvent(new Event(name)); f.ready();

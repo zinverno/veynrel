@@ -329,6 +329,16 @@ describe("create-only persistence, history and conservative recovery", () => {
     f.globalEA.getAPI = () => { const ea = fresh(); ea.decompressFromBase64 = decode; return ea; };
     expect((await f.workflow.history())[0].state).toBe("created"); expect(decode).toHaveBeenCalledOnce();
   });
+  it("accepts the pinned native caption-link normalization, rejecting additional or changed metadata", async () => {
+    const f = fixture(), p = await f.generate(); await f.workflow.create(p);
+    const raw = f.files.get(p.target)!, link = "## Element Links\nvsource0: [[Source.md]]\n\n";
+    const saved = raw.replace("## Drawing", `${link}## Drawing`);
+    f.files.set(p.target, saved); expect((await f.workflow.history())[0].state).toBe("created");
+    f.files.set(p.target, saved.replace("## Drawing", `${link}## Drawing`));
+    expect((await f.workflow.history())[0].state).toBe("changed-unavailable");
+    f.files.set(p.target, raw.replace("## Drawing", "## Element Links\nvsource0: [[Untouched.md]]\n\n## Drawing"));
+    expect((await f.workflow.history())[0].state).toBe("changed-unavailable");
+  });
   it("accepts only bounded native endpoint adjustment, preserving routes, nodes, labels and bindings", async () => {
     const f = fixture(), p = await f.generate(), expected = p.plan.scene.elements, changed = copy(expected) as NativeElement[];
     const arrow = changed.find(e => e.type === "arrow")!;

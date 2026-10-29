@@ -51,13 +51,23 @@ export function fitNewDrawing(view: View, factory: DiagramEA, expected: readonly
     const api = ea.getExcalidrawAPI();
     if (!api || typeof api.setViewport !== "function" || typeof api.onChange !== "function" || state.width <= 0 || state.height <= 0) { stop(); return; }
     issued = true;
-    const before = camera(state), signature = JSON.stringify(elements), content = documentState(state);
+    let before = camera(state), signature = JSON.stringify(elements), settled = false, corrected = false;
+    const content = documentState(state);
     v.setHookServer(previous);
     unsubscribe = api.onChange((current, next) => {
-      if (!active() || signature !== JSON.stringify(current) || content !== documentState(next)) { stop(); return; }
-      if (camera(next) === before) return;
+      if (!active() || content !== documentState(next)) { stop(); return; }
+      if (signature !== JSON.stringify(current)) {
+        // 2.29.0 asynchronously normalizes bound text and repeats its own opening fit once.
+        if (!settled || corrected || v.isDirty() || !sameScene(expected, current)) { stop(); return; }
+        corrected = true; settled = false; before = camera(next); signature = JSON.stringify(current);
+        try { api.setViewport({ target: current, fit: "contain", offsets: { ui: true }, animation: false }); }
+        catch { stop(); }
+        return;
+      }
+      if (settled || camera(next) === before) return;
       // This callback runs after the host's dirty tracking. Only our camera changed; never clear user edits.
-      ea.clearViewDirty(); stop();
+      ea.clearViewDirty(); settled = true;
+      if (corrected) stop();
     });
     try { api.setViewport({ target: elements, fit: "contain", offsets: { ui: true }, animation: false }); }
     catch { stop(); }

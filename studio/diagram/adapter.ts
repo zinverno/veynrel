@@ -138,6 +138,11 @@ function verifyMarkdownMetadata(raw: string, drawingOffset: number, elements: re
   requireDiagram(fields.length === 3 && fields.some(line => /^excalidraw-plugin: (raw|parsed)$/u.test(line)) &&
     fields.includes("excalidraw-autoexport: none") && fields.includes("excalidraw-open-md: false"), "adapter");
   let metadata = raw.slice(front[0].length, drawingOffset);
+  const sourceElement = "vsource0", caption = elements.find(e => e.id === sourceElement && e.type === "text" && e.link);
+  const prelude = caption ? `## Element Links\n${caption.id}: ${caption.link}\n\n` : "";
+  const hasPrelude = !!prelude && metadata.startsWith(`${prelude}# Excalidraw Data\n\n## Text Elements\n`);
+  // Native save retains the creation prelude and emits its own link entry inside Excalidraw Data.
+  if (hasPrelude) metadata = metadata.slice(prelude.length);
   for (const e of elements) {
     if (e.isDeleted) continue;
     if (e.type === "text") {
@@ -146,7 +151,7 @@ function verifyMarkdownMetadata(raw: string, drawingOffset: number, elements: re
     }
     if (e.link) {
       const original = `${e.link} ^${e.id}`, normalized = `${e.id}: ${e.link}`;
-      requireDiagram(metadata.includes(original) || metadata.includes(normalized), "adapter");
+      requireDiagram(metadata.includes(original) || metadata.includes(normalized) || hasPrelude && e.id === sourceElement, "adapter");
       metadata = metadata.replace(metadata.includes(original) ? original : normalized, "");
     }
   }
