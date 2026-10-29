@@ -1,10 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
-vi.mock("obsidian", () => {
+vi.mock("obsidian", async () => {
+  const yaml = await vi.importActual<{ load(s: string): unknown }>("js-yaml");
   class FileView {}
   class EditableFileView extends FileView {}
   class TextFileView extends EditableFileView {}
-  return { TFile: class {}, FileView, EditableFileView, TextFileView, MarkdownView: class extends TextFileView {}, getLanguage: () => "en", requestUrl: vi.fn() };
+  return { TFile: class {}, FileView, EditableFileView, TextFileView, MarkdownView: class extends TextFileView {}, getLanguage: () => "en", requestUrl: vi.fn(), parseYaml: (s: string) => yaml.load(s) };
 });
 import { TFile, MarkdownView, requestUrl } from "obsidian";
 import type { App } from "obsidian";
@@ -18,6 +19,7 @@ import { studioInventory, studioNotePort } from "./obsidianNotes";
 import { BUILTIN_RECIPES } from "./builtins";
 import { testAdapter } from "./testAdapter";
 
+// Legacy Apply owner tests retain every guard/fault assertion; public plan/ack tests are in markdownCreate.test.ts.
 function fixture(count = 2) {
   const disk = testAdapter(), content = new Map<string, string>(), files: TFile[] = [];
   for (let i = 0; i < count; i++) {
@@ -43,7 +45,7 @@ function fixture(count = 2) {
   const runner = new RecipeRunner({ notes: port, inventory: () => studioInventory(app), settings: { get: () => ({ ...settings }), update: async s => s, subscribe: () => () => {} }, complete }, writer);
   const prepare = (recipe = BUILTIN_RECIPES[0]) => runner.prepare(recipe, recipe.parameters, { paths: files.map(f => f.path) }, 32768);
   const generate = async (recipe = BUILTIN_RECIPES[0]) => runner.generate(await prepare(recipe));
-  const apply = async () => { const r = await generate(); await runner.apply(r, r.rows.map(x => x.path)); return r; };
+  const apply = async () => { const r = await generate(); await runner["apply"](r, r.rows.map(x => x.path)); return r; };
   return { ...disk, app, vault, files, content, port, settings, journal, writer, runner, complete, prepare, generate, apply,
     restart: () => new StudioApply(new StudioJournal(new StudioStorage(disk.adapter, vault.configDir, "ai-knowledge-hub")), studioNotePort(app)),
     addEditor, closeEditors: () => { leaves = []; },
@@ -63,16 +65,16 @@ describe("Studio saved-editor reading and write retry", () => {
       expect(r.rows[0]).toMatchObject({ status: "failed", reason: "timeout", after: null }); expect(runner.state).toBe("failed");
       if (outcome === "success") resolve({ status: 200, text: JSON.stringify({ choices: [{ message: { content: "late" }, finish_reason: "stop" }] }) } as never); else reject(Error("private-late-body"));
       await vi.advanceTimersByTimeAsync(1); expect(runner.review).toBe(r); expect(r.rows[0].after).toBeNull();
-      await expect(runner.apply(r, [f.files[0].path])).rejects.toThrow(); expect(f.content).toEqual(before); expect(f.vault.process).not.toHaveBeenCalled(); expect(request).toHaveBeenCalledOnce();
+      await expect(runner["apply"](r, [f.files[0].path])).rejects.toThrow(); expect(f.content).toEqual(before); expect(f.vault.process).not.toHaveBeenCalled(); expect(request).toHaveBeenCalledOnce();
     } finally { vi.mocked(requestUrl).mockReset(); vi.useRealTimers(); vi.unstubAllGlobals(); }
   });
   it("reads an open saved note and retries Apply after closing without another generation", async () => {
     const f = fixture(1); f.editor(); const p = await f.prepare();
     expect(f.complete).not.toHaveBeenCalled(); const r = await f.runner.generate(p);
     expect(r.rows[0].status).toBe("generated"); expect(f.vault.process).not.toHaveBeenCalled();
-    expect((await f.runner.apply(r, [r.rows[0].path]))[0]).toMatchObject({ outcome: "conflict", reason: "editor" });
+    expect((await f.runner["apply"](r, [r.rows[0].path]))[0]).toMatchObject({ outcome: "conflict", reason: "editor" });
     expect(await f.journal.entries()).toEqual([]); expect(f.runner.review).toBe(r); expect(f.runner.state).toBe("review");
-    f.closeEditors(); expect((await f.runner.apply(r, [r.rows[0].path]))[0].outcome).toBe("applied");
+    f.closeEditors(); expect((await f.runner["apply"](r, [r.rows[0].path]))[0].outcome).toBe("applied");
     const restarted = f.restart(), undo = await restarted.reviewUndo(r.id, 0, "undo"); await restarted.executeUndo(undo);
     expect(f.content.get(r.rows[0].path)).toBe(r.rows[0].before); expect(f.complete).toHaveBeenCalledTimes(1);
   });
@@ -88,7 +90,7 @@ describe("Studio saved-editor reading and write retry", () => {
     await expect(f.prepare()).rejects.toThrow("unsaved"); expect(f.complete).not.toHaveBeenCalled();
     popout.view.getViewData.mockReturnValue(f.content.get(f.files[0].path)!);
     const r = await f.generate(); expect(r.rows[0].status).toBe("generated");
-    expect((await f.runner.apply(r, [r.rows[0].path]))[0].reason).toBe("editor"); expect(f.vault.process).not.toHaveBeenCalled();
+    expect((await f.runner["apply"](r, [r.rows[0].path]))[0].reason).toBe("editor"); expect(f.vault.process).not.toHaveBeenCalled();
   });
   it.each(["deferred", "throwing", "different-file", "custom-view"])("refuses an uninspectable %s editor without sending", async mode => {
     const f = fixture(1), leaf = f.editor(f.files[0], undefined, mode === "deferred");
@@ -130,18 +132,18 @@ describe("Studio saved-editor reading and write retry", () => {
     const f = fixture(1), leaf = f.editor();
     f.complete.mockImplementationOnce(async () => { leaf.view.getViewData.mockReturnValue("New edit"); return "Proposal for original"; });
     const r = await f.generate(); expect(r.rows[0].before).not.toBe("New edit"); expect(r.rows[0].after).toBe("Proposal for original");
-    expect((await f.runner.apply(r, [r.rows[0].path]))[0].reason).toBe("editor");
+    expect((await f.runner["apply"](r, [r.rows[0].path]))[0].reason).toBe("editor");
     f.content.set(f.files[0].path, "New edit"); f.files[0].stat.mtime++; f.closeEditors();
-    expect((await f.runner.apply(r, [r.rows[0].path]))[0].outcome).toBe("conflict");
+    expect((await f.runner["apply"](r, [r.rows[0].path]))[0].outcome).toBe("conflict");
     expect(f.vault.process).not.toHaveBeenCalled(); expect(f.complete).toHaveBeenCalledTimes(1);
   });
   it("checks all selected editors before starting a batch and retains partial-write idempotency", async () => {
     const f = fixture(), r = await f.generate(); f.editor(f.files[1]);
-    await f.runner.apply(r, r.rows.map(x => x.path)); expect(f.vault.process).not.toHaveBeenCalled(); expect(await f.journal.entries()).toEqual([]);
+    await f.runner["apply"](r, r.rows.map(x => x.path)); expect(f.vault.process).not.toHaveBeenCalled(); expect(await f.journal.entries()).toEqual([]);
     f.closeEditors(); const original = f.vault.process.getMockImplementation()!;
     f.vault.process.mockImplementationOnce(async (file, fn) => { const result = await original(file, fn); f.editor(f.files[1]); return result; });
-    const result = await f.runner.apply(r, r.rows.map(x => x.path)); expect(result.map(x => x.outcome)).toEqual(["applied", "conflict"]);
-    f.closeEditors(); expect(await f.runner.apply(r, r.rows.map(x => x.path))).toBe(result);
+    const result = await f.runner["apply"](r, r.rows.map(x => x.path)); expect(result.map(x => x.outcome)).toEqual(["applied", "conflict"]);
+    f.closeEditors(); expect(await f.runner["apply"](r, r.rows.map(x => x.path))).toBe(result);
     expect(f.vault.process).toHaveBeenCalledTimes(1); expect(f.complete).toHaveBeenCalledTimes(2);
   });
 });
@@ -191,11 +193,11 @@ describe("Studio consent and generation", () => {
   });
   it("a stale confirmation from another tab does not invalidate a newly prepared run", async () => {
     const f = fixture(1), old = await f.generate(), next = await f.prepare();
-    await expect(f.runner.apply(old, [old.rows[0].path])).rejects.toThrow("stale"); expect(f.runner.state).toBe("prepared");
+    await expect(f.runner["apply"](old, [old.rows[0].path])).rejects.toThrow("stale"); expect(f.runner.state).toBe("prepared");
     expect(f.runner.prepared).toBe(next); expect(f.vault.process).not.toHaveBeenCalled();
   });
   it.each(["length", "context"])("rejects %s limits without truncation or calls", async mode => {
-    const f = fixture(1); if (mode === "length") f.content.set(f.files[0].path, "a".repeat(24001));
+    const f = fixture(1); if (mode === "length") { f.content.set(f.files[0].path, "a".repeat(24001)); f.files[0].stat.size = 24001; }
     await expect(f.runner.prepare(BUILTIN_RECIPES[0], BUILTIN_RECIPES[0].parameters, { folder: "/" }, mode === "context" ? 1024 : 32768)).rejects.toThrow("size");
     expect(f.complete).not.toHaveBeenCalled(); expect(f.vault.process).not.toHaveBeenCalled();
   });
@@ -227,7 +229,7 @@ describe("Studio consent and generation", () => {
     const r = await f.generate(recipe); expect(r.rows[0].after).toBe(`${r.rows[0].before}\n\n# Structured\nPreserved facts.\n`);
     recipe.steps[0].prompt = "changed"; f.settings.model = "changed";
     expect(Object.isFrozen(r.rows[0])).toBe(true); expect(f.vault.process).not.toHaveBeenCalled();
-    await f.runner.apply(r, [r.rows[0].path]); expect(f.content.get(r.rows[0].path)).toBe(r.rows[0].after);
+    await f.runner["apply"](r, [r.rows[0].path]); expect(f.content.get(r.rows[0].path)).toBe(r.rows[0].after);
   });
   it("cancellation during an issued request holds the owner until it settles, then stops later calls", async () => {
     const f = fixture(); let release!: (s: string) => void;
@@ -244,7 +246,7 @@ describe("Studio consent and generation", () => {
 
 describe("Studio guarded Apply and restart recovery", () => {
   it("selective batch applies canonical paths, with verified backups and separately confirmed Undo", async () => {
-    const f = fixture(), r = await f.generate(); await f.runner.apply(r, [r.rows[1].path]);
+    const f = fixture(), r = await f.generate(); await f.runner["apply"](r, [r.rows[1].path]);
     expect(f.content.get(r.rows[0].path)).toBe(r.rows[0].before); expect(f.content.get(r.rows[1].path)).toBe(r.rows[1].after);
     const history = await f.restart().history(); expect(history).toHaveLength(1); expect(history[0]).toMatchObject({ state: "applied", canUndo: true });
     const undo = await f.writer.reviewUndo(r.id, 0, "undo"); expect(f.vault.process).toHaveBeenCalledTimes(1);
@@ -261,18 +263,18 @@ describe("Studio guarded Apply and restart recovery", () => {
       if (mode === "ctime") file.stat.ctime++;
       return "Transformed";
     });
-    const r = await f.generate(), result = await f.runner.apply(r, [r.rows[0].path]);
+    const r = await f.generate(), result = await f.runner["apply"](r, [r.rows[0].path]);
     expect(result[0].outcome).toBe("conflict"); expect(f.vault.process).not.toHaveBeenCalled();
   });
   it.each(["saved", "unsaved", "deferred"])("blocks %s editors before write", async mode => {
     const f = fixture(1), r = await f.generate(); f.editor(f.files[0], mode === "unsaved" ? "unsaved changes" : f.content.get(f.files[0].path), mode === "deferred");
-    const result = await f.runner.apply(r, [r.rows[0].path]); expect(result[0]).toMatchObject({ outcome: "conflict", reason: "editor" }); expect(f.vault.process).not.toHaveBeenCalled();
+    const result = await f.runner["apply"](r, [r.rows[0].path]); expect(result[0]).toMatchObject({ outcome: "conflict", reason: "editor" }); expect(f.vault.process).not.toHaveBeenCalled();
   });
   it("rejects edits and newly opened editors inside the process callback", async () => {
     for (const mode of ["content", "editor"]) {
       const f = fixture(1), r = await f.generate(), original = f.vault.process.getMockImplementation()!;
       f.vault.process.mockImplementationOnce(async (file, fn) => { if (mode === "content") f.content.set(file.path, "external"); else f.editor(); return original(file, fn); });
-      expect((await f.runner.apply(r, [r.rows[0].path]))[0].outcome).toBe("unconfirmed");
+      expect((await f.runner["apply"](r, [r.rows[0].path]))[0].outcome).toBe("unconfirmed");
       expect(f.content.get(r.rows[0].path)).toBe(mode === "content" ? "external" : r.rows[0].before);
     }
   });
@@ -281,29 +283,29 @@ describe("Studio guarded Apply and restart recovery", () => {
     Object.setPrototypeOf(leaf.view, {}); Reflect.deleteProperty(leaf.view, "getViewData"); leaf.view.getViewType = () => "backlink";
     const r = await f.generate(), original = f.vault.process.getMockImplementation()!;
     f.vault.process.mockImplementationOnce(async (file, fn) => { Object.assign(leaf.view, { editor: {} }); return original(file, fn); });
-    expect((await f.runner.apply(r, [r.rows[0].path]))[0].outcome).toBe("unconfirmed");
+    expect((await f.runner["apply"](r, [r.rows[0].path]))[0].outcome).toBe("unconfirmed");
     expect(f.content.get(r.rows[0].path)).toBe(r.rows[0].before); expect(f.complete).toHaveBeenCalledTimes(1);
   });
   it("double confirmation and competing Apply cannot duplicate a write", async () => {
-    const f = fixture(1), r = await f.generate(), pending = f.runner.apply(r, [r.rows[0].path]);
-    await expect(f.runner.apply(r, [r.rows[0].path])).rejects.toThrow("busy"); await pending;
-    await f.runner.apply(r, [r.rows[0].path]); expect(f.vault.process).toHaveBeenCalledTimes(1);
+    const f = fixture(1), r = await f.generate(), pending = f.runner["apply"](r, [r.rows[0].path]);
+    await expect(f.runner["apply"](r, [r.rows[0].path])).rejects.toThrow("busy"); await pending;
+    await f.runner["apply"](r, [r.rows[0].path]); expect(f.vault.process).toHaveBeenCalledTimes(1);
   });
   it("cancels mid-batch after confirming the issued write, never starts the next", async () => {
     const f = fixture(), r = await f.generate(), original = f.vault.process.getMockImplementation()!;
     f.vault.process.mockImplementationOnce(async (file, fn) => { const result = await original(file, fn); f.runner.cancel(); return result; });
-    expect((await f.runner.apply(r, r.rows.map(x => x.path))).map(x => x.outcome)).toEqual(["applied", "skipped"]);
+    expect((await f.runner["apply"](r, r.rows.map(x => x.path))).map(x => x.outcome)).toEqual(["applied", "skipped"]);
     expect((await f.restart().history()).map(x => x.state)).toEqual(["applied", "skipped"]);
   });
   it.each(["record.json", "backup.json", "0-apply-intent.json"])("blocks notes if %s cannot be durably verified", async suffix => {
     const f = fixture(), r = await f.generate(), original = vi.mocked(f.adapter.write).getMockImplementation()!;
     vi.mocked(f.adapter.write).mockImplementation(async (path, raw) => { if (path.endsWith(suffix)) throw Error("disk"); await original(path, raw); });
-    expect((await f.runner.apply(r, r.rows.map(x => x.path)))[0].outcome).toBe("failed"); expect(f.vault.process).not.toHaveBeenCalled();
+    expect((await f.runner["apply"](r, r.rows.map(x => x.path)))[0].outcome).toBe("failed"); expect(f.vault.process).not.toHaveBeenCalled();
   });
   it("a write that resolves but stores torn backup bytes cannot authorize a note mutation", async () => {
     const f = fixture(1), r = await f.generate(), write = vi.mocked(f.adapter.write).getMockImplementation()!;
     vi.mocked(f.adapter.write).mockImplementation(async (path, raw) => write(path, path.endsWith("backup.json") ? "{" : raw));
-    expect((await f.runner.apply(r, [r.rows[0].path]))[0].outcome).toBe("failed"); expect(f.vault.process).not.toHaveBeenCalled();
+    expect((await f.runner["apply"](r, [r.rows[0].path]))[0].outcome).toBe("failed"); expect(f.vault.process).not.toHaveBeenCalled();
     expect((await f.journal.entries())[0].damaged).toBe(true);
   });
   it.each(["before", "after", "receipt"])("classifies crash %s physical write without replaying it", async point => {
@@ -312,7 +314,7 @@ describe("Studio guarded Apply and restart recovery", () => {
       const write = vi.mocked(f.adapter.write).getMockImplementation()!;
       vi.mocked(f.adapter.write).mockImplementation(async (path, raw) => { if (path.endsWith("0-applied.json")) throw Error("disk"); await write(path, raw); });
     } else f.vault.process.mockImplementationOnce(async (file, fn) => { if (point === "after") await original(file, fn); throw Error("crash"); });
-    expect((await f.runner.apply(r, r.rows.map(x => x.path))).map(x => x.outcome)).toEqual(["unconfirmed", "skipped"]);
+    expect((await f.runner["apply"](r, r.rows.map(x => x.path))).map(x => x.outcome)).toEqual(["unconfirmed", "skipped"]);
     const restarted = f.restart(), [row] = await restarted.history();
     expect(row).toMatchObject({ state: "unconfirmed", recovery: point === "before" ? "skipped" : "applied" });
     expect(f.vault.process).toHaveBeenCalledTimes(1); expect(f.complete).toHaveBeenCalledTimes(2);

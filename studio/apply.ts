@@ -2,9 +2,10 @@ import { checksum } from "../consolidation/operationJournal";
 import { sameSavedNote } from "../consolidation/savedNote";
 import { ensure, freeze, StudioError } from "./recipe";
 import { StudioJournal } from "./journal";
-import type { JournalEntry, MarkKind, StudioChange, StudioMark, StudioRecord } from "./journal";
+import type { JournalEntry, MarkKind, StudioChange, StudioMark, StudioRecord, SourceWriteConfirmation } from "./journal";
 import type { ApplyResult, ReviewSession, StudioNotePort, StudioSource } from "./ports";
 import { StudioOperations } from "./operations";
+import { assertSourceProperties } from "./documentEnvelope";
 
 export interface StudioHistoryRow {
   entry: JournalEntry; index: number; path: string;
@@ -42,7 +43,7 @@ export class StudioApply {
     const note = await this.port.read(expected.path);
     ensure(note && sameSavedNote(note, expected) && note.created === expected.created, "conflict"); this.port.writeGuard(note); return note;
   }
-  apply(review: ReviewSession, sources: readonly StudioSource[], selected: readonly string[], active: () => boolean, owner: object = this): Promise<readonly ApplyResult[]> {
+  apply(review: ReviewSession, sources: readonly StudioSource[], selected: readonly string[], active: () => boolean, owner: object = this, confirmation?: SourceWriteConfirmation): Promise<readonly ApplyResult[]> {
     return this.exclusive(async () => {
       ensure(new Set(selected).size === selected.length && selected.length > 0 && selected.every(path => review.rows.some(r => r.path === path && r.status === "generated" && r.after !== null)), "scope");
       const results: ApplyResult[] = review.rows.map(r => ({ path: r.path, outcome: "skipped" }));
@@ -50,13 +51,14 @@ export class StudioApply {
       for (const row of review.rows) {
         if (!selected.includes(row.path) || row.after === row.before) continue;
         const n = sources.find(n => n.path === row.path); ensure(n && n.content === row.before && row.after !== null, "stale");
+        assertSourceProperties(row.before, row.after, row.action);
         changes.push({ path: n.path, created: n.created, modified: n.modified, bytes: n.bytes, before: row.before, after: row.after,
           beforeHash: await checksum(row.before), afterHash: await checksum(row.after), action: row.action });
       }
       if (!changes.length || !active() || this.closed) return freeze(results);
       await this.blockers(changes.map(c => c.path));
-      const record: StudioRecord = freeze({ schemaVersion: 1, operation: "studio_transform", id: review.id, createdAt: Date.now(),
-        recipeId: review.recipeId, recipeVersion: review.recipeVersion, changes });
+      const record: StudioRecord = freeze({ schemaVersion: confirmation ? 2 : 1, operation: "studio_transform", id: review.id, createdAt: Date.now(),
+        recipeId: review.recipeId, recipeVersion: review.recipeVersion, changes, ...(confirmation ? { confirmation } : {}) });
       if (!active() || this.closed) return freeze(results);
       try { await this.journal.prepare(record); }
       catch { for (const r of results) if (changes.some(c => c.path === r.path)) { r.outcome = "failed"; r.reason = "storage"; } return freeze(results); }
@@ -73,7 +75,7 @@ export class StudioApply {
           await this.blockers([c.path], record.id); await this.journal.intact(record);
           note = await this.fresh(expected);
           await this.journal.intact(record);
-          const check = () => { ensure(active() && !this.closed, "cancelled"); this.port.writeGuard(note); };
+          const check = () => { ensure(active() && !this.closed, "cancelled"); this.port.writeGuard(note); assertSourceProperties(c.before, c.after, c.action); };
           check(); issued = true;
           await this.port.process(note, c.before, c.after, check);
           // An issued write is always observed and journalled, even after cancellation/disposal.

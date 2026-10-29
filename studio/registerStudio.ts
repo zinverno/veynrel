@@ -17,18 +17,22 @@ import { StudioOperations } from "./operations";
 import { ExcalidrawAdapter } from "./diagram/adapter";
 import { DiagramJournal } from "./diagram/journal";
 import { DiagramWorkflow } from "./diagram/workflow";
+import { StudioMarkdownCreate } from "./markdownCreate";
+import { MarkdownCreateJournal } from "./markdownCreateJournal";
+import { markdownTargetPort } from "./markdownTarget";
 
-export interface StudioWorkspace { registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; diagrams: DiagramWorkflow; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
+export interface StudioWorkspace { registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; creator: StudioMarkdownCreate; diagrams: DiagramWorkflow; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
 const studioTitle = "Veynrel Studio";
 export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPort): StudioWorkspace {
   const storage = new StudioStorage(plugin.app.vault.adapter, plugin.app.vault.configDir, plugin.manifest.id);
   const operations = new StudioOperations(), notes = studioNotePort(plugin.app), writer = new StudioApply(new StudioJournal(storage), notes, operations);
+  const creator = new StudioMarkdownCreate(new MarkdownCreateJournal(storage), markdownTargetPort(plugin.app), notes, operations);
   const port = { notes, inventory: () => studioInventory(plugin.app), settings, complete: callOpenRouter };
   const registry = new RecipeRegistry(storage);
-  const owner: StudioWorkspace = { registry, writer, operations, diagrams: new DiagramWorkflow(port, new ExcalidrawAdapter(plugin.app), new DiagramJournal(storage), operations),
+  const owner: StudioWorkspace = { registry, writer, creator, operations, diagrams: new DiagramWorkflow(port, new ExcalidrawAdapter(plugin.app), new DiagramJournal(storage), operations),
     community: new CommunityCatalog(storage, communityTransport), installer: new CommunityInstaller(storage, registry), inventory: port.inventory, folders: () => plugin.app.vault.getAllLoadedFiles().filter((f): f is TFolder => f instanceof TFolder && !f.path.split("/").some(p => p.startsWith("."))).map(f => f.path),
     connection: () => { const { provider, model, baseUrl } = settings.get(); return { provider, model, baseUrl }; },
-    runner: new RecipeRunner(port, writer) };
+    runner: new RecipeRunner(port, writer, creator) };
   plugin.registerView(STUDIO_VIEW_TYPE, leaf => new VeynrelStudioView(leaf, owner));
   let opening: Promise<void> | undefined;
   const open = () => opening ??= (async () => {
