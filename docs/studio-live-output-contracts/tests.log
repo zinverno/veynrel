@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-studio-live-output-contracts-v1
+
+
+ Test Files  188 passed (188)
+      Tests  5087 passed (5087)
+   Start at  03:52:29
+   Duration  40.20s (transform 11.10s, setup 0ms, import 29.49s, tests 96.60s, environment 23ms)

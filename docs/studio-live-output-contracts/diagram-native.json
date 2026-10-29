@@ -1,0 +1,156 @@
+{
+  "outcome": "PASS",
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "excalidraw": "2.29.0"
+  },
+  "checks": [
+    "Veynrel works with Excalidraw disabled; diagram sending is blocked",
+    "Real transport produces SVG preview and structure with zero drawing writes",
+    "Inert model labels do not resolve hidden notes or resources",
+    "390px preview fits the Studio pane",
+    "Russian Review renders native controls and remains within 390px",
+    "Keyboard Tab reaches preview zoom control",
+    "Preview does not consume global modifier shortcuts",
+    "Unrelated workflow event retains exact preview DOM and zoom",
+    "Changed appearance invalidates create until local preview update",
+    "Status event preserves changed preview draft and keeps create blocked",
+    "Actual local preview action changes no provider request count",
+    "Creates exactly the reviewed file while the saved source editor stays open",
+    "Repeated confirmation does not create a second drawing",
+    "Actual Excalidraw opens separate native shapes/text/arrows with live bindings",
+    "Native double-click and keyboard edit an individual bound text element",
+    "Native arrow label is separately editable",
+    "Native pointer drag moves the block and its bound arrow",
+    "Save and reopen retain edited text and bindings",
+    "Native Excalidraw local source-link handler opens the actual source note",
+    "History identifies later user edits",
+    "All original Markdown hashes remain unchanged",
+    "Disabling Excalidraw after Review refuses creation",
+    "Reloaded Excalidraw invalidates the old Review before intent or create",
+    "Incomplete transport response never produces a scene",
+    "Unsaved native buffer blocks preparation before any request",
+    "Two actual Studio leaves share the same busy diagram owner",
+    "Markdown cannot start during diagram generation",
+    "Cancel discards the issued result and releases only after transport settles",
+    "Missing required edge labels are rejected without repair or creation",
+    "Native timeout stays distinct before late success",
+    "Late success cannot revive the old proposal or replace new consent",
+    "Native timeout stays distinct before late http-error",
+    "Late http-error cannot revive the old proposal or replace new consent",
+    "Restart never replays generation or creation",
+    "No automatic PNG, SVG, legacy export, temporary or duplicate drawing files"
+  ],
+  "exceptions": [],
+  "artifacts": {
+    "ai-knowledge-hub/main.js": "eb4309ee7a4808d5bd54284a49db91c49cbff2fb5ae7d4d9c787ddf1283e632e",
+    "ai-knowledge-hub/styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "ai-knowledge-hub/manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b",
+    "obsidian-excalidraw-plugin/main.js": "4da2084a4eafe7d328484fa5742004b9fb990346c4c84fde924b885a5ecc1c17",
+    "obsidian-excalidraw-plugin/styles.css": "173e9c161a01c53b3c173344e023de4d327fd0658e476961b46b0e6a93117ded",
+    "obsidian-excalidraw-plugin/manifest.json": "4880b885c50643ef848d31cea829776ca2e96747353aee334d71e875f79d31c0",
+    "obsidianAsar": "8588f1fd23c9f63d3507a9740d656252cf0fbe0538e00e5d8eb7660533416c52"
+  },
+  "metadata": [
+    {
+      "method": "GET",
+      "url": "/v1/models/synthetic/diagram/endpoints"
+    }
+  ],
+  "transportTiming": [
+    {
+      "phase": "preflight GET",
+      "clock": "renderer performance.now",
+      "dispatch": 2611.4000000003725,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 2628.4000000003725,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 2750,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 2758.300000000745,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 7246.800000000745,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 7254.4000000003725,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 7603.9000000003725,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 7610.800000000745,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 7676.5,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 7762.10000000149,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 7784.200000001118,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 7793,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 7817.700000001118,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 38013.90000000037,
+      "metadataSettlement": null,
+      "status": 200
+    },
+    {
+      "phase": "inference",
+      "clock": "renderer performance.now",
+      "dispatch": 38325,
+      "firstByte": null,
+      "bodyComplete": null,
+      "delivery": 68529.30000000075,
+      "metadataSettlement": null,
+      "status": 503
+    }
+  ],
+  "finalTransportTiming": [],
+  "instrumentation": "Unmodified production-main.js loaded through harness-only require adapter; only requestUrl destination/headers redirected to loopback. No remote inference route. First-byte/body-complete unavailable in buffered requestUrl; no billing settlement exists for synthetic responses.",
+  "sourceHashes": {
+    "Source.md": "87a3445eb3aa22631f9e20ecc2bcbb1b83288b161bc035c64f213e82c0b18374",
+    "Untouched.md": "4431cf13e61e780605cbfcf5227910438091833394c9320e06181b07f63185a9"
+  },
+  "historyAfterRestart": [
+    {
+      "state": "changed-unavailable",
+      "target": "Drawings/Native.excalidraw.md"
+    }
+  ]
+}
