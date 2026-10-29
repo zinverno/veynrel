@@ -1,0 +1,199 @@
+[
+  {
+    "attempt": "before",
+    "outcome": "PASS",
+    "exceptions": 1,
+    "reason": "Initial baseline: original bounds calculation; one captured Obsidian webContents.getZoomFactor exception. Superseded by matched final baseline.",
+    "report": "before/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-before"
+  },
+  {
+    "attempt": "after-a",
+    "outcome": "PASS",
+    "exceptions": 0,
+    "reason": "Rejected legacy zoomToFit opening option: toolbar occlusion and camera dirtiness. Not acceptance.",
+    "report": "after-a/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-a"
+  },
+  {
+    "attempt": "after-b",
+    "outcome": "PASS",
+    "exceptions": 1,
+    "reason": "Old bundle copied after a failed build/typecheck; not the new candidate. One captured host zoom-factor exception.",
+    "report": "after-b/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-b"
+  },
+  {
+    "attempt": "api-probe",
+    "outcome": "PASS",
+    "exceptions": 0,
+    "reason": "Probe of verified native setViewport UI offsets and asynchronous API readiness; not acceptance.",
+    "report": "api-probe/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-api-probe"
+  },
+  {
+    "attempt": "after-c",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "First scene passed; negative-point arrow bounds were incorrectly computed by harness at split. Corrected to native getBoundingBox.",
+    "report": "after-c/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-c"
+  },
+  {
+    "attempt": "after-d",
+    "outcome": "PASS",
+    "exceptions": 0,
+    "reason": "Nine frames passed; interim implementation before measured label-clearance and edit coverage.",
+    "report": "after-d/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-d"
+  },
+  {
+    "attempt": "after-e",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Stress at 390 clipped at native minimum zoom; feedback-label width incorrectly widened forward rank gaps. Fixed layout.",
+    "report": "after-e/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-e"
+  },
+  {
+    "attempt": "after-f",
+    "outcome": "PASS",
+    "exceptions": 0,
+    "reason": "Nine frames and native edit/mouse/popout checks passed; later rerun exposed scene readiness race.",
+    "report": "after-f/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-f"
+  },
+  {
+    "attempt": "after-final",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "First-open readiness race: first frame remained at 100 percent; fixed already-ready scene handling with regression test.",
+    "report": "after-final/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-final"
+  },
+  {
+    "attempt": "after-h",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Nine frames passed; reopen test did not await actual saved bytes and detached view. Tightened harness readiness.",
+    "report": "after-h/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-h"
+  },
+  {
+    "attempt": "after-i",
+    "outcome": "INTERRUPTED",
+    "exceptions": 0,
+    "reason": "Interrupted: renderer absent from inspected child tree; CDP Runtime.evaluate unresponsive. Cause unproven; not an acceptance pass.",
+    "report": "after-i/interrupted.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-i"
+  },
+  {
+    "attempt": "after-j",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Nine frames and edit/mouse checks passed; keyboard scenario entered text editing on an already selected caption. Added native Escape and explicit selection assertion.",
+    "report": "after-j/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-j"
+  },
+  {
+    "attempt": "after-k",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Caption click re-entered native text editing; test selection assumption failed. No production change.",
+    "report": "after-k/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-k"
+  },
+  {
+    "attempt": "after-l",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Native context-menu item selector was wrong; no product failure inferred.",
+    "report": "after-l/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-l"
+  },
+  {
+    "attempt": "keyboard-probe",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Isolated keyboard probe: wrong native menu item selector.",
+    "report": "keyboard-probe/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-keyboard-probe"
+  },
+  {
+    "attempt": "keyboard-probe2",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Isolated keyboard probe: selector still did not match pinned context-menu-item class.",
+    "report": "keyboard-probe2/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-keyboard-probe2"
+  },
+  {
+    "attempt": "keyboard-probe3",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Native popup reached by Tab, but plain Enter invokes text editing on selected text. Ctrl+Enter verified next.",
+    "report": "keyboard-probe3/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-keyboard-probe3"
+  },
+  {
+    "attempt": "keyboard-probe4",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Keyboard Ctrl+Enter and popout passed. Additional native-default auto-fit exposed host asynchronous bound-text normalization resetting camera.",
+    "report": "keyboard-probe4/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-keyboard-probe4"
+  },
+  {
+    "attempt": "default-probe",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Diagnostic-only scoped EA tracing established native second opening fit after text normalization; rejected toolbar occlusion.",
+    "report": "default-probe/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-default-probe"
+  },
+  {
+    "attempt": "default-probe2",
+    "outcome": "PASS",
+    "exceptions": 0,
+    "reason": "Diagnostic-only trace passed after one bounded correction; uninstrumented final acceptance is after-n.",
+    "report": "default-probe2/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-default-probe2"
+  },
+  {
+    "attempt": "after-m",
+    "outcome": "FAIL",
+    "exceptions": 1,
+    "reason": "Nine frames and keyboard passed; harness dereferenced popout API during native migration teardown. Snapshot now waits for loaded stable destination API.",
+    "report": "after-m/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-m"
+  },
+  {
+    "attempt": "regression",
+    "outcome": "NOT_STARTED",
+    "reason": "ENOSPC copying build before native launch. Identical own synthetic Excalidraw bundles were hardlinked after hash comparison to free space; all reports, vaults and PNGs retained. Rerun is regression2.",
+    "report": "regression-not-started.log"
+  },
+  {
+    "attempt": "after-n",
+    "outcome": "PASS",
+    "exceptions": 2,
+    "reason": "All requested interactions and 10 frames passed; two known Obsidian getZoomFactor exceptions. Superseded only by metadata-readback fix and recapture after-o.",
+    "report": "after-n/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-after-n"
+  },
+  {
+    "attempt": "regression2",
+    "outcome": "FAIL",
+    "exceptions": 0,
+    "reason": "Guard regression caught native save duplicating its caption link metadata; fixed strict handling of the exact pinned prelude plus one canonical entry, adding rejection tests for extra and changed links.",
+    "report": "regression2/native-report.json",
+    "originalPath": "/tmp/veynrel-diagram-native-first-open-regression2"
+  },
+  {
+    "attempt": "regression3",
+    "outcome": "PASS",
+    "exceptions": 0,
+    "reason": "All 35 guards and native interactions passed. Repeated as regression4 after replacing legacy body-class theme toggles with actual app.changeTheme; only regression4 captures are final.",
+    "report": "regression3/native-report.json"
+  }
+]

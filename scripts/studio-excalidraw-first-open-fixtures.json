@@ -1,0 +1,226 @@
+{
+  "structure": {
+    "schemaVersion": 1,
+    "kind": "structure",
+    "title": "Application components",
+    "nodes": [
+      {
+        "id": "ui",
+        "label": "Interface",
+        "shape": "rectangle"
+      },
+      {
+        "id": "api",
+        "label": "API",
+        "shape": "rectangle"
+      },
+      {
+        "id": "db",
+        "label": "Database",
+        "shape": "rectangle"
+      },
+      {
+        "id": "queue",
+        "label": "Queue",
+        "shape": "rectangle"
+      },
+      {
+        "id": "worker",
+        "label": "Worker",
+        "shape": "rectangle"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e0",
+        "from": "ui",
+        "to": "api",
+        "label": "Request"
+      },
+      {
+        "id": "e1",
+        "from": "api",
+        "to": "db",
+        "label": "Read"
+      },
+      {
+        "id": "e2",
+        "from": "api",
+        "to": "queue",
+        "label": "Enqueue"
+      },
+      {
+        "id": "e3",
+        "from": "queue",
+        "to": "worker",
+        "label": "Process"
+      }
+    ]
+  },
+  "flow": {
+    "schemaVersion": 1,
+    "kind": "flowchart",
+    "title": "Обработка заявки",
+    "nodes": [
+      {
+        "id": "receive",
+        "label": "Получить заявку",
+        "shape": "rectangle"
+      },
+      {
+        "id": "check",
+        "label": "Данные полны?",
+        "shape": "diamond"
+      },
+      {
+        "id": "accept",
+        "label": "Принять заявку",
+        "shape": "ellipse"
+      },
+      {
+        "id": "retry",
+        "label": "Запросить уточнение",
+        "shape": "rectangle"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e0",
+        "from": "receive",
+        "to": "check",
+        "label": ""
+      },
+      {
+        "id": "e1",
+        "from": "check",
+        "to": "accept",
+        "label": "Да"
+      },
+      {
+        "id": "e2",
+        "from": "check",
+        "to": "retry",
+        "label": "Нет"
+      },
+      {
+        "id": "e3",
+        "from": "retry",
+        "to": "receive",
+        "label": "Повтор"
+      }
+    ]
+  },
+  "stress": {
+    "schemaVersion": 1,
+    "kind": "flowchart",
+    "title": "Long labels, feedback and disconnected reference",
+    "nodes": [
+      {
+        "id": "n0",
+        "label": "Step 1 — Review the incoming request and document the validation result",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n1",
+        "label": "Step 2 — Continue processing",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n2",
+        "label": "Step 3 — Continue processing",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n3",
+        "label": "Step 4 — Review the incoming request and document the validation result",
+        "shape": "diamond"
+      },
+      {
+        "id": "n4",
+        "label": "Step 5 — Continue processing",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n5",
+        "label": "Step 6 — Continue processing",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n6",
+        "label": "Step 7 — Review the incoming request and document the validation result",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n7",
+        "label": "Step 8 — Continue processing",
+        "shape": "rectangle"
+      },
+      {
+        "id": "n8",
+        "label": "Step 9 — Continue processing",
+        "shape": "rectangle"
+      },
+      {
+        "id": "glossary",
+        "label": "Independent glossary and definitions",
+        "shape": "ellipse"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e0",
+        "from": "n0",
+        "to": "n1",
+        "label": "Continue"
+      },
+      {
+        "id": "e1",
+        "from": "n1",
+        "to": "n2",
+        "label": ""
+      },
+      {
+        "id": "e2",
+        "from": "n2",
+        "to": "n3",
+        "label": "Continue"
+      },
+      {
+        "id": "e3",
+        "from": "n3",
+        "to": "n4",
+        "label": ""
+      },
+      {
+        "id": "e4",
+        "from": "n4",
+        "to": "n5",
+        "label": "Continue"
+      },
+      {
+        "id": "e5",
+        "from": "n5",
+        "to": "n6",
+        "label": ""
+      },
+      {
+        "id": "e6",
+        "from": "n6",
+        "to": "n7",
+        "label": "Continue"
+      },
+      {
+        "id": "e7",
+        "from": "n7",
+        "to": "n8",
+        "label": ""
+      },
+      {
+        "id": "retry",
+        "from": "n7",
+        "to": "n3",
+        "label": "Needs revision"
+      }
+    ]
+  }
+}

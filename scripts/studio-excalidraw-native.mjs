@@ -144,13 +144,13 @@ try {
   await ev("app.workspace.getLeavesOfType('markdown').forEach(l=>l.detach());void 0");
   await ev("d.revise(d.proposal,{direction:'right',theme:'amethyst'},d.proposal.target)");
   await click('diagram-zoom-in'); await click('diagram-fit');
-  await ev("document.body.removeClass('theme-dark');document.body.addClass('theme-light');void 0"); await shot('review-en-light-amethyst');
+  await ev("app.changeTheme('moonstone');void 0"); await wait("document.body.classList.contains('theme-light')&&!document.body.classList.contains('theme-dark')"); await shot('review-en-light-amethyst');
   await ev('app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0');
   await cdp('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: false }); await ev("document.querySelector('.veynrel-studio').scrollTop=0;void 0"); await pause(200); await shot('review-390');
   await pass('390px preview fits the Studio pane', "document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
   await locale('ru'); await shot('review-ru-390-light');
   await pass('Russian Review renders native controls and remains within 390px', "document.querySelector('.veynrel-studio').textContent.includes('Проверка перед созданием')&&document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
-  await ev("document.body.removeClass('theme-light');document.body.addClass('theme-dark');void 0"); await shot('review-ru-390-dark');
+  await ev("app.changeTheme('obsidian');void 0"); await wait("document.body.classList.contains('theme-dark')&&!document.body.classList.contains('theme-light')"); await shot('review-ru-390-dark');
   await locale('en'); await cdp('Emulation.clearDeviceMetricsOverride');
   await click('diagram-fit'); await cdp('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab'}); await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab'});
   await pass('Keyboard Tab reaches preview zoom control', "document.activeElement?.getAttribute('data-studio-action')==='diagram-zoom-in'");
@@ -174,7 +174,7 @@ try {
   await ev("app.workspace.getLeavesOfType('markdown').forEach(l=>l.detach());void 0");
   await ev("dv.zoomToFit(false);void 0"); await pause(700);
   report.openScene = await ev('xapi.getSceneElements()');
-  await pass('Actual Excalidraw opens separate native shapes/text/arrows with live bindings', "xapi.getSceneElements().filter(e=>e.type==='arrow').every(e=>e.startBinding&&e.endBinding)&&xapi.getSceneElements().filter(e=>e.type==='text'&&e.containerId).length===9&&!xapi.getSceneElements().some(e=>['image','embeddable'].includes(e.type))");
+  await pass('Actual Excalidraw opens separate native shapes/text/arrows with live bindings', "xapi.getSceneElements().filter(e=>e.type==='arrow').every(e=>e.startBinding&&e.endBinding)&&xapi.getSceneElements().filter(e=>e.type==='text'&&e.containerId).length===8&&xapi.getSceneElements().some(e=>e.id==='vsource0'&&e.type==='text'&&!e.containerId&&e.link==='[[Source.md]]')&&!xapi.getSceneElements().some(e=>['image','embeddable'].includes(e.type))");
   await shot('native-open');
   await ev('dv.forceSave(true,true)');
   report.afterOpenHistory = await ev('d.history().then(r=>r.map(r=>({state:r.state,id:r.entry.id})))');

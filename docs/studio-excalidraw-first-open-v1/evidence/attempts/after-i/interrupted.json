@@ -1,0 +1,8 @@
+{
+  "outcome": "INTERRUPTED",
+  "reason": "CDP target still listed but Runtime.evaluate did not respond within 8s; renderer process absent from inspected child tree. No OOM diagnosis established. Harness stopped; not an acceptance pass.",
+  "screenshots": [
+    "after-structure-1300.png"
+  ],
+  "mainSha256": "b87dafcd8c165b1637785c8a3e5fcfaed977dabad9fbf1977de1f20bee3661e2"
+}

@@ -1,0 +1,67 @@
+{
+  "status": "PASS_WITH_HOST_ADVISORY",
+  "base": "be8f1a8862b377d777a96149b306b8ecf7915a2c",
+  "automated": {
+    "testFiles": 192,
+    "tests": 5183,
+    "focusedDiagramTests": 171,
+    "mutationAudit": "5/5 killed, restored baselines pass",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "lint": "PASS; 0 errors, 2 previously reviewed fetch advisories",
+    "diffCheck": "PASS"
+  },
+  "build": {
+    "main.js": "1ef234f86e82da1c9e9031f1945816517ff0756bcb19815f90a1bd390ea5dea8",
+    "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "native": {
+    "firstOpenFrames": 10,
+    "matchedBeforeAfterPairs": 9,
+    "regressionChecks": 35,
+    "firstOpenLocalRequests": 10,
+    "regressionLocalRequests": 7,
+    "regressionExceptions": 0,
+    "remoteInferenceRequests": 0,
+    "modelQuality": "NOT RE-EVALUATED",
+    "sourceHashes": {
+      "Source.md": "87a3445eb3aa22631f9e20ecc2bcbb1b83288b161bc035c64f213e82c0b18374",
+      "Untouched.md": "4431cf13e61e780605cbfcf5227910438091833394c9320e06181b07f63185a9"
+    },
+    "legacyReceipt": {
+      "id": "0918ab62-d857-476f-ab3f-5ba94585a15f",
+      "state": "created",
+      "before": "7cb0e08518a118aef27c378448661cd940b4451dac63332cb0e921b4c13d01bb",
+      "after": "7cb0e08518a118aef27c378448661cd940b4451dac63332cb0e921b4c13d01bb"
+    }
+  },
+  "nativeHostExceptions": {
+    "count": 1,
+    "message": "TypeError: t.webContents.getZoomFactor is not a function",
+    "location": "Obsidian app.js updateStatus; also captured in original baseline before and after-b attempts",
+    "handling": "Recorded, not suppressed or patched; no diagram/runtime exception in final regression."
+  },
+  "notRun": [
+    "physical mobile",
+    "screen-reader speech",
+    "arbitrary themes or third-party hooks",
+    "full Markdown and Community native suites (production paths unchanged)"
+  ],
+  "limitations": [
+    "stress graph at 390 reaches 10 percent minimum zoom; zoom/pan for reading",
+    "foreign EA hooks skip Studio automatic fitting",
+    "plain Enter edits native selected text; Tab plus Ctrl+Enter activates the native caption link"
+  ],
+  "runtimeCommit": "100a332959d50fc1978277b8cff7fdccb66b96b4",
+  "gallery": {
+    "status": "PASS",
+    "decodedPngs": 18,
+    "httpLinks": 22,
+    "viewports": [
+      1300,
+      390
+    ],
+    "gallerySha256": "25e1596f335a235e27ed3668e660212dd553e31344f6b638b921ccd998d436b8"
+  }
+}
