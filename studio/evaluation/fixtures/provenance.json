@@ -1,0 +1,31 @@
+{
+  "source": "Owner-provided 2026-10-28 Studio evaluation; offline content-only replay",
+  "files": [
+    {
+      "fixture": "D.content.json",
+      "source": "evaluation/outputs/D.model-content.txt",
+      "sha256": "62ad34baccd357611b121b547406b9ba0af948da1d80cdb221f24338a7648a34",
+      "jsonSyntax": "PASS",
+      "diagramSpec": "FAIL",
+      "reason": "Every edge is missing its required label. Replay must not repair it."
+    },
+    {
+      "fixture": "E.content.json",
+      "source": "evaluation/outputs/E.model-content.txt",
+      "sha256": "2f4a6f39efcbddf2e32b412ab20341c1613db71bb295bdd18c9b733e150ec8db",
+      "jsonSyntax": "PASS",
+      "diagramSpec": "FAIL",
+      "reason": "Every edge is missing its required label. Replay must not repair it."
+    },
+    {
+      "fixture": "A.source.md",
+      "source": "evaluation/inputs/A.md",
+      "sha256": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa"
+    },
+    {
+      "fixture": "A.content.md",
+      "source": "evaluation/outputs/A.model-content.txt",
+      "sha256": "d966b3a636c35f036b7e9f2ca304acb4f09f22fdad18471ecccce358558d3260"
+    }
+  ]
+}

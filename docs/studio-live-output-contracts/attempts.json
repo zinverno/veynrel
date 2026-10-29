@@ -1,0 +1,30 @@
+[
+  {
+    "stage": "native diagram attempt 1",
+    "outcome": "HARNESS FAILED",
+    "reason": "Global renderer require cannot resolve the host obsidian module; zero inference dispatches.",
+    "localEvidence": "/tmp/veynrel-diagram-native-contracts-1/native-report.json"
+  },
+  {
+    "stage": "native diagram attempt 2",
+    "outcome": "HARNESS FAILED",
+    "reason": "Host API exports are readonly; interception refused before selecting the simulated public model connection.",
+    "localEvidence": "/tmp/veynrel-diagram-native-contracts-2/native-report.json"
+  },
+  {
+    "stage": "native diagram attempt 3",
+    "outcome": "PASS on intermediate bundle",
+    "reason": "Require adapter loads unmodified bundle and routes requestUrl only to loopback. Superseded by final timeout-inclusive run.",
+    "localEvidence": "/tmp/veynrel-diagram-native-contracts-3/native-report.json"
+  },
+  {
+    "stage": "Community initial invocation",
+    "outcome": "NOT RUN",
+    "reason": "Missing local catalog CLI argument; startup assertion refused. Rerun with two public repository files copied to /tmp and COMMUNITY_PUBLIC=0 passed."
+  },
+  {
+    "stage": "mutation audit in sandbox",
+    "outcome": "HARNESS FAILED",
+    "reason": "Child Vitest returned empty stdout; baseline assertion refused. Unchanged audit rerun outside sandbox killed 5/5 mutations and passed every restored test."
+  }
+]

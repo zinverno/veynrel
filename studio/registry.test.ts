@@ -6,6 +6,15 @@ import { BUILTIN_RECIPES } from "./builtins";
 
 function fixture() { const disk = testAdapter(), storage = new StudioStorage(disk.adapter, ".custom", "ai-knowledge-hub"); return { ...disk, storage, registry: new RecipeRegistry(storage) }; }
 describe("Studio local registry", () => {
+  it("loads new builtin versions without rewriting existing user copies", async () => {
+    const f = fixture(), old = { ...f.registry.duplicate(BUILTIN_RECIPES[1]), version: "1.0.0", steps: [{ type: "llm_transform" as const, prompt: "Owner's unchanged older prompt." }] as [{ type: "llm_transform"; prompt: string }] };
+    await f.registry.add(old); const before = new Map(f.files); vi.mocked(f.adapter.write).mockClear();
+    const loaded = new RecipeRegistry(f.storage); await loaded.load();
+    expect(loaded.list().find(r => r.id === old.id)).toEqual(old); expect(f.files).toEqual(before); expect(f.adapter.write).not.toHaveBeenCalled();
+    expect(loaded.list().filter(r => r.source === "builtin").map(r => [r.id, r.version])).toEqual([
+      ["builtin.smart-format", "1.0.1"], ["builtin.training-journal", "1.0.1"], ["builtin.nutrition-journal", "1.0.1"],
+    ]);
+  });
   it("passive load is read-only, isolated from data.json and Markdown", async () => {
     const f = fixture(); await f.registry.load(); expect(f.registry.list()).toHaveLength(3);
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.adapter.read).not.toHaveBeenCalled(); expect(f.adapter.mkdir).not.toHaveBeenCalled();

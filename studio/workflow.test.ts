@@ -51,6 +51,21 @@ function fixture(count = 2) {
   };
 }
 describe("Studio saved-editor reading and write retry", () => {
+  it.each(["success", "failure"])("retains a failed Markdown row after timeout and late %s", async outcome => {
+    vi.useFakeTimers(); vi.stubGlobal("window", { setTimeout, clearTimeout });
+    try {
+      const f = fixture(1), before = new Map(f.content);
+      let resolve!: (v: never) => void, reject!: (e: Error) => void;
+      const request = vi.mocked(requestUrl).mockReset().mockImplementationOnce(() => new Promise((a, b) => { resolve = a; reject = b; }) as never);
+      const runner = new RecipeRunner({ notes: f.port, inventory: () => studioInventory(f.app), settings: { get: () => f.settings, update: async s => s, subscribe: () => () => {} }, complete: callOpenRouter }, f.writer);
+      const p = await runner.prepare(BUILTIN_RECIPES[0], BUILTIN_RECIPES[0].parameters, { paths: [f.files[0].path] }, 32768);
+      const pending = runner.generate(p); await vi.advanceTimersByTimeAsync(30_001); const r = await pending;
+      expect(r.rows[0]).toMatchObject({ status: "failed", reason: "timeout", after: null }); expect(runner.state).toBe("failed");
+      if (outcome === "success") resolve({ status: 200, text: JSON.stringify({ choices: [{ message: { content: "late" }, finish_reason: "stop" }] }) } as never); else reject(Error("private-late-body"));
+      await vi.advanceTimersByTimeAsync(1); expect(runner.review).toBe(r); expect(r.rows[0].after).toBeNull();
+      await expect(runner.apply(r, [f.files[0].path])).rejects.toThrow(); expect(f.content).toEqual(before); expect(f.vault.process).not.toHaveBeenCalled(); expect(request).toHaveBeenCalledOnce();
+    } finally { vi.mocked(requestUrl).mockReset(); vi.useRealTimers(); vi.unstubAllGlobals(); }
+  });
   it("reads an open saved note and retries Apply after closing without another generation", async () => {
     const f = fixture(1); f.editor(); const p = await f.prepare();
     expect(f.complete).not.toHaveBeenCalled(); const r = await f.runner.generate(p);

@@ -1,0 +1,24 @@
+
+> obsidian-ai-hub@2.2.1 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.2.1 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.2.1 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.2.1 build
+> node esbuild.config.mjs production
+
+
+/tmp/veynrel-studio-live-output-contracts-v1/api.ts
+  472:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+/tmp/veynrel-studio-live-output-contracts-v1/studio/community/transport.ts
+  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 2 problems (0 errors, 2 warnings)

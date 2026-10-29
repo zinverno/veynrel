@@ -1,0 +1,92 @@
+{
+  "scope": "offline remediation only",
+  "base": "673b5db040db3b2d524ea19af0c47adbd48b1330",
+  "runtimeSourceCommit": "7dfc76973efef5aa0d7864564f2cb6cf7a86b0e4",
+  "previousEvaluatedTreeIdenticalToBase": true,
+  "bundleIntegrity": {
+    "packageFiles": 160,
+    "evaluationFiles": 155,
+    "mismatches": 0,
+    "verifiedAgainAfterWork": true
+  },
+  "gates": {
+    "unit": {
+      "status": "PASS",
+      "files": 188,
+      "tests": 5087
+    },
+    "typecheck": "PASS",
+    "build": "PASS",
+    "lint": {
+      "status": "PASS",
+      "newWarnings": 0,
+      "retainedWarnings": [
+        "api.ts fetch for SSE",
+        "studio/community/transport.ts fetch for redirect/body bounds"
+      ],
+      "newTestFile": "Separately eslint-checked after full lint; subsequent full typecheck passed."
+    },
+    "proposalMutationAudit": {
+      "status": "PASS",
+      "killed": 5,
+      "total": 5,
+      "restoredTests": "PASS",
+      "unchangedHarness": true
+    },
+    "diffCheck": "PASS"
+  },
+  "native": {
+    "diagram": {
+      "status": "PASS",
+      "checks": 35,
+      "rendererExceptions": 0,
+      "evidence": "diagram-native.json"
+    },
+    "markdown": {
+      "status": "PASS",
+      "checks": 83,
+      "rendererExceptions": 0,
+      "evidence": "markdown-native.json"
+    },
+    "community": {
+      "status": "PASS",
+      "checks": 39,
+      "rendererExceptions": 0,
+      "evidence": "community-native.json"
+    }
+  },
+  "build": {
+    "main.js": "eb4309ee7a4808d5bd54284a49db91c49cbff2fb5ae7d4d9c787ddf1283e632e",
+    "styles.css": "0a56930f3846b7c4ff047a63aaddf4dd471624df91a2bb0388b85bde5c561c71",
+    "manifest.json": "03001af2b852b53a31721fee83b353ad2d6496f55d327c150f0540bb5371c93b"
+  },
+  "candidate": {
+    "file": "studio/evaluation/fixtures/meeting-structure-1.0.1.candidate.json",
+    "sha256": "2d749573003cf7f0b00f4ba838facb6b783bc870fbb9b321a313fca6530a192d",
+    "published": false,
+    "installed": false
+  },
+  "pairedTextCorpus": {
+    "groups": 10,
+    "variants": 27,
+    "semanticVerdicts": "NOT RE-EVALUATED"
+  },
+  "futureLivePlan": {
+    "status": "NOT RUN",
+    "authorized": false,
+    "sha256": "62391b4c0a06479d0df0e03dcfed89e924b316631de3b75003ea08a6c4990484"
+  },
+  "remoteInferenceRequests": 0,
+  "realCredentialsUsed": false,
+  "semanticQuality": "NOT RE-EVALUATED",
+  "manualOwnerAcceptance": "NOT RUN",
+  "preserved": [
+    "Apply/Undo and saved-note guards",
+    "create-only diagram journal/adapter",
+    "published meeting-structure 1.0.0 and catalog SHA",
+    "user copies and installed provenance",
+    "plugin version/dependencies",
+    "TEST-vault and user worktrees",
+    "website"
+  ]
+}

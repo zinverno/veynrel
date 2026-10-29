@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "status": "PREPARED ONLY — NOT RUN",
+  "remoteInferenceAuthorized": false,
+  "previousExperiment": {
+    "attemptsConsumed": 6,
+    "confirmedCostUSD": "0.00143916",
+    "originalCeilingUSD": "0.10",
+    "arithmeticRemainderUSD": "0.09856084",
+    "carryForward": "Preserve the original owner-local ledger and settled receipts. The arithmetic remainder is not new authorization. No new attempt may be issued before separate explicit authorization and a new bounded plan."
+  },
+  "factors": [
+    {"name": "schema", "comparison": "Hold model, exact endpoint, source, prompt, sampling and output limits constant; compare prompt-only baseline with schema-and-required-route treatment. Schema/routing is the declared transport treatment, not prompt improvement."},
+    {"name": "prompt", "comparison": "Hold model, endpoint and transport contract constant; compare the frozen original and versioned new instruction. Meeting 1.0.1 candidate is distinct from installed 1.0.0."},
+    {"name": "model", "comparison": "Hold source, prompt and transport contract constant where supported; record provider/endpoint differences. If these cannot be held, attribute observations only to the new combination."}
+  ],
+  "design": {
+    "inputs": "Include the original A–F and new paired corpus variants, plus owner-reviewed held-out variants with different values, units, speakers and relative times. Freeze selection and rubric before dispatch.",
+    "assessment": "Separate transport/shape, content/attribution and human usefulness. Blind paired order where feasible. Preserve failures, refusals and missing data. One fresh response per case is a smoke check, not a statistical quality estimate.",
+    "approvalRequired": "Exact cases, factors, attempt count, model/endpoint capabilities, request hashes, output caps and monetary bound must be approved. This plan specifies no executable inference adapter and grants no budget.",
+    "noRetries": "No automatic retry, model/route fallback, paid verifier, JSON repair request or reuse of an uncertain operation. Reserve/fsync before dispatch; stop on unknown billing."
+  },
+  "timing": {
+    "clockPolicy": "Use one monotonic clock per measured interval and identify each process/clock. Never sum remote generation metadata with local wall-clock.",
+    "fields": ["preflight GET start/end", "inference dispatch", "first-byte if observable", "body-complete if observable", "delivery to caller", "metadata settlement start/end"],
+    "missing": "Record null/unobserved, never invent timestamps. Buffered requestUrl exposes delivery but not first-byte/body-complete. Record timeout of the wait separately from the underlying transport completion."
+  },
+  "reasoningCompatibility": {
+    "observation": "All six original requests set reasoning.enabled=false, while all six envelopes reported nonzero reasoning token usage. Cause/layer is unproven; no reasoning text is published.",
+    "futureCheck": "Under separate authorization, compare frozen request reasoning controls with safe usage counters, finish status and billing receipt. Count all returned billed output within the cap; do not add model-specific no_think commands or globally alter sampling."
+  }
+}

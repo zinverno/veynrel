@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "structure",
+  "title": "Компоненты приложения",
+  "nodes": [
+    {
+      "id": "n1",
+      "label": "Интерфейс",
+      "shape": "rectangle"
+    },
+    {
+      "id": "n2",
+      "label": "API",
+      "shape": "rectangle"
+    },
+    {
+      "id": "n3",
+      "label": "База данных",
+      "shape": "rectangle"
+    },
+    {
+      "id": "n4",
+      "label": "Очередь",
+      "shape": "rectangle"
+    },
+    {
+      "id": "n5",
+      "label": "Рабочий процесс",
+      "shape": "rectangle"
+    },
+    {
+      "id": "n6",
+      "label": "Справочник терминов",
+      "shape": "ellipse"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "id": "e2",
+      "from": "n2",
+      "to": "n3"
+    },
+    {
+      "id": "e3",
+      "from": "n2",
+      "to": "n4"
+    },
+    {
+      "id": "e4",
+      "from": "n4",
+      "to": "n5"
+    }
+  ]
+}

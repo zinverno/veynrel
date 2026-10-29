@@ -90,7 +90,8 @@ export class DiagramPanel {
     advanced.createEl("p", { text: l("Keep the verified model limit. No silent truncation.", "Укажите проверенный лимит модели. Скрытой обрезки нет.") });
     advanced.createEl("p", { text: l("Keep the source editor open if it is saved. Unsaved or unverifiable buffers block sending. The destination folder must already exist.", "Сохранённый исходник можно оставить открытым. Несохранённый или непроверяемый буфер блокирует отправку. Папка назначения должна уже существовать.") });
     connectionSummary(form, this.owner.connection());
-    button(form, l("Read note & review request", "Прочитать заметку и проверить запрос"), "diagram-prepare", () => {
+    form.createEl("p", { text: l("Preparation checks public OpenRouter endpoint metadata using the model ID only, without credentials or note text. A compatible route and JSON Schema will be shown for consent. Other connections cannot yet be verified for diagrams.", "Подготовка проверяет публичные metadata endpoint OpenRouter только по ID модели, без ключа и текста заметки. Совместимый маршрут и JSON Schema будут показаны для согласия. Другие подключения пока нельзя проверить для схем.") });
+    button(form, l("Check support & review request", "Проверить поддержку и запрос"), "diagram-prepare", () => {
       this.setup = false; this.run(() => workflow.prepare(this.kind, this.source, this.target, this.options, Number(this.context)));
     }).disabled = this.owner.operations.busy || ["unavailable", "incompatible"].includes(capability.state);
   }
