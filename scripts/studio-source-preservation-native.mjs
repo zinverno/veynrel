@@ -8,7 +8,8 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-const root = process.argv[2];
+const root = process.argv[2], smokeKit = process.argv[3];
+// Optional third argument tests the shipped kit through the same UI and untouched production transport.
 assert(root?.startsWith('/tmp/veynrel-studio-native-') && !root.includes('..') && !fs.existsSync(root));
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(pluginDir, { recursive: true }); fs.mkdirSync(`${root}/profile`, { recursive: true });
@@ -22,6 +23,7 @@ const originals = {
   'Batch/a/same.md': 'Saved facts in A.\n', 'Batch/b/same.md': 'Saved facts in B.\n',
   'Untouched.md': '# Never selected\nThis note must not be read or changed by Studio.\n',
 };
+if (smokeKit) originals['Source.md'] = fs.readFileSync(`${smokeKit}/vault/Source.md`, 'utf8');
 for (const [path, text] of Object.entries(originals)) { fs.mkdirSync(`${vault}/${path.substring(0, path.lastIndexOf('/') + 1)}`, { recursive: true }); fs.writeFileSync(`${vault}/${path}`, text); }
 const requests = [];
 let providerMode = 'normal', releaseProvider;
@@ -36,8 +38,14 @@ const server = createServer(async (req, res) => {
   res.end(JSON.stringify({ choices: [{ message: { content }, finish_reason: providerMode === 'length' ? 'length' : 'stop' }] }));
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-const port = server.address().port;
-fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', provider: 'ollama', model: 'studio-loopback', baseUrl: `http://127.0.0.1:${port}/v1`, apiKey: '',
+let port = server.address().port, smokeServer;
+const smokeReceipt = `${root}/smoke-http.jsonl`;
+if (smokeKit) {
+  smokeServer = spawn('python3', ['-u', `${ROOT}/scripts/studio-smoke/observe_native.py`, smokeKit, smokeReceipt], {stdio:['ignore','pipe',fs.openSync(`${root}/smoke-server.log`,'a')]});
+  port = await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('smoke server readiness timeout')),5000);smokeServer.once('error',reject);smokeServer.stdout.once('data',data=>{clearTimeout(timer);const n=Number(String(data).trim());assert(n>0&&n<65536);resolve(n);});});
+}
+const smokeReceipts = () => fs.existsSync(smokeReceipt) ? fs.readFileSync(smokeReceipt,'utf8').trim().split('\n').filter(Boolean).map(s=>JSON.parse(s)) : [];
+fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', provider: 'ollama', model: smokeKit ? 'synthetic-source-preservation' : 'studio-loopback', baseUrl: `http://127.0.0.1:${port}/v1`, apiKey: '',
   semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } }));
 fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`, '["ai-knowledge-hub"]');
 fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
@@ -49,8 +57,8 @@ const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 const start = () => spawn('/usr/bin/electron43', ['/usr/lib/obsidian/app.asar', `--user-data-dir=${root}/profile`, '--remote-debugging-port=9286', '--disable-gpu', '--ozone-platform=x11'], { stdio: ['ignore', 'ignore', fs.openSync(`${root}/electron.log`, 'a')] });
 let child, socket, sequence = 0;
 const pending = new Map(), checks = [], screenshots = [];
-const report = { checks, artifacts, screenshots, modelQuality: 'NOT RE-EVALUATED', remoteInferenceRequests: 0, fixture: 'Six synthetic Markdown files; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.',
-  beforeApply: [], exceptions: [],
+const report = { checks, artifacts, screenshots, modelQuality: 'NOT RE-EVALUATED', remoteInferenceRequests: 0, fixture: 'Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.',
+  beforeApply: [], exceptions: [], themeTransitions: [], themeCaptures: [], mode: smokeKit ? 'shipped-smoke-kit' : 'source-preservation',
   limits: 'Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.' };
 const cdp = (method, params = {}) => new Promise((resolve, reject) => { pending.set(++sequence, { resolve, reject }); socket.send(JSON.stringify({ id: sequence, method, params })); });
 const ev = async expression => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); assert(!r.exceptionDetails, JSON.stringify(r.exceptionDetails)); return r.result.value; };
@@ -129,6 +137,26 @@ async function undoAll() {
 async function shot(name) {
   fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await cdp('Page.captureScreenshot', { format: 'png' })).data, 'base64')); screenshots.push(`${name}.png`);
 }
+async function themeSample(selector = '.veynrel-studio') {
+  return ev(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),doc=e.ownerDocument,w=doc.defaultView,c=w.getComputedStyle(e),b=e.getBoundingClientRect();return {classes:[...doc.body.classList].filter(x=>x.startsWith('theme-')),background:c.backgroundColor,text:c.color,x:b.x,y:b.y,width:b.width,height:b.height,scrollWidth:e.scrollWidth,clientWidth:e.clientWidth,viewport:w.innerWidth}})()`);
+}
+function verifyTheme(sample, mode) {
+  assert(sample.classes.includes(`theme-${mode}`));assert(!sample.classes.includes(`theme-${mode==='light'?'dark':'light'}`));
+  const brightness=color=>{const rgb=color.match(/[\d.]+/g).slice(0,3).map(Number);return rgb.reduce((a,n,i)=>a+n*[.2126,.7152,.0722][i],0)};
+  assert(mode==='light'?brightness(sample.background)>brightness(sample.text):brightness(sample.background)<brightness(sample.text),JSON.stringify(sample));
+}
+async function hostTheme(mode) {
+  const before=await themeSample();await ev(`app.changeTheme('${mode==='light'?'moonstone':'obsidian'}');void 0`);
+  await wait(`(()=>{const doc=document.querySelector('.veynrel-studio').ownerDocument;return doc.body.classList.contains('theme-${mode}')&&!doc.body.classList.contains('theme-${mode==='light'?'dark':'light'}')})()`);
+  await pause(400);const after=await themeSample();verifyTheme(after,mode);
+  if(!before.classes.includes(`theme-${mode}`)){assert.notEqual(after.background,before.background);assert.notEqual(after.text,before.text);}
+  report.themeTransitions.push({requested:mode,before,after});
+}
+async function themeShot(name, mode, language, stage) {
+  const sample=await themeSample(stage==='confirmation'?'.modal':'.veynrel-studio');verifyTheme(sample,mode);
+  assert(sample.scrollWidth<=sample.clientWidth+1);await shot(name);
+  report.themeCaptures.push({file:`${name}.png`,requested:mode,language,stage,...sample});
+}
 async function locale(lang) {
   await ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
   await ev(`{const e=[...app.setting.modalEl.querySelectorAll('select')].find(e=>[...e.options].some(o=>o.value==='ru'));e.value='${lang}';e.dispatchEvent(new Event('change'));}void 0`);
@@ -142,6 +170,20 @@ try {
   report.versions=await ev("({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,excalidrawInstalled:!!app.plugins.plugins['obsidian-excalidraw-plugin']})");
   assert.equal(report.versions.excalidrawInstalled,false);checks.push('Markdown workflow has no Excalidraw dependency');
   await pass('Passive Studio opens with zero model/note read/write',"io.reads.length===0&&io.writes.length===0&&io.creates.length===0");assert.equal(requests.length,0);
+  if (smokeKit) {
+    const before = hashes(); assert.equal(smokeReceipts().length,0);
+    await prepare('builtin.smart-format',['Source.md']);assert.equal(smokeReceipts().length,0);await shot('smoke-explicit-consent');
+    await click('generate');await wait("!studio.runner.running&&studio.runner.state==='review'");
+    assert.equal(await ev('studio.runner.review.rows[0].rawResponse'),fs.readFileSync(`${smokeKit}/synthetic-response.md`,'utf8'));
+    await choose(['Source.md']);await click('review-apply');await wait('!!studio.runner.writePlan');const plan=await ev('studio.runner.writePlan');keep('smoke-create-plan',plan);await shot('smoke-write-confirmation');
+    await click('confirm-apply',true);await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
+    assert.equal(fs.readFileSync(`${vault}/${plan.rows[0].target}`,'utf8'),plan.rows[0].output);assert.deepEqual(hashes(),before);
+    assert.deepEqual(smokeReceipts(),[{status:200,authorization:'ollama-sentinel',expectedPath:true}]);assert.equal(requests.length,0);
+    await pass('Shipped Python responder accepts actual production Ollama header and UI saves the exact separate-note payload',"studio.runner.results[0].outcome==='created'&&io.writes.length===0&&io.creates.length===1");
+    report.smokeHttp=smokeReceipts();report.requests=1;report.initialHashes=before;report.finalHashes=hashes();report.status='PASS';report.io=await ev('io');
+    report.smokeKitHashes=Object.fromEntries(['loopback.py','synthetic-response.md','vault/Source.md'].map(n=>[n,sha(fs.readFileSync(`${smokeKit}/${n}`))]));
+    fs.copyFileSync(`${vault}/${plan.rows[0].target}`,`${root}/markdown/smoke-created.md`);await shot('smoke-created');
+  } else {
   let bodies=await prepare('builtin.smart-format',['Properties.md']);await shot('consent-properties-policy');await generate(bodies);
   await pass('New Review defaults to separate note and keeps raw YAML excluded from actual source output',"document.querySelector('[data-studio-destination]').value==='new-note'&&studio.runner.review.rows[0].rawResponse.includes('model-999')&&!studio.runner.review.rows[0].after.includes('model-999')&&studio.runner.review.rows[0].document.sourcePrefix.includes('source-007')");
   report.envelope=await ev("({before:studio.runner.review.rows[0].before,raw:studio.runner.review.rows[0].rawResponse,document:studio.runner.review.rows[0].document,checks:studio.runner.review.rows[0].checks})");keep('properties-envelope',report.envelope);
@@ -149,12 +191,12 @@ try {
   const reviewCalls=requests.length,originalHash=hashes()['Properties.md'];await choose(['Properties.md']);
   await ev("{const e=document.querySelector('[data-studio-target]');e.value='Saved draft.md';e.dispatchEvent(new Event('input'));}void 0");
   const view= "app.workspace.getLeavesOfType('veynrel-studio')[0].view";
-  const passive=await ev('({reads:io.reads.length,writes:io.writes.length,creates:io.creates.length,journals:io.journals.length})');
+  const passive=await ev('({reads:io.reads.length,writes:io.writes.length,creates:io.creates.length,journals:io.journals.filter(p=>p!==".obsidian/appearance.json").length})');
   await sourceMode();await ev("{const e=document.querySelector('[data-studio-destination]');e.value='new-note';e.dispatchEvent(new Event('change'));}void 0");
-  await ev("app.setTheme('moonstone');app.workspace.getLeavesOfType('veynrel-studio')[0].view.render();void 0");
+  await hostTheme('light');await ev("app.workspace.getLeavesOfType('veynrel-studio')[0].view.render();void 0");
   await pass('Destination/theme rerender preserves selected row and edited target name',"document.querySelector('[data-studio-select]').checked&&document.querySelector('[data-studio-target]').value==='Saved draft.md'");
-  assert.deepEqual(await ev('({reads:io.reads.length,writes:io.writes.length,creates:io.creates.length,journals:io.journals.length})'),passive);assert.equal(requests.length,reviewCalls);checks.push('Destination/name/theme preview changes issue no model, note read, note write or journal write');
-  await shot('review-new-note-en-light');
+  assert.deepEqual(await ev('({reads:io.reads.length,writes:io.writes.length,creates:io.creates.length,journals:io.journals.filter(p=>p!==".obsidian/appearance.json").length})'),passive);assert.equal(requests.length,reviewCalls);checks.push('Destination/name/theme preview changes issue no model, note read, note write or journal write');
+  await themeShot('review-new-note-en-light-r2','light','en','review');
   await ev("window.sourceLeaf=app.workspace.getLeaf('split');sourceLeaf.openFile(app.vault.getFileByPath('Formatting.md'),{state:{mode:'source',source:true}})");
   await ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0");
   await click('review-apply');await wait('!!studio.runner.writePlan');const plan=await ev('studio.runner.writePlan');keep('create-plan',plan);await shot('confirm-create-en-split');
@@ -196,11 +238,19 @@ try {
   for(const lang of ['en','ru']) {
     await locale(lang);bodies=await prepare('builtin.smart-format',['Properties.md']);await generate(bodies);await choose(['Properties.md']);
     await ev("app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0");
-    for(const [theme,width] of [['obsidian',390],['moonstone',1300]]) {
-      await ev(`app.setTheme('${theme}');void 0`);await cdp('Emulation.setDeviceMetricsOverride',{width,height:950,deviceScaleFactor:1,mobile:false});await pause(500);
-      await pass(`${lang}/${theme}/${width}: Review fits without horizontal page overflow`,"(()=>{const e=document.querySelector('.veynrel-studio');return e.scrollWidth<=e.clientWidth+1})()");await shot(`review-${lang}-${theme}-${width}`);
+    const beforeMatrix=await ev('({writes:io.writes.length,creates:io.creates.length})'),calls=requests.length;
+    for(const mode of ['dark','light']) for(const width of [390,1300]) {
+      await cdp('Emulation.setDeviceMetricsOverride',{width,height:950,deviceScaleFactor:1,mobile:false});await hostTheme(mode);
+      await ev("document.querySelector('.veynrel-studio').scrollTop=0;void 0");
+      await themeShot(`review-${lang}-${mode}-${width}-r2`,mode,lang,'review');
+      await pass(`${lang}/${mode}/${width}: actual Review theme and overflow verified`,"document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
+      await click('review-apply');await wait("!!document.querySelector('[data-studio-action=confirm-apply]')");
+      await themeShot(`confirmation-${lang}-${mode}-${width}-r2`,mode,lang,'confirmation');
+      await ev("app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs.forEach(d=>d.close());void 0");
     }
+    assert.equal(requests.length,calls);assert.deepEqual(await ev('({writes:io.writes.length,creates:io.creates.length})'),beforeMatrix);
   }
+
   // Native pointer/keyboard action, not a DOM-only screenshot.
   await cdp('Emulation.setDeviceMetricsOverride',{width:1300,height:950,deviceScaleFactor:1,mobile:false});
   await cdp('Page.bringToFront');await wait('document.hasFocus()');await ev("window.keyTrace=[];for(const name of ['keydown','keypress','keyup','click'])document.addEventListener(name,e=>keyTrace.push({type:e.type,key:e.key,target:e.target.dataset?.studioAction,prevented:e.defaultPrevented}),true);document.querySelector('[data-studio-action=review-apply]').focus();void 0");
@@ -212,5 +262,7 @@ try {
   assert.deepEqual(hashes(),initialHashes);checks.push('All original and unselected control UTF-8 hashes unchanged at completion');
   fs.copyFileSync(vault+'/Properties.md',root+'/markdown/inplace-undone.md');report.requests=requests.length;report.initialHashes=initialHashes;report.finalHashes=hashes();report.io=await ev('io');report.modelQuality='NOT RE-EVALUATED';report.status='PASS';
   assert(!report.io.reads.includes('Untouched.md'));assert.equal(report.io.browserRequests,0);await ev("document.querySelector('[data-studio-final]').scrollIntoView({block:'start'});document.querySelectorAll('.veynrel-studio-review-detail details').forEach(d=>{if(d.querySelector('summary').textContent.includes('замечания'))d.open=true});void 0");await shot('final-review');
+  }
+  assert.equal(report.exceptions.length,0);
 } catch(e) {report.status='FAIL';report.error=String(e.stack||e);try{report.diagnostic=await ev("({state:studio.runner.state,error:studio.runner.error,result:studio.runner.results,review:studio.runner.review,text:document.body.innerText.slice(-4000)})");await shot('failure');}catch{}process.exitCode=1;
-} finally {keep('native-report',report);socket?.close();child?.kill('SIGTERM');server.close();console.log(JSON.stringify({status:report.status,checks:checks.length,requests:requests.length,error:report.error,root}));}
+} finally {keep('native-report',report);socket?.close();child?.kill('SIGTERM');smokeServer?.kill('SIGTERM');server.close();console.log(JSON.stringify({status:report.status,checks:checks.length,requests:report.requests??requests.length,error:report.error,root}));}

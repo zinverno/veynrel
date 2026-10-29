@@ -1,0 +1,20 @@
+{
+  "superseded": [
+    {
+      "revision": "r1",
+      "finding": "Smoke responder returned 400 for the production empty-key Ollama sentinel. Independent checks reproduce it.",
+      "resolution": "Canonical responder allows absent or exact singleton Bearer ollama. No production transport changes."
+    },
+    {
+      "revision": "r1",
+      "finding": "setTheme did not switch the native theme; light labels were false.",
+      "resolution": "changeTheme, owner-document class assertions, changed computed colors, full 16-frame matrix and PNG pixel validation."
+    }
+  ],
+  "preserved": "All original evidence and the r1 review folder/ZIP remain unchanged; old light labels are not accepted evidence.",
+  "limitations": [
+    "Linux desktop built-in themes only; not physical mobile or third-party themes.",
+    "No real model evaluation or remote inference.",
+    "Full Markdown, Community and diagram native suites were not rerun in r2."
+  ]
+}

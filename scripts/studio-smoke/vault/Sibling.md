@@ -1,0 +1,2 @@
+# Sibling
+Synthetic link target.

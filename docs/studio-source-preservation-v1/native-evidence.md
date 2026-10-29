@@ -1,4 +1,6 @@
-# Validation and native evidence
+# Validation and native evidence (r1 history)
+
+**R2 correction:** the original smoke responder rejected production `Bearer ollama`; Source Preservation screenshots labeled light were actually dark. The r1 visual-theme claims below are superseded, not current proof. Original files remain unchanged for audit. See [the r2 follow-up](review-followup-r2.md) for the corrected shipped route and independently checked theme matrix.
 
 Base: `4ef4d2893c944467657f9b54a64d826fb9f96e84` (origin/main fetched before work; PR #127 merged). Isolated branch: `feat/studio-source-preservation-v1`. Runtime/source commit: `9c5b55491ab9e4462a10d4b59b5011ce9ce1ec16`. The final documentation commit is identified in the PR/review manifest.
 
@@ -26,7 +28,7 @@ All accepted native suites below use these exact product bytes. Obsidian 1.13.7 
 
 [Source-preservation report](evidence/native-report.json), [Markdown report](evidence/markdown-regression.json), [Community report](evidence/community-regression.json). Actual UTF-8 source/result/Undo files are in `evidence/markdown/`, alongside exact plans, checks, a receipt-failure partial result, native screenshots and logs. Review ZIP adds a browsable relative-resource HTTP gallery and independent local smoke kit.
 
-Verified native paths include default separate-note save, exact shown/written payload, source BOM/CRLF/YAML preservation and Undo hashes, saved/unsafe editors, selected-only batch, receipt failure, restart without replay, manual receipt-only recovery, separate source-mode open, RU/EN/light/dark/390/normal widths, real split/popout, keyboard actions and shared operation guards. Passive viewing/name/destination/theme changes cause no model request, note read/write or journal write. Original/control hashes remain unchanged at completion.
+Verified native paths include default separate-note save, exact shown/written payload, source BOM/CRLF/YAML preservation and Undo hashes, saved/unsafe editors, selected-only batch, receipt failure, restart without replay, manual receipt-only recovery, separate source-mode open, RU/EN/390/normal widths (r1 light/dark claims are superseded by r2), real split/popout, keyboard actions and shared operation guards. Passive viewing/name/destination/theme changes cause no model request, note read/write or journal write. Original/control hashes remain unchanged at completion.
 
 ## Failed attempts retained
 

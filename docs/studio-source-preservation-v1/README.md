@@ -1,5 +1,7 @@
 # Studio Source Preservation v1
 
+[Review follow-up r2](review-followup-r2.md) corrects the shipped synthetic responder and replaces the invalid r1 light-theme evidence. Production bytes and contracts are unchanged.
+
 New Markdown Reviews default to **a separate note in the source folder**. The source remains untouched by the create operation. Changing the source requires selecting that destination and confirming an exact plan. Generation consent remains separate from write consent. Real-model quality: **NOT RE-EVALUATED**; this stage makes no remote inference requests.
 
 ## Owners and contracts

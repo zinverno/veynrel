@@ -1,0 +1,342 @@
+{
+  "status": "PASS",
+  "frames": [
+    {
+      "file": "review-en-dark-390-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.7933095137084372,
+      "matchingTextPixels": 1696
+    },
+    {
+      "file": "confirmation-en-dark-390-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8400181641532548,
+      "matchingTextPixels": 1065
+    },
+    {
+      "file": "review-en-dark-1300-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8618064483141471,
+      "matchingTextPixels": 2459
+    },
+    {
+      "file": "confirmation-en-dark-1300-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8934339596573639,
+      "matchingTextPixels": 1063
+    },
+    {
+      "file": "review-en-light-390-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.842949567799756,
+      "matchingTextPixels": 1677
+    },
+    {
+      "file": "confirmation-en-light-390-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8908144299412833,
+      "matchingTextPixels": 1056
+    },
+    {
+      "file": "review-en-light-1300-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.935705859580436,
+      "matchingTextPixels": 2428
+    },
+    {
+      "file": "confirmation-en-light-1300-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.9267684443216359,
+      "matchingTextPixels": 1054
+    },
+    {
+      "file": "review-ru-dark-390-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.7766744445033674,
+      "matchingTextPixels": 2481
+    },
+    {
+      "file": "confirmation-ru-dark-390-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8093738534915006,
+      "matchingTextPixels": 1740
+    },
+    {
+      "file": "review-ru-dark-1300-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.853616402734763,
+      "matchingTextPixels": 3765
+    },
+    {
+      "file": "confirmation-ru-dark-1300-r2.png",
+      "requested": "dark",
+      "classes": [
+        "theme-dark"
+      ],
+      "surfaceRGB": [
+        28,
+        28,
+        28
+      ],
+      "textRGB": [
+        218,
+        218,
+        218
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8666516993644653,
+      "matchingTextPixels": 1755
+    },
+    {
+      "file": "review-ru-light-390-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.8288898021954711,
+      "matchingTextPixels": 2458
+    },
+    {
+      "file": "confirmation-ru-light-390-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 390,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.872737556561086,
+      "matchingTextPixels": 1727
+    },
+    {
+      "file": "review-ru-light-1300-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.9237777931981535,
+      "matchingTextPixels": 3731
+    },
+    {
+      "file": "confirmation-ru-light-1300-r2.png",
+      "requested": "light",
+      "classes": [
+        "theme-light"
+      ],
+      "surfaceRGB": [
+        255,
+        255,
+        255
+      ],
+      "textRGB": [
+        34,
+        34,
+        34
+      ],
+      "pngWidth": 1300,
+      "pngHeight": 950,
+      "matchingSurfaceFraction": 0.9094812102790826,
+      "matchingTextPixels": 1739
+    }
+  ],
+  "note": "Native computed classes/colors plus matching PNG pixels; no recoloring or class injection."
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "network": "127.0.0.1 only",
+  "cases": [
+    {
+      "case": "invalid-json",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "invalid-path",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "invalid-structure",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "absent-header",
+      "status": 200,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "non-exact-authorization",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "non-exact-authorization",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "non-exact-authorization",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "non-exact-authorization",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "exact-ollama-sentinel",
+      "status": 200,
+      "requestAndCredentialLogs": false
+    },
+    {
+      "case": "oversize",
+      "status": 400,
+      "requestAndCredentialLogs": false
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "reviewed_head": "96db41f5eb8a7e9ef20c8d11c4e0a39143c24855",
+  "review_scope": "Static review of selected runtime modules, artifact integrity and exact-byte comparison; real execution of bundled loopback responder. No complete test-suite or native Obsidian rerun.",
+  "original_zip_sha256": "10a49799ca4bc4392f6eb0f233ae9a5182b3689774d0be546689f50bc42ea279",
+  "checksum_lists": [
+    {
+      "manifest": "SHA256SUMS",
+      "entries": 72,
+      "passed": 72,
+      "overlaps_other_manifests": false
+    },
+    {
+      "manifest": "docs/evidence/SHA256SUMS",
+      "entries": 39,
+      "passed": 39,
+      "overlaps_other_manifests": true
+    },
+    {
+      "manifest": "smoke-kit/SOURCE-SHA256SUMS",
+      "entries": 5,
+      "passed": 5,
+      "overlaps_other_manifests": true
+    }
+  ],
+  "artifact_checks": {
+    "source_has_bom": true,
+    "yaml_prefix_exact_before_and_after": true,
+    "undo_exact_original_bytes": true,
+    "new_note_exact_confirmed_payload": true,
+    "source_apply_exact_confirmed_payload": true,
+    "new_note_excludes_source_and_model_frontmatter": true,
+    "gallery_image_count": 10,
+    "gallery_missing_images": []
+  },
+  "local_http_reproduction": {
+    "test": "Actual supplied smoke-kit loopback HTTP reproduction",
+    "network": "127.0.0.1 only; no remote inference, no credentials",
+    "results": [
+      {
+        "case": "no_header",
+        "status": 200,
+        "body": {
+          "choices": [
+            {
+              "message": {
+                "role": "assistant",
+                "content": "---\nid: model-proposed\naliases: [Model]\n---\n# Draft\n37 кг. [[#Facts]] [relative](./Sibling.md).\n```js\nconst n = 38;\n```\n"
+              },
+              "finish_reason": "stop"
+            }
+          ]
+        }
+      },
+      {
+        "case": "production_ollama_empty_key",
+        "status": 400,
+        "body": {
+          "error": "Use the loopback endpoint with an empty key"
+        }
+      }
+    ],
+    "plugin_header_verified_in_bundle": true,
+    "script_sha256": "00424dbbcaf4787d0161c5820f2f730a8db6d34736051eb8da49b2d206e8458e"
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "scope": "Delivered smoke-kit",
+      "severity": "Blocks documented manual loopback route",
+      "observed": "README prescribes Ollama with empty key; production api.ts sends Bearer ollama; bundled responder rejects any Authorization and returns HTTP 400. Reproduced against actual supplied Python responder.",
+      "required_fix": "Accept no Authorization or exact synthetic Bearer ollama in loopback fixture only; reject others, retain loopback bind/limits/no logs. Verify exact production transport and rebuild kit."
+    },
+    {
+      "id": "R2",
+      "scope": "Native visual verification",
+      "severity": "Evidence gap",
+      "observed": "review-new-note-en-light.png is visually dark. New harness calls app.setTheme and only asserts horizontal overflow for obsidian/moonstone cases; actual theme class and computed colors are not verified.",
+      "required_fix": "Use verified host theme switch, wait for actual theme-light/theme-dark and computed palette, capture correctly labeled screenshots; preserve prior artifacts as superseded."
+    }
+  ],
+  "runtime_security_verdict": "No blocking source-overwrite bug identified in inspected paths; not a formal proof or complete review.",
+  "remote_inference_requests": 0,
+  "real_credentials_used": false,
+  "native_tests_rerun_by_reviewer": false
+}
