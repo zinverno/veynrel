@@ -1,128 +1,92 @@
 # Veynrel
 
-![Veynrel 2.2.1 — Review your notes. Choose what changes.](assets/showcase/2.2.1/cover.png)
+**Review your vault. Shape a note. Keep the decision yours.**
 
-**Find connections worth reviewing. Decide what to keep, link or change in your Obsidian notes.**
+Veynrel brings vault health, connection review and spaced repetition to Obsidian, alongside a separate Studio for reusable note recipes and editable diagrams.
 
-Veynrel brings a candidate list, evidence-led pair review, guarded Markdown changes and native spaced repetition into one workspace. Start with local checks; add semantic search and AI analysis when you need them.
+![Editorial composition of native Studio and an editable Excalidraw result](assets/showcase/2.3.0/hero.png)
 
-[Install](#installation) · [2.2.1 release notes](docs/releases/2.2.1.md) · [Releases](https://github.com/zinverno/veynrel/releases) · [MIT license](LICENSE)
+[Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.0.md)
 
-<p align="center"><a href="assets/showcase/2.2.1/review-to-apply.gif"><img src="assets/showcase/2.2.1/review-to-apply.gif" width="1000" alt="In real Obsidian: consent to pair analysis, inspect a link recommendation, prepare an exact preview and separately confirm Apply"></a></p>
+> **2.3.0 release candidate.** The published stable release is **2.2.1**. Studio and the media below describe this candidate; install stable from Releases or review the candidate preparation PR before testing it in a disposable vault.
 
-*Veynrel 2.2.1 in real Obsidian, using synthetic notes and a local controlled model response. These demonstrations show the workflow, not AI quality. [Media details](assets/showcase/2.2.1/README.md).*
+## Three ways to work
 
-## From a candidate to a considered change
+### Review a vault
 
-1. **Choose an area.** Home shows your folders; **More folders** reveals the rest.
-2. **Review a pair.** Find repeats, overlaps or possible connections. Compare the saved notes before deciding whether to request AI analysis.
-3. **Inspect the recommendation.** Confirm the displayed request first. The result shows evidence and a primary action; availability is checked before preparation.
-4. **Review the exact change.** Choose the missing parameters, inspect the before/after preview, then separately confirm **Apply**.
-5. **Keep control.** Supported consolidation operations have History and a separate guarded **Undo**. Or choose **Leave as is**: the decision survives restart for those exact saved versions and can be restored from **Reviewed**.
+Open the **Veynrel workspace** to choose an area, run local Health checks, inspect note pairs and review supported changes. Start with broken links and exact duplicates; add an embedding index for semantic candidates. Similarity suggests a pair to inspect — it does not prove duplication or low note quality.
 
-Adding a link updates local facts; it does not declare an overlap solved. A high similarity score does not prove duplication.
+![Native workspace with synthetic folders and local vault facts](assets/showcase/2.3.0/health.png)
 
-## Inside the workspace
+### Transform a note
 
-<table>
-<tr>
-<td width="50%"><a href="assets/showcase/2.2.1/home.png"><img src="assets/showcase/2.2.1/home.png" width="600" alt="Home with top-level folders, a whole-vault overview and five more folders"></a><br><strong>Choose an area</strong> — a clear starting point for your vault.</td>
-<td width="50%"><a href="assets/showcase/2.2.1/recommendation.png"><img src="assets/showcase/2.2.1/recommendation.png" width="600" alt="Pair review with a clickable Link notes recommendation and shared and distinct evidence"></a><br><strong>Make a decision</strong> — inspect the evidence and prepare the proposed action.</td>
-</tr>
-<tr>
-<td><a href="assets/showcase/2.2.1/processing.png"><img src="assets/showcase/2.2.1/processing.png" width="600" alt="Processing with Atomize a note, Batch processing and Create MOCs cards"></a><br><strong>Process deliberately</strong> — each tool explains its effect before you begin.</td>
-<td><a href="assets/showcase/2.2.1/recall.png"><img src="assets/showcase/2.2.1/recall.png" width="600" alt="Recall with due, active and new card counts and a Start review action"></a><br><strong>Remember what you wrote</strong> — local FSRS-6 review.</td>
-</tr>
-</table>
+Open **Veynrel Studio**, choose a recipe and saved notes, then inspect the recipient and request before generation. Review the result and local preservation observations. The default creates a **separate Markdown note**, linked to its source; source properties are not cloned into the new result.
 
-More: [candidate list](assets/showcase/2.2.1/review.png) · [atomization proposals](assets/showcase/2.2.1/atomization-preview.png) · [History → Undo](assets/showcase/2.2.1/history-undo.gif) · [atomization workflow](assets/showcase/2.2.1/atomization.gif) · [Recall workflow](assets/showcase/2.2.1/recall.gif).
+![Studio library of reusable note transformations](assets/showcase/2.3.0/studio-library.png)
 
-## Find useful relationships
+![Review a controlled response before creating a separate result](assets/showcase/2.3.0/studio-review.png)
 
-- **Local Health** finds broken links, structural issues and exact duplicates without an AI provider. Findings retain evidence and coverage information.
-- **Semantic search and Similar Notes** use an embedding index to surface related material. The optional map combines known links, semantic neighbors and tag membership; opening Review starts with the list.
-- **Connection rules** can suppress suggestions within a tag or folder, or exclude that group from connection search. They run **before top-K**: exercises can still connect to explanations even when the five closest results are other exercises. Duplicate discovery remains separate.
-- **Pair analysis** uses two saved sources, explicit consent and locally checked evidence. Model interpretation remains a suggestion for you to assess.
+![Native Studio preparation, Review and separate-note creation](assets/showcase/2.3.0/studio.gif)
 
-[Connection rules](docs/review-stage-2.md) · [Semantic search and index](docs/global-semantic-map.md) · [Relationship Analyzer](docs/relationship-analyzer-v1.md).
+[Static result](assets/showcase/2.3.0/studio-result.png) · [Studio guide](docs/wiki/Studio-recipes.md)
 
-## Prepare changes, not surprises
+*Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. Captured in real Obsidian. Timing is edited for readability.*
 
-Supported consolidation routes include links, embeds, copying selected material with **Merge**, and preserving context with **Group** or **Bundle**. They are bounded Markdown operations, not automatic full-file fusion. Preflight and the final review can refuse unsupported structures or changed sources. Archiving is a separate reviewed operation with its own dependencies.
+### Create an editable diagram
 
-**Atomize a note** proposes separate notes from one source. Select the note, confirm AI analysis, review each proposal, exclude unwanted ones, then confirm the exact files and source-link block. The original content stays. **Generative atomization has no universal Undo** and reports partial writes explicitly.
+Studio can turn one saved note into a structure diagram or flowchart. Inspect the preview, explicitly create a new file, then move shapes, edit labels and keep working in Excalidraw. Requires **Excalidraw 2.29.0** and verified structured-output capabilities through **public OpenRouter**. Other Markdown providers do not imply diagram support.
 
-**MOC creation** uses saved deep-audit clusters and confirms destinations, create/update effects and any model use before execution. **Batch processing** has its own file selection and confirmation. Neither inherits the consolidation journal's Undo contract.
+![Native editable diagram with connected arrows](assets/showcase/2.3.0/diagram.png)
 
-[Safe Apply and Undo](docs/safe-apply-undo-v1.md) · [Generative atomization](docs/processing-atomization.md) · [Processing and MOC](docs/processing-ux-followup.md).
+[Move a node and edit its label](assets/showcase/2.3.0/diagram.gif) · [Static edited result](assets/showcase/2.3.0/diagram-edited.png) · [Prerequisites and limits](docs/wiki/Excalidraw-diagrams.md)
 
-## Recall without an AI provider
+*Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. The diagram remains a separate file; creation has no automatic delete/Undo.*
 
-Write one `Question::Answer` per line under a heading named exactly **Flashcards**:
+## Add a recipe, then decide when to run it
+
+Browse Community from Studio. Inspect instructions, author, version and compatibility, then install a local copy. Installation does not process notes. Updates are explicit; a matching SHA-256 checks catalog bytes, not an independent author's signature.
+
+![Community recipe details before explicit installation](assets/showcase/2.3.0/community.png)
+
+[Community guide](docs/wiki/Community-library.md) · [Contribute a recipe](https://github.com/zinverno/veynrel-recipes)
+
+## Start without an AI key
+
+1. Open **Veynrel: Open Veynrel** from the command palette, or use its ribbon icon.
+2. Choose a folder or the whole vault on Home; open **Check** and run local checks.
+3. For Recall, add authored cards under a heading named exactly `Flashcards`:
 
 ```markdown
 ## Flashcards
-
 What does a cache store?::Reusable results.
-Why invalidate a value?::Its source may have changed.
+When should a cached value expire?::When its source changes.
 ```
 
-Open **Review** in the sidebar (the Recall screen), find your flashcards and start a session. Reveal the answer, then rate **Again / Hard / Good / Easy** with buttons or keys **1–4**. Local FSRS-6 schedules survive restart. AI card generation is optional.
+4. Open **Review** in the workspace sidebar (Recall), find cards and start a session. Reveal the answer and rate Again / Hard / Good / Easy. FSRS scheduling stays local.
 
-[Recall guide](docs/recall-review-experience.md).
+For Studio, configure a language model in Veynrel settings, then use **Open Veynrel Studio**. For semantic discovery, configure an embedding provider and explicitly build the first index. These are separate setup paths. [Getting started](docs/wiki/Getting-started.md)
 
-## Start small
+## Data and decisions
 
-1. Install Veynrel and open it from the ribbon or **Open Veynrel Health** command.
-2. Choose an area on Home. Run a local check from **Check**; no provider is needed.
-3. For semantic features, configure an embedding provider in Settings and explicitly build the first index.
-4. Open **Review vault** and refresh candidates. Configure the language model only if you want pair analysis or generative tools.
-5. Use **Review / Recall** for authored flashcards. **All tools** keeps advanced audits, Ask your Vault, tag tools and existing editor commands available.
+| Task | Data flow | Decision boundary |
+| --- | --- | --- |
+| Local Health, topology and Recall | Local vault and local state | No LLM required |
+| Semantic indexing/search | Note chunks or query to the configured embedding endpoint | Initial index build is explicit; later incremental work may run |
+| Studio Markdown and pair analysis | Disclosed selected text to the configured model endpoint | Confirm request, inspect output, separately confirm writes |
+| Diagram capability discovery | Model/endpoint metadata from public OpenRouter; no note body in discovery | Generation separately sends the selected note |
+| Community catalog | Public catalog/recipe GET requests; no note body or provider key | Install and update explicitly, run separately |
+| Optional Companion | Disclosed mirror to the configured server | Separate opt-in integration |
 
-[Optional self-hosted Companion](docs/veynrel-connect.md) provides a disclosed mirror and a proposal workflow for external clients. It is separate from local Review.
+Local preservation observations are lexical checks, **not factual verification**. Explicit Studio source changes retain supported original YAML literally and have guarded, operation-specific Undo. New notes, diagrams, Batch, MOC and generative atomization do not share a universal rollback. Local operation journals can contain plaintext note content; preserve backups. Remote providers may charge even when a local request times out or is cancelled.
 
-## Data and limits
+[Providers and privacy](docs/wiki/Providers-and-privacy.md) · [History and recovery](docs/wiki/Safety-history-and-recovery.md) · [Media provenance and coverage](assets/showcase/2.3.0/README.md)
 
-| Work | Where it runs |
-| --- | --- |
-| Local Health, topology, Recall and saved decisions | On your device; no AI provider needed. |
-| Existing-index maps and connection comparison | Local vectors and link metadata; no new embedding request. |
-| Indexing and semantic text search | The configured embedding endpoint receives chunks or the query. Ollama can be local. |
-| Pair analysis and generative tools | The configured language-model endpoint receives the disclosed input. Remote providers may charge. |
-| Enabled Companion | Your configured server receives the disclosed mirror; proposals require review in Obsidian. |
+## Installation and updates
 
-- Semantic similarity is **not** a probability, proof of duplication or a verdict on note quality.
-- The exact semantic overview and connection comparison support **up to 500 eligible notes**. Choose a smaller area above the limit; rules do not bypass it.
-- The first index build is explicit. After configuration, incremental indexing and enabled Companion synchronization can run on later changes.
-- Undo is operation-specific. Changed files or dependencies can block it. Generative atomization, Batch and MOC do not have universal rollback; keep backups.
-- AI evidence checks verify source binding, not the truth of an interpretation. Synthetic demos do not validate a real model.
-- Native acceptance and these captures use Linux / Obsidian 1.13.7. The manifest declares Obsidian 1.8.7+ and mobile support, but physical mobile, Windows/macOS, screen readers and native 1.8.7 were not verified in this media pass.
+For the published stable version, open **Settings → Community plugins → Browse**, search for **Veynrel**, install and enable. For manual installation, use `main.js`, `manifest.json` and `styles.css` from the **same** [stable release](https://github.com/zinverno/veynrel/releases/latest).
 
-## Installation
+Place only those runtime files in `<vault>/<configDir>/plugins/ai-knowledge-hub/` (`configDir` is normally `.obsidian`). Keep the existing plugin folder, `data.json`, indexes and journals when updating. Back up first; do not replace the whole directory. Candidate testing belongs in a disposable vault. [Installation and recovery](docs/wiki/Installation-and-updates.md)
 
-In Obsidian, open **Settings → Community plugins → Browse**, search for **Veynrel**, then install and enable it.
+The manifest retains Obsidian **1.8.7+** and its existing platform declaration. Current native evidence is Linux desktop / Obsidian 1.13.7 with built-in light and dark themes; it does not establish physical mobile, every OS/theme or screen-reader support.
 
-For manual installation, download `main.js`, `manifest.json` and `styles.css` from the **same** [stable release](https://github.com/zinverno/veynrel/releases/latest), and place them in:
-
-```text
-<your-vault>/.obsidian/plugins/ai-knowledge-hub/
-```
-
-Reload Obsidian and enable Veynrel. The plugin ID is still **ai-knowledge-hub**; do not create a second `veynrel` folder or replace your settings/index/journal files.
-
-[Installation, update and rollback](docs/release-2.2.1-install.md) · [EN/RU release notes](docs/releases/2.2.1.md).
-
-## Development and support
-
-```bash
-npm ci
-npm test
-npm run typecheck
-npm run lint
-npm run audit:proposals
-npm run build
-```
-
-[Documentation](docs/) · [Report an issue](https://github.com/zinverno/veynrel/issues) · [Star Veynrel](https://github.com/zinverno/veynrel) · [Support development](https://boosty.to/veynrel)
-
-[MIT](LICENSE) © 2026 Zinvernix
+[Contributing](CONTRIBUTING.md) · [Support](SUPPORT.md) · [Security](SECURITY.md) · [Documentation index](docs/README.md) · [MIT license](LICENSE)

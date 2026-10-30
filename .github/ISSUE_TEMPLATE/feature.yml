@@ -1,0 +1,18 @@
+name: Feature request
+description: Describe one user problem and a bounded outcome
+title: "[Request] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What are you trying to do, and where does the existing workflow stop helping?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Smallest useful outcome
+      description: Include alternatives and data/privacy expectations where relevant.
+    validations:
+      required: true

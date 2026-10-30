@@ -1,0 +1,31 @@
+name: Bug report
+description: A reproducible problem with synthetic data
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include keys, account metadata, private notes, full settings or journals. Security concerns: see SECURITY.md."
+  - type: input
+    id: versions
+    attributes:
+      label: Versions and environment
+      description: Veynrel, Obsidian, OS, and Excalidraw if relevant
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and minimal synthetic input
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized evidence and checks
+      description: Screenshot/log excerpt, real or controlled response, what was not tested. Never upload a private vault.

@@ -1,0 +1,278 @@
+{
+  "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+  "media": [
+    {
+      "file": "community.png",
+      "sha256": "8ff97b320fec685f2e19eb9d78ebec53322acb08e0b5560f3825f37c8054b371",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "connections.png",
+      "sha256": "59719dd2d55fd89cbf76804bea0bcbffe402be17666ac451ae36b2251782d422",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "diagram-edited.png",
+      "sha256": "8992809fb96868d31cd778dec1957641326b26b923461eb9f9f6b488387913af",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in light",
+      "classification": "native screenshot",
+      "modelOutput": "controlled responses",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "diagram.gif",
+      "sha256": "72788922de625e1c87dd095c1ce12efff82b29a503201dd331d9fcee41d75e64",
+      "dimensions": [
+        960,
+        667
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in light",
+      "classification": "native workflow GIF",
+      "modelOutput": "controlled responses",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "diagram.png",
+      "sha256": "af3720a0d4b96c705b51ec5b2c3b1c57abe84b3540843862087362e5b5e90e76",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in light",
+      "classification": "native screenshot",
+      "modelOutput": "controlled responses",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "health.png",
+      "sha256": "dcafd549ca85f23e0b7d3501ad42dcf03fa527d136b1fccffe66f9761545803e",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "hero.png",
+      "sha256": "a735acc2ee5443825ed7da191fa5e1b941873f629a2c5705f06a36c0cb08b409",
+      "dimensions": [
+        1800,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "editorial composition of native captures",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "pair-review.png",
+      "sha256": "4de82b05ff1cb61950a3fc9cb4bad56b7a96b9d11a2f8d089eb523557388dabc",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "recall.png",
+      "sha256": "d6d12db3c9cd75ca6a3da9a1081ac3f3345264f007e33cdd00d1ab1d69f6cf82",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "studio-library.png",
+      "sha256": "9ceb2da9c3f33c12f1b37812cb41fd64842908165a1cd28963716e519a46c95e",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "none",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "studio-result.png",
+      "sha256": "704cb6dd69afee45a416779369a5b0a1a49425cece949544265739bcaa291ad1",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "controlled responses",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "studio-review.png",
+      "sha256": "cd695405d2d655cae01bfaf877359eaf2bb27fdeb41aa0690deafa4c7a05ff81",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native screenshot",
+      "modelOutput": "controlled responses",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    },
+    {
+      "file": "studio.gif",
+      "sha256": "cd17035b5f6df57e23806b721c29d01296e8198cf5a730fff659ac6bafdd4b02",
+      "dimensions": [
+        960,
+        667
+      ],
+      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
+      "runtimeArtifacts": {
+        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
+        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
+        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+      },
+      "language": "EN",
+      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
+      "theme": "built-in dark",
+      "classification": "native workflow GIF",
+      "modelOutput": "controlled responses",
+      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "visualReview": "reviewed"
+    }
+  ]
+}
