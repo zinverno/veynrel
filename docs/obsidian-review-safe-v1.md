@@ -63,7 +63,7 @@ The [public Obsidian API](https://github.com/obsidianmd/obsidian-api/blob/master
 
 [Logs and raw reports](obsidian-review-safe-v1-evidence/). Existing network tests exercise three separately delivered SSE chunks, abort after the first token, timeout, late settlement, completion errors, loop detection, Community redirect options/status/final cross-origin URL, chunked byte overflow, MIME, allowlist and credential omission. Two new tests reject malformed and truncated UTF-8. These are deterministic controlled-stream/transport tests, not remote inference. The production fetch code is unchanged.
 
-The first sandboxed mutation audit could not capture spawned child output; the same unchanged audit passed outside that process restriction. No assertion or timeout was weakened.
+The first sandboxed mutation audit could not capture spawned child output; the same unchanged audit passed outside that process restriction. Initial CI caught the standalone scanner reproduction script placed under docs, outside the TypeScript project. It now lives with the other development harnesses in scripts; no product code was relocated and lint configuration is unchanged. No assertion or timeout was weakened.
 
 ## Native acceptance
 
@@ -81,7 +81,7 @@ Selected unedited native frames: [radio cards, EN dark](obsidian-review-safe-v1-
 
 ## Reproduction and boundaries
 
-For the local official-tool comparison, copy `scanner-tools-package.json` and `scanner-tools-lock.json` from the evidence directory into an empty tools directory as `package.json` and `package-lock.json`; copy `scan.mjs` there, run `npm ci`, then `node scan.mjs /absolute/worktree /absolute/output`. Scan the base and candidate worktrees with that same isolated tools directory. This does not edit either worktree's lint configuration. Raw TypeScript results are scoped to the five files named above; CSS results cover the full stylesheet.
+For the local official-tool comparison, copy `scanner-tools-package.json` and `scanner-tools-lock.json` from the evidence directory into an empty tools directory as `package.json` and `package-lock.json`; copy `scripts/obsidian-review-warning-scan.mjs` there as `scan.mjs`, run `npm ci`, then `node scan.mjs /absolute/worktree /absolute/output`. Scan the base and candidate worktrees with that same isolated tools directory. This does not edit either worktree's lint configuration. Raw TypeScript results are scoped to the five files named above; CSS results cover the full stylesheet.
 
 Run the repository commands above, then with installed Excalidraw 2.29.0 assets and unique **nonexistent** synthetic output directories:
 
