@@ -1,0 +1,102 @@
+[
+  {
+    "file": "api.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 472,
+        "column": 22,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 472,
+        "endColumn": 27
+      }
+    ]
+  },
+  {
+    "file": "studio/community/transport.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 13,
+        "column": 30,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 13,
+        "endColumn": 35
+      }
+    ]
+  },
+  {
+    "file": "studio/preservationChecks.ts",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "message": "This assertion is unnecessary since it does not change the type of the expression.",
+        "line": 38,
+        "column": 28,
+        "nodeType": "TSNonNullExpression",
+        "messageId": "unnecessaryAssertion",
+        "endLine": 38,
+        "endColumn": 40,
+        "fix": {
+          "range": [
+            3323,
+            3324
+          ],
+          "text": ""
+        }
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "message": "This assertion is unnecessary since it does not change the type of the expression.",
+        "line": 38,
+        "column": 51,
+        "nodeType": "TSNonNullExpression",
+        "messageId": "unnecessaryAssertion",
+        "endLine": 38,
+        "endColumn": 63,
+        "fix": {
+          "range": [
+            3346,
+            3347
+          ],
+          "text": ""
+        }
+      }
+    ]
+  },
+  {
+    "file": "studio/view.ts",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unnecessary-type-assertion",
+        "severity": 2,
+        "message": "This assertion is unnecessary since it does not change the type of the expression.",
+        "line": 480,
+        "column": 102,
+        "nodeType": "TSNonNullExpression",
+        "messageId": "unnecessaryAssertion",
+        "endLine": 480,
+        "endColumn": 106,
+        "fix": {
+          "range": [
+            47158,
+            47159
+          ],
+          "text": ""
+        }
+      }
+    ]
+  },
+  {
+    "file": "studio/diagram/view.ts",
+    "messages": []
+  }
+]

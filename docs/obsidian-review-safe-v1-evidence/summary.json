@@ -1,0 +1,81 @@
+{
+  "base": "0f19591e7667d87d91a64c24749e158adf9ca21d",
+  "runtimeCommit": "fc284863d4d29a218806a9dffd9b810a43bbb996",
+  "groupedWarnings": {
+    "before": 6,
+    "after": 2
+  },
+  "individualScopedDiagnostics": {
+    "before": 7,
+    "after": 2
+  },
+  "standardStylelintErrors": {
+    "before": 1321,
+    "after": 1321
+  },
+  "fullTests": {
+    "files": 192,
+    "tests": 5186
+  },
+  "native": {
+    "diagram": {
+      "checks": 37,
+      "stateComparisons": 96,
+      "requests": 7
+    },
+    "markdown": {
+      "checks": 35,
+      "requests": 9
+    },
+    "community": {
+      "community-base": {
+        "status": "PASS",
+        "providerRequests": 1,
+        "version": {
+          "electron": "43.6.0",
+          "obsidian": "1.13.7"
+        },
+        "checks": 47,
+        "catalogRequests": 10
+      },
+      "community-3": {
+        "status": "PASS",
+        "providerRequests": 1,
+        "version": {
+          "electron": "43.6.0",
+          "obsidian": "1.13.7"
+        },
+        "checks": 47,
+        "catalogRequests": 10
+      }
+    }
+  },
+  "hostedPreview": "NOT RUN",
+  "remoteInferenceRequests": 0,
+  "modelQuality": "NOT RE-EVALUATED",
+  "preservedFiles": {
+    "api.ts": "161ae05c46bb39c84c9d1d96c6be3bb0f64707f87fd6106f002617e00281693d",
+    "studio/community/transport.ts": "ac2d2014f6b3f77e333be7e8a9b17b53395f8e7aebe31e6885eb63aa09d49a1c",
+    "scripts/lint-obsidian.mjs": "e542ef74506894d9e9279dff4d188283269de524cf08e3e6f529b9288b0c5fd4",
+    "eslint.config.mjs": "5b6dab7d3cc88c77960c960569a42ce29afc75d1237255aec22313ab7eb72410"
+  },
+  "failedAttempts": [
+    {
+      "case": "source-1",
+      "reason": "Confirmation did not open while two native windows were active; cause unproven."
+    },
+    {
+      "case": "source-2",
+      "reason": "Harness used a nonexistent host close-button selector; final probe uses Escape and Modal.close."
+    },
+    {
+      "case": "community-1",
+      "reason": "Renderer/CDP stopped responding during first size/theme capture; manually interrupted, not PASS."
+    },
+    {
+      "case": "community-2",
+      "reason": "Bounded CDP Runtime.evaluate timeout at first size/theme transition; not PASS."
+    }
+  ],
+  "nativeLimit": "Final identical Community harness passes on both base and candidate. Intermittent CDP/renderer liveness failure cause remains unproven; no product guard or test assertion was removed."
+}

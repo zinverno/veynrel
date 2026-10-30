@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.2.1 test
+> vitest run --maxWorkers=4 api.test.ts studio/preservationChecks.test.ts studio/community/transport.test.ts studio/workflow.test.ts studio/markdownCreate.test.ts
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/review-warnings-safe-v1
+
+
+ Test Files  5 passed (5)
+      Tests  183 passed (183)
+   Start at  06:52:24
+   Duration  2.10s (transform 3.05s, setup 0ms, import 3.65s, tests 1.41s, environment 1ms)

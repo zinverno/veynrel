@@ -8,6 +8,7 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
+const BUILD = process.env.VEYNREL_NATIVE_BUILD ?? ROOT;
 const root = process.argv[2];
 assert(root?.startsWith('/tmp/veynrel-community-native-') && !root.includes('..') && !fs.existsSync(root));
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
@@ -42,7 +43,7 @@ fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisabled: true, vaults: { studio: { path: vault, ts: Date.now(), open: true } } }));
 const sha = raw => createHash('sha256').update(raw).digest('hex');
 const artifacts = {};
-for (const name of ['main.js', 'styles.css', 'manifest.json']) { fs.copyFileSync(`${ROOT}/${name}`, `${pluginDir}/${name}`); artifacts[name] = sha(fs.readFileSync(`${pluginDir}/${name}`)); }
+for (const name of ['main.js', 'styles.css', 'manifest.json']) { fs.copyFileSync(`${BUILD}/${name}`, `${pluginDir}/${name}`); artifacts[name] = sha(fs.readFileSync(`${pluginDir}/${name}`)); }
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 const start = () => spawn('/usr/bin/electron43', ['/usr/lib/obsidian/app.asar', `--user-data-dir=${root}/profile`, '--remote-debugging-port=9290', '--disable-gpu', '--ozone-platform=x11'], { stdio: ['ignore', 'ignore', fs.openSync(`${root}/electron.log`, 'a')] });
 let child, socket, sequence = 0;
@@ -50,7 +51,11 @@ const pending = new Map(), checks = [], screenshots = [];
 const report = { checks, artifacts, screenshots, fixture: 'Six synthetic Markdown files; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.',
   beforeApply: [], exceptions: [],
   limits: 'Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.' };
-const cdp = (method, params = {}) => new Promise((resolve, reject) => { pending.set(++sequence, { resolve, reject }); socket.send(JSON.stringify({ id: sequence, method, params })); });
+const cdp = (method, params = {}) => new Promise((resolve, reject) => {
+  const id = ++sequence, timer = setTimeout(() => { pending.delete(id); reject(Error(`Native CDP timeout: ${method}`)); }, 15_000);
+  pending.set(id, { resolve: value => { clearTimeout(timer); resolve(value); }, reject: error => { clearTimeout(timer); reject(error); } });
+  socket.send(JSON.stringify({ id, method, params }));
+});
 const ev = async expression => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); assert(!r.exceptionDetails, JSON.stringify(r.exceptionDetails)); return r.result.value; };
 const wait = async expression => { for (let i = 0; i < 240; i++) { if (await ev(expression)) return; await pause(50); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-2000)')}`); };
 const pass = async (name, expr) => { assert(await ev(expr), name); checks.push(name); console.log(name); };
