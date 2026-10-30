@@ -7,7 +7,7 @@ export interface Box { x: number; y: number; width: number; height: number }
 export interface TextBox extends Box { text: string }
 export interface LayoutNode extends Box { id: string; shape: Shape; text: TextBox; rank: number }
 export interface LayoutEdge { id: string; from: string; to: string; points: [number, number][]; start: [number, number]; end: [number, number]; text?: TextBox; feedback: boolean }
-export interface DiagramLayout { options: DiagramOptions; nodes: readonly LayoutNode[]; edges: readonly LayoutEdge[]; title: TextBox; width: number; height: number; warnings: readonly string[] }
+export interface DiagramLayout { options: DiagramOptions; nodes: readonly LayoutNode[]; edges: readonly LayoutEdge[]; title: TextBox; source: TextBox; width: number; height: number; warnings: readonly string[] }
 export type MeasureText = (text: string) => { width: number; height: number };
 export const PALETTES = {
   neutral: { canvas: "#ffffff", stroke: "#343a40", fill: "#f1f3f5", accent: "#343a40" },
@@ -36,7 +36,7 @@ export function layoutDiagram(spec: DiagramSpec, options: DiagramOptions, measur
   requireDiagram(["down", "right"].includes(options.direction) && ["neutral", "amethyst"].includes(options.theme), "spec");
   const nodes: LayoutNode[] = spec.nodes.map(n => {
     const text = wrap(n.label, 220, measure), factor = n.shape === "rectangle" ? 1 : 2;
-    return { id: n.id, shape: n.shape, rank: 0, x: 0, y: 0, width: Math.max(180, (text.width + 40) * factor), height: Math.max(84, (text.height + 32) * factor), text };
+    return { id: n.id, shape: n.shape, rank: 0, x: 0, y: 0, width: Math.max(160, (text.width + 32) * factor), height: Math.max(64, (text.height + 24) * factor), text };
   });
   const byId = new Map(nodes.map(n => [n.id, n]));
   // DFS marks back edges, then longest paths on the remaining DAG preserve the main flow.
@@ -68,10 +68,17 @@ export function layoutDiagram(spec: DiagramSpec, options: DiagramOptions, measur
     components.push(nodes.filter(n => ids.has(n.id)));
   }
   const down = options.direction === "down", title = wrap(spec.title, 600, measure);
-  title.x = 40; title.y = 30;
-  const start = title.height + 130, rankGap = 240;
+  title.x = 24; title.y = 24;
+  const start = title.y + title.height + 40;
+  const forward = spec.edges.filter(e => !back.has(e.id) && byId.get(e.to)!.rank > byId.get(e.from)!.rank);
+  const rankGap = Math.max(100, ...forward.map(e => {
+    const label = e.label ? wrap(e.label, 160, measure) : undefined;
+    const siblings = forward.filter(other => other.from === e.from).length;
+    const fraction = siblings === 1 ? 0.6 : 0.2 + 0.2 / (siblings + 1);
+    return label ? (down ? label.height : label.width) / (2 * Math.min(fraction, 1 - fraction)) + 24 : 0;
+  }));
   const feedbackLanes = new Map<string, number>();
-  let band = 60;
+  let band = 24;
   for (const component of components) {
     let primary = start, widest = 0;
     const ranks = [...new Set(component.map(n => n.rank))].sort((a, b) => a - b);
@@ -81,7 +88,7 @@ export function layoutDiagram(spec: DiagramSpec, options: DiagramOptions, measur
         node.x = down ? secondary : primary; node.y = down ? primary : secondary + start;
         node.text.x = node.x + (node.width - node.text.width) / 2;
         node.text.y = node.y + (node.height - node.text.height) / 2;
-        secondary += (down ? node.width : node.height) + 100;
+        secondary += (down ? node.width : node.height) + 56;
         thickness = Math.max(thickness, down ? node.height : node.width);
       }
       widest = Math.max(widest, secondary - band); primary += thickness + rankGap;
@@ -90,7 +97,7 @@ export function layoutDiagram(spec: DiagramSpec, options: DiagramOptions, measur
     const feedback = spec.edges.filter(e => component.some(n => n.id === e.from) && (back.has(e.id) || byId.get(e.to)!.rank <= byId.get(e.from)!.rank));
     feedback.forEach((e, i) => feedbackLanes.set(e.id, extent + 100 + i * 100));
     // Reserve return lanes inside this component's band, before placing disconnected components.
-    band += widest + 220 + feedback.length * 100;
+    band += widest + 64 + feedback.length * 100;
   }
   const right = Math.max(...nodes.map(n => n.x + n.width)), bottom = Math.max(...nodes.map(n => n.y + n.height));
   const edges: LayoutEdge[] = spec.edges.map(e => {
@@ -122,9 +129,14 @@ export function layoutDiagram(spec: DiagramSpec, options: DiagramOptions, measur
     }
     return { id: e.id, from: e.from, to: e.to, points, start: startPoint, end: endPoint, text, feedback };
   });
-  const width = Math.max(right, title.width + 40, ...edges.flatMap(e => e.points.map(p => p[0] + 120))) + 80;
-  const height = Math.max(bottom, ...edges.flatMap(e => e.points.map(p => p[1] + 80))) + 100;
+  const graphRight = Math.max(right, ...edges.flatMap(e => [...e.points.map(p => p[0]), ...(e.text ? [e.text.x + e.text.width] : [])]));
+  const graphBottom = Math.max(bottom, ...edges.flatMap(e => [...e.points.map(p => p[1]), ...(e.text ? [e.text.y + e.text.height] : [])]));
+  title.x = Math.max(24, (24 + graphRight - title.width) / 2);
+  const caption = measure("Источник / Source");
+  const source = { x: 24, y: graphBottom + 32, width: Math.ceil(caption.width * 0.8), height: Math.ceil(caption.height * 0.8), text: "Источник / Source" };
+  const width = Math.max(graphRight, title.x + title.width, source.x + source.width) + 24;
+  const height = source.y + source.height + 24;
   requireDiagram(Number.isFinite(width) && Number.isFinite(height) && width <= DIAGRAM_LIMITS.canvas && height <= DIAGRAM_LIMITS.canvas, "limit");
-  return freeze({ options: { ...options }, nodes, edges, title, width, height,
+  return freeze({ options: { ...options }, nodes, edges, title, source, width, height,
     warnings: [...(back.size ? ["feedback"] : []), ...(components.length > 1 ? ["components"] : []), "crossings", "inert-text"] });
 }

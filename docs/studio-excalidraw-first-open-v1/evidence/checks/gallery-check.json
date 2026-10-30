@@ -1,0 +1,226 @@
+{
+  "status": "PASS",
+  "browser": {
+    "node": "24.20.0",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "148",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "0.0.0",
+    "simdjson": "4.6.6",
+    "simdutf": "7.7.0",
+    "sqlite": "3.53.4",
+    "tz": "2025c",
+    "undici": "7.29.0",
+    "unicode": "17.0",
+    "uv": "1.52.1",
+    "uvwasi": "0.0.23",
+    "v8": "15.0.245.31-electron.0",
+    "zlib": "1.3.2",
+    "zstd": "1.6.0",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250"
+  },
+  "checks": {
+    "images": [
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-structure-1300.png",
+        "width": 1300,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-structure-1300.png",
+        "width": 1300,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-structure-720.png",
+        "width": 1500,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-structure-720.png",
+        "width": 1500,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-structure-390.png",
+        "width": 390,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-structure-390.png",
+        "width": 390,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-flow-1300.png",
+        "width": 1300,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-flow-1300.png",
+        "width": 1300,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-flow-720.png",
+        "width": 1500,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-flow-720.png",
+        "width": 1500,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-flow-390.png",
+        "width": 390,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-flow-390.png",
+        "width": 390,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-stress-1300.png",
+        "width": 1300,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-stress-1300.png",
+        "width": 1300,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-stress-720.png",
+        "width": 1500,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-stress-720.png",
+        "width": 1500,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-stress-390.png",
+        "width": 390,
+        "height": 950
+      },
+      {
+        "src": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-stress-390.png",
+        "width": 390,
+        "height": 950
+      }
+    ],
+    "links": [
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1.md",
+        "status": 200
+      },
+      {
+        "href": "../smoke-kit/README.md",
+        "status": 200
+      },
+      {
+        "href": "../REVIEW.json",
+        "status": 200
+      },
+      {
+        "href": "../SHA256SUMS",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-structure-1300.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-structure-1300.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-structure-720.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-structure-720.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-structure-390.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-structure-390.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-flow-1300.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-flow-1300.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-flow-720.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-flow-720.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-flow-390.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-flow-390.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-stress-1300.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-stress-1300.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-stress-720.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-stress-720.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/before/before-stress-390.png",
+        "status": 200
+      },
+      {
+        "href": "../docs/studio-excalidraw-first-open-v1/evidence/after/after-stress-390.png",
+        "status": 200
+      }
+    ],
+    "overflow": false
+  },
+  "narrow": {
+    "width": 390,
+    "scrollWidth": 375
+  },
+  "gallerySha256": "25e1596f335a235e27ed3668e660212dd553e31344f6b638b921ccd998d436b8"
+}

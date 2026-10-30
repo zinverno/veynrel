@@ -1,0 +1,8 @@
+
+ RUN  v4.1.10 /tmp/veynrel-studio-excalidraw-first-open-v1
+
+
+ Test Files  4 passed (4)
+      Tests  171 passed (171)
+   Start at  02:31:45
+   Duration  2.13s (transform 2.42s, setup 0ms, import 2.88s, tests 691ms, environment 1ms)
