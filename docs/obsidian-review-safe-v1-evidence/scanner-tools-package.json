@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "eslint-plugin-obsidianmd": "^0.4.2",
+    "stylelint": "^17.16.0",
+    "stylelint-config-obsidianmd": "^0.1.0",
+    "typescript": "^5.9.3"
+  }
+}

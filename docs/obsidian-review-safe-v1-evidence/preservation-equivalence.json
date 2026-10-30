@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "base": "0f19591e7667d87d91a64c24749e158adf9ca21d",
+  "fixtures": [
+    "formatting.md",
+    "formatting.synthetic.md",
+    "nutrition.md",
+    "nutrition.synthetic.md",
+    "training.md",
+    "training.synthetic.md"
+  ],
+  "pairs": 72,
+  "findings": 459,
+  "comparison": "Deep equality of all findings, spans, lines, coverage and link-context observations; original/CRLF/surrogate prefix and deletion/number/qualifier variants."
+}

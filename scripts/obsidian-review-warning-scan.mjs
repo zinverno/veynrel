@@ -1,0 +1,14 @@
+import {ESLint} from 'eslint';
+import stylelint from 'stylelint';
+import fs from 'node:fs';
+import path from 'node:path';
+const [root,out]=process.argv.slice(2);
+const config=fs.readFileSync(root+'/eslint.config.mjs','utf8').replace('tsconfigRootDir: import.meta.dirname','tsconfigRootDir: '+JSON.stringify(root));
+fs.writeFileSync(new URL('./eslint.config.mjs',import.meta.url),config);
+fs.mkdirSync(out,{recursive:true});
+const eslint=new ESLint({cwd:root,overrideConfigFile:new URL('./eslint.config.mjs',import.meta.url).pathname});
+const results=await eslint.lintFiles(['api.ts','studio/community/transport.ts','studio/preservationChecks.ts','studio/view.ts','studio/diagram/view.ts']);
+fs.writeFileSync(out+'/official-eslint.json',JSON.stringify(results.map(({filePath,messages})=>({file:path.relative(root,filePath),messages})),null,2)+'\n');
+const css=await stylelint.lint({code:fs.readFileSync(root+'/styles.css','utf8'),codeFilename:root+'/styles.css',config:{extends:'stylelint-config-obsidianmd'},configBasedir:new URL('.',import.meta.url).pathname});
+fs.writeFileSync(out+'/official-stylelint.json',JSON.stringify(css.results.map(({warnings,parseErrors,invalidOptionWarnings,errored})=>({source:'styles.css',warnings,parseErrors,invalidOptionWarnings,errored})),null,2)+'\n');
+console.log(JSON.stringify({eslint:results.flatMap(r=>r.messages),cssCounts:css.results.map(r=>({errors:r.warnings.filter(w=>w.severity==='error').length,warnings:r.warnings.filter(w=>w.severity==='warning')}))},null,2));

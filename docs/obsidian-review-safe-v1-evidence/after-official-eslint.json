@@ -1,0 +1,46 @@
+[
+  {
+    "file": "api.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 472,
+        "column": 22,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 472,
+        "endColumn": 27
+      }
+    ]
+  },
+  {
+    "file": "studio/community/transport.ts",
+    "messages": [
+      {
+        "ruleId": "no-restricted-globals",
+        "severity": 1,
+        "message": "Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian.",
+        "line": 13,
+        "column": 30,
+        "nodeType": "Identifier",
+        "messageId": "customMessage",
+        "endLine": 13,
+        "endColumn": 35
+      }
+    ]
+  },
+  {
+    "file": "studio/preservationChecks.ts",
+    "messages": []
+  },
+  {
+    "file": "studio/view.ts",
+    "messages": []
+  },
+  {
+    "file": "studio/diagram/view.ts",
+    "messages": []
+  }
+]

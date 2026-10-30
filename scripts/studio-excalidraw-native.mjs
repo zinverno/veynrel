@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { reviewWarningsChecks } from './studio-review-warnings-native-checks.mjs';
 const ROOT = fileURLToPath(new URL('../', import.meta.url)), root = process.argv[2], assets = process.argv[3];
 assert(root?.startsWith('/tmp/veynrel-diagram-native-') && !root.includes('..') && !fs.existsSync(root));
 assert.equal(JSON.parse(fs.readFileSync(`${assets}/manifest.json`, 'utf8')).version, '2.29.0');
@@ -132,6 +133,8 @@ try {
   // Close the optional onboarding modal in this synthetic profile only.
   await ev("document.querySelectorAll('.modal-close-button').forEach(e=>e.click());void 0");
   await wait("d.adapter.capability().state==='ready'"); await click('diagram-refresh');
+  const warningChecks = process.env.VEYNREL_REVIEW_BASE_CSS ? reviewWarningsChecks({ev,cdp,wait,click,locale,shot,report}) : undefined;
+  await warningChecks?.modes();
   await ev("(async()=>{const leaf=app.workspace.getLeaf('split');await leaf.openFile(app.vault.getFileByPath('Source.md'));await app.workspace.revealLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0]);})()");
   // First path uses the actual Studio controls, consent button, preview and final confirmation.
   await ev("{document.querySelector('.veynrel-studio input[value=flowchart]').click();const query=document.querySelector('.veynrel-studio input[type=search]');query.value='Source';query.dispatchEvent(new Event('input'));const source=[...document.querySelectorAll('.veynrel-studio-picker label')].find(e=>e.textContent==='Source.md');source.querySelector('input').click();const folder=[...document.querySelectorAll('.veynrel-studio-field')].find(e=>e.textContent.includes('Existing destination folder')).querySelector('select');folder.value='Drawings';folder.dispatchEvent(new Event('change'));const t=document.querySelector('[data-diagram-field=name]');t.value='Native';t.dispatchEvent(new Event('input'));}void 0");
@@ -142,6 +145,7 @@ try {
   await pass('Inert model labels do not resolve hidden notes or resources', "!io.reads.includes('Untouched.md')&&!document.querySelector('.veynrel-diagram-preview image,.veynrel-diagram-preview foreignObject,.veynrel-diagram-preview a')");
   await shot('review-en-dark-split');
   await ev("app.workspace.getLeavesOfType('markdown').forEach(l=>l.detach());void 0");
+  await warningChecks?.inspector();
   await ev("d.revise(d.proposal,{direction:'right',theme:'amethyst'},d.proposal.target)");
   await click('diagram-zoom-in'); await click('diagram-fit');
   await ev("app.changeTheme('moonstone');void 0"); await wait("document.body.classList.contains('theme-light')&&!document.body.classList.contains('theme-dark')"); await shot('review-en-light-amethyst');

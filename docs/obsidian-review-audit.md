@@ -192,3 +192,7 @@ Before the next Vault Audit AI release: review and merge this PR separately if d
 ## Community catalog transport advisory
 
 `studio/community/transport.ts` uses Fetch intentionally: `requestUrl` offers no redirect veto and buffers the response. Community requires rejecting redirects before following and cancelling over-limit streams. The fixed Pages origin uses CORS; Fetch omits credentials and referrers, sets `redirect: error`, bounds bytes/time and verifies the final URL. No model transport or arbitrary URL is added. This exact warning remains visible and allowlisted by the lint audit; the rule is not disabled.
+
+## 2026-10-30: Studio warning follow-up after PR #129
+
+The [scoped follow-up](obsidian-review-safe-v1.md) resolves the two reported assertion locations and two Studio CSS `:has()` selectors. It retains both reviewed fetch advisories with explicit SSE/cancellation/redirect/body-bound rationale. The lint allowlist and transport files are unchanged. Local official-tool comparisons, exact-source native evidence and the hosted Preview limitation are recorded separately from this historical audit; no zero-warning public scorecard is claimed.

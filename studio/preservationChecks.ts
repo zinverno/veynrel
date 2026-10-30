@@ -34,8 +34,10 @@ function features(text: string): { items: Feature[]; partial: boolean } {
       const masked = line.replace(/`+[^`]*`+/gu, m => " ".repeat(m.length));
       if (/<(?:a|img|iframe)\b|\[[^\]]+\]\[[^\]]*\]|\]\([^\n]*\(/iu.test(masked)) partial = true;
       for (const [kind, re] of patterns) for (const match of masked.matchAll(re)) {
+        // TypeScript 5.3 types matchAll indices as optional; native matches always have one.
+        if (match.index === undefined) { partial = true; continue; }
         if (kind !== "link" && match.index && /[\p{L}\p{N}_]/u.test(masked[match.index - 1])) continue;
-        add(kind, offset + match.index!, offset + match.index! + match[0].length, lineNumber);
+        add(kind, offset + match.index, offset + match.index + match[0].length, lineNumber);
       }
     }
     offset += raw.length; lineNumber++;

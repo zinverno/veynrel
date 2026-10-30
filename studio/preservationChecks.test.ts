@@ -1,6 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { preservationChecks, linkContextFindings } from "./preservationChecks";
 describe("bounded local observations, never semantic proof", () => {
+  it("preserves exact UTF-16 spans across CRLF, surrogate pairs and index zero", () => {
+    expect(preservationChecks("≈ 40 кг\r\n😀 tomorrow [x](../a.md)\r\n", "41 кг\r\n😀 today [y](../b.md)\r\n")).toEqual({
+      version: 1, coverage: "supported-patterns", findings: [
+        { kind: "number", before: { start: 2, end: 7, line: 1, text: "40 кг" }, after: { start: 0, end: 5, line: 1, text: "41 кг" } },
+        { kind: "qualifier", before: { start: 0, end: 1, line: 1, text: "≈" }, after: null },
+        { kind: "link", before: { start: 21, end: 33, line: 2, text: "[x](../a.md)" }, after: { start: 16, end: 28, line: 2, text: "[y](../b.md)" } },
+        { kind: "time", before: { start: 12, end: 20, line: 2, text: "tomorrow" }, after: { start: 10, end: 15, line: 2, text: "today" } },
+      ],
+    });
+  });
   it("keeps 40 distinct from 140 and captures units/approximation/time with other values", () => {
     const r = preservationChecks("Сегодня около 40 секунд; к среде 17 кг.", "140 секунд; точно 17 кг.");
     expect(r.findings.map(f => f.before.text)).toEqual(expect.arrayContaining(["40 секунд", "около", "Сегодня", "к среде"]));

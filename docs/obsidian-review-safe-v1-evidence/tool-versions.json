@@ -1,0 +1,8 @@
+{
+  "eslint": "9.39.5",
+  "eslint-plugin-obsidianmd": "0.4.2",
+  "typescript": "5.9.3",
+  "stylelint": "17.16.0",
+  "stylelint-config-obsidianmd": "0.1.0",
+  "typescript-eslint": "8.72.1"
+}
