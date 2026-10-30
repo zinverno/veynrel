@@ -1,9 +1,9 @@
 {
 	"id": "ai-knowledge-hub",
 	"name": "Veynrel",
-	"version": "2.2.1",
+	"version": "2.3.0",
 	"minAppVersion": "1.8.7",
-	"description": "Review vault health, explore semantic connections, practice native spaced repetition, and use explicit AI workflows with local or remote models.",
+	"description": "Review vault health and connections, transform notes with recipes, create editable diagrams, and practise spaced repetition.",
 	"author": "Zinvernix",
 	"fundingUrl": "https://boosty.to/veynrel",
 	"isDesktopOnly": false

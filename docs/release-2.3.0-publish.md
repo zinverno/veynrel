@@ -1,0 +1,16 @@
+# Final publication of 2.3.0
+
+This is a finite owner handoff, **not authorization to execute during preparation**. The PR stays open and the release stays draft. The release tag must be exactly `2.3.0`, without `v`.
+
+1. Review the new README, native EN/RU media, local gallery and remaining coverage limits. In Obsidian's authenticated directory UI, run **Review branch → release/2.3.0-presentation → Run preview scan**. Hosted Preview is separate from GitHub CI; retain the two explained fetch warnings honestly.
+2. On an explicit Publish instruction, re-read the exact PR head, main, CI and release/tag state. Refuse stale/colliding state; do not overwrite published assets or disable protections. Merge the approved PR normally.
+3. Record the exact merge SHA. Check that its tree contains only the reviewed release scope. In a clean checkout of that SHA run `npm ci`, tests, lint/build and proposal mutation audit. Verify package, package-lock root and packages-root, manifest and versions mapping agree on 2.3.0 / 1.8.7. Preserve plugin ID `ai-knowledge-hub`.
+4. Compare rebuilt `main.js`, `manifest.json`, `styles.css` byte-for-byte with the reviewed candidate. If runtime bytes changed, stop and revalidate affected evidence. Update `SOURCE_COMMIT` and checksums to the actual merged release source, never pretend the candidate SHA is the merge SHA.
+5. Create the tag `2.3.0` at that verified SHA, without retagging. Attach the three runtime files, `SHA256SUMS` and `SOURCE_COMMIT` individually to the draft. Replace draft-only metadata/assets only after explicit review of the new source; never use clobber against a published release. Re-download and compare the draft attachments.
+6. Publish the reviewed draft and verify tag, version, assets and latest-release URL. Only then call 2.3.0 stable. The existing `release-provenance.yml` rebuilds the published tag, compares the runtime files and attests them; it does not publish a release. Verify that run and report any failure without silently replacing assets.
+7. Update candidate banners and version links in maintained Wiki sources, export against an exact reviewed commit, perform normal Wiki commit/push and verify public pages. If uninitialized: **Wiki → Create the first page → Home → Save**, then use the bounded exporter. Preserve unknown pages and the pre-sync backup.
+8. Apply/read back approved About/homepage/topics. Upload the prepared 1280×640 PNG through **Settings → Social preview → Edit → Upload an image** when supported automation is absent; README artwork is a separate asset.
+9. In the existing Obsidian plugin entry use **Edit listing** for prepared icon, descriptions and five desktop images; verify actual category/payment choices and field limits in that UI. Save. Use **Check for new releases** / **Request review** if required, and inspect its actual result. Do not create another plugin ID/listing.
+10. Download published runtime files again and compare hashes. Verify isolated fresh install/upgrade, public links, Wiki and presentation. Report final URLs/source/tag/attestation status. Habr articles remain author-written and owner-published; the local briefs are not posts.
+
+Do not automatically install into the user's vault, merge, push a public release tag, publish stable or post to Habr during preparation.
