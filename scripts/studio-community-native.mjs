@@ -192,7 +192,8 @@ try {
   for(const lang of ['en','ru']){
     await locale(lang);await click('community');
     for(const theme of ['theme-dark','theme-light'])for(const width of [1200,390]){
-      await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});await ev(`document.body.removeClass('theme-dark','theme-light');document.body.addClass('${theme}');void 0`);
+      await cdp('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});await ev(`app.changeTheme('${theme==='theme-dark'?'obsidian':'moonstone'}');void 0`);
+      await pass(`${theme} is the actual native theme`, `document.body.classList.contains('${theme}')&&!document.body.classList.contains('${theme==='theme-dark'?'theme-light':'theme-dark'}')`);
       await pass(`${lang}/${theme}/${width}: native Community has no horizontal overflow`,"(()=>{const e=document.querySelector('.veynrel-studio');return e.scrollWidth<=e.clientWidth+1})()");await shot(`community-${lang}-${theme}-${width}`);
       await cc('inspect-lecture-outline');await settled();
       await pass(`${lang}/${theme}/${width}: full Community card stays within panel`,"(()=>{const e=document.querySelector('.veynrel-studio');return e.scrollWidth<=e.clientWidth+1&&!!document.querySelector('[data-community-action=install]')})()");await shot(`community-card-${lang}-${theme}-${width}`);await cc('back');

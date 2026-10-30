@@ -3294,7 +3294,7 @@
 .veynrel-studio-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .veynrel-studio-connection, .veynrel-studio-destination { font-size: 14px; padding: 8px 12px; background: var(--studio-surface); border-radius: var(--studio-radius); }
 @container (min-width: 900px) {
-  .veynrel-studio-diagram-stage:has(> details[open]) { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
+  .veynrel-studio-diagram-stage.is-inspector-open { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
 }
 @container (max-width: 600px) {
   .veynrel-studio-review, .veynrel-studio-examples { grid-template-columns: minmax(0, 1fr); }
@@ -3317,7 +3317,7 @@
 .veynrel-studio [hidden] { display: none; }
 .veynrel-studio .veynrel-studio-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; }
 .veynrel-studio-mode { border: 1px solid var(--veynrel-border); border-radius: 6px; padding: 10px; display: grid; grid-template-columns: auto 1fr; gap: 6px; cursor: pointer; }
-.veynrel-studio-mode:has(:checked) { border-color: var(--interactive-accent); background: var(--background-modifier-active-hover); }
+.veynrel-studio-mode.is-selected { border-color: var(--interactive-accent); background: var(--background-modifier-active-hover); }
 .veynrel-studio-mode input { min-height: 0; }
 .veynrel-studio-mode svg { grid-column: 1 / -1; width: 100%; height: 65px; }
 .veynrel-studio-example { color: var(--text-muted); font-size: 12px; }

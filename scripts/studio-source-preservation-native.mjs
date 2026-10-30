@@ -214,6 +214,22 @@ try {
   bodies=await prepare('builtin.smart-format',['Properties.md']);await generate(bodies);const inplaceCalls=requests.length;await choose(['Properties.md']);await sourceMode();
   await click('review-apply');await wait("!!document.querySelector('[data-studio-ack]')");
   await pass('Inplace observations need an unchecked explicit acknowledgement',"!document.querySelector('[data-studio-ack]').checked&&document.querySelector('[data-studio-action=confirm-apply]').disabled");
+  const beforeAck = await ev('({writes:io.writes.length,creates:io.creates.length})');
+  await ev("document.querySelector('[data-studio-action=confirm-apply]').click();void 0");
+  assert.deepEqual(await ev('({writes:io.writes.length,creates:io.creates.length})'),beforeAck);
+  for (const close of ['escape','modal-api']) {
+    await ev("document.querySelector('[data-studio-ack]').click();void 0");
+    await pass('Acknowledgement enables the exact write plan: '+close,"!document.querySelector('[data-studio-action=confirm-apply]').disabled");
+    await ev("document.querySelector('[data-studio-ack]').click();void 0");
+    await pass('Removing acknowledgement disables confirmation again: '+close,"document.querySelector('[data-studio-action=confirm-apply]').disabled");
+    if(close==='escape')for(const type of ['keyDown','keyUp'])await cdp('Input.dispatchKeyEvent',{type,key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
+    else await ev("app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs.forEach(d=>d.close());void 0");
+    await wait("!document.querySelector('.veynrel-studio-dialog')");
+    assert.deepEqual(await ev('({writes:io.writes.length,creates:io.creates.length})'),beforeAck);assert.equal(hashes()['Properties.md'],originalHash);
+    await pass('Closing confirmation discards plan without note writes: '+close,'!studio.runner.writePlan');
+    await click('review-apply');await wait("!!document.querySelector('[data-studio-ack]')");
+    await pass('Reopened plan needs fresh acknowledgement: '+close,"!document.querySelector('[data-studio-ack]').checked&&document.querySelector('[data-studio-action=confirm-apply]').disabled");
+  }
   const inplacePlan=await ev('studio.runner.writePlan');keep('inplace-plan',inplacePlan);await shot('confirm-inplace-warning');
   await ev("document.querySelector('[data-studio-ack]').click();void 0");await click('confirm-apply',true);await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
   fs.copyFileSync(vault+'/Properties.md',root+'/markdown/inplace-after.md');assert.equal(fs.readFileSync(vault+'/Properties.md','utf8'),inplacePlan.rows[0].output);assert.equal(fs.readFileSync(vault+'/Properties.md','utf8').slice(0,preservedPrefix.length),preservedPrefix);await undoAll();assert.equal(hashes()['Properties.md'],originalHash);assert.equal(requests.length,inplaceCalls);checks.push('Exact BOM/CRLF/YAML Apply payload and guarded Undo restore UTF-8 hashes without another request');

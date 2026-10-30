@@ -477,7 +477,7 @@ export class VeynrelStudioView extends ItemView {
         if (d.pending || !d.active) return; stop.disabled = false;
         d.run(() => runner.confirmWrite(plan, ack?.checked ?? false));
       });
-      if (ack) { confirm.disabled = true; ack.addEventListener("change", () => { confirm.disabled = !ack!.checked; }); }
+      if (ack) { const checkbox = ack; confirm.disabled = true; checkbox.addEventListener("change", () => { confirm.disabled = !checkbox.checked; }); }
     }, () => runner.discardWritePlan(plan));
   }
   private history(): void {

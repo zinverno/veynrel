@@ -68,11 +68,16 @@ export class DiagramPanel {
     const form = blocked ? disclosure(root, l("Saved draft · resolve availability first", "Черновик · сначала проверьте доступность")) : root;
     notePicker(form, this.owner.inventory().filter(p => !p.endsWith(".excalidraw.md")), this.picker, 1, () => { this.source = [...this.picker.chosen][0] ?? ""; }, true);
     const modes = form.createEl("fieldset", { cls: "veynrel-studio-modes" }); modes.createEl("legend", { text: l("Result structure · illustration", "Структура результата · пример") });
+    const choices: { label: HTMLElement; input: HTMLInputElement }[] = [];
     for (const value of ["structure", "flowchart"] as const) {
       const label = modes.createEl("label", { cls: "veynrel-studio-mode" });
       const input = label.createEl("input", { type: "radio", attr: { name: this.radioGroup, value, "data-studio-key": `diagram-kind-${value}` } }); input.checked = this.kind === value;
+      label.classList.toggle("is-selected", input.checked); choices.push({ label, input });
       label.createSpan({ text: this.mode(value) }); illustration(label, value);
-      input.addEventListener("change", () => { if (input.checked) this.kind = value; });
+      input.addEventListener("change", () => {
+        if (input.checked) this.kind = value;
+        for (const choice of choices) choice.label.classList.toggle("is-selected", choice.input.checked);
+      });
     }
     const destination = toolbar(form);
     const folder = select(destination, l("Existing destination folder", "Существующая папка назначения"), [["", l("Vault root", "Корень хранилища")], ...this.owner.folders().filter(p => p !== "/" && p !== "").map(p => [p, p] as [string, string])], this.target.includes("/") ? this.target.slice(0, this.target.lastIndexOf("/")) : "");
@@ -113,6 +118,8 @@ export class DiagramPanel {
     }
     stage.append(this.preview.element);
     const inspector = disclosure(stage, l("Inspect graph & technical details", "Структура и технические данные"));
+    const syncInspector = () => stage.classList.toggle("is-inspector-open", inspector.open);
+    syncInspector(); inspector.addEventListener("toggle", syncInspector);
     const list = disclosure(inspector, l("Nodes and connections", "Узлы и связи"));
     const nodes = list.createEl("ul"); for (const n of p.spec.nodes) nodes.createEl("li", { text: `${n.id}: ${n.label} (${n.shape})` });
     const edges = list.createEl("ul"); for (const e of p.spec.edges) edges.createEl("li", { text: `${e.from} → ${e.to}${e.label ? `: ${e.label}` : ""}` });

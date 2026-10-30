@@ -32,6 +32,14 @@ describe("fixed-origin redirect-denying streaming transport", () => {
     Object.defineProperty(r, "url", { value: COMMUNITY_INDEX }); vi.stubGlobal("fetch", vi.fn().mockResolvedValue(r));
     await expect(communityTransport.get(COMMUNITY_INDEX, 10)).rejects.toThrow("size"); expect(cancelled).toBe(true);
   });
+  it.each([[[0xc3, 0x28]], [[0xe2, 0x82]]])("rejects invalid or incomplete UTF-8 %j", async octets => {
+    const r = new Response(new Uint8Array(octets), { headers: { "content-type": "application/json" } });
+    Object.defineProperty(r, "url", { value: COMMUNITY_INDEX });
+    const fetch = vi.fn().mockResolvedValue(r); vi.stubGlobal("fetch", fetch);
+    await expect(communityTransport.get(COMMUNITY_INDEX, 100)).rejects.toThrow();
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect((fetch.mock.calls[0][1] as RequestInit).signal?.aborted).toBe(true);
+  });
   it("aborts a stalled request at the bounded deadline without retry", async () => {
     let expire!: () => void;
     vi.stubGlobal("window", { setTimeout: (callback: () => void, ms: number) => { expect(ms).toBe(15_000); expire = callback; return 1; }, clearTimeout: vi.fn() });
