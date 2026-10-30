@@ -1,7 +1,7 @@
 {
   "name": "obsidian-ai-hub",
-  "version": "2.2.1",
-  "description": "Veynrel: semantic search and AI-assisted knowledge workflows for Obsidian.",
+  "version": "2.3.0",
+  "description": "Review vault health and connections, transform notes with recipes, create editable diagrams, and practise spaced repetition.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
