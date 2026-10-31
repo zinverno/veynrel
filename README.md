@@ -4,7 +4,7 @@
 
 Veynrel brings vault health, connection review and spaced repetition to Obsidian, alongside a separate Studio for reusable note recipes and editable diagrams.
 
-![Editorial composition of native Studio and an editable Excalidraw result](assets/showcase/2.3.0/hero.png)
+![Veynrel for Obsidian — Your notes. Connected. Vault health, note workflows and editable diagrams](assets/showcase/2.3.0/hero.png)
 
 [Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.0.md)
 

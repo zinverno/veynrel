@@ -129,23 +129,15 @@
     },
     {
       "file": "hero.png",
-      "sha256": "a735acc2ee5443825ed7da191fa5e1b941873f629a2c5705f06a36c0cb08b409",
+      "sha256": "a8daba81cc506c92c8bd9d41ae6dbdfdeead9edda18b117ab17968b7c2151bfb",
       "dimensions": [
-        1800,
-        1000
+        2560,
+        1280
       ],
-      "runtimeSourceCommit": "22ffcb3eb2ba2746637937987cfc46a9a2ded321",
-      "runtimeArtifacts": {
-        "main.js": "3d46040635a69e4ff8e671f385fd34dca471505da9a199d08f6c90490ad424c8",
-        "manifest.json": "b815b883fbafc75d3205eb8ef9f45153c6cdc7bcb66532a408a408b2a596a739",
-        "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
-      },
       "language": "EN",
-      "captureApp": "Obsidian 1.13.7 / Electron 43.6.0 / Linux",
-      "theme": "built-in dark",
-      "classification": "editorial composition of native captures",
-      "modelOutput": "none",
-      "limitation": "Synthetic notes; controlled model responses are workflow evidence, not a model-quality benchmark. No product pixels fabricated.",
+      "theme": "dark",
+      "classification": "minimalist graphic cover",
+      "limitation": "Owner-provided artwork, copied without edits; not a native app capture.",
       "visualReview": "reviewed"
     },
     {
