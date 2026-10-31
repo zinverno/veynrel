@@ -8,7 +8,7 @@ Veynrel brings vault health, connection review and spaced repetition to Obsidian
 
 [Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.0.md)
 
-> **2.3.0 release candidate.** The published stable release is **2.2.1**. Studio and the media below describe this candidate; install stable from Releases or review the candidate preparation PR before testing it in a disposable vault.
+> **Veynrel 2.3.0 Stable.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.0).
 
 ## Three ways to work
 
@@ -85,7 +85,7 @@ Local preservation observations are lexical checks, **not factual verification**
 
 For the published stable version, open **Settings → Community plugins → Browse**, search for **Veynrel**, install and enable. For manual installation, use `main.js`, `manifest.json` and `styles.css` from the **same** [stable release](https://github.com/zinverno/veynrel/releases/latest).
 
-Place only those runtime files in `<vault>/<configDir>/plugins/ai-knowledge-hub/` (`configDir` is normally `.obsidian`). Keep the existing plugin folder, `data.json`, indexes and journals when updating. Back up first; do not replace the whole directory. Candidate testing belongs in a disposable vault. [Installation and recovery](docs/wiki/Installation-and-updates.md)
+Place only those runtime files in `<vault>/<configDir>/plugins/ai-knowledge-hub/` (`configDir` is normally `.obsidian`). Keep the existing plugin folder, `data.json`, indexes and journals when updating. Back up first; do not replace the whole directory. [Installation and recovery](docs/wiki/Installation-and-updates.md)
 
 The manifest retains Obsidian **1.8.7+** and its existing platform declaration. Current native evidence is Linux desktop / Obsidian 1.13.7 with built-in light and dark themes; it does not establish physical mobile, every OS/theme or screen-reader support.
 

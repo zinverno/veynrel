@@ -1,6 +1,6 @@
 # Providers and privacy
 
-> **2.3.0 release candidate; stable release is 2.2.1.**
+> **Veynrel 2.3.0 Stable.**
 
 | Feature | What leaves the device |
 | --- | --- |

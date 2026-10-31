@@ -1,4 +1,4 @@
-# Media for the 2.3.0 candidate
+# Media for Veynrel 2.3.0
 
 Native captures from Obsidian 1.13.7 / Electron 43.6.0 on Linux, with a disposable synthetic vault and built-in dark/light themes. Excalidraw is 2.29.0. Exact runtime source and three artifact hashes for these captures are in [manifest.json](manifest.json).
 
@@ -11,6 +11,6 @@ Native captures from Obsidian 1.13.7 / Electron 43.6.0 on Linux, with a disposab
 
 GIF frames compress idle time and are not latency measurements. Full-resolution EN/RU originals, MP4 masters, before/after fixtures, failed capture attempts and author materials remain in the owner's local release package. RU Habr materials are not published here.
 
-Verified boundaries: fresh candidate loading, separate Markdown creation, explicit source Apply/Undo, Community install/restart, diagram create/open/edit/reopen, no-Excalidraw state, EN/RU, built-in light/dark; synthetic 2.2.1 upgrade preserves settings/index/Recall/prepared journal bytes. Desktop narrow-layout evidence is not physical mobile. Other OSes, all themes, screen-reader speech, real-model quality and authenticated Obsidian hosted Preview are not claimed.
+Verified during release preparation: fresh candidate loading, separate Markdown creation, explicit source Apply/Undo, Community install/restart, diagram create/open/edit/reopen, no-Excalidraw state, EN/RU, built-in light/dark; synthetic 2.2.1 upgrade preserves settings/index/Recall/prepared journal bytes. Desktop narrow-layout evidence is not physical mobile. Other OSes, all themes, screen-reader speech, real-model quality and authenticated Obsidian hosted Preview are not claimed.
 
 Two fetch advisories remain. Historical unreproduced host exceptions are not declared fixed by these captures. See [user guides](../../../docs/wiki/Home.md) for operation-specific limits.

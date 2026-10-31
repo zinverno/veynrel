@@ -1,6 +1,6 @@
 # Documentation
 
-Start with the [2.3.0 candidate user guide](wiki/Home.md), [release notes](releases/2.3.0.md), [contributor guide](../CONTRIBUTING.md) or [support](../SUPPORT.md).
+Start with the [2.3.0 stable user guide](wiki/Home.md), [release notes](releases/2.3.0.md), [contributor guide](../CONTRIBUTING.md) or [support](../SUPPORT.md).
 
 ## Product guides
 

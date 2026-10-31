@@ -1,6 +1,6 @@
 # Veynrel user guide
 
-> **2.3.0 release candidate; stable release is 2.2.1.**
+> **Veynrel 2.3.0 Stable.**
 
 Veynrel has two entry points: the **workspace** for vault health, connection review and Recall, and **Studio** for selected-note recipes and editable diagrams.
 

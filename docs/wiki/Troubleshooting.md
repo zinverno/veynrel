@@ -1,6 +1,6 @@
 # Troubleshooting
 
-> **2.3.0 release candidate; stable release is 2.2.1.**
+> **Veynrel 2.3.0 Stable.**
 
 | Symptom | Check and next action |
 | --- | --- |

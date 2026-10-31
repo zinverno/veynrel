@@ -1,6 +1,6 @@
 # Recall
 
-> **2.3.0 release candidate; stable release is 2.2.1.**
+> **Veynrel 2.3.0 Stable.**
 
 Recall schedules your authored cards locally. It does not require an LLM.
 
