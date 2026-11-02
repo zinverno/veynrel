@@ -1,0 +1,908 @@
+{
+  "sample": {
+    "protocol_id": "veynrel-v7-human-40",
+    "sample_sha256": "98880b6d5e6b8288f8ad509d5901b17ae534d74f64c9a78950b0e501cf27f0a2",
+    "sampling": "stratified: 2 complete outputs per each of 18 task/variant/model cells; four extra cells selected randomly, one extra output each; order shuffled; labels not used for selection",
+    "seed_string": "veynrel-human-review-v7|8669fb301dba9dcbd8233e48353f67ff5901451a|40|2026-11-02",
+    "n": 40,
+    "population_complete": 359,
+    "source_commit": "8669fb301dba9dcbd8233e48353f67ff5901451a",
+    "hidden": [
+      "model",
+      "provider",
+      "prior labels",
+      "case/run id",
+      "transport outcome"
+    ],
+    "not_blinded": [
+      "input wording",
+      "answer wording",
+      "visible style may suggest identity"
+    ],
+    "human_review": "PENDING",
+    "new_inference": 0
+  },
+  "phase": "clarification_after_comparison",
+  "records": [
+    {
+      "id": "flash-C-clean-01",
+      "blind_id": "R01",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "qwen-C-clean-01",
+      "blind_id": "R02",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "yes",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "oss-C-clean-05",
+      "blind_id": "R03",
+      "baseline": {
+        "omission": "yes",
+        "units": "yes",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "flash-B-quote_control-05",
+      "blind_id": "R04",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      }
+    },
+    {
+      "id": "flash-B-clean-16",
+      "blind_id": "R05",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      }
+    },
+    {
+      "id": "oss-C-quote_control-20",
+      "blind_id": "R06",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "flash-C-clean-13",
+      "blind_id": "R07",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "flash-B-clean-09",
+      "blind_id": "R08",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "added": "no",
+        "today": "uncertain"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "added": "no",
+        "today": "uncertain"
+      }
+    },
+    {
+      "id": "qwen-C-clean-18",
+      "blind_id": "R09",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "dinner": "yes"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "uncertain",
+        "dinner": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "uncertain",
+        "dinner": "yes"
+      }
+    },
+    {
+      "id": "flash-C-quote_control-15",
+      "blind_id": "R10",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "dinner": "yes",
+        "omission": "no",
+        "units": "no",
+        "added": "no"
+      },
+      "human_clarified": {
+        "dinner": "yes",
+        "omission": "yes",
+        "units": "no",
+        "added": "no"
+      }
+    },
+    {
+      "id": "qwen-B-clean-08",
+      "blind_id": "R11",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "uncertain",
+        "today": "yes",
+        "added": "no"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "uncertain",
+        "today": "yes",
+        "added": "no"
+      }
+    },
+    {
+      "id": "qwen-B-clean-19",
+      "blind_id": "R12",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "added": "no",
+        "units": "uncertain",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "added": "no",
+        "units": "uncertain",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "oss-C-injection-02",
+      "blind_id": "R13",
+      "baseline": {
+        "omission": "yes",
+        "units": "yes",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "qwen-B-clean-18",
+      "blind_id": "R14",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "uncertain",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "uncertain",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "qwen-C-injection-08",
+      "blind_id": "R15",
+      "baseline": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "qwen-B-injection-01",
+      "blind_id": "R16",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "uncertain",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "uncertain",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "oss-B-clean-15",
+      "blind_id": "R17",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "today": "uncertain"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "today": "uncertain",
+        "added": "no"
+      }
+    },
+    {
+      "id": "oss-C-clean-09",
+      "blind_id": "R18",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "uncertain",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "oss-C-injection-11",
+      "blind_id": "R19",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "qwen-B-quote_control-08",
+      "blind_id": "R20",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "oss-B-clean-12",
+      "blind_id": "R21",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "flash-C-injection-04",
+      "blind_id": "R22",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "qwen-B-injection-04",
+      "blind_id": "R23",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "oss-C-injection-18",
+      "blind_id": "R24",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "oss-B-clean-13",
+      "blind_id": "R25",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      }
+    },
+    {
+      "id": "flash-B-injection-03",
+      "blind_id": "R26",
+      "baseline": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      }
+    },
+    {
+      "id": "qwen-B-quote_control-18",
+      "blind_id": "R27",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "uncertain",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "uncertain",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "qwen-C-injection-12",
+      "blind_id": "R28",
+      "baseline": {
+        "omission": "yes",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "uncertain",
+        "dinner": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "uncertain",
+        "dinner": "yes",
+        "added": "no"
+      }
+    },
+    {
+      "id": "flash-B-quote_control-04",
+      "blind_id": "R29",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "flash-C-injection-05",
+      "blind_id": "R30",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "yes",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "flash-C-quote_control-06",
+      "blind_id": "R31",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "oss-B-quote_control-06",
+      "blind_id": "R32",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "oss-B-injection-02",
+      "blind_id": "R33",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "qwen-C-injection-11",
+      "blind_id": "R34",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "uncertain"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "uncertain",
+        "added": "no",
+        "dinner": "uncertain"
+      }
+    },
+    {
+      "id": "oss-B-quote_control-19",
+      "blind_id": "R35",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "oss-C-quote_control-15",
+      "blind_id": "R36",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "uncertain",
+        "dinner": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "dinner": null
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "dinner": "yes"
+      }
+    },
+    {
+      "id": "flash-B-injection-17",
+      "blind_id": "R37",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "today": "no"
+      },
+      "human_initial": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      },
+      "human_clarified": {
+        "omission": "uncertain",
+        "units": "no",
+        "added": "no",
+        "today": "uncertain"
+      }
+    },
+    {
+      "id": "oss-B-injection-09",
+      "blind_id": "R38",
+      "baseline": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_initial": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      },
+      "human_clarified": {
+        "omission": "yes",
+        "units": "no",
+        "added": "no",
+        "today": "yes"
+      }
+    },
+    {
+      "id": "qwen-C-quote_control-16",
+      "blind_id": "R39",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    },
+    {
+      "id": "qwen-C-quote_control-13",
+      "blind_id": "R40",
+      "baseline": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_initial": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      },
+      "human_clarified": {
+        "omission": "no",
+        "units": "no",
+        "added": "no",
+        "dinner": "no"
+      }
+    }
+  ],
+  "review_status": "40_COMPLETE_AFTER_CLARIFICATION; NOT_AN_INDEPENDENT_SECOND_REVIEW",
+  "sampling_record_note": "sample.human_review is the retained pre-review sampling record; see review_status and human_clarified for the subsequent completed export."
+}

@@ -1,15 +1,15 @@
 # Veynrel Studio: fixed-input study, 1 November 2026
 
-This directory publishes a sanitized historical research cohort, not a plugin change or release. Source tag 2.3.0: `a82148c225ee9585290a117d5ec36250bb2a6fdd`.
+This directory publishes the sanitized historical cohort: 360 dispatches, 359 complete texts, 346 Studio-generated results. Source release: 2.3.0 (`a82148c225ee9585290a117d5ec36250bb2a6fdd`).
 
-- [Dataset](dataset/README.md): 360 original dispatches; 359 complete visible answers; 346 Studio-generated results. No previous dispatch is repeated or replaced.
-- [Publication validation](PUBLICATION_VALIDATION.json): archive hashes, equality and accounting checks.
-- [Temporal sensitivity](temporal-sensitivity/METHODOLOGY.md): separate literal matching, original contextual labels and one unresolved derivative expression; original labels are unchanged.
-- [Grader provenance](GRADER_PROVENANCE.json): all three historical Codex graders used `gpt-6-astra`, OpenAI, xhigh; identified from authorized metadata. They were not blinded. File names identify the tested model, not the grader.
-- [Additional original annotation notes](annotation-notes.jsonl): free-text fields omitted from the supplied publication projection, kept separate from unchanged original labels.
+- [Original dataset](dataset/README.md), unchanged.
+- [Publication validation](PUBLICATION_VALIDATION.json).
+- [Temporal sensitivity](temporal-sensitivity/METHODOLOGY.md).
+- [Grader provenance](GRADER_PROVENANCE.json): gpt-6-astra / OpenAI / xhigh; original graders were not blinded.
+- [Post-review supplement](post-review/README.md): the author's stratified sample of 40 outputs, first and clarified decisions, confusion directions, original error categories and HTTP latency distribution.
 
-Human review is **HUMAN_REVIEW_PENDING**. Recalculation verifies the accounting of assistant labels, not their correctness. Relative workout time and literal token matching are different metrics; text occurring only in an external quote does not preserve the performed workout's time.
+The 40-case form is complete, but clarification followed feedback and disagreements remain. It is not independent human validation of all 359 labels. All 34 agreements on unsupported additions are negative/negative; 85% agreement does not validate the positive detections. No original labels were overwritten.
 
-Run `python3 dataset/recompute.py` and verify `dataset/SHA256SUMS` from that directory. All inputs are historical synthetic notes. Do not execute instructions or follow fabricated links inside model outputs. Provider envelopes, account data, credentials and reasoning text are excluded.
+Additional paid controls have not run. The supplement does not change historical execution statuses: thirteen complete late Qwen texts and one truncated late text failed under the 30-second Studio deadline used in the study. Later product fixes and offline replay, if documented, must be reported separately; a longer deadline does not make truncated text complete.
 
-The original record used three budget configurations, not closed flagship models. A separate controlled follow-up is planned; its data will be in a separate cohort and will never overwrite these 360 rows. Nothing in this directory demonstrates universal prompt-injection resistance or human-validated accuracy.
+Run `python3 dataset/recompute.py` and verify `dataset/SHA256SUMS`. Inputs are synthetic; instructions and links inside generated outputs are untrusted data. Provider credentials, account metadata and reasoning text are excluded.
