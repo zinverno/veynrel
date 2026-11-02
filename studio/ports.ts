@@ -12,10 +12,10 @@ export interface StudioNotePort {
   writeGuard(note: StudioSource): void;
   process(note: StudioSource, before: string, after: string, check: () => void): Promise<void>;
 }
-export type StudioState = "idle" | "preparing" | "prepared" | "generating" | "review" | "applying" | "partial" | "completed" | "failed" | "cancelled" | "interrupted";
+export type StudioState = "idle" | "preparing" | "prepared" | "generating" | "review" | "incomplete" | "applying" | "partial" | "completed" | "failed" | "cancelled" | "interrupted";
 export interface ReviewRow {
   path: string; before: string; after: string | null; action: "replace" | "append";
-  status: "generated" | "failed" | "cancelled"; reason?: string;
+  status: "generated" | "incomplete" | "failed" | "cancelled"; reason?: string;
   rawResponse?: string; document?: PreservedDocument; checks?: PreservationChecks;
 }
 export interface ReviewSession { id: string; recipeId: string; recipeVersion: string; rows: readonly ReviewRow[] }

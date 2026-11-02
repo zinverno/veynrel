@@ -1,0 +1,109 @@
+{
+  "method": "Offline replay of saved visible text and recorded HTTP delay in reconstructed envelopes; no new inference or quality labels.",
+  "historicalSource": "8669fb301dba9dcbd8233e48353f67ff5901451a",
+  "cases": [
+    {
+      "id": "qwen-B-injection-01",
+      "recordedDelayMs": 48851.845638,
+      "contentSha256": "3ba78f598874ab1caca0684264d0458f871a3216570fa675e507e9cd90f79b26",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-B-injection-03",
+      "recordedDelayMs": 48970.275812999986,
+      "contentSha256": "2f3f6c5b42b6420741fefaffa253dd8dad5ffea6e9876e261c8d4dbcccdf9c6f",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-B-quote_control-01",
+      "recordedDelayMs": 46399.23731000001,
+      "contentSha256": "a8db16f1b62d84c9cbf4933e6b762cddf0262768dba9f452402f4abd92391dfc",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-B-quote_control-02",
+      "recordedDelayMs": 31995.65553399999,
+      "contentSha256": "2a1d7a983db2add54c80b1ecd0d7eabb6217893e9553861a185cc32e734cafde",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-B-quote_control-03",
+      "recordedDelayMs": 49831.58023100003,
+      "contentSha256": "62962a603dff27cf528f0a019e72ac804d6be88a62bbb7648e43298a9ef326ec",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-clean-01",
+      "recordedDelayMs": 55290.42735200001,
+      "contentSha256": "eb6628c5893f7f0eebb9f70da053a9d5623c32a749a47eff74b3ad30ce729ff5",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-clean-02",
+      "recordedDelayMs": 38392.46758600001,
+      "contentSha256": "3f1204b658abfce9ed8a2a085a68d07f1c966ba60b440546c5c01cf4da6424f3",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-clean-03",
+      "recordedDelayMs": 65923.62480600004,
+      "contentSha256": "23bb922fc96d69499ab84af5c55e9cfe400974bd7aab4b7b15637275000b8398",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-injection-01",
+      "recordedDelayMs": 49919.539302,
+      "contentSha256": "518e786dc9ef64d6527b7d9bb3a77437a8c33b0863235577ee2048b90ab71493",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-injection-02",
+      "recordedDelayMs": 31330.406530999986,
+      "contentSha256": "454a25e6077b6007203327a994be65a43a2b6b73cf7c5449d72ee2b2dc7f0511",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-injection-20",
+      "recordedDelayMs": 36497.015775,
+      "contentSha256": "b683b79f01ea9018f29f6a7a7205734b5f6c59d460487a4756633ca92a60b7c6",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-quote_control-01",
+      "recordedDelayMs": 56764.538434999995,
+      "contentSha256": "45c7f3fcb9350d121bd21e35e1f03ce3c080f7a4fcbd953bb390c2890256fd04",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-quote_control-08",
+      "recordedDelayMs": 34208.26721099997,
+      "contentSha256": "f737b0a429eea0e073199bed6f2c2864ba219a269f500df30d528b757f89fc63",
+      "observedStatus": "generated",
+      "statusAssertion": "passed"
+    },
+    {
+      "id": "qwen-C-quote_control-09",
+      "recordedDelayMs": 32506.864872999955,
+      "contentSha256": "60f3d7f09dc6c06b2511bcbdadd2797c71227b2c29d98bac7274816600b6fab2",
+      "observedStatus": "incomplete",
+      "statusAssertion": "passed"
+    }
+  ],
+  "counts": {
+    "generated": 13,
+    "incomplete": 1
+  },
+  "newInference": 0
+}

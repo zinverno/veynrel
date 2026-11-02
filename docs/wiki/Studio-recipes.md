@@ -1,6 +1,6 @@
 # Studio recipes
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 ## Turn a saved note into a useful structure
 
@@ -18,6 +18,14 @@ Prerequisites: a configured language-model connection and saved Markdown notes. 
 ![Separate result beside the unchanged source](../../assets/showcase/2.3.0/studio-result.png)
 
 Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. The source remains unchanged in the separate-result route. The new note contains a source link and result body, not a complete clone with source YAML. New files have no automatic delete/Undo.
+
+## Waiting and incomplete responses
+
+Markdown generation waits up to 90 seconds per request. **Stop waiting** releases Studio immediately; the provider may still finish and charge for the issued request. No automatic retry or continuation is sent.
+
+A nonempty response stopped by the output limit is labelled **Incomplete response: output limit reached**. Read its literal text or use **Copy fragment**. It cannot be selected, applied to a source or created as a result note. In a mixed batch, complete rows remain available for normal Review and guarded writing.
+
+Preview text stays in memory until a new run or plugin restart. History retains the incomplete status, including when other rows were written, and cannot restore the fragment as a successful proposal.
 
 ## Explicit source changes
 

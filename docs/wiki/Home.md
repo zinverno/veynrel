@@ -1,6 +1,6 @@
 # Veynrel user guide
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 Veynrel has two entry points: the **workspace** for vault health, connection review and Recall, and **Studio** for selected-note recipes and editable diagrams.
 
@@ -20,4 +20,4 @@ Veynrel has two entry points: the **workspace** for vault health, connection rev
 
 Synthetic vault in real Obsidian; counts describe this fixture only. Model demonstrations elsewhere use controlled responses, not a quality benchmark.
 
-[Help](Troubleshooting.md) · [Contributing](Contributing.md) · [Release notes](../releases/2.3.0.md)
+[Help](Troubleshooting.md) · [Contributing](Contributing.md) · [Release notes](../releases/2.3.1.md)

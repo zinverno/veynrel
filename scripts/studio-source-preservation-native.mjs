@@ -26,16 +26,18 @@ const originals = {
 if (smokeKit) originals['Source.md'] = fs.readFileSync(`${smokeKit}/vault/Source.md`, 'utf8');
 for (const [path, text] of Object.entries(originals)) { fs.mkdirSync(`${vault}/${path.substring(0, path.lastIndexOf('/') + 1)}`, { recursive: true }); fs.writeFileSync(`${vault}/${path}`, text); }
 const requests = [];
-let providerMode = 'normal', releaseProvider;
+let providerMode = 'normal', providerDelay = 0, releaseProvider;
 const server = createServer(async (req, res) => {
   let raw = ''; for await (const part of req) raw += part;
   assert.equal(req.url, '/v1/chat/completions'); requests.push(raw);
+  const mode = providerMode, delay = providerDelay;
   const body = JSON.parse(raw), system = body.messages[0].content, markdown = JSON.parse(body.messages[1].content).markdown;
-  if (providerMode === 'defer') await new Promise(resolve => { releaseProvider = resolve; });
+  if (delay) await new Promise(resolve => setTimeout(resolve, delay));
+  if (mode === 'defer') await new Promise(resolve => { releaseProvider = resolve; });
   const content = markdown.includes('source-007') ? '---\nid: model-999\naliases: [Model]\n---\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n' : system.includes('Structure the workout') ? fixture('training', true) :
     system.includes('Structure the food') ? fixture('nutrition', true) : markdown === originals['Formatting.md'] ? fixture('formatting', true) : `# Organized\n\n${markdown}`;
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ choices: [{ message: { content }, finish_reason: providerMode === 'length' ? 'length' : 'stop' }] }));
+  res.end(JSON.stringify({ choices: [{ message: { content }, finish_reason: mode === 'length' ? 'length' : 'stop' }] }));
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 let port = server.address().port, smokeServer;
@@ -62,7 +64,7 @@ const report = { checks, artifacts, screenshots, modelQuality: 'NOT RE-EVALUATED
   limits: 'Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.' };
 const cdp = (method, params = {}) => new Promise((resolve, reject) => { pending.set(++sequence, { resolve, reject }); socket.send(JSON.stringify({ id: sequence, method, params })); });
 const ev = async expression => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); assert(!r.exceptionDetails, JSON.stringify(r.exceptionDetails)); return r.result.value; };
-const wait = async expression => { for (let i = 0; i < 240; i++) { if (await ev(expression)) return; await pause(50); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-2000)')}`); };
+const wait = async (expression, milliseconds = 12_000) => { for (let i = 0; i < milliseconds / 50; i++) { if (await ev(expression)) return; await pause(50); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-2000)')}`); };
 const pass = async (name, expr) => { assert(await ev(expr), name); checks.push(name); console.log(name); };
 const click = async (action, modal = false) => {
   await cdp('Page.bringToFront'); await wait('document.hasFocus()');
@@ -107,7 +109,7 @@ async function prepare(recipe, paths, folder = false) {
   return ev('studio.runner.prepared.requests.map(r=>r.body)');
 }
 async function generate(expected) {
-  const count = requests.length; await click('generate'); await wait("!studio.runner.running&&['review','failed','cancelled'].includes(studio.runner.state)");
+  const count = requests.length; await click('generate'); await wait("!studio.runner.running&&['review','incomplete','failed','cancelled'].includes(studio.runner.state)", 100_000);
   assert.deepEqual(requests.slice(count), expected, 'request bodies exactly match consent');
 }
 async function sourceMode() {
@@ -170,6 +172,49 @@ try {
   report.versions=await ev("({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,excalidrawInstalled:!!app.plugins.plugins['obsidian-excalidraw-plugin']})");
   assert.equal(report.versions.excalidrawInstalled,false);checks.push('Markdown workflow has no Excalidraw dependency');
   await pass('Passive Studio opens with zero model/note read/write',"io.reads.length===0&&io.writes.length===0&&io.creates.length===0");assert.equal(requests.length,0);
+  if (!smokeKit) {
+    // Real wall-clock loopback delays exercise the unchanged native buffered transport.
+    providerDelay = 66_000;
+    let expected = await prepare('builtin.smart-format', ['Formatting.md']);
+    let started = Date.now(); await generate(expected);
+    report.longWaitRunId = await ev("studio.runner.review.id");
+    report.longWaitMs = Date.now() - started; assert(report.longWaitMs >= 66_000 && report.longWaitMs < 90_000);
+    await pass('66-second complete response is generated with the exact consent body', "studio.runner.review.rows[0].status==='generated'&&studio.runner.prepared.requests[0].options.timeoutMs===90000");
+    await shot('markdown-66-seconds');
+    providerDelay = 33_000; providerMode = 'length';
+    expected = await prepare('builtin.smart-format', ['Formatting.md']); started = Date.now(); await generate(expected);
+    report.incompleteWaitMs = Date.now() - started; assert(report.incompleteWaitMs >= 33_000);
+    const incompleteId = await ev('studio.runner.review.id'), calls = requests.length;
+    await pass('Incomplete response is literal, copyable and has no Apply/Create or selection', "studio.runner.state==='incomplete'&&studio.runner.review.rows[0].status==='incomplete'&&studio.runner.review.rows[0].after===null&&document.querySelector('[data-studio-incomplete]').textContent===studio.runner.review.rows[0].rawResponse&&!document.querySelector('[data-studio-select]')&&!document.querySelector('[data-studio-action=review-apply]')");
+    await pass('Programmatic source/new-note plans refuse incomplete rows', `(async()=>{for(const destination of ['source','new-note']){try{await studio.runner.reviewWrite(studio.runner.review,destination,[{path:'Formatting.md',target:'Fragment.md'}]);return false;}catch{}}return !studio.runner.writePlan})()`);
+    for (const lang of ['en','ru']) {
+      await locale(lang); await click('workflow');
+      await click('copy-incomplete');
+      assert.equal(await ev('navigator.clipboard.readText()'), await ev('studio.runner.review.rows[0].rawResponse'));
+      checks.push(lang+': native clipboard contains the exact fragment');
+      await pass(lang+': translated incomplete warning is visible', `document.querySelector('.veynrel-studio-body').textContent.includes(${JSON.stringify(lang==='en'?'Incomplete response: output limit reached':'Ответ неполный: достигнут лимит вывода')})`);
+      await pause(3500); await shot('incomplete-'+lang);
+      await ev("app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0");
+      await cdp('Emulation.setDeviceMetricsOverride',{width:390,height:900,deviceScaleFactor:1,mobile:false});
+      await pass(lang+': incomplete preview fits a narrow window',"document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
+      await shot('incomplete-'+lang+'-390');
+      await cdp('Emulation.setDeviceMetricsOverride',{width:1300,height:950,deviceScaleFactor:1,mobile:false});
+      await click('history'); await click('workflow'); assert.equal(await ev('studio.runner.review.id'), incompleteId);
+    }
+    assert.equal(requests.length, calls); assert.deepEqual(hashes(), initialHashes);
+    providerDelay = 0; providerMode = 'normal'; await restart(); await open(); await click('history');
+    await wait("!document.querySelector('.veynrel-studio-body').textContent.includes('Проверка…')");
+    await pass('Restart preserves incomplete history without reconstructing Review or writing', "!studio.runner.review&&document.querySelector('.veynrel-studio-body').textContent.includes('Ответ неполный: достигнут лимит вывода')&&io.writes.length===0&&io.creates.length===0");
+    assert.equal(requests.length, calls); await shot('incomplete-history-ru');
+    await locale('en'); providerMode = 'defer';
+    expected = await prepare('builtin.smart-format', ['Formatting.md']); await click('generate');
+    for (let i=0;i<100&&!releaseProvider;i++) await pause(30); assert(releaseProvider);
+    started = Date.now(); await click('cancel'); await wait('!studio.runner.running&&!studio.operations.busy');
+    report.cancelWaitMs = Date.now()-started; assert(report.cancelWaitMs < 2000);
+    const cancelledId = await ev('studio.runner.review.id'); releaseProvider(); releaseProvider=undefined; await pause(250);
+    await pass('Cancel releases the operation before HTTP completes and ignores the late body', `studio.runner.review.id===${JSON.stringify(cancelledId)}&&studio.runner.review.rows[0].status==='cancelled'&&studio.runner.review.rows[0].rawResponse===undefined`);
+    assert.deepEqual(hashes(), initialHashes); providerMode = 'normal';
+  }
   if (smokeKit) {
     const before = hashes(); assert.equal(smokeReceipts().length,0);
     await prepare('builtin.smart-format',['Source.md']);assert.equal(smokeReceipts().length,0);await shot('smoke-explicit-consent');
@@ -206,7 +251,7 @@ try {
   await pass('Create writes one target, no source process, and does not open target automatically',"studio.runner.results[0].outcome==='created'&&io.writes.length===0&&io.creates.length===1&&!app.workspace.getLeavesOfType('markdown').some(l=>l.view.file?.path==='Saved draft.md')");
   await ev("sourceLeaf.detach();void 0");await shot('created-en');
   await restart();await open();await click('history');await wait("!!document.querySelector('[data-studio-action=markdown-open]')");
-  await pass('Creation history has no spurious interrupted generation',"!document.querySelector('.veynrel-studio-body').textContent.includes('Interrupted')");
+  await pass('Creation history has no spurious interrupted generation',`[...document.querySelectorAll('.veynrel-studio-body article')].filter(e=>e.textContent.includes('Interrupted')).every(e=>e.textContent.includes(${JSON.stringify(report.longWaitRunId ?? "no-abandoned-run")}))`);
   await pass('Restart history observes creation without any automatic create/write',"io.creates.length===0&&io.writes.length===0");assert.equal(requests.length,reviewCalls);await shot('history-after-restart');
   await click('markdown-open');await wait("app.workspace.getLeavesOfType('markdown').some(l=>l.view.file?.path==='Saved draft.md')");
   await pass('Explicit opening uses source mode',"app.workspace.getLeavesOfType('markdown').find(l=>l.view.file?.path==='Saved draft.md').view.getMode()==='source'");

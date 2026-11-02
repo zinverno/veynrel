@@ -1,6 +1,6 @@
 import { Notice, TFolder } from "obsidian";
 import type { Plugin } from "obsidian";
-import { callOpenRouter } from "../api";
+import { callOpenRouter, callStudioMarkdown } from "../api";
 import type { LanguageModelSettingsPort } from "../deep/product/languageModelSettingsPort";
 import { StudioStorage } from "./storage";
 import { RecipeRegistry } from "./registry";
@@ -32,7 +32,7 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
   const owner: StudioWorkspace = { registry, writer, creator, operations, diagrams: new DiagramWorkflow(port, new ExcalidrawAdapter(plugin.app), new DiagramJournal(storage), operations),
     community: new CommunityCatalog(storage, communityTransport), installer: new CommunityInstaller(storage, registry), inventory: port.inventory, folders: () => plugin.app.vault.getAllLoadedFiles().filter((f): f is TFolder => f instanceof TFolder && !f.path.split("/").some(p => p.startsWith("."))).map(f => f.path),
     connection: () => { const { provider, model, baseUrl } = settings.get(); return { provider, model, baseUrl }; },
-    runner: new RecipeRunner(port, writer, creator) };
+    runner: new RecipeRunner({ ...port, complete: callStudioMarkdown }, writer, creator) };
   plugin.registerView(STUDIO_VIEW_TYPE, leaf => new VeynrelStudioView(leaf, owner));
   let opening: Promise<void> | undefined;
   const open = () => opening ??= (async () => {

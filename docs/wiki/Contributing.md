@@ -1,6 +1,6 @@
 # Contributing
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 See the canonical [CONTRIBUTING.md](../../CONTRIBUTING.md) for build commands, module ownership, synthetic native testing and review expectations.
 

@@ -215,11 +215,15 @@ function parseOpenRouterResponse(text: string): OpenRouterResponse {
 }
 
 /** Completion status is authoritative even when content looks like valid JSON. */
-function checkCompletion(choice: OpenRouterChoice, requireFinishReason = false): void {
-  if (choice.finish_reason === "length") throw new ApiRequestError("outputLimit", tr("@relationship.error.outputLimit"));
+function checkCompletion(choice: OpenRouterChoice, requireFinishReason = false, markdownPreview = false): void {
   if (choice.error || choice.finish_reason === "error") throw new ApiRequestError("provider", tr("API вернул ошибку."));
   if (choice.refused || choice.finish_reason === "content_filter") throw new ApiRequestError("refused", tr("@relationship.error.refused"));
-  if (choice.toolCalls || (choice.finish_reason != null && choice.finish_reason !== "stop") || (requireFinishReason && choice.finish_reason !== "stop")) {
+  if (choice.toolCalls) throw new ApiRequestError("unexpectedCompletion", tr("@relationship.error.unexpectedCompletion"));
+  if (choice.finish_reason === "length") {
+    if (markdownPreview) return;
+    throw new ApiRequestError("outputLimit", tr("@relationship.error.outputLimit"));
+  }
+  if ((choice.finish_reason != null && choice.finish_reason !== "stop") || (requireFinishReason && choice.finish_reason !== "stop")) {
     throw new ApiRequestError("unexpectedCompletion", tr("@relationship.error.unexpectedCompletion"));
   }
 }
@@ -348,12 +352,26 @@ export async function readOpenRouterEndpoints(settings: PublicConnection): Promi
 // ─────────────────────────────────────────────
 //  Обычный (не-стриминговый) вызов
 // ─────────────────────────────────────────────
-export async function callOpenRouter(
+export interface IncompleteMarkdown { readonly status: "incomplete"; readonly content: string }
+
+/** Only Studio Markdown may inspect a validated fragment; it is never a completed result. */
+export function callStudioMarkdown(settings: LanguageModelSettingsSnapshot, system: string, user: string, options: CallOptions): Promise<string | IncompleteMarkdown> {
+  return callBuffered(settings, system, user, { ...options, requireFinishReason: true }, true);
+}
+
+export function callOpenRouter(settings: LanguageModelSettingsSnapshot, system: string, user: string, signalOrOptions?: AbortSignal | CallOptions): Promise<string> {
+  return callBuffered(settings, system, user, signalOrOptions);
+}
+
+function callBuffered(settings: LanguageModelSettingsSnapshot, system: string, user: string, signalOrOptions?: AbortSignal | CallOptions, markdownPreview?: false): Promise<string>;
+function callBuffered(settings: LanguageModelSettingsSnapshot, system: string, user: string, signalOrOptions: AbortSignal | CallOptions | undefined, markdownPreview: true): Promise<string | IncompleteMarkdown>;
+async function callBuffered(
   settings: LanguageModelSettingsSnapshot,
   system: string,
   user: string,
   signalOrOptions?: AbortSignal | CallOptions,
-): Promise<string> {
+  markdownPreview = false,
+): Promise<string | IncompleteMarkdown> {
   const err = validateSettings(settings);
   if (err) throw new Error(err);
 
@@ -394,13 +412,13 @@ export async function callOpenRouter(
 
   const choice = json.choices?.[0];
   if (!choice?.message) throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
-  checkCompletion(choice, opts.requireFinishReason);
+  checkCompletion(choice, opts.requireFinishReason, markdownPreview && !opts.structuredOutput);
   const content = choice.message.content;
   if (content === undefined) throw new ApiRequestError("invalidEnvelope", tr("API вернул ответ неверного формата."));
   if (content === null || !content.trim()) {
     throw new ApiRequestError("emptyResponse", tr("API вернул ответ неверного формата."));
   }
-  return content;
+  return choice.finish_reason === "length" ? { status: "incomplete", content } : content;
 }
 
 type StreamTermination = "active" | "external-abort" | "timeout";
