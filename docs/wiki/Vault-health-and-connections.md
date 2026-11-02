@@ -1,6 +1,6 @@
 # Vault health and connections
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 ## Inspect an area
 

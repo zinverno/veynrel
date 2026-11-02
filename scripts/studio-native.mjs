@@ -95,7 +95,7 @@ async function prepare(recipe, paths, folder = false) {
   return ev('studio.runner.prepared.requests.map(r=>r.body)');
 }
 async function generate(expected) {
-  const count = requests.length; await click('generate'); await wait("!studio.runner.running&&['review','failed','cancelled'].includes(studio.runner.state)");
+  const count = requests.length; await click('generate'); await wait("!studio.runner.running&&['review','incomplete','failed','cancelled'].includes(studio.runner.state)");
   assert.deepEqual(requests.slice(count), expected, 'request bodies exactly match consent');
 }
 async function sourceMode() {
@@ -168,7 +168,7 @@ try {
   assert.equal(fs.readFileSync(`${vault}/Formatting.md`, 'utf8'), 'Synthetic external edit');
   await ev(`app.vault.modify(app.vault.getFileByPath('Formatting.md'),${JSON.stringify(originals['Formatting.md'])})`);
   providerMode = 'length'; expected = await prepare('builtin.smart-format', ['Formatting.md']); await generate(expected);
-  await pass('Incomplete provider completion refuses an applicable result', "studio.runner.state==='failed'&&studio.runner.review.rows[0].after===null&&!document.querySelector('[data-studio-action=review-apply]')"); providerMode = 'normal';
+  await pass('Incomplete provider completion refuses an applicable result', "studio.runner.state==='incomplete'&&studio.runner.review.rows[0].after===null&&!document.querySelector('[data-studio-action=review-apply]')"); providerMode = 'normal';
   expected = await prepare('builtin.smart-format', ['Formatting.md']); const count = requests.length; await click('cancel'); assert.equal(requests.length, count); checks.push('Cancel before generation sends zero requests');
   providerMode = 'defer'; expected = await prepare('builtin.smart-format', ['Batch/a/same.md', 'Batch/b/same.md']); await click('generate');
   for (let i = 0; i < 100 && !releaseProvider; i++) await pause(30); assert(releaseProvider);

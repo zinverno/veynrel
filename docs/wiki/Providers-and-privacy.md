@@ -1,6 +1,6 @@
 # Providers and privacy
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 | Feature | What leaves the device |
 | --- | --- |

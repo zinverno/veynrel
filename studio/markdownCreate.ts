@@ -32,6 +32,7 @@ export class StudioMarkdownCreate {
   }
   create(plan: StudioWritePlan, review: ReviewSession, sources: readonly StudioSource[], active: () => boolean, owner: object): Promise<readonly ApplyResult[]> {
     return this.operations.run(owner, async () => {
+      ensure(plan.reviewId === review.id && plan.rows.length > 0 && plan.rows.every(p => review.rows.some(r => r.path === p.source.path && r.status === "generated" && r.after !== null)), "stale");
       const results: ApplyResult[] = review.rows.map(r => ({ path: r.path, outcome: "skipped" }));
       const intent: MarkdownCreateIntent = freeze({ schemaVersion: 1, operation: "markdown-create", id: plan.id, createdAt: Date.now(),
         recipeId: review.recipeId, recipeVersion: review.recipeVersion, plan,

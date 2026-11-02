@@ -1,6 +1,6 @@
 # Community library
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 Open **Veynrel Studio → Community**. The local library works independently of online catalog access.
 

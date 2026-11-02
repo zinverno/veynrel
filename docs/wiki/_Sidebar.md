@@ -1,4 +1,4 @@
-**Veynrel 2.3.0 Stable**
+**Veynrel 2.3.1 Stable**
 
 - [Home](Home.md)
 - [Getting started](Getting-started.md)

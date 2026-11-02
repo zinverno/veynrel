@@ -1,6 +1,6 @@
 # Safety, history and recovery
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 ## Choose the correct contract
 

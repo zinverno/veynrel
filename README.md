@@ -6,9 +6,9 @@ Veynrel brings vault health, connection review and spaced repetition to Obsidian
 
 ![Veynrel for Obsidian — Your notes. Connected. Vault health, note workflows and editable diagrams](assets/showcase/2.3.0/hero.png)
 
-[Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.0.md)
+[Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.1.md)
 
-> **Veynrel 2.3.0 Stable.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.0).
+> **Veynrel 2.3.1 Stable.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.1).
 
 ## Three ways to work
 

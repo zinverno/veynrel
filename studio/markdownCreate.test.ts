@@ -18,6 +18,7 @@ import { StudioApply } from "./apply";
 import { StudioJournal } from "./journal";
 import { RecipeRunner } from "./runner";
 import { BUILTIN_RECIPES } from "./builtins";
+import type { IncompleteMarkdown } from "../api";
 
 function fixture(count = 2) {
   const disk = testAdapter(), objects = new Map<string, TFile | TFolder>(), leaves: { view: MarkdownView; getViewState(): unknown }[] = [];
@@ -42,7 +43,7 @@ function fixture(count = 2) {
     metadataCache: { getFirstLinkpathDest: (path: string) => vault.getFileByPath(path) } } as unknown as App;
   const storage = new StudioStorage(disk.adapter, ".custom", "ai-knowledge-hub"), operations = new StudioOperations(), notes = studioNotePort(app);
   const targets = markdownTargetPort(app), journal = new MarkdownCreateJournal(storage), creator = new StudioMarkdownCreate(journal, targets, notes, operations);
-  const writer = new StudioApply(new StudioJournal(storage), notes, operations), complete = vi.fn(async () => "---\nid: model\n---\n53 kg.");
+  const writer = new StudioApply(new StudioJournal(storage), notes, operations), complete = vi.fn(async (): Promise<string | IncompleteMarkdown> => "---\nid: model\n---\n53 kg.");
   const runner = new RecipeRunner({ notes, inventory: () => paths, complete, settings: {
     get: () => ({ provider: "ollama", model: "synthetic", baseUrl: "http://127.0.0.1:1234/v1", apiKey: "", temperature: .2, topK: 5 }), update: async x => x, subscribe: () => () => {} } }, writer, creator);
   const generate = async (append = false) => {
@@ -59,6 +60,28 @@ function fixture(count = 2) {
 }
 
 describe("immutable Markdown destination and create-only operations", () => {
+  it.each([false, true])("writes only complete rows in a mixed batch (source=%s), with no bypass or restored partial write", async source => {
+    const f = fixture(3);
+    f.complete.mockResolvedValueOnce({ status: "incomplete", content: "# Fragment" }).mockRejectedValueOnce(Error("synthetic failure"));
+    const review = await f.generate();
+    expect(review.rows.map(r => r.status)).toEqual(["incomplete", "failed", "generated"]); expect(f.runner.canApply).toBe(true);
+    await expect(f.plan(source)).rejects.toThrow(); expect(f.runner.writePlan).toBeUndefined();
+    await expect(f.writer.apply(review, [], [f.paths[0]], () => true)).rejects.toThrow();
+    const plan = await f.plan(source, [f.paths[2]]);
+    const forged = { ...plan, destination: "new-note" as const, rows: [{ ...plan.rows[0], source: { ...plan.rows[0].source, path: f.paths[0] }, output: "# Fragment" }] };
+    expect(() => f.runner.confirmWrite(forged)).toThrow("stale");
+    await expect(f.creator.create(forged, review, [], () => true, {})).rejects.toThrow("stale");
+    expect(f.vault.create).not.toHaveBeenCalled(); expect(f.vault.process).not.toHaveBeenCalled();
+    await f.runner.confirmWrite(plan, true);
+    expect(f.files.get(f.paths[0])).toBe(f.originals[0]); expect(f.files.get(f.paths[1])).toBe(f.originals[1]);
+    expect(review.rows[0].status).toBe("incomplete"); expect((await f.writer.journal.runs())[0].state).toBe("incomplete");
+    if (source) {
+      const history = await f.writer.history(); expect(history).toHaveLength(1);
+      const undo = await f.writer.reviewUndo(history[0].entry.id, history[0].index, "undo"); await f.writer.executeUndo(undo);
+      expect(f.files.get(f.paths[2])).toBe(f.originals[2]);
+    } else expect((await f.restart().history()).map(r => r.source)).toEqual([f.paths[2]]);
+    expect(f.complete).toHaveBeenCalledTimes(3);
+  });
   it("creates only selected rows next to each source, exact preview bytes, no copied properties or model retries", async () => {
     const f = fixture(3), review = await f.generate(); const calls = f.complete.mock.calls.length;
     f.editor(f.paths[0]); const plan = await f.plan(false, [f.paths[0], f.paths[2]]);

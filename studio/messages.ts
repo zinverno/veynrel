@@ -1,6 +1,7 @@
 import { currentLanguage } from "../i18n";
 export const l = (en: string, ru: string): string => currentLanguage() === "ru" ? ru : en;
 const statuses: Record<string, [string, string]> = {
+  incomplete: ["Incomplete response: output limit reached", "Ответ неполный: достигнут лимит вывода"],
   created: ["Separate note created", "Отдельная заметка создана"], modified: ["Result changed or missing", "Результат изменён или отсутствует"], "not-created": ["Confirmed absent", "Отсутствие подтверждено"],
   idle: ["No active operation", "Нет активной операции"], preparing: ["Reading selected saved notes", "Чтение выбранных сохранённых заметок"], prepared: ["Review the outgoing data", "Проверьте отправляемые данные"],
   generating: ["Generating sequentially", "Последовательная генерация"], review: ["Review proposals before writing", "Проверьте предложения перед записью"],

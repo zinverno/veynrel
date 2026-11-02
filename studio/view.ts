@@ -1,4 +1,4 @@
-import { ItemView, Modal, setIcon } from "obsidian";
+import { ItemView, Modal, Notice, setIcon } from "obsidian";
 import type { App, WorkspaceLeaf } from "obsidian";
 import { currentLanguage } from "../i18n";
 import { renderPlanDiff } from "../consolidation/planDiffView";
@@ -359,7 +359,7 @@ export class VeynrelStudioView extends ItemView {
     if (runner.error) this.body.createEl("p", { text: errorMessage(runner.error), attr: { role: "alert" } });
     if (runner.running) {
       this.body.createEl("p", { text: l("Closing a Studio tab keeps this run available in another tab. Stop prevents subsequent requests/writes; it cannot recall an issued request, which may still be charged.", "Закрытие вкладки Studio сохраняет запуск для другой вкладки. Остановка запрещает следующие запросы/записи, но не отзывает отправленный запрос; он всё ещё может быть оплачен.") });
-      button(this.body, l("Stop after the current operation", "Остановить после текущей операции"), "cancel", () => runner.cancel()); return;
+      button(this.body, l("Stop waiting", "Остановить ожидание"), "cancel", () => runner.cancel()); return;
     }
     if (prepared && runner.state === "prepared") {
       this.body.createEl("h2", { text: l("Consent to send data", "Согласие на передачу данных") });
@@ -404,15 +404,22 @@ export class VeynrelStudioView extends ItemView {
       detail.empty(); const row = review.rows.find(r => r.path === this.reviewPath); if (!row) return;
       detail.createEl("h3", { text: row.path });
       const result = runner.results?.find(r => r.path === row.path);
-      detail.createEl("p", { text: `${status(row.action)} · ${status(result?.outcome ?? row.status)}` });
+      detail.createEl("p", { text: `${status(row.action)} · ${status(row.status === "incomplete" ? row.status : result?.outcome ?? row.status)}` });
       if (row.reason || result?.reason) detail.createEl("p", { text: errorMessage(result?.reason ?? row.reason!), attr: { role: "alert" } });
       literal(detail, l("Original saved Markdown", "Исходный сохранённый Markdown"), row.before);
-      if (row.rawResponse !== undefined) literal(detail, l("Raw model response", "Сырой ответ модели"), row.rawResponse);
+      if (row.status === "incomplete" && row.rawResponse !== undefined) {
+        detail.createEl("p", { text: status("incomplete"), cls: "veynrel-studio-warning", attr: { role: "alert" } });
+        detail.createEl("p", { text: l("Copy this fragment if needed. It cannot be applied or saved as a result. Preview text is kept only until plugin restart or a new run; history retains the incomplete status.", "При необходимости скопируйте фрагмент. Применить его или сохранить как результат нельзя. Текст просмотра доступен до перезапуска плагина или нового запуска; история сохраняет статус неполноты.") });
+        detail.createEl("pre", { text: row.rawResponse, cls: "veynrel-studio-literal", attr: { tabindex: "0", "data-studio-incomplete": row.path } });
+        button(detail, l("Copy fragment", "Скопировать фрагмент"), "copy-incomplete", () => {
+          void navigator.clipboard.writeText(row.rawResponse!).then(() => { new Notice(l("Fragment copied", "Фрагмент скопирован")); }, () => { new Notice(l("Could not copy. Select and copy the text manually.", "Не удалось скопировать. Выделите и скопируйте текст вручную.")); });
+        });
+      } else if (row.rawResponse !== undefined) literal(detail, l("Raw model response", "Сырой ответ модели"), row.rawResponse);
       if (row.document?.proposedPrefix) {
         detail.createEl("p", { text: l("Proposed property changes are not applied.", "Предложенные изменения свойств не применяются.") });
         literal(detail, l("Source properties / excluded model properties", "Свойства исходника / исключённые свойства модели"), `${row.document.sourcePrefix}\n→\n${row.document.proposedPrefix}`);
       }
-      if (row.after !== null) {
+      if (row.status === "generated" && row.after !== null) {
         const target = targetFor(row.path), pair = detail.createEl("p", { text: `${row.path} → ${target}` });
         if (this.destination === "new-note" && runner.canApply) {
           const name = field(detail, l("Result filename (.md), in the same folder", "Имя результата (.md), в той же папке"), target.slice(parentPath(target).length + (parentPath(target) ? 1 : 0)));
@@ -442,8 +449,8 @@ export class VeynrelStudioView extends ItemView {
     for (const row of review.rows) {
       const item = files.createDiv({ cls: "veynrel-studio-review-file" });
       const choose = button(item, row.path, "review-file", () => { this.reviewPath = row.path; show(); }); choose.dataset.path = row.path;
-      item.createSpan({ text: status(runner.results?.find(r => r.path === row.path)?.outcome ?? row.status), cls: "veynrel-studio-eyebrow" });
-      if (row.after !== null && runner.canApply) {
+      item.createSpan({ text: status(row.status === "incomplete" ? row.status : runner.results?.find(r => r.path === row.path)?.outcome ?? row.status), cls: "veynrel-studio-eyebrow" });
+      if (row.status === "generated" && row.after !== null && runner.canApply) {
         const label = item.createEl("label", { cls: "veynrel-studio-check" }), input = label.createEl("input", { type: "checkbox", attr: { "data-studio-select": row.path } });
         label.createSpan({ text: l("Include in writing", "Включить в запись") }); input.checked = this.selectedRows.has(row.path);
         input.addEventListener("change", () => { if (input.checked) this.selectedRows.add(row.path); else this.selectedRows.delete(row.path); runner.discardWritePlan(); updateCount(); });
@@ -488,9 +495,10 @@ export class VeynrelStudioView extends ItemView {
       const rows = await this.owner.writer.history(), runs = await this.owner.writer.journal.runs(), created = await this.owner.creator.history();
       if (!this.alive || epoch !== this.historyEpoch) return; list.empty();
 
-      for (const run of runs.filter(r => !rows.some(row => row.entry.id === r.id) && !created.some(row => row.entry.intent?.plan.reviewId === r.id))) {
+      for (const run of runs.filter(r => r.state === "incomplete" || !rows.some(row => row.entry.id === r.id) && !created.some(row => row.entry.intent?.plan.reviewId === r.id))) {
         const card = list.createEl("article", { cls: "veynrel-studio-card" }); card.createEl("h3", { text: run.start?.recipeId ?? run.id });
-        card.createEl("p", { text: status(run.damaged ? "damaged" : this.owner.runner.prepared?.id === run.id ? this.owner.runner.state : run.state) });
+        card.createEl("p", { text: status(run.damaged ? "damaged" : run.state === "incomplete" ? run.state : this.owner.runner.prepared?.id === run.id ? this.owner.runner.state : run.state) });
+        if (run.state === "incomplete") card.createEl("p", { text: l("This run included an incomplete response. Preview text is not restored after restart; no write or retry is available from this record.", "В запуске был неполный ответ. Текст просмотра не восстанавливается после перезапуска; запись и повторный запрос из этой записи недоступны.") });
         if (run.start) card.createEl("p", { text: `${new Date(run.start.createdAt).toLocaleString()} · ${run.start.paths.join(", ")}` });
         literal(card, l("Operation details", "Подробности операции"), JSON.stringify(run, null, 2));
       }

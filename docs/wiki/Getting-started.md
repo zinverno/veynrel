@@ -1,6 +1,6 @@
 # Getting started
 
-> **Veynrel 2.3.0 Stable.**
+> **Veynrel 2.3.1 Stable.**
 
 ## Local first
 

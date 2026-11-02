@@ -117,7 +117,7 @@ export class StudioJournal {
     ensure(uuid(start.id), "storage");
     await this.storage.create(`${this.storage.root}/runs/${start.id}/start.json`, JSON.stringify(start));
   }
-  async finishRun(id: string, state: "review" | "failed" | "cancelled"): Promise<void> {
+  async finishRun(id: string, state: "review" | "incomplete" | "failed" | "cancelled"): Promise<void> {
     ensure(uuid(id), "storage");
     await this.storage.create(`${this.storage.root}/runs/${id}/finish.json`, JSON.stringify({ schemaVersion: 1, id, state }));
   }
@@ -138,8 +138,8 @@ export class StudioJournal {
           const files = await s.adapter.list(dir); ensure(!files.folders.length && files.files.every(p => p === `${dir}/start.json` || p === `${dir}/finish.json`), "storage");
           if (await s.adapter.exists(`${dir}/finish.json`)) {
             const finish: unknown = JSON.parse(await s.read(`${dir}/finish.json`, 2000));
-            ensure(object(finish, ["schemaVersion", "id", "state"]) && finish.schemaVersion === 1 && finish.id === id && typeof finish.state === "string" && ["review", "cancelled", "failed"].includes(finish.state), "storage");
-            row.state = finish.state === "review" ? "interrupted" : finish.state as "cancelled" | "failed";
+            ensure(object(finish, ["schemaVersion", "id", "state"]) && finish.schemaVersion === 1 && finish.id === id && typeof finish.state === "string" && ["review", "incomplete", "cancelled", "failed"].includes(finish.state), "storage");
+            row.state = finish.state === "review" ? "interrupted" : finish.state as "incomplete" | "cancelled" | "failed";
           }
         } catch { row.damaged = true; }
       }
