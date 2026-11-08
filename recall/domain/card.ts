@@ -8,6 +8,7 @@ export interface RecallCardSource {
   readonly kind?: RecallKind;
   readonly studyTags?: readonly string[];
   readonly vocabulary?: VocabularyMetadata;
+  /** Opaque, canonical-path-shaped identity anchor; it need not name a physical note. */
   readonly sourceKey?: string;
 }
 

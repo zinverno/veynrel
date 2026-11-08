@@ -188,6 +188,9 @@ describe("v4 migration backup", () => {
     const previous = store.getCard(card.id)!;
     expect(previous).toMatchObject({ id: card.id, kind: "study", studyTags: [], sourceKey: "A.md", schedule: version === 1 ? createInitialSchedule(10) : schedule });
     await store.reconcileNote("A.md", [candidate()], true, 200);
+    expect(storage.write).not.toHaveBeenCalled(); expect(storage.backupOriginal).not.toHaveBeenCalled();
+    expect(storage.bytes()).toBe(raw);
+    await store.reconcileNote("A.md", [createRecallCandidate({ ...candidate(), studyTags: ["flashcards/new"] })], true, 201);
     expect(storage.backupOriginal).toHaveBeenCalledExactlyOnceWith(raw);
     expect(storage.backupOriginal.mock.invocationCallOrder[0]).toBeLessThan(storage.write.mock.invocationCallOrder[0]);
     expect(store.getCard(card.id)?.schedule).toEqual(previous.schedule);

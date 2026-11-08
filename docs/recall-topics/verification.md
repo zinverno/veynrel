@@ -1,5 +1,7 @@
 # Recall topics and vocabulary verification — 2026-11-08
 
+The [PR #136 path-reuse/no-op follow-up](path-reuse-followup.md) records the later fixes, before/after reproductions and updated native artifact hashes. The original feature evidence below remains tied to its recorded build.
+
 Branch: `feat/recall-topics-vocabulary`. Base: `cd9e8fc4048b4a17d0dc68993bd8b340d9da4720`, verified against remote main before implementation. The original checkout and its unrelated files were left untouched; implementation used a separate worktree. Package/manifest remain 2.3.1. This is development evidence, not a release.
 
 ## Implementation and data preservation

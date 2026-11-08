@@ -59,7 +59,11 @@ Unicode, RTL text, phrases, apostrophes, punctuation and multiple meanings remai
 
 Line order and study tags do not define identity. Observed file rename/move events preserve IDs and schedules. Editing an expression, translation or language creates new knowledge with a new schedule; the old card remains retired. Identical text in different notes is not merged. Ambiguous rename collisions fail closed. Arbitrary offline moves, file replacement and Sync conflicts are not automatically inferred.
 
+A new independent note at a renamed note's old path receives its own identity, even when its questions or vocabulary overlap. It does not inherit the moved note's history. Existing pre-fix v4 histories remain readable and keep their IDs.
+
 Once Recall has been initialized, saved note changes are refreshed locally after a short debounce. Starting and rating a card verifies its source, including open buffers; stale or unsaved content blocks review. Undo/removal retires absent entries only after a complete current note capture; Redo restores unchanged entries and their schedules. No full-vault scan or model request runs on filter changes.
+
+Saved prose edits with no Recall changes do not rewrite metadata, trigger migration backup or end first-run state. New questions/pairs, changed tags/directions, removal and reactivation still persist normally.
 
 Schema v4 reads valid v1/v2/v3, including transitional v2 coverage. Existing IDs and schedules remain intact. Loading migrates only in memory; the first mutation saves and verifies exact original JSON contents in a unique `recall/cards.pre-v4-*.json` before rewriting. Corrupt/future schemas remain write-blocked. The 10,000-card and storage-size limits include retired cards and both vocabulary directions. FSRS formulas are unchanged.
 

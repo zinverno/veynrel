@@ -1,4 +1,5 @@
 import { compareStrings, isTimestamp } from "../../health/domain/validation";
+import { stableHash } from "../../utils/stableHash";
 import type { RecallCard, RecallCardCandidate } from "../domain/card";
 import { copyRecallCard, MAX_RECALL_CARDS } from "../domain/card";
 import { createRecallCandidate, isRecallId, isRecallPath } from "../domain/identity";
@@ -118,18 +119,17 @@ export class RecallStore {
       const cards = { ...this.snapshot.cards };
       const seen = new Set<string>();
       const result = { created: 0, updated: 0, retired: 0 };
-      const anchors = new Map<string, Set<string>>();
-      for (const card of Object.values(cards)) {
-        const keys = anchors.get(card.path) ?? new Set<string>(); keys.add(card.sourceKey); anchors.set(card.path, keys);
-      }
-      for (const input of candidates) {
-        const keys = anchors.get(input.path);
-        if (keys && keys.size !== 1) throw new Error("Ambiguous Recall source.");
-        const candidate = keys ? createRecallCandidate({ ...input, sourceKey: [...keys][0] }) : input;
+      for (const candidate of resolveSources(cards, candidates)) {
         const previous = cards[candidate.id];
         if (previous && (previous.fingerprint !== candidate.fingerprint || previous.path !== candidate.path)) throw new Error("Recall identity collision.");
         if (seen.has(candidate.id)) continue;
         seen.add(candidate.id);
+        // Saved prose edits do not advance observation timestamps or migrate unchanged metadata.
+        if (request.path !== undefined && previous?.state === "active" &&
+            JSON.stringify(previous.studyTags) === JSON.stringify(candidate.studyTags) &&
+            previous.vocabulary?.language === candidate.vocabulary?.language &&
+            previous.vocabulary?.translationLanguage === candidate.vocabulary?.translationLanguage &&
+            previous.vocabulary?.direction === candidate.vocabulary?.direction) continue;
         cards[candidate.id] = { ...candidate, state: "active", firstSeenAt: previous?.firstSeenAt ?? observedAt, lastSeenAt: observedAt,
           schedule: previous?.schedule ?? createInitialSchedule(observedAt) };
         if (previous) result.updated++;
@@ -139,6 +139,10 @@ export class RecallStore {
         for (const card of Object.values(cards)) {
           if (card.state === "active" && (request.path === undefined || card.path === request.path) && !seen.has(card.id)) { cards[card.id] = { ...card, state: "retired" }; result.retired++; }
         }
+      }
+      if (request.path !== undefined && result.created === 0 && result.updated === 0 && result.retired === 0) {
+        await beforeCommit?.(); throwIfAborted(signal);
+        return result;
       }
       await this.persist({ ...this.snapshot, updatedAt: observedAt, cards,
         ...(complete && request.path === undefined ? { inventoryCompletedAt: observedAt } : {}) }, { beforeCommit, signal });
@@ -179,4 +183,36 @@ export class RecallStore {
     this.tail = result.then(() => undefined, () => undefined);
     return result;
   }
+}
+
+/** Keep existing card identities; only new entries need an exclusively owned source anchor. */
+function resolveSources(cards: Record<string, RecallCard>, candidates: readonly RecallCardCandidate[]): RecallCardCandidate[] {
+  const anchors = new Map<string, Set<string>>(), owners = new Map<string, Set<string>>();
+  const reserved = new Set(candidates.map(card => card.path));
+  for (const card of Object.values(cards)) {
+    const keys = anchors.get(card.path) ?? new Set<string>(); keys.add(card.sourceKey); anchors.set(card.path, keys);
+    const paths = owners.get(card.sourceKey) ?? new Set<string>(); paths.add(card.path); owners.set(card.sourceKey, paths);
+    reserved.add(card.path); reserved.add(card.sourceKey);
+  }
+  const allocated = new Map<string, string>();
+  return candidates.map(input => {
+    const keys = [...(anchors.get(input.path) ?? [])];
+    const exclusive = keys.filter(key => owners.get(key)!.size === 1);
+    // A pre-fix v4 source can share one legacy anchor; do not guess among unrelated histories.
+    if (exclusive.length > 1 || keys.length > 2) throw new Error("Ambiguous Recall source.");
+    const matches = keys.map(sourceKey => createRecallCandidate({ ...input, sourceKey }))
+      .filter(card => cards[card.id]?.path === input.path && cards[card.id].fingerprint === card.fingerprint);
+    if (matches.length > 1) throw new Error("Ambiguous Recall source.");
+    if (matches.length === 1) return matches[0];
+    let sourceKey = allocated.get(input.path) ?? exclusive[0];
+    if (sourceKey === undefined) {
+      if (!owners.has(input.path)) sourceKey = input.path;
+      else {
+        let suffix = 1;
+        do { sourceKey = `.recall-source/${stableHash(input.path)}/${suffix++}.md`; } while (reserved.has(sourceKey));
+      }
+      allocated.set(input.path, sourceKey); reserved.add(sourceKey);
+    }
+    return createRecallCandidate({ ...input, sourceKey });
+  });
 }

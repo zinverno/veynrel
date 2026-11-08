@@ -108,6 +108,27 @@ try {
   await ev("app.vault.process(app.vault.getFileByPath('Moved Words.md'),s=>s.replace('recall-direction: forward','recall-direction: both'))"); await pause(750);
   await pass('Re-enabling reverse restores exact histories', "JSON.stringify(recall.service.listCards({path:'Moved Words.md'}).map(c=>[c.id,c.schedule]))===JSON.stringify(wordHistory)");
   fs.writeFileSync(`${root}/word-history.json`, JSON.stringify(await ev('wordHistory')));
+  await ev(`app.vault.create('Words.md',${JSON.stringify(originals['Words.md'])}).then(()=>undefined)`); await pause(700);
+  assert.equal(await ev("recall.refreshNote('Words.md')"), 'updated', 'Reused path must import independently');
+  await pass('A new dictionary on the renamed source path imports independent cards', "recall.service.listCards({path:'Words.md',state:'active'}).length===4 && recall.service.listCards({path:'Words.md'}).every(c=>c.schedule.reviewCount===0 && !wordHistory.some(([id])=>id===c.id))");
+  await ev("recall.setScope({kind:'vocabulary',path:'Words.md'});recall.startSession()"); await click('recall-reveal'); await click('recall-easy');
+  await wait('!recall.getSnapshot().reviewSaving && recall.getSnapshot().session.reviewed===1'); await ev('recall.endSession();void 0');
+  assert.deepEqual(await ev("recall.service.listCards({path:'Moved Words.md'}).map(c=>[c.id,c.schedule])"), await ev('wordHistory'));
+  await pass('Reviewing the reused path leaves the moved dictionary history unchanged', "recall.service.listCards({path:'Words.md'}).filter(c=>c.schedule.reviewCount===1).length===1");
+  fs.writeFileSync(`${root}/reused-word-history.json`, JSON.stringify(await ev("recall.service.listCards({path:'Words.md'}).map(c=>[c.id,c.schedule])")));
+  await ev("app.vault.rename(app.vault.getFileByPath('Words.md'),'Reused Words.md')"); await pause(700);
+  await ev("app.vault.rename(app.vault.getFileByPath('Moved Words.md'),'Words.md')"); await pause(700);
+  assert.deepEqual(await ev("recall.service.listCards({path:'Words.md'}).map(c=>[c.id,c.schedule])"), await ev('wordHistory'));
+  await ev("app.vault.rename(app.vault.getFileByPath('Words.md'),'Moved Words.md')"); await pause(700);
+  await ev('recall.refreshCards()');
+  await pass('Full refresh and repeated moves retain both independent dictionaries', "recall.getSnapshot().inventoryResult.committed && recall.service.listCards().filter(c=>['Moved Words.md','Reused Words.md'].includes(c.path)&&c.state==='active').length===8");
+  await ev("app.vault.create('Plain.md','Only prose.').then(()=>undefined)"); await pause(700);
+  await ev("window.recallWrites=0;window.originalWrite=app.vault.adapter.write;app.vault.adapter.write=async function(path,...args){if(path.endsWith('/recall/cards.json'))recallWrites++;return originalWrite.call(this,path,...args)};void 0");
+  const beforeProse = fs.readFileSync(`${pluginDir}/recall/cards.json`, 'utf8');
+  for (let i=0;i<3;i++) { await ev(`app.vault.modify(app.vault.getFileByPath('Plain.md'),'Only prose ${i}.')`); await pause(700); }
+  await pass('Three saved prose edits issue zero cards.json writes in native Obsidian', 'recallWrites===0');
+  assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`, 'utf8'), beforeProse);
+  await ev('app.vault.adapter.write=originalWrite;void 0');
   await openNote('Study EN.md'); mode = 'length'; const original = await ev('editor.getValue()'); await ev('author.generateForNote(md.file)');
   assert.equal(await ev('editor.getValue()'), original); await pass('Length completion makes no insertion', "author.getSnapshot().result?.status==='error'"); mode = 'normal';
   mode = 'malformed'; await ev('author.generateForNote(md.file)');
@@ -132,6 +153,8 @@ try {
   child = start(); await connect(); await ev('recall.initialize()');
   assert.deepEqual(await ev("recall.service.listCards({path:'Moved Words.md'}).map(c=>[c.id,c.schedule])"), JSON.parse(fs.readFileSync(`${root}/word-history.json`)));
   await pass('Full Obsidian process restart preserves vocabulary history and prompt', "plugin.settings.recallPrompt==='CUSTOM RECALL INSTRUCTION'");
+  assert.deepEqual(await ev("recall.service.listCards({path:'Reused Words.md'}).map(c=>[c.id,c.schedule])"), JSON.parse(fs.readFileSync(`${root}/reused-word-history.json`)));
+  await pass('Reused-path dictionary history survives full process restart independently', "recall.service.listCards({path:'Reused Words.md',state:'active'}).length===4");
   await openRecall(); await ev("recall.setScope({kind:'vocabulary',tag:'flashcards/languages/en'});void 0");
   await ev("for(const type of ['markdown','empty'])for(const leaf of app.workspace.getLeavesOfType(type))leaf.detach();app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0");
   for (const language of ['en', 'ru']) {

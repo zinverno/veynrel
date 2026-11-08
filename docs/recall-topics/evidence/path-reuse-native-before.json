@@ -1,0 +1,28 @@
+{
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "artifacts": {
+    "main.js": "57a677fdb2cd794c1b7139dd44f8f91a73d40d8a0e4cf43350defeb643e0eb2b",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1",
+    "styles.css": "4cb735511f12b3f964f4aeb93da65dcbf4c71b584b8ddb74e6924c6ab78f1acb"
+  },
+  "checks": [
+    "RU generation uses the captured editor and admits two questions",
+    "One native Ctrl+Z removes generation and preserves earlier manual typing",
+    "Native Ctrl+Shift+Z restores the identical block and active cards",
+    "A later manual edit has its own Undo step",
+    "Existing command appends EN questions through the same generator",
+    "Vocabulary imports locally with two independent directions",
+    "Parent scope excludes db2 from counters and question",
+    "Native rating key 3 commits one review in the selected topic",
+    "Vocabulary hides translation until reveal and shows language direction",
+    "Rename, reorder and retag preserve IDs and schedules",
+    "Disabling reverse direction retires its cards without deleting progress",
+    "Re-enabling reverse restores exact histories"
+  ],
+  "passed": false,
+  "error": "AssertionError [ERR_ASSERTION]: Reused path must import independently\n+ actual - expected\n\n+ 'failed'\n- 'updated'\n",
+  "exceptions": []
+}
