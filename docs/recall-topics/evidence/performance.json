@@ -1,0 +1,17 @@
+{
+  "cards": 10000,
+  "matching": 5000,
+  "queries": 100,
+  "coldSummaryMs": 27.136112000000026,
+  "combinedQueryMedianMs": 6.61875299999997,
+  "combinedQueryP95Ms": 8.698049999999967,
+  "combinedQueryMaxMs": 11.475659000000007,
+  "serializedBytes": 6532647,
+  "additionalSourceReads": 0,
+  "environment": {
+    "node": "v24.14.1",
+    "platform": "linux"
+  },
+  "scope": "summary + nextDue + facets + queue limit 100",
+  "note": "Local synthetic timing, not a mobile or end-to-end rendering benchmark"
+}

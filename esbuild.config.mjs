@@ -10,7 +10,7 @@ async function main() {
     tsconfig: 'tsconfig.json',
     bundle: true,
     metafile: true,
-    external: ['obsidian'],
+    external: ['obsidian', '@codemirror/commands'],
     keepNames: true,
     minifyWhitespace: production,
     minifySyntax: production,
@@ -25,7 +25,7 @@ async function main() {
     },
   });
   const output = result.metafile.outputs['main.js'];
-  assert(output.imports.every(({ path }) => path === 'obsidian'), 'Unexpected plugin runtime dependency');
+  assert(output.imports.every(({ path }) => ['obsidian', '@codemirror/commands'].includes(path)), 'Unexpected plugin runtime dependency');
   for (const [path, { bytesInOutput }] of Object.entries(output.inputs)) {
     if (!bytesInOutput) continue;
     assert(!path.startsWith('companion/') && !path.startsWith('../'), `Server code in plugin bundle: ${path}`);

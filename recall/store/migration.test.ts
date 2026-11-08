@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { candidate, memoryStorage, request, signal } from "../testSupport";
+import { candidate, legacyCandidate, memoryStorage, request, signal } from "../testSupport";
 import { createInitialSchedule, rateSchedule } from "../scheduler/fsrs6";
 import type { RecallSchedule } from "../scheduler/types";
 import type { RecallCardsSnapshot } from "./types";
@@ -9,7 +9,7 @@ import { RecallService } from "../services/recallService";
 import { ObsidianRecallSource } from "../source/obsidianRecallSource";
 
 function v1() {
-  const active = candidate(), retired = candidate("Old");
+  const active = legacyCandidate(), retired = legacyCandidate("Old");
   return { version: 1, updatedAt: 100, cards: {
     [active.id]: { ...active, firstSeenAt: 40, lastSeenAt: 100, state: "active" },
     [retired.id]: { ...retired, firstSeenAt: 20, lastSeenAt: 80, state: "retired" },
@@ -18,24 +18,24 @@ function v1() {
 
 function snapshot(): RecallCardsSnapshot {
   const card = candidate();
-  return { version: 3, updatedAt: 100, cards: { [card.id]: { ...card, firstSeenAt: 40, lastSeenAt: 100,
+  return { version: 4, updatedAt: 100, cards: { [card.id]: { ...card, firstSeenAt: 40, lastSeenAt: 100,
     state: "active", schedule: rateSchedule(createInitialSchedule(40), "easy", 50).schedule } } };
 }
 
-describe("Recall v1 to v3 read-only migration", () => {
-  it.each(["review", "inventory", "targeted"])("loads original v1 cards without IO beyond metadata; next %s writes v3", async (mutation) => {
+describe("Recall v1 to v4 read-only migration", () => {
+  it.each(["review", "inventory", "targeted"])("loads original v1 cards without IO beyond metadata; next %s writes v4", async (mutation) => {
     const raw = JSON.stringify(v1()), storage = memoryStorage(raw), store = new RecallStore(storage);
     expect(await store.load()).toEqual({ status: "loaded", writable: true });
     expect(storage.read).toHaveBeenCalledTimes(1); expect(storage.write).not.toHaveBeenCalled(); expect(storage.bytes()).toBe(raw);
-    expect(decodeRecall(raw).data).toMatchObject({ version: 3 });
+    expect(decodeRecall(raw).data).toMatchObject({ version: 4 });
     expect(decodeRecall(raw).data).not.toHaveProperty("inventoryCompletedAt"); expect(store.hasFullInventory()).toBe(false);
     for (const original of Object.values(v1().cards)) {
-      expect(store.getCard(original.id)).toEqual({ ...original, schedule: createInitialSchedule(original.firstSeenAt) });
+      expect(store.getCard(original.id)).toEqual({ ...original, kind: "study", studyTags: [], sourceKey: original.path, schedule: createInitialSchedule(original.firstSeenAt) });
     }
     if (mutation === "review") await store.reviewCard(candidate().id, "good", 200);
     else if (mutation === "targeted") await store.admit([candidate()], 200);
     else await store.reconcile(request([candidate()], 200));
-    expect(JSON.parse(storage.bytes()!) as unknown).toMatchObject({ version: 3 });
+    expect(JSON.parse(storage.bytes()!) as unknown).toMatchObject({ version: 4 });
     expect(store.hasFullInventory()).toBe(mutation === "inventory");
     const restarted = new RecallStore(storage); expect(await restarted.load()).toEqual({ status: "loaded", writable: true });
     expect(restarted.listCards()).toEqual(store.listCards());
@@ -56,7 +56,7 @@ describe("Recall v1 to v3 read-only migration", () => {
     for (const change of [{ lastSeenAt: 101 }, { firstSeenAt: -1 }, { id: "wrong" }, { schedule: {} }, { state: "review" }]) {
       expect(decodeRecall(JSON.stringify({ ...legacy, cards: { [candidate().id]: { ...legacy.cards[candidate().id], ...change } } })).status).toBe("invalid");
     }
-    expect(decodeRecall('{"version":1,"updatedAt":100,"cards":{}}')).toEqual({ status: "loaded", data: { version: 3, updatedAt: 100, cards: {} } });
+    expect(decodeRecall('{"version":1,"updatedAt":100,"cards":{}}')).toEqual({ status: "loaded", data: { version: 4, updatedAt: 100, cards: {} } });
     expect(decodeRecall(JSON.stringify({ ...legacy, extra: true })).status).toBe("invalid");
     expect(decodeRecall(JSON.stringify({ ...legacy, inventoryCompletedAt: 100 })).status).toBe("invalid");
   });

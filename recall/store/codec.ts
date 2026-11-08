@@ -1,6 +1,7 @@
+import { createRecallCandidate } from "../domain/identity";
 import { hasOnlyKeys, isRecord, isTimestamp } from "../../health/domain/validation";
 import { MAX_RECALL_CARDS } from "../domain/card";
-import { isRecallCard, isRecallCardV1 } from "../domain/validation";
+import { isRecallCard, isRecallCardLegacy, isRecallCardV1 } from "../domain/validation";
 import { createInitialSchedule } from "../scheduler/fsrs6";
 import { VEYNREL_RECALL_SCHEDULER } from "../scheduler/policy";
 import { MAX_RECALL_STORAGE_LENGTH, RECALL_SCHEMA_VERSION } from "./types";
@@ -26,13 +27,17 @@ export function decodeRecall(raw: string | null): { status: RecallLoadStatus; da
     return { status: "unsupported" };
   }
   if (isRecord(value) && value.version === 1) return migrateV1(value);
-  if (isRecord(value) && (value.version === 2 || value.version === RECALL_SCHEMA_VERSION) && isRecord(value.cards) && Object.keys(value.cards).length <= MAX_RECALL_CARDS &&
+  if (isRecord(value) && (value.version === 2 || value.version === 3 || value.version === RECALL_SCHEMA_VERSION) && isRecord(value.cards) && Object.keys(value.cards).length <= MAX_RECALL_CARDS &&
       Object.values(value.cards).some((card) => isRecord(card) && isRecord(card.schedule) && unsupportedScheduler(card.schedule))) {
     return { status: "unsupported" };
   }
   // Both canonical v2 and PR #44's transitional v2 use the same strict fields as v3.
   // Change only the version in memory; keep every card, schedule and optional coverage marker.
-  if (isRecord(value) && value.version === 2) value = { ...value, version: RECALL_SCHEMA_VERSION };
+  if (isRecord(value) && (value.version === 2 || value.version === 3)) {
+    if (!isRecord(value.cards) || !Object.values(value.cards).every(isRecallCardLegacy)) return { status: "invalid" };
+    value = { ...value, version: RECALL_SCHEMA_VERSION, cards: Object.fromEntries(Object.entries(value.cards).map(([id, card]) =>
+      [id, { ...(card as import("../domain/card").RecallCard), ...createRecallCandidate(card as import("../domain/card").RecallCard) }])) };
+  }
   return isRecallSnapshot(value) ? { status: "loaded", data: value } : { status: "invalid" };
 }
 
@@ -48,7 +53,7 @@ function migrateV1(value: Record<string, unknown>): ReturnType<typeof decodeReca
   const cards: RecallCardsSnapshot["cards"] = {};
   for (const [id, card] of Object.entries(value.cards)) {
     if (!isRecallCardV1(card) || id !== card.id || card.lastSeenAt > value.updatedAt) return { status: "invalid" };
-    cards[id] = { ...card, schedule: createInitialSchedule(card.firstSeenAt) };
+    cards[id] = { ...card, ...createRecallCandidate(card), schedule: createInitialSchedule(card.firstSeenAt) };
   }
   return { status: "loaded", data: { version: RECALL_SCHEMA_VERSION, updatedAt: value.updatedAt, cards } };
 }

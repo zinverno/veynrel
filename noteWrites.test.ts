@@ -26,6 +26,23 @@ function fixture(path = "folder/note.md") {
 }
 
 describe("AI note writes", () => {
+  it.each(["backup", "process"])("rechecks caller eligibility after asynchronous %s work", async (stage) => {
+    const f = fixture();
+    let eligible = true;
+    const guard = () => { if (!eligible) throw new Error("No longer eligible"); };
+    if (stage === "backup") f.adapter.write.mockImplementationOnce(async (path, content) => {
+      f.disk.set(path, content); eligible = false;
+    });
+    else f.vault.process.mockImplementationOnce(async (_file, transform) => {
+      eligible = false;
+      return transform("original");
+    });
+    await expect(backupAndReplaceNote(f.vault, f.file, f.file.path, "original", "AI", ".backup", guard))
+      .rejects.toThrow("No longer eligible");
+    expect(f.disk.get(f.file.path)).toBe("original");
+    expect(f.disk.get(".backup/folder/note.md")).toBe("original");
+  });
+
   it("commits once and preserves separate backups for duplicate basenames", async () => {
     const a = fixture("a/note.md");
     const b = { path: "b/note.md" } as TFile;

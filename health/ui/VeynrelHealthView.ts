@@ -1,3 +1,4 @@
+import { Notice } from "obsidian";
 import { ReviewListView } from "../workbench/reviewListView";
 import { WorkbenchView } from "../workbench/workbenchView";
 import type { WorkbenchData, PairReviewPort } from "../workbench/workbenchData";
@@ -386,7 +387,8 @@ export class VeynrelHealthView extends ItemView {
     } else if (recall && this.recall) {
       const port = this.recall;
       this.cleanupRecall = renderRecall(surface, recall, {
-        refresh: () => { void port.refreshCards(); }, start: () => { this.authoring?.cancelConfirmation(); port.startSession(); }, reveal: () => port.revealAnswer(),
+        scope: scope => port.setScope?.(scope),
+        refresh: () => { void port.refreshCards(); }, start: () => { this.authoring?.cancelConfirmation(); void port.startSession(); }, reveal: () => port.revealAnswer(),
         rate: (rating) => { void port.rate(rating); }, back: () => port.endSession(), source: () => { void port.openSourceNote(); },
         retry: () => { void port.retryLoad(); }, recover: () => port.requestRecovery(), cancelRecovery: () => port.cancelRecovery(),
         confirmRecovery: () => { void port.recoverStorage(); },
@@ -394,6 +396,8 @@ export class VeynrelHealthView extends ItemView {
       if (authoring && this.authoring && recall.mode !== "confirm" && recall.mode !== "loading") {
         const author = this.authoring;
         renderRecallAuthoring(surface, authoring, {
+          configureOptions: options => author.configure?.(options),
+          savePrompt: prompt => { void author.savePrompt?.(prompt).then(() => this.render()).catch(() => { new Notice(t("@recall.authoring.invalid-options")); }); },
           request: () => { this.focusDestination = "recall-authoring"; author.requestGeneration(); },
           generate: () => { void author.generate(); }, cancel: () => author.cancelConfirmation(),
           configure: () => this.navigate({ page: "settings" }),

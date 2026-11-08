@@ -1,8 +1,11 @@
+import { createRecallCandidate } from "../domain/identity";
+import { matchesRecallScope } from "../domain/topics";
+import type { RecallScope } from "../domain/topics";
 import { compareStrings, isTimestamp } from "../../health/domain/validation";
 import { throwIfAborted } from "../cancellation";
 import { RecallDiagnostics } from "../diagnostics";
 import type { RecallCardCandidate, RecallDiagnostic } from "../domain/card";
-import { MAX_RECALL_CARDS } from "../domain/card";
+import { copyRecallCard, MAX_RECALL_CARDS } from "../domain/card";
 import { isRecallCandidate } from "../domain/validation";
 import { getRetrievability, previewRatings } from "../scheduler/fsrs6";
 import type { RecallRating } from "../scheduler/types";
@@ -35,6 +38,26 @@ class RecallFreshnessError extends Error {
 export class RecallService {
   private readonly store: RecallStore;
   private running = false;
+  private cachedRevision = -1;
+  private active: ReturnType<RecallStore["listCards"]> = [];
+  private facets = { tags: [] as string[], languages: [] as string[], paths: [] as string[] };
+
+  private activeCards() {
+    if (this.cachedRevision !== this.store.getRevision()) {
+      this.active = this.store.listCards({ state: "active" }); this.cachedRevision = this.store.getRevision();
+      const tags = new Map<string, string>();
+      for (const card of this.active) for (const tag of card.studyTags) {
+        const parts = tag.split("/");
+        for (let i = 1; i <= parts.length; i++) { const parent = parts.slice(0, i).join("/"); tags.set(parent.toLowerCase(), parent); }
+      }
+      this.facets = { tags: [...tags.values()].sort(),
+        languages: [...new Set(this.active.flatMap(card => card.vocabulary ? [card.vocabulary.language] : []))].sort(),
+        paths: [...new Set(this.active.filter(card => card.kind === "vocabulary").map(card => card.path))].sort() };
+    }
+    return this.active;
+  }
+  getFacets() { this.activeCards(); return { tags: [...this.facets.tags], languages: [...this.facets.languages], paths: [...this.facets.paths] }; }
+  getActiveCount() { return this.activeCards().length; }
 
   constructor(storage: RecallStoragePort, private readonly source: RecallSource, private readonly clock: () => number = () => Date.now()) {
     this.store = new RecallStore(storage);
@@ -46,28 +69,41 @@ export class RecallService {
   getCard(id: string) { return this.store.getCard(id); }
   hasFullInventory(): boolean { return this.store.hasFullInventory(); }
 
-  /** Explicit post-write admission through the same serialized store; never retire absence. */
-  async refreshNote(path: string, signal: AbortSignal = new AbortController().signal): Promise<void> {
+  /** Reconcile this note only; retirement requires a complete, fresh snapshot. */
+  async refreshNote(path: string, signal: AbortSignal = new AbortController().signal) {
     throwIfAborted(signal);
     const load = this.store.getLoadResult();
     if (!load.writable) throw new RecallStorageBlockedError(load.status);
     const note = await this.source.captureNote(path, signal);
-    await this.store.admit(note.cards, this.clock(), { signal, beforeCommit: async () => {
+    await this.store.reconcileNote(path, note.cards, note.complete !== false, this.clock(), { signal, beforeCommit: async () => {
       if (!note.isCurrent()) throw new RecallFreshnessError("stale-inventory");
     } });
+    return note.diagnostics;
   }
 
-  getNextDueAt(): number | undefined {
-    const cards = this.store.listCards({ state: "active" });
-    return cards.length ? cards.reduce((earliest, card) => Math.min(earliest, card.schedule.dueAt), Infinity) : undefined;
+  renameNote(oldPath: string, path: string) { return this.store.renameNote(oldPath, path); }
+
+  /** Capture again before presentation/review; a dirty or divergent editor blocks disk-based grading. */
+  async verifyCard(id: string, signal: AbortSignal = new AbortController().signal, scope: RecallScope = {}): Promise<() => Promise<void>> {
+    const card = this.requireCard(id);
+    const note = await this.source.captureNote(card.path, signal);
+    if (card.state !== "active" || !note.isCurrent() || !note.cards.some(candidate =>
+      createRecallCandidate({ ...candidate, sourceKey: card.sourceKey }).id === id && matchesRecallScope(candidate, scope))) throw new RecallFreshnessError("stale-inventory");
+    return async () => { if (!note.isCurrent()) throw new RecallFreshnessError("stale-inventory"); };
+  }
+
+  getNextDueAt(scope: RecallScope = {}): number | undefined {
+    let next: number | undefined;
+    for (const card of this.activeCards()) if (matchesRecallScope(card, scope) && (next === undefined || card.schedule.dueAt < next)) next = card.schedule.dueAt;
+    return next;
   }
 
   /** No daily limits yet. The inventory/storage bound also bounds an unpaginated queue. */
-  listDue(at: number, limit = MAX_RECALL_CARDS) {
+  listDue(at: number, limit = MAX_RECALL_CARDS, scope: RecallScope = {}) {
     this.validateQueryTime(at);
     if (!Number.isSafeInteger(limit) || limit < 0 || limit > MAX_RECALL_CARDS) throw new Error("Invalid Recall queue limit.");
-    return this.store.listCards({ state: "active" }).filter((card) => card.schedule.dueAt <= at)
-      .sort((a, b) => a.schedule.dueAt - b.schedule.dueAt || compareStrings(a.id, b.id)).slice(0, limit);
+    return this.activeCards().filter((card) => matchesRecallScope(card, scope) && card.schedule.dueAt <= at)
+      .sort((a, b) => a.schedule.dueAt - b.schedule.dueAt || compareStrings(a.id, b.id)).slice(0, limit).map(copyRecallCard);
   }
 
   previewCard(id: string, at: number) {
@@ -76,15 +112,16 @@ export class RecallService {
     return previewRatings(card.schedule, at);
   }
 
-  reviewCard(id: string, rating: RecallRating, reviewedAt: number) { return this.store.reviewCard(id, rating, reviewedAt); }
+  reviewCard(id: string, rating: RecallRating, reviewedAt: number, beforeCommit?: () => Promise<void>) { return this.store.reviewCard(id, rating, reviewedAt, { beforeCommit }); }
 
   getRetrievability(id: string, at: number) { return getRetrievability(this.requireCard(id).schedule, at); }
 
   /** New is a subset of Learning; phase counts include all active cards in that phase. */
-  getSummary(at: number) {
+  getSummary(at: number, scope: RecallScope = {}) {
     this.validateQueryTime(at);
     const summary = { active: 0, due: 0, new: 0, learning: 0, review: 0, relearning: 0 };
-    for (const card of this.store.listCards({ state: "active" })) {
+    for (const card of this.activeCards()) {
+      if (!matchesRecallScope(card, scope)) continue;
       summary.active++;
       summary[card.schedule.phase]++;
       if (card.schedule.reviewCount === 0) summary.new++;

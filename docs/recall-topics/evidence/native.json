@@ -1,0 +1,55 @@
+{
+  "checks": [
+    "RU generation uses the captured editor and admits two questions",
+    "One native Ctrl+Z removes generation and preserves earlier manual typing",
+    "Native Ctrl+Shift+Z restores the identical block and active cards",
+    "A later manual edit has its own Undo step",
+    "Existing command appends EN questions through the same generator",
+    "Vocabulary imports locally with two independent directions",
+    "Parent scope excludes db2 from counters and question",
+    "Native rating key 3 commits one review in the selected topic",
+    "Vocabulary hides translation until reveal and shows language direction",
+    "Rename, reorder and retag preserve IDs and schedules",
+    "Disabling reverse direction retires its cards without deleting progress",
+    "Re-enabling reverse restores exact histories",
+    "Length completion makes no insertion",
+    "Malformed output makes no insertion and no repair request",
+    "Source edits while the model waits are preserved and block generation apply",
+    "Long input is rejected before transport",
+    "Explicit selection bounds long-note generation",
+    "Owner restart preserves prompt and exact vocabulary schedules",
+    "Full Obsidian process restart preserves vocabulary history and prompt",
+    "en/light/320: localized Recall without horizontal overflow",
+    "en/light/390: localized Recall without horizontal overflow",
+    "en/light/1280: localized Recall without horizontal overflow",
+    "en/dark/320: localized Recall without horizontal overflow",
+    "en/dark/390: localized Recall without horizontal overflow",
+    "en/dark/1280: localized Recall without horizontal overflow",
+    "ru/light/320: localized Recall without horizontal overflow",
+    "ru/light/390: localized Recall without horizontal overflow",
+    "ru/light/1280: localized Recall without horizontal overflow",
+    "ru/dark/320: localized Recall without horizontal overflow",
+    "ru/dark/390: localized Recall without horizontal overflow",
+    "ru/dark/1280: localized Recall without horizontal overflow"
+  ],
+  "screenshots": [
+    "ru-generated.png",
+    "vocabulary-question.png",
+    "recall-ru-dark-320.png",
+    "recall-en-light-1280.png"
+  ],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "artifacts": {
+    "main.js": "57a677fdb2cd794c1b7139dd44f8f91a73d40d8a0e4cf43350defeb643e0eb2b",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1",
+    "styles.css": "4cb735511f12b3f964f4aeb93da65dcbf4c71b584b8ddb74e6924c6ab78f1acb"
+  },
+  "modelQuality": "NOT TESTED: synthetic transport",
+  "limits": "Linux desktop only; no physical mobile, screen reader, custom theme or offline/Sync rename inference.",
+  "exceptions": [],
+  "providerRequests": 6,
+  "passed": true
+}

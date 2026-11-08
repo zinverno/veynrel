@@ -20,7 +20,7 @@ describe("Recall Obsidian read source", () => {
     expect(note.isCurrent()).toBe(true); f.files[1].stat.mtime++; expect(note.isCurrent()).toBe(false);
   });
 
-  it.each(["../A.md", "/A.md", "A.canvas", ".custom/A.md", "Nested/.ai-backup-123/A.md", "Missing.md"])("never reads inadmissible targeted source %s", async (path) => {
+  it.each(["../A.md", "/A.md", "A.canvas", ".custom/A.md", "Nested/.ai-backup-123/A.md"])("never reads inadmissible targeted source %s", async (path) => {
     const f = fixture(["A.md"]);
     await expect(f.source.captureNote(path, signal())).rejects.toThrow("unavailable");
     expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();

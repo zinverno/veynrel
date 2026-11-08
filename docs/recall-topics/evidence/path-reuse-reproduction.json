@@ -1,0 +1,66 @@
+{
+  "before": {
+    "head": "871ed577fa06a7aa797c6ff96078b82878e58673",
+    "method": "Actual CI bundle, isolated VM; Obsidian host mocked, storage in-memory, real bundled store/identity/scheduler code",
+    "pathReuse": {
+      "originalId": "recall-c320cd9c90875339",
+      "originalSourceKey": "Words.md",
+      "originalPath": "Archive/Words.md",
+      "newCandidateId": "recall-c320cd9c90875339",
+      "error": "Recall identity collision.",
+      "originalSchedulePreserved": true,
+      "activeCards": 1,
+      "fullInventoryError": "Recall identity collision."
+    },
+    "emptyNoteRefresh": {
+      "edits": 3,
+      "metadataWrites": 3,
+      "cards": 0
+    },
+    "proseWithExistingCards": {
+      "existingActiveCards": 1000,
+      "refreshes": 3,
+      "metadataWrites": 3,
+      "bytesWrittenDuringRefresh": 1816947,
+      "initialSnapshotBytes": 605649
+    },
+    "automaticProseEdits": {
+      "savedEdits": 3,
+      "metadataWrites": 3,
+      "active": 0,
+      "paths": [
+        ".obsidian/plugins/ai-knowledge-hub/recall/cards.json"
+      ]
+    }
+  },
+  "after": {
+    "base": "871ed577fa06a7aa797c6ff96078b82878e58673",
+    "method": "Followup production TypeScript bundled with esbuild; same reproducer, mocked Obsidian host and in-memory storage; not a disk/native benchmark",
+    "pathReuse": {
+      "originalId": "recall-c320cd9c90875339",
+      "originalSourceKey": "Words.md",
+      "originalPath": "Archive/Words.md",
+      "newCandidateId": "recall-c320cd9c90875339",
+      "originalSchedulePreserved": true,
+      "activeCards": 2
+    },
+    "emptyNoteRefresh": {
+      "edits": 3,
+      "metadataWrites": 0,
+      "cards": 0
+    },
+    "proseWithExistingCards": {
+      "existingActiveCards": 1000,
+      "refreshes": 3,
+      "metadataWrites": 0,
+      "bytesWrittenDuringRefresh": 0,
+      "initialSnapshotBytes": 605649
+    },
+    "automaticProseEdits": {
+      "savedEdits": 3,
+      "metadataWrites": 0,
+      "active": 0,
+      "paths": []
+    }
+  }
+}

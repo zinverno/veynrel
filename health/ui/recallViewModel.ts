@@ -23,13 +23,14 @@ export function recallViewModel(snapshot: RecallProductSnapshot) {
     : snapshot.recovering ? t("@recall.recovering") : snapshot.reviewSaving ? t("@recall.saving")
     : snapshot.refreshing ? t("@recall.scanning") : session?.complete ? t("@recall.caught-up")
     : session?.revealed ? t("@recall.answer-revealed") : snapshot.inventoryResult
-      ? snapshot.inventoryResult.complete && snapshot.inventoryResult.committed ? t("@recall.found", { n: snapshot.inventoryResult.active })
+      ? snapshot.inventoryResult.complete && snapshot.inventoryResult.committed ? t("@recall.found", { n: snapshot.summary?.active ?? 0 })
         : t("@recall.incomplete") : undefined;
   return {
+    sourceIssue: snapshot.sourceIssue, scope: snapshot.scope, facets: snapshot.facets,
     mode, busy, status, error: Boolean(snapshot.error), title: t("@recall.title"), introduction: t("@recall.introduction"),
     retry: snapshot.loadState === "unavailable", canRecover: snapshot.canRecover,
     recoveryTitle: t(snapshot.loadState === "unavailable" ? "@recall.unavailable" : "@recall.recovery-title"),
-    emptyTitle: t(snapshot.inventoryResult?.complete && snapshot.inventoryResult.committed ? "@recall.empty" : "@recall.no-active"),
+    emptyTitle: snapshot.totalActive && !snapshot.summary?.active ? t("@recall.topics.no-match") : t(snapshot.inventoryResult?.complete && snapshot.inventoryResult.committed ? "@recall.empty" : "@recall.no-active"),
     start: Boolean(snapshot.summary?.due),
     inventoryEstablished: snapshot.inventoryEstablished,
     stats: snapshot.summary ? [

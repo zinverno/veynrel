@@ -3350,3 +3350,9 @@
 }
 :is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta:hover:not(:disabled) { background: var(--interactive-hover); color: var(--text-normal); }
 :is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta:focus { outline: 2px solid var(--text-normal); outline-offset: 3px; }
+
+.veynrel-recall-filters { display: flex; flex-wrap: wrap; gap: var(--size-4-2); margin-block: var(--size-4-3); }
+.veynrel-recall-filters label { display: flex; flex: 1 1 150px; flex-direction: column; gap: var(--size-4-1); min-width: 0; }
+.veynrel-recall-filters select, .veynrel-recall-filters input { width: 100%; min-width: 0; }
+.veynrel-recall-authoring textarea { width: 100%; min-height: 6em; margin-block: var(--size-4-2); }
+.veynrel-recall pre { white-space: pre-wrap; overflow-wrap: anywhere; }

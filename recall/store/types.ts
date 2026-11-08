@@ -1,11 +1,13 @@
 import type { RecallCard, RecallCardCandidate } from "../domain/card";
 
-export const RECALL_SCHEMA_VERSION = 3 as const;
+export const RECALL_SCHEMA_VERSION = 4 as const;
 export const MAX_RECALL_STORAGE_LENGTH = 32 * 1024 * 1024;
 
 /** The only file is recall/cards.json. Null means missing; read errors must throw. */
 export interface RecallStoragePort {
   read(): Promise<string | null>;
+  /** Required before rewriting a loaded legacy schema; preserve exact original contents. */
+  backupOriginal?(contents: string): Promise<void>;
   write(contents: string): Promise<void>;
 }
 
@@ -23,6 +25,8 @@ export interface RecallCardFilter { state?: RecallCard["state"]; path?: string }
 export interface RecallReconcileRequest {
   candidates: readonly RecallCardCandidate[];
   complete: boolean;
+  /** Only this fully captured note may retire absent cards. */
+  path?: string;
   observedAt: number;
 }
 export interface RecallReconcileResult { created: number; updated: number; retired: number }

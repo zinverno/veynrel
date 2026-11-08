@@ -2347,6 +2347,8 @@ describe("MVP integrated durable domains", () => {
     h.plugin.app.vault.getMarkdownFiles.mockClear();
     Object.assign(h.plugin.app.vault, { read: h.plugin.app.vault.cachedRead });
     Object.assign(h.plugin.app.metadataCache, { getFileCache: () => ({}), getFirstLinkpathDest: () => null });
+    Object.assign(h.plugin.app.workspace, { on: vi.fn(), offref: vi.fn(), getLeavesOfType: () => [] });
+    Object.assign(h.plugin.app.vault, { offref: vi.fn(), getFileByPath: h.plugin.app.vault.getAbstractFileByPath });
     const app = h.plugin.app as unknown as import("obsidian").App;
     const prefs = preferencesFixture({ profileChosen: true, onboardingCompleted: true });
     const recall = createObsidianRecallProduct(app, "ai-knowledge-hub", async () => true);
@@ -2389,11 +2391,11 @@ describe("MVP integrated durable domains", () => {
     await f.recall.refreshCards(); expect(f.recall.getSnapshot().summary?.active).toBe(1);
     expect(f.bytes(`${pluginRoot}/health/`)).toEqual(healthBytes); expect(f.bytes(BASE_PATH)).toEqual(vectors);
     f.plugin.app.vault.cachedRead.mockClear(); f.plugin.app.vault.getMarkdownFiles.mockClear(); f.write.mockClear();
-    f.recall.startSession(); expect(JSON.stringify(f.recall.getSnapshot())).not.toContain("PRIVATE RECALL ANSWER");
+    await f.recall.startSession(); expect(JSON.stringify(f.recall.getSnapshot())).not.toContain("PRIVATE RECALL ANSWER");
     expect(JSON.stringify(f.health.getState())).not.toContain("PRIVATE RECALL ANSWER");
     f.recall.revealAnswer(); await f.recall.rate("again"); f.recall.endSession();
     expect(f.write.mock.calls.map(([path]) => path)).toEqual([cardsPath]);
-    expect(f.plugin.app.vault.cachedRead).not.toHaveBeenCalled(); expect(embeddingCalls).toEqual([]);
+    expect(f.plugin.app.vault.cachedRead).toHaveBeenCalledTimes(2); expect(embeddingCalls).toEqual([]);
     expect(f.health.getState().snapshot?.dimensions.recall.state).toBe("good");
     expect(f.health.getState().snapshot?.recommendation).toEqual(before.recommendation);
     expect(f.bytes(`${pluginRoot}/health/`)).toEqual(healthBytes); expect(f.bytes(BASE_PATH)).toEqual(vectors); expect(f.bytes(settingsPath)).toEqual(settings);
@@ -2430,7 +2432,7 @@ describe("MVP integrated durable domains", () => {
 
   it("reads supported Health v1 plus Recall v1 alongside an existing semantic index without migration writes", async () => {
     const first = integrated(); await first.controller.indexVault(); await first.dispose(); embeddingCalls = [];
-    const card = recallCandidate();
+    const { kind: _kind, studyTags: _tags, sourceKey: _sourceKey, ...card } = recallCandidate();
     await first.adapter.write(findingsPath, '{"version":1,"updatedAt":0,"findings":{}}');
     await first.adapter.write(historyPath, '{"version":1,"updatedAt":0,"runs":[]}');
     await first.adapter.write(cardsPath, JSON.stringify({ version: 1, updatedAt: 100, cards: { [card.id]: { ...card, state: "active", firstSeenAt: 10, lastSeenAt: 100 } } }));

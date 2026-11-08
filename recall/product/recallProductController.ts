@@ -1,3 +1,6 @@
+import type { RecallScope } from "../domain/topics";
+import { isStudyTag } from "../domain/topics";
+import { isRecallPath } from "../domain/identity";
 import type { RecallCard } from "../domain/card";
 import type { RecallService } from "../services/recallService";
 import { RECALL_RATINGS } from "../scheduler/types";
@@ -13,6 +16,7 @@ interface Session {
 
 /** One plugin-lifetime service owner. View/session state is disposable; issued durable writes are not. */
 export class RecallProductController implements RecallProductPort {
+  private scope: RecallScope = {};
   private service?: RecallService;
   private initializing?: Promise<void>;
   private loadState: RecallProductSnapshot["loadState"] = "uninitialized";
@@ -25,10 +29,13 @@ export class RecallProductController implements RecallProductPort {
   private canRecover = false;
   private confirmingRecovery = false;
   private inventoryResult?: RecallProductSnapshot["inventoryResult"];
+  private sourceIssue?: RecallProductSnapshot["sourceIssue"];
   private error?: RecallProductSnapshot["error"];
   private session?: Session;
   private abort?: AbortController;
   private disposed = false;
+  private readonly cleanup: (() => void)[] = [];
+  addCleanup(cleanup: () => void): void { this.cleanup.push(cleanup); }
   private readonly listeners = new Set<() => void>();
 
   constructor(private readonly createService: () => RecallService, private readonly recovery: RecallRecoveryPort,
@@ -60,13 +67,16 @@ export class RecallProductController implements RecallProductPort {
   getSnapshot(): RecallProductSnapshot {
     const session = this.session;
     const ready = this.loadState === "ready" && this.service;
-    return { loadState: this.loadState, firstRun: this.firstRun, refreshing: this.refreshing, reviewSaving: this.reviewSaving,
+    return { scope: { ...this.scope }, totalActive: ready ? ready.getActiveCount() : 0,
+      facets: ready ? ready.getFacets() : undefined, loadState: this.loadState, firstRun: this.firstRun, refreshing: this.refreshing, reviewSaving: this.reviewSaving,
       inventoryEstablished: Boolean(ready && ready.hasFullInventory()), ingesting: this.ingestions > 0,
       recovering: this.recovering, canRecover: this.canRecover, confirmingRecovery: this.confirmingRecovery,
-      summary: ready ? ready.getSummary(this.clock()) : undefined, nextDueAt: ready ? ready.getNextDueAt() : undefined,
+      summary: ready ? ready.getSummary(this.clock(), this.scope) : undefined, nextDueAt: ready ? ready.getNextDueAt(this.scope) : undefined,
+      globalSummary: ready ? ready.getSummary(this.clock()) : undefined, globalNextDueAt: ready ? ready.getNextDueAt() : undefined,
+      sourceIssue: this.sourceIssue ? { ...this.sourceIssue } : undefined,
       inventoryResult: this.inventoryResult ? { ...this.inventoryResult } : undefined, error: this.error,
-      session: session ? { reviewed: session.reviewed, complete: !session.card, revealed: session.decisionAt !== undefined,
-        card: session.card ? { id: session.card.id, path: session.card.path, question: session.card.question,
+      session: session ? { reviewed: session.reviewed, complete: !session.card && !this.reviewSaving, revealed: session.decisionAt !== undefined,
+        card: session.card ? { id: session.card.id, path: session.card.path, question: session.card.question, vocabulary: session.card.vocabulary ? { ...session.card.vocabulary } : undefined,
           ...(session.decisionAt === undefined ? {} : { answer: session.card.answer }) } : undefined,
         previews: session.previews?.map((preview) => ({ ...preview })) } : undefined };
   }
@@ -79,7 +89,10 @@ export class RecallProductController implements RecallProductPort {
     if (this.disposed || this.recovering || this.loadState !== "ready") return "blocked";
     this.ingestions++; this.notify();
     try {
-      await this.service!.refreshNote(path, this.admissionAbort.signal);
+      const diagnostics = await this.service!.refreshNote(path, this.admissionAbort.signal);
+      const issue = diagnostics?.find(item => ["invalid-vocabulary", "malformed-card", "oversized-card"].includes(item.code));
+      this.sourceIssue = issue ? { path, line: issue.line } : undefined;
+      if (this.session?.card?.path === path) { this.session = undefined; this.error = "source"; }
       await this.updateLoadState();
       return "updated";
     } catch {
@@ -93,6 +106,8 @@ export class RecallProductController implements RecallProductPort {
     this.refreshing = true; this.error = undefined; this.abort = new AbortController(); this.notify();
     try {
       const result = await this.service!.scan(this.abort.signal);
+      const issue = result.diagnostics.find(item => item.path && ["invalid-vocabulary", "malformed-card", "oversized-card"].includes(item.code));
+      this.sourceIssue = issue?.path ? { path: issue.path, line: issue.line } : undefined;
       this.inventoryResult = { complete: result.complete, committed: result.committed, active: this.service!.getSummary(this.clock()).active };
       await this.updateLoadState();
     } catch {
@@ -100,14 +115,39 @@ export class RecallProductController implements RecallProductPort {
     } finally { this.refreshing = false; this.abort = undefined; this.notify(); }
   }
 
-  startSession(): void {
-    if (!this.ready || this.session) return;
-    this.error = undefined; this.session = { reviewed: 0 }; this.selectNext(this.session); this.notify();
+  setScope(scope: RecallScope): void {
+    if (this.busy || this.disposed) return;
+    if ((scope.kind !== undefined && !["study", "vocabulary"].includes(scope.kind)) ||
+        (scope.tag !== undefined && scope.tag !== "" && !isStudyTag(scope.tag)) || (scope.path !== undefined && !isRecallPath(scope.path))) return;
+    this.session = undefined; this.scope = { ...scope }; this.error = undefined; this.notify();
   }
 
-  private selectNext(session: Session): void {
-    session.card = this.service!.listDue(this.clock(), 1)[0];
-    session.decisionAt = undefined; session.previews = undefined;
+  async renameNote(oldPath: string, path: string): Promise<void> {
+    if (!this.service || this.loadState !== "ready" || this.disposed) return;
+    this.session = undefined; this.ingestions++; this.notify();
+    try { await this.service.renameNote(oldPath, path); if (this.scope.path === oldPath) this.scope = { ...this.scope, path }; }
+    catch { this.error = "source"; }
+    finally { this.ingestions--; this.notify(); }
+  }
+
+  sourceChanged(path: string): void {
+    if (this.session?.card?.path === path) { this.session = undefined; this.error = "source"; this.notify(); }
+  }
+
+  async startSession(): Promise<void> {
+    if (!this.ready || this.session) return;
+    this.error = undefined; const session: Session = { reviewed: 0 }; this.session = session;
+    this.reviewSaving = true; this.notify();
+    try { await this.selectNext(session); }
+    catch { if (this.session === session) { this.session = undefined; this.error = "source"; } }
+    finally { this.reviewSaving = false; this.notify(); }
+  }
+
+  private async selectNext(session: Session): Promise<void> {
+    const card = this.service!.listDue(this.clock(), 1, this.scope)[0];
+    if (card) await this.service!.verifyCard(card.id, this.admissionAbort.signal, this.scope);
+    if (this.disposed || this.session !== session) return;
+    session.card = card; session.decisionAt = undefined; session.previews = undefined;
   }
 
   revealAnswer(): void {
@@ -127,13 +167,17 @@ export class RecallProductController implements RecallProductPort {
     if (!this.ready || !session?.card || session.decisionAt === undefined || !RECALL_RATINGS.includes(rating)) return;
     this.reviewSaving = true; this.error = undefined; this.notify();
     let committed = false;
-    try { await this.service!.reviewCard(session.card.id, rating, session.decisionAt); committed = true; }
+    try {
+      const current = await this.service!.verifyCard(session.card.id, this.admissionAbort.signal, this.scope);
+      if (this.disposed || this.session !== session) return;
+      await this.service!.reviewCard(session.card.id, rating, session.decisionAt, current); committed = true;
+    }
     catch { if (this.session === session) this.error = "review"; await this.updateLoadState(); }
     finally {
       // Navigation/close invalidates the object identity, but never cancels an issued write or resurrects its UI.
       if (committed && this.session === session && !this.disposed) {
         session.reviewed++;
-        try { this.selectNext(session); } catch { this.session = undefined; this.error = "session"; }
+        try { await this.selectNext(session); } catch { this.session = undefined; this.error = "session"; }
       }
       this.reviewSaving = false; this.notify();
     }
@@ -178,7 +222,7 @@ export class RecallProductController implements RecallProductPort {
   subscribe(listener: () => void): () => void {
     this.listeners.add(listener); return () => { this.listeners.delete(listener); };
   }
-  dispose(): void { this.disposed = true; this.session = undefined; this.abort?.abort(); this.admissionAbort.abort(); this.listeners.clear(); }
+  dispose(): void { this.disposed = true; this.cleanup.forEach(cleanup => cleanup()); this.session = undefined; this.abort?.abort(); this.admissionAbort.abort(); this.listeners.clear(); }
   private notify(): void {
     if (!this.disposed) for (const listener of [...this.listeners]) { try { listener(); } catch { /* Subscribers cannot fail durable operations. */ } }
   }

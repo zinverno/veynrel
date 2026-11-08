@@ -1,9 +1,13 @@
+import type { RecallScope } from "../../recall/domain/topics";
 import { t } from "../../i18n";
 import type { RecallRating } from "../../recall/scheduler/types";
 import { healthButton } from "./renderHealthHome";
 import type { RecallViewModel } from "./recallViewModel";
 
+const VOCABULARY_TEMPLATE = "---\nveynrel-recall: vocabulary\nrecall-language: en\nrecall-translation-language: ru\nrecall-direction: forward\ntags:\n  - flashcards/languages/en/travel\n---\n\n## Vocabulary\nluggage::багаж\nboarding pass::посадочный талон";
+
 export interface RecallActions {
+  scope?: (scope: RecallScope) => void;
   refresh: () => void; start: () => void; reveal: () => void; rate: (rating: RecallRating) => void;
   back: () => void; source: () => void; retry: () => void;
   recover: () => void; cancelRecovery: () => void; confirmRecovery: () => void;
@@ -32,9 +36,36 @@ export function renderRecall(parent: HTMLElement, model: RecallViewModel, action
     // Preserve the failed card/answer in the surface while its storage is blocked. Ratings cannot run.
     if (!model.session?.card) return () => {};
   }
+  if (model.facets && actions.scope && model.mode !== "recovery") {
+    const filters = section.createDiv({ cls: "veynrel-recall-filters" });
+    const scope = model.scope ?? {};
+    const select = (key: keyof RecallScope, label: string, options: [string, string][]) => {
+      const field = filters.createEl("label", { text: t(label) });
+      const input = field.createEl("select", { attr: { "aria-label": t(label), "data-recall-filter": key } });
+      for (const [value, text] of options) input.createEl("option", { text, value });
+      input.value = scope[key] ?? "*"; input.disabled = model.busy;
+      input.addEventListener("change", () => actions.scope?.({ ...scope,
+        ...(key === "kind" ? { language: undefined, path: undefined } : {}), [key]: input.value === "*" ? undefined : input.value }));
+    };
+    select("kind", "@recall.topics.mode", [["*", t("@recall.topics.all")], ["study", t("@recall.topics.study")], ["vocabulary", t("@recall.topics.vocabulary")]]);
+    select("tag", "@recall.topics.tag", [["*", t("@recall.topics.all")], ["", t("@recall.topics.untagged")], ...model.facets.tags.map(tag => [tag, `#${tag}`] as [string, string])]);
+    if (scope.kind === "vocabulary") {
+      select("language", "@recall.topics.language", [["*", t("@recall.topics.all")], ...model.facets.languages.map(value => [value, value] as [string, string])]);
+      select("path", "@recall.topics.dictionary", [["*", t("@recall.topics.all")], ...model.facets.paths.map(value => [value, value] as [string, string])]);
+      if (!model.session) {
+        const help = section.createEl("details"); help.createEl("summary", { text: t("@recall.topics.template") });
+        help.createEl("p", { text: t("@recall.topics.template-help") });
+        help.createEl("pre").createEl("code").textContent = VOCABULARY_TEMPLATE;
+      }
+    }
+    if (model.session) filters.createEl("p", { text: t("@recall.topics.change-session"), cls: "veynrel-health-muted" });
+  }
+  if (model.sourceIssue) section.createEl("p", { text: `${t("@recall.topics.invalid-source")} ${model.sourceIssue.path}${model.sourceIssue.line ? `:${model.sourceIssue.line}` : ""}`, cls: "veynrel-recall-source", attr: { role: "status" } });
   if (model.session?.card) {
     const session = model.session, card = model.session.card;
     const review = section.createEl("section", { cls: "veynrel-recall-review", attr: { "aria-label": t("@recall.review") } });
+    if (card.vocabulary) review.createEl("p", { text: card.vocabulary.direction === "forward"
+      ? `${card.vocabulary.language} → ${card.vocabulary.translationLanguage}` : `${card.vocabulary.translationLanguage} → ${card.vocabulary.language}` });
     review.createEl("p", { text: session.count, cls: "veynrel-health-muted" });
     const question = review.createEl("section", { attr: { "aria-label": t("@recall.question") } });
     question.createEl("h2", { text: card.question, attr: { tabindex: "-1", "data-recall-question": "true" } });

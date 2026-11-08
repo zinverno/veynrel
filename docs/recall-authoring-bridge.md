@@ -1,204 +1,26 @@
 # Native Recall authoring bridge
 
-Explicit flashcard generation now connects the existing Markdown producer to
-Veynrel's native Recall inventory, FSRS-6 scheduler, review surface and Recall
-Health. No external spaced-repetition plugin is required.
+The current bridge uses the existing Recall owner, local FSRS scheduler and Health adapter. No external spaced-repetition plugin is required. See [Recall](wiki/Recall.md) for current syntax and user flow, and [topics/vocabulary verification](recall-topics/verification.md) for this branch's evidence.
 
-## Authoring and consent
+## Current path
 
-Open a Markdown note, open Health → Recall, and choose **Create from current
-note**. The confirmation shows the exact vault-relative source path. It explains
-the note read, bounded model input, configured provider/endpoint, Markdown
-mutation and native Recall admission. Choose **Generate flashcards** to proceed.
-Cancel, navigation away, closing the view, or changing the selected note ends
-unsubmitted confirmation without generation IO. An already submitted operation
-continues across view navigation; plugin disposal stops work before an unissued
-Markdown write. An issued durable write cannot be cancelled or rolled back.
+`main.ts.buildFlashcardsContent` delegates to the pure `recall/authoring.ts` preparation, strict output validator and insertion serializer. Command, context menu and batch share it. `api.ts` remains the transport owner and requires normal completion for Recall. The localized default instruction now covers source grounding, independent questions, caveats, coverage and fewer questions when material is insufficient. An explicit `settings.recallPrompt` override is retained until reset.
 
-Opening Recall, rendering authoring, and opening/cancelling confirmation perform
-zero note reads, provider calls, Markdown writes or Recall writes. The existing
-Recall metadata-only initialization is unchanged. Startup, note opens/edits,
-inventory, Health scans, Deep Connect and Check connection never generate cards.
+`recallAuthoring.ts` owns host consent, captured settings/source/editor, stale checks, isolated editor insertion and targeted metadata refresh. It never constructs a second scheduler/store. The authoring port includes editable instructions and selected options, but never credentials, endpoint URLs, raw provider responses or note bodies. The generator's selected source is not silently truncated. No generated-question preview is required.
 
-The source is freshly resolved through Obsidian's current-file API and must still
-be open in a Markdown view. There is no separate cached note or arbitrary fallback
-to another open file. With no eligible current note, the surface asks the user to
-open one. Immediately before work, the host requires the same existing `TFile`,
-a canonical vault-relative Markdown path outside the actual config directory and
-all internal `.ai-backup`/`.ai-backup-*` directories. Single-note authoring rejects
-files larger than the existing Recall 2 MiB note bound before reading them, and
-checks the returned content length as well.
+`recallEditor.ts` uses Obsidian's runtime `@codemirror/commands` history annotation with one insertion. The module is external in the bundle; no second CodeMirror/history implementation or new npm dependency is shipped. Open buffers must match saved content before transport. The final guard runs after the saved-source reread. Closed-file paths retain `Vault.process` conflict checks; batch retains exact backups. There is no atomic transaction across Markdown and JSON, and no automatic generation retry after a metadata failure.
 
-**Start review** remains primary whenever cards are due. Authoring is secondary
-on the overview and is absent during a review session, including its completion
-screen. Existing review remains usable during the provider request. Only the
-short metadata ingestion operation occupies Recall's writable owner.
+`RecallService.refreshNote` reconciles only the selected complete, current snapshot. Partial captures admit valid observations without retiring unseen cards. The store keeps its serialized persist-first queue, prior schedules and retired history. Known rename events update the source path while retaining its identity anchor. Review freshness checks verify both identity and the selected scope.
 
-## One producer and shared Deep configuration
+The product presents Topics/Vocabulary through one scope predicate and cached metadata. Opening or filtering does not scan notes or call a model. Saved changes after initialization trigger bounded per-note refresh; dirty editors invalidate displayed cards immediately. Global Recall Health counts remain separate from a filtered review session.
 
-`main.ts` still owns `buildFlashcardsContent()`, `extractFlashcards()` and the
-unchanged EN/RU `@flashcards_prompt`. All generation paths use that producer and
-its validated `cardCount`:
+## Schema v4
 
-- Recall authoring uses a host adapter injected at plugin registration.
-- `ai-flashcards-note` retains its command ID and routes through that adapter.
-- The existing **Flashcards** context action delegates to the same note command.
-- Batch **Flashcards** retains its prompt, append behavior, backups and report.
-  It collects successful paths and performs sequential targeted ingestion after
-  the Markdown writes, including completed writes before batch cancellation.
-  Failed/unmodified paths are not imported. No per-file or final full-vault scan
-  is triggered. A metadata failure is noted in the batch report.
+Valid v1/v2/v3 data, including PR #44's transitional v2 inventory marker, loads without writes. New fields default to `kind: study`, `studyTags: []` and the legacy source identity anchor. Study IDs and all supported schedules remain unchanged. Before the first migration mutation, storage preserves and verifies the original JSON contents in a unique `cards.pre-v4-*.json`. A failed backup blocks the write. Future/corrupt schemas and unsupported scheduler policies remain blocked.
 
-The producer sends at most the first 32,000 UTF-16 characters of the selected
-note. It appends to the complete original Markdown, preserving the body beyond
-that input bound. No other note, Health Finding, Recall schedule or vector is
-added to the request. The shared transport owns authentication; credentials are
-not inserted into prompts. A settings snapshot fixes the connection for each
-request. Changing shared connection settings invalidates pending confirmation.
+The exact seven-card PR #44 file remains a regression fixture. Current tests preserve its IDs, schedules and coverage through the first v4 write. The following evidence describes older builds and is not evidence for new features.
 
-Provider/model/key/Base URL remain the shared Deep Intelligence settings from
-PR #42. Structurally **Configured** is sufficient; **Connected** is not required.
-Unconfigured setup directs the user to Deep configuration without reading the
-note or testing the provider. Ollama copy names the configured endpoint without
-assuming it is on this device. Cloud/custom copy names the provider and warns of
-possible usage costs. No endpoint URL or credential enters authoring snapshots.
-
-The historical prompt wording is preserved, including its old plugin reference;
-it does not introduce a dependency on that plugin. The authoritative syntax is
-unchanged:
-
-```markdown
-## Flashcards
-#flashcards
-
-Question::Answer
-```
-
-Generation appends another section. It does not merge, reformat or rewrite old
-card sections. Invalid output rejected by the existing extractor produces no
-Markdown write or Recall ingestion.
-
-## Mutation and durable boundaries
-
-`replaceNoteIfUnchanged()` revalidates file identity and path before processing,
-then verifies them again with exact original content inside `Vault.process()`.
-An edit, rename, delete or replacement while the model is running cannot be
-overwritten or recreated at an obsolete path. A typed conflict maps to fixed
-localized feedback; provider bodies and raw exceptions never enter product state.
-
-There are two durable steps, with **no transaction across them**:
-
-1. Append the validated flashcard section to Markdown.
-2. Admit the changed note into the existing Recall owner.
-
-If step 1 fails, step 2 is not attempted. If step 1 succeeds and step 2 fails,
-the note keeps its cards. The product says **Flashcards were added to the note,
-but Recall could not update**. It does not report total generation failure or
-roll Markdown back. Retry loading Recall if needed, then use **Refresh flashcards**.
-
-Invalid, unsupported or unavailable Recall storage never gets silently replaced.
-Explicit generation can still save Markdown; blocked admission directs the user
-to recover Recall and then refresh. A failed metadata write does not publish an
-optimistic inventory or schedule. The existing poisoned-owner/recovery rules
-continue to apply, including possible partial disk writes from a failing adapter.
-
-## Targeted inventory and schedules
-
-`RecallService.refreshNote()` resolves and reads exactly one eligible note, uses
-the existing `parseMarkdownFlashcards()`, and checks file identity/mtime/size again
-immediately before metadata persistence. It does not enumerate Markdown files or
-read unrelated notes. Parsing and storage retain their existing bounds. A source
-that cannot be completely parsed or revalidated reports failed admission, leaving
-the saved Markdown available to explicit Refresh.
-
-`RecallStore.admit()` shares the existing reconciliation implementation and
-serialized persistence queue. It always uses incomplete coverage, so it never
-retires absent cards in this or any other note. The v1 append-only bridge needs
-no absence reconciliation. A queued review's latest durable schedule takes
-precedence over the earlier observation time.
-
-Identical question/answer/path identities deduplicate in Recall, even if Markdown
-contains the generated line twice. Existing schedules are preserved exactly.
-Exact retired recurrence reactivates the same ID and `firstSeenAt`, preserving its
-FSRS schedule. Only new identities receive a new schedule and become due now.
-The same plugin-lifetime `RecallProductController`, `RecallService` and
-`RecallStore` notify Recall and Recall Health immediately after persistence.
-
-## First run and full inventory
-
-Tracked cards and established full-vault inventory are separate facts. `firstRun`
-continues to identify missing Recall metadata. A targeted first import creates
-reviewable tracked cards, while the new product `inventoryEstablished` remains
-false. The overview explicitly says that a full inventory is not established;
-the rest of the vault remains undiscovered until Find/Refresh.
-
-The optional `inventoryCompletedAt` field records only a committed, complete
-full-vault inventory. Partial scans and targeted imports cannot establish it;
-reviews and later imports preserve it exactly. Files without the marker remain
-readable, but their past full coverage is conservatively unknown until the next
-complete Refresh.
-
-The marker means a complete inventory occurred, not that coverage stays fresh
-forever. Recall Health reports the actual workload of **tracked** cards. Known
-targeted cards can make it recommend review without implying vault-wide coverage.
-
-## Storage v3 compatibility
-
-Current `recall/cards.json` uses the strict schema:
-
-```typescript
-{ version: 3, updatedAt: number, inventoryCompletedAt?: number, cards: Record<string, RecallCard> }
-```
-
-No other top-level keys are accepted. The optional marker must be a valid
-timestamp no later than `updatedAt`. All existing identity, lifecycle and native
-FSRS schedule validation remains unchanged.
-
-| Stored input | In-memory v3 result |
-| --- | --- |
-| v1: `version`, `updatedAt`, `cards` | Existing identity/lifecycle retained; initial native schedules created; marker absent |
-| Pre-#44 v2: `version`, `updatedAt`, `cards` | Every card and schedule preserved exactly; marker absent |
-| Merged-#44 transitional v2: those keys plus `inventoryCompletedAt` | Every card and schedule preserved exactly; valid marker preserved exactly |
-
-Both accepted v2 shapes are strict: unknown keys and malformed coverage markers
-remain invalid. Loading any valid legacy shape migrates **only in memory, with
-zero storage writes**. The next real review, targeted admission or inventory
-mutation persists v3. Review and targeted admission neither invent nor clear
-coverage. Only a successful complete inventory sets the marker to `observedAt`;
-a partial scan does not establish it.
-
-Valid merged-#44 files load normally without recovery. Unknown scheduler
-algorithms/policies in v2 or v3 remain `unsupported`, as do future storage versions
-(4 and above). Malformed v1/v2/v3 remains `invalid`. Blocked files are never
-migrated into writable state or overwritten.
-
-PR #44 briefly wrote the coverage extension under version 2. New writes use v3,
-so pre-v3 readers encounter a future version instead of a falsely labelled v2
-extension. This cannot change how an already-existing old reader treats a
-transitional v2 file. Current code accepts that exact valid transitional shape
-and writes v3 on its next mutation; no downgrade rewrite or recovery is needed.
-
-`recall/store/schemaV3.test.ts` covers the migration/mutation/restart matrix. Its
-`fixtures/pr44-v2-cards.json` is the exact synthetic seven-card file saved by
-PR #44's isolated native smoke build (`89d8966`, merged as `89d10ad`), including
-reviewed FSRS schedules and the established inventory marker. The fixture verifies
-normal load without recovery or writes, exact preservation, and a first v3 write.
-
-## Isolation and product boundary
-
-Health/Recall UI consume `RecallAuthoringPort` only. They do not import `main.ts`,
-`api.ts`, `AIHubSettings` or a provider client. `RecallAuthoringAdapter` lives in
-the host layer and receives the authoritative producer and the existing Recall
-port. Its public state contains only phase, configuration availability, selected
-path, safe provider label, input limit, fixed result categories and card count.
-It never contains note bodies, prompts, answers, API keys, URLs or raw responses.
-
-Generation does not run a Knowledge analyzer, create Findings or ScanRuns, advance
-any Local/Semantic/Deep receipt, request embeddings, or explicitly update a semantic
-index. The existing independent Markdown-change observer may run normal automatic
-semantic sync when the user has enabled it.
-
-## Verification
+## Historical verification before topics/vocabulary (schemas v1-v3)
 
 ### Schema v3 follow-up
 

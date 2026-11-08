@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { productFixture, cardsPath, recallRoot } from "./testSupport";
-import { gate } from "../testSupport";
-import { createRecallCandidate } from "../domain/identity";
+import { gate, legacyCandidate } from "../testSupport";
 
 async function discovered() {
   const f = productFixture(); await f.product.initialize(); await f.product.refreshCards(); return f;
@@ -32,7 +31,7 @@ describe("Recall product ownership and lazy inventory", () => {
     expect(f.product.getSnapshot().refreshing).toBe(true); await f.product.refreshCards();
     hold.release(); await scan;
     expect(f.product.getSnapshot()).toMatchObject({ refreshing: false, summary: { active: 1 }, inventoryResult: { complete: false } });
-    f.product.startSession(); f.product.revealAnswer(); await f.product.rate("good");
+    await f.product.startSession(); f.product.revealAnswer(); await f.product.rate("good");
     expect([...f.files].filter(([path]) => path !== cardsPath)).toEqual(others);
     expect(f.adapter.write.mock.calls.every(([path]) => path === cardsPath)).toBe(true);
     expect(JSON.stringify(f.product.getSnapshot())).not.toContain("PRIVATE");
@@ -41,7 +40,7 @@ describe("Recall product ownership and lazy inventory", () => {
 
 describe("Recall transient review sessions", () => {
   it("omits answers until reveal and captures one timestamp for preview and delayed commit", async () => {
-    const f = await discovered(), service = f.service(); f.product.startSession();
+    const f = await discovered(), service = f.service(); await f.product.startSession();
     expect(JSON.stringify(f.product.getSnapshot())).not.toContain("SECRET ANSWER");
     await f.product.rate("good"); expect(f.adapter.write).toHaveBeenCalledTimes(1);
     f.time(200); const preview = vi.spyOn(service, "previewCard"), review = vi.spyOn(service, "reviewCard");
@@ -51,25 +50,25 @@ describe("Recall transient review sessions", () => {
     expect(snapshot.session?.card?.answer).toBe("SECRET ANSWER");
     const expected = service.previewCard(id, 200).good;
     f.time(20_000); await f.product.rate("good");
-    expect(review).toHaveBeenCalledExactlyOnceWith(id, "good", 200);
+    expect(review).toHaveBeenCalledExactlyOnceWith(id, "good", 200, expect.any(Function));
     expect(service.getCard(id)?.schedule).toEqual(expected.schedule);
     expect(f.product.getSnapshot().session).toMatchObject({ reviewed: 1, complete: true, revealed: false });
     expect(f.product.getSnapshot().nextDueAt).toBe(expected.schedule.dueAt);
   });
 
   it.each(["good", "easy"] as const)("rapid Good + %s commits/advances once and ignores refresh during session", async (second) => {
-    const f = await discovered(); f.product.startSession(); f.time(200); f.product.revealAnswer();
+    const f = await discovered(); await f.product.startSession(); f.time(200); f.product.revealAnswer();
     const entered = gate(), hold = gate(), write = f.adapter.write;
     f.adapter.write = vi.fn(async (path, raw) => { entered.release(); await hold.promise; await write(path, raw); });
     const first = f.product.rate("good"); await entered.promise;
     expect(f.product.getSnapshot()).toMatchObject({ reviewSaving: true, session: { reviewed: 0, revealed: true } });
     await f.product.rate(second); await f.product.refreshCards();
-    expect(f.adapter.write).toHaveBeenCalledTimes(1); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.adapter.write).toHaveBeenCalledTimes(1); expect(f.vault.read).toHaveBeenCalledTimes(3);
     hold.release(); await first; expect(f.product.getSnapshot().session?.reviewed).toBe(1);
   });
 
   it("keeps the same revealed card/count after failed persistence, then exposes safe recovery", async () => {
-    const f = await discovered(); f.product.startSession(); f.time(200); f.product.revealAnswer();
+    const f = await discovered(); await f.product.startSession(); f.time(200); f.product.revealAnswer();
     const card = f.product.getSnapshot().session!.card, bytes = f.files.get(cardsPath);
     f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE disk exception")); await f.product.rate("good");
     expect(f.product.getSnapshot()).toMatchObject({ loadState: "unavailable", reviewSaving: false, error: "review", canRecover: true,
@@ -78,7 +77,7 @@ describe("Recall transient review sessions", () => {
   });
 
   it("allows retry of a safe pre-write failure while preserving reveal/decision time", async () => {
-    const f = await discovered(); f.product.startSession(); f.time(200); f.product.revealAnswer();
+    const f = await discovered(); await f.product.startSession(); f.time(200); f.product.revealAnswer();
     const review = vi.spyOn(f.service(), "reviewCard").mockRejectedValueOnce(new Error("PRIVATE validation error"));
     await f.product.rate("good"); expect(f.product.getSnapshot()).toMatchObject({ loadState: "ready", error: "review", session: { revealed: true, reviewed: 0 } });
     f.time(300); await f.product.rate("good"); expect(review.mock.calls.map((call) => call[2])).toEqual([200, 200]);
@@ -86,21 +85,21 @@ describe("Recall transient review sessions", () => {
   });
 
   it.each(["success", "failure"])("leaving an in-flight %s discards session and never restores it", async (result) => {
-    const f = await discovered(); f.product.startSession(); f.time(200); f.product.revealAnswer();
+    const f = await discovered(); await f.product.startSession(); f.time(200); f.product.revealAnswer();
     const entered = gate(), hold = gate(), write = f.adapter.write;
     f.adapter.write = vi.fn(async (path, raw) => { entered.release(); await hold.promise; if (result === "failure") throw new Error("PRIVATE"); await write(path, raw); });
     const pending = f.product.rate("easy"); await entered.promise; f.product.endSession();
-    expect(f.product.getSnapshot().session).toBeUndefined(); f.product.startSession(); expect(f.product.getSnapshot().session).toBeUndefined();
+    expect(f.product.getSnapshot().session).toBeUndefined(); await f.product.startSession(); expect(f.product.getSnapshot().session).toBeUndefined();
     hold.release(); await pending;
     expect(f.product.getSnapshot().session).toBeUndefined(); expect(f.product.getSnapshot().error).toBeUndefined();
     expect(f.service().listCards()[0].schedule.reviewCount).toBe(result === "success" ? 1 : 0);
   });
 
   it("serves only due active cards, allows learning recurrence at due time and preserves retired memory", async () => {
-    const f = await discovered(); f.time(200); f.product.startSession(); f.product.revealAnswer(); await f.product.rate("again");
+    const f = await discovered(); f.time(200); await f.product.startSession(); f.product.revealAnswer(); await f.product.rate("again");
     expect(f.product.getSnapshot()).toMatchObject({ session: { complete: true, reviewed: 1 }, summary: { due: 0 }, nextDueAt: 60_200 });
-    f.product.endSession(); f.time(60_199); f.product.startSession(); expect(f.product.getSnapshot().session?.complete).toBe(true);
-    f.product.endSession(); f.time(60_200); f.product.startSession(); expect(f.product.getSnapshot().session?.card).toBeDefined();
+    f.product.endSession(); f.time(60_199); await f.product.startSession(); expect(f.product.getSnapshot().session?.complete).toBe(true);
+    f.product.endSession(); f.time(60_200); await f.product.startSession(); expect(f.product.getSnapshot().session?.card).toBeDefined();
     const memory = f.service().listCards()[0].schedule;
     f.product.endSession(); f.vault.read.mockResolvedValue("No cards"); await f.product.refreshCards();
     expect(f.product.getSnapshot().summary?.due).toBe(0); expect(f.product.getSnapshot().nextDueAt).toBeUndefined();
@@ -110,7 +109,7 @@ describe("Recall transient review sessions", () => {
 
   it("asks a fresh queue at each transition so another learning card can re-enter a long session", async () => {
     const f = productFixture(); f.vault.read.mockResolvedValue("## Flashcards\nOne::A\nTwo::B");
-    await f.product.initialize(); await f.product.refreshCards(); f.product.startSession();
+    await f.product.initialize(); await f.product.refreshCards(); await f.product.startSession();
     const firstId = f.product.getSnapshot().session!.card!.id;
     f.time(200); f.product.revealAnswer(); await f.product.rate("again");
     expect(f.product.getSnapshot().session?.card?.id).not.toBe(firstId);
@@ -120,7 +119,7 @@ describe("Recall transient review sessions", () => {
 
   it("copies public snapshots and isolates subscriber failures from durable results", async () => {
     const f = await discovered(); f.product.subscribe(() => { throw new Error("View failed"); });
-    f.product.startSession(); f.time(200); f.product.revealAnswer(); const snapshot = f.product.getSnapshot();
+    await f.product.startSession(); f.time(200); f.product.revealAnswer(); const snapshot = f.product.getSnapshot();
     Object.assign(snapshot.session!.card!, { question: "Tampered" }); Object.assign(snapshot.session!.previews![0], { intervalMs: 1 });
     expect(f.product.getSnapshot().session?.card?.question).toBe("Question");
     expect(f.product.getSnapshot().session?.previews?.[0].intervalMs).toBe(60000);
@@ -128,7 +127,7 @@ describe("Recall transient review sessions", () => {
   });
 
   it("source-note failure is safe and does not prevent review", async () => {
-    const f = await discovered(); f.product.startSession(); f.open.mockResolvedValueOnce(false);
+    const f = await discovered(); await f.product.startSession(); f.open.mockResolvedValueOnce(false);
     await f.product.openSourceNote(); expect(f.product.getSnapshot().error).toBe("source");
     f.time(200); f.product.revealAnswer(); await f.product.rate("good"); expect(f.product.getSnapshot().session?.reviewed).toBe(1);
   });
@@ -163,12 +162,13 @@ describe("Recall product recovery and migrated inventory", () => {
   });
 
   it("loads v1 as due/new with no migration write and writes v3 on the first rating", async () => {
-    const card = createRecallCandidate({ path: "A.md", question: "Old Q", answer: "Old A" });
+    const card = legacyCandidate();
     const f = productFixture(JSON.stringify({ version: 1, updatedAt: 10, cards: { [card.id]: { ...card, firstSeenAt: 10, lastSeenAt: 10, state: "active" } } }));
+    f.vault.read.mockResolvedValue("## Flashcards\nQ::A");
     await f.product.initialize(); expect(f.product.getSnapshot().summary).toMatchObject({ due: 1, new: 1 });
     expect(f.product.getSnapshot().inventoryEstablished).toBe(false);
-    expect(f.adapter.write).not.toHaveBeenCalled(); f.product.startSession(); f.product.revealAnswer(); await f.product.rate("easy");
-    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 3 });
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.adapter.write).not.toHaveBeenCalled(); await f.product.startSession(); f.product.revealAnswer(); await f.product.rate("easy");
+    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 4 });
+    expect(f.vault.read).toHaveBeenCalledTimes(2); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
   });
 });

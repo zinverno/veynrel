@@ -27,7 +27,7 @@ function outsideRecallStorage(path: string, configDir: string): boolean {
 
 /** Read-only public Obsidian APIs. No metadata cache, plugin registry, index or provider. */
 export class ObsidianRecallSource implements RecallSource {
-  constructor(private readonly vault: RecallVault) {
+  constructor(private readonly vault: RecallVault, private readonly bufferMatches: (path: string, content: string) => boolean = () => true, private readonly parseYaml?: (yaml: string) => unknown) {
     if (!isVaultPath(vault.configDir)) throw new Error("Invalid Recall configuration directory.");
   }
 
@@ -67,15 +67,17 @@ export class ObsidianRecallSource implements RecallSource {
     throwIfAborted(signal);
     if (!isRecallSourcePath(path, this.vault.configDir)) throw new RecallSourceUnavailableError();
     const file = this.vault.getFileByPath(path);
-    if (!file || file.path !== path || !isTimestamp(file.stat.mtime) || !Number.isSafeInteger(file.stat.size) || file.stat.size < 0) {
+    if (!file) return { cards: [], complete: true, diagnostics: [], isCurrent: () => !this.vault.getFileByPath(path) };
+    if (file.path !== path || !isTimestamp(file.stat.mtime) || !Number.isSafeInteger(file.stat.size) || file.stat.size < 0) {
       throw new RecallSourceUnavailableError();
     }
     const entry = { file, path, mtime: file.stat.mtime, size: file.stat.size };
-    const isCurrent = () => this.vault.getFileByPath(path) === file && file.path === path &&
+    let capturedContent: string | undefined;
+    const isCurrent = () => (capturedContent === undefined || this.bufferMatches(path, capturedContent)) && this.vault.getFileByPath(path) === file && file.path === path &&
       file.stat.mtime === entry.mtime && file.stat.size === entry.size;
-    const note = await this.readNote(entry, signal);
-    if (!note.read || !note.complete || !isCurrent()) throw new RecallSourceUnavailableError();
-    return { cards: note.cards, isCurrent };
+    const note = await this.readNote(entry, signal, content => { capturedContent = content; });
+    if (!note.read || !isCurrent()) throw new RecallSourceUnavailableError();
+    return { cards: note.cards, complete: note.complete, diagnostics: note.diagnostics, isCurrent };
   }
 
   async capture(signal: AbortSignal): Promise<RecallInventory> {
@@ -108,7 +110,7 @@ export class ObsidianRecallSource implements RecallSource {
       coverage: Object.freeze({ notesSeen: inventory.entries.length, notesRead, noteListComplete: inventory.complete }) });
   }
 
-  private async readNote(entry: Entry, signal: AbortSignal): Promise<RecallExtraction & { read: boolean }> {
+  private async readNote(entry: Entry, signal: AbortSignal, captured?: (content: string) => void): Promise<RecallExtraction & { read: boolean }> {
     const unavailable = (code: "note-changed" | "oversized-note" | "content-unavailable") =>
       ({ cards: [], complete: false, diagnostics: [{ code, path: entry.path }], diagnosticsTruncated: 0, read: false });
     const changed = () => entry.file.path !== entry.path || entry.file.stat.mtime !== entry.mtime || entry.file.stat.size !== entry.size;
@@ -120,7 +122,9 @@ export class ObsidianRecallSource implements RecallSource {
     catch { throwIfAborted(signal); return unavailable("content-unavailable"); }
     throwIfAborted(signal);
     if (changed()) return unavailable("note-changed");
-    const extracted = await parseMarkdownFlashcards(entry.path, content, signal);
+    if (!this.bufferMatches(entry.path, content)) return unavailable("note-changed");
+    captured?.(content);
+    const extracted = await parseMarkdownFlashcards(entry.path, content, signal, this.parseYaml);
     if (changed()) return unavailable("note-changed");
     return { ...extracted, read: true };
   }
