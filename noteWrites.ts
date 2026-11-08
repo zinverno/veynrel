@@ -12,9 +12,12 @@ export async function replaceNoteIfUnchanged(
   originalPath: string,
   original: string,
   replacement: string,
+  guard?: () => void,
 ): Promise<void> {
+  guard?.();
   if (file.path !== originalPath || vault.getAbstractFileByPath(originalPath) !== file) throw new NoteWriteConflictError();
   await vault.process(file, (current) => {
+    guard?.();
     if (file.path !== originalPath || vault.getAbstractFileByPath(originalPath) !== file || current !== original) {
       throw new NoteWriteConflictError();
     }
@@ -32,7 +35,9 @@ export async function backupAndReplaceNote(
   original: string,
   replacement: string,
   backupFolder: string,
+  guard?: () => void,
 ): Promise<void> {
+  guard?.();
   const backupPath = normalizePath(`${backupFolder}/${originalPath}`);
   // Hidden backups are not visible to Vault's file cache; use its adapter.
   let parent = "";
@@ -43,5 +48,5 @@ export async function backupAndReplaceNote(
   // A failed backup must stop the write, including collisions and disk errors.
   if (await vault.adapter.exists(backupPath)) throw new Error("A backup already exists; no note was changed.");
   await vault.adapter.write(backupPath, original);
-  await replaceNoteIfUnchanged(vault, file, originalPath, original, replacement);
+  await replaceNoteIfUnchanged(vault, file, originalPath, original, replacement, guard);
 }

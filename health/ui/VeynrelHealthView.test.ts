@@ -62,7 +62,7 @@ const mocks = vi.hoisted(() => {
   class TFile { path = "A.md"; basename = "A"; extension = "md"; stat = { mtime: 1 }; }
   return { Element, Modal, ItemView, TFile, requestUrl: vi.fn() };
 });
-vi.mock("obsidian", () => ({ ...mocks, setIcon: vi.fn(), Notice: vi.fn(), getLanguage: () => "en", parseLinktext: (link: string) => ({ path: link, subpath: "" }) }));
+vi.mock("obsidian", () => ({ ...mocks, setIcon: vi.fn(), Notice: vi.fn(), getLanguage: () => "en", parseYaml: () => ({}), parseLinktext: (link: string) => ({ path: link, subpath: "" }) }));
 import { setLanguage, t } from "../../i18n";
 import { HealthPluginController } from "../obsidian/healthPluginController";
 import { appFixture, flush, root, preferencesFixture } from "../obsidian/testSupport";
@@ -829,6 +829,8 @@ describe("navigation and registration", () => {
     const f = appFixture(); const leaf = { setViewState: vi.fn(async () => undefined) };
     const workspace = { getLeavesOfType: vi.fn(() => [] as typeof leaf[]), getLeaf: vi.fn(() => leaf), revealLeaf: vi.fn(async (_leaf: unknown) => undefined) };
     Object.assign(f.app, { workspace });
+    Object.assign(f.vault, { on: vi.fn(), offref: vi.fn() });
+    Object.assign(workspace, { on: vi.fn(), offref: vi.fn() });
     const plugin = { app: f.app, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), register: vi.fn(),
       addRibbonIcon: vi.fn(), addCommand: vi.fn() };
     registerHealth(plugin as never, toolsFixture(), preferencesFixture().preferences);

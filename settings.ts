@@ -86,6 +86,8 @@ export interface AIHubSettings {
   health: HealthPreferences;
   /** Only explicitly confirmed taxonomy rules; no inventory or note text. */
   tagTaxonomyProfile?: TagTaxonomyProfile;
+  /** Explicit Recall override; absence follows the current localized default. */
+  recallPrompt?: string;
 }
 
 export const DEFAULT_SETTINGS: AIHubSettings = {

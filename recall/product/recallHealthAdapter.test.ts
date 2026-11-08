@@ -11,7 +11,7 @@ describe("Recall Health adapter", () => {
     await Promise.all([adapter.initialize(), f.product.initialize()]);
     expect(f.factory).toHaveBeenCalledTimes(1); expect(adapter.getSnapshot().firstRun).toBe(true);
     expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    await f.product.refreshCards(); f.product.startSession(); f.product.revealAnswer();
+    await f.product.refreshCards(); await f.product.startSession(); f.product.revealAnswer();
     expect(adapter.getSnapshot()).toEqual({ loadState: "ready", firstRun: false, active: 1, due: 1, new: 1, nextDueAt: 100 });
     expect(JSON.stringify(adapter.getSnapshot())).not.toMatch(/Question|SECRET|question|answer|stability|difficulty|session|error|previews/u);
     Object.assign(summary, { active: 200 }); expect(adapter.getSnapshot().active).toBe(1);
@@ -21,9 +21,9 @@ describe("Recall Health adapter", () => {
     const f = productFixture(), adapter = new RecallHealthAdapter(f.product), listener = vi.fn();
     adapter.subscribe(() => { throw new Error("view failed"); }); const off = adapter.subscribe(listener);
     await adapter.initialize(); await f.product.refreshCards();
-    f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("again");
+    await f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("again");
     expect(listener).toHaveBeenCalled(); expect(adapter.getSnapshot()).toMatchObject({ active: 1, due: 0, new: 0, nextDueAt: 60200 });
-    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 3,
+    expect(JSON.parse(f.files.get(cardsPath)!) as unknown).toMatchObject({ version: 4,
       cards: { [f.service().listCards()[0].id]: { schedule: { reviewCount: 1 } } } });
     expect(f.product.getSnapshot().error).toBeUndefined();
     off(); listener.mockClear(); f.product.endSession(); expect(listener).not.toHaveBeenCalled();

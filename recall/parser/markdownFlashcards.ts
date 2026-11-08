@@ -1,3 +1,6 @@
+import { commentContinues } from "./markdownSyntax";
+import { vocabularySettings } from "./vocabulary";
+import { isStudyTag, studyTags } from "../domain/topics";
 import { MAX_ANSWER_LENGTH, MAX_NOTE_LENGTH, MAX_QUESTION_LENGTH, MAX_RECALL_CARDS } from "../domain/card";
 import type { RecallCardCandidate, RecallExtraction } from "../domain/card";
 import { createRecallCandidate, isRecallPath, normalizeCardText } from "../domain/identity";
@@ -5,7 +8,7 @@ import { recallCheckpoint, throwIfAborted } from "../cancellation";
 import { RecallDiagnostics } from "../diagnostics";
 
 /** Generated ATX Flashcards sections only; this is deliberately not a general Markdown parser. */
-export async function parseMarkdownFlashcards(path: string, content: string, signal?: AbortSignal): Promise<RecallExtraction> {
+export async function parseMarkdownFlashcards(path: string, content: string, signal?: AbortSignal, parseYaml?: (yaml: string) => unknown): Promise<RecallExtraction> {
   throwIfAborted(signal);
   const diagnostics = new RecallDiagnostics();
   const cards = new Map<string, RecallCardCandidate>();
@@ -17,6 +20,10 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
   if (content.length > MAX_NOTE_LENGTH) {
     complete = false; diagnostics.add("oversized-note", path); return result();
   }
+  let vocabulary: Awaited<ReturnType<typeof vocabularySettings>>;
+  try { vocabulary = vocabularySettings(content, parseYaml); }
+  catch { complete = false; diagnostics.add("invalid-vocabulary", path); }
+  let kind: "study" | "vocabulary" = "study";
   const lines = content.replace(/\r\n?/gu, "\n").replace(/^\uFEFF/u, "").split("\n");
   let frontmatter = /^---[ \t]*$/u.test(lines[0]);
   let sectionLevel: number | undefined;
@@ -36,8 +43,7 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
     }
     // Ignore comment lines without interpreting hidden headings/card syntax.
     if (comment || line.includes("<!--")) {
-      const opening = line.indexOf("<!--");
-      comment = line.indexOf("-->", comment ? 0 : opening + 4) === -1;
+      comment = commentContinues(line, comment);
       continue;
     }
     if (marker && (marker[1][0] !== "`" || !marker[2].includes("`"))) {
@@ -48,7 +54,9 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
       const level = heading[1].length;
       const title = (heading[2] ?? "").replace(/[ \t]+#+[ \t]*$/u, "").trim();
       if (sectionLevel !== undefined && level <= sectionLevel) sectionLevel = undefined;
-      if (sectionLevel === undefined && title === "Flashcards") sectionLevel = level;
+      if (sectionLevel === undefined && (title === "Flashcards" || (title === "Vocabulary" && vocabulary))) {
+        sectionLevel = level; kind = title === "Vocabulary" ? "vocabulary" : "study";
+      }
       continue;
     }
     // Setext headings can terminate an ATX section too. Never consume their title as a card.
@@ -60,18 +68,43 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
     }
     if (sectionLevel === undefined || !line.trim() || line.trim() === "#flashcards" || /^(?: {4}|\t)/u.test(line)) continue;
     const separator = line.indexOf("::");
-    if (separator === -1) continue;
-    const question = normalizeCardText(line.slice(0, separator));
+    if (separator === -1) {
+      if (kind === "vocabulary") { complete = false; diagnostics.add("malformed-card", path, index + 1); }
+      continue;
+    }
+    let question = normalizeCardText(line.slice(0, separator));
+    const tags: string[] = [];
+    if (kind === "study") {
+      while (question.startsWith("#")) {
+        const tag = /^(#[^\s]+)\s+(.+)$/u.exec(question);
+        if (!tag || !isStudyTag(tag[1].slice(1))) break;
+        tags.push(tag[1].slice(1)); question = tag[2];
+      }
+    }
     const answer = normalizeCardText(line.slice(separator + 2));
     if (question.length > MAX_QUESTION_LENGTH || answer.length > MAX_ANSWER_LENGTH) {
-      complete = false; diagnostics.add("oversized-card", path); continue;
+      complete = false; diagnostics.add("oversized-card", path, index + 1); continue;
     }
-    let candidate: RecallCardCandidate;
-    try { candidate = createRecallCandidate({ path, question, answer }); }
-    catch { complete = false; diagnostics.add("malformed-card", path); continue; }
-    if (cards.has(candidate.fingerprint)) { diagnostics.add("duplicate-card", path); continue; }
-    if (cards.size === MAX_RECALL_CARDS) { complete = false; diagnostics.add("card-limit", path); break; }
-    cards.set(candidate.fingerprint, candidate);
+    const directions = kind === "vocabulary" && vocabulary?.direction === "both" ? ["forward", "reverse"] as const :
+      [vocabulary?.direction === "reverse" ? "reverse" : "forward"] as const;
+    for (const direction of directions) {
+      let candidate: RecallCardCandidate;
+      try {
+        candidate = createRecallCandidate({ path, question: direction === "reverse" && kind === "vocabulary" ? answer : question,
+          answer: direction === "reverse" && kind === "vocabulary" ? question : answer, kind,
+          studyTags: kind === "vocabulary" ? vocabulary!.studyTags : studyTags(tags),
+          ...(kind === "vocabulary" ? { vocabulary: { language: vocabulary!.language, translationLanguage: vocabulary!.translationLanguage, direction } } : {}) });
+      } catch { complete = false; diagnostics.add("malformed-card", path, index + 1); continue; }
+      const duplicate = cards.get(candidate.fingerprint);
+      if (duplicate) {
+        diagnostics.add("duplicate-card", path, index + 1);
+        try { cards.set(candidate.fingerprint, createRecallCandidate({ ...duplicate, studyTags: studyTags([...duplicate.studyTags, ...candidate.studyTags]) })); }
+        catch { complete = false; diagnostics.add("malformed-card", path, index + 1); }
+        continue;
+      }
+      if (cards.size === MAX_RECALL_CARDS) { complete = false; diagnostics.add("card-limit", path); break; }
+      cards.set(candidate.fingerprint, candidate);
+    }
   }
   if (frontmatter) { complete = false; diagnostics.add("unclosed-frontmatter", path); }
   if (fence) { complete = false; diagnostics.add("unclosed-fence", path); }

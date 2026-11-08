@@ -1,8 +1,11 @@
+import { DEFAULT_GENERATION_OPTIONS, generateRecall } from "./authoring";
 import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TFile } from "obsidian";
+const editorWrite = vi.hoisted(() => vi.fn());
+vi.mock("../recallEditor", () => ({ insertRecallInEditor: editorWrite }));
 const host = vi.hoisted(() => ({ TFile: class {}, MarkdownView: class {} }));
 vi.mock("obsidian", () => ({ ...host, getLanguage: () => "en", normalizePath: (path: string) => path }));
 import { MAX_FLASHCARD_INPUT_LENGTH, RecallAuthoringAdapter } from "../recallAuthoring";
@@ -17,8 +20,7 @@ import type { LanguageModelSettingsSnapshot } from "../deep/product/languageMode
 const main = ts.createSourceFile("main.ts", readFileSync("main.ts", "utf8"), ts.ScriptTarget.Latest, true);
 const plugin = main.statements.find((node): node is ts.ClassDeclaration => ts.isClassDeclaration(node) && node.name?.text === "AIHubPlugin")!;
 const buildMethod = plugin.members.find((node) => ts.isMethodDeclaration(node) && node.name.getText(main) === "buildFlashcardsContent")!.getText(main);
-const helpers = ["extractFlashcards", "appendSection"].map((name) => main.statements.find((node) =>
-  ts.isFunctionDeclaration(node) && node.name?.text === name)!.getText(main)).join("\n");
+const helpers = "";
 
 function fixture(raw?: string, body = "# Source\nPRIVATE_SELECTED_BODY") {
   const f = productFixture(raw);
@@ -44,14 +46,14 @@ function fixture(raw?: string, body = "# Source\nPRIVATE_SELECTED_BODY") {
   const provider = vi.fn(async (_settings: unknown, _prompt: string, _content: string) => "Question::Answer\nSecond::Answer two");
   // Execute the authoritative producer and cleanup, replacing only transport.
   const producer = runInNewContext(ts.transpileModule(`${helpers}\nclass Producer { ${buildMethod} }\nnew Producer()`,
-    { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, { callOpenRouter: provider, MAX_FLASHCARD_INPUT_LENGTH, tr: t }) as {
-    buildFlashcardsContent(content: string, prompt: string, settings: LanguageModelSettingsSnapshot): Promise<{ newContent: string; cardCount: number }>;
+    { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, { callOpenRouter: provider, DEFAULT_GENERATION_OPTIONS, generateRecall, MAX_FLASHCARD_INPUT_LENGTH, tr: t }) as {
+    buildFlashcardsContent(content: string, prompt: string, settings: LanguageModelSettingsSnapshot, options?: import("./authoring").RecallGenerationOptions): Promise<{ newContent: string; cardCount: number }>;
   };
   const author = new RecallAuthoringAdapter(f.app, settingsPort, f.product,
-    (content, config) => producer.buildFlashcardsContent(content, t("@flashcards_prompt"), config));
+    (content, config, options) => producer.buildFlashcardsContent(content, t("@flashcards_prompt"), config, options));
   const health = new HealthPluginController(f.app, "ai-knowledge-hub", preferencesFixture({ onboardingCompleted: true }).preferences,
     undefined, new RecallHealthAdapter(f.product));
-  return { ...f, author, provider, settings, health, processNote, changed: () => changed(),
+  return { ...f, author, provider, settings, health, processNote, view, changed: () => changed(),
     clearCurrent: () => { current = null; }, closeNote: () => { open = false; events.get("layout-change")?.(); },
     switchNote: () => {
       const other = Object.assign(new host.TFile(), { ...f.note, path: "B.md" });
@@ -62,9 +64,22 @@ function fixture(raw?: string, body = "# Source\nPRIVATE_SELECTED_BODY") {
     },
     generate: async () => { author.requestGeneration(); return author.generate(); } };
 }
-beforeEach(() => setLanguage("en"));
+beforeEach(() => { setLanguage("en"); editorWrite.mockReset(); });
 
 describe("native Recall authoring bridge", () => {
+  it.each(["editor", "model", "unload", "rename"])("invalidates a closed-note write guard after %s changes", (change) => {
+    const f = fixture();
+    const guard = f.author.closedWriteGuard(f.note as TFile);
+    expect(guard).not.toThrow();
+    if (change === "editor") Object.assign(f.view, { editor: { getValue: () => f.files.get(f.note.path) } });
+    if (change === "model") f.settings.model = "changed";
+    if (change === "unload") f.author.dispose();
+    if (change === "rename") f.note.path = "renamed.md";
+    expect(guard).toThrow("note changed");
+    expect(f.provider).not.toHaveBeenCalled();
+    expect(f.processNote).not.toHaveBeenCalled();
+  });
+
   it.each(["before-completion", "after-completion"])("never attributes a completed result to a different selected note (%s)", async (when) => {
     const f = fixture(), entered = gate(), hold = gate();
     f.provider.mockImplementationOnce(async () => { entered.release(); await hold.promise; return "Question::Answer"; });
@@ -89,18 +104,18 @@ describe("native Recall authoring bridge", () => {
   });
 
   it("uses only the selected bounded content, original prompt, one generator read and one targeted read; updates Health", async () => {
-    const f = fixture(undefined, "# Source\n" + "X".repeat(MAX_FLASHCARD_INPUT_LENGTH) + "PRIVATE_TAIL");
+    const f = fixture(undefined, "# Source\n" + "X".repeat(100) + "PRIVATE_TAIL");
     await f.health.getHealthService();
     const healthBefore = f.health.getState().snapshot!;
     f.files.set("Private/Config/plugins/ai-knowledge-hub/health/sentinel.json", "EXACT_HEALTH_BYTES");
     f.files.set("Other.md", "UNRELATED_NOTE");
     const states: string[] = []; f.author.subscribe(() => states.push(f.author.getSnapshot().state));
     expect(await f.generate()).toEqual({ status: "success", cardCount: 2 });
-    expect(f.provider).toHaveBeenCalledExactlyOnceWith(f.settings, t("@flashcards_prompt"), f.provider.mock.calls[0][2]);
-    expect(f.provider.mock.calls[0][2]).toHaveLength(MAX_FLASHCARD_INPUT_LENGTH);
-    expect(f.provider.mock.calls[0][2]).not.toMatch(/PRIVATE_TAIL|UNRELATED_NOTE|PRIVATE_KEY|EXACT_HEALTH_BYTES/u);
+    expect(f.provider).toHaveBeenCalledExactlyOnceWith(f.settings, expect.stringContaining(t("@flashcards_prompt")), f.provider.mock.calls[0][2], { requireFinishReason: true });
+    expect(f.provider.mock.calls[0][2]).toBe("# Source\n" + "X".repeat(100) + "PRIVATE_TAIL");
+    expect(f.provider.mock.calls[0][2]).not.toMatch(/UNRELATED_NOTE|PRIVATE_KEY|EXACT_HEALTH_BYTES/u);
     expect(f.files.get("A.md")).toContain("PRIVATE_TAIL\n\n## Flashcards\n#flashcards\n\nQuestion::Answer\nSecond::Answer two\n");
-    expect(f.vault.read).toHaveBeenCalledTimes(2); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    expect(f.vault.read).toHaveBeenCalledTimes(3); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled();
     expect(f.processNote).toHaveBeenCalledTimes(1); expect(f.factory).toHaveBeenCalledTimes(1);
     expect(f.product.getSnapshot()).toMatchObject({ firstRun: false, inventoryEstablished: false, summary: { active: 2, due: 2, new: 2 } });
     expect(states).toContain("generating"); expect(states).toContain("ingesting"); expect(states.at(-1)).toBe("success");
@@ -110,7 +125,7 @@ describe("native Recall authoring bridge", () => {
     expect(after.lastDeepScan).toBeUndefined(); expect(after.lastSemanticScan).toBeUndefined(); expect(after.lastLocalScan).toBeUndefined();
     expect(f.files.get("Private/Config/plugins/ai-knowledge-hub/health/sentinel.json")).toBe("EXACT_HEALTH_BYTES");
     expect(f.adapter.write.mock.calls.map(([path]) => path)).toEqual([cardsPath]);
-    f.product.startSession(); expect(f.product.getSnapshot().session?.card).toBeDefined();
+    await f.product.startSession(); expect(f.product.getSnapshot().session?.card).toBeDefined();
     f.author.requestGeneration(); expect(f.author.getSnapshot().state).toBe("success");
   });
 
@@ -125,7 +140,7 @@ describe("native Recall authoring bridge", () => {
     const before = [...f.files]; hold.release();
     expect(await pending).toEqual({ status: "error", reason: "conflict" }); expect([...f.files]).toEqual(before);
     expect(f.factory).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.vault.read).toHaveBeenCalledTimes(change === "edit" || change === "replace" ? 2 : 1);
   });
 
   it.each(["provider", "invalid-output", "save"])("does not ingest or reveal raw text after %s failure", async (failure) => {
@@ -134,14 +149,14 @@ describe("native Recall authoring bridge", () => {
     if (failure === "invalid-output") f.provider.mockResolvedValueOnce("PRIVATE_PROVIDER_BODY with no cards");
     if (failure === "save") f.processNote.mockRejectedValueOnce(new Error("PRIVATE_DISK_ERROR"));
     const before = [...f.files];
-    expect(await f.generate()).toEqual({ status: "error", reason: failure === "save" ? "markdown-save-failed" : "generation-failed" });
+    expect(await f.generate()).toEqual({ status: "error", reason: failure === "save" ? "markdown-save-failed" : failure === "invalid-output" ? "invalid-output" : "generation-failed" });
     expect([...f.files]).toEqual(before); expect(f.factory).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
     expect(JSON.stringify(f.author.getSnapshot())).not.toMatch(/PRIVATE|stack|Authorization/u);
     if (failure !== "save") expect(f.processNote).not.toHaveBeenCalled();
   });
 
   it("retains Markdown and old published schedules on Recall persistence failure, recoverable through explicit Refresh", async () => {
-    const f = fixture(undefined, "## Flashcards\nOld::Answer"); await f.product.initialize(); await f.product.refreshCards();
+    const f = fixture(undefined, "Source material.\n\n## Flashcards\nOld::Answer"); await f.product.initialize(); await f.product.refreshCards();
     const cards = f.service().listCards(), bytes = f.files.get(cardsPath);
     f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE_RECALL_FAILURE"));
     expect(await f.generate()).toEqual({ status: "partial", cardCount: 2, reason: "recall-update-failed", needsRecovery: false });
@@ -155,19 +170,19 @@ describe("native Recall authoring bridge", () => {
     const f = fixture(raw);
     expect(await f.generate()).toEqual({ status: "partial", cardCount: 2, reason: "recall-update-failed", needsRecovery: true });
     expect(f.files.get("A.md")).toContain("Question::Answer"); expect(f.files.get(cardsPath)).toBe(raw);
-    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.vault.read).toHaveBeenCalledTimes(2);
   });
 
   it("preserves review usability during generation and merges duplicate/recurring identities with existing schedules", async () => {
-    const f = fixture(undefined, "## Flashcards\nQuestion::Answer"); await f.product.initialize(); await f.product.refreshCards();
+    const f = fixture(undefined, "Source material.\n\n## Flashcards\nQuestion::Answer"); await f.product.initialize(); await f.product.refreshCards();
     const original = f.service().listCards()[0], entered = gate(), hold = gate();
     f.provider.mockImplementationOnce(async () => { entered.release(); await hold.promise; return "Question::Answer\nNew::B"; });
     const pending = f.generate(); await entered.promise;
-    f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("easy"); f.product.endSession();
+    await f.product.startSession(); f.time(200); f.product.revealAnswer(); await f.product.rate("easy"); f.product.endSession();
     const reviewed = f.service().getCard(original.id)!; expect(reviewed.schedule.reviewCount).toBe(1);
     hold.release(); expect(await pending).toEqual({ status: "success", cardCount: 2 });
     expect(f.service().listCards()).toHaveLength(2); expect(f.service().getCard(original.id)?.schedule).toEqual(reviewed.schedule);
-    expect(f.files.get("A.md")!.match(/## Flashcards/gu)).toHaveLength(2);
+    expect(f.files.get("A.md")!.match(/## Flashcards/gu)).toHaveLength(1);
     f.files.set("A.md", "No cards"); f.time(300); await f.product.refreshCards();
     expect(f.service().getCard(original.id)?.state).toBe("retired");
     f.provider.mockResolvedValue("Question::Answer"); f.time(400); await f.generate();
@@ -198,6 +213,74 @@ describe("native Recall authoring bridge", () => {
     const f = fixture(); f.note.path = path; f.files.set(path, "PRIVATE");
     expect(await f.author.generateForNote(f.note as TFile)).toEqual({ status: "error", reason: "source-unavailable" });
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.provider).not.toHaveBeenCalled(); expect(f.processNote).not.toHaveBeenCalled();
+  });
+
+  it("uses the active split editor's selection and inserts only into its history", async () => {
+    const f = fixture(); const content = f.files.get("A.md")!;
+    const firstEditor = { getValue: () => content, getSelection: () => "PRIVATE_SELECTED_BODY" };
+    let secondContent = content;
+    const secondEditor = { getValue: () => secondContent, getSelection: () => "# Source" };
+    Object.assign(f.view, { editor: firstEditor });
+    const second = Object.assign(new host.MarkdownView(), { file: f.note, editor: secondEditor, save: vi.fn(async () => {
+      f.files.set("A.md", secondContent); Object.assign(f.note.stat, { size: secondContent.length, mtime: f.note.stat.mtime + 1 });
+    }) });
+    Object.assign(f.workspace, { activeEditor: { file: f.note, editor: secondEditor }, getLeavesOfType: () => [{ view: f.view }, { view: second }] });
+    editorWrite.mockImplementation((editor: unknown, _original: string, replacement: string) => { expect(editor).toBe(secondEditor); secondContent = replacement; });
+    expect(await f.generate()).toMatchObject({ status: "success" });
+    expect(f.provider.mock.calls[0][2]).toBe("# Source"); expect(editorWrite).toHaveBeenCalledTimes(1);
+    expect(f.processNote).not.toHaveBeenCalled(); expect(second.save).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports inserted-but-unsaved editor output without retrying transport or writing Recall", async () => {
+    const f = fixture(); let content = f.files.get("A.md")!;
+    const editor = { getValue: () => content, getSelection: () => "" };
+    Object.assign(f.view, { editor, save: vi.fn(async () => { throw new Error("disk full"); }) });
+    editorWrite.mockImplementation((_editor: unknown, _original: string, replacement: string) => { content = replacement; });
+    expect(await f.generate()).toEqual({ status: "partial", cardCount: 2, reason: "editor-save-failed", needsRecovery: false });
+    expect(content).toContain("Question::Answer"); expect(f.provider).toHaveBeenCalledTimes(1);
+    expect(f.processNote).not.toHaveBeenCalled(); expect(f.factory).not.toHaveBeenCalled();
+  });
+
+  it("blocks divergent split buffers before transport and after transport", async () => {
+    for (const when of ["before", "after"]) {
+      const f = fixture(), body = f.files.get("A.md")!, entered = gate(), hold = gate(); let other = body;
+      const editor = { getValue: () => body, getSelection: () => "" };
+      Object.assign(f.view, { editor }); const second = Object.assign(new host.MarkdownView(), { file: f.note,
+        editor: { getValue: () => other, getSelection: () => "" } });
+      Object.assign(f.workspace, { activeEditor: { editor, file: f.note }, getLeavesOfType: () => [{ view: f.view }, { view: second }] });
+      if (when === "before") other = "unsaved";
+      else f.provider.mockImplementationOnce(async () => { entered.release(); await hold.promise; return "Q::A"; });
+      const pending = f.generate(); if (when === "after") { await entered.promise; other = "unsaved"; hold.release(); }
+      expect(await pending).toEqual({ status: "error", reason: when === "before" ? "source-unsaved" : "conflict" });
+      expect(editorWrite).not.toHaveBeenCalled(); expect(f.processNote).not.toHaveBeenCalled();
+      expect(f.provider).toHaveBeenCalledTimes(when === "before" ? 0 : 1);
+    }
+  });
+
+  it.each(["unload", "model"])("does not apply after %s during the final saved-source read", async change => {
+    const f = fixture(), entered = gate(), hold = gate();
+    f.vault.read.mockResolvedValueOnce("# Source\nPRIVATE_SELECTED_BODY").mockImplementationOnce(async () => {
+      entered.release(); await hold.promise; return "# Source\nPRIVATE_SELECTED_BODY";
+    });
+    const pending = f.generate(); await entered.promise;
+    if (change === "unload") f.author.dispose(); else f.settings.model = "changed";
+    hold.release(); expect(await pending).toEqual({ status: "error", reason: "conflict" });
+    expect(f.processNote).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
+  });
+
+  it.each(["unload", "model", "editor"])("does not apply closed-note authoring after %s while Vault.process waits", async change => {
+    const f = fixture(), entered = gate(), hold = gate(), before = f.files.get("A.md");
+    f.processNote.mockImplementationOnce(async (_file, transform) => {
+      entered.release(); await hold.promise;
+      const next = transform(before!); f.files.set("A.md", next); return next;
+    });
+    const pending = f.author.generateForNote(f.note as TFile); await entered.promise;
+    if (change === "unload") f.author.dispose();
+    if (change === "model") f.settings.model = "changed";
+    if (change === "editor") Object.assign(f.view, { editor: { getValue: () => before } });
+    hold.release(); expect(await pending).toEqual({ status: "error", reason: "conflict" });
+    expect(f.files.get("A.md")).toBe(before);
+    expect(f.provider).toHaveBeenCalledTimes(1); expect(f.adapter.write).not.toHaveBeenCalled();
   });
 
   it("single-flights product/command generation and does not write after disposal during the provider request", async () => {

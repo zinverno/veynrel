@@ -1,3 +1,4 @@
+import { parseYaml } from "obsidian";
 import { ConnectionRulesModal } from "./connectionRulesModal";
 import { createConnectionRules } from "./connectionRules";
 import { compileConnectionRules } from "../connections/connectionRules";
@@ -33,7 +34,7 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
   createAuthoring?: (recall: RecallProductPort) => RecallAuthoringPort, connect?: ConnectPort, neighborhood?: SemanticNeighborhoodPort, globalMap?: SemanticGlobalMapPort, pairReview?: PairReviewPort,
   createTags?: (paths: readonly string[]) => WorkbenchTagsPort): void {
   const rules = createConnectionRules(plugin);
-  const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path));
+  const recall = createObsidianRecallProduct(plugin.app, plugin.manifest.id, (path) => openHealthNote(plugin.app, path), parseYaml);
   const authoring = createAuthoring?.(recall);
   const topology = createObsidianVaultTopology(plugin.app);
   const createComparison = (map: SemanticGlobalMapPort): ConnectionComparisonController => new ConnectionComparisonController(map, topology);

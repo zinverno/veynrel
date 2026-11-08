@@ -32,7 +32,7 @@ describe("Recall local-only domain boundary", () => {
           expect(call, file).not.toBe("Math.random");
           if (file.startsWith("recall/scheduler/")) expect(call, file).not.toMatch(/(?:Date|performance|document|window|localStorage)/u);
           if (file === "recall/product/recallRecovery.ts" && call === "this.adapter.rename") recoveryMoves.push(call);
-          else if (!(file === "recall/product/recallProductController.ts" && call === "this.listeners.delete")) {
+          else if (!((file === "recall/product/recallProductController.ts" && call === "this.listeners.delete") || (file === "recall/product/obsidianRecallProduct.ts" && call === "timers.delete"))) {
             expect(callee, file).not.toMatch(/^(?:require|fetch|requestUrl|request|callOpenRouter|XMLHttpRequest|WebSocket|embed|embeddings|modify|create|delete|rename|process|cachedRead|loadData|saveData)$/u);
           }
           if (/\.write$/u.test(call)) writes.push(`${file}:${call}`);
@@ -41,7 +41,7 @@ describe("Recall local-only domain boundary", () => {
       }
       visit(ast);
     }
-    expect(writes.sort()).toEqual(["recall/store/obsidianRecallStorage.ts:this.adapter.write", "recall/store/recallStore.ts:this.storage.write"]);
+    expect(writes.sort()).toEqual(["recall/store/obsidianRecallStorage.ts:this.adapter.write", "recall/store/obsidianRecallStorage.ts:this.adapter.write", "recall/store/recallStore.ts:this.storage.write"]);
     expect(recoveryMoves).toHaveLength(2); // Dedicated backup move and best-effort rollback only; tested against fixed Recall paths.
     const storage = readFileSync("recall/store/obsidianRecallStorage.ts", "utf8");
     expect(storage).toContain('this.path = `${this.root}/cards.json`');

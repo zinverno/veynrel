@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { candidate, memoryStorage, request } from "../testSupport";
+import { candidate, legacyCandidate, upgraded, memoryStorage, request } from "../testSupport";
 import { cardsPath, productFixture } from "../product/testSupport";
 import { createInitialSchedule, rateSchedule } from "../scheduler/fsrs6";
 import { decodeRecall, isRecallSnapshot } from "./codec";
@@ -8,7 +8,7 @@ import { RecallStore } from "./recallStore";
 import type { RecallCardsSnapshot } from "./types";
 
 function legacyV2(coverage: boolean) {
-  const active = candidate(), retired = candidate("Retired"), learning = candidate("Learning");
+  const active = legacyCandidate(), retired = legacyCandidate("Retired"), learning = legacyCandidate("Learning");
   const reviewed = rateSchedule(createInitialSchedule(10), "easy", 20).schedule;
   return { version: 2, updatedAt: 100, ...(coverage ? { inventoryCompletedAt: 80 } : {}), cards: {
     [active.id]: { ...active, firstSeenAt: 10, lastSeenAt: 100, state: "active", schedule: reviewed },
@@ -21,13 +21,13 @@ function legacyV2(coverage: boolean) {
 describe.each([false, true])("v2 → v3 migration (inventory evidence: %s)", (coverage) => {
   it("loads the exact legacy shape into v3 without writing or changing cards, schedules or coverage", async () => {
     const legacy = legacyV2(coverage), raw = JSON.stringify(legacy), decoded = decodeRecall(raw);
-    expect(decoded).toEqual({ status: "loaded", data: { ...legacy, version: 3 } });
+    expect(decoded).toEqual({ status: "loaded", data: upgraded(legacy) });
     expect(isRecallSnapshot(legacy)).toBe(false); expect(isRecallSnapshot(decoded.data)).toBe(true);
     expect(Object.prototype.hasOwnProperty.call(decoded.data!, "inventoryCompletedAt")).toBe(coverage);
     const f = productFixture(raw); await f.product.initialize();
     expect(f.product.getSnapshot()).toMatchObject({ loadState: "ready", canRecover: false, firstRun: false, inventoryEstablished: coverage });
     for (const card of Object.values(legacy.cards)) {
-      expect(f.service().getCard(card.id)).toEqual(card);
+      expect(f.service().getCard(card.id)).toMatchObject(card);
       expect(JSON.stringify(f.service().getCard(card.id)!.schedule)).toBe(JSON.stringify(card.schedule));
     }
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.files.get(cardsPath)).toBe(raw);
@@ -41,7 +41,7 @@ describe.each([false, true])("v2 → v3 migration (inventory evidence: %s)", (co
     else if (mutation === "targeted") await store.admit([candidate(), candidate("New")], 200);
     else await store.reconcile(request([candidate()], 200, mutation === "full"));
     const saved = JSON.parse(storage.bytes()!) as RecallCardsSnapshot;
-    expect(storage.write).toHaveBeenCalledTimes(1); expect(saved.version).toBe(3);
+    expect(storage.write).toHaveBeenCalledTimes(1); expect(saved.version).toBe(4);
     expect(saved.inventoryCompletedAt).toBe(mutation === "full" ? 200 : legacy.inventoryCompletedAt);
     expect(Object.prototype.hasOwnProperty.call(saved, "inventoryCompletedAt")).toBe(coverage || mutation === "full");
     for (const card of Object.values(legacy.cards)) {
@@ -70,7 +70,7 @@ describe.each([2, 3])("strict v%s coverage validation", (version) => {
 
   it.each([0, 100])("accepts the inclusive marker boundary %s without altering it", (inventoryCompletedAt) => {
     const data = { ...legacyV2(true), version, inventoryCompletedAt };
-    expect(decodeRecall(JSON.stringify(data))).toEqual({ status: "loaded", data: { ...data, version: 3 } });
+    expect(decodeRecall(JSON.stringify(data))).toEqual({ status: "loaded", data: upgraded(data) });
   });
 });
 
@@ -79,8 +79,8 @@ describe("durable v3 coverage and merged PR #44 regression", () => {
     const f = productFixture(); await f.product.initialize();
     if (full) await f.product.refreshCards(); else await f.product.refreshNote("A.md");
     const first = JSON.parse(f.files.get(cardsPath)!) as RecallCardsSnapshot;
-    expect(first.version).toBe(3); expect(f.product.getSnapshot().inventoryEstablished).toBe(full);
-    f.time(200); f.product.startSession(); f.product.revealAnswer(); await f.product.rate("again"); f.product.endSession();
+    expect(first.version).toBe(4); expect(f.product.getSnapshot().inventoryEstablished).toBe(full);
+    f.time(200); await f.product.startSession(); f.product.revealAnswer(); await f.product.rate("again"); f.product.endSession();
     f.time(300); expect(await f.product.refreshNote("A.md")).toBe("updated");
     const saved = JSON.parse(f.files.get(cardsPath)!) as RecallCardsSnapshot;
     expect(saved.inventoryCompletedAt).toBe(full ? 100 : undefined);
@@ -100,15 +100,16 @@ describe("durable v3 coverage and merged PR #44 regression", () => {
     const f = productFixture(raw); f.time(legacy.updatedAt + 100); await f.product.initialize();
     expect(f.product.getSnapshot()).toMatchObject({ loadState: "ready", canRecover: false, confirmingRecovery: false, inventoryEstablished: true });
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.files.get(cardsPath)).toBe(raw);
-    for (const card of Object.values(legacy.cards)) expect(f.service().getCard(card.id)).toEqual(card);
+    for (const card of Object.values(legacy.cards)) expect(f.service().getCard(card.id)).toMatchObject(card);
     expect(await f.product.refreshNote("A.md")).toBe("updated");
     const saved = JSON.parse(f.files.get(cardsPath)!) as RecallCardsSnapshot;
-    expect(saved.version).toBe(3); expect(saved.inventoryCompletedAt).toBe(legacy.inventoryCompletedAt);
-    for (const card of Object.values(legacy.cards)) expect(saved.cards[card.id]).toEqual(card);
-    expect(f.adapter.write).toHaveBeenCalledTimes(1);
+    expect(saved.version).toBe(4); expect(saved.inventoryCompletedAt).toBe(legacy.inventoryCompletedAt);
+    for (const card of Object.values(legacy.cards)) expect(saved.cards[card.id]).toMatchObject(card);
+    expect(f.adapter.write).toHaveBeenCalledTimes(2);
+    expect([...f.files].some(([path, bytes]) => path.includes("cards.pre-v4-") && bytes === raw)).toBe(true);
   });
 
-  it.each([4, 99])("keeps future storage version %s unsupported and byte-identical", async (version) => {
+  it.each([5, 99])("keeps future storage version %s unsupported and byte-identical", async (version) => {
     const raw = JSON.stringify({ ...legacyV2(true), version }), storage = memoryStorage(raw), store = new RecallStore(storage);
     expect(await store.load()).toEqual({ status: "unsupported", writable: false });
     await expect(store.reviewCard(candidate().id, "good", 200)).rejects.toThrow("write-blocked");

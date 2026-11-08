@@ -1,3 +1,5 @@
+import { DEFAULT_GENERATION_OPTIONS, generateRecall } from "./recallAuthoring";
+import type { RecallGenerationOptions } from "./recallAuthoring";
 import { AtomizationPicker, GenerativeAtomizationModal } from "./atomization/generativeModal";
 import { sanitizeFileName, noteToWikiLink, pathKey } from "./utils/noteNames";
 import { MocPreparationModal, prepareMocs, type MocPreparation } from "./mocPreparation";
@@ -60,7 +62,7 @@ import {
 } from "./deepAudit";
 import { NoteIndexManager } from "./noteIndex";
 import { backupAndReplaceNote } from "./noteWrites";
-import { MAX_FLASHCARD_INPUT_LENGTH, RecallAuthoringAdapter, resolveFlashcardNote } from "./recallAuthoring";
+import { RecallAuthoringAdapter, resolveFlashcardNote } from "./recallAuthoring";
 import { mergeEmbeddingSettings } from "./embeddings/types";
 import type { EmbeddingSettings, StoredEmbeddingSettings } from "./embeddings/types";
 import {
@@ -245,7 +247,12 @@ export default class AIHubPlugin extends Plugin {
         new SemanticHealthAnalysisAdapter(this.semanticController), deep,
         new DeepHealthAnalysisAdapter(this.app, () => this.getDeepKnowledgeConfiguration()), (recall) => {
           const authoring = new RecallAuthoringAdapter(this.app, this.getLanguageModelSettingsPort(), recall,
-            (content, settings) => this.buildFlashcardsContent(content, tr("@flashcards_prompt"), { ...this.settings, ...settings }));
+            (content, settings, options, prompt) => this.buildFlashcardsContent(content, prompt ?? tr("@flashcards_prompt"), { ...this.settings, ...settings }, options),
+            { get: () => this.settings.recallPrompt ?? tr("@flashcards_prompt"), save: async prompt => {
+              if (prompt !== undefined && (!prompt.trim() || prompt.length > 16000)) throw new Error("Invalid Recall prompt.");
+              if (prompt === undefined) delete this.settings.recallPrompt; else this.settings.recallPrompt = prompt;
+              await this.saveSettings();
+            } });
           this.recallAuthoring = authoring;
           this.register(() => authoring.dispose());
           return authoring;
@@ -1473,6 +1480,7 @@ export default class AIHubPlugin extends Plugin {
     let errorCount = 0;
     const errors: string[] = [];
     const flashcardPaths: string[] = [];
+    let recallUpdatesFailed = 0;
 
     for (const file of files) {
       if (progress.isCancelled) break;
@@ -1480,25 +1488,40 @@ export default class AIHubPlugin extends Plugin {
       try {
         progress.logPending(file.name);
         if (append && resolveFlashcardNote(this.app, file.path) !== file) throw new Error("Invalid flashcard source.");
-        const originalPath = file.path;
-        const content = await this.app.vault.read(file);
-
-        let newContent: string;
-        if (append) {
-          // Флешкарты: модель возвращает ТОЛЬКО карточки, основной текст
-          // не трогаем — дописываем отдельной секцией в конец заметки.
-          newContent = (await this.buildFlashcardsContent(content, query))
-            .newContent;
+        if (append && this.recallAuthoring?.hasOpenEditor(file)) {
+          const result = await this.recallAuthoring.generateForNote(file, undefined, this.settings.recallPrompt ?? query);
+          if (!result || result.status === "error") throw new Error("Recall batch authoring failed.");
+          if (result.status === "partial" && result.reason === "editor-save-failed") {
+            errorCount++;
+            const message = tr("@recall.authoring.editor-save-failed");
+            errors.push(`${file.name}: ${message}`); progress.update(processed, errorCount); progress.logError(file.name, message);
+            continue;
+          }
+          if (result.status === "partial") recallUpdatesFailed++;
         } else {
-          newContent = await callOpenRouter(
-            this.settings,
-            tr("Ты — редактор. Верни ТОЛЬКО изменённый текст, без пояснений."),
-            `Текст заметки:\n${content}\n\nИнструкция: ${query}\n\nВерни полный изменённый текст.`,
-          );
-        }
+          const guard = append ? this.recallAuthoring?.closedWriteGuard(file) : undefined;
+          if (append && !guard) throw new Error("Recall authoring is unavailable.");
+          guard?.();
+          const generationSettings = { ...this.settings }, generationPrompt = this.settings.recallPrompt ?? query;
+          const originalPath = file.path;
+          const content = await this.app.vault.read(file);
 
-        await backupAndReplaceNote(this.app.vault, file, originalPath, content, newContent, backupFolder);
-        if (append) flashcardPaths.push(originalPath);
+          let newContent: string;
+          if (append) {
+            // Closed batch notes retain exact-source backups and guarded writes.
+            newContent = (await this.buildFlashcardsContent(content, generationPrompt, generationSettings))
+              .newContent;
+          } else {
+            newContent = await callOpenRouter(
+              this.settings,
+              tr("Ты — редактор. Верни ТОЛЬКО изменённый текст, без пояснений."),
+              `Текст заметки:\n${content}\n\nИнструкция: ${query}\n\nВерни полный изменённый текст.`,
+            );
+          }
+
+          await backupAndReplaceNote(this.app.vault, file, originalPath, content, newContent, backupFolder, guard);
+          if (append) flashcardPaths.push(originalPath);
+        }
 
         processed++;
         progress.update(processed, errorCount);
@@ -1514,7 +1537,6 @@ export default class AIHubPlugin extends Plugin {
       }
     }
 
-    let recallUpdatesFailed = 0;
     for (const path of new Set(flashcardPaths)) {
       if (await this.recallAuthoring?.ingestNote(path) !== "updated") recallUpdatesFailed++;
     }
@@ -1562,15 +1584,11 @@ export default class AIHubPlugin extends Plugin {
     content: string,
     prompt: string,
     settings: AIHubSettings = this.settings,
+    options: RecallGenerationOptions = DEFAULT_GENERATION_OPTIONS,
   ): Promise<{ newContent: string; cardCount: number }> {
-    const raw = await callOpenRouter(settings, prompt, content.slice(0, MAX_FLASHCARD_INPUT_LENGTH));
-    const cards = extractFlashcards(raw);
-    if (!cards) throw new Error(tr("Некорректный ответ AI"));
-    const newContent = appendSection(
-      content,
-      `## Flashcards\n#flashcards\n\n${cards}`,
-    );
-    return { newContent, cardCount: cards.split("\n").length };
+    const { newContent, cardCount } = await generateRecall(content, prompt, options, (system, source) =>
+      callOpenRouter(settings, system, source, { requireFinishReason: true }));
+    return { newContent, cardCount };
   }
 
   async generateFlashcardsForNote(file: TFile) {
@@ -1890,40 +1908,6 @@ class BatchProgressModal extends Modal {
   logError(name: string, msg: string) {
     this.addEntry(`✗ ${name}: ${msg}`, "ai-hub-log-error");
   }
-}
-
-// === ФЛЕШКАРТЫ ===
-/**
- * Чистит ответ модели до валидных inline-карточек Spaced Repetition.
- * Оставляет только строки вида «Вопрос::Ответ», срезает нумерацию,
- * маркеры списков, markdown-обёртки и любые вступления/комментарии,
- * которые модель могла добавить вопреки промпту.
- */
-function extractFlashcards(raw: string): string {
-  return raw
-    .replace(/```[a-zA-Z]*\n?/g, "")
-    .replace(/```/g, "")
-    .split("\n")
-    .map((line) => line.trim().replace(/^(?:[-*+•]|\d+[.)])\s+/, "").trim())
-    .filter((line) => {
-      // Валидная карточка: непустой текст по обе стороны первого "::"
-      const sep = line.indexOf("::");
-      if (sep === -1) return false;
-      return (
-        line.slice(0, sep).trim().length > 0 &&
-        line.slice(sep + 2).trim().length > 0
-      );
-    })
-    .join("\n")
-    .trim();
-}
-
-/**
- * Дописывает блок отдельной секцией в конец заметки,
- * не трогая основной текст.
- */
-function appendSection(content: string, block: string): string {
-  return `${content.replace(/\s+$/, "")}\n\n${block}\n`;
 }
 
 // === УВЕДОМЛЕНИЯ ===

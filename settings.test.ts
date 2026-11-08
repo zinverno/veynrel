@@ -146,11 +146,11 @@ it.each(["en", "ru"] as const)("keeps product and technical search aliases and b
 it("preserves baseline controls except the verified release and native markup fixes", () => {
   const source = ts.createSourceFile("settings.ts", readFileSync("settings.ts", "utf8"), ts.ScriptTarget.Latest, true);
   const printer = ts.createPrinter({ removeComments: true });
-  // Keep the frozen legacy schema/default contract; the independent rerank and Decisions properties are additive.
+  // Keep legacy controls/defaults frozen; independent rerank, Decisions and Recall prompt properties are additive.
   const hash = (node: ts.Node) => {
     const transformed = ts.transform(node, [context => root => {
       const visit: ts.Visitor = item => {
-        if ((ts.isPropertyAssignment(item) || ts.isPropertySignature(item)) && ["rerank", "decisions"].includes(item.name.getText(source))) return undefined;
+        if ((ts.isPropertyAssignment(item) || ts.isPropertySignature(item)) && ["rerank", "decisions", "recallPrompt"].includes(item.name.getText(source))) return undefined;
         return ts.visitEachChild(item, visit, context);
       };
       return ts.visitNode(root, visit) as typeof root;
@@ -179,4 +179,12 @@ it("preserves baseline controls except the verified release and native markup fi
     "method:renderModelOptions": "f40d324dcb6ecf783cec2013b750afae4acb38adade1a9a7cffd46ffa1379466",
     "method:renderProviderCards": "3b19426d826726e3317259123552832846115a9e20c38e61418cf8e7a059a0e5",
   });
+});
+
+it("keeps the Recall prompt optional and does not impose an override at startup", () => {
+  const source = ts.createSourceFile("settings.ts", readFileSync("settings.ts", "utf8"), ts.ScriptTarget.Latest, true);
+  const settings = source.statements.find((node): node is ts.InterfaceDeclaration => ts.isInterfaceDeclaration(node) && node.name.text === "AIHubSettings")!;
+  const prompt = settings.members.find(member => member.name?.getText(source) === "recallPrompt") as ts.PropertySignature;
+  expect(prompt.questionToken).toBeDefined(); expect(prompt.type?.kind).toBe(ts.SyntaxKind.StringKeyword);
+  expect(DEFAULT_SETTINGS).not.toHaveProperty("recallPrompt");
 });

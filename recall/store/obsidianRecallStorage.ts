@@ -28,6 +28,14 @@ export class ObsidianRecallStorage implements RecallStoragePort {
     return this.adapter.read(this.path);
   }
 
+  async backupOriginal(contents: string): Promise<void> {
+    if (await this.read() !== contents) throw new Error("Recall changed before migration.");
+    const backup = `${this.root}/cards.pre-v4-${Date.now()}-${crypto.randomUUID()}.json`;
+    if (await this.adapter.exists(backup)) throw new Error("Recall backup collision.");
+    await this.adapter.write(backup, contents);
+    if (await this.adapter.read(backup) !== contents) throw new Error("Recall backup verification failed.");
+  }
+
   async write(contents: string): Promise<void> {
     let path = "";
     for (const segment of this.root.split("/")) {

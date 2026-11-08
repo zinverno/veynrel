@@ -1,14 +1,18 @@
+import type { RecallScope, VocabularyMetadata } from "../domain/topics";
 import type { RecallRating } from "../scheduler/types";
 
 export interface RecallSessionSnapshot {
   readonly reviewed: number;
   readonly complete: boolean;
-  readonly card?: { readonly id: string; readonly path: string; readonly question: string; readonly answer?: string };
+  readonly card?: { readonly id: string; readonly path: string; readonly question: string; readonly vocabulary?: VocabularyMetadata; readonly answer?: string };
   readonly revealed: boolean;
   readonly previews?: readonly { readonly rating: RecallRating; readonly intervalMs: number }[];
 }
 
 export interface RecallProductSnapshot {
+  readonly scope?: RecallScope;
+  readonly facets?: { tags: readonly string[]; languages: readonly string[]; paths: readonly string[] };
+  readonly totalActive?: number;
   readonly loadState: "uninitialized" | "loading" | "ready" | "invalid" | "unsupported" | "unavailable";
   readonly firstRun: boolean;
   readonly inventoryEstablished: boolean;
@@ -21,6 +25,9 @@ export interface RecallProductSnapshot {
   readonly summary?: { readonly active: number; readonly due: number; readonly new: number;
     readonly learning: number; readonly review: number; readonly relearning: number };
   readonly nextDueAt?: number;
+  readonly globalSummary?: RecallProductSnapshot["summary"];
+  readonly globalNextDueAt?: number;
+  readonly sourceIssue?: { readonly path: string; readonly line?: number };
   readonly session?: RecallSessionSnapshot;
   readonly inventoryResult?: { readonly complete: boolean; readonly committed: boolean; readonly active: number };
   readonly error?: "load" | "inventory" | "review" | "session" | "recovery" | "source";
@@ -32,7 +39,8 @@ export interface RecallProductPort {
   getSnapshot(): RecallProductSnapshot;
   refreshCards(): Promise<void>;
   refreshNote(path: string): Promise<"updated" | "blocked" | "failed">;
-  startSession(): void;
+  setScope?(scope: RecallScope): void;
+  startSession(): void | Promise<void>;
   revealAnswer(): void;
   rate(rating: RecallRating): Promise<void>;
   endSession(): void;

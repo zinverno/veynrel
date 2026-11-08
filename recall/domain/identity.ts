@@ -1,3 +1,4 @@
+import { isRecallLanguage, isStudyTag, studyTags } from "./topics";
 import { stableHash } from "../../utils/stableHash";
 import { isVaultPath } from "../../health/domain/validation";
 import { MAX_ANSWER_LENGTH, MAX_QUESTION_LENGTH } from "./card";
@@ -29,8 +30,20 @@ export function createRecallCandidate(source: RecallCardSource): RecallCardCandi
   if (!isCardText(question, MAX_QUESTION_LENGTH) || question.includes("::") || !isCardText(answer, MAX_ANSWER_LENGTH)) {
     throw new Error("Invalid Recall card text.");
   }
-  const fingerprint = `v1:${JSON.stringify([source.path, question, answer])}`;
-  return Object.freeze({ id: `recall-${stableHash(fingerprint)}`, fingerprint, path: source.path, question, answer });
+  const kind = source.kind ?? "study";
+  const tags = source.studyTags ?? [];
+  const sourceKey = source.sourceKey ?? source.path;
+  const vocabulary = source.vocabulary;
+  if (!isRecallPath(sourceKey) || !Array.isArray(tags) || tags.length > 20 || !tags.every(isStudyTag) ||
+      (kind !== "study" && kind !== "vocabulary") ||
+      (kind === "study" && vocabulary !== undefined) || (kind === "vocabulary" && (!vocabulary ||
+        Object.keys(vocabulary).some(key => !["language", "translationLanguage", "direction"].includes(key)) ||
+        !isRecallLanguage(vocabulary.language) || !isRecallLanguage(vocabulary.translationLanguage) ||
+        !["forward", "reverse"].includes(vocabulary.direction)))) throw new Error("Invalid Recall metadata.");
+  const fingerprint = kind === "study" ? `v1:${JSON.stringify([sourceKey, question, answer])}` :
+    `v2:${JSON.stringify([sourceKey, question, answer, vocabulary!.language.toLowerCase(), vocabulary!.translationLanguage.toLowerCase(), vocabulary!.direction])}`;
+  return Object.freeze({ id: `recall-${stableHash(fingerprint)}`, fingerprint, path: source.path, question, answer,
+    sourceKey, kind, studyTags: Object.freeze(studyTags(tags)), ...(vocabulary ? { vocabulary: Object.freeze({ ...vocabulary }) } : {}) });
 }
 
 export function isRecallId(value: unknown): value is string {
