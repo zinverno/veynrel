@@ -4,6 +4,8 @@ Start with the [2.3.1 stable user guide](wiki/Home.md), [release notes](releases
 
 Development remains unpublished at intermediate version 2.4.0. [R02 removes diagram generation while preserving drawings and legacy records](studio-diagram-removal.md). [One public release follows acceptance of R01–R15](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work); Marketplace still serves the published version.
 
+[R02 verification and native limitations](r02-excalidraw-removal-verification.md) records the exact tested source and file hashes.
+
 ## Product guides
 
 - [Health and connections](wiki/Vault-health-and-connections.md)

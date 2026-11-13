@@ -39,4 +39,4 @@ The audit traced the shared UI error handler, operation status/history rendering
 
 The old diagram native harnesses and active generator tests are removed. Their versioned documents, captures, diagrams, raw results and evaluation fixtures remain historical evidence. Offline replay still verifies the frozen fixture hashes; it no longer imports a live diagram validator. The old validation behavior is recoverable from the recorded Git revisions, without shipping it in current runtime.
 
-[Public 2.3.1 diagram guide](wiki/Excalidraw-diagrams.md) · [Historical implementation](studio-excalidraw-v1.md) · [Markdown workflow](wiki/Studio-recipes.md) · [History and recovery](wiki/Safety-history-and-recovery.md)
+[R02 verification and remaining native limitation](r02-excalidraw-removal-verification.md) · [Public 2.3.1 diagram guide](wiki/Excalidraw-diagrams.md) · [Historical implementation](studio-excalidraw-v1.md) · [Markdown workflow](wiki/Studio-recipes.md) · [History and recovery](wiki/Safety-history-and-recovery.md)

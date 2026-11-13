@@ -1,5 +1,7 @@
 # Obsidian Review warnings — safe follow-up, 2026-10-30
 
+> Historical build evidence. R02 retires the diagram harness referenced below; reproduce that scenario only at its recorded revision. [Current removal and retained Markdown workflow](studio-diagram-removal.md).
+
 Base: `0f19591e7667d87d91a64c24749e158adf9ca21d` (merged PR #129, fetched `origin/main`). Branch: `fix/obsidian-review-warnings-safe-v1`, isolated worktree. Runtime/test implementation: `fc284863d4d29a218806a9dffd9b810a43bbb996`; subsequent commits contain evidence and native harness diagnostics only. The PR HEAD is recorded in the PR description. Version remains 2.2.1.
 
 Four of the six reported warning locations are resolved; the two network advisories remain visible and justified. This is **not** a claim of a clean hosted Community scorecard.

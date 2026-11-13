@@ -1,0 +1,111 @@
+targeted-final
+SHA-256 of full local log: 55acc07c731b3d65b4e1890fd704f6f900ae740103cd563d371121c12eb8afc2
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run studio --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-r02-20261113
+
+
+ Test Files  12 passed (12)
+      Tests  297 passed (297)
+   Start at  08:15:07
+   Duration  2.03s (transform 2.73s, setup 0ms, import 4.03s, tests 1.46s, environment 1ms)
+
+
+full-tests-final
+SHA-256 of full local log: 8b5a6d8c578298b5d69377333d315618f2faa87befa1a7c029fa66143303518b
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /tmp/veynrel-r02-20261113
+
+
+ Test Files  194 passed (194)
+      Tests  5149 passed (5149)
+   Start at  08:15:10
+   Duration  43.15s (transform 14.44s, setup 0ms, import 36.83s, tests 98.02s, environment 27ms)
+
+
+typecheck-final
+SHA-256 of full local log: cc4e794b0c621df9e10292996c819acd65555372a6da46c5796ff8b6d64126ec
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+build-final
+SHA-256 of full local log: 7746745429d471128b60e4f7da3a93decb8cedecf7666a0ceba9b7a7236ab272
+
+> obsidian-ai-hub@2.4.0 build
+> node esbuild.config.mjs production
+
+
+lint-final
+SHA-256 of full local log: b10c132247e75d5e9765552b1818418e7d0661c0bbfa1ed4b320e664cf5c64d4
+> obsidian-ai-hub@2.4.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.4.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.4.0 build
+> node esbuild.config.mjs production
+
+
+/tmp/veynrel-r02-20261113/api.ts
+  460:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+/tmp/veynrel-r02-20261113/studio/community/transport.ts
+  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 2 problems (0 errors, 2 warnings)
+
+
+mutation-audit-final
+SHA-256 of full local log: cbe41144c237f0cd77c8918fb1e1c434f60680f97c632ab043a117388dea1765
+
+> obsidian-ai-hub@2.4.0 audit:proposals
+> node scripts/proposal-mutation-audit.mjs
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /[1-9][0-9]* passed/. Input:
+
+''
+
+    at passes (file:///tmp/veynrel-r02-20261113/scripts/proposal-mutation-audit.mjs:35:97)
+    at file:///tmp/veynrel-r02-20261113/scripts/proposal-mutation-audit.mjs:44:5 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '',
+  expected: /[1-9][0-9]* passed/,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.14.1
+
+mutation-audit-final-host
+SHA-256 of full local log: 51031ae5c721676b9520f5c89faf1068b7366c927ffa31578e52b826b83a207e
+
+> obsidian-ai-hub@2.4.0 audit:proposals
+> node scripts/proposal-mutation-audit.mjs
+
+B: KILLED — approval skips base hash precondition
+D: KILLED — Vault write precedes successful claim
+E: KILLED — approval performs two Vault mutations
+F: KILLED — changed Vault content is applied after claim
+H: KILLED — Reject modifies Vault
+5/5 Stage 11 mutations killed; every restored test passed.

@@ -1,5 +1,7 @@
 # Synthetic manual smoke
 
+> Historical diagram smoke kit. R02 removes diagram generation and its active native harness; the recorded kit and drawings remain archival evidence. [Current scope and legacy data](../studio-diagram-removal.md).
+
 Use a separate disposable vault only. No keys, provider account or network model is needed. Nothing here installs into an existing vault automatically.
 
 ## Inspect the saved native drawings offline
