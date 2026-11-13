@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ getLanguage: () => "en", requestUrl: vi.fn() }));
-import { ApiRequestError, StructuredOutputUnavailableError } from "../api";
+import { ApiRequestError } from "../api";
 import { providerError } from "./providerError";
 import { StudioError } from "./recipe";
 import { errorMessage } from "./messages";
@@ -15,7 +15,6 @@ describe("safe Studio transport error categories", () => {
     [new ApiRequestError("invalidEnvelope", "private-body"), "response"],
     [new ApiRequestError("emptyResponse", "private-body"), "response"],
     [new ApiRequestError("refused", "private-body"), "provider"],
-    [new StructuredOutputUnavailableError(), "capabilities"],
     [new StudioError("cancelled"), "cancelled"],
     [Error("private-body"), "provider"],
   ])("preserves a safe category without copying private messages", (error, expected) => {

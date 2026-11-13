@@ -1,5 +1,7 @@
 # Excalidraw first-open polish v1
 
+> Historical implementation/evidence: R02 removes this feature from the unpublished next version. Public 2.3.1 is unchanged. Original results and drawings below are retained; current behavior and archive locations are in [R02 removal](studio-diagram-removal.md).
+
 Base: `be8f1a8862b377d777a96149b306b8ecf7915a2c` (merged PR #128), branch `fix/studio-excalidraw-first-open-v1`. The current origin/main was fetched before creating this isolated worktree. Exact review HEAD and runtime hashes are in the package's `REVIEW.json` and `SHA256SUMS`.
 
 ## Result and implementation

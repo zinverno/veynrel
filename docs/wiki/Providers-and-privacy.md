@@ -1,14 +1,14 @@
 # Providers and privacy
 
-> **Veynrel 2.3.1 Stable.**
+> **Public stable: 2.3.1; unpublished development removes diagram requests.** The version-specific rows below describe only 2.3.1. [R02 scope](../studio-diagram-removal.md).
 
 | Feature | What leaves the device |
 | --- | --- |
 | Local Health, topology, Recall, existing-index views | No LLM request for these operations |
 | Semantic index and text search | Note chunks or query to the selected embedding endpoint; Ollama may be local |
 | Markdown recipes, pair analysis, other generative tools | Disclosed selected inputs and instructions to the configured model endpoint |
-| Diagram capability discovery | Model/endpoint metadata request to public OpenRouter; no note body or authorization in discovery |
-| Diagram generation | Selected source and structured request after consent |
+| 2.3.1 only: diagram capability discovery | Model/endpoint metadata request to public OpenRouter; no note body or authorization in discovery |
+| 2.3.1 only: diagram generation | Selected source and structured request after consent |
 | Community | Public catalog and recipe GETs; no note bodies or provider keys |
 | Optional Companion | Configured mirror to the selected server, under its own opt-in contract |
 

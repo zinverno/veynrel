@@ -1,5 +1,7 @@
 # Studio native Excalidraw output v1
 
+> Historical implementation/evidence: R02 removes this feature from the unpublished next version. Public 2.3.1 is unchanged. Original results and drawings below are retained; current behavior and archive locations are in [R02 removal](studio-diagram-removal.md).
+
 Studio → Create diagram / Создать схему extracts either a note structure or an explicitly described process from one selected saved Markdown note. The user reviews the exact outgoing request, explicitly sends it, reviews a local visual diagram and its nodes/edges, then separately confirms one exact new `.excalidraw.md` path. The source is never a write target. Generated content requires human review; schema validation does not establish factual accuracy.
 
 ## Architecture

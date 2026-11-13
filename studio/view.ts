@@ -3,7 +3,7 @@ import type { App, WorkspaceLeaf } from "obsidian";
 import { currentLanguage } from "../i18n";
 import { renderPlanDiff } from "../consolidation/planDiffView";
 import { BUILTIN_RECIPES } from "./builtins";
-import { ensure, parseRecipe, validateRecipe } from "./recipe";
+import { ensure, parseRecipe, StudioError, validateRecipe } from "./recipe";
 import type { Recipe } from "./recipe";
 import type { StudioWorkspace } from "./registerStudio";
 import type { StudioHistoryRow, UndoReview } from "./apply";
@@ -17,13 +17,11 @@ export const STUDIO_VIEW_TYPE = "veynrel-studio";
 const title = "Veynrel Studio";
 import { button, literal, field, select, disclosure, toolbar, notePicker, connectionSummary } from "./ui";
 import { illustration } from "./illustrations";
-import { DiagramPanel } from "./diagram/view";
-import { diagramMessage } from "./diagram/messages";
 import { suggestedTarget, parentPath } from "./markdownTarget";
 import type { MarkdownDestination, StudioWritePlan } from "./writePlan";
 import { linkContextFindings } from "./preservationChecks";
 import type { MarkdownCreateHistory } from "./markdownCreate";
-function message(e: unknown): string { return diagramMessage(e); }
+function message(e: unknown): string { return errorMessage(e instanceof StudioError ? e.code : "storage"); }
 
 class StudioDialog extends Modal {
   active = false;
@@ -54,9 +52,8 @@ class StudioDialog extends Modal {
 }
 
 export class VeynrelStudioView extends ItemView {
-  private route: "library" | "community" | "details" | "setup" | "workflow" | "history" | "diagram" = "library";
+  private route: "library" | "community" | "details" | "setup" | "workflow" | "history" = "library";
   private community?: CommunityPanel;
-  private diagram?: DiagramPanel;
   private selected?: Recipe;
   private search = "";
   private category = "all";
@@ -82,21 +79,15 @@ export class VeynrelStudioView extends ItemView {
   async onOpen(): Promise<void> {
     this.alive = true; this.contentEl.empty(); this.contentEl.addClass("veynrel-studio");
     const header = this.contentEl.createEl("header"); header.createEl("h1", { text: title });
-    header.createEl("p", { text: l("Transform notes · create diagrams", "Преобразуйте заметки · создавайте схемы") });
+    header.createEl("p", { text: l("Transform notes with reusable recipes", "Преобразуйте заметки с помощью сценариев") });
     const nav = this.contentEl.createEl("nav", { cls: "veynrel-studio-actions", attr: { "aria-label": title } });
-    for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", l("Community", "Сообщество")], ["diagram", l("Create diagram", "Создать схему")], ["history", l("History", "История")]] as const) {
+    for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", l("Community", "Сообщество")], ["history", l("History", "История")]] as const) {
       button(nav, name, route, () => { this.navigate(route); });
     }
     const operation = toolbar(this.contentEl); operation.addClass("veynrel-studio-operation");
-    button(operation, l("Run & review", "Запуск и проверка"), "workflow", () => this.navigate(this.stateEl.dataset.route === "diagram" ? "diagram" : "workflow"));
+    button(operation, l("Run & review", "Запуск и проверка"), "workflow", () => this.navigate("workflow"));
     this.stateEl = operation.createDiv({ cls: "veynrel-studio-status", attr: { role: "status", "aria-live": "polite" } });
     this.errorEl = this.contentEl.createDiv({ attr: { role: "alert" } }); this.body = this.contentEl.createDiv({ cls: "veynrel-studio-body" });
-    this.diagram = new DiagramPanel(this.owner, () => { if (this.alive && this.route === "diagram") this.render(); }, work => this.run(work),
-      (title, description, action, work, closed) => this.dialog((d, root) => {
-        root.createEl("h2", { text: title }); root.createEl("p", { text: description });
-        button(root, l("Confirm", "Подтвердить"), action, () => d.run(work));
-      }, closed));
-    this.stop.push(this.owner.diagrams.subscribe(() => { this.updateStatus(); if (this.route === "diagram") this.render(); }));
     this.stop.push(this.owner.operations.subscribe(() => this.updateStatus()));
     this.stop.push(this.owner.runner.subscribe(() => { this.updateStatus(); if (this.route === "workflow") this.render(); }));
     this.stop.push(this.owner.registry.subscribe(() => { if (this.route === "library" || this.route === "details") this.render(); }));
@@ -109,13 +100,10 @@ export class VeynrelStudioView extends ItemView {
   }
   async onClose(): Promise<void> {
     this.alive = false; this.historyEpoch++; this.stop.splice(0).forEach(f => f());
-    for (const dialog of this.dialogs) dialog.dispose(); this.dialogs.clear(); this.diagram?.dispose(); this.contentEl.empty();
+    for (const dialog of this.dialogs) dialog.dispose(); this.dialogs.clear(); this.contentEl.empty();
   }
   private updateStatus(): void {
-    const diagram = this.owner.diagrams, runner = this.owner.runner;
-    const useDiagram = diagram.running || diagram.state !== "idle" && (runner.state === "idle" || this.route === "diagram");
-    const state = useDiagram ? diagram.state : runner.state;
-    this.stateEl.dataset.route = useDiagram ? "diagram" : "workflow";
+    const state = this.owner.runner.state;
     this.stateEl.parentElement!.hidden = state === "idle";
     this.stateEl.setText(state === "idle" ? "" : status(state));
     this.body.setAttribute("aria-busy", String(this.owner.operations.busy));
@@ -141,7 +129,6 @@ export class VeynrelStudioView extends ItemView {
     const focusKey = focused?.dataset.studioKey;
     const selection = focused && "selectionStart" in focused ? { start: (focused as HTMLInputElement).selectionStart, end: (focused as HTMLInputElement).selectionEnd } : undefined;
     const openDetails = new Set(Array.from(this.body.querySelectorAll("details[open]")).map(d => d.querySelector("summary")?.textContent));
-    const previewFrame = this.body.querySelector(".veynrel-diagram-preview"), viewport = previewFrame ? { top: previewFrame.scrollTop, left: previewFrame.scrollLeft } : undefined;
     const sameRoute = this.renderedRoute === this.route;
     this.renderedRoute = this.route;
     this.contentEl.querySelectorAll<HTMLElement>("nav button").forEach(b => b.setAttribute("aria-current", String(b.dataset.studioAction === (this.route === "details" || this.route === "setup" ? "library" : this.route))));
@@ -152,14 +139,12 @@ export class VeynrelStudioView extends ItemView {
     if (this.route === "setup") this.setup();
     if (this.route === "workflow") this.workflow();
     if (this.route === "history") this.history();
-    if (this.route === "diagram") this.diagram?.render(this.body);
     this.body.querySelectorAll("h2").forEach(h => h.setAttribute("tabindex", "-1"));
     if (sameRoute) {
       this.body.querySelectorAll<HTMLDetailsElement>("details").forEach(d => { if (openDetails.has(d.querySelector("summary")?.textContent)) d.open = true; });
       const next = focused?.isConnected ? focused : focusKey ? Array.from(this.body.querySelectorAll<HTMLElement>("[data-studio-key]")).find(e => e.dataset.studioKey === focusKey) : undefined;
       next?.focus({ preventScroll: true });
       if (selection?.start != null && selection.end != null && next && "setSelectionRange" in next) (next as HTMLInputElement).setSelectionRange(selection.start, selection.end);
-      if (viewport && previewFrame?.isConnected) { previewFrame.scrollTop = viewport.top; previewFrame.scrollLeft = viewport.left; }
       this.contentEl.scrollTop = scroll;
     }
   }
@@ -504,16 +489,14 @@ export class VeynrelStudioView extends ItemView {
       }
       for (const row of rows) this.historyRow(list, row);
       for (const row of created) this.createHistoryRow(list, row);
-      const diagrams = await this.diagram?.history(list, () => this.alive && epoch === this.historyEpoch);
       if (!this.alive || epoch !== this.historyEpoch) return;
-      if (rows.length || runs.length || diagrams || created.length) list.createEl("p", { text: l("Recovery requires separate confirmation; inspection never repeats a request or write.", "Восстановление требует отдельного подтверждения; просмотр не повторяет запрос или запись.") });
-      if (!rows.length && !runs.length && !diagrams && !created.length) {
+      if (rows.length || runs.length || created.length) list.createEl("p", { text: l("Recovery requires separate confirmation; inspection never repeats a request or write.", "Восстановление требует отдельного подтверждения; просмотр не повторяет запрос или запись.") });
+      if (!rows.length && !runs.length && !created.length) {
         const empty = list.createDiv({ cls: "veynrel-studio-empty" }); setIcon(empty.createSpan(), "history");
         empty.createEl("h3", { text: l("No operations yet", "Пока нет операций") });
-        empty.createEl("p", { text: l("Choose a note task or create a diagram. Results will appear here.", "Выберите действие с заметкой или создайте схему. Результаты появятся здесь.") });
+        empty.createEl("p", { text: l("Choose a note task. Markdown results will appear here.", "Выберите действие с заметкой. Результаты Markdown появятся здесь.") });
         const actions = toolbar(empty);
         button(actions, l("Process a note", "Обработать заметку"), "history-library", () => this.navigate("library"));
-        button(actions, l("Create diagram", "Создать схему"), "history-diagram", () => this.navigate("diagram"));
       }
     });
   }

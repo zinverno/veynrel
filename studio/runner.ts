@@ -9,7 +9,6 @@ import type { Recipe, RecipeParameters } from "./recipe";
 import type { ApplyResult, ReviewRow, ReviewSession, StudioNotePort, StudioSource, StudioState } from "./ports";
 import { StudioApply } from "./apply";
 import { providerError } from "./providerError";
-import type { StudioProposal } from "./ports";
 import { documentEnvelope, preserveDocument } from "./documentEnvelope";
 import { preservationChecks } from "./preservationChecks";
 import { prepareWritePlan, freshSource } from "./writePlan";
@@ -45,7 +44,6 @@ export class RecipeRunner {
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener); }
   private emit(): void { for (const f of this.listeners) { try { f(); } catch { /* View failure cannot change workflow authority. */ } } }
   get running(): boolean { return this.busy; }
-  get proposal(): StudioProposal | undefined { return this.review ? { kind: "markdown", review: this.review } : undefined; }
   previewOutput(row: ReviewRow, destination: MarkdownDestination, target: string): string {
     ensure(this.review?.rows.includes(row) && row.status === "generated" && row.after !== null, "stale");
     if (destination === "source") return row.after;

@@ -2,15 +2,14 @@
 
 **Review your vault. Shape a note. Keep the decision yours.**
 
-Veynrel brings vault health, connection review and spaced repetition to Obsidian, alongside a separate Studio for reusable note recipes and editable diagrams.
-
-![Veynrel for Obsidian — Your notes. Connected. Vault health, note workflows and editable diagrams](assets/showcase/2.3.0/hero.png)
+Veynrel brings vault health, connection review and spaced repetition to Obsidian, alongside a separate Studio for reusable Markdown note recipes.
 
 [Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.1.md)
 
-> **Veynrel 2.3.1 Stable.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.1).
+> **Public stable: Veynrel 2.3.1.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.1).
+> **Unpublished development:** R02 removes Excalidraw generation from the next version. Existing drawings and journals remain intact. The intermediate manifest is 2.4.0; the final version will be decided at R15. No stable/beta/prerelease or Marketplace update is planned before acceptance of all R01–R15 stages. [Release policy](docs/roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) · [Removal and legacy data](docs/studio-diagram-removal.md)
 
-## Three ways to work
+## Workspace and Studio
 
 ### Review a vault
 
@@ -30,17 +29,11 @@ Open **Veynrel Studio**, choose a recipe and saved notes, then inspect the recip
 
 [Static result](assets/showcase/2.3.0/studio-result.png) · [Studio guide](docs/wiki/Studio-recipes.md)
 
-*Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. Captured in real Obsidian. Timing is edited for readability.*
+*Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. Captured in real Obsidian for the published 2.3.x workflow; old diagram navigation visible in these captures is removed in development. Timing is edited for readability.*
 
-### Create an editable diagram
+### Diagrams in public 2.3.1 only
 
-Studio can turn one saved note into a structure diagram or flowchart. Inspect the preview, explicitly create a new file, then move shapes, edit labels and keep working in Excalidraw. Requires **Excalidraw 2.29.0** and verified structured-output capabilities through **public OpenRouter**. Other Markdown providers do not imply diagram support.
-
-![Native editable diagram with connected arrows](assets/showcase/2.3.0/diagram.png)
-
-[Move a node and edit its label](assets/showcase/2.3.0/diagram.gif) · [Static edited result](assets/showcase/2.3.0/diagram-edited.png) · [Prerequisites and limits](docs/wiki/Excalidraw-diagrams.md)
-
-*Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. The diagram remains a separate file; creation has no automatic delete/Undo.*
+The published 2.3.1 still contains the optional Excalidraw generation workflow. Its [version-specific guide and captures](docs/wiki/Excalidraw-diagrams.md) remain available as history. The next version removes generation, preview, creation and diagram history actions; it does not uninstall Excalidraw or delete drawings. Markdown Studio, Recipe/Community Library and supported Review/Apply/Undo remain.
 
 ## Add a recipe, then decide when to run it
 
@@ -73,11 +66,10 @@ For Studio, configure a language model in Veynrel settings, then use **Open Veyn
 | Local Health, topology and Recall | Local vault and local state | No LLM required |
 | Semantic indexing/search | Note chunks or query to the configured embedding endpoint | Initial index build is explicit; later incremental work may run |
 | Studio Markdown and pair analysis | Disclosed selected text to the configured model endpoint | Confirm request, inspect output, separately confirm writes |
-| Diagram capability discovery | Model/endpoint metadata from public OpenRouter; no note body in discovery | Generation separately sends the selected note |
 | Community catalog | Public catalog/recipe GET requests; no note body or provider key | Install and update explicitly, run separately |
 | Optional Companion | Disclosed mirror to the configured server | Separate opt-in integration |
 
-Local preservation observations are lexical checks, **not factual verification**. Explicit Studio source changes retain supported original YAML literally and have guarded, operation-specific Undo. New notes, diagrams, Batch, MOC and generative atomization do not share a universal rollback. Local operation journals can contain plaintext note content; preserve backups. Remote providers may charge even when a local request times out or is cancelled.
+Local preservation observations are lexical checks, **not factual verification**. Explicit Studio source changes retain supported original YAML literally and have guarded, operation-specific Undo. New notes, historical diagrams, Batch, MOC and generative atomization do not share a universal rollback. Local operation journals can contain plaintext note content; preserve backups. Remote providers may charge even when a local request times out or is cancelled.
 
 [Providers and privacy](docs/wiki/Providers-and-privacy.md) · [History and recovery](docs/wiki/Safety-history-and-recovery.md) · [Media provenance and coverage](assets/showcase/2.3.0/README.md)
 

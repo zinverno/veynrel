@@ -6,7 +6,7 @@
 - [Health and connections](Vault-health-and-connections.md)
 - [Studio](Studio-recipes.md)
 - [Community](Community-library.md)
-- [Diagrams](Excalidraw-diagrams.md)
+- [Diagrams (public 2.3.1 only)](Excalidraw-diagrams.md)
 - [Recall](Recall.md)
 - [Privacy](Providers-and-privacy.md)
 - [Recovery](Safety-history-and-recovery.md)

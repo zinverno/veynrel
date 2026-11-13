@@ -9,6 +9,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const root = process.argv[2], smokeKit = process.argv[3];
+const excalidrawAssets = process.env.VEYNREL_NATIVE_EXCALIDRAW;
+// Optional assets test coexistence only, in this disposable vault.
 // Optional third argument tests the shipped kit through the same UI and untouched production transport.
 assert(root?.startsWith('/tmp/veynrel-studio-native-') && !root.includes('..') && !fs.existsSync(root));
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
@@ -31,6 +33,7 @@ const server = createServer(async (req, res) => {
   let raw = ''; for await (const part of req) raw += part;
   assert.equal(req.url, '/v1/chat/completions'); requests.push(raw);
   const mode = providerMode, delay = providerDelay;
+  assert(!('response_format' in JSON.parse(raw)) && !('provider' in JSON.parse(raw)), 'No retired diagram schema/routing in Markdown requests');
   const body = JSON.parse(raw), system = body.messages[0].content, markdown = JSON.parse(body.messages[1].content).markdown;
   if (delay) await new Promise(resolve => setTimeout(resolve, delay));
   if (mode === 'defer') await new Promise(resolve => { releaseProvider = resolve; });
@@ -49,7 +52,13 @@ if (smokeKit) {
 const smokeReceipts = () => fs.existsSync(smokeReceipt) ? fs.readFileSync(smokeReceipt,'utf8').trim().split('\n').filter(Boolean).map(s=>JSON.parse(s)) : [];
 fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', provider: 'ollama', model: smokeKit ? 'synthetic-source-preservation' : 'studio-loopback', baseUrl: `http://127.0.0.1:${port}/v1`, apiKey: '',
   semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } }));
-fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`, '["ai-knowledge-hub"]');
+if (excalidrawAssets) {
+  assert.equal(JSON.parse(fs.readFileSync(`${excalidrawAssets}/manifest.json`)).version, '2.29.0');
+  const dir = `${vault}/.obsidian/plugins/obsidian-excalidraw-plugin`; fs.mkdirSync(dir);
+  for (const name of ['main.js','manifest.json','styles.css']) fs.copyFileSync(`${excalidrawAssets}/${name}`,`${dir}/${name}`);
+  fs.writeFileSync(`${dir}/data.json`,JSON.stringify({checkForUpdates:false,showReleaseNotes:false,showWelcomeModal:false,enableOnloadScripts:false,startupScriptPath:'',autoexportSVG:false,autoexportPNG:false,autoexportExcalidraw:false}));
+}
+fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`,JSON.stringify(excalidrawAssets?['ai-knowledge-hub','obsidian-excalidraw-plugin']:['ai-knowledge-hub']));
 fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisabled: true, vaults: { studio: { path: vault, ts: Date.now(), open: true } } }));
 const sha = raw => createHash('sha256').update(raw).digest('hex');
@@ -90,6 +99,7 @@ async function connect() {
   await wait("!!app.plugins.plugins['ai-knowledge-hub']?.studio && !!app.commands.commands['ai-knowledge-hub:veynrel-open-studio']");
   await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.studio=plugin.studio;window.io={reads:[],writes:[],browserRequests:0};const studioNativeRead=app.vault.read.bind(app.vault);app.vault.read=async f=>{io.reads.push(f.path);return studioNativeRead(f)};const studioNativeWrite=app.vault.process.bind(app.vault);app.vault.process=async(f,fn)=>{io.writes.push(f.path);return studioNativeWrite(f,fn)};window.fetch=()=>{io.browserRequests++;throw Error('blocked synthetic fetch')};XMLHttpRequest.prototype.send=function(){io.browserRequests++;throw Error('blocked synthetic XHR')};void 0");
   await ev("io.creates=[];io.journals=[];const nativeCreate=app.vault.create.bind(app.vault);app.vault.create=async(...args)=>{io.creates.push(args[0]);return nativeCreate(...args)};const ownedWrite=app.vault.adapter.write.bind(app.vault.adapter);app.vault.adapter.write=async(...args)=>{io.journals.push(args[0]);return ownedWrite(...args)};void 0");
+  await ev("io.archiveReads=[];const archiveRead=app.vault.adapter.read.bind(app.vault.adapter);app.vault.adapter.read=async path=>{if(path.includes('/studio/diagrams/'))io.archiveReads.push(path);return archiveRead(path)};void 0");
   await cdp('Page.bringToFront');
 }
 async function restart() {
@@ -170,8 +180,34 @@ const keep = (name,value) => fs.writeFileSync(`${root}/${name}.json`,JSON.string
 try {
   child=start();await connect();await open();await cdp('Emulation.setDeviceMetricsOverride',{width:1300,height:950,deviceScaleFactor:1,mobile:false});
   report.versions=await ev("({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,excalidrawInstalled:!!app.plugins.plugins['obsidian-excalidraw-plugin']})");
-  assert.equal(report.versions.excalidrawInstalled,false);checks.push('Markdown workflow has no Excalidraw dependency');
+  if (excalidrawAssets) await wait("!!app.plugins.plugins['obsidian-excalidraw-plugin']");
+  report.versions.excalidrawInstalled = await ev("!!app.plugins.plugins['obsidian-excalidraw-plugin']");
+  assert.equal(report.versions.excalidrawInstalled,!!excalidrawAssets);
+  if(excalidrawAssets) report.excalidraw = {version:await ev("app.plugins.plugins['obsidian-excalidraw-plugin'].manifest.version"),artifacts:Object.fromEntries(['main.js','manifest.json','styles.css'].map(n=>[n,sha(fs.readFileSync(`${excalidrawAssets}/${n}`))]))};
+  await pass('Studio has no diagram owner, route, command or capability UI', "!('diagrams' in studio)&&!Object.values(app.commands.commands).some(c=>c.id.startsWith('ai-knowledge-hub:')&&/diagram|excalidraw/i.test(c.id))&&JSON.stringify([...document.querySelectorAll('.veynrel-studio > nav button')].map(e=>e.dataset.studioAction))===JSON.stringify(['library','community','history'])");
   await pass('Passive Studio opens with zero model/note read/write',"io.reads.length===0&&io.writes.length===0&&io.creates.length===0");assert.equal(requests.length,0);
+  await ev("app.plugins.disablePlugin('ai-knowledge-hub')");
+  const legacyIntent = fs.readFileSync(`${ROOT}/scripts/studio-first-open-legacy/intent.json`,'utf8');
+  const old = JSON.parse(JSON.parse(legacyIntent).payload), drawing = fs.readFileSync(`${ROOT}/scripts/studio-first-open-legacy/Native.excalidraw.md`,'utf8');
+  const archives = {
+    [`${pluginDir}/studio/diagrams/${old.id}/intent.json`]:legacyIntent,
+    [`${pluginDir}/studio/diagrams/${old.id}/receipt.json`]:JSON.stringify({schemaVersion:1,id:old.id,state:'created',observedHash:sha(drawing),manual:false}),
+    [`${pluginDir}/studio/diagrams/damaged.json`]:'{ incomplete legacy journal',
+  };
+  for(const [file,raw] of Object.entries(archives)){fs.mkdirSync(file.slice(0,file.lastIndexOf('/')),{recursive:true});fs.writeFileSync(file,raw);}
+  for(const [path,raw] of Object.entries({'Existing.excalidraw.md':drawing,'Existing.excalidraw':'{"type":"excalidraw","version":2,"elements":[],"appState":{},"files":{}}'})){
+    await ev(`app.vault.create(${JSON.stringify(path)},${JSON.stringify(raw)}).then(()=>undefined)`);archives[`${vault}/${path}`]=raw;
+  }
+  const archiveHashes=()=>Object.fromEntries(Object.keys(archives).map(file=>[file.slice(vault.length+1),sha(fs.readFileSync(file))]));
+  report.legacyBefore=archiveHashes();
+  await ev("io.reads=[];io.writes=[];io.creates=[];io.journals=[];app.plugins.enablePlugin('ai-knowledge-hub')");
+  await wait("!!app.plugins.plugins['ai-knowledge-hub']?.studio");
+  await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.studio=plugin.studio;void 0");await open();
+  await ev("app.workspace.getLeavesOfType('veynrel-studio')[0].setViewState({type:'veynrel-studio',state:{route:'diagram'},active:true})");
+  await pass('Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio',"!('diagrams' in studio)&&app.workspace.getLeavesOfType('veynrel-studio')[0].view.route==='library'&&!!app.commands.commands['ai-knowledge-hub:veynrel-open-health']");
+  await click('history');await wait("!document.querySelector('.veynrel-studio-body').textContent.includes('Checking…')");
+  await pass('History ignores valid and damaged diagram archives without reads or writes',"io.archiveReads.length===0&&io.writes.length===0&&io.creates.length===0&&!document.querySelector('[data-studio-action^=diagram]')");
+  assert.deepEqual(archiveHashes(),report.legacyBefore);await shot('legacy-history-preserved');await click('library');
   if (!smokeKit) {
     // Real wall-clock loopback delays exercise the unchanged native buffered transport.
     providerDelay = 66_000;
@@ -196,6 +232,11 @@ try {
       await pause(3500); await shot('incomplete-'+lang);
       await ev("app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0");
       await cdp('Emulation.setDeviceMetricsOverride',{width:390,height:900,deviceScaleFactor:1,mobile:false});
+      report.incompleteLayout ??= [];
+      const immediate = await themeSample();
+      await ev('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');
+      await wait("document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
+      report.incompleteLayout.push({lang,immediate,settled:await themeSample()});
       await pass(lang+': incomplete preview fits a narrow window',"document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
       await shot('incomplete-'+lang+'-390');
       await cdp('Emulation.setDeviceMetricsOverride',{width:1300,height:950,deviceScaleFactor:1,mobile:false});
@@ -305,6 +346,12 @@ try {
       await ev("document.querySelector('.veynrel-studio').scrollTop=0;void 0");
       await themeShot(`review-${lang}-${mode}-${width}-r2`,mode,lang,'review');
       await pass(`${lang}/${mode}/${width}: actual Review theme and overflow verified`,"document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
+      for(const route of ['library','history']) {
+        await click(route);await wait("!document.querySelector('.veynrel-studio-body').textContent.includes('Checking…')");
+        await pass(`${lang}/${mode}/${width}: ${route} has no diagram actions or horizontal overflow`,"!document.querySelector('[data-studio-action^=diagram]')&&document.querySelector('.veynrel-studio').scrollWidth<=document.querySelector('.veynrel-studio').clientWidth+1");
+        await themeShot(`${route}-${lang}-${mode}-${width}`,mode,lang,route);
+      }
+      await click('workflow');
       await click('review-apply');await wait("!!document.querySelector('[data-studio-action=confirm-apply]')");
       await themeShot(`confirmation-${lang}-${mode}-${width}-r2`,mode,lang,'confirmation');
       await ev("app.workspace.getLeavesOfType('veynrel-studio')[0].view.dialogs.forEach(d=>d.close());void 0");
@@ -324,6 +371,13 @@ try {
   fs.copyFileSync(vault+'/Properties.md',root+'/markdown/inplace-undone.md');report.requests=requests.length;report.initialHashes=initialHashes;report.finalHashes=hashes();report.io=await ev('io');report.modelQuality='NOT RE-EVALUATED';report.status='PASS';
   assert(!report.io.reads.includes('Untouched.md'));assert.equal(report.io.browserRequests,0);await ev("document.querySelector('[data-studio-final]').scrollIntoView({block:'start'});document.querySelectorAll('.veynrel-studio-review-detail details').forEach(d=>{if(d.querySelector('summary').textContent.includes('замечания'))d.open=true});void 0");await shot('final-review');
   }
+  report.legacyAfter=archiveHashes();assert.deepEqual(report.legacyAfter,report.legacyBefore);
+  assert.equal(await ev('io.archiveReads.length'),0);
+  for(const [file,raw] of Object.entries(archives))assert.equal(fs.readFileSync(file,'utf8'),raw);
+  checks.push('Plugin/process restarts and all Markdown operations preserve exact drawing/archive bytes');
+  assert(!Object.keys(JSON.parse(fs.readFileSync(`${ROOT}/.esbuild/meta.json`)).inputs).some(p=>p.startsWith('studio/diagram/')));
+  for(const marker of ['DiagramWorkflow','DiagramPanel','DiagramSpec','obsidian-excalidraw-plugin','diagram_spec_v1'])assert(!fs.readFileSync(`${pluginDir}/main.js`,'utf8').includes(marker));
+  checks.push('Loaded production bundle and import graph contain no diagram generator, adapter or schema');
   assert.equal(report.exceptions.length,0);
 } catch(e) {report.status='FAIL';report.error=String(e.stack||e);try{report.diagnostic=await ev("({state:studio.runner.state,error:studio.runner.error,result:studio.runner.results,review:studio.runner.review,text:document.body.innerText.slice(-4000)})");await shot('failure');}catch{}process.exitCode=1;
-} finally {keep('native-report',report);socket?.close();child?.kill('SIGTERM');smokeServer?.kill('SIGTERM');server.close();console.log(JSON.stringify({status:report.status,checks:checks.length,requests:report.requests??requests.length,error:report.error,root}));}
+} finally {keep('native-report',report);socket?.close();if(child&&child.exitCode===null){const exited=new Promise(r=>child.once('exit',r));child.kill('SIGTERM');const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer);}smokeServer?.kill('SIGTERM');server.close();console.log(JSON.stringify({status:report.status,checks:checks.length,requests:report.requests??requests.length,error:report.error,root}));}

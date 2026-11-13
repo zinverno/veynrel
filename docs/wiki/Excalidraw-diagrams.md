@@ -1,6 +1,6 @@
 # Editable Excalidraw diagrams
 
-> **Veynrel 2.3.1 Stable.**
+> **Public 2.3.1 only — removed from the next version by R02.** This page preserves that published workflow and its historical captures. The unpublished development branch has no generator, preview, capability probe or diagram history actions. It does not remove your drawings or third-party Excalidraw plugin. [Legacy records and safe updates](../studio-diagram-removal.md).
 
 ## Prerequisites
 

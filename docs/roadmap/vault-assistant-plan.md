@@ -69,6 +69,8 @@ The units below are logical PR identifiers, not GitHub issue numbers. Implement 
 
 Every PR includes tests, user-facing documentation of actual behavior, migration/safety checks where relevant and honest evidence boundaries. Reuse current owners and adapters; do not construct a generic platform in anticipation of unknown features. No personal-vault installation, production deployment, paid requests, publication or merge is implied by this roadmap.
 
+Each PR is checked and reviewed separately. Merging requires a separate decision by the owner; auto-merge stays off. Completing or merging one PR does not authorize the next unit or a public release.
+
 This planning session adds only this document, opens one draft PR with auto-merge off, and stops. After the owner accepts the plan and separately assigns implementation, the first functional session uses the supplied `PR_TASKS/R01.md` contract. If the owner selects a different unit, honor its dependencies. The supplied task contracts remain execution inputs; they are not additional files in this planning PR. Completing one unit never authorizes starting the next.
 
 ## Ordered implementation units
@@ -358,9 +360,13 @@ The suggested review order is R01–R15. R08 and the server contract R13 may be 
 
 A release is ready only for capabilities with passing acceptance checks or explicitly documented limitations. Synthetic actor results remain scenario evidence; they do not measure human retention or prove demand. Keep functional tests, native checks, live-model quality and human observation separate.
 
-## Release and acquisition work, in parallel
+## Release policy and acquisition work
 
-Do not wait for all units to make already accepted improvements installable. For each release candidate, compare default branch, release tag, manifest, three runtime assets and their hashes. Do not advertise an unreleased feature as available in the marketplace.
+Owner decision, recorded in R02: complete all fifteen stages R01–R15 before one public release. Until R15 is accepted, there are no public stable, beta or prerelease publications and no Marketplace updates. Publication after acceptance still requires separate owner authorization.
+
+Internal release candidates, test builds, updates of disposable vaults and regression checks after every PR are permitted. Tests, documentation, backups and migration verification remain per-PR gates; they are not deferred to R15. For each internal candidate, compare the default branch, published release tag, manifest, three runtime assets and their hashes. Do not advertise unreleased features as available in the Marketplace.
+
+The current 2.4.0 from R01 is an unpublished intermediate version, not a public release commitment. Determine the final version at R15; individual stages do not automatically bump it. This release-policy decision changes none of the product constraints, acceptance criteria or R01–R15 dependencies above.
 
 Use a focused first screen, a complete demonstrable scenario and a readable no-key path. Existing README content may be reused, but removed diagram features and future cloud claims must not remain current promises. Show normal outcomes, not only unavailable/stale-index screens. Label scripted demonstrations as such.
 

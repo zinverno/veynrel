@@ -1,13 +1,13 @@
 # Troubleshooting
 
-> **Veynrel 2.3.1 Stable.**
+> **Public stable: 2.3.1.** Missing diagram controls in development are intentional after R02; installing Excalidraw does not restore them. [Preserved drawings and journals](../studio-diagram-removal.md).
 
 | Symptom | Check and next action |
 | --- | --- |
 | Local checks unavailable | Confirm Veynrel is enabled, open Health and select an area; no model key is required |
 | No semantic candidates | Configure embeddings and explicitly build the index; inspect coverage, stale state and scope limits |
-| Unsupported diagram endpoint | Use public OpenRouter with verified required capabilities; do not treat Markdown connectivity as diagram support |
-| Excalidraw missing/wrong version | Enable the pinned 2.29.0; refresh capabilities; do not bypass the version gate |
+| Public 2.3.1 only: unsupported diagram endpoint | Use public OpenRouter with verified required capabilities; do not treat Markdown connectivity as diagram support |
+| Public 2.3.1 only: Excalidraw missing/wrong version | Enable the pinned 2.29.0; refresh capabilities; do not bypass the version gate |
 | Unsaved source | Save all copies/editors of that note and prepare again; close affected editors for source writes if requested |
 | Destination occupied | Choose a genuinely unused filename in an existing folder; existing files are never overwritten automatically |
 | Timeout/cancellation | The remote request may still complete/be billed. Inspect the recorded state; no automatic retry is promised |

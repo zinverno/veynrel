@@ -110,7 +110,7 @@ describe("Studio-only Markdown completion and deadline", () => {
     expect(r.rows[0]).toMatchObject({ status: "failed", after: null }); expect(r.rows[0].rawResponse).toBeUndefined();
     expect(f.runner.canApply).toBe(false); expect(transport).toHaveBeenCalledTimes(1);
   });
-  it("keeps ordinary callers on 30 seconds and rejects length, including structured diagram output", async () => {
+  it("keeps ordinary callers on 30 seconds and rejects incomplete ordinary output", async () => {
     transport.mockImplementationOnce(() => new Promise(() => {}));
     const pending = expect(callOpenRouter(settings, "system", "user")).rejects.toMatchObject({ name: "TimeoutError" });
     await vi.advanceTimersByTimeAsync(30_000); await pending;
