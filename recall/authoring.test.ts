@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TFile } from "obsidian";
 const editorWrite = vi.hoisted(() => vi.fn());
 vi.mock("../recallEditor", () => ({ insertRecallInEditor: editorWrite }));
-const host = vi.hoisted(() => ({ TFile: class {}, MarkdownView: class {} }));
+const host = vi.hoisted(() => ({ TFile: class {}, MarkdownView: class { getMode() { return "source"; } } }));
 vi.mock("obsidian", () => ({ ...host, getLanguage: () => "en", normalizePath: (path: string) => path }));
 import { MAX_FLASHCARD_INPUT_LENGTH, RecallAuthoringAdapter } from "../recallAuthoring";
 import { setLanguage, t } from "../i18n";
@@ -229,6 +229,47 @@ describe("native Recall authoring bridge", () => {
     expect(await f.generate()).toMatchObject({ status: "success" });
     expect(f.provider.mock.calls[0][2]).toBe("# Source"); expect(editorWrite).toHaveBeenCalledTimes(1);
     expect(f.processNote).not.toHaveBeenCalled(); expect(second.save).toHaveBeenCalledTimes(1);
+  });
+
+  it("activates the source editor before inserting into a reading view and persists the questions", async () => {
+    const f = fixture(); const original = f.files.get("A.md")!;
+    let content = original, mode = "preview";
+    const editor = { getValue: () => content, getSelection: () => "" };
+    const setState = vi.fn(async (state: { mode: string }) => { mode = state.mode; content = f.files.get("A.md")!; });
+    Object.assign(f.view, { editor, getMode: () => mode, getState: () => ({ file: "A.md", mode, source: true }), setState,
+      save: vi.fn(async () => { f.files.set("A.md", mode === "source" ? content : original); }) });
+    editorWrite.mockImplementation((_editor: unknown, _original: string, replacement: string) => { content = replacement; });
+    expect(await f.generate()).toEqual({ status: "success", cardCount: 2 });
+    expect(f.files.get("A.md")).toContain("Question::Answer");
+    expect(mode).toBe("source");
+    expect(f.product.getSnapshot().summary?.active).toBe(2);
+    expect(editorWrite).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not claim saved questions when the editor save resolves without persisting them", async () => {
+    const f = fixture(); const original = f.files.get("A.md")!; let content = original;
+    Object.assign(f.view, { editor: { getValue: () => content, getSelection: () => "" }, save: vi.fn(async () => {}) });
+    editorWrite.mockImplementation((_editor: unknown, _original: string, replacement: string) => { content = replacement; });
+    expect(await f.generate()).toEqual({ status: "partial", cardCount: 2, reason: "editor-save-failed", needsRecovery: false });
+    expect(f.files.get("A.md")).toBe(original);
+    expect(f.factory).not.toHaveBeenCalled();
+  });
+
+  it.each(["source", "settings", "closed", "disposed"])("rechecks %s changes while activating a reading view", async (change) => {
+    const f = fixture(); const original = f.files.get("A.md")!;
+    Object.assign(f.view, {
+      editor: { getValue: () => original, getSelection: () => "" }, getMode: () => "preview",
+      getState: () => ({ file: "A.md", mode: "preview" }),
+      setState: vi.fn(async () => {
+        if (change === "source") f.files.set("A.md", "Manual edit");
+        if (change === "settings") f.settings.model = "changed";
+        if (change === "closed") f.closeNote();
+        if (change === "disposed") f.author.dispose();
+      }),
+    });
+    expect(await f.generate()).toEqual({ status: "error", reason: "conflict" });
+    expect(f.files.get("A.md")).toBe(change === "source" ? "Manual edit" : original);
+    expect(editorWrite).not.toHaveBeenCalled(); expect(f.processNote).not.toHaveBeenCalled();
   });
 
   it("reports inserted-but-unsaved editor output without retrying transport or writing Recall", async () => {

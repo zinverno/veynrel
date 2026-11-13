@@ -166,6 +166,12 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
     let editorInserted = false;
     try {
       if (!sameLanguageModelConnection(settings, this.settings.get()) || this.prompts?.get() !== promptSnapshot || this.resolve(path) !== file) throw new NoteWriteConflictError();
+      if (view?.getMode() === "preview") {
+        if (view.file !== file || view.editor.getValue() !== content ||
+            !this.app.workspace.getLeavesOfType("markdown").some(leaf => leaf.view === view)) throw new NoteWriteConflictError();
+        // Reading mode saves its rendered data, not the hidden editor buffer.
+        await view.setState({ ...view.getState(), mode: "source" }, { history: false });
+      }
       const current = await this.app.vault.read(file);
       if (this.disposed || !sameLanguageModelConnection(settings, this.settings.get()) || this.prompts?.get() !== promptSnapshot || this.resolve(path) !== file) throw new NoteWriteConflictError();
       const open = this.app.workspace.getLeavesOfType("markdown").map(leaf => leaf.view)
@@ -175,6 +181,7 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
         if (!open.includes(view) || view.file !== file) throw new NoteWriteConflictError();
         insertRecallInEditor(view.editor, content, generated.newContent); editorInserted = true;
         await view.save();
+        if (await this.app.vault.read(file) !== generated.newContent) throw new Error("Editor save did not persist questions.");
       } else if (open.some(leaf => leaf.editor)) throw new NoteWriteConflictError();
       else await replaceNoteIfUnchanged(this.app.vault, file, path, content, generated.newContent, this.closedWriteGuard(file));
     }
