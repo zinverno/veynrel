@@ -24,6 +24,7 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
   try { vocabulary = vocabularySettings(content, parseYaml); }
   catch { complete = false; diagnostics.add("invalid-vocabulary", path); }
   let kind: "study" | "vocabulary" = "study";
+  let vocabularySectionSeen = false;
   const lines = content.replace(/\r\n?/gu, "\n").replace(/^\uFEFF/u, "").split("\n");
   let frontmatter = /^---[ \t]*$/u.test(lines[0]);
   let sectionLevel: number | undefined;
@@ -56,6 +57,7 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
       if (sectionLevel !== undefined && level <= sectionLevel) sectionLevel = undefined;
       if (sectionLevel === undefined && (title === "Flashcards" || (title === "Vocabulary" && vocabulary))) {
         sectionLevel = level; kind = title === "Vocabulary" ? "vocabulary" : "study";
+        if (kind === "vocabulary") vocabularySectionSeen = true;
       }
       continue;
     }
@@ -106,6 +108,7 @@ export async function parseMarkdownFlashcards(path: string, content: string, sig
       cards.set(candidate.fingerprint, candidate);
     }
   }
+  if (vocabulary && !vocabularySectionSeen) { complete = false; diagnostics.add("invalid-vocabulary", path); }
   if (frontmatter) { complete = false; diagnostics.add("unclosed-frontmatter", path); }
   if (fence) { complete = false; diagnostics.add("unclosed-fence", path); }
   if (comment) { complete = false; diagnostics.add("unclosed-comment", path); }

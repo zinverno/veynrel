@@ -70,6 +70,22 @@ describe("study topics and opt-in vocabulary", () => {
     expect(store.listCards({ state: "active" })).toHaveLength(4);
   });
 
+  it.each(["## Words", "## vocabulary", "```\n## Vocabulary"])("diagnoses an unrecognized vocabulary section without retiring progress: %s", async heading => {
+    const store = new RecallStore(memoryStorage()); await store.load();
+    await store.reconcile(request((await parse(vocabulary())).cards));
+    const before = store.listCards();
+    const result = await parse(vocabulary().replace("## Vocabulary", heading));
+    expect(result).toMatchObject({ complete: false, cards: [] });
+    expect(result.diagnostics).toContainEqual({ code: "invalid-vocabulary", path: "Words.md" });
+    await store.reconcileNote("Words.md", result.cards, result.complete, 200);
+    expect(store.listCards()).toEqual(before);
+  });
+
+  it("allows an explicitly empty Vocabulary section to retire removed entries", async () => {
+    const result = await parse(vocabulary(""));
+    expect(result).toMatchObject({ complete: true, cards: [], diagnostics: [] });
+  });
+
   it("ignores fenced/commented/indented/other sections and reports malformed entries by line", async () => {
     const result = await parse(vocabulary("good::да\nmissing::\n```\nhidden::нет\n```\n<!-- hidden::нет -->\n    code::нет\n## Next\nother::нет"));
     expect(result.complete).toBe(false); expect(result.cards).toHaveLength(2);
