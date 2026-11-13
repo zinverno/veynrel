@@ -49,6 +49,8 @@ The final audit's first sandbox attempt returned empty child-test output and fai
 
 ## Native acceptance
 
+Follow-up: the [bounded three-profile zoom comparison](r02-native-zoom-attribution.md) found an identical pre-R02 R01 receipt but did not reproduce the error in any current short scenario. Its trigger remains unknown; the original gate below remains open. Original receipts and outcomes are preserved.
+
 Results and captures are recorded in the evidence attached to this report. Checks use real Linux desktop Obsidian 1.13.7 / Electron 43.6.0 and fresh disposable vaults/profiles, with explicit plugin and full-process restarts. The optional coexistence run loads the published Excalidraw 2.29.0 assets into that temporary vault only.
 
 | Final run | Observed result |
