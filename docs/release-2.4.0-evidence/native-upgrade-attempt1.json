@@ -1,0 +1,164 @@
+{
+  "scenario": "published-stable-upgrade",
+  "checks": [
+    "Published 2.3.1 creates real v3 data with reviewed and retired cards",
+    "Upgrade loads legacy cards without writing settings/store or losing preferences",
+    "Migration backup failure blocks the store and preserves stable bytes",
+    "First successful mutation verifies an exact stable backup before v4 persistence",
+    "Migrated schedules and identities survive observed move and retag",
+    "RU generation uses the captured editor and admits two questions",
+    "One native Ctrl+Z removes generation and preserves earlier manual typing",
+    "Native Ctrl+Shift+Z restores the identical block and active cards",
+    "A later manual edit has its own Undo step",
+    "Existing command appends EN questions through the same generator",
+    "Reading-view generation activates the editor, saves the actual file and admits the queue",
+    "Reading-view Undo invalidates the active queue and preserves adjacent typing",
+    "Reading-view Redo restores the exact saved block and queue",
+    "Typing after Reading-view generation remains a separate Undo step",
+    "Metadata failure reports a partial result while keeping the saved questions",
+    "Retry-load and Refresh recover saved questions and exact schedules without regenerating",
+    "Vocabulary imports locally with two independent directions",
+    "An unrecognized vocabulary heading reports the note and preserves existing cards",
+    "Malformed vocabulary entry reports the exact line without a model request",
+    "Parent scope excludes db2 from counters and question",
+    "Native rating key 3 commits one review in the selected topic",
+    "Vocabulary hides translation until reveal and shows language direction",
+    "Rename, reorder and retag preserve IDs and schedules",
+    "Disabling reverse direction retires its cards without deleting progress",
+    "Re-enabling reverse restores exact histories",
+    "A new dictionary on the renamed source path imports independent cards",
+    "Reviewing the reused path leaves the moved dictionary history unchanged",
+    "Full refresh and repeated moves retain both independent dictionaries",
+    "Three saved prose edits issue zero cards.json writes in native Obsidian",
+    "Length completion makes no insertion",
+    "Malformed output makes no insertion and no repair request",
+    "Source edits while the model waits are preserved and block generation apply",
+    "Long input is rejected before transport",
+    "Explicit selection bounds long-note generation",
+    "Owner restart preserves prompt and exact vocabulary schedules",
+    "Full Obsidian process restart preserves vocabulary history and prompt",
+    "Reused-path dictionary history survives full process restart independently",
+    "en/light/320: localized Recall without horizontal overflow",
+    "en/light/390: localized Recall without horizontal overflow",
+    "en/light/1280: localized Recall without horizontal overflow",
+    "en/dark/320: localized Recall without horizontal overflow",
+    "en/dark/390: localized Recall without horizontal overflow",
+    "en/dark/1280: localized Recall without horizontal overflow",
+    "ru/light/320: localized Recall without horizontal overflow",
+    "ru/light/390: localized Recall without horizontal overflow",
+    "ru/light/1280: localized Recall without horizontal overflow",
+    "ru/dark/320: localized Recall without horizontal overflow",
+    "ru/dark/390: localized Recall without horizontal overflow",
+    "ru/dark/1280: localized Recall without horizontal overflow",
+    "Old stable runtime refuses the newer Recall schema without overwriting it",
+    "Restoring the complete stable snapshot recovers reviewed and retired histories"
+  ],
+  "screenshots": [
+    "ru-generated.png",
+    "partial-metadata-failure.png",
+    "invalid-vocabulary-heading.png",
+    "invalid-vocabulary-line.png",
+    "vocabulary-question.png",
+    "recall-en-light-320.png",
+    "recall-en-light-390.png",
+    "recall-en-light-1280.png",
+    "recall-en-dark-320.png",
+    "recall-en-dark-390.png",
+    "recall-en-dark-1280.png",
+    "recall-ru-light-320.png",
+    "recall-ru-light-390.png",
+    "recall-ru-light-1280.png",
+    "recall-ru-dark-320.png",
+    "recall-ru-dark-390.png",
+    "recall-ru-dark-1280.png"
+  ],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0"
+  },
+  "artifacts": {
+    "main.js": "b032fe7fcc2df3622e9648516ab28b4bd0172e50789ad25523db8175c92d38e6",
+    "manifest.json": "ba93cd6f9414354baeabfbd139f3e683a5179e2e453791abaeb511c4f738e4e5",
+    "styles.css": "4cb735511f12b3f964f4aeb93da65dcbf4c71b584b8ddb74e6924c6ab78f1acb"
+  },
+  "modelQuality": "NOT TESTED: synthetic transport",
+  "limits": "Linux desktop only; no physical mobile, screen reader, custom theme or offline/Sync rename inference.",
+  "exceptions": [
+    {
+      "timestamp": 1794540977932.971,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "144",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "144",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "144",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "144",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "-2545104960004516045.2.1",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 2
+      }
+    }
+  ],
+  "upgrade": {
+    "stableVersion": "2.3.1",
+    "stableSource": "cd9e8fc4048b4a17d0dc68993bd8b340d9da4720",
+    "stableArtifacts": {
+      "main.js": "8df93c1a160b5c6ef322857fb5c3c3fae2e76c4ed905ecc1bd729da0a23a5740",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1",
+      "styles.css": "664302cd8a51b2cf693f77df3e644e9d746c0279a8ea50408181679a6d5314fa"
+    },
+    "originalStoreSha256": "27d23336a670570b04c8dbaa1ff3dc5cf6800c715b75253228a1db69ceaf406b",
+    "originalCardCount": 2,
+    "backupSha256": "27d23336a670570b04c8dbaa1ff3dc5cf6800c715b75253228a1db69ceaf406b"
+  },
+  "providerRequests": 8,
+  "passed": true
+}

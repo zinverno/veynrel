@@ -7,7 +7,9 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const root = process.argv[2];
+const assets = process.argv[3] ?? ROOT, stableAssets = process.argv[4];
 assert(root?.startsWith('/tmp/veynrel-recall-native-') && !root.includes('..') && !fs.existsSync(root));
+for (const dir of [assets, stableAssets].filter(Boolean)) for (const name of ['main.js', 'manifest.json', 'styles.css']) assert(fs.statSync(`${dir}/${name}`).isFile());
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(pluginDir, { recursive: true }); fs.mkdirSync(`${root}/profile`);
 const originals = {
@@ -16,7 +18,8 @@ const originals = {
   'Words.md': '---\nveynrel-recall: vocabulary\nrecall-language: en\nrecall-translation-language: ru\nrecall-direction: both\ntags: [flashcards/languages/en/travel]\ntype: personal\n---\n\n## Vocabulary\nluggage::багаж\nboarding pass::посадочный талон\n',
   'Foreign.md': '## Flashcards\n#flashcards/db2 Foreign question::Foreign answer\n',
 };
-for (const [path, text] of Object.entries(originals)) fs.writeFileSync(`${vault}/${path}`, text);
+if (!stableAssets) for (const [path, text] of Object.entries(originals)) fs.writeFileSync(`${vault}/${path}`, text);
+else fs.writeFileSync(`${vault}/Legacy.md`, '# Legacy study\n\n## Flashcards\nWhat does an index speed up?::Matching lookups.\nWhat does atomicity preserve?::All or none of a transaction.\n');
 let mode = 'normal'; const requests = [];
 const server = createServer(async (req, res) => {
   let raw = ''; for await (const chunk of req) raw += chunk;
@@ -29,12 +32,14 @@ const server = createServer(async (req, res) => {
   res.end(JSON.stringify({ choices: [{ message: { content: mode === 'malformed' ? 'Bad response' : content }, finish_reason: mode === 'length' ? 'length' : 'stop' }] }));
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', provider: 'ollama', model: 'synthetic-recall', baseUrl: `http://127.0.0.1:${server.address().port}/v1`, apiKey: '', semanticAutoSyncSuspended: true, semantic: { enabled: false }, companion: { enabled: false }, decisions: { enabled: false }, health: { onboardingCompleted: true, profileChosen: true } }));
+const testSettings = { language: 'en', provider: 'ollama', model: 'synthetic-recall', baseUrl: `http://127.0.0.1:${server.address().port}/v1`, apiKey: '', temperature: 0.23, notifyOnCopy: false, recallPrompt: 'Synthetic upgrade custom instruction.', semanticAutoSyncSuspended: true, semantic: { enabled: false }, companion: { enabled: false }, decisions: { enabled: false }, health: { onboardingCompleted: true, profileChosen: true } };
+if(stableAssets) fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify(testSettings));
+fs.writeFileSync(`${vault}/.obsidian/hotkeys.json`, '{"ai-knowledge-hub:ai-flashcards-note":[{"modifiers":["Mod","Shift"],"key":"Q"}]}');
 fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`, '["ai-knowledge-hub"]');
 fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisabled: true, vaults: { recall: { path: vault, ts: Date.now(), open: true } } }));
-const report = { checks: [], screenshots: [], versions: {}, artifacts: {}, modelQuality: 'NOT TESTED: synthetic transport', limits: 'Linux desktop only; no physical mobile, screen reader, custom theme or offline/Sync rename inference.', exceptions: [] };
-for (const name of ['main.js', 'manifest.json', 'styles.css']) { fs.copyFileSync(`${ROOT}/${name}`, `${pluginDir}/${name}`); report.artifacts[name] = createHash('sha256').update(fs.readFileSync(`${pluginDir}/${name}`)).digest('hex'); }
+const report = { scenario: stableAssets ? 'published-stable-upgrade' : 'fresh-install', checks: [], screenshots: [], versions: {}, artifacts: {}, modelQuality: 'NOT TESTED: synthetic transport', limits: 'Linux desktop only; no physical mobile, screen reader, custom theme or offline/Sync rename inference.', exceptions: [] };
+for (const name of ['main.js', 'manifest.json', 'styles.css']) { fs.copyFileSync(`${stableAssets ?? assets}/${name}`, `${pluginDir}/${name}`); report.artifacts[name] = createHash('sha256').update(fs.readFileSync(`${assets}/${name}`)).digest('hex'); }
 let child, socket, sequence = 0; const pending = new Map();
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 const cdp = (method, params = {}) => new Promise((resolve, reject) => { pending.set(++sequence, { resolve, reject }); socket.send(JSON.stringify({ id: sequence, method, params })); });
@@ -42,6 +47,10 @@ const ev = async expression => { const r = await cdp('Runtime.evaluate', { expre
 const wait = async expression => { for (let n = 0; n < 250; n++) { if (await ev(expression)) return; await pause(80); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-1800)')}`); };
 const pass = async (name, expression) => { assert(await ev(expression), name); report.checks.push(name); console.log(name); };
 const start = () => spawn('/usr/bin/electron43', ['/usr/lib/obsidian/app.asar', `--user-data-dir=${root}/profile`, '--remote-debugging-port=9297', '--disable-gpu', '--ozone-platform=x11'], { stdio: ['ignore', 'ignore', fs.openSync(`${root}/electron.log`, 'a')] });
+async function stop() {
+  socket?.close();
+  if (child && child.exitCode === null) { const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGTERM'); const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer); }
+}
 async function connect() {
   let page; for (let n = 0; n < 250; n++) { try { page = (await (await fetch('http://127.0.0.1:9297/json/list')).json()).find(p => p.url.startsWith('app://obsidian.md/')); } catch {} if (page) break; await pause(100); }
   assert(page, 'native ready'); socket = new WebSocket(page.webSocketDebuggerUrl); await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
@@ -63,33 +72,118 @@ async function key(key, modifiers = 2) {
   for (const type of ['keyDown', 'keyUp']) await cdp('Input.dispatchKeyEvent', { type, key: modifiers & 8 ? key.toUpperCase() : key, code: `Key${key.toUpperCase()}`, windowsVirtualKeyCode: key.toUpperCase().charCodeAt(0), modifiers });
   await pause(150); await ev('md.save()'); await pause(450);
 }
-async function openRecall() {
+async function openRecall(loadState = 'ready') {
   await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");
   await wait("!!document.querySelector('[data-health-action=nav-recall]')");
   await ev("document.querySelector('[data-health-action=nav-recall]').click();void 0");
-  await wait("recall.getSnapshot().loadState==='ready'");
+  await wait(`recall.getSnapshot().loadState===${JSON.stringify(loadState)}`);
 }
 async function click(action) { await wait(`!!document.querySelector('[data-health-action=${action}]')`); await ev(`document.querySelector('[data-health-action=${action}]').click();void 0`); }
 async function shot(name) { fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await cdp('Page.captureScreenshot', { format: 'png' })).data, 'base64')); report.screenshots.push(`${name}.png`); }
 try {
   child = start(); await connect();
   report.versions = await ev("({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron})");
+  if(!stableAssets) {
+    assert(!fs.existsSync(`${pluginDir}/recall/cards.json`));
+    await pass('Fresh install loads default settings without keys or a Recall store', "!author.getSnapshot().configured && recall.getSnapshot().loadState==='uninitialized'");
+    await ev(`Object.assign(plugin.settings,${JSON.stringify(testSettings)});plugin.saveSettings()`);
+  }
+  if (stableAssets) {
+    assert.equal(await ev('plugin.manifest.version'), '2.3.1');
+    await ev('recall.initialize()'); await ev('recall.refreshCards()');
+    await ev('recall.startSession()'); await ev("recall.revealAnswer();recall.rate('good')"); await ev('recall.endSession();void 0');
+    await ev("app.vault.process(app.vault.getFileByPath('Legacy.md'),s=>s.replace('What does atomicity preserve?::All or none of a transaction.\\n',''))");
+    await ev('recall.refreshCards()'); await ev('plugin.saveSettings()');
+    await pass('Published 2.3.1 creates real v3 data with reviewed and retired cards', "recall.service.listCards().length===2 && recall.service.listCards().some(c=>c.state==='retired') && recall.service.listCards().some(c=>c.schedule.reviewCount===1)");
+    await stop();
+    fs.cpSync(vault, `${root}/pre-upgrade-vault`, { recursive: true });
+    const oldRaw=fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'), oldSettings=fs.readFileSync(`${pluginDir}/data.json`,'utf8');
+    const oldCards=JSON.parse(oldRaw).cards; assert.equal(JSON.parse(oldRaw).version,3);
+    report.upgrade={ stableVersion:'2.3.1', stableSource:fs.readFileSync(`${stableAssets}/SOURCE_COMMIT`,'utf8').trim(), stableArtifacts:Object.fromEntries(['main.js','manifest.json','styles.css'].map(n=>[n,createHash('sha256').update(fs.readFileSync(`${stableAssets}/${n}`)).digest('hex')])), originalStoreSha256:createHash('sha256').update(oldRaw).digest('hex'), originalCardCount:Object.keys(oldCards).length };
+    for (const name of ['main.js','manifest.json','styles.css']) fs.copyFileSync(`${assets}/${name}`,`${pluginDir}/${name}`);
+    child=start(); await connect(); await ev('recall.initialize()');
+    assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),oldRaw);
+    assert.equal(fs.readFileSync(`${pluginDir}/data.json`,'utf8'),oldSettings);
+    assert.equal(fs.readFileSync(`${vault}/.obsidian/hotkeys.json`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/.obsidian/hotkeys.json`,'utf8'));
+    assert.equal(fs.readFileSync(`${vault}/Legacy.md`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/Legacy.md`,'utf8'));
+    const loaded=await ev('recall.service.listCards()');
+    for(const old of Object.values(oldCards)) for(const [key,value] of Object.entries(old)) assert.deepEqual(loaded.find(c=>c.id===old.id)[key],value);
+    await pass('Upgrade loads legacy cards without writing settings/store or losing preferences', "plugin.settings.temperature===0.23 && plugin.settings.notifyOnCopy===false && plugin.settings.recallPrompt==='Synthetic upgrade custom instruction.'");
+    await ev("window.originalWrite=app.vault.adapter.write;app.vault.adapter.write=async function(path,...args){if(path.includes('/cards.pre-v4-'))throw Error('synthetic backup failure');return originalWrite.call(this,path,...args)};void 0");
+    await ev('recall.refreshCards()');
+    assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),oldRaw);
+    await pass('Migration backup failure blocks the store and preserves stable bytes', "recall.getSnapshot().loadState==='unavailable'");
+    await ev('app.vault.adapter.write=originalWrite;recall.retryLoad()'); await ev('recall.refreshCards()');
+    const backups=fs.readdirSync(`${pluginDir}/recall`).filter(n=>n.startsWith('cards.pre-v4-'));
+    assert.equal(backups.length,1); assert.equal(fs.readFileSync(`${pluginDir}/recall/${backups[0]}`,'utf8'),oldRaw);
+    assert.equal(JSON.parse(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8')).version,4);
+    for(const old of Object.values(oldCards)) assert.deepEqual((await ev('recall.service.listCards()')).find(c=>c.id===old.id).schedule,old.schedule);
+    await pass('First successful mutation verifies an exact stable backup before v4 persistence', "recall.getSnapshot().loadState==='ready'");
+    report.upgrade.backupSha256=createHash('sha256').update(fs.readFileSync(`${pluginDir}/recall/${backups[0]}`)).digest('hex');
+    await ev("app.vault.rename(app.vault.getFileByPath('Legacy.md'),'Moved Legacy.md')"); await pause(750);
+    await ev("app.vault.process(app.vault.getFileByPath('Moved Legacy.md'),s=>s.replace('What does an index','#flashcards/legacy What does an index'))"); await pause(750);
+    for(const old of Object.values(oldCards)) assert.deepEqual((await ev('recall.service.listCards()')).find(c=>c.id===old.id).schedule,old.schedule);
+    await pass('Migrated schedules and identities survive observed move and retag', "recall.service.listCards().every(c=>c.path==='Moved Legacy.md')");
+    await ev("app.vault.modify(app.vault.getFileByPath('Moved Legacy.md'),'# Intentionally removed questions\\n')"); await pause(750);
+    assert.equal(requests.length,0);
+    await ev("app.plugins.disablePlugin('ai-knowledge-hub')");
+    for(const [path,text] of Object.entries(originals)) await ev(`app.vault.create(${JSON.stringify(path)},${JSON.stringify(text)}).then(()=>undefined)`);
+    await ev("app.plugins.enablePlugin('ai-knowledge-hub')"); await wait("!!app.plugins.plugins['ai-knowledge-hub']?.recallAuthoring");
+    await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.author=plugin.recallAuthoring;window.recall=author.recall;void 0");
+  }
+  assert.equal(await ev('plugin.manifest.version'), JSON.parse(fs.readFileSync(`${assets}/manifest.json`)).version);
   await openNote('Study RU.md');
   await ev("editor.setCursor({line:editor.lastLine(),ch:editor.getLine(editor.lastLine()).length});void 0");
   await cdp('Input.insertText', { text: '\nManual before generation.  ' }); await ev('md.save()');
   await ev("window.before=editor.getValue();author.requestGeneration();author.configure({tag:'flashcards/db/transactions'});void 0");
   await ev('author.generate()');
   await pass('RU generation uses the captured editor and admits two questions', "author.getSnapshot().result?.status==='success' && recall.getSnapshot().summary.active===2 && editor.getValue().includes('#flashcards/db/transactions Что')");
+  assert.equal(fs.readFileSync(`${vault}/Study RU.md`,'utf8'),await ev('editor.getValue()'));
   await ev('window.generated=editor.getValue();void 0'); await shot('ru-generated');
   await key('z'); await pass('One native Ctrl+Z removes generation and preserves earlier manual typing', 'editor.getValue()===before && recall.getSnapshot().summary.active===0');
+  assert.equal(fs.readFileSync(`${vault}/Study RU.md`,'utf8'),await ev('before'));
   await key('z', 10); await pass('Native Ctrl+Shift+Z restores the identical block and active cards', 'editor.getValue()===generated && recall.getSnapshot().summary.active===2');
+  assert.equal(fs.readFileSync(`${vault}/Study RU.md`,'utf8'),await ev('generated'));
   await ev("editor.setCursor({line:editor.lastLine(),ch:editor.getLine(editor.lastLine()).length});void 0"); await cdp('Input.insertText', { text: 'Manual after generation.' }); await ev('md.save()');
   await key('z'); await pass('A later manual edit has its own Undo step', 'editor.getValue()===generated');
   await openNote('Study EN.md'); await ev("app.commands.executeCommandById('ai-knowledge-hub:ai-flashcards-note');void 0"); await wait("author.getSnapshot().result?.status==='success'");
   await pass('Existing command appends EN questions through the same generator', "editor.getValue().includes('Why can an index slow down writes?::')");
+  await ev("app.vault.create('Reading.md','# Indexes\\nAn index speeds up matching lookups but writes must update the index too.\\n').then(()=>undefined)");
+  await openNote('Reading.md'); await ev("editor.setCursor({line:editor.lastLine(),ch:0});void 0");
+  await cdp('Input.insertText',{text:'Manual neighbor before.\n'}); await ev('md.save()');
+  await ev("window.readingBefore=editor.getValue();md.setState({...md.getState(),mode:'preview'},{history:false})");
+  await ev('author.generateForNote(md.file)');
+  await pass('Reading-view generation activates the editor, saves the actual file and admits the queue', "author.getSnapshot().result?.status==='success' && md.getMode()==='source' && recall.service.listCards({path:'Reading.md',state:'active'}).length===1");
+  assert.equal(fs.readFileSync(`${vault}/Reading.md`,'utf8'),await ev('editor.getValue()'));
+  await ev("window.readingGenerated=editor.getValue();recall.setScope({path:'Reading.md'});recall.startSession()");
+  await key('z'); await pass('Reading-view Undo invalidates the active queue and preserves adjacent typing', "editor.getValue()===readingBefore && !recall.getSnapshot().session && recall.service.listCards({path:'Reading.md',state:'active'}).length===0");
+  assert.equal(fs.readFileSync(`${vault}/Reading.md`,'utf8'),await ev('readingBefore'));
+  await key('z',10); await pass('Reading-view Redo restores the exact saved block and queue', "editor.getValue()===readingGenerated && recall.service.listCards({path:'Reading.md',state:'active'}).length===1");
+  await ev("editor.setCursor({line:editor.lastLine(),ch:0});void 0"); await cdp('Input.insertText',{text:'Manual neighbor after.'}); await ev('md.save()');
+  await key('z'); await pass('Typing after Reading-view generation remains a separate Undo step', 'editor.getValue()===readingGenerated');
+  await ev('recall.setScope({});void 0');
+  await ev("app.vault.create('Partial.md','# Index cost\\nWrites must maintain indexes too.\\n').then(()=>undefined)"); await openNote('Partial.md');
+  await ev("window.beforePartial=recall.service.listCards();window.originalWrite=app.vault.adapter.write;app.vault.adapter.write=async function(path,...args){if(path.endsWith('/recall/cards.json'))throw Error('synthetic store failure');return originalWrite.call(this,path,...args)};void 0");
+  const beforePartialRequests=requests.length; await ev('author.generateForNote(md.file)');
+  await pass('Metadata failure reports a partial result while keeping the saved questions', "author.getSnapshot().result?.status==='partial' && author.getSnapshot().result?.reason==='recall-update-failed' && recall.getSnapshot().loadState==='unavailable'");
+  assert(fs.readFileSync(`${vault}/Partial.md`,'utf8').includes('Why can an index slow down writes?::'));
+  await openRecall('unavailable'); await shot('partial-metadata-failure');
+  await ev('app.vault.adapter.write=originalWrite;recall.retryLoad()'); await ev('recall.refreshCards()');
+  const afterPartial=await ev('recall.service.listCards()');
+  for(const old of await ev('beforePartial')) assert.deepEqual(afterPartial.find(c=>c.id===old.id).schedule,old.schedule);
+  await pass('Retry-load and Refresh recover saved questions and exact schedules without regenerating', "recall.getSnapshot().loadState==='ready' && recall.service.listCards({path:'Partial.md',state:'active'}).length===1");
+  assert.equal(requests.length,beforePartialRequests+1);
   const count = requests.length;
   await openRecall(); await pause(500); await wait('!recall.getSnapshot().ingesting'); await ev('recall.refreshCards()');
   await pass('Vocabulary imports locally with two independent directions', "recall.service.listCards({state:'active'}).filter(c=>c.kind==='vocabulary').length===4"); assert.equal(requests.length, count);
+  await ev("(async()=>{window.beforeBadVocabulary=recall.service.listCards({path:'Words.md'});await app.vault.process(app.vault.getFileByPath('Words.md'),s=>s.replace('## Vocabulary','## Words'));})()"); await pause(750);
+  await pass('An unrecognized vocabulary heading reports the note and preserves existing cards', "recall.getSnapshot().sourceIssue?.path==='Words.md' && JSON.stringify(recall.service.listCards({path:'Words.md'}))===JSON.stringify(beforeBadVocabulary)");
+  await shot('invalid-vocabulary-heading');
+  await ev(`app.vault.modify(app.vault.getFileByPath('Words.md'),${JSON.stringify(originals['Words.md'])})`); await pause(750);
+  await ev("app.vault.process(app.vault.getFileByPath('Words.md'),s=>s.replace('luggage::багаж','luggage багаж'))"); await pause(750);
+  await pass('Malformed vocabulary entry reports the exact line without a model request', "recall.getSnapshot().sourceIssue?.path==='Words.md' && recall.getSnapshot().sourceIssue?.line===11 && document.querySelector('.veynrel-recall-source')?.textContent.includes('Words.md:11')");
+  assert.equal(requests.length, count); await shot('invalid-vocabulary-line');
+  await ev(`app.vault.modify(app.vault.getFileByPath('Words.md'),${JSON.stringify(originals['Words.md'])})`); await pause(750);
   await ev("recall.setScope({kind:'study',tag:'flashcards/db'});recall.startSession()");
   await pass('Parent scope excludes db2 from counters and question', "recall.getSnapshot().summary.active===2 && recall.getSnapshot().session.card.path==='Study RU.md'");
   await click('recall-reveal'); await ev("document.querySelector('[data-health-action=recall-good]').focus();void 0");
@@ -148,8 +242,7 @@ try {
   await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.author=plugin.recallAuthoring;window.recall=author.recall;recall.initialize()");
   assert.deepEqual(await ev("recall.service.listCards({path:'Moved Words.md'}).map(c=>[c.id,c.schedule])"), JSON.parse(fs.readFileSync(`${root}/word-history.json`)));
   await pass('Owner restart preserves prompt and exact vocabulary schedules', "plugin.settings.recallPrompt==='CUSTOM RECALL INSTRUCTION'");
-  socket.close();
-  { const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGTERM'); const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer); }
+  await stop();
   child = start(); await connect(); await ev('recall.initialize()');
   assert.deepEqual(await ev("recall.service.listCards({path:'Moved Words.md'}).map(c=>[c.id,c.schedule])"), JSON.parse(fs.readFileSync(`${root}/word-history.json`)));
   await pass('Full Obsidian process restart preserves vocabulary history and prompt', "plugin.settings.recallPrompt==='CUSTOM RECALL INSTRUCTION'");
@@ -168,11 +261,27 @@ try {
       await shot(`recall-${language}-${theme}-${width}`);
     }
   }
+  for(const name of ['main.js','manifest.json','styles.css']) assert.equal(createHash('sha256').update(fs.readFileSync(`${pluginDir}/${name}`)).digest('hex'),report.artifacts[name]);
+  if(stableAssets) {
+    await stop();
+    const v4=fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8');
+    for(const name of ['main.js','manifest.json','styles.css']) fs.copyFileSync(`${stableAssets}/${name}`,`${pluginDir}/${name}`);
+    child=start(); await connect(); await ev('recall.initialize()');
+    await pass('Old stable runtime refuses the newer Recall schema without overwriting it', "recall.getSnapshot().loadState==='unsupported'");
+    assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),v4);
+    await stop();
+    fs.renameSync(vault,`${root}/post-upgrade-vault`);
+    fs.cpSync(`${root}/pre-upgrade-vault`,vault,{recursive:true});
+    child=start();await connect();await ev('recall.initialize()');
+    assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json`,'utf8'));
+    assert.deepEqual(Object.fromEntries((await ev('recall.service.listCards()')).map(c=>[c.id,c])),JSON.parse(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8')).cards);
+    assert.equal(fs.readFileSync(`${pluginDir}/data.json`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/.obsidian/plugins/ai-knowledge-hub/data.json`,'utf8'));
+    await pass('Restoring the complete stable snapshot recovers reviewed and retired histories', "plugin.manifest.version==='2.3.1' && recall.getSnapshot().loadState==='ready' && recall.service.listCards().length===2 && recall.service.listCards().some(c=>c.schedule.reviewCount===1)");
+  }
   report.providerRequests = requests.length; report.passed = true;
 } catch (error) { try { await shot("failure"); report.failureState = await ev('({layout:[...document.querySelectorAll(".veynrel-recall,.veynrel-recall *")].filter(e=>e.scrollWidth>e.clientWidth+1).map(e=>({tag:e.tagName,cls:e.className,w:e.clientWidth,scroll:e.scrollWidth})),snapshot:recall.getSnapshot(),author:author.getSnapshot(),editor:window.editor?.getValue(),before:window.before,generated:window.generated})'); } catch {} report.passed = false; report.error = String(error); console.error(error); process.exitCode = 1; }
 finally {
   fs.writeFileSync(`${root}/report.json`, JSON.stringify(report, null, 2));
-  if (socket) socket.close();
-  if (child && child.exitCode === null) { const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGTERM'); const timer = setTimeout(() => child.kill('SIGKILL'), 3000); await exited; clearTimeout(timer); }
+  await stop();
   server.close();
 }
