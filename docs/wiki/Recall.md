@@ -1,6 +1,6 @@
 # Recall
 
-Recall schedules study questions and vocabulary locally using the same FSRS scheduler. Reviewing existing material needs no model, embeddings or API key. The topics/vocabulary changes described here are on the development branch based on 2.3.1; this is not a release announcement.
+Recall schedules study questions and vocabulary locally using the same FSRS scheduler. Reviewing existing material needs no model, embeddings or API key. This guide describes the **2.4.0 release candidate**, not a published stable release. Read the [upgrade and recovery instructions](../release-2.4.0-candidate.md) before migrating an existing Recall database.
 
 ## Study topics
 
@@ -29,6 +29,8 @@ Insertion extends the first suitable ATX Flashcards section, immediately before 
 
 Save unsaved edits before generation. Divergent buffers, source replacement/deletion/edits, model or prompt changes, and plugin unload prevent an unissued insertion. The captured editor receives the change even if another note is opened. Batch uses the same generator and guarded backup writes for closed files; those writes do not promise editor Ctrl+Z. Markdown and Recall metadata are separate commits. If metadata updating fails after insertion, keep the questions and refresh Recall; do not generate again just to import them.
 
+Generating from Reading view switches the captured note to editing before insertion. Recall verifies that the questions reached the saved file. If editor saving fails, the message says that the questions are in the editor but not confirmed saved; save the note, then refresh Recall. If Recall metadata is unavailable, use Retry loading first. A partial result is not a reason to generate another copy.
+
 ## Vocabulary
 
 Use one note per learning language and topic. Set properties once and write pairs in an ATX `Vocabulary` section. The format is `expression::translation`; no per-entry tags, UUIDs, generated questions or duplicate Flashcards section are needed.
@@ -54,6 +56,8 @@ Copy the template into a note and use **Refresh flashcards**. Recall never creat
 Language values accept BCP-47-shaped identifiers beyond English, such as `de`, `ar` or `pt-BR`. `recall-direction` accepts `forward` (default), `reverse` or `both`. Each direction has its own schedule. Disabling one retires its cards while retaining progress; enabling it again restores that history. The card shows the language direction and hides the other side until reveal. Evaluate acceptable translations yourself; no exact-answer matcher or AI grader is used.
 
 Unicode, RTL text, phrases, apostrophes, punctuation and multiple meanings remain ordinary text. Commas do not split answers, and homonyms with different translations remain distinct. Only explicit vocabulary notes and their Vocabulary sections are read as vocabulary; ordinary `::` prose elsewhere is ignored. Missing/invalid entries produce path/line diagnostics. An incomplete capture can add valid cards but cannot retire unseen ones.
+
+The heading must be exactly `Vocabulary`, with a capital V, outside code/comments and outside another active Flashcards section. An unrecognized or absent heading reports the note and preserves existing vocabulary cards. A malformed pair reports its line. To intentionally remove all entries, leave an empty recognized `## Vocabulary` section; that complete capture can retire the removed cards while retaining their history.
 
 ## Progress and recovery
 
