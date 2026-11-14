@@ -1,9 +1,6 @@
 import type { SavedNote } from "../consolidation/savedNote";
-import type { DiagramProposal } from "./diagram/workflow";
 import type { PreservedDocument } from "./documentEnvelope";
 import type { PreservationChecks } from "./preservationChecks";
-
-export type StudioProposal = { kind: "markdown"; review: ReviewSession } | DiagramProposal;
 
 export interface StudioSource extends SavedNote { created: number }
 export interface StudioNotePort {

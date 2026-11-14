@@ -1,5 +1,7 @@
 # Studio Excalidraw v1 evidence — 2026-10-27
 
+> Historical diagram evidence, preserved unchanged after R02 removed generation from development. See [R02 removal and legacy data](../studio-diagram-removal.md); these results do not certify current runtime functionality.
+
 Base: `cf039b1a69ce88a60bad73f424bff3e1057ffc7c`. Branch: `feat/studio-excalidraw-v1`. This is synthetic integration evidence, not semantic model evaluation or user acceptance.
 
 ## Automated gates
@@ -19,7 +21,7 @@ The first recorded proposal-audit attempt failed because the child returned empt
 
 ## Native diagram acceptance
 
-Final run: `/tmp/veynrel-diagram-native-20261027-l` using [the reproducible harness](../../scripts/studio-excalidraw-native.mjs). [Raw report](native-report.json): **25 checks passed**, four synthetic HTTP completions through the existing `callOpenRouter → requestUrl` transport, zero captured renderer exceptions. This run loaded the exact final production bundle whose hashes are in `artifacts`.
+Final run: `/tmp/veynrel-diagram-native-20261027-l` using [the reproducible harness](https://github.com/zinverno/veynrel/blob/05f4cdaeb9bf5aa092901f3e5079bb302b82e596/scripts/studio-excalidraw-native.mjs). [Raw report](native-report.json): **25 checks passed**, four synthetic HTTP completions through the existing `callOpenRouter → requestUrl` transport, zero captured renderer exceptions. This run loaded the exact final production bundle whose hashes are in `artifacts`.
 
 - Obsidian **1.13.7**, Electron **43.6.0**, Chromium **150.0.7871.250**.
 - Official Excalidraw **2.29.0**, upstream commit `4acaf9e375e1dfb731faec9c2dd3439bd52cc4cb`; installed release asset hashes and Obsidian `app.asar` hash are recorded.

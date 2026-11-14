@@ -1,5 +1,7 @@
 # 2.4.0 Recall release candidate: upgrade and recovery
 
+> R02 policy update: 2.4.0 is an unpublished intermediate candidate. No public stable/beta/prerelease or Marketplace update before acceptance of R15; the final version is decided there. The R01 evidence below is historical. [Current release policy](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work).
+
 Status: **candidate, not published**. This is the bounded R01 delivery from the [planning PR's verified contract](https://github.com/zinverno/veynrel/blob/191353ca856d52ba2be7e519e4cbee480e8638de/docs/roadmap/vault-assistant-plan.md). It authorizes no merge, tag, release publication, deployment or installation into a personal vault. The actual published stable baseline checked on 2026-11-13 is [2.3.1](https://github.com/zinverno/veynrel/releases/tag/2.3.1), source `cd9e8fc4048b4a17d0dc68993bd8b340d9da4720`.
 
 ## Candidate changes

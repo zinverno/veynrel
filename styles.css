@@ -3224,19 +3224,6 @@
 .veynrel-community { overflow-wrap: anywhere; min-width: 0; }
 .veynrel-community > button { margin: 8px 8px 8px 0; white-space: normal; height: auto; min-height: 32px; }
 
-/* Studio's inert SVG preview shares the native scene's fixed geometry. */
-.veynrel-diagram-preview {
-  width: 100%;
-  height: 420px;
-  max-height: 60vh;
-  min-height: 260px;
-  overflow: auto;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
-  background: var(--background-secondary);
-}
-.veynrel-diagram-preview svg { display: block; max-width: none; }
-.veynrel-diagram-preview:focus-visible { outline: 2px solid var(--interactive-accent); }
 .veynrel-studio details ul { overflow-wrap: anywhere; }
 
 /* Studio UX: local semantic tokens; never override the user's global accent. */
@@ -3286,22 +3273,13 @@
 .veynrel-studio-review-file > button[aria-pressed="true"] { box-shadow: inset 3px 0 var(--studio-focus); background: var(--studio-surface); }
 .veynrel-studio-review-detail { min-width: 0; }
 .veynrel-studio .ai-proposal-diff { max-width: 100%; }
-.veynrel-studio-diagram-stage { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
-.veynrel-studio-canvas { min-width: 0; }
-.veynrel-studio-canvas .veynrel-studio-actions { margin-bottom: 8px; }
-.veynrel-studio .veynrel-diagram-preview { height: 56vh; min-height: 320px; max-height: 720px; cursor: grab; touch-action: none; }
-.veynrel-studio .veynrel-diagram-preview:active { cursor: grabbing; }
 .veynrel-studio-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.veynrel-studio-connection, .veynrel-studio-destination { font-size: 14px; padding: 8px 12px; background: var(--studio-surface); border-radius: var(--studio-radius); }
-@container (min-width: 900px) {
-  .veynrel-studio-diagram-stage.is-inspector-open { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
-}
+.veynrel-studio-connection { font-size: 14px; padding: 8px 12px; background: var(--studio-surface); border-radius: var(--studio-radius); }
 @container (max-width: 600px) {
   .veynrel-studio-review, .veynrel-studio-examples { grid-template-columns: minmax(0, 1fr); }
   .veynrel-studio-review-files { max-height: 220px; }
   .veynrel-studio-grid .veynrel-studio-card { display: flex; }
   .veynrel-studio-grid .veynrel-studio-card > button { align-self: flex-start; }
-  .veynrel-studio .veynrel-diagram-preview { height: 48vh; min-height: 300px; }
 }
 .veynrel-studio > .veynrel-studio-operation > button { flex-shrink: 0; }
 .veynrel-studio > .veynrel-studio-operation > .veynrel-studio-status { min-width: min(220px, 100%); }
@@ -3315,30 +3293,21 @@
 .veynrel-studio-dialog legend { padding-inline: 6px; font-weight: 600; }
 
 .veynrel-studio [hidden] { display: none; }
-.veynrel-studio .veynrel-studio-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; }
-.veynrel-studio-mode { border: 1px solid var(--veynrel-border); border-radius: 6px; padding: 10px; display: grid; grid-template-columns: auto 1fr; gap: 6px; cursor: pointer; }
-.veynrel-studio-mode.is-selected { border-color: var(--interactive-accent); background: var(--background-modifier-active-hover); }
-.veynrel-studio-mode input { min-height: 0; }
-.veynrel-studio-mode svg { grid-column: 1 / -1; width: 100%; height: 65px; }
 .veynrel-studio-example { color: var(--text-muted); font-size: 12px; }
 .veynrel-studio-grid .veynrel-studio-card > .veynrel-studio-example { grid-column: 2; grid-row: 1 / span 5; align-self: center; }
 .veynrel-studio-example svg { display: block; width: 100%; height: 78px; }
-.veynrel-studio-example svg, .veynrel-studio-mode svg { color: var(--text-normal); }
+.veynrel-studio-example svg { color: var(--text-normal); }
 .veynrel-studio-example figcaption { margin-top: 4px; }
 .veynrel-studio-card h2 .svg-icon { width: 18px; height: 18px; margin-inline-end: 8px; vertical-align: middle; }
 .veynrel-studio-body > p { margin-block: 4px; }
 @container (max-width: 600px) {
-  .veynrel-studio-modes { gap: 8px; }
   .veynrel-studio-grid .veynrel-studio-card > .veynrel-studio-example { width: min(220px, 100%); margin: 0; }
 }
 
 .veynrel-studio-picker:empty { display: none; }
 .veynrel-studio .veynrel-studio-example { margin: 0; }
-.veynrel-studio .veynrel-studio-mode input { align-self: start; }
 .veynrel-studio-search-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(140px, 1fr); gap: 12px; }
 @container (max-width: 500px) { .veynrel-studio-search-row { grid-template-columns: minmax(0, 1fr); } }
-
-@container (max-width: 500px) { .veynrel-studio .veynrel-studio-modes { grid-template-columns: minmax(0, 1fr); } }
 
 /* Primary actions keep the host's neutral colors; weight and border also convey priority. */
 :is(.veynrel-health-view, .veynrel-studio, .veynrel-studio-dialog, .veynrel-review, .veynrel-moc-confirmation, .veynrel-atom-flow, .ai-change-planner) button.mod-cta {

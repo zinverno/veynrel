@@ -1,7 +1,7 @@
 import { l } from "./messages";
 export function button(root: HTMLElement, name: string, action: string, click: () => void): HTMLButtonElement {
   const b = root.createEl("button", { text: name, attr: { type: "button", "data-studio-action": action } }); b.addEventListener("click", click);
-  if (["choose-notes", "prepare", "generate", "review-apply", "confirm-apply", "save-recipe", "diagram-prepare", "diagram-generate", "diagram-create-review", "diagram-confirm-create", "diagram-open"].includes(action)) b.addClass("mod-cta");
+  if (["choose-notes", "prepare", "generate", "review-apply", "confirm-apply", "save-recipe"].includes(action)) b.addClass("mod-cta");
   return b;
 }
 export function literal(root: HTMLElement, name: string, value: string): void {
@@ -23,7 +23,7 @@ export function disclosure(root: HTMLElement, name: string): HTMLDetailsElement 
 export function toolbar(root: HTMLElement): HTMLElement { return root.createDiv({ cls: "veynrel-studio-actions" }); }
 
 /** Metadata-only picker; the engine still validates the explicit scope at preparation. */
-export function notePicker(root: HTMLElement, paths: readonly string[], state: { chosen: Set<string>; query: string }, limit: number, changed: () => void = () => {}, compact = false): void {
+export function notePicker(root: HTMLElement, paths: readonly string[], state: { chosen: Set<string>; query: string }, limit: number): void {
   const query = field(root, l("Search full paths", "Поиск по полному пути"), state.query); query.setAttribute("type", "search");
   const picked = root.createDiv({ cls: "veynrel-studio-picked" }), count = picked.createDiv({ attr: { role: "status" } });
   const selected = picked.createDiv(), list = root.createDiv({ cls: "veynrel-studio-picker" });
@@ -32,20 +32,20 @@ export function notePicker(root: HTMLElement, paths: readonly string[], state: {
     count.setText(`${l("Selected notes", "Выбрано заметок")}: ${state.chosen.size} / ${limit}`); selected.empty();
     for (const path of state.chosen) {
       const row = selected.createDiv({ cls: "veynrel-studio-picked-row" }); row.createSpan({ text: path });
-      button(row, l("Remove", "Убрать"), "remove-note", () => { state.chosen.delete(path); changed(); draw(); drawSelected(); query.focus(); }).setAttribute("aria-label", `${l("Remove", "Убрать")}: ${path}`);
+      button(row, l("Remove", "Убрать"), "remove-note", () => { state.chosen.delete(path); draw(); drawSelected(); query.focus(); }).setAttribute("aria-label", `${l("Remove", "Убрать")}: ${path}`);
     }
   };
   const draw = () => {
-    list.empty(); if (compact && !state.query.trim()) return; const matches = paths.filter(p => p.toLocaleLowerCase().includes(state.query.toLocaleLowerCase()));
+    list.empty(); const matches = paths.filter(p => p.toLocaleLowerCase().includes(state.query.toLocaleLowerCase()));
     if (!matches.length) list.createEl("p", { text: l("No matching notes.", "Заметки не найдены.") });
     for (const path of matches.slice(0, 100)) {
       const label = list.createEl("label", { cls: "veynrel-studio-check" }), input = label.createEl("input", { type: "checkbox" }); input.checked = state.chosen.has(path); label.createSpan({ text: path });
       input.addEventListener("change", () => {
         error.empty();
-        if (input.checked && state.chosen.size >= limit && limit > 1) { input.checked = false; error.setText(l("20 notes maximum. Remove a selected note first.", "Не более 20 заметок. Сначала уберите выбранную заметку.")); return; }
-        if (input.checked) { if (limit === 1) { state.chosen.clear(); list.querySelectorAll<HTMLInputElement>("input").forEach(i => { if (i !== input) i.checked = false; }); } state.chosen.add(path); }
+        if (input.checked && state.chosen.size >= limit) { input.checked = false; error.setText(l("20 notes maximum. Remove a selected note first.", "Не более 20 заметок. Сначала уберите выбранную заметку.")); return; }
+        if (input.checked) state.chosen.add(path);
         else state.chosen.delete(path);
-        changed(); if (compact) { state.query = ""; query.value = ""; draw(); query.focus(); } drawSelected();
+        drawSelected();
       });
     }
     if (matches.length > 100) list.createEl("p", { text: l("First 100 matches. Narrow your search.", "Первые 100 совпадений. Уточните поиск.") });

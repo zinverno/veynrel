@@ -1,6 +1,6 @@
 import { ensure } from "./recipe";
 
-/** One plugin-scoped gate, including Markdown Apply/Undo and diagram operations. */
+/** One plugin-scoped gate, for Markdown generation, creation, Apply and Undo. */
 export class StudioOperations {
   private owner?: object;
   private depth = 0;

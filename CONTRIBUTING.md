@@ -35,7 +35,6 @@ Normal tests use local fixtures/mocks, without real provider credentials or live
 | Connections and supported changes | `semantic/`, `consolidation/` |
 | Recall | `recall/` |
 | Studio recipes, immutable Review, writes/history | `studio/` |
-| Editable diagrams | `studio/diagram/` |
 | Community recipes/catalog | `studio/community/`; published catalog is a separate repository |
 | Model and embedding transport | `api.ts`, `embeddings/`, `deep/product/` |
 | Localization | `i18n.ts` |
@@ -46,15 +45,15 @@ Build first. Use a new `/tmp/veynrel-…-native-…` directory accepted by the h
 
 ```sh
 node scripts/studio-source-preservation-native.mjs /tmp/veynrel-studio-native-my-check
-node scripts/studio-excalidraw-native.mjs /tmp/veynrel-diagram-native-my-check /path/to/excalidraw-2.29.0-assets
+VEYNREL_NATIVE_EXCALIDRAW=/path/to/excalidraw-2.29.0-assets node scripts/studio-source-preservation-native.mjs /tmp/veynrel-studio-native-with-excalidraw
 COMMUNITY_PUBLIC=0 node scripts/studio-community-native.mjs /tmp/veynrel-community-native-my-check /path/to/local-catalog-fixture
 ```
 
-The Excalidraw assets directory must contain that version's `main.js`, `manifest.json`, `styles.css`. The Community fixture is the separate catalog checkout used by its harness. Read each harness before running it; occupied ports and display focus can affect results. Model routes are synthetic loopback; catalog HTTP is separately controlled. Keep raw evidence outside Git and record the exact bundle hashes. A controlled response proves workflow behavior, not model usefulness. Do not run live/paid evaluation tools as ordinary tests.
+The optional Excalidraw assets directory tests coexistence after R02 removal, not diagram generation. It must contain that version's `main.js`, `manifest.json`, `styles.css`; only the disposable vault receives a copy. The Community fixture is the separate catalog checkout used by its harness. Read each harness before running it; occupied ports and display focus can affect results. Model routes are synthetic loopback; catalog HTTP is separately controlled. Keep raw evidence outside Git and record the exact bundle hashes. A controlled response proves workflow behavior, not model usefulness. Do not run live/paid evaluation tools as ordinary tests.
 
 ## Safety and UI expectations
 
-Preserve consent, exact saved-source rereads, immutable Review, path collision checks, editor/popout guards, durable journals and fail-closed recovery. No retries for uncertain writes or model calls. Test meaningful edge cases and affected callers. Source Apply/Undo, separate-note creation and diagram creation have different recovery contracts.
+Preserve consent, exact saved-source rereads, immutable Review, path collision checks, editor/popout guards, durable journals and fail-closed recovery. No retries for uncertain writes or model calls. Test meaningful edge cases and affected callers. Source Apply/Undo and separate-note creation have different recovery contracts. Archived diagram journals are ignored and preserved after R02; see [legacy data](docs/studio-diagram-removal.md).
 
 UI uses Obsidian theme variables and scoped selectors. Do not override the user's theme or introduce global style resets. Check actual light/dark, EN/RU, focus/keyboard, split views and narrow desktop where affected; do not call desktop emulation mobile acceptance. New media must be native captures with synthetic fixtures and adjacent disclosure. Retain raw originals locally; annotations are separate derivatives.
 
@@ -64,4 +63,4 @@ Report PASS only for checks actually run on the stated build. Include failed att
 
 Contribute public recipes to [veynrel-recipes](https://github.com/zinverno/veynrel-recipes), preserving published version bytes. For bugs, provide a small synthetic reproduction, versions and exact steps; never upload an entire personal vault. Use [Support](SUPPORT.md) and [Security](SECURITY.md).
 
-Release preparation updates package/lock-root/manifest/versions metadata consistently, keeps plugin identity and compatibility, builds the three runtime files and records checksums/source SHA. `main.js` is build output, not a source commit. See the [publication checklist](docs/release-2.3.0-publish.md). A preparation PR or draft is not permission to merge, tag, publish or install.
+Release preparation updates package/lock-root/manifest/versions metadata consistently, keeps plugin identity and compatibility, builds the three runtime files and records checksums/source SHA. `main.js` is build output, not a source commit. See the [publication checklist](docs/release-2.3.0-publish.md). A preparation PR or draft is not permission to merge, tag, publish or install. The [owner-approved roadmap policy](docs/roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) permits internal candidates and per-PR checks, but no public stable/beta/prerelease or Marketplace update until R15 is accepted. Version 2.4.0 is intermediate; decide the final version at R15.

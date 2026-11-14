@@ -1,0 +1,207 @@
+[
+  {
+    "attempt": "veynrel-r02-zoom-attribution-20261113",
+    "case": "base-excalidraw",
+    "scenario": "COMPLETED",
+    "error": null,
+    "exceptions": [],
+    "calls": [],
+    "zoomObservations": [
+      [
+        "keyboard-zoom-0-+",
+        1
+      ],
+      [
+        "keyboard-zoom-0--",
+        1
+      ],
+      [
+        "keyboard-zoom-0-0",
+        1
+      ],
+      [
+        "keyboard-zoom-1-+",
+        1
+      ],
+      [
+        "keyboard-zoom-1--",
+        1
+      ],
+      [
+        "keyboard-zoom-1-0",
+        1
+      ],
+      [
+        "keyboard-zoom-2-+",
+        1
+      ],
+      [
+        "keyboard-zoom-2--",
+        1
+      ],
+      [
+        "keyboard-zoom-2-0",
+        1
+      ]
+    ],
+    "rawReportSha256": "2d3271cfcafa89e32b4bcbf19f31a4e517c101a65cfae8b20afda0b1e9517679"
+  },
+  {
+    "attempt": "veynrel-r02-zoom-attribution-20261113",
+    "case": "host-excalidraw",
+    "scenario": "COMPLETED",
+    "error": null,
+    "exceptions": [],
+    "calls": [],
+    "zoomObservations": [
+      [
+        "keyboard-zoom-0-+",
+        1
+      ],
+      [
+        "keyboard-zoom-0--",
+        1
+      ],
+      [
+        "keyboard-zoom-0-0",
+        1
+      ],
+      [
+        "keyboard-zoom-1-+",
+        1
+      ],
+      [
+        "keyboard-zoom-1--",
+        1
+      ],
+      [
+        "keyboard-zoom-1-0",
+        1
+      ],
+      [
+        "keyboard-zoom-2-+",
+        1
+      ],
+      [
+        "keyboard-zoom-2--",
+        1
+      ],
+      [
+        "keyboard-zoom-2-0",
+        1
+      ]
+    ],
+    "rawReportSha256": "39bdccbb4d42f6a0bd5f8e2a97db51f8b65edf326ef5d70136a8b05346fd3755"
+  },
+  {
+    "attempt": "veynrel-r02-zoom-commands-20261113",
+    "case": "r02-excalidraw",
+    "scenario": "COMPLETED",
+    "error": null,
+    "exceptions": [],
+    "calls": [],
+    "zoomObservations": [
+      [
+        "zoom-0-window:zoom-in",
+        1.0954451150103321
+      ],
+      [
+        "zoom-0-window:zoom-out",
+        1
+      ],
+      [
+        "zoom-0-window:reset-zoom",
+        1
+      ],
+      [
+        "zoom-1-window:zoom-in",
+        1.0954451150103321
+      ],
+      [
+        "zoom-1-window:zoom-out",
+        1
+      ],
+      [
+        "zoom-1-window:reset-zoom",
+        1
+      ],
+      [
+        "zoom-2-window:zoom-in",
+        1.0954451150103321
+      ],
+      [
+        "zoom-2-window:zoom-out",
+        1
+      ],
+      [
+        "zoom-2-window:reset-zoom",
+        1
+      ]
+    ],
+    "rawReportSha256": "77907306d96660f83fc79f0b64b56b29c5c3bbde0b1d0d800f4cb76bdfad97b4"
+  },
+  {
+    "attempt": "veynrel-r02-zoom-commands-20261113",
+    "case": "base-excalidraw",
+    "scenario": "COMPLETED",
+    "error": null,
+    "exceptions": [],
+    "calls": [],
+    "zoomObservations": [
+      [
+        "zoom-0-window:zoom-in",
+        1.0954451150103321
+      ],
+      [
+        "zoom-0-window:zoom-out",
+        1
+      ],
+      [
+        "zoom-0-window:reset-zoom",
+        1
+      ],
+      [
+        "zoom-1-window:zoom-in",
+        1.0954451150103321
+      ],
+      [
+        "zoom-1-window:zoom-out",
+        1
+      ],
+      [
+        "zoom-1-window:reset-zoom",
+        1
+      ],
+      [
+        "zoom-2-window:zoom-in",
+        1.0954451150103321
+      ],
+      [
+        "zoom-2-window:zoom-out",
+        1
+      ],
+      [
+        "zoom-2-window:reset-zoom",
+        1
+      ]
+    ],
+    "rawReportSha256": "a2466903138a21539a4dd16b8acfc922de6adde2f3225ca9865bbd51654861bc"
+  },
+  {
+    "attempt": "veynrel-r02-zoom-commands-20261113",
+    "case": "host-excalidraw",
+    "scenario": "FAILED",
+    "error": "Error: Readiness timeout: app.workspace.activeLeaf?.view.getViewType()==='excalidraw'\n    at wait (file:///tmp/veynrel-r02-20261113/scripts/r02-host-zoom-native.mjs:47:129)\n    at async file:///tmp/veynrel-r02-20261113/scripts/r02-host-zoom-native.mjs:69:5",
+    "exceptions": [],
+    "calls": [],
+    "zoomObservations": [],
+    "rawReportSha256": "691f6ff01db0f2c644bc2b227aa14b4d7a5aabc2d18544c91abb9af4991b1ace"
+  },
+  {
+    "attempt": "veynrel-r02-zoom-attribution-20261113",
+    "case": "r02-excalidraw",
+    "scenario": "INTERRUPTED BY SERVER RESTART",
+    "reportWritten": false,
+    "disposition": "No successful result inferred; exact disposable vault verified before closing its remaining process."
+  }
+]

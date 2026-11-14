@@ -1,0 +1,272 @@
+[
+  {
+    "attempt": "pre-final layout attempt",
+    "status": "FAIL",
+    "checks": [
+      "Studio has no diagram owner, route, command or capability UI",
+      "Passive Studio opens with zero model/note read/write",
+      "Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio",
+      "History ignores valid and damaged diagram archives without reads or writes",
+      "66-second complete response is generated with the exact consent body",
+      "Incomplete response is literal, copyable and has no Apply/Create or selection",
+      "Programmatic source/new-note plans refuse incomplete rows",
+      "en: native clipboard contains the exact fragment",
+      "en: translated incomplete warning is visible"
+    ],
+    "artifacts": {
+      "main.js": "f914e15dcc21791351a85c8bef805d741537e3909412c79696745cb9e5083718",
+      "styles.css": "9ddd18e054ffec9a5456ffdffa4437b651103371e7974f9760170185c019d102",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "exceptions": [],
+    "error": "AssertionError [ERR_ASSERTION]: en: incomplete preview fits a narrow window\n    at pass (file:///tmp/veynrel-r02-20261113/scripts/studio-source-preservation-native.mjs:77:38)\n    at async file:///tmp/veynrel-r02-20261113/scripts/studio-source-preservation-native.mjs:235:7",
+    "rawReportSha256": "27c6d1282de9c8171306db6183330d4167f402412aed6a9461b9ce9fb3c8fb4d",
+    "incompleteLayout": null,
+    "runnerState": "incomplete",
+    "rowReasons": [
+      null
+    ]
+  },
+  {
+    "attempt": "pre-final layout repeat",
+    "status": "PASS",
+    "checks": [
+      "Studio has no diagram owner, route, command or capability UI",
+      "Passive Studio opens with zero model/note read/write",
+      "Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio",
+      "History ignores valid and damaged diagram archives without reads or writes",
+      "66-second complete response is generated with the exact consent body",
+      "Incomplete response is literal, copyable and has no Apply/Create or selection",
+      "Programmatic source/new-note plans refuse incomplete rows",
+      "en: native clipboard contains the exact fragment",
+      "en: translated incomplete warning is visible",
+      "en: incomplete preview fits a narrow window",
+      "ru: native clipboard contains the exact fragment",
+      "ru: translated incomplete warning is visible",
+      "ru: incomplete preview fits a narrow window",
+      "Restart preserves incomplete history without reconstructing Review or writing",
+      "Cancel releases the operation before HTTP completes and ignores the late body",
+      "New Review defaults to separate note and keeps raw YAML excluded from actual source output",
+      "Destination/theme rerender preserves selected row and edited target name",
+      "Destination/name/theme preview changes issue no model, note read, note write or journal write",
+      "Create writes one target, no source process, and does not open target automatically",
+      "Creation history has no spurious interrupted generation",
+      "Restart history observes creation without any automatic create/write",
+      "Explicit opening uses source mode",
+      "Inplace observations need an unchecked explicit acknowledgement",
+      "Acknowledgement enables the exact write plan: escape",
+      "Removing acknowledgement disables confirmation again: escape",
+      "Closing confirmation discards plan without note writes: escape",
+      "Reopened plan needs fresh acknowledgement: escape",
+      "Acknowledgement enables the exact write plan: modal-api",
+      "Removing acknowledgement disables confirmation again: modal-api",
+      "Closing confirmation discards plan without note writes: modal-api",
+      "Reopened plan needs fresh acknowledgement: modal-api",
+      "Exact BOM/CRLF/YAML Apply payload and guarded Undo restore UTF-8 hashes without another request",
+      "Create refuses actual unsaved editor buffer with no note write",
+      "Real saved source editor is open for create-only",
+      "Only explicitly selected batch row is created",
+      "Injected receipt failure leaves first unconfirmed and second skipped",
+      "Restart after receipt failure never retries creates",
+      "Manual acknowledgement writes only receipt, never a note",
+      "en/dark/390: actual Review theme and overflow verified",
+      "en/dark/390: library has no diagram actions or horizontal overflow",
+      "en/dark/390: history has no diagram actions or horizontal overflow",
+      "en/dark/1300: actual Review theme and overflow verified",
+      "en/dark/1300: library has no diagram actions or horizontal overflow",
+      "en/dark/1300: history has no diagram actions or horizontal overflow",
+      "en/light/390: actual Review theme and overflow verified",
+      "en/light/390: library has no diagram actions or horizontal overflow",
+      "en/light/390: history has no diagram actions or horizontal overflow",
+      "en/light/1300: actual Review theme and overflow verified",
+      "en/light/1300: library has no diagram actions or horizontal overflow",
+      "en/light/1300: history has no diagram actions or horizontal overflow",
+      "ru/dark/390: actual Review theme and overflow verified",
+      "ru/dark/390: library has no diagram actions or horizontal overflow",
+      "ru/dark/390: history has no diagram actions or horizontal overflow",
+      "ru/dark/1300: actual Review theme and overflow verified",
+      "ru/dark/1300: library has no diagram actions or horizontal overflow",
+      "ru/dark/1300: history has no diagram actions or horizontal overflow",
+      "ru/light/390: actual Review theme and overflow verified",
+      "ru/light/390: library has no diagram actions or horizontal overflow",
+      "ru/light/390: history has no diagram actions or horizontal overflow",
+      "ru/light/1300: actual Review theme and overflow verified",
+      "ru/light/1300: library has no diagram actions or horizontal overflow",
+      "ru/light/1300: history has no diagram actions or horizontal overflow",
+      "Native keyboard Enter opens separate creation confirmation without writing",
+      "All original and unselected control UTF-8 hashes unchanged at completion",
+      "Plugin/process restarts and all Markdown operations preserve exact drawing/archive bytes",
+      "Loaded production bundle and import graph contain no diagram generator, adapter or schema"
+    ],
+    "artifacts": {
+      "main.js": "f914e15dcc21791351a85c8bef805d741537e3909412c79696745cb9e5083718",
+      "styles.css": "9ddd18e054ffec9a5456ffdffa4437b651103371e7974f9760170185c019d102",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "exceptions": [],
+    "error": null,
+    "rawReportSha256": "217b10e88f114e45ad0040e6e072b123bcf9af8167db4308f96167cadd9b4bb1",
+    "incompleteLayout": [
+      {
+        "lang": "en",
+        "immediate": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 202.171875,
+          "y": 78.171875,
+          "width": 187.828125,
+          "height": 821.828125,
+          "scrollWidth": 176,
+          "clientWidth": 176,
+          "viewport": 390
+        },
+        "settled": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 114.515625,
+          "y": 78.171875,
+          "width": 275.484375,
+          "height": 821.828125,
+          "scrollWidth": 263,
+          "clientWidth": 263,
+          "viewport": 390
+        }
+      },
+      {
+        "lang": "ru",
+        "immediate": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 44,
+          "y": 78.171875,
+          "width": 346,
+          "height": 821.828125,
+          "scrollWidth": 334,
+          "clientWidth": 334,
+          "viewport": 390
+        },
+        "settled": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 44,
+          "y": 78.171875,
+          "width": 346,
+          "height": 821.828125,
+          "scrollWidth": 334,
+          "clientWidth": 334,
+          "viewport": 390
+        }
+      }
+    ],
+    "runnerState": null,
+    "rowReasons": []
+  },
+  {
+    "attempt": "pre-final coexistence attempt",
+    "status": "FAIL",
+    "checks": [
+      "Studio has no diagram owner, route, command or capability UI",
+      "Passive Studio opens with zero model/note read/write",
+      "Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio",
+      "History ignores valid and damaged diagram archives without reads or writes",
+      "66-second complete response is generated with the exact consent body",
+      "Incomplete response is literal, copyable and has no Apply/Create or selection",
+      "Programmatic source/new-note plans refuse incomplete rows",
+      "en: native clipboard contains the exact fragment",
+      "en: translated incomplete warning is visible",
+      "en: incomplete preview fits a narrow window",
+      "ru: native clipboard contains the exact fragment",
+      "ru: translated incomplete warning is visible",
+      "ru: incomplete preview fits a narrow window",
+      "Restart preserves incomplete history without reconstructing Review or writing"
+    ],
+    "artifacts": {
+      "main.js": "f914e15dcc21791351a85c8bef805d741537e3909412c79696745cb9e5083718",
+      "styles.css": "9ddd18e054ffec9a5456ffdffa4437b651103371e7974f9760170185c019d102",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "exceptions": [],
+    "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(releaseProvider)\n\n    at file:///tmp/veynrel-r02-20261113/scripts/studio-source-preservation-native.mjs:252:64",
+    "rawReportSha256": "cc08aca356c14d7ac7709766ffed3eac6aa24ed2836fd7dfeaaae5ecb2edcb5a",
+    "incompleteLayout": [
+      {
+        "lang": "en",
+        "immediate": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 150.234375,
+          "y": 78.171875,
+          "width": 239.765625,
+          "height": 821.828125,
+          "scrollWidth": 228,
+          "clientWidth": 228,
+          "viewport": 390
+        },
+        "settled": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 69.6875,
+          "y": 78.171875,
+          "width": 320.3125,
+          "height": 821.828125,
+          "scrollWidth": 308,
+          "clientWidth": 308,
+          "viewport": 390
+        }
+      },
+      {
+        "lang": "ru",
+        "immediate": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 44,
+          "y": 78.171875,
+          "width": 346,
+          "height": 821.828125,
+          "scrollWidth": 334,
+          "clientWidth": 334,
+          "viewport": 390
+        },
+        "settled": {
+          "classes": [
+            "theme-dark"
+          ],
+          "background": "rgb(28, 28, 28)",
+          "text": "rgb(218, 218, 218)",
+          "x": 44,
+          "y": 78.171875,
+          "width": 346,
+          "height": 821.828125,
+          "scrollWidth": 334,
+          "clientWidth": 334,
+          "viewport": 390
+        }
+      }
+    ],
+    "runnerState": "failed",
+    "rowReasons": [
+      "network"
+    ]
+  }
+]

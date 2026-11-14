@@ -1,5 +1,7 @@
 # Читаемость главных действий — PR #125
 
+> Historical pre-R02 evidence. The diagram theme harness is retired; these results describe the recorded build. [Current removal and retained Markdown workflow](studio-diagram-removal.md).
+
 Точечное продолжение theme-fidelity, без нового редизайна. Единственный изменённый
 runtime-файл — `styles.css`. Engine, prompts, guards, Apply/Undo, журналы и сайт не менялись.
 

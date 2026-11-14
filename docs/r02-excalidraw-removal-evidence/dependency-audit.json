@@ -1,0 +1,35 @@
+{
+  "diagramModules": [
+    "studio/diagram/spec.ts",
+    "studio/diagram/viewport.ts",
+    "studio/diagram/layout.ts",
+    "studio/diagram/adapter.ts",
+    "studio/diagram/messages.ts",
+    "studio/diagram/preview.ts",
+    "studio/diagram/view.ts",
+    "studio/diagram/journal.ts",
+    "studio/diagram/capabilities.ts",
+    "studio/diagram/workflow.ts"
+  ],
+  "importers": [
+    "studio/view.ts",
+    "studio/registerStudio.ts",
+    "main.ts"
+  ],
+  "outsideImports": [
+    "studio/recipe.ts",
+    "<runtime>",
+    "obsidian",
+    "consolidation/atomizationPlan.ts",
+    "studio/messages.ts",
+    "studio/ui.ts",
+    "studio/illustrations.ts",
+    "consolidation/operationJournal.ts",
+    "api.ts",
+    "consolidation/savedNote.ts",
+    "deep/product/languageModelSettingsPort.ts",
+    "deep/product/validateLanguageModelSettings.ts",
+    "studio/providerError.ts",
+    "./journal"
+  ]
+}

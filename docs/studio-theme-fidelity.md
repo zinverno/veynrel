@@ -1,5 +1,7 @@
 # Studio follow-up: native theme fidelity
 
+> Historical pre-R02 evidence. Diagram harnesses named below are retired; use the recorded revision to reproduce them. [Current removal and retained Markdown workflow](studio-diagram-removal.md).
+
 2026-10-28. Existing PR #125; base `feat/studio-excalidraw-v1` at
 `e3651e4bf805ddd4d73c5e55195a63ded4a06101` (PR #124 still open).
 This follow-up starts at `74c56df62de8f45d5060c3bc2f487e197b475853`.

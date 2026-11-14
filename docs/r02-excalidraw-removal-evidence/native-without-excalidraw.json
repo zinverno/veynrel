@@ -1,0 +1,812 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Studio has no diagram owner, route, command or capability UI",
+    "Passive Studio opens with zero model/note read/write",
+    "Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio",
+    "History ignores valid and damaged diagram archives without reads or writes",
+    "66-second complete response is generated with the exact consent body",
+    "Incomplete response is literal, copyable and has no Apply/Create or selection",
+    "Programmatic source/new-note plans refuse incomplete rows",
+    "en: native clipboard contains the exact fragment",
+    "en: translated incomplete warning is visible",
+    "en: incomplete preview fits a narrow window",
+    "ru: native clipboard contains the exact fragment",
+    "ru: translated incomplete warning is visible",
+    "ru: incomplete preview fits a narrow window",
+    "Restart preserves incomplete history without reconstructing Review or writing",
+    "Cancel releases the operation before HTTP completes and ignores the late body",
+    "New Review defaults to separate note and keeps raw YAML excluded from actual source output",
+    "Destination/theme rerender preserves selected row and edited target name",
+    "Destination/name/theme preview changes issue no model, note read, note write or journal write",
+    "Create writes one target, no source process, and does not open target automatically",
+    "Creation history has no spurious interrupted generation",
+    "Restart history observes creation without any automatic create/write",
+    "Explicit opening uses source mode",
+    "Inplace observations need an unchecked explicit acknowledgement",
+    "Acknowledgement enables the exact write plan: escape",
+    "Removing acknowledgement disables confirmation again: escape",
+    "Closing confirmation discards plan without note writes: escape",
+    "Reopened plan needs fresh acknowledgement: escape",
+    "Acknowledgement enables the exact write plan: modal-api",
+    "Removing acknowledgement disables confirmation again: modal-api",
+    "Closing confirmation discards plan without note writes: modal-api",
+    "Reopened plan needs fresh acknowledgement: modal-api",
+    "Exact BOM/CRLF/YAML Apply payload and guarded Undo restore UTF-8 hashes without another request",
+    "Create refuses actual unsaved editor buffer with no note write",
+    "Real saved source editor is open for create-only",
+    "Only explicitly selected batch row is created",
+    "Injected receipt failure leaves first unconfirmed and second skipped",
+    "Restart after receipt failure never retries creates",
+    "Manual acknowledgement writes only receipt, never a note",
+    "en/dark/390: actual Review theme and overflow verified",
+    "en/dark/390: library has no diagram actions or horizontal overflow",
+    "en/dark/390: history has no diagram actions or horizontal overflow",
+    "en/dark/1300: actual Review theme and overflow verified",
+    "en/dark/1300: library has no diagram actions or horizontal overflow",
+    "en/dark/1300: history has no diagram actions or horizontal overflow",
+    "en/light/390: actual Review theme and overflow verified",
+    "en/light/390: library has no diagram actions or horizontal overflow",
+    "en/light/390: history has no diagram actions or horizontal overflow",
+    "en/light/1300: actual Review theme and overflow verified",
+    "en/light/1300: library has no diagram actions or horizontal overflow",
+    "en/light/1300: history has no diagram actions or horizontal overflow",
+    "ru/dark/390: actual Review theme and overflow verified",
+    "ru/dark/390: library has no diagram actions or horizontal overflow",
+    "ru/dark/390: history has no diagram actions or horizontal overflow",
+    "ru/dark/1300: actual Review theme and overflow verified",
+    "ru/dark/1300: library has no diagram actions or horizontal overflow",
+    "ru/dark/1300: history has no diagram actions or horizontal overflow",
+    "ru/light/390: actual Review theme and overflow verified",
+    "ru/light/390: library has no diagram actions or horizontal overflow",
+    "ru/light/390: history has no diagram actions or horizontal overflow",
+    "ru/light/1300: actual Review theme and overflow verified",
+    "ru/light/1300: library has no diagram actions or horizontal overflow",
+    "ru/light/1300: history has no diagram actions or horizontal overflow",
+    "Native keyboard Enter opens separate creation confirmation without writing",
+    "All original and unselected control UTF-8 hashes unchanged at completion",
+    "Plugin/process restarts and all Markdown operations preserve exact drawing/archive bytes",
+    "Loaded production bundle and import graph contain no diagram generator, adapter or schema"
+  ],
+  "artifacts": {
+    "main.js": "62c87dd88a66e613d46c96736c1bc6c2ddfd674b3df4404309cbf52033e83da9",
+    "styles.css": "b12c11d1996525a0c99a804dcd80085fa138d75fe7e229caaef16ebc83e17267",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "exceptions": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "excalidrawInstalled": false
+  },
+  "legacyBefore": {
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/intent.json": "20d01f2b1162dd2b66ad2b8111435eec544b611b3d4ec87dc256f5bdf8206afd",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/receipt.json": "0acece8d251ac79adb6babf1bede5f9ede360dc89fc73172c5e4856ec560f808",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/damaged.json": "01e4c9c2e740c4ad70954533d8a67cae90dc0ac11406805fc6654b12459b3347",
+    "Existing.excalidraw.md": "7cb0e08518a118aef27c378448661cd940b4451dac63332cb0e921b4c13d01bb",
+    "Existing.excalidraw": "b7eff3ba0897d087506849a91325f5814ca78f01de6501d86c017b9449a8c621"
+  },
+  "legacyAfter": {
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/intent.json": "20d01f2b1162dd2b66ad2b8111435eec544b611b3d4ec87dc256f5bdf8206afd",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/receipt.json": "0acece8d251ac79adb6babf1bede5f9ede360dc89fc73172c5e4856ec560f808",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/damaged.json": "01e4c9c2e740c4ad70954533d8a67cae90dc0ac11406805fc6654b12459b3347",
+    "Existing.excalidraw.md": "7cb0e08518a118aef27c378448661cd940b4451dac63332cb0e921b4c13d01bb",
+    "Existing.excalidraw": "b7eff3ba0897d087506849a91325f5814ca78f01de6501d86c017b9449a8c621"
+  },
+  "incompleteLayout": [
+    {
+      "lang": "en",
+      "immediate": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 150.28125,
+        "y": 78.171875,
+        "width": 239.71875,
+        "height": 821.828125,
+        "scrollWidth": 228,
+        "clientWidth": 228,
+        "viewport": 390
+      },
+      "settled": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 88.765625,
+        "y": 78.171875,
+        "width": 301.234375,
+        "height": 821.828125,
+        "scrollWidth": 289,
+        "clientWidth": 289,
+        "viewport": 390
+      }
+    },
+    {
+      "lang": "ru",
+      "immediate": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.171875,
+        "width": 346,
+        "height": 821.828125,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      },
+      "settled": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.171875,
+        "width": 346,
+        "height": 821.828125,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    }
+  ],
+  "themeCaptures": [
+    {
+      "file": "review-new-note-en-light-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 77.9375,
+      "width": 980,
+      "height": 722.0625,
+      "scrollWidth": 968,
+      "clientWidth": 968,
+      "viewport": 1024
+    },
+    {
+      "file": "review-en-dark-390-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "library-en-dark-390.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "library",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "history-en-dark-390.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "history",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-en-dark-390-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 39,
+      "y": 171.71875,
+      "width": 312,
+      "height": 606.5625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-en-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "library-en-dark-1300.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "library",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "history-en-dark-1300.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "history",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-en-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-light-390-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "library-en-light-390.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "library",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "history-en-light-390.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "history",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-en-light-390-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 39,
+      "y": 171.71875,
+      "width": 312,
+      "height": 606.5625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-en-light-1300-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "library-en-light-1300.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "library",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "history-en-light-1300.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "history",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-en-light-1300-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-dark-390-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "library-ru-dark-390.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "library",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "history-ru-dark-390.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "history",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-ru-dark-390-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 39,
+      "y": 160.46875,
+      "width": 312,
+      "height": 629.0625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-ru-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "library-ru-dark-1300.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "library",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "history-ru-dark-1300.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "history",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-ru-dark-1300-r2.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-light-390-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "library-ru-light-390.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "library",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "history-ru-light-390.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "history",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 346,
+      "height": 871.71875,
+      "scrollWidth": 334,
+      "clientWidth": 334,
+      "viewport": 390
+    },
+    {
+      "file": "confirmation-ru-light-390-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 39,
+      "y": 160.46875,
+      "width": 312,
+      "height": 629.0625,
+      "scrollWidth": 310,
+      "clientWidth": 310,
+      "viewport": 390
+    },
+    {
+      "file": "review-ru-light-1300-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "library-ru-light-1300.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "library",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "history-ru-light-1300.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "history",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 78.28125,
+      "width": 1256,
+      "height": 871.71875,
+      "scrollWidth": 1244,
+      "clientWidth": 1244,
+      "viewport": 1300
+    },
+    {
+      "file": "confirmation-ru-light-1300-r2.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "confirmation",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 370,
+      "y": 216.71875,
+      "width": 560,
+      "height": 516.5625,
+      "scrollWidth": 558,
+      "clientWidth": 558,
+      "viewport": 1300
+    }
+  ],
+  "keyboardFocus": {
+    "active": "<button type=\"button\" data-studio-action=\"review-apply\" class=\"mod-cta\">Создать заметки: 1</button>",
+    "focus": true,
+    "canApply": true,
+    "busy": false
+  },
+  "keyboardTrace": [
+    {
+      "type": "keydown",
+      "key": "Enter",
+      "target": "review-apply",
+      "prevented": false
+    },
+    {
+      "type": "keypress",
+      "key": "Enter",
+      "target": "review-apply",
+      "prevented": false
+    },
+    {
+      "type": "click",
+      "target": "review-apply",
+      "prevented": false
+    },
+    {
+      "type": "keyup",
+      "key": "Enter",
+      "target": "review-apply",
+      "prevented": false
+    }
+  ],
+  "requests": 12,
+  "initialHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "finalHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "rawReportSha256": "88d73100c0944a0252115a11f277e3ac0717f9d0956ca325f3653584b9ad23f5",
+  "archiveReads": []
+}

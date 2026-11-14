@@ -1,1 +1,1 @@
-Veynrel 2.3.1 Stable. Maintained from `docs/wiki/` in [zinverno/veynrel](https://github.com/zinverno/veynrel). Synthetic demonstrations do not measure model quality.
+Public stable: Veynrel 2.3.1. Development is unpublished at intermediate 2.4.0; R02 removes diagram generation from the next release. Maintained from `docs/wiki/` in [zinverno/veynrel](https://github.com/zinverno/veynrel). Synthetic demonstrations do not measure model quality.

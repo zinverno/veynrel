@@ -20,6 +20,6 @@ Expected result: local findings and a navigable source list. Synthetic example; 
 
 - **Semantic discovery:** Veynrel settings → embedding connection → explicit first index build. Note chunks go to that endpoint. A model for writing is a different connection.
 - **Markdown transformation:** Veynrel settings → language model → **Open Veynrel Studio** → Library. Select saved notes, inspect the request, then confirm generation.
-- **Diagrams:** additionally enable Excalidraw 2.29.0 and use the verified public OpenRouter capability path. [Diagram setup](Excalidraw-diagrams.md)
+- **Public 2.3.1 diagrams only:** optional Excalidraw setup is described in the [legacy guide](Excalidraw-diagrams.md). Development removes this workflow; installing Excalidraw does not enable any Veynrel features there.
 
 A provider connection does not automatically prove a recipe's output is useful. [What is sent](Providers-and-privacy.md)

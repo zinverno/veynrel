@@ -1,6 +1,6 @@
 # Studio recipes
 
-> **Veynrel 2.3.1 Stable.**
+> **Public stable: 2.3.1.** These Markdown workflows remain in unpublished development. Diagram controls visible in older captures are removed by R02; [drawings and journals are preserved](../studio-diagram-removal.md).
 
 ## Turn a saved note into a useful structure
 
