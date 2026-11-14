@@ -76,11 +76,18 @@ const ev = async expression => { const r = await cdp('Runtime.evaluate', { expre
 const wait = async (expression, milliseconds = 12_000) => { for (let i = 0; i < milliseconds / 50; i++) { if (await ev(expression)) return; await pause(50); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-2000)')}`); };
 const pass = async (name, expr) => { assert(await ev(expr), name); checks.push(name); console.log(name); };
 const click = async (action, modal = false) => {
-  await cdp('Page.bringToFront'); await wait('document.hasFocus()');
+  await cdp('Page.bringToFront');
+  if (!await ev('document.hasFocus()')) {
+    report.windowActivations ??= [];
+    report.windowActivations.push(await ev("({documentFocused:document.hasFocus(),windowFocused:require('@electron/remote').getCurrentWindow().isFocused()})"));
+    // CDP foregrounding can leave the native window inactive after settings close.
+    await ev("require('@electron/remote').getCurrentWindow().focus();void 0");
+  }
+  await wait('document.hasFocus()');
   const selector = `${modal ? '.veynrel-studio-dialog' : '.veynrel-studio'} [data-studio-action=${JSON.stringify(action)}]`;
   await wait(`!!document.querySelector(${JSON.stringify(selector)})`);
   // Use the native pointer/focus path, including off-screen controls and modal activation.
-  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});for(let a=e.parentElement;a;a=a.parentElement)if(a.tagName==='DETAILS')a.open=true;e.scrollIntoView({block:'center'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
+  const point = await ev(`(async()=>{const e=document.querySelector(${JSON.stringify(selector)});for(let a=e.parentElement;a;a=a.parentElement)if(a.tagName==='DETAILS')a.open=true;e.focus({preventScroll:true});e.scrollIntoView({block:'center'});await new Promise(r=>setTimeout(r,200));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const b=e.getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
   report.lastPointer = { action, point, hit: await ev(`document.elementFromPoint(${point.x},${point.y})?.outerHTML.slice(0,500)`) };
   await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', ...point });
   for (const type of ['mousePressed', 'mouseReleased']) { await cdp('Input.dispatchMouseEvent', { type, button: 'left', buttons:type==='mousePressed'?1:0, clickCount: 1, ...point }); await pause(60); }

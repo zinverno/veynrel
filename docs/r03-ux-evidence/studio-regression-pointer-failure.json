@@ -1,0 +1,253 @@
+{
+  "checks": [
+    "Studio has no diagram owner, route, command or capability UI",
+    "Passive Studio opens with zero model/note read/write",
+    "Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio",
+    "History ignores valid and damaged diagram archives without reads or writes",
+    "66-second complete response is generated with the exact consent body",
+    "Incomplete response is literal, copyable and has no Apply/Create or selection",
+    "Programmatic source/new-note plans refuse incomplete rows",
+    "en: native clipboard contains the exact fragment",
+    "en: translated incomplete warning is visible",
+    "en: incomplete preview fits a narrow window",
+    "ru: native clipboard contains the exact fragment",
+    "ru: translated incomplete warning is visible",
+    "ru: incomplete preview fits a narrow window",
+    "Restart preserves incomplete history without reconstructing Review or writing",
+    "Cancel releases the operation before HTTP completes and ignores the late body",
+    "New Review defaults to separate note and keeps raw YAML excluded from actual source output",
+    "Destination/theme rerender preserves selected row and edited target name",
+    "Destination/name/theme preview changes issue no model, note read, note write or journal write",
+    "Create writes one target, no source process, and does not open target automatically",
+    "Creation history has no spurious interrupted generation",
+    "Restart history observes creation without any automatic create/write"
+  ],
+  "artifacts": {
+    "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "screenshots": [
+    "legacy-history-preserved.png",
+    "markdown-66-seconds.png",
+    "incomplete-en.png",
+    "incomplete-en-390.png",
+    "incomplete-ru.png",
+    "incomplete-ru-390.png",
+    "incomplete-history-ru.png",
+    "consent-properties-policy.png",
+    "review-new-note-en-light-r2.png",
+    "confirm-create-en-split.png",
+    "created-en.png",
+    "history-after-restart.png",
+    "failure.png"
+  ],
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "beforeApply": [],
+  "exceptions": [],
+  "themeTransitions": [
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 77.9375,
+        "width": 980,
+        "height": 722.0625,
+        "scrollWidth": 968,
+        "clientWidth": 968,
+        "viewport": 1024
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 44,
+        "y": 77.9375,
+        "width": 980,
+        "height": 722.0625,
+        "scrollWidth": 968,
+        "clientWidth": 968,
+        "viewport": 1024
+      }
+    }
+  ],
+  "themeCaptures": [
+    {
+      "file": "review-new-note-en-light-r2.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 44,
+      "y": 77.9375,
+      "width": 980,
+      "height": 722.0625,
+      "scrollWidth": 968,
+      "clientWidth": 968,
+      "viewport": 1024
+    }
+  ],
+  "mode": "source-preservation",
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "markdown-open",
+    "point": {
+      "x": 159.4140625,
+      "y": 680.21875
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"markdown-open\" data-studio-key=\"markdown-open:Open result in source mode\">Open result in source mode</button>"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "excalidrawInstalled": false
+  },
+  "legacyBefore": {
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/intent.json": "20d01f2b1162dd2b66ad2b8111435eec544b611b3d4ec87dc256f5bdf8206afd",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/receipt.json": "0acece8d251ac79adb6babf1bede5f9ede360dc89fc73172c5e4856ec560f808",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/damaged.json": "01e4c9c2e740c4ad70954533d8a67cae90dc0ac11406805fc6654b12459b3347",
+    "Existing.excalidraw.md": "7cb0e08518a118aef27c378448661cd940b4451dac63332cb0e921b4c13d01bb",
+    "Existing.excalidraw": "b7eff3ba0897d087506849a91325f5814ca78f01de6501d86c017b9449a8c621"
+  },
+  "longWaitRunId": "d53fe999-a606-4597-8bb5-ededff23e040",
+  "longWaitMs": 77364,
+  "incompleteWaitMs": 35960,
+  "incompleteLayout": [
+    {
+      "lang": "en",
+      "immediate": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 202.46875,
+        "y": 78.171875,
+        "width": 187.53125,
+        "height": 821.828125,
+        "scrollWidth": 176,
+        "clientWidth": 176,
+        "viewport": 390
+      },
+      "settled": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 69.78125,
+        "y": 78.171875,
+        "width": 320.21875,
+        "height": 821.828125,
+        "scrollWidth": 308,
+        "clientWidth": 308,
+        "viewport": 390
+      }
+    },
+    {
+      "lang": "ru",
+      "immediate": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.171875,
+        "width": 346,
+        "height": 821.828125,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      },
+      "settled": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.171875,
+        "width": 346,
+        "height": 821.828125,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    }
+  ],
+  "cancelWaitMs": 204,
+  "envelope": {
+    "before": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\r\nОколо 37 кг к четвергу. [[#Facts]] [relative](./sibling.md).\r\n```js\r\nconst n = 37;\r\n```\r\n",
+    "raw": "---\nid: model-999\naliases: [Model]\n---\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+    "document": {
+      "policyVersion": 1,
+      "sourcePrefix": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n",
+      "proposedPrefix": "---\nid: model-999\naliases: [Model]\n---\n",
+      "properties": true,
+      "body": "# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+      "separateBody": "# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+      "after": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n"
+    },
+    "checks": {
+      "version": 1,
+      "coverage": "supported-patterns",
+      "findings": [
+        {
+          "kind": "qualifier",
+          "before": {
+            "start": 9,
+            "end": 14,
+            "line": 2,
+            "text": "Около"
+          },
+          "after": null
+        },
+        {
+          "kind": "time",
+          "before": {
+            "start": 21,
+            "end": 31,
+            "line": 2,
+            "text": "к четвергу"
+          },
+          "after": null
+        },
+        {
+          "kind": "code",
+          "before": {
+            "start": 71,
+            "end": 98,
+            "line": 3,
+            "text": "```js\r\nconst n = 37;\r\n```\r\n"
+          },
+          "after": {
+            "start": 52,
+            "end": 76,
+            "line": 3,
+            "text": "```js\nconst n = 38;\n```\n"
+          }
+        }
+      ]
+    }
+  },
+  "status": "FAIL",
+  "error": "Error: Timeout: app.workspace.getLeavesOfType('markdown').some(l=>l.view.file?.path==='Saved draft.md'); Veynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nCommunity\nHistory\nStudio operation history\nRefresh history\nbuiltin.smart-format\n\nIncomplete response: output limit reached\n\nThis run included an incomplete response. Preview text is not restored after restart; no write or retry is available from this record.\n\n11/14/2026, 1:47:56 PM · Formatting.md\n\nOperation details\nbuiltin.smart-format\n\nStopped; already sent requests may still be billed\n\n11/14/2026, 1:48:49 PM · Formatting.md\n\nOperation details\nbuiltin.smart-format\n\nInterrupted; no automatic retry\n\n11/14/2026, 1:46:31 PM · Formatting.md\n\nOperation details\nProperties.md → Saved draft.md\n\nSeparate Markdown note · Separate note created\n\nSource unchanged by this operation. No automatic Undo or deletion.\n\nCreation evidence\nOpen result in source mode\n\nRecovery requires separate confirmation; inspection never repeats a request or write.\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/scripts/studio-source-preservation-native.mjs:76:166)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/scripts/studio-source-preservation-native.mjs:304:32",
+  "diagnostic": {
+    "state": "idle",
+    "text": "Veynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nCommunity\nHistory\nStudio operation history\nRefresh history\nbuiltin.smart-format\n\nIncomplete response: output limit reached\n\nThis run included an incomplete response. Preview text is not restored after restart; no write or retry is available from this record.\n\n11/14/2026, 1:47:56 PM · Formatting.md\n\nOperation details\nbuiltin.smart-format\n\nStopped; already sent requests may still be billed\n\n11/14/2026, 1:48:49 PM · Formatting.md\n\nOperation details\nbuiltin.smart-format\n\nInterrupted; no automatic retry\n\n11/14/2026, 1:46:31 PM · Formatting.md\n\nOperation details\nProperties.md → Saved draft.md\n\nSeparate Markdown note · Separate note created\n\nSource unchanged by this operation. No automatic Undo or deletion.\n\nCreation evidence\nOpen result in source mode\n\nRecovery requires separate confirmation; inspection never repeats a request or write."
+  }
+}

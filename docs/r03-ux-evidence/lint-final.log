@@ -1,0 +1,24 @@
+
+> obsidian-ai-hub@2.4.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.4.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.4.0 build
+> node esbuild.config.mjs production
+
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/api.ts
+  460:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/studio/community/transport.ts
+  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 2 problems (0 errors, 2 warnings)

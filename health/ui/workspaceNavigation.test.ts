@@ -26,7 +26,7 @@ describe("workspace presentation contract", () => {
     expect(rule('.veynrel-health-view .veynrel-sidebar button[aria-current="page"]')).toContain("border-left-color:");
     expect(css).toContain("@container (max-width: 760px)");
     expect(css).toContain('[data-menu-open="true"] .veynrel-sidebar { display: block; }');
-    expect(css).toContain("grid-template-columns: minmax(0, 1.85fr) minmax(268px, 1fr)");
+    expect(rule(".veynrel-health-view .veynrel-home-grid")).toContain("grid-template-columns: minmax(0, 1fr)");
     expect(css).toContain("@container (max-width: 600px)");
     expect(css).toContain(".veynrel-topic-node { position: relative; left: auto; top: auto; transform: none;");
   });
