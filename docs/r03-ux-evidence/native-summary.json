@@ -1,0 +1,95 @@
+{
+  "source": "3c9ef0141e081dc8974a2f56898907a000380ef2",
+  "runtimeSource": "896d0d5f443ff2136791c6453cf95c1efb79b230",
+  "base": "02be9894ccc7dfcc1e3332d7a3f3630d4488b35c",
+  "receipts": [
+    {
+      "file": "after-small.json",
+      "functionalAssertions": 25,
+      "exceptions": 1,
+      "strictRuntimeGate": "FAIL",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "after-empty.json",
+      "functionalAssertions": 2,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "after-clean.json",
+      "functionalAssertions": 2,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "after-lab.json",
+      "functionalAssertions": 2,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "after-scope.json",
+      "functionalAssertions": 4,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "after-conflict.json",
+      "functionalAssertions": 4,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "studio-regression.json",
+      "functionalAssertions": 66,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "file": "community-regression.json",
+      "functionalAssertions": 47,
+      "exceptions": 0,
+      "strictRuntimeGate": "PASS",
+      "artifacts": {
+        "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+        "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    }
+  ]
+}

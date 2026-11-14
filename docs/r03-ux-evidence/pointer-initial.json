@@ -1,0 +1,95 @@
+{
+  "exceptions": [],
+  "attempt0": {
+    "point": {
+      "x": 159.4140625,
+      "y": 680.21875
+    },
+    "before": {
+      "focused": true,
+      "nativeFocused": true,
+      "width": 1024,
+      "height": 800,
+      "trace": []
+    },
+    "after": {
+      "trace": [
+        {
+          "type": "mousedown",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true
+        },
+        {
+          "type": "mouseup",
+          "tag": "DIV",
+          "focused": true
+        }
+      ],
+      "leaves": [],
+      "error": ""
+    }
+  },
+  "attempt1": {
+    "point": {
+      "x": 159.4140625,
+      "y": 680.21875
+    },
+    "before": {
+      "focused": true,
+      "nativeFocused": true,
+      "width": 1024,
+      "height": 800,
+      "trace": [
+        {
+          "type": "mousedown",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true
+        },
+        {
+          "type": "mouseup",
+          "tag": "DIV",
+          "focused": true
+        }
+      ]
+    },
+    "after": {
+      "trace": [
+        {
+          "type": "mousedown",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true
+        },
+        {
+          "type": "mouseup",
+          "tag": "DIV",
+          "focused": true
+        },
+        {
+          "type": "mousedown",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true
+        },
+        {
+          "type": "mouseup",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true
+        },
+        {
+          "type": "click",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true
+        }
+      ],
+      "leaves": [
+        "Saved draft.md"
+      ],
+      "error": ""
+    }
+  }
+}
