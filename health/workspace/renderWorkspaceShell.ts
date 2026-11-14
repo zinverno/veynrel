@@ -18,7 +18,6 @@ export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRo
   const workspace = sidebar.createDiv({ cls: "veynrel-vault-name" });
   workspace.createEl("strong", { text: t("@workspace.workspace") });
   workspace.createEl("p", { text: vaultName });
-  sidebar.createEl("p", { cls: "veynrel-nav-caption veynrel-eyebrow", text: t("@workspace.workspace") });
   const nav = sidebar.createEl("nav", { attr: { "aria-label": t("@workspace.navigation") } });
   const entries = [
     ["home", "home", "house"], ["discover", "map", "map"], ["health", "check", "clipboard-check"],

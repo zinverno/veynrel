@@ -72,6 +72,8 @@ export class VeynrelStudioView extends ItemView {
   private setupDrafts = new Map<string, { chosen: Set<string>; query: string; mode: string; folder: string; language: string; instructions: string; context: string }>();
   private renderedRoute = "";
   private routeScroll = new Map<string, number>();
+  private routeFocus = new Map<string, string>();
+  private routeDisclosures = new Map<string, string[]>();
   constructor(leaf: WorkspaceLeaf, readonly owner: StudioWorkspace) { super(leaf); }
   getViewType(): string { return STUDIO_VIEW_TYPE; }
   getDisplayText(): string { return title; }
@@ -117,12 +119,23 @@ export class VeynrelStudioView extends ItemView {
   }
   private navigate(route: typeof this.route): void {
     this.routeScroll.set(this.route, this.contentEl.scrollTop);
+    const focused = this.body.ownerDocument.activeElement as HTMLElement | null;
+    if (focused && this.body.contains(focused) && focused.dataset.studioKey) this.routeFocus.set(this.route, focused.dataset.studioKey);
+    this.routeDisclosures.set(this.route, Array.from(this.body.querySelectorAll("details[open]")).map(d => d.querySelector("summary")?.textContent ?? ""));
     this.route = route; this.render();
+    const open = this.routeDisclosures.get(route) ?? [];
+    this.body.querySelectorAll<HTMLDetailsElement>("details").forEach(d => { if (open.includes(d.querySelector("summary")?.textContent ?? "")) d.open = true; });
+    const key = this.routeFocus.get(route);
+    const target = key ? Array.from(this.body.querySelectorAll<HTMLElement>("[data-studio-key]")).find(e => e.dataset.studioKey === key && !(e as HTMLButtonElement).disabled) : undefined;
+    (target ?? this.body.querySelector<HTMLElement>("h2"))?.focus({ preventScroll: true });
     this.contentEl.scrollTop = this.routeScroll.get(route) ?? 0;
-    this.body.querySelector<HTMLElement>("h2")?.focus({ preventScroll: true });
   }
   private render(): void {
     if (!this.alive) return;
+    this.contentEl.querySelector("header p")?.setText(l("Transform notes with reusable recipes", "Преобразуйте заметки с помощью сценариев"));
+    for (const [action, label] of [["library", l("Library", "Библиотека")], ["community", l("Community", "Сообщество")], ["history", l("History", "История")], ["workflow", l("Run & review", "Запуск и проверка")]]) {
+      this.contentEl.querySelector<HTMLElement>(`[data-studio-action="${action}"]`)?.setText(label);
+    }
     const scroll = this.contentEl.scrollTop;
     const active = this.body.ownerDocument.activeElement as HTMLElement | null;
     const focused = active && this.body.contains(active) ? active : null;
@@ -155,7 +168,7 @@ export class VeynrelStudioView extends ItemView {
       this.body.createEl("p", { text: errorMessage("storage"), attr: { role: "alert" } });
       button(this.body, l("Inspect library backups", "Проверить копии библиотеки"), "registry-recover", () => this.recoverLibrary());
     }
-    const actions = this.body.createDiv({ cls: "veynrel-studio-actions" });
+    const actions = toolbar(disclosure(this.body, l("Manage my recipes", "Управление своими сценариями")));
     button(actions, l("New recipe", "Новый сценарий"), "new", () => this.edit(registry.duplicate(BUILTIN_RECIPES[0]))).disabled = registry.state !== "ready";
     button(actions, l("Import JSON", "Импорт JSON"), "import", () => this.importRecipe()).disabled = registry.state !== "ready";
     const filters = this.body.createDiv({ cls: "veynrel-studio-search-row" });
@@ -308,11 +321,14 @@ export class VeynrelStudioView extends ItemView {
   private setup(): void {
     const recipe = this.selected; if (!recipe) return;
     this.body.createEl("h2", { text: recipe.name[currentLanguage()] });
-    this.body.createEl("p", { text: l("Save selected notes before preparing. Saved notes can stay open during generation and review. Close their editors only before Apply; unsaved changes must be saved before sending.", "Сохраните выбранные заметки перед подготовкой. Во время генерации и просмотра сохранённые заметки могут оставаться открытыми. Закрыть редакторы нужно только перед Apply; несохранённые изменения нужно сохранить до отправки.") });
+    this.body.createEl("p", { text: l("Choose saved notes. Preparation reads them locally; sending requires your confirmation on the next step.", "Выберите сохранённые заметки. Подготовка читает их локально; отправку нужно подтвердить на следующем шаге.") });
     button(this.body, l("← Recipe", "← Сценарий"), "back-recipe", () => this.navigate("details"));
     let draft = this.setupDrafts.get(recipe.id);
     if (!draft) { draft = { chosen: new Set(), query: "", mode: "files", folder: "", language: recipe.parameters.language, instructions: recipe.parameters.instructions, context: "32768" }; this.setupDrafts.set(recipe.id, draft); }
-    connectionSummary(this.body, this.owner.connection());
+    const model = disclosure(this.body, l("Model and sending settings", "Модель и настройки отправки"));
+    connectionSummary(model, this.owner.connection());
+    model.open = !this.owner.connection().model;
+    model.createEl("p", { text: l("Change the model in Obsidian Settings → Veynrel. You can browse and select notes without a provider. Save edits before preparation; close source editors only before changing the source.", "Изменить модель: настройки Obsidian → Veynrel. Для выбора сценария и заметок провайдер не нужен. Сохраните правки перед подготовкой; закрывать редактор исходника нужно только перед его изменением.") });
     const state = draft, paths = this.owner.inventory(), chosen = state.chosen;
     const mode = select(this.body, l("Selection", "Выбор"), [["files", l("Choose individual notes", "Выбрать отдельные заметки")], ["folder", l("Choose a folder including subfolders", "Выбрать папку с подпапками")]], state.mode);
     const picker = this.body.createDiv();
@@ -325,9 +341,11 @@ export class VeynrelStudioView extends ItemView {
     const folderSelection = () => { const selected = paths.filter(p => folder.value === "/" || folder.value && p.startsWith(`${folder.value}/`)); folderCount.setText(`${selected.length} / 20\n${selected.join("\n")}`); };
     folder.addEventListener("change", () => { state.folder = folder.value; folderSelection(); }); folderSelection();
     mode.addEventListener("change", () => { state.mode = mode.value; picker.hidden = mode.value !== "files"; folderBox.hidden = mode.value !== "folder"; });
-    const language = select(this.body, l("Output language", "Язык результата"), [["source", l("Source language", "Язык исходника")], ["en", "English"], ["ru", "Русский"]], state.language);
+    const options = disclosure(this.body, l("Language and additional instructions", "Язык и дополнительные инструкции"));
+    options.open = Boolean(state.instructions) || state.language !== "source";
+    const language = select(options, l("Output language", "Язык результата"), [["source", l("Source language", "Язык исходника")], ["en", "English"], ["ru", "Русский"]], state.language);
     language.addEventListener("change", () => { state.language = language.value; });
-    const instructions = field(this.body, l("Additional instructions (optional, up to 2,000 characters)", "Дополнительные инструкции (необязательно, до 2 000 символов)"), state.instructions, true);
+    const instructions = field(options, l("Additional instructions (optional, up to 2,000 characters)", "Дополнительные инструкции (необязательно, до 2 000 символов)"), state.instructions, true);
     instructions.addEventListener("input", () => { state.instructions = instructions.value; });
     const advanced = disclosure(this.body, l("Advanced · context budget", "Дополнительно · бюджет контекста"));
     const context = field(advanced, l("Context budget you verified for this model (tokens)", "Проверенный вами бюджет контекста модели (токены)"), state.context); context.setAttribute("type", "number");
@@ -348,7 +366,7 @@ export class VeynrelStudioView extends ItemView {
     }
     if (prepared && runner.state === "prepared") {
       this.body.createEl("h2", { text: l("Consent to send data", "Согласие на передачу данных") });
-      this.body.createEl("p", { text: l("Properties policy: source YAML stays exact when changing the source; separate notes omit properties. Proposed model YAML is excluded and shown for comparison. Property editing is not supported. Generation does not authorize writing.", "Политика свойств: при изменении исходника его YAML сохраняется точно; отдельная заметка создаётся без свойств. YAML модели исключается и показывается для сравнения. Изменение свойств не поддерживается. Генерация не разрешает запись.") });
+      disclosure(this.body, l("How properties are preserved", "Как сохраняются свойства")).createEl("p", { text: l("Source YAML stays exact when changing the source; separate notes omit properties. Proposed model YAML is excluded and shown for comparison. Property editing is not supported. Generation does not authorize writing.", "При изменении исходника его YAML сохраняется точно; отдельная заметка создаётся без свойств. YAML модели исключается и показывается для сравнения. Изменение свойств не поддерживается. Генерация не разрешает запись.") });
       this.body.createEl("p", { text: `${prepared.provider} · ${prepared.model} · ${prepared.endpoint}` });
       this.body.createEl("p", { text: `${l("Notes", "Заметки")}: ${prepared.requests.length} · ${l("Context budget", "Бюджет контекста")}: ${prepared.contextTokens}` });
       this.body.createEl("p", { cls: "veynrel-studio-warning", text: l("Each request sends the full saved note plus the displayed recipe instructions to the configured endpoint. A cloud provider receives this data and may charge for it. Exact cost is unknown. Nothing is sent until you confirm below.", "Каждый запрос передаёт полный сохранённый текст заметки и показанные инструкции на настроенный адрес. Облачный провайдер получает эти данные и может взимать плату. Точная стоимость неизвестна. Передача начнётся только после подтверждения ниже.") });
@@ -380,6 +398,8 @@ export class VeynrelStudioView extends ItemView {
     const updateCount = () => {
       count.setText(`${this.selectedRows.size} / ${review.rows.length} · ${this.destination === "new-note" ? l("new notes; sources unchanged", "новых заметок; исходники не изменятся") : l("source changes", "изменений исходников")}`);
       writeButton?.setText(`${this.destination === "new-note" ? l("Create notes", "Создать заметки") : l("Change sources", "Изменить исходники")}: ${this.selectedRows.size}`);
+      if (writeButton) writeButton.disabled = this.selectedRows.size === 0;
+      if (!this.selectedRows.size && runner.canApply) count.createSpan({ text: l(" — select a result below to include it in writing.", " — выберите ниже результат для записи.") });
     };
     updateCount();
     const applyActions = toolbar(this.body);
@@ -391,7 +411,6 @@ export class VeynrelStudioView extends ItemView {
       const result = runner.results?.find(r => r.path === row.path);
       detail.createEl("p", { text: `${status(row.action)} · ${status(row.status === "incomplete" ? row.status : result?.outcome ?? row.status)}` });
       if (row.reason || result?.reason) detail.createEl("p", { text: errorMessage(result?.reason ?? row.reason!), attr: { role: "alert" } });
-      literal(detail, l("Original saved Markdown", "Исходный сохранённый Markdown"), row.before);
       if (row.status === "incomplete" && row.rawResponse !== undefined) {
         detail.createEl("p", { text: status("incomplete"), cls: "veynrel-studio-warning", attr: { role: "alert" } });
         detail.createEl("p", { text: l("Copy this fragment if needed. It cannot be applied or saved as a result. Preview text is kept only until plugin restart or a new run; history retains the incomplete status.", "При необходимости скопируйте фрагмент. Применить его или сохранить как результат нельзя. Текст просмотра доступен до перезапуска плагина или нового запуска; история сохраняет статус неполноты.") });
@@ -399,7 +418,7 @@ export class VeynrelStudioView extends ItemView {
         button(detail, l("Copy fragment", "Скопировать фрагмент"), "copy-incomplete", () => {
           void navigator.clipboard.writeText(row.rawResponse!).then(() => { new Notice(l("Fragment copied", "Фрагмент скопирован")); }, () => { new Notice(l("Could not copy. Select and copy the text manually.", "Не удалось скопировать. Выделите и скопируйте текст вручную.")); });
         });
-      } else if (row.rawResponse !== undefined) literal(detail, l("Raw model response", "Сырой ответ модели"), row.rawResponse);
+      }
       if (row.document?.proposedPrefix) {
         detail.createEl("p", { text: l("Proposed property changes are not applied.", "Предложенные изменения свойств не применяются.") });
         literal(detail, l("Source properties / excluded model properties", "Свойства исходника / исключённые свойства модели"), `${row.document.sourcePrefix}\n→\n${row.document.proposedPrefix}`);
@@ -428,6 +447,8 @@ export class VeynrelStudioView extends ItemView {
           }
         } catch (e) { detail.createEl("p", { text: message(e), attr: { role: "alert" } }); }
       }
+      literal(detail, l("Original saved Markdown", "Исходный сохранённый Markdown"), row.before);
+      if (row.status !== "incomplete" && row.rawResponse !== undefined) literal(detail, l("Raw model response", "Сырой ответ модели"), row.rawResponse);
       if (result?.outcome === "created" && result.target) button(detail, l("Open result in source mode", "Открыть результат в исходном режиме"), "markdown-open", () => this.run(() => this.owner.creator.targets.open(result.target!)));
       files.querySelectorAll<HTMLElement>("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.path === this.reviewPath)));
     };
