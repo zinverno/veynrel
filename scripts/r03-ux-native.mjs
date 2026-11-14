@@ -1,5 +1,5 @@
 // Native R03 audit/acceptance; isolated profiles and synthetic Markdown only.
-// node scripts/r03-ux-native.mjs /tmp/veynrel-r03-native-<unique> before|after small|empty|lab|clean|scope [artifact-dir]
+// node scripts/r03-ux-native.mjs /tmp/veynrel-r03-native-<unique> before|after small|empty|lab|clean|scope|conflict [artifact-dir]
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
@@ -10,14 +10,14 @@ import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const [root, phase, mode = 'small', kit = ROOT] = process.argv.slice(2);
 assert(root?.startsWith('/tmp/veynrel-r03-native-') && !root.includes('..') && !fs.existsSync(root));
-assert(['before', 'after'].includes(phase) && ['small', 'empty', 'lab', 'clean', 'scope'].includes(mode));
+assert(['before', 'after'].includes(phase) && ['small', 'empty', 'lab', 'clean', 'scope', 'conflict'].includes(mode));
 const vault = `${root}/vault`, dir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(dir, { recursive: true }); fs.mkdirSync(`${root}/profile`);
 const sha = b => createHash('sha256').update(b).digest('hex');
 const markdown = base => Object.fromEntries(fs.readdirSync(base, { recursive: true }).filter(p => p.endsWith('.md') && !p.startsWith('.obsidian/') && fs.statSync(`${base}/${p}`).isFile()).sort().map(p => [p, sha(fs.readFileSync(`${base}/${p}`))]));
 const lab = '/home/zinvernix/Documents/Все хранилища OBSID/Veynrel Lab 1000';
 let corpusBefore;
-const originals = ['small', 'clean', 'scope'].includes(mode) ? {
+const originals = ['small', 'clean', 'scope', 'conflict'].includes(mode) ? {
   'Study/Source.md': '# Notes\n\nA synthetic explanation with enough detail for formatting.\n\n- First known fact.\n- Second known fact.\n\n[[Missing source]]\n',
   'Study/Copy.md': '# Notes\n\nA synthetic explanation with enough detail for formatting.\n\n- First known fact.\n- Second known fact.\n\n[[Missing source]]\n',
   'Study/nested/Short.md': '# Short\n',
@@ -175,7 +175,7 @@ try {
     report.checks.push('Displayed folder count and paths equal prepared requests, excluding Study-old; zero model requests');
     await shot('studio-folder-consent'); await checkpoint('folder-explicit-preparation');
   }
-  if (mode === 'small') {
+  if (['small', 'conflict'].includes(mode)) {
     await record('studio-journey'); await studio('library'); await studio('recipe-builtin.smart-format');
     await shot('studio-recipe');
     if (await ev("!!document.querySelector('[data-studio-action=choose-notes]')")) await studio('choose-notes');
@@ -191,13 +191,24 @@ try {
     await studio('generate'); await wait("studio.runner.state==='review'&&!studio.runner.running");
     if (phase === 'after') await pass('Review explains and disables writing with no selection', "document.querySelector('[data-studio-action=review-apply]').disabled&&document.querySelector('.veynrel-studio-body').textContent.includes('select a result below')");
     await shot('studio-review'); await pointer('[data-studio-select]'); await studio('review-apply');
-    await wait("!!document.querySelector('.veynrel-studio-dialog')"); await shot('studio-write-confirmation'); await studio('confirm-apply', true);
+    await wait("!!document.querySelector('.veynrel-studio-dialog')"); await shot('studio-write-confirmation');
+    if (mode === 'conflict') {
+      report.observations.conflictTarget = await ev('studio.runner.writePlan.rows[0].target');
+      await ev("app.vault.create(studio.runner.writePlan.rows[0].target,'# Concurrent synthetic file\\n').then(()=>{})");
+      await checkpoint('before-conflict-confirmation');
+    }
+    await studio('confirm-apply', true);
     await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
-    await shot('studio-saved'); await endRecord();
-    await pass('Separate note successfully created', "studio.runner.results?.some(r=>r.outcome==='created')");
+    await shot(mode === 'conflict' ? 'studio-conflicted' : 'studio-saved'); await endRecord();
+    if (mode === 'conflict') {
+      await pass('Existing target is a visible conflict; no overwrite or renamed fallback', "studio.runner.results?.[0]?.outcome==='conflict'&&studio.runner.results[0].reason==='target'&&sv.body.textContent.includes('Conflict')");
+      assert.equal(fs.readFileSync(`${vault}/${report.observations.conflictTarget}`, 'utf8'), '# Concurrent synthetic file\n');
+      assert.equal(await ev('io.writes.length'), report.io['before-conflict-confirmation'].writes.length);
+      report.observations.conflictResult = await ev('studio.runner.results'); await shot('studio-write-conflict');
+    } else await pass('Separate note successfully created', "studio.runner.results?.some(r=>r.outcome==='created')");
     await checkpoint('studio-explicit');
   }
-  assert.equal(requests.length, mode === 'small' ? 1 : 0); report.syntheticModelRequests = requests.length;
+  assert.equal(requests.length, ['small', 'conflict'].includes(mode) ? 1 : 0); report.syntheticModelRequests = requests.length;
   if (mode === 'small') {
     for (const language of ['en', 'ru']) {
       await locale(language);
