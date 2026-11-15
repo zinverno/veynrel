@@ -1,7 +1,9 @@
+import { authorityKey } from "./organizationIdentity";
+import type { OrganizationAuthority } from "./organizationIdentity";
 import type { App } from "obsidian";
 import { currentLanguage } from "../i18n";
-import { organizationSuggestions } from "./organizationAudit";
-import type { OrganizationFact } from "./organizationAudit";
+import { organizationSuggestionCatalog } from "./organizationAudit";
+import type { OrganizationFact, OrganizationSuggestion } from "./organizationAudit";
 import { organizationDocument, organizationTagState, OrganizationError } from "./organizationProfile";
 import type { OrganizationRegistry, RegistryReview } from "./organizationRegistry";
 import type { TagTaxonomyProfile } from "./taxonomyProfile";
@@ -21,7 +23,8 @@ function examples(parent: HTMLElement, paths: string[], app: App): void {
   for (const path of paths) button(parent, path, "source", () => { const file = app.vault.getFileByPath(path); if (file) void app.workspace.getLeaf(false).openFile(file); });
 }
 export function renderOrganizationSummary(parent: HTMLElement, inventory: TaxonomyInventory, profile: TagTaxonomyProfile | null,
-  registry: OrganizationRegistry, app: App, dismiss: (id: string) => void, usePrefix: (prefix: string) => void): void {
+  registry: OrganizationRegistry, app: App, decide: (state: "dismissed" | "deferred", suggestion: OrganizationSuggestion) => void, usePrefix: (prefix: string) => void,
+  restore: (authority: OrganizationAuthority, legacyId?: string) => void, restoreLegacy: (id: string) => void, historyOpen = false): void {
   const snapshot = inventory.organization!;
   const state = states[snapshot.state];
   parent.createEl("h3", { text: orgText(state[0], state[1]), attr: { "data-org-state": snapshot.state } });
@@ -32,7 +35,12 @@ export function renderOrganizationSummary(parent: HTMLElement, inventory: Taxono
   parent.createEl("p", { text: orgText("Local cached observations, not a reading of saved note contents. Cache freshness is not verifiable through this API; absence in the cache is not proof of absence in the note.",
     "Локальные наблюдения по кешу, без чтения содержимого заметок. API не подтверждает свежесть кеша; отсутствие в кеше не доказывает отсутствие в заметке.") });
   if (!inventory.total && snapshot.state === "complete") parent.createEl("p", { text: orgText("This area has no Markdown notes. No organization problem is inferred.", "В этой области нет Markdown-заметок. Это не проблема организации.") });
-  const suggestions = registry.path && !registry.definitions ? [] : organizationSuggestions(inventory, profile, registry.definitions, registry.preferences.get().dismissed);
+  const catalog = registry.path && !registry.definitions ? [] : organizationSuggestionCatalog(inventory, profile, registry.definitions);
+  const preferences = registry.preferences.get(), decisions = preferences.version === 2 ? preferences.decisions : [];
+  const active = catalog.filter(s => registry.decisionFor(s) === "active"), suggestions = active.slice(0, 3);
+  parent.createEl("p", { text: orgText("Current suggestions — active: ", "Текущие предложения — активных: ") + active.length + orgText(" · left as is: ", " · оставлено как есть: ") + catalog.filter(s => registry.decisionFor(s) === "dismissed").length + orgText(" · later: ", " · отложено: ") + catalog.filter(s => registry.decisionFor(s) === "deferred").length, attr: { "data-org-decision-counts": "true" } });
+  const count = preferences.dismissed.length + decisions.length;
+  if (count >= 200) parent.createEl("p", { text: orgText("Decision capacity reached (200). Existing decisions are retained. Explicitly restore a selected decision below to free a slot.", "Достигнут лимит 200 решений. Все решения сохранены. Чтобы освободить место, явно верните выбранное решение к рассмотрению ниже."), attr: { role: "status", "data-org-decision-limit": "true" } });
   if (registry.path && !registry.definitions) parent.createEl("p", { text: orgText("Read and review the selected registry before making suggestions under its rules. Local observations remain available.", "Прочитайте и проверьте выбранный реестр, чтобы предложения учитывали его правила. Локальные наблюдения доступны независимо.") });
   const advice = parent.createEl("section"); advice.createEl("h4", { text: orgText("Consider, if useful", "Можно рассмотреть") });
   if (!suggestions.length) advice.createEl("p", { text: orgText("Not enough evidence to suggest a structure yet, or unchanged suggestions were left as they are. Keeping the current organization is valid.", "Пока недостаточно данных, чтобы предложить структуру, либо неизменные предложения уже отклонены. Сохранить нынешнюю организацию — нормальное решение.") });
@@ -48,7 +56,35 @@ export function renderOrganizationSummary(parent: HTMLElement, inventory: Taxono
     examples(card, suggestion.examples, app);
     if (suggestion.kind === "prefix" && !registry.path && !profile?.categories.some(category => category.prefixes.includes(suggestion.value)))
       button(card, orgText("Review as a draft rule", "Рассмотреть как черновик правила"), "draft-rule", () => usePrefix(suggestion.value));
-    button(card, orgText("Leave as is", "Оставить как есть"), "dismiss", () => dismiss(suggestion.id));
+    button(card, orgText("Leave as is", "Оставить как есть"), "dismiss", () => decide("dismissed", suggestion));
+    button(card, orgText("Later", "Позже"), "defer", () => decide("deferred", suggestion));
+  }
+  if (active.length > 3) {
+    const other = detail(parent, orgText("Other suggestions", "Другие предложения") + ` (${active.length - 3})`);
+    for (const s of active.slice(3, 53)) {
+      const row = other.createEl("p", { text: `${s.kind === "prefix" ? "#" : "type: "}${s.value} · ${s.notes}/${s.denominator}` }); examples(row, s.examples, app);
+      button(row, orgText("Leave as is", "Оставить как есть"), "dismiss", () => decide("dismissed", s));
+      button(row, orgText("Later", "Позже"), "defer", () => decide("deferred", s));
+    }
+    if (active.length > 53) other.createEl("p", { text: orgText("First 50 additional suggestions shown. Narrow the audit area to examine the rest.", "Показаны первые 50 дополнительных предложений. Сузьте область аудита, чтобы рассмотреть остальные.") });
+  }
+  const history = detail(parent, orgText("Saved decisions", "Сохранённые решения") + ` (${count}/200)`);
+  history.setAttribute("data-org-decisions", "true"); history.open = historyOpen;
+  history.createEl("p", { text: orgText("Later is not acceptance or rejection. Incomplete scans do not resolve a decision. Restore explicitly to reconsider; no Markdown changes.", "Позже — не принятие и не отказ. Неполный аудит не разрешает вопрос. Верните решение явно для пересмотра; Markdown не меняется.") });
+  for (const d of decisions) {
+    const matching = catalog.find(s => authorityKey(s.authority) === authorityKey(d.authority));
+    const row = history.createEl("article", { attr: { "data-org-decision": d.state } });
+    row.createEl("p", { text: (d.state === "deferred" ? orgText("Later", "Позже") : orgText("Left as is", "Оставлено как есть")) + ` · ${d.authority.kind}: ${d.authority.value} · ` + (d.authority.scope.kind === "all" ? orgText("whole vault", "всё хранилище") : d.authority.scope.path) });
+    if (!matching) row.createEl("p", { text: orgText("Not confirmed in this snapshot; the saved decision is retained.", "В текущем снимке не подтверждено; сохранённое решение остаётся.") });
+    const basis = detail(row, orgText("Decision basis", "Основание решения")); basis.createEl("pre", { text: JSON.stringify(d.authority, null, 2) });
+    button(row, orgText("Return to consideration", "Вернуть к рассмотрению"), "restore", () => restore(d.authority, matching?.legacyId));
+  }
+  for (const id of preferences.dismissed) {
+    const matching = catalog.find(s => s.legacyId === id), row = history.createEl("article", { attr: { "data-org-decision": "legacy" } });
+    row.createEl("p", { text: orgText("Legacy decision: ", "Старое решение: ") + (matching ? `${matching.kind}: ${matching.value}` : id) });
+    row.createEl("p", { text: matching ? orgText("Exact old snapshot ID matches. Confirm below to retain this decision across unrelated future changes; the old ID remains stored.", "ID старого снимка точно совпал. Подтвердите ниже, чтобы решение сохранялось при будущих посторонних изменениях; старый ID останется сохранён.") : orgText("The old hash cannot reveal its original basis. No transfer to another suggestion is inferred.", "Из старого hash нельзя восстановить основание. Перенос на другое предложение не выполняется.") });
+    if (matching && !decisions.some(d => authorityKey(d.authority) === authorityKey(matching.authority))) button(row, orgText("Confirm durable leave-as-is", "Подтвердить устойчивое «оставить как есть»"), "promote-legacy", () => decide("dismissed", matching));
+    button(row, orgText("Restore this legacy decision", "Вернуть это старое решение"), "restore-legacy", () => restoreLegacy(id));
   }
   const facts = detail(parent, orgText("Observations and note examples", "Наблюдения и примеры заметок"));
   const known = inventory.processed - inventory.unavailable;
@@ -89,7 +125,7 @@ export class OrganizationRulesView {
   private closed = false;
   private contentEdited = false;
   private operation?: AbortController;
-  constructor(private readonly registry: OrganizationRegistry, profile: TagTaxonomyProfile | null, private readonly changed: () => void, private readonly reload: () => void) {
+  constructor(private readonly registry: OrganizationRegistry, profile: TagTaxonomyProfile | null, private readonly changed: () => void, private readonly reload: () => void, private readonly editRegistry?: () => void) {
     this.path = registry.path ?? "Organization rules.md"; this.content = organizationDocument(profile);
   }
   close(): void { this.closed = true; this.operation?.abort(); }
@@ -116,6 +152,7 @@ export class OrganizationRulesView {
     const input = field.createEl("input", { type: "text", attr: { "data-org-field": "registry-path", "data-taxonomy-focus": "org-path" } }); input.value = this.path;
     input.addEventListener("input", () => { this.path = input.value; }); input.disabled = this.busy || disabled;
     button(root, orgText("Read and review existing file", "Прочитать и проверить файл"), "registry-connect", () => { void this.prepare("connect"); }, this.busy || disabled);
+    if (this.registry.path && this.editRegistry) button(root, orgText("Edit definitions with Review", "Изменить определения с проверкой"), "registry-edit", this.editRegistry, this.busy || disabled);
     if (this.registry.path) button(root, orgText("Review disconnection", "Рассмотреть отключение"), "registry-disconnect", () => { void this.prepare("disconnect"); }, this.busy || disabled);
     const create = detail(root, orgText("Create a new registry", "Создать новый реестр"));
     const label = create.createEl("label", { text: orgText("Complete new document (editable)", "Полный новый документ (можно изменить)") });

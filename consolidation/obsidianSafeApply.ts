@@ -1,3 +1,6 @@
+import { RegistryJournal } from "./registryJournal";
+import { ObsidianRegistry } from "./obsidianRegistry";
+import type { OrganizationRegistry } from "./organizationRegistry";
 import { LocalNoteJournal } from "./localNoteJournal";
 import { ObsidianLocalNote } from "./obsidianLocalNote";
 import type { LocalRules } from "./obsidianLocalNote";
@@ -14,7 +17,7 @@ import { buildChangePlan } from "./changePlan";
 import { buildLocalLinkPlan } from "./localLinkPlan";
 import { readLocalLinkPair } from "./readLocalLinkPair";
 import { sameSavedNote } from "./savedNote";
-import { OperationJournal, requireSafe } from "./operationJournal";
+import { OperationJournal, requireSafe, SafeApplyError } from "./operationJournal";
 import { SafeApplyService } from "./safeApply";
 import type { SafeApplyPort } from "./safeApply";
 import { MultiFileJournal } from "./multiFileJournal";
@@ -95,7 +98,7 @@ export function obsidianSafeApplyPort(app: App, isReadOnlyView?: (view: View) =>
     },
   };
 }
-export function createSafeApplyService(app: App, pluginId: string, protectedPaths: () => readonly string[] = () => [], rules: () => LocalRules = () => ({ profile: null, registryPath: null })): SafeApplyService {
+export function createSafeApplyService(app: App, pluginId: string, protectedPaths: () => readonly string[] = () => [], rules: () => LocalRules = () => ({ profile: null, registryPath: null }), registry?: () => OrganizationRegistry): SafeApplyService {
   const port = obsidianSafeApplyPort(app, undefined, protectedPaths);
   return new SafeApplyService(new OperationJournal(app.vault.adapter, app.vault.configDir, pluginId), port, {
     journal: new MultiFileJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMultiFilePort(app, port),
@@ -111,5 +114,8 @@ export function createSafeApplyService(app: App, pluginId: string, protectedPath
     journal: new EmptyAtomJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianEmptyAtomPort(app, port),
   }, {
     journal: new StructuralArchiveJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianStructuralArchivePort(app, port),
-  }, { journal: new LocalNoteJournal(app.vault.adapter, app.vault.configDir, pluginId), port: new ObsidianLocalNote(app, port, rules) });
+  }, { journal: new LocalNoteJournal(app.vault.adapter, app.vault.configDir, pluginId), port: new ObsidianLocalNote(app, port, rules) }, {
+    journal: new RegistryJournal(app.vault.adapter, app.vault.configDir, pluginId),
+    port: new ObsidianRegistry(app, port, registry ?? (() => { throw new SafeApplyError("stale"); })),
+  });
 }

@@ -2541,6 +2541,7 @@
 .ai-taxonomy-field { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-block: 8px; align-items: center; }
 .ai-taxonomy input, .ai-taxonomy select, .ai-taxonomy textarea { width: 100%; min-width: 0; }
 .ai-taxonomy textarea { resize: vertical; }
+.ai-registry-editor input[type="checkbox"] { width: var(--checkbox-size); min-width: var(--checkbox-size); }
 .ai-taxonomy button { margin: 6px; height: auto; white-space: normal; }
 .ai-taxonomy summary { cursor: pointer; }
 .ai-taxonomy-tree { list-style: none; padding-inline-start: 12px; }

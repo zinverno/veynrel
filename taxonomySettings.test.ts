@@ -93,3 +93,15 @@ describe("R04 organization preferences share the serialized settings owner", () 
     expect(f.port.get()).toEqual(profile("newer")); expect(port.get().registryPath).toBeNull();
   });
 });
+
+describe("R05.3 corrupt preference preservation", () => {
+  it.each([{ version: 99, registryPath: "Rules.md", dismissed: ["opaque"] }, { version: 1, registryPath: "Rules.md", dismissed: "broken" }])("keeps raw damaged data across unrelated saves without fallback or rule writes", async raw => {
+    const f = await fixture(profile(), raw);
+    expect(f.plugin.settings.organizationAudit).toEqual(raw); expect(f.port.get()).toBeNull(); expect(f.plugin.getOrganizationRegistry().invalidPreferences).toBe(true);
+    expect(f.save).not.toHaveBeenCalled(); expect(f.app.vault.read).not.toHaveBeenCalled();
+    await expect(f.persist(profile(), null)).rejects.toMatchObject({ reason: "registry" });
+    f.plugin.settings.notifyOnCopy = false; await f.plugin.saveSettings();
+    expect(f.disk().organizationAudit).toEqual(raw); expect(f.disk().tagTaxonomyProfile).toEqual(profile());
+    await f.plugin.loadSettings(); expect(f.port.get()).toBeNull();
+  });
+});

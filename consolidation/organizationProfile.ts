@@ -1,8 +1,11 @@
+import { authorityKey, validOrganizationAuthority } from "./organizationIdentity";
+import type { OrganizationDecision } from "./organizationIdentity";
 import { isCanonicalMarkdownPath } from "../chunking/reconstructChunks";
 import { requireTaxonomyProfile, taxonomyToken } from "./taxonomyProfile";
 import type { TagTaxonomyProfile } from "./taxonomyProfile";
 
-export interface OrganizationPreferences { version: 1; registryPath: string | null; dismissed: string[] }
+export type OrganizationPreferences = { version: 1; registryPath: string | null; dismissed: string[] } |
+  { version: 2; registryPath: string | null; dismissed: string[]; decisions: OrganizationDecision[] };
 export interface OrganizationDefinitions {
   version: 1;
   profile: TagTaxonomyProfile;
@@ -22,10 +25,20 @@ function text(value: unknown, max: number, empty = false): asserts value is stri
 }
 export function organizationPreferences(value?: unknown): OrganizationPreferences {
   if (value === undefined) return { version: 1, registryPath: null, dismissed: [] };
-  object(value, ["version", "registryPath", "dismissed"]);
-  if (value.version !== 1 || !(value.registryPath === null || typeof value.registryPath === "string" && isCanonicalMarkdownPath(value.registryPath)) ||
+  const version = value && typeof value === "object" && "version" in value ? value.version : undefined;
+  object(value, version === 2 ? ["version", "registryPath", "dismissed", "decisions"] : ["version", "registryPath", "dismissed"]);
+  if (![1, 2].includes(value.version as number) || !(value.registryPath === null || typeof value.registryPath === "string" && isCanonicalMarkdownPath(value.registryPath)) ||
     !Array.isArray(value.dismissed) || value.dismissed.length > 200 || value.dismissed.some(id => typeof id !== "string" || !/^[a-z0-9:-]{1,100}$/i.test(id)) ||
     new Set(value.dismissed).size !== value.dismissed.length) throw new OrganizationError("invalid");
+  if (value.version === 2) {
+    if (!Array.isArray(value.decisions) || value.decisions.length + value.dismissed.length > 200) throw new OrganizationError("limit");
+    const keys = new Set<string>();
+    for (const decision of value.decisions) {
+      object(decision, ["authority", "state"]);
+      if (!validOrganizationAuthority(decision.authority) || !["dismissed", "deferred"].includes(decision.state as string)) throw new OrganizationError("invalid");
+      const key = authorityKey(decision.authority); if (keys.has(key)) throw new OrganizationError("invalid"); keys.add(key);
+    }
+  }
   return structuredClone(value as unknown as OrganizationPreferences);
 }
 export function requireOrganizationDefinitions(value: unknown): OrganizationDefinitions {

@@ -1,5 +1,8 @@
 # Advisory organization audit (R04, development)
 
+Development follow-up: [R05.3 registry editing and durable decisions](r05/registry-editing-and-decisions.md) adds explicitly reviewed in-place registry edits and preferences v2. The R04 delivery description and evidence below retain their historical scope; its create/connect-only limitation and original dismissal identity are superseded by that contract. Public 2.3.1 is unchanged.
+
+
 This feature belongs to the unpublished development branch (`2.4.0`). Public
 stable `2.3.1` does not contain R04. Publication remains gated on acceptance of
 R01–R15. No release or migration of note data is part of this change.

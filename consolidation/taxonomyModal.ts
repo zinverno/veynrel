@@ -32,6 +32,8 @@ export class TagTaxonomyModal extends Modal {
   private rulesOpen = false;
   private stopRegistry?: () => void;
   private organizationError = "";
+  private decisionHistoryOpen = false;
+  private decisionOperation?: AbortController;
   private status?: HTMLElement;
   private openState = false;
   private previousStage = "";
@@ -43,12 +45,12 @@ export class TagTaxonomyModal extends Modal {
   private stopWatching?: () => void;
   constructor(app: App, private readonly port: TaxonomyProfilePort, private readonly release: () => void = () => {},
     createRecommendations?: (inventory: () => TaxonomyInventory | undefined) => TagRecommendationSession,
-    private readonly organization?: { scope: WorkspaceScope; registry: OrganizationRegistry; findings?: readonly Finding[]; tagNote?: (inventory?: TaxonomyInventory, exclusions?: string[]) => void }) {
+    private readonly organization?: { scope: WorkspaceScope; registry: OrganizationRegistry; findings?: readonly Finding[]; editRegistry?: () => void; tagNote?: (inventory?: TaxonomyInventory, exclusions?: string[]) => void }) {
     super(app);
     this.organizationScope = structuredClone(organization?.scope ?? { kind: "all" });
     this.session = new TaxonomySession(port, (excluded, signal, progress) => scanTaxonomy(app,
       [...excluded, ...(organization?.registry.path ? [organization.registry.path] : [])], signal, progress, undefined, organization ? this.organizationScope : undefined));
-    if (organization) this.rulesView = new OrganizationRulesView(organization.registry, port.get(), () => { if (this.openState) this.render(); }, () => this.session.reload());
+    if (organization) this.rulesView = new OrganizationRulesView(organization.registry, port.get(), () => { if (this.openState) this.render(); }, () => this.session.reload(), organization.editRegistry);
     this.recommendations = createRecommendations?.(() => this.session.inventory);
   }
   onOpen(): void {
@@ -70,7 +72,7 @@ export class TagTaxonomyModal extends Modal {
     this.render();
   }
   onClose(): void {
-    this.openState = false; this.stopWatching?.(); this.stopRegistry?.(); this.rulesView?.close(); this.session.close(); this.recommendations?.close();
+    this.openState = false; this.stopWatching?.(); this.stopRegistry?.(); this.rulesView?.close(); this.decisionOperation?.abort(); this.session.close(); this.recommendations?.close();
     if (this.recommendations?.hasDispatched) new Notice(t("@relationship.cancelScope"));
     this.contentEl.empty(); this.release();
   }
@@ -123,6 +125,10 @@ export class TagTaxonomyModal extends Modal {
     const focus = this.contentEl.ownerDocument.activeElement?.getAttribute("data-taxonomy-focus");
     const s = this.session; this.previousStage = s.stage;
     this.contentEl.empty(); this.reviewButton = undefined; this.validation = undefined; this.inventoryEl = undefined; this.recommendationEl = undefined;
+    if (this.organization?.registry.invalidPreferences) {
+      this.contentEl.createEl("p", { text: orgText("Organization settings are damaged or unsupported. The original data is retained; rules and decisions are blocked. Restore the organizationAudit section from a verified settings backup before retrying. No fallback profile is active.", "Настройки организации повреждены или не поддерживаются. Исходные данные сохранены; правила и решения заблокированы. Восстановите раздел organizationAudit из проверенной резервной копии настроек. Запасной профиль не активирован."), attr: { role: "alert", "data-org-state": "invalid-settings" } });
+      return;
+    }
     this.contentEl.createEl("p", { text: this.organization ? orgText("Explore local organization without a model or API key. Nothing changes in your notes. Rules are optional.", "Изучите организацию локально, без модели и API-ключа. Заметки не изменяются. Правила необязательны.") : t("@taxonomy.scope") });
     this.status = this.contentEl.createDiv({ attr: { role: "status", "aria-live": "polite" } }); this.updateStatus();
     if (s.stage === "review" || s.stage === "saving") this.renderReview();
@@ -164,7 +170,7 @@ export class TagTaxonomyModal extends Modal {
         this.rulesView?.render(rules, s.busy);
       }
       const editor = rules.createEl("fieldset"); editor.disabled = s.busy || !!this.rulesView?.busy || !!this.organization?.registry.path;
-      if (this.organization?.registry.path) editor.createEl("p", { text: orgText("Definitions come from the selected file. Editing the settings copy is disabled. Edit that file yourself, then read/review it again; or explicitly disconnect.", "Правила берутся из выбранного файла. Редактирование копии настроек отключено. Измените файл самостоятельно и перечитайте/проверьте его, либо явно отключите реестр.") });
+      if (this.organization?.registry.path) editor.createEl("p", { text: orgText("Definitions come from the selected file. Editing the settings copy is disabled. Use the registry editor above, or edit the file yourself and read/review it again; disconnection is separate.", "Правила берутся из выбранного файла. Редактирование копии настроек отключено. Используйте редактор реестра выше либо измените файл самостоятельно и перечитайте его; отключение выполняется отдельно.") });
       editor.createEl("legend", { text: t("@taxonomy.rules") });
       editor.createEl("p", { text: t(s.base ? "@taxonomy.confirmed" : "@taxonomy.noProfile") });
       editor.createEl("p", { text: t("@taxonomy.dimensions") });
@@ -192,9 +198,18 @@ export class TagTaxonomyModal extends Modal {
     this.field(card, "flatTags", `${category.id}-tags`, category.tags.join("\n"), value => { category.tags = tokens(value); }, true);
     this.button(card, "remove", () => { this.session.draft.categories = this.session.draft.categories.filter(item => item !== category); this.session.changed(); this.render(); });
   }
+  private decide(work: (signal: AbortSignal) => Promise<void>): void {
+    if (this.decisionOperation || !this.openState) return;
+    this.decisionOperation = new AbortController(); this.organizationError = "";
+    void work(this.decisionOperation.signal).then(() => { if (this.openState) this.renderInventory(); }, () => {
+      if (this.openState) { this.organizationError = orgText("Decision not saved. Existing decisions are retained. Check capacity (200), settings or a concurrent change, then explicitly try again.", "Решение не сохранено. Прежние решения остаются. Проверьте лимит 200, настройки или конкурирующее изменение и повторите действие явно."); this.render(); }
+    }).finally(() => { this.decisionOperation = undefined; });
+  }
   private renderInventory(): void {
     const inventory = this.session.inventory!;
-    const section = this.inventoryEl ?? this.contentEl.createEl("section"); this.inventoryEl = section; section.empty();
+    const section = this.inventoryEl ?? this.contentEl.createEl("section");
+    const history = section.querySelector<HTMLDetailsElement>("[data-org-decisions]"); if (history) this.decisionHistoryOpen = history.open;
+    this.inventoryEl = section; section.empty();
     if (this.organization && inventory.organization) {
       const paths = new Set(inventory.organization.sources.map(source => source.path));
       const findings = (this.organization.findings ?? []).filter(finding => finding.source === "local" && finding.state === "open" && finding.notePaths.length && finding.notePaths.every(path => paths.has(path)));
@@ -203,12 +218,12 @@ export class TagTaxonomyModal extends Modal {
         for (const finding of findings.slice(0, 10)) { previous.createEl("p", { text: finding.title + " — " + finding.explanation }); previous.createEl("p", { text: finding.notePaths.slice(0, 5).join(", ") }); }
       }
       renderOrganizationSummary(section, inventory, this.port.get(), this.organization.registry, this.app,
-        id => { void this.organization!.registry.dismiss(id, new AbortController().signal).then(() => { if (this.openState) this.renderInventory(); }, () => {
-          if (this.openState) { this.organizationError = orgText("Could not save this decision; existing decisions are retained (maximum 200).", "Не удалось сохранить решение; прежние решения сохранены (максимум 200)."); this.render(); }
-        }); },
+        (state, suggestion) => { if (inventory.organization?.state === "complete") this.decide(signal => this.organization!.registry.decide(suggestion.authority, state, signal)); },
         prefix => { if (this.session.inventory?.organization?.state !== "complete" || this.organization?.registry.path) return;
           this.session.draft.categories.push(...suggestTaxonomy(inventory.tags.filter(row => row.tag.startsWith(prefix + "/")).map(row => row.tag), this.session.draft.categories));
-          this.session.changed(); this.rulesOpen = true; this.render(); });
+          this.session.changed(); this.rulesOpen = true; this.render(); },
+        (authority, legacyId) => this.decide(signal => this.organization!.registry.restoreDecision(authority, signal, legacyId)),
+        id => this.decide(signal => this.organization!.registry.restoreLegacy(id, signal)), this.decisionHistoryOpen);
     } else {
     section.createEl("h3", { text: this.organization ? orgText("Area and local audit", "Область и локальный аудит") : t("@taxonomy.inventory") });
     section.createEl("p", { text: t(`@taxonomy.scan.${inventory.state}`), attr: { "data-taxonomy-inventory": inventory.state } });
