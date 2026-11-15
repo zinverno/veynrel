@@ -21,7 +21,7 @@ const server=createServer((req,res)=>{modelRequests.push({method:req.method,url:
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', apiKey: '', provider: 'ollama', baseUrl: `http://127.0.0.1:${server.address().port}/v1`, model: 'unused', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: {} }));
 const sha = value => createHash('sha256').update(value).digest('hex');
-const report = { scenario: 'r04-organization-native-v1', checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
+const report = { scenario: 'r04-organization-native-v1', checks: [], exceptions: [], consoleErrors: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
 report.harnessHashes = Object.fromEntries(['r04-organization-native.mjs','native/session.mjs','native/run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); }
 const pause = ms => new Promise(r => setTimeout(r, ms));
@@ -37,6 +37,7 @@ async function connection(target) {
   socket.onmessage = e => {
     const m = JSON.parse(e.data);
     if (m.id) { const p = pending.get(m.id); pending.delete(m.id); if (p) m.error ? p.reject(m.error) : p.resolve(m.result); }
+    if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') report.consoleErrors.push(m.params);
     if (m.method === 'Runtime.exceptionThrown') report.exceptions.push({ target: target.id, ...m.params });
     if (m.method === 'Network.requestWillBeSent' && /^https?:/.test(m.params.request.url)) report.externalRequests.push(m.params.request.url);
     if (m.method === 'Page.screencastFrame') {
@@ -116,7 +117,7 @@ const hashes=()=>Object.fromEntries(Object.keys(originals).map(path=>[path,sha(f
 const journals=()=>{const paths=[];function visit(dir){if(!fs.existsSync(dir))return;for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=`${dir}/${e.name}`;if(e.isDirectory())visit(p);else paths.push(p);}}visit(`${pluginDir}/studio`);return Object.fromEntries(paths.map(p=>[p.slice(pluginDir.length),sha(fs.readFileSync(p))]));};
 function seed(path,content){fs.mkdirSync(`${vault}/${path.slice(0,Math.max(0,path.lastIndexOf('/')))}`,{recursive:true});fs.writeFileSync(`${vault}/${path}`,content);originals[path]=content;}
 try {
-  await attach(); await main.ev("io.phase='passive';void 0"); const passiveBefore=await main.ev('structuredClone(io)');
+  await attach(); await pause(1000); await main.ev("io.phase='passive';void 0"); const passiveBefore=await main.ev('structuredClone(io)');
   await openAudit(); await pause(200);
   report.passive={before:passiveBefore,after:await main.ev('structuredClone(io)'),modelRequests:modelRequests.length};assert.equal(modelRequests.length,0);
   await pass('Fresh no-key/no-profile open performs no metadata scan, note read, write or model request', "!plugin.settings.apiKey&&!plugin.settings.tagTaxonomyProfile&&!audit.session.inventory&&io.metadata===0&&io.reads.length===0&&io.writes.length===0&&io.creates.length===0&&io.models===0");
@@ -211,7 +212,7 @@ try {
   report.finalHashes=hashes();assert.deepEqual(report.finalHashes,Object.fromEntries(Object.entries(originals).map(([p,c])=>[p,sha(c)])));assert.deepEqual(journals(),initialJournals);report.journals={before:initialJournals,after:journals()};
   report.checks.push('All original Markdown byte-identical; journals and confirmed profile preserved; only reviewed registry created; zero model requests');
   report.status='PASS';
-} catch(error) { report.status='FAIL';report.error=String(error.stack??error);process.exitCode=1;try {if(main){report.diagnostic=await main.ev('({io,keyTrace,active:document.activeElement?.outerHTML,modals:plugin.taxonomyModals.size,inventory:window.audit?.session?.inventory,stage:window.audit?.session?.stage,ui:document.querySelector(".ai-taxonomy")?.textContent})');await shot('failure');}await stopVideo();}catch(e){report.captureError=String(e);} }
+} catch(error) { report.status='FAIL';report.error=String(error.stack??error);process.exitCode=1;try {if(main){report.diagnostic=await main.ev('({io,keyTrace,active:document.activeElement?.outerHTML,modals:[...plugin.taxonomyModals].map(m=>({openState:m.openState,opened:m.opened,connected:m.modalEl.isConnected,containerConnected:m.containerEl.isConnected,owner:m.modalEl.ownerDocument===document,title:m.titleEl.textContent,content:m.contentEl.outerHTML})),inventory:window.audit?.session?.inventory,stage:window.audit?.session?.stage,ui:document.querySelector(".ai-taxonomy")?.textContent})');await shot('failure');}await stopVideo();}catch(e){report.captureError=String(e);} }
 finally {
   fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2)+'\n');for(const c of connections)c.socket.close();
   if(child.exitCode===null&&child.signalCode===null){const exited=new Promise(r=>child.once('exit',r));child.kill('SIGTERM');const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer);}
