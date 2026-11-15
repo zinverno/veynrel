@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run health/ui/VeynrelHealthView.test.ts health/ui/workspaceNavigation.test.ts studio/workflow.test.ts studio/community/community.test.ts --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114
+
+
+ Test Files  4 passed (4)
+      Tests  294 passed (294)
+   Start at  16:00:11
+   Duration  6.85s (transform 3.73s, setup 0ms, import 4.36s, tests 4.90s, environment 0ms)

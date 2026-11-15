@@ -1,6 +1,7 @@
 import { l } from "./messages";
 export function button(root: HTMLElement, name: string, action: string, click: () => void): HTMLButtonElement {
   const b = root.createEl("button", { text: name, attr: { type: "button", "data-studio-action": action } }); b.addEventListener("click", click);
+  b.dataset.studioKey = `${action}:${name}`;
   if (["choose-notes", "prepare", "generate", "review-apply", "confirm-apply", "save-recipe"].includes(action)) b.addClass("mod-cta");
   return b;
 }

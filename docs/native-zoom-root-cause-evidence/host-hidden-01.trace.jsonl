@@ -1,0 +1,28 @@
+{"at":1794660705038,"phase":"startup","method":"Target.setDiscoverTargets"}
+{"at":1794660705042,"phase":"startup","method":"Target.getTargets"}
+{"at":1794660705043,"phase":"startup","method":"Target.attachToTarget"}
+{"at":1794660705051,"attached":{"sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","targetInfo":{"targetId":"800908977585107DE3DD574CE40F6115","type":"page","title":"","url":"app://obsidian.md/index.html","attached":true,"canAccessOpener":false,"browserContextId":"DE470A7F4553FF6E28099A12E2695203"},"waitingForDebugger":false}}
+{"at":1794660705051,"phase":"startup","method":"Runtime.runIfWaitingForDebugger","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705190,"phase":"startup","method":"Debugger.enable","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705424,"phase":"startup","method":"Debugger.setPauseOnExceptions","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705450,"phase":"startup","method":"Runtime.enable","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705520,"phase":"startup","method":"Page.enable","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705521,"phase":"startup","method":"Network.enable","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705522,"phase":"startup","method":"Network.setBlockedURLs","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705523,"phase":"startup","method":"Page.addScriptToEvaluateOnNewDocument","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A"}
+{"at":1794660705525,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"(()=>{if(window.__zoomDiagnosticEvents)return;window.__zoomDiagnosticEvents=[];for(const type of ['resize','focus','blur','beforeunload','pagehide','unload'])window.addEventListener(type,()=>window.__zoomDiagnosticEvents.push({type,at:Date.now(),width:innerWidth,height:innerHeight,focused:document.hasFocus(),closed:window.closed}),true)})()"}
+{"at":1794660705526,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660705627,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660705883,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660706198,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660706300,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660706402,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660706473,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"app.vault.adapter.basePath"}
+{"at":1794660706482,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"!!document.querySelector('.mod-trust-folder')"}
+{"at":1794660706485,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,chrome:process.versions.chrome,plugins:[...app.plugins.enabledPlugins]})"}
+{"at":1794660706489,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"window.titlebarStyle"}
+{"at":1794660706497,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"app.workspace.getLeaf(false).openFile(app.vault.getFileByPath('Probe.md'),{state:{mode:'preview'}})"}
+{"at":1794660706628,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"(()=>{const f=window.frameDom,w=f?.eWin??window.electronWindow,c=w?.webContents;return {at:Date.now(),frame:window.titlebarStyle,frameDom:!!f,windowType:typeof w,windowClass:w?.constructor?.name,contentsType:typeof c,contentsClass:c?.constructor?.name,getZoomType:typeof c?.getZoomFactor,zoom:window.electron?.webFrame?.getZoomFactor(),windowId:w?.id,contentsId:c?.id,windowDestroyed:w?.isDestroyed?.(),contentsDestroyed:c?.isDestroyed?.(),bounds:w?.getBounds?.(),contentBounds:w?.getContentBounds?.(),focused:document.hasFocus(),nativeFocused:w?.isFocused?.(),inner:[innerWidth,innerHeight],outer:[outerWidth,outerHeight],closed:window.closed,frameSetting:window.electron?.ipcRenderer?.sendSync('frame'),view:window.app?.workspace?.activeLeaf?.view?.getViewType(),modals:document.querySelectorAll('.modal-container').length}})()"}
+{"at":1794660706633,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"app.setting.open();app.setting.openTabById('appearance');void 0"}
+{"at":1794660706985,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"[...app.setting.modalEl.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='native')&&[...s.options].some(o=>o.value==='custom'))?.value"}
+{"at":1794660707033,"phase":"startup","method":"Runtime.evaluate","sessionId":"680E8D8B4921A0FF37279CA0F85D7B5A","expression":"window.__zoomDiagnosticEvents"}

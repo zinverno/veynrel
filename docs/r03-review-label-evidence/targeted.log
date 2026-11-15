@@ -1,0 +1,8 @@
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114
+
+
+ Test Files  3 passed (3)
+      Tests  125 passed (125)
+   Start at  04:39:52
+   Duration  2.21s (transform 2.15s, setup 0ms, import 2.65s, tests 1.01s, environment 0ms)

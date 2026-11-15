@@ -102,6 +102,9 @@ export class VeynrelHealthView extends ItemView {
   private navigationMessage?: string;
   private changingProfile = false;
   private route: VeynrelHealthRoute = { page: "home" };
+  private lastFindingsRoute = findingsRoute();
+  private routeContexts = new Map<string, { scroll: number; focus: string | null; disclosures: Map<string, boolean>; paths: boolean; snooze: boolean }>();
+  private restoreRouteContext?: string;
   private areaIndex?: VaultScopeIndex;
   private workbench?: ReviewListView;
   private workbenchRevision = -1;
@@ -225,6 +228,7 @@ export class VeynrelHealthView extends ItemView {
     this.body = undefined; this.status = undefined; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.changingProfile = false;
+    this.routeContexts.clear(); this.restoreRouteContext = undefined; this.lastFindingsRoute = findingsRoute();
     this.route = { page: "home" }; this.expandedPaths = false; this.expandedSnooze = false; this.focusDestination = undefined;
     this.contentEl.empty();
     // Scans belong to the plugin controller and continue after this view closes.
@@ -311,7 +315,7 @@ export class VeynrelHealthView extends ItemView {
     const connectSnapshot = normal && this.route.page === "connect" ? this.connect?.getSnapshot() : undefined;
     if (normal && ["health", "findings"].includes(this.route.page) && !gated) {
       const entries = surface.createDiv({ cls: "veynrel-check-entries" });
-      const findings = healthButton(entries, t("@workspace.findings"), () => this.navigate(findingsRoute()), "nav-findings");
+      const findings = healthButton(entries, t("@workspace.findings"), () => this.navigate({ ...this.lastFindingsRoute }), "nav-findings");
       if (this.route.page === "findings") findings.setAttribute("aria-current", "page");
       const route = this.route;
       healthButton(entries, t("@workspace.audit"), () => { void this.launchTool("openDeepAudit", route); }, "check-audit");
@@ -322,6 +326,7 @@ export class VeynrelHealthView extends ItemView {
       renderWorkspaceHome(surface, scope, this.app.vault.getName(), state, this.controller.listFindings(), this.motion, {
         select: path => this.selectScope(path), open: () => this.navigate({ page: "discover" }),
         recall: () => this.navigate({ page: "recall" }), check: () => this.navigate({ page: "health" }),
+        findings: () => this.navigate({ ...this.lastFindingsRoute }),
         process: () => this.navigate({ page: "process" }), motion: () => { this.motion = !this.motion; this.render(); },
       });
       const due = state.snapshot?.recall;
@@ -462,9 +467,10 @@ export class VeynrelHealthView extends ItemView {
         if (hadFocus) this.focusDestination = "heading";
       }
       renderFindingsInbox(surface, inbox, {
-        filter: (filter) => this.navigate({ ...route, ...filter, selectedFindingId: undefined }),
-        select: (id) => this.navigate({ ...route, selectedFindingId: id }),
-        back: () => this.navigate({ ...route, selectedFindingId: undefined }),
+        // Reading within this inbox keeps its acknowledged scope; a new tool or scope still needs its own handoff.
+        filter: (filter) => this.navigate({ ...route, ...filter, selectedFindingId: undefined }, this.scopeAcknowledged),
+        select: (id) => this.navigate({ ...route, selectedFindingId: id }, this.scopeAcknowledged),
+        back: () => this.navigate({ ...route, selectedFindingId: undefined }, this.scopeAcknowledged),
         openNote: (path) => { void this.openNote(path); }, tools: () => this.navigate({ page: "tools" }),
         dismiss: (id) => { void this.mutateFinding(id, () => this.controller.dismissFinding(id)); },
         snooze: (id, days) => { void this.mutateFinding(id, () => this.controller.snoozeFinding(id, snoozeDeadline(days))); },
@@ -492,12 +498,20 @@ export class VeynrelHealthView extends ItemView {
     } else {
       renderHealthOnboarding(surface, onboarding, model, state, {
         scan, openNote, choose,
+        startLocal: () => {
+          const epoch = this.epoch;
+          if (state.savingPreferences || model.scanDisabled) return;
+          void this.controller.updatePreferences({ profile: "mixed", profileChosen: true }).then(saved => {
+            if (saved && epoch === this.epoch) scan();
+          });
+        },
         skip: () => { void this.savePreferences({ profile: "mixed", profileChosen: true, onboardingCompleted: true }); },
         complete: () => { void this.savePreferences({ onboardingCompleted: true }); },
       });
     }
+    const restored = !gated && this.restoreRouteContext ? this.routeContexts.get(this.restoreRouteContext) : undefined;
     for (const detail of Array.from(this.body.querySelectorAll<HTMLDetailsElement>("details[data-health-disclosure]"))) {
-      const open = disclosures.get(detail.getAttribute("data-health-disclosure")!);
+      const open = (restored?.disclosures ?? disclosures).get(detail.getAttribute("data-health-disclosure")!);
       if (open !== undefined) detail.open = open;
     }
     const status = onboarding.step === "scan" ? onboarding.status : model.status;
@@ -564,12 +578,19 @@ export class VeynrelHealthView extends ItemView {
       this.contentEl.scrollTop = scrollTop;
       this.contentEl.scrollLeft = scrollLeft;
     }
+    if (restored) {
+      const target = restored.focus ? this.body.querySelector<HTMLButtonElement>(`[data-health-action="${restored.focus}"]`) : null;
+      if (target && !target.disabled) target.focus({ preventScroll: true });
+      this.contentEl.scrollTop = restored.scroll;
+      this.restoreRouteContext = undefined;
+    }
     // Metadata only, after onboarding/recovery. Product notifications flow through the Health controller.
     if (normal && (this.route.page === "home" || this.route.page === "health" && !gated)) this.controller.initializeRecall();
   }
 
   private selectScope(path?: string): void {
     if (!this.areaIndex) return;
+    this.routeContexts.clear(); this.restoreRouteContext = undefined; this.lastFindingsRoute = findingsRoute();
     this.workbench?.suspend();
     this.areaIndex.select(path); this.scopeRevision++; this.scopeAcknowledged = false; this.pendingTool = undefined;
     this.noteQuery = ""; this.noteLimit = 80;
@@ -590,6 +611,16 @@ export class VeynrelHealthView extends ItemView {
 
   private navigate(route: VeynrelHealthRoute, acknowledgeScope = false): void {
     if (!this.body || healthOnboardingViewModel(this.controller.getState()).step !== "complete") return;
+    if (["home", "findings"].includes(this.route.page) && !this.body.querySelector('[data-health-action="scope-continue"]')) {
+      const active = this.contentEl.ownerDocument.activeElement;
+      this.routeContexts.set(JSON.stringify(this.route), { scroll: this.contentEl.scrollTop,
+        focus: active && this.contentEl.contains(active) ? active.getAttribute("data-health-action") : null,
+        disclosures: new Map(Array.from(this.body.querySelectorAll<HTMLDetailsElement>("details[data-health-disclosure]")).map(d => [d.getAttribute("data-health-disclosure")!, d.open])),
+        paths: this.expandedPaths, snooze: this.expandedSnooze });
+    }
+    if (this.route.page === "findings") this.lastFindingsRoute = { ...this.route };
+    this.restoreRouteContext = JSON.stringify(route);
+    const context = this.routeContexts.get(this.restoreRouteContext);
     if (this.route.page === "discover" && route.page !== "discover") this.workbench?.suspend();
     if (this.route.page === "recall") this.leaveRecall();
     if (route.page === "recall" && this.recall) {
@@ -601,7 +632,7 @@ export class VeynrelHealthView extends ItemView {
     this.knowledgeConfirmation = undefined;
     this.connectSetup = undefined; this.connectConfirmation = undefined; this.connectResult = undefined;
     this.scopeAcknowledged = acknowledgeScope; this.pendingTool = undefined; this.shellState.menuOpen = false;
-    this.route = route; this.expandedPaths = false; this.expandedSnooze = false;
+    this.route = route; this.expandedPaths = context?.paths ?? false; this.expandedSnooze = context?.snooze ?? false;
     this.changingProfile = false; this.navigationMessage = undefined;
     this.findingMutationErrorRoute = undefined;
     this.focusDestination = route.page === "findings" && route.selectedFindingId ? "detail" : "heading";

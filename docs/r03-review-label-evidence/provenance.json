@@ -1,0 +1,19 @@
+{
+  "runtimeSource": "ad10800b9d6f83346d3d37ddd23dfe9c3a4c5421",
+  "basePrHead": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+  "historicalInvestigation": "442a9f74104b60e59d5e44a4ac55c1b041b1acdc",
+  "originalEvidenceFilesUnchanged": 160,
+  "oldAssertionLinesPreserved": true,
+  "externalRunner": {
+    "pr": 142,
+    "commit": "0b37b39ca304e85096cd741cdbc99547a7faafc9",
+    "sha256": "185a56284295b6fced930cd84f4bd00e5a6e3a99bdb7ed43254da19c5abd2b0b",
+    "copiedIntoR03": false
+  },
+  "legacyHarnessCdpPort": 9286,
+  "legacyCdpClosedAfterRun": true,
+  "rawOutput": "/tmp/veynrel-studio-native-r03-labels-final",
+  "coverage": "Two fresh bounded runs; 4 synthetic loopback requests each; no live model evaluation or visible desktop run.",
+  "firstRun": "attempt1/native-report.json",
+  "firstRunLimit": "One check name imprecisely mentioned Undo for separate-note creation. Final run clarifies that name only; both original reports/captures are retained."
+}

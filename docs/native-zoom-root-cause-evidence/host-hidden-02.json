@@ -1,0 +1,1083 @@
+{
+  "frame": "hidden",
+  "variant": "host",
+  "platform": "x11",
+  "cycles": 2,
+  "phase": "wm-cycle-0",
+  "actions": [
+    {
+      "label": "ready",
+      "phase": "startup",
+      "at": 1794660766922,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1024,
+        800
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-0",
+      "at": 1794660767745,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-434",
+      "phase": "cdp-cycle-0",
+      "at": 1794660768051,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        434,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-0",
+      "at": 1794660768362,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-390",
+      "phase": "cdp-cycle-0",
+      "at": 1794660768746,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        390,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1280",
+      "phase": "cdp-cycle-0",
+      "at": 1794660769106,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1280,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-320",
+      "phase": "cdp-cycle-0",
+      "at": 1794660769426,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        320,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-900x700",
+      "phase": "wm-cycle-0",
+      "at": 1794660770032,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 868,
+        "height": 658
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 868,
+        "height": 658
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        868,
+        658
+      ],
+      "outer": [
+        900,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    }
+  ],
+  "pauses": [
+    {
+      "at": 1794660768578,
+      "phase": "cdp-cycle-0",
+      "sessionId": "7208F654C7D59FCD33F2A0CCE29A89CE",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+        "objectId": "6676296063847531144.1.1",
+        "uncaught": true
+      },
+      "callFrames": [
+        {
+          "functionName": "e.updateStatus",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1516929
+          }
+        },
+        {
+          "functionName": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "functionName": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ],
+      "inspections": [
+        {
+          "expression": "this.eWin",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "6676296063847531144.1.21"
+          },
+          "ownProperties": [
+            {
+              "name": "setBounds",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_events",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_eventsCount",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_browserViews",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "devToolsWebContents",
+              "get": "function",
+              "set": "undefined"
+            },
+            {
+              "name": "setFrameZoomLevel",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "id",
+              "get": "function",
+              "set": "undefined"
+            }
+          ]
+        },
+        {
+          "expression": "this.eWin.webContents",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "6676296063847531144.1.35"
+          },
+          "ownProperties": []
+        },
+        {
+          "expression": "this.eWin.webContents.getZoomFactor",
+          "result": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "state": {
+        "result": {
+          "type": "object",
+          "value": {
+            "at": 1794660768754,
+            "frame": "hidden",
+            "frameDom": true,
+            "windowType": "object",
+            "windowClass": "BrowserWindow",
+            "contentsType": "object",
+            "contentsClass": "WebContents",
+            "getZoomType": "function",
+            "zoom": 1,
+            "windowId": 1,
+            "contentsId": 1,
+            "windowDestroyed": false,
+            "contentsDestroyed": false,
+            "bounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1024,
+              "height": 800
+            },
+            "contentBounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1024,
+              "height": 800
+            },
+            "focused": true,
+            "nativeFocused": true,
+            "inner": [
+              390,
+              950
+            ],
+            "outer": [
+              1056,
+              842
+            ],
+            "closed": false,
+            "frameSetting": "hidden",
+            "view": "markdown",
+            "modals": 0
+          }
+        }
+      },
+      "events": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "focus",
+              "at": 1794660766549,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660766549,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660766894,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660767215,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660767215,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660767536,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660767536,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660767547,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660767547,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660767622,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660767622,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660767622,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660767883,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660767883,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660767932,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660767932,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660767940,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660768196,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660768196,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660768242,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660768242,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660768251,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660768498,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660768498,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "exceptions": [
+    {
+      "phase": "cdp-cycle-0",
+      "sessionId": "7208F654C7D59FCD33F2A0CCE29A89CE",
+      "timestamp": 1794660768761.822,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "e.updateStatus",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "6676296063847531144.1.37",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    }
+  ],
+  "callErrors": [],
+  "eventLogs": [
+    {
+      "sessionId": "7208F654C7D59FCD33F2A0CCE29A89CE",
+      "events": [
+        {
+          "type": "focus",
+          "at": 1794660766549,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660766549,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660766894,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660767215,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660767215,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660767536,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660767536,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660767547,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660767547,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660767622,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660767622,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660767622,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660767883,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660767883,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660767932,
+          "width": 434,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660767932,
+          "width": 434,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660767940,
+          "width": 434,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660768196,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660768196,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660768242,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660768242,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660768251,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660768498,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660768498,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660768904,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660768904,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660768982,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660768987,
+          "width": 1280,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660768987,
+          "width": 1280,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660769243,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660769243,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660769301,
+          "width": 320,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660769301,
+          "width": 320,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660769304,
+          "width": 320,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660769449,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660769732,
+          "width": 868,
+          "height": 658,
+          "focused": true,
+          "closed": false
+        }
+      ]
+    }
+  ],
+  "artifacts": {},
+  "screenshots": [
+    "actual-frame-setting.png",
+    "failure.png"
+  ],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugins": []
+  },
+  "frameControl": "hidden",
+  "failure": "AssertionError [ERR_ASSERTION]: WM did not resize to 900: {\"at\":1794660770032,\"frame\":\"hidden\",\"frameDom\":true,\"windowType\":\"object\",\"windowClass\":\"BrowserWindow\",\"contentsType\":\"object\",\"contentsClass\":\"WebContents\",\"getZoomType\":\"function\",\"zoom\":1,\"windowId\":1,\"contentsId\":1,\"windowDestroyed\":false,\"contentsDestroyed\":false,\"bounds\":{\"x\":448,\"y\":156,\"width\":868,\"height\":658},\"contentBounds\":{\"x\":448,\"y\":156,\"width\":868,\"height\":658},\"focused\":true,\"nativeFocused\":true,\"inner\":[868,658],\"outer\":[900,700],\"closed\":false,\"frameSetting\":\"hidden\",\"view\":\"markdown\",\"modals\":0}\n    at wmResize (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-zoom-root-cause-20261114/scripts/host-zoom-diagnostic.mjs:81:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-zoom-root-cause-20261114/scripts/host-zoom-diagnostic.mjs:131:31",
+  "originalMarkdownPreserved": true
+}

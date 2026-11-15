@@ -1,0 +1,71 @@
+{
+  "frame": "hidden",
+  "variant": "host",
+  "platform": "x11",
+  "cycles": 1,
+  "phase": "startup",
+  "actions": [
+    {
+      "label": "ready",
+      "phase": "startup",
+      "at": 1794660637656,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1024,
+        800
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    }
+  ],
+  "pauses": [],
+  "exceptions": [],
+  "callErrors": [
+    {
+      "configuring": "34B0D285692F2C77594E52C0B846A528",
+      "error": "Error: CDP timeout: Runtime.evaluate (()=>{if(window.__zoomDiagnosticEvents)return;window.__zoomDiagnosticEvents=[];for(const type of ['resize','focus','blur','beforeunload','pagehide','unload'])window.addEventListener(type,()=>window.__zoomDiagnosticEvents.push({type,at:Date.now(),width:innerWidth,height:innerHeight,focused:document.hasFocus(),closed:window.closed}),true)})()"
+    }
+  ],
+  "eventLogs": [],
+  "artifacts": {},
+  "screenshots": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugins": []
+  },
+  "failure": "Error: CDP timeout: Runtime.evaluate app.setting.open();app.setting.openTabById('appearance');void 0\n    at Timeout._onTimeout (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-zoom-root-cause-20261114/scripts/host-zoom-diagnostic.mjs:33:75)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+  "originalMarkdownPreserved": true
+}

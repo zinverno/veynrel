@@ -1,0 +1,37 @@
+{
+  "runs": [
+    {
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "completedAt": 1794642615388,
+      "findingsCreated": 31,
+      "findingsResolved": 0,
+      "findingsUpdated": 0,
+      "id": "local-23bdee90-d66d-4840-a2f0-22b90b80dc88",
+      "notesSeen": 1000,
+      "reconciliationReceipts": {
+        "local:broken-links": 1794642615388,
+        "local:duplicate-titles": 1794642615388,
+        "local:exact-duplicates": 1794642615388,
+        "local:graph-components": 1794642615388,
+        "local:no-incoming-links": 1794642615388,
+        "local:no-outgoing-links": 1794642615388,
+        "local:note-shape": 1794642615388,
+        "local:orphans": 1794642615388
+      },
+      "startedAt": 1794642614822,
+      "status": "partial",
+      "type": "local"
+    }
+  ],
+  "updatedAt": 1794642615407,
+  "version": 2
+}

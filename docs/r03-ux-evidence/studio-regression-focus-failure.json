@@ -1,0 +1,135 @@
+{
+  "checks": [
+    "Studio has no diagram owner, route, command or capability UI",
+    "Passive Studio opens with zero model/note read/write",
+    "Plugin restart safely ignores the old diagram route and preserves separate Workspace/Studio",
+    "History ignores valid and damaged diagram archives without reads or writes",
+    "66-second complete response is generated with the exact consent body",
+    "Incomplete response is literal, copyable and has no Apply/Create or selection",
+    "Programmatic source/new-note plans refuse incomplete rows",
+    "en: native clipboard contains the exact fragment",
+    "en: translated incomplete warning is visible",
+    "en: incomplete preview fits a narrow window",
+    "ru: native clipboard contains the exact fragment",
+    "ru: translated incomplete warning is visible",
+    "ru: incomplete preview fits a narrow window",
+    "Restart preserves incomplete history without reconstructing Review or writing"
+  ],
+  "artifacts": {
+    "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "screenshots": [
+    "legacy-history-preserved.png",
+    "markdown-66-seconds.png",
+    "incomplete-en.png",
+    "incomplete-en-390.png",
+    "incomplete-ru.png",
+    "incomplete-ru-390.png",
+    "incomplete-history-ru.png",
+    "failure.png"
+  ],
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "beforeApply": [],
+  "exceptions": [],
+  "themeTransitions": [],
+  "themeCaptures": [],
+  "mode": "source-preservation",
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "library",
+    "point": {
+      "x": 91.1875,
+      "y": 143.9375
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"library\" data-studio-key=\"library:Library\" aria-current=\"true\">Library</button>"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "excalidrawInstalled": false
+  },
+  "legacyBefore": {
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/intent.json": "20d01f2b1162dd2b66ad2b8111435eec544b611b3d4ec87dc256f5bdf8206afd",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/0918ab62-d857-476f-ab3f-5ba94585a15f/receipt.json": "0acece8d251ac79adb6babf1bede5f9ede360dc89fc73172c5e4856ec560f808",
+    ".obsidian/plugins/ai-knowledge-hub/studio/diagrams/damaged.json": "01e4c9c2e740c4ad70954533d8a67cae90dc0ac11406805fc6654b12459b3347",
+    "Existing.excalidraw.md": "7cb0e08518a118aef27c378448661cd940b4451dac63332cb0e921b4c13d01bb",
+    "Existing.excalidraw": "b7eff3ba0897d087506849a91325f5814ca78f01de6501d86c017b9449a8c621"
+  },
+  "longWaitRunId": "89182bbf-4427-47a7-bbf2-05209aef072c",
+  "longWaitMs": 67604,
+  "incompleteWaitMs": 33581,
+  "incompleteLayout": [
+    {
+      "lang": "en",
+      "immediate": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 202.46875,
+        "y": 78.171875,
+        "width": 187.53125,
+        "height": 821.828125,
+        "scrollWidth": 176,
+        "clientWidth": 176,
+        "viewport": 390
+      },
+      "settled": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 114.765625,
+        "y": 78.171875,
+        "width": 275.234375,
+        "height": 821.828125,
+        "scrollWidth": 263,
+        "clientWidth": 263,
+        "viewport": 390
+      }
+    },
+    {
+      "lang": "ru",
+      "immediate": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.171875,
+        "width": 346,
+        "height": 821.828125,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      },
+      "settled": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 44,
+        "y": 78.171875,
+        "width": 346,
+        "height": 821.828125,
+        "scrollWidth": 334,
+        "clientWidth": 334,
+        "viewport": 390
+      }
+    }
+  ],
+  "status": "FAIL",
+  "error": "Error: Timeout: document.hasFocus(); Veynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nCommunity\nHistory\nWhat would you like to do with a note?\nManage my recipes\nSearch recipes\nCategory\nAll recipes\nBuilt-in\nMy recipes\nInstalled\nBuilt-in\nSmart formatting\n\nOrganize Markdown headings, paragraphs, lists and tables while preserving meaning.\n\nSave separately after Review · changing the source is optional\nNote\nHeading\nResult illustration · not model output\nView recipe\nBuilt-in\nTraining journal\n\nOrganize performed exercises, sets, reps, duration and weight separately.\n\nSave separately after Review · changing the source is optional\nNote\nExercise\nSets\nSquat\n…\n…\nResult illustration · not model output\nView recipe\nBuilt-in\nNutrition journal\n\nOrganize meals and quantities; unknown nutritional values stay unknown.\n\nSave separately after Review · changing the source is optional\nNote\nFood\nQty\nRice\n…\n…\nResult illustration · not model output\nView recipe\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/scripts/studio-source-preservation-native.mjs:76:166)\n    at async click (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/scripts/studio-source-preservation-native.mjs:79:35)\n    at async prepare (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/scripts/studio-source-preservation-native.mjs:111:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114/scripts/studio-source-preservation-native.mjs:251:16",
+  "diagnostic": {
+    "state": "idle",
+    "text": "Veynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nCommunity\nHistory\nWhat would you like to do with a note?\nManage my recipes\nSearch recipes\nCategory\nAll recipes\nBuilt-in\nMy recipes\nInstalled\nBuilt-in\nSmart formatting\n\nOrganize Markdown headings, paragraphs, lists and tables while preserving meaning.\n\nSave separately after Review · changing the source is optional\nNote\nHeading\nResult illustration · not model output\nView recipe\nBuilt-in\nTraining journal\n\nOrganize performed exercises, sets, reps, duration and weight separately.\n\nSave separately after Review · changing the source is optional\nNote\nExercise\nSets\nSquat\n…\n…\nResult illustration · not model output\nView recipe\nBuilt-in\nNutrition journal\n\nOrganize meals and quantities; unknown nutritional values stay unknown.\n\nSave separately after Review · changing the source is optional\nNote\nFood\nQty\nRice\n…\n…\nResult illustration · not model output\nView recipe"
+  }
+}

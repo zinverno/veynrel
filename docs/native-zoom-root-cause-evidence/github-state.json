@@ -1,0 +1,14 @@
+{
+  "recordedAt": "2026-11-14T13:14:33.904672+00:00",
+  "repository": "zinverno/veynrel",
+  "main": "02be9894ccc7dfcc1e3332d7a3f3630d4488b35c",
+  "pr": 141,
+  "head": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+  "state": "OPEN",
+  "draft": true,
+  "autoMergeRequest": null,
+  "ciRun": 43588295326,
+  "ciConclusion": "success",
+  "newCiTriggered": false,
+  "prModified": false
+}

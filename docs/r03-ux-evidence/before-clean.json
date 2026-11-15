@@ -1,0 +1,337 @@
+{
+  "phase": "before",
+  "mode": "clean",
+  "artifacts": {
+    "main.js": "62c87dd88a66e613d46c96736c1bc6c2ddfd674b3df4404309cbf52033e83da9",
+    "styles.css": "b12c11d1996525a0c99a804dcd80085fa138d75fe7e229caaef16ebc83e17267",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "initial": {
+    "Linked/A.md": "a975995f260a431eef98446b8f9eae64cd02c1009d7b93117b03a37d4e894c53",
+    "Linked/B.md": "9a8fe5732688eda7cc15fe3c565ae556c64ab04162fd04b3f8dcb6cd079c1da3"
+  },
+  "checks": [
+    "New no-key opening reads no Markdown and sends no model requests",
+    "Original Markdown and source synthetic corpus unchanged"
+  ],
+  "observations": {
+    "firstLocalScan": {
+      "outcome": {
+        "scan": {
+          "id": "local-1357f839-111e-42e0-83db-e961ec2d73bd",
+          "type": "local",
+          "startedAt": 1794652643136,
+          "notesSeen": 2,
+          "findingsCreated": 0,
+          "findingsUpdated": 0,
+          "findingsResolved": 0,
+          "analyzerVersions": {
+            "broken-links": "1",
+            "duplicate-titles": "1",
+            "exact-duplicates": "1",
+            "graph-components": "1",
+            "no-incoming-links": "1",
+            "no-outgoing-links": "1",
+            "note-shape": "1",
+            "orphans": "1"
+          },
+          "reconciliationReceipts": {
+            "local:broken-links": 1794652643205,
+            "local:duplicate-titles": 1794652643205,
+            "local:exact-duplicates": 1794652643205,
+            "local:graph-components": 1794652643205,
+            "local:no-incoming-links": 1794652643205,
+            "local:no-outgoing-links": 1794652643205,
+            "local:note-shape": 1794652643205,
+            "local:orphans": 1794652643205
+          },
+          "status": "completed",
+          "completedAt": 1794652643205
+        },
+        "freshness": "verified",
+        "findingsCommitted": true,
+        "historyRecorded": true,
+        "diagnostics": []
+      },
+      "openFindings": 0
+    }
+  },
+  "io": {
+    "new-user-passive": {
+      "reads": [],
+      "writes": [],
+      "adapterReads": [],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        }
+      ],
+      "browserRequests": 0,
+      "localScans": 0,
+      "modelRequests": 0
+    },
+    "first-explicit-scan": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        }
+      ],
+      "writes": [],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        }
+      ],
+      "browserRequests": 0,
+      "localScans": 1,
+      "modelRequests": 0
+    },
+    "workspace-actions": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        }
+      ],
+      "writes": [],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        }
+      ],
+      "browserRequests": 0,
+      "localScans": 1,
+      "modelRequests": 0
+    },
+    "studio-passive": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        }
+      ],
+      "writes": [],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        }
+      ],
+      "browserRequests": 0,
+      "localScans": 1,
+      "modelRequests": 0
+    }
+  },
+  "screenshots": [
+    "workspace-new-user.png",
+    "workspace-first-result.png",
+    "workspace-home.png",
+    "studio-library.png"
+  ],
+  "videos": [],
+  "exceptions": [],
+  "actions": [
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"profile-mixed\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scan\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"continue\"]"
+    }
+  ],
+  "remoteModelRequests": 0,
+  "syntheticModelRequests": 0,
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "platform": "linux"
+  },
+  "final": {
+    "Linked/A.md": "a975995f260a431eef98446b8f9eae64cd02c1009d7b93117b03a37d4e894c53",
+    "Linked/B.md": "9a8fe5732688eda7cc15fe3c565ae556c64ab04162fd04b3f8dcb6cd079c1da3"
+  },
+  "settings": {
+    "provider": "ollama",
+    "apiKey": "",
+    "model": "SYNTHETIC-UI-FIXTURE",
+    "baseUrl": "http://127.0.0.1:37055/v1",
+    "temperature": 0.65,
+    "topK": 12,
+    "defaultInsertion": "end",
+    "newNoteFolder": "",
+    "filenameTemplate": "AI-{{date}}-{{topic}}",
+    "mocFolder": "MOCs/",
+    "atomsLocation": "same",
+    "atomsFolder": "Atoms/",
+    "showContextMenu": true,
+    "notifyOnCopy": true,
+    "language": "en",
+    "deepAudit": {
+      "batchSize": 5,
+      "maxConcurrent": 3,
+      "delayMs": 1000
+    },
+    "semantic": {
+      "enabled": false,
+      "embeddingProvider": "openrouter",
+      "embeddingModel": "openai/text-embedding-3-small",
+      "embeddingBaseUrl": "https://openrouter.ai/api/v1",
+      "openRouterApiKey": "",
+      "openAICompatibleApiKey": ""
+    },
+    "rerank": {
+      "enabled": false,
+      "triggerMode": "manual",
+      "provider": "openrouter",
+      "model": "voyageai/rerank-3-lite",
+      "apiKey": ""
+    },
+    "decisions": {
+      "enabled": false,
+      "provider": "openrouter",
+      "model": "typesafe/jev-1.13",
+      "apiKey": ""
+    },
+    "semanticAutoSyncSuspended": true,
+    "companion": {
+      "enabled": false,
+      "endpoint": "http://127.0.0.1:27124",
+      "token": "",
+      "timeoutMs": 5000,
+      "vaultId": "c27ab725-f096-480e-9c4d-8c4a27bfdb23"
+    },
+    "health": {
+      "profile": "mixed",
+      "profileChosen": true,
+      "onboardingCompleted": true,
+      "onboardingVersion": 1
+    }
+  },
+  "functionalChecksCompleted": true,
+  "completed": true
+}

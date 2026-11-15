@@ -1,0 +1,1098 @@
+{
+  "phase": "before",
+  "mode": "small",
+  "artifacts": {
+    "main.js": "62c87dd88a66e613d46c96736c1bc6c2ddfd674b3df4404309cbf52033e83da9",
+    "styles.css": "b12c11d1996525a0c99a804dcd80085fa138d75fe7e229caaef16ebc83e17267",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "initial": {
+    "Linked/A.md": "a975995f260a431eef98446b8f9eae64cd02c1009d7b93117b03a37d4e894c53",
+    "Linked/B.md": "9a8fe5732688eda7cc15fe3c565ae556c64ab04162fd04b3f8dcb6cd079c1da3",
+    "Study-old/Outside.md": "3928a55367ef488e7ceac8ada02e6186286bc240c03e47b5b107d7392a27cce9",
+    "Study/Copy.md": "65093fddf1f193f5eca964c4f307080a281e19b22154e3f5f2450e09e49ee3cc",
+    "Study/Source.md": "65093fddf1f193f5eca964c4f307080a281e19b22154e3f5f2450e09e49ee3cc",
+    "Study/nested/Short.md": "51ddf47c5d0f882cf253ef2b1aa1012a46819138f17f574213e1b51a5e89d6ee"
+  },
+  "checks": [
+    "New no-key opening reads no Markdown and sends no model requests",
+    "Real finding shows its evidence",
+    "Separate note successfully created",
+    "Full native viewports EN/RU, actual built-in dark/light, wide/390px without horizontal overflow",
+    "Original Markdown and source synthetic corpus unchanged"
+  ],
+  "observations": {
+    "findingReturn": {
+      "before": {
+        "page": "findings",
+        "state": "open",
+        "dimension": "all",
+        "selectedFindingId": "finding-0fd50f1a3be26214"
+      },
+      "after": {
+        "page": "findings",
+        "state": "open",
+        "dimension": "all"
+      }
+    },
+    "workspace-en-dark-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "studio-en-dark-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "workspace-en-dark-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "studio-en-dark-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "workspace-en-light-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "studio-en-light-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "workspace-en-light-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "studio-en-light-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "workspace-ru-dark-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "studio-ru-dark-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "workspace-ru-dark-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "studio-ru-dark-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)"
+    },
+    "workspace-ru-light-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "studio-ru-light-1400": {
+      "width": 1344,
+      "scrollWidth": 1344,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "workspace-ru-light-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    },
+    "studio-ru-light-434": {
+      "width": 378,
+      "scrollWidth": 378,
+      "theme": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)"
+    }
+  },
+  "io": {
+    "new-user-passive": {
+      "reads": [],
+      "writes": [],
+      "adapterReads": [],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        }
+      ],
+      "browserRequests": 0,
+      "modelRequests": 0
+    },
+    "first-explicit-scan": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        }
+      ],
+      "writes": [],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        }
+      ],
+      "browserRequests": 0,
+      "modelRequests": 0
+    },
+    "workspace-actions": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        }
+      ],
+      "writes": [],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        }
+      ],
+      "browserRequests": 0,
+      "modelRequests": 0
+    },
+    "studio-passive": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        }
+      ],
+      "writes": [],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        }
+      ],
+      "browserRequests": 0,
+      "modelRequests": 0
+    },
+    "studio-explicit": {
+      "reads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source — Studio.md"
+        },
+        {
+          "method": "cachedRead",
+          "path": "Study/Source — Studio.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source — Studio.md"
+        }
+      ],
+      "writes": [
+        {
+          "method": "create",
+          "path": "Study/Source — Studio.md"
+        }
+      ],
+      "adapterReads": [
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/A.md"
+        },
+        {
+          "method": "read",
+          "path": "Linked/B.md"
+        },
+        {
+          "method": "read",
+          "path": "Study-old/Outside.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Copy.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/nested/Short.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/runs/c3d73d4c-1c26-41f3-b51b-b5334aad9b6c/start.json"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/runs/c3d73d4c-1c26-41f3-b51b-b5334aad9b6c/finish.json"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-dispatch.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-dispatch.json"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source.md"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-dispatch.json"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source — Studio.md"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-dispatch.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-created.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-created.json"
+        },
+        {
+          "method": "read",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-dispatch.json"
+        },
+        {
+          "method": "read",
+          "path": "Study/Source — Studio.md"
+        }
+      ],
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/runs/c3d73d4c-1c26-41f3-b51b-b5334aad9b6c/start.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/runs/c3d73d4c-1c26-41f3-b51b-b5334aad9b6c/finish.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/intent.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-dispatch.json"
+        },
+        {
+          "method": "write",
+          "path": "Study/Source — Studio.md"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/b2f8f824-0b30-4bed-8b65-aecd347d42f9/0-created.json"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json"
+        }
+      ],
+      "browserRequests": 0,
+      "modelRequests": 1
+    }
+  },
+  "screenshots": [
+    "workspace-new-user.png",
+    "workspace-first-result.png",
+    "workspace-home.png",
+    "workspace-folder.png",
+    "workspace-real-scope.png",
+    "workspace-checked.png",
+    "workspace-finding.png",
+    "studio-library.png",
+    "studio-recipe.png",
+    "studio-preparation.png",
+    "studio-consent.png",
+    "studio-review.png",
+    "studio-write-confirmation.png",
+    "studio-saved.png",
+    "workspace-en-dark-1400.png",
+    "studio-en-dark-1400.png",
+    "workspace-en-dark-434.png",
+    "studio-en-dark-434.png",
+    "workspace-en-light-1400.png",
+    "studio-en-light-1400.png",
+    "workspace-en-light-434.png",
+    "studio-en-light-434.png",
+    "workspace-ru-dark-1400.png",
+    "studio-ru-dark-1400.png",
+    "workspace-ru-dark-434.png",
+    "studio-ru-dark-434.png",
+    "workspace-ru-light-1400.png",
+    "studio-ru-light-1400.png",
+    "workspace-ru-light-434.png",
+    "studio-ru-light-434.png"
+  ],
+  "videos": [
+    {
+      "file": "workspace-journey.mp4",
+      "frames": 409,
+      "milliseconds": 17165,
+      "method": "Uncut CDP native viewport screencast; frame timestamps retained. Synthetic UI response."
+    },
+    {
+      "file": "studio-journey.mp4",
+      "frames": 24,
+      "milliseconds": 16645,
+      "method": "Uncut CDP native viewport screencast; frame timestamps retained. Synthetic UI response."
+    }
+  ],
+  "exceptions": [],
+  "actions": [
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"profile-mixed\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scan\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"continue\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"nav-home\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": "scope-picker:Study",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"home-check\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scope-continue\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scan\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"nav-findings\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scope-continue\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-findings-row",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scope-continue\"]",
+      "recording": "workspace-journey"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"nav-home\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"nav-health\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scope-continue\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"nav-findings\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"scope-continue\"]"
+    },
+    {
+      "selector": ".veynrel-health-view [data-health-action=\"nav-home\"]"
+    },
+    {
+      "selector": ".veynrel-studio [data-studio-action=\"library\"]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": ".veynrel-studio [data-studio-action=\"recipe-builtin.smart-format\"]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": ".veynrel-studio [data-studio-action=\"choose-notes\"]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": "[data-native-source]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": ".veynrel-studio [data-studio-action=\"prepare\"]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": ".veynrel-studio [data-studio-action=\"generate\"]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": "[data-studio-select]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": ".veynrel-studio [data-studio-action=\"review-apply\"]",
+      "recording": "studio-journey"
+    },
+    {
+      "selector": ".veynrel-studio-dialog [data-studio-action=\"confirm-apply\"]",
+      "recording": "studio-journey"
+    }
+  ],
+  "remoteModelRequests": 0,
+  "syntheticModelRequests": 1,
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "platform": "linux"
+  },
+  "final": {
+    "Linked/A.md": "a975995f260a431eef98446b8f9eae64cd02c1009d7b93117b03a37d4e894c53",
+    "Linked/B.md": "9a8fe5732688eda7cc15fe3c565ae556c64ab04162fd04b3f8dcb6cd079c1da3",
+    "Study-old/Outside.md": "3928a55367ef488e7ceac8ada02e6186286bc240c03e47b5b107d7392a27cce9",
+    "Study/Copy.md": "65093fddf1f193f5eca964c4f307080a281e19b22154e3f5f2450e09e49ee3cc",
+    "Study/Source — Studio.md": "62f813911ba6681f8d5db81411dcfb6b256574972817e9e1601ed9b7db4cb8ac",
+    "Study/Source.md": "65093fddf1f193f5eca964c4f307080a281e19b22154e3f5f2450e09e49ee3cc",
+    "Study/nested/Short.md": "51ddf47c5d0f882cf253ef2b1aa1012a46819138f17f574213e1b51a5e89d6ee"
+  },
+  "settings": {
+    "provider": "ollama",
+    "apiKey": "",
+    "model": "SYNTHETIC-UI-FIXTURE",
+    "baseUrl": "http://127.0.0.1:43423/v1",
+    "temperature": 0.65,
+    "topK": 12,
+    "defaultInsertion": "end",
+    "newNoteFolder": "",
+    "filenameTemplate": "AI-{{date}}-{{topic}}",
+    "mocFolder": "MOCs/",
+    "atomsLocation": "same",
+    "atomsFolder": "Atoms/",
+    "showContextMenu": true,
+    "notifyOnCopy": true,
+    "language": "ru",
+    "deepAudit": {
+      "batchSize": 5,
+      "maxConcurrent": 3,
+      "delayMs": 1000
+    },
+    "semantic": {
+      "enabled": false,
+      "embeddingProvider": "openrouter",
+      "embeddingModel": "openai/text-embedding-3-small",
+      "embeddingBaseUrl": "https://openrouter.ai/api/v1",
+      "openRouterApiKey": "",
+      "openAICompatibleApiKey": ""
+    },
+    "rerank": {
+      "enabled": false,
+      "triggerMode": "manual",
+      "provider": "openrouter",
+      "model": "voyageai/rerank-3-lite",
+      "apiKey": ""
+    },
+    "decisions": {
+      "enabled": false,
+      "provider": "openrouter",
+      "model": "typesafe/jev-1.13",
+      "apiKey": ""
+    },
+    "semanticAutoSyncSuspended": true,
+    "companion": {
+      "enabled": false,
+      "endpoint": "http://127.0.0.1:27124",
+      "token": "",
+      "timeoutMs": 5000,
+      "vaultId": "160ec21d-113a-4092-b75c-664157a60a87"
+    },
+    "health": {
+      "profile": "mixed",
+      "profileChosen": true,
+      "onboardingCompleted": true,
+      "onboardingVersion": 1
+    }
+  },
+  "completed": true
+}

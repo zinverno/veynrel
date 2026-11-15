@@ -1,0 +1,85 @@
+{
+  "exceptions": [],
+  "attempt0": {
+    "point": {
+      "x": 459.4140625,
+      "y": 680.71875
+    },
+    "before": {
+      "leaves": [],
+      "focused": true,
+      "nativeFocused": true,
+      "width": 1024,
+      "height": 800,
+      "trace": [
+        {
+          "render": true,
+          "stack": "Error\n    at sv.render (<anonymous>:1:309)\n    at Jb.onOpen (plugin:ai-knowledge-hub:567:8330)"
+        }
+      ]
+    },
+    "after": {
+      "trace": [
+        {
+          "render": true,
+          "stack": "Error\n    at sv.render (<anonymous>:1:309)\n    at Jb.onOpen (plugin:ai-knowledge-hub:567:8330)"
+        },
+        {
+          "type": "mousedown",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true,
+          "scroll": 373,
+          "rect": {
+            "x": 356,
+            "y": 662.71875,
+            "width": 206.828125,
+            "height": 36,
+            "top": 662.71875,
+            "right": 562.828125,
+            "bottom": 698.71875,
+            "left": 356
+          }
+        },
+        {
+          "type": "mouseup",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true,
+          "scroll": 373,
+          "rect": {
+            "x": 356,
+            "y": 662.71875,
+            "width": 206.828125,
+            "height": 36,
+            "top": 662.71875,
+            "right": 562.828125,
+            "bottom": 698.71875,
+            "left": 356
+          }
+        },
+        {
+          "type": "click",
+          "action": "markdown-open",
+          "tag": "BUTTON",
+          "focused": true,
+          "scroll": 373,
+          "rect": {
+            "x": 356,
+            "y": 662.71875,
+            "width": 206.828125,
+            "height": 36,
+            "top": 662.71875,
+            "right": 562.828125,
+            "bottom": 698.71875,
+            "left": 356
+          }
+        }
+      ],
+      "leaves": [
+        "Saved draft.md"
+      ],
+      "error": ""
+    }
+  }
+}

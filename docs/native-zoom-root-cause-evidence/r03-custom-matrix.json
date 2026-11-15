@@ -1,0 +1,7197 @@
+{
+  "frame": "custom",
+  "variant": "r03",
+  "platform": "x11",
+  "cycles": 2,
+  "scenario": "mixed",
+  "phase": "r03-passive",
+  "actions": [
+    {
+      "label": "ready",
+      "phase": "startup",
+      "at": 1794660972464,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1024,
+        800
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-0",
+      "at": 1794660972995,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-434",
+      "phase": "cdp-cycle-0",
+      "at": 1794660973318,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        434,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-0",
+      "at": 1794660973653,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-390",
+      "phase": "cdp-cycle-0",
+      "at": 1794660974013,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        390,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1280",
+      "phase": "cdp-cycle-0",
+      "at": 1794660974408,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1280,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-320",
+      "phase": "cdp-cycle-0",
+      "at": 1794660974773,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        320,
+        950
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-900x700",
+      "phase": "wm-cycle-0",
+      "at": 1794660975380,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 868,
+        "height": 658
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 868,
+        "height": 658
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        868,
+        658
+      ],
+      "outer": [
+        900,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-500x700",
+      "phase": "wm-cycle-0",
+      "at": 1794660975729,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 468,
+        "height": 658
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 468,
+        "height": 658
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        468,
+        658
+      ],
+      "outer": [
+        500,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-1200x850",
+      "phase": "wm-cycle-0",
+      "at": 1794660976077,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-in",
+      "phase": "zoom-cycle-0",
+      "at": 1794660976236,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1.0954451150103321,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1066,
+        738
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-out",
+      "phase": "zoom-cycle-0",
+      "at": 1794660976397,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:reset-zoom",
+      "phase": "zoom-cycle-0",
+      "at": 1794660976556,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-1",
+      "at": 1794660976941,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-434",
+      "phase": "cdp-cycle-1",
+      "at": 1794660977281,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        434,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-1",
+      "at": 1794660977631,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-390",
+      "phase": "cdp-cycle-1",
+      "at": 1794660978013,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        390,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1280",
+      "phase": "cdp-cycle-1",
+      "at": 1794660978390,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1280,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-320",
+      "phase": "cdp-cycle-1",
+      "at": 1794660979105,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        320,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-900x700",
+      "phase": "wm-cycle-1",
+      "at": 1794660979670,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 868,
+        "height": 658
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 868,
+        "height": 658
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        868,
+        658
+      ],
+      "outer": [
+        900,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-500x700",
+      "phase": "wm-cycle-1",
+      "at": 1794660980050,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 468,
+        "height": 658
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 468,
+        "height": 658
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        468,
+        658
+      ],
+      "outer": [
+        500,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-1200x850",
+      "phase": "wm-cycle-1",
+      "at": 1794660980398,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-in",
+      "phase": "zoom-cycle-1",
+      "at": 1794660980556,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1.0954451150103321,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1066,
+        738
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-out",
+      "phase": "zoom-cycle-1",
+      "at": 1794660980714,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:reset-zoom",
+      "phase": "zoom-cycle-1",
+      "at": 1794660980875,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "split-open",
+      "phase": "split-popout",
+      "at": 1794660980976,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "split-closed",
+      "phase": "split-popout",
+      "at": 1794660981013,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "popout-closed",
+      "phase": "split-popout",
+      "at": 1794660982125,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "ai-knowledge-hub:veynrel-open-health",
+      "phase": "r03-passive",
+      "at": 1794660982352,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "veynrel-health",
+      "modals": 0
+    },
+    {
+      "label": "ai-knowledge-hub:veynrel-open-studio",
+      "phase": "r03-passive",
+      "at": 1794660982601,
+      "frame": "custom",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1168,
+        "height": 808
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1168,
+        808
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "custom",
+      "view": "veynrel-studio",
+      "modals": 0
+    }
+  ],
+  "pauses": [
+    {
+      "at": 1794660972818,
+      "phase": "cdp-cycle-0",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+        "objectId": "268064534198376679.1.1",
+        "uncaught": true
+      },
+      "callFrames": [
+        {
+          "functionName": "e.updateStatus",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1516929
+          }
+        },
+        {
+          "functionName": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "functionName": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ],
+      "inspections": [
+        {
+          "expression": "this.eWin",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.21"
+          },
+          "ownProperties": [
+            {
+              "name": "setBounds",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_events",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_eventsCount",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_browserViews",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "devToolsWebContents",
+              "get": "function",
+              "set": "undefined"
+            },
+            {
+              "name": "setFrameZoomLevel",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "id",
+              "get": "function",
+              "set": "undefined"
+            }
+          ]
+        },
+        {
+          "expression": "this.eWin.webContents",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.35"
+          },
+          "ownProperties": []
+        },
+        {
+          "expression": "this.eWin.webContents.getZoomFactor",
+          "result": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "receiver": {
+        "result": {
+          "type": "object",
+          "value": {
+            "watchedWindowId": 3,
+            "sameDomWindow": false,
+            "sameElectronWindow": false,
+            "sameFrameDom": false,
+            "domClosed": false,
+            "domUrl": "about:blank",
+            "domFocus": false,
+            "domSize": [
+              900,
+              700
+            ],
+            "domFrame": "custom",
+            "windowId": {},
+            "destroyedMethod": "function",
+            "contentsDestroyedMethod": "undefined",
+            "zoomMethod": "undefined",
+            "localWindowMatches": true,
+            "localDomMatches": true
+          }
+        }
+      },
+      "state": {
+        "result": {
+          "type": "object",
+          "value": {
+            "at": 1794660973004,
+            "frame": "custom",
+            "frameDom": true,
+            "windowType": "object",
+            "windowClass": "BrowserWindow",
+            "contentsType": "object",
+            "contentsClass": "WebContents",
+            "getZoomType": "function",
+            "zoom": 1,
+            "windowId": 1,
+            "contentsId": 1,
+            "windowDestroyed": false,
+            "contentsDestroyed": false,
+            "bounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1024,
+              "height": 800
+            },
+            "contentBounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1024,
+              "height": 800
+            },
+            "focused": true,
+            "nativeFocused": true,
+            "inner": [
+              1400,
+              950
+            ],
+            "outer": [
+              1056,
+              842
+            ],
+            "closed": false,
+            "frameSetting": "custom",
+            "view": "markdown",
+            "modals": 0
+          }
+        }
+      },
+      "events": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971712,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972263,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972292,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660972800,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            }
+          ]
+        }
+      },
+      "childEvents": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "settings-open",
+              "at": 1794660972549,
+              "id": 2,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660972551,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972553,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660972746,
+              "id": 3,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660972753,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660972787,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972792,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972798,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972799,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": 1794660974665,
+      "phase": "cdp-cycle-0",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+        "objectId": "268064534198376679.1.38",
+        "uncaught": true
+      },
+      "callFrames": [
+        {
+          "functionName": "e.updateStatus",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1516929
+          }
+        },
+        {
+          "functionName": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "functionName": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ],
+      "inspections": [
+        {
+          "expression": "this.eWin",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.58"
+          },
+          "ownProperties": [
+            {
+              "name": "setBounds",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_events",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_eventsCount",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_browserViews",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "devToolsWebContents",
+              "get": "function",
+              "set": "undefined"
+            },
+            {
+              "name": "setFrameZoomLevel",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "id",
+              "get": "function",
+              "set": "undefined"
+            }
+          ]
+        },
+        {
+          "expression": "this.eWin.webContents",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.72"
+          },
+          "ownProperties": []
+        },
+        {
+          "expression": "this.eWin.webContents.getZoomFactor",
+          "result": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "receiver": {
+        "result": {
+          "type": "object",
+          "value": {
+            "watchedWindowId": 8,
+            "sameDomWindow": false,
+            "sameElectronWindow": false,
+            "sameFrameDom": false,
+            "domClosed": false,
+            "domUrl": "about:blank",
+            "domFocus": false,
+            "domSize": [
+              900,
+              700
+            ],
+            "domFrame": "custom",
+            "windowId": {},
+            "destroyedMethod": "function",
+            "contentsDestroyedMethod": "undefined",
+            "zoomMethod": "undefined",
+            "localWindowMatches": true,
+            "localDomMatches": true
+          }
+        }
+      },
+      "state": {
+        "result": {
+          "type": "object",
+          "value": {
+            "at": 1794660974677,
+            "frame": "custom",
+            "frameDom": true,
+            "windowType": "object",
+            "windowClass": "BrowserWindow",
+            "contentsType": "object",
+            "contentsClass": "WebContents",
+            "getZoomType": "function",
+            "zoom": 1,
+            "windowId": 1,
+            "contentsId": 1,
+            "windowDestroyed": false,
+            "contentsDestroyed": false,
+            "bounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1024,
+              "height": 800
+            },
+            "contentBounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1024,
+              "height": 800
+            },
+            "focused": true,
+            "nativeFocused": true,
+            "inner": [
+              320,
+              950
+            ],
+            "outer": [
+              1056,
+              842
+            ],
+            "closed": false,
+            "frameSetting": "custom",
+            "view": "markdown",
+            "modals": 0
+          }
+        }
+      },
+      "events": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971712,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972263,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972292,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660972800,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973197,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973531,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973902,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974298,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974650,
+              "width": 320,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            }
+          ]
+        }
+      },
+      "childEvents": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "settings-open",
+              "at": 1794660972549,
+              "id": 2,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660972551,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972553,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660972746,
+              "id": 3,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660972753,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660972787,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972792,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972798,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972799,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973166,
+              "id": 4,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660973176,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660973179,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973182,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660973183,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973495,
+              "id": 5,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973514,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973518,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973833,
+              "id": 6,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973877,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973881,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974219,
+              "id": 7,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974270,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974275,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974601,
+              "id": 8,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974622,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974626,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": 1794660976829,
+      "phase": "cdp-cycle-1",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+        "objectId": "268064534198376679.1.75",
+        "uncaught": true
+      },
+      "callFrames": [
+        {
+          "functionName": "e.updateStatus",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1516929
+          }
+        },
+        {
+          "functionName": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "functionName": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ],
+      "inspections": [
+        {
+          "expression": "this.eWin",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.95"
+          },
+          "ownProperties": [
+            {
+              "name": "setBounds",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_events",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_eventsCount",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_browserViews",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "devToolsWebContents",
+              "get": "function",
+              "set": "undefined"
+            },
+            {
+              "name": "setFrameZoomLevel",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "id",
+              "get": "function",
+              "set": "undefined"
+            }
+          ]
+        },
+        {
+          "expression": "this.eWin.webContents",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.109"
+          },
+          "ownProperties": []
+        },
+        {
+          "expression": "this.eWin.webContents.getZoomFactor",
+          "result": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "receiver": {
+        "result": {
+          "type": "object",
+          "value": {
+            "watchedWindowId": 9,
+            "sameDomWindow": false,
+            "sameElectronWindow": false,
+            "sameFrameDom": false,
+            "domClosed": false,
+            "domUrl": "about:blank",
+            "domFocus": false,
+            "domSize": [
+              900,
+              700
+            ],
+            "domFrame": "custom",
+            "windowId": {},
+            "destroyedMethod": "function",
+            "contentsDestroyedMethod": "undefined",
+            "zoomMethod": "undefined",
+            "localWindowMatches": true,
+            "localDomMatches": true
+          }
+        }
+      },
+      "state": {
+        "result": {
+          "type": "object",
+          "value": {
+            "at": 1794660976845,
+            "frame": "custom",
+            "frameDom": true,
+            "windowType": "object",
+            "windowClass": "BrowserWindow",
+            "contentsType": "object",
+            "contentsClass": "WebContents",
+            "getZoomType": "function",
+            "zoom": 1,
+            "windowId": 1,
+            "contentsId": 1,
+            "windowDestroyed": false,
+            "contentsDestroyed": false,
+            "bounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1168,
+              "height": 808
+            },
+            "contentBounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1168,
+              "height": 808
+            },
+            "focused": false,
+            "nativeFocused": false,
+            "inner": [
+              1400,
+              950
+            ],
+            "outer": [
+              1200,
+              850
+            ],
+            "closed": false,
+            "frameSetting": "custom",
+            "view": "markdown",
+            "modals": 0
+          }
+        }
+      },
+      "events": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971712,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972263,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972292,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660972800,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973197,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973531,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973902,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974298,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974650,
+              "width": 320,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974795,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975070,
+              "width": 868,
+              "height": 658,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975424,
+              "width": 468,
+              "height": 658,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975774,
+              "width": 1168,
+              "height": 808,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660975983,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660975983,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976084,
+              "width": 1066,
+              "height": 738,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976245,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976786,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            }
+          ]
+        }
+      },
+      "childEvents": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "settings-open",
+              "at": 1794660972549,
+              "id": 2,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660972551,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972553,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660972746,
+              "id": 3,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660972753,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660972787,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972792,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972798,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972799,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973166,
+              "id": 4,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660973176,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660973179,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973182,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660973183,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973495,
+              "id": 5,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973514,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973518,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973833,
+              "id": 6,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973877,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973881,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974219,
+              "id": 7,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974270,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974275,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974601,
+              "id": 8,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974622,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974626,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660976732,
+              "id": 9,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660976743,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660976745,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660976764,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660976768,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660976782,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660976782,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": 1794660977524,
+      "phase": "cdp-cycle-1",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+        "objectId": "268064534198376679.1.112",
+        "uncaught": true
+      },
+      "callFrames": [
+        {
+          "functionName": "e.updateStatus",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1516929
+          }
+        },
+        {
+          "functionName": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "functionName": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ],
+      "inspections": [
+        {
+          "expression": "this.eWin",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.132"
+          },
+          "ownProperties": [
+            {
+              "name": "setBounds",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_events",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_eventsCount",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_browserViews",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "devToolsWebContents",
+              "get": "function",
+              "set": "undefined"
+            },
+            {
+              "name": "setFrameZoomLevel",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "id",
+              "get": "function",
+              "set": "undefined"
+            }
+          ]
+        },
+        {
+          "expression": "this.eWin.webContents",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.146"
+          },
+          "ownProperties": []
+        },
+        {
+          "expression": "this.eWin.webContents.getZoomFactor",
+          "result": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "receiver": {
+        "result": {
+          "type": "object",
+          "value": {
+            "watchedWindowId": 11,
+            "sameDomWindow": false,
+            "sameElectronWindow": false,
+            "sameFrameDom": false,
+            "domClosed": false,
+            "domUrl": "about:blank",
+            "domFocus": false,
+            "domSize": [
+              900,
+              700
+            ],
+            "domFrame": "custom",
+            "windowId": {},
+            "destroyedMethod": "function",
+            "contentsDestroyedMethod": "undefined",
+            "zoomMethod": "undefined",
+            "localWindowMatches": true,
+            "localDomMatches": true
+          }
+        }
+      },
+      "state": {
+        "result": {
+          "type": "object",
+          "value": {
+            "at": 1794660977540,
+            "frame": "custom",
+            "frameDom": true,
+            "windowType": "object",
+            "windowClass": "BrowserWindow",
+            "contentsType": "object",
+            "contentsClass": "WebContents",
+            "getZoomType": "function",
+            "zoom": 1,
+            "windowId": 1,
+            "contentsId": 1,
+            "windowDestroyed": false,
+            "contentsDestroyed": false,
+            "bounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1168,
+              "height": 808
+            },
+            "contentBounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1168,
+              "height": 808
+            },
+            "focused": false,
+            "nativeFocused": false,
+            "inner": [
+              1400,
+              950
+            ],
+            "outer": [
+              1200,
+              850
+            ],
+            "closed": false,
+            "frameSetting": "custom",
+            "view": "markdown",
+            "modals": 0
+          }
+        }
+      },
+      "events": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971712,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972263,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972292,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660972800,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973197,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973531,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973902,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974298,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974650,
+              "width": 320,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974795,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975070,
+              "width": 868,
+              "height": 658,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975424,
+              "width": 468,
+              "height": 658,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975774,
+              "width": 1168,
+              "height": 808,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660975983,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660975983,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976084,
+              "width": 1066,
+              "height": 738,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976245,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976786,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660977169,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660977512,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            }
+          ]
+        }
+      },
+      "childEvents": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "settings-open",
+              "at": 1794660972549,
+              "id": 2,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660972551,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972553,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660972746,
+              "id": 3,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660972753,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660972787,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972792,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972798,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972799,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973166,
+              "id": 4,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660973176,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660973179,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973182,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660973183,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973495,
+              "id": 5,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973514,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973518,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973833,
+              "id": 6,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973877,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973881,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974219,
+              "id": 7,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974270,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974275,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974601,
+              "id": 8,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974622,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974626,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660976732,
+              "id": 9,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660976743,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660976745,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660976764,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660976768,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660976782,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660976782,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660977121,
+              "id": 10,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660977123,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "focus",
+              "at": 1794660977128,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660977142,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660977146,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660977159,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660977159,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660977466,
+              "id": 11,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660977493,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660977499,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660977509,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660977509,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": 1794660978997,
+      "phase": "cdp-cycle-1",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+        "objectId": "268064534198376679.1.149",
+        "uncaught": true
+      },
+      "callFrames": [
+        {
+          "functionName": "e.updateStatus",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1516929
+          }
+        },
+        {
+          "functionName": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "functionName": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ],
+      "inspections": [
+        {
+          "expression": "this.eWin",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.169"
+          },
+          "ownProperties": [
+            {
+              "name": "setBounds",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_events",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_eventsCount",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "_browserViews",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "devToolsWebContents",
+              "get": "function",
+              "set": "undefined"
+            },
+            {
+              "name": "setFrameZoomLevel",
+              "get": "function",
+              "set": "function"
+            },
+            {
+              "name": "id",
+              "get": "function",
+              "set": "undefined"
+            }
+          ]
+        },
+        {
+          "expression": "this.eWin.webContents",
+          "result": {
+            "type": "object",
+            "className": "Object",
+            "description": "Object",
+            "objectId": "268064534198376679.1.183"
+          },
+          "ownProperties": []
+        },
+        {
+          "expression": "this.eWin.webContents.getZoomFactor",
+          "result": {
+            "type": "undefined"
+          }
+        }
+      ],
+      "receiver": {
+        "result": {
+          "type": "object",
+          "value": {
+            "watchedWindowId": 14,
+            "sameDomWindow": false,
+            "sameElectronWindow": false,
+            "sameFrameDom": false,
+            "domClosed": false,
+            "domUrl": "about:blank",
+            "domFocus": false,
+            "domSize": [
+              900,
+              700
+            ],
+            "domFrame": "custom",
+            "windowId": {},
+            "destroyedMethod": "function",
+            "contentsDestroyedMethod": "undefined",
+            "zoomMethod": "undefined",
+            "localWindowMatches": true,
+            "localDomMatches": true
+          }
+        }
+      },
+      "state": {
+        "result": {
+          "type": "object",
+          "value": {
+            "at": 1794660979015,
+            "frame": "custom",
+            "frameDom": true,
+            "windowType": "object",
+            "windowClass": "BrowserWindow",
+            "contentsType": "object",
+            "contentsClass": "WebContents",
+            "getZoomType": "function",
+            "zoom": 1,
+            "windowId": 1,
+            "contentsId": 1,
+            "windowDestroyed": false,
+            "contentsDestroyed": false,
+            "bounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1168,
+              "height": 808
+            },
+            "contentBounds": {
+              "x": 448,
+              "y": 156,
+              "width": 1168,
+              "height": 808
+            },
+            "focused": false,
+            "nativeFocused": false,
+            "inner": [
+              320,
+              950
+            ],
+            "outer": [
+              1200,
+              850
+            ],
+            "closed": false,
+            "frameSetting": "custom",
+            "view": "markdown",
+            "modals": 0
+          }
+        }
+      },
+      "events": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971544,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660971712,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972263,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972292,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972694,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660972717,
+              "width": 1024,
+              "height": 800,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660972800,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660972806,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973140,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973197,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973204,
+              "width": 434,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973466,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973531,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973542,
+              "width": 1400,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660973806,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660973901,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660973902,
+              "width": 390,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974180,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974293,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974298,
+              "width": 1280,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660974575,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974650,
+              "width": 320,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "focus",
+              "at": 1794660974659,
+              "width": 320,
+              "height": 950,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660974795,
+              "width": 1024,
+              "height": 800,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975070,
+              "width": 868,
+              "height": 658,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975424,
+              "width": 468,
+              "height": 658,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660975774,
+              "width": 1168,
+              "height": 808,
+              "focused": true,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660975983,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "blur",
+              "at": 1794660975983,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976084,
+              "width": 1066,
+              "height": 738,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976245,
+              "width": 1168,
+              "height": 808,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660976786,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660977169,
+              "width": 434,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660977512,
+              "width": 1400,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660977892,
+              "width": 390,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660978268,
+              "width": 1280,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            },
+            {
+              "type": "resize",
+              "at": 1794660978983,
+              "width": 320,
+              "height": 950,
+              "focused": false,
+              "closed": false
+            }
+          ]
+        }
+      },
+      "childEvents": {
+        "result": {
+          "type": "object",
+          "value": [
+            {
+              "type": "settings-open",
+              "at": 1794660972549,
+              "id": 2,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660972551,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972553,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972554,
+              "id": 2,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660972746,
+              "id": 3,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660972753,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660972787,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660972792,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660972798,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660972799,
+              "id": 3,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973166,
+              "id": 4,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660973176,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660973179,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973182,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660973183,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973195,
+              "id": 4,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973495,
+              "id": 5,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973514,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973518,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973530,
+              "id": 5,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660973833,
+              "id": 6,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660973877,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660973881,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660973891,
+              "id": 6,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974219,
+              "id": 7,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974270,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974275,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974285,
+              "id": 7,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660974601,
+              "id": 8,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660974622,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660974626,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660974650,
+              "id": 8,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660976732,
+              "id": 9,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660976743,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660976745,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660976764,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660976768,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660976782,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660976782,
+              "id": 9,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660977121,
+              "id": 10,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "resize",
+              "at": 1794660977123,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "focus",
+              "at": 1794660977128,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660977142,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660977146,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660977159,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660977159,
+              "id": 10,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660977466,
+              "id": 11,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660977493,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660977499,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660977509,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660977509,
+              "id": 11,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660977819,
+              "id": 12,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "blur",
+              "at": 1794660977867,
+              "id": 12,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660977872,
+              "id": 12,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660977884,
+              "id": 12,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660977884,
+              "id": 12,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660978193,
+              "id": 13,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660978194,
+              "id": 13,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "resize",
+              "at": 1794660978206,
+              "id": 13,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660978252,
+              "id": 13,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660978256,
+              "id": 13,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660978268,
+              "id": 13,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660978268,
+              "id": 13,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "settings-open",
+              "at": 1794660978926,
+              "id": 14,
+              "isMain": false,
+              "closed": false,
+              "frame": "custom",
+              "zoomType": "function"
+            },
+            {
+              "type": "focus",
+              "at": 1794660978929,
+              "id": 14,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "blur",
+              "at": 1794660978954,
+              "id": 14,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "beforeunload",
+              "at": 1794660978959,
+              "id": 14,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "pagehide",
+              "at": 1794660978983,
+              "id": 14,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            },
+            {
+              "type": "unload",
+              "at": 1794660978983,
+              "id": 14,
+              "closed": false,
+              "width": 900,
+              "height": 700
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "exceptions": [
+    {
+      "phase": "cdp-cycle-0",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "timestamp": 1794660973009.985,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "e.updateStatus",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "268064534198376679.1.37",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "phase": "cdp-cycle-0",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "timestamp": 1794660974685.168,
+      "exceptionDetails": {
+        "exceptionId": 2,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "e.updateStatus",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "268064534198376679.1.74",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "phase": "cdp-cycle-1",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "timestamp": 1794660976856.451,
+      "exceptionDetails": {
+        "exceptionId": 3,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "e.updateStatus",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "268064534198376679.1.111",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "phase": "cdp-cycle-1",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "timestamp": 1794660977552.62,
+      "exceptionDetails": {
+        "exceptionId": 4,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "e.updateStatus",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "268064534198376679.1.148",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "phase": "cdp-cycle-1",
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "timestamp": 1794660979023.098,
+      "exceptionDetails": {
+        "exceptionId": 5,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1516929,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "e.updateStatus",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1516929
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+          "objectId": "268064534198376679.1.185",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: t.webContents.getZoomFactor is not a function\n    at e.updateStatus (app://obsidian.md/app.js:1:1516930)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: t.webContents.getZoomFactor is not a fu…776)\n    at u (app://obsidian.md/app.js:1:545888)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "t.webContents.getZoomFactor is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    }
+  ],
+  "callErrors": [],
+  "eventLogs": [
+    {
+      "sessionId": "F96B16925A41329CC418EE20920E6C06",
+      "events": [
+        {
+          "type": "focus",
+          "at": 1794660971544,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660971544,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660971712,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660972263,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660972292,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660972694,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660972694,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660972717,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660972717,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660972800,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660972806,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660972806,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660973140,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660973140,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660973197,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660973204,
+          "width": 434,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660973204,
+          "width": 434,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660973466,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660973466,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660973531,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660973542,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660973542,
+          "width": 1400,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660973806,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660973806,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660973901,
+          "width": 390,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660973901,
+          "width": 390,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660973902,
+          "width": 390,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660974180,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660974180,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660974293,
+          "width": 1280,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660974293,
+          "width": 1280,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660974298,
+          "width": 1280,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660974575,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660974575,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660974650,
+          "width": 320,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660974659,
+          "width": 320,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660974659,
+          "width": 320,
+          "height": 950,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660974795,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660975070,
+          "width": 868,
+          "height": 658,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660975424,
+          "width": 468,
+          "height": 658,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660975774,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660975983,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660975983,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660976084,
+          "width": 1066,
+          "height": 738,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660976245,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660976786,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660977169,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660977512,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660977892,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660978268,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660978983,
+          "width": 320,
+          "height": 950,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660979123,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660979362,
+          "width": 868,
+          "height": 658,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660979745,
+          "width": 468,
+          "height": 658,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660980094,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660980404,
+          "width": 1066,
+          "height": 738,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "resize",
+          "at": 1794660980562,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660980931,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660980932,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660980991,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660980998,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660981209,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660981209,
+          "width": 1168,
+          "height": 808,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660981823,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660981823,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660982151,
+          "width": 1168,
+          "height": 808,
+          "focused": true,
+          "closed": false
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3"
+  },
+  "screenshots": [
+    "actual-frame-setting.png",
+    "popout.png",
+    "final.png"
+  ],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugins": [
+      "ai-knowledge-hub"
+    ]
+  },
+  "frameControl": "custom",
+  "popout": {
+    "at": 1794660981726,
+    "frame": "custom",
+    "frameDom": true,
+    "windowType": "object",
+    "windowClass": "BrowserWindow",
+    "contentsType": "object",
+    "contentsClass": "WebContents",
+    "getZoomType": "function",
+    "zoom": 1,
+    "windowId": 15,
+    "contentsId": 15,
+    "windowDestroyed": false,
+    "contentsDestroyed": false,
+    "bounds": {
+      "x": 448,
+      "y": 156,
+      "width": 1024,
+      "height": 800
+    },
+    "contentBounds": {
+      "x": 448,
+      "y": 156,
+      "width": 1024,
+      "height": 800
+    },
+    "focused": true,
+    "nativeFocused": true,
+    "inner": [
+      1024,
+      800
+    ],
+    "outer": [
+      1056,
+      842
+    ],
+    "closed": false,
+    "frameSetting": "custom",
+    "view": "markdown",
+    "modals": 0
+  },
+  "completed": true,
+  "childEvents": [
+    {
+      "type": "settings-open",
+      "at": 1794660972549,
+      "id": 2,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660972551,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660972553,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660972554,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660972554,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660972746,
+      "id": 3,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "resize",
+      "at": 1794660972753,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "blur",
+      "at": 1794660972787,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660972792,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660972798,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660972799,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660973166,
+      "id": 4,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "focus",
+      "at": 1794660973176,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "blur",
+      "at": 1794660973179,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660973182,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "resize",
+      "at": 1794660973183,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660973195,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660973195,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660973495,
+      "id": 5,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660973514,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660973518,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660973530,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660973530,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660973833,
+      "id": 6,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660973877,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660973881,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660973891,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660973891,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660974219,
+      "id": 7,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660974270,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660974275,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660974285,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660974285,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660974601,
+      "id": 8,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660974622,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660974626,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660974650,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660974650,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660976732,
+      "id": 9,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "focus",
+      "at": 1794660976743,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "resize",
+      "at": 1794660976745,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "blur",
+      "at": 1794660976764,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660976768,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660976782,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660976782,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660977121,
+      "id": 10,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "resize",
+      "at": 1794660977123,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "focus",
+      "at": 1794660977128,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "blur",
+      "at": 1794660977142,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660977146,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660977159,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660977159,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660977466,
+      "id": 11,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660977493,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660977499,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660977509,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660977509,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660977819,
+      "id": 12,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "blur",
+      "at": 1794660977867,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660977872,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660977884,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660977884,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660978193,
+      "id": 13,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "focus",
+      "at": 1794660978194,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "resize",
+      "at": 1794660978206,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "blur",
+      "at": 1794660978252,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660978256,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660978268,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660978268,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794660978926,
+      "id": 14,
+      "isMain": false,
+      "closed": false,
+      "frame": "custom",
+      "zoomType": "function"
+    },
+    {
+      "type": "focus",
+      "at": 1794660978929,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "blur",
+      "at": 1794660978954,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794660978959,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794660978983,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794660978983,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    }
+  ],
+  "originalMarkdownPreserved": false
+}
