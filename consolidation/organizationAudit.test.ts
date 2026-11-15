@@ -46,7 +46,8 @@ describe("R04 reuses the taxonomy scanner for an advisory organization snapshot"
     expect(f.listeners.size).toBe(0);
   });
   it("D: confirmed rules have priority, rescans do not replace them and dismissed unchanged suggestions stay dismissed", async () => {
-    const f = fixture(), result = await f.scan();
+    const f = fixture(); f.caches.get("Notes/0.md")!.tags!.push(tag("#RareAllowed"));
+    const result = await f.scan(); expect(result.tags).toContainEqual({ tag: "RareAllowed", notes: 1 });
     const profile: TagTaxonomyProfile = { version: 1, categories: [{ id: "mine", name: "My meaning", purpose: "other", multiplicity: "multiple", interpretation: "global", prefixes: ["topic"], tags: ["RareAllowed"] }] };
     const before = structuredClone(profile), suggestions = organizationSuggestions(result, profile, null, []);
     expect(suggestions[0].origin).toBe("rule");

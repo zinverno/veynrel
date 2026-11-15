@@ -108,9 +108,12 @@ async function openAudit() {
   await wait("!!document.querySelector('.ai-taxonomy')"); await main.ev('window.audit=[...plugin.taxonomyModals].at(-1);void 0');
 }
 async function scan(path='') {
-  await fill('[data-org-field=scope]',path); await activate('[data-taxonomy-action=analyze]');
+  await fill('[data-org-field=scope]',path);
+  await main.ev(`io.phase=${JSON.stringify('explicit-audit:') }+${JSON.stringify(path||'whole-vault')};void 0`);
+  const counters=()=>main.ev('({reads:io.reads.length,writes:io.writes.length,creates:io.creates.length,metadata:io.metadata,enumerations:io.enumerations})');
+  const before=await counters(); await activate('[data-taxonomy-action=analyze]');
   await wait("!!audit.session.inventory && audit.session.stage!=='scanning'");
-  const result=await main.ev('audit.session.inventory');report.snapshots??=[];report.snapshots.push(result);return result;
+  const result=await main.ev('audit.session.inventory'),after=await counters();report.auditCounters??=[];report.auditCounters.push({scope:path||'whole-vault',state:result.organization.state,before,after,delta:Object.fromEntries(Object.keys(before).map(key=>[key,after[key]-before[key]])),modelRequests:modelRequests.length});report.snapshots??=[];report.snapshots.push(result);return result;
 }
 async function closeAudit() { await key('Escape','Escape',27); await wait("!document.querySelector('.ai-taxonomy')"); }
 const hashes=()=>Object.fromEntries(Object.keys(originals).map(path=>[path,sha(fs.readFileSync(`${vault}/${path}`))]));
@@ -123,6 +126,7 @@ try {
   await pass('Fresh no-key/no-profile open performs no metadata scan, note read, write or model request', "!plugin.settings.apiKey&&!plugin.settings.tagTaxonomyProfile&&!audit.session.inventory&&io.metadata===0&&io.reads.length===0&&io.writes.length===0&&io.creates.length===0&&io.models===0");
   await main.ev("io.phase='empty-audit';void 0"); const empty=await scan();assert.equal(empty.total,0);assert.equal(empty.organization.state,'complete');
   await pass('A: truly empty vault invents no structure or recommendations', "document.querySelectorAll('[data-org-suggestion]').length===0");await shot('empty-en-dark');await closeAudit();
+  await main.ev("io.phase='fixture-ingest';void 0");
   for(const [path,content] of Object.entries({
     'Knowledge/A.md':'---\ntype: idea\ntags: [topic/native, role/theory]\n---\n# A\n\nA useful local idea. #flashcards/study\n',
     'Knowledge/Sub/B.md':'---\ntype: idea\ntags: [topic/native, role/theory]\n---\n# B\n\nAnother idea.\n',
@@ -177,6 +181,7 @@ try {
   fs.renameSync(`${vault}/Knowledge`,`${vault}/Renamed`);await wait("audit.session.inventory.organization.state==='stale'&&!app.vault.getFolderByPath('Knowledge')");assert.equal((await scan('Knowledge')).organization.state,'failed');await pass('Missing scope is not described as an empty vault',"!document.querySelector('.ai-taxonomy').textContent.includes('This area has no Markdown notes')");await shot('missing-scope');
   fs.renameSync(`${vault}/Renamed`,`${vault}/Knowledge`);await wait("!!app.vault.getFileByPath('Knowledge/A.md')&&!!app.metadataCache.getFileCache(app.vault.getFileByPath('Knowledge/A.md'))");await pause(300);assert.equal((await scan('Knowledge')).organization.state,'complete');report.checks.push('Renamed selected folder becomes stale/failed, never a complete empty result; explicit rescan recovers');
   await closeAudit();
+  await main.ev("io.phase='large-fixture-ingest';void 0");
   for(let i=0;i<1000;i++)seed('Large/n'+String(i).padStart(4,'0')+'.md','---\ntype: note\ntags: [topic/large]\n---\n# Synthetic '+i+'\n');
   await wait("app.vault.getMarkdownFiles().filter(f=>f.path.startsWith('Large/')).length===1000&&!!app.metadataCache.getFileCache(app.vault.getFileByPath('Large/n0999.md'))",main,600);await pause(500);await openAudit();
   await fill('[data-org-field=scope]','Large');await activate('[data-taxonomy-action=analyze]');
