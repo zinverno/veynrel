@@ -396,3 +396,7 @@ This plan is distilled from the owner's product requirements; personal vault con
 - [Dataview JavaScript security boundary](https://github.com/blacksmithgu/obsidian-dataview#javascript-queries-security-note)
 - [OpenRouter credit/rate limits](https://openrouter.ai/docs/api_reference/limits)
 - [GitHub release-asset API](https://docs.github.com/en/rest/releases/assets)
+
+## Deferred owner requirement before public release
+
+[Resume Batch](resume-batch.md) must be considered and implemented before the single public release after R15. R05.2 records this requirement only; it does not implement resumption or authorize another work unit.

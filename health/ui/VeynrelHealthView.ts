@@ -474,6 +474,7 @@ export class VeynrelHealthView extends ItemView {
         select: (id) => this.navigate({ ...route, selectedFindingId: id }, this.scopeAcknowledged),
         back: () => this.navigate({ ...route, selectedFindingId: undefined }, this.scopeAcknowledged),
         openNote: (path) => { void this.openNote(path); }, tools: () => this.navigate({ page: "tools" }),
+        repair: this.tools.openLocalNoteRepair ? path => this.tools.openLocalNoteRepair!(path) : undefined,
         compare: this.workbenchHost ? id => {
           const finding = this.controller.listFindings().find(item => item.id === id);
           if (finding && !this.controller.getState().busy) new FindingPairModal(this.app, finding, this.workbenchHost!.pair).open();
@@ -524,6 +525,7 @@ export class VeynrelHealthView extends ItemView {
     const mutationError = this.findingMutationErrorRoute === this.route;
     const semanticError = this.semanticSetup?.step === "form"
       ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
+    if (["home", "health"].includes(this.route.page) && this.tools.openLocalTag) healthButton(surface.querySelector<HTMLElement>(".veynrel-health-home") ?? surface, t("@localNote.tag"), () => this.tools.openLocalTag!(), "tag-note", state.busy);
     if (["home", "health"].includes(this.route.page)) healthButton(surface.querySelector<HTMLElement>(".veynrel-health-home") ?? surface, t("@workspace.organization-audit"),
       () => this.tools.openTagTaxonomy(structuredClone(scope.selection), this.controller.listFindings()), "organization-audit", state.busy);
     const semanticStatus = discover?.healthStatus ?? discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
