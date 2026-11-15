@@ -1,0 +1,40 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 <checkout>
+
+ ❯ health/services/nextActions.test.ts (6 tests | 1 failed) 82ms
+     × routes an existing semantic pair without rerunning a model or treating a group as a pair 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  health/services/nextActions.test.ts > bounded actionable findings > routes an existing semantic pair without rerunning a model or treating a group as a pair
+AssertionError: expected undefined to deeply equal [ 'a/Same.md', 'b/Same.md' ]
+
+- Expected:
+[
+  "a/Same.md",
+  "b/Same.md",
+]
+
++ Received:
+undefined
+
+ ❯ health/services/nextActions.test.ts:32:28
+     30|   it("routes an existing semantic pair without rerunning a model or tr…
+     31|     const a = { ...pair(), source: "semantic" as const, type: "semanti…
+     32|     expect(findingPair(a)).toEqual(a.notePaths); a.notePaths.push("thi…
+       |                            ^
+     33|   });
+     34|   it.each(["ru", "en"] as const)("presents recorded evidence and a pre…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 199 passed (200)
+      Tests  1 failed | 5225 passed (5226)
+   Start at  11:27:21
+   Duration  104.38s (transform 15.56s, setup 0ms, import 41.17s, tests 120.33s, environment 33ms)
+

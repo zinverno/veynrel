@@ -1,0 +1,143 @@
+{
+  "scenario": "r05-local-link-native-v1",
+  "checks": [
+    "Passive Workspace and Findings navigation does not scan, read Markdown or write",
+    "Home offers at most three actual evidence-backed actions"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=home-findings]",
+      "active": "<button type=\"button\" data-health-action=\"home-findings\">Findings</button>"
+    },
+    {
+      "selector": "[data-health-action=home-check]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan my vault</button>"
+    }
+  ],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "23070fb8225327a76c8345c2978787fb4260f94252de792dc25ad2904983e7d6",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 1.166667,
+    "frames": 8,
+    "seconds": 0.8109269142150879,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "r05-actions-native.mjs": "3cf25ed747835dca8186b322bc12768fa82b7d9d157de5c8a3e41ffc7f6a7350",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "71aa5b85f47cbe1a869d6b86930523dbaa00479f3e600587b7bcac7919ddd126"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "passive": {
+    "before": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive-navigation"
+    },
+    "after": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive-navigation"
+    }
+  },
+  "scan": {
+    "scan": {
+      "id": "local-9f045659-09de-412d-aec6-3fb44b09d820",
+      "type": "local",
+      "startedAt": 1794730990852,
+      "notesSeen": 5,
+      "findingsCreated": 9,
+      "findingsUpdated": 0,
+      "findingsResolved": 0,
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "reconciliationReceipts": {
+        "local:broken-links": 1794730990942,
+        "local:duplicate-titles": 1794730990942,
+        "local:exact-duplicates": 1794730990942,
+        "local:graph-components": 1794730990942,
+        "local:no-incoming-links": 1794730990942,
+        "local:no-outgoing-links": 1794730990942,
+        "local:note-shape": 1794730990942,
+        "local:orphans": 1794730990942
+      },
+      "status": "completed",
+      "completedAt": 1794730990942
+    },
+    "freshness": "verified",
+    "findingsCommitted": true,
+    "historyRecorded": true,
+    "diagnostics": []
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":99,\"scriptId\":\"203\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"203\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":105},{\"functionName\":\"\",\"scriptId\":\"203\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":339}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"Error\",\"description\":\"Error: Missing control\\n    at <anonymous>:1:106\\n    at <anonymous>:1:340\",\"objectId\":\"-6055096548951680588.1.2\"}}\n    at Object.ev (file://<checkout>/scripts/r05-actions-native.mjs:56:5)\n    at async reveal (file://<checkout>/scripts/r05-actions-native.mjs:99:18)\n    at async activate (file://<checkout>/scripts/r05-actions-native.mjs:105:3)\n    at async file://<checkout>/scripts/r05-actions-native.mjs:145:35",
+  "diagnostic": {
+    "io": {
+      "reads": [
+        {
+          "path": "Broken.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Other.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-local-scan"
+        }
+      ],
+      "writes": [],
+      "creates": [],
+      "metadata": 5,
+      "enumerations": 3,
+      "models": 0,
+      "phase": "finding-and-pair"
+    },
+    "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>",
+    "modals": []
+  }
+}

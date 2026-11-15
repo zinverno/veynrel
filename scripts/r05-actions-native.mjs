@@ -85,10 +85,10 @@ async function attach() {
   await wait("!!app.plugins.plugins['ai-knowledge-hub'] || !!document.querySelector('.mod-trust-folder')");
   if(await main.ev("!!document.querySelector('.mod-trust-folder')")) await main.ev("[...document.querySelectorAll('.mod-trust-folder button')].find(e=>/Trust author/.test(e.textContent)).click();void 0");
   await wait("!!app.commands.commands['ai-knowledge-hub:veynrel-open-health']");
-  await main.ev(`window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.io={reads:[],writes:[],creates:[],metadata:0,enumerations:0,models:0,journalWrites:[],phase:'startup'};
+  await main.ev(`window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.io={reads:[],writes:[],creates:[],metadata:0,enumerations:0,models:0,adapterWrites:[],phase:'startup'};
     for(const name of ['read','cachedRead','modify','process','create']) {const original=app.vault[name].bind(app.vault);app.vault[name]=(...args)=>{const path=typeof args[0]==='string'?args[0]:args[0]?.path;
       io[name==='read'||name==='cachedRead'?'reads':name==='create'?'creates':'writes'].push({path,phase:io.phase});return original(...args);};}
-    for(const name of ['write','copy','mkdir']){const original=app.vault.adapter[name].bind(app.vault.adapter);app.vault.adapter[name]=(...args)=>{io.journalWrites.push({method:name,path:args[0],phase:io.phase});return original(...args);};}
+    for(const name of ['write','copy','mkdir']){const original=app.vault.adapter[name].bind(app.vault.adapter);app.vault.adapter[name]=(...args)=>{io.adapterWrites.push({method:name,path:args[0],phase:io.phase});return original(...args);};}
     const enumerate=app.vault.getMarkdownFiles.bind(app.vault);app.vault.getMarkdownFiles=(...args)=>{io.enumerations++;return enumerate(...args);};
     const cache=app.metadataCache.getFileCache.bind(app.metadataCache);app.metadataCache.getFileCache=file=>{io.metadata++;return cache(file);};
     void 0`);
@@ -126,9 +126,10 @@ async function prepare(side='0') {
   await activate('[data-local-link=review]');await wait("!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')||!!document.querySelector('.ai-safe-apply [role=alert]')");
 }
 async function closeTop(selector) {await focus();await key('Escape','Escape',27);await wait(`!document.querySelector(${JSON.stringify(selector)})`);}
+async function acknowledgeScope() { if(await main.ev("!!document.querySelector('[data-health-action=scope-continue]')"))await activate('[data-health-action=scope-continue]'); }
 async function toFinding() {
   await main.ev("window.hv=app.workspace.getLeavesOfType('veynrel-health').find(l=>l.view.containerEl.ownerDocument===document).view;window.pairFinding=hv.controller.listFindings().find(f=>f.type==='duplicate-title-group'&&f.notePaths.includes('one/Same.md'));hv.navigate({page:'findings',state:'open',dimension:'all',selectedFindingId:pairFinding.id});void 0");
-  await wait("!!document.querySelector('[data-health-action=finding-compare]')");
+  await acknowledgeScope();await wait("!!document.querySelector('[data-health-action=finding-compare]')");
 }
 try {
   await attach();await main.ev("(async()=>{await app.commands.commands['ai-knowledge-hub:veynrel-open-health'].callback();window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0})()");
@@ -143,9 +144,9 @@ try {
   report.scan=await main.ev('hv.controller.getState().outcome');assert.equal(report.scan.scan.status,'completed');assert.equal(report.scan.freshness,'verified');
   await main.ev("hv.navigate({page:'home'});void 0");await pass('Home offers at most three actual evidence-backed actions',"document.querySelectorAll('[data-next-actions] button').length>0&&document.querySelectorAll('[data-next-actions] button').length<=3");
   await main.ev("window.pairFinding=hv.controller.listFindings().find(f=>f.type==='duplicate-title-group'&&f.notePaths.includes('one/Same.md'));void 0");
-  const id=await main.ev('pairFinding.id');await activate('[title=one]');await pass('Selected Workspace folder is one; the explicitly shown pair may include an external target',"document.querySelector('[title=one]').getAttribute('aria-pressed')==='true'");report.activeScope={workspaceFolder:'one',source:'one/Same.md',target:'two/Same.md',writes:['one/Same.md']};
+  const id=await main.ev('pairFinding.id');await activate('[title=one]');await pass('Selected Workspace folder is one; the explicitly shown pair may include an external target',"document.querySelector('[title=one]').getAttribute('aria-pressed')==='true'");report.activeScope={workspace:await main.ev('hv.areaIndex.selection'),source:'one/Same.md',target:'two/Same.md',writes:['one/Same.md']};
   await main.send('Page.startScreencast',{format:'jpeg',quality:85,everyNthFrame:1});recording=true;
-  await phase('finding-and-pair');await activate(`[data-health-action="next-${id}"]`);await shot('finding-evidence-en-dark');
+  await phase('finding-and-pair');await activate(`[data-health-action="next-${id}"]`);await acknowledgeScope();await shot('finding-evidence-en-dark');
   await openPair();await pass('Real pair retains exact homonym paths and saved source context',"document.querySelector('.ai-pair-inspector').textContent.includes('one/Same.md')&&document.querySelector('.ai-pair-inspector').textContent.includes('two/Same.md')");await shot('pair-evidence');
   await openLocal();await shot('local-plan');await phase('prepare-and-review');await prepare();
   assert(await main.ev("!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')"),'Review is executable');await shot('review-diff');
@@ -159,10 +160,10 @@ try {
   await activate('.ai-safe-apply [data-safe-action=done]');await closeTop('.ai-pair-inspector');
   await pass('Returning retains originating finding and route',`hv.route.page==='findings'&&hv.route.selectedFindingId===${JSON.stringify(id)}&&!!document.querySelector('[data-health-action=finding-compare]')`);
   report.history=await main.ev('plugin.safeApply.history()');assert.equal(report.history.length,1);assert.equal(report.history[0].state,'undone');assert.equal(report.history[0].record.version,1);
-  await phase('refusal-unsaved-editor');await main.ev("(async()=>{window.editorLeaf=app.workspace.getLeaf('split');await editorLeaf.openFile(app.vault.getFileByPath('two/Same.md'));editorLeaf.view.editor.setValue(editorLeaf.view.editor.getValue());void 0})()");
-  await toFinding();await openPair();await openLocal();await prepare('1');
+  await phase('refusal-unsaved-editor');await main.ev("(async()=>{window.editorLeaf=app.workspace.getLeaf('split');await editorLeaf.openFile(app.vault.getFileByPath('two/Same.md'));editorLeaf.view.editor.setValue(editorLeaf.view.editor.getValue()+'\\nExplicit unsaved test edit');void 0})()");
+  await pass('Native split buffer contains an unsaved test edit',"(async()=>editorLeaf.view.getViewData()!==await app.vault.read(editorLeaf.view.file))()");await toFinding();await openPair();await openLocal();await prepare('1');
   await pass('Affected open split editor refuses write consent',"!!document.querySelector('.ai-safe-apply [role=alert]')&&!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')");await shot('open-editor-refusal');
-  await closeTop('.ai-safe-apply');await closeTop('.ai-pair-inspector');await main.ev('editorLeaf.detach();void 0');
+  await closeTop('.ai-safe-apply');await closeTop('.ai-pair-inspector');await phase('restore-explicit-editor-test');await main.ev(`(async()=>{editorLeaf.view.editor.setValue(${JSON.stringify(originals['two/Same.md'])});await editorLeaf.view.save();editorLeaf.detach();})()`);
   await phase('localization-and-layout');
   for(const language of ['en','ru']) {
     await main.ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
@@ -181,13 +182,13 @@ try {
   await pass('Real popout owns local-plan document and focus',"!!document.querySelector('.ai-local-link')&&document.hasFocus()&&window.electronWindow.isFocused()");await shot('popout-plan');await closeTop('.ai-local-link');await closeTop('.ai-pair-inspector');
   main=home;await main.ev('pop.detach();void 0');await focus();await pass('Focus returns to main after popout close',"document.hasFocus()&&matchMedia('(prefers-reduced-motion: reduce)').matches");
   await phase('bom-refusal');await main.ev("{const f=hv.controller.listFindings().find(f=>f.type==='duplicate-title-group'&&f.notePaths.includes('Encoding.md'));hv.navigate({page:'findings',state:'open',dimension:'all',selectedFindingId:f.id});}void 0");
-  await openPair();await activate('[data-local-link=open]');await wait("!!document.querySelector('.ai-local-link [role=alert]')");
+  await acknowledgeScope();await openPair();await activate('[data-local-link=open]');await wait("!!document.querySelector('.ai-local-link [role=alert]')");
   await pass('BOM stripped by native Vault.read refuses preparation before a new journal or Markdown write',"!document.querySelector('[data-local-link=direction]')&&document.querySelector('.ai-local-link').textContent.includes('BOM')");
   assert.equal((await main.ev('plugin.safeApply.history()')).length,1);assert.deepEqual(hashes(),initialHashes);await shot('bom-refusal');await closeTop('.ai-local-link');await closeTop('.ai-pair-inspector');
   await phase('dismiss-and-rescan');await toFinding();await activate('[data-health-action=finding-dismiss]');await wait('!hv.controller.getState().busy');
-  await main.ev("hv.navigate({page:'health'});void 0");await activate('[data-health-action=scan]');await wait('!hv.controller.getState().busy');
+  await main.ev("hv.navigate({page:'health'});void 0");await acknowledgeScope();await activate('[data-health-action=scan]');await wait('!hv.controller.getState().busy');
   await pass('Finding dismissal survives a repeated local scan without Markdown changes',`hv.controller.listFindings().find(f=>f.id===${JSON.stringify(id)}).state==='dismissed'`);
-  assert.equal(await main.ev('JSON.stringify({...plugin.settings,language:null})'),report.settingsBefore);delete report.settingsBefore;report.settingsPreserved='All plugin settings unchanged except the explicitly tested language selector';assert.deepEqual(hashes(),initialHashes);report.finalHashes=hashes();report.io=await main.ev('structuredClone(io)');report.modelRequests=modelRequests;assert.equal(modelRequests.length,0);assert.equal(report.exceptions.length,0);
+  assert.equal(await main.ev('JSON.stringify({...plugin.settings,language:null})'),report.settingsBefore);delete report.settingsBefore;report.settingsPreserved='All plugin settings unchanged except the explicitly tested language selector';assert.deepEqual(hashes(),initialHashes);report.finalHashes=hashes();report.io=await main.ev('structuredClone(io)');report.operationJournalWrites=report.io.adapterWrites.filter(e=>e.path.includes('/consolidation-operations'));report.modelRequests=modelRequests;assert.equal(modelRequests.length,0);assert.equal(report.exceptions.length,0);
   assert.equal(report.io.writes.filter(e=>e.phase==='explicit-apply'&&e.path==='one/Same.md').length,1);assert.equal(report.io.writes.filter(e=>e.phase==='explicit-undo'&&e.path==='one/Same.md').length,1);
   report.checks.push('Zero model requests and unhandled exceptions; all original files byte-identical at finish');report.status='PASS';
 } catch(error) {

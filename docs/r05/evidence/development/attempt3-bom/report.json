@@ -1,0 +1,217 @@
+{
+  "scenario": "r05-local-link-native-v1",
+  "checks": [
+    "Passive Workspace and Findings navigation does not scan, read Markdown or write",
+    "Home offers at most three actual evidence-backed actions",
+    "Real pair retains exact homonym paths and saved source context",
+    "No note writes before separate Apply confirmation"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=home-findings]",
+      "active": "<button type=\"button\" data-health-action=\"home-findings\">Findings</button>"
+    },
+    {
+      "selector": "[data-health-action=home-check]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan my vault</button>"
+    },
+    {
+      "selector": "[data-health-action=\"next-finding-f028619b29aa7a30\"]",
+      "active": "<button type=\"button\" data-health-action=\"next-finding-f028619b29aa7a30\">Review the evidence</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+    },
+    {
+      "selector": "[data-local-link=review]",
+      "active": "<button class=\"mod-cta\" type=\"button\" data-local-link=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-safe-apply [data-safe-action=confirm]",
+      "active": "<button type=\"button\" data-safe-action=\"confirm\" class=\"mod-cta\">Apply this change</button>"
+    }
+  ],
+  "screenshots": [
+    "finding-evidence-en-dark.png",
+    "pair-evidence.png",
+    "local-plan.png",
+    "review-diff.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "dcb597c4b90fb14dc8f820c04f6a253ad309c7867789ba383a0c05a112deb1fc",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 18.433333,
+    "frames": 43,
+    "seconds": 18.048516035079956,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "r05-actions-native.mjs": "3cf25ed747835dca8186b322bc12768fa82b7d9d157de5c8a3e41ffc7f6a7350",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "71aa5b85f47cbe1a869d6b86930523dbaa00479f3e600587b7bcac7919ddd126"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "passive": {
+    "before": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive-navigation"
+    },
+    "after": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive-navigation"
+    }
+  },
+  "scan": {
+    "scan": {
+      "id": "local-c404e8a8-b036-4352-9f65-8e0fbadb9b1d",
+      "type": "local",
+      "startedAt": 1794731071069,
+      "notesSeen": 5,
+      "findingsCreated": 9,
+      "findingsUpdated": 0,
+      "findingsResolved": 0,
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "reconciliationReceipts": {
+        "local:broken-links": 1794731071155,
+        "local:duplicate-titles": 1794731071155,
+        "local:exact-duplicates": 1794731071155,
+        "local:graph-components": 1794731071155,
+        "local:no-incoming-links": 1794731071155,
+        "local:no-outgoing-links": 1794731071155,
+        "local:note-shape": 1794731071155,
+        "local:orphans": 1794731071155
+      },
+      "status": "completed",
+      "completedAt": 1794731071155
+    },
+    "freshness": "verified",
+    "findingsCommitted": true,
+    "historyRecorded": true,
+    "diagnostics": []
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.ai-safe-apply [data-safe-action=undo]')\n    at wait (file://<checkout>/scripts/r05-actions-native.mjs:61:159)\n    at async file://<checkout>/scripts/r05-actions-native.mjs:150:93",
+  "diagnostic": {
+    "io": {
+      "reads": [
+        {
+          "path": "Broken.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Other.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "prepare-and-review"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "prepare-and-review"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-apply"
+        }
+      ],
+      "writes": [
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        }
+      ],
+      "creates": [],
+      "metadata": 31,
+      "enumerations": 3,
+      "models": 0,
+      "phase": "explicit-apply"
+    },
+    "active": "<p role=\"alert\" tabindex=\"-1\">Write not confirmed. There will be no automatic retry. Check history: the original and expected result are retained; an uncertain outcome requires reconciliation.</p>",
+    "modals": [
+      "<div class=\"modal ai-pair-inspector-modal\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\">Compare this pair</div></div><div class=\"modal-content\"><details open=\"\"><summary>Notes with the same title</summary><p>2 notes share the same filename without its extension.</p><p>Name: Same</p><p>Only this pair is reviewed. Compare their context or leave them as they are. Matching titles, text or high similarity do not establish the same purpose. A local link requires your choice; no merge is performed.</p></details><div class=\"ai-pair-inspector\"><h2 tabindex=\"-1\" data-pair-heading=\"true\">Compare notes</h2><div class=\"ai-review-pair\"><div class=\"ai-review-note\" title=\"one/Same.md\"><span class=\"ai-review-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-file-text\"><path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"></path><path d=\"M14 2v5a1 1 0 0 0 1 1h5\"></path><path d=\"M10 9H8\"></path><path d=\"M16 13H8\"></path><path d=\"M16 17H8\"></path></svg></span><span><strong>A · Same</strong><small>one</small></span></div><div class=\"ai-review-note\" title=\"two/Same.md\"><span class=\"ai-review-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-file-text\"><path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"></path><path d=\"M14 2v5a1 1 0 0 0 1 1h5\"></path><path d=\"M10 9H8\"></path><path d=\"M16 13H8\"></path><path d=\"M16 17H8\"></path></svg></span><span><strong>B · Same</strong><small>two</small></span></div></div><p class=\"ai-pair-intro\">Analysis of this pair is separate and requires consent to send data.</p><div class=\"ai-consolidation-actions ai-pair-actions\"><button type=\"button\">Refresh view</button><button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button><button type=\"button\" data-safe-action=\"history\">Consolidation history</button><button type=\"button\" data-review-keep=\"\">Leave as is</button><button type=\"button\" data-planner-action=\"back-result\" hidden=\"\">Back to analysis result</button><button type=\"button\" data-relationship-action=\"analyze\">Analyze pair</button></div><div class=\"ai-review-caption\" role=\"status\" aria-live=\"polite\" tabindex=\"-1\" data-review-decision-status=\"\"></div><div class=\"ai-relationship\"></div><div class=\"ai-change-planner\" hidden=\"\"></div><div class=\"ai-pair-status\" role=\"status\" aria-live=\"polite\" data-state=\"ready\">Snapshot collected. Availability is shown for each note below.</div><div class=\"ai-pair-notes\" aria-busy=\"false\"><div class=\"ai-semantic-result-card ai-pair-note\"><h3>A: Same</h3><div class=\"ai-semantic-result-path\">one/Same.md</div><button type=\"button\" aria-label=\"Open note one/Same.md\">Open source note</button><details><summary>Source Markdown</summary><p>File size: ≈ 122 bytes; source Markdown length: 111 UTF-16 units. Embedded content is excluded.</p><pre class=\"ai-pair-source\" tabindex=\"0\" aria-label=\"Source Markdown\">---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n</pre></details><details><summary>Structure from the Obsidian cache</summary><p>Modified: 11/15/2026, 11:24:27 AM</p><p>Metadata may lag behind the text. Freshness and completeness are unverified. Incoming references are links and embeds known to the cache, not a complete list. Zero entries do not prove absence.</p><details><summary>Frontmatter tags (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Inline tags (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Outgoing links (excluding embeds) (1)</summary><ul><li>[Elsewhere](../Other.md#Heading)</li></ul></details><details><summary>Frontmatter references (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Embeds (references only) (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Headings (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Block IDs (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Frontmatter property names (1)</summary><ul><li>title</li></ul></details><details><summary>Sections and line numbers (3)</summary><ul><li>yaml: 1–3</li><li>paragraph: 5–5</li><li>paragraph: 7–7</li></ul></details><details><summary>Known incoming links and embeds (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details></details></div><div class=\"ai-semantic-result-card ai-pair-note\"><h3>B: Same</h3><div class=\"ai-semantic-result-path\">two/Same.md</div><button type=\"button\" aria-label=\"Open note two/Same.md\">Open source note</button><details><summary>Source Markdown</summary><p>File size: ≈ 50 bytes; source Markdown length: 50 UTF-16 units. Embedded content is excluded.</p><pre class=\"ai-pair-source\" tabindex=\"0\" aria-label=\"Source Markdown\"># Same\n\nA practical note for a different purpose.\n</pre></details><details><summary>Structure from the Obsidian cache</summary><p>Modified: 11/15/2026, 11:24:27 AM</p><p>Metadata may lag behind the text. Freshness and completeness are unverified. Incoming references are links and embeds known to the cache, not a complete list. Zero entries do not prove absence.</p><details><summary>Frontmatter tags (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Inline tags (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Outgoing links (excluding embeds) (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Frontmatter references (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Embeds (references only) (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Headings (1)</summary><ul><li># Same</li></ul></details><details><summary>Block IDs (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Frontmatter property names (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details><details><summary>Sections and line numbers (2)</summary><ul><li>heading: 1–1</li><li>paragraph: 3–3</li></ul></details><details><summary>Known incoming links and embeds (0)</summary><p>No entries for this field in the cache.</p><ul></ul></details></details></div></div><details class=\"ai-consolidation-diagnostics\"><summary>Sources and inspection limits</summary><p>Semantic similarity does not confirm information duplication. Viewing never changes notes; model analysis requires separate confirmation.</p><p>Reads the current saved files; the semantic index may be older. Source Markdown includes ![[…]] embed references, but excludes the contents of embedded notes or files. Embeds, HTML and remote images are not rendered.</p></details></div></div></div>",
+      "<div class=\"modal ai-pair-inspector-modal\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\">Check and apply</div></div><div class=\"modal-content ai-change-planner ai-safe-apply\"><p role=\"alert\" tabindex=\"-1\">Write not confirmed. There will be no automatic retry. Check history: the original and expected result are retained; an uncertain outcome requires reconciliation.</p><button type=\"button\" data-safe-action=\"history\">Consolidation history</button></div></div>"
+    ]
+  }
+}
