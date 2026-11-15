@@ -1,0 +1,20 @@
+{"root": "/tmp/veynrel-infra-test-fdb3f88ffc5a", "command": ["/usr/bin/python", "-c", "import subprocess,sys; subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(60)\"]);sys.exit(7)"], "timeoutSeconds": 15, "startedAt": 1794704719.9531546, "exitCode": 7, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 0.586}
+.  File "<string>", line 1
+    import sys;sys.path.insert(0,sys.argv[1]);from run import run;raise SystemExit(run([sys.executable,"-c","import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/"ready").touch();time.sleep(60)",sys.argv[2]],sys.argv[2],30))
+                                                                                                                                                                                        ^^^^^
+SyntaxError: invalid syntax. Is this intended to be part of the string?
+F{"root": "/tmp/veynrel-infra-test-92947304cb7a", "command": ["/usr/bin/python", "-c", "import time;time.sleep(60)"], "timeoutSeconds": 3, "startedAt": 1794704720.6444662, "exitCode": 124, "failure": "TIMEOUT", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.026}
+.
+======================================================================
+FAIL: test_sigterm_cleans_process_group (__main__.RunnerTests.test_sigterm_cleans_process_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/native/test_runner.py", line 49, in test_sigterm_cleans_process_group
+    self.assertIsNone(proc.poll()); time.sleep(.05)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+AssertionError: 1 is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.720s
+
+FAILED (failures=1)

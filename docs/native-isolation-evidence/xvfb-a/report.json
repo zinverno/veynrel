@@ -1,0 +1,175 @@
+{
+  "scenario": "isolated-native-smoke-v1",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "en/dark: Studio has actual translated controls",
+    "en/light: Studio has actual translated controls",
+    "ru/dark: Studio has actual translated controls",
+    "ru/light: Studio has actual translated controls",
+    "Keyboard text reaches the real focused input",
+    "Keyboard clears the query without editing Markdown",
+    "Tab follows actual Studio controls",
+    "Enter opens and Escape closes the actual modal",
+    "Native content resize 500",
+    "Native content resize 1100",
+    "window:zoom-in",
+    "window:zoom-out",
+    "window:reset-zoom",
+    "Real split stays in the main document",
+    "Popout has a real native window and focus",
+    "Main loses focus to the popout",
+    "Focus returns to the real main window",
+    "All source Markdown byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [
+    {
+      "label": "health-en-dark",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "studio-en-dark",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "health-en-light",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "studio-en-light",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "health-ru-dark",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    },
+    {
+      "label": "studio-ru-dark",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    },
+    {
+      "label": "health-ru-light",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    },
+    {
+      "label": "studio-ru-light",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    }
+  ],
+  "screenshots": [
+    "health-en-dark.png",
+    "studio-en-dark.png",
+    "health-en-light.png",
+    "studio-en-light.png",
+    "health-ru-dark.png",
+    "studio-ru-dark.png",
+    "health-ru-light.png",
+    "studio-ru-light.png",
+    "resize-500.png",
+    "resize-1100.png",
+    "split.png",
+    "popout.png",
+    "final.png"
+  ],
+  "assets": {
+    "main.js": "62c87dd88a66e613d46c96736c1bc6c2ddfd674b3df4404309cbf52033e83da9",
+    "styles.css": "b12c11d1996525a0c99a804dcd80085fa138d75fe7e229caaef16ebc83e17267",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 171,
+    "seconds": 4.906666994094849,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "smoke.mjs": "96876b1eab6c0665299e47ff9b402a303cb2c8a7418ce663808542232481fcdd",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "185a56284295b6fced930cd84f4bd00e5a6e3a99bdb7ed43254da19c5abd2b0b"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "resizeEvents": [
+    {
+      "at": 1794704321921,
+      "width": 1100,
+      "height": 800
+    },
+    {
+      "at": 1794704325368,
+      "width": 500,
+      "height": 800
+    },
+    {
+      "at": 1794704325464,
+      "width": 1100,
+      "height": 800
+    },
+    {
+      "at": 1794704325601,
+      "width": 1004,
+      "height": 730
+    },
+    {
+      "at": 1794704325692,
+      "width": 1100,
+      "height": 800
+    }
+  ],
+  "markdown": {
+    "Source.md": {
+      "before": "9a6dadef563d31742accb46cc756cbec9e3465ff1b7f9a94629c8e57869f191a",
+      "after": "9a6dadef563d31742accb46cc756cbec9e3465ff1b7f9a94629c8e57869f191a"
+    },
+    "Other.md": {
+      "before": "7b0bbc3e25e0dbe3bbfa15698bdd92bccfcd79a1d9511d02e10d4c4939ac98c3",
+      "after": "7b0bbc3e25e0dbe3bbfa15698bdd92bccfcd79a1d9511d02e10d4c4939ac98c3"
+    }
+  },
+  "status": "PASS"
+}

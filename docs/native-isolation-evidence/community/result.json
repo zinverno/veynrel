@@ -1,0 +1,21 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/studio-community-native.mjs",
+    "/tmp/veynrel-community-native-infra-final",
+    "/tmp/veynrel-native-catalog-20261115"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794704606.8154976,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    37525,
+    43283,
+    36525,
+    41885,
+    45433
+  ],
+  "cdpClosed": true,
+  "seconds": 17.312
+}

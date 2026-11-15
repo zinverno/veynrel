@@ -1,0 +1,10 @@
+{
+  "backend": "desktop",
+  "display": ":0",
+  "privateDisplay": false,
+  "waylandDisplayRemoved": true,
+  "privateDbus": "dbus-run-session per harness",
+  "wmPid": null,
+  "gpu": "disabled",
+  "frame": "native"
+}

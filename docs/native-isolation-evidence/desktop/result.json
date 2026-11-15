@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/native/smoke.mjs",
+    "/tmp/veynrel-smoke-native-infra-desktop"
+  ],
+  "timeoutSeconds": 90,
+  "startedAt": 1794704397.2815394,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    35067
+  ],
+  "cdpClosed": true,
+  "seconds": 10.274
+}

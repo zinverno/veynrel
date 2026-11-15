@@ -1,0 +1,175 @@
+{
+  "runtimeSource": "02be9894ccc7dfcc1e3332d7a3f3630d4488b35c",
+  "scenario": "isolated-native-smoke-v1",
+  "runs": [
+    {
+      "name": "prototype-failure",
+      "rawRoot": "/tmp/veynrel-smoke-native-infra-pilot1",
+      "status": "FAIL",
+      "checks": 0,
+      "exceptions": 0,
+      "display": ":2",
+      "seconds": 34.5,
+      "ports": [
+        43847
+      ],
+      "exitCode": 1,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "pilot-pass",
+      "rawRoot": "/tmp/veynrel-smoke-native-infra-pilot2",
+      "status": "PASS",
+      "checks": 19,
+      "exceptions": 0,
+      "display": ":2",
+      "seconds": 9.794,
+      "ports": [
+        39173
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "xvfb-a",
+      "rawRoot": "/tmp/veynrel-smoke-native-infra-xvfb-a",
+      "status": "PASS",
+      "checks": 19,
+      "exceptions": 0,
+      "display": ":2",
+      "seconds": 11.418,
+      "ports": [
+        36589
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "xvfb-b",
+      "rawRoot": "/tmp/veynrel-smoke-native-infra-xvfb-b",
+      "status": "PASS",
+      "checks": 19,
+      "exceptions": 0,
+      "display": ":3",
+      "seconds": 11.524,
+      "ports": [
+        37307
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "desktop",
+      "rawRoot": "/tmp/veynrel-smoke-native-infra-desktop",
+      "status": "PASS",
+      "checks": 19,
+      "exceptions": 0,
+      "display": ":0",
+      "seconds": 10.274,
+      "ports": [
+        35067
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "studio",
+      "rawRoot": "/tmp/veynrel-studio-native-infra-final",
+      "status": "PASS",
+      "checks": 66,
+      "exceptions": 0,
+      "display": ":2",
+      "seconds": 142.636,
+      "ports": [
+        34131,
+        34495,
+        38839,
+        37467
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "recall",
+      "rawRoot": "/tmp/veynrel-recall-native-infra-final",
+      "status": "PASS",
+      "checks": 45,
+      "exceptions": 0,
+      "display": ":3",
+      "seconds": 27.281,
+      "ports": [
+        46385,
+        42669
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    },
+    {
+      "name": "community",
+      "rawRoot": "/tmp/veynrel-community-native-infra-final",
+      "status": "PASS",
+      "checks": 47,
+      "exceptions": 0,
+      "display": ":3",
+      "seconds": 17.312,
+      "ports": [
+        37525,
+        43283,
+        36525,
+        41885,
+        45433
+      ],
+      "exitCode": 0,
+      "groupClean": true,
+      "portsClosed": true
+    }
+  ],
+  "identicalFieldsAgainstDesktop": {
+    "xvfb-a": {
+      "scenario": true,
+      "versions": true,
+      "assets": true,
+      "harnessHashes": true,
+      "checks": true,
+      "actions": true,
+      "markdown": true
+    },
+    "xvfb-b": {
+      "scenario": true,
+      "versions": true,
+      "assets": true,
+      "harnessHashes": true,
+      "checks": true,
+      "actions": true,
+      "markdown": true
+    },
+    "desktop": {
+      "scenario": true,
+      "versions": true,
+      "assets": true,
+      "harnessHashes": true,
+      "checks": true,
+      "actions": true,
+      "markdown": true
+    }
+  },
+  "assertionLinesPreserved": {
+    "scripts/studio-source-preservation-native.mjs": true,
+    "scripts/recall-topics-native.mjs": true,
+    "scripts/studio-community-native.mjs": true
+  },
+  "publicCatalogFixture": "2c9de8caede80fc91b46f49f18548c7f38b24fd4",
+  "limits": [
+    "No pixel equality claim: rasterization differs despite equal measured geometry.",
+    "No GPU/compositor/physical-input equivalence claim.",
+    "Only the eight listed Obsidian runs are new native evidence.",
+    "Optional stable upgrade and Excalidraw coexistence branches not run."
+  ]
+}

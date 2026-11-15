@@ -1,0 +1,44 @@
+Opening Studio and Community tab is passive
+Explicit online catalog loads eight real entries
+Client search finds Russian tags
+Category filter selects two work recipes
+Verified card shows full prompt, constraints, examples, source and SHA-256
+Install is local user recipe, no notes/model/writes
+Installed recipe and origin survive a real process restart
+Same version is Installed; repeat install does not add duplicates
+Prepared exact request awaits explicit consent
+Installed Community recipe runs via existing Runner and immutable Review
+Numeric update and locally modified status are visible
+Update compares instruction, constraints, format and operations
+Untrusted instruction remains literal with no element execution
+Explicit update keeps modified local copy and installs exact new version
+Offline restart uses verified stale cache
+Previously downloaded recipe opens offline
+Delisting does not delete installed recipes
+theme-dark is the actual native theme
+en/theme-dark/1200: native Community has no horizontal overflow
+en/theme-dark/1200: full Community card stays within panel
+theme-dark is the actual native theme
+en/theme-dark/390: native Community has no horizontal overflow
+en/theme-dark/390: full Community card stays within panel
+theme-light is the actual native theme
+en/theme-light/1200: native Community has no horizontal overflow
+en/theme-light/1200: full Community card stays within panel
+theme-light is the actual native theme
+en/theme-light/390: native Community has no horizontal overflow
+en/theme-light/390: full Community card stays within panel
+theme-dark is the actual native theme
+ru/theme-dark/1200: native Community has no horizontal overflow
+ru/theme-dark/1200: full Community card stays within panel
+theme-dark is the actual native theme
+ru/theme-dark/390: native Community has no horizontal overflow
+ru/theme-dark/390: full Community card stays within panel
+theme-light is the actual native theme
+ru/theme-light/1200: native Community has no horizontal overflow
+ru/theme-light/1200: full Community card stays within panel
+theme-light is the actual native theme
+ru/theme-light/390: native Community has no horizontal overflow
+ru/theme-light/390: full Community card stays within panel
+Publication form starts with empty author-created examples
+Corrupt cache is discarded; installed local recipes survive
+Damaged origin storage blocks new installs without losing local Registry

@@ -41,15 +41,19 @@ Normal tests use local fixtures/mocks, without real provider credentials or live
 
 ## Native testing in a disposable vault
 
-Build first. Use a new `/tmp/veynrel-…-native-…` directory accepted by the harness; never point it at a personal vault. Existing harnesses create a fresh vault/profile, copy only runtime assets and synthetic fixtures, then launch native Obsidian. They require Linux, `/usr/bin/electron43`, `/usr/lib/obsidian/app.asar` and an available X11 display. They do not install into your usual vault.
+Build first, then use the [isolated native runner](docs/native-testing.md). Its default is a private Xvfb + Openbox display; it does not open Obsidian on the working desktop. The runner creates a fresh disposable vault/profile, uses dynamic CDP ports, and cleans up its own processes. Linux, the installed Obsidian/Electron, Xvfb/Openbox, Python, xauth, xprop, D-Bus and ffmpeg are required. It does not install into your usual vault.
 
 ```sh
-node scripts/studio-source-preservation-native.mjs /tmp/veynrel-studio-native-my-check
-VEYNREL_NATIVE_EXCALIDRAW=/path/to/excalidraw-2.29.0-assets node scripts/studio-source-preservation-native.mjs /tmp/veynrel-studio-native-with-excalidraw
-COMMUNITY_PUBLIC=0 node scripts/studio-community-native.mjs /tmp/veynrel-community-native-my-check /path/to/local-catalog-fixture
+python scripts/native/run.py smoke
+python scripts/native/run.py studio
+python scripts/native/run.py recall
+VEYNREL_NATIVE_EXCALIDRAW=/path/to/excalidraw-2.29.0-assets python scripts/native/run.py studio
+python scripts/native/run.py community /path/to/local-catalog-fixture
 ```
 
-The optional Excalidraw assets directory tests coexistence after R02 removal, not diagram generation. It must contain that version's `main.js`, `manifest.json`, `styles.css`; only the disposable vault receives a copy. The Community fixture is the separate catalog checkout used by its harness. Read each harness before running it; occupied ports and display focus can affect results. Model routes are synthetic loopback; catalog HTTP is separately controlled. Keep raw evidence outside Git and record the exact bundle hashes. A controlled response proves workflow behavior, not model usefulness. Do not run live/paid evaluation tools as ordinary tests.
+The optional Excalidraw assets directory tests coexistence after R02 removal, not diagram generation. It must contain that version's `main.js`, `manifest.json`, `styles.css`; only the disposable vault receives a copy. The Community fixture is the separate catalog checkout used by its harness; the default runner disables its public-network branch. Read each harness before running it. Keep raw evidence outside Git and record exact bundle hashes. A controlled response proves workflow behavior, not model usefulness. Do not run live/paid evaluation tools as ordinary tests. Historical and attach-only harnesses are inventoried but are not automatically enrolled in this runner.
+
+`--desktop` is an explicit visible comparison, not the default. Schedule it with the desktop owner. Xvfb does not verify GPU/driver behavior, the user's compositor, physical shortcuts/IME, keychain/portals or other platform-specific gates; retain the [real-desktop checklist](docs/native-testing.md#required-final-checks-on-the-real-desktop).
 
 ## Safety and UI expectations
 
