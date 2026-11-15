@@ -110,4 +110,3 @@ export class LocalNoteModal extends Modal {
   }
   onClose(): void { this.active = false; this.abort.abort(); this.contentEl.empty(); }
 }
-

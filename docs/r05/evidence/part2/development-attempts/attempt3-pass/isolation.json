@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/r05-2-local-notes-native.mjs",
+    "/tmp/veynrel-local-notes-native-ad8456e00ccc"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794741883.0285106,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    37439,
+    44143
+  ],
+  "cdpClosed": true,
+  "seconds": 31.285
+}

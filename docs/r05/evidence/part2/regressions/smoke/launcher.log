@@ -1,0 +1,1 @@
+{"root": "/tmp/veynrel-smoke-native-6ceb1a141bd4", "command": ["node", "<checkout>/scripts/native/smoke.mjs", "/tmp/veynrel-smoke-native-6ceb1a141bd4"], "timeoutSeconds": 240, "startedAt": 1794741982.0670526, "exitCode": 0, "processGroupClean": true, "cdpPorts": [39547], "cdpClosed": true, "seconds": 11.787}
