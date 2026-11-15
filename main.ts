@@ -1,3 +1,4 @@
+import { orgText } from "./consolidation/organizationView";
 import { RegistryEditModal } from "./consolidation/registryEditModal";
 import { ObsidianRegistry } from "./consolidation/obsidianRegistry";
 import { LocalNoteModal, LocalNotePicker } from "./consolidation/localNoteModal";
@@ -445,6 +446,9 @@ export default class AIHubPlugin extends Plugin {
   }
 
   private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = []): void {
+    if (this.getOrganizationRegistry().invalidPreferences) {
+      new Notice(orgText("Organization settings are invalid. Open Organization audit for recovery information; no rules were reset.", "Настройки организации повреждены. Откройте аудит организации для сведений о восстановлении; правила не сброшены.")); return;
+    }
     new LocalNotePicker(this.app, path => this.openLocalNoteAction(path, "add_inline_tag", inventory),
       [...exclusions, ...(organizationPreferences(this.settings.organizationAudit).registryPath ? [organizationPreferences(this.settings.organizationAudit).registryPath!] : [])]).open();
   }

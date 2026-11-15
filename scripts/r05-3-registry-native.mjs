@@ -211,7 +211,18 @@ try {
   assert.deepEqual(hashes(),initialHashes);assert.equal(await main.ev('JSON.stringify(plugin.settings.tagTaxonomyProfile??null)'),report.settingsBefore);delete report.settingsBefore;
   report.io=await main.ev('structuredClone(io)');report.history=await main.ev('plugin.safeApply.registry.history()');assert.equal(report.history.length,1);assert.equal(report.history[0].state,'undone');assert(!report.history[0].damaged);
   assert.deepEqual(report.beforeRestartIO.writes.map(e=>e.phase),['apply']);assert.deepEqual(report.io.writes.map(e=>e.phase),['undo']);assert.deepEqual(report.io.creates.map(e=>e.path),['Unrelated.md']);
-  report.finalHashes=hashes();report.modelRequests=modelRequests;assert.equal(modelRequests.length,0);assert.equal(report.exceptions.length,0);report.status='PASS';
+  report.finalHashes=hashes();
+  await phase('corrupt-preferences-fixture');
+  const data=JSON.parse(fs.readFileSync(`${pluginDir}/data.json`,'utf8'));
+  data.organizationAudit={version:99,registryPath:'Rules.md',dismissed:['opaque-preserved']};fs.writeFileSync(`${pluginDir}/data.json`,JSON.stringify(data));
+  await main.ev("(async()=>{await app.plugins.disablePlugin('ai-knowledge-hub');await app.plugins.enablePlugin('ai-knowledge-hub');window.plugin=app.plugins.plugins['ai-knowledge-hub'];})()");
+  await phase('corrupt-preferences-entry');await main.ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");await wait("!!document.querySelector('[data-health-action=tag-note]')");
+  const beforeGuard=await main.ev('({reads:io.reads.length,writes:io.writes.length,enumerations:io.enumerations})');
+  await activate('[data-health-action=tag-note]');
+  await pass('Corrupt organization settings refuse tagging visibly without fallback or a picker',"!document.querySelector('.prompt')&&[...document.querySelectorAll('.notice')].some(e=>/Настройки организации повреждены|Organization settings are invalid/.test(e.textContent))&&plugin.getTaxonomyProfilePort().get()===null");
+  assert.deepEqual(await main.ev('({reads:io.reads.length,writes:io.writes.length,enumerations:io.enumerations})'),beforeGuard);
+  assert.deepEqual(JSON.parse(fs.readFileSync(`${pluginDir}/data.json`,'utf8')).organizationAudit,data.organizationAudit);assert.deepEqual(hashes(),initialHashes);await shot('corrupt-preferences-refusal');
+  report.corruptPreferences={preserved:data.organizationAudit,io:await main.ev('structuredClone(io)')};report.modelRequests=modelRequests;assert.equal(modelRequests.length,0);assert.equal(report.exceptions.length,0);report.status='PASS';
 } catch(error) { report.status='FAIL';report.error=String(error.stack??error);process.exitCode=1;try{if(main){report.diagnostic=await main.ev('({io:window.io,active:document.activeElement?.outerHTML,modals:[...document.querySelectorAll(".modal")].map(e=>e.outerHTML)})');await shot('failure');}await stopVideo();}catch(e){report.captureError=String(e);} }
 finally {
   try{await stopCapture();}catch(error){report.recordingError=String(error);report.status='FAIL';process.exitCode=1;}
