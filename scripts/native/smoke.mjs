@@ -17,7 +17,7 @@ fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisabled: true, vaults: { smoke: { path: vault, open: true, ts: Date.now() } } }));
 fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', apiKey: '', provider: 'ollama', baseUrl: 'http://127.0.0.1:1/v1', model: 'unused', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: true } }));
 const sha = value => createHash('sha256').update(value).digest('hex');
-const report = { scenario: 'isolated-native-smoke-v1', checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
+const report = { scenario: 'isolated-native-smoke-r03-v2', checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
 report.harnessHashes = Object.fromEntries(['smoke.mjs','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); }
 const pause = ms => new Promise(r => setTimeout(r, ms));
@@ -93,10 +93,32 @@ try {
       }
     }
   }
+  await main.ev("window.healthLeaf=app.workspace.getLeavesOfType('veynrel-health')[0];window.hv=healthLeaf.view;app.workspace.setActiveLeaf(healthLeaf,{focus:true});void 0"); await focus();
+  await pass('R03 Workspace Home remains unscanned after passive navigation', "!!document.querySelector('[data-health-action=home-check]') && !hv.controller.getState().outcome && !hv.controller.getState().busy && !hv.controller.getState().snapshot?.lastLocalScan");
+  await main.ev("document.querySelector('[data-health-action=home-check]').focus();void 0"); await key('Enter','Enter',13,'\r');
+  await wait("!!document.querySelector('[data-health-action=scan]')");
+  assert(await main.ev('!hv.controller.getState().outcome && !hv.controller.getState().busy'), 'Navigating to Check does not start a scan');
+  await main.ev("document.querySelector('[data-health-action=scan]').focus();void 0"); await key('Enter','Enter',13,'\r');
+  await wait("!!hv.controller.getState().outcome && !hv.controller.getState().busy");
+  report.localCheck = await main.ev('hv.controller.getState().outcome');
+  assert.equal(report.localCheck.scan.status, 'completed'); assert.equal(report.localCheck.freshness, 'verified');
+  assert(report.localCheck.findingsCommitted && report.localCheck.historyRecorded);
+  await shot('workspace-local-check');
+  if (await main.ev("document.querySelector('[data-health-action=nav-home]').getClientRects().length===0")) {
+    await main.ev("document.querySelector('[data-health-action=workspace-menu]').focus();void 0"); await key('Enter','Enter',13,'\r');
+    await wait("document.querySelector('[data-health-action=nav-home]').getClientRects().length>0");
+  }
+  await main.ev("document.querySelector('[data-health-action=nav-home]').focus();void 0"); await key('Enter','Enter',13,'\r');
+  await pass('Explicit local check completes and returns its receipt to Home', "!!document.querySelector('[data-workspace-check-receipt]') && hv.controller.getState().snapshot.lastLocalScan.id===hv.controller.getState().outcome.scan.id");
+  await shot('workspace-home-after-check');
+  await main.ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0"); await focus();
   await main.ev("document.querySelector('[data-studio-field=search]').focus();void 0"); await key('x','KeyX',88,'x');
   await pass('Keyboard text reaches the real focused input', "document.querySelector('[data-studio-field=search]').value==='x'");
   await key('a','KeyA',65,undefined,2); await key('Backspace','Backspace',8);
   await pass('Keyboard clears the query without editing Markdown', "document.querySelector('[data-studio-field=search]').value===''");
+  // R03 keeps recipe management behind a disclosure; open it through real keyboard input.
+  await main.ev("document.querySelector('[data-studio-action=new]').closest('details').querySelector('summary').focus();void 0"); await key('Enter','Enter',13,'\r');
+  await wait("document.querySelector('[data-studio-action=new]').closest('details').open");
   await main.ev("document.querySelector('[data-studio-action=new]').focus();void 0"); await key('Tab','Tab',9);
   await pass('Tab follows actual Studio controls', "document.activeElement.dataset.studioAction==='import'");
   await key('Enter','Enter',13,'\r'); await wait("!!document.querySelector('.veynrel-studio-dialog')");
