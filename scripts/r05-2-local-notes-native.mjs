@@ -189,9 +189,16 @@ try {
     for(const theme of ['dark','light']) {
       await main.send('Emulation.setDeviceMetricsOverride',{width:390,height:900,deviceScaleFactor:1,mobile:false}); await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);
       await openTag(); await selectValue('[data-local-note=tag-choice]','manual'); await main.ev("document.querySelector('[data-local-note=tag]').focus();void 0");await main.send('Input.insertText',{text:'manual/second'});
-      await selectValue('[data-local-note=range]','0');await consent();
+      await selectValue('[data-local-note=range]','0');
+      await pass(`${language}/${theme} 390px tag preparation has no horizontal overflow`,"(()=>{const e=document.querySelector('.ai-local-note');return e.scrollWidth<=e.clientWidth+1})()");await consent();
       await pass(`${language}/${theme} 390px Review has no horizontal overflow or missing translations`,"(()=>{const e=document.querySelector('.ai-local-note-review');return e.scrollWidth<=e.clientWidth+1&&!e.textContent.includes('@localNote.')})()");
       await shot(`${language}-${theme}-390-review`); await key('Tab','Tab',9); await pass(`${language}/${theme}: Tab focus stays in Review`,"!!document.activeElement.closest('.ai-local-note-review')"); await closeTop('.ai-local-note-review');
+      await main.ev("hv.navigate({page:'findings',state:'open',dimension:'all',selectedFindingId:brokenFinding.id});void 0");
+      await activate('[data-health-action=finding-repair]');await wait("!!document.querySelector('[data-local-note=occurrence]')");
+      await selectValue('[data-local-note=occurrence]','0');await activate('[data-local-note=target]');await pick('Folder/Target');
+      await pass(`${language}/${theme} 390px repair preparation has no horizontal overflow`,"(()=>{const e=document.querySelector('.ai-local-note');return e.scrollWidth<=e.clientWidth+1})()");
+      await consent();await pass(`${language}/${theme} repair Review is localized without overflow`,"(()=>{const e=document.querySelector('.ai-local-note-review');return e.scrollWidth<=e.clientWidth+1&&!e.textContent.includes('@localNote.')})()");
+      await shot(`${language}-${theme}-390-repair`);await closeTop('.ai-local-note-review');
     }
   }
   await main.send('Emulation.clearDeviceMetricsOverride'); await main.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
