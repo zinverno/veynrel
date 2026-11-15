@@ -1,0 +1,67 @@
+[
+  {
+    "name": "targeted",
+    "command": [
+      "npm",
+      "test",
+      "--",
+      "health/ui/VeynrelHealthView.test.ts",
+      "health/ui/workspaceNavigation.test.ts",
+      "studio/workflow.test.ts",
+      "studio/community/community.test.ts",
+      "--maxWorkers=2"
+    ],
+    "source": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+    "exitCode": 0,
+    "startedAt": 1794661211.2872362,
+    "seconds": 7.656
+  },
+  {
+    "name": "suite",
+    "command": [
+      "npm",
+      "test",
+      "--",
+      "--maxWorkers=2"
+    ],
+    "source": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+    "exitCode": 0,
+    "startedAt": 1794661218.9432096,
+    "seconds": 68.638
+  },
+  {
+    "name": "typecheck-build-lint-attempt1",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "status": "INTERRUPTED",
+    "supervisorExitCode": 143,
+    "completed": false
+  },
+  {
+    "name": "typecheck-build-lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "source": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+    "exitCode": 0,
+    "startedAt": 1794661452.6092792,
+    "seconds": 169.357
+  },
+  {
+    "name": "mutation",
+    "command": [
+      "npm",
+      "run",
+      "audit:proposals"
+    ],
+    "source": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+    "exitCode": 0,
+    "startedAt": 1794661726.611292,
+    "seconds": 9.549
+  }
+]

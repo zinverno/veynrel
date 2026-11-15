@@ -1,11 +1,13 @@
 # R03: Workspace and Studio UX verification
 
-Date: 2026-11-14. Development review, not a release or owner acceptance.
+Original verification: 2026-11-14. Host-attribution follow-up: 2026-11-15.
+Development review, not a release or owner acceptance.
 
-**The bounded UX changes are implemented and visually recorded. The strict
-native zero-exception gate remains open:** the final small-vault run completed
-25 functional assertions but captured the known host zoom exception. Green unit
-tests do not override that limitation or substitute for the owner's UX review.
+**The bounded UX changes are implemented and visually recorded. The host
+exception is now attributed, with a verified Native frame workaround.** The
+original small-vault run still has 25 functional assertions and an exception;
+its failed strict gate is not rewritten. Hidden/Obsidian frame remains open.
+Green tests and the workaround do not substitute for the owner's UX review.
 
 ## Revisions and publication boundary
 
@@ -13,8 +15,8 @@ tests do not override that limitation or substitute for the owner's UX review.
   before publication of this draft. PR #140 is merged at this SHA; R01/R02 are
   already present. The original unrelated checkout was left untouched; R03 uses
   a separate worktree and `feat/r03-workspace-studio-ux`.
-- Runtime/test/harness source: `3c9ef0141e081dc8974a2f56898907a000380ef2`. Subsequent evidence-only
-  commits do not change the three tested runtime files.
+- Original runtime/test/harness source: `3c9ef0141e081dc8974a2f56898907a000380ef2`.
+  The original receipts and runtime hashes below describe that build.
 - Public latest stable was separately rechecked as **2.3.1**, published
   2026-11-02, source `cd9e8fc4048b4a17d0dc68993bd8b340d9da4720`.
   Manifest/package **2.4.0** remains an unpublished intermediate version.
@@ -223,9 +225,49 @@ TypeError: t.webContents.getZoomFactor is not a function
 
 It compares byte-for-byte with the preserved R01 and R02 receipts linked by the
 [earlier attribution report](r02-native-zoom-attribution.md#original-receipts).
-Timestamp here: `1794652314612.934`. The signature predates R03, but its immediate
-trigger remains unresolved; this does not rule out changes in occurrence frequency.
-No filter, host/plugin patch or speculative workaround was added.
+Timestamp here: `1794652314612.934`. The signature predates R03. The subsequent
+[host lifecycle investigation](native-zoom-root-cause.md#newly-observed-failure-mechanism)
+localized a reproduced failure without Veynrel, including a Wayland launch:
+a debounced `frameDom.updateStatus` runs after the settings window unloads.
+Its DOM `closed` flag remains false while `webContents` is an empty object and
+`getZoomFactor` is undefined. The live main window retains a valid method.
+This is direct paused-call-frame/lifecycle evidence, not stack matching alone.
+The lower-level missing IPC metadata explanation remains an inference; original
+R01–R03 receipts lack receiver state and cannot each be retrospectively proved
+to have the same trigger.
+
+The verified host configuration workaround is **Native frame + Relaunch**:
+Settings → Interface → Window frame style → Native frame → Relaunch. No personal
+profile, Obsidian source, third-party code or Veynrel runtime workaround was
+changed. No monkey patch or exception suppression is used. This avoids the
+observed handler; it does **not** fix Obsidian.
+
+Historical control environment: Obsidian **1.13.7**, Electron **43.6.0**, Chromium
+**150.0.7871.250**, `@electron/remote` **2.1.3**, GPU disabled; X11 launches use
+XWayland on the Wayland desktop. The same mixed sequence also reproduced on a
+clean host launched with Wayland (3 exceptions / 13 settings closes).
+
+| Native frame control from the investigation | Exceptions / settings closes | Original Markdown |
+| --- | --- | --- |
+| [Clean host, mixed sequence](native-zoom-root-cause-evidence/host-native-matrix.json) | 0 / 13 | Preserved |
+| [Clean host, settings only](native-zoom-root-cause-evidence/host-native-reduced.json) | 0 / 7 | Preserved |
+| [R03, original mixed sequence](native-zoom-root-cause-evidence/r03-native-matrix.json) | 0 / 13 | **Mismatch retained; not a source-preservation pass** |
+| [R03, Reading-view repeat](native-zoom-root-cause-evidence/r03-native-reading.json) | 0 / 13 | Preserved |
+
+Total: **four profiles, 46 settings closes, zero exceptions**. This is a bounded
+workaround observation, not a rare-race guarantee. The paired Reading-view run
+with Obsidian frame still records 2 / 13; Hidden/Obsidian frame has an unresolved
+strict zero-exception gate. The separate pointer limitation below remains open.
+
+Provenance: local investigation commit
+`442a9f74104b60e59d5e44a4ac55c1b041b1acdc`, parent
+`02be9894ccc7dfcc1e3332d7a3f3630d4488b35c`. Its diff was inspected before explicitly
+copying only its 62 documentation/evidence/diagnostic files; no cherry-pick or
+branch merge. Their original 61-file checksum inventory remains valid. All old
+R01/R02/R03 failed receipts remain byte-identical. These investigation runs and
+their test results are historical evidence, **not new executions in this follow-up**.
+The [upstream report](native-zoom-upstream-report.md) remains an unsubmitted draft.
+Its historical commands require an idle test desktop and are not run by this task.
 
 The raw `after-small.json` says `completed: true` because that harness revision
 used the flag for reaching the end of functional assertions. Its exception array
@@ -279,7 +321,10 @@ DISPLAY=:0 COMMUNITY_PUBLIC=0 node scripts/studio-community-native.mjs /tmp/veyn
 ## Remaining limits and later-stage questions
 
 The owner still needs to judge the linked routes and visual evidence; R03 is not
-declared accepted. The host zero-exception gate and the intermittent first-pointer issue remain open. Linux desktop only:
+declared accepted. Native frame has a verified host workaround; the
+Hidden/Obsidian-frame zero-exception gate and intermittent first-pointer issue
+remain open. PR #142 remains an independent infrastructure draft; it is not
+merged or copied into this branch, and integration is deferred. Linux desktop only:
 no Windows/macOS, physical mobile, custom-theme matrix or screen-reader speech
 acceptance. No live provider quality or public Community availability recheck.
 No new D30 simulation. Native fault injection is distinguished from spontaneous

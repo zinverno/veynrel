@@ -1,0 +1,16 @@
+{
+  "/usr/lib/obsidian/app.asar": "8588f1fd23c9f63d3507a9740d656252cf0fbe0538e00e5d8eb7660533416c52",
+  "/usr/lib/obsidian/app.asar/node_modules/@electron/remote/package.json": "29ac0ae520fd62a377d9d204fd5d08161daf8d72399cab3a46fa374386c35c9f",
+  "remoteVersion": "2.1.3",
+  "/usr/lib/obsidian/app.asar/node_modules/@electron/remote/dist/src/renderer/remote.js": "f495b4730d590ae7f52361f973b639041b78ed457477ce52333c2ab8e3045c43",
+  "/usr/lib/obsidian/obsidian.asar": "a52a7daf1e2460bae03de80f2816604bd16a56cd374fbe5ce8d1a9ef5604059d",
+  "/usr/lib/obsidian/obsidian.asar/app.js": "8efbf581e259cabef4f9c9a34814cfe3c02863757377e56b3603933c50e89898",
+  "/usr/lib/obsidian/obsidian.asar/main.js": "25b0705d32d9b9686b89c613b3268f2512024e64e8cfe220facd7e3e47a6c85f",
+  "r03Source": "33cdd002dfb90c803a3082eb6cd8bc2607f5e054",
+  "baseMain": "02be9894ccc7dfcc1e3332d7a3f3630d4488b35c",
+  "r03Assets": {
+    "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3"
+  }
+}

@@ -1,0 +1,2135 @@
+{
+  "frame": "native",
+  "variant": "r03",
+  "platform": "x11",
+  "cycles": 2,
+  "scenario": "mixed",
+  "phase": "r03-passive",
+  "actions": [
+    {
+      "label": "ready",
+      "phase": "startup",
+      "at": 1794661676905,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1024,
+        800
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-0",
+      "at": 1794661677322,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-434",
+      "phase": "cdp-cycle-0",
+      "at": 1794661677637,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        434,
+        950
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-0",
+      "at": 1794661677946,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-390",
+      "phase": "cdp-cycle-0",
+      "at": 1794661678283,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        390,
+        950
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1280",
+      "phase": "cdp-cycle-0",
+      "at": 1794661678624,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1280,
+        950
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-320",
+      "phase": "cdp-cycle-0",
+      "at": 1794661678946,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        320,
+        950
+      ],
+      "outer": [
+        1024,
+        800
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-900x700",
+      "phase": "wm-cycle-0",
+      "at": 1794661679518,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 900,
+        "height": 700
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 900,
+        "height": 700
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        900,
+        700
+      ],
+      "outer": [
+        900,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-500x700",
+      "phase": "wm-cycle-0",
+      "at": 1794661679870,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 500,
+        "height": 700
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 500,
+        "height": 700
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        500,
+        700
+      ],
+      "outer": [
+        500,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-1200x850",
+      "phase": "wm-cycle-0",
+      "at": 1794661680222,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-in",
+      "phase": "zoom-cycle-0",
+      "at": 1794661680385,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1.0954451150103321,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1095,
+        776
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-out",
+      "phase": "zoom-cycle-0",
+      "at": 1794661680546,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:reset-zoom",
+      "phase": "zoom-cycle-0",
+      "at": 1794661680706,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-1",
+      "at": 1794661681019,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-434",
+      "phase": "cdp-cycle-1",
+      "at": 1794661681327,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        434,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1400",
+      "phase": "cdp-cycle-1",
+      "at": 1794661681636,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1400,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-390",
+      "phase": "cdp-cycle-1",
+      "at": 1794661681969,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        390,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-1280",
+      "phase": "cdp-cycle-1",
+      "at": 1794661682314,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1280,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "cdp-320",
+      "phase": "cdp-cycle-1",
+      "at": 1794661682633,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        320,
+        950
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-900x700",
+      "phase": "wm-cycle-1",
+      "at": 1794661683210,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 900,
+        "height": 700
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 900,
+        "height": 700
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        900,
+        700
+      ],
+      "outer": [
+        900,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-500x700",
+      "phase": "wm-cycle-1",
+      "at": 1794661683571,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 500,
+        "height": 700
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 500,
+        "height": 700
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        500,
+        700
+      ],
+      "outer": [
+        500,
+        700
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "wm-1200x850",
+      "phase": "wm-cycle-1",
+      "at": 1794661683920,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-in",
+      "phase": "zoom-cycle-1",
+      "at": 1794661684083,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1.0954451150103321,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1095,
+        776
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:zoom-out",
+      "phase": "zoom-cycle-1",
+      "at": 1794661684247,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "window:reset-zoom",
+      "phase": "zoom-cycle-1",
+      "at": 1794661684407,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "split-open",
+      "phase": "split-popout",
+      "at": 1794661684455,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "split-closed",
+      "phase": "split-popout",
+      "at": 1794661684482,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": false,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "popout-closed",
+      "phase": "split-popout",
+      "at": 1794661685355,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": true,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "markdown",
+      "modals": 0
+    },
+    {
+      "label": "ai-knowledge-hub:veynrel-open-health",
+      "phase": "r03-passive",
+      "at": 1794661685578,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": true,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "veynrel-health",
+      "modals": 0
+    },
+    {
+      "label": "ai-knowledge-hub:veynrel-open-studio",
+      "phase": "r03-passive",
+      "at": 1794661685800,
+      "frame": "native",
+      "frameDom": false,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1200,
+        "height": 850
+      },
+      "focused": true,
+      "nativeFocused": false,
+      "inner": [
+        1200,
+        850
+      ],
+      "outer": [
+        1200,
+        850
+      ],
+      "closed": false,
+      "frameSetting": "native",
+      "view": "veynrel-studio",
+      "modals": 0
+    }
+  ],
+  "pauses": [],
+  "exceptions": [],
+  "callErrors": [],
+  "eventLogs": [
+    {
+      "sessionId": "407371533E37BBC5E0CFBC40839DF2C2",
+      "events": []
+    },
+    {
+      "sessionId": "A4586B75876C6688FA454BC0B520A0C1",
+      "events": [
+        {
+          "type": "resize",
+          "at": 1794661677196,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661677518,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661677823,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661678161,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661678499,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661678823,
+          "width": 320,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661678966,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661679205,
+          "width": 900,
+          "height": 700,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661679563,
+          "width": 500,
+          "height": 700,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661679922,
+          "width": 1200,
+          "height": 850,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661680232,
+          "width": 1095,
+          "height": 776,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661680393,
+          "width": 1200,
+          "height": 850,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661680895,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661681204,
+          "width": 434,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661681520,
+          "width": 1400,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661681846,
+          "width": 390,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661682194,
+          "width": 1280,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661682510,
+          "width": 320,
+          "height": 950,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661682656,
+          "width": 1200,
+          "height": 850,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661682898,
+          "width": 900,
+          "height": 700,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661683263,
+          "width": 500,
+          "height": 700,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661683619,
+          "width": 1200,
+          "height": 850,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661683931,
+          "width": 1095,
+          "height": 776,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "resize",
+          "at": 1794661684094,
+          "width": 1200,
+          "height": 850,
+          "focused": false,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "focus",
+          "at": 1794661685352,
+          "width": 1200,
+          "height": 850,
+          "focused": true,
+          "closed": false,
+          "targetIsWindow": true
+        },
+        {
+          "type": "focus",
+          "at": 1794661685353,
+          "width": 1200,
+          "height": 850,
+          "focused": true,
+          "closed": false,
+          "targetIsWindow": false
+        },
+        {
+          "type": "blur",
+          "at": 1794661685376,
+          "width": 1200,
+          "height": 850,
+          "focused": true,
+          "closed": false,
+          "targetIsWindow": false
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "main.js": "2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3"
+  },
+  "screenshots": [
+    "actual-frame-setting.png",
+    "popout.png",
+    "final.png"
+  ],
+  "harnessSha256": "6a1e1caccc1d5f53cd4755aca0c4ab9156db33f77740b8f0fd5589fd98df4481",
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugins": [
+      "ai-knowledge-hub"
+    ]
+  },
+  "x11WindowProperties": "_NET_WM_PID(CARDINAL) = 455143\n_MOTIF_WM_HINTS(_MOTIF_WM_HINTS) = 0x2, 0x0, 0x1, 0x0, 0x0\n_NET_FRAME_EXTENTS(CARDINAL) = 0, 0, 37, 0\n",
+  "frameControl": "native",
+  "popout": {
+    "at": 1794661685004,
+    "frame": "native",
+    "frameDom": false,
+    "windowType": "object",
+    "windowClass": "BrowserWindow",
+    "contentsType": "object",
+    "contentsClass": "WebContents",
+    "getZoomType": "function",
+    "zoom": 1,
+    "windowId": 15,
+    "contentsId": 15,
+    "windowDestroyed": false,
+    "contentsDestroyed": false,
+    "bounds": {
+      "x": 448,
+      "y": 156,
+      "width": 1024,
+      "height": 800
+    },
+    "contentBounds": {
+      "x": 448,
+      "y": 156,
+      "width": 1024,
+      "height": 800
+    },
+    "focused": false,
+    "nativeFocused": false,
+    "inner": [
+      1024,
+      800
+    ],
+    "outer": [
+      1024,
+      800
+    ],
+    "closed": false,
+    "frameSetting": "native",
+    "view": "markdown",
+    "modals": 0
+  },
+  "completed": true,
+  "childEvents": [
+    {
+      "type": "settings-open",
+      "at": 1794661676976,
+      "id": 2,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661676979,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661676980,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661676980,
+      "id": 2,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661677147,
+      "id": 3,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661677148,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661677189,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661677193,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661677193,
+      "id": 3,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661677487,
+      "id": 4,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661677488,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661677503,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661677510,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661677510,
+      "id": 4,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661677798,
+      "id": 5,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661677813,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661677814,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661677814,
+      "id": 5,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661678108,
+      "id": 6,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661678116,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661678152,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661678156,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661678156,
+      "id": 6,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661678452,
+      "id": 7,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661678460,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661678492,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661678496,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661678496,
+      "id": 7,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661678795,
+      "id": 8,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661678795,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661678802,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661678808,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661678808,
+      "id": 8,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661680866,
+      "id": 9,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661680867,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661680885,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661680893,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661680893,
+      "id": 9,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661681174,
+      "id": 10,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661681174,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661681191,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661681199,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661681199,
+      "id": 10,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661681484,
+      "id": 11,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661681501,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661681501,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661681501,
+      "id": 11,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661681795,
+      "id": 12,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661681795,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661681837,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661681841,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661681841,
+      "id": 12,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661682143,
+      "id": 13,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661682183,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661682187,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661682187,
+      "id": 13,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "settings-open",
+      "at": 1794661682477,
+      "id": 14,
+      "isMain": false,
+      "closed": false,
+      "frame": "native",
+      "zoomType": "undefined"
+    },
+    {
+      "type": "resize",
+      "at": 1794661682478,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "beforeunload",
+      "at": 1794661682486,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "pagehide",
+      "at": 1794661682494,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    },
+    {
+      "type": "unload",
+      "at": 1794661682494,
+      "id": 14,
+      "closed": false,
+      "width": 900,
+      "height": 700
+    }
+  ],
+  "originalMarkdownPreserved": true,
+  "markdownHashes": {
+    "Probe.md": {
+      "before": "b5870613eab2aceedd86f77102119d38103e11bd5c344de05bc3889517937cda",
+      "after": "b5870613eab2aceedd86f77102119d38103e11bd5c344de05bc3889517937cda"
+    },
+    "Other.md": {
+      "before": "34eab81f8a02a913c830fdbbb9b42582b6706b709521543742b86b3b83de186e",
+      "after": "34eab81f8a02a913c830fdbbb9b42582b6706b709521543742b86b3b83de186e"
+    }
+  },
+  "strictRuntimeGate": true
+}

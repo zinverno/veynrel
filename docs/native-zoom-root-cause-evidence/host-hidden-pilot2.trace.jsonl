@@ -1,0 +1,35 @@
+{"at":1794660636158,"phase":"startup","method":"Target.setAutoAttach"}
+{"at":1794660636166,"attached":{"sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","targetInfo":{"targetId":"99774E6079700CEAD76DADD62B4A1AEA","type":"page","title":"","url":"app://obsidian.md/index.html","attached":true,"canAccessOpener":false,"browserContextId":"2DB4B64FC6916439CB7998F330DE7E62"},"waitingForDebugger":false}}
+{"at":1794660636166,"phase":"startup","method":"Debugger.enable","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636168,"phase":"startup","method":"Target.setDiscoverTargets"}
+{"at":1794660636564,"phase":"startup","method":"Debugger.setPauseOnExceptions","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636574,"phase":"startup","method":"Runtime.enable","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636642,"phase":"startup","method":"Page.enable","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636678,"phase":"startup","method":"Network.enable","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636719,"phase":"startup","method":"Network.setBlockedURLs","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636720,"phase":"startup","method":"Page.addScriptToEvaluateOnNewDocument","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC"}
+{"at":1794660636721,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"(()=>{if(window.__zoomDiagnosticEvents)return;window.__zoomDiagnosticEvents=[];for(const type of ['resize','focus','blur','beforeunload','pagehide','unload'])window.addEventListener(type,()=>window.__zoomDiagnosticEvents.push({type,at:Date.now(),width:innerWidth,height:innerHeight,focused:document.hasFocus(),closed:window.closed}),true)})()"}
+{"at":1794660636723,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660636826,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660637069,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660637228,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660637329,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660637431,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!window.app?.workspace?.layoutReady"}
+{"at":1794660637473,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"app.vault.adapter.basePath"}
+{"at":1794660637485,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"!!document.querySelector('.mod-trust-folder')"}
+{"at":1794660637493,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,chrome:process.versions.chrome,plugins:[...app.plugins.enabledPlugins]})"}
+{"at":1794660637496,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"window.titlebarStyle"}
+{"at":1794660637498,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"app.workspace.getLeaf(false).openFile(app.vault.getFileByPath('Probe.md'),{state:{mode:'preview'}})"}
+{"at":1794660637654,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"(()=>{const f=window.frameDom,w=f?.eWin??window.electronWindow,c=w?.webContents;return {at:Date.now(),frame:window.titlebarStyle,frameDom:!!f,windowType:typeof w,windowClass:w?.constructor?.name,contentsType:typeof c,contentsClass:c?.constructor?.name,getZoomType:typeof c?.getZoomFactor,zoom:window.electron?.webFrame?.getZoomFactor(),windowId:w?.id,contentsId:c?.id,windowDestroyed:w?.isDestroyed?.(),contentsDestroyed:c?.isDestroyed?.(),bounds:w?.getBounds?.(),contentBounds:w?.getContentBounds?.(),focused:document.hasFocus(),nativeFocused:w?.isFocused?.(),inner:[innerWidth,innerHeight],outer:[outerWidth,outerHeight],closed:window.closed,frameSetting:window.electron?.ipcRenderer?.sendSync('frame'),view:window.app?.workspace?.activeLeaf?.view?.getViewType(),modals:document.querySelectorAll('.modal-container').length}})()"}
+{"at":1794660637660,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"app.setting.open();app.setting.openTabById('appearance');void 0"}
+{"at":1794660637664,"attached":{"sessionId":"34B0D285692F2C77594E52C0B846A528","targetInfo":{"targetId":"7596DB5B6E53C6F2BC350A300F0485A9","type":"page","title":"","url":"","attached":true,"openerId":"99774E6079700CEAD76DADD62B4A1AEA","canAccessOpener":true,"openerFrameId":"99774E6079700CEAD76DADD62B4A1AEA","browserContextId":"2DB4B64FC6916439CB7998F330DE7E62"},"waitingForDebugger":false}}
+{"at":1794660637664,"phase":"startup","method":"Debugger.enable","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637675,"phase":"startup","method":"Debugger.setPauseOnExceptions","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637684,"phase":"startup","method":"Runtime.enable","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637687,"phase":"startup","method":"Page.enable","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637688,"phase":"startup","method":"Network.enable","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637689,"phase":"startup","method":"Network.setBlockedURLs","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637691,"phase":"startup","method":"Page.addScriptToEvaluateOnNewDocument","sessionId":"34B0D285692F2C77594E52C0B846A528"}
+{"at":1794660637693,"phase":"startup","method":"Runtime.evaluate","sessionId":"34B0D285692F2C77594E52C0B846A528","expression":"(()=>{if(window.__zoomDiagnosticEvents)return;window.__zoomDiagnosticEvents=[];for(const type of ['resize','focus','blur','beforeunload','pagehide','unload'])window.addEventListener(type,()=>window.__zoomDiagnosticEvents.push({type,at:Date.now(),width:innerWidth,height:innerHeight,focused:document.hasFocus(),closed:window.closed}),true)})()"}
+{"at":1794660652662,"phase":"startup","method":"Runtime.evaluate","sessionId":"0B1D09E3BE02A50F772AE28A321C60FC","expression":"window.__zoomDiagnosticEvents"}
+{"at":1794660667663,"phase":"startup","method":"Runtime.evaluate","sessionId":"34B0D285692F2C77594E52C0B846A528","expression":"window.__zoomDiagnosticEvents"}
