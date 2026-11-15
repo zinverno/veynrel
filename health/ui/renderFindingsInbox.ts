@@ -14,6 +14,7 @@ interface FindingsInboxActions {
   togglePaths: () => void;
   toggleSnooze: () => void;
   tools: () => void;
+  compare?: (id: string) => void;
 }
 
 export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxViewModel, actions: FindingsInboxActions,
@@ -66,6 +67,13 @@ function renderDetail(parent: HTMLElement, detail: NonNullable<FindingsInboxView
     const list = evidence.createEl("ul");
     for (const fact of detail.facts) list.createEl("li", { text: fact });
   } else evidence.createEl("p", { text: t("@findings.no-evidence"), cls: "veynrel-health-muted" });
+  evidence.createEl("p", { text: detail.recorded });
+  evidence.createEl("p", { text: detail.origin });
+  evidence.createEl("p", { text: t(detail.pair ? "@actions.pair-scope" : "@actions.manual") });
+  if (detail.pair && actions.compare) {
+    evidence.createEl("p", { text: detail.pair.join(" ↔ "), cls: "veynrel-health-muted" });
+    healthButton(evidence, t("@actions.compare"), () => actions.compare!(detail.id), "finding-compare", detail.disabled, true);
+  }
   const notes = article.createEl("section");
   notes.createEl("h3", { text: t("@findings.affected") });
   notes.createEl("p", { text: detail.affectedSummary });

@@ -63,15 +63,20 @@ export function permittedEmbed(analysis: RelationshipAnalysis, side: 0 | 1): Rel
   const action = side === 0 ? "consider_embed_b_in_a" : "consider_embed_a_in_b";
   return [analysis.result.recommendation, ...analysis.result.alternatives].find(item => item.action === action);
 }
+/** The local add-link route uses the same structural boundary without model provenance. */
+export function requireLinkRange(pair: PlanPair, side: 0 | 1, selection: PlanRange, linktext: string): void {
+  const source = pair[side], target = pair[side === 0 ? 1 : 0];
+  requirePlan(source.cache && target.cache, "metadata");
+  requirePlainParagraph(source, selection);
+  requirePlan(linktext === target.path.slice(0, -3) && linktext.length > 0 && !/[[\]#|^\\]/u.test(linktext) && [...linktext].every(char => char.charCodeAt(0) >= 32), "link");
+  requirePlan(!source.references.some(ref => ref.target === target.path), "existing");
+}
 /** Shared read-only eligibility check; selection never implies confirmation or an executable plan. */
 export function requireChangeRange(analysis: RelationshipAnalysis, pair: PlanPair, operation: "add_link" | "replace_with_embed",
   side: 0 | 1, selection: PlanRange, linktext: string): RelationshipRecommendation {
   const source = pair[side], target = pair[side === 0 ? 1 : 0];
   let recommendation = analysis.result.recommendation;
-  requirePlan(source.cache && target.cache, "metadata");
-  requirePlainParagraph(source, selection);
-  requirePlan(linktext === target.path.slice(0, -3) && linktext.length > 0 && !/[[\]#|^\\]/u.test(linktext) && [...linktext].every(char => char.charCodeAt(0) >= 32), "link");
-  requirePlan(!source.references.some(ref => ref.target === target.path), "existing");
+  requireLinkRange(pair, side, selection, linktext);
   if (operation === "replace_with_embed") {
     const offered = permittedEmbed(analysis, side);
     requirePlan(offered && ["same_information", "partial_overlap"].includes(analysis.result.relation), "recommendation");

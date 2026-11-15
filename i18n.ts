@@ -54,6 +54,20 @@ export function t(key: string, vars?: Record<string, string | number>, language 
 }
 
 const RU: Record<string, string> = {
+  "@localLink.title": "Подготовить ссылку без модели",
+  "@localLink.scope": "Ваш выбор: добавить одну ссылку в один сохранённый файл. Вторая заметка не изменяется. Данные модели не отправляются. Это не исправление сломанной ссылки и не доказательство смысловой связи.",
+  "@localLink.limits": "Выберите направление и обычный абзац. Перед записью будут показаны весь Markdown и diff, затем потребуется отдельное подтверждение. Закройте обе заметки во всех редакторах и отдельных окнах: отложенные сохранения нельзя заблокировать. Точная отмена доступна, пока результат не изменён.",
+  "@localLink.direction": "Исходник → целевая заметка",
+  "@localLink.choose": "Выберите…",
+  "@localLink.unavailable": "Безопасная вставка не подтверждена: прочитанный текст не соответствует размеру файла (например, BOM), метаданные недоступны, разметка защищена, ссылка уже существует или путь неоднозначен. Откройте исходник для ручной проверки; ничего не записано.",
+  "@actions.shortlist": "Что можно рассмотреть",
+  "@actions.why": "Посмотреть основание",
+  "@actions.compare": "Сравнить эту пару",
+  "@actions.pair-scope": "Просмотр только этой пары. Можно сопоставить контекст или оставить как есть. Совпадение заголовков, текста или высокая близость не доказывают одинаковое назначение заметок. Локальное добавление ссылки требует вашего выбора; слияния нет.",
+  "@actions.recorded": "Сохранённое наблюдение от {date}. Актуальность файлов проверяется при подготовке плана; это не результат новой проверки.",
+  "@actions.local": "Основание: локальное наблюдение. Просмотр и локальный план не отправляют данные модели.",
+  "@actions.hypothesis": "Основание: сохранённая гипотеза. Нового модельного анализа нет. Его провайдер, состав данных и неизвестная стоимость должны быть проверены в отдельном согласии.",
+  "@actions.manual": "Откройте указанный источник и проверьте основание. Автоматического исправления этой находки нет.",
   "@processing.atomization": "Атомизация заметки",
   "@processing.atomization-description": "Предложите отдельные заметки из одного материала и выберите, какие сохранить.",
   "@processing.atomization-effect": "AI — после согласия. Сначала предпросмотр; оригинал сохраняется.",
@@ -2342,6 +2356,20 @@ const RU: Record<string, string> = {
 };
 
 const EN: Record<string, string> = {
+  "@localLink.title": "Prepare a link without a model",
+  "@localLink.scope": "Your choice: add one link to one saved file. The target note stays unchanged. No data is sent to a model. This does not repair a broken link or establish a semantic relationship.",
+  "@localLink.limits": "Choose the direction and a plain paragraph. Full Markdown and a diff precede separate write confirmation. Close both notes in all editors and popouts: queued saves cannot be locked. Exact Undo is available while the result remains unchanged.",
+  "@localLink.direction": "Source → target note",
+  "@localLink.choose": "Choose…",
+  "@localLink.unavailable": "A safe insertion could not be verified: saved text differs from the file byte size (for example a BOM), metadata is unavailable, markup is protected, a link already exists, or the path is ambiguous. Open the source for manual review; nothing was written.",
+  "@actions.shortlist": "Possible next steps",
+  "@actions.why": "Review the evidence",
+  "@actions.compare": "Compare this pair",
+  "@actions.pair-scope": "Only this pair is reviewed. Compare their context or leave them as they are. Matching titles, text or high similarity do not establish the same purpose. A local link requires your choice; no merge is performed.",
+  "@actions.recorded": "Recorded observation from {date}. Files are rechecked when preparing a plan; this is not a new scan result.",
+  "@actions.local": "Basis: local observation. Viewing and local planning send no data to a model.",
+  "@actions.hypothesis": "Basis: a recorded hypothesis. No new model analysis has run. Its provider, selected data and unknown cost must be reviewed in separate consent.",
+  "@actions.manual": "Open the named source and check the evidence. There is no automatic repair for this finding.",
   "@processing.atomization": "Atomize a note",
   "@processing.atomization-description": "Propose separate notes from one source and choose which to keep.",
   "@processing.atomization-effect": "AI requires consent. Preview first; the original is preserved.",

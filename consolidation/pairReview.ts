@@ -28,6 +28,7 @@ import { RecommendationPreflight } from "./recommendationPreflight";
 import { recommendationIntent } from "./recommendationIntent";
 import { focusStatus } from "./consolidationUx";
 import { reviewPair } from "./reviewPresentation";
+import { LocalLinkModal } from "./localLinkModal";
 
 /** Disposable pair owner; metadata readiness may recheck availability, never rerun analysis. */
 export class PairReview {
@@ -51,6 +52,8 @@ export class PairReview {
     const controls = this.contentEl.createDiv({ cls: "ai-consolidation-actions ai-pair-actions" });
     const refresh = controls.createEl("button", { text: tr("@consolidation.refresh"), attr: { type: "button" } });
     if (this.safeApply) {
+      const local = controls.createEl("button", { text: tr("@localLink.title"), attr: { type: "button", "data-local-link": "open" } });
+      local.addEventListener("click", () => { if (this.openState) new LocalLinkModal(this.app, this.paths, this.safeApply!).open(); });
       const history = controls.createEl("button", { text: tr("@safeApply.history"), attr: { type: "button", "data-safe-action": "history" } });
       history.addEventListener("click", () => new OperationHistoryModal(this.app, this.safeApply!).open());
     }

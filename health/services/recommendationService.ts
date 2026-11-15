@@ -14,6 +14,22 @@ const RELEVANCE: Record<VaultProfile, readonly HealthDimension[]> = {
   mixed: [],
 };
 
+export function findingPair(finding: Finding): readonly [string, string] | undefined {
+  if (finding.source === "semantic" && finding.type === "semantic-duplicate" && finding.notePaths.length === 2 && finding.notePaths[0] !== finding.notePaths[1])
+    return [finding.notePaths[0], finding.notePaths[1]];
+  const action = finding.actions.find(a => a.kind === "compare-notes" && a.path && a.relatedPath && a.path !== a.relatedPath &&
+    finding.notePaths.includes(a.path) && finding.notePaths.includes(a.relatedPath));
+  return action?.path && action.relatedPath ? [action.path, action.relatedPath] : undefined;
+}
+
+/** Bounded, actionable observations. Stable ties do not resurface advice merely because a scan ran. */
+export function nextActionFindings(findings: readonly Finding[]): Finding[] {
+  return findings.filter(finding => finding.state === "open" && finding.impact !== "info" && finding.evidence.length > 0 &&
+    (findingPair(finding) || finding.type === "broken-link" && finding.actions.some(action => action.kind === "open-note" && action.path && finding.notePaths.includes(action.path))))
+    .sort((a, b) => IMPACT[a.impact] - IMPACT[b.impact] || CONFIDENCE[a.confidence] - CONFIDENCE[b.confidence] || compareStrings(a.id, b.id))
+    .slice(0, 3);
+}
+
 /** Lexicographic priorities: impact, confidence, profile, lastSeenAt DESC, ID ASC. */
 export function selectRecommendation(findings: readonly Finding[], profile: VaultProfile = DEFAULT_VAULT_PROFILE): Recommendation | undefined {
   const relevance = RELEVANCE[profile];

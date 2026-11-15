@@ -8,6 +8,9 @@ import { readSavedNote } from "./savedNote";
 import type { SavedNote } from "./savedNote";
 import { readPlannerPair } from "./changePlannerSession";
 import { buildChangePlan } from "./changePlan";
+import { buildLocalLinkPlan } from "./localLinkPlan";
+import { readLocalLinkPair } from "./readLocalLinkPair";
+import { sameSavedNote } from "./savedNote";
 import { OperationJournal, requireSafe } from "./operationJournal";
 import { SafeApplyService } from "./safeApply";
 import type { SafeApplyPort } from "./safeApply";
@@ -36,13 +39,33 @@ export function guardSavedEditors(app: App, notes: readonly SavedNote[], isReadO
     requireSafe(false, "editor");
   });
 }
-export function obsidianSafeApplyPort(app: App, isReadOnlyView?: (view: View) => boolean): SafeApplyPort {
+export function obsidianSafeApplyPort(app: App, isReadOnlyView?: (view: View) => boolean, protectedPaths: () => readonly string[] = () => []): SafeApplyPort {
   const identity = (note: SavedNote) => {
     requireSafe(app.vault.getFileByPath(note.path) === note.file && note.file.path === note.path &&
       note.file.stat.mtime === note.modified && note.file.stat.size === note.bytes, "stale");
   };
   const guard = (note: SavedNote) => { identity(note); guardSavedEditors(app, [note], isReadOnlyView); };
   return {
+    async checkLocalLink(plan) {
+      const excluded = JSON.stringify(protectedPaths());
+      const read = await readLocalLinkPair(app, [plan.sourcePath, plan.targetPath], protectedPaths());
+      const rebuilt = buildLocalLinkPlan(read, 0, plan.selection, true);
+      requireSafe(plan.origin === "user" && plan.operation === "add_link" &&
+        sameSavedNote(plan.source, rebuilt.source) && sameSavedNote(plan.target, rebuilt.target) &&
+        plan.sourceCreated === rebuilt.sourceCreated && plan.targetCreated === rebuilt.targetCreated &&
+        plan.structure === rebuilt.structure && plan.before === rebuilt.before && plan.after === rebuilt.after &&
+        JSON.stringify(plan.edit) === JSON.stringify(rebuilt.edit) && JSON.stringify(plan.affectedLinks) === JSON.stringify(rebuilt.affectedLinks), "stale");
+      const check = () => {
+        requireSafe(excluded === JSON.stringify(protectedPaths()), "stale");
+        for (const note of read.pair) {
+          identity(note);
+          requireSafe(note.file.stat.ctime === note.created && JSON.stringify(app.metadataCache.getFileCache(note.file)) === JSON.stringify(note.cache), "stale");
+        }
+        requireSafe(app.metadataCache.getFirstLinkpathDest(plan.targetPath.slice(0, -3), plan.sourcePath) === plan.target.file, "stale");
+        guardSavedEditors(app, read.pair, isReadOnlyView);
+      };
+      check(); return check;
+    },
     async check(plan, analysis) {
       const read = await readPlannerPair(app, [analysis.pair[0].path, analysis.pair[1].path]);
       const side = plan.sourcePath === read.pair[0].path ? 0 : 1;
@@ -69,8 +92,8 @@ export function obsidianSafeApplyPort(app: App, isReadOnlyView?: (view: View) =>
     },
   };
 }
-export function createSafeApplyService(app: App, pluginId: string): SafeApplyService {
-  const port = obsidianSafeApplyPort(app);
+export function createSafeApplyService(app: App, pluginId: string, protectedPaths: () => readonly string[] = () => []): SafeApplyService {
+  const port = obsidianSafeApplyPort(app, undefined, protectedPaths);
   return new SafeApplyService(new OperationJournal(app.vault.adapter, app.vault.configDir, pluginId), port, {
     journal: new MultiFileJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMultiFilePort(app, port),
   }, {
