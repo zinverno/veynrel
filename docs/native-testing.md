@@ -200,3 +200,15 @@ short fixture processes to test descendant cleanup, nonzero exit propagation,
 timeout and SIGTERM; it is process-infrastructure evidence, not Obsidian UI
 acceptance. [Recorded native comparison and validation](native-isolation-verification.md)
 separate those results from the real Obsidian smoke and existing regressions.
+
+## R05.2 local note actions
+
+After a production build, run `python scripts/native/run.py local-notes --timeout 240`.
+The common launcher owns Xvfb/Openbox, disposable profiles, Native frame, dynamic
+CDP ports and cleanup. The scenario records tag and selected broken-link
+Review/Apply/disk/History/Undo chains, exact Markdown hashes, per-stage IO,
+network/model attempts, active scope, RU/EN, light/dark, 390px, keyboard, split,
+popout, reduced motion and Obsidian restart. It has no model transport replay.
+See [the bounded contracts](r05/local-note-actions.md) and R05.2 verification.
+Real compositor/GPU/IME, custom frames and live model quality remain outside this
+virtual-display evidence. The old `actions` suite remains the R05.1 regression.

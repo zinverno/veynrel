@@ -158,6 +158,7 @@ try {
   await wait('!!hv.controller.getState().outcome&&!hv.controller.getState().busy');
   await main.ev("window.brokenFinding=hv.controller.listFindings().find(f=>f.type==='broken-link'&&f.notePaths.includes('Broken.md'));void 0");
   await pass('Native local scan produced the actual broken-link finding','!!brokenFinding');
+  report.activeScope={workspace:await main.ev('hv.areaIndex.selection'),tagSource:'Taggable.md',repairSource:'Broken.md',repairTarget:'Folder/Target.md',writesPerAction:1};
   await main.send('Page.startScreencast',{format:'jpeg',quality:85,everyNthFrame:1}); recording=true;
   await phase('tag-selection'); await openTag(); await shot('tag-choices');
   await selectValue('[data-local-note=tag-choice]','manual'); await main.ev("document.querySelector('[data-local-note=tag]').focus();void 0"); await main.send('Input.insertText',{text:'тема/Редкий'});
@@ -207,7 +208,7 @@ try {
   assert.deepEqual(hashes(),initialHashes); report.finalHashes=hashes();report.modelRequests=modelRequests;assert.equal(modelRequests.length,0);assert.equal(report.exceptions.length,0);
   for(const phase of ['tag-apply','tag-undo','repair-apply','repair-undo'])assert.equal(report.io.writes.filter(e=>e.phase===phase).length,1);
   await phase('restart');const exited=new Promise(resolve=>child.once('exit',resolve));child.kill('SIGTERM');await exited;for(const c of connections)c.socket.close();child=launchObsidian(root);await attach();
-  const restarted=await main.ev('plugin.safeApply.localNote.history()');assert.equal(restarted.length,2);assert(restarted.every(r=>r.state==='undone'));assert.deepEqual(hashes(),initialHashes);
+  const restarted=await main.ev('plugin.safeApply.localNote.history()');assert.equal(restarted.length,2);assert(restarted.every(r=>r.state==='undone'));assert.deepEqual(hashes(),initialHashes);report.restartIo=await main.ev('structuredClone(io)');assert.equal(report.restartIo.writes.length,0);assert.equal(modelRequests.length,0);
   assert.equal(report.exceptions.length,0);report.checks.push('Obsidian restart reads both completed journals without writes; exact originals remain');report.status='PASS';
 } catch(error) {
   report.status='FAIL';report.error=String(error.stack??error);process.exitCode=1;

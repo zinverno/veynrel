@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ TFile: class {}, MarkdownView: class {}, getLanguage: () => "en", parseLinktext: (s: string) => ({ path: s }), requestUrl: vi.fn(), parseYaml: vi.fn() }));
 import { TFile } from "obsidian";
-import { localBytes } from "./localNotePlan";
+import { localBytes, tagRanges } from "./localNotePlan";
 import { readLocalLinkPair } from "./readLocalLinkPair";
 import { buildLocalLinkPlan } from "./localLinkPlan";
 import { paragraphRanges } from "./changePlan";
@@ -107,10 +107,41 @@ describe("local action owner and durable journal", () => {
     f.adapter.copy.mockRejectedValueOnce(Error("backup")); await expect(f.service.localNote!.execute(newReview)).rejects.toThrow();
     await expect(f.service.reviewLocalLink(old, () => true)).rejects.toEqual(reason("storage")); expect(f.vault.process).not.toHaveBeenCalled();
   });
-  it("the owner lock prevents overlapping independent dispatch, consuming both one-use tickets", async () => {
+  it("the owner lock prevents overlapping dispatch of one confirmation", async () => {
     const f = localNoteFixture(), r = await f.service.localNote!.review(await f.plan(), () => true);
     const results = await Promise.allSettled([f.service.localNote!.execute(r), f.service.localNote!.execute(r)]);
     expect(results.filter(r => r.status === "fulfilled")).toHaveLength(1); expect(f.vault.process).toHaveBeenCalledTimes(1);
+  });
+
+  it("shares the lock across independent source plans without automatically retrying the busy operation", async () => {
+    const f = localNoteFixture(), first = await f.service.localNote!.review(await f.plan(), () => true);
+    const p = await f.native.prepare("Folder/Target.md");
+    const second = await f.service.localNote!.review(await f.native.plan(p, { kind: "add_inline_tag", tag: "other", range: tagRanges(p.source, p.metadata)[0] }), () => true);
+    const results = await Promise.allSettled([f.service.localNote!.execute(first), f.service.localNote!.execute(second)]);
+    expect(results[0].status).toBe("fulfilled"); expect(results[1]).toMatchObject({ status: "rejected", reason: { reason: "busy" } });
+    expect(f.contents.get("Folder/Target.md")).toBe("Target.\r\n"); expect(f.vault.process).toHaveBeenCalledTimes(1);
+    await expect(f.service.localNote!.execute(second)).rejects.toEqual(reason("used"));
+  });
+  it("checks current full text inside Vault.process even when external editing did not change observed stat", async () => {
+    const f = localNoteFixture(), r = await f.service.localNote!.review(await f.plan(), () => true), process = f.vault.process.getMockImplementation()!;
+    f.vault.process.mockImplementationOnce(async (file, cb) => { f.contents.set(file.path, "External edit."); return process(file, cb); });
+    await expect(f.service.localNote!.execute(r)).rejects.toEqual(reason("write"));
+    expect(f.contents.get("Source.md")).toBe("External edit.");
+    expect((await f.restart().localNote!.history())[0]).toMatchObject({ state: "conflict", blocking: true });
+  });
+  it("rechecks rules after durable backup IO, before dispatch", async () => {
+    const f = localNoteFixture(), r = await f.service.localNote!.review(await f.plan(), () => true), copy = f.adapter.copy.getMockImplementation()!;
+    f.adapter.copy.mockImplementationOnce(async (a, b) => { await copy(a, b); f.setRules({ profile: null, registryPath: "Missing.md" }); });
+    await expect(f.service.localNote!.execute(r)).rejects.toThrow(); expect(f.vault.process).not.toHaveBeenCalled();
+    expect((await f.restart().localNote!.history())[0]).toMatchObject({ state: "prepared", blocking: true });
+  });
+  it("same-path target replacement and target deletion invalidate a confirmed repair", async () => {
+    for (const replace of [true, false]) {
+      const f = localNoteFixture(), r = await f.service.localNote!.review(await f.plan("repair_wikilink"), () => true);
+      const path = "Folder/Target.md", old = f.files.get(path)!;
+      if (replace) f.files.set(path, Object.assign(new TFile(), old)); else f.files.delete(path);
+      await expect(f.service.localNote!.execute(r)).rejects.toThrow(); expect(f.vault.process).not.toHaveBeenCalled();
+    }
   });
 
 });
