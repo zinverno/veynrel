@@ -1,0 +1,35 @@
+
+ RUN  v4.1.10 <checkout>
+
+ ❯ taxonomySettings.test.ts (15 tests | 2 failed) 1971ms
+     × keeps raw damaged data across unrelated saves without fallback or rule writes 6ms
+     × keeps raw damaged data across unrelated saves without fallback or rule writes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  taxonomySettings.test.ts > R05.3 corrupt preference preservation > keeps raw damaged data across unrelated saves without fallback or rule writes
+ FAIL  taxonomySettings.test.ts > R05.3 corrupt preference preservation > keeps raw damaged data across unrelated saves without fallback or rule writes
+AssertionError: expected [Function] to not throw an error but 'Error: invalid' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: invalid"
+
+ ❯ taxonomySettings.test.ts:103:63
+    101|     expect(f.plugin.settings.organizationAudit).toEqual(raw); expect(f…
+    102|     expect(f.save).not.toHaveBeenCalled(); expect(f.app.vault.read).no…
+    103|     expect(() => f.plugin.getToolsPort().openLocalTag!()).not.toThrow(…
+       |                                                               ^
+    104|     expect(notices.at(-1)).toContain("Organization settings are invali…
+    105|     expect(f.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 13 passed (15)
+   Start at  16:39:00
+   Duration  2.82s (transform 2.10s, setup 0ms, import 694ms, tests 1.97s, environment 0ms)
+

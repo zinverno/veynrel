@@ -176,6 +176,8 @@ The suggested review order is R01–R15. R08 and the server contract R13 may be 
 
 **Excluded:** Нет автономной чистки/удаления, обязательной нормализации всех тегов или аудита дублей карточек Recall.
 
+R05 implementation candidate and remaining gates: [combined R05.1–R05.3 acceptance matrix](../r05/part3-verification.md). This evidence does not authorize merging or starting R06.
+
 ### R06 — Одна семантическая карта: семьи заметок и сравнение со связями
 
 **User outcome:** Карта показывает смысловые семьи и помогает понять расхождения с построенными ссылками и тегами.

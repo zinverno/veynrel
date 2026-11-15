@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/r04-organization-native.mjs",
+    "/tmp/veynrel-organization-native-3a5d1d24b918"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794750165.2001238,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    35075,
+    38497
+  ],
+  "cdpClosed": true,
+  "seconds": 61.107
+}

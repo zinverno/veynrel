@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/r05-3-registry-native.mjs",
+    "/tmp/veynrel-registry-native-902d14b8789a"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794749745.3467739,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    41979,
+    34437
+  ],
+  "cdpClosed": true,
+  "seconds": 35.567
+}

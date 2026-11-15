@@ -1,0 +1,19 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/studio-source-preservation-native.mjs",
+    "/tmp/veynrel-studio-native-d7cb9edb51a2"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794750293.6081433,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    39329,
+    43343,
+    33643,
+    46597
+  ],
+  "cdpClosed": true,
+  "seconds": 169.885
+}

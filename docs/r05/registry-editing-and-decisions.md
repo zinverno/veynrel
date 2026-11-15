@@ -121,9 +121,9 @@ to another suggestion. The user can explicitly remove a selected legacy record.
 Legacy plus new decisions share the 200-entry limit. No eviction or truncation.
 At capacity the UI explains the limit; restore an explicitly chosen entry to free
 a slot. Duplicate/unknown/future/malformed settings fail closed and the original
-raw settings value is preserved through unrelated saves. Recover such data from
+raw settings value is preserved through unrelated saves. The note-tag picker also refuses with a localized recovery notice before enumerating files. Recover such data from
 a known-good backup or inspect it manually; this change does not silently repair,
-reset or discard decisions.
+reset or discard decisions. Older development builds which only understand preferences v1 cannot interpret v2; retain a complete data.json backup before any deliberate downgrade. No automatic downgrade conversion is provided.
 
 ## Scope and limits
 

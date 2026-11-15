@@ -1,0 +1,334 @@
+{
+  "base": "c75642e0b9eb0bf63b3128a9286304009a2011d2",
+  "source": "be926d2edfa5d809dff43ee53488eeefe6b06a85",
+  "assets": {
+    "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+    "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "native": [
+    {
+      "scenario": "registry",
+      "root": "/tmp/veynrel-registry-native-114b076e28e8",
+      "checks": 32,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-registry-native-114b076e28e8",
+        "command": [
+          "node",
+          "<checkout>/scripts/r05-3-registry-native.mjs",
+          "/tmp/veynrel-registry-native-114b076e28e8"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794750071.7225552,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          43269,
+          36711
+        ],
+        "cdpClosed": true,
+        "seconds": 66.477
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 444307,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "scenario": "smoke",
+      "root": "/tmp/veynrel-smoke-native-f6b8482056a8",
+      "checks": 21,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-smoke-native-f6b8482056a8",
+        "command": [
+          "node",
+          "<checkout>/scripts/native/smoke.mjs",
+          "/tmp/veynrel-smoke-native-f6b8482056a8"
+        ],
+        "timeoutSeconds": 180,
+        "startedAt": 1794750139.1626737,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          38869
+        ],
+        "cdpClosed": true,
+        "seconds": 24.551
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 446015,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "scenario": "organization",
+      "root": "/tmp/veynrel-organization-native-3a5d1d24b918",
+      "checks": 44,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-organization-native-3a5d1d24b918",
+        "command": [
+          "node",
+          "<checkout>/scripts/r04-organization-native.mjs",
+          "/tmp/veynrel-organization-native-3a5d1d24b918"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794750165.2001238,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          35075,
+          38497
+        ],
+        "cdpClosed": true,
+        "seconds": 61.107
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 446563,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "scenario": "actions",
+      "root": "/tmp/veynrel-actions-native-b2fa79413c0e",
+      "checks": 23,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-actions-native-b2fa79413c0e",
+        "command": [
+          "node",
+          "<checkout>/scripts/r05-actions-native.mjs",
+          "/tmp/veynrel-actions-native-b2fa79413c0e"
+        ],
+        "timeoutSeconds": 240,
+        "startedAt": 1794750226.7065103,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          36593
+        ],
+        "cdpClosed": true,
+        "seconds": 28.284
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 447236,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "scenario": "local-notes",
+      "root": "/tmp/veynrel-local-notes-native-011dbea72e9b",
+      "checks": 67,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-local-notes-native-011dbea72e9b",
+        "command": [
+          "node",
+          "<checkout>/scripts/r05-2-local-notes-native.mjs",
+          "/tmp/veynrel-local-notes-native-011dbea72e9b"
+        ],
+        "timeoutSeconds": 240,
+        "startedAt": 1794750255.507688,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          45493,
+          46601
+        ],
+        "cdpClosed": true,
+        "seconds": 37.776
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 447526,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "scenario": "studio",
+      "root": "/tmp/veynrel-studio-native-d7cb9edb51a2",
+      "checks": 66,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-studio-native-d7cb9edb51a2",
+        "command": [
+          "node",
+          "<checkout>/scripts/studio-source-preservation-native.mjs",
+          "/tmp/veynrel-studio-native-d7cb9edb51a2"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794750293.6081433,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          39329,
+          43343,
+          33643,
+          46597
+        ],
+        "cdpClosed": true,
+        "seconds": 169.885
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 447837,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    },
+    {
+      "scenario": "recall",
+      "root": "/tmp/veynrel-recall-native-a62ae862e544",
+      "checks": 45,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-recall-native-a62ae862e544",
+        "command": [
+          "node",
+          "<checkout>/scripts/recall-topics-native.mjs",
+          "/tmp/veynrel-recall-native-a62ae862e544"
+        ],
+        "timeoutSeconds": 240,
+        "startedAt": 1794750463.718745,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          43147,
+          44583
+        ],
+        "cdpClosed": true,
+        "seconds": 28.32
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 448808,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87"
+      }
+    },
+    {
+      "scenario": "community",
+      "root": "/tmp/veynrel-community-native-f8b446b3d27c",
+      "checks": 47,
+      "exceptions": 0,
+      "execution": {
+        "root": "/tmp/veynrel-community-native-f8b446b3d27c",
+        "command": [
+          "node",
+          "<checkout>/scripts/studio-community-native.mjs",
+          "/tmp/veynrel-community-native-f8b446b3d27c",
+          "/tmp/veynrel-native-catalog-20261115"
+        ],
+        "timeoutSeconds": 240,
+        "startedAt": 1794750492.3070707,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          36161,
+          33293,
+          35345,
+          39411,
+          42379
+        ],
+        "cdpClosed": true,
+        "seconds": 17.106
+      },
+      "environment": {
+        "backend": "xvfb-openbox",
+        "display": ":2",
+        "privateDisplay": true,
+        "waylandDisplayRemoved": true,
+        "privateDbus": "dbus-run-session per harness",
+        "wmPid": 449127,
+        "gpu": "disabled",
+        "frame": "native"
+      },
+      "assets": {
+        "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+      }
+    }
+  ],
+  "distinctObservedCdpPorts": 19,
+  "scope": "Synthetic disposable profiles; no personal vault, paid calls, public release or deployment",
+  "stable": {
+    "version": "2.3.1",
+    "publishedAt": "2026-11-02T19:32:17Z",
+    "development": "2.4.0 unpublished"
+  }
+}
