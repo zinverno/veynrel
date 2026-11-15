@@ -6,6 +6,8 @@ import type { HealthControllerState } from "../obsidian/healthPluginController";
 import type { Finding } from "../domain/finding";
 import { includesScope, scopeFindings, sceneFolders } from "./vaultScope";
 import type { VaultScopeIndex } from "./vaultScope";
+import { nextActionFindings } from "../services/recommendationService";
+import { findingPresentation } from "../ui/findingPresentation";
 
 export function scopeName(index: VaultScopeIndex): string { return index.selection.kind === "all" ? t("@workspace.all") : index.selection.path; }
 export function workspaceHeading(parent: HTMLElement, title: string, description?: string): void {
@@ -16,7 +18,7 @@ export function workspaceHeading(parent: HTMLElement, title: string, description
 
 export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex, vaultName: string, state: HealthControllerState,
   findings: readonly Finding[], motion: boolean, actions: { select: (path?: string) => void; open: () => void; recall: () => void;
-    check: () => void; findings: () => void; process: () => void; motion: () => void }): void {
+    check: () => void; findings: () => void; process: () => void; motion: () => void; reviewFinding?: (id: string) => void }): void {
   const home = parent.createEl("section", { cls: "veynrel-native-home" });
   workspaceHeading(home, t("@workspace.headline"), t("@workspace.intro"));
   const grid = home.createDiv({ cls: "veynrel-home-grid" });
@@ -82,6 +84,16 @@ export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex,
   const primary = panel.createDiv({ cls: "veynrel-health-actions" });
   healthButton(primary, t("@workspace.local-check"), actions.check, "home-check", Boolean(missing), true);
   healthButton(primary, t("@workspace.findings"), actions.findings, "home-findings");
+  const next = missing ? [] : nextActionFindings(findings.filter(finding => finding.notePaths.some(path => includesScope(index.selection, path))));
+  if (next.length && actions.reviewFinding) {
+    const suggestions = panel.createEl("section", { attr: { "data-next-actions": "" } });
+    suggestions.createEl("h3", { text: t("@actions.shortlist") });
+    for (const finding of next) {
+      const item = suggestions.createDiv();
+      item.createEl("p", { text: findingPresentation(finding).title });
+      healthButton(item, t("@actions.why"), () => actions.reviewFinding!(finding.id), `next-${finding.id}`);
+    }
+  }
   const saved = healthDetails(panel, t("@workspace.saved-overview"), "home-saved");
   const metrics = saved.createDiv({ cls: "veynrel-scope-metrics" });
   const recall = state.snapshot?.recall;

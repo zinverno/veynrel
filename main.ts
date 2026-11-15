@@ -207,7 +207,8 @@ export default class AIHubPlugin extends Plugin {
       setLanguage(this.settings.language ?? "auto");
       const { registerStudio } = await import("./studio/registerStudio");
       this.studio = registerStudio(this, this.getLanguageModelSettingsPort());
-      this.safeApply = createSafeApplyService(this.app, this.manifest.id);
+      this.safeApply = createSafeApplyService(this.app, this.manifest.id, () =>
+        this.settings.organizationAudit?.registryPath ? [this.settings.organizationAudit.registryPath] : []);
       this.register(() => this.safeApply?.dispose());
       this.addCommand({ id: "consolidation-operation-history", name: tr("@ux.historyCommand"), callback: () => {
         if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open();

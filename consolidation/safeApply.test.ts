@@ -11,6 +11,8 @@ import { OperationJournal, SafeApplyError, checksum, validateOperation } from ".
 import type { OperationRecord, ResolutionRecord } from "./operationJournal";
 import { SafeApplyService } from "./safeApply";
 import { obsidianSafeApplyPort } from "./obsidianSafeApply";
+import { buildLocalLinkPlan } from "./localLinkPlan";
+import { readLocalLinkPair } from "./readLocalLinkPair";
 
 function setup(operation: "add_link" | "replace_with_embed" | "no_change" = "add_link", prefix = "") {
   const contents = new Map<string, string>(), caches = new Map<TFile, CachedMetadata>();
@@ -57,6 +59,78 @@ function setup(operation: "add_link" | "replace_with_embed" | "no_change" = "add
 }
 async function apply(f: ReturnType<typeof setup>) { const review = (await f.review())!; await f.service.apply(review); return review; }
 const reason = (s: string): unknown => expect.objectContaining({ reason: s });
+
+describe("user-origin local links through the existing single-file journal", () => {
+  async function local(f: ReturnType<typeof setup>, side: 0 | 1 = 0) {
+    const read = await readLocalLinkPair(f.app, [f.pair[0].path, f.pair[1].path]);
+    return buildLocalLinkPlan(read, side, paragraphRanges(read.pair[side])[0], true);
+  }
+  it.each([0, 1] as const)("reviews, applies and exactly undoes direction %s without an analysis result", async side => {
+    const f = setup(), plan = await local(f, side);
+    expect(plan).not.toHaveProperty("provenance"); expect(plan.origin).toBe("user");
+    const review = await f.service.reviewLocalLink(plan, () => true);
+    expect(f.vault.process).not.toHaveBeenCalled(); expect(f.disk.size).toBe(0);
+    await f.service.apply(review); expect(f.contents.get(plan.sourcePath)).toBe(plan.after);
+    const entry = (await f.journal.entries())[0]; expect(entry.record?.version).toBe(1); expect(entry.damaged).toBe(false);
+    await expect(f.service.apply(review)).rejects.toEqual(reason("used"));
+    const restored = f.restart(); await restored.undo(await restored.reviewUndo(review.id, () => true));
+    expect(f.contents.get(plan.sourcePath)).toBe(plan.before); expect(f.contents.get(plan.targetPath)).toBe(plan.target.content);
+  });
+  it.each(["ctime", "text", "cache", "resolver", "editor"])("rejects changed %s before local Apply", async changed => {
+    const f = setup(), plan = await local(f), review = await f.service.reviewLocalLink(plan, () => true);
+    if (changed === "ctime") f.pair[1].file.stat.ctime++;
+    if (changed === "text") f.contents.set(plan.sourcePath, "external edit");
+    if (changed === "cache") f.caches.set(f.pair[0].file, { sections: [] });
+    if (changed === "resolver") f.app.metadataCache.getFirstLinkpathDest = () => null;
+    if (changed === "editor") f.editor("unsaved");
+    await expect(f.service.apply(review)).rejects.toThrow(); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("protects a selected registry and rejects newly protected paths after preparation", async () => {
+    const f = setup(), plan = await local(f);
+    await expect(readLocalLinkPair(f.app, [plan.sourcePath, plan.targetPath], [plan.targetPath])).rejects.toThrow();
+    let paths: string[] = [];
+    const port = obsidianSafeApplyPort(f.app, undefined, () => paths), check = await port.checkLocalLink!(plan);
+    paths = [plan.sourcePath]; expect(check).toThrow(); await expect(port.checkLocalLink!(plan)).rejects.toThrow();
+    expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("checks ctime across the initial read and bounds reads before opening oversized sources", async () => {
+    const f = setup(), original = f.vault.read.getMockImplementation()!;
+    f.vault.read.mockImplementationOnce(async file => { const content = await original(file); file.stat.ctime++; return content; });
+    await expect(local(f)).rejects.toThrow(); f.vault.read.mockClear(); f.pair[0].file.stat.size = 800001;
+    await expect(local(f)).rejects.toThrow(); expect(f.vault.read).not.toHaveBeenCalled();
+  });
+  it("refuses a native read that drops BOM bytes before preparing a journal", async () => {
+    const f = setup(); f.pair[0].file.stat.size += 3;
+    await expect(local(f)).rejects.toThrow(); expect(f.disk.size).toBe(0); expect(f.vault.process).not.toHaveBeenCalled();
+  });
+  it("does not accept an arbitrary local patch or an unconfirmed paragraph", async () => {
+    const f = setup(), plan = await local(f), read = await readLocalLinkPair(f.app, [plan.sourcePath, plan.targetPath]);
+    expect(() => buildLocalLinkPlan(read, 0, plan.selection, false)).toThrow();
+    await expect(f.service.reviewLocalLink({ ...plan, after: "arbitrary" }, () => true)).rejects.toThrow();
+    expect(f.disk.size).toBe(0);
+  });
+  it("preserves BOM, CRLF, Unicode, YAML and complex links outside the selected plain paragraph byte for byte", async () => {
+    const f = setup(), before = '\uFEFF---\r\ntitle: "Юникод: 🐈"\r\n---\r\n\r\nОбычный абзац.\r\n\r\n[сложно](Other%20note.md#heading)\r\n';
+    const file = f.pair[0].file, text = "Обычный абзац.", start = before.indexOf(text), end = start + text.length;
+    f.contents.set(file.path, before); file.stat.size = Buffer.byteLength(before);
+    f.caches.set(file, { sections: [{ type: "paragraph", position: { start: { offset: start, line: 5, col: 0 }, end: { offset: end, line: 5, col: text.length } } }] });
+    const plan = await local(f), review = await f.service.reviewLocalLink(plan, () => true);
+    await f.service.apply(review); expect(f.contents.get(file.path)).toBe(before.slice(0, end) + " [[two/Same]]" + before.slice(end));
+    await f.service.undo(await f.service.reviewUndo(review.id, () => true));
+    expect(Buffer.from(f.contents.get(file.path)!)).toEqual(Buffer.from(before));
+  });
+  it("rechecks after backup and recovers a local link after a missing applied marker", async () => {
+    const f = setup(), plan = await local(f), review = await f.service.reviewLocalLink(plan, () => true);
+    const copy = f.adapter.copy.getMockImplementation()!;
+    f.adapter.copy.mockImplementationOnce(async (a, b) => { await copy(a, b); f.pair[1].file.stat.ctime++; });
+    await expect(f.service.apply(review)).rejects.toThrow(); expect(f.vault.process).not.toHaveBeenCalled();
+    const g = setup(), next = await g.service.reviewLocalLink(await local(g), () => true), write = g.adapter.write.getMockImplementation()!;
+    g.adapter.write.mockImplementation(async (path, data) => { if (path.endsWith("/applied.json")) throw Error("power loss"); await write(path, data); });
+    await expect(g.service.apply(next)).rejects.toThrow();
+    const service = g.restart(); expect((await service.history())[0]).toMatchObject({ state: "applied", recovered: true, canUndo: true });
+    await service.undo(await service.reviewUndo(next.id, () => true)); expect(g.contents.get(g.plan.sourcePath)).toBe(g.plan.before);
+  });
+});
 
 describe("single-file guarded apply and persistent recovery", () => {
   it.each(["add_link", "replace_with_embed"] as const)("applies %s once with homonym-safe paths, verified copies and preserved context", async operation => {

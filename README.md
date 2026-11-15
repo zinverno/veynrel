@@ -11,6 +11,8 @@ Veynrel brings vault health, connection review and spaced repetition to Obsidian
 
 > **R04 in development:** [Local organization audit and optional rules](docs/r04-organization-audit.md), without a model or automatic note changes. This is not part of public 2.3.1.
 
+> **R05.1 in development:** [Finding review and a user-chosen local link](docs/r05/local-link-actions.md), with separate write confirmation and supported Undo. This is one part of R05; tag actions and broken-link repair are not included. Public 2.3.1 is unchanged.
+
 ## Workspace and Studio
 
 ### Review a vault

@@ -1,0 +1,924 @@
+{
+  "scenario": "r05-local-link-native-v1",
+  "checks": [
+    "Passive Workspace and Findings navigation does not scan, read Markdown or write",
+    "Home offers at most three actual evidence-backed actions",
+    "Selected Workspace folder is one; the explicitly shown pair may include an external target",
+    "Real pair retains exact homonym paths and saved source context",
+    "No note writes before separate Apply confirmation",
+    "Explicit Apply adds only the full-path link; target, diary, YAML, CRLF, Unicode and unrelated notes preserved",
+    "Separate Undo restores every original Markdown byte",
+    "Returning retains originating finding and route",
+    "Native split buffer contains an unsaved test edit",
+    "Affected open split editor refuses write consent",
+    "en/dark/390px local plan uses native theme without horizontal overflow",
+    "en/dark: keyboard focus remains in local plan",
+    "en/light/390px local plan uses native theme without horizontal overflow",
+    "en/light: keyboard focus remains in local plan",
+    "ru/dark/390px local plan uses native theme without horizontal overflow",
+    "ru/dark: keyboard focus remains in local plan",
+    "ru/light/390px local plan uses native theme without horizontal overflow",
+    "ru/light: keyboard focus remains in local plan",
+    "Real popout owns local-plan document and focus",
+    "Focus returns to main after popout close",
+    "BOM stripped by native Vault.read refuses preparation before a new journal or Markdown write",
+    "Finding dismissal survives a repeated local scan without Markdown changes",
+    "Zero model requests and unhandled exceptions; all original files byte-identical at finish"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=home-findings]",
+      "active": "<button type=\"button\" data-health-action=\"home-findings\">Findings</button>"
+    },
+    {
+      "selector": "[data-health-action=home-check]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan my vault</button>"
+    },
+    {
+      "selector": "[title=one]",
+      "active": "<button type=\"button\" data-health-action=\"scope-1\" class=\"veynrel-topic-node veynrel-topic-1\" aria-pressed=\"false\" title=\"one\" aria-label=\"one · Notes: 1\"><span class=\"veynrel-topic-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-open\"><path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\"></path></svg></span><span class=\"veynrel-topic-name\"><strong>one</strong><small>Notes: 1</small></span></button>"
+    },
+    {
+      "selector": "[data-health-action=\"next-finding-f028619b29aa7a30\"]",
+      "active": "<button type=\"button\" data-health-action=\"next-finding-f028619b29aa7a30\">Review the evidence</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+    },
+    {
+      "selector": "[data-local-link=review]",
+      "active": "<button class=\"mod-cta\" type=\"button\" data-local-link=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-safe-apply [data-safe-action=confirm]",
+      "active": "<button type=\"button\" data-safe-action=\"confirm\" class=\"mod-cta\">Apply this change</button>"
+    },
+    {
+      "selector": ".ai-safe-apply [data-safe-action=undo]",
+      "active": "<button type=\"button\" data-safe-action=\"undo\">Undo</button>"
+    },
+    {
+      "selector": "[data-safe-action=undoConfirm]",
+      "active": "<button type=\"button\" data-safe-action=\"undoConfirm\" class=\"mod-cta\">Undo this change</button>"
+    },
+    {
+      "selector": ".ai-safe-apply [data-safe-action=done]",
+      "active": "<button class=\"mod-cta\" type=\"button\" data-safe-action=\"done\">Done — back to pair</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+    },
+    {
+      "selector": "[data-local-link=review]",
+      "active": "<button class=\"mod-cta\" type=\"button\" data-local-link=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Перейти к инструменту</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Сравнить эту пару</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Подготовить ссылку без модели</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Перейти к инструменту</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Сравнить эту пару</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Подготовить ссылку без модели</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Сравнить эту пару</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Подготовить ссылку без модели</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Перейти к инструменту</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-compare]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Сравнить эту пару</button>"
+    },
+    {
+      "selector": "[data-local-link=open]",
+      "active": "<button type=\"button\" data-local-link=\"open\">Подготовить ссылку без модели</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Перейти к инструменту</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-dismiss]",
+      "active": "<button type=\"button\" data-health-action=\"finding-dismiss\">Отклонить</button>"
+    },
+    {
+      "selector": "[data-health-action=scope-continue]",
+      "active": "<button type=\"button\" data-health-action=\"scope-continue\">Перейти к инструменту</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Проверить снова</button>"
+    }
+  ],
+  "screenshots": [
+    "finding-evidence-en-dark.png",
+    "pair-evidence.png",
+    "local-plan.png",
+    "review-diff.png",
+    "applied.png",
+    "undo-review.png",
+    "undone.png",
+    "open-editor-refusal.png",
+    "en-dark-390.png",
+    "en-light-390.png",
+    "ru-dark-390.png",
+    "ru-light-390.png",
+    "popout-plan.png",
+    "bom-refusal.png"
+  ],
+  "assets": {
+    "main.js": "19b33759004609c177789abb8a7648f24d77adb146db287a4b27eae3e6af74ce",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 11.833008,
+    "frames": 41,
+    "seconds": 11.443704843521118,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "r05-actions-native.mjs": "87718f88447a75591836c87b5fabea9fbc2d4b7a94ee4d036aee613f974f4636",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "71aa5b85f47cbe1a869d6b86930523dbaa00479f3e600587b7bcac7919ddd126"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "passive": {
+    "before": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 3,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [],
+      "phase": "passive-navigation"
+    },
+    "after": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 3,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [],
+      "phase": "passive-navigation"
+    }
+  },
+  "scan": {
+    "scan": {
+      "id": "local-77d6bbcb-2af8-4af4-a2b9-0e4772194268",
+      "type": "local",
+      "startedAt": 1794731854705,
+      "notesSeen": 7,
+      "findingsCreated": 14,
+      "findingsUpdated": 0,
+      "findingsResolved": 0,
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "reconciliationReceipts": {
+        "local:broken-links": 1794731854786,
+        "local:duplicate-titles": 1794731854786,
+        "local:exact-duplicates": 1794731854786,
+        "local:graph-components": 1794731854786,
+        "local:no-incoming-links": 1794731854786,
+        "local:no-outgoing-links": 1794731854786,
+        "local:note-shape": 1794731854786,
+        "local:orphans": 1794731854786
+      },
+      "status": "completed",
+      "completedAt": 1794731854786
+    },
+    "freshness": "verified",
+    "findingsCommitted": true,
+    "historyRecorded": true,
+    "diagnostics": []
+  },
+  "activeScope": {
+    "workspace": {
+      "kind": "folder",
+      "path": "one"
+    },
+    "source": "one/Same.md",
+    "target": "two/Same.md",
+    "writes": [
+      "one/Same.md"
+    ]
+  },
+  "appliedHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+  "history": [
+    {
+      "id": "2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062",
+      "copies": [
+        {
+          "name": "record.json",
+          "record": {
+            "version": 1,
+            "state": "prepared",
+            "id": "2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062",
+            "createdAt": 1794731860389,
+            "operation": "add_link",
+            "sourcePath": "one/Same.md",
+            "targetPath": "two/Same.md",
+            "sourceCreated": 1794731852660,
+            "sourceModified": 1794731852660,
+            "targetCreated": 1794731852660,
+            "targetModified": 1794731852660,
+            "before": "---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+            "after": "---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose. [[two/Same]]\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+            "beforeHash": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+            "afterHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+            "targetHash": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+            "selection": {
+              "start": 33,
+              "end": 73,
+              "text": "A theoretical note with its own purpose."
+            },
+            "edit": {
+              "start": 73,
+              "end": 73,
+              "removed": "",
+              "inserted": " [[two/Same]]"
+            }
+          }
+        },
+        {
+          "name": "backup.json",
+          "record": {
+            "version": 1,
+            "state": "prepared",
+            "id": "2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062",
+            "createdAt": 1794731860389,
+            "operation": "add_link",
+            "sourcePath": "one/Same.md",
+            "targetPath": "two/Same.md",
+            "sourceCreated": 1794731852660,
+            "sourceModified": 1794731852660,
+            "targetCreated": 1794731852660,
+            "targetModified": 1794731852660,
+            "before": "---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+            "after": "---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose. [[two/Same]]\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+            "beforeHash": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+            "afterHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+            "targetHash": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+            "selection": {
+              "start": 33,
+              "end": 73,
+              "text": "A theoretical note with its own purpose."
+            },
+            "edit": {
+              "start": 73,
+              "end": 73,
+              "removed": "",
+              "inserted": " [[two/Same]]"
+            }
+          }
+        }
+      ],
+      "marks": [
+        "applied",
+        "undo_pending",
+        "undone"
+      ],
+      "damaged": false,
+      "issues": [],
+      "evidence": [
+        {
+          "name": "record.json",
+          "status": "valid",
+          "sha256": "d9aa7626aa057e5f5fc27f67485e73203e69b7b3baca9a58f99edbc4c757bfa4"
+        },
+        {
+          "name": "backup.json",
+          "status": "valid",
+          "sha256": "d9aa7626aa057e5f5fc27f67485e73203e69b7b3baca9a58f99edbc4c757bfa4"
+        },
+        {
+          "name": "applied.json",
+          "status": "valid",
+          "sha256": "70728681b3db8c0c496d5e4aeac568ae319c7798271ddf9563312b02c82fe9c7"
+        },
+        {
+          "name": "undo_pending.json",
+          "status": "valid",
+          "sha256": "73ef253e92e8891075a439765fa9785dbe842f0039d1c6a7866e67182cfd538e"
+        },
+        {
+          "name": "undone.json",
+          "status": "valid",
+          "sha256": "9b9e3e4eed77d0d48cf51c7d5649c8e22169725b6ac4f61d5169aa4cd94a9ab6"
+        }
+      ],
+      "scope": "none",
+      "evidenceHash": "c0a50c77d5656cf0d9df8a2f6020a4fffc892ea278d1de78f6929c4744748353",
+      "resolutionAttempts": [],
+      "record": {
+        "version": 1,
+        "state": "prepared",
+        "id": "2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062",
+        "createdAt": 1794731860389,
+        "operation": "add_link",
+        "sourcePath": "one/Same.md",
+        "targetPath": "two/Same.md",
+        "sourceCreated": 1794731852660,
+        "sourceModified": 1794731852660,
+        "targetCreated": 1794731852660,
+        "targetModified": 1794731852660,
+        "before": "---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+        "after": "---\r\ntitle: \"Юникод: 🐈\"\r\n---\r\n\r\nA theoretical note with its own purpose. [[two/Same]]\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+        "beforeHash": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+        "afterHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+        "targetHash": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+        "selection": {
+          "start": 33,
+          "end": 73,
+          "text": "A theoretical note with its own purpose."
+        },
+        "edit": {
+          "start": 73,
+          "end": 73,
+          "removed": "",
+          "inserted": " [[two/Same]]"
+        }
+      },
+      "state": "undone",
+      "recovered": false,
+      "canUndo": false,
+      "canResolve": false,
+      "sourceState": "before",
+      "editorBlocked": false
+    }
+  ],
+  "settingsPreserved": "All plugin settings unchanged except the explicitly tested language selector",
+  "finalHashes": {
+    "one/Same.md": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+    "two/Same.md": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+    "Broken.md": "22c7ebe80bb191eec416386b0798b1049e38df7b666b175156bd4ee3d592c0a4",
+    "Other.md": "c83bab09c2e870ce2954efb40363026c5472fd1dfe289088944ccdca9085590e",
+    "Encoding.md": "1587fd84e73f4f8472a1915c274c34db08abb3c4f53ca3d0dbd9890069ed077d",
+    "encoding/Encoding.md": "efff514393c71aada4b15b94dcf286697580a08a86adc6d26897dc09dac7c5e6",
+    "Diary.md": "ac0abccf8b381a29c6670604b2fa0927978063f0f4482d89381fc9010cce8601"
+  },
+  "io": {
+    "reads": [
+      {
+        "path": "Broken.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "Diary.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "Encoding.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "Other.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "encoding/Encoding.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "finding-and-pair"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "finding-and-pair"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "finding-and-pair"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "finding-and-pair"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "prepare-and-review"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "prepare-and-review"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "restore-explicit-editor-test"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "localization-and-layout"
+      },
+      {
+        "path": "Encoding.md",
+        "phase": "bom-refusal"
+      },
+      {
+        "path": "encoding/Encoding.md",
+        "phase": "bom-refusal"
+      },
+      {
+        "path": "Encoding.md",
+        "phase": "bom-refusal"
+      },
+      {
+        "path": "encoding/Encoding.md",
+        "phase": "bom-refusal"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "bom-refusal"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "path": "Diary.md",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "path": "Encoding.md",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "path": "Other.md",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "path": "encoding/Encoding.md",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "dismiss-and-rescan"
+      }
+    ],
+    "writes": [
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-apply"
+      },
+      {
+        "path": "one/Same.md",
+        "phase": "explicit-undo"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "path": "two/Same.md",
+        "phase": "restore-explicit-editor-test"
+      }
+    ],
+    "creates": [],
+    "metadata": 89,
+    "enumerations": 6,
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "explicit-local-scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "finding-and-pair"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "finding-and-pair"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/record.json",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "copy",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/record.json",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/applied.json",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/undo_pending.json",
+        "phase": "explicit-undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/undone.json",
+        "phase": "explicit-undo"
+      },
+      {
+        "method": "write",
+        "path": "two/Same.md",
+        "phase": "refusal-unsaved-editor"
+      },
+      {
+        "method": "write",
+        "path": "two/Same.md",
+        "phase": "restore-explicit-editor-test"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "localization-and-layout"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "localization-and-layout"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "localization-and-layout"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "localization-and-layout"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "localization-and-layout"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+        "phase": "dismiss-and-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+        "phase": "dismiss-and-rescan"
+      }
+    ],
+    "phase": "dismiss-and-rescan"
+  },
+  "operationJournalWrites": [
+    {
+      "method": "mkdir",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations",
+      "phase": "explicit-apply"
+    },
+    {
+      "method": "mkdir",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062",
+      "phase": "explicit-apply"
+    },
+    {
+      "method": "write",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/record.json",
+      "phase": "explicit-apply"
+    },
+    {
+      "method": "copy",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/record.json",
+      "phase": "explicit-apply"
+    },
+    {
+      "method": "write",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/applied.json",
+      "phase": "explicit-apply"
+    },
+    {
+      "method": "write",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/undo_pending.json",
+      "phase": "explicit-undo"
+    },
+    {
+      "method": "write",
+      "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/2364008547012b63c4a97be75ae0580e6b49ffa026d1322d4d079bf176758062/undone.json",
+      "phase": "explicit-undo"
+    }
+  ],
+  "modelRequests": [],
+  "status": "PASS"
+}

@@ -3,6 +3,7 @@ import type { Finding, FindingState, HealthDimension } from "../domain/finding";
 import { compareStrings } from "../domain/validation";
 import { findingPresentation } from "./findingPresentation";
 import { findingEvidencePresentation } from "./findingEvidencePresentation";
+import { findingPair } from "../services/recommendationService";
 
 export const FINDING_STATES: readonly FindingState[] = ["open", "snoozed", "dismissed", "resolved"];
 export const FINDING_DIMENSIONS = ["all", "structure", "connections", "recall", "knowledge"] as const;
@@ -55,6 +56,9 @@ export function findingsInboxViewModel({ findings, route, mutatingFindingId, bus
         : selected.source === "semantic" ? t("@health.semantic") : selected.source === "deep-ai" ? t("@health.deep") : undefined,
       notes: [...selected.notePaths], affectedSummary: t("@findings.affected-count", { n: evidence.affectedCount }),
       representativeSummary: evidence.representativeSummary, facts: evidence.facts,
+      pair: findingPair(selected),
+      origin: t(selected.source === "local" ? "@actions.local" : "@actions.hypothesis"),
+      recorded: t("@actions.recorded", { date: new Intl.DateTimeFormat(dateLocale(), { dateStyle: "medium", timeStyle: "short" }).format(selected.lastSeenAt) }),
       snoozedUntil: selected.state === "snoozed" && selected.snoozedUntil !== undefined
         ? t("@findings.snoozed-until", { date: new Intl.DateTimeFormat(dateLocale(), { dateStyle: "medium", timeStyle: "short" }).format(selected.snoozedUntil) }) : undefined,
       canDismiss: selected.state === "open", canSnooze: selected.state === "open",

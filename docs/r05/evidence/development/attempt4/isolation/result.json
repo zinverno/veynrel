@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/r05-actions-native.mjs",
+    "/tmp/veynrel-actions-native-r05-attempt4"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794731208.7591488,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    43997
+  ],
+  "cdpClosed": true,
+  "seconds": 21.89
+}

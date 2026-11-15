@@ -1,4 +1,5 @@
 import { Notice } from "obsidian";
+import { FindingPairModal } from "./findingPairModal";
 import { ReviewListView } from "../workbench/reviewListView";
 import { WorkbenchView } from "../workbench/workbenchView";
 import type { WorkbenchData, PairReviewPort } from "../workbench/workbenchData";
@@ -327,6 +328,7 @@ export class VeynrelHealthView extends ItemView {
         select: path => this.selectScope(path), open: () => this.navigate({ page: "discover" }),
         recall: () => this.navigate({ page: "recall" }), check: () => this.navigate({ page: "health" }),
         findings: () => this.navigate({ ...this.lastFindingsRoute }),
+        reviewFinding: selectedFindingId => this.navigate(findingsRoute({ selectedFindingId })),
         process: () => this.navigate({ page: "process" }), motion: () => { this.motion = !this.motion; this.render(); },
       });
       const due = state.snapshot?.recall;
@@ -472,6 +474,10 @@ export class VeynrelHealthView extends ItemView {
         select: (id) => this.navigate({ ...route, selectedFindingId: id }, this.scopeAcknowledged),
         back: () => this.navigate({ ...route, selectedFindingId: undefined }, this.scopeAcknowledged),
         openNote: (path) => { void this.openNote(path); }, tools: () => this.navigate({ page: "tools" }),
+        compare: this.workbenchHost ? id => {
+          const finding = this.controller.listFindings().find(item => item.id === id);
+          if (finding && !this.controller.getState().busy) new FindingPairModal(this.app, finding, this.workbenchHost!.pair).open();
+        } : undefined,
         dismiss: (id) => { void this.mutateFinding(id, () => this.controller.dismissFinding(id)); },
         snooze: (id, days) => { void this.mutateFinding(id, () => this.controller.snoozeFinding(id, snoozeDeadline(days))); },
         reopen: (id) => { void this.mutateFinding(id, () => this.controller.reopenFinding(id)); },

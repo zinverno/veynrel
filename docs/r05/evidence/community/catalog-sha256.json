@@ -1,0 +1,20 @@
+{
+  "index.json": "81945bc1c7f40cfd22c8afac28b5df9e8cc60f05bdc90f532f137d4e5f9e3b90",
+  "examples/README.md": "4123cf96cd005513a78b3ed62a28fd00db6c9d8020ed1cfb798d223b34c06628",
+  "entries/technical-note/1.0.0.json": "f6d4b98fdb8ed22722a530557af2348c3103bbb248c05cec634a4435633989ca",
+  "entries/study-material/1.0.0.json": "74a89fb70a2ed7aa7b5ed30a8c588d5faed0367e2bf2a96116738846a1144c49",
+  "entries/meeting-structure/1.0.0.json": "9e0744b565d9036e6dcdee014c92f7308d1505a4963d66faadd9907d09cab123",
+  "entries/lecture-outline/1.0.0.json": "f9bb627a89230be40290e9cce76b10c12849dc4a7e161edc1b6fc98c31e942cf",
+  "entries/learning-journal/1.0.0.json": "7c365fd92bf53bb057d8c5031cbf1cae2d9d8a02381c5fd7c7dd5667ffc84749",
+  "entries/extract-actions/1.0.0.json": "da9c02bdcaea3f510774892f17476eb06696dd7636b7f64665ee6a1630bb3528",
+  "entries/daily-note/1.0.0.json": "e3e479e30dd330b1cadac84fbfb6acbfe43b35097c236b222dcb9d2396604fdb",
+  "entries/article-summary/1.0.0.json": "492b638a69276fbd5b423bbfeff4ec8c3759dd92ed9a126882d508883e65f9e8",
+  "recipes/technical-note/1.0.0.json": "dffa82b5cb7eb47734ae8790269f695ee052885bf74c20ef92fbe5f0b2b630e9",
+  "recipes/study-material/1.0.0.json": "eb82aee19c291a38851f4eea0d2030bc31da7ee2c865f81712b86ae3144d5ecf",
+  "recipes/meeting-structure/1.0.0.json": "81c3fcd873322376b73af56fdde8e22088edf5d6a22f1df8d510d94b60b453f4",
+  "recipes/lecture-outline/1.0.0.json": "fb3a26f671f4061529147955d046890330f225526a65fd9dceef2e46c2f4b3b2",
+  "recipes/learning-journal/1.0.0.json": "1387aafe7d08503d34e94dfac4bb7a9bd386b1e846f5ac90c4f2239998f1d892",
+  "recipes/extract-actions/1.0.0.json": "ffa8973960359469cf62561a132aacb7cf980209439d106c64c7dc1e2a2a3ee5",
+  "recipes/daily-note/1.0.0.json": "4da38e800979f4a994e9b1a74481347b922717790fd035779265113b5ae61301",
+  "recipes/article-summary/1.0.0.json": "4674980faa971393bd1615fa7b9d8d17a1b23fffd351c0fab6b2e57ca6f7b606"
+}

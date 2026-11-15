@@ -1,0 +1,41 @@
+
+> obsidian-ai-hub@2.4.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.4.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.4.0 build
+> node esbuild.config.mjs production
+
+
+<checkout>/api.ts
+  460:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+<checkout>/consolidation/localLinkModal.test.ts
+  10:26  warning  Use 'this.createDiv()' instead of 'this.createEl("div")'  obsidianmd/prefer-create-el
+
+<checkout>/consolidation/localLinkPlan.ts
+  16:28  error  'a[0]' may use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+  16:55  error  'b[0]' may use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+
+<checkout>/consolidation/safeApply.ts
+  167:76  error  A method that is not declared with `this: void` may cause unintentional scoping of `this` when separated from its object.
+Consider using an arrow function or explicitly `.bind()`ing the method to avoid calling the method with an unintended `this` value. 
+If a function does not access `this`, it can be annotated with `this: void`  @typescript-eslint/unbound-method
+
+<checkout>/health/workspace/renderWorkspaceHome.ts
+  92:20  warning  Use 'suggestions.createDiv()' instead of 'suggestions.createEl("div")'  obsidianmd/prefer-create-el
+
+<checkout>/studio/community/transport.ts
+  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 7 problems (3 errors, 4 warnings)
+  0 errors and 2 warnings potentially fixable with the `--fix` option.
+

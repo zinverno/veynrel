@@ -23,12 +23,19 @@ error; failed evidence is not overwritten.
 The maintained core harnesses use the same launch boundary:
 
 ```sh
+python scripts/native/run.py actions --timeout 240
 python scripts/native/run.py organization --timeout 300
 python scripts/native/run.py studio --timeout 240
 python scripts/native/run.py recall
 python scripts/native/run.py community /absolute/path/to/local-veynrel-recipes
 VEYNREL_R03_REVIEW_LABELS=1 python scripts/native/run.py studio
 ```
+
+The `actions` scenario exercises the R05.1 finding → pair → local link → exact
+Markdown diff → separate Apply → supported Undo route. It uses no model, checks
+per-stage IO, scope and journal writes, and retains failed receipts. BOM reads
+that lose bytes are a verified refusal, not a successful write claim. See
+[R05.1 limits](r05/local-link-actions.md) and [verification](r05/verification.md).
 
 The `organization` scenario exercises R04 on synthetic empty, tagless, organized,
 registry and 1,000-note fixtures, including cancellation, stale sources, native

@@ -1,6 +1,7 @@
 import type { SavedNote } from "./savedNote";
 import { sameSavedNote } from "./savedNote";
 import type { ChangePlan } from "./changePlan";
+import type { LocalLinkPlan, SingleWritePlan } from "./localLinkPlan";
 import type { RelationshipAnalysis } from "./relationshipSession";
 import { OperationJournal, SafeApplyError, requireSafe, checksum } from "./operationJournal";
 import type { JournalEntry, OperationRecord, OperationState, ResolutionRecord } from "./operationJournal";
@@ -33,6 +34,7 @@ export interface JournalSnapshot { single: JournalEntry[]; multi: MultiEntry[]; 
 
 export interface SafeApplyPort {
   check(plan: ChangePlan, analysis: RelationshipAnalysis): Promise<() => void>;
+  checkLocalLink?(plan: LocalLinkPlan): Promise<() => void>;
   read(path: string): Promise<SavedNote | null>;
   guard(note: SavedNote): void;
   process(note: SavedNote, before: string, after: string, guard: () => void): Promise<void>;
@@ -44,7 +46,7 @@ export interface OperationHistory extends JournalEntry {
 }
 export interface ApplyReview { readonly id: string; readonly before: string; readonly after: string; readonly sourcePath: string }
 export interface ResolutionReview { readonly row: OperationHistory }
-interface Ticket { record: OperationRecord; plan?: ChangePlan; analysis?: RelationshipAnalysis; source?: SavedNote; current: () => boolean }
+interface Ticket { record: OperationRecord; plan?: SingleWritePlan; check?: () => Promise<() => void>; source?: SavedNote; current: () => boolean }
 
 /** One plugin-wide owner. No work at construction; no retries and no automatic Markdown recovery. */
 export class SafeApplyService {
@@ -159,9 +161,16 @@ export class SafeApplyService {
   }
   async review(plan: ChangePlan, analysis: RelationshipAnalysis, current: () => boolean): Promise<ApplyReview | null> {
     if (plan.operation === "no_change") return null;
+    return this.reviewSingle(plan, current, snapshot => this.port.check(snapshot, analysis));
+  }
+  async reviewLocalLink(plan: LocalLinkPlan, current: () => boolean): Promise<ApplyReview> {
+    requireSafe(plan.origin === "user" && plan.operation === "add_link" && typeof this.port.checkLocalLink === "function", "stale");
+    return this.reviewSingle(plan, current, snapshot => this.port.checkLocalLink!(snapshot));
+  }
+  private async reviewSingle<P extends SingleWritePlan>(plan: P, current: () => boolean, validate: (snapshot: P) => Promise<() => void>): Promise<ApplyReview> {
     return this.exclusive(async () => {
       this.active(current);
-      const check = await this.port.check(plan, analysis); check();
+      const check = await validate(plan); check();
       requireSafe(plan.edit && plan.selection, "stale");
       const record: OperationRecord = {
         version: 1, state: "prepared", id: "", createdAt: Date.now(), operation: plan.operation as OperationRecord["operation"],
@@ -178,21 +187,21 @@ export class SafeApplyService {
       this.active(current); check();
       const snapshot = { ...plan, source: { ...plan.source }, target: { ...plan.target }, selection: { ...plan.selection }, edit: { ...plan.edit },
         affectedLinks: { ...plan.affectedLinks, preserved: plan.affectedLinks.preserved.map(ref => ({ ...ref })) } };
-      return this.ticket({ record, plan: snapshot, analysis, current });
+      return this.ticket({ record, plan: snapshot, check: () => validate(snapshot), current });
     });
   }
   async apply(review: ApplyReview): Promise<void> {
-    const ticket = this.tickets.get(review); requireSafe(ticket?.plan && ticket.analysis, "used");
+    const ticket = this.tickets.get(review); requireSafe(ticket?.plan && ticket.check, "used");
     this.tickets.delete(review);
     await this.exclusive(async () => {
-      const { plan, analysis, record, current } = ticket;
+      const { plan, record, current } = ticket;
       this.active(current);
-      let check = await this.port.check(plan!, analysis!); this.active(current); check();
+      let check = await ticket.check!(); this.active(current); check();
       await this.checkBlockers([record.sourcePath, record.targetPath]);
       try { await this.journal.prepare(record); } catch (error) { throw error instanceof SafeApplyError ? error : new SafeApplyError("storage"); }
       // A journal write can take time; re-read both sources and structure after it, too.
       await this.checkBlockers([record.sourcePath, record.targetPath]);
-      check = await this.port.check(plan!, analysis!); this.active(current); check();
+      check = await ticket.check!(); this.active(current); check();
       try {
         await this.port.process(plan!.source, record.before, record.after, () => { this.active(current); check(); });
       } catch { throw new SafeApplyError("write"); }
