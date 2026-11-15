@@ -26,6 +26,128 @@ Green tests and the workaround do not substitute for the owner's UX review.
   a separate owner decision. Auto-merge stays off. No release, tag, deployment,
   paid inference, personal-vault installation or R04 work was performed.
 
+## Review-label follow-up — 2026-11-15
+
+Runtime/UI test source: `ad10800b9d6f83346d3d37ddd23dfe9c3a4c5421`.
+The following evidence commit changes documentation and clarifies one native
+check name only. The final harness is pinned by SHA-256 in its receipt; no
+product source changed after the fresh validations below.
+
+Review now separates an unwritten proposal's destination from the recipe's
+replace/append action. The exact generated labels are:
+
+| Destination | EN | RU |
+| --- | --- | --- |
+| Separate note | Draft for a separate note — source unchanged · Generated | Черновик отдельной заметки — исходник без изменений · Сгенерировано |
+| Source, replace | Proposed source action: Replace · Generated | Предлагаемое действие с исходником: Заменить · Сгенерировано |
+| Source, append | Proposed source action: Append · Generated | Предлагаемое действие с исходником: Добавить в конец · Сгенерировано |
+
+After a write attempt, Review shows the observed outcome (for example, separate
+note created, applied, or conflict), not an unwritten draft. Incomplete generation
+retains its warning even when an unselected row is marked skipped. The existing
+human-review warning stays visible. History renderers and journals are unchanged
+and continue to describe actual creation, application and Undo results.
+
+This is presentation only: `row.action`, recipes, output schema, write plans,
+generation, confirmations, Apply/Undo and journal formats are unchanged. The
+existing destination-change handler rerenders the label without regeneration.
+No new setting, dependency, version or backend contract was introduced.
+
+Fresh checks ([commands and exit codes](r03-review-label-evidence/checks.json)):
+
+| Check | Result |
+| --- | --- |
+| Targeted presentation/workflow/create tests | [125 passed](r03-review-label-evidence/targeted.log), including 10 new RU/EN label tests |
+| Full suite | [5,162 tests / 195 files passed](r03-review-label-evidence/suite.log) |
+| Typecheck, production build, lint | [Passed](r03-review-label-evidence/typecheck-build-lint.log); zero errors, two existing fetch warnings |
+| Mutation audit | [5/5 killed](r03-review-label-evidence/mutation.log); restored tests passed |
+| Final native Review probe | [PASS](r03-review-label-evidence/native/native-report.json): 24 label observations, 10 scenario assertions, zero exceptions |
+
+Two fresh bounded native runs used Obsidian 1.13.7 / Electron 43.6.0, Xvfb/Openbox
+and Native frame in new disposable profiles. Each made exactly four explicit
+synthetic loopback requests: one per language/action. No paid or live model
+request occurred. The final run took 24.271 seconds. Each of its four matrices
+switched `new-note → source → new-note` in both standard themes on the same
+immutable generated Review: **zero additional model requests, note writes,
+note creations or journal writes**, with identical on-disk Markdown/journal
+hashes. It then created two separate notes (EN), applied and undid two source
+changes (RU), and checked actual history outcomes in both languages. The seven
+original synthetic Markdown files were byte-identical at completion. Synthetic
+responses validate UI/contracts, not model quality.
+
+The [first run](r03-review-label-evidence/attempt1/native-report.json) and all its
+captures remain. One check name imprecisely mentioned Undo for separate-note
+creation; the final run clarifies that wording. Only source changes used Undo;
+created notes were not automatically deleted. No failed assertion or exception
+was filtered. This is not a rerun of the historical 66-scenario suite or a new
+large UX experiment.
+
+Full 1300×950 client screenshots, uncropped (the same folder includes the four
+write outcomes and two History captures):
+
+| Review | Separate note | Source |
+| --- | --- | --- |
+| EN / replace / light | [PNG](r03-review-label-evidence/native/review-en-replace-light-new-note.png) | [PNG](r03-review-label-evidence/native/review-en-replace-light-source.png) |
+| EN / replace / dark | [PNG](r03-review-label-evidence/native/review-en-replace-dark-new-note.png) | [PNG](r03-review-label-evidence/native/review-en-replace-dark-source.png) |
+| EN / append / light | [PNG](r03-review-label-evidence/native/review-en-append-light-new-note.png) | [PNG](r03-review-label-evidence/native/review-en-append-light-source.png) |
+| EN / append / dark | [PNG](r03-review-label-evidence/native/review-en-append-dark-new-note.png) | [PNG](r03-review-label-evidence/native/review-en-append-dark-source.png) |
+| RU / replace / light | [PNG](r03-review-label-evidence/native/review-ru-replace-light-new-note.png) | [PNG](r03-review-label-evidence/native/review-ru-replace-light-source.png) |
+| RU / replace / dark | [PNG](r03-review-label-evidence/native/review-ru-replace-dark-new-note.png) | [PNG](r03-review-label-evidence/native/review-ru-replace-dark-source.png) |
+| RU / append / light | [PNG](r03-review-label-evidence/native/review-ru-append-light-new-note.png) | [PNG](r03-review-label-evidence/native/review-ru-append-light-source.png) |
+| RU / append / dark | [PNG](r03-review-label-evidence/native/review-ru-append-dark-new-note.png) | [PNG](r03-review-label-evidence/native/review-ru-append-dark-source.png) |
+
+Final `main.js` SHA-256:
+`72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d`.
+CSS and manifest retain the original hashes below. The final production rebuild
+matches the native-installed bytes. [Provenance](r03-review-label-evidence/provenance.json)
+and [evidence hashes](r03-review-label-evidence/SHA256SUMS) separate these new runs
+from the historical host investigation and original R03 acceptance receipts.
+All 160 existing R01–R03 evidence files remain byte-identical.
+
+### Isolated execution without integrating PR #142
+
+The existing Studio harness gained only a bounded Review mode. Its original
+assertions remain; they are not claimed as freshly executed by this mode.
+The **unchanged external runner** from PR #142 at
+`0b37b39ca304e85096cd741cdbc99547a7faafc9` supplied Xvfb/Openbox and cleanup.
+No runner code was copied, no branches merged and no #142 files changed.
+No windows were opened on the working desktop. The legacy harness still uses
+port 9286 serially; the wrapper checks it before/after instead of claiming
+dynamic-port enrollment. Owned process groups were gone after both runs.
+
+To reproduce from this R03 worktree with that separate infrastructure worktree
+available (installed prerequisites are described in #142):
+
+```sh
+npm run build
+VEYNREL_R03_REVIEW_LABELS=1 python - <<'PY'
+import importlib.util, socket, subprocess, sys, uuid
+from pathlib import Path
+infra = Path('../native-isolation-20261115').resolve()
+assert subprocess.check_output(['git', '-C', str(infra), 'rev-parse', 'HEAD'], text=True).strip() == '0b37b39ca304e85096cd741cdbc99547a7faafc9'
+spec = importlib.util.spec_from_file_location('isolated_runner', infra / 'scripts/native/run.py')
+runner = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(runner)
+def port_closed():
+    with socket.socket() as probe:
+        probe.settimeout(.3)
+        return probe.connect_ex(('127.0.0.1', 9286)) != 0
+assert port_closed(), 'Legacy harness port occupied; refuse to attach'
+root = '/tmp/veynrel-studio-native-r03-labels-' + uuid.uuid4().hex[:12]
+code = runner.run(['node', str(Path('scripts/studio-source-preservation-native.mjs').resolve()), root,], root, 180)
+assert port_closed(), 'Legacy CDP listener remained after cleanup'
+sys.exit(code)
+PY
+```
+
+The Native-frame result does not close the Hidden/Obsidian-frame gate, establish
+a fix for the historical first-pointer issue, or prove physical desktop/GPU/IME
+behavior. The earlier split/popout/restart/narrow-panel and full UX recordings
+remain historical evidence, not new coverage for this small follow-up. #142's
+integration is deferred until R03 is resolved. The draft PR records CI for its
+new exact HEAD separately from these local checks; owner acceptance remains
+required. No upstream bug report was submitted.
+
 ## Problems, changes and preserved contracts
 
 The [audit table](roadmap/r03-ux-audit.md#observed-problems-and-bounded-changes)
@@ -296,7 +418,7 @@ unsuccessful or incomplete runs are not counted as passed.
 
 ## Runtime hashes and reproduction
 
-| File | Tested final SHA-256 |
+| File | Original tested SHA-256 (before the Review-label follow-up) |
 | --- | --- |
 | `main.js` | `2d05cd5c69999f18a8b2bf46cf60ba2bf4a07d36f02e86189ff77337ca411142` |
 | `styles.css` | `492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3` |

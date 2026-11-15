@@ -240,7 +240,7 @@ async function reviewLabels() {
       await shot(`written-${language}-${action}`);
       if(language==='ru') await undoAll();
       assert.deepEqual(hashes(),initialHashes);assert.equal(requests.length,requestCount);
-      checks.push(`${language}/${action}: actual write outcome is shown; original Markdown preserved after supported Undo`);
+      checks.push(`${language}/${action}: actual write outcome is shown; original Markdown preserved after ${language==='ru'?'supported source Undo':'separate-note creation'}`);
     }
   }
   const finalJournals=journals(), count=requests.length;

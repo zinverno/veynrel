@@ -1,0 +1,50 @@
+[
+  {
+    "name": "targeted",
+    "command": [
+      "./node_modules/.bin/vitest",
+      "run",
+      "studio/messages.test.ts",
+      "studio/workflow.test.ts",
+      "studio/markdownCreate.test.ts",
+      "--maxWorkers=2"
+    ],
+    "startedAt": 1794706792.2022853,
+    "seconds": 2.658,
+    "exitCode": 0
+  },
+  {
+    "name": "suite",
+    "command": [
+      "npm",
+      "test",
+      "--",
+      "--maxWorkers=2"
+    ],
+    "startedAt": 1794706794.8611972,
+    "seconds": 68.902,
+    "exitCode": 0
+  },
+  {
+    "name": "typecheck-build-lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "startedAt": 1794706863.7745154,
+    "seconds": 107.739,
+    "exitCode": 0
+  },
+  {
+    "name": "mutation",
+    "command": [
+      "npm",
+      "run",
+      "audit:proposals"
+    ],
+    "startedAt": 1794706971.54587,
+    "seconds": 8.907,
+    "exitCode": 0
+  }
+]
