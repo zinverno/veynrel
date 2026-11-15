@@ -1,0 +1,72 @@
+[
+  {
+    "check": "native-scope",
+    "command": [
+      "node",
+      "scripts/r03-ux-native.mjs",
+      "/tmp/veynrel-r03-native-after-scope-01",
+      "after",
+      "scope"
+    ],
+    "exitCode": 1,
+    "seconds": 5.87,
+    "log": "/tmp/veynrel-r03-final-native-scope.log"
+  },
+  {
+    "check": "tests",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "exitCode": 1,
+    "seconds": 53.01,
+    "log": "/tmp/veynrel-r03-final-tests.log"
+  },
+  {
+    "check": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "exitCode": 0,
+    "seconds": 233.52,
+    "log": "/tmp/veynrel-r03-final-lint.log"
+  },
+  {
+    "check": "mutation",
+    "command": [
+      "npm",
+      "run",
+      "audit:proposals"
+    ],
+    "exitCode": 0,
+    "seconds": 10.85,
+    "log": "/tmp/veynrel-r03-final-mutation.log"
+  },
+  {
+    "check": "native-scope2",
+    "command": [
+      "node",
+      "scripts/r03-ux-native.mjs",
+      "/tmp/veynrel-r03-native-after-scope-02",
+      "after",
+      "scope"
+    ],
+    "exitCode": 0,
+    "seconds": 8.01,
+    "log": "/tmp/veynrel-r03-final-native-scope2.log"
+  },
+  {
+    "check": "tests2",
+    "command": [
+      "npm",
+      "test",
+      "--",
+      "--maxWorkers=2"
+    ],
+    "exitCode": 0,
+    "seconds": 70.37,
+    "log": "/tmp/veynrel-r03-final-tests2.log"
+  }
+]

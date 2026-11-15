@@ -1,0 +1,149 @@
+[
+  {
+    "stage": "R01",
+    "receipt": "docs/release-2.4.0-evidence/native-upgrade-attempt1.json",
+    "exceptionEpochMs": 1794540977932.971,
+    "exceptionUTC": "2026-11-13T03:36:17.932971+00:00",
+    "nearestOriginalScreenshots": [
+      {
+        "file": "recall-en-light-320.png",
+        "mtimeMs": 1794540978363.8572,
+        "deltaFromExceptionMs": 430.886
+      },
+      {
+        "file": "recall-en-light-390.png",
+        "mtimeMs": 1794540978737.324,
+        "deltaFromExceptionMs": 804.353
+      },
+      {
+        "file": "recall-en-light-1280.png",
+        "mtimeMs": 1794540979147.4705,
+        "deltaFromExceptionMs": 1214.5
+      },
+      {
+        "file": "recall-en-dark-320.png",
+        "mtimeMs": 1794540979517.6025,
+        "deltaFromExceptionMs": 1584.632
+      },
+      {
+        "file": "recall-en-dark-390.png",
+        "mtimeMs": 1794540979887.7341,
+        "deltaFromExceptionMs": 1954.763
+      },
+      {
+        "file": "recall-en-dark-1280.png",
+        "mtimeMs": 1794540980297.88,
+        "deltaFromExceptionMs": 2364.909
+      },
+      {
+        "file": "recall-ru-light-320.png",
+        "mtimeMs": 1794540981254.8862,
+        "deltaFromExceptionMs": 3321.915
+      },
+      {
+        "file": "recall-ru-light-390.png",
+        "mtimeMs": 1794540981621.6826,
+        "deltaFromExceptionMs": 3688.712
+      }
+    ],
+    "limits": "File mtimes correlate capture completion only; original receipts do not identify the failed frameDom receiver or timestamp every action."
+  },
+  {
+    "stage": "R02",
+    "receipt": "docs/r02-excalidraw-removal-evidence/native-with-excalidraw.json",
+    "exceptionEpochMs": 1794547128030.236,
+    "exceptionUTC": "2026-11-13T05:18:48.030236+00:00",
+    "nearestOriginalScreenshots": [
+      {
+        "file": "incomplete-en-390.png",
+        "mtimeMs": 1794547127093.6958,
+        "deltaFromExceptionMs": -936.54
+      },
+      {
+        "file": "incomplete-en.png",
+        "mtimeMs": 1794547126950.3633,
+        "deltaFromExceptionMs": -1079.873
+      },
+      {
+        "file": "incomplete-ru.png",
+        "mtimeMs": 1794547132170.3262,
+        "deltaFromExceptionMs": 4140.09
+      },
+      {
+        "file": "incomplete-ru-390.png",
+        "mtimeMs": 1794547132260.3257,
+        "deltaFromExceptionMs": 4230.09
+      },
+      {
+        "file": "incomplete-history-ru.png",
+        "mtimeMs": 1794547135693.635,
+        "deltaFromExceptionMs": 7663.399
+      },
+      {
+        "file": "consent-properties-policy.png",
+        "mtimeMs": 1794547138670.281,
+        "deltaFromExceptionMs": 10640.045
+      },
+      {
+        "file": "review-new-note-en-light-r2.png",
+        "mtimeMs": 1794547139426.9424,
+        "deltaFromExceptionMs": 11396.706
+      },
+      {
+        "file": "confirm-create-en-split.png",
+        "mtimeMs": 1794547139923.6057,
+        "deltaFromExceptionMs": 11893.37
+      }
+    ],
+    "limits": "File mtimes correlate capture completion only; original receipts do not identify the failed frameDom receiver or timestamp every action."
+  },
+  {
+    "stage": "R03",
+    "receipt": "docs/r03-ux-evidence/after-small.json",
+    "exceptionEpochMs": 1794652314612.934,
+    "exceptionUTC": "2026-11-14T10:31:54.612934+00:00",
+    "nearestOriginalScreenshots": [
+      {
+        "file": "studio-en-light-434.png",
+        "mtimeMs": 1794652314145.7427,
+        "deltaFromExceptionMs": -467.191
+      },
+      {
+        "file": "workspace-ru-dark-1400.png",
+        "mtimeMs": 1794652315365.7717,
+        "deltaFromExceptionMs": 752.838
+      },
+      {
+        "file": "workspace-en-light-434.png",
+        "mtimeMs": 1794652313429.059,
+        "deltaFromExceptionMs": -1183.875
+      },
+      {
+        "file": "studio-ru-dark-1400.png",
+        "mtimeMs": 1794652316105.789,
+        "deltaFromExceptionMs": 1492.855
+      },
+      {
+        "file": "studio-en-light-1400.png",
+        "mtimeMs": 1794652312702.3752,
+        "deltaFromExceptionMs": -1910.559
+      },
+      {
+        "file": "workspace-ru-dark-434.png",
+        "mtimeMs": 1794652316829.1396,
+        "deltaFromExceptionMs": 2216.206
+      },
+      {
+        "file": "workspace-en-light-1400.png",
+        "mtimeMs": 1794652311962.3574,
+        "deltaFromExceptionMs": -2650.577
+      },
+      {
+        "file": "studio-ru-dark-434.png",
+        "mtimeMs": 1794652317549.1567,
+        "deltaFromExceptionMs": 2936.223
+      }
+    ],
+    "limits": "File mtimes correlate capture completion only; original receipts do not identify the failed frameDom receiver or timestamp every action."
+  }
+]

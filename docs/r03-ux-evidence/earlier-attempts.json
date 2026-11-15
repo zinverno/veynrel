@@ -1,0 +1,125 @@
+{
+  "note": "Absolute worktree paths shortened in harness error strings only. Raw local receipts retained. Host exception payload is separately unchanged.",
+  "attempts": [
+    {
+      "attempt": "before-small-01",
+      "disposition": "Harness used require(obsidian) in renderer; module unavailable. Replaced version lookup with host title.",
+      "receiptSha256": "6b7d842717e0d1faa005e4469a60f579ad37efa24cf656f1089d5d651fe552f4",
+      "functionalAssertions": 0,
+      "exceptions": 0,
+      "failure": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":1574,\"columnNumber\":2,\"scriptId\":\"63\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"Module._resolveFilename\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1570,\"columnNumber\":14},{\"functionName\":\"a._resolveFilename\",\"scriptId\":\"127\",\"url\":\"node:electron/js2c/renderer_init\",\"lineNumber\":1,\"columnNumber\":4843},{\"functionName\":\"wrapResolveFilename\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1124,\"columnNumber\":26},{\"functionName\":\"defaultResolveImplForCJSLoading\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1148,\"columnNumber\":9},{\"functionName\":\"resolveForCJSWithHooks\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1175,\"columnNumber\":11},{\"functionName\":\"Module._load\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1347,\"columnNumber\":4},{\"functionName\":\"l._load\",\"scriptId\":\"86\",\"url\":\"node:electron/js2c/node_init\",\"lineNumber\":1,\"columnNumber\":18262},{\"functionName\":\"s._load\",\"scriptId\":\"127\",\"url\":\"node:electron/js2c/renderer_init\",\"lineNumber\":1,\"columnNumber\":34530},{\"functionName\":\"wrapModuleLoad\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":267,\"columnNumber\":18},{\"functionName\":\"Module.require\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1680,\"columnNumber\":11},{\"functionName\":\"require\",\"scriptId\":\"57\",\"url\":\"node:internal/modules/helpers\",\"lineNumber\":156,\"columnNumber\":15},{\"functionName\":\"\",\"scriptId\":\"175\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":11}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"Error\",\"description\":\"Error: Cannot find module 'obsidian'\\nRequire stack:\\n- electron/js2c/renderer_init\\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1571:15)\\n    at a._resolveFilename (node:electron/js2c/renderer_init:2:4844)\\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1125:27)\\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1149:10)\\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1176:12)\\n    at Module._load (node:internal/modules/cjs/loader:1348:5)\\n    at l._load (node:electron/js2c/node_init:2:18263)\\n    at s._load (node:electron/js2c/renderer_init:2:34531)\\n    at wrapModuleLoad (node:internal/modules/cjs/loader:268:19)\\n    at Module.require (node:internal/modules/cjs/loader:1681:12)\",\"objectId\":\"-5229875806522646075.1.2\"}}\n    at ev (file://<worktree>/scripts/r03-ux-native.mjs:54:137)\n    at async connect (file://<worktree>/scripts/r03-ux-native.mjs:104:21)\n    at async file://<worktree>/scripts/r03-ux-native.mjs:109:3"
+    },
+    {
+      "attempt": "before-small-02",
+      "disposition": "Baseline capture stopped at the scope gate instead of evidence; retained as an observation, superseded by 03/04.",
+      "receiptSha256": "d81ead601702388ebdeb4a4f4d46b60f81ed035a3e2e881e116f6f21128f745c",
+      "functionalAssertions": 3,
+      "exceptions": 0,
+      "failure": null
+    },
+    {
+      "attempt": "before-small-03",
+      "disposition": "Completed baseline audit before runtime edits; 04 repeats the same baseline with final counters/recording harness.",
+      "receiptSha256": "f6984fbd1a0f8f0c7429eeb47d035e6e0abda994e61a7587f1b48554e7fc710c",
+      "functionalAssertions": 5,
+      "exceptions": 0,
+      "failure": null
+    },
+    {
+      "attempt": "after-small-01",
+      "disposition": "Earlier runtime passed its initial five assertions; superseded by final runtime receipts.",
+      "receiptSha256": "16c9942bf381e41823f2103fce01b58ec86a0dbbc5133fc8391d8278931ca993",
+      "functionalAssertions": 5,
+      "exceptions": 0,
+      "failure": null
+    },
+    {
+      "attempt": "after-small-02",
+      "disposition": "Overstrict passive-zero-read assertion: existing Studio History verifies its created target. No full scan/write/request. Counter assertion corrected to name that read.",
+      "receiptSha256": "0931f6d6becbfb78f5b935b83d144983a9fec5c09f8dd65c20d585c0ed26c1ce",
+      "functionalAssertions": 8,
+      "exceptions": 0,
+      "failure": "AssertionError [ERR_ASSERTION]: Passive routes perform no Markdown scan/read\n\n23 !== 22\n\n    at file://<worktree>/scripts/r03-ux-native.mjs:211:12"
+    },
+    {
+      "attempt": "after-small-03",
+      "disposition": "Interrupted before final receipt; Electron log also contains GPU fatal exit. No success inferred."
+    },
+    {
+      "attempt": "after-small-04",
+      "disposition": "Interrupted before final receipt; Electron log also contains GPU fatal exit. No success inferred."
+    },
+    {
+      "attempt": "after-small-05",
+      "disposition": "Interrupted before final receipt; no confirmed GPU cause. No success inferred."
+    },
+    {
+      "attempt": "after-small-06",
+      "disposition": "CDP Enter had no character event and did not activate button; product unchanged.",
+      "receiptSha256": "ce3125112d29dd55115773827d0255990c189013d7bed20107784e8de649cd71",
+      "functionalAssertions": 9,
+      "exceptions": 0,
+      "failure": "AssertionError [ERR_ASSERTION]: Enter follows the primary check route without scanning\n    at pass (file://<worktree>/scripts/r03-ux-native.mjs:57:44)\n    at async file://<worktree>/scripts/r03-ux-native.mjs:217:5"
+    },
+    {
+      "attempt": "after-small-07",
+      "disposition": "Same ineffective CDP Enter. Bounded probe confirmed text carriage-return yields keypress/click; harness corrected.",
+      "receiptSha256": "4bbfacfa5887293a3006b335fda592a29d5c43ea65c84a9ac026659833881d56",
+      "functionalAssertions": 9,
+      "exceptions": 0,
+      "failure": "AssertionError [ERR_ASSERTION]: Enter follows the primary check route without scanning\n    at pass (file://<worktree>/scripts/r03-ux-native.mjs:57:44)\n    at async file://<worktree>/scripts/r03-ux-native.mjs:222:5"
+    },
+    {
+      "attempt": "after-small-08",
+      "disposition": "CDP could not serialize returned TFolder after creating disposable folder; harness changed to return void.",
+      "receiptSha256": "c071a8dfa13fb11ee8241ed4fd040ca03df215bb6510dabbdb71722441ff7c5c",
+      "functionalAssertions": 16,
+      "exceptions": 0,
+      "failure": "[object Object]"
+    },
+    {
+      "attempt": "after-small-09",
+      "disposition": "Harness evaluation used top-level await outside async; wrapped in async IIFE.",
+      "receiptSha256": "65ee10dac05d0c8841e7cd7468a9a1ea18b5738a1e3b1449a42b8a28abaae663",
+      "functionalAssertions": 18,
+      "exceptions": 0,
+      "failure": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":43,\"scriptId\":\"320\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"SyntaxError\",\"description\":\"SyntaxError: await is only valid in async functions and the top level bodies of modules\",\"objectId\":\"-3797969444807110453.2.2\"}}\n    at ev (file://<worktree>/scripts/r03-ux-native.mjs:55:137)\n    at async file://<worktree>/scripts/r03-ux-native.mjs:258:5"
+    },
+    {
+      "attempt": "after-small-10",
+      "disposition": "Final runtime: 25 functional assertions; one unfiltered pre-existing host exception. Raw completed:true predates strict flag separation and is not a clean-runtime verdict.",
+      "receiptSha256": "9ce854e0a66d608725359260fb6e3952be7c31f7983aeab64323e400c06ab76d",
+      "functionalAssertions": 25,
+      "exceptions": 1,
+      "failure": null
+    },
+    {
+      "attempt": "studio-regression-final",
+      "disposition": "Stopped after delayed-complete assertion, before final receipt; not counted. Repeated with independent exit-code capture."
+    },
+    {
+      "attempt": "studio-regression-final2",
+      "disposition": "14 assertions before timeout waiting for document.hasFocus after settings/language change; no clean regression result. The test now explicitly activates only its disposable native window and retains activation diagnostics."
+    },
+    {
+      "attempt": "after-scope-01",
+      "disposition": "Probe selected the hidden individual-note status (0/20) instead of the visible folder count. Selector scoped to folder control; no runtime change."
+    },
+    {
+      "attempt": "final-suite-default-workers",
+      "disposition": "5150 passed; two retained 1.7.0 settings compatibility cases timed out at existing 5000 ms. Full rerun uses two workers, unchanged assertions and timeout."
+    },
+    {
+      "attempt": "studio-regression-final3",
+      "disposition": "21 functional assertions; opening saved history result timed out. Pointer trace in same disposable profile showed mousedown on button, mouseup on DIV, no click. Second click opened result. No runtime exception."
+    },
+    {
+      "attempt": "history-pointer-controls-initial",
+      "disposition": "First baseline control had a pre-opened result and later controls missed new-profile trust/deferred readiness; not counted as valid comparison. Final base3/after3 use fresh profiles, explicit trust and zero initial Markdown leaves."
+    },
+    {
+      "attempt": "history-pointer-controls-final",
+      "disposition": "Both base3 and after3 opened Saved draft.md with one pointer click, zero exceptions. Does not establish root trigger or exclude an intermittent failure. Final regression uses explicit focus and geometry settling; no product patch."
+    }
+  ]
+}

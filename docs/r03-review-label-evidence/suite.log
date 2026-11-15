@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":132.116759,"layoutMs":11.369113000000027}}
+
+ Test Files  195 passed (195)
+      Tests  5162 passed (5162)
+   Start at  04:39:55
+   Duration  68.17s (transform 8.87s, setup 0ms, import 25.32s, tests 76.78s, environment 28ms)

@@ -1,0 +1,33 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r03-20261114
+
+ ❯ releaseCompatibility.test.ts (7 tests | 2 failed) 10961ms
+   × loads retained 1.7.0 settings from data.json without clearing existing values 5024ms
+   × loads retained 1.7.0 settings from merged-data.json without clearing existing values 5002ms
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":279.9269479999999,"layoutMs":26.138621000000057}}
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  releaseCompatibility.test.ts > loads retained 1.7.0 settings from data.json without clearing existing values
+ FAIL  releaseCompatibility.test.ts > loads retained 1.7.0 settings from merged-data.json without clearing existing values
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ releaseCompatibility.test.ts:23:43
+     21| afterEach(() => vi.unstubAllGlobals());
+     22|
+     23| it.each(["data.json", "merged-data.json"])("loads retained 1.7.0 setti…
+       |                                           ^
+     24|   vi.stubGlobal("window", { crypto: { randomUUID: () => "22222222-2222…
+     25|   const stored = JSON.parse(readFileSync(new URL(`./tests/fixtures/upg…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 193 passed (194)
+      Tests  2 failed | 5150 passed (5152)
+   Start at  13:43:48
+   Duration  51.74s (transform 55.15s, setup 0ms, import 119.35s, tests 226.40s, environment 92ms)

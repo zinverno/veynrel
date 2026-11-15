@@ -1,0 +1,37 @@
+{
+  "runs": [
+    {
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "completedAt": 1794652660753,
+      "findingsCreated": 24,
+      "findingsResolved": 0,
+      "findingsUpdated": 0,
+      "id": "local-a2926fd0-378a-4be6-a855-714286b431ba",
+      "notesSeen": 1000,
+      "reconciliationReceipts": {
+        "local:broken-links": 1794652660753,
+        "local:duplicate-titles": 1794652660753,
+        "local:exact-duplicates": 1794652660753,
+        "local:graph-components": 1794652660753,
+        "local:no-incoming-links": 1794652660753,
+        "local:no-outgoing-links": 1794652660753,
+        "local:note-shape": 1794652660753,
+        "local:orphans": 1794652660753
+      },
+      "startedAt": 1794652660027,
+      "status": "partial",
+      "type": "local"
+    }
+  ],
+  "updatedAt": 1794652660766,
+  "version": 2
+}

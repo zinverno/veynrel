@@ -4,9 +4,9 @@ import type { HealthControllerState } from "../obsidian/healthPluginController";
 import type { HealthHomeViewModel } from "./healthHomeViewModel";
 import type { HealthOnboardingViewModel } from "./healthOnboardingViewModel";
 import { renderHealthProfileOptions } from "./healthProfileOptions";
-import { healthButton } from "./renderHealthHome";
+import { healthButton, healthDetails } from "./renderHealthHome";
 
-interface OnboardingActions { choose: (profile: VaultProfile) => void; skip: () => void; scan: () => void; openNote: () => void; complete: () => void }
+interface OnboardingActions { choose: (profile: VaultProfile) => void; skip: () => void; startLocal: () => void; scan: () => void; openNote: () => void; complete: () => void }
 
 export function renderHealthOnboarding(parent: HTMLElement, model: HealthOnboardingViewModel, home: HealthHomeViewModel,
   state: HealthControllerState, actions: OnboardingActions): void {
@@ -16,9 +16,11 @@ export function renderHealthOnboarding(parent: HTMLElement, model: HealthOnboard
   if (model.step === "profile") {
     heading(t("@health.onboarding.welcome"));
     section.createEl("p", { text: t("@health.onboarding.subtitle") });
-    section.createEl("h2", { text: t("@health.profile.question") });
-    renderHealthProfileOptions(section, undefined, state.savingPreferences, actions.choose);
-    section.createEl("p", { text: t("@health.profile.explanation"), cls: "veynrel-health-muted" });
+    section.createEl("p", { text: t("@workspace.local-coverage") });
+    healthButton(section, t("@health.scan"), actions.startLocal, "start-local", state.savingPreferences || home.scanDisabled, true);
+    const profiles = healthDetails(section, t("@workspace.optional-profile"), "onboarding-profile");
+    renderHealthProfileOptions(profiles, undefined, state.savingPreferences, actions.choose);
+    profiles.createEl("p", { text: t("@health.profile.explanation"), cls: "veynrel-health-muted" });
     healthButton(section, t("@health.onboarding.skip"), actions.skip, "skip", state.savingPreferences);
   } else if (model.step === "scan") {
     heading(t("@health.initial-title"));

@@ -959,7 +959,12 @@ describe("Findings navigation and lifecycle integration", () => {
     f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
     f.content.action(destination === "another-finding" ? `finding-${other.id}` : destination).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    f.content.action("nav-health").click(); f.content.action("nav-findings").click();
+    if (destination === "state-dismissed") {
+      expect(f.content.action("state-dismissed").attrs["aria-pressed"]).toBe("true");
+      f.content.action("state-open").click();
+    }
+    f.content.action(`finding-${id}`).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.controller.getFinding(id)?.state).toBe("open");
   });
   it("a later scan clears a failed Finding interaction immediately and can publish its own successful status", async () => {
@@ -1906,6 +1911,54 @@ describe("Processing entry", () => {
 });
 
 describe("Stage 1 native home and scope boundaries", () => {
+  it("offers an explicit no-key local check without requiring a profile, and never scans after a failed preference save", async () => {
+    const failed = fixture({}); await failed.view.onOpen();
+    failed.save.mockRejectedValueOnce(new Error("private"));
+    failed.content.action("start-local").click();
+    await vi.waitFor(() => expect(failed.content.texts()).toContain("Couldn't save Health preferences"));
+    expect(failed.vault.read).not.toHaveBeenCalled(); expect(failed.preferences.get().profileChosen).toBe(false);
+    await failed.view.onClose();
+    const f = fixture({}); await f.view.onOpen();
+    const profile = f.content.all().find(e => e.attrs["data-health-disclosure"] === "onboarding-profile");
+    expect(profile?.open).toBe(false); expect(f.vault.read).not.toHaveBeenCalled();
+    f.content.action("start-local").click();
+    await vi.waitFor(() => expect(f.content.action("continue")).toBeDefined());
+    expect(f.preferences.get()).toMatchObject({ profile: "mixed", profileChosen: true, onboardingCompleted: false });
+    expect(f.vault.read).toHaveBeenCalledTimes(1); expect(mocks.requestUrl).not.toHaveBeenCalled();
+    await f.view.onClose();
+  });
+  it("shows a recorded local check on Home without claiming current freshness or rescanning", async () => {
+    const f = fixture(); await f.view.onOpen();
+    expect(f.content.action("home-check").cls).toContain("mod-cta");
+    expect(f.content.texts()).toContain("selected folder does not limit");
+    await f.controller.runLocalScan(); f.vault.read.mockClear();
+    f.content.action("nav-home").click();
+    expect(f.content.querySelector("[data-workspace-check-receipt]")?.texts()).toContain("Completed");
+    expect(f.content.texts()).toContain("Later note changes require a new check");
+    expect(f.content.texts()).not.toContain("Freshness and coverage not established");
+    expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+  it("restores inbox filters, selected evidence, list position and focus without extending a scope confirmation to a new tool", async () => {
+    const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]);
+    await f.view.onOpen(); await f.controller.runLocalScan();
+    f.content.action("scope-0").click(); f.content.action("home-findings").click(); f.content.action("scope-continue").click();
+    f.content.action("filter-structure").click();
+    expect(f.content.action("scope-continue")).toBeUndefined();
+    const row = f.content.all().find(e => e.attrs["data-health-action"]?.startsWith("finding-finding-"))!;
+    expect(row).toBeDefined(); row.focus(); f.content.scrollTop = 640; row.click();
+    expect(f.content.action("finding-dismiss")).toBeDefined(); expect(f.content.action("scope-continue")).toBeUndefined();
+    f.content.action("findings-back").click();
+    expect(f.content.scrollTop).toBe(640);
+    expect(f.content.ownerDocument.activeElement).toBe(f.content.action(row.attrs["data-health-action"]));
+    f.content.action(row.attrs["data-health-action"]).click();
+    f.content.action("nav-home").click(); f.content.action("home-findings").click();
+    expect(f.content.action("scope-continue")).toBeDefined(); f.content.action("scope-continue").click();
+    expect(f.content.action("filter-structure").attrs["aria-pressed"]).toBe("true");
+    expect(f.content.action("finding-dismiss")).toBeDefined();
+    f.content.action("nav-health").click(); expect(f.content.action("scope-continue")).toBeDefined();
+    const old = f.content.action("scope-continue"); f.content.action("scope-picker").input(""); old.click();
+    expect(mocks.requestUrl).not.toHaveBeenCalled(); await f.view.onClose();
+  });
   it("opens the approved home with real metadata and preserves selection independently in two views", async () => {
     const f = fixture();
     f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }, { path: "SQL/nested" }, { path: "SQL-old" }]);

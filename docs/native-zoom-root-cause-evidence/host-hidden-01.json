@@ -1,0 +1,112 @@
+{
+  "frame": "hidden",
+  "variant": "host",
+  "platform": "x11",
+  "cycles": 1,
+  "phase": "startup",
+  "actions": [
+    {
+      "label": "ready",
+      "phase": "startup",
+      "at": 1794660706630,
+      "frame": "hidden",
+      "frameDom": true,
+      "windowType": "object",
+      "windowClass": "BrowserWindow",
+      "contentsType": "object",
+      "contentsClass": "WebContents",
+      "getZoomType": "function",
+      "zoom": 1,
+      "windowId": 1,
+      "contentsId": 1,
+      "windowDestroyed": false,
+      "contentsDestroyed": false,
+      "bounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "contentBounds": {
+        "x": 448,
+        "y": 156,
+        "width": 1024,
+        "height": 800
+      },
+      "focused": true,
+      "nativeFocused": true,
+      "inner": [
+        1024,
+        800
+      ],
+      "outer": [
+        1056,
+        842
+      ],
+      "closed": false,
+      "frameSetting": "hidden",
+      "view": "markdown",
+      "modals": 0
+    }
+  ],
+  "pauses": [],
+  "exceptions": [],
+  "callErrors": [],
+  "eventLogs": [
+    {
+      "sessionId": "680E8D8B4921A0FF37279CA0F85D7B5A",
+      "events": [
+        {
+          "type": "focus",
+          "at": 1794660706095,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660706095,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "focus",
+          "at": 1794660706595,
+          "width": 1024,
+          "height": 800,
+          "focused": true,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660706992,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        },
+        {
+          "type": "blur",
+          "at": 1794660706992,
+          "width": 1024,
+          "height": 800,
+          "focused": false,
+          "closed": false
+        }
+      ]
+    }
+  ],
+  "artifacts": {},
+  "screenshots": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugins": []
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'hidden'\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-zoom-root-cause-20261114/scripts/host-zoom-diagnostic.mjs:118:10",
+  "originalMarkdownPreserved": true
+}

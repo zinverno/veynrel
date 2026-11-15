@@ -1,4 +1,6 @@
 import { currentLanguage } from "../i18n";
+import type { ApplyOutcome, ReviewRow } from "./ports";
+import type { MarkdownDestination } from "./writePlan";
 export const l = (en: string, ru: string): string => currentLanguage() === "ru" ? ru : en;
 const statuses: Record<string, [string, string]> = {
   incomplete: ["Incomplete response: output limit reached", "Ответ неполный: достигнут лимит вывода"],
@@ -13,6 +15,15 @@ const statuses: Record<string, [string, string]> = {
   damaged: ["Damaged evidence — writing blocked", "Повреждены данные — запись заблокирована"], replace: ["Replace", "Заменить"], append: ["Append", "Добавить в конец"],
 };
 export function status(value: string): string { const pair = statuses[value]; return pair ? l(...pair) : value; }
+export function reviewRowLabel(row: Pick<ReviewRow, "action" | "status">, destination: MarkdownDestination, outcome?: ApplyOutcome): string {
+  if (row.status !== "incomplete" && outcome) return status(outcome);
+  const proposal = row.status !== "generated"
+    ? `${l("Recipe action:", "Действие сценария:")} ${status(row.action)}`
+    : destination === "new-note"
+      ? l("Draft for a separate note — source unchanged", "Черновик отдельной заметки — исходник без изменений")
+      : `${l("Proposed source action:", "Предлагаемое действие с исходником:")} ${status(row.action)}`;
+  return `${proposal} · ${row.status === "generated" ? l("Generated", "Сгенерировано") : status(row.status)}`;
+}
 const errors: Record<string, [string, string]> = {
   frontmatter: ["Properties cannot be safely separated or preserved in this document. Nothing was written. Studio supports exact --- delimiters and mapping YAML; inspect the literal text.", "Нельзя безопасно выделить или сохранить свойства этого документа. Ничего не записано. Studio поддерживает точные разделители --- и YAML-объект; проверьте исходный текст."],
   target: ["The exact destination is unavailable or unsupported. Choose a different Markdown name in the source folder and confirm a new plan. No overwrite or automatic rename.", "Точный путь недоступен или не поддерживается. Выберите другое имя Markdown в папке исходника и подтвердите новый план. Перезаписи и автоматического переименования нет."],

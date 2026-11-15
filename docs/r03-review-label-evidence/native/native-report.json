@@ -1,0 +1,1168 @@
+{
+  "checks": [
+    "Disposable host uses Native frame without the custom handler",
+    "en/replace: destination/theme switches preserve Review, notes, journals and request count",
+    "en/replace: actual write outcome is shown; original Markdown preserved after separate-note creation",
+    "en/append: destination/theme switches preserve Review, notes, journals and request count",
+    "en/append: actual write outcome is shown; original Markdown preserved after separate-note creation",
+    "ru/replace: destination/theme switches preserve Review, notes, journals and request count",
+    "ru/replace: actual write outcome is shown; original Markdown preserved after supported source Undo",
+    "ru/append: destination/theme switches preserve Review, notes, journals and request count",
+    "ru/append: actual write outcome is shown; original Markdown preserved after supported source Undo",
+    "RU/EN history shows actual creation/Undo outcomes and does not change journals or request the model"
+  ],
+  "artifacts": {
+    "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "screenshots": [
+    "review-en-replace-light-new-note.png",
+    "review-en-replace-light-source.png",
+    "review-en-replace-dark-new-note.png",
+    "review-en-replace-dark-source.png",
+    "written-en-replace.png",
+    "review-en-append-light-new-note.png",
+    "review-en-append-light-source.png",
+    "review-en-append-dark-new-note.png",
+    "review-en-append-dark-source.png",
+    "written-en-append.png",
+    "review-ru-replace-light-new-note.png",
+    "review-ru-replace-light-source.png",
+    "review-ru-replace-dark-new-note.png",
+    "review-ru-replace-dark-source.png",
+    "written-ru-replace.png",
+    "review-ru-append-light-new-note.png",
+    "review-ru-append-light-source.png",
+    "review-ru-append-dark-new-note.png",
+    "review-ru-append-dark-source.png",
+    "written-ru-append.png",
+    "history-en.png",
+    "history-ru.png"
+  ],
+  "modelQuality": "NOT RE-EVALUATED",
+  "remoteInferenceRequests": 0,
+  "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+  "beforeApply": [],
+  "exceptions": [],
+  "themeTransitions": [
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "light",
+      "before": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    },
+    {
+      "requested": "dark",
+      "before": {
+        "classes": [
+          "theme-light"
+        ],
+        "background": "rgb(255, 255, 255)",
+        "text": "rgb(34, 34, 34)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      },
+      "after": {
+        "classes": [
+          "theme-dark"
+        ],
+        "background": "rgb(28, 28, 28)",
+        "text": "rgb(218, 218, 218)",
+        "x": 344,
+        "y": 78.28125,
+        "width": 956,
+        "height": 871.71875,
+        "scrollWidth": 944,
+        "clientWidth": 944,
+        "viewport": 1300
+      }
+    }
+  ],
+  "themeCaptures": [
+    {
+      "file": "review-en-replace-light-new-note.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-replace-light-source.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-replace-dark-new-note.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-replace-dark-source.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-append-light-new-note.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-append-light-source.png",
+      "requested": "light",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-append-dark-new-note.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-en-append-dark-source.png",
+      "requested": "dark",
+      "language": "en",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-replace-light-new-note.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-replace-light-source.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-replace-dark-new-note.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-replace-dark-source.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-append-light-new-note.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-append-light-source.png",
+      "requested": "light",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-light"
+      ],
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(34, 34, 34)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-append-dark-new-note.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    },
+    {
+      "file": "review-ru-append-dark-source.png",
+      "requested": "dark",
+      "language": "ru",
+      "stage": "review",
+      "classes": [
+        "theme-dark"
+      ],
+      "background": "rgb(28, 28, 28)",
+      "text": "rgb(218, 218, 218)",
+      "x": 344,
+      "y": 78.28125,
+      "width": 956,
+      "height": 871.71875,
+      "scrollWidth": 944,
+      "clientWidth": 944,
+      "viewport": 1300
+    }
+  ],
+  "mode": "r03-review-labels",
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "history",
+    "point": {
+      "x": 619.234375,
+      "y": 144.28125
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"history\" data-studio-key=\"history:История\" aria-current=\"false\">История</button>"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "excalidrawInstalled": false
+  },
+  "harnessSha256": "8375f371b346baa1517346242805d4e25ee13c702e13f9798921eaccd9a08237",
+  "labels": [
+    {
+      "language": "en",
+      "action": "replace",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "replace",
+      "theme": "light",
+      "destination": "source",
+      "text": "Proposed source action: Replace · Generated"
+    },
+    {
+      "language": "en",
+      "action": "replace",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "replace",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "replace",
+      "theme": "dark",
+      "destination": "source",
+      "text": "Proposed source action: Replace · Generated"
+    },
+    {
+      "language": "en",
+      "action": "replace",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "theme": "light",
+      "destination": "source",
+      "text": "Proposed source action: Append · Generated"
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "theme": "dark",
+      "destination": "source",
+      "text": "Proposed source action: Append · Generated"
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Draft for a separate note — source unchanged · Generated"
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "theme": "light",
+      "destination": "source",
+      "text": "Предлагаемое действие с исходником: Заменить · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "theme": "dark",
+      "destination": "source",
+      "text": "Предлагаемое действие с исходником: Заменить · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "theme": "light",
+      "destination": "source",
+      "text": "Предлагаемое действие с исходником: Добавить в конец · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "theme": "light",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "theme": "dark",
+      "destination": "source",
+      "text": "Предлагаемое действие с исходником: Добавить в конец · Сгенерировано"
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "theme": "dark",
+      "destination": "new-note",
+      "text": "Черновик отдельной заметки — исходник без изменений · Сгенерировано"
+    }
+  ],
+  "passiveMatrices": [
+    {
+      "language": "en",
+      "action": "replace",
+      "modelRequestDelta": 0,
+      "beforeIo": {
+        "writes": 0,
+        "creates": 0,
+        "journals": 8
+      },
+      "afterIo": {
+        "writes": 0,
+        "creates": 0,
+        "journals": 8
+      },
+      "journalsBefore": {
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18"
+      },
+      "journalsAfter": {
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18"
+      },
+      "markdownBefore": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "markdownAfter": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "reviewUnchanged": true
+    },
+    {
+      "language": "en",
+      "action": "append",
+      "modelRequestDelta": 0,
+      "beforeIo": {
+        "writes": 0,
+        "creates": 1,
+        "journals": 17
+      },
+      "afterIo": {
+        "writes": 0,
+        "creates": 1,
+        "journals": 17
+      },
+      "journalsBefore": {
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json": "46aff984909ba90afc747cdd5afa1347f8592c955e468bdf2d58759e58f22850",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json": "da48ac65579141abeab88793dcf2154b25bd2827d8087e35ebe5f99da7fe7ccc",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json": "309e244d5987a036c6e7213b8facb6c4ba22ea717b53d2d1826e11691d299e54",
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json": "94aef12c3eb9cf3cc47142978d3aabb47fac82b558abf4a7302eaa746fc93903",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json": "243418bcfe1862ab3ef91c07810ab77e64a227fab192cbd3600b80d2878b4987"
+      },
+      "journalsAfter": {
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json": "46aff984909ba90afc747cdd5afa1347f8592c955e468bdf2d58759e58f22850",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json": "da48ac65579141abeab88793dcf2154b25bd2827d8087e35ebe5f99da7fe7ccc",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json": "309e244d5987a036c6e7213b8facb6c4ba22ea717b53d2d1826e11691d299e54",
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json": "94aef12c3eb9cf3cc47142978d3aabb47fac82b558abf4a7302eaa746fc93903",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json": "243418bcfe1862ab3ef91c07810ab77e64a227fab192cbd3600b80d2878b4987"
+      },
+      "markdownBefore": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "markdownAfter": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "reviewUnchanged": true
+    },
+    {
+      "language": "ru",
+      "action": "replace",
+      "modelRequestDelta": 0,
+      "beforeIo": {
+        "writes": 0,
+        "creates": 2,
+        "journals": 27
+      },
+      "afterIo": {
+        "writes": 0,
+        "creates": 2,
+        "journals": 27
+      },
+      "journalsBefore": {
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json": "46aff984909ba90afc747cdd5afa1347f8592c955e468bdf2d58759e58f22850",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json": "da48ac65579141abeab88793dcf2154b25bd2827d8087e35ebe5f99da7fe7ccc",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json": "309e244d5987a036c6e7213b8facb6c4ba22ea717b53d2d1826e11691d299e54",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-created.json": "6d8302e62a95208bbf7992dc454841e580cd066379ba8a5bd95df7a79fc0ccbd",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-dispatch.json": "c121addf61d14ae58ea9b81e93e0879528743099e17a7d32ae89f075a12e5e4e",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/intent.json": "d32f8bbe57171b72f97b09f4f4900e3a85d54f49688b4ce0111bbd13bed8b448",
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/finish.json": "134ffc76ace2f2f65fa6900bba3c9c3500604bfaf575197966d75db1466cc101",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/start.json": "b5fca9ec2d0ed71da327229de86fbc78c4cdd4dc94442970852ae1df676c33e2",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json": "94aef12c3eb9cf3cc47142978d3aabb47fac82b558abf4a7302eaa746fc93903",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json": "243418bcfe1862ab3ef91c07810ab77e64a227fab192cbd3600b80d2878b4987"
+      },
+      "journalsAfter": {
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json": "46aff984909ba90afc747cdd5afa1347f8592c955e468bdf2d58759e58f22850",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json": "da48ac65579141abeab88793dcf2154b25bd2827d8087e35ebe5f99da7fe7ccc",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json": "309e244d5987a036c6e7213b8facb6c4ba22ea717b53d2d1826e11691d299e54",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-created.json": "6d8302e62a95208bbf7992dc454841e580cd066379ba8a5bd95df7a79fc0ccbd",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-dispatch.json": "c121addf61d14ae58ea9b81e93e0879528743099e17a7d32ae89f075a12e5e4e",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/intent.json": "d32f8bbe57171b72f97b09f4f4900e3a85d54f49688b4ce0111bbd13bed8b448",
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/finish.json": "134ffc76ace2f2f65fa6900bba3c9c3500604bfaf575197966d75db1466cc101",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/start.json": "b5fca9ec2d0ed71da327229de86fbc78c4cdd4dc94442970852ae1df676c33e2",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json": "94aef12c3eb9cf3cc47142978d3aabb47fac82b558abf4a7302eaa746fc93903",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json": "243418bcfe1862ab3ef91c07810ab77e64a227fab192cbd3600b80d2878b4987"
+      },
+      "markdownBefore": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "markdownAfter": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "reviewUnchanged": true
+    },
+    {
+      "language": "ru",
+      "action": "append",
+      "modelRequestDelta": 0,
+      "beforeIo": {
+        "writes": 2,
+        "creates": 2,
+        "journals": 37
+      },
+      "afterIo": {
+        "writes": 2,
+        "creates": 2,
+        "journals": 37
+      },
+      "journalsBefore": {
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json": "46aff984909ba90afc747cdd5afa1347f8592c955e468bdf2d58759e58f22850",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json": "da48ac65579141abeab88793dcf2154b25bd2827d8087e35ebe5f99da7fe7ccc",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json": "309e244d5987a036c6e7213b8facb6c4ba22ea717b53d2d1826e11691d299e54",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-created.json": "6d8302e62a95208bbf7992dc454841e580cd066379ba8a5bd95df7a79fc0ccbd",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-dispatch.json": "c121addf61d14ae58ea9b81e93e0879528743099e17a7d32ae89f075a12e5e4e",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/intent.json": "d32f8bbe57171b72f97b09f4f4900e3a85d54f49688b4ce0111bbd13bed8b448",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-applied.json": "e72aeaaa95f70597b91b03de1059f6cd032ebb158b1b82531214adb59dd40a96",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-apply-intent.json": "df144a97d2363a97be885e2accdde47d8c8487a31cafe07f2d6ff054b59fa8a2",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-undo-intent.json": "d23911f07643a695727f6bec9faac0156b079e902c29a8ebc441c4b34a326bdf",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-undone.json": "48f1441b11091963d653f6f2cf61b3ba8d12137ac1a26e98c8e3311965c888d0",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/backup.json": "2678793e9d93475282932ae6e81229f722d709173881aa7952b7998d891694d8",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/record.json": "2678793e9d93475282932ae6e81229f722d709173881aa7952b7998d891694d8",
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/finish.json": "134ffc76ace2f2f65fa6900bba3c9c3500604bfaf575197966d75db1466cc101",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/start.json": "b5fca9ec2d0ed71da327229de86fbc78c4cdd4dc94442970852ae1df676c33e2",
+        "runs/8b858222-9410-48be-beff-321d686b938e/finish.json": "d05360e0571ad6724aa35722e553d7d613e64bb0cc89da94cd9fb8455443279e",
+        "runs/8b858222-9410-48be-beff-321d686b938e/start.json": "9135b6ba8b0f00f4a2900f04c38254fff39356eb45c9df952f4cea81d01afd86",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json": "94aef12c3eb9cf3cc47142978d3aabb47fac82b558abf4a7302eaa746fc93903",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json": "243418bcfe1862ab3ef91c07810ab77e64a227fab192cbd3600b80d2878b4987"
+      },
+      "journalsAfter": {
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json": "46aff984909ba90afc747cdd5afa1347f8592c955e468bdf2d58759e58f22850",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json": "da48ac65579141abeab88793dcf2154b25bd2827d8087e35ebe5f99da7fe7ccc",
+        "markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json": "309e244d5987a036c6e7213b8facb6c4ba22ea717b53d2d1826e11691d299e54",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-created.json": "6d8302e62a95208bbf7992dc454841e580cd066379ba8a5bd95df7a79fc0ccbd",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-dispatch.json": "c121addf61d14ae58ea9b81e93e0879528743099e17a7d32ae89f075a12e5e4e",
+        "markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/intent.json": "d32f8bbe57171b72f97b09f4f4900e3a85d54f49688b4ce0111bbd13bed8b448",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-applied.json": "e72aeaaa95f70597b91b03de1059f6cd032ebb158b1b82531214adb59dd40a96",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-apply-intent.json": "df144a97d2363a97be885e2accdde47d8c8487a31cafe07f2d6ff054b59fa8a2",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-undo-intent.json": "d23911f07643a695727f6bec9faac0156b079e902c29a8ebc441c4b34a326bdf",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-undone.json": "48f1441b11091963d653f6f2cf61b3ba8d12137ac1a26e98c8e3311965c888d0",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/backup.json": "2678793e9d93475282932ae6e81229f722d709173881aa7952b7998d891694d8",
+        "operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/record.json": "2678793e9d93475282932ae6e81229f722d709173881aa7952b7998d891694d8",
+        "recipes.json": "50dc319e1dbd5dc76da345d26e9242515bc35fc1e06f3e1e30d2cffbe5475402",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/finish.json": "134ffc76ace2f2f65fa6900bba3c9c3500604bfaf575197966d75db1466cc101",
+        "runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/start.json": "b5fca9ec2d0ed71da327229de86fbc78c4cdd4dc94442970852ae1df676c33e2",
+        "runs/8b858222-9410-48be-beff-321d686b938e/finish.json": "d05360e0571ad6724aa35722e553d7d613e64bb0cc89da94cd9fb8455443279e",
+        "runs/8b858222-9410-48be-beff-321d686b938e/start.json": "9135b6ba8b0f00f4a2900f04c38254fff39356eb45c9df952f4cea81d01afd86",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json": "65a0ce60630f2912a245f39b569f0b3e4c71e5ed353969a82f81ad82fe51344b",
+        "runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json": "746d4ca6d6349595ed07cc00af0b28dc300315ca22a0850e93e412062d5feb18",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json": "94aef12c3eb9cf3cc47142978d3aabb47fac82b558abf4a7302eaa746fc93903",
+        "runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json": "243418bcfe1862ab3ef91c07810ab77e64a227fab192cbd3600b80d2878b4987"
+      },
+      "markdownBefore": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "markdownAfter": {
+        "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+        "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+        "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+        "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+        "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+        "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+        "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+      },
+      "reviewUnchanged": true
+    }
+  ],
+  "requests": 4,
+  "initialHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "finalHashes": {
+    "Properties.md": "856dcd9f7dd4cc90ef33c62805d6ba8f39a2d71dc04f53c16a35ba6b58b78005",
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "io": {
+    "reads": [
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio 2.md",
+      "Formatting — Studio 2.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md"
+    ],
+    "writes": [
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md",
+      "Formatting.md"
+    ],
+    "browserRequests": 0,
+    "creates": [
+      "Formatting — Studio.md",
+      "Formatting — Studio 2.md"
+    ],
+    "journals": [
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/recipe-stage-68502333-adb3-4231-b785-20fde5f7d251.json",
+      ".obsidian/plugins/ai-knowledge-hub/data.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/9763cec6-c3bb-486b-81a0-7d5b158f12f2/finish.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-dispatch.json",
+      "Formatting — Studio.md",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/0120f87b-50ca-4a55-93ac-b21f90e5d3a5/0-created.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/f4e135df-8fe4-4b66-8713-3c7ace63a187/finish.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-dispatch.json",
+      "Formatting — Studio 2.md",
+      ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/f8c23adc-edf7-429d-a3e0-f5955ced9c3a/0-created.json",
+      ".obsidian/plugins/ai-knowledge-hub/data.json",
+      ".obsidian/workspace.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/4d132d6b-7362-4197-8bdd-ec6944eb30e6/finish.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/record.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/backup.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-apply-intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-applied.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-undo-intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/4d132d6b-7362-4197-8bdd-ec6944eb30e6/0-undone.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/8b858222-9410-48be-beff-321d686b938e/start.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/runs/8b858222-9410-48be-beff-321d686b938e/finish.json",
+      ".obsidian/app.json",
+      ".obsidian/appearance.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/8b858222-9410-48be-beff-321d686b938e/record.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/8b858222-9410-48be-beff-321d686b938e/backup.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/8b858222-9410-48be-beff-321d686b938e/0-apply-intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/8b858222-9410-48be-beff-321d686b938e/0-applied.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/8b858222-9410-48be-beff-321d686b938e/0-undo-intent.json",
+      ".obsidian/plugins/ai-knowledge-hub/studio/operations/8b858222-9410-48be-beff-321d686b938e/0-undone.json",
+      ".obsidian/plugins/ai-knowledge-hub/data.json",
+      ".obsidian/plugins/ai-knowledge-hub/data.json",
+      ".obsidian/workspace.json"
+    ],
+    "archiveReads": []
+  },
+  "status": "PASS"
+}
