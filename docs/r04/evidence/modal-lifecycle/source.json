@@ -1,0 +1,16 @@
+{
+  "base": "abef6366cc83611382baa36c688da109e573c178",
+  "R04": "80936ddb15c46cea3ac5a32db8b7b31e93b5c859",
+  "runtimeChanged": false,
+  "baseBuild": "tracked TS/JSON/CSS/MJS exported with git show from origin/main to /tmp/veynrel-modal-base-abef6366; existing root node_modules symlink; npm run build",
+  "R04Rebuild": "npm run lint (typecheck, production build, ESLint); bytes identical to the native copies",
+  "harnessSHA256": {
+    "r04-modal-lifecycle-native.mjs": "6ec2b0d377fd36994cfa2f82e83fab55282f4749771496aa3b873da4418bc35d",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "f90aa721c8d4f04a165941297fdabecf8e6b814a0d5ede4841941390917ae129"
+  },
+  "controlledProfiles": 6,
+  "totalLauncherInvocations": 21,
+  "allCDPPortsUnique": true,
+  "allOwnedGroupsClean": true
+}

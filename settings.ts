@@ -43,6 +43,7 @@ import { DecisionsError } from "./decisions/openRouterDecisions";
 import { DEFAULT_RERANK_SETTINGS } from "./rerank/types";
 import type { RerankSettings } from "./rerank/types";
 import { RerankError } from "./rerank/openRouterRerank";
+import type { OrganizationPreferences } from "./consolidation/organizationProfile";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
 import { COMMUNITY_SITE } from "./studio/community/schema";
 import { l as studioLabel } from "./studio/messages";
@@ -86,6 +87,8 @@ export interface AIHubSettings {
   health: HealthPreferences;
   /** Only explicitly confirmed taxonomy rules; no inventory or note text. */
   tagTaxonomyProfile?: TagTaxonomyProfile;
+  /** Registry selection and explicit dismissals only; no observed vault data. */
+  organizationAudit?: OrganizationPreferences;
   /** Explicit Recall override; absence follows the current localized default. */
   recallPrompt?: string;
 }

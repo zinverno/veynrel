@@ -1,0 +1,6003 @@
+{
+  "scenario": "r04-modal-lifecycle-v1",
+  "mode": "taxonomy",
+  "language": "ru",
+  "pauseExceptions": false,
+  "lifecycle": [
+    {
+      "phase": "first",
+      "snapshot": {
+        "time": 2131.400000002235,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phase": "reopen",
+      "snapshot": {
+        "time": 2451.900000002235,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "pauses": [],
+  "checks": [
+    "first opens once and closes with Escape",
+    "reopen opens once and closes with Escape",
+    "Settings and Markdown preserved; no passive scan, read, write or model call; no uncaught exception/console error"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "phase": "first",
+      "key": "Enter",
+      "time": 1794727822159
+    },
+    {
+      "phase": "first",
+      "key": "Escape",
+      "time": 1794727822602
+    },
+    {
+      "phase": "reopen",
+      "key": "Enter",
+      "time": 1794727822821
+    },
+    {
+      "phase": "reopen",
+      "key": "Escape",
+      "time": 1794727822918
+    }
+  ],
+  "screenshots": [
+    "first.png",
+    "reopen.png"
+  ],
+  "assets": {
+    "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "harnessHashes": {
+    "r04-modal-lifecycle-native.mjs": "6ec2b0d377fd36994cfa2f82e83fab55282f4749771496aa3b873da4418bc35d",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "f90aa721c8d4f04a165941297fdabecf8e6b814a0d5ede4841941390917ae129"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "hostOpenSHA256": "6b446d35b253d34952f7363f19b0a2cc18c138a93fa93e9b055dacbbbb95d021",
+  "breakpointLocations": {
+    "Modal.open": [
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129091
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129102
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129120
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129147
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129165
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129581,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129605,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129613
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129620,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129644
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129658,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129675,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129698
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129700,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129722,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129737
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129746
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129758
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129767
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129783,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129808
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129824,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129875,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129880,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129888,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129904
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129952,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129981
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129991,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130039,
+        "type": "return"
+      }
+    ],
+    "Modal.onOpen": [
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8603
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8634,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8679,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8716,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8724,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8767
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8911
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8983,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 8991,
+        "type": "return"
+      }
+    ],
+    "Modal.render": [
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11255
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11299,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11337
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11350
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11395,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11420
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11443
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11467
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11496
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11519,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11538,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11572
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11588,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11648,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11681
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11702
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11707,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11733
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11748,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11771,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11795,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11827,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 11936,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12243
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12271
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12278,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12340
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12347,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12385
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12425,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12481,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12512
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12527,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12548
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12568,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12592,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12617,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12636,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12694,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12713,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12749
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12762
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12773
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12778,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12798
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 12803,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13056
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13059,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13123
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13125,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13136
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13152,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13162,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13188,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13195,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13221,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13298
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13304,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13347,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13373,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13397,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13431
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13440,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13460,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13503,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13555,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 13562,
+        "type": "return"
+      }
+    ],
+    "Modal.close": [
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130733
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130745
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130756
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130762
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130769,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130798
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130804,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130809,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130825,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130839
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130932
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130948,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130963,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130971,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130978,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130993
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131376,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131393
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131410,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131460,
+        "type": "return"
+      }
+    ],
+    "Modal.onClose": [
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9002
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9025
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9039,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9047
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9055,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9068
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9085,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9098
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9130,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9144,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9181
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9191,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9204,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 702,
+        "columnNumber": 9213,
+        "type": "return"
+      }
+    ],
+    "Workspace.onOpen": [
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40908
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40921
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40936,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40959,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41002
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41018,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41134,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41142,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41173
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41189,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41240
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41241,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41442
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41483
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41528,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41666,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41697
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41728,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41817
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41837,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41860,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41883
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41938
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41963,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41983
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41997
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42004,
+        "type": "return"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42022,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42041
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42058,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42113,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42140
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42156,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42207,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42230
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42242,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42298,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42326
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42343,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42397,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42423
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42438,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42523,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42552
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42570,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42740,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42749
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42765,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42779
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42821,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43134,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43165
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43185,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43240,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43267
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43283,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43317,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43332
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43362,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43370,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43406,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43425,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43512,
+        "type": "return"
+      }
+    ],
+    "Workspace.render": [
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45222
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45267
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45274,
+        "type": "return"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45279,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45314
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45330,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45343,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45350,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45378,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45406,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45416
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45461
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45479,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45493
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45578
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45649
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45720
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45734
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45744,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45782,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45830,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45942,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46019,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46091
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46109
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46146,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46161
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46191
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46243
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46269
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46291
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46325
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46346
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46411,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46435
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46463,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46484
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46514,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46537
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46568
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46586,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46629
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46643
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46653,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46699
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46761
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46788
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46816,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46824
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46841
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46852,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46867,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46922,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46928,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46975
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46985,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47033
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47048
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47135,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47153,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47175
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47178,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47219,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47314
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47352
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47353,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47365
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47391
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47514,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47548
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47563,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47586,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47602
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47608,
+        "type": "return"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47611,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47627,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47715,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47767
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47797,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48407
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48515,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48543
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48576
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48606
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48626
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48637,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48711,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48715,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48798
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48833,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48880,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48917
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48990,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49013
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49092,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49115
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49147,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49164
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49207,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49230
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49232,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49247
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49278,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49302
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49347,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49368
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49396,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49435,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49479,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49483,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49571
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49604,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49647
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49658,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49662,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49741
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49746,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49856
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49888,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49910,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49938,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50283
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50302
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50403,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50428
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50469
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50480,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50760
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50801
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50812,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50817,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50841,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50880,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50899,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50939
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50944
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51001,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51042,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51061,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51093,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51098,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51164
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51232,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51535
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51590
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51612,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51862
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51936
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51968,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52098
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52148
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52169,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52287
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52326
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52337,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52342,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52410
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52452
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52463
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52481
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52486,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52505
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52527
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52532,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52555,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52560,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52574,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52603,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52631,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52693,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52824,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52829,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52886,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52905,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52932
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52959,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53017,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53041,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53063
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53069
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53074,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53096
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53121
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53133
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53155,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53532
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53598
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53613,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53987
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54007
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54076
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54204
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54208
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54267,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54292
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54318
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54389
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54404
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54407,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54424
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54439
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54458,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54562,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54589
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54604,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55112,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55155
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55182,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55218
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55233,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55256,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55277
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55283,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55288,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55308,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55321
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55351
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55365
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55387,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55452,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55519,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55993,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56174
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56216
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56230,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56259,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56337
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56420
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56443
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56469
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56470,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56541
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56578,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57330
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57357,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57362,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57890
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57909
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57986,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58011,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58388
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58436,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58481
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58492,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58507,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58568
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58588,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58594,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58634
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58667
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58701
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58748
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58782,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58852
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58889,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58941,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58977
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59007,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59043
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59093,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59116
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59119,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59201,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59215,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59234,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59281,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59334,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59364,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59413,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59476
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59553,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59570,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59595
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59656,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59677,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59702
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59751,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59769,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59791
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59803,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59874,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59893,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60123,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60145,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60161,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60184
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60307
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60407
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60450,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60492,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60544,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60566
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60571,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60582,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60602,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60625
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60637,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60963,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60988,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61042,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61171
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61201
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61226
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61284,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61381,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61474,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61587,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61684,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61755,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61770,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61811,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61840
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61853
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61865
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61877,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61927
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61936,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61942,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61955
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61975,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62002
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62006,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62040
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62050,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62089,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62128,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62134,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62172
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62233,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62260,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62290
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62344,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62390,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62417
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62477
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62481
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62492
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62508,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62564
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62582,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62632
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62666
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62674
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62753,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62771,
+        "type": "return"
+      }
+    ],
+    "Workspace.onClose": [
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43534
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43545,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43569
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43591
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43604
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43615,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43639
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43652
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43667,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43698
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43711
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43727,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43749
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43779
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43799
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43812
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43849
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43867
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43876,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43910
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43933,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43962
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43989
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43990,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44000
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44022,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44050
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44063
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44081,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44105
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44131
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44132,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44142
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44167,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44198
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44227
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44249
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44257
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44270,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44289
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44302
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44323,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44350
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44363
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44380,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44403
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44428
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44429,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44439,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44467
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44480
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44501,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44528
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44554
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44567
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44584,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44607
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44629
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44642
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44664,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44692
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44705
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44725,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44751
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44776
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44808
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44834
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44868
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44885
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44904
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44934
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44972
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45000
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45009
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45023,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45055
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45085
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45086,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45101
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45134
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45157
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45182
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45195
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45205,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45212,
+        "type": "return"
+      }
+    ],
+    "button-handler/factory": [
+      {
+        "scriptId": "166",
+        "lineNumber": 705,
+        "columnNumber": 38302,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 705,
+        "columnNumber": 38323,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 705,
+        "columnNumber": 38792
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 705,
+        "columnNumber": 38812,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 705,
+        "columnNumber": 38821,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 705,
+        "columnNumber": 38827,
+        "type": "return"
+      }
+    ]
+  },
+  "before": {
+    "settings": "673cb1b93ecbf342d71003274f46d2d79518a7efbd30f471ef685e15e0a19303",
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    }
+  },
+  "commandCompleted": 1689.6000000014901,
+  "phase": "reopen",
+  "animationStates": [
+    [],
+    []
+  ],
+  "after": {
+    "settings": "673cb1b93ecbf342d71003274f46d2d79518a7efbd30f471ef685e15e0a19303",
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    }
+  },
+  "status": "PASS",
+  "final": {
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "events": [
+      {
+        "lifecycle": "Workspace.onOpen:enter",
+        "time": 1567.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1626.300000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1635,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1674,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1675.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.onOpen:return",
+        "time": 1676.199999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1682,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1687.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1692.300000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1696.699999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1709.9000000022352,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusin",
+        "time": 1761,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">Все инструменты</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1761.800000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">Все инструменты</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusout",
+        "time": 1772.300000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusin",
+        "action": "tool-openTagTaxonomy",
+        "time": 1773.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "keydown",
+        "key": "Enter",
+        "action": "tool-openTagTaxonomy",
+        "time": 1775.6000000014901,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "click",
+        "action": "tool-openTagTaxonomy",
+        "time": 1775.699999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "button-handler/factory:enter",
+        "time": 1829.6000000014901,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.open:enter",
+        "time": 1988.699999999255,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerConnected": false,
+        "modalConnected": false,
+        "contentConnected": false,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusout",
+        "action": "tool-openTagTaxonomy",
+        "time": 1998.4000000022352,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.onOpen:enter",
+        "time": 2050.5,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": ""
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.render:enter",
+        "time": 2106.60000000149,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия тегов"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.render:return",
+        "time": 2112.400000002235,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.onOpen:return",
+        "time": 2113.199999999255,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "focusin",
+        "time": 2120.900000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.open:return",
+        "time": 2121.300000000745,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "button-handler/factory:return",
+        "time": 2121.5,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "change": "added",
+        "node": "modal-container mod-dim",
+        "time": 2121.60000000149,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "keyup",
+        "key": "Enter",
+        "time": 2126.10000000149,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.close:enter",
+        "time": 2358.60000000149,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "focusout",
+        "time": 2367.800000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.onClose:enter",
+        "time": 2420.300000000745,
+        "instance": true,
+        "identity": "taxonomy-1",
+        "modal": "TagTaxonomyModal",
+        "containerConnected": false,
+        "modalConnected": false,
+        "contentConnected": false,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": false,
+              "contentConnected": false,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.onClose:return",
+        "time": 2424.400000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": false,
+              "contentConnected": false,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusin",
+        "action": "tool-openTagTaxonomy",
+        "time": 2425.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.close:return",
+        "time": 2426.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "change": "removed",
+        "node": "modal-container mod-dim",
+        "time": 2426.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "keydown",
+        "key": "Escape",
+        "time": 2426.60000000149,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "keyup",
+        "key": "Escape",
+        "action": "tool-openTagTaxonomy",
+        "time": 2428.900000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "keydown",
+        "key": "Enter",
+        "action": "tool-openTagTaxonomy",
+        "time": 2437.199999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "click",
+        "action": "tool-openTagTaxonomy",
+        "time": 2437.300000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "button-handler/factory:enter",
+        "time": 2437.699999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.open:enter",
+        "time": 2438.10000000149,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerConnected": false,
+        "modalConnected": false,
+        "contentConnected": false,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusout",
+        "action": "tool-openTagTaxonomy",
+        "time": 2438.900000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.onOpen:enter",
+        "time": 2439.900000002235,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": ""
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.render:enter",
+        "time": 2440.60000000149,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия тегов"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.render:return",
+        "time": 2441.60000000149,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.onOpen:return",
+        "time": 2442.10000000149,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "focusin",
+        "time": 2444.699999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.open:return",
+        "time": 2445,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "button-handler/factory:return",
+        "time": 2445.199999999255,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "change": "added",
+        "node": "modal-container mod-dim",
+        "time": 2445.199999999255,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "keyup",
+        "key": "Enter",
+        "time": 2447.900000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "lifecycle": "Modal.close:enter",
+        "time": 2534.199999999255,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerParent": "BODY",
+        "containerConnected": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": true,
+          "depth": 2,
+          "keys": [
+            {
+              "key": "Escape",
+              "modifiers": ""
+            }
+          ]
+        }
+      },
+      {
+        "type": "focusout",
+        "time": 2534.300000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [
+          {
+            "connected": true,
+            "text": "Таксономия теговСканирование запускается только кнопкой и использует метаданные Obsidian. При сканир"
+          }
+        ],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": true,
+              "contentConnected": true,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.onClose:enter",
+        "time": 2535.400000002235,
+        "instance": true,
+        "identity": "taxonomy-2",
+        "modal": "TagTaxonomyModal",
+        "containerConnected": false,
+        "modalConnected": false,
+        "contentConnected": false,
+        "modalOwnerMain": true,
+        "contentOwnerMain": true,
+        "openState": true,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": false,
+              "contentConnected": false,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.onClose:return",
+        "time": 2536.400000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0",
+            "1"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            },
+            {
+              "type": "TagTaxonomyModal",
+              "connected": false,
+              "contentConnected": false,
+              "ownerMain": true
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusin",
+        "action": "tool-openTagTaxonomy",
+        "time": 2537.300000000745,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Modal.close:return",
+        "time": 2538.400000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "change": "removed",
+        "node": "modal-container mod-dim",
+        "time": 2538.400000002235,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "keydown",
+        "key": "Escape",
+        "time": 2538.5,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "keyup",
+        "key": "Escape",
+        "action": "tool-openTagTaxonomy",
+        "time": 2540.699999999255,
+        "instance": false,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "ownerMain": false
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    ],
+    "ui": {
+      "route": {
+        "page": "tools"
+      },
+      "preferences": {
+        "profile": "mixed",
+        "profileChosen": true,
+        "onboardingCompleted": true,
+        "onboardingVersion": 1
+      }
+    },
+    "snapshot": {
+      "time": 2546.699999999255,
+      "instance": false,
+      "modalOwnerMain": false,
+      "contentOwnerMain": false,
+      "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Открыть: Таксономия тегов\">Открыть</button>",
+      "hasFocus": true,
+      "leaf": "veynrel-health",
+      "stackDOM": [],
+      "hostStack": {
+        "type": "Array",
+        "keys": [
+          "0"
+        ],
+        "items": [
+          {
+            "type": "Object",
+            "ownerMain": false
+          }
+        ]
+      },
+      "keyScopes": {
+        "sameModal": false,
+        "depth": 1,
+        "keys": []
+      }
+    },
+    "modals": 0
+  },
+  "modelRequests": []
+}

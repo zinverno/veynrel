@@ -1,0 +1,19 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/studio-source-preservation-native.mjs",
+    "/tmp/veynrel-studio-native-r04-delivery"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794722383.4159644,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    37967,
+    44645,
+    43127,
+    37849
+  ],
+  "cdpClosed": true,
+  "seconds": 165.822
+}

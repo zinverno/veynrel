@@ -1,0 +1,22 @@
+{
+  "base": "abef6366cc83611382baa36c688da109e573c178",
+  "runtimeSource": "9bcf8236c50111c86fb783df411932faa4a20b21",
+  "nativeRunSource": "0895473578bccf4d74378bd9ac99d2da6f82720a",
+  "artifacts": {
+    "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "harnesses": {
+    "scripts/r04-organization-native.mjs": "f0db19a60740055b931a5052f1a5def4aa3b7157de7b96d1f1687d8734a7952c",
+    "scripts/native/run.py": "47c3330981086e2bd54c88d99b76c7e0ce5432dc69fd720f384168d5246210b8",
+    "scripts/native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4"
+  },
+  "stable": {
+    "tag": "2.3.1",
+    "publishedAt": "2026-11-02T19:32:17Z"
+  },
+  "developmentVersion": "2.4.0",
+  "catalogFixture": "2c9de8caede80fc91b46f49f18548c7f38b24fd4",
+  "notes": "No profile, browser storage, Xauthority cookie, key, release kit or user vault is included. Raw native receipts are byte-preserved. Failed/earlier bundles are separate from final-bundle acceptance. Current harness hashes include the post-capture CFR encoding fix; actual run harness hashes remain in raw receipts."
+}

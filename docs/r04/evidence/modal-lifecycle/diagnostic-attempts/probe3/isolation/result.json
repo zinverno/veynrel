@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs",
+    "/tmp/veynrel-organization-open-probe3"
+  ],
+  "timeoutSeconds": 90,
+  "startedAt": 1794726892.1015985,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36505
+  ],
+  "cdpClosed": true,
+  "seconds": 12.645
+}

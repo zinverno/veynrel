@@ -1,0 +1,40 @@
+{
+  "scenario": "r04-organization-native-v1",
+  "checks": [],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "c62c7d55f7c0d8e0dad95014a0a4347bdfe160d40f6aec916cd553b882a08a46",
+    "styles.css": "1e5a54a09eba5ed8dd8bc27e77c47dde8e6b91480ae3d0003538197d48a822b1",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-organization-native.mjs": "a71593395562502089d74b5558026d20e46abd63a362f5829cdd8f99555c152b",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "47c3330981086e2bd54c88d99b76c7e0ce5432dc69fd720f384168d5246210b8"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:54:138)\n    at async openAudit (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:104:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:117:3",
+  "diagnostic": {
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive"
+    }
+  }
+}

@@ -1,0 +1,386 @@
+[
+  {
+    "receipt": "controls/final-onboarding-en/report.json",
+    "mode": "onboarding",
+    "language": "en",
+    "status": "PASS",
+    "counts": {
+      "button-handler/factory": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.open": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onOpen": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.render": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.close": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onClose": {
+        "enter": 2,
+        "return": 2
+      }
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.4.0"
+    },
+    "assets": {
+      "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+      "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "passiveBefore": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    },
+    "passiveAfter": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "settingsBeforeSHA256": "93e08ce4a09a71ee23288ad44e1f9653a0343e679b89425784e3a0cb5e6e59f0",
+    "settingsAfterSHA256": "93e08ce4a09a71ee23288ad44e1f9653a0343e679b89425784e3a0cb5e6e59f0",
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "modelRequests": 0
+  },
+  {
+    "receipt": "controls/final-onboarding-ru/report.json",
+    "mode": "onboarding",
+    "language": "ru",
+    "status": "PASS",
+    "counts": {
+      "button-handler/factory": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.open": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onOpen": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.render": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.close": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onClose": {
+        "enter": 2,
+        "return": 2
+      }
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.4.0"
+    },
+    "assets": {
+      "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+      "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "passiveBefore": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    },
+    "passiveAfter": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "settingsBeforeSHA256": "41ba8bff70cf46934554b43740adc354427f983939a433a8b13b1c0700f9e545",
+    "settingsAfterSHA256": "41ba8bff70cf46934554b43740adc354427f983939a433a8b13b1c0700f9e545",
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "modelRequests": 0
+  },
+  {
+    "receipt": "controls/final-taxonomy-en/report.json",
+    "mode": "taxonomy",
+    "language": "en",
+    "status": "PASS",
+    "counts": {
+      "button-handler/factory": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.open": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onOpen": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.render": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.close": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onClose": {
+        "enter": 2,
+        "return": 2
+      }
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.4.0"
+    },
+    "assets": {
+      "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+      "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "passiveBefore": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    },
+    "passiveAfter": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "settingsBeforeSHA256": "397c2e62da2a7b0600074b406296faf7929bcca1dcd7ffdb2062b97c93e929ba",
+    "settingsAfterSHA256": "397c2e62da2a7b0600074b406296faf7929bcca1dcd7ffdb2062b97c93e929ba",
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "modelRequests": 0
+  },
+  {
+    "receipt": "controls/final-taxonomy-ru/report.json",
+    "mode": "taxonomy",
+    "language": "ru",
+    "status": "PASS",
+    "counts": {
+      "button-handler/factory": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.open": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onOpen": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.render": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.close": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onClose": {
+        "enter": 2,
+        "return": 2
+      }
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.4.0"
+    },
+    "assets": {
+      "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+      "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "passiveBefore": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    },
+    "passiveAfter": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "settingsBeforeSHA256": "673cb1b93ecbf342d71003274f46d2d79518a7efbd30f471ef685e15e0a19303",
+    "settingsAfterSHA256": "673cb1b93ecbf342d71003274f46d2d79518a7efbd30f471ef685e15e0a19303",
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "modelRequests": 0
+  },
+  {
+    "receipt": "controls/final-workspace-en/report.json",
+    "mode": "workspace",
+    "language": "en",
+    "status": "PASS",
+    "counts": {
+      "button-handler/factory": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.open": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onOpen": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.render": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.close": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onClose": {
+        "enter": 2,
+        "return": 2
+      }
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.4.0"
+    },
+    "assets": {
+      "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+      "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "passiveBefore": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    },
+    "passiveAfter": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "settingsBeforeSHA256": "1508cc24ea3a9470e5ad70982fbc7b46a91dd73c5342e8ba325729d48bce14fd",
+    "settingsAfterSHA256": "1508cc24ea3a9470e5ad70982fbc7b46a91dd73c5342e8ba325729d48bce14fd",
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "modelRequests": 0
+  },
+  {
+    "receipt": "controls/final-workspace-ru/report.json",
+    "mode": "workspace",
+    "language": "ru",
+    "status": "PASS",
+    "counts": {
+      "button-handler/factory": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.open": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onOpen": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.render": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.close": {
+        "enter": 2,
+        "return": 2
+      },
+      "Modal.onClose": {
+        "enter": 2,
+        "return": 2
+      }
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.4.0"
+    },
+    "assets": {
+      "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+      "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "passiveBefore": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 0,
+      "phase": "startup"
+    },
+    "passiveAfter": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "phase": "passive"
+    },
+    "settingsBeforeSHA256": "846eafe3016499b67b4422c83ad64d4735a89b199d22a0f6d38b9c983f277038",
+    "settingsAfterSHA256": "846eafe3016499b67b4422c83ad64d4735a89b199d22a0f6d38b9c983f277038",
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "modelRequests": 0
+  }
+]

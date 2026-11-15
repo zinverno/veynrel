@@ -1,0 +1,1 @@
+{"root":"/tmp/veynrel-organization-open-final-workspace-ru","status":"PASS","checks":["first opens once and closes with Escape","reopen opens once and closes with Escape","Settings and Markdown preserved; no passive scan, read, write or model call; no uncaught exception/console error"]}

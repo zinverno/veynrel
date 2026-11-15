@@ -18,6 +18,8 @@ import uuid
 
 REPO = Path(__file__).resolve().parents[2]
 SUITES = {
+    'organization-open': ('veynrel-organization-open-', 'scripts/r04-modal-lifecycle-native.mjs'),
+    'organization': ('veynrel-organization-native-', 'scripts/r04-organization-native.mjs'),
     'smoke': ('veynrel-smoke-native-', 'scripts/native/smoke.mjs'),
     'studio': ('veynrel-studio-native-', 'scripts/studio-source-preservation-native.mjs'),
     'recall': ('veynrel-recall-native-', 'scripts/recall-topics-native.mjs'),

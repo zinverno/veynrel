@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run health/ui/VeynrelHealthView.test.ts consolidation/taxonomySession.test.ts consolidation/taxonomyScan.test.ts consolidation/taxonomyProfile.test.ts --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115
+
+
+ Test Files  4 passed (4)
+      Tests  187 passed (187)
+   Start at  10:31:55
+   Duration  5.83s (transform 1.69s, setup 0ms, import 1.97s, tests 4.23s, environment 0ms)
+

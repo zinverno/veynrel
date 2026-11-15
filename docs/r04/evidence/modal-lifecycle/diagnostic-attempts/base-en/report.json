@@ -1,0 +1,3158 @@
+{
+  "scenario": "r04-modal-lifecycle-v1",
+  "mode": "taxonomy",
+  "language": "en",
+  "lifecycle": [],
+  "pauses": [
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en/vault/.obsidian/plugins/ai-knowledge-hub/health/findings.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "-8797686611398311973.1.6406",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en/vault/.obsidian/plugins/ai-knowledge-hub/health/findings.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "-8797686611398311973.1.6413",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en/vault/.obsidian/plugins/ai-knowledge-hub/health/scan-runs.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "-8797686611398311973.1.6453",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en/vault/.obsidian/plugins/ai-knowledge-hub/health/scan-runs.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "-8797686611398311973.1.6461",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:61812)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+        "objectId": "-8797686611398311973.1.6510",
+        "uncaught": true
+      },
+      "stack": [
+        {
+          "function": "window.modalSnapshot",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 756
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 1022
+          }
+        },
+        {
+          "function": "render",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 61811
+          }
+        },
+        {
+          "function": "navigate",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 65147
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "213",
+            "lineNumber": 0,
+            "columnNumber": 11
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en/vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "-8797686611398311973.1.6538",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en/vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "-8797686611398311973.1.6545",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Node.empty (app://obsidian.md/enhance.js:1:4736)\n    at Hr.render (plugin:ai-knowledge-hub:603:47612)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+        "objectId": "-8797686611398311973.1.6586",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "window.modalSnapshot",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 756
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 1022
+          }
+        },
+        {
+          "function": "Node.empty",
+          "url": "",
+          "location": {
+            "scriptId": "141",
+            "lineNumber": 0,
+            "columnNumber": 4735
+          }
+        },
+        {
+          "function": "render",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 47611
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 42077
+          }
+        },
+        {
+          "function": "notify",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 589,
+            "columnNumber": 26777
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 589,
+            "columnNumber": 21264
+          }
+        },
+        {
+          "function": "notify",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 603,
+            "columnNumber": 18698
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 603,
+            "columnNumber": 12329
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:62135)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+        "objectId": "-8797686611398311973.1.6637",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "window.modalSnapshot",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 756
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 1022
+          }
+        },
+        {
+          "function": "render",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 62134
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 42077
+          }
+        },
+        {
+          "function": "notify",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 589,
+            "columnNumber": 26777
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 589,
+            "columnNumber": 21264
+          }
+        },
+        {
+          "function": "notify",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 603,
+            "columnNumber": 18698
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 603,
+            "columnNumber": 12329
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Node.empty (app://obsidian.md/enhance.js:1:4736)\n    at Hr.render (plugin:ai-knowledge-hub:603:47612)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)",
+        "objectId": "-8797686611398311973.1.6686",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "window.modalSnapshot",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 756
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 1022
+          }
+        },
+        {
+          "function": "Node.empty",
+          "url": "",
+          "location": {
+            "scriptId": "141",
+            "lineNumber": 0,
+            "columnNumber": 4735
+          }
+        },
+        {
+          "function": "render",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 47611
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 42362
+          }
+        },
+        {
+          "function": "notify",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 614,
+            "columnNumber": 7030
+          }
+        },
+        {
+          "function": "changed",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 614,
+            "columnNumber": 758
+          }
+        },
+        {
+          "function": "e.tryTrigger",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1377697
+          }
+        },
+        {
+          "function": "e.trigger",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1377630
+          }
+        },
+        {
+          "function": "t.trigger",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 2889451
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 2827910
+          }
+        },
+        {
+          "function": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "function": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:62135)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+        "objectId": "-8797686611398311973.1.6767",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "window.modalSnapshot",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 756
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 1022
+          }
+        },
+        {
+          "function": "render",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 62134
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 602,
+            "columnNumber": 42362
+          }
+        },
+        {
+          "function": "notify",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 614,
+            "columnNumber": 7030
+          }
+        },
+        {
+          "function": "changed",
+          "url": "",
+          "location": {
+            "scriptId": "166",
+            "lineNumber": 614,
+            "columnNumber": 758
+          }
+        },
+        {
+          "function": "e.tryTrigger",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1377697
+          }
+        },
+        {
+          "function": "e.trigger",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1377630
+          }
+        },
+        {
+          "function": "t.trigger",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 2889451
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 2827910
+          }
+        },
+        {
+          "function": "c",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545775
+          }
+        },
+        {
+          "function": "u",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 545887
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6845",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6852",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6892",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6899",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6939",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6946",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6986",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.6993",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7033",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7040",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7080",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7087",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7127",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7134",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7174",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7181",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7221",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "-8797686611398311973.1.7228",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ]
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at <anonymous>:1:34",
+        "objectId": "-8797686611398311973.1.7268",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "window.modalSnapshot",
+          "url": "",
+          "location": {
+            "scriptId": "183",
+            "lineNumber": 0,
+            "columnNumber": 756
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "445",
+            "lineNumber": 0,
+            "columnNumber": 33
+          }
+        }
+      ]
+    }
+  ],
+  "checks": [],
+  "exceptions": [
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191524.417,
+      "exceptionDetails": {
+        "exceptionId": 5,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "207",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 64
+            },
+            {
+              "functionName": "onOpen",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at onOpen (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.onOpen (plugin:ai-knowledge-hub:1:1)",
+          "objectId": "-8797686611398311973.1.6503",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at onOpen (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.onOpen (plugin:ai-knowledge-hub:1:1)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…5)\n    at Hr.onOpen (plugin:ai-knowledge-hub:1:1)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191581.187,
+      "exceptionDetails": {
+        "exceptionId": 6,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "208",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 64
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            {
+              "functionName": "onOpen",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 43317
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at Hr.onOpen (plugin:ai-knowledge-hub:603:43318)",
+          "objectId": "-8797686611398311973.1.6504",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at Hr.onOpen (plugin:ai-knowledge-hub:603:43318)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i… at Hr.onOpen (plugin:ai-knowledge-hub:603:43318)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191585.85,
+      "exceptionDetails": {
+        "exceptionId": 7,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "209",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 64
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42077
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 26777
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21264
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 18698
+            },
+            {
+              "functionName": "initialize",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 12242
+            },
+            {
+              "functionName": "initialize",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 21115
+            },
+            {
+              "functionName": "initializeRecall",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21536
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62753
+            },
+            {
+              "functionName": "onOpen",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 43317
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at RecallProductController.initialize (plugin:ai-knowledge-hub:604:12243)\n    at RecallHealthAdapter.initialize (plugin:ai-knowledge-hub:604:21116)\n    at HealthPluginController.initializeRecall (plugin:ai-knowledge-hub:590:21537)",
+          "objectId": "-8797686611398311973.1.6505",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at RecallProductController.initialize (plugin:ai-knowledge-hub:604:12243)\n    at RecallHealthAdapter.initialize (plugin:ai-knowledge-hub:604:21116)\n    at HealthPluginController.initializeRecall (plugin:ai-knowledge-hub:590:21537)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…tializeRecall (plugin:ai-knowledge-hub:590:21537)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191623.268,
+      "exceptionDetails": {
+        "exceptionId": 8,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "210",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 65
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62771
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42077
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 26777
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21264
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 18698
+            },
+            {
+              "functionName": "initialize",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 12242
+            },
+            {
+              "functionName": "initialize",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 21115
+            },
+            {
+              "functionName": "initializeRecall",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21536
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62753
+            },
+            {
+              "functionName": "onOpen",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 43317
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at RecallProductController.initialize (plugin:ai-knowledge-hub:604:12243)\n    at RecallHealthAdapter.initialize (plugin:ai-knowledge-hub:604:21116)\n    at HealthPluginController.initializeRecall (plugin:ai-knowledge-hub:590:21537)",
+          "objectId": "-8797686611398311973.1.6506",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at RecallProductController.initialize (plugin:ai-knowledge-hub:604:12243)\n    at RecallHealthAdapter.initialize (plugin:ai-knowledge-hub:604:21116)\n    at HealthPluginController.initializeRecall (plugin:ai-knowledge-hub:590:21537)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…tializeRecall (plugin:ai-knowledge-hub:590:21537)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191625.084,
+      "exceptionDetails": {
+        "exceptionId": 9,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "211",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 65
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62771
+            },
+            {
+              "functionName": "onOpen",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 43317
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at Hr.onOpen (plugin:ai-knowledge-hub:603:43318)",
+          "objectId": "-8797686611398311973.1.6507",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at Hr.onOpen (plugin:ai-knowledge-hub:603:43318)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i… at Hr.onOpen (plugin:ai-knowledge-hub:603:43318)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191626.038,
+      "exceptionDetails": {
+        "exceptionId": 10,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "212",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 65
+            },
+            {
+              "functionName": "onOpen",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 43512
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at onOpen (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.onOpen (plugin:ai-knowledge-hub:603:43513)",
+          "objectId": "-8797686611398311973.1.6508",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at onOpen (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.onOpen (plugin:ai-knowledge-hub:603:43513)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i… at Hr.onOpen (plugin:ai-knowledge-hub:603:43513)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191635.213,
+      "exceptionDetails": {
+        "exceptionId": 11,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "214",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 64
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            {
+              "functionName": "navigate",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 65147
+            },
+            {
+              "functionName": "",
+              "scriptId": "213",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 11
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+          "objectId": "-8797686611398311973.1.6509",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…-knowledge-hub:603:65148)\n    at <anonymous>:1:12"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191694.348,
+      "exceptionDetails": {
+        "exceptionId": 13,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 1022
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 61811
+            },
+            {
+              "functionName": "navigate",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 65147
+            },
+            {
+              "functionName": "",
+              "scriptId": "213",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 11
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:61812)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+          "objectId": "-8797686611398311973.1.6536",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:61812)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…-knowledge-hub:603:65148)\n    at <anonymous>:1:12"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191695.811,
+      "exceptionDetails": {
+        "exceptionId": 14,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "216",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 65
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62771
+            },
+            {
+              "functionName": "navigate",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 65147
+            },
+            {
+              "functionName": "",
+              "scriptId": "213",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 11
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+          "objectId": "-8797686611398311973.1.6537",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at Hr.navigate (plugin:ai-knowledge-hub:603:65148)\n    at <anonymous>:1:12",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…-knowledge-hub:603:65148)\n    at <anonymous>:1:12"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191708.051,
+      "exceptionDetails": {
+        "exceptionId": 17,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "219",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 64
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42077
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 26777
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21264
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 18698
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 12329
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+          "objectId": "-8797686611398311973.1.6585",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…in:ai-knowledge-hub:604:12330)\n    at <anonymous>"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191716.135,
+      "exceptionDetails": {
+        "exceptionId": 19,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 1022
+            },
+            {
+              "functionName": "Node.empty",
+              "scriptId": "141",
+              "url": "app://obsidian.md/enhance.js",
+              "lineNumber": 0,
+              "columnNumber": 4735
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 47611
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42077
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 26777
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21264
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 18698
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 12329
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Node.empty (app://obsidian.md/enhance.js:1:4736)\n    at Hr.render (plugin:ai-knowledge-hub:603:47612)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+          "objectId": "-8797686611398311973.1.6636",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Node.empty (app://obsidian.md/enhance.js:1:4736)\n    at Hr.render (plugin:ai-knowledge-hub:603:47612)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…in:ai-knowledge-hub:604:12330)\n    at <anonymous>"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191731.571,
+      "exceptionDetails": {
+        "exceptionId": 21,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 1022
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62134
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42077
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 26777
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21264
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 18698
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 12329
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:62135)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+          "objectId": "-8797686611398311973.1.6683",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:62135)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…in:ai-knowledge-hub:604:12330)\n    at <anonymous>"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191733.077,
+      "exceptionDetails": {
+        "exceptionId": 22,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "222",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 65
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62771
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42077
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 26777
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 589,
+              "columnNumber": 21264
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 18698
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 603,
+              "columnNumber": 12329
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+          "objectId": "-8797686611398311973.1.6684",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at eval (plugin:ai-knowledge-hub:603:42078)\n    at HealthPluginController.notify (plugin:ai-knowledge-hub:590:26778)\n    at eval (plugin:ai-knowledge-hub:590:21265)\n    at RecallProductController.notify (plugin:ai-knowledge-hub:604:18699)\n    at eval (plugin:ai-knowledge-hub:604:12330)\n    at <anonymous>",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…in:ai-knowledge-hub:604:12330)\n    at <anonymous>"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191736.065,
+      "exceptionDetails": {
+        "exceptionId": 23,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "223",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 64
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42362
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 7030
+            },
+            {
+              "functionName": "changed",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 758
+            },
+            {
+              "functionName": "e.tryTrigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377697
+            },
+            {
+              "functionName": "e.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377630
+            },
+            {
+              "functionName": "t.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2889451
+            },
+            {
+              "functionName": "",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2827910
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+          "objectId": "-8797686611398311973.1.6685",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:65)\n    at Hr.render (plugin:ai-knowledge-hub:1:1)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i….<anonymous> (app://obsidian.md/app.js:1:2827911)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191748.041,
+      "exceptionDetails": {
+        "exceptionId": 25,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 1022
+            },
+            {
+              "functionName": "Node.empty",
+              "scriptId": "141",
+              "url": "app://obsidian.md/enhance.js",
+              "lineNumber": 0,
+              "columnNumber": 4735
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 47611
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42362
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 7030
+            },
+            {
+              "functionName": "changed",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 758
+            },
+            {
+              "functionName": "e.tryTrigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377697
+            },
+            {
+              "functionName": "e.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377630
+            },
+            {
+              "functionName": "t.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2889451
+            },
+            {
+              "functionName": "",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2827910
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Node.empty (app://obsidian.md/enhance.js:1:4736)\n    at Hr.render (plugin:ai-knowledge-hub:603:47612)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)",
+          "objectId": "-8797686611398311973.1.6766",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Node.empty (app://obsidian.md/enhance.js:1:4736)\n    at Hr.render (plugin:ai-knowledge-hub:603:47612)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i…at t.trigger (app://obsidian.md/app.js:1:2889452)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191766.114,
+      "exceptionDetails": {
+        "exceptionId": 27,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 1022
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62134
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42362
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 7030
+            },
+            {
+              "functionName": "changed",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 758
+            },
+            {
+              "functionName": "e.tryTrigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377697
+            },
+            {
+              "functionName": "e.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377630
+            },
+            {
+              "functionName": "t.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2889451
+            },
+            {
+              "functionName": "",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2827910
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:62135)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+          "objectId": "-8797686611398311973.1.6843",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at HTMLDocument.<anonymous> (<anonymous>:1:1023)\n    at Hr.render (plugin:ai-knowledge-hub:603:62135)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i….<anonymous> (app://obsidian.md/app.js:1:2827911)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    },
+    {
+      "target": "6144CC4DD2D13C599804E28F2F0893FB",
+      "timestamp": 1794727191767.787,
+      "exceptionDetails": {
+        "exceptionId": 28,
+        "text": "",
+        "lineNumber": 0,
+        "columnNumber": 756,
+        "scriptId": "183",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "window.modalSnapshot",
+              "scriptId": "183",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 756
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "227",
+              "url": "",
+              "lineNumber": 0,
+              "columnNumber": 65
+            },
+            {
+              "functionName": "render",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 62771
+            },
+            {
+              "functionName": "eval",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 602,
+              "columnNumber": 42362
+            },
+            {
+              "functionName": "notify",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 7030
+            },
+            {
+              "functionName": "changed",
+              "scriptId": "166",
+              "url": "plugin:ai-knowledge-hub",
+              "lineNumber": 614,
+              "columnNumber": 758
+            },
+            {
+              "functionName": "e.tryTrigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377697
+            },
+            {
+              "functionName": "e.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1377630
+            },
+            {
+              "functionName": "t.trigger",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2889451
+            },
+            {
+              "functionName": "",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 2827910
+            },
+            {
+              "functionName": "c",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545775
+            },
+            {
+              "functionName": "u",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 545887
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+          "objectId": "-8797686611398311973.1.6844",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: app.keymap.windowScopes.get(...)?.map is not a function\n    at window.modalSnapshot (<anonymous>:1:757)\n    at eval (eval at render (plugin:ai-knowledge-hub), <anonymous>:1:66)\n    at Hr.render (plugin:ai-knowledge-hub:603:62772)\n    at eval (plugin:ai-knowledge-hub:603:42363)\n    at RecallAuthoringAdapter.notify (plugin:ai-knowledge-hub:615:7031)\n    at changed (plugin:ai-knowledge-hub:615:759)\n    at e.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at e.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2827911)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: app.keymap.windowScopes.get(...)?.map i….<anonymous> (app://obsidian.md/app.js:1:2827911)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "app.keymap.windowScopes.get(...)?.map is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "actions": [],
+  "screenshots": [],
+  "assets": {
+    "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-modal-lifecycle-native.mjs": "1c1febd1d31f4086595c965415e7fa71b9229cd5d32142f3632debfdb2dee9ba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "f90aa721c8d4f04a165941297fdabecf8e6b814a0d5ede4841941390917ae129"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "hostOpenSHA256": "6b446d35b253d34952f7363f19b0a2cc18c138a93fa93e9b055dacbbbb95d021",
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector(\"[data-health-action=tag-taxonomy]\")\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:58:159)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:138:3",
+  "captureError": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":48,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":756,\"scriptId\":\"183\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"window.modalSnapshot\",\"scriptId\":\"183\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":756},{\"functionName\":\"\",\"scriptId\":\"445\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":33}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: app.keymap.windowScopes.get(...)?.map is not a function\\n    at window.modalSnapshot (<anonymous>:1:757)\\n    at <anonymous>:1:34\",\"objectId\":\"-8797686611398311973.1.7278\"}}",
+  "modelRequests": []
+}

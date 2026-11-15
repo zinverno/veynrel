@@ -1,3 +1,6 @@
+import type { Finding } from "./domain/finding";
+import type { WorkspaceScope } from "./workspace/vaultScope";
+
 /** Existing workflow launchers and read-only saved-cluster availability. */
 export interface VeynrelToolsPort {
   openAskVault(): void;
@@ -7,7 +10,7 @@ export interface VeynrelToolsPort {
   savedMocClusterCount?(): Promise<number>;
   openBatchProcessing(): void;
   runLegacyVaultAudit(): Promise<void>;
-  openTagTaxonomy(): void;
+  openTagTaxonomy(scope?: WorkspaceScope, findings?: readonly Finding[]): void;
   openOperationHistory(): void;
 }
 
