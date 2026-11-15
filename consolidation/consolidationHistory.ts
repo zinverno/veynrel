@@ -2,7 +2,7 @@ import { t as tr } from "../i18n";
 import type { ArchiveRecord } from "./archiveJournal";
 import type { StructuralArchiveRecord } from "./structuralArchiveJournal";
 
-type Family = "single" | "multi" | "merge" | "group" | "bundle" | "archive" | "structuralArchive" | "emptyAtom";
+type Family = "localNote" | "single" | "multi" | "merge" | "group" | "bundle" | "archive" | "structuralArchive" | "emptyAtom";
 export interface HistoryPresentation {
   family: Family;
   row: { id: string; damaged: boolean; record?: { id: string; createdAt: number } };

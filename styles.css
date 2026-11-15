@@ -2553,6 +2553,27 @@
 .ai-planner-controls { display: flex; flex-wrap: wrap; gap: 12px; }
 .ai-planner-controls label, .ai-planner-location { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1 1 220px; }
 .ai-change-planner select { width: 100%; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.ai-local-note .ai-local-note-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  min-width: 0;
+  margin-block: var(--size-4-4);
+}
+.ai-local-note .ai-local-note-field > label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  min-width: 0;
+}
+.ai-local-note .ai-local-note-field input[type="text"] { width: 100%; min-width: 0; }
+.ai-local-note .ai-local-note-field > button {
+  align-self: flex-start;
+  max-width: 100%;
+  height: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 .ai-planner-confirm { display: flex; align-items: flex-start; gap: 8px; margin: 12px 0; }
 .ai-planner-confirm input { flex-shrink: 0; }
 .ai-change-planner p, .ai-planner-confirm span { overflow-wrap: anywhere; }

@@ -1,0 +1,1122 @@
+{
+  "scenario": "r05-2-local-notes-native-v1",
+  "checks": [
+    "Passive navigation has no scan/read/write/model activity",
+    "Native local scan produced the actual broken-link finding",
+    "Review offers separate write confirmation",
+    "Before first Apply, source Markdown has no write calls",
+    "Tag Apply changes exactly one inline insertion; YAML/CRLF/Unicode and other notes preserved",
+    "Tag Undo restores exact original bytes through shared History",
+    "Two identical unresolved occurrences remain distinct",
+    "Review offers separate write confirmation",
+    "Write does not auto-resolve the Finding",
+    "Repair changes only selected second occurrence; full target path distinguishes same basenames",
+    "Repair Undo restores exact original bytes",
+    "en/dark 390px tag preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "en/dark 390px Review has no horizontal overflow or missing translations",
+    "en/dark: Tab focus stays in Review",
+    "en/dark 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "en/dark repair Review is localized without overflow",
+    "en/light 390px tag preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "en/light 390px Review has no horizontal overflow or missing translations",
+    "en/light: Tab focus stays in Review",
+    "en/light 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "en/light repair Review is localized without overflow",
+    "ru/dark 390px tag preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru/dark 390px Review has no horizontal overflow or missing translations",
+    "ru/dark: Tab focus stays in Review",
+    "ru/dark 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru/dark repair Review is localized without overflow",
+    "ru/light 390px tag preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru/light 390px Review has no horizontal overflow or missing translations",
+    "ru/light: Tab focus stays in Review",
+    "ru/light 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru/light repair Review is localized without overflow",
+    "Affected real split editor blocks planning",
+    "Real popout owns the local action and focus",
+    "Focus returns with reduced motion",
+    "BOM source refuses before Review/journaling",
+    "Obsidian restart reads both completed journals without writes; exact originals remain"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=home-findings]",
+      "active": "<button type=\"button\" data-health-action=\"home-findings\">Findings</button>"
+    },
+    {
+      "selector": "[data-health-action=home-check]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan my vault</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Apply group</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=history]",
+      "active": "<button type=\"button\" data-local-note=\"history\">Consolidation history</button>"
+    },
+    {
+      "selector": "[data-local-note=undo]",
+      "active": "<button type=\"button\" data-local-note=\"undo\">Preview group Undo</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Confirm: restore canonical</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Review a repair</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Choose existing target note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Apply group</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=history]",
+      "active": "<button type=\"button\" data-local-note=\"history\">Consolidation history</button>"
+    },
+    {
+      "selector": "[data-local-note=undo]",
+      "active": "<button type=\"button\" data-local-note=\"undo\">Preview group Undo</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Confirm: restore canonical</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Review a repair</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Choose existing target note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Review a repair</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Choose existing target note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Разметить заметку тегом</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Проверить исправление</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Выбрать существующую целевую заметку</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Разметить заметку тегом</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Проверить исправление</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Выбрать существующую целевую заметку</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Разметить заметку тегом</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Разметить заметку тегом</button>"
+    }
+  ],
+  "screenshots": [
+    "tag-choices.png",
+    "tag-review-en-dark.png",
+    "tag-applied.png",
+    "tag-undo-undone.png",
+    "broken-finding.png",
+    "repair-review.png",
+    "repair-applied.png",
+    "repair-undo-undone.png",
+    "en-dark-390-review.png",
+    "en-dark-390-repair.png",
+    "en-light-390-review.png",
+    "en-light-390-repair.png",
+    "ru-dark-390-review.png",
+    "ru-dark-390-repair.png",
+    "ru-light-390-review.png",
+    "ru-light-390-repair.png",
+    "split-refusal.png",
+    "popout-tag.png"
+  ],
+  "assets": {
+    "main.js": "3725d4a85501d617fc7029df92d9decfe4edfa0e965c573d95eab61c64f70f03",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 16.033008,
+    "frames": 91,
+    "seconds": 15.6438148021698,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "r05-2-local-notes-native.mjs": "59f00844107801c1e6e6060c13c09d14ca9b80ada2ac76e4d6b3bf9cbce964a6",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "9483496ab8be90f846a64c96b4017900fb02b02103030a13376170721ff32e7a"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "passive": {
+    "before": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 2,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [],
+      "phase": "passive"
+    },
+    "after": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 2,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [],
+      "phase": "passive"
+    }
+  },
+  "activeScope": {
+    "workspace": {
+      "kind": "all"
+    },
+    "tagSource": "Taggable.md",
+    "repairSource": "Broken.md",
+    "repairTarget": "Folder/Target.md",
+    "writesPerAction": 1
+  },
+  "history": [
+    {
+      "id": "1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e",
+      "damaged": false,
+      "scope": "none",
+      "receipts": [
+        {
+          "state": "applied",
+          "modified": 1794742340653,
+          "bytes": 47,
+          "hash": "334af38f76581fb7849d575dd1d06eed421f14f91608943d40190cbca48521a9"
+        },
+        {
+          "state": "undo_intent",
+          "modified": 1794742340653,
+          "bytes": 47,
+          "hash": "334af38f76581fb7849d575dd1d06eed421f14f91608943d40190cbca48521a9"
+        },
+        {
+          "state": "undone",
+          "modified": 1794742343516,
+          "bytes": 41,
+          "hash": "912ab3fe905ab5e2b14c12bceaae8d25cf6f781044634622a38ee3c59031f43c"
+        }
+      ],
+      "issues": [],
+      "record": {
+        "version": 1,
+        "operation": "repair_wikilink",
+        "state": "prepared",
+        "id": "1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e",
+        "createdAt": 1794742339091,
+        "plan": {
+          "version": 1,
+          "source": {
+            "path": "Broken.md",
+            "created": 1794742326569,
+            "modified": 1794742326569,
+            "bytes": 41,
+            "content": "Check [[Missing]] and also [[Missing]].\r\n"
+          },
+          "metadata": {
+            "links": [
+              {
+                "position": {
+                  "start": {
+                    "line": 0,
+                    "col": 6,
+                    "offset": 6
+                  },
+                  "end": {
+                    "line": 0,
+                    "col": 17,
+                    "offset": 17
+                  }
+                },
+                "link": "Missing",
+                "original": "[[Missing]]",
+                "displayText": "Missing"
+              },
+              {
+                "position": {
+                  "start": {
+                    "line": 0,
+                    "col": 27,
+                    "offset": 27
+                  },
+                  "end": {
+                    "line": 0,
+                    "col": 38,
+                    "offset": 38
+                  }
+                },
+                "link": "Missing",
+                "original": "[[Missing]]",
+                "displayText": "Missing"
+              }
+            ],
+            "sections": [
+              {
+                "type": "paragraph",
+                "position": {
+                  "start": {
+                    "line": 0,
+                    "col": 0,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 0,
+                    "col": 39,
+                    "offset": 39
+                  }
+                }
+              }
+            ]
+          },
+          "authority": "{\"settings\":\"{\\\"registryPath\\\":null}\",\"registry\":null}",
+          "choice": {
+            "kind": "repair_wikilink",
+            "range": {
+              "start": 27,
+              "end": 38,
+              "text": "[[Missing]]"
+            },
+            "target": {
+              "path": "Folder/Target.md",
+              "created": 1794742326569,
+              "modified": 1794742326569,
+              "bytes": 17,
+              "content": "Selected target.\n"
+            }
+          },
+          "edit": {
+            "start": 27,
+            "end": 38,
+            "removed": "[[Missing]]",
+            "inserted": "[[Folder/Target]]"
+          },
+          "after": "Check [[Missing]] and also [[Folder/Target]].\r\n"
+        },
+        "hashes": {
+          "before": "912ab3fe905ab5e2b14c12bceaae8d25cf6f781044634622a38ee3c59031f43c",
+          "after": "334af38f76581fb7849d575dd1d06eed421f14f91608943d40190cbca48521a9"
+        }
+      },
+      "state": "undone",
+      "canUndo": false,
+      "recovered": false,
+      "blocking": false
+    },
+    {
+      "id": "652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01",
+      "damaged": false,
+      "scope": "none",
+      "receipts": [
+        {
+          "state": "applied",
+          "modified": 1794742332493,
+          "bytes": 131,
+          "hash": "e6d904813c898c8ab58cf3a69c2434ab1fd6ba45bd4067b63e46d4e4ab3bc294"
+        },
+        {
+          "state": "undo_intent",
+          "modified": 1794742332493,
+          "bytes": 131,
+          "hash": "e6d904813c898c8ab58cf3a69c2434ab1fd6ba45bd4067b63e46d4e4ab3bc294"
+        },
+        {
+          "state": "undone",
+          "modified": 1794742335356,
+          "bytes": 108,
+          "hash": "df20b84ecc8e6bbded6f3d0a1d0bf7975992f0bd5d869843276e02e34c5dede0"
+        }
+      ],
+      "issues": [],
+      "record": {
+        "version": 1,
+        "operation": "add_inline_tag",
+        "state": "prepared",
+        "id": "652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01",
+        "createdAt": 1794742330940,
+        "plan": {
+          "version": 1,
+          "source": {
+            "path": "Taggable.md",
+            "created": 1794742326566,
+            "modified": 1794742326569,
+            "bytes": 108,
+            "content": "---\r\ntitle: Синтетика\r\ntags:\r\n  - kept\r\n---\r\n\r\nМатериал для явного выбора.\r\n"
+          },
+          "metadata": {
+            "sections": [
+              {
+                "type": "yaml",
+                "position": {
+                  "start": {
+                    "line": 0,
+                    "col": 0,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "col": 3,
+                    "offset": 43
+                  }
+                }
+              },
+              {
+                "type": "paragraph",
+                "position": {
+                  "start": {
+                    "line": 6,
+                    "col": 0,
+                    "offset": 47
+                  },
+                  "end": {
+                    "line": 6,
+                    "col": 27,
+                    "offset": 74
+                  }
+                }
+              }
+            ],
+            "frontmatter": {
+              "title": "Синтетика",
+              "tags": [
+                "kept"
+              ]
+            },
+            "frontmatterPosition": {
+              "start": {
+                "line": 0,
+                "col": 0,
+                "offset": 0
+              },
+              "end": {
+                "line": 4,
+                "col": 3,
+                "offset": 43
+              }
+            },
+            "frontmatterLinks": []
+          },
+          "authority": "{\"settings\":\"{\\\"registryPath\\\":null}\",\"registry\":null}",
+          "choice": {
+            "kind": "add_inline_tag",
+            "tag": "тема/Редкий",
+            "range": {
+              "start": 47,
+              "end": 74,
+              "text": "Материал для явного выбора."
+            }
+          },
+          "edit": {
+            "start": 74,
+            "end": 74,
+            "removed": "",
+            "inserted": " #тема/Редкий"
+          },
+          "after": "---\r\ntitle: Синтетика\r\ntags:\r\n  - kept\r\n---\r\n\r\nМатериал для явного выбора. #тема/Редкий\r\n"
+        },
+        "hashes": {
+          "before": "df20b84ecc8e6bbded6f3d0a1d0bf7975992f0bd5d869843276e02e34c5dede0",
+          "after": "e6d904813c898c8ab58cf3a69c2434ab1fd6ba45bd4067b63e46d4e4ab3bc294"
+        }
+      },
+      "state": "undone",
+      "canUndo": false,
+      "recovered": false,
+      "blocking": false
+    }
+  ],
+  "io": {
+    "reads": [
+      {
+        "path": "Broken.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Diary.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Editor.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Encoding.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Other/Target.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "scan"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-selection"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-review"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-review"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-apply"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-apply"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-apply"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-apply"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-apply"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "finding"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "repair-review"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-review"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "repair-review"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-review"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "repair-review"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Folder/Target.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "path": "Editor.md",
+        "phase": "split-refusal"
+      },
+      {
+        "path": "Editor.md",
+        "phase": "split-refusal"
+      },
+      {
+        "path": "Editor.md",
+        "phase": "split-refusal"
+      },
+      {
+        "path": "Editor.md",
+        "phase": "split-refusal"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "popout"
+      },
+      {
+        "path": "Encoding.md",
+        "phase": "bom"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "bom"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "bom"
+      }
+    ],
+    "writes": [
+      {
+        "path": "Taggable.md",
+        "phase": "tag-apply"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "tag-undo"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-apply"
+      },
+      {
+        "path": "Broken.md",
+        "phase": "repair-undo"
+      }
+    ],
+    "creates": [],
+    "metadata": 157,
+    "enumerations": 28,
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "scan"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health",
+        "phase": "scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+        "phase": "scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+        "phase": "scan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "tag-selection"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "tag-selection"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations",
+        "phase": "tag-apply"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01",
+        "phase": "tag-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01/record.json",
+        "phase": "tag-apply"
+      },
+      {
+        "method": "copy",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01/record.json",
+        "phase": "tag-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01/mark-ba54adb3-86d7-4a04-bbaa-610b4de235c3.json",
+        "phase": "tag-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01/mark-b0c475e0-7b16-42d4-b89a-afddd80b74dd.json",
+        "phase": "tag-undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/652cd15b304e278c79891262ae31d3996d4ce43161f0b4fd27b4374f6d51ea01/mark-a4157c57-b095-4da5-b07f-436fe5d2b7e4.json",
+        "phase": "tag-undo"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e",
+        "phase": "repair-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e/record.json",
+        "phase": "repair-apply"
+      },
+      {
+        "method": "copy",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e/record.json",
+        "phase": "repair-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e/mark-bd8ca311-3d65-4f7a-8c1e-3ee8c0137450.json",
+        "phase": "repair-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e/mark-69949551-b42b-48da-9bce-4f9c15389998.json",
+        "phase": "repair-undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/1b9fb77a6e7aa257acf19ed4c891fd6ae9020081b4d0ddbf0101043ec8b3597e/mark-072d8c76-ac31-43e1-b3f7-3abb3731e51e.json",
+        "phase": "repair-undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "ru-en-theme-keyboard"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "popout"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "popout"
+      }
+    ],
+    "phase": "bom"
+  },
+  "finalHashes": {
+    "Taggable.md": "df20b84ecc8e6bbded6f3d0a1d0bf7975992f0bd5d869843276e02e34c5dede0",
+    "Broken.md": "912ab3fe905ab5e2b14c12bceaae8d25cf6f781044634622a38ee3c59031f43c",
+    "Folder/Target.md": "27af576b9077713397bdd286bee47c4d957df5e264b46ea3b6332b4b25ca2002",
+    "Other/Target.md": "703e2a80ac6ed8ea6b2b716925b290b7e9f69191cb20a20ca24238745bd189ef",
+    "Editor.md": "defbfd6102631bd41e7514fdf2665d046da047dc68766d1d7999e4a22dd6538b",
+    "Diary.md": "ac0abccf8b381a29c6670604b2fa0927978063f0f4482d89381fc9010cce8601",
+    "Encoding.md": "ddd4eaf9a4f1312227df0a66547e17120c95d00534923c5d98e4eb9def557064"
+  },
+  "modelRequests": [],
+  "restartIo": {
+    "reads": [
+      {
+        "path": "Broken.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Taggable.md",
+        "phase": "startup"
+      }
+    ],
+    "writes": [],
+    "creates": [],
+    "metadata": 0,
+    "enumerations": 0,
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/core-plugins.json",
+        "phase": "startup"
+      }
+    ],
+    "phase": "startup"
+  },
+  "status": "PASS"
+}

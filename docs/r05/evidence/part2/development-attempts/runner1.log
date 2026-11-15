@@ -1,0 +1,44 @@
+{"root": "/tmp/veynrel-infra-test-bfff615cf96a", "command": ["/usr/bin/python", "-c", "import subprocess,sys; subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(60)\"]);sys.exit(7)"], "timeoutSeconds": 15, "startedAt": 1794741320.0268104, "exitCode": 1, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.797}
+F{"root": "/tmp/veynrel-infra-test-cb27d721f67a", "command": ["/usr/bin/python", "-c", "import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/'ready').touch();time.sleep(60)", "/tmp/veynrel-infra-test-cb27d721f67a"], "timeoutSeconds": 30, "startedAt": 1794741324.0781286, "exitCode": 1, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.53}
+F{"root": "/tmp/veynrel-infra-test-120a7e9475e4", "command": ["/usr/bin/python", "-c", "import time;time.sleep(60)"], "timeoutSeconds": 3, "startedAt": 1794741327.708721, "exitCode": 124, "failure": "TIMEOUT", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.01}
+E
+======================================================================
+ERROR: test_timeout_cleans_process_group (__main__.RunnerTests.test_timeout_cleans_process_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/scripts/native/test_runner.py", line 39, in test_timeout_cleans_process_group
+    self.assertEqual(self.result(root)['failure'], 'TIMEOUT')
+                     ~~~~~~~~~~~^^^^^^
+  File "<checkout>/scripts/native/test_runner.py", line 25, in result
+    env = json.loads((root / 'isolation/environment.json').read_text())
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/veynrel-infra-test-120a7e9475e4/isolation/environment.json'
+
+======================================================================
+FAIL: test_failure_cleans_descendants_and_keeps_exit_status (__main__.RunnerTests.test_failure_cleans_descendants_and_keeps_exit_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/scripts/native/test_runner.py", line 33, in test_failure_cleans_descendants_and_keeps_exit_status
+    self.assertEqual(runner.run(command, root, timeout=15), 7)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 7
+
+======================================================================
+FAIL: test_sigterm_cleans_process_group (__main__.RunnerTests.test_sigterm_cleans_process_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/scripts/native/test_runner.py", line 50, in test_sigterm_cleans_process_group
+    self.assertIsNone(proc.poll()); time.sleep(.05)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+AssertionError: 1 is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 10.741s
+
+FAILED (failures=2, errors=1)

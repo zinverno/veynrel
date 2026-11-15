@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "--check",
+    "scripts/r05-2-local-notes-native.mjs"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

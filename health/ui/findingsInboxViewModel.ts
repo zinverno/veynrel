@@ -57,6 +57,7 @@ export function findingsInboxViewModel({ findings, route, mutatingFindingId, bus
       notes: [...selected.notePaths], affectedSummary: t("@findings.affected-count", { n: evidence.affectedCount }),
       representativeSummary: evidence.representativeSummary, facts: evidence.facts,
       pair: findingPair(selected),
+      repairSource: selected.type === "broken-link" ? selected.notePaths[0] : undefined,
       origin: t(selected.source === "local" ? "@actions.local" : "@actions.hypothesis"),
       recorded: t("@actions.recorded", { date: new Intl.DateTimeFormat(dateLocale(), { dateStyle: "medium", timeStyle: "short" }).format(selected.lastSeenAt) }),
       snoozedUntil: selected.state === "snoozed" && selected.snoozedUntil !== undefined

@@ -1,0 +1,132 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 <checkout>
+
+ ❯ consolidation/consolidationUx.test.ts (0 test)
+ ❯ semantic/semanticSearchModal.test.ts (67 tests | 29 failed) 295ms
+     × explicit leave saves the shown versions and closes, without any analysis or Markdown write 105ms
+     × add_link: leave from the validated result saves the whole pair; another option remains available 1ms
+     × no_change: leave from the validated result saves the whole pair; another option remains available 0ms
+     × save failure stays in review; retry is explicit and no close/cancel records a decision 1ms
+     × does not decide for an unseen edit or finish a stale click after closing 1ms
+     × actual HTTP parser → session → validator → pair UI: null 1ms
+     × actual HTTP parser → session → validator → pair UI: empty 0ms
+     × actual HTTP parser → session → validator → pair UI: missing 0ms
+     × actual HTTP parser → session → validator → pair UI: partial 0ms
+     × actual HTTP parser → session → validator → pair UI: valid-length 0ms
+     × actual HTTP parser → session → validator → pair UI: stop 0ms
+     × actual HTTP parser → session → validator → pair UI: bad-quote 0ms
+     × shows one current pair step and recovers explicitly after source invalidation 1ms
+     × never offers preparation when a response contains a quote absent from the exact sources 1ms
+     × renders safe current text and full paths; opens the selected note in en 1ms
+     × renders safe current text and full paths; opens the selected note in ru 0ms
+     × ignores late reads after close, removes listeners and can reopen 0ms
+     × keeps only the latest refresh and invalidates without automatic IO 1ms
+     × does not publish a pending load after a file/cache change 1ms
+     × labels a truncated preview and distinguishes an empty file 1ms
+     × bounds metadata lists and long entries with explicit truncation labels 1ms
+     × keeps viewing local and requires exact-data confirmation in ru 1ms
+     × keeps viewing local and requires exact-data confirmation in en 0ms
+     × renders only supplied quotes for contextual, unique and conflicting claims in ru 1ms
+     × renders only supplied quotes for contextual, unique and conflicting claims in en 1ms
+     × invalidates consent/results on selected file and model changes, and cancels when closing 1ms
+     × plans only after explicit selection, confirms exact ranges and clears stale UI in ru 1ms
+     × plans only after explicit selection, confirms exact ranges and clears stale UI in en 0ms
+     × removes a completed result when a selected source is deleted, without rereading or writing 1ms
+ ❯ semantic/semanticConcurrency.integration.test.ts (0 test)
+ ❯ semantic/obsidianSemanticController.test.ts (0 test)
+ ❯ consolidation/safeApplyModal.test.ts (0 test)
+ ❯ rag/ragController.integration.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  consolidation/consolidationUx.test.ts [ consolidation/consolidationUx.test.ts ]
+ FAIL  consolidation/safeApplyModal.test.ts [ consolidation/safeApplyModal.test.ts ]
+ FAIL  rag/ragController.integration.test.ts [ rag/ragController.integration.test.ts ]
+ FAIL  semantic/obsidianSemanticController.test.ts [ semantic/obsidianSemanticController.test.ts ]
+ FAIL  semantic/semanticConcurrency.integration.test.ts [ semantic/semanticConcurrency.integration.test.ts ]
+Error: [vitest] No "FuzzySuggestModal" export is defined on the "obsidian" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("obsidian"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ consolidation/localNoteModal.ts:34:49
+     32|     private readonly service: SafeApplyService, private readonly histo…
+     33|   onOpen(): void {
+     34|     this.active = true; this.modalEl.addClass("ai-pair-inspector-modal…
+       |                                                 ^
+     35|     this.titleEl.setText(t(this.kind === "add_inline_tag" ? "@localNot…
+     36|     this.contentEl.createEl("p", { text: t("@safeApply.checking"), att…
+ ❯ consolidation/safeApplyModal.ts:1:1
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/34]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 29 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > explicit leave saves the shown versions and closes, without any analysis or Markdown write
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > add_link: leave from the validated result saves the whole pair; another option remains available
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > no_change: leave from the validated result saves the whole pair; another option remains available
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > save failure stays in review; retry is explicit and no close/cancel records a decision
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > does not decide for an unseen edit or finish a stale click after closing
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: null
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: empty
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: missing
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: partial
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: valid-length
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: stop
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > actual HTTP parser → session → validator → pair UI: bad-quote
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > shows one current pair step and recovers explicitly after source invalidation
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > never offers preparation when a response contains a quote absent from the exact sources
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > renders safe current text and full paths; opens the selected note in en
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > renders safe current text and full paths; opens the selected note in ru
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > ignores late reads after close, removes listeners and can reopen
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > keeps only the latest refresh and invalidates without automatic IO
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > does not publish a pending load after a file/cache change
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > labels a truncated preview and distinguishes an empty file
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > bounds metadata lists and long entries with explicit truncation labels
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > keeps viewing local and requires exact-data confirmation in ru
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > keeps viewing local and requires exact-data confirmation in en
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > renders only supplied quotes for contextual, unique and conflicting claims in ru
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > renders only supplied quotes for contextual, unique and conflicting claims in en
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > invalidates consent/results on selected file and model changes, and cancels when closing
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > plans only after explicit selection, confirms exact ranges and clears stale UI in ru
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > plans only after explicit selection, confirms exact ranges and clears stale UI in en
+ FAIL  semantic/semanticSearchModal.test.ts > read-only Pair Inspector UI > removes a completed result when a selected source is deleted, without rereading or writing
+Error: [vitest] No "FuzzySuggestModal" export is defined on the "obsidian" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("obsidian"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ consolidation/localNoteModal.ts:34:49
+     32|     private readonly service: SafeApplyService, private readonly histo…
+     33|   onOpen(): void {
+     34|     this.active = true; this.modalEl.addClass("ai-pair-inspector-modal…
+       |                                                 ^
+     35|     this.titleEl.setText(t(this.kind === "add_inline_tag" ? "@localNot…
+     36|     this.contentEl.createEl("p", { text: t("@safeApply.checking"), att…
+ ❯ consolidation/safeApplyModal.ts:1:1
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/34]⎯
+
+
+ Test Files  6 failed | 197 passed (203)
+      Tests  29 failed | 5058 passed (5087)
+   Start at  14:15:18
+   Duration  118.94s (transform 27.88s, setup 0ms, import 57.71s, tests 122.87s, environment 33ms)
+

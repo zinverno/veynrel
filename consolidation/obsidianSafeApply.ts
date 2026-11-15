@@ -1,3 +1,6 @@
+import { LocalNoteJournal } from "./localNoteJournal";
+import { ObsidianLocalNote } from "./obsidianLocalNote";
+import type { LocalRules } from "./obsidianLocalNote";
 import { StructuralArchiveJournal } from "./structuralArchiveJournal";
 import { obsidianStructuralArchivePort } from "./obsidianStructuralArchive";
 import { EmptyAtomJournal } from "./emptyAtomJournal";
@@ -92,7 +95,7 @@ export function obsidianSafeApplyPort(app: App, isReadOnlyView?: (view: View) =>
     },
   };
 }
-export function createSafeApplyService(app: App, pluginId: string, protectedPaths: () => readonly string[] = () => []): SafeApplyService {
+export function createSafeApplyService(app: App, pluginId: string, protectedPaths: () => readonly string[] = () => [], rules: () => LocalRules = () => ({ profile: null, registryPath: null })): SafeApplyService {
   const port = obsidianSafeApplyPort(app, undefined, protectedPaths);
   return new SafeApplyService(new OperationJournal(app.vault.adapter, app.vault.configDir, pluginId), port, {
     journal: new MultiFileJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianMultiFilePort(app, port),
@@ -108,5 +111,5 @@ export function createSafeApplyService(app: App, pluginId: string, protectedPath
     journal: new EmptyAtomJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianEmptyAtomPort(app, port),
   }, {
     journal: new StructuralArchiveJournal(app.vault.adapter, app.vault.configDir, pluginId), port: obsidianStructuralArchivePort(app, port),
-  });
+  }, { journal: new LocalNoteJournal(app.vault.adapter, app.vault.configDir, pluginId), port: new ObsidianLocalNote(app, port, rules) });
 }

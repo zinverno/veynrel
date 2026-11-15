@@ -54,6 +54,12 @@ export function t(key: string, vars?: Record<string, string | number>, language 
 }
 
 const RU: Record<string, string> = {
+  "@localNote.tag_exists": "Тег уже присутствует или исходный текст не позволяет доказать его отсутствие. Другой регистр и вложенные употребления не заменяются автоматически.",
+  "@localNote.tag_rule": "Подключённые правила исключают этот тег или помечают его устаревшим. Выберите другой тег; изменение правил — отдельная операция.",
+  "@localNote.tag": "Разметить заметку тегом",
+  "@localNote.repair": "Проверить исправление",
+  "@localNote.unavailable": "Нет безопасного варианта. Проверьте сохранённый исходник вручную: нужен актуальный кеш и простой Markdown без неоднозначных конструкций.",
+  "@localNote.limits": "Локальная операция над одной выбранной заметкой, без модели. Закройте затронутые заметки и реестр во всех редакторах, split и popout. Поддерживаются обычный абзац для inline-тега и простая wiki-ссылка без alias, embed, заголовка или блока. Сложные YAML, код, комментарии, Flashcards и BOM могут быть отклонены. Полный Markdown и diff доступны перед отдельным подтверждением. Undo требует неизменённого результата.",
   "@localLink.title": "Подготовить ссылку без модели",
   "@localLink.scope": "Ваш выбор: добавить одну ссылку в один сохранённый файл. Вторая заметка не изменяется. Данные модели не отправляются. Это не исправление сломанной ссылки и не доказательство смысловой связи.",
   "@localLink.limits": "Выберите направление и обычный абзац. Перед записью будут показаны весь Markdown и diff, затем потребуется отдельное подтверждение. Закройте обе заметки во всех редакторах и отдельных окнах: отложенные сохранения нельзя заблокировать. Точная отмена доступна, пока результат не изменён.",
@@ -2356,6 +2362,12 @@ const RU: Record<string, string> = {
 };
 
 const EN: Record<string, string> = {
+  "@localNote.tag_exists": "The tag already exists or the source does not prove its absence. Case variants and nested occurrences are not automatically replaced.",
+  "@localNote.tag_rule": "The connected rules exclude or deprecate this tag. Choose another tag; changing rules is a separate operation.",
+  "@localNote.tag": "Tag a selected note",
+  "@localNote.repair": "Review a repair",
+  "@localNote.unavailable": "No safe option. Inspect the saved source manually: current metadata and unambiguous plain Markdown are required.",
+  "@localNote.limits": "Local operation on one selected note, without a model. Close affected notes and the registry in all editors, splits and popouts. Supports an inline tag after a plain paragraph or a simple wiki-link without alias, embed, heading or block. Complex YAML, code, comments, Flashcards and BOM may be refused. Full Markdown and diff precede separate confirmation. Undo requires the unchanged result.",
   "@localLink.title": "Prepare a link without a model",
   "@localLink.scope": "Your choice: add one link to one saved file. The target note stays unchanged. No data is sent to a model. This does not repair a broken link or establish a semantic relationship.",
   "@localLink.limits": "Choose the direction and a plain paragraph. Full Markdown and a diff precede separate write confirmation. Close both notes in all editors and popouts: queued saves cannot be locked. Exact Undo is available while the result remains unchanged.",

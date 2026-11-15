@@ -15,6 +15,7 @@ interface FindingsInboxActions {
   toggleSnooze: () => void;
   tools: () => void;
   compare?: (id: string) => void;
+  repair?: (path: string) => void;
 }
 
 export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxViewModel, actions: FindingsInboxActions,
@@ -70,6 +71,7 @@ function renderDetail(parent: HTMLElement, detail: NonNullable<FindingsInboxView
   evidence.createEl("p", { text: detail.recorded });
   evidence.createEl("p", { text: detail.origin });
   evidence.createEl("p", { text: t(detail.pair ? "@actions.pair-scope" : "@actions.manual") });
+  if (detail.repairSource && actions.repair) healthButton(evidence, t("@localNote.repair"), () => actions.repair!(detail.repairSource!), "finding-repair", detail.disabled);
   if (detail.pair && actions.compare) {
     evidence.createEl("p", { text: detail.pair.join(" ↔ "), cls: "veynrel-health-muted" });
     healthButton(evidence, t("@actions.compare"), () => actions.compare!(detail.id), "finding-compare", detail.disabled, true);

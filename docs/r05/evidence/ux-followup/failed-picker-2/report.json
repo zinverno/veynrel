@@ -1,0 +1,209 @@
+{
+  "scenario": "r05-2-local-notes-native-v1",
+  "checks": [
+    "Passive navigation has no scan/read/write/model activity",
+    "Native local scan produced the actual broken-link finding"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=home-findings]",
+      "active": "<button type=\"button\" data-health-action=\"home-findings\">Findings</button>"
+    },
+    {
+      "selector": "[data-health-action=home-check]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan my vault</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button>"
+    }
+  ],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "361907865ebb65ecc1fbdcf5772cf05925346e8704dc5b4b542d768826121051",
+    "styles.css": "323c2af2dd5595edd093adeb63852299ed5581d16cc82144f03011a7bad0d382",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 13.666667,
+    "frames": 10,
+    "seconds": 13.238784074783325,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "r05-2-local-notes-native.mjs": "a329eaaca1c9bf60c2aca1d9260ab33f08a8d6951d7b6500cb0af8a573c75f19",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "9483496ab8be90f846a64c96b4017900fb02b02103030a13376170721ff32e7a"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "settingsBefore": "{\"provider\":\"ollama\",\"apiKey\":\"\",\"model\":\"unused\",\"baseUrl\":\"http://127.0.0.1:40853/v1\",\"temperature\":0.65,\"topK\":12,\"defaultInsertion\":\"end\",\"newNoteFolder\":\"\",\"filenameTemplate\":\"AI-{{date}}-{{topic}}\",\"mocFolder\":\"MOCs/\",\"atomsLocation\":\"same\",\"atomsFolder\":\"Atoms/\",\"showContextMenu\":true,\"notifyOnCopy\":true,\"language\":null,\"deepAudit\":{\"batchSize\":5,\"maxConcurrent\":3,\"delayMs\":1000},\"semantic\":{\"enabled\":false,\"embeddingProvider\":\"openrouter\",\"embeddingModel\":\"openai/text-embedding-3-small\",\"embeddingBaseUrl\":\"https://openrouter.ai/api/v1\",\"openRouterApiKey\":\"\",\"openAICompatibleApiKey\":\"\"},\"rerank\":{\"enabled\":false,\"triggerMode\":\"manual\",\"provider\":\"openrouter\",\"model\":\"voyageai/rerank-3-lite\",\"apiKey\":\"\"},\"decisions\":{\"enabled\":false,\"provider\":\"openrouter\",\"model\":\"typesafe/jev-1.13\",\"apiKey\":\"\"},\"semanticAutoSyncSuspended\":true,\"companion\":{\"enabled\":false,\"endpoint\":\"http://127.0.0.1:27124\",\"token\":\"\",\"timeoutMs\":5000,\"vaultId\":\"562fce42-46a6-47c4-8628-21e384222024\"},\"health\":{\"profile\":\"mixed\",\"profileChosen\":false,\"onboardingCompleted\":true,\"onboardingVersion\":1}}",
+  "passive": {
+    "before": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        }
+      ],
+      "phase": "passive"
+    },
+    "after": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        }
+      ],
+      "phase": "passive"
+    }
+  },
+  "activeScope": {
+    "workspace": {
+      "kind": "all"
+    },
+    "tagSource": "Taggable.md",
+    "repairSource": "Broken.md",
+    "repairTarget": "Folder/Target.md",
+    "writesPerAction": 1
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.prompt-input')\n    at wait (file://<checkout>/scripts/r05-2-local-notes-native.mjs:63:159)\n    at async pick (file://<checkout>/scripts/r05-2-local-notes-native.mjs:130:3)\n    at async openTag (file://<checkout>/scripts/r05-2-local-notes-native.mjs:134:104)\n    at async file://<checkout>/scripts/r05-2-local-notes-native.mjs:184:33",
+  "diagnostic": {
+    "io": {
+      "reads": [
+        {
+          "path": "Broken.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Editor.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Other/Target.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "scan"
+        }
+      ],
+      "writes": [],
+      "creates": [],
+      "metadata": 7,
+      "enumerations": 4,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health",
+          "phase": "scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+          "phase": "scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "tag-selection"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "tag-selection"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "tag-selection"
+        }
+      ],
+      "phase": "tag-selection"
+    },
+    "active": "<button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button>",
+    "modals": []
+  }
+}

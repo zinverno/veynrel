@@ -1,0 +1,40 @@
+
+> obsidian-ai-hub@2.4.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.4.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+
+> obsidian-ai-hub@2.4.0 build
+> node esbuild.config.mjs production
+
+
+<checkout>/api.ts
+  460:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+<checkout>/consolidation/localNoteApply.test.ts
+  11:36  error  Unsafe return of a value of type `any`                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unsafe-return
+  95:21  error  A method that is not declared with `this: void` may cause unintentional scoping of `this` when separated from its object.
+Consider using an arrow function or explicitly `.bind()`ing the method to avoid calling the method with an unintended `this` value. 
+If a function does not access `this`, it can be annotated with `this: void`  @typescript-eslint/unbound-method
+
+<checkout>/consolidation/localNoteModal.test.ts
+  57:85  error  This assertion is unnecessary since the receiver accepts the original type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+
+<checkout>/consolidation/localNotePlan.ts
+  28:18  error  Unnecessary escape character: \[                                   no-useless-escape
+  29:6   error  Unexpected control character(s) in regular expression: \x00, \x1f  no-control-regex
+  53:18  error  Spaces are hard to count. Use {2}                                  no-regex-spaces
+
+<checkout>/studio/community/transport.ts
+  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+
+✖ 8 problems (6 errors, 2 warnings)
+  2 errors and 0 warnings potentially fixable with the `--fix` option.
+

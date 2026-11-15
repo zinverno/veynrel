@@ -12,6 +12,8 @@ export interface VeynrelToolsPort {
   runLegacyVaultAudit(): Promise<void>;
   openTagTaxonomy(scope?: WorkspaceScope, findings?: readonly Finding[]): void;
   openOperationHistory(): void;
+  openLocalTag?(): void;
+  openLocalNoteRepair?(path: string): void;
 }
 
-export type VeynrelToolAction = Exclude<keyof VeynrelToolsPort, "savedMocClusterCount">;
+export type VeynrelToolAction = Exclude<keyof VeynrelToolsPort, "savedMocClusterCount" | "openLocalTag" | "openLocalNoteRepair">;

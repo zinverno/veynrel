@@ -1,3 +1,7 @@
+import { LocalNoteModal, LocalNotePicker } from "./consolidation/localNoteModal";
+import { ObsidianLocalNote } from "./consolidation/obsidianLocalNote";
+import { obsidianSafeApplyPort } from "./consolidation/obsidianSafeApply";
+import type { TaxonomyInventory } from "./consolidation/taxonomyScan";
 import { DEFAULT_GENERATION_OPTIONS, generateRecall } from "./recallAuthoring";
 import type { RecallGenerationOptions } from "./recallAuthoring";
 import { AtomizationPicker, GenerativeAtomizationModal } from "./atomization/generativeModal";
@@ -165,6 +169,8 @@ export default class AIHubPlugin extends Plugin {
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
       openOperationHistory: () => { if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open(); },
+      openLocalTag: () => this.openLocalTag(),
+      openLocalNoteRepair: path => this.openLocalNoteAction(path, "repair_wikilink"),
       openTagTaxonomy: (scope = { kind: "all" }, findings = []) => {
         const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); }, inventory =>
           new TagRecommendationSession({
@@ -180,7 +186,7 @@ export default class AIHubPlugin extends Plugin {
               return note;
             },
             complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...TAG_OPTIONS, signal }),
-          }), { scope, registry: this.getOrganizationRegistry(), findings });
+          }), { scope, registry: this.getOrganizationRegistry(), findings, tagNote: (inventory, exclusions) => this.openLocalTag(inventory, exclusions) });
         this.taxonomyModals.add(modal); modal.open();
       },
     };
@@ -208,7 +214,7 @@ export default class AIHubPlugin extends Plugin {
       const { registerStudio } = await import("./studio/registerStudio");
       this.studio = registerStudio(this, this.getLanguageModelSettingsPort());
       this.safeApply = createSafeApplyService(this.app, this.manifest.id, () =>
-        this.settings.organizationAudit?.registryPath ? [this.settings.organizationAudit.registryPath] : []);
+        this.settings.organizationAudit?.registryPath ? [this.settings.organizationAudit.registryPath] : [], () => ({ profile: this.settings.tagTaxonomyProfile, registryPath: this.settings.organizationAudit?.registryPath ?? null }));
       this.register(() => this.safeApply?.dispose());
       this.addCommand({ id: "consolidation-operation-history", name: tr("@ux.historyCommand"), callback: () => {
         if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open();
@@ -430,6 +436,20 @@ export default class AIHubPlugin extends Plugin {
         return () => { this.languageModelListeners.delete(listener); };
       },
     };
+  }
+
+  private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = []): void {
+    new LocalNotePicker(this.app, path => this.openLocalNoteAction(path, "add_inline_tag", inventory),
+      [...exclusions, ...(this.settings.organizationAudit?.registryPath ? [this.settings.organizationAudit.registryPath] : [])]).open();
+  }
+
+  private openLocalNoteAction(path: string, kind: "add_inline_tag" | "repair_wikilink", inventory?: TaxonomyInventory): void {
+    if (!this.safeApply?.localNote) return;
+    const service = this.safeApply;
+    const native = new ObsidianLocalNote(this.app, obsidianSafeApplyPort(this.app), () => ({
+      profile: this.settings.tagTaxonomyProfile, registryPath: this.settings.organizationAudit?.registryPath ?? null,
+    }));
+    new LocalNoteModal(this.app, path, kind, native, service, () => new OperationHistoryModal(this.app, service).open(), inventory).open();
   }
 
   getOrganizationRegistry(): OrganizationRegistry {

@@ -43,7 +43,7 @@ export class TagTaxonomyModal extends Modal {
   private stopWatching?: () => void;
   constructor(app: App, private readonly port: TaxonomyProfilePort, private readonly release: () => void = () => {},
     createRecommendations?: (inventory: () => TaxonomyInventory | undefined) => TagRecommendationSession,
-    private readonly organization?: { scope: WorkspaceScope; registry: OrganizationRegistry; findings?: readonly Finding[] }) {
+    private readonly organization?: { scope: WorkspaceScope; registry: OrganizationRegistry; findings?: readonly Finding[]; tagNote?: (inventory?: TaxonomyInventory, exclusions?: string[]) => void }) {
     super(app);
     this.organizationScope = structuredClone(organization?.scope ?? { kind: "all" });
     this.session = new TaxonomySession(port, (excluded, signal, progress) => scanTaxonomy(app,
@@ -215,6 +215,10 @@ export class TagTaxonomyModal extends Modal {
     section.createEl("p", { text: t("@taxonomy.statistics", { total: inventory.total, processed: inventory.processed, excluded: inventory.excluded,
       unavailable: inventory.unavailable, empty: inventory.empty, unique: inventory.tags.length }) });
     section.createEl("p", { text: t("@taxonomy.cache") });
+    }
+    if (this.organization?.tagNote) {
+      const tag = section.createEl("button", { text: t("@localNote.tag"), attr: { type: "button", "data-org-action": "tag-note" } });
+      tag.addEventListener("click", () => this.organization?.tagNote?.(inventory, taxonomyExclusions(this.exclusions)));
     }
     const tree = section.createEl("details"); tree.createEl("summary", { text: t("@taxonomy.tree") });
     let initialized = false;

@@ -1,0 +1,727 @@
+{
+  "scenario": "r05-2-local-notes-native-v1",
+  "checks": [
+    "Passive navigation has no scan/read/write/model activity",
+    "Native local scan produced the actual broken-link finding",
+    "en/dark regular: tag blocks and label/input do not overlap; controls fit modal",
+    "Review offers separate write confirmation",
+    "tag-review: Apply this change",
+    "Before first Apply, source Markdown has no write calls",
+    "tag-apply: Change saved and recorded in the journal.",
+    "Tag Apply changes exactly one inline insertion; YAML/CRLF/Unicode and other notes preserved",
+    "tag-undo: Review undo",
+    "tag-undo: Undo this change",
+    "tag-undo: Original Markdown restored.",
+    "Tag Undo restores exact original bytes through shared History",
+    "Two identical unresolved occurrences remain distinct",
+    "Review offers separate write confirmation",
+    "repair-review: Apply this change",
+    "Write does not auto-resolve the Finding",
+    "repair-apply: Change saved and recorded in the journal.",
+    "Repair changes only selected second occurrence; full target path distinguishes same basenames",
+    "repair-undo: Review undo",
+    "repair-undo: Undo this change",
+    "repair-undo: Original Markdown restored.",
+    "Repair Undo restores exact original bytes",
+    "en/dark 390px tag preparation has no horizontal overflow",
+    "en/dark 390px: tag blocks and label/input do not overlap; controls fit modal",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Apply this change",
+    "en/dark 390px Review has no horizontal overflow or missing translations",
+    "en/dark: Tab focus stays in Review",
+    "en/dark 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Apply this change",
+    "en/dark repair Review is localized without overflow",
+    "en/light 390px tag preparation has no horizontal overflow",
+    "en/light 390px: tag blocks and label/input do not overlap; controls fit modal",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Apply this change",
+    "en/light 390px Review has no horizontal overflow or missing translations",
+    "en/light: Tab focus stays in Review",
+    "en/light 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Apply this change",
+    "en/light repair Review is localized without overflow",
+    "ru/dark 390px tag preparation has no horizontal overflow",
+    "ru/dark 390px: tag blocks and label/input do not overlap; controls fit modal",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Применить это изменение",
+    "ru/dark 390px Review has no horizontal overflow or missing translations",
+    "ru/dark: Tab focus stays in Review",
+    "ru/dark 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Применить это изменение",
+    "ru/dark repair Review is localized without overflow",
+    "ru/light 390px tag preparation has no horizontal overflow",
+    "ru/light 390px: tag blocks and label/input do not overlap; controls fit modal",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Применить это изменение",
+    "ru/light 390px Review has no horizontal overflow or missing translations",
+    "ru/light: Tab focus stays in Review",
+    "ru/light 390px repair preparation has no horizontal overflow",
+    "Review offers separate write confirmation",
+    "ru-en-theme-keyboard: Применить это изменение",
+    "ru/light repair Review is localized without overflow",
+    "Affected real split editor blocks planning"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=home-findings]",
+      "active": "<button type=\"button\" data-health-action=\"home-findings\">Findings</button>"
+    },
+    {
+      "selector": "[data-health-action=home-check]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button>"
+    },
+    {
+      "selector": "[data-health-action=scan]",
+      "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan my vault</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Apply this change</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=history]",
+      "active": "<button type=\"button\" data-local-note=\"history\">Consolidation history</button>"
+    },
+    {
+      "selector": "[data-local-note=undo]",
+      "active": "<button type=\"button\" data-local-note=\"undo\">Review undo</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Undo this change</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Review a repair</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Choose existing target note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Apply this change</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=history]",
+      "active": "<button type=\"button\" data-local-note=\"history\">Consolidation history</button>"
+    },
+    {
+      "selector": "[data-local-note=undo]",
+      "active": "<button type=\"button\" data-local-note=\"undo\">Review undo</button>"
+    },
+    {
+      "selector": ".ai-local-note-review [data-local-note=confirm]",
+      "active": "<button type=\"button\" data-local-note=\"confirm\">Undo this change</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Review a repair</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Choose existing target note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Review a repair</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Choose existing target note</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Проверить исправление</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Выбрать существующую целевую заметку</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=finding-repair]",
+      "active": "<button type=\"button\" data-health-action=\"finding-repair\">Проверить исправление</button>"
+    },
+    {
+      "selector": "[data-local-note=target]",
+      "active": "<button type=\"button\" data-local-note=\"target\">Выбрать существующую целевую заметку</button>"
+    },
+    {
+      "selector": "[data-local-note=review]",
+      "active": "<button type=\"button\" data-local-note=\"review\">Проверить и применить</button>"
+    }
+  ],
+  "screenshots": [
+    "tag-choices.png",
+    "tag-review-en-dark.png",
+    "tag-applied.png",
+    "tag-undo-undone.png",
+    "broken-finding.png",
+    "repair-review.png",
+    "repair-applied.png",
+    "repair-undo-undone.png",
+    "en-dark-390-tag-fields.png",
+    "en-dark-390-review.png",
+    "en-dark-390-repair.png",
+    "en-light-390-tag-fields.png",
+    "en-light-390-review.png",
+    "en-light-390-repair.png",
+    "ru-dark-390-tag-fields.png",
+    "ru-dark-390-review.png",
+    "ru-dark-390-repair.png",
+    "ru-light-390-tag-fields.png",
+    "ru-light-390-review.png",
+    "ru-light-390-repair.png",
+    "split-refusal.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "361907865ebb65ecc1fbdcf5772cf05925346e8704dc5b4b542d768826121051",
+    "styles.css": "323c2af2dd5595edd093adeb63852299ed5581d16cc82144f03011a7bad0d382",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 17.666667,
+    "frames": 432,
+    "seconds": 17.228044986724854,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "tagEntry": "direct selected-file entry; Workspace picker NOT tested",
+  "harnessHashes": {
+    "r05-2-local-notes-native.mjs": "9b6e8c3c46bb6414fa235968d8f02a56ee5c48824d59dc324cb5dba3c3c9fae8",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "9483496ab8be90f846a64c96b4017900fb02b02103030a13376170721ff32e7a"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "settingsBefore": "{\"provider\":\"ollama\",\"apiKey\":\"\",\"model\":\"unused\",\"baseUrl\":\"http://127.0.0.1:34345/v1\",\"temperature\":0.65,\"topK\":12,\"defaultInsertion\":\"end\",\"newNoteFolder\":\"\",\"filenameTemplate\":\"AI-{{date}}-{{topic}}\",\"mocFolder\":\"MOCs/\",\"atomsLocation\":\"same\",\"atomsFolder\":\"Atoms/\",\"showContextMenu\":true,\"notifyOnCopy\":true,\"language\":null,\"deepAudit\":{\"batchSize\":5,\"maxConcurrent\":3,\"delayMs\":1000},\"semantic\":{\"enabled\":false,\"embeddingProvider\":\"openrouter\",\"embeddingModel\":\"openai/text-embedding-3-small\",\"embeddingBaseUrl\":\"https://openrouter.ai/api/v1\",\"openRouterApiKey\":\"\",\"openAICompatibleApiKey\":\"\"},\"rerank\":{\"enabled\":false,\"triggerMode\":\"manual\",\"provider\":\"openrouter\",\"model\":\"voyageai/rerank-3-lite\",\"apiKey\":\"\"},\"decisions\":{\"enabled\":false,\"provider\":\"openrouter\",\"model\":\"typesafe/jev-1.13\",\"apiKey\":\"\"},\"semanticAutoSyncSuspended\":true,\"companion\":{\"enabled\":false,\"endpoint\":\"http://127.0.0.1:27124\",\"token\":\"\",\"timeoutMs\":5000,\"vaultId\":\"87e9e8c7-d41d-4fbd-9f39-9d1ab7257b6e\"},\"health\":{\"profile\":\"mixed\",\"profileChosen\":false,\"onboardingCompleted\":true,\"onboardingVersion\":1}}",
+  "passive": {
+    "before": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 2,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        }
+      ],
+      "phase": "passive"
+    },
+    "after": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 2,
+      "enumerations": 1,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        }
+      ],
+      "phase": "passive"
+    }
+  },
+  "activeScope": {
+    "workspace": {
+      "kind": "all"
+    },
+    "tagSource": "Taggable.md",
+    "repairSource": "Broken.md",
+    "repairTarget": "Folder/Target.md",
+    "writesPerAction": 1
+  },
+  "layouts": [
+    {
+      "name": "en/dark regular",
+      "root": {
+        "left": 127,
+        "right": 973,
+        "top": 140.625,
+        "bottom": 796.625
+      },
+      "blocks": [
+        {
+          "name": "manual",
+          "left": 127,
+          "right": 973,
+          "top": 402.625,
+          "bottom": 460.125
+        },
+        {
+          "name": "inventory",
+          "left": 127,
+          "right": 973,
+          "top": 476.125,
+          "bottom": 516.125
+        },
+        {
+          "name": "paragraph",
+          "left": 127,
+          "right": 973,
+          "top": 532.125,
+          "bottom": 647.625
+        },
+        {
+          "name": "review",
+          "left": 127,
+          "right": 973,
+          "top": 663.625,
+          "bottom": 780.625
+        }
+      ],
+      "input": {
+        "left": 127,
+        "right": 973,
+        "top": 430.125,
+        "bottom": 460.125
+      },
+      "label": {
+        "left": 127,
+        "right": 334.75,
+        "top": 402.625,
+        "bottom": 421.625
+      },
+      "controls": [
+        {
+          "left": 127,
+          "right": 973,
+          "top": 302.625,
+          "bottom": 332.625
+        },
+        {
+          "left": 127,
+          "right": 973,
+          "top": 430.125,
+          "bottom": 460.125
+        },
+        {
+          "left": 127,
+          "right": 386.421875,
+          "top": 476.125,
+          "bottom": 516.125
+        },
+        {
+          "left": 127,
+          "right": 973,
+          "top": 559.625,
+          "bottom": 589.625
+        },
+        {
+          "left": 127,
+          "right": 257.625,
+          "top": 663.625,
+          "bottom": 703.625
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "name": "en/dark 390px",
+      "root": {
+        "left": 56,
+        "right": 322,
+        "top": 121.75,
+        "bottom": 992.25
+      },
+      "blocks": [
+        {
+          "name": "manual",
+          "left": 56,
+          "right": 322,
+          "top": 598.25,
+          "bottom": 655.75
+        },
+        {
+          "name": "inventory",
+          "left": 56,
+          "right": 322,
+          "top": 671.75,
+          "bottom": 711.75
+        },
+        {
+          "name": "paragraph",
+          "left": 56,
+          "right": 322,
+          "top": 727.75,
+          "bottom": 882.25
+        },
+        {
+          "name": "review",
+          "left": 56,
+          "right": 322,
+          "top": 898.25,
+          "bottom": 976.25
+        }
+      ],
+      "input": {
+        "left": 56,
+        "right": 322,
+        "top": 625.75,
+        "bottom": 655.75
+      },
+      "label": {
+        "left": 56,
+        "right": 263.75,
+        "top": 598.25,
+        "bottom": 617.25
+      },
+      "controls": [
+        {
+          "left": 56,
+          "right": 322,
+          "top": 439.75,
+          "bottom": 469.75
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 625.75,
+          "bottom": 655.75
+        },
+        {
+          "left": 56,
+          "right": 315.421875,
+          "top": 671.75,
+          "bottom": 711.75
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 774.75,
+          "bottom": 804.75
+        },
+        {
+          "left": 56,
+          "right": 186.625,
+          "top": 898.25,
+          "bottom": 938.25
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "name": "en/light 390px",
+      "root": {
+        "left": 56,
+        "right": 322,
+        "top": 121.75,
+        "bottom": 992.25
+      },
+      "blocks": [
+        {
+          "name": "manual",
+          "left": 56,
+          "right": 322,
+          "top": 598.25,
+          "bottom": 655.75
+        },
+        {
+          "name": "inventory",
+          "left": 56,
+          "right": 322,
+          "top": 671.75,
+          "bottom": 711.75
+        },
+        {
+          "name": "paragraph",
+          "left": 56,
+          "right": 322,
+          "top": 727.75,
+          "bottom": 882.25
+        },
+        {
+          "name": "review",
+          "left": 56,
+          "right": 322,
+          "top": 898.25,
+          "bottom": 976.25
+        }
+      ],
+      "input": {
+        "left": 56,
+        "right": 322,
+        "top": 625.75,
+        "bottom": 655.75
+      },
+      "label": {
+        "left": 56,
+        "right": 263.75,
+        "top": 598.25,
+        "bottom": 617.25
+      },
+      "controls": [
+        {
+          "left": 56,
+          "right": 322,
+          "top": 439.75,
+          "bottom": 469.75
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 625.75,
+          "bottom": 655.75
+        },
+        {
+          "left": 56,
+          "right": 315.421875,
+          "top": 671.75,
+          "bottom": 711.75
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 774.75,
+          "bottom": 804.75
+        },
+        {
+          "left": 56,
+          "right": 186.625,
+          "top": 898.25,
+          "bottom": 938.25
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "name": "ru/dark 390px",
+      "root": {
+        "left": 56,
+        "right": 322,
+        "top": -121.25,
+        "bottom": 815.75
+      },
+      "blocks": [
+        {
+          "name": "manual",
+          "left": 56,
+          "right": 322,
+          "top": 413.75,
+          "bottom": 471.25
+        },
+        {
+          "name": "inventory",
+          "left": 56,
+          "right": 322,
+          "top": 487.25,
+          "bottom": 535.25
+        },
+        {
+          "name": "paragraph",
+          "left": 56,
+          "right": 322,
+          "top": 551.25,
+          "bottom": 705.75
+        },
+        {
+          "name": "review",
+          "left": 56,
+          "right": 322,
+          "top": 721.75,
+          "bottom": 799.75
+        }
+      ],
+      "input": {
+        "left": 56,
+        "right": 322,
+        "top": 441.25,
+        "bottom": 471.25
+      },
+      "label": {
+        "left": 56,
+        "right": 235.59375,
+        "top": 413.75,
+        "bottom": 432.75
+      },
+      "controls": [
+        {
+          "left": 56,
+          "right": 322,
+          "top": 235.75,
+          "bottom": 265.75
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 441.25,
+          "bottom": 471.25
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 487.25,
+          "bottom": 535.25
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 598.25,
+          "bottom": 628.25
+        },
+        {
+          "left": 56,
+          "right": 237.4375,
+          "top": 721.75,
+          "bottom": 761.75
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "name": "ru/light 390px",
+      "root": {
+        "left": 56,
+        "right": 322,
+        "top": -121.25,
+        "bottom": 815.75
+      },
+      "blocks": [
+        {
+          "name": "manual",
+          "left": 56,
+          "right": 322,
+          "top": 413.75,
+          "bottom": 471.25
+        },
+        {
+          "name": "inventory",
+          "left": 56,
+          "right": 322,
+          "top": 487.25,
+          "bottom": 535.25
+        },
+        {
+          "name": "paragraph",
+          "left": 56,
+          "right": 322,
+          "top": 551.25,
+          "bottom": 705.75
+        },
+        {
+          "name": "review",
+          "left": 56,
+          "right": 322,
+          "top": 721.75,
+          "bottom": 799.75
+        }
+      ],
+      "input": {
+        "left": 56,
+        "right": 322,
+        "top": 441.25,
+        "bottom": 471.25
+      },
+      "label": {
+        "left": 56,
+        "right": 235.59375,
+        "top": 413.75,
+        "bottom": 432.75
+      },
+      "controls": [
+        {
+          "left": 56,
+          "right": 322,
+          "top": 235.75,
+          "bottom": 265.75
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 441.25,
+          "bottom": 471.25
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 487.25,
+          "bottom": 535.25
+        },
+        {
+          "left": 56,
+          "right": 322,
+          "top": 598.25,
+          "bottom": 628.25
+        },
+        {
+          "left": 56,
+          "right": 237.4375,
+          "top": 721.75,
+          "bottom": 761.75
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":0,\"scriptId\":\"202\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"202\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":0}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"ReferenceError\",\"description\":\"ReferenceError: plugin is not defined\\n    at <anonymous>:1:1\",\"objectId\":\"-9025088840923963991.5.2\"}}\n    at Object.ev (file://<checkout>/scripts/r05-2-local-notes-native.mjs:59:5)\n    at async openTag (file://<checkout>/scripts/r05-2-local-notes-native.mjs:136:5)\n    at async file://<checkout>/scripts/r05-2-local-notes-native.mjs:238:3",
+  "diagnostic": {
+    "active": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-light is-popout-window is-focused\" style=\"--font-text-size: 16px; --indent-size: 4;\"><div class=\"app-container\"><div class=\"horizontal-main-container\"><div class=\"workspace\"><div class=\"workspace-split mod-vertical mod-root workspace-window\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tabs mod-active mod-top mod-top-left-space mod-top-right-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active mod-active\" draggable=\"true\" aria-label=\"Veynrel\" data-tooltip-delay=\"300\" data-type=\"veynrel-health\" style=\"\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-activity\"><path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Veynrel</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf mod-active\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content\" data-type=\"veynrel-health\"><div class=\"view-header\"><div class=\"view-header-left\"><div class=\"view-header-nav-buttons\"><button class=\"clickable-icon\" aria-disabled=\"true\" aria-label=\"Navigate back\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-arrow-left\"><path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path></svg></button><button class=\"clickable-icon\" aria-disabled=\"true\" aria-label=\"Navigate forward\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-arrow-right\"><path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path></svg></button></div></div><div class=\"view-header-title-container mod-at-start mod-fade mod-at-end\"><div class=\"view-header-title-parent\"></div><div class=\"view-header-title\">Veynrel</div></div><div class=\"view-actions\"><button class=\"clickable-icon view-action mod-bookmark\" aria-label=\"Bookmark\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-bookmark\"><path d=\"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z\"></path></svg></button><button class=\"clickable-icon view-action\" aria-label=\"More options\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-more-vertical\"><circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"12\" cy=\"5\" r=\"1\"></circle><circle cx=\"12\" cy=\"19\" r=\"1\"></circle></svg></button></div></div><div class=\"view-content veynrel-health-view\" data-document-hidden=\"false\" data-scene-visible=\"true\"><div class=\"veynrel-health-status\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\">Проверка хранилища завершена</div><div class=\"veynrel-workspace\" data-page=\"home\" aria-busy=\"undefined\"><div class=\"veynrel-shell\" data-menu-open=\"false\"><aside class=\"veynrel-sidebar\"><div class=\"veynrel-brand\">Veynrel</div><div class=\"veynrel-vault-name\"><strong>Пространство знаний</strong><p>vault</p></div><nav aria-label=\"Навигация Veynrel\"><button type=\"button\" data-health-action=\"nav-home\" aria-pressed=\"true\" aria-current=\"page\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-house\"><path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"></path><path d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"></path></svg></span><span>Главная</span></button><button type=\"button\" data-health-action=\"nav-discover\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-map\"><path d=\"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z\"></path><path d=\"M15 5.764v15\"></path><path d=\"M9 3.236v15\"></path></svg></span><span>Разбор хранилища</span></button><button type=\"button\" data-health-action=\"nav-health\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-clipboard-check\"><rect x=\"8\" y=\"2\" width=\"8\" height=\"4\" rx=\"1\" ry=\"1\"></rect><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"></path><path d=\"m9 14 2 2 4-4\"></path></svg></span><span>Проверка</span></button><button type=\"button\" data-health-action=\"nav-process\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-sliders-horizontal\"><path d=\"M10 5H3\"></path><path d=\"M12 19H3\"></path><path d=\"M14 3v4\"></path><path d=\"M16 17v4\"></path><path d=\"M21 12h-9\"></path><path d=\"M21 19h-5\"></path><path d=\"M21 5h-7\"></path><path d=\"M8 10v4\"></path><path d=\"M8 12H3\"></path></svg></span><span>Обработка</span></button><button type=\"button\" data-health-action=\"nav-recall\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><span>Повторение</span></button><button type=\"button\" data-health-action=\"nav-tools\" aria-pressed=\"false\" class=\"veynrel-nav-secondary\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-layout-grid\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect></svg></span><span>Все инструменты</span></button><button type=\"button\" data-health-action=\"nav-history\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><span>История</span></button><button type=\"button\" data-health-action=\"nav-settings\" aria-pressed=\"false\" class=\"veynrel-nav-settings\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-settings\"><path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"></path><circle cx=\"12\" cy=\"12\" r=\"3\"></circle></svg></span><span>Настройки</span></button></nav></aside><div class=\"veynrel-shell-content\"><header class=\"veynrel-topbar\"><button type=\"button\" data-health-action=\"workspace-menu\" class=\"veynrel-menu-toggle\" aria-expanded=\"false\">Меню</button><span class=\"veynrel-crumb\">Главная</span><label class=\"veynrel-scope-picker\"><span>Область</span><select aria-label=\"Все папки\" data-health-action=\"scope-picker\"><option value=\"\">Всё хранилище</option><option value=\"Folder\">Folder (1)</option><option value=\"Other\">Other (1)</option></select></label></header><div class=\"veynrel-shell-main\"><div class=\"veynrel-workspace-message\" data-workspace-message=\"true\"></div><div><section class=\"veynrel-native-home\"><div class=\"veynrel-page-heading\"><h1 tabindex=\"-1\" data-health-heading=\"true\">Что стоит проверить?</h1><p>Выберите область для просмотра заметок. Локальная проверка работает по всему хранилищу.</p></div><div class=\"veynrel-home-grid\"><section class=\"veynrel-scope-card\"><p class=\"veynrel-eyebrow\">В фокусе</p><h2>Всё хранилище</h2><p class=\"veynrel-scope-source\" title=\"Все Markdown-заметки, включая корень\">Заметок: 7 · vault</p><p>Локально: ссылки, дубликаты и структура заметок во всём хранилище. Без API-ключа, отправки данных и изменения заметок. Выбранная папка не ограничивает эту проверку.</p><p data-workspace-check-receipt=\"true\">Завершена · 15 нояб. 2026 г., 15:22</p><p class=\"veynrel-data-note\">Показан сохранённый результат на момент проверки. Последующие изменения заметок требуют новой проверки.</p><div class=\"veynrel-health-actions\"><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Перейти к локальной проверке</button><button type=\"button\" data-health-action=\"home-findings\">Находки</button></div><section data-next-actions=\"\"><h3>Что можно рассмотреть</h3><div><p>Неработающая внутренняя ссылка</p><button type=\"button\" data-health-action=\"next-finding-70493ee17080a3af\">Посмотреть основание</button></div><div><p>Заметки с одинаковым названием</p><button type=\"button\" data-health-action=\"next-finding-fbf029d4ad67e42c\">Посмотреть основание</button></div></section><details class=\"veynrel-details\" data-health-disclosure=\"home-saved\"><summary data-health-action=\"home-saved\">Сохранённые находки и повторение</summary><div class=\"veynrel-scope-metrics\"><div><strong>—</strong><small>к повторению · всё хранилище</small></div><div><strong>16</strong><small>сохранённых наблюдений</small></div></div></details><div class=\"veynrel-scope-actions\"><button type=\"button\" data-health-action=\"open-scope\">Открыть область</button><button type=\"button\" data-health-action=\"home-recall\">Открыть повторение</button><small>Общая очередь хранилища</small><button type=\"button\" data-health-action=\"home-process\">Обработка</button></div></section></div><details class=\"veynrel-details\" data-health-disclosure=\"home-folders\"><summary data-health-action=\"home-folders\">Папки верхнего уровня и выбранная область</summary><section class=\"veynrel-core-panel\" aria-label=\"Область\"><div class=\"veynrel-core-caption\"><h2 class=\"veynrel-eyebrow\">Ваше хранилище</h2><p>Заметок: 7 · Папок: 2</p></div><div class=\"veynrel-universe\" data-motion=\"true\"><button type=\"button\" data-health-action=\"scope-0\" class=\"veynrel-topic-node veynrel-topic-0\" aria-pressed=\"false\" title=\"Folder\" aria-label=\"Folder · Заметок: 1\"><span class=\"veynrel-topic-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-open\"><path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\"></path></svg></span><span class=\"veynrel-topic-name\"><strong>Folder</strong><small>Заметок: 1</small></span></button><button type=\"button\" data-health-action=\"scope-1\" class=\"veynrel-topic-node veynrel-topic-1\" aria-pressed=\"false\" title=\"Other\" aria-label=\"Other · Заметок: 1\"><span class=\"veynrel-topic-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-open\"><path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\"></path></svg></span><span class=\"veynrel-topic-name\"><strong>Other</strong><small>Заметок: 1</small></span></button><button type=\"button\" data-health-action=\"scope-all\" class=\"veynrel-core-all\" aria-pressed=\"true\"><span class=\"veynrel-core-geometry\" aria-hidden=\"true\"></span><strong>Всё хранилище</strong><small>Заметок: 7</small></button></div><div class=\"veynrel-core-foot\"><span>Папки верхнего уровня и выбранная область</span><button type=\"button\" data-health-action=\"workspace-motion\" aria-pressed=\"true\">Анимация ядра</button></div></section></details></section><button type=\"button\" data-health-action=\"tag-note\">Разметить заметку тегом</button><button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button></div></div></div></div></div></div></div></div></div></div></div></div></div></div></body>",
+    "modals": []
+  }
+}

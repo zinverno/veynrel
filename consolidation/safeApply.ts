@@ -1,3 +1,6 @@
+import { LocalNoteApply } from "./localNoteApply";
+import type { LocalNotePort } from "./obsidianLocalNote";
+import type { LocalNoteJournal, LocalNoteEntry } from "./localNoteJournal";
 import type { SavedNote } from "./savedNote";
 import { sameSavedNote } from "./savedNote";
 import type { ChangePlan } from "./changePlan";
@@ -30,7 +33,7 @@ import type { EmptyAtomJournal, EmptyAtomEntry } from "./emptyAtomJournal";
 import type { ArchiveParent, ArchiveParentRead } from "./archivePlanV2";
 
 /** Call-local history evidence only. Consent and execution always reread the journals. */
-export interface JournalSnapshot { single: JournalEntry[]; multi: MultiEntry[]; merge: MergeEntry[]; archive: ArchiveEntry[]; bundle: BundleEntry[]; group: GroupEntry[]; emptyAtom: EmptyAtomEntry[]; structuralArchive: StructuralArchiveEntry[] }
+export interface JournalSnapshot { localNote?: LocalNoteEntry[]; single: JournalEntry[]; multi: MultiEntry[]; merge: MergeEntry[]; archive: ArchiveEntry[]; bundle: BundleEntry[]; group: GroupEntry[]; emptyAtom: EmptyAtomEntry[]; structuralArchive: StructuralArchiveEntry[] }
 
 export interface SafeApplyPort {
   check(plan: ChangePlan, analysis: RelationshipAnalysis): Promise<() => void>;
@@ -56,6 +59,7 @@ export class SafeApplyService {
   readonly structuralArchive?: StructuralArchiveApply;
   readonly bundle?: BundleApply;
   readonly group?: GroupApply;
+  readonly localNote?: LocalNoteApply;
   readonly emptyAtom?: EmptyAtomApply;
   readonly readArchiveParent: (operation: ArchiveParent["operation"], id: string, current: () => boolean) => Promise<ArchiveParentRead>;
   private busy = false;
@@ -65,12 +69,12 @@ export class SafeApplyService {
   private readonly historyJournals: () => Promise<JournalSnapshot>;
   constructor(private readonly journal: OperationJournal, private readonly port: SafeApplyPort,
     multi?: { journal: MultiFileJournal; port: MultiFilePort }, merge?: { journal: MergeJournal; port: MergePort },
-    archive?: { journal: ArchiveJournal; port: ArchivePort }, bundle?: { journal: BundleJournal; port: BundlePort }, group?: { journal: GroupJournal; port: GroupPort }, emptyAtom?: { journal: EmptyAtomJournal; port: EmptyAtomPort }, structuralArchive?: { journal: StructuralArchiveJournal; port: StructuralArchivePort }) {
+    archive?: { journal: ArchiveJournal; port: ArchivePort }, bundle?: { journal: BundleJournal; port: BundlePort }, group?: { journal: GroupJournal; port: GroupPort }, emptyAtom?: { journal: EmptyAtomJournal; port: EmptyAtomPort }, structuralArchive?: { journal: StructuralArchiveJournal; port: StructuralArchivePort }, localNote?: { journal: LocalNoteJournal; port: LocalNotePort }) {
     this.historyJournals = async () => {
       const [single, multiEntries, mergeEntries, archiveEntries, bundleEntries, groupEntries, emptyAtomEntries, structuralArchiveEntries] = await Promise.all([
         journal.entries(), multi?.journal.entries() ?? [], merge?.journal.entries() ?? [], archive?.journal.entries() ?? [], bundle?.journal.entries() ?? [], group?.journal.entries() ?? [], emptyAtom?.journal.entries() ?? [], structuralArchive?.journal.entries() ?? [],
       ]);
-      return { single, multi: multiEntries, merge: mergeEntries, archive: archiveEntries, bundle: bundleEntries, group: groupEntries, emptyAtom: emptyAtomEntries, structuralArchive: structuralArchiveEntries };
+      return { localNote: await localNote?.journal.entries() ?? [], single, multi: multiEntries, merge: mergeEntries, archive: archiveEntries, bundle: bundleEntries, group: groupEntries, emptyAtom: emptyAtomEntries, structuralArchive: structuralArchiveEntries };
     };
     this.readArchiveParent = (operation, id, current) => this.exclusive(async () => {
       this.active(current);
@@ -94,6 +98,18 @@ export class SafeApplyService {
       requireSafe(JSON.stringify(snapshot) === JSON.stringify(await this.historyJournals()), "stale");
       const guard = () => { this.active(current); checked.guard(); };
       guard(); return { ...checked, record, entry, recordHash, guard };
+    });
+    if (localNote) this.localNote = new LocalNoteApply(localNote.journal, port, localNote.port, {
+      exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
+      blockers: async (paths, ownId, snapshot) => {
+        const evidence = snapshot ?? await this.historyJournals();
+        for (const e of evidence.single) requireSafe(!!e.resolution || !!e.record &&
+          (!paths.some(p => p === e.record!.sourcePath || p === e.record!.targetPath) || e.marks.includes("undone") ||
+            e.marks.includes("applied") && !e.marks.includes("undo_pending")), "storage");
+        for (const e of evidence.multi) requireSafe(!!e.record && (!e.record.files.some(f => paths.includes(f.path)) ||
+          e.marks.includes("undone") || e.marks.includes("applied") && !e.marks.includes("undo_intent") && !e.marks.includes("compensate_intent")), "storage");
+        await this.checkBlockers(paths, undefined, undefined, undefined, evidence, undefined, undefined, undefined, undefined, ownId);
+      }, history: () => this.historyJournals(),
     });
     if (multi) this.multi = new MultiFileApply(multi.journal, port, multi.port, {
       exclusive: work => this.exclusive(work), active: current => this.active(current ?? (() => true)),
@@ -133,10 +149,10 @@ export class SafeApplyService {
       }, history: () => this.historyJournals(),
     });
   }
-  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); this.archive?.dispose(); this.bundle?.dispose(); this.group?.dispose(); this.emptyAtom?.dispose(); this.structuralArchive?.dispose(); }
+  dispose(): void { this.closed = true; this.tickets.clear(); this.resolutions.clear(); this.multi?.dispose(); this.merge?.dispose(); this.archive?.dispose(); this.bundle?.dispose(); this.group?.dispose(); this.emptyAtom?.dispose(); this.structuralArchive?.dispose(); this.localNote?.dispose(); }
   discard(review: ApplyReview): void { this.tickets.delete(review); }
   discardResolution(review: ResolutionReview): void { this.resolutions.delete(review); }
-  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string, ownArchiveId?: string, snapshot?: JournalSnapshot, ownBundleId?: string, ownGroupId?: string, ownEmptyAtomId?: string, ownStructuralArchiveId?: string): Promise<void> {
+  private async checkBlockers(paths: readonly string[], ownMultiId?: string, ownMergeId?: string, ownArchiveId?: string, snapshot?: JournalSnapshot, ownBundleId?: string, ownGroupId?: string, ownEmptyAtomId?: string, ownStructuralArchiveId?: string, ownLocalNoteId?: string): Promise<void> {
     snapshot ??= await this.historyJournals();
     const blocked = (snapshot?.single ?? await this.journal.entries()).some(entry => !entry.resolution && entry.damaged &&
       (entry.scope === "global" || !entry.record || paths.includes(entry.record.sourcePath) || paths.includes(entry.record.targetPath)));
@@ -148,6 +164,7 @@ export class SafeApplyService {
     await this.group?.blockers(paths, ownGroupId, snapshot);
     await this.emptyAtom?.blockers(paths, ownEmptyAtomId, snapshot);
     await this.structuralArchive?.blockers(paths, ownStructuralArchiveId, snapshot);
+    await this.localNote?.blockers(paths, ownLocalNoteId, snapshot);
   }
   private async exclusive<T>(work: () => Promise<T>): Promise<T> {
     requireSafe(!this.closed, "cancelled"); requireSafe(!this.busy, "busy"); this.busy = true;
@@ -253,6 +270,7 @@ export class SafeApplyService {
       await this.archive?.blockers([row.record.sourcePath, row.record.targetPath]);
       await this.bundle?.blockers([row.record.sourcePath, row.record.targetPath]);
       await this.group?.blockers([row.record.sourcePath, row.record.targetPath]);
+      await this.localNote?.blockers([row.record.sourcePath, row.record.targetPath]);
       await this.emptyAtom?.blockers([row.record.sourcePath, row.record.targetPath]);
       await this.structuralArchive?.blockers([row.record.sourcePath, row.record.targetPath]);
       const source = await this.port.read(row.record.sourcePath);
@@ -280,6 +298,7 @@ export class SafeApplyService {
         await this.archive?.blockers([record.sourcePath, record.targetPath]);
         await this.bundle?.blockers([record.sourcePath, record.targetPath]);
         await this.group?.blockers([record.sourcePath, record.targetPath]);
+        await this.localNote?.blockers([record.sourcePath, record.targetPath]);
         await this.emptyAtom?.blockers([record.sourcePath, record.targetPath]);
         await this.structuralArchive?.blockers([record.sourcePath, record.targetPath]);
       };
