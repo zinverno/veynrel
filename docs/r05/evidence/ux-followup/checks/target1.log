@@ -1,0 +1,35 @@
+
+ RUN  v4.1.10 <checkout>
+
+ ❯ consolidation/localNoteModal.test.ts (13 tests | 2 failed) 37ms
+       × add_inline_tag History and write-error text do not claim a group transfer or success 7ms
+       × repair_wikilink History and write-error text do not claim a group transfer or success 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  consolidation/localNoteModal.test.ts > local note UI and separate consent > en single-note copy > add_inline_tag History and write-error text do not claim a group transfer or success
+ FAIL  consolidation/localNoteModal.test.ts > local note UI and separate consent > en single-note copy > repair_wikilink History and write-error text do not claim a group transfer or success
+AssertionError: expected 'Write not confirmed. There will be no…' to match /Write was not confirmed/u
+
+- Expected:
+/Write was not confirmed/u
+
++ Received:
+"Write not confirmed. There will be no automatic retry. Check history: the original and expected result are retained; an uncertain outcome requires reconciliation."
+
+ ❯ consolidation/localNoteModal.test.ts:99:71
+     97|       modal.open(); await flush(); const content = modal.contentEl as …
+     98|       content.field("confirm").event("click"); await flush();
+     99|       expect(content.all().find(e => e.attrs.role === "alert")?.text).…
+       |                                                                       ^
+    100|       expect(content.all().map(e => e.text).join(" ")).not.toMatch(/ca…
+    101|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 11 passed (13)
+   Start at  15:15:33
+   Duration  1.16s (transform 661ms, setup 0ms, import 763ms, tests 37ms, environment 0ms)
+

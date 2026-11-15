@@ -10,6 +10,8 @@ Public latest stable was independently rechecked as **2.3.1**; development
 manifest remains **unpublished 2.4.0**. No release, tag, Marketplace update,
 merge, paid request or personal-vault installation occurred.
 
+**Final UX follow-up:** [new labels/layout checks and separately preserved native entry failures](ux-followup-verification.md). The results below remain the original delivery evidence.
+
 ## Delivered contracts
 
 [Local action guide](local-note-actions.md) describes the supported/refused

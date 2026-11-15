@@ -1,0 +1,557 @@
+{
+  "redaction": "Only checkout/repository absolute path prefixes replaced in public text. Binary captures are unchanged; raw originals retained in /tmp.",
+  "files": [
+    {
+      "file": "checks/target1.log",
+      "rawSource": "/tmp/r052-ux-target1.log",
+      "originalSha256": "627390424bfe30056b0716105c9128b8b4a3239a30e29fa9275ffe4298b6ea0b",
+      "publishedSha256": "cb70102ad2dd7a6426d9e11457ec827252f5c57b914e3b8945dbd07bc4c8748a"
+    },
+    {
+      "file": "checks/target2.log",
+      "rawSource": "/tmp/r052-ux-target2.log",
+      "originalSha256": "0f392107e49e78e1984ccbaa8ebad546cf07de1e8515e2eb2f0feb49fcb9c254",
+      "publishedSha256": "d928104e8e4f7e2c2cf7d10410e682c002c734d994e91f8032f9bb25dba91f2f"
+    },
+    {
+      "file": "checks/suite.log",
+      "rawSource": "/tmp/r052-ux-suite.log",
+      "originalSha256": "657dea28dd2add5dce635236e6d7865eab82efff98b6aac0c25457b7cd2bb586",
+      "publishedSha256": "8a4bbfabed7eb2144a532f14174b792660b9b59be9bcac256d2f42c6a3b2bf0e"
+    },
+    {
+      "file": "checks/lint.log",
+      "rawSource": "/tmp/r052-ux-lint.log",
+      "originalSha256": "a58c26942af65f1aa22713a216036ff94b8551d28725c47832b2aad27cb2724c",
+      "publishedSha256": "3630285a2b6aea1938cae37af58395f619fb91c5eca1eaf6ddc6a6a3ae4f5385"
+    },
+    {
+      "file": "checks/audit.log",
+      "rawSource": "/tmp/r052-ux-audit.log",
+      "originalSha256": "51031ae5c721676b9520f5c89faf1068b7366c927ffa31578e52b826b83a207e",
+      "publishedSha256": "51031ae5c721676b9520f5c89faf1068b7366c927ffa31578e52b826b83a207e"
+    },
+    {
+      "file": "checks/build1.log",
+      "rawSource": "/tmp/r052-ux-build1.log",
+      "originalSha256": "7746745429d471128b60e4f7da3a93decb8cedecf7666a0ceba9b7a7236ab272",
+      "publishedSha256": "7746745429d471128b60e4f7da3a93decb8cedecf7666a0ceba9b7a7236ab272"
+    },
+    {
+      "file": "checks/native1.log",
+      "rawSource": "/tmp/r052-ux-native1.log",
+      "originalSha256": "7b409c3d96ef18a965559142526dc8edd835aeed267a7f19c0cf71c34c88bc09",
+      "publishedSha256": "0a0a0a3361d3a865be1f8977bd5a9837a782a6a5fc17e05ba7db16aa745c4d41"
+    },
+    {
+      "file": "checks/native2.log",
+      "rawSource": "/tmp/r052-ux-native2.log",
+      "originalSha256": "ce22d310a1d8e50f9e8ee9ab11b66e8831dcd6874847ad59f94f5d56b33657ba",
+      "publishedSha256": "f467321007264399f4f3cbe450bff5a6c1b81d09bed1719adb787ea4516d81eb"
+    },
+    {
+      "file": "checks/native-review.log",
+      "rawSource": "/tmp/r052-ux-native-review.log",
+      "originalSha256": "a62fd82d654872b96deacefc5f0b3437298f822fcfd3ad85676f4bcc2991ea1c",
+      "publishedSha256": "d60335c572e576b33eff617007e2f787fc9e2e196da0f99ded271ef51b8d5d04"
+    },
+    {
+      "file": "checks/native-review-final.log",
+      "rawSource": "/tmp/r052-ux-native-review-final.log",
+      "originalSha256": "87df6055f929583e1419dab058539f32151d9bac426e76cd62b6c84a8605a16d",
+      "publishedSha256": "7cce021ba223748080d580701c57138780dd5bbe2c906cf1de207c73ce44ff2f"
+    },
+    {
+      "file": "checks/harness-eslint.log",
+      "rawSource": "/tmp/r052-ux-harness-eslint.log",
+      "originalSha256": "0ca0298b809dd084fa47412c067f57ba15e0c57b5ef4f30e8568819230def763",
+      "publishedSha256": "247bfcf0fe314c4b28b040d1010d33543deeb4323d070fb14ec62697999bf06b"
+    },
+    {
+      "file": "checks/harness-syntax.log",
+      "rawSource": "/tmp/r052-ux-harness-syntax.log",
+      "originalSha256": "3aa3d58f58a7f0fd5af654d17410b16740b8b3ac62233d4331c7c56f44a042d4",
+      "publishedSha256": "3aa3d58f58a7f0fd5af654d17410b16740b8b3ac62233d4331c7c56f44a042d4"
+    },
+    {
+      "file": "failed-picker-1/failure.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/failure.png",
+      "originalSha256": "d7baf9e5d7faa3dd734f7263836937934db3c87a090bc25de4b31acf93542e79",
+      "publishedSha256": "d7baf9e5d7faa3dd734f7263836937934db3c87a090bc25de4b31acf93542e79"
+    },
+    {
+      "file": "failed-picker-1/journey.mp4",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/journey.mp4",
+      "originalSha256": "cd34a808c89e6a0f00f0125c355b0f90a7e759265636d8b9bc41e563191b62c7",
+      "publishedSha256": "cd34a808c89e6a0f00f0125c355b0f90a7e759265636d8b9bc41e563191b62c7"
+    },
+    {
+      "file": "failed-picker-1/native-sessions.jsonl",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/native-sessions.jsonl",
+      "originalSha256": "bbc3ca3761f7470e48144b381e50ca85e356c9f47d97915e841bebef1f700865",
+      "publishedSha256": "bbc3ca3761f7470e48144b381e50ca85e356c9f47d97915e841bebef1f700865"
+    },
+    {
+      "file": "failed-picker-1/report.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/report.json",
+      "originalSha256": "8464b6e1612c760626a6c49a41f9b78cb269e0e7b8689a953114224de52e1d66",
+      "publishedSha256": "8203d9963d55f504ac613dacd6a81ff1cafdc99aa7910583cc8513457eea02a6"
+    },
+    {
+      "file": "failed-picker-1/isolation/result.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/isolation/result.json",
+      "originalSha256": "7199779073e428d1f2cdf25e931277cac90bd8f84cbd3203cec51aa0147010aa",
+      "publishedSha256": "35e0a2d5f44dfd2c6d4ed8f682f0cd678c94bf7825e877fae2a05acfde64dda5"
+    },
+    {
+      "file": "failed-picker-1/isolation/environment.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/isolation/environment.json",
+      "originalSha256": "bba2ed6eb43a7866e6f4091931eb518111ba3406fae8535c49d6f8915da93170",
+      "publishedSha256": "bba2ed6eb43a7866e6f4091931eb518111ba3406fae8535c49d6f8915da93170"
+    },
+    {
+      "file": "failed-picker-1/isolation/harness.log",
+      "rawSource": "/tmp/veynrel-local-notes-native-989e815a9ee9/isolation/harness.log",
+      "originalSha256": "a3cf3830e22aee80fcc13da14b1909e638aaeada35e8b52db355fcf6d9266c21",
+      "publishedSha256": "83d1aabb3a8fd37f2186d27203544d4e52a9515a7a658841a83dfe831789cf36"
+    },
+    {
+      "file": "failed-picker-2/failure.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/failure.png",
+      "originalSha256": "eeed204c362b0f2ade821a34576790645c70693ee6a88e8132659afe553481bd",
+      "publishedSha256": "eeed204c362b0f2ade821a34576790645c70693ee6a88e8132659afe553481bd"
+    },
+    {
+      "file": "failed-picker-2/journey.mp4",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/journey.mp4",
+      "originalSha256": "b9dfe6fe0da9c684f007e830a5047818f1d2e6a7eeabcb26c45fabdd0ba8ef3e",
+      "publishedSha256": "b9dfe6fe0da9c684f007e830a5047818f1d2e6a7eeabcb26c45fabdd0ba8ef3e"
+    },
+    {
+      "file": "failed-picker-2/native-sessions.jsonl",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/native-sessions.jsonl",
+      "originalSha256": "50d4cac14f46e2311f212ff360dea0a6a750d1c1762aab08ac4310f0c0178285",
+      "publishedSha256": "50d4cac14f46e2311f212ff360dea0a6a750d1c1762aab08ac4310f0c0178285"
+    },
+    {
+      "file": "failed-picker-2/report.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/report.json",
+      "originalSha256": "903e12136c61679cc31a150823ee3ea35dc8ccfda5e2de2cd7e4f679089d4656",
+      "publishedSha256": "151df6a27a8947a2dd308809bc40692f33d464e6688fea24a72d9c4604050f1e"
+    },
+    {
+      "file": "failed-picker-2/isolation/result.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/isolation/result.json",
+      "originalSha256": "afd897bfc181d701e246580e86832a898305da19445f4a36b4cc83f3b67b34a5",
+      "publishedSha256": "cfbaa4db7b7a10480dca1c180963c3dc76a1382dedc7a631c20a2d73050748aa"
+    },
+    {
+      "file": "failed-picker-2/isolation/environment.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/isolation/environment.json",
+      "originalSha256": "6531516f0de14c01cb857b503d0cb3ae93db2a129282246cc767e3b489264a1c",
+      "publishedSha256": "6531516f0de14c01cb857b503d0cb3ae93db2a129282246cc767e3b489264a1c"
+    },
+    {
+      "file": "failed-picker-2/isolation/harness.log",
+      "rawSource": "/tmp/veynrel-local-notes-native-eb7c0741bfaf/isolation/harness.log",
+      "originalSha256": "d6695ed97bcd5bd449b10b40ba1016123292858c8da44bb2663bee9a3dc69f5f",
+      "publishedSha256": "404a36d59101553d225bc5a263999b6b720b394795989898dd9d417aff13de12"
+    },
+    {
+      "file": "failed-review-popout/broken-finding.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/broken-finding.png",
+      "originalSha256": "263f5d3db5c748bf229a09267e962358939ff0ae1b10826ec2d8a5c53f926bc4",
+      "publishedSha256": "263f5d3db5c748bf229a09267e962358939ff0ae1b10826ec2d8a5c53f926bc4"
+    },
+    {
+      "file": "failed-review-popout/en-dark-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/en-dark-390-repair.png",
+      "originalSha256": "5d53f66f61d8e4bbf0d51956fa964cd1f1b7e9bee0eedc231517f84326ca4d29",
+      "publishedSha256": "5d53f66f61d8e4bbf0d51956fa964cd1f1b7e9bee0eedc231517f84326ca4d29"
+    },
+    {
+      "file": "failed-review-popout/en-dark-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/en-dark-390-review.png",
+      "originalSha256": "7ec308029964a93ecab0cc1e8becae1c077ad1dce564e4d8bfd346d106fe8946",
+      "publishedSha256": "7ec308029964a93ecab0cc1e8becae1c077ad1dce564e4d8bfd346d106fe8946"
+    },
+    {
+      "file": "failed-review-popout/en-dark-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/en-dark-390-tag-fields.png",
+      "originalSha256": "c4c1ac99e4ff3049848a2911561f866f890b579ca9783a5e159434d8c474cc4e",
+      "publishedSha256": "c4c1ac99e4ff3049848a2911561f866f890b579ca9783a5e159434d8c474cc4e"
+    },
+    {
+      "file": "failed-review-popout/en-light-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/en-light-390-repair.png",
+      "originalSha256": "c34bab5d02f3d23ee6136e0588568a83a5886d39a36f26bcd3e4085fb294ffba",
+      "publishedSha256": "c34bab5d02f3d23ee6136e0588568a83a5886d39a36f26bcd3e4085fb294ffba"
+    },
+    {
+      "file": "failed-review-popout/en-light-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/en-light-390-review.png",
+      "originalSha256": "92cc1a6aae25b42061fe23bfcddc495b46f3d672f5d87c60b144eb3bf649f953",
+      "publishedSha256": "92cc1a6aae25b42061fe23bfcddc495b46f3d672f5d87c60b144eb3bf649f953"
+    },
+    {
+      "file": "failed-review-popout/en-light-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/en-light-390-tag-fields.png",
+      "originalSha256": "b592b2ae7106b43c2df7ddb26b57d0dbb02fec970351597f8d376b599e9767ff",
+      "publishedSha256": "b592b2ae7106b43c2df7ddb26b57d0dbb02fec970351597f8d376b599e9767ff"
+    },
+    {
+      "file": "failed-review-popout/failure.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/failure.png",
+      "originalSha256": "ff726500b6ec5231c0c647199125cc718957ed806e64f8ba17a4072844e374d6",
+      "publishedSha256": "ff726500b6ec5231c0c647199125cc718957ed806e64f8ba17a4072844e374d6"
+    },
+    {
+      "file": "failed-review-popout/journey.mp4",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/journey.mp4",
+      "originalSha256": "6098858f7cc7cc404d7ffa0e67f361b8e82587370c28cb0d705f7824a417d3bd",
+      "publishedSha256": "6098858f7cc7cc404d7ffa0e67f361b8e82587370c28cb0d705f7824a417d3bd"
+    },
+    {
+      "file": "failed-review-popout/native-sessions.jsonl",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/native-sessions.jsonl",
+      "originalSha256": "7c57ab765b83a194195803c1883e7059cd257d855477a4548e9b8a39a7d53bcc",
+      "publishedSha256": "7c57ab765b83a194195803c1883e7059cd257d855477a4548e9b8a39a7d53bcc"
+    },
+    {
+      "file": "failed-review-popout/repair-applied.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/repair-applied.png",
+      "originalSha256": "cae4aabee956114bc8d0576bafc436490ac6424315fda0e1e1ad7246154fbdda",
+      "publishedSha256": "cae4aabee956114bc8d0576bafc436490ac6424315fda0e1e1ad7246154fbdda"
+    },
+    {
+      "file": "failed-review-popout/repair-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/repair-review.png",
+      "originalSha256": "6217216e5a20ad88da1e3f6f67bfe05a3ca5805b93619a6dd2d7e15b6c549330",
+      "publishedSha256": "6217216e5a20ad88da1e3f6f67bfe05a3ca5805b93619a6dd2d7e15b6c549330"
+    },
+    {
+      "file": "failed-review-popout/repair-undo-undone.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/repair-undo-undone.png",
+      "originalSha256": "89270495f816f40219c28e49998a835e8af071593c3175eed1bfc83b2674175d",
+      "publishedSha256": "89270495f816f40219c28e49998a835e8af071593c3175eed1bfc83b2674175d"
+    },
+    {
+      "file": "failed-review-popout/report.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/report.json",
+      "originalSha256": "333e5cb7cda3068c6a226ab7ec224588e9dda1fa9b925bf73430a64d5471a61e",
+      "publishedSha256": "d86bb44b30c0808583186e2253ad10874a4b9285271b5dc48e9aa25857b45bc6"
+    },
+    {
+      "file": "failed-review-popout/ru-dark-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/ru-dark-390-repair.png",
+      "originalSha256": "c5109d6ea8837a68517d72d2e5e0c4c64c112c48967c6296f83c937807886ddf",
+      "publishedSha256": "c5109d6ea8837a68517d72d2e5e0c4c64c112c48967c6296f83c937807886ddf"
+    },
+    {
+      "file": "failed-review-popout/ru-dark-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/ru-dark-390-review.png",
+      "originalSha256": "ad710de4e1ccf33fc24f20ce7435f21ab1b9b6a859784d62d17c20c489340b96",
+      "publishedSha256": "ad710de4e1ccf33fc24f20ce7435f21ab1b9b6a859784d62d17c20c489340b96"
+    },
+    {
+      "file": "failed-review-popout/ru-dark-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/ru-dark-390-tag-fields.png",
+      "originalSha256": "0af6253cc2eabbce9598f06d8f96f95256af5705917283f13c216d7849d7d7ba",
+      "publishedSha256": "0af6253cc2eabbce9598f06d8f96f95256af5705917283f13c216d7849d7d7ba"
+    },
+    {
+      "file": "failed-review-popout/ru-light-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/ru-light-390-repair.png",
+      "originalSha256": "f172052bc891f49d8aebfc7d0992d97540c1b94112316320156870056e03cd4c",
+      "publishedSha256": "f172052bc891f49d8aebfc7d0992d97540c1b94112316320156870056e03cd4c"
+    },
+    {
+      "file": "failed-review-popout/ru-light-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/ru-light-390-review.png",
+      "originalSha256": "bbe951d2721ab07e780c541e110a5a59010ce959349f54430f228cebb03fd0eb",
+      "publishedSha256": "bbe951d2721ab07e780c541e110a5a59010ce959349f54430f228cebb03fd0eb"
+    },
+    {
+      "file": "failed-review-popout/ru-light-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/ru-light-390-tag-fields.png",
+      "originalSha256": "99dc49c939b7da3f3e67ec2c4fbd28f8fb38f79e8380b0e606f16d3921ab36fa",
+      "publishedSha256": "99dc49c939b7da3f3e67ec2c4fbd28f8fb38f79e8380b0e606f16d3921ab36fa"
+    },
+    {
+      "file": "failed-review-popout/split-refusal.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/split-refusal.png",
+      "originalSha256": "6e687d80c1bcdb95058f1941f52a2da3ce579e057aec7314d548fbac9bea9fdd",
+      "publishedSha256": "6e687d80c1bcdb95058f1941f52a2da3ce579e057aec7314d548fbac9bea9fdd"
+    },
+    {
+      "file": "failed-review-popout/tag-applied.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/tag-applied.png",
+      "originalSha256": "88e01bbfe71ddabe3dac39d762c07e891737c23dfa9cb9078e1e84e52731195c",
+      "publishedSha256": "88e01bbfe71ddabe3dac39d762c07e891737c23dfa9cb9078e1e84e52731195c"
+    },
+    {
+      "file": "failed-review-popout/tag-choices.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/tag-choices.png",
+      "originalSha256": "7eb048be367766b28e7672142060d7173e224c131c9d57930fb2f7342ef503aa",
+      "publishedSha256": "7eb048be367766b28e7672142060d7173e224c131c9d57930fb2f7342ef503aa"
+    },
+    {
+      "file": "failed-review-popout/tag-review-en-dark.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/tag-review-en-dark.png",
+      "originalSha256": "625ac5421f96094a51b47e5d1b61c63cb7759ec1150784bd7f4113d9fb51fea4",
+      "publishedSha256": "625ac5421f96094a51b47e5d1b61c63cb7759ec1150784bd7f4113d9fb51fea4"
+    },
+    {
+      "file": "failed-review-popout/tag-undo-undone.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/tag-undo-undone.png",
+      "originalSha256": "9fedfdf96be916882a284e6a23a00c59d6f3a0450ed3336159f9e7a67b7a6987",
+      "publishedSha256": "9fedfdf96be916882a284e6a23a00c59d6f3a0450ed3336159f9e7a67b7a6987"
+    },
+    {
+      "file": "failed-review-popout/isolation/result.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/isolation/result.json",
+      "originalSha256": "4888b57be13f4f84187f539f722e5da2afc54a4f0e2220fec71a54184dbb5dcc",
+      "publishedSha256": "53bbe74d392582775f4c438848154f9f033d7b35e951a9830248f9980a6d0f20"
+    },
+    {
+      "file": "failed-review-popout/isolation/environment.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/isolation/environment.json",
+      "originalSha256": "7d647d4a7197bebab80ae367ef70710e29af399e817b3c5d8cdd7b5e46f36585",
+      "publishedSha256": "7d647d4a7197bebab80ae367ef70710e29af399e817b3c5d8cdd7b5e46f36585"
+    },
+    {
+      "file": "failed-review-popout/isolation/harness.log",
+      "rawSource": "/tmp/veynrel-local-notes-native-d713fccddd45/isolation/harness.log",
+      "originalSha256": "9f3d9dc880886ae0853f7e6c4ad9b3dd23c1cbd93c73204352dcf50dca3440f0",
+      "publishedSha256": "02bcd529c8358af515593c6da2e98a3fef36a1fa890d02ff85c010372a2e1f07"
+    },
+    {
+      "file": "review/broken-finding.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/broken-finding.png",
+      "originalSha256": "bcc3a1beb4d10d5a4b63ba6b17dcd2fc7af1b6482e0fced3edb57c647f8a63b9",
+      "publishedSha256": "bcc3a1beb4d10d5a4b63ba6b17dcd2fc7af1b6482e0fced3edb57c647f8a63b9"
+    },
+    {
+      "file": "review/en-dark-390-repair-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-dark-390-repair-confirm.png",
+      "originalSha256": "77fafefc74d0aea0716b4c8bdcbfc177fcea9b2afbaf0271eaf088565c1f4f6e",
+      "publishedSha256": "77fafefc74d0aea0716b4c8bdcbfc177fcea9b2afbaf0271eaf088565c1f4f6e"
+    },
+    {
+      "file": "review/en-dark-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-dark-390-repair.png",
+      "originalSha256": "5d53f66f61d8e4bbf0d51956fa964cd1f1b7e9bee0eedc231517f84326ca4d29",
+      "publishedSha256": "5d53f66f61d8e4bbf0d51956fa964cd1f1b7e9bee0eedc231517f84326ca4d29"
+    },
+    {
+      "file": "review/en-dark-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-dark-390-review.png",
+      "originalSha256": "7ec308029964a93ecab0cc1e8becae1c077ad1dce564e4d8bfd346d106fe8946",
+      "publishedSha256": "7ec308029964a93ecab0cc1e8becae1c077ad1dce564e4d8bfd346d106fe8946"
+    },
+    {
+      "file": "review/en-dark-390-tag-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-dark-390-tag-confirm.png",
+      "originalSha256": "1661f1f94b5d178375ef4241ff5892712d15f45585a2047428dbcdc4d0300ebf",
+      "publishedSha256": "1661f1f94b5d178375ef4241ff5892712d15f45585a2047428dbcdc4d0300ebf"
+    },
+    {
+      "file": "review/en-dark-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-dark-390-tag-fields.png",
+      "originalSha256": "c4c1ac99e4ff3049848a2911561f866f890b579ca9783a5e159434d8c474cc4e",
+      "publishedSha256": "c4c1ac99e4ff3049848a2911561f866f890b579ca9783a5e159434d8c474cc4e"
+    },
+    {
+      "file": "review/en-light-390-repair-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-light-390-repair-confirm.png",
+      "originalSha256": "5bc666936a23f1aaf77b21b4a5feeea3507e5420f382186ff7593399d314496e",
+      "publishedSha256": "5bc666936a23f1aaf77b21b4a5feeea3507e5420f382186ff7593399d314496e"
+    },
+    {
+      "file": "review/en-light-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-light-390-repair.png",
+      "originalSha256": "c34bab5d02f3d23ee6136e0588568a83a5886d39a36f26bcd3e4085fb294ffba",
+      "publishedSha256": "c34bab5d02f3d23ee6136e0588568a83a5886d39a36f26bcd3e4085fb294ffba"
+    },
+    {
+      "file": "review/en-light-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-light-390-review.png",
+      "originalSha256": "92cc1a6aae25b42061fe23bfcddc495b46f3d672f5d87c60b144eb3bf649f953",
+      "publishedSha256": "92cc1a6aae25b42061fe23bfcddc495b46f3d672f5d87c60b144eb3bf649f953"
+    },
+    {
+      "file": "review/en-light-390-tag-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-light-390-tag-confirm.png",
+      "originalSha256": "46c9d243a37bc35f49a2194136dbcec6196ceecb3fe73eae3b9d1ca40a119fbd",
+      "publishedSha256": "46c9d243a37bc35f49a2194136dbcec6196ceecb3fe73eae3b9d1ca40a119fbd"
+    },
+    {
+      "file": "review/en-light-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/en-light-390-tag-fields.png",
+      "originalSha256": "b592b2ae7106b43c2df7ddb26b57d0dbb02fec970351597f8d376b599e9767ff",
+      "publishedSha256": "b592b2ae7106b43c2df7ddb26b57d0dbb02fec970351597f8d376b599e9767ff"
+    },
+    {
+      "file": "review/journey.mp4",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/journey.mp4",
+      "originalSha256": "03da84f8218738e621a3d675748220412573615bea390a97b00b5a00d9c5f680",
+      "publishedSha256": "03da84f8218738e621a3d675748220412573615bea390a97b00b5a00d9c5f680"
+    },
+    {
+      "file": "review/native-sessions.jsonl",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/native-sessions.jsonl",
+      "originalSha256": "1d804c7df5b435c3f01d9cbae51322d4c1f7407e6dc185b17facb0e4ba4d4355",
+      "publishedSha256": "1d804c7df5b435c3f01d9cbae51322d4c1f7407e6dc185b17facb0e4ba4d4355"
+    },
+    {
+      "file": "review/popout-tag.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/popout-tag.png",
+      "originalSha256": "95b31f32b08e4b54be3600d918396b7cf0fe97fbc97abc0f31d813e3baeeacd3",
+      "publishedSha256": "95b31f32b08e4b54be3600d918396b7cf0fe97fbc97abc0f31d813e3baeeacd3"
+    },
+    {
+      "file": "review/repair-applied.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/repair-applied.png",
+      "originalSha256": "10c0ca606972781a22fb4bc3b516b274ff96b7c4dabcbcb4d439194c5b926804",
+      "publishedSha256": "10c0ca606972781a22fb4bc3b516b274ff96b7c4dabcbcb4d439194c5b926804"
+    },
+    {
+      "file": "review/repair-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/repair-review.png",
+      "originalSha256": "ee298a96d25c899d6d3144b1c17071c9b873f226d4db99f3a394afface877d1f",
+      "publishedSha256": "ee298a96d25c899d6d3144b1c17071c9b873f226d4db99f3a394afface877d1f"
+    },
+    {
+      "file": "review/repair-undo-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/repair-undo-review.png",
+      "originalSha256": "dc5f86e5571cabe099662f18be6b82623fcf3c321e537f043800d1de3a1e8e54",
+      "publishedSha256": "dc5f86e5571cabe099662f18be6b82623fcf3c321e537f043800d1de3a1e8e54"
+    },
+    {
+      "file": "review/repair-undo-undone.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/repair-undo-undone.png",
+      "originalSha256": "8241f755cdae0ca3d36a4e07be5752ec9461bda831c305571cde1985bbf80360",
+      "publishedSha256": "8241f755cdae0ca3d36a4e07be5752ec9461bda831c305571cde1985bbf80360"
+    },
+    {
+      "file": "review/report.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/report.json",
+      "originalSha256": "d5781101b5e9b34cdf4b59dc137c43b7a304869767719accb8e4234588b92aa9",
+      "publishedSha256": "d5781101b5e9b34cdf4b59dc137c43b7a304869767719accb8e4234588b92aa9"
+    },
+    {
+      "file": "review/ru-dark-390-repair-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-dark-390-repair-confirm.png",
+      "originalSha256": "0d3e38f402d1e7a027d0dbae4ee5c112e932ca0a8b7f6025b9e1e58bd785db92",
+      "publishedSha256": "0d3e38f402d1e7a027d0dbae4ee5c112e932ca0a8b7f6025b9e1e58bd785db92"
+    },
+    {
+      "file": "review/ru-dark-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-dark-390-repair.png",
+      "originalSha256": "c5109d6ea8837a68517d72d2e5e0c4c64c112c48967c6296f83c937807886ddf",
+      "publishedSha256": "c5109d6ea8837a68517d72d2e5e0c4c64c112c48967c6296f83c937807886ddf"
+    },
+    {
+      "file": "review/ru-dark-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-dark-390-review.png",
+      "originalSha256": "ad710de4e1ccf33fc24f20ce7435f21ab1b9b6a859784d62d17c20c489340b96",
+      "publishedSha256": "ad710de4e1ccf33fc24f20ce7435f21ab1b9b6a859784d62d17c20c489340b96"
+    },
+    {
+      "file": "review/ru-dark-390-tag-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-dark-390-tag-confirm.png",
+      "originalSha256": "5ee4068773508735c29ec1b8a65229293f9ed3866478028d02efd1038f4ed13b",
+      "publishedSha256": "5ee4068773508735c29ec1b8a65229293f9ed3866478028d02efd1038f4ed13b"
+    },
+    {
+      "file": "review/ru-dark-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-dark-390-tag-fields.png",
+      "originalSha256": "0af6253cc2eabbce9598f06d8f96f95256af5705917283f13c216d7849d7d7ba",
+      "publishedSha256": "0af6253cc2eabbce9598f06d8f96f95256af5705917283f13c216d7849d7d7ba"
+    },
+    {
+      "file": "review/ru-light-390-repair-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-light-390-repair-confirm.png",
+      "originalSha256": "ce0df99cb06aea1258f14cc0bcec65669d2ddb57389c7e6c838181b65d461ad2",
+      "publishedSha256": "ce0df99cb06aea1258f14cc0bcec65669d2ddb57389c7e6c838181b65d461ad2"
+    },
+    {
+      "file": "review/ru-light-390-repair.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-light-390-repair.png",
+      "originalSha256": "f172052bc891f49d8aebfc7d0992d97540c1b94112316320156870056e03cd4c",
+      "publishedSha256": "f172052bc891f49d8aebfc7d0992d97540c1b94112316320156870056e03cd4c"
+    },
+    {
+      "file": "review/ru-light-390-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-light-390-review.png",
+      "originalSha256": "bbe951d2721ab07e780c541e110a5a59010ce959349f54430f228cebb03fd0eb",
+      "publishedSha256": "bbe951d2721ab07e780c541e110a5a59010ce959349f54430f228cebb03fd0eb"
+    },
+    {
+      "file": "review/ru-light-390-tag-confirm.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-light-390-tag-confirm.png",
+      "originalSha256": "56a27eb3d533a3c7748cecffd7a2d50a26b5f364ee0cae1a48a2133469e9c0ea",
+      "publishedSha256": "56a27eb3d533a3c7748cecffd7a2d50a26b5f364ee0cae1a48a2133469e9c0ea"
+    },
+    {
+      "file": "review/ru-light-390-tag-fields.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/ru-light-390-tag-fields.png",
+      "originalSha256": "99dc49c939b7da3f3e67ec2c4fbd28f8fb38f79e8380b0e606f16d3921ab36fa",
+      "publishedSha256": "99dc49c939b7da3f3e67ec2c4fbd28f8fb38f79e8380b0e606f16d3921ab36fa"
+    },
+    {
+      "file": "review/split-refusal.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/split-refusal.png",
+      "originalSha256": "db7b05171dabe866b7bcd45172242d7cc0caaacd019b10c787a629dd0348e809",
+      "publishedSha256": "db7b05171dabe866b7bcd45172242d7cc0caaacd019b10c787a629dd0348e809"
+    },
+    {
+      "file": "review/tag-applied.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/tag-applied.png",
+      "originalSha256": "84fb1ca1ab5af8a17f6725f97ade62e5e94e27f8197e77eb59943139c5afb104",
+      "publishedSha256": "84fb1ca1ab5af8a17f6725f97ade62e5e94e27f8197e77eb59943139c5afb104"
+    },
+    {
+      "file": "review/tag-choices.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/tag-choices.png",
+      "originalSha256": "7eb048be367766b28e7672142060d7173e224c131c9d57930fb2f7342ef503aa",
+      "publishedSha256": "7eb048be367766b28e7672142060d7173e224c131c9d57930fb2f7342ef503aa"
+    },
+    {
+      "file": "review/tag-review-en-dark.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/tag-review-en-dark.png",
+      "originalSha256": "625ac5421f96094a51b47e5d1b61c63cb7759ec1150784bd7f4113d9fb51fea4",
+      "publishedSha256": "625ac5421f96094a51b47e5d1b61c63cb7759ec1150784bd7f4113d9fb51fea4"
+    },
+    {
+      "file": "review/tag-undo-review.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/tag-undo-review.png",
+      "originalSha256": "28155951cfea0fde7c03b5e8421dc14a43ea0e3bc88891fe5af4363ad258dacb",
+      "publishedSha256": "28155951cfea0fde7c03b5e8421dc14a43ea0e3bc88891fe5af4363ad258dacb"
+    },
+    {
+      "file": "review/tag-undo-undone.png",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/tag-undo-undone.png",
+      "originalSha256": "1e1ea933995e3c2df01064853f3e283648e49080c9ee5400e8bcbcbf4e11b3a9",
+      "publishedSha256": "1e1ea933995e3c2df01064853f3e283648e49080c9ee5400e8bcbcbf4e11b3a9"
+    },
+    {
+      "file": "review/isolation/result.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/isolation/result.json",
+      "originalSha256": "b4f9badea86032bd674cf291fce2d9c6af89d17e160a86adb52d586b57b05ae3",
+      "publishedSha256": "3959e444b0a1e882faaa9333ccc0f89ef09fdfe510c90c65ab5eea7f3c33c845"
+    },
+    {
+      "file": "review/isolation/environment.json",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/isolation/environment.json",
+      "originalSha256": "bc3617786fe3ae2ad523d4032d01d30a7e461851da29777fcd51ae21e3011ec8",
+      "publishedSha256": "bc3617786fe3ae2ad523d4032d01d30a7e461851da29777fcd51ae21e3011ec8"
+    },
+    {
+      "file": "review/isolation/harness.log",
+      "rawSource": "/tmp/veynrel-local-notes-native-9b19b86a3199/isolation/harness.log",
+      "originalSha256": "e7883cd0a692e40fc46fef6d2f470c37d97dc8fb0ee5b29a222230febaa7d932",
+      "publishedSha256": "e7883cd0a692e40fc46fef6d2f470c37d97dc8fb0ee5b29a222230febaa7d932"
+    }
+  ]
+}
