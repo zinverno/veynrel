@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs",
+    "/tmp/veynrel-organization-native-r04-attempt4"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794721385.332855,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36851
+  ],
+  "cdpClosed": true,
+  "seconds": 26.644
+}

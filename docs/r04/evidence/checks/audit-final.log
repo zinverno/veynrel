@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2 consolidation/organizationAudit.test.ts
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115
+
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  09:05:33
+   Duration  845ms (transform 340ms, setup 0ms, import 409ms, tests 193ms, environment 0ms)
+

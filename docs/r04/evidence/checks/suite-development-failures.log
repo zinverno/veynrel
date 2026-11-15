@@ -1,0 +1,89 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115
+
+ ❯ health/obsidian/healthBoundary.test.ts (4 tests | 1 failed) 570ms
+     × has no AI/network/Companion dependencies or Markdown mutations, including transitive imports 470ms
+ ❯ consolidation/organizationAudit.test.ts (14 tests | 1 failed) 190ms
+     × D: confirmed rules have priority, rescans do not replace them and dismissed unchanged suggestions stay dismissed 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  consolidation/organizationAudit.test.ts > R04 reuses the taxonomy scanner for an advisory organization snapshot > D: confirmed rules have priority, rescans do not replace them and dismissed unchanged suggestions stay dismissed
+AssertionError: expected [ { …(7) }, { …(7) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "denominator": 6,
++     "examples": [
++       "Notes/5.md",
++       "Notes/4.md",
++       "Notes/3.md",
++       "Notes/2.md",
++       "Notes/1.md",
++     ],
++     "id": "org:2e049668cd8fac18",
++     "kind": "prefix",
++     "notes": 6,
++     "origin": "rule",
++     "value": "topic",
++   },
++   {
++     "denominator": 6,
++     "examples": [
++       "Notes/5.md",
++       "Notes/4.md",
++       "Notes/3.md",
++       "Notes/2.md",
++       "Notes/1.md",
++     ],
++     "id": "org:b4e1be7335de2718",
++     "kind": "type",
++     "notes": 6,
++     "origin": "hypothesis",
++     "value": "journal",
++   },
++ ]
+
+ ❯ consolidation/organizationAudit.test.ts:56:91
+     54|     f.files.reverse();
+     55|     const reordered = await f.scan();
+     56|     expect(organizationSuggestions(reordered, profile, null, suggestio…
+       |                                                                                           ^
+     57|     expect(reordered.organization!.revision).toBe(result.organization!…
+     58|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  health/obsidian/healthBoundary.test.ts > Health production dependency boundary > has no AI/network/Companion dependencies or Markdown mutations, including transitive imports
+AssertionError: consolidation/organizationView.ts: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ health/obsidian/healthBoundary.test.ts:38:129
+     36|       const path = queue.pop()!; if (visited.has(path)) continue; visi…
+     37|       const name = relative(process.cwd(), path);
+     38|       expect(name.startsWith("health/") || name.startsWith("recall/") …
+       |                                                                                                                                 ^
+     39|       const text = readFileSync(path, "utf8");
+     40|       expect(text, name).not.toMatch(/\b(?:fetch|callOpenRouter|stream…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 196 passed (198)
+      Tests  2 failed | 5200 passed (5202)
+   Start at  08:40:43
+   Duration  106.91s (transform 21.69s, setup 0ms, import 50.60s, tests 111.81s, environment 33ms)
+

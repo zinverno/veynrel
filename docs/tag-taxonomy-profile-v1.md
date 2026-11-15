@@ -1,5 +1,6 @@
 # Tag Taxonomy Profile v1
 
+> Development R04 extends the existing surface with a local organization audit and an optional file-backed registry. See [R04 contracts](r04-organization-audit.md). Public stable 2.3.1 is unchanged. The original v1 contracts below remain authoritative for their original workflows.
 Open **Veynrel → Tools → Tag Taxonomy** (RU: **Таксономия тегов**).
 Opening Tools or this modal reads only the already loaded profile. It does not
 enumerate notes, read Markdown, call a provider, or create a profile. This feature

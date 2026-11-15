@@ -1,0 +1,23 @@
+{
+  "scenario": "r04-organization-native-v1",
+  "checks": [],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "c62c7d55f7c0d8e0dad95014a0a4347bdfe160d40f6aec916cd553b882a08a46",
+    "styles.css": "1e5a54a09eba5ed8dd8bc27e77c47dde8e6b91480ae3d0003538197d48a822b1",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-organization-native.mjs": "b0614c1fa4d3ef27639d24d7734aadf5d7369cb3fdec752f048afbec78c9f571",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "47c3330981086e2bd54c88d99b76c7e0ce5432dc69fd720f384168d5246210b8"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":1574,\"columnNumber\":2,\"scriptId\":\"63\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"Module._resolveFilename\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1570,\"columnNumber\":14},{\"functionName\":\"a._resolveFilename\",\"scriptId\":\"127\",\"url\":\"node:electron/js2c/renderer_init\",\"lineNumber\":1,\"columnNumber\":4843},{\"functionName\":\"wrapResolveFilename\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1124,\"columnNumber\":26},{\"functionName\":\"defaultResolveImplForCJSLoading\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1148,\"columnNumber\":9},{\"functionName\":\"resolveForCJSWithHooks\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1175,\"columnNumber\":11},{\"functionName\":\"Module._load\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1347,\"columnNumber\":4},{\"functionName\":\"l._load\",\"scriptId\":\"86\",\"url\":\"node:electron/js2c/node_init\",\"lineNumber\":1,\"columnNumber\":18262},{\"functionName\":\"s._load\",\"scriptId\":\"127\",\"url\":\"node:electron/js2c/renderer_init\",\"lineNumber\":1,\"columnNumber\":34530},{\"functionName\":\"wrapModuleLoad\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":267,\"columnNumber\":18},{\"functionName\":\"Module.require\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1680,\"columnNumber\":11},{\"functionName\":\"require\",\"scriptId\":\"57\",\"url\":\"node:internal/modules/helpers\",\"lineNumber\":156,\"columnNumber\":15},{\"functionName\":\"\",\"scriptId\":\"175\",\"url\":\"\",\"lineNumber\":5,\"columnNumber\":19}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"Error\",\"description\":\"Error: Cannot find module 'obsidian'\\nRequire stack:\\n- electron/js2c/renderer_init\\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1571:15)\\n    at a._resolveFilename (node:electron/js2c/renderer_init:2:4844)\\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1125:27)\\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1149:10)\\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1176:12)\\n    at Module._load (node:internal/modules/cjs/loader:1348:5)\\n    at l._load (node:electron/js2c/node_init:2:18263)\\n    at s._load (node:electron/js2c/renderer_init:2:34531)\\n    at wrapModuleLoad (node:internal/modules/cjs/loader:268:19)\\n    at Module.require (node:internal/modules/cjs/loader:1681:12)\",\"objectId\":\"-3244492797848751198.1.2\"}}\n    at Object.ev (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:45:5)\n    at async attach (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:72:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:112:3"
+}

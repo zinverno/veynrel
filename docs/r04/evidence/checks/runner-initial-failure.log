@@ -1,0 +1,17 @@
+{"root": "/tmp/veynrel-infra-test-6f0d6b954a0f", "command": ["/usr/bin/python", "-c", "import subprocess,sys; subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(60)\"]);sys.exit(7)"], "timeoutSeconds": 15, "startedAt": 1794721406.7541873, "exitCode": 7, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 2.059}
+.{"root": "/tmp/veynrel-infra-test-3eaa5cc827ab", "command": ["/usr/bin/python", "-c", "import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/'ready').touch();time.sleep(60)", "/tmp/veynrel-infra-test-3eaa5cc827ab"], "timeoutSeconds": 30, "startedAt": 1794721409.2529178, "exitCode": 1, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 1.077}
+F{"root": "/tmp/veynrel-infra-test-c75fc46ab11e", "command": ["/usr/bin/python", "-c", "import time;time.sleep(60)"], "timeoutSeconds": 3, "startedAt": 1794721410.4147327, "exitCode": 124, "failure": "TIMEOUT", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.011}
+.
+======================================================================
+FAIL: test_sigterm_cleans_process_group (__main__.RunnerTests.test_sigterm_cleans_process_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/native/test_runner.py", line 50, in test_sigterm_cleans_process_group
+    self.assertIsNone(proc.poll()); time.sleep(.05)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+AssertionError: 1 is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 6.678s
+
+FAILED (failures=1)

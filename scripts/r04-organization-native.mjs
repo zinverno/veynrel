@@ -63,8 +63,11 @@ async function stopVideo() {
   if (!recording) return; recording = false; await main.send('Page.stopScreencast'); assert(frames.length > 5, 'Native video contains frames');
   const list = frames.map((f,i) => `file '${f.file}'\nduration ${Math.max(.001,(frames[i+1]?.time ?? f.time+.2)-f.time)}`).join('\n') + `\nfile '${frames.at(-1).file}'\n`;
   fs.writeFileSync(`${root}/frames/frames.txt`, list);
-  const result = spawnSync('ffmpeg', ['-hide_banner','-loglevel','error','-f','concat','-safe','0','-i',`${root}/frames/frames.txt`,'-vf','pad=1600:1000:0:0','-fps_mode','vfr','-c:v','libx264','-threads','2','-pix_fmt','yuv420p','-movflags','+faststart',`${root}/journey.mp4`], { encoding:'utf8' });
-  assert.equal(result.status, 0, result.stderr); report.recording = { file:'journey.mp4', frames:frames.length, seconds:frames.at(-1).time-frames[0].time, source:'Native CDP frames and timestamps; main client area, no cuts' };
+  const result = spawnSync('ffmpeg', ['-hide_banner','-loglevel','error','-f','concat','-safe','0','-i',`${root}/frames/frames.txt`,'-vf','pad=1600:1000:0:0','-fps_mode','cfr','-r','30','-c:v','libx264','-threads','2','-pix_fmt','yuv420p','-movflags','+faststart',`${root}/journey.mp4`], { encoding:'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const probe=spawnSync('ffprobe',['-v','error','-show_entries','format=duration','-of','json',`${root}/journey.mp4`],{encoding:'utf8'});assert.equal(probe.status,0,probe.stderr);
+  const encodedSeconds=Number(JSON.parse(probe.stdout).format.duration);assert(encodedSeconds>=frames.at(-1).time-frames[0].time,'Encoded video must retain the complete native frame interval');
+  report.recording = { file:'journey.mp4', encodedSeconds, frames:frames.length, seconds:frames.at(-1).time-frames[0].time, source:'Native CDP frames and timestamps; main client area, no cuts' };
 }
 async function attach() {
   endpoint = await nativeEndpoint(root, child);

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/usr/bin/python",
+    "-c",
+    "import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/'ready').touch();time.sleep(60)",
+    "/tmp/veynrel-infra-test-3eaa5cc827ab"
+  ],
+  "timeoutSeconds": 30,
+  "startedAt": 1794721409.2529178,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [],
+  "cdpClosed": true,
+  "seconds": 1.077
+}

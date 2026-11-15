@@ -23,11 +23,17 @@ error; failed evidence is not overwritten.
 The maintained core harnesses use the same launch boundary:
 
 ```sh
+python scripts/native/run.py organization --timeout 300
 python scripts/native/run.py studio --timeout 240
 python scripts/native/run.py recall
 python scripts/native/run.py community /absolute/path/to/local-veynrel-recipes
 VEYNREL_R03_REVIEW_LABELS=1 python scripts/native/run.py studio
 ```
+
+The `organization` scenario exercises R04 on synthetic empty, tagless, organized,
+registry and 1,000-note fixtures, including cancellation, stale sources, native
+keyboard/split/popout, restart, RU/EN and both themes. It uses no model response;
+a loopback request counter must remain zero. See [R04 verification](r04/verification.md).
 
 The environment flag selects the independent R03 Review-label mode: 24 label
 variants plus 10 scenario checks, including destination switching without another
@@ -70,7 +76,7 @@ XDG directories, Native frame, dynamic CDP and the same smoke assertions.
 ## Dependencies and isolation
 
 Locally verified dependencies: Linux; Node 24.14.1; Python 3.14.7; Xvfb
-21.1.24; Openbox 3.6.1; xauth 1.1.5; ffmpeg 9.0.1; dbus-run-session and xprop;
+21.1.24; Openbox 3.6.1; xauth 1.1.5; ffmpeg/ffprobe 9.0.1; dbus-run-session and xprop;
 Obsidian 1.13.7 at `/usr/lib/obsidian/app.asar`, launched by
 `/usr/bin/electron43` (Electron 43.6.0). No package/version installation is
 performed by the runner. The product manifest/dependencies remain unchanged.

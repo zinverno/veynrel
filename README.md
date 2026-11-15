@@ -9,6 +9,8 @@ Veynrel brings vault health, connection review and spaced repetition to Obsidian
 > **Public stable: Veynrel 2.3.1.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.1).
 > **Unpublished development:** R02 removes Excalidraw generation from the next version. Existing drawings and journals remain intact. The intermediate manifest is 2.4.0; the final version will be decided at R15. No stable/beta/prerelease or Marketplace update is planned before acceptance of all R01–R15 stages. [Release policy](docs/roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) · [Removal and legacy data](docs/studio-diagram-removal.md)
 
+> **R04 in development:** [Local organization audit and optional rules](docs/r04-organization-audit.md), without a model or automatic note changes. This is not part of public 2.3.1.
+
 ## Workspace and Studio
 
 ### Review a vault

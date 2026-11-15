@@ -1,0 +1,72 @@
+{
+  "scenario": "r04-organization-native-v1",
+  "checks": [],
+  "exceptions": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    }
+  ],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-organization-native.mjs": "fcc6f783b4a0ddeb8922aa1d10c10ec42afa21565740261dbc6982bfe52fe64c",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "47c3330981086e2bd54c88d99b76c7e0ce5432dc69fd720f384168d5246210b8"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:54:159)\n    at async openAudit (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:107:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-organization-native.mjs:120:3",
+  "diagnostic": {
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive"
+    },
+    "keyTrace": [
+      {
+        "type": "keydown",
+        "key": "Enter",
+        "target": "organization-audit",
+        "prevented": false
+      },
+      {
+        "type": "keypress",
+        "key": "Enter",
+        "target": "organization-audit",
+        "prevented": false
+      },
+      {
+        "type": "click",
+        "target": "organization-audit",
+        "prevented": false
+      },
+      {
+        "type": "keyup",
+        "key": "Enter",
+        "target": "organization-audit",
+        "prevented": false
+      }
+    ],
+    "active": "<h1 tabindex=\"-1\" data-health-heading=\"true\">Welcome to Veynrel</h1>",
+    "modals": 1
+  }
+}
