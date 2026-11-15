@@ -13,7 +13,7 @@ const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowle
 fs.mkdirSync(pluginDir, { recursive: true }); fs.mkdirSync(`${root}/profile`); fs.mkdirSync(`${root}/frames`);
 const definitions={version:1,profile:{version:1,categories:[]},tags:[{tag:'unused/Ё',state:'allowed',description:'An explicitly unused tag'},{tag:'flashcards/Study',state:'allowed',description:'Separate learning role'}],conventions:[]};
 const originalRegistry='---\r\ntitle: Owner instructions\r\n---\r\n# User prose preserved\r\n<!-- keep -->\r\n\r\n```veynrel-organization\r\n'+JSON.stringify(definitions,null,2).replace(/\n/g,'\r\n')+'\r\n```\r\n\r\nAfter: [[A]] and Ё.\r\n';
-const originals={'Rules.md':originalRegistry,'Notes/A.md':'# A\n#topic/one\n','Notes/B.md':'# B\n#topic/two\n','Notes/C.md':'# C\n#topic/three\n','Diary.md':'Useful diary without tags.\n'};
+const originals={'Rules.md':originalRegistry,'Editor rules.md':originalRegistry.replace(/\r\n/g,'\n'),'Notes/A.md':'# A\n#topic/one\n','Notes/B.md':'# B\n#topic/two\n','Notes/C.md':'# C\n#topic/three\n','Diary.md':'Useful diary without tags.\n'};
 for (const [name, text] of Object.entries(originals)) { fs.mkdirSync(`${vault}/${name.substring(0,name.lastIndexOf('/')+1)}`,{recursive:true}); fs.writeFileSync(`${vault}/${name}`, text); }
 fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`, '["ai-knowledge-hub"]');
 fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
@@ -59,7 +59,7 @@ async function connection(target) {
 }
 async function wait(expression, c = main, attempts = 200) { for (let i = 0; i < attempts; i++) { if (await c.ev(expression)) return; await pause(50); } throw Error(`Readiness: ${expression}`); }
 async function pass(name, expression, c = main) { assert(await c.ev(expression), name); report.checks.push(name); }
-async function shot(name, c = main) { if(recording)await pause(800); fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await c.send('Page.captureScreenshot', { format:'png' })).data,'base64')); report.screenshots.push(name+'.png'); }
+async function shot(name, c = main) { if(recording||capture)await pause(800); fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await c.send('Page.captureScreenshot', { format:'png' })).data,'base64')); report.screenshots.push(name+'.png'); }
 async function focus(c = main) { await c.send('Page.bringToFront'); await c.ev('window.electronWindow.focus();void 0'); await wait('document.hasFocus() && window.electronWindow.isFocused()', c); }
 async function key(key, code, number, text, modifiers = 0) {
   for (const type of ['keyDown','keyUp']) await main.send('Input.dispatchKeyEvent', { type, key, code, windowsVirtualKeyCode:number, nativeVirtualKeyCode:number, modifiers, ...(type==='keyDown' && text ? {text,unmodifiedText:text}: {}) });
@@ -104,7 +104,7 @@ async function reveal(selector) {
 async function activate(selector) {
   await reveal(selector); await focus(); await main.ev(`{const e=document.querySelector(${JSON.stringify(selector)});if(e.disabled)throw Error('Disabled control');e.scrollIntoView({block:'center'});e.focus();}void 0`);
   report.actions.push({selector,active:await main.ev('document.activeElement?.outerHTML')});
-  await key('Enter','Enter',13,'\r');if(recording)await pause(650);
+  await key('Enter','Enter',13,'\r');if(recording||capture)await pause(650);
 }
 const hashes=()=>Object.fromEntries(Object.keys(originals).map(path=>[path,sha(fs.readFileSync(`${vault}/${path}`))]));
 const initialHashes=hashes();
@@ -144,8 +144,8 @@ async function openAudit() {
   await wait("!!document.querySelector('[data-health-action=organization-audit]')");await activate('[data-health-action=organization-audit]');
   await wait("!!document.querySelector('.ai-taxonomy')");await main.ev("window.audit=[...app.plugins.plugins['ai-knowledge-hub'].taxonomyModals].at(-1);void 0");
 }
-async function connect() {
-  await fill('[data-org-field=registry-path]','Rules.md');await activate('[data-org-action=registry-connect]');await wait('!!audit.rulesView.review');
+async function connect(path='Rules.md') {
+  await fill('[data-org-field=registry-path]',path);await activate('[data-org-action=registry-connect]');await wait('!!audit.rulesView.review');
   await activate('[data-org-action=registry-confirm]');await wait("plugin.getOrganizationRegistry().state==='ready'&&!audit.rulesView.busy");
 }
 async function openEditor() { await activate('[data-org-action=registry-edit]');await wait("!!document.querySelector('[data-registry-field=entry]')||!!document.querySelector('.ai-registry-editor [role=alert]')"); }
@@ -204,7 +204,8 @@ try {
     }
   }
   await main.send('Emulation.clearDeviceMetricsOverride');await main.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await phase('split');
-  await main.ev("(async()=>{window.split=app.workspace.getLeaf('split');await split.openFile(app.vault.getFileByPath('Rules.md'));})()");await openAudit();await openEditor();await pass('Affected real split editor blocks registry preparation',"!!document.querySelector('.ai-registry-editor [role=alert]')&&!document.querySelector('[data-registry-action=review]')");await closeTop('.ai-registry-editor');await closeTop('.ai-taxonomy');await main.ev('split.detach();void 0');
+  await openAudit();await connect('Editor rules.md');await closeTop('.ai-taxonomy');
+  await main.ev("(async()=>{window.split=app.workspace.getLeaf('split');await split.openFile(app.vault.getFileByPath('Editor rules.md'));})()");await openAudit();await openEditor();await pass('Affected real split editor blocks registry preparation',"!!document.querySelector('.ai-registry-editor [role=alert]')&&!document.querySelector('[data-registry-action=review]')");await closeTop('.ai-registry-editor');await closeTop('.ai-taxonomy');await main.ev('split.detach();void 0');await openAudit();await connect();await closeTop('.ai-taxonomy');
   await phase('popout');await main.ev("(async()=>{window.pop=app.workspace.getLeaf('window');await pop.setViewState({type:'veynrel-health',active:true});})()");await wait('pop.view.containerEl.ownerDocument!==document');let target;for(let i=0;i<100;i++){target=(await(await fetch(`${endpoint}/json/list`)).json()).find(t=>t.type==='page'&&t.id!==main.id);if(target)break;await pause(50);}assert(target);
   const home=main;main=await connection(target);await focus();await main.ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];void 0");await openAudit();await openEditor();await pass('Real popout owns registry editor and focus',"document.hasFocus()&&!!document.querySelector('.ai-registry-editor')");await shot('popout-registry');await closeTop('.ai-registry-editor');await closeTop('.ai-taxonomy');main=home;await main.ev('pop.detach();void 0');await focus();await pass('Focus returns with reduced motion',"document.hasFocus()&&matchMedia('(prefers-reduced-motion: reduce)').matches");
   assert.deepEqual(hashes(),initialHashes);assert.equal(await main.ev('JSON.stringify(plugin.settings.tagTaxonomyProfile??null)'),report.settingsBefore);delete report.settingsBefore;
