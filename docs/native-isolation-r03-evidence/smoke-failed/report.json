@@ -1,0 +1,160 @@
+{
+  "scenario": "isolated-native-smoke-r03-v2",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "en/dark: Studio has actual translated controls",
+    "en/light: Studio has actual translated controls",
+    "ru/dark: Studio has actual translated controls",
+    "ru/light: Studio has actual translated controls",
+    "R03 Workspace Home remains unscanned after passive navigation"
+  ],
+  "exceptions": [],
+  "actions": [
+    {
+      "label": "health-en-dark",
+      "width": 756,
+      "scrollWidth": 756,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "studio-en-dark",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "health-en-light",
+      "width": 756,
+      "scrollWidth": 756,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "studio-en-light",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "en"
+    },
+    {
+      "label": "health-ru-dark",
+      "width": 756,
+      "scrollWidth": 756,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    },
+    {
+      "label": "studio-ru-dark",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(28, 28, 28)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    },
+    {
+      "label": "health-ru-light",
+      "width": 756,
+      "scrollWidth": 756,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    },
+    {
+      "label": "studio-ru-light",
+      "width": 744,
+      "scrollWidth": 744,
+      "background": "rgb(255, 255, 255)",
+      "font": "\"??\", \"??\", \"??\", ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", Inter, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "theme": true,
+      "language": "ru"
+    }
+  ],
+  "screenshots": [
+    "health-en-dark.png",
+    "studio-en-dark.png",
+    "health-en-light.png",
+    "studio-en-light.png",
+    "health-ru-dark.png",
+    "studio-ru-dark.png",
+    "health-ru-light.png",
+    "studio-ru-light.png",
+    "workspace-local-check.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 108,
+    "seconds": 6.6191020011901855,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "smoke.mjs": "4202da417502388bbbd6bfe0528f5323d9ee88b9a86c1616b6a920341903aab3",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "185a56284295b6fced930cd84f4bd00e5a6e3a99bdb7ed43254da19c5abd2b0b"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "localCheck": {
+    "scan": {
+      "id": "local-16db58c4-4168-413a-af55-e19ae304be6e",
+      "type": "local",
+      "startedAt": 1794714041856,
+      "notesSeen": 2,
+      "findingsCreated": 3,
+      "findingsUpdated": 0,
+      "findingsResolved": 0,
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "reconciliationReceipts": {
+        "local:broken-links": 1794714041955,
+        "local:duplicate-titles": 1794714041955,
+        "local:exact-duplicates": 1794714041955,
+        "local:graph-components": 1794714041955,
+        "local:no-incoming-links": 1794714041955,
+        "local:no-outgoing-links": 1794714041955,
+        "local:note-shape": 1794714041955,
+        "local:orphans": 1794714041955
+      },
+      "status": "completed",
+      "completedAt": 1794714041955
+    },
+    "freshness": "verified",
+    "findingsCommitted": true,
+    "historyRecorded": true,
+    "diagnostics": []
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Explicit local check completes and returns its receipt to Home\n    at pass (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/native/smoke.mjs:51:51)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/native/smoke.mjs:108:3"
+}

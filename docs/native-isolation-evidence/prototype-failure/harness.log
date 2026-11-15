@@ -1,0 +1,63 @@
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.gtk.vfs.Daemon' requested by ':1.0' (uid=1000 pid=18345 comm="/usr/lib/electron43/electron --user-data-dir=/tmp/")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.gtk.vfs.Daemon'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.a11y.Bus' requested by ':1.0' (uid=1000 pid=18345 comm="/usr/lib/electron43/electron --user-data-dir=/tmp/")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.a11y.Bus'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.portal.Desktop' requested by ':1.3' (uid=1000 pid=18345 comm="/usr/lib/electron43/electron --user-data-dir=/tmp/")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.impl.portal.PermissionStore' requested by ':1.6' (uid=1000 pid=18434 comm="/usr/lib/xdg-desktop-portal")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.freedesktop.impl.portal.PermissionStore'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.portal.Documents' requested by ':1.6' (uid=1000 pid=18434 comm="/usr/lib/xdg-desktop-portal")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.freedesktop.portal.Documents'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.impl.portal.desktop.gnome' requested by ':1.6' (uid=1000 pid=18434 comm="/usr/lib/xdg-desktop-portal")
+
+** (xdg-desktop-portal-gnome:18463): WARNING **: 03:52:33.671: Failed to open service channel Wayland connection, portals dialogs may missbehave (Cannot invoke method; proxy is for the well-known name org.gnome.Mutter.ServiceChannel without an owner, and proxy was constructed with the G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START flag).
+MESA-EGL: warning: DRI3 error: Could not get DRI3 device
+MESA-EGL: warning: Ensure your X server supports DRI3 to get accelerated rendering
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.gnome.Settings.GlobalShortcutsProvider' requested by ':1.9' (uid=1000 pid=18463 comm="/usr/lib/xdg-desktop-portal-gnome")
+
+** (process:18520): WARNING **: 03:52:33.905: Failed to open service channel Wayland connection, portal dialogs may misbehave (Cannot invoke method; proxy is for the well-known name org.gnome.Mutter.ServiceChannel without an owner, and proxy was constructed with the G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START flag).
+MESA-EGL: warning: DRI3 error: Could not get DRI3 device
+MESA-EGL: warning: Ensure your X server supports DRI3 to get accelerated rendering
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.gnome.Settings.GlobalShortcutsProvider'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.freedesktop.impl.portal.desktop.gnome'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.impl.portal.desktop.gtk' requested by ':1.6' (uid=1000 pid=18434 comm="/usr/lib/xdg-desktop-portal")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.systemd1' requested by ':1.13' (uid=1000 pid=18565 comm="/usr/bin/dbus-broker-launch --config-file=/usr/sha")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activated service 'org.freedesktop.systemd1' failed: Process org.freedesktop.systemd1 exited with status 1
+
+** (xdg-desktop-portal-gtk:18559): WARNING **: 03:52:34.172: AT-SPI: Could not obtain desktop path or name
+
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.freedesktop.impl.portal.desktop.gtk'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.systemd1' requested by ':1.13' (uid=1000 pid=18565 comm="/usr/bin/dbus-broker-launch --config-file=/usr/sha")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activated service 'org.freedesktop.systemd1' failed: Process org.freedesktop.systemd1 exited with status 1
+
+** (xdg-desktop-portal-gtk:18559): WARNING **: 03:52:34.178: atk-bridge: GetRegisteredEvents returned message with unknown signature
+
+** (xdg-desktop-portal-gtk:18559): WARNING **: 03:52:34.178: atk-bridge: get_device_events_reply: unknown signature
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.secrets' requested by ':1.0' (uid=1000 pid=18345 comm="/usr/lib/electron43/electron --user-data-dir=/tmp/")
+
+(/usr/lib/xdg-desktop-portal:18434): xdg-desktop-portal-WARNING **: 03:52:34.197: Failed to connect to PipeWire: Couldn't connect to PipeWire
+** Message: 03:52:34.216: couldn't access control socket: /tmp/veynrel-native-control-26k7hnp4/xdg_runtime_dir/keyring/control: No such file or directory
+discover_other_daemon: 0dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.freedesktop.secrets'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.freedesktop.portal.Desktop'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.gnome.keyring.SystemPrompter' requested by ':1.17' (uid=1000 pid=18577 comm="/usr/bin/gnome-keyring-daemon --start --foreground")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.systemd1' requested by ':1.13' (uid=1000 pid=18565 comm="/usr/bin/dbus-broker-launch --config-file=/usr/sha")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.gnome.keyring.SystemPrompter'
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activated service 'org.freedesktop.systemd1' failed: Process org.freedesktop.systemd1 exited with status 1
+
+** (gcr-prompter:18584): WARNING **: 03:52:34.319: AT-SPI: Could not obtain desktop path or name
+
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.freedesktop.systemd1' requested by ':1.13' (uid=1000 pid=18565 comm="/usr/bin/dbus-broker-launch --config-file=/usr/sha")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activated service 'org.freedesktop.systemd1' failed: Process org.freedesktop.systemd1 exited with status 1
+
+** (gcr-prompter:18584): WARNING **: 03:52:34.321: atk-bridge: GetRegisteredEvents returned message with unknown signature
+
+** (gcr-prompter:18584): WARNING **: 03:52:34.321: atk-bridge: get_device_events_reply: unknown signature
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Activating service name='org.gtk.vfs.Metadata' requested by ':1.18' (uid=1000 pid=18584 comm="/usr/lib/gcr-prompter")
+dbus-daemon[18337]: [session uid=1000 pid=18337 pidfd=5] Successfully activated service 'org.gtk.vfs.Metadata'
+
+** (gnome-keyring-daemon:18577): WARNING **: 03:53:07.163: prompting failed: The operation was cancelled
+{"root":"/tmp/veynrel-smoke-native-infra-pilot1","status":"FAIL","checks":0,"exceptions":0,"error":"Error: CDP timeout: Runtime.evaluate\n    at Timeout._onTimeout (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/native/smoke.mjs:29:78)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"}
+A connection to the bus can't be made
+
+(gcr-prompter:18584): Gcr-WARNING **: 03:53:07.177: couldn't connect to session bus
+
+(gcr-prompter:18584): Gcr-WARNING **: 03:53:07.177: couldn't connect to session bus

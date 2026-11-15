@@ -1,0 +1,181 @@
+{
+  "runtimeBase": "fbdb307908d75768f50e8ae3a49b22ccd1a18a8a",
+  "integrationSourceCommit": "0b66b4109587ee704a688d72f7ec72fc01363baa",
+  "mergeCommit": "5e97d33aa92175553d5add5633d614be2897ba4e",
+  "assets": {
+    "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "harnessSha256": {
+    "scripts/native/smoke.mjs": "407c79112f96a51f419c7bfad3497ad4b7d76189b7998ce3c600a62a09793a15",
+    "scripts/native/run.py": "185a56284295b6fced930cd84f4bd00e5a6e3a99bdb7ed43254da19c5abd2b0b",
+    "scripts/native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "scripts/studio-source-preservation-native.mjs": "2c10ef4f9e1460f995a36a9834aeed0d02e656726bcd3054f9c27b6e74e9c370",
+    "scripts/recall-topics-native.mjs": "211d61521e137b9efa419eedc79cb013536eff0eccee53cfd21ce067e872399f",
+    "scripts/studio-community-native.mjs": "139eb52af0379ef80131d5fab5b542eb4b109d23a1c372334bbc6af5728d2665"
+  },
+  "runs": {
+    "smoke-failed": {
+      "root": "/tmp/veynrel-smoke-native-r03-integration-1",
+      "report": "./smoke-failed/report.json",
+      "checks": 6,
+      "exceptions": 0,
+      "status": "FAIL",
+      "display": ":2",
+      "ports": [
+        39915
+      ],
+      "seconds": 17.318,
+      "processGroupClean": true,
+      "cdpClosed": true,
+      "hostStarts": 1,
+      "screenshots": 10
+    },
+    "smoke": {
+      "root": "/tmp/veynrel-smoke-native-r03-integration-2",
+      "report": "./smoke/report.json",
+      "checks": 21,
+      "exceptions": 0,
+      "status": "PASS",
+      "display": ":2",
+      "ports": [
+        42599
+      ],
+      "seconds": 16.416,
+      "processGroupClean": true,
+      "cdpClosed": true,
+      "hostStarts": 1,
+      "screenshots": 15
+    },
+    "review": {
+      "root": "/tmp/veynrel-studio-native-r03-integration-review",
+      "report": "./review/report.json",
+      "checks": 10,
+      "exceptions": 0,
+      "status": "PASS",
+      "display": ":3",
+      "ports": [
+        34753
+      ],
+      "seconds": 38.79,
+      "processGroupClean": true,
+      "cdpClosed": true,
+      "hostStarts": 1,
+      "screenshots": 22
+    },
+    "studio": {
+      "root": "/tmp/veynrel-studio-native-r03-integration-full",
+      "report": "./studio/report.json",
+      "checks": 66,
+      "exceptions": 0,
+      "status": "PASS",
+      "display": ":3",
+      "ports": [
+        34243,
+        46751,
+        37687,
+        43335
+      ],
+      "seconds": 182.157,
+      "processGroupClean": true,
+      "cdpClosed": true,
+      "hostStarts": 4,
+      "screenshots": 50
+    },
+    "recall": {
+      "root": "/tmp/veynrel-recall-native-r03-integration",
+      "report": "./recall/report.json",
+      "checks": 45,
+      "exceptions": 0,
+      "status": true,
+      "display": ":2",
+      "ports": [
+        40951,
+        38797
+      ],
+      "seconds": 37.103,
+      "processGroupClean": true,
+      "cdpClosed": true,
+      "hostStarts": 2,
+      "screenshots": 17
+    },
+    "community": {
+      "root": "/tmp/veynrel-community-native-r03-integration",
+      "report": "./community/report.json",
+      "checks": 47,
+      "exceptions": 0,
+      "status": "PASS",
+      "display": ":4",
+      "ports": [
+        46601,
+        38463,
+        42635,
+        44503,
+        36927
+      ],
+      "seconds": 27.018,
+      "processGroupClean": true,
+      "cdpClosed": true,
+      "hostStarts": 5,
+      "screenshots": 21
+    }
+  },
+  "desktopRun": false,
+  "catalogCommit": "2c9de8caede80fc91b46f49f18548c7f38b24fd4",
+  "allCdpPortsUnique": true,
+  "review": {
+    "labels": 24,
+    "checks": 10,
+    "explicitSyntheticRequests": 4,
+    "destinationSwitchRequestDelta": 0,
+    "passiveJournalAndMarkdownUnchanged": true
+  },
+  "checks": {
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 227.84950733184814
+    },
+    "mutation": {
+      "command": [
+        "npm",
+        "run",
+        "audit:proposals"
+      ],
+      "exitCode": 0,
+      "seconds": 12.28092360496521
+    },
+    "runner": {
+      "command": [
+        "python",
+        "scripts/native/test_runner.py"
+      ],
+      "exitCode": 0,
+      "seconds": 4.8355326652526855
+    },
+    "session": {
+      "command": [
+        "node",
+        "--test",
+        "scripts/native/session-check.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.13443779945373535
+    },
+    "suite": {
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--maxWorkers=2"
+      ],
+      "exitCode": 0,
+      "seconds": 116.2065749168396
+    }
+  }
+}

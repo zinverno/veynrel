@@ -1,0 +1,14 @@
+{
+  "main": "fbdb307908d75768f50e8ae3a49b22ccd1a18a8a",
+  "oldInfrastructureHead": "0b37b39ca304e85096cd741cdbc99547a7faafc9",
+  "conflictedFiles": [],
+  "manuallyReviewedOverlap": [
+    "scripts/studio-source-preservation-native.mjs"
+  ],
+  "reviewLabelsFunctionMatchesMain": true,
+  "focusPointerFunctionMatchesMain": true,
+  "reviewUnitTestsMatchMain": true,
+  "fixed9286Removed": true,
+  "runtimeDiffAgainstMain": [],
+  "mergeMode": "git merge --no-commit origin/main; automatic textual merge inspected before commit"
+}

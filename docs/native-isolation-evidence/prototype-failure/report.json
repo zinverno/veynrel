@@ -1,0 +1,17 @@
+{
+  "scenario": "isolated-native-smoke-v1",
+  "checks": [],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [],
+  "assets": {
+    "main.js": "62c87dd88a66e613d46c96736c1bc6c2ddfd674b3df4404309cbf52033e83da9",
+    "styles.css": "b12c11d1996525a0c99a804dcd80085fa138d75fe7e229caaef16ebc83e17267",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "status": "FAIL",
+  "error": "Error: CDP timeout: Runtime.evaluate\n    at Timeout._onTimeout (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/native/smoke.mjs:29:78)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+  "captureError": "Error: CDP timeout: Page.captureScreenshot"
+}

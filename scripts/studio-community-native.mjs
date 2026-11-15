@@ -1,15 +1,16 @@
 // Synthetic-only native acceptance. Build first, then:
-// node scripts/studio-native.mjs /tmp/veynrel-community-native-<unique-name>
+// python scripts/native/run.py community /path/to/local-catalog
 import fs from 'node:fs';
+import { assertNativeRoot, launchObsidian, nativeEndpoint } from './native/session.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
-import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const BUILD = process.env.VEYNREL_NATIVE_BUILD ?? ROOT;
 const root = process.argv[2];
+assertNativeRoot(root);
 assert(root?.startsWith('/tmp/veynrel-community-native-') && !root.includes('..') && !fs.existsSync(root));
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(pluginDir, { recursive: true }); fs.mkdirSync(`${root}/profile`, { recursive: true });
@@ -45,7 +46,7 @@ const sha = raw => createHash('sha256').update(raw).digest('hex');
 const artifacts = {};
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { fs.copyFileSync(`${BUILD}/${name}`, `${pluginDir}/${name}`); artifacts[name] = sha(fs.readFileSync(`${pluginDir}/${name}`)); }
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
-const start = () => spawn('/usr/bin/electron43', ['/usr/lib/obsidian/app.asar', `--user-data-dir=${root}/profile`, '--remote-debugging-port=9290', '--disable-gpu', '--ozone-platform=x11'], { stdio: ['ignore', 'ignore', fs.openSync(`${root}/electron.log`, 'a')] });
+const start = () => launchObsidian(root);
 let child, socket, sequence = 0;
 const pending = new Map(), checks = [], screenshots = [];
 const report = { checks, artifacts, screenshots, fixture: 'Six synthetic Markdown files; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.',
@@ -72,7 +73,8 @@ const click = async (action, modal = false) => {
 const hashes = () => Object.fromEntries(Object.keys(originals).map(path => [path, sha(fs.readFileSync(`${vault}/${path}`))]));
 const initialHashes = hashes();
 async function connect() {
-  let page; for (let i = 0; i < 200; i++) { try { page = (await (await fetch('http://127.0.0.1:9290/json/list')).json()).find(p => p.url.startsWith('app://obsidian.md/')); } catch {} if (page) break; await pause(100); }
+  const endpoint = await nativeEndpoint(root, child);
+  let page; for (let i = 0; i < 200; i++) { try { page = (await (await fetch(`${endpoint}/json/list`)).json()).find(p => p.url.startsWith('app://obsidian.md/')); } catch {} if (page) break; await pause(100); }
   assert(page, 'native ready'); socket = new WebSocket(page.webSocketDebuggerUrl); await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
   socket.onmessage = e => { const m = JSON.parse(e.data); if (m.method === 'Runtime.exceptionThrown') report.exceptions.push(m.params); if (m.id) { const p = pending.get(m.id); pending.delete(m.id); if (p) m.error ? p.reject(m.error) : p.resolve(m.result); } };
   await cdp('Runtime.enable');

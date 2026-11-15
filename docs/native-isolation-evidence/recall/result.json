@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/recall-topics-native.mjs",
+    "/tmp/veynrel-recall-native-infra-final"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794704474.5800772,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    46385,
+    42669
+  ],
+  "cdpClosed": true,
+  "seconds": 27.281
+}

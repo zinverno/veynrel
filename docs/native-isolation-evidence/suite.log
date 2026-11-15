@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":124.41821900000002,"layoutMs":8.964019000000008}}
+
+ Test Files  194 passed (194)
+      Tests  5149 passed (5149)
+   Start at  04:10:05
+   Duration  65.35s (transform 8.34s, setup 0ms, import 23.57s, tests 74.78s, environment 24ms)

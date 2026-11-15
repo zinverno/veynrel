@@ -1,0 +1,932 @@
+{
+  "base": "02be9894ccc7dfcc1e3332d7a3f3630d4488b35c",
+  "method": "Tracked script source inventory; flags are text-search leads, not a coverage or execution claim. Entry-point launch/adoption reviewed separately.",
+  "scripts": [
+    {
+      "path": "scripts/acceptance-lab-native.mjs",
+      "sha256": "21d6220049f9fbd2fcc528fc922159ddd140ffda80c28a4a068947e25772bc48",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/acceptance-lab/native-actions.mjs",
+      "sha256": "cf446777cada253c48c4d39533728f9b6a9947ccb5718d3acb949e25326c180e",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/acceptance-lab/native-scenarios.mjs",
+      "sha256": "affedfe64e82254056c66a700290472b999cd0ccbce9abdeaab07b0ad898380b",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/analyzer-output-budget-native.mjs",
+      "sha256": "812cb72946f16bb3b431b19f7d734ccc79c6a1b2d8eca7676798668cdcc66d4c",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9393"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/archive-apply-native.mjs",
+      "sha256": "7caa860c5fa927214ac38464bef5619a543d299ab8a7e40b48faeda949366933",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/archive-planner-native.mjs",
+      "sha256": "6b72e0c8546248b73d3672596595273a7498c29dad056cfd03270dd341ad6acd",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/archive-planner-v2-native.mjs",
+      "sha256": "f8245b4682135129f62576ffd6b9e92794bddcbd4d13167b8cb3fadb03cc5518",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/atomization-create-gate-native.mjs",
+      "sha256": "deea6c21a7a9f13d55f4d6dae3ce523b78394f4dd390f72dcdeb942da65a42c5",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/atomization-native.mjs",
+      "sha256": "cb36c59901a66a95dfa4028894dbfcc3a8429153b353a82a470d44738f9c5889",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/beta-integration-native.mjs",
+      "sha256": "4e1d221fc675d5c35c5819c6cad3d80026b8f0b3477ef97d8532feb8dbc4dee2",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/beta-ux-polish-native.mjs",
+      "sha256": "589130ef79118d78f2b440562ad669012f12426dfa9d8e792dd7cd875584a754",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/bundle-apply-native.mjs",
+      "sha256": "f1da5403e1c487bd1c180ca5170ff82e5585481c43de84b7e7ff9dc82c1eae39",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/change-planner-native.mjs",
+      "sha256": "6c45e1f35c410c6a8da8027f8a6de67e5d5bf588ef7c6d79844fed308dd4dbdd",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/connection-case-study-native.mjs",
+      "sha256": "78146c07ca85565cc06dec6c9df9c63aba6137adad3d8e773a8424cc7f97caab",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/connection-case-study-ru-native.mjs",
+      "sha256": "09ce24e70619ae2fcacc31faadcb34c557609839521fd08a711191c797674ae7",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/connection-opportunities-native.mjs",
+      "sha256": "b0868f7552fd97653d26270f4702188dcb0e5fa0c4ffa7693e8e055a59ce56f4",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/consolidation-realistic-native.mjs",
+      "sha256": "0f0816e69ad0aec116c729e1641a3ecfbd887db6226cf22e3123e024d4809c4a",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/consolidation-unified-ux-native.mjs",
+      "sha256": "e755d3005e2529a87e5b5691d69b6f27f139b27db250b40c7e8cf64bbfcb542c",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/context-bundles-native.mjs",
+      "sha256": "b5c9f5e657af131c191346cf108fee656ea59091a895e27542e0908a27056e83",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/decisions-native.mjs",
+      "sha256": "731eb29e2fc4432dd32000927166d5cd0f3f7956660ec27208e9eb66014ba448",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/empty-atom-native.mjs",
+      "sha256": "38dfb211a0af95731f52c6f4d3b115feb192c0fa4f9d5232cfad9b96aab98c42",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/evidence-binding-native.mjs",
+      "sha256": "94b82d2c6cc013b11d5e68d1a15c47e71eb0654fc78ab9fdb37af5ec65cf5c5a",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9393"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/exclusive-create-native.mjs",
+      "sha256": "237d2a1076d9149d6e88c041ee9923154a99fa695552bf68167948afc8d3ebce",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/final-product-ui-native.mjs",
+      "sha256": "af6f3b7ca2e288f1665d126fc7ebdd256ca1f8f3234ee1def414f539c2cb748d",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/generative-atomization-native.mjs",
+      "sha256": "1cee2b99bd42d1cb04e67f97b6839f948728e7181b35e074df55c9b7e83f9721",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/global-semantic-map-native.mjs",
+      "sha256": "03aab76006b4b852064dd5cfc57f58a422f38b30b9ee64a02572ee357355196c",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/group-apply-native.mjs",
+      "sha256": "6e54bc8dca4d6dd0b16a9b491591c57ca00aceb89d89daba6eba63a7ff103ecc",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/journal-recovery-native.mjs",
+      "sha256": "83088f1bff9f03a659524ed9d38f8ff2bb3d5861ce1c63992998543b18d157a8",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/knowledge-workbench-baseline.mjs",
+      "sha256": "b00e9ae838d8a60ae58f5d5003ecd07052989dacbb072c9ebeeab962e440ebaa",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9382"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/knowledge-workbench-native.mjs",
+      "sha256": "639c5d9c5153ef2d388c68dfe31eb1526edd640e602554e9f6570092bf0c6575",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9392"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/large-vault-ux-native.mjs",
+      "sha256": "6d8b47dacb553e377ca8c6b8b2e78e78939c120e9c845e2c709d266dbd421587",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/live-evaluation-native.mjs",
+      "sha256": "1a64f66d1fb5753d1ea2d9f53505f5d6f0fb956e1c72205dc9e57efaaaa1018a",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": true
+    },
+    {
+      "path": "scripts/manual-rerank-native.mjs",
+      "sha256": "90471c05eafcd1b85b0c098debb52b8aec7d873de37066c604f3064815ce87c0",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/map-navigation-native.mjs",
+      "sha256": "2a7b58743b557dd936d99d9024d6e3e0dbae12afbbd9535afc9684a399333841",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9392"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/map-visual-native.mjs",
+      "sha256": "5d2073a616d828f674982efb96d06c1907626c526a474c27bf91e26d1e87df93",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9392"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/merge-apply-native.mjs",
+      "sha256": "8b7f2221dbbf93e0462780624cf3a552bf7fa60ca5b132b2b47d27106ea92e1b",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/merge-planner-native.mjs",
+      "sha256": "70128e54039b1773a1d1e204b6c95a413b798b94250b19ae54bb54ff35ff86b2",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/multi-file-apply-native.mjs",
+      "sha256": "e826cf03f6960433fa64e614dd08a1fdb338c1ca2f2d4e4ba2238072ba8471a3",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/multi-file-planner-native.mjs",
+      "sha256": "baaf6af3a84bc579c6ad70aa7d170592a0e0db0b41c564b745cd3b3865defc3d",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/obsidian-zoom-repro-native.mjs",
+      "sha256": "34a849f035af393f6a8f8318a07bc21e8b1a0848b6c132bb5f7e103ad4af2bad",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9298"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/pair-inspector-native.mjs",
+      "sha256": "7ed00475944fc7e621bf48ceb4e28ee51e4ae4adb051556f4ac8c95efec65da6",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9274"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/processing-native.mjs",
+      "sha256": "151403da5e4e2d4be63e8ed7c7e1e266d1a04bb6713ff1138bb33dc8d8e3b496",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/r02-host-zoom-native.mjs",
+      "sha256": "4a57f448dc524e003c990de95bb0041ce634b6ab4fbf5efdeb044a0c7e20fa4d",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9294"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/recall-topics-native.mjs",
+      "sha256": "24f9e4375510a9cf14c597b93e5690ae45109221b1013456fd1f0883abac73a3",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9297"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/recommendation-to-plan-native.mjs",
+      "sha256": "efec0b639adc4dcd8c57bc155c3b604de8b3430f259bc19c51e518810870b26b",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9393"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/relationship-analyzer-native.mjs",
+      "sha256": "b3b85f3ff5717db22fe309ca734e9f30edc95306997a210e70f77d5aec58b0df",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/release-2.0.1-native.mjs",
+      "sha256": "8bf83db47093a26c79c59748ef015e0bcf54bb5f30b9343f55069a2581695d83",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/release-2.1.0-e2e.mjs",
+      "sha256": "5b6b581221964ac72fd6134053cafe3cd0c00cba95dcba68ef490ce5b5e45e76",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/release-2.1.0-native.mjs",
+      "sha256": "b03f69e41bc5cfb1195317fe23620773c30bf3d01dc1cfc2a18b384c58035c2a",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/rerank-comparison-native.mjs",
+      "sha256": "bb377f42bcaa1081522e5a1be1d7b430739bd4a4fa4ea60145377bc47260b2ba",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/rerank-hard-v1-native.mjs",
+      "sha256": "ab9b7b8e96b9c88adc884712ad8d15486947df863e3b3080a4309afa711a6d4d",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/rerank-native.mjs",
+      "sha256": "312fd2363665745a45440774b998f49ddd9f54d00f4bc375917856446d0387e7",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/review-decisions-native.mjs",
+      "sha256": "1fbb54b84ce9140d7585a04ee5d23b114e3911848121c623c10cda71fbb81e88",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/review-flow-native.mjs",
+      "sha256": "f4183098808daca147f0252a4596013d0fc92f39ea58876cc0f3ff10016cf46d",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9393"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/review-list-first-native.mjs",
+      "sha256": "43c346ac792e88c1fbfe357828eaa48b656ec225c89bc6a3fe8e49c6501abecf",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9392"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/review-rules-native.mjs",
+      "sha256": "38ec9631d5c4031eee5a1d67d5a22ee310f96f7963fd5df8f4be41e7581c38f2",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/review-style-native.mjs",
+      "sha256": "a833a3a27e0e8009821bb508867aaf1df04f938cf6df9c9bbd03a372e2b576e9",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/safe-apply-native.mjs",
+      "sha256": "92870c1e4892a3579622a61fa94c37e0a647b91ea831c795147fd3864ca30a29",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/semantic-chunk-bounds-native.mjs",
+      "sha256": "2c5f257ea3c1ecd67a52374b60d28980fee521fad3d5d79a8b7b0eaca946d445",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/semantic-index-reliability-native.mjs",
+      "sha256": "1cde841f31e28a0da01a165289d18e5e88dfa52cab4be7cfff8b62eea57bde6e",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/semantic-neighborhood-native.mjs",
+      "sha256": "fd7b80eb3af641c006593a93c795603d79c04b9cb33d1563ad8f431f28c656d9",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/showcase500-native-navigation.mjs",
+      "sha256": "4cac9a9074f700d5be9b9c6f6e633d69e135a9e6cb8fcb43cd7a60f486ee1b1c",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9297"
+      ],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/showcase500-native.mjs",
+      "sha256": "523bd7f89aad0d9ec81877eda658f1cbed5ab4aa6dafd18b33f5f734c4068f2f",
+      "launchesElectron": true,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/structural-archive-native.mjs",
+      "sha256": "f23d375627d63acfd0d971199f65ef42b34dd3d4856cd9cd4596013a5df1408f",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/structured-groups-native.mjs",
+      "sha256": "7d074048fc341231f340bb7bc3a495ac63fde3b969ff24ecefc928cc0d6ba498",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/studio-community-native.mjs",
+      "sha256": "254126dad8fd1377ad24ad5ebc3b4ceb52b2501f62b860b1ae56a0b06afd6947",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9290"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/studio-native.mjs",
+      "sha256": "2359fabcef876c8805f4c9c4a20182f23fcebdf388f69806db0003f26c65650f",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9286"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/studio-smoke/observe_native.py",
+      "sha256": "2d498bcf75ac958999f618d71e86217d3ca97b50f18bbca84167ec22b20934cf",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": false,
+      "keyboard": false,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/studio-source-preservation-native.mjs",
+      "sha256": "90ad6a0c97de5be910442d4edf414e163928c7f720714c62fd551f19d77f3c12",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9286"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/tag-recommendations-native.mjs",
+      "sha256": "b6f71541178907f89e128ff06c7b10d4940c44c2123b11a7a20e71e8cbc1004a",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/tag-taxonomy-native.mjs",
+      "sha256": "fd0511b76f2d50577c7a8457b5e78d950325f171107a0c75ab435102a770028c",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/ux-reboot-stage1-native.mjs",
+      "sha256": "596a416eb350950987859bd44b1b266235ce9940444a3ad249d9d6f0a5f89da6",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9382"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/ux-reboot-stage11-native.mjs",
+      "sha256": "917569e66d54b2ab3a214789b21c040b8cf6e1b4dd8d4abd4cc762230117062d",
+      "launchesElectron": true,
+      "fixedCdp": [
+        "9382"
+      ],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": true,
+      "gpuDisabled": true,
+      "liveEvaluation": false
+    },
+    {
+      "path": "scripts/workspace-ui-native.mjs",
+      "sha256": "1626f4559554f7499b08238db93971486af876ebfa91bae2abfed4d3edf2db35",
+      "launchesElectron": false,
+      "fixedCdp": [],
+      "displayConfiguration": false,
+      "focus": true,
+      "keyboard": true,
+      "video": false,
+      "gpuDisabled": false,
+      "liveEvaluation": false
+    }
+  ]
+}

@@ -1,13 +1,14 @@
 // Native Obsidian, disposable synthetic vault, loopback model transport only.
 import fs from 'node:fs';
+import { assertNativeRoot, launchObsidian, nativeEndpoint } from './native/session.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
-import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const root = process.argv[2];
 const assets = process.argv[3] ?? ROOT, stableAssets = process.argv[4];
+assertNativeRoot(root);
 assert(root?.startsWith('/tmp/veynrel-recall-native-') && !root.includes('..') && !fs.existsSync(root));
 for (const dir of [assets, stableAssets].filter(Boolean)) for (const name of ['main.js', 'manifest.json', 'styles.css']) assert(fs.statSync(`${dir}/${name}`).isFile());
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
@@ -46,13 +47,14 @@ const cdp = (method, params = {}) => new Promise((resolve, reject) => { pending.
 const ev = async expression => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true }); assert(!r.exceptionDetails, JSON.stringify(r.exceptionDetails)); return r.result.value; };
 const wait = async expression => { for (let n = 0; n < 250; n++) { if (await ev(expression)) return; await pause(80); } throw Error(`Timeout: ${expression}; ${await ev('document.body.innerText.slice(-1800)')}`); };
 const pass = async (name, expression) => { assert(await ev(expression), name); report.checks.push(name); console.log(name); };
-const start = () => spawn('/usr/bin/electron43', ['/usr/lib/obsidian/app.asar', `--user-data-dir=${root}/profile`, '--remote-debugging-port=9297', '--disable-gpu', '--ozone-platform=x11'], { stdio: ['ignore', 'ignore', fs.openSync(`${root}/electron.log`, 'a')] });
+const start = () => launchObsidian(root);
 async function stop() {
   socket?.close();
   if (child && child.exitCode === null) { const exited = new Promise(resolve => child.once('exit', resolve)); child.kill('SIGTERM'); const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer); }
 }
 async function connect() {
-  let page; for (let n = 0; n < 250; n++) { try { page = (await (await fetch('http://127.0.0.1:9297/json/list')).json()).find(p => p.url.startsWith('app://obsidian.md/')); } catch {} if (page) break; await pause(100); }
+  const endpoint = await nativeEndpoint(root, child);
+  let page; for (let n = 0; n < 250; n++) { try { page = (await (await fetch(`${endpoint}/json/list`)).json()).find(p => p.url.startsWith('app://obsidian.md/')); } catch {} if (page) break; await pause(100); }
   assert(page, 'native ready'); socket = new WebSocket(page.webSocketDebuggerUrl); await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });
   socket.onmessage = e => { const m = JSON.parse(e.data); if (m.method === 'Runtime.exceptionThrown') report.exceptions.push(m.params); if (m.id) { const p = pending.get(m.id); pending.delete(m.id); if (p) m.error ? p.reject(m.error) : p.resolve(m.result); } };
   await cdp('Runtime.enable'); await cdp('Network.enable'); await cdp('Network.setBlockedURLs', { urls: ['https://*'] });

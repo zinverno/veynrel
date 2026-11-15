@@ -1,0 +1,67 @@
+[
+  {
+    "name": "session-guards",
+    "command": [
+      "node",
+      "--test",
+      "scripts/native/session-check.mjs"
+    ],
+    "exitCode": 0,
+    "startedAt": 1794704719.5188847,
+    "seconds": 0.312
+  },
+  {
+    "name": "runner-lifecycle-attempt1",
+    "command": [
+      "python",
+      "scripts/native/test_runner.py"
+    ],
+    "exitCode": 1,
+    "startedAt": 1794704719.8314044,
+    "seconds": 3.856
+  },
+  {
+    "name": "runner-lifecycle",
+    "command": [
+      "python",
+      "scripts/native/test_runner.py"
+    ],
+    "exitCode": 0,
+    "startedAt": 1794705000.3729198,
+    "seconds": 4.154
+  },
+  {
+    "name": "suite",
+    "command": [
+      "npm",
+      "test",
+      "--",
+      "--maxWorkers=2"
+    ],
+    "exitCode": 0,
+    "startedAt": 1794705004.5272381,
+    "seconds": 66.11
+  },
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "exitCode": 0,
+    "startedAt": 1794705070.637742,
+    "seconds": 81.21
+  },
+  {
+    "name": "mutation",
+    "command": [
+      "npm",
+      "run",
+      "audit:proposals"
+    ],
+    "exitCode": 0,
+    "startedAt": 1794705151.8633578,
+    "seconds": 9.573
+  }
+]
