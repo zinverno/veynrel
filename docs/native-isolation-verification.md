@@ -5,6 +5,14 @@ Xvfb/Openbox session by default. It does not change Veynrel runtime behavior,
 Recall, Studio, Health, versions, dependencies or release policy. Start with the
 [commands and real-desktop checklist](native-testing.md).
 
+## Original pre-R03 results (historical)
+
+The sections below describe the original infrastructure runs on R02. PR #141 has
+since merged. The [post-R03 integration report](native-isolation-r03-verification.md)
+records fresh runs on main `fbdb307908d75768f50e8ae3a49b22ccd1a18a8a`.
+Original receipts and their SHA-256 inventory are retained byte-for-byte. The
+visible comparison below was not rerun during the R03 integration.
+
 ## Source and environment
 
 - Runtime/base source: `02be9894ccc7dfcc1e3332d7a3f3630d4488b35c` (current main
@@ -137,8 +145,8 @@ normalized for Git. No exceptions or failed checks were filtered.
 ## Deliberately open limits
 
 This adds one supported launch path for the small smoke and three maintained
-suites, not a port of all 74 inventoried historical scripts. Frozen/live
-evaluations, historical zoom/Excalidraw probes and unmerged R03 remain untouched.
+suites, not a port of all 74 inventoried historical scripts. In these original runs, frozen/live
+evaluations, historical zoom/Excalidraw probes and then-unmerged R03 were untouched.
 The optional stable-upgrade and Excalidraw coexistence branches were not rerun.
 No claim is made that this closes the custom-frame host exception investigation.
 

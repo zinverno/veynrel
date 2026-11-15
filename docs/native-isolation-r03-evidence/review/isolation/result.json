@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/native-isolation-20261115/scripts/studio-source-preservation-native.mjs",
+    "/tmp/veynrel-studio-native-r03-integration-review"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794714033.992314,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    34753
+  ],
+  "cdpClosed": true,
+  "seconds": 38.79
+}

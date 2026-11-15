@@ -1,0 +1,14 @@
+{
+  "infra": {
+    "source": "0b37b39ca304e85096cd741cdbc99547a7faafc9",
+    "files": 2868,
+    "changed": [],
+    "inventorySha256": "550f4df666e24c20b1b294cf528b1dc8e22c8071d8c98d93902e22576498c147"
+  },
+  "r03": {
+    "source": "fbdb307908d75768f50e8ae3a49b22ccd1a18a8a",
+    "files": 3046,
+    "changed": [],
+    "inventorySha256": "5c7974c86a5aa7ebd08c88ffc9dd8955dd2a06d2ac1ac73ee0293a99b943a616"
+  }
+}

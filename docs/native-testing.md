@@ -23,10 +23,17 @@ error; failed evidence is not overwritten.
 The maintained core harnesses use the same launch boundary:
 
 ```sh
-python scripts/native/run.py studio
+python scripts/native/run.py studio --timeout 240
 python scripts/native/run.py recall
 python scripts/native/run.py community /absolute/path/to/local-veynrel-recipes
+VEYNREL_R03_REVIEW_LABELS=1 python scripts/native/run.py studio
 ```
+
+The environment flag selects the independent R03 Review-label mode: 24 label
+variants plus 10 scenario checks, including destination switching without another
+generation, separate-note creation, source Apply/Undo and History. Unset it for
+the full 66-check Studio scenario. Both modes use the same runner, isolated
+profile, focus handling and kernel-assigned CDP port; no second launcher is needed.
 
 The Community directory must contain `catalog/v1/index.json` and the referenced
 fixtures. The test serves those files locally; the runner sets
@@ -42,7 +49,9 @@ python scripts/native/run.py studio --output /tmp/veynrel-studio-native-review -
 ```
 
 Default timeout is 180 seconds; explicit timeouts are bounded to 1–900 seconds.
-The Studio regression includes its existing long-response wait test. Multiple
+The Studio regression includes its existing long-response wait test; the fresh
+post-R03 run took 182 seconds alongside other checks, so use the documented
+240-second budget for that full scenario. This does not change its assertions. Multiple
 runner processes may run concurrently; each owns its display, profile and CDP
 listener. Do not run the converted Node harnesses directly: their early guard
 rejects an unwrapped launch before creating fixtures or opening windows.
@@ -119,8 +128,12 @@ should use `assertNativeRoot(root)`, `launchObsidian(root)` and
 `nativeEndpoint(root, child)` from `scripts/native/session.mjs`, retain their own
 readiness/vault guards and assertions, and be explicitly enrolled in `SUITES`.
 Avoid intercepting `spawn`, rewriting harness source at runtime or mocking DOM
-behavior to make an old scenario pass. Unmerged PR #141 and its separate R03
-harness are not changed by this infrastructure branch.
+behavior to make an old scenario pass. PR #141 is now merged into main
+`fbdb307908d75768f50e8ae3a49b22ccd1a18a8a`. Its Studio Review mode and
+focus/pointer handling are preserved in the shared harness. Other historical
+R03 experiment drivers remain outside this runner. See the
+[fresh integration results](native-isolation-r03-verification.md); the original
+[desktop comparison](native-isolation-verification.md) used the older R02 runtime.
 
 ## What the smoke proves
 
@@ -128,7 +141,11 @@ The smoke uses actual plugin ItemViews and two synthetic Markdown files. It
 checks EN/RU and standard dark/light screens, real focused input and Tab/Enter/
 Escape, host zoom, real native content resize (not viewport emulation), a split,
 a separate popout window, focus leaving/returning to the main window, unfiltered
-runtime exceptions and byte-identical Markdown. Locale controls use the existing
+runtime exceptions and byte-identical Markdown. The R03 smoke adds two named
+checks (21 total): passive Workspace Home remains unscanned; an explicitly
+started local check completes, records history and returns its receipt to Home.
+Keyboard navigation opens the Workspace menu and recipe-management disclosure
+before focusing their controls. Locale controls use the existing
 settings UI; a fresh ItemView is opened for each language. This does not replace
 R03's hot-language-switch/context-persistence tests.
 
@@ -144,10 +161,11 @@ record the separate popout. Popout screenshots and focus assertions are separate
 | Check | Xvfb/Openbox status | Real-desktop requirement |
 | --- | --- | --- |
 | Plugin lifecycle, rendering, local contracts, synthetic Apply/Undo, Markdown integrity | Meaningful native checks within this environment | Recheck release-critical journeys on supported desktop platforms |
-| Split/popout, native resize, focus among test windows | Tested under Openbox; matched short XWayland control | Actual compositor/WM policies, cross-app focus, minimize/maximize, taskbar and close lifecycle |
+| Split/popout, native resize, focus among test windows | R03 retested under Openbox; older R02 smoke matched a short XWayland control | Actual compositor/WM policies, cross-app focus, minimize/maximize, taskbar and close lifecycle |
 | CDP keyboard/Tab/Enter/Escape | Tested, real browser handlers | Physical keyboard, OS global shortcut conflicts, IME, accessibility keyboard tools |
 | Standard theme and measured layout | Tested and compared on identical content | User themes, font rendering, fractional DPI, multiple monitors and native decorations |
 | Main client screenshots/video | Real pixels/events from Obsidian | OS chrome, desktop portal/file-dialog behavior and visual human acceptance |
+| Obsidian/Hidden custom window frame | **NOT VERIFIED**; isolated runs deliberately use Native frame | Known host lifecycle exception remains open; Native frame is a workaround, not an Obsidian fix |
 | Hardware GPU, WebGL/compositor effects, frame pacing/performance | **NOT VERIFIED**; GPU disabled/software display | Actual GPU/driver, acceleration, compositor, power/display transitions |
 | Keychain, Secret Service, desktop portals, cross-app clipboard/drag-and-drop | **NOT VERIFIED**; services intentionally isolated | Separate explicit checks with safe disposable data; no personal-keyring automation |
 | Native Wayland, Windows/macOS, physical mobile, screen-reader speech | **NOT VERIFIED** by this X11 harness | Platform-specific final runs |

@@ -45,8 +45,9 @@ Build first, then use the [isolated native runner](docs/native-testing.md). Its 
 
 ```sh
 python scripts/native/run.py smoke
-python scripts/native/run.py studio
+python scripts/native/run.py studio --timeout 240
 python scripts/native/run.py recall
+VEYNREL_R03_REVIEW_LABELS=1 python scripts/native/run.py studio
 VEYNREL_NATIVE_EXCALIDRAW=/path/to/excalidraw-2.29.0-assets python scripts/native/run.py studio
 python scripts/native/run.py community /path/to/local-catalog-fixture
 ```

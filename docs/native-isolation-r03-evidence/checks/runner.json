@@ -1,0 +1,8 @@
+{
+  "command": [
+    "python",
+    "scripts/native/test_runner.py"
+  ],
+  "exitCode": 0,
+  "seconds": 4.8355326652526855
+}

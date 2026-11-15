@@ -1,0 +1,9 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "audit:proposals"
+  ],
+  "exitCode": 0,
+  "seconds": 12.28092360496521
+}

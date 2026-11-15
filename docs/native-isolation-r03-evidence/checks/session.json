@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "scripts/native/session-check.mjs"
+  ],
+  "exitCode": 0,
+  "seconds": 0.13443779945373535
+}
