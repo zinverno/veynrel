@@ -12,6 +12,7 @@ import type { TaxonomyProfilePort } from "./taxonomyProfile";
 import type { TaxonomyInventory } from "./taxonomyScan";
 
 export interface TagRecommendationDependencies {
+  allowed?(): boolean;
   settings: Pick<LanguageModelSettingsPort, "get" | "subscribe">;
   profile: Pick<TaxonomyProfilePort, "get" | "subscribe">;
   inventory(): TaxonomyInventory | undefined;
@@ -47,8 +48,8 @@ export class TagRecommendationSession {
   get busy(): boolean { return this.view.stage === "preparing" || this.view.stage === "running"; }
   select(path: string): void { if (this.closed || this.path === path) return; this.path = path; this.clear("idle"); }
   categoryName(id: string): string { return this.deps.profile.get()?.categories.find(category => category.id === id)?.name ?? id; }
-  private settingsStamp(): string { return JSON.stringify([this.deps.settings.get(), this.deps.profile.get()]); }
-  private stamp(): string { return JSON.stringify([this.deps.settings.get(), this.deps.profile.get(), this.deps.inventory()]); }
+  private settingsStamp(): string { return JSON.stringify([this.deps.settings.get(), this.deps.profile.get(), this.deps.allowed?.()]); }
+  private stamp(): string { return JSON.stringify([this.deps.settings.get(), this.deps.profile.get(), this.deps.inventory(), this.deps.allowed?.()]); }
   private current(generation: number, stamp: string): boolean {
     if (this.closed || generation !== this.generation) return false;
     if (stamp !== this.stamp()) { this.invalidate(); return false; }
@@ -68,8 +69,9 @@ export class TagRecommendationSession {
     this.prepared = undefined; this.publish({ stage: "preparing" });
     try {
       const profile = this.deps.profile.get(), inventory = this.deps.inventory();
-      if (!profile?.categories.length) throw new TagRecommendationError("profile");
-      if (!inventory || inventory.state !== "complete" || inventory.unavailable > 0 || inventory.processed + inventory.excluded !== inventory.total) throw new TagRecommendationError("inventory");
+      if (this.deps.allowed?.() === false || !profile?.categories.length) throw new TagRecommendationError("profile");
+      if (!inventory || inventory.state !== "complete" || inventory.unavailable > 0 || inventory.processed + inventory.excluded !== inventory.total ||
+        inventory.organization && (inventory.organization.state !== "complete" || inventory.organization.scope.kind !== "all")) throw new TagRecommendationError("inventory");
       if (!validAnalysisSettings(settings)) throw new TagRecommendationError("configuration");
       if (inventory.tags.length > TAG_LIMITS.tags) throw new TagRecommendationError("tooLarge");
       const note = await this.deps.read(this.path);

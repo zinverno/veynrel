@@ -518,6 +518,8 @@ export class VeynrelHealthView extends ItemView {
     const mutationError = this.findingMutationErrorRoute === this.route;
     const semanticError = this.semanticSetup?.step === "form"
       ? semanticSetupError(this.semanticSetup.result, this.semanticSetup.draft.mode) : undefined;
+    if (["home", "health"].includes(this.route.page)) healthButton(surface.querySelector<HTMLElement>(".veynrel-health-home") ?? surface, t("@workspace.organization-audit"),
+      () => this.tools.openTagTaxonomy(structuredClone(scope.selection), this.controller.listFindings()), "organization-audit", state.busy);
     const semanticStatus = discover?.healthStatus ?? discover?.status ?? (semanticSnapshot?.busy ? semanticIntelligenceViewModel(semanticSnapshot).status
       : this.semanticSetup?.step === "connected" ? t("@semantic.connected") : undefined);
     const deepError = this.deepSetup?.step === "form" ? deepSetupError(this.deepSetup.result) : undefined;

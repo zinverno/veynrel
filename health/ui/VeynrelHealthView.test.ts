@@ -2075,3 +2075,14 @@ describe("Stage 1 native home and scope boundaries", () => {
   });
 
 });
+
+it("R04 launches the existing taxonomy surface without onboarding or scan and passes the actual selected folder", async () => {
+  const fresh = fixture({}); await fresh.view.onOpen();
+  fresh.content.action("organization-audit").click();
+  expect(fresh.tools.openTagTaxonomy).toHaveBeenCalledWith({ kind: "all" }, []);
+  expect(fresh.vault.read).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled(); await fresh.view.onClose();
+  const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]); await f.view.onOpen();
+  f.content.action("scope-0").click(); f.content.action("organization-audit").click();
+  expect(f.tools.openTagTaxonomy).toHaveBeenCalledWith({ kind: "folder", path: "SQL" }, []);
+  expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
+});

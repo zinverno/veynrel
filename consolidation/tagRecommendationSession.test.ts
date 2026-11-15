@@ -4,6 +4,7 @@ vi.mock("obsidian", () => ({ getLanguage: () => "en", requestUrl: vi.fn(), TFile
 import { requestUrl } from "obsidian";
 import { callOpenRouter } from "../api";
 import cases from "../tests/fixtures/tag-recommendations.json";
+import { OrganizationCollector } from "./organizationAudit";
 import { TagRecommendationSession } from "./tagRecommendationSession";
 import { TAG_OPTIONS, TagRecommendationError } from "./tagRecommendationContract";
 import type { TagTaxonomyProfile } from "./taxonomyProfile";
@@ -128,4 +129,23 @@ describe("tag consent, freshness and one-request lifecycle", () => {
     const f = fixture(); await f.session.prepare(); await f.session.confirm(); for (const fn of [...f.listeners, ...f.profileListeners]) fn();
     expect(f.session.view.stage).toBe("result");
   });
+});
+
+
+it("R04 file definitions cannot silently pass through the older model contract, even with identical category JSON", async () => {
+  const f = fixture(); let allowed = true;
+  const session = new TagRecommendationSession({ ...f.deps, allowed: () => allowed });
+  await session.prepare(); expect(session.view.stage).toBe("consent");
+  allowed = false; f.profileListeners.forEach(listener => listener()); await session.confirm();
+  expect(session.view.stage).toBe("stale"); expect(f.deps.complete).not.toHaveBeenCalled();
+  f.deps.read.mockClear(); await session.prepare(); expect(session.view.error).toBe("profile"); expect(f.deps.read).not.toHaveBeenCalled();
+  session.close();
+});
+
+it.each(["folder", "partial"])("R04 %s organization inventory cannot substitute for the v1 global inventory", async mode => {
+  const f = fixture();
+  const snapshot = new OrganizationCollector(mode === "folder" ? { kind: "folder", path: "folder" } : { kind: "all" }, []).snapshot;
+  snapshot.state = mode === "folder" ? "complete" : "partial"; f.deps.inventory()!.organization = snapshot;
+  await f.session.prepare(); expect(f.session.view.error).toBe("inventory");
+  expect(f.deps.read).not.toHaveBeenCalled(); expect(f.deps.complete).not.toHaveBeenCalled();
 });

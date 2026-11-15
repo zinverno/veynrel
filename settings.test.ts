@@ -172,8 +172,8 @@ it("preserves baseline controls except the verified release and native markup fi
   }
   visit(source);
   expect(Object.fromEntries(Object.entries(callbacks).filter(([key]) => !key.startsWith("rerank.") && !key.startsWith("decisions.") && !["method:hide", "method:rerankSettingsChanged", "method:decisionsSettingsChanged"].includes(key)))).toEqual({ ...baseline.controlCallbacks, ...releaseSafety,
-    // Optional confirmed taxonomy profile; defaults and existing setting controls remain frozen.
-    AIHubSettings: "006ff83e548afa33a3ce15c4453b50da7c3c93293dd6b475cead336a9893ba2a",
+    // Optional confirmed taxonomy profile and R04 registry selection/decisions; defaults and controls stay frozen.
+    AIHubSettings: "d2e24668e6b8a545c943777229348d367d4745a952b48178cfaaa00a8f5b8870",
     // UI consolidation: native headings/buttons and the existing free-model translation; durable callbacks stay frozen.
     "method:addHeading": "df027728a56e192c246af36f41a110d960275b1b72843329a5be90cff14e8e0c",
     "method:renderModelOptions": "f40d324dcb6ecf783cec2013b750afae4acb38adade1a9a7cffd46ffa1379466",

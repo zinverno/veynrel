@@ -20,7 +20,7 @@ export interface TaxonomyProfilePort {
   save(next: TagTaxonomyProfile, expected: TagTaxonomyProfile | null, signal: AbortSignal): Promise<void>;
 }
 export class TaxonomyError extends Error {
-  constructor(readonly reason: "invalid" | "conflict" | "cancelled" | "save" | "scan") { super(reason); }
+  constructor(readonly reason: "invalid" | "conflict" | "cancelled" | "save" | "scan" | "registry") { super(reason); }
 }
 
 function keys(value: unknown, fields: string[]): value is Record<string, unknown> {

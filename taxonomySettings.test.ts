@@ -1,13 +1,15 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { App, PluginManifest } from "obsidian";
+import { DEFAULT_SETTINGS } from "./settings";
 import type { AIHubSettings } from "./settings";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
 vi.mock("obsidian", () => ({ Plugin: class { constructor(public app: App, public manifest: PluginManifest) {} },
   FuzzySuggestModal: class {}, Modal: class {}, Notice: class {}, PluginSettingTab: class {}, Component: class {}, TFile: class {}, TFolder: class {}, getLanguage: () => "en" }));
+let Plugin: typeof import("./main").default;
+beforeAll(async () => { Plugin = (await vi.importActual<typeof import("./main")>("./main.ts")).default; });
 const profile = (name = "Роль"): TagTaxonomyProfile => ({ version: 1, categories: [{ id: "role", name, purpose: "role", multiplicity: "one_primary", interpretation: "global", prefixes: ["role", "тип"], tags: ["Практика"] }] });
-async function fixture(value?: unknown) {
-  const { default: Plugin } = await vi.importActual<typeof import("./main")>("./main.ts"); const { DEFAULT_SETTINGS } = await import("./settings");
-  let disk: Record<string, unknown> = { ...structuredClone(DEFAULT_SETTINGS), companion: { ...DEFAULT_SETTINGS.companion, vaultId: "22222222-2222-4222-8222-222222222222" }, ...(value === undefined ? {} : { tagTaxonomyProfile: value }) };
+async function fixture(value?: unknown, organizationAudit?: unknown) {
+  let disk: Record<string, unknown> = { ...structuredClone(DEFAULT_SETTINGS), companion: { ...DEFAULT_SETTINGS.companion, vaultId: "22222222-2222-4222-8222-222222222222" }, ...(value === undefined ? {} : { tagTaxonomyProfile: value }), ...(organizationAudit === undefined ? {} : { organizationAudit }) };
   const app = { vault: { getMarkdownFiles: vi.fn(), read: vi.fn(), modify: vi.fn() } };
   const plugin = new Plugin(app as unknown as App, {} as PluginManifest);
   plugin.loadData = vi.fn(async () => structuredClone(disk));
@@ -61,5 +63,33 @@ describe("taxonomy uses the existing serialized settings owner", () => {
     const first = f.plugin.saveSettings(); await vi.waitFor(() => expect(f.save).toHaveBeenCalledOnce());
     const abort = new AbortController(); const queued = f.persist(profile(), null, abort.signal); abort.abort(); release();
     await first; await expect(queued).rejects.toMatchObject({ reason: "cancelled" }); expect(f.save).toHaveBeenCalledOnce(); expect(f.port.get()).toBeNull();
+  });
+});
+
+
+describe("R04 organization preferences share the serialized settings owner", () => {
+  it("keeps the legacy profile dormant and read-only while a registry is selected, without passive reads", async () => {
+    const f = await fixture(profile(), { version: 1, registryPath: "Rules.md", dismissed: [] });
+    expect(f.port.get()).toBeNull(); expect(f.plugin.settings.tagTaxonomyProfile).toEqual(profile());
+    await expect(f.persist(profile("new"), null)).rejects.toMatchObject({ reason: "registry" });
+    expect(f.save).not.toHaveBeenCalled(); expect(f.app.vault.read).not.toHaveBeenCalled();
+    const port = f.plugin.getOrganizationRegistry().preferences, before = port.get();
+    await port.save({ ...before, registryPath: null }, before, new AbortController().signal);
+    expect(f.port.get()).toEqual(profile());
+  });
+  it("persists bounded decisions without dropping concurrent ordinary/Health/model settings or the profile", async () => {
+    const f = await fixture(profile()), port = f.plugin.getOrganizationRegistry().preferences, before = port.get();
+    f.plugin.settings.notifyOnCopy = false;
+    await Promise.all([port.save({ ...before, dismissed: ["org:abc"] }, before, new AbortController().signal), f.plugin.saveSettings({ ...f.plugin.settings.health, profile: "research" })]);
+    expect(f.disk()).toMatchObject({ tagTaxonomyProfile: profile(), notifyOnCopy: false, health: { profile: "research" }, organizationAudit: { version: 1, registryPath: null, dismissed: ["org:abc"] } });
+    await expect(port.save({ ...before, registryPath: "Old.md" }, before, new AbortController().signal)).rejects.toMatchObject({ reason: "conflict" });
+    await f.plugin.loadSettings(); expect(port.get().dismissed).toEqual(["org:abc"]);
+  });
+  it("checks the profile at queue execution, not only when the registry dialog confirms", async () => {
+    const f = await fixture(profile()), port = f.plugin.getOrganizationRegistry().preferences, before = port.get(), expectedProfile = JSON.stringify(profile());
+    const save = f.persist(profile("newer"));
+    const connect = port.save({ ...before, registryPath: "Rules.md" }, before, new AbortController().signal, expectedProfile);
+    await save; await expect(connect).rejects.toMatchObject({ reason: "conflict" });
+    expect(f.port.get()).toEqual(profile("newer")); expect(port.get().registryPath).toBeNull();
   });
 });
