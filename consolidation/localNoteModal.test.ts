@@ -27,7 +27,8 @@ vi.mock("./obsidianLocalNote", () => ({ ObsidianLocalNote: class {} }));
 vi.mock("./consolidationUx", () => ({ focusStatus: () => {}, historyHeading: () => {}, reviewSummary: () => {} }));
 vi.mock("./planDiffView", () => ({ renderPlanDiff: () => {} }));
 import { LocalNoteModal } from "./localNoteModal";
-import { LocalNoteApplyModal } from "./localNoteApplyModal";
+import { LocalNoteApplyModal, renderLocalNoteHistory } from "./localNoteApplyModal";
+import { SafeApplyError } from "./operationJournal";
 import { setLanguage } from "../i18n";
 const flush = async () => { for (let i = 0; i < 30; i++) await Promise.resolve(); };
 const lifetimeApp = () => ({ vault: { on: vi.fn(), offref: vi.fn() }, metadataCache: { on: vi.fn(), offref: vi.fn() }, workspace: { on: vi.fn(), offref: vi.fn() } });
@@ -66,4 +67,38 @@ describe("local note UI and separate consent", () => {
     const root = modal.contentEl as unknown as InstanceType<typeof mocks.Element>, confirm = root.field("confirm");
     confirm.event("click"); confirm.event("click"); await flush(); expect(service.localNote.execute).toHaveBeenCalledOnce();
   });
+  describe.each(["ru", "en"] as const)("%s single-note copy", language => {
+    it.each(["add_inline_tag", "repair_wikilink"] as const)("%s uses accurate Apply/Undo confirmation and success text", async operation => {
+      setLanguage(language);
+      for (const action of ["apply", "undo"] as const) {
+        const review = { id: "id", action, record: { plan: { source: { path: "Source.md", content: "Before" }, after: "After", choice: { kind: operation, target: { path: "Target.md" } } } } };
+        const service = { localNote: { execute: vi.fn(async () => {}), discard: vi.fn() } };
+        const modal = new LocalNoteApplyModal(lifetimeApp() as never, service as never, (async () => review) as never, vi.fn());
+        modal.open(); await flush();
+        const root = modal.contentEl as unknown as InstanceType<typeof mocks.Element>;
+        expect(root.field("confirm").text).toBe(language === "ru" ? action === "apply" ? "Применить это изменение" : "Откатить это изменение" : action === "apply" ? "Apply this change" : "Undo this change");
+        expect(service.localNote.execute).not.toHaveBeenCalled();
+        expect(root.all().map(e => e.text).join(" ")).not.toMatch(/canonical|secondary|group|групп/iu);
+        root.field("confirm").event("click"); await flush();
+        expect(service.localNote.execute).toHaveBeenCalledOnce();
+        expect(root.all().find(e => e.attrs.role === "status")?.text).toBe(language === "ru" ? action === "apply" ? "Изменение сохранено и зафиксировано в журнале." : "Исходный Markdown восстановлен." : action === "apply" ? "Change saved and recorded in the journal." : "Original Markdown restored.");
+        expect(root.all().map(e => e.text).join(" ")).not.toMatch(/canonical|secondary|group|групп/iu); modal.close();
+      }
+    });
+    it.each(["add_inline_tag", "repair_wikilink"] as const)("%s History and write-error text do not claim a group transfer or success", async operation => {
+      setLanguage(language);
+      const root = new mocks.Element();
+      renderLocalNoteHistory(root as never, { id: "id", state: "applied", canUndo: true, receipts: [], issues: [], record: { createdAt: 1, operation, plan: { source: { path: "Source.md" } } } } as never, vi.fn());
+      expect(root.field("undo").text).toBe(language === "ru" ? "Проверить откат" : "Review undo");
+      expect(root.all().map(e => e.text).join(" ")).not.toMatch(/canonical|secondary|group|групп/iu);
+      const review = { id: "id", action: "apply", record: { plan: { source: { path: "Source.md", content: "Before" }, after: "After", choice: { kind: operation, target: { path: "Target.md" } } } } };
+      const service = { localNote: { execute: vi.fn(async () => { throw new SafeApplyError("write"); }), discard: vi.fn() } };
+      const modal = new LocalNoteApplyModal(lifetimeApp() as never, service as never, (async () => review) as never, vi.fn());
+      modal.open(); await flush(); const content = modal.contentEl as unknown as InstanceType<typeof mocks.Element>;
+      content.field("confirm").event("click"); await flush();
+      expect(content.all().find(e => e.attrs.role === "alert")?.text).toMatch(language === "ru" ? /Запись не подтверждена/u : /Write not confirmed/u);
+      expect(content.all().map(e => e.text).join(" ")).not.toMatch(/canonical|secondary|group|групп|Change saved|Изменение сохранено/iu); modal.close();
+    });
+  });
+
 });

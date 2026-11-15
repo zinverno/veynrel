@@ -52,8 +52,8 @@ export class LocalNoteModal extends Modal {
       this.close(); new LocalNoteApplyModal(this.app, this.service, current => this.service.localNote!.review(plan, current), this.history).open();
     } catch (e) { this.error(e); }
   }
-  private select(label: string, key: string): HTMLSelectElement {
-    const select = this.contentEl.createEl("label", { text: label }).createEl("select", { attr: { "data-local-note": key } });
+  private select(label: string, key: string, parent: HTMLElement = this.contentEl): HTMLSelectElement {
+    const select = parent.createEl("label", { text: label }).createEl("select", { attr: { "data-local-note": key } });
     select.createEl("option", { text: t("@localLink.choose"), value: "" }); return select;
   }
   private tags(p: LocalPreparation): void {
@@ -71,19 +71,23 @@ export class LocalNoteModal extends Modal {
     for (const [tag, origins] of [...values].slice(0, 500)) chosen.createEl("option", { text: `${tag} · ${[...origins].join("; ")}`, value: tag });
     this.contentEl.createEl("p", { text: orgText("Up to 500 choices. A prefix does not establish suitability. Excluded/deprecated and flashcards tags are not offered. Manual candidates do not change rules.",
       "До 500 вариантов. Префикс не доказывает применимость. Исключённые, устаревшие и flashcards-теги не предлагаются. Ручной кандидат не меняет правила.") });
-    const input = this.contentEl.createEl("label", { text: orgText("Manual candidate (without #)", "Ручной кандидат (без #)") }).createEl("input", { type: "text", attr: { "data-local-note": "tag" } }); input.disabled = true;
-    if (this.inventory) this.contentEl.createEl("p", { text: `${t(`@taxonomy.scan.${this.inventory.state}`)} · ${this.inventory.processed}/${this.inventory.total} · ${orgText("metadata unavailable", "кеш недоступен")}: ${this.inventory.unavailable}` });
-    if (!this.inventory) { const scan = button(this.contentEl, orgText("Read local tag inventory (whole vault)", "Прочитать локальный инвентарь тегов (всё хранилище)"), "inventory", () => {
+    const manual = this.contentEl.createDiv({ cls: "ai-local-note-field", attr: { "data-local-note-block": "manual" } });
+    const input = manual.createEl("label", { text: orgText("Manual candidate (without #)", "Ручной кандидат (без #)") }).createEl("input", { type: "text", attr: { "data-local-note": "tag" } }); input.disabled = true;
+    const inventoryBlock = this.contentEl.createDiv({ cls: "ai-local-note-field", attr: { "data-local-note-block": "inventory" } });
+    if (this.inventory) inventoryBlock.createEl("p", { text: `${t(`@taxonomy.scan.${this.inventory.state}`)} · ${this.inventory.processed}/${this.inventory.total} · ${orgText("metadata unavailable", "кеш недоступен")}: ${this.inventory.unavailable}` });
+    if (!this.inventory) { const scan = button(inventoryBlock, orgText("Read local tag inventory (whole vault)", "Прочитать локальный инвентарь тегов (всё хранилище)"), "inventory", () => {
       scan.disabled = true;
       void scanTaxonomy(this.app, p.registryPath ? [p.registryPath] : [], this.abort.signal, () => {}, undefined, { kind: "all" }).then(inventory => { if (this.active) { this.inventory = inventory; void this.load(); } }).catch(e => this.error(e));
     }); }
-    const ranges = tagRanges(p.source, p.metadata), range = this.select(t("@planner.location"), "range");
+    const paragraph = this.contentEl.createDiv({ cls: "ai-local-note-field", attr: { "data-local-note-block": "paragraph" } });
+    const ranges = tagRanges(p.source, p.metadata), range = this.select(t("@planner.location"), "range", paragraph);
     ranges.forEach((r, i) => range.createEl("option", { text: `[${r.start}, ${r.end}) ${r.text.slice(0, 100)}`, value: String(i) }));
-    const selected = this.contentEl.createEl("pre", { cls: "ai-pair-source", attr: { tabindex: "0" } });
-    const review = button(this.contentEl, t("@safeApply.review"), "review", () => {
+    const selected = paragraph.createEl("pre", { cls: "ai-pair-source", attr: { tabindex: "0" } });
+    const actions = this.contentEl.createDiv({ cls: "ai-local-note-field", attr: { "data-local-note-block": "review" } });
+    const review = button(actions, t("@safeApply.review"), "review", () => {
       if (!review.disabled) void this.review(p, { kind: "add_inline_tag", tag: chosen.value === "manual" ? input.value : chosen.value, range: ranges[Number(range.value)] });
     }); review.disabled = true;
-    const hint = this.contentEl.createEl("p", { attr: { role: "status" } });
+    const hint = actions.createEl("p", { attr: { role: "status" } });
     const update = () => {
       input.disabled = chosen.value !== "manual";
       selected.setText(range.value === "" ? "" : ranges[Number(range.value)]?.text ?? "");

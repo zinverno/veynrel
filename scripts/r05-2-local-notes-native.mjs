@@ -134,15 +134,36 @@ async function openTag(name = 'Taggable') {
   await main.ev("hv.navigate({page:'home'});void 0"); await activate('[data-health-action=tag-note]'); await pick(name);
   await wait("!!document.querySelector('[data-local-note=tag-choice]')||!!document.querySelector('.ai-local-note [role=alert]')");
 }
-async function consent() {
+async function singleNoteCopy(selector, expected) {
+  await pass(`${stage}: ${expected}`, `(()=>{const e=document.querySelector(${JSON.stringify(selector)});return e?.textContent===${JSON.stringify(expected)}&&!/canonical|secondary|group|групп/i.test(e.closest('.modal-content').textContent)})()`);
+}
+async function tagLayout(name) {
+  const geometry=await main.ev(`(()=>{
+    const root=document.querySelector('.ai-local-note'), rect=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom}};
+    const blocks=[...root.querySelectorAll('[data-local-note-block]')].map(e=>({name:e.dataset.localNoteBlock,...rect(e)}));
+    const input=root.querySelector('[data-local-note=tag]'), label=input.parentElement, range=document.createRange();range.selectNodeContents(label.firstChild);
+    return {root:rect(root),blocks,input:rect(input),label:rect(range),controls:[...root.querySelectorAll('input,select,button')].map(rect),overflow:root.scrollWidth>root.clientWidth+1};
+  })()`);
+  (report.layouts??=[]).push({name,...geometry});
+  assert.deepEqual(geometry.blocks.map(b=>b.name),['manual','inventory','paragraph','review']);
+  assert(!geometry.overflow);assert(geometry.label.bottom<=geometry.input.top);
+  for(let i=1;i<geometry.blocks.length;i++)assert(geometry.blocks[i-1].bottom<=geometry.blocks[i].top);
+  for(const r of [...geometry.blocks,...geometry.controls])assert(r.left>=geometry.root.left-1&&r.right<=geometry.root.right+1);
+  report.checks.push(`${name}: tag blocks and label/input do not overlap; controls fit modal`);
+}
+async function consent(language='en') {
   await activate('[data-local-note=review]'); await wait("!!document.querySelector('.ai-local-note-review [data-local-note=confirm]')||!!document.querySelector('.ai-local-note [role=alert]')||!!document.querySelector('.ai-local-note-review [role=alert]')");
   await pass('Review offers separate write confirmation',"!!document.querySelector('.ai-local-note-review [data-local-note=confirm]')");
+  await singleNoteCopy('.ai-local-note-review [data-local-note=confirm]',language==='ru'?'Применить это изменение':'Apply this change');
   assert.deepEqual(hashes(),initialHashes);
 }
 async function undoThroughHistory() {
   await activate('.ai-local-note-review [data-local-note=history]'); await wait("!!document.querySelector('[data-local-note=undo]')");
+  await singleNoteCopy('[data-local-note=undo]','Review undo');
   await activate('[data-local-note=undo]'); await wait("!!document.querySelector('.ai-local-note-review [data-local-note=confirm]')");
+  await singleNoteCopy('.ai-local-note-review [data-local-note=confirm]','Undo this change');
   await activate('.ai-local-note-review [data-local-note=confirm]'); await wait("!!document.querySelector('.ai-local-note-review [data-local-note=history]')");
+  await singleNoteCopy('.ai-local-note-review [role=status]','Original Markdown restored.');
   assert.deepEqual(hashes(),initialHashes); await shot(stage+'-undone');
   await closeTop('.ai-local-note-review'); await closeTop('.ai-operation-history');
 }
@@ -160,13 +181,14 @@ try {
   await pass('Native local scan produced the actual broken-link finding','!!brokenFinding');
   report.activeScope={workspace:await main.ev('hv.areaIndex.selection'),tagSource:'Taggable.md',repairSource:'Broken.md',repairTarget:'Folder/Target.md',writesPerAction:1};
   await main.send('Page.startScreencast',{format:'jpeg',quality:85,everyNthFrame:1}); recording=true;
-  await phase('tag-selection'); await openTag(); await shot('tag-choices');
+  await phase('tag-selection'); await openTag(); await tagLayout('en/dark regular'); await shot('tag-choices');
   await selectValue('[data-local-note=tag-choice]','manual'); await main.ev("document.querySelector('[data-local-note=tag]').focus();void 0"); await main.send('Input.insertText',{text:'тема/Редкий'});
   await selectValue('[data-local-note=range]','0'); await phase('tag-review'); await consent(); await shot('tag-review-en-dark');
   await pass('Before first Apply, source Markdown has no write calls','io.writes.length===0&&io.creates.length===0');
   await phase('tag-apply'); await activate('.ai-local-note-review [data-local-note=confirm]'); await wait("!!document.querySelector('.ai-local-note-review [data-local-note=history]')");
   assert.equal(fs.readFileSync(`${vault}/Taggable.md`,'utf8'),originals['Taggable.md'].replace('Материал для явного выбора.','Материал для явного выбора. #тема/Редкий'));
   for(const name of Object.keys(originals).filter(n=>n!=='Taggable.md'))assert.equal(hashes()[name],initialHashes[name]);
+  await singleNoteCopy('.ai-local-note-review [role=status]','Change saved and recorded in the journal.');
   report.checks.push('Tag Apply changes exactly one inline insertion; YAML/CRLF/Unicode and other notes preserved'); await shot('tag-applied');
   await phase('tag-undo'); await undoThroughHistory(); report.checks.push('Tag Undo restores exact original bytes through shared History');
   await phase('finding'); await main.ev("hv.navigate({page:'findings',state:'open',dimension:'all',selectedFindingId:brokenFinding.id});void 0");
@@ -179,6 +201,7 @@ try {
   assert.equal(fs.readFileSync(`${vault}/Broken.md`,'utf8'),'Check [[Missing]] and also [[Folder/Target]].\r\n');
   for(const name of Object.keys(originals).filter(n=>n!=='Broken.md'))assert.equal(hashes()[name],initialHashes[name]);
   await pass('Write does not auto-resolve the Finding',"hv.controller.listFindings().find(f=>f.id===brokenFinding.id).state==='open'");
+  await singleNoteCopy('.ai-local-note-review [role=status]','Change saved and recorded in the journal.');
   report.checks.push('Repair changes only selected second occurrence; full target path distinguishes same basenames'); await shot('repair-applied');
   await phase('repair-undo'); await undoThroughHistory(); report.checks.push('Repair Undo restores exact original bytes'); await stopVideo();
   await phase('ru-en-theme-keyboard');
@@ -190,14 +213,14 @@ try {
       await main.send('Emulation.setDeviceMetricsOverride',{width:390,height:900,deviceScaleFactor:1,mobile:false}); await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);
       await openTag(); await selectValue('[data-local-note=tag-choice]','manual'); await main.ev("document.querySelector('[data-local-note=tag]').focus();void 0");await main.send('Input.insertText',{text:'manual/second'});
       await selectValue('[data-local-note=range]','0');
-      await pass(`${language}/${theme} 390px tag preparation has no horizontal overflow`,"(()=>{const e=document.querySelector('.ai-local-note');return e.scrollWidth<=e.clientWidth+1})()");await consent();
+      await pass(`${language}/${theme} 390px tag preparation has no horizontal overflow`,"(()=>{const e=document.querySelector('.ai-local-note');return e.scrollWidth<=e.clientWidth+1})()");await tagLayout(`${language}/${theme} 390px`);await shot(`${language}-${theme}-390-tag-fields`);await consent(language);
       await pass(`${language}/${theme} 390px Review has no horizontal overflow or missing translations`,"(()=>{const e=document.querySelector('.ai-local-note-review');return e.scrollWidth<=e.clientWidth+1&&!e.textContent.includes('@localNote.')})()");
       await shot(`${language}-${theme}-390-review`); await key('Tab','Tab',9); await pass(`${language}/${theme}: Tab focus stays in Review`,"!!document.activeElement.closest('.ai-local-note-review')"); await closeTop('.ai-local-note-review');
       await main.ev("hv.navigate({page:'findings',state:'open',dimension:'all',selectedFindingId:brokenFinding.id});void 0");
       await activate('[data-health-action=finding-repair]');await wait("!!document.querySelector('[data-local-note=occurrence]')");
       await selectValue('[data-local-note=occurrence]','0');await activate('[data-local-note=target]');await pick('Folder/Target');
       await pass(`${language}/${theme} 390px repair preparation has no horizontal overflow`,"(()=>{const e=document.querySelector('.ai-local-note');return e.scrollWidth<=e.clientWidth+1})()");
-      await consent();await pass(`${language}/${theme} repair Review is localized without overflow`,"(()=>{const e=document.querySelector('.ai-local-note-review');return e.scrollWidth<=e.clientWidth+1&&!e.textContent.includes('@localNote.')})()");
+      await consent(language);await pass(`${language}/${theme} repair Review is localized without overflow`,"(()=>{const e=document.querySelector('.ai-local-note-review');return e.scrollWidth<=e.clientWidth+1&&!e.textContent.includes('@localNote.')})()");
       await shot(`${language}-${theme}-390-repair`);await closeTop('.ai-local-note-review');
     }
   }

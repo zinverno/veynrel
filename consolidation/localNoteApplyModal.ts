@@ -36,8 +36,8 @@ export class LocalNoteApplyModal extends Modal {
         d.createEl("pre", { text, cls: "ai-pair-source", attr: { tabindex: "0", "data-local-note-text": key } });
       }
       renderPlanDiff(this.contentEl, before, after); this.contentEl.createEl("p", { text: t("@localNote.limits") });
-      button(this.contentEl, t(undo ? "@groupApply.undoConfirm" : "@groupApply.confirm"), "confirm", () => { if (!this.busy) this.pending = this.commit(); });
-      button(this.contentEl, t("@groupApply.cancel"), "cancel", () => this.close()); focusStatus(this.contentEl);
+      button(this.contentEl, t(undo ? "@safeApply.undoConfirm" : "@safeApply.confirm"), "confirm", () => { if (!this.busy) this.pending = this.commit(); });
+      button(this.contentEl, t("@safeApply.cancel"), "cancel", () => this.close()); focusStatus(this.contentEl);
     } catch (e) { this.error(e); }
   }
   private error(error: unknown): void {
@@ -52,7 +52,7 @@ export class LocalNoteApplyModal extends Modal {
     try {
       await this.owner.localNote!.execute(this.review);
       if (!this.active) return;
-      this.contentEl.empty(); this.contentEl.createEl("p", { text: t(this.review.action === "apply" ? "@groupApply.applied" : "@groupApply.undone"), attr: { role: "status" } }); this.historyButton(); focusStatus(this.contentEl);
+      this.contentEl.empty(); this.contentEl.createEl("p", { text: t(this.review.action === "apply" ? "@safeApply.applied" : "@safeApply.undone"), attr: { role: "status" } }); this.historyButton(); focusStatus(this.contentEl);
     } catch (e) { this.error(e); } finally { this.busy = false; }
   }
   onClose(): void { this.active = false; this.lifetime?.close(); if (this.review) this.owner.localNote!.discard(this.review); this.contentEl.empty(); void this.pending.then(this.release); }
@@ -64,7 +64,7 @@ export function renderLocalNoteHistory(root: HTMLElement, row: LocalNoteHistory,
   if (row.recovered) card.createEl("p", { text: orgText("Recovered from exact saved content; no operation was replayed.", "Восстановлено по точному сохранённому содержимому; операция не повторялась.") });
   const d = card.createEl("details"); d.createEl("summary", { text: orgText("Journal evidence", "Доказательства журнала") });
   d.createEl("pre", { text: JSON.stringify({ id: row.id, damaged: row.damaged, issues: row.issues, receipts: row.receipts }, null, 2), cls: "ai-pair-source" });
-  if (row.canUndo) button(card, t("@groupApply.undoReview"), "undo", undo);
+  if (row.canUndo) button(card, t("@safeApply.undoReview"), "undo", undo);
   else card.createEl("p", { text: orgText("Automatic Undo is unavailable. Keep the original journal copies for manual recovery; no retry or overwrite is authorized.",
     "Автоматическая отмена недоступна. Сохраните исходные копии журнала для ручного восстановления; повторная запись не разрешена.") });
 }
