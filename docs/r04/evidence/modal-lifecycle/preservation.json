@@ -1,0 +1,417 @@
+{
+  "comparedTo": "80936ddb15c46cea3ac5a32db8b7b31e93b5c859",
+  "unchangedOriginalFiles": [
+    {
+      "path": "docs/r04/evidence/SHA256SUMS",
+      "sha256": "70ccfcd208ac6f9489c0b5a62f4d29bc5ba15bc43ec55dd33de47571ccdb4d64"
+    },
+    {
+      "path": "docs/r04/evidence/checks/audit-final.log",
+      "sha256": "15d4731dbb463b460ae6b0a7b52c4195bc0d3809174db827681e17d58206f72d"
+    },
+    {
+      "path": "docs/r04/evidence/checks/lint.log",
+      "sha256": "3b6464921ab0e23e96190412de361dc51ce298544dcb44b22d71975f650c3cb5"
+    },
+    {
+      "path": "docs/r04/evidence/checks/metadata-benchmark.jsonl",
+      "sha256": "6121ada58f31baa527a697cbd11b610c35fc9d43b5b635c1d352da74c8542c11"
+    },
+    {
+      "path": "docs/r04/evidence/checks/mutation-audit.log",
+      "sha256": "51031ae5c721676b9520f5c89faf1068b7366c927ffa31578e52b826b83a207e"
+    },
+    {
+      "path": "docs/r04/evidence/checks/mutation-sandbox-failure.log",
+      "sha256": "fc03a4a6822043cc8f6911e673b40b47935a4f9aefe8bed0cd858cf8f573dce2"
+    },
+    {
+      "path": "docs/r04/evidence/checks/runner-initial-failure.log",
+      "sha256": "00775edeae9966c53359a920da5b7fa42ebaf833faec7770174f41f83854b361"
+    },
+    {
+      "path": "docs/r04/evidence/checks/runner-lifecycle.log",
+      "sha256": "8f46c6c3a14bb10cf62d6222cc4a32b0920166aa3d9ea8f2ba958265618df486"
+    },
+    {
+      "path": "docs/r04/evidence/checks/session-guards.log",
+      "sha256": "41f971df92b890da528f448d5b0f3b43cc515b860c45fb403b4c945fb71ee16a"
+    },
+    {
+      "path": "docs/r04/evidence/checks/suite-development-failures.log",
+      "sha256": "5198199e82f1f2833ac783c76e896e581efab00e50ab5b3d1bb44b3d36be4cb0"
+    },
+    {
+      "path": "docs/r04/evidence/checks/suite-interrupted-143.log",
+      "sha256": "f11764de88ebc638c7a36ad04abb90202e8f8f7867b926ddefe970180d7b2599"
+    },
+    {
+      "path": "docs/r04/evidence/checks/suite.log",
+      "sha256": "2760cd8ad13c96fb5f876eee7efc8680c3a2b9fa02194d065fdbec82b767aabd"
+    },
+    {
+      "path": "docs/r04/evidence/checks/targeted.log",
+      "sha256": "145d0dfd1a2493fd783e5bc6bd8cbeba7f0dc436418cdebf21b3cd42c9763be2"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt1/failure.png",
+      "sha256": "82e21db3495d2399201901d53fd374fcd896f5abb34713a8c9ae4c02b97601a2"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt1/isolation/environment.json",
+      "sha256": "e394532ef9f3a98ab5dd994b17c8b3d481dca377e59dc9f106f25a599bdd59ec"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt1/isolation/result.json",
+      "sha256": "c5187c5936b4e8322b58bdd555584a89a7794b898462120881406b7419e2f339"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt1/native-sessions.jsonl",
+      "sha256": "7c54b057462484677755910508c6a868686c8b47302a35e9cbc3bffa57f2661c"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt1/report.json",
+      "sha256": "8d14aba2cac73c34214a5c5b384f8816e06b91f69ba48e83fd100b2d0d384ccf"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt2/failure.png",
+      "sha256": "e88ebfc6fc52c32cd74348ed75bd9d129a52fa2293f3f4fa973adfb8171526c2"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt2/isolation/environment.json",
+      "sha256": "9717a64998ff1490efc282d45face6db429041fcbebe50fe9a7629b0ccff3307"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt2/isolation/result.json",
+      "sha256": "2df94a81e36af2b9ebb58b528b07a179f668718f04a34f0755040e3d4f1bf556"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt2/native-sessions.jsonl",
+      "sha256": "cfd29be1d779a9f36477fddf10e9513b3fb4e5de7571ec9e45345ce0ae4dc07e"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt2/report.json",
+      "sha256": "376314057fe5b6830e16164f0c1108b28e36518ba5e969816bc9940e5b4460c3"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt3/isolation/environment.json",
+      "sha256": "aef6a5f18895aec0b5ba1ec1f414c7334750bd973b8f9dd47aa64d0200b5ab82"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt3/isolation/result.json",
+      "sha256": "b4b141d09c6dbfec153f25394788df0b9f6168b724ae038328c3f67f82ea60d0"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt3/native-sessions.jsonl",
+      "sha256": "817cf4cfdbe70838dfeff7fb9a5f6e335afba2ef312311307f7659db96369df8"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt3/report.json",
+      "sha256": "0bdfca36a5fea626f2e6c37650c20a8dd70e6e63c0ecbf294b40f7323f5a512d"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt4/failure.png",
+      "sha256": "299b6a7612a55403d05360dd9ac766c2f06af56b64008860dfd131aa117c13fc"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt4/isolation/environment.json",
+      "sha256": "7d0d876108643fe6846bba8f9682505395893a86744bdc2000dbf823b88d29ae"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt4/isolation/result.json",
+      "sha256": "4f1a980678c7acc06d2900ad7b6470596315bb770ad1380fc7dc3eac188a107a"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt4/native-sessions.jsonl",
+      "sha256": "80211dda1c4dc251d9f7c986df89b9dbfee3a247cf4c8ec5bd28c8de6a2c7c6e"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/attempt4/report.json",
+      "sha256": "9fc8dafae91509485f56aebba69c8c38400da781ff04fe3c2c35936e06aee4f7"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery/failure.png",
+      "sha256": "0f547bb1d0ed87c0b3dd7ddc138d3127228e1879c46ce18683a723e98793517f"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery/isolation/environment.json",
+      "sha256": "5a883773aeab0d8f81125fc6d873d1038a206c2f58e46a7112e934d4534ad12d"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery/isolation/result.json",
+      "sha256": "01288e10ac75fa79fcbc369b9760e46d3a9138273661d5284f66f7d60ba9db7d"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery/native-sessions.jsonl",
+      "sha256": "2a8ac7369b98f5a893a26ce329fe06fb95837718e5e730c59495b666eab792d6"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery/report.json",
+      "sha256": "221ec3eb0709842118650bd9c8868e4d1a37046d7d5807a341c31c1ab5f8a301"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery2/isolation/environment.json",
+      "sha256": "b94746b44460cbe1f27ce6059c510dd9635f189930c37762032760afb784c887"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery2/isolation/result.json",
+      "sha256": "deabeac602dcf2d445e5e6e8a8a8cf8dbbb398fe15e7c738fb45804f217484f4"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery2/native-sessions.jsonl",
+      "sha256": "4a7f31254fe924c6dc6fe7da23cc9add0ed50fd7a5ab28604b3a3ce5b4b5000f"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/delivery2/report.json",
+      "sha256": "29d5bebdb917ba61cb1cd77383bc33565dbe6fe7ecda2b6ce602b9351e479a57"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/final/isolation/environment.json",
+      "sha256": "6a7c0d36f49da0be8cb7d796df75038cccb5e45169f1ad20d768a7297e0ac65f"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/final/isolation/result.json",
+      "sha256": "1da256f7b6018df09682241e3aa29a8e7c764df052211da7b12904f20fbb5f6d"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/final/native-sessions.jsonl",
+      "sha256": "4ff2b9cd102c773a6fa21ff5d8330c4291cce798ec2998cc90433ab116607039"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/final/report.json",
+      "sha256": "ed7beeea0f10e33796c775f08a72972aaa1dafd6b58dae8a94e327447257683a"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/openbox-startup/harness.log",
+      "sha256": "5e05ebb984b95051ee51a556b3200c71b3c6d2a234e1da51bd7865d996312bb5"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/openbox-startup/openbox.log",
+      "sha256": "6f326d71d2b176c357d2f1faf71fc534131fd1c887739409c9f6135f6cd5036d"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/openbox-startup/result.json",
+      "sha256": "84aefec33dc25f275567851a41a3e6f22ec71db994751e6e4a7668bec9ebbdf0"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/openbox-startup/xvfb.log",
+      "sha256": "71f04fb1120f2e4cfd94fc7d14acf83c54de95a4c52f4f20f4349eeb108a7235"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/visual/isolation/environment.json",
+      "sha256": "303ae71212337c3adc345aaa74cdbe521e1ceeb7ea6435666acffa437a875180"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/visual/isolation/result.json",
+      "sha256": "98f31fc5384d370e2277f50fef594d77bf73129674975848b589eead83f1f768"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/visual/native-sessions.jsonl",
+      "sha256": "bf62f60515d889068a8524508f755d06212dfa70eb00bb3c9f2c38e8f4b39d03"
+    },
+    {
+      "path": "docs/r04/evidence/development-attempts/visual/report.json",
+      "sha256": "4da5cdead69fe790c8b35d50a4086c45a762b9718cf38b8fb4b8e6a67a7a3133"
+    },
+    {
+      "path": "docs/r04/evidence/organization/cancelled.png",
+      "sha256": "47cd121127291e9e77a22444f2de0a046ca00d88fc73f0490399f5a8656fbf2d"
+    },
+    {
+      "path": "docs/r04/evidence/organization/empty-en-dark.png",
+      "sha256": "e2d17a86abd5a0bc29cef26a68cdc4c33ad145084573331ab5084baadf9fb360"
+    },
+    {
+      "path": "docs/r04/evidence/organization/en-dark-1100.png",
+      "sha256": "97c1fa1e2b444be36aa20c5a5a2ddb1904a71c73eaa9a4a08c8f834b594cf014"
+    },
+    {
+      "path": "docs/r04/evidence/organization/en-dark-390.png",
+      "sha256": "d5b875793a89f0289f14c4b47c678107f7a58128a29f776458c095ec3758db85"
+    },
+    {
+      "path": "docs/r04/evidence/organization/en-light-1100.png",
+      "sha256": "671c4ab7765775f87825770d4ffd9071ffa38cdcc37e6c8407d68e1be4e577c8"
+    },
+    {
+      "path": "docs/r04/evidence/organization/en-light-390.png",
+      "sha256": "e66abdb62ccffd34d7520a150bcc06526aaf806f69002d8b5d86276d459fd850"
+    },
+    {
+      "path": "docs/r04/evidence/organization/encoding.json",
+      "sha256": "96c6820b0c213f0ac0da728ff61bbb27f642c9d01494c79541a8c12ce443e8f5"
+    },
+    {
+      "path": "docs/r04/evidence/organization/isolation/environment.json",
+      "sha256": "061338782dddbed48d2e1b119e0859a0a97a3f870bb900b9f1b86a5d41a12d65"
+    },
+    {
+      "path": "docs/r04/evidence/organization/isolation/result.json",
+      "sha256": "3472ae322e1b5d302cbe3ce843969559ffe7be1ff848ba7846da2be53225f203"
+    },
+    {
+      "path": "docs/r04/evidence/organization/journey-cfr.mp4",
+      "sha256": "b77c6383156eb773e97f218a6e0ed97c502410420e1dec3db945548e6142adc1"
+    },
+    {
+      "path": "docs/r04/evidence/organization/journey.mp4",
+      "sha256": "07e390eaa8045bacfa22e71f87d4bd30d5de8e7774acee271e0c815a8158c30b"
+    },
+    {
+      "path": "docs/r04/evidence/organization/large-1000.png",
+      "sha256": "79a822fde207c0b70d23bd3c88a167e25b8761470b15b0ebd7274115f8410562"
+    },
+    {
+      "path": "docs/r04/evidence/organization/missing-scope.png",
+      "sha256": "69dee2bbf4c85fceb0d31b98165fdff0b3388376bf9539f48520b012a5143f02"
+    },
+    {
+      "path": "docs/r04/evidence/organization/native-sessions.jsonl",
+      "sha256": "c34522bbc4fe1515cc94dab6c2926af5d58db09f542ace73ebb0a2c34fa5be7f"
+    },
+    {
+      "path": "docs/r04/evidence/organization/organized-en-dark.png",
+      "sha256": "0a37adec89e42f994023185f5e57fc66e9920cfa15a3c2cda1967d00a6b99b03"
+    },
+    {
+      "path": "docs/r04/evidence/organization/partial-cache.png",
+      "sha256": "7a0aded7a7664ebda9b3b7a2b0e055cd344954775030d8352491f53dfc13d17a"
+    },
+    {
+      "path": "docs/r04/evidence/organization/popout-organization.png",
+      "sha256": "005604e3fd93dc494c1247c186fafb4b1239ece3bd72380fa51eab8fbb16b2e0"
+    },
+    {
+      "path": "docs/r04/evidence/organization/reduced-motion.png",
+      "sha256": "6614d392d81a7346a896a22499a7cd97aced7b1588af44ff1f9ce04beb0bfcfe"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-active-unused-tags.png",
+      "sha256": "35389eaab41bcde4ddddbaa2ad570b12dac22e2bce03ad875f2297c5e922ec69"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-conflict.png",
+      "sha256": "c3c9d8cd390557dc77b3bd1bde3e03c974972a2208907fadcb15c33ef06f8a26"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-create-preview.png",
+      "sha256": "84fdbbdbf08c8f04c343537dab2a921a266fcf4e725154e9feca927a688f3f78"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-created.png",
+      "sha256": "07f9fc85be7fd6ee115f5af0259855359bdb7a3d416cd7304c4950b1add67727"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-invalid.png",
+      "sha256": "50dae92895920bde1feb760c7dc2e6460ebb43a16a12b555cd906fb7005dcb16"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-missing.png",
+      "sha256": "2f9610c6dc21dbe0051ac5450239f2dd041485c8ce96d671e4919ddef7351bac"
+    },
+    {
+      "path": "docs/r04/evidence/organization/registry-unsupported.png",
+      "sha256": "f576eb77db67a01debbbef50135ef1de216d5113d10b31ec2523a2504fa35e97"
+    },
+    {
+      "path": "docs/r04/evidence/organization/report.json",
+      "sha256": "9f78f5db49ea288be4f8475a98af791b1da4ba16d63da846dea5004019736779"
+    },
+    {
+      "path": "docs/r04/evidence/organization/ru-dark-1100.png",
+      "sha256": "8fd708059169073094d01d512c51df02332afee4868d1c6ce0513708f333a642"
+    },
+    {
+      "path": "docs/r04/evidence/organization/ru-dark-390.png",
+      "sha256": "c74d09c8379e405c2fa18b69617de130914d3214920f25a106bde7b69ae077ac"
+    },
+    {
+      "path": "docs/r04/evidence/organization/ru-light-1100.png",
+      "sha256": "7306a14ab6666bdee703170cc14b55c521e426273530ba824266c7195e6b7913"
+    },
+    {
+      "path": "docs/r04/evidence/organization/ru-light-390.png",
+      "sha256": "1e5de1997af16e0d6cd43975f3ad8e3555ec2b1a5d4e44247743406e2eada771"
+    },
+    {
+      "path": "docs/r04/evidence/organization/rule-review.png",
+      "sha256": "b64534c11c522620a26eb1320ee8a5317b9737abbff68d829dd7d39034652271"
+    },
+    {
+      "path": "docs/r04/evidence/organization/stale-source.png",
+      "sha256": "4bedf6a7b4497302d311c1ae3b19d4f6c2ae1c2fb049e41a6c0155f39f36ff79"
+    },
+    {
+      "path": "docs/r04/evidence/organization/tagless-en-dark.png",
+      "sha256": "dcc3064982e2cae560c81f4c7843807f9299727e2298c8fa85448bb769c6a261"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/community/isolation/environment.json",
+      "sha256": "7e37fdb9a7a9bdee36898efcf18d5bc0fa836639f7a92c37afc0237fb8756fb2"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/community/isolation/result.json",
+      "sha256": "9f9e1289b6d1cdd7a19fe67c4b752350d4da77b3ddb7a12ebb2a9f40261e2e8b"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/community/native-sessions.jsonl",
+      "sha256": "ed06cd126cee5bfc8ef495fcbd5a53a9a09d9834b60be4da44e6ad4b534d37e1"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/community/report.json",
+      "sha256": "289133c2b2a0142942af9d2ffda1bddaafc2c04176654b1e6a3d94dd5c084352"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/recall/isolation/environment.json",
+      "sha256": "694baf21b1a6c51e28ac6d2656891386544fe7fd19ea7682cc85881676a7c455"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/recall/isolation/result.json",
+      "sha256": "a773d6b83e2033de3eda5da4a07aa8829b3947f38c59c2e11cb37f5ccec5f821"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/recall/native-sessions.jsonl",
+      "sha256": "2c3d34d06201dcd9f117c89159719ef32e07c4594039f843717de2295509c42d"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/recall/report.json",
+      "sha256": "9d6b11531eef117e05f04ace8920a146a91c72236284dcd9fb8b128962fc0ea6"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/smoke/isolation/environment.json",
+      "sha256": "bb764a339d4d513464c9cfbf65c8987610861293f3f0df7cc399ac035231ebaa"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/smoke/isolation/result.json",
+      "sha256": "a7b03426f57854d7b1bd88d8436018bb37b03f24a493f0f38ac73b1c7f277a27"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/smoke/native-sessions.jsonl",
+      "sha256": "1c9c5e7e3b953885d4d4131fad594949e43328bf7bd47928c5deaf76e2097256"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/smoke/report.json",
+      "sha256": "678ab74451f216244b5bd65c30324a15f1aff3fbab9108d95b3963d0c8610167"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/studio/isolation/environment.json",
+      "sha256": "d52a4ab25db7c822ac113273913c42c1a49cc34a043162d8c523c0d650ff1ebb"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/studio/isolation/result.json",
+      "sha256": "5ac8b723a706055ab81e2c3889c3b129373054a957b8c1e1cd2a17b5a9174783"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/studio/native-report.json",
+      "sha256": "e0dcc6cfeaf8e1134f2f6a9de6958a90749bd807add0d0d151556adf9684f1a1"
+    },
+    {
+      "path": "docs/r04/evidence/regressions/studio/native-sessions.jsonl",
+      "sha256": "8c8e5332b7e66fb7f5365d0f24b565936b0a42b8a734e2960678f8550476e385"
+    },
+    {
+      "path": "docs/r04/evidence/source.json",
+      "sha256": "d8d22370f815b1fb4bcadc47c0ca3094667cf38b071b00a482eb8213264e2309"
+    }
+  ]
+}

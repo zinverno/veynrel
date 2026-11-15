@@ -1,0 +1,2901 @@
+{
+  "scenario": "r04-modal-lifecycle-v1",
+  "mode": "taxonomy",
+  "language": "en",
+  "lifecycle": [],
+  "pauses": [
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/plugins/ai-knowledge-hub/health/findings.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "5043622403565901097.1.6406",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1534.5999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/plugins/ai-knowledge-hub/health/findings.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "5043622403565901097.1.6411",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1690.5999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/plugins/ai-knowledge-hub/health/scan-runs.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "5043622403565901097.1.6449",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1704.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/plugins/ai-knowledge-hub/health/scan-runs.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "5043622403565901097.1.6455",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1714.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6495",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1960.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">All tools</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6500",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1967.3999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "5043622403565901097.1.6538",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1969.8999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "5043622403565901097.1.6543",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1977,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6581",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1995.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6586",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2004.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6624",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2007.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6629",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2013.3999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6667",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2031,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6672",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2036.5999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6710",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2038.8999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6715",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2044.3999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6753",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2046.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6758",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2052.099999997765,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6796",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2054.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6801",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2060.39999999851,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6839",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2062.39999999851,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6844",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2068.5,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6882",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2070.89999999851,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6887",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2076.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6925",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2880.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6930",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2887.099999997765,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6968",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2889.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.6973",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2895.89999999851,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.7011",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2898.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-base-en3/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "5043622403565901097.1.7016",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2904.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    }
+  ],
+  "checks": [],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [],
+  "screenshots": [],
+  "assets": {
+    "main.js": "72b5f467b09dcae663c4ea660f9fdb0d433fea6cd746c108560785375a23a25d",
+    "styles.css": "492779ef567de8797f55d17a20c1be5f7af12bf42ec6604916171829e74b08b3",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-modal-lifecycle-native.mjs": "a0762d327453ad409f2a2b2e730c7dc2a8eece5bdbc24a63946d2e1496fcd7fd",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "f90aa721c8d4f04a165941297fdabecf8e6b814a0d5ede4841941390917ae129"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "hostOpenSHA256": "6b446d35b253d34952f7363f19b0a2cc18c138a93fa93e9b055dacbbbb95d021",
+  "phase": "first",
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:58:159)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:141:40",
+  "final": {
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive"
+    },
+    "events": [
+      {
+        "lifecycle": "Workspace.onOpen:enter",
+        "time": 1769.8999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1826.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1834.3999999985099,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1873,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1874.5999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.onOpen:return",
+        "time": 1875.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1882.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "type": "focusin",
+        "time": 1933.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">All tools</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1934.0999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">All tools</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1942.5999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">All tools</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "type": "focusout",
+        "time": 1943.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "type": "focusin",
+        "time": 1952.0999999977648,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">All tools</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1953,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<h1 tabindex=\"-1\" data-health-heading=\"true\">All tools</h1>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1980.5,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "type": "focusout",
+        "action": "tool-openTagTaxonomy",
+        "time": 1981,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "type": "focusin",
+        "action": "tool-openTagTaxonomy",
+        "time": 1989.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1990.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1
+        }
+      }
+    ],
+    "snapshot": {
+      "time": 12334.39999999851,
+      "modalOwnerMain": false,
+      "contentOwnerMain": false,
+      "focus": "<button type=\"button\" data-health-action=\"tool-openTagTaxonomy\" aria-label=\"Open: Tag Taxonomy\">Open</button>",
+      "hasFocus": true,
+      "leaf": "veynrel-health",
+      "stackDOM": [],
+      "hostStack": {
+        "type": "Array",
+        "keys": [
+          "0"
+        ],
+        "items": [
+          {
+            "type": "Object",
+            "fields": {
+              "onHistoryBack": {
+                "type": "Function",
+                "ownerMain": false
+              },
+              "onHistoryForward": {
+                "type": "Function",
+                "ownerMain": false
+              }
+            }
+          }
+        ]
+      },
+      "keyScopes": {
+        "sameModal": false,
+        "depth": 1
+      }
+    },
+    "modals": 0
+  },
+  "modelRequests": []
+}

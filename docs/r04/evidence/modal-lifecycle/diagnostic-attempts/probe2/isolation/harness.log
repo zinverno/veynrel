@@ -1,0 +1,11 @@
+{"root":"/tmp/veynrel-organization-open-probe2","status":"FAIL","error":"Error: {\"code\":-32000,\"message\":\"Promise was collected\"}\n    at Object.reject (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:37:118)\n    at socket.onmessage (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:41:87)\n    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)\n    at WebSocket.dispatchEvent (node:internal/event_target:776:26)\n    at fireEvent (node:internal/deps/undici/undici:14147:14)\n    at #onMessage (node:internal/deps/undici/undici:15425:9)\n    at Object.onMessage (node:internal/deps/undici/undici:15138:76)\n    at websocketMessageReceived (node:internal/deps/undici/undici:14151:15)\n    at node:internal/deps/undici/undici:14857:19\n    at node:internal/deps/undici/undici:14671:11","checks":[]}
+file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:36
+    const id = ++next, timer = setTimeout(() => { pending.delete(id); reject(Error(`CDP timeout: ${method}`)); }, 15000);
+                                                                             ^
+
+Error: CDP timeout: Debugger.resume
+    at Timeout._onTimeout (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:36:78)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+
+Node.js v24.14.1

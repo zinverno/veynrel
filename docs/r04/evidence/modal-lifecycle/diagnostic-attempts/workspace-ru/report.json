@@ -1,0 +1,6606 @@
+{
+  "scenario": "r04-modal-lifecycle-v1",
+  "mode": "workspace",
+  "language": "ru",
+  "input": "cdp",
+  "lifecycle": [],
+  "pauses": [
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/plugins/ai-knowledge-hub/health/findings.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "1979815892857450575.1.6439",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1619.6000000014901,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/plugins/ai-knowledge-hub/health/findings.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "1979815892857450575.1.6444",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1771.6000000014901,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/plugins/ai-knowledge-hub/health/scan-runs.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "1979815892857450575.1.6482",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1785,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/plugins/ai-knowledge-hub/health/scan-runs.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "1979815892857450575.1.6487",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1793.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6525",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1905.9000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6530",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1914.4000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "1979815892857450575.1.6568",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1920.1000000014901,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOENT: no such file or directory, access '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json'\n    at async Object.access (node:internal/original-fs/promises:1312:10)",
+        "objectId": "1979815892857450575.1.6576",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 558854
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1927.4000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6614",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1937.9000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6619",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1945.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6657",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1950.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6662",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 1956.9000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6700",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2046.9000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6705",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2054,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6743",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2056.800000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6748",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2063.5,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6786",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2065.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/app.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6791",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2072.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6829",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2076,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6834",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2082.400000002235,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6872",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2085.10000000149,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6877",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2091.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6915",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2093.400000002235,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/appearance.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6920",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2103.10000000149,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6958",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2903.60000000149,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.6963",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2909.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.7001",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2911.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.7006",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2917.5,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "promiseRejection",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.7044",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "handleErrorFromBinding",
+          "url": "",
+          "location": {
+            "scriptId": "155",
+            "lineNumber": 180,
+            "columnNumber": 9
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2919.5,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    },
+    {
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "Error",
+        "description": "Error: ENOTDIR: not a directory, scandir '/tmp/veynrel-organization-open-workspace-ru/vault/.obsidian/workspace.json'\n    at async Object.readdir (node:internal/original-fs/promises:1661:18)",
+        "objectId": "1979815892857450575.1.7049",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "sent",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257816
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 560863
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258719
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 258824
+          }
+        },
+        {
+          "function": "s",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 257593
+          }
+        }
+      ],
+      "snapshot": {
+        "time": 2924.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    }
+  ],
+  "checks": [],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [],
+  "screenshots": [],
+  "assets": {
+    "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-modal-lifecycle-native.mjs": "a7fa56f3e765d184d65b681980f1f26668b5109592f92a0e5a35792fc08a7f37",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "f90aa721c8d4f04a165941297fdabecf8e6b814a0d5ede4841941390917ae129"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "hostOpenSHA256": "6b446d35b253d34952f7363f19b0a2cc18c138a93fa93e9b055dacbbbb95d021",
+  "breakpointLocations": {
+    "Modal.open": [
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129091
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129102
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129120
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129147
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129165
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129581,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129605,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129613
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129620,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129644
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129658,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129675,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129698
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129700,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129722,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129737
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129746
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129758
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129767
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129783,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129808
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129824,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129875,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129880,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129888,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129904
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129952,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129981
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1129991,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130039,
+        "type": "return"
+      }
+    ],
+    "Modal.onOpen": [
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9602
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9636,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9681,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9718,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9744,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9868,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9895
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9915
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 9920,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10004
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10049,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10235
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10400
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10472,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10480,
+        "type": "return"
+      }
+    ],
+    "Modal.render": [
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15344
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15388,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15426
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15439
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15484,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15509
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15532
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15556
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15585
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15608,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 15645,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16258,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16292
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16308,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16368,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16401
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16422
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16427,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16453
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16468,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16494,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16536,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16700,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16732
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16754,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 16777,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17085,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17183
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17263,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17397,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17416,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17909,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17931,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 17956,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 18123,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 18142,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19183
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19187,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19206,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19355
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19360,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19469,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19820
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19872
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19879,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19952
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 19969,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20044
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20051,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20089
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20129,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20185,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20216
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20249,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20317
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20345
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20347
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20371,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20396,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20645,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20716,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20741,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20762
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20872
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20876,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 20895,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 21928,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 21952,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 21977,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 21996,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22054,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22073,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22109
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22122
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22133
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22138,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22158
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22163,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22416
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22419,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22483
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22485,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22496
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22512,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22522,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22548,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22555,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22581,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22658
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22664,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22707,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22733,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22757,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22791
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22800,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22820,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22863,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22915,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 22922,
+        "type": "return"
+      }
+    ],
+    "Modal.close": [
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130733
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130745
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130756
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130762
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130769,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130798
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130804,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130809,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130825,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130839
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130932
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130948,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130963,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130971,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130978,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1130993
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131376,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131393
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131410,
+        "type": "call"
+      },
+      {
+        "scriptId": "143",
+        "lineNumber": 0,
+        "columnNumber": 1131460,
+        "type": "return"
+      }
+    ],
+    "Modal.onClose": [
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10491
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10514
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10528,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10536
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10550,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10558
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10569,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10582
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10590,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10603
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10620,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10633
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10665,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10679,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10716
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10726,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10739,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 711,
+        "columnNumber": 10748,
+        "type": "return"
+      }
+    ],
+    "Workspace.onOpen": [
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40914
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40927
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40942,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 40965,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41008
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41024,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41140,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41148,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41179
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41195,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41246
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41247,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41448
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41489
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41534,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41672,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41703
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41734,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41823
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41843,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41866,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41889
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41944
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41969,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 41989
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42003
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42010,
+        "type": "return"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42028,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42047
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42064,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42119,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42146
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42162,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42213,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42236
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42248,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42304,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42332
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42349,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42403,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42429
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42444,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42529,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42558
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42576,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42746,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42755
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42771,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42785
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 42827,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43140,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43171
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43191,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43246,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43273
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43289,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43323,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43338
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43368,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43376,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43412,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43431,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43518,
+        "type": "return"
+      }
+    ],
+    "Workspace.render": [
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45228
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45273
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45280,
+        "type": "return"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45285,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45320
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45336,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45349,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45356,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45384,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45412,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45422
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45467
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45485,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45499
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45584
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45655
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45726
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45740
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45750,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45788,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45836,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45948,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46025,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46097
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46115
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46152,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46167
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46197
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46249
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46275
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46297
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46331
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46352
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46417,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46441
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46469,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46490
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46520,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46543
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46574
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46592,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46635
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46649
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46659,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46705
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46767
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46794
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46822,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46830
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46847
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46858,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46873,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46928,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46934,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46981
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 46991,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47039
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47054
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47141,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47159,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47181
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47184,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47225,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47320
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47358
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47359,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47371
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47397
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47520,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47554
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47569,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47592,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47608
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47614,
+        "type": "return"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47617,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47633,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47721,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47773
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 47803,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48413
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48521,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48549
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48582
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48612
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48632
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48643,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48717,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48721,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48804
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48839,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48886,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48923
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 48996,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49019
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49098,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49121
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49153,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49170
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49213,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49236
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49238,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49253
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49284,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49308
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49353,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49374
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49402,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49441,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49485,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49489,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49577
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49610,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49653
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49664,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49668,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49747
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49752,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49862
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49894,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49916,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 49944,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50289
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50308
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50409,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50434
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50475
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50486,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50766
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50807
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50818,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50823,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50847,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50886,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50905,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50945
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 50950
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51007,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51048,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51067,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51099,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51104,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51170
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51238,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51541
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51596
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51618,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51868
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51942
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 51974,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52104
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52154
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52175,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52293
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52332
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52343,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52348,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52416
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52458
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52469
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52487
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52492,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52511
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52533
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52538,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52561,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52566,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52580,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52609,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52637,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52699,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52830,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52835,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52892,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52911,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52938
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 52965,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53023,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53047,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53069
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53075
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53080,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53102
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53127
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53139
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53161,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53538
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53604
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53619,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 53993
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54013
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54082
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54210
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54214
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54273,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54298
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54324
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54395
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54410
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54413,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54430
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54445
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54464,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54568,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54595
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 54610,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55118,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55161
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55188,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55224
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55239,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55262,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55283
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55289,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55294,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55314,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55327
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55357
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55371
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55393,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55458,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55525,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 55999,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56180
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56222
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56236,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56265,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56343
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56426
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56449
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56475
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56476,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56547
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 56584,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57336
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57363,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57368,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57896
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57915
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 57992,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58017,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58394
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58442,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58487
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58498,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58513,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58574
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58594,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58600,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58640
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58673
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58707
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58754
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58788,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58855
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58873,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58900,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58904,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 58945,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59108
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59145,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59197,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59233
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59263,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59299
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59349,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59372
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59375,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59457,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59471,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59490,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59537,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59590,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59620,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59669,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59732
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59809,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59826,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59851
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59912,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59933,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 59958
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60007,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60025,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60047
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60059,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60130,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60149,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60379,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60401,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60417,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60440
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60563
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60663
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60706,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60748,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60800,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60822
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60827,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60838,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60858,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60881
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 60893,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61219,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61244,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61298,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61427
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61457
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61482
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61540,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61637,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61730,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61843,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 61940,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62011,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62026,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62067,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62096
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62109
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62121
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62133,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62183
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62192,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62198,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62211
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62231,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62258
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62262,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62296
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62306,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62345,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62384,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62390,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62428
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62489,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62516,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62546
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62600,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62646,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62673
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62733
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62737
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62748
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62764,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62820
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62838,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62888
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62922
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 62930
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 63009,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 63027,
+        "type": "return"
+      }
+    ],
+    "Workspace.onClose": [
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43540
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43551,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43575
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43597
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43610
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43621,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43645
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43658
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43673,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43704
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43717
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43733,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43755
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43785
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43805
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43818
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43855
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43873
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43882,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43916
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43939,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43968
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43995
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 43996,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44006
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44028,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44056
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44069
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44087,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44111
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44137
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44138,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44148
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44173,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44204
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44233
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44255
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44263
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44276,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44295
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44308
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44329,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44356
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44369
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44386,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44409
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44434
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44435,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44445,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44473
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44486
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44507,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44534
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44560
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44573
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44590,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44613
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44635
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44648
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44670,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44698
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44711
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44731,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44757
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44782
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44814
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44840
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44874
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44891
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44910
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44940
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 44978
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45006
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45015
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45029,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45061
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45091
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45092,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45107
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45140
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45163
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45188
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45201
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45211,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 602,
+        "columnNumber": 45218,
+        "type": "return"
+      }
+    ],
+    "button-handler/factory": [
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40255,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40276,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40826,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40865
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40885,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40894,
+        "type": "call"
+      },
+      {
+        "scriptId": "166",
+        "lineNumber": 714,
+        "columnNumber": 40900,
+        "type": "return"
+      }
+    ]
+  },
+  "commandCompleted": 1903.800000000745,
+  "phase": "first",
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:59:159)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:157:40",
+  "final": {
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "enumerations": 1,
+      "models": 0,
+      "phase": "passive"
+    },
+    "events": [
+      {
+        "lifecycle": "Workspace.onOpen:enter",
+        "time": 1609.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1850.1000000014901,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1858.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1895.6000000014901,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1897.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.onOpen:return",
+        "time": 1898.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1930.199999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1935.1000000014901,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:enter",
+        "time": 1959.300000000745,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusout",
+        "action": "organization-audit",
+        "time": 1960.4000000022352,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused theme-dark\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "type": "focusin",
+        "action": "organization-audit",
+        "time": 1963.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      },
+      {
+        "lifecycle": "Workspace.render:return",
+        "time": 1964.699999999255,
+        "modalOwnerMain": false,
+        "contentOwnerMain": false,
+        "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+        "hasFocus": true,
+        "leaf": "veynrel-health",
+        "stackDOM": [],
+        "hostStack": {
+          "type": "Array",
+          "keys": [
+            "0"
+          ],
+          "items": [
+            {
+              "type": "Object",
+              "fields": {
+                "onHistoryBack": {
+                  "type": "Function",
+                  "ownerMain": false
+                },
+                "onHistoryForward": {
+                  "type": "Function",
+                  "ownerMain": false
+                }
+              }
+            }
+          ]
+        },
+        "keyScopes": {
+          "sameModal": false,
+          "depth": 1,
+          "keys": []
+        }
+      }
+    ],
+    "ui": {
+      "route": {
+        "page": "home"
+      },
+      "preferences": {
+        "profile": "mixed",
+        "profileChosen": true,
+        "onboardingCompleted": true,
+        "onboardingVersion": 1
+      }
+    },
+    "snapshot": {
+      "time": 12338.800000000745,
+      "modalOwnerMain": false,
+      "contentOwnerMain": false,
+      "focus": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>",
+      "hasFocus": true,
+      "leaf": "veynrel-health",
+      "stackDOM": [],
+      "hostStack": {
+        "type": "Array",
+        "keys": [
+          "0"
+        ],
+        "items": [
+          {
+            "type": "Object",
+            "fields": {
+              "onHistoryBack": {
+                "type": "Function",
+                "ownerMain": false
+              },
+              "onHistoryForward": {
+                "type": "Function",
+                "ownerMain": false
+              }
+            }
+          }
+        ]
+      },
+      "keyScopes": {
+        "sameModal": false,
+        "depth": 1,
+        "keys": []
+      }
+    },
+    "modals": 0
+  },
+  "modelRequests": []
+}

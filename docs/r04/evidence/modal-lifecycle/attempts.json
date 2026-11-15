@@ -1,0 +1,420 @@
+[
+  {
+    "attempt": "base-en",
+    "control": false,
+    "status": "FAIL",
+    "mode": "taxonomy",
+    "language": "en",
+    "phase": null,
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": null,
+    "exceptions": 17,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 30,
+    "error": "Error: Readiness: !!document.querySelector(\"[data-health-action=tag-taxonomy]\")",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      33189
+    ]
+  },
+  {
+    "attempt": "base-en2",
+    "control": false,
+    "status": "FAIL",
+    "mode": "taxonomy",
+    "language": "en",
+    "phase": null,
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 24,
+    "error": "Error: Readiness: !!document.querySelector(\"[data-health-action=openTagTaxonomy]\")",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      33689
+    ]
+  },
+  {
+    "attempt": "base-en3",
+    "control": false,
+    "status": "FAIL",
+    "mode": "taxonomy",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 30,
+    "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      37587
+    ]
+  },
+  {
+    "attempt": "base-xtest",
+    "control": false,
+    "status": "FAIL",
+    "mode": "taxonomy",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 1,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 30,
+    "error": "Error: Readiness: !document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      35221
+    ]
+  },
+  {
+    "attempt": "checkpoint-onboarding-en",
+    "control": false,
+    "status": "PASS",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      39137
+    ]
+  },
+  {
+    "attempt": "final-onboarding-ru",
+    "control": true,
+    "status": "PASS",
+    "mode": "onboarding",
+    "language": "ru",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      44483
+    ]
+  },
+  {
+    "attempt": "final-taxonomy-en",
+    "control": true,
+    "status": "PASS",
+    "mode": "taxonomy",
+    "language": "en",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      43579
+    ]
+  },
+  {
+    "attempt": "final-taxonomy-ru",
+    "control": true,
+    "status": "PASS",
+    "mode": "taxonomy",
+    "language": "ru",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      42233
+    ]
+  },
+  {
+    "attempt": "final-workspace-en",
+    "control": true,
+    "status": "PASS",
+    "mode": "workspace",
+    "language": "en",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      41861
+    ]
+  },
+  {
+    "attempt": "final-workspace-ru",
+    "control": true,
+    "status": "PASS",
+    "mode": "workspace",
+    "language": "ru",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      44559
+    ]
+  },
+  {
+    "attempt": "location-en",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 1,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 28,
+    "error": "Error: Readiness: !document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      43823
+    ]
+  },
+  {
+    "attempt": "onboard-x11",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 8,
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      36899
+    ]
+  },
+  {
+    "attempt": "onboard-xtest",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 28,
+    "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      40393
+    ]
+  },
+  {
+    "attempt": "probe1",
+    "control": false,
+    "status": "SETUP_FAILED",
+    "mode": null,
+    "language": null,
+    "phase": null,
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": null,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": []
+  },
+  {
+    "attempt": "probe2",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": null,
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": null,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 2,
+    "error": "Error: {\"code\":-32000,\"message\":\"Promise was collected\"}",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      44629
+    ]
+  },
+  {
+    "attempt": "probe3",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 24,
+    "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      36505
+    ]
+  },
+  {
+    "attempt": "probe4",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 1,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 27,
+    "error": "Error: Readiness: !document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      36947
+    ]
+  },
+  {
+    "attempt": "probe5",
+    "control": false,
+    "status": "FAIL",
+    "mode": "workspace",
+    "language": "en",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 26,
+    "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      39649
+    ]
+  },
+  {
+    "attempt": "ready-en",
+    "control": false,
+    "status": "FAIL",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "first",
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 1,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 28,
+    "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      36645
+    ]
+  },
+  {
+    "attempt": "workspace-ru",
+    "control": false,
+    "status": "FAIL",
+    "mode": "workspace",
+    "language": "ru",
+    "phase": "first",
+    "firstOpenObserved": false,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 30,
+    "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')",
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      39549
+    ]
+  },
+  {
+    "attempt": "final-onboarding-en-current",
+    "control": true,
+    "status": "PASS",
+    "mode": "onboarding",
+    "language": "en",
+    "phase": "reopen",
+    "firstOpenObserved": true,
+    "modalInstancesAtEnd": 0,
+    "exceptions": 0,
+    "consoleErrors": 0,
+    "caughtDebuggerEvents": 0,
+    "error": "",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "ports": [
+      37259
+    ]
+  }
+]

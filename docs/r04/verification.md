@@ -13,6 +13,17 @@ The following documentation/evidence commit does not change runtime bytes.
 The raw failures are retained below; this report does not turn a successful repeat
 into a claim that the failure was fixed. Merge remains an explicit owner decision.
 
+**2026-11-15 follow-up:** [first-modal lifecycle investigation](modal-lifecycle-investigation.md).
+Six fresh, isolated RU/EN profiles compared pre-R04 Tag Taxonomy, R04 Workspace
+and initial onboarding. All six first openings and six repeat openings closed
+with Escape; settings/Markdown were preserved, with no passive scan or model
+request. The original retained-instance/no-DOM failure was not reproduced and
+its cause remains unassigned. **The gate is still open; runtime is unchanged.**
+Debugger-induced/affected attempts and setup failures are retained separately.
+New checks: 187 targeted tests, 5,204 full-suite tests, typecheck/build/lint,
+mutation audit and launcher checks. The delivery evidence and 44-scenario results
+below are historical and were not rerun for this focused investigation.
+
 Public stable was independently rechecked as **2.3.1**, published
 2026-11-02T19:32:17Z. Development manifest stays **2.4.0**, unpublished. No release,
 tag, Marketplace update, deployment, dependency change or personal-vault install

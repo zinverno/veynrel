@@ -1,0 +1,138 @@
+{
+  "scenario": "r04-modal-lifecycle-v1",
+  "mode": "onboarding",
+  "language": "en",
+  "lifecycle": [],
+  "pauses": [
+    {
+      "name": "exception",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: Cannot read properties of undefined (reading 'setHandler')\n    at app://obsidian.md/app.js:1:686548\n    at lf (app://obsidian.md/app.js:1:683812)\n    at app://obsidian.md/app.js:1:686516\n    at app://obsidian.md/app.js:1:3871508\n    at app://obsidian.md/app.js:1:3871512",
+        "objectId": "-6211233290935932249.1.1",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 686547
+          }
+        },
+        {
+          "function": "lf",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 683811
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 686515
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 3871507
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 3871511
+          }
+        }
+      ]
+    },
+    {
+      "name": "exception",
+      "reason": "exception",
+      "data": {
+        "type": "object",
+        "subtype": "error",
+        "className": "TypeError",
+        "description": "TypeError: Cannot read properties of null (reading 'email')\n    at new e (app://obsidian.md/app.js:1:1171212)\n    at app://obsidian.md/app.js:1:1173566\n    at app://obsidian.md/app.js:1:3871508\n    at app://obsidian.md/app.js:1:3871512",
+        "objectId": "-6211233290935932249.1.22",
+        "uncaught": false
+      },
+      "stack": [
+        {
+          "function": "e",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1171211
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 1173565
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 3871507
+          }
+        },
+        {
+          "function": "",
+          "url": "",
+          "location": {
+            "scriptId": "143",
+            "lineNumber": 0,
+            "columnNumber": 3871511
+          }
+        }
+      ]
+    }
+  ],
+  "checks": [],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [],
+  "screenshots": [],
+  "assets": {
+    "main.js": "a5be23390eb25d9bdcf8c8223737af55aba8315d17c79f16294084485f2bf360",
+    "styles.css": "86d1b6ca8a4ff7b46764b95e17f44638d38fb6d5dde1124432aa41e53c3bfb20",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "r04-modal-lifecycle-native.mjs": "cfbaf756ec08824b9800734ea3ccf2db8285bba2512a6812c42b7597043cffa4",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "f90aa721c8d4f04a165941297fdabecf8e6b814a0d5ede4841941390917ae129"
+  },
+  "status": "FAIL",
+  "error": "Error: {\"code\":-32000,\"message\":\"Promise was collected\"}\n    at Object.reject (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:37:118)\n    at socket.onmessage (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r04-advisory-20261115/scripts/r04-modal-lifecycle-native.mjs:41:87)\n    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)\n    at WebSocket.dispatchEvent (node:internal/event_target:776:26)\n    at fireEvent (node:internal/deps/undici/undici:14147:14)\n    at #onMessage (node:internal/deps/undici/undici:15425:9)\n    at Object.onMessage (node:internal/deps/undici/undici:15138:76)\n    at websocketMessageReceived (node:internal/deps/undici/undici:14151:15)\n    at node:internal/deps/undici/undici:14857:19\n    at node:internal/deps/undici/undici:14671:11",
+  "captureError": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":2,\"scriptId\":\"150\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"150\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":2},{\"functionName\":\"readFileFromArchiveSync\",\"scriptId\":\"86\",\"url\":\"node:electron/js2c/node_init\",\"lineNumber\":1,\"columnNumber\":10331},{\"functionName\":\"\",\"scriptId\":\"86\",\"url\":\"node:electron/js2c/node_init\",\"lineNumber\":1,\"columnNumber\":16659},{\"functionName\":\"getNearestParentPackageJSON\",\"scriptId\":\"65\",\"url\":\"node:internal/modules/package_json_reader\",\"lineNumber\":172,\"columnNumber\":32},{\"functionName\":\"Module._extensions..js\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":2042,\"columnNumber\":28},{\"functionName\":\"Module.load\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1657,\"columnNumber\":31},{\"functionName\":\"Module._load\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1449,\"columnNumber\":11},{\"functionName\":\"l._load\",\"scriptId\":\"86\",\"url\":\"node:electron/js2c/node_init\",\"lineNumber\":1,\"columnNumber\":18262},{\"functionName\":\"s._load\",\"scriptId\":\"127\",\"url\":\"node:electron/js2c/renderer_init\",\"lineNumber\":1,\"columnNumber\":34530},{\"functionName\":\"wrapModuleLoad\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":267,\"columnNumber\":18},{\"functionName\":\"Module.require\",\"scriptId\":\"63\",\"url\":\"node:internal/modules/cjs/loader\",\"lineNumber\":1680,\"columnNumber\":11},{\"functionName\":\"require\",\"scriptId\":\"57\",\"url\":\"node:internal/modules/helpers\",\"lineNumber\":156,\"columnNumber\":15},{\"functionName\":\"_J\",\"scriptId\":\"143\",\"url\":\"app://obsidian.md/app.js\",\"lineNumber\":0,\"columnNumber\":2572291},{\"functionName\":\"\",\"scriptId\":\"143\",\"url\":\"app://obsidian.md/app.js\",\"lineNumber\":0,\"columnNumber\":3869063},{\"functionName\":\"\",\"scriptId\":\"143\",\"url\":\"app://obsidian.md/app.js\",\"lineNumber\":0,\"columnNumber\":258719},{\"functionName\":\"\",\"scriptId\":\"143\",\"url\":\"app://obsidian.md/app.js\",\"lineNumber\":0,\"columnNumber\":258824},{\"functionName\":\"a\",\"scriptId\":\"143\",\"url\":\"app://obsidian.md/app.js\",\"lineNumber\":0,\"columnNumber\":257542}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"ReferenceError\",\"description\":\"ReferenceError: io is not defined\\n    at <anonymous>:1:3\\n    at readFileFromArchiveSync (node:electron/js2c/node_init:2:10332)\\n    at node:electron/js2c/node_init:2:16660\\n    at Object.getNearestParentPackageJSON (node:internal/modules/package_json_reader:173:33)\\n    at Module._extensions..js (node:internal/modules/cjs/loader:2043:29)\\n    at Module.load (node:internal/modules/cjs/loader:1658:32)\\n    at Module._load (node:internal/modules/cjs/loader:1450:12)\\n    at l._load (node:electron/js2c/node_init:2:18263)\\n    at s._load (node:electron/js2c/renderer_init:2:34531)\\n    at wrapModuleLoad (node:internal/modules/cjs/loader:268:19)\",\"objectId\":\"-6211233290935932249.1.139\"}}",
+  "modelRequests": []
+}
