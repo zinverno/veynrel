@@ -7,7 +7,7 @@ import { ensure, parseRecipe, StudioError, validateRecipe } from "./recipe";
 import type { Recipe } from "./recipe";
 import type { StudioWorkspace } from "./registerStudio";
 import type { StudioHistoryRow, UndoReview } from "./apply";
-import { errorMessage, l, status } from "./messages";
+import { errorMessage, l, reviewRowLabel, status } from "./messages";
 import { CommunityPanel, categoryName, communityLink } from "./community/view";
 import { CATEGORIES, COMMUNITY_CONTRIBUTE } from "./community/schema";
 import type { CatalogEntry } from "./community/schema";
@@ -409,7 +409,7 @@ export class VeynrelStudioView extends ItemView {
       detail.empty(); const row = review.rows.find(r => r.path === this.reviewPath); if (!row) return;
       detail.createEl("h3", { text: row.path });
       const result = runner.results?.find(r => r.path === row.path);
-      detail.createEl("p", { text: `${status(row.action)} · ${status(row.status === "incomplete" ? row.status : result?.outcome ?? row.status)}` });
+      detail.createEl("p", { text: reviewRowLabel(row, this.destination, result?.outcome) });
       if (row.reason || result?.reason) detail.createEl("p", { text: errorMessage(result?.reason ?? row.reason!), attr: { role: "alert" } });
       if (row.status === "incomplete" && row.rawResponse !== undefined) {
         detail.createEl("p", { text: status("incomplete"), cls: "veynrel-studio-warning", attr: { role: "alert" } });

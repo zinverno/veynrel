@@ -9,6 +9,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const root = process.argv[2], smokeKit = process.argv[3];
+const reviewLabelsOnly = process.env.VEYNREL_R03_REVIEW_LABELS === '1';
+assert(!reviewLabelsOnly || process.env.VEYNREL_NATIVE_CONTROL && process.env.VEYNREL_NATIVE_ROOT === root,
+  'The bounded Review probe requires an external isolated launcher, not a working desktop.');
 const excalidrawAssets = process.env.VEYNREL_NATIVE_EXCALIDRAW;
 // Optional assets test coexistence only, in this disposable vault.
 // Optional third argument tests the shipped kit through the same UI and untouched production transport.
@@ -60,7 +63,7 @@ if (excalidrawAssets) {
 }
 fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`,JSON.stringify(excalidrawAssets?['ai-knowledge-hub','obsidian-excalidraw-plugin']:['ai-knowledge-hub']));
 fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
-fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisabled: true, vaults: { studio: { path: vault, ts: Date.now(), open: true } } }));
+fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisabled: true, ...(reviewLabelsOnly ? { frame: 'native' } : {}), vaults: { studio: { path: vault, ts: Date.now(), open: true } } }));
 const sha = raw => createHash('sha256').update(raw).digest('hex');
 const artifacts = {};
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { fs.copyFileSync(`${ROOT}/${name}`, `${pluginDir}/${name}`); artifacts[name] = sha(fs.readFileSync(`${pluginDir}/${name}`)); }
@@ -184,12 +187,84 @@ async function locale(lang) {
 }async function choose(paths) { await ev(`document.querySelectorAll('[data-studio-select]').forEach(e=>{e.checked=${JSON.stringify(paths)}.includes(e.dataset.studioSelect);e.dispatchEvent(new Event('change'));});void 0`); }
 async function confirmNew() { await click('review-apply'); await wait("!!document.querySelector('[data-studio-action=confirm-apply]')");await click('confirm-apply',true);await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')"); }
 const keep = (name,value) => fs.writeFileSync(`${root}/${name}.json`,JSON.stringify(value,null,2));
+async function reviewLabels() {
+  report.mode = 'r03-review-labels'; report.harnessSha256 = sha(fs.readFileSync(fileURLToPath(import.meta.url)));
+  report.labels = []; report.passiveMatrices = [];
+  await pass('Disposable host uses Native frame without the custom handler', "window.titlebarStyle==='native'&&!window.frameDom");
+  const journals = () => {
+    const dir = `${pluginDir}/studio`;
+    return fs.existsSync(dir) ? Object.fromEntries(fs.readdirSync(dir,{recursive:true}).filter(p=>fs.statSync(`${dir}/${p}`).isFile()).sort().map(p=>[p,sha(fs.readFileSync(`${dir}/${p}`))])) : {};
+  };
+  await ev("(async()=>{const base=studio.registry.list().find(r=>r.id==='builtin.smart-format');await studio.registry.add({...studio.registry.duplicate(base),id:'user.review-append',name:{en:'Synthetic append',ru:'Синтетическое добавление'},output:{format:'markdown',action:'append'}})})()");
+  const label = () => ev("document.querySelector('.veynrel-studio-review-detail > p')?.textContent");
+  const destination = async value => {
+    await ev(`{const e=document.querySelector('[data-studio-destination]');e.value='${value}';e.dispatchEvent(new Event('change'));}void 0`);
+    await wait(`document.querySelector('[data-studio-destination]')?.value==='${value}'`);
+  };
+  for (const language of ['en','ru']) {
+    await locale(language);
+    for (const action of ['replace','append']) {
+      const recipe = action==='replace'?'builtin.smart-format':'user.review-append';
+      await prepare(recipe,['Formatting.md']); const bodies=await ev('studio.runner.prepared.requests.map(r=>r.body)'); await generate(bodies);
+      const frozen=await ev('JSON.stringify(studio.runner.review)'), beforeJournals=journals(), beforeNotes=hashes(), requestCount=requests.length;
+      const beforeIo=await ev('({writes:io.writes.length,creates:io.creates.length,journals:io.journals.length})');
+      assert.equal(await ev('studio.runner.review.rows[0].action'),action);
+      for(const theme of ['light','dark']) {
+        await hostTheme(theme);
+        for(const [step,target] of ['new-note','source','new-note'].entries()) {
+          await destination(target);
+          const actionText=language==='en'?(action==='replace'?'Replace':'Append'):(action==='replace'?'Заменить':'Добавить в конец');
+          const expected=target==='new-note'
+            ? language==='en'?'Draft for a separate note — source unchanged · Generated':'Черновик отдельной заметки — исходник без изменений · Сгенерировано'
+            : `${language==='en'?'Proposed source action:':'Предлагаемое действие с исходником:'} ${actionText} · ${language==='en'?'Generated':'Сгенерировано'}`;
+          const actual=await label();assert.equal(actual,expected);
+          report.labels.push({language,action,theme,destination:target,text:actual});
+          if(step<2) await themeShot(`review-${language}-${action}-${theme}-${target}`,theme,language,'review');
+        }
+      }
+      assert.equal(await ev('JSON.stringify(studio.runner.review)'),frozen);
+      assert.equal(requests.length,requestCount);assert.deepEqual(journals(),beforeJournals);assert.deepEqual(hashes(),beforeNotes);
+      const afterIo=await ev('({writes:io.writes.length,creates:io.creates.length,journals:io.journals.length})');assert.deepEqual(afterIo,beforeIo);
+      report.passiveMatrices.push({language,action,modelRequestDelta:requests.length-requestCount,beforeIo,afterIo,journalsBefore:beforeJournals,journalsAfter:journals(),markdownBefore:beforeNotes,markdownAfter:hashes(),reviewUnchanged:true});
+      checks.push(`${language}/${action}: destination/theme switches preserve Review, notes, journals and request count`);
+      await ev("app.workspace.getLeavesOfType('markdown').forEach(l=>l.detach());void 0");
+      await choose(['Formatting.md']);
+      if(language==='en') {
+        await confirmNew();assert.equal(await label(),'Separate note created');
+        assert.equal(await ev('studio.runner.results[0].outcome'),'created');
+      } else {
+        await sourceMode();await choose(['Formatting.md']);await confirmSourceWrite();
+        await wait("!studio.runner.running&&!document.querySelector('.veynrel-studio-dialog')");
+        assert.equal(await label(),'Применено и проверено');assert.equal(await ev('studio.runner.results[0].outcome'),'applied');
+      }
+      await shot(`written-${language}-${action}`);
+      if(language==='ru') await undoAll();
+      assert.deepEqual(hashes(),initialHashes);assert.equal(requests.length,requestCount);
+      checks.push(`${language}/${action}: actual write outcome is shown; original Markdown preserved after supported Undo`);
+    }
+  }
+  const finalJournals=journals(), count=requests.length;
+  for(const language of ['en','ru']) {
+    await locale(language);await click('history');
+    await wait("document.querySelectorAll('[data-studio-action=markdown-open]').length===2");
+    const text=await ev("document.querySelector('.veynrel-studio-body').textContent");
+    assert(text.includes(language==='en'?'Separate note created':'Отдельная заметка создана'));
+    assert(text.includes(language==='en'?'Undo verified':'Отмена проверена'));
+    assert(!text.includes(language==='en'?'Draft for a separate note':'Черновик отдельной заметки'));
+    await shot(`history-${language}`);
+  }
+  assert.deepEqual(journals(),finalJournals);assert.equal(requests.length,count);assert.equal(count,4);
+  checks.push('RU/EN history shows actual creation/Undo outcomes and does not change journals or request the model');
+  report.requests=requests.length;report.initialHashes=initialHashes;report.finalHashes=hashes();report.io=await ev('io');report.status='PASS';
+  assert.deepEqual(report.finalHashes,initialHashes);assert.equal(report.io.browserRequests,0);
+}
 try {
   child=start();await connect();await open();await cdp('Emulation.setDeviceMetricsOverride',{width:1300,height:950,deviceScaleFactor:1,mobile:false});
   report.versions=await ev("({obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,excalidrawInstalled:!!app.plugins.plugins['obsidian-excalidraw-plugin']})");
   if (excalidrawAssets) await wait("!!app.plugins.plugins['obsidian-excalidraw-plugin']");
   report.versions.excalidrawInstalled = await ev("!!app.plugins.plugins['obsidian-excalidraw-plugin']");
   assert.equal(report.versions.excalidrawInstalled,!!excalidrawAssets);
+  if (reviewLabelsOnly) { await reviewLabels(); } else {
   if(excalidrawAssets) report.excalidraw = {version:await ev("app.plugins.plugins['obsidian-excalidraw-plugin'].manifest.version"),artifacts:Object.fromEntries(['main.js','manifest.json','styles.css'].map(n=>[n,sha(fs.readFileSync(`${excalidrawAssets}/${n}`))]))};
   await pass('Studio has no diagram owner, route, command or capability UI', "!('diagrams' in studio)&&!Object.values(app.commands.commands).some(c=>c.id.startsWith('ai-knowledge-hub:')&&/diagram|excalidraw/i.test(c.id))&&JSON.stringify([...document.querySelectorAll('.veynrel-studio > nav button')].map(e=>e.dataset.studioAction))===JSON.stringify(['library','community','history'])");
   await pass('Passive Studio opens with zero model/note read/write',"io.reads.length===0&&io.writes.length===0&&io.creates.length===0");assert.equal(requests.length,0);
@@ -385,6 +460,7 @@ try {
   assert(!Object.keys(JSON.parse(fs.readFileSync(`${ROOT}/.esbuild/meta.json`)).inputs).some(p=>p.startsWith('studio/diagram/')));
   for(const marker of ['DiagramWorkflow','DiagramPanel','DiagramSpec','obsidian-excalidraw-plugin','diagram_spec_v1'])assert(!fs.readFileSync(`${pluginDir}/main.js`,'utf8').includes(marker));
   checks.push('Loaded production bundle and import graph contain no diagram generator, adapter or schema');
+  }
   assert.equal(report.exceptions.length,0);
 } catch(e) {report.status='FAIL';report.error=String(e.stack||e);try{report.diagnostic=await ev("({state:studio.runner.state,error:studio.runner.error,result:studio.runner.results,review:studio.runner.review,text:document.body.innerText.slice(-4000)})");await shot('failure');}catch{}process.exitCode=1;
 } finally {keep('native-report',report);socket?.close();if(child&&child.exitCode===null){const exited=new Promise(r=>child.once('exit',r));child.kill('SIGTERM');const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer);}smokeServer?.kill('SIGTERM');server.close();console.log(JSON.stringify({status:report.status,checks:checks.length,requests:report.requests??requests.length,error:report.error,root}));}
