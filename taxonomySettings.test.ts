@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { App, PluginManifest } from "obsidian";
 import { DEFAULT_SETTINGS } from "./settings";
+import { setLanguage } from "./i18n";
 import type { AIHubSettings } from "./settings";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
 const notices = vi.hoisted(() => [] as string[]);
@@ -100,8 +101,10 @@ describe("R05.3 corrupt preference preservation", () => {
     const f = await fixture(profile(), raw);
     expect(f.plugin.settings.organizationAudit).toEqual(raw); expect(f.port.get()).toBeNull(); expect(f.plugin.getOrganizationRegistry().invalidPreferences).toBe(true);
     expect(f.save).not.toHaveBeenCalled(); expect(f.app.vault.read).not.toHaveBeenCalled();
-    expect(() => f.plugin.getToolsPort().openLocalTag!()).not.toThrow();
-    expect(notices.at(-1)).toContain("Organization settings are invalid");
+    for (const language of ["en", "ru"] as const) {
+      setLanguage(language); expect(() => f.plugin.getToolsPort().openLocalTag!()).not.toThrow();
+      expect(notices.at(-1)).toContain(language === "en" ? "Organization settings are invalid" : "Настройки организации повреждены");
+    }
     expect(f.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
     await expect(f.persist(profile(), null)).rejects.toMatchObject({ reason: "registry" });
     f.plugin.settings.notifyOnCopy = false; await f.plugin.saveSettings();
