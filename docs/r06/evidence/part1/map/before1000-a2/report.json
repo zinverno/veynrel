@@ -1,0 +1,126 @@
+{
+  "scenario": "R06.1-map-foundation",
+  "baseline": true,
+  "count": 1000,
+  "indexed": 1000,
+  "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Cap refuses all eligible documents, never silently takes first 500",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Exact file search works without recomputation",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "list-search.png"
+  ],
+  "assets": {
+    "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+    "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {
+    "refreshWallMs": 926.2481249999983,
+    "loaded": {
+      "notes": 1000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 1000,
+      "mapped": 1000,
+      "displayedNodes": 0,
+      "displayGroups": 10,
+      "dom": 87,
+      "svg": 28,
+      "layoutCount": 2,
+      "layoutMs": 7.700000002980232,
+      "displayGroupingMs": null,
+      "semanticMs": 231.20000000298023,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 1602,
+        "renderMs": 3701.5000002533197,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 226.79999999701977,
+        "derivationMs": 160.5
+      },
+      "heap": 66782808
+    },
+    "fourLayerTogglesMs": 202.06402399999934,
+    "searchMs": 23.962359000004653,
+    "final": {
+      "notes": 1000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 1000,
+      "mapped": 1000,
+      "displayedNodes": 0,
+      "displayGroups": 10,
+      "dom": 209,
+      "svg": 23,
+      "layoutCount": 2,
+      "layoutMs": 7.700000002980232,
+      "displayGroupingMs": null,
+      "semanticMs": 231.20000000298023,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 1625,
+        "renderMs": 3743.8000002354383,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 226.79999999701977,
+        "derivationMs": 160.5
+      },
+      "heap": 76924815
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "25bb8782bc75e4c3a23ee4c799bf6a9c5b217183dc6630a10894bd768b10b534",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "markdownManifestSha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+  "status": "PASS"
+}

@@ -1,0 +1,18 @@
+{
+  "kernel": "Linux-6.12.108-1-MANJARO-x86_64-with-glibc2.44",
+  "cpu": "AMD Ryzen 5 5500U with Radeon Graphics",
+  "memTotal": "MemTotal:        7429012 kB",
+  "node": "v24.14.1",
+  "python": "3.14.7",
+  "obsidian": "1.13.7",
+  "electron": "43.6.0",
+  "chromium": "150.0.7871.250",
+  "windowManager": "Openbox 3.6.1",
+  "source": "cd2be4d039a3360a1a9be9770bff07485f6eef57",
+  "runtimeSource": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+  "assets": {
+    "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+    "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  }
+}

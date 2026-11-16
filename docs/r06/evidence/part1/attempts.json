@@ -1,0 +1,715 @@
+[
+  {
+    "attempt": "after120-a1",
+    "status": "PASS",
+    "checks": 21,
+    "exceptions": 0,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 120,
+    "indexed": 120,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "249e7d3d83441673cfdd9729475a61eae9b9514ce4bcd5ee82c89b6bdf830f8b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-after120-a1",
+        "120"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794791576.302225,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45889
+      ],
+      "cdpClosed": true,
+      "seconds": 23.949
+    },
+    "reportSha256": "1e8ef73a627055775e790a4eea7f56ef95aef9c5ebea23494712bc4c535d6313"
+  },
+  {
+    "attempt": "before1000-a1",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 0,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 1000,
+    "indexed": 1000,
+    "baseline": true,
+    "warmCache": false,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===1000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:138)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:88:2",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-before1000-a1",
+        "1000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794791606.7315934,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        33373
+      ],
+      "cdpClosed": true,
+      "seconds": 17.736
+    },
+    "reportSha256": "b080053e33a32df206bbebb8f0185e41675a4b81b1c8aa171bc39758fac4dd01"
+  },
+  {
+    "attempt": "before1000-a2",
+    "status": "PASS",
+    "checks": 8,
+    "exceptions": 0,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 1000,
+    "indexed": 1000,
+    "baseline": true,
+    "warmCache": false,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-before1000-a2",
+        "1000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794791683.7084918,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        43787
+      ],
+      "cdpClosed": true,
+      "seconds": 37.98
+    },
+    "reportSha256": "80ecb7de6b842115a5e67ddd9501bafd12a99578977cd51ede9841fe44be5480"
+  },
+  {
+    "attempt": "before10000-a1",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 0,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 10000,
+    "indexed": 10000,
+    "baseline": true,
+    "warmCache": false,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:88:39",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-before10000-a1",
+        "10000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794791949.7361505,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45147
+      ],
+      "cdpClosed": true,
+      "seconds": 99.483
+    },
+    "reportSha256": "b6a0f015b812d6563fbdde5272de14f45216af95f16373e5068b82eb89442c1f"
+  },
+  {
+    "attempt": "before120-a1",
+    "status": "FAIL",
+    "checks": 16,
+    "exceptions": 1,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 120,
+    "indexed": 120,
+    "baseline": true,
+    "warmCache": false,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:145:9",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-before120-a1",
+        "120",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794791531.5574894,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        40515
+      ],
+      "cdpClosed": true,
+      "seconds": 21.267
+    },
+    "reportSha256": "8a7395b297bba16524388d717eee42c2a0c9578a952e2e4de85c2661c16a5795"
+  },
+  {
+    "attempt": "before5000-a1",
+    "status": "LAUNCHER_FAIL",
+    "checks": 0,
+    "exceptions": 0,
+    "source": null,
+    "count": null,
+    "indexed": null,
+    "baseline": null,
+    "warmCache": false,
+    "assets": null,
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-before5000-a1",
+        "5000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794791765.4171782,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [],
+      "cdpClosed": true,
+      "seconds": 0.767
+    },
+    "reportSha256": null
+  },
+  {
+    "attempt": "before5000-a2",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 0,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": true,
+    "warmCache": false,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===5000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:88:2",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-before5000-a2",
+        "5000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794791795.7989852,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37193
+      ],
+      "cdpClosed": true,
+      "seconds": 101.574
+    },
+    "reportSha256": "afb1a9c67c60fb65d2a97a78788868a0233a5a8fdce78cb02a4f4df0b784b980"
+  },
+  {
+    "attempt": "beforewarm10000",
+    "status": "FAIL",
+    "checks": 10,
+    "exceptions": 1,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 10000,
+    "indexed": 10000,
+    "baseline": true,
+    "warmCache": true,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:160:9",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-beforewarm10000",
+        "10000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792850.9401488,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        36873
+      ],
+      "cdpClosed": true,
+      "seconds": 33.916
+    },
+    "reportSha256": "004af2eb4d7317b81436f4813af57ac66c6a41a26fff79716d9d107e616999a9"
+  },
+  {
+    "attempt": "beforewarm5000",
+    "status": "FAIL",
+    "checks": 10,
+    "exceptions": 1,
+    "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": true,
+    "warmCache": true,
+    "assets": {
+      "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+      "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:160:9",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-beforewarm5000",
+        "5000",
+        "/tmp/veynrel-r06-baseline-ad817a3"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792834.511484,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38941
+      ],
+      "cdpClosed": true,
+      "seconds": 16.312
+    },
+    "reportSha256": "6727e078cec24cf86e19da2164d78c0ced92cfa6ce988f5b097607503a61240d"
+  },
+  {
+    "attempt": "delivery1000",
+    "status": "PASS",
+    "checks": 12,
+    "exceptions": 0,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 1000,
+    "indexed": 1000,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-delivery1000",
+        "1000",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792806.4161832,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44549
+      ],
+      "cdpClosed": true,
+      "seconds": 10.444
+    },
+    "reportSha256": "279a4f6aa0aaeaf52f50c9f7b6a6351cc24e0cb2caf3fd6b284fa449ffe809bb"
+  },
+  {
+    "attempt": "delivery10000",
+    "status": "FAIL",
+    "checks": 2,
+    "exceptions": 0,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 10000,
+    "indexed": 10000,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:88:39",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-delivery10000",
+        "10000",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792540.3066432,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        39147
+      ],
+      "cdpClosed": true,
+      "seconds": 94.69
+    },
+    "reportSha256": "7cbab01859621dcb3e9cd6e7f06348ebd1a86d13bb0e6bcdff96e9c39e8b0ef7"
+  },
+  {
+    "attempt": "delivery120",
+    "status": "PASS",
+    "checks": 23,
+    "exceptions": 0,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 120,
+    "indexed": 120,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-delivery120",
+        "120",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792767.6417365,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        34993
+      ],
+      "cdpClosed": true,
+      "seconds": 14.654
+    },
+    "reportSha256": "bb78417d687a6e41e6e1c35d1d421ac74645ea62780649cd51f08e6db19cd60f"
+  },
+  {
+    "attempt": "delivery5000",
+    "status": "FAIL",
+    "checks": 9,
+    "exceptions": 1,
+    "source": "f60e164069b3a968d08069a2a1340be979be8a12",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "637bcd0267ec50ea41d4e35b27d75a4fa320b16fe4bc2fb8272b7a5cb0bd0b73",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:150:9",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-delivery5000",
+        "5000",
+        "/tmp/veynrel-r06-delivery"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792380.2182438,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38651
+      ],
+      "cdpClosed": true,
+      "seconds": 58.308
+    },
+    "reportSha256": "dd15f61baa87ccf74296e5ae8044c69903d0ba147719889cff62488569e4f5f2"
+  },
+  {
+    "attempt": "final5000-a1",
+    "status": "FAIL",
+    "checks": 0,
+    "exceptions": 0,
+    "source": "a17a0fbcefa8c859e11c2ff036814218eb78b6eb",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "a92a24a8a02d5b690251aa8c7f91e37fee525f6ebd95595d2cc189d7bfa4e7bb",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "Error: Readiness: document.hasFocus() && window.electronWindow.isFocused()\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:199)\n    at async focus (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:58:121)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:82:2",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-final5000-a1",
+        "5000",
+        "/tmp/veynrel-r06-build-a17a0fb"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794792115.8581483,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38669
+      ],
+      "cdpClosed": true,
+      "seconds": 22.941
+    },
+    "reportSha256": "c3f31851c891a5e25a1f4a16116c7d242e196ee486407a07354047118923eb5d"
+  },
+  {
+    "attempt": "final5000-a2",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 0,
+    "source": "a17a0fbcefa8c859e11c2ff036814218eb78b6eb",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "a92a24a8a02d5b690251aa8c7f91e37fee525f6ebd95595d2cc189d7bfa4e7bb",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===5000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:88:39",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-final5000-a2",
+        "5000",
+        "/tmp/veynrel-r06-build-a17a0fb"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794792158.8222077,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        41229
+      ],
+      "cdpClosed": true,
+      "seconds": 98.398
+    },
+    "reportSha256": "4d0ff5d02bd1e599fe58c1f69cbad24a117ef06ce61eb74fe56824624ce30fef"
+  },
+  {
+    "attempt": "final5000-a3",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 0,
+    "source": "2498f50b9bd83623568f5d7ab6a2686fdf1c9ce1",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "301aa987564ebe13954b87768b7ade022cadff91ee9e26895d32a504d8934c1c",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Idle map defers full tag projection until explicit load\n    at pass (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:56:51)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:87:157",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-final5000-a3",
+        "5000",
+        "/tmp/veynrel-r06-build-final2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792302.4652812,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38471
+      ],
+      "cdpClosed": true,
+      "seconds": 4.025
+    },
+    "reportSha256": "fb2534f4fa499658535939219e25a156d30a45c58ce6555473aeadce6977de3f"
+  },
+  {
+    "attempt": "noindex120",
+    "status": "PASS",
+    "checks": 21,
+    "exceptions": 0,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 120,
+    "indexed": 0,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-noindex120",
+        "120",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792795.41769,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        41709
+      ],
+      "cdpClosed": true,
+      "seconds": 10.904
+    },
+    "reportSha256": "8a7405ad98aafe571738b75aeadbe84816f442beccc77e8cb9261b3c6999a97b"
+  },
+  {
+    "attempt": "partial120",
+    "status": "PASS",
+    "checks": 23,
+    "exceptions": 0,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 120,
+    "indexed": 60,
+    "baseline": false,
+    "warmCache": false,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": null,
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-partial120",
+        "120",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792782.424224,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46549
+      ],
+      "cdpClosed": true,
+      "seconds": 12.911
+    },
+    "reportSha256": "3bc0586c4ce3ee063aea90557b76087932e1cea2ddbdaff0d5caf230ecca812a"
+  },
+  {
+    "attempt": "warm10000",
+    "status": "FAIL",
+    "checks": 11,
+    "exceptions": 1,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 10000,
+    "indexed": 10000,
+    "baseline": false,
+    "warmCache": true,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:160:9",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-warm10000",
+        "10000",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792675.378506,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46789
+      ],
+      "cdpClosed": true,
+      "seconds": 31.771
+    },
+    "reportSha256": "d4263b40cd0c8db9fec7b3889d44fb4082ce279a3618bf4fe5d5f338eee1c248"
+  },
+  {
+    "attempt": "warm5000",
+    "status": "FAIL",
+    "checks": 11,
+    "exceptions": 1,
+    "source": "f5fa98ad5abf33ccba9a384c306b7e90be651505",
+    "count": 5000,
+    "indexed": 5000,
+    "baseline": false,
+    "warmCache": true,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:160:9",
+    "isolation": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-warm5000",
+        "5000",
+        "/tmp/veynrel-r06-delivery2"
+      ],
+      "timeoutSeconds": 240,
+      "startedAt": 1794792816.9895825,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        33083
+      ],
+      "cdpClosed": true,
+      "seconds": 17.41
+    },
+    "reportSha256": "11a2bd4ae4f0da5abd212b431ab003921907a317fc32954d9e453b04de6effd2"
+  }
+]

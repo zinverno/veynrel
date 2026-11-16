@@ -1,0 +1,114 @@
+[
+  {
+    "suite": "smoke",
+    "exit": 0,
+    "root": "/tmp/veynrel-smoke-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 21,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  },
+  {
+    "suite": "actions",
+    "exit": 0,
+    "root": "/tmp/veynrel-actions-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 23,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  },
+  {
+    "suite": "local-notes",
+    "exit": 0,
+    "root": "/tmp/veynrel-local-notes-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 67,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  },
+  {
+    "suite": "registry",
+    "exit": 0,
+    "root": "/tmp/veynrel-registry-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 32,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  },
+  {
+    "suite": "organization",
+    "exit": 0,
+    "root": "/tmp/veynrel-organization-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 44,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  },
+  {
+    "suite": "studio",
+    "exit": 0,
+    "root": "/tmp/veynrel-studio-native-r06-regression",
+    "receipt": "native-report.json",
+    "reportStatus": "PASS",
+    "checks": 66,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  },
+  {
+    "suite": "recall",
+    "exit": 0,
+    "root": "/tmp/veynrel-recall-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 45,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4"
+    }
+  },
+  {
+    "suite": "community",
+    "exit": 0,
+    "root": "/tmp/veynrel-community-native-r06-regression",
+    "receipt": "report.json",
+    "reportStatus": "PASS",
+    "checks": 47,
+    "exceptions": 0,
+    "assets": {
+      "main.js": "8df9b3c3fd74013467730bb014bea174d1aded5b4c74672b0b85c92270244e2b",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+    }
+  }
+]

@@ -57,7 +57,10 @@ owners. Pair Inspector consent and write tickets are never retained.
   list's persisted ReviewFacts/decision queue.
 - Add explicit computation cancellation with ownership-safe shared topology
   behavior; current disposal guards remain, but there is no new Cancel command.
+- Bound the existing second-note selector (10k selection produced 10,580 DOM elements), and address the cold-cache 10k readiness gate without hiding unknown metadata.
 - Complete all R06 acceptance (including family journey and legacy redirects).
 
 No R07 work is authorized by this split. Resume Batch, release policy, dependencies,
 versions, personal vaults and all operation journals remain unchanged.
+
+Fresh results and open gates are in [part1-verification.md](part1-verification.md).

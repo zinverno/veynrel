@@ -1,0 +1,21 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+    "/tmp/veynrel-community-native-r06-regression",
+    "/tmp/veynrel-native-catalog-20261115"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794793265.0508072,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    44673,
+    38875,
+    39449,
+    38011,
+    36419
+  ],
+  "cdpClosed": true,
+  "seconds": 16.458
+}

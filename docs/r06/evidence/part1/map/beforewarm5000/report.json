@@ -1,0 +1,245 @@
+{
+  "scenario": "R06.1-map-foundation",
+  "baseline": true,
+  "warmCache": true,
+  "count": 5000,
+  "indexed": 5000,
+  "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Cap refuses all eligible documents, never silently takes first 500",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Exact file search works without recomputation",
+    "Display group opens actual note nodes in the viewport",
+    "Display group back restores exact overview camera"
+  ],
+  "exceptions": [
+    {
+      "target": "1DB3D6114671D6A501070D8C3928836E",
+      "timestamp": 1794792848911.033,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1055197,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "Xg",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1055197
+            },
+            {
+              "functionName": "",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1055176
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+          "objectId": "-8983659636691332725.1.1",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: e.isShown is not a function\n    at Xg (…055198)\n    at app://obsidian.md/app.js:1:1055177"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "e.isShown is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    }
+  ],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "list-search.png",
+    "selected-large-note.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+    "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {
+    "hostCacheBeforeOpenMs": 8194.070583,
+    "cacheReadyMs": 19.700457000000824,
+    "refreshWallMs": 2879.3762860000006,
+    "loaded": {
+      "notes": 5000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 5000,
+      "mapped": 5000,
+      "displayedNodes": 0,
+      "displayGroups": 50,
+      "dom": 219,
+      "svg": 118,
+      "layoutCount": 2,
+      "layoutMs": 22,
+      "displayGroupingMs": null,
+      "semanticMs": 1373.5,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 13,
+        "renderMs": 36.5,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 1444.0999999940395,
+        "derivationMs": 735.4000000059605
+      },
+      "heap": 97076367
+    },
+    "fourLayerTogglesMs": 328.2521519999991,
+    "interactionFrameIntervals": [
+      16.69999999999891,
+      33.399999999999636,
+      16.600000000000364,
+      16.700000000000728,
+      16.69999999999891,
+      33.30000000000109,
+      16.69999999999891,
+      16.700000000000728,
+      16.600000000000364,
+      33.29999999999927,
+      16.700000000000728,
+      16.600000000000364,
+      16.69999999999891,
+      33.399999999999636,
+      16.600000000000364,
+      16.700000000000728
+    ],
+    "searchMs": 34.846724999999424,
+    "selectionMs": 252.3163000000004,
+    "selected-large-note": {
+      "notes": 5000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 5000,
+      "mapped": 5000,
+      "displayedNodes": 100,
+      "displayGroups": 0,
+      "dom": 5402,
+      "svg": 231,
+      "layoutCount": 2,
+      "layoutMs": 22,
+      "displayGroupingMs": null,
+      "semanticMs": 1373.5,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 49,
+        "renderMs": 138.19999998807907,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 1444.0999999940395,
+        "derivationMs": 735.4000000059605
+      },
+      "heap": 92297030
+    },
+    "final": {
+      "notes": 5000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 5000,
+      "mapped": 5000,
+      "displayedNodes": 0,
+      "displayGroups": 50,
+      "dom": 213,
+      "svg": 113,
+      "layoutCount": 2,
+      "layoutMs": 22,
+      "displayGroupingMs": null,
+      "semanticMs": 1373.5,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 56,
+        "renderMs": 157.7999999821186,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 1444.0999999940395,
+        "derivationMs": 735.4000000059605
+      },
+      "heap": 103032330
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "6c07fd6dfae2e0e2e05707161745df5bfa561fc83d0e523e2fa1e241b9c7b5c6",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:160:9",
+  "failureState": {
+    "markdown": 5000,
+    "cacheKnown": 5000,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

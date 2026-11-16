@@ -1,0 +1,159 @@
+{
+  "kind": "independent read-only post-run byte audit; does not retroactively pass failed native scenarios",
+  "fixtureSha256": "46abe6885170489a91038b6baf2239dceb57909b13f3409c54b78226202a382a",
+  "expectedSource": "scripts/r06-map-fixture.ts at f5fa98ad5abf33ccba9a384c306b7e90be651505; first N note text independent of index count",
+  "rows": [
+    {
+      "attempt": "after120-a1",
+      "count": 120,
+      "checked": 120,
+      "mismatches": [],
+      "manifestSha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "status": "PASS"
+    },
+    {
+      "attempt": "before1000-a1",
+      "count": 1000,
+      "checked": 1000,
+      "mismatches": [],
+      "manifestSha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "status": "PASS"
+    },
+    {
+      "attempt": "before1000-a2",
+      "count": 1000,
+      "checked": 1000,
+      "mismatches": [],
+      "manifestSha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "status": "PASS"
+    },
+    {
+      "attempt": "before10000-a1",
+      "count": 10000,
+      "checked": 10000,
+      "mismatches": [],
+      "manifestSha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "status": "PASS"
+    },
+    {
+      "attempt": "before120-a1",
+      "count": 120,
+      "checked": 120,
+      "mismatches": [],
+      "manifestSha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "status": "PASS"
+    },
+    {
+      "attempt": "before5000-a2",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    },
+    {
+      "attempt": "beforewarm10000",
+      "count": 10000,
+      "checked": 10000,
+      "mismatches": [],
+      "manifestSha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "status": "PASS"
+    },
+    {
+      "attempt": "beforewarm5000",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    },
+    {
+      "attempt": "delivery1000",
+      "count": 1000,
+      "checked": 1000,
+      "mismatches": [],
+      "manifestSha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "status": "PASS"
+    },
+    {
+      "attempt": "delivery10000",
+      "count": 10000,
+      "checked": 10000,
+      "mismatches": [],
+      "manifestSha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "status": "PASS"
+    },
+    {
+      "attempt": "delivery120",
+      "count": 120,
+      "checked": 120,
+      "mismatches": [],
+      "manifestSha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "status": "PASS"
+    },
+    {
+      "attempt": "delivery5000",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    },
+    {
+      "attempt": "final5000-a1",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    },
+    {
+      "attempt": "final5000-a2",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    },
+    {
+      "attempt": "final5000-a3",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    },
+    {
+      "attempt": "noindex120",
+      "count": 120,
+      "checked": 120,
+      "mismatches": [],
+      "manifestSha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "status": "PASS"
+    },
+    {
+      "attempt": "partial120",
+      "count": 120,
+      "checked": 120,
+      "mismatches": [],
+      "manifestSha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "status": "PASS"
+    },
+    {
+      "attempt": "warm10000",
+      "count": 10000,
+      "checked": 10000,
+      "mismatches": [],
+      "manifestSha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "status": "PASS"
+    },
+    {
+      "attempt": "warm5000",
+      "count": 5000,
+      "checked": 5000,
+      "mismatches": [],
+      "manifestSha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "status": "PASS"
+    }
+  ]
+}

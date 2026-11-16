@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r05-2-local-notes-native.mjs",
+    "/tmp/veynrel-local-notes-native-r06-regression"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794792949.911656,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    44043,
+    35955
+  ],
+  "cdpClosed": true,
+  "seconds": 34.575
+}
