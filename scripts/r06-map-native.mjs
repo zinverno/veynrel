@@ -98,8 +98,9 @@ try{
  else if(indexed)await pass('Current validated map has the exact indexed count',`wb.data.semantic.getSnapshot().state==='ready'&&wb.data.semantic.getSnapshot().map.nodes.length===${indexed}`);
  else await pass('No index never becomes semantic ready',"wb.data.semantic.getSnapshot().state==='unavailable'");
  await ev('window.coords=JSON.stringify(wb.points);window.layouts=wb.layoutCount;void 0');
+ await ev('window.frameTrace=[];window.framePrevious=undefined;window.frameProbe=undefined;window.frameTick=time=>{if(framePrevious!==undefined)frameTrace.push(time-framePrevious);framePrevious=time;if(frameTrace.length<200)frameProbe=requestAnimationFrame(frameTick)};window.frameProbe=requestAnimationFrame(frameTick);void 0');
  const interactions=performance.now();for(let i=0;i<4;i++)await activate('workbench-layer-links');report.metrics.fourLayerTogglesMs=performance.now()-interactions;
- report.metrics.interactionFrameIntervals=await ev('new Promise(resolve=>{const times=[];let previous;const tick=time=>{if(previous!==undefined)times.push(time-previous);previous=time;if(times.length===20)resolve(times);else requestAnimationFrame(tick)};requestAnimationFrame(tick)})');
+ report.metrics.interactionFrameIntervals=await ev('cancelAnimationFrame(frameProbe);frameTrace');
  await pass('Link overlay toggles retain exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
  await ev('wb.zones.active=[];wb.render();void 0');await pass('Tag overlay toggle retains exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;
