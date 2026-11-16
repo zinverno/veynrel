@@ -13,7 +13,7 @@ The original checkout had unrelated untracked work and was left intact. Work too
 
 The [dependency audit and removal guide](studio-diagram-removal.md#dependency-audit-and-historical-evidence) identifies the ten deleted runtime modules and their callers. Removal includes structure/flowchart generation, preparation/preview, navigation/actions, owner registration/disposal, adapters/probes, endpoint metadata/schema routing and unused types/messages/styles. Shared Markdown transport, gates, Review, source guards, history/recovery and Community remain.
 
-The [release policy](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) is the owner's decision: accept all R01–R15 before one public release; no stable/beta/prerelease or Marketplace publication before that. Internal candidates and per-PR tests/docs/backups/migration checks continue. Every merge needs a separate owner decision; auto-merge stays off. A byte comparison confirmed the fixed product constraints and complete ordered R01–R15 unit section were unchanged.
+The release policy recorded at R02 (superseded by the [2026-11-16 owner decision](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work)) was: accept all R01–R15 before one public release; no stable/beta/prerelease or Marketplace publication before that. Internal candidates and per-PR tests/docs/backups/migration checks continue. Every merge needs a separate owner decision; auto-merge stays off. A byte comparison confirmed the fixed product constraints and complete ordered R01–R15 unit section were unchanged.
 
 ## Final runtime files
 

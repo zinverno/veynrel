@@ -1,7 +1,7 @@
 # R03: Workspace and Studio UX audit
 
 Development only. Public stable remains **2.3.1**; **2.4.0** is unpublished.
-The single public release remains gated on acceptance of R01–R15.
+At the time of this R03 audit, one public release was gated on R01–R15. That policy was superseded by the [2026-11-16 owner decision](vault-assistant-plan.md#release-policy-and-acquisition-work); the historical audit and evidence below are unchanged.
 
 ## Baseline and method
 
