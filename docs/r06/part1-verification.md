@@ -65,6 +65,13 @@ Fresh checks on the combined runtime:
 [Actual command logs](evidence/part1/checks/). CI for the delivery HEAD is recorded
 in the PR; local checks are not presented as hosted CI.
 
+The first hosted run [43788248427](https://github.com/zinverno/veynrel/actions/runs/43788248427)
+passed 5,372 tests and both scanner jobs, then failed lint because the later-added
+textual byte-audit receipt had a `.cjs` extension outside the TypeScript project.
+It is now stored as `.cjs.txt`, byte-identical; no lint rules or runtime checks were
+changed. The [original CI log](evidence/part1/checks/ci-initial-verify.log) is retained.
+Typecheck/build/lint was repeated after packaging; runtime assets remain identical.
+
 ## Existing native regressions on the same final assets
 
 | Suite | Actual assertions | Result / unhandled exceptions |
