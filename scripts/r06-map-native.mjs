@@ -116,6 +116,9 @@ try{
  if(hasModes)await activate('workbench-surface-similarity');
  const start=performance.now();await activate('workbench-refresh');await wait('!wb.data.busy');report.metrics.refreshWallMs=performance.now()-start;
  await wait('!wb.pendingRender&&wb.simulation.alpha===0');
+ if(indexed>500)await pass('Cap refuses all eligible documents, never silently takes first 500',`wb.data.semantic.getSnapshot().reason==='too-large'&&wb.data.semantic.getSnapshot().mappedNoteCount===${indexed}&&!wb.data.semantic.getSnapshot().map`);
+ else if(indexed)await pass('Current validated map has the exact indexed count',`wb.data.semantic.getSnapshot().state==='ready'&&wb.data.semantic.getSnapshot().map.nodes.length===${indexed}`);
+ else await pass('No index never becomes semantic ready',"wb.data.semantic.getSnapshot().state==='unavailable'");
  if(hasModes&&(indexed===0||indexed>500)){
    await pass('Unavailable semantic computation draws no technical grid',"!wb.element.querySelector('svg[data-camera]')");await shot('semantic-refusal');
    await activate('workbench-surface-structure');await activate('workbench-refresh');await wait("wb.data.dependencies.topology.getSnapshot().state==='ready'&&!wb.pendingRender");
@@ -123,9 +126,6 @@ try{
  await metric('loaded');await pass('Rendered nodes intersect the actual canvas viewport',"(()=>{const svg=wb.element.querySelector('svg[data-camera]'),box=svg.getBoundingClientRect();return [...svg.querySelectorAll('[data-path],[data-group]')].some(e=>{const r=e.getBoundingClientRect();return r.right>box.left&&r.left<box.right&&r.bottom>box.top&&r.top<box.bottom;});})()");await io('explicit-refresh');await shot('loaded');
  await pass('Explicit map refresh does not read/write Markdown or request a model','io.reads===0&&io.writes===0&&io.network===0');
  await pass('Every scope path remains represented',`wb.items.flatMap(i=>i.members??[i.path]).length===${count}`);
- if(indexed>500)await pass('Cap refuses all eligible documents, never silently takes first 500',`wb.data.semantic.getSnapshot().reason==='too-large'&&wb.data.semantic.getSnapshot().mappedNoteCount===${indexed}&&!wb.data.semantic.getSnapshot().map`);
- else if(indexed)await pass('Current validated map has the exact indexed count',`wb.data.semantic.getSnapshot().state==='ready'&&wb.data.semantic.getSnapshot().map.nodes.length===${indexed}`);
- else await pass('No index never becomes semantic ready',"wb.data.semantic.getSnapshot().state==='unavailable'");
  await ev('window.coords=JSON.stringify(wb.points);window.layouts=wb.layoutCount;void 0');
  await ev('window.frameTrace=[];window.framePrevious=undefined;window.frameProbe=undefined;window.frameTick=time=>{if(framePrevious!==undefined)frameTrace.push(time-framePrevious);framePrevious=time;if(frameTrace.length<200)frameProbe=requestAnimationFrame(frameTick)};window.frameProbe=requestAnimationFrame(frameTick);void 0');
  const interactions=performance.now();for(let i=0;i<4;i++)await activate('workbench-layer-links');report.metrics.fourLayerTogglesMs=performance.now()-interactions;

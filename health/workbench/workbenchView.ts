@@ -1,3 +1,4 @@
+import type { Viewport } from "../ui/graphViewport";
 import { sameLocalVaultRevision } from "../analyzers/local/localVaultRevision";
 import { topologyStatus } from "../topology/topologyPresentation";
 import { structureCoverage } from "./workbenchStructure";
@@ -69,7 +70,7 @@ export class WorkbenchView {
   private points: readonly MapPoint[] = [];
   private items: readonly MapItem[] = [];
   private simulation = new WorkbenchSimulation();
-  private groups: Record<"structure" | "similarity", { paths?: readonly string[]; camera?: typeof this.graph.viewport }> = { structure: {}, similarity: {} };
+  private groups: Record<"structure" | "similarity", { paths?: readonly string[]; camera?: Viewport }> = { structure: {}, similarity: {} };
   private get groupPaths() { return this.groups[this.surface].paths; }
   private set groupPaths(paths: readonly string[] | undefined) { this.groups[this.surface].paths = paths; }
   private get groupCamera() { return this.groups[this.surface].camera; }

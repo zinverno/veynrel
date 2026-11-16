@@ -98,7 +98,7 @@ export class ReviewListView {
       this.syncLayout();
       const mapGeneration = this.generation;
       healthButton(this.detail, t("@review.back"), () => { if (mapGeneration === this.generation) this.back(); }, "review-back");
-      if(!this.map){this.mapHost=this.detail.createDiv({cls:"veynrel-review-map-host"});this.map=this.actions.map(this.mapHost,()=>{this.queue="reviewed";this.back();});}
+      if(!this.map){this.mapHost=this.detail.createDiv({cls:"veynrel-review-map-host"});this.map=this.actions.map(this.mapHost,()=>{if(this.mode==="notes")this.mode="connections";this.queue="reviewed";this.back();});}
       else this.detail.appendChild(this.mapHost!);
       this.mapOpen=true;this.map.update(this.findings);
       const selection = JSON.stringify(this.chosen);

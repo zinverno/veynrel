@@ -86,7 +86,7 @@ function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairRe
     createSemantic: forbidden, createComparison: forbidden,
   }, false);
   const close = vi.fn(), mount = vi.fn((_container: HTMLElement, _paths: readonly [string, string], _completed?: (decision: ReviewDecision) => void) => close), history = vi.fn();
-  const map = vi.fn(() => ({ selectPaths: vi.fn(), update: vi.fn(), suspend: vi.fn(), dispose: vi.fn() }));
+  const map = vi.fn((_parent: HTMLElement, _reviewed: () => void) => ({ selectPaths: vi.fn(), update: vi.fn(), suspend: vi.fn(), dispose: vi.fn() }));
   const view = new ReviewListView(root as unknown as HTMLElement, data, { mount, localFacts, decisions }, { map, history, settings: vi.fn(), notes }, root as unknown as HTMLElement);
   view.update([finding]);
   const action = (key: string) => root.querySelector(`[data-health-action="${key}"]`)!;
@@ -294,4 +294,13 @@ it("keeps an open map when switching interface language without rebuilding its o
     expect(f.forbidden).not.toHaveBeenCalled();
   }
   f.view.dispose();
+});
+
+it("map decisions open the existing reviewed queue even when entered from Notes", () => {
+  const f = setup(paths, undefined, undefined, { open: vi.fn() });
+  f.action("review-map").click(); f.map.mock.calls[0][1]();
+  expect(f.action("review-reviewed")).toBeDefined();
+  expect(f.action("review-reviewed").attrs["aria-pressed"]).toBe("true");
+  expect(f.action("review-connections").attrs["aria-pressed"]).toBe("true");
+  expect(f.forbidden).not.toHaveBeenCalled(); f.view.dispose();
 });
