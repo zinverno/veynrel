@@ -4,7 +4,7 @@ export async function runFamilyJourney({ev,pass,shot,activate,field,key,wait,foc
   await pass('Real validated top-K publishes tentative cores',"document.querySelectorAll('[data-semantic-family]').length>=3");
   report.familyEvidence=await ev("({families:[...document.querySelectorAll('[data-semantic-family]')].map(e=>e.getAttribute('data-semantic-family')),revision:wb.data.semantic.getSnapshot().map.revision})");
   await pass('Docker/database bridge belongs to two distinct cores',"[...document.querySelectorAll('[data-semantic-family]')].filter(e=>e.getAttribute('data-semantic-family').includes('Bridges/Docker database.md')).length===2");
-  await pass('Different-purpose ML pair and untagged diary do not create families',"![...document.querySelectorAll('[data-semantic-family]')].some(e=>/ML\/|Journal\//.test(e.getAttribute('data-semantic-family')))");
+  await pass('Different-purpose ML pair and untagged diary do not create families',"![...document.querySelectorAll('[data-semantic-family]')].some(e=>['ML/','Journal/'].some(p=>e.getAttribute('data-semantic-family').includes(p)))");
   await shot('families-overview');
   await ev('window.familyOverview=JSON.stringify(wb.graph.viewport);window.familyCoordinates=JSON.stringify(wb.points);window.familyLayouts=wb.layoutCount;void 0');
   const family=await ev("[...document.querySelectorAll('[data-semantic-family]')].find(e=>e.getAttribute('data-semantic-family').includes('Docker/Guide.md')).getAttribute('data-health-action')");
