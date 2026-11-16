@@ -1,0 +1,444 @@
+[
+  {
+    "attempt": "A1",
+    "configuration": "A",
+    "reportStatus": "DIAGNOSTIC",
+    "pointerMainDocumentOutcome": "PASS",
+    "handlerReached": true,
+    "planPrepared": true,
+    "modalOwners": [
+      {
+        "active": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "sameDocument": true
+      }
+    ],
+    "exceptions": 0,
+    "beforeIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "afterIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "syntheticModelRequests": 1,
+    "bytePreservation": {
+      "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    },
+    "journalAtStop": {
+      "recipes.json": "17afbeba9c677fcd8fdd5f6945052f99dd3b71100d364e911ce0f8c5fdf9d833",
+      "community-cache.json": "2145725a4486df60b4ff126444281b567536d039de4279f514a331491d8f9e50",
+      "community-installs/0a10b979-ceba-434d-b9f3-e3569f7d791d.done": "78e1f3e2e9cdb7ae8f4f6cbf2c55b9f627b5f9ba896cdc9e6453b29e5cd107c7",
+      "community-installs/0a10b979-ceba-434d-b9f3-e3569f7d791d.json": "544e516c6862da7b488326c593f03fe271166a98c64199361883903bf8c1ca55",
+      "runs/6ad8ec4b-1244-44d0-a256-f0243872565d/finish.json": "91700e463543598573262daa5e8949bc7e6f9f05f595d32b72eb5175073259bd",
+      "runs/6ad8ec4b-1244-44d0-a256-f0243872565d/start.json": "827763f2623212bab8ec8db5fcea5042b3be28eda227e0fc1e5370217677f3a2"
+    },
+    "journalLimit": "Final inventory only, no pre-click byte snapshot; generation start/finish records exist, no write-operation records.",
+    "cleanup": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-apply-A1",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 180,
+      "startedAt": 1794801107.045208,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        35297,
+        34459
+      ],
+      "cdpClosed": true,
+      "seconds": 10.037
+    }
+  },
+  {
+    "attempt": "B1",
+    "configuration": "B",
+    "reportStatus": "DIAGNOSTIC",
+    "pointerMainDocumentOutcome": "PASS",
+    "handlerReached": true,
+    "planPrepared": true,
+    "modalOwners": [
+      {
+        "active": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "sameDocument": true
+      }
+    ],
+    "exceptions": 0,
+    "beforeIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "afterIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "syntheticModelRequests": 1,
+    "bytePreservation": {
+      "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    },
+    "journalAtStop": {
+      "recipes.json": "17afbeba9c677fcd8fdd5f6945052f99dd3b71100d364e911ce0f8c5fdf9d833",
+      "community-cache.json": "7bc3cc1a80987990420f62ad43ac09a84e9502023d4834b55d84352356975824",
+      "community-installs/204bf274-fb6a-46c9-972d-895b42c3e296.done": "78e1f3e2e9cdb7ae8f4f6cbf2c55b9f627b5f9ba896cdc9e6453b29e5cd107c7",
+      "community-installs/204bf274-fb6a-46c9-972d-895b42c3e296.json": "544e516c6862da7b488326c593f03fe271166a98c64199361883903bf8c1ca55",
+      "runs/86e8c817-247e-41df-87e6-cddac718fd06/finish.json": "8c7526385759a750183f33afbd9a4f6bed585c6b34aa85da0f3357fcaf733c5b",
+      "runs/86e8c817-247e-41df-87e6-cddac718fd06/start.json": "ced98019d36406f9ba3c06ab812166b168d30641dc4c0e17897e439493ba0b95"
+    },
+    "journalLimit": "Final inventory only, no pre-click byte snapshot; generation start/finish records exist, no write-operation records.",
+    "cleanup": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-apply-B1",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 180,
+      "startedAt": 1794801128.1896777,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46345,
+        39369
+      ],
+      "cdpClosed": true,
+      "seconds": 8.735
+    }
+  },
+  {
+    "attempt": "A2",
+    "configuration": "A",
+    "reportStatus": "DIAGNOSTIC",
+    "pointerMainDocumentOutcome": "FAIL",
+    "handlerReached": true,
+    "planPrepared": true,
+    "modalOwners": [
+      {
+        "active": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "sameDocument": false
+      }
+    ],
+    "exceptions": 0,
+    "beforeIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "afterIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "syntheticModelRequests": 1,
+    "bytePreservation": {
+      "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    },
+    "journalAtStop": {
+      "recipes.json": "17afbeba9c677fcd8fdd5f6945052f99dd3b71100d364e911ce0f8c5fdf9d833",
+      "community-cache.json": "90068a3cffabfe0e4e644d9aef82e0cc610f5dc2d7b88f8848c92c2c1f6dfd71",
+      "community-installs/ed30db9d-15a0-4b8f-9a58-79cf96c1f5b9.done": "78e1f3e2e9cdb7ae8f4f6cbf2c55b9f627b5f9ba896cdc9e6453b29e5cd107c7",
+      "community-installs/ed30db9d-15a0-4b8f-9a58-79cf96c1f5b9.json": "544e516c6862da7b488326c593f03fe271166a98c64199361883903bf8c1ca55",
+      "runs/cd2c267c-f328-43af-9706-dea108317fa8/finish.json": "8137e7de52bf270504c364f5897e42479f3d85e6299913b1f00ff8e9b48a0d3e",
+      "runs/cd2c267c-f328-43af-9706-dea108317fa8/start.json": "2824497b58798e83c64265ef57acda1f6497b7721854d0845a1229a059adea3b"
+    },
+    "journalLimit": "Final inventory only, no pre-click byte snapshot; generation start/finish records exist, no write-operation records.",
+    "cleanup": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-apply-A2",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 180,
+      "startedAt": 1794801162.4997792,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45991,
+        39599
+      ],
+      "cdpClosed": true,
+      "seconds": 24.511
+    }
+  },
+  {
+    "attempt": "B2",
+    "configuration": "B",
+    "reportStatus": "DIAGNOSTIC",
+    "pointerMainDocumentOutcome": "PASS",
+    "handlerReached": true,
+    "planPrepared": true,
+    "modalOwners": [
+      {
+        "active": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "sameDocument": true
+      }
+    ],
+    "exceptions": 0,
+    "beforeIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "afterIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "syntheticModelRequests": 1,
+    "bytePreservation": {
+      "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    },
+    "journalAtStop": {
+      "recipes.json": "17afbeba9c677fcd8fdd5f6945052f99dd3b71100d364e911ce0f8c5fdf9d833",
+      "community-cache.json": "95339f38aeebe3091df24251d6606fe1bf506e66b0028ad5d57178752e7d923b",
+      "community-installs/4217dbbf-2d26-4eed-b99c-322ba3de4217.done": "78e1f3e2e9cdb7ae8f4f6cbf2c55b9f627b5f9ba896cdc9e6453b29e5cd107c7",
+      "community-installs/4217dbbf-2d26-4eed-b99c-322ba3de4217.json": "544e516c6862da7b488326c593f03fe271166a98c64199361883903bf8c1ca55",
+      "runs/bf2e0170-e619-44a1-925f-f035c2b4c2e6/finish.json": "0932615484573f285141de3529b41d3052f75de52506856db4a4228f975db732",
+      "runs/bf2e0170-e619-44a1-925f-f035c2b4c2e6/start.json": "8eaa80afad1f871f429d93d9a187ad1111338d743fd3b54153beb11181a46591"
+    },
+    "journalLimit": "Final inventory only, no pre-click byte snapshot; generation start/finish records exist, no write-operation records.",
+    "cleanup": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-apply-B2",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 180,
+      "startedAt": 1794801190.5434518,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38573,
+        46883
+      ],
+      "cdpClosed": true,
+      "seconds": 11.129
+    }
+  },
+  {
+    "attempt": "A3",
+    "configuration": "A",
+    "reportStatus": "DIAGNOSTIC",
+    "pointerMainDocumentOutcome": "PASS",
+    "handlerReached": true,
+    "planPrepared": true,
+    "modalOwners": [
+      {
+        "active": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "sameDocument": true,
+        "owner": {
+          "url": "app://obsidian.md/index.html",
+          "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+          "closed": false,
+          "focus": true,
+          "frameElement": false,
+          "width": 1024,
+          "height": 800,
+          "confirmPresent": true,
+          "modalCount": 1
+        }
+      }
+    ],
+    "exceptions": 0,
+    "beforeIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "afterIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "syntheticModelRequests": 1,
+    "bytePreservation": {
+      "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    },
+    "journalAtStop": {
+      "recipes.json": "17afbeba9c677fcd8fdd5f6945052f99dd3b71100d364e911ce0f8c5fdf9d833",
+      "community-cache.json": "f9b5d94cbb090f1bc7ec0e34f2b46764d6a5701c80cd2f05e7049860db8e2ed7",
+      "community-installs/d3ee4e0c-b998-46ee-b12f-dc17f26bdbc2.done": "78e1f3e2e9cdb7ae8f4f6cbf2c55b9f627b5f9ba896cdc9e6453b29e5cd107c7",
+      "community-installs/d3ee4e0c-b998-46ee-b12f-dc17f26bdbc2.json": "544e516c6862da7b488326c593f03fe271166a98c64199361883903bf8c1ca55",
+      "runs/4e1a67a1-a369-4719-b3e9-8a21b9630805/finish.json": "937138b6e1485c9cd1ffa2866c44bf47814ab41ca4fa1c77685486fc7f6ccd02",
+      "runs/4e1a67a1-a369-4719-b3e9-8a21b9630805/start.json": "b906baedd3ce0195c436577210a1859b889f9c5c5918cd41d02619faee583a36"
+    },
+    "journalLimit": "Final inventory only, no pre-click byte snapshot; generation start/finish records exist, no write-operation records.",
+    "cleanup": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-apply-A3",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 180,
+      "startedAt": 1794801255.7806883,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38877,
+        41593
+      ],
+      "cdpClosed": true,
+      "seconds": 10.841
+    }
+  },
+  {
+    "attempt": "B3",
+    "configuration": "B",
+    "reportStatus": "DIAGNOSTIC",
+    "pointerMainDocumentOutcome": "PASS",
+    "handlerReached": true,
+    "planPrepared": true,
+    "modalOwners": [
+      {
+        "active": true,
+        "modalConnected": true,
+        "contentConnected": true,
+        "sameDocument": true,
+        "owner": {
+          "url": "app://obsidian.md/index.html",
+          "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+          "closed": false,
+          "focus": true,
+          "frameElement": false,
+          "width": 1024,
+          "height": 800,
+          "confirmPresent": true,
+          "modalCount": 1
+        }
+      }
+    ],
+    "exceptions": 0,
+    "beforeIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "afterIO": {
+      "reads": [
+        "Formatting.md",
+        "Formatting.md",
+        "Formatting.md"
+      ],
+      "writes": [],
+      "browserRequests": 0
+    },
+    "syntheticModelRequests": 1,
+    "bytePreservation": {
+      "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    },
+    "journalAtStop": {
+      "recipes.json": "17afbeba9c677fcd8fdd5f6945052f99dd3b71100d364e911ce0f8c5fdf9d833",
+      "community-cache.json": "893bf3a7b1eca4bb45d56bcd073ab3bb18a6d0f65ca860e64bf41796d0ec4586",
+      "community-installs/a2e25ea3-dbb7-4bb9-af6e-a4d4f2436094.done": "78e1f3e2e9cdb7ae8f4f6cbf2c55b9f627b5f9ba896cdc9e6453b29e5cd107c7",
+      "community-installs/a2e25ea3-dbb7-4bb9-af6e-a4d4f2436094.json": "544e516c6862da7b488326c593f03fe271166a98c64199361883903bf8c1ca55",
+      "runs/6898d9f7-d7ad-45d8-8f05-270b3dad248f/finish.json": "34b3531cf7812cbebc50bb65f3a295936d08251b5fe6389a12c395872d554df7",
+      "runs/6898d9f7-d7ad-45d8-8f05-270b3dad248f/start.json": "c1e95d2925fb5cd48fa738298b22b6db39c90b41187edf87b2fe72b8892ebba0"
+    },
+    "journalLimit": "Final inventory only, no pre-click byte snapshot; generation start/finish records exist, no write-operation records.",
+    "cleanup": {
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-apply-B3",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 180,
+      "startedAt": 1794801283.136864,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        40317,
+        35063
+      ],
+      "cdpClosed": true,
+      "seconds": 8.334
+    }
+  }
+]

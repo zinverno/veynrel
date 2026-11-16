@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+    "/tmp/veynrel-community-native-apply-A2",
+    "/tmp/veynrel-native-catalog-20261115"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794801162.4997792,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    45991,
+    39599
+  ],
+  "cdpClosed": true,
+  "seconds": 24.511
+}

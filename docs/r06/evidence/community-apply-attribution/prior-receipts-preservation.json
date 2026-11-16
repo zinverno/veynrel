@@ -1,0 +1,14 @@
+{
+  "docs/r06/evidence/integration-148/native/community/report.json": {
+    "sha256": "66ee08defac94fdbef80bf2e07da514df3510ee72f0c963bdde9a1e24fb8b79c",
+    "sameAsStartingHead": true
+  },
+  "docs/r06/evidence/integration-148/native/community/failure.png": {
+    "sha256": "22ab9f3372ac5c824389a837ea5e5beced1084f5ba248ac87b3e5a399ecc6772",
+    "sameAsStartingHead": true
+  },
+  "docs/r05/evidence/part3/development-attempts/08-community-pointer/report.json": {
+    "sha256": "3d60a51895d9ff8c478a74994b908d39fdd9a658efafd0704698b47c7e351f6b",
+    "sameAsStartingHead": true
+  }
+}

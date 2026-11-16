@@ -130,6 +130,12 @@ No raw profile, settings file, vault or provider key is included in public evide
 
 ## Fresh blocking compatibility result: Community confirmation
 
+**Follow-up, 2026-11-16:** the [bounded A/B investigation](community-apply-attribution.md)
+reproduced the symptom on main before R06.1. In that attempt the pointer handler,
+plan and Modal `onOpen` completed, but the Modal belonged to another document.
+Its owner-window identity remains unknown; no fix is claimed and the gate remains
+open. The original integration receipt below is unchanged.
+
 **Keep PR #147 draft; do not merge.** The five mandatory smoke/map runs passed,
 but the requested Community regression did not complete (10 of the previous
 47 checks). After a pointer activation of `review-apply` (label “Change sources: 1”),

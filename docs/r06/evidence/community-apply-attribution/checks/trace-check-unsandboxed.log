@@ -1,0 +1,11 @@
+✔ six fixed A/B attempts preserve the fixture and exercise the actual handler/plan/modal path (2.610962ms)
+✔ baseline A2 remains FAIL despite successful handler and connected modal in another document (0.27636ms)
+✔ all disposable process groups and twelve distinct CDP endpoints were closed (0.623152ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 70.091158
