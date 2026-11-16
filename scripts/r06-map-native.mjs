@@ -102,19 +102,20 @@ try{
  const interactions=performance.now();for(let i=0;i<4;i++)await activate('workbench-layer-links');report.metrics.fourLayerTogglesMs=performance.now()-interactions;
  report.metrics.interactionFrameIntervals=await ev('cancelAnimationFrame(frameProbe);frameTrace');
  await pass('Link overlay toggles retain exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
- await ev('wb.zones.active=[];wb.render();void 0');await pass('Tag overlay toggle retains exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
+ await activate('workbench-zones');const visibleTag=await ev('wb.zones.active[0]');if(visibleTag)await activate('zone-toggle-'+encodeURIComponent(visibleTag));await activate('workbench-zones-close');await pass('Tag overlay toggle retains exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;
  await pass('Exact file search works without recomputation',"!!document.querySelector('[data-workbench-path=\"Databases/Note 00000.md\"]')&&JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts");await shot('list-search');
  await field('workbench-search','');
  if(count===120){
+  await field('workbench-search','Databases');await activate('workbench-zones');await ev("document.querySelector('[data-health-action=\"filter-topic%2Fdatabases\"]').focus();void 0");await key(' ','Space',32,' ');await activate('workbench-zones-close');
   await activate('workbench-note-Databases%2FNote%2000000.md');
   await ev("{const e=document.querySelector('[data-health-action=workbench-second]');e.value='Databases/Note 00001.md';e.dispatchEvent(new Event('change'));}void 0");
-  await activate('workbench-zoom-in');await ev('window.camera=JSON.stringify(wb.graph.viewport);window.selection=JSON.stringify(wb.selected);void 0');
+  await activate('workbench-zoom-in');await ev('window.camera=JSON.stringify(wb.graph.viewport);window.selection=JSON.stringify(wb.selected);window.queryContext=JSON.stringify([wb.query,wb.zones.filter]);void 0');
   await shot('pair');await activate('workbench-compare');await wait("!!document.querySelector('[data-pair-heading]')");await shot('pair-inspector');await pass('Pair Inspector does not call a model or write','io.network===0&&io.writes===0');
   await activate('workbench-back');await pass('Pair back keeps exact camera, selection and coordinates','JSON.stringify(wb.graph.viewport)===camera&&JSON.stringify(wb.selected)===selection&&JSON.stringify(wb.points)===coords');
   await ev('window.oldMap=wb;window.savedTicks=wb.simulation.ticks;void 0');await activate('review-back');await pause(250);report.observations.hiddenTicks=await ev('wb.simulation.ticks-savedTicks');
   await activate('review-map');await ev('window.wb=hv.workbench.map;void 0');
-  report.observations.contextRetained=await ev('wb===oldMap&&JSON.stringify(wb.graph.viewport)===camera&&JSON.stringify(wb.selected)===selection');
+  report.observations.contextRetained=await ev('wb===oldMap&&JSON.stringify(wb.graph.viewport)===camera&&JSON.stringify(wb.selected)===selection&&JSON.stringify([wb.query,wb.zones.filter])===queryContext');
   if(!baseline){assert(report.observations.contextRetained,'Map retains owner/camera/selection on back');report.checks.push('Map back/reopen retains owner/camera/selection');assert.equal(report.observations.hiddenTicks,0);}
   // Reload explicitly for the old baseline whose Back disposed its semantic owner.
   if(baseline){await activate('workbench-refresh');await wait('!wb.data.busy&&!wb.pendingRender&&wb.simulation.alpha===0');}

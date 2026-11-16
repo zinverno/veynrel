@@ -213,3 +213,17 @@ it("checks captured participation revision even if a source notification is dela
   f.engine.analyzeGlobalSemanticMap.mockImplementation(async options => ({ ...analysis(), selection: { revision: options!.selection!.revision, eligibleNoteCount: 8, excludedNoteCount: 0, unknownNoteCount: 0, excludedPairCount: 0, unknownPairCount: 0 } }));
   fail = false; await port.refresh(); expect(port.getSnapshot().state).toBe("ready"); port.dispose(); f.port.dispose();
 });
+
+it("keeps a never-computed scoped map idle through cold metadata events", async () => {
+  const f=fixture();let changed!:()=>void;
+  const capture=vi.fn(()=>undefined);
+  const port=f.port.createScoped({id:"cold",revision:1,paths:analysis().nodes.map(n=>n.path)},
+    {capture,subscribe:listener=>{changed=listener;return()=>{};}});
+  const published=vi.fn();port.subscribe(published);
+  for(let i=0;i<100;i++)changed();
+  expect(port.getSnapshot().state).toBe("idle");expect(published).not.toHaveBeenCalled();
+  expect(capture).not.toHaveBeenCalled();expect(f.engine.analyzeGlobalSemanticMap).not.toHaveBeenCalled();
+  await port.load();expect(port.getSnapshot().state).toBe("ready");
+  changed();expect(port.getSnapshot().state).toBe("stale");
+  port.dispose();f.port.dispose();
+});
