@@ -76,7 +76,7 @@ export class WorkbenchView {
     this.browser=this.element.createDiv({cls:"veynrel-workbench-browser"});this.review=this.element.createDiv({cls:"veynrel-workbench-review"});this.review.hidden=true;
     this.inspectors=new WorkbenchInspectors(data,()=>this.render(),{
       openNote:path=>actions.openNote(path),selectNote:path=>{if(this.data.scope.paths.includes(path))this.selectNote(path);},
-      returnToMap:()=>{const graph=this.browser.querySelector<SVGSVGElement>("svg[data-camera]");graph?.scrollIntoView({block:"center"});graph?.focus({preventScroll:true});},
+      returnToMap:()=>{const graph=this.browser.querySelector<SVGSVGElement>(".veynrel-workbench-map > svg");graph?.scrollIntoView({block:"center"});graph?.focus({preventScroll:true});},
       openPair:(left,right)=>{this.actions.openNote(left);this.actions.openNote(right);},
     });
     this.element.addEventListener("keydown",this.escape);

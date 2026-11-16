@@ -104,6 +104,7 @@ export async function runUnifiedJourney({ev,pass,shot,activate,field,key,wait,fo
   await pass('Folder-scoped map still has true all-document focus through a separate owner',"wb.data.globalSemantic.getSnapshot().focus.scores.length===12&&wb.data.scope.paths.length===2&&wb.data.semantic.getSnapshot().state==='idle'");
   await shot('unified-folder-global-focus');
   await ev("document.querySelector('[data-workbench-inspector]').focus();void 0");await key('Escape','Escape',27);
-  await pass('Escape returns focus to the same central map',"!wb.inspectors.panel&&document.activeElement.matches('svg[data-camera]')");
+  report.focusAfterEscape=await ev("({panel:wb.inspectors.panel??null,activeTag:document.activeElement.tagName,activeClass:document.activeElement.getAttribute('class'),focused:document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')})");
+  await pass('Escape returns focus to the same central map',"!wb.inspectors.panel&&document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')");
   await io('final-global-folder');
 }
