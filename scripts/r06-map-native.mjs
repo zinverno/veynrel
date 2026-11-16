@@ -106,6 +106,15 @@ try{
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;
  await pass('Exact file search works without recomputation',"!!document.querySelector('[data-workbench-path=\"Databases/Note 00000.md\"]')&&JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts");await shot('list-search');
  await field('workbench-search','');
+ if(count>500){
+  await ev('window.groupOverview=JSON.stringify(wb.graph.viewport);wb.element.querySelector("[data-group]").focus();void 0');await key('Enter','Enter',13,'\r');
+  await wait('!!wb.groupPaths&&!wb.pendingRender');
+  await pass('Display group opens actual note nodes in the viewport',"(()=>{const svg=wb.element.querySelector('svg[data-camera]'),box=svg.getBoundingClientRect();return [...svg.querySelectorAll('[data-path]')].some(e=>{const r=e.getBoundingClientRect();return r.right>box.left&&r.left<box.right&&r.bottom>box.top&&r.top<box.bottom;});})()");
+  const selectedAt=performance.now();await ev('wb.element.querySelector("[data-path]").focus();void 0');await key('Enter','Enter',13,'\r');await wait('!!wb.note');report.metrics.selectionMs=performance.now()-selectedAt;
+  await metric('selected-large-note');await shot('selected-large-note');
+  await activate('workbench-clear-selection');await activate('workbench-groups-back');
+  await pass('Display group back restores exact overview camera','JSON.stringify(wb.graph.viewport)===groupOverview');
+ }
  if(count===120){
   await field('workbench-search','Databases');await activate('workbench-zones');await ev("document.querySelector('[data-health-action=\"filter-topic%2Fdatabases\"]').focus();void 0");await key(' ','Space',32,' ');await activate('workbench-zones-close');
   await activate('workbench-note-Databases%2FNote%2000000.md');

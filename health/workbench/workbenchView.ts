@@ -186,7 +186,7 @@ export class WorkbenchView {
     const visibleItems=this.items.filter(item=>(item.members??[item.path]).some(path=>visiblePaths.has(path))).map(item=>item.members?{...item,members:item.members.filter(path=>visiblePaths.has(path))}:item);
     this.stopGraph=renderWorkbenchGraph(map,model,selectedPaths,this.graph,{items:visibleItems,simulation:this.simulation,query:this.query,zones,activeZones:this.zones.active,zone:this.zones.selected,
       selectZone:tag=>{if(current()){this.zones.selected=tag;this.render();}},group:members=>{if(current()){
-        overviewWorkbench(this.graph);this.groupCamera={...this.graph.viewport};this.groupPaths=members;this.graph.viewport={x:0,y:0,zoom:1};this.render();
+        overviewWorkbench(this.graph);this.groupCamera={...this.graph.viewport};this.groupPaths=members;this.graph.viewport={x:0,y:0,zoom:1};this.graph.fitted=false;this.render();
       }}},path=>{if(current())this.selectNote(path);},()=>{if(current())this.render();});
     if(this.zones.selected){
       const zone=zones.find(zone=>zone.tag===this.zones.selected);
