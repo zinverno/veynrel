@@ -226,3 +226,21 @@ The old R04 harness now checks a persisted v2 decision instead of expecting new
 IDs in the legacy list; all previous behavior assertions remain. See
 [R05.3 contracts](r05/registry-editing-and-decisions.md) and
 [combined verification](r05/part3-verification.md).
+
+
+## R06.1 map foundation
+
+`python scripts/native/run.py map 120` runs the real Workbench → Pair Inspector →
+Back flow with deterministic synthetic vectors. `map 1000`, `map 5000` and
+`map 10000` exercise truthful semantic-cap refusal and the complete path list.
+`R06_INDEX_COUNT=0` and `R06_INDEX_COUNT=60` with `map 120` exercise missing and
+partial index coverage. Only the common Xvfb/Openbox launcher may start this
+harness. No desktop or live embedding provider is used.
+
+For an unchanged frozen baseline, use `R06_BASELINE=1 python scripts/native/run.py
+map 120 /path/to/frozen-assets` (write the command on one shell line). The directory
+must contain main.js, styles.css, manifest.json and SOURCE_COMMIT. Baseline mode
+records the known lost context/topology relayout/rule-bypass observations instead
+of asserting the new behavior; it retains the common byte, UI and exception
+assertions. See [R06.1 boundaries](r06/part1-contract.md). This is not the complete
+R06 family/legacy-route acceptance.

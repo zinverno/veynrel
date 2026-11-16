@@ -11,7 +11,7 @@ import { WorkbenchSimulation } from "./workbenchSimulation";
 import type { WorkbenchNode, WorkbenchEdge } from "./workbenchModel";
 import { haloSpots } from "./workbenchPalette";
 const workbenchLayout=(nodes:readonly WorkbenchNode[],edges:readonly WorkbenchEdge[])=>{const simulation=new WorkbenchSimulation();simulation.update(nodes,edges);simulation.settle();return simulation.points;};
-const node=(path:string)=>({path,semantic:false,linksAvailable:true});
+const node=(path:string)=>({path,semantic:true,linksAvailable:true});
 const tags=tagZones({revision:1,categories:[{id:"role",name:"Material",prefixes:["role"],tags:[]}],notes:[
  {path:"A.md",state:"known",tags:["topic/sql/cte","role/theory","difficulty/advanced"]},
  {path:"B.md",state:"known",tags:["role/theory","role/practice","topic/sql-old"]},

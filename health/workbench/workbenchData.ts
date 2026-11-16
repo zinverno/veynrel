@@ -1,4 +1,5 @@
-import type { SemanticGlobalMapPort, SemanticMapScope } from "../semanticGlobalMapPort";
+import type { SemanticGlobalMapPort, SemanticMapScope, ConnectionSelectionSource } from "../semanticGlobalMapPort";
+import { compileConnectionRules } from "../connections/connectionRules";
 import type { ConnectionComparisonPort } from "../connectionComparisonPort";
 import type { VaultTopologyPort } from "../topology/types";
 import { sameSemanticIndexRevision } from "../semanticHealthAnalysisPort";
@@ -13,7 +14,7 @@ export interface PairReviewPort {
 }
 export interface WorkbenchDependencies {
   topology: VaultTopologyPort;
-  createSemantic?: (scope: SemanticMapScope) => SemanticGlobalMapPort;
+  createSemantic?: (scope: SemanticMapScope, selection?: ConnectionSelectionSource) => SemanticGlobalMapPort;
   createComparison: (semantic: SemanticGlobalMapPort) => ConnectionComparisonPort;
   duplicates?: SemanticHealthAnalysisPort;
   tags?: WorkbenchTagsPort;
@@ -56,7 +57,12 @@ export class WorkbenchData {
   }
   private ensureComparison(): void {
     if (this.semantic) return;
-    this.semantic = this.dependencies.createSemantic?.(this.scope);
+    const { rules, tags } = this.dependencies;
+    const selection: ConnectionSelectionSource | undefined = rules ? {
+      capture: () => compileConnectionRules(rules, tags?.getSnapshot() ?? { revision: 0, categories: [], notes: this.scope.paths.map(path => ({ path, state: "unknown", tags: [] })) }),
+      subscribe: listener => { const a = rules.subscribe(listener), b = tags?.subscribe(listener); return () => { a(); b?.(); }; },
+    } : undefined;
+    this.semantic = this.dependencies.createSemantic?.(this.scope, selection);
     this.comparison = this.semantic && this.dependencies.createComparison(this.semantic);
   }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
@@ -77,7 +83,7 @@ export class WorkbenchData {
     if (task === "map") this.dependencies.tags?.refresh();
     const current = (): boolean => !this.disposed && epoch === this.epoch;
     try {
-      if (task === "connections" && this.dependencies.rules) { await this.dependencies.rules.load(); await this.dependencies.rules.refreshFolders(); }
+      if (task !== "repeats" && this.dependencies.rules) { await this.dependencies.rules.load(); await this.dependencies.rules.refreshFolders(); }
       if (!current()) return;
       if (this.dependencies.prepareExisting) await this.dependencies.prepareExisting();
       else await this.semantic?.prepareExisting?.();

@@ -6,7 +6,7 @@ import type { PairReviewPort, WorkbenchData } from "./workbenchData";
 import { workbenchModel } from "./workbenchModel";
 import type { WorkbenchPair } from "./workbenchModel";
 
-interface OptionalMap { update(findings: readonly Finding[]): void; dispose(): void }
+interface OptionalMap { update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
 interface ReviewActions {
   history(): void; settings(): void;
   map(parent: HTMLElement): OptionalMap;
@@ -27,6 +27,8 @@ export class ReviewListView {
   private closeRules?: () => void;
   private stopReview?: () => void;
   private map?: OptionalMap;
+  private mapHost?: HTMLElement;
+  private mapOpen = false;
   private findings: readonly Finding[] = [];
   private mode: "repeats" | "connections" = "repeats";
   private query = "";
@@ -58,7 +60,7 @@ export class ReviewListView {
     this.suspended = false;
     this.syncLayout();
     this.findings = findings;
-    if (this.map) this.map.update(findings); else this.render();
+    if (this.mapOpen) this.map?.update(findings); else this.render();
   }
   inheritNavigation(previous?: ReviewListView): void {
     if (!previous) return;
@@ -70,7 +72,7 @@ export class ReviewListView {
     this.suspended = true; this.generation++;
     this.closeRules?.(); this.closeRules = undefined;
     this.stopReview?.(); this.stopReview = undefined;
-    this.map?.dispose(); this.map = undefined;
+    this.map?.suspend(); this.mapOpen = false;
     this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
     this.detail.setAttribute("data-review-surface", "list");
     this.syncLayout();
@@ -83,7 +85,7 @@ export class ReviewListView {
     if (open) { this.element.setAttribute("data-review-map", "true"); host?.setAttribute("data-review-map", "true"); }
     else { this.element.removeAttribute("data-review-map"); host?.removeAttribute("data-review-map"); }
   }
-  dispose(): void { this.suspend(); this.disposed = true; this.remove(); this.removeDecisions?.(); this.facts?.dispose(); this.data.dispose(); }
+  dispose(): void { this.suspend(); this.map?.dispose(); this.map = undefined; this.mapHost = undefined; this.disposed = true; this.remove(); this.removeDecisions?.(); this.facts?.dispose(); this.data.dispose(); }
   private back(): void {
     this.suspend(); this.suspended = false; this.facts?.refresh(); this.render();
     this.scrollOwner.scrollTop = this.scroll;
@@ -121,7 +123,7 @@ export class ReviewListView {
     return t(pair.basis === "duplicate" && this.data.duplicateState !== "ready" ? "@review.old-result" : `@review.basis.${pair.basis}`);
   }
   private render(): void {
-    if (this.disposed || this.suspended || this.stopReview || this.map) return;
+    if (this.disposed || this.suspended || this.stopReview || this.mapOpen) return;
     const generation = ++this.generation;
     const current = (): boolean => !this.disposed && !this.suspended && generation === this.generation;
     const active = this.element.ownerDocument.activeElement as HTMLInputElement | null;
@@ -159,7 +161,9 @@ export class ReviewListView {
       this.syncLayout();
       const mapGeneration = this.generation;
       healthButton(this.detail, t("@review.back"), () => { if (mapGeneration === this.generation) this.back(); }, "review-back");
-      this.map = this.actions.map(this.detail.createDiv({ cls: "veynrel-review-map-host" })); this.map.update(this.findings);
+      if(!this.map){this.mapHost=this.detail.createDiv({cls:"veynrel-review-map-host"});this.map=this.actions.map(this.mapHost);}
+      else this.detail.appendChild(this.mapHost!);
+      this.mapOpen=true;this.map.update(this.findings);
       this.scrollOwner.scrollTop = 0;
     }, "review-map");
     const searchRow = this.browser.createDiv({ cls: "veynrel-review-toolbar" });

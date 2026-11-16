@@ -83,7 +83,8 @@ export function renderWorkbenchGraph(parent:HTMLElement,model:WorkbenchModel,sel
   const nodes=items.map(point=>{
     const chosen=(point.members??[point.path]).some(path=>selected.includes(path));
     const node=element(point.members?"rect":"circle",{class:`veynrel-workbench-node${chosen?" is-selected":""}${point.members?" is-group":""}`,role:"button",tabindex:0,[point.members?"data-group":"data-path"]:point.path},world);
-    node.setAttribute("aria-label",point.members?`${point.label} · ${point.members.length}`:point.path);
+    node.classList.toggle("is-unmapped",!point.members&&!model.nodes.find(node=>node.path===point.path)?.semantic);
+    node.setAttribute("aria-label",point.members?t("@r06.display-group",{count:point.members.length})+` · ${point.label}`:point.path+(model.nodes.find(node=>node.path===point.path)?.semantic?"":` · ${t("@r06.unmapped-node")}`));
     element("title",{},node).textContent=node.getAttribute("aria-label");
     const label=labelLayer.createDiv({cls:"veynrel-workbench-label",text:point.members?`${point.members.length} · ${point.label}`:point.path.split("/").pop()!.replace(/\.md$/u,"")});
     label.dataset.labelPath=point.path;
