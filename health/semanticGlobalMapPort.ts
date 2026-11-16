@@ -53,6 +53,8 @@ export interface SemanticGlobalMapPort {
   createScoped?(scope: SemanticMapScope, selection?: ConnectionSelectionSource): SemanticGlobalMapPort;
   /** Explicitly inspect/load an existing index through its owner; never build embeddings. */
   prepareExisting?(): Promise<void>;
+  createSession?(): SemanticGlobalMapPort;
+  cancel?(): void;
   getSnapshot(): SemanticGlobalMapProductSnapshot;
   subscribe(listener: () => void): () => void;
   load(): Promise<void>;

@@ -2086,3 +2086,21 @@ it("R04 launches the existing taxonomy surface without onboarding or scan and pa
   expect(f.tools.openTagTaxonomy).toHaveBeenCalledWith({ kind: "folder", path: "SQL" }, []);
   expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
 });
+
+describe("R06.2b embedded structural parity",()=>{
+  it.each(["en","ru"] as const)("retains metrics, directed inspector and unknown coverage without a second SVG (%s)",async lang=>{
+    setLanguage(lang);const map=await comparisonTopologyMap();
+    const port={getSnapshot:()=>({state:"ready" as const,map}),load:vi.fn(async()=>{}),refresh:vi.fn(async()=>{}),subscribe:()=>()=>{},dispose:vi.fn()};
+    const legacy=new mocks.Element(),embedded=new mocks.Element(),openNote=vi.fn();
+    const oldState={...newTopologyViewState(),selected:"A.md"},newState={...newTopologyViewState(),selected:"A.md"};
+    const a=renderTopology(legacy as unknown as HTMLElement,port,oldState,{back:vi.fn(),openNote});
+    const b=renderTopology(embedded as unknown as HTMLElement,port,newState,{back:vi.fn(),openNote},true);
+    for(const cls of ["veynrel-topology-metrics","veynrel-topology-facts","veynrel-topology-relationships"]){
+      expect(embedded.all().filter(e=>e.cls===cls).map(e=>e.texts())).toEqual(legacy.all().filter(e=>e.cls===cls).map(e=>e.texts()));
+    }
+    expect(embedded.all().some(e=>e.tag==="svg")).toBe(false);
+    embedded.action("topology-outgoing-0").click();expect(newState.selected).toBe("C.md");
+    embedded.action("topology-open-note").click();expect(openNote).toHaveBeenCalledWith("C.md");
+    expect(port.refresh).not.toHaveBeenCalled();expect(embedded.texts()).not.toMatch(/@topology\./u);a();b();
+  });
+});

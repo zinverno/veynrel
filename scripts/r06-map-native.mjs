@@ -7,8 +7,10 @@ import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import {build as bundle} from 'esbuild';
 import {assertNativeRoot,launchObsidian,nativeEndpoint} from './native/session.mjs';
+import {runUnifiedJourney} from './r06-unified-journey.mjs';
 import {runFamilyJourney} from './r06-families-journey.mjs';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
+const unifiedMode=process.env.R06_UNIFIED==='1';
 const familiesMode=process.env.R06_FAMILIES==='1',pickerOnly=process.env.R06_PICKER_ONLY==='1';
 const [root,rawCount='120',build=ROOT]=process.argv.slice(2),count=familiesMode?12:Number(rawCount),indexed=Number(process.env.R06_INDEX_COUNT??count);
 assertNativeRoot(root);assert(!fs.existsSync(root));assert([12,120,1000,5000,10000].includes(count));assert(indexed>=0&&indexed<=count);
@@ -25,9 +27,9 @@ fs.writeFileSync(`${vault}/.obsidian/app.json`,'{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`,JSON.stringify({updateDisabled:true,vaults:{map:{path:vault,open:true,ts:Date.now()}}}));
 fs.writeFileSync(`${pluginDir}/data.json`,JSON.stringify({language:'en',apiKey:'',semanticAutoSyncSuspended:true,semantic:{enabled:!!indexed,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 const sha=v=>createHash('sha256').update(v).digest('hex');
-const report={scenario:familiesMode?'R06.2-family-journey':pickerOnly?'R06.2-isolated-picker':'R06-map-foundation',familiesMode,pickerOnly,baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
+const report={scenario:familiesMode?'R06.2-family-journey':pickerOnly?'R06.2-isolated-picker':'R06-map-foundation',unifiedMode,familiesMode,pickerOnly,baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
 for(const name of ['main.js','styles.css','manifest.json']){const bytes=fs.readFileSync(`${build}/${name}`);fs.writeFileSync(`${pluginDir}/${name}`,bytes);report.assets[name]=sha(bytes);}
-report.harness=Object.fromEntries(['r06-map-native.mjs','r06-map-fixture.ts','r06-families-journey.mjs','r06-families-fixture.ts','native/session.mjs','native/run.py'].map(p=>[p,sha(fs.readFileSync(`${ROOT}/scripts/${p}`))]));
+report.harness=Object.fromEntries(['r06-map-native.mjs','r06-map-fixture.ts','r06-families-journey.mjs','r06-unified-journey.mjs','r06-families-fixture.ts','native/session.mjs','native/run.py'].map(p=>[p,sha(fs.readFileSync(`${ROOT}/scripts/${p}`))]));
 const original=Object.fromEntries(fixture.notes.map(n=>[n.path,sha(fs.readFileSync(`${vault}/${n.path}`))]));
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 const child=launchObsidian(root),connections=[],frames=[];let main,endpoint,recording=false;
@@ -127,6 +129,7 @@ try{
   await shot('baseline-overview');await ev(`wb.element.querySelector('[data-path="Bridges/Docker database.md"]').focus();void 0`);await key('Enter','Enter',13,'\r');
   await wait('!!wb.note');await shot('baseline-note');await stopVideo();
  }
+ else if(unifiedMode){await runUnifiedJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
  else if(familiesMode){await runFamilyJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
  else {
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;

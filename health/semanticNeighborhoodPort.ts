@@ -39,6 +39,8 @@ export interface SemanticSourceSearchResult {
 }
 /** Session-only Discover exploration. No persistence, setup, or index mutation API. */
 export interface SemanticNeighborhoodPort {
+  createSession?(): SemanticNeighborhoodPort;
+  cancel?(): void;
   getSnapshot(): SemanticNeighborhoodProductSnapshot;
   subscribe(listener: () => void): () => void;
   prepare(): Promise<void>;

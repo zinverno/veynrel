@@ -43,6 +43,8 @@ export function registerHealth(plugin: Plugin, tools: VeynrelToolsPort, preferen
     const tags = createTags?.(scope.paths);
     return new WorkbenchData(scope, {
       topology, createSemantic: globalMap?.createScoped ? (scope, selection) => globalMap.createScoped!(scope, selection) : undefined,
+      createGlobal: globalMap?.createSession ? () => globalMap.createSession!() : undefined,
+      createNeighborhood: neighborhood?.createSession ? () => neighborhood.createSession!() : undefined,
       createComparison, duplicates: semanticAnalysis, tags, rules,
       editRules: tags ? () => { const modal = new ConnectionRulesModal(plugin.app, rules, tags, scope.paths); modal.open(); return () => modal.close(); } : undefined,
       prepareExisting: () => globalMap?.prepareExisting?.() ?? Promise.resolve(), subscribeIndex: semantic ? listener => semantic.subscribe(listener) : undefined,

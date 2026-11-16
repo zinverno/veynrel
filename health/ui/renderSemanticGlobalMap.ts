@@ -17,11 +17,11 @@ export function globalSemanticMapStatus(snapshot: SemanticGlobalMapProductSnapsh
   return undefined;
 }
 export function renderSemanticGlobalMap(parent: HTMLElement, port: SemanticGlobalMapPort, state: SemanticGlobalMapViewState,
-  actions: { back(): void; openNote(path: string): void; explore(path: string): void }): () => void {
+  actions: { back(): void; openNote(path: string): void; explore(path: string): void; selectNote?(path: string): void }, embedded = false): () => void {
   const snapshot = port.getSnapshot();
   const section = parent.createEl("section", { cls: "veynrel-global-map", attr: { "aria-label": t("@global-map.title"), "aria-busy": String(snapshot.busy) } });
-  healthButton(section, t("@global-map.back"), () => actions.back(), "global-map-back").addClass("veynrel-quiet");
-  section.createEl("h1", { text: t("@global-map.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
+  if (!embedded) healthButton(section, t("@global-map.back"), () => actions.back(), "global-map-back").addClass("veynrel-quiet");
+  section.createEl(embedded ? "h2" : "h1", { text: t("@global-map.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
 
   const status = globalSemanticMapStatus(snapshot);
   if (status && !(snapshot.state === "ready" && snapshot.focus && !snapshot.focusing && !snapshot.focusError)) section.createEl("p", { text: status, cls: "veynrel-global-map-status" });
@@ -51,7 +51,7 @@ export function renderSemanticGlobalMap(parent: HTMLElement, port: SemanticGloba
   const visual = composition.createDiv({ cls: "veynrel-global-map-visual" });
   const context = visual.createDiv({ cls: "veynrel-global-map-context" });
   context.createEl("h2", { text: focus ? t("@global-map.centered", { note: map.nodes.find(node => node.path === focus.path)!.basename }) : t("@global-map.similarity") });
-  context.createEl("p", { cls: "veynrel-global-map-scale", text: t(focus ? "@global-map.focus-radial-scale" : "@global-map.radial-scale") });
+  if (!embedded) context.createEl("p", { cls: "veynrel-global-map-scale", text: t(focus ? "@global-map.focus-radial-scale" : "@global-map.radial-scale") });
   if (focus) healthButton(context, t("@global-map.reset-focus"), () => {
     state.focusAction = state.selected ? "global-map-focus" : "global-map-search"; port.resetFocus();
   }, "global-map-reset-focus").addClass("veynrel-quiet");
@@ -83,15 +83,20 @@ export function renderSemanticGlobalMap(parent: HTMLElement, port: SemanticGloba
     healthButton(buttons, t("@global-map.focus"), () => { void port.focus(node.path); }, "global-map-focus", snapshot.busy || snapshot.state !== "ready");
     if (heldFocus) inspector.focus({ preventScroll: true });
   };
-  const graph = renderSemanticGlobalMapGraph(visual, map, state, inspect, focus);
+  const graph = embedded ? {
+    select: (path: string, _focus?: boolean): void => { state.selected = path; inspect(path); actions.selectNote?.(path); },
+    zoom: (_factor: number): void => {}, reset: (): void => {}, fit: (): void => {}, dispose: (): void => {},
+  } : renderSemanticGlobalMapGraph(visual, map, state, inspect, focus);
+  if (!embedded) {
   healthButton(controls, t("@global-map.zoom-in"), () => graph.zoom(1.5), "global-map-zoom-in").addClass("veynrel-quiet");
   healthButton(controls, t("@global-map.zoom-out"), () => graph.zoom(1 / 1.5), "global-map-zoom-out").addClass("veynrel-quiet");
   healthButton(controls, t("@global-map.reset-view"), graph.reset, "global-map-reset-view").addClass("veynrel-quiet");
   healthButton(controls, t("@global-map.fit"), graph.fit, "global-map-fit").addClass("veynrel-quiet");
+  }
   inspect(state.selected);
   const legend = healthDetails(visual, t("@global-map.relationships"), "global-map-legend");
   legend.addClass("veynrel-global-map-legend");
-  for (const key of [focus ? "focus-distance-legend" : "distance-legend", "size-legend", "connectedness-description", "edge-legend", "selected-legend", focus ? "focus-description" : "core-description"]) legend.createEl("p", { text: t(`@global-map.${key}`) });
+  for (const key of embedded ? ["connectedness-description", focus ? "focus-description" : "core-description"] : [focus ? "focus-distance-legend" : "distance-legend", "size-legend", "connectedness-description", "edge-legend", "selected-legend", focus ? "focus-description" : "core-description"]) legend.createEl("p", { text: t(`@global-map.${key}`) });
   const showResults = (): void => {
     results.empty();
     if (!state.query.trim()) return;

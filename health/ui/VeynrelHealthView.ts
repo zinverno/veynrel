@@ -323,6 +323,14 @@ export class VeynrelHealthView extends ItemView {
     }
     if (gated) {
       gate(surface, () => { this.scopeAcknowledged = true; this.render(); if (this.route.page === "recall") void this.recall?.initialize(); });
+    } else if (normal && this.workbenchHost && (
+      this.route.page === "topology" ||
+      this.route.page === "semantic-map" && this.globalMap?.createSession ||
+      this.route.page === "semantic-neighborhood" && this.neighborhood?.createSession ||
+      this.route.page === "connection-opportunities" && this.globalMap?.createSession)) {
+      const panel = this.route.page as import("../workbench/workbenchInspectors").WorkbenchInspector;
+      // The existing global scope acknowledgement above remains authoritative.
+      this.route = { page: "discover" }; this.render(); this.workbench?.openMap(panel); return;
     } else if (normal && this.route.page === "home") {
       renderWorkspaceHome(surface, scope, this.app.vault.getName(), state, this.controller.listFindings(), this.motion, {
         select: path => this.selectScope(path), open: () => this.navigate({ page: "discover" }),
@@ -427,10 +435,10 @@ export class VeynrelHealthView extends ItemView {
           revision: this.scopeRevision, paths: scope.snapshot.paths.filter(path => includesScope(selection, path)) }, false);
         this.workbench = new ReviewListView(surface, data, this.workbenchHost.pair, {
           history: () => this.tools.openOperationHistory(), settings: () => this.navigate({ page: "settings" }),
-          map: parent => new WorkbenchView(parent, this.workbenchHost!.create(data.scope, true), this.workbenchHost!.pair, {
+          map: (parent, reviewed) => new WorkbenchView(parent, this.workbenchHost!.create(data.scope, true), this.workbenchHost!.pair, {
           openNote: path => { void this.openNote(path); }, search: () => this.semantic?.openSearch(),
           settings: () => this.navigate({ page: "settings" }), history: () => this.tools.openOperationHistory(),
-          similar: () => this.semantic?.openSimilarNotes(), advanced: page => this.navigate({ page }),
+          decisions: reviewed, similar: () => this.semantic?.openSimilarNotes(), advanced: page => this.navigate({ page }),
         }, this.contentEl),
         }, this.contentEl);
         this.workbench.inheritNavigation(previous);
