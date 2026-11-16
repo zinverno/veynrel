@@ -1,0 +1,197 @@
+{
+  "scenario": "R06-map-foundation",
+  "unifiedMode": false,
+  "familiesMode": false,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 1000,
+  "indexed": 1000,
+  "source": "9cd320f46758ffdc7b331665790aaf6b3dc6e8c3",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Cap refuses all eligible documents, never silently takes first 500",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Exact file search works without recomputation",
+    "Display group opens actual note nodes in the viewport",
+    "Second-note results are bounded without dropping total matches",
+    "Full path search reaches the final inventory entry",
+    "Display group back restores exact overview camera",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "list-search.png",
+    "selected-large-note.png"
+  ],
+  "assets": {
+    "main.js": "5164ab04daebd24ac82d03bff8d902979906105d496f43f1157fcf83e4d37d2e",
+    "styles.css": "da6c1c69d553b30f2d97ebabe71475dc07b1f93254a2e8dd68985465835428b8",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {
+    "cacheReadyMs": 6933.527653000001,
+    "refreshWallMs": 687.5507770000004,
+    "loaded": {
+      "notes": 1000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 1000,
+      "mapped": 1000,
+      "displayedNodes": 0,
+      "displayGroups": 10,
+      "dom": 105,
+      "svg": 38,
+      "layoutCount": 1,
+      "layoutMs": 9.700000002980232,
+      "displayGroupingMs": 1.2000000029802322,
+      "semanticMs": 122.79999999701977,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 400,
+        "renderMs": 719.9000001847744,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 152,
+        "derivationMs": 151.19999998807907
+      },
+      "heap": 62595880
+    },
+    "fourLayerTogglesMs": 320.99160200000006,
+    "interactionFrameIntervals": [
+      16.700000000000728,
+      16.69999999999891,
+      16.600000000000364,
+      16.700000000000728,
+      16.69999999999891,
+      33.20000000000073,
+      16.69999999999891,
+      16.700000000000728,
+      16.700000000000728,
+      16.599999999998545,
+      16.700000000000728,
+      16.700000000000728,
+      16.69999999999891,
+      16.600000000000364,
+      16.700000000000728,
+      16.69999999999891,
+      16.600000000000364,
+      16.600000000000364,
+      16.799999999999272
+    ],
+    "searchMs": 40.08633499999996,
+    "selectionMs": 298.08974300000045,
+    "selected-large-note": {
+      "notes": 1000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 1000,
+      "mapped": 1000,
+      "displayedNodes": 100,
+      "displayGroups": 0,
+      "dom": 478,
+      "svg": 246,
+      "layoutCount": 1,
+      "layoutMs": 9.700000002980232,
+      "displayGroupingMs": 0.5,
+      "semanticMs": 122.79999999701977,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 438,
+        "renderMs": 817.4000002294779,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 152,
+        "derivationMs": 151.19999998807907
+      },
+      "heap": 53306679
+    },
+    "secondPicker": {
+      "dom": 71,
+      "options": 0,
+      "results": 20,
+      "heap": 53510544,
+      "searchMs": 5.1852340000004915
+    },
+    "final": {
+      "notes": 1000,
+      "semantic": "unavailable",
+      "reason": "too-large",
+      "indexed": 1000,
+      "mapped": 1000,
+      "displayedNodes": 0,
+      "displayGroups": 10,
+      "dom": 99,
+      "svg": 33,
+      "layoutCount": 1,
+      "layoutMs": 9.700000002980232,
+      "displayGroupingMs": 1,
+      "semanticMs": 122.79999999701977,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 445,
+        "renderMs": 835.400000244379,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 152,
+        "derivationMs": 151.19999998807907
+      },
+      "heap": 56353261
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "7fad181c354898869b6d6547a5854a8e45633ba26e9a3f0c9193ca3313c6b213",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "d893f888d472dee184a7480dc88a31091334e0944ab2431764d9a938fe161643",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "markdownManifestSha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+  "status": "PASS"
+}

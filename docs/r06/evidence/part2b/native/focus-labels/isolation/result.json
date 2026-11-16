@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r06-map-native.mjs",
+    "/tmp/veynrel-map-native-r062b-focus-labels",
+    "120"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794812563.9819958,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    39925
+  ],
+  "cdpClosed": true,
+  "seconds": 12.037
+}

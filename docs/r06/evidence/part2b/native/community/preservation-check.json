@@ -1,0 +1,36 @@
+{
+  "method": "Compared preserved synthetic files with the exact six fixture sources used by unchanged Community harness after failed confirmation.",
+  "allByteIdentical": true,
+  "files": [
+    {
+      "path": "Formatting.md",
+      "expected": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "actual": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa"
+    },
+    {
+      "path": "Training.md",
+      "expected": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "actual": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43"
+    },
+    {
+      "path": "Nutrition.md",
+      "expected": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "actual": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4"
+    },
+    {
+      "path": "Batch/a/same.md",
+      "expected": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "actual": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9"
+    },
+    {
+      "path": "Batch/b/same.md",
+      "expected": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "actual": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25"
+    },
+    {
+      "path": "Untouched.md",
+      "expected": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb",
+      "actual": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/native/smoke.mjs",
+    "/tmp/veynrel-smoke-native-r062b-smoke"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794812216.5593188,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36263
+  ],
+  "cdpClosed": true,
+  "seconds": 10.845
+}

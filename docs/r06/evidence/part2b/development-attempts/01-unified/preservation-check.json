@@ -1,0 +1,69 @@
+{
+  "method": "Re-executed original bundled deterministic fixture after process cleanup; compared each UTF-8 fixture byte buffer with preserved synthetic vault file. Not a native rerun; original report unchanged.",
+  "fixtureBundleSha256": "89e3ecb315aae10ae476dca75270df80c4b9094b972227adb4b2a4eb2dac15ce",
+  "originalReportSha256": "b2e19a6e4b1110a7882ecc4903d24475d701302f606615ba91053f794bd084ee",
+  "count": 12,
+  "allByteIdentical": true,
+  "files": [
+    {
+      "path": "Docker/Guide.md",
+      "expectedSha256": "40033817657fd61281c8eabd9742735f713b9dd2f09da490ec8b1082c802c432",
+      "actualSha256": "40033817657fd61281c8eabd9742735f713b9dd2f09da490ec8b1082c802c432"
+    },
+    {
+      "path": "Docker/Volumes.md",
+      "expectedSha256": "027158e302ccb310dbf7b98d366aa7b9f5de2e86269cde9c74aeb53fc819b40f",
+      "actualSha256": "027158e302ccb310dbf7b98d366aa7b9f5de2e86269cde9c74aeb53fc819b40f"
+    },
+    {
+      "path": "Database/Guide.md",
+      "expectedSha256": "8d8b60918d8670fe3d1bb69a0ba8c5a60f7c4e388763482bc3455d2296c93e4a",
+      "actualSha256": "8d8b60918d8670fe3d1bb69a0ba8c5a60f7c4e388763482bc3455d2296c93e4a"
+    },
+    {
+      "path": "Database/Indexes.md",
+      "expectedSha256": "b05d79442651d3a5a4b2fb9660c1297ba70d2421df04d50530a124398a136281",
+      "actualSha256": "b05d79442651d3a5a4b2fb9660c1297ba70d2421df04d50530a124398a136281"
+    },
+    {
+      "path": "Bridges/Docker database.md",
+      "expectedSha256": "3c93a890ea5942c4565c1ae260c4685bda9182c0d8011e74d743bf3798567315",
+      "actualSha256": "3c93a890ea5942c4565c1ae260c4685bda9182c0d8011e74d743bf3798567315"
+    },
+    {
+      "path": "Architecture/Boundaries.md",
+      "expectedSha256": "a40e66c1aab3778cc9dfef72b85030b93263e20aa625422e710bb3b11240afad",
+      "actualSha256": "a40e66c1aab3778cc9dfef72b85030b93263e20aa625422e710bb3b11240afad"
+    },
+    {
+      "path": "Architecture/Ports.md",
+      "expectedSha256": "194a67598a7e3134941470086b770f87a2fcc3bf171b9fd5bd8aaeda51376b55",
+      "actualSha256": "194a67598a7e3134941470086b770f87a2fcc3bf171b9fd5bd8aaeda51376b55"
+    },
+    {
+      "path": "Architecture/Lifecycle.md",
+      "expectedSha256": "ba0e4a112d0d6ab75f43b270b684b3aa503fe4c75047599d70ccadad3d0ed3f6",
+      "actualSha256": "ba0e4a112d0d6ab75f43b270b684b3aa503fe4c75047599d70ccadad3d0ed3f6"
+    },
+    {
+      "path": "ML/Training.md",
+      "expectedSha256": "49bd7a0d114faf25f25240c5ba970e3ebbe4f6e8404b3c523caac092ad3be1f5",
+      "actualSha256": "49bd7a0d114faf25f25240c5ba970e3ebbe4f6e8404b3c523caac092ad3be1f5"
+    },
+    {
+      "path": "ML/Critique.md",
+      "expectedSha256": "5df6afc19395818e95f65f1afbb7c952d2c441cc151eaa79bc361d70b6deb8f7",
+      "actualSha256": "5df6afc19395818e95f65f1afbb7c952d2c441cc151eaa79bc361d70b6deb8f7"
+    },
+    {
+      "path": "Journal/Walk.md",
+      "expectedSha256": "e064d7e8eeade99afccd2f97ed36617fa0302702abd2180f08bff28d1f45292f",
+      "actualSha256": "e064d7e8eeade99afccd2f97ed36617fa0302702abd2180f08bff28d1f45292f"
+    },
+    {
+      "path": "Architecture/Unresolved.md",
+      "expectedSha256": "a38fd9570d7322f2ac268904980734dc20a3003994d468f4c805de14f7e31245",
+      "actualSha256": "a38fd9570d7322f2ac268904980734dc20a3003994d468f4c805de14f7e31245"
+    }
+  ]
+}

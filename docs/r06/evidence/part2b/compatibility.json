@@ -1,0 +1,15 @@
+{
+  "base": "2d261dafaca539366dfc2e2ecc2e9fff8a9f90d3",
+  "runtime": "6ad4672edb597cd41c9c8a3ff30be7dac8971ba1",
+  "oldEvidenceDiff": "",
+  "protected": {
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1",
+    "versions.json": "4d4a44b2ba23c7fe4c38dd228ba7e9bd4d7e469ed9f72b5073f874a92971f07d",
+    "package.json": "be6ea65063a19f133126241e0ee2b512f8d05d3189b95902a19d109ce9a08d0b",
+    "package-lock.json": "f8302565624c1b926dbbab4687c3a2a51cdc180281934555dc37b0ac5c5346d8",
+    "version-bump.mjs": "59eb0fb22cd25a2493ff912e65fb9975fca2a94b529bb2411fc85a06d49202b7",
+    "releaseCompatibility.test.ts": "1d8595e244f4f82602eb87effbb0f23dab812e382355c268e2981213370f5e4f",
+    "version-bump.test.ts": "0d342068043db3394be35663837a6bb9b4cbe871c961ec16630537cee68ac15c",
+    "docs/roadmap/resume-batch.md": "fc3c1c8758196d803ba7add82602b1d78f02a3c104c6358713df562b71b405e3"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r05-actions-native.mjs",
+    "/tmp/veynrel-actions-native-r062b-actions"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794812888.4940085,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    41223
+  ],
+  "cdpClosed": true,
+  "seconds": 34.391
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r05-2-local-notes-native.mjs",
+    "/tmp/veynrel-local-notes-native-r062b-local-notes"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794812924.487799,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36717,
+    45499
+  ],
+  "cdpClosed": true,
+  "seconds": 52.167
+}

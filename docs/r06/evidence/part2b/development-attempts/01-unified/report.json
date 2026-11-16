@@ -1,0 +1,351 @@
+{
+  "scenario": "R06.2-family-journey",
+  "unifiedMode": true,
+  "familiesMode": true,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "c34807978a9c916c437d6093bccf783e89d23351",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Topology uses the shared plugin owner and no independent graph",
+    "Exact unresolved target and structural counts remain visible",
+    "Structural inspection is read-only and leaves semantic geometry untouched",
+    "Legacy global visual route migrates into the same Workbench owner",
+    "Explicit all-document focus covers all 12 documents, not top-K",
+    "Global focus scores exactly equal the legacy controller",
+    "Global focus retains central map coordinates and camera",
+    "Neighborhood entry preserves the exact source without passive computation",
+    "Neighborhood preserves saved fragment evidence without a radial graph",
+    "Neighborhood neighbors and fragments equal the legacy owner",
+    "Global opportunities preserve candidates, aligned and explicit-only relations",
+    "Global inspectors never change folder participation or geometry",
+    "All read-only inspector work preserves Markdown and makes no network call",
+    "Pair Inspector retains separate consent and no implicit write",
+    "Pair Back preserves family, pair, filters, scope and camera",
+    "en/light: inspector fits 390px without covering the map",
+    "en/dark: inspector fits 390px without covering the map",
+    "ru/light: inspector fits 390px without covering the map",
+    "ru/dark: inspector fits 390px without covering the map",
+    "Real split retains the source document ownership",
+    "Concurrent Workbenches share topology, never global/focus/neighborhood ownership",
+    "Cancelling this window cannot invalidate another window’s global result",
+    "Legacy topology route stays in one graph with its structural inspector"
+  ],
+  "exceptions": [
+    {
+      "target": "839EBB77B451BA6B998B358AED94985E",
+      "timestamp": 1794811369052.689,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1055197,
+        "scriptId": "143",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "Xg",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1055197
+            },
+            {
+              "functionName": "",
+              "scriptId": "143",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1055176
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+          "objectId": "-2480840770786688848.1.1",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: e.isShown is not a function\n    at Xg (…055198)\n    at app://obsidian.md/app.js:1:1055177"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "e.isShown is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    }
+  ],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "unified-structural.png",
+    "unified-all-document-focus.png",
+    "unified-neighborhood.png",
+    "unified-opportunities.png",
+    "unified-pair.png",
+    "unified-en-light-390.png",
+    "unified-en-dark-390.png",
+    "unified-ru-light-390.png",
+    "unified-ru-dark-390.png",
+    "unified-split.png",
+    "unified-final.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "cc329d33095c3ace03fabd46dbed70ad3b9b84c36aef178fed349ad7946de71a",
+    "styles.css": "da6c1c69d553b30f2d97ebabe71475dc07b1f93254a2e8dd68985465835428b8",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 120,
+    "seconds": 4.645809888839722,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 9.389036000000033,
+    "refreshWallMs": 209.22189899999967,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 220,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.29999999701976776,
+      "displayGroupingMs": 0,
+      "semanticMs": 35,
+      "physicsMs": 5.800000011920929,
+      "ticks": 115,
+      "frames": {
+        "frames": 13,
+        "renderMs": 37.8999999910593,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 20.099999994039536,
+        "derivationMs": 40.099999994039536
+      },
+      "heap": 47269055
+    },
+    "fourLayerTogglesMs": 226.98805900000025,
+    "interactionFrameIntervals": [
+      16.699999999999818,
+      16.59999999999991,
+      16.700000000000273,
+      16.699999999999818,
+      16.59999999999991,
+      16.800000000000182,
+      16.59999999999991,
+      16.59999999999991,
+      16.700000000000273,
+      16.699999999999818,
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.700000000000273
+    ],
+    "final": {
+      "notes": 12,
+      "semantic": "stale",
+      "reason": "changed",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 268,
+      "svg": 74,
+      "layoutCount": 2,
+      "layoutMs": 0.29999999701976776,
+      "displayGroupingMs": 0,
+      "semanticMs": 35,
+      "physicsMs": 5.800000011920929,
+      "ticks": 115,
+      "frames": {
+        "frames": 91,
+        "renderMs": 188.9000000357628,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 30.599999994039536,
+        "derivationMs": 2.7999999970197678
+      },
+      "heap": 42045928
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 6,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "248d9a2c537325152906368b297d4a35b0b6da54e068b47ea140f6717b2ed061",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "9029e4c3f43b32bedc1bde2f7cf40ac865e990968ad8b4852609a6cd4f2510d7",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "structural": {
+    "counts": 12,
+    "complete": true,
+    "components": [
+      {
+        "id": "component-40f49bf0a43d7367",
+        "paths": [
+          "Architecture/Boundaries.md",
+          "Docker/Guide.md"
+        ],
+        "primary": true
+      },
+      {
+        "id": "component-77c9b4d47dd1e616",
+        "paths": [
+          "Architecture/Lifecycle.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-e9c10c444d2a3c1d",
+        "paths": [
+          "Architecture/Ports.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-64916c8396fcfd99",
+        "paths": [
+          "Architecture/Unresolved.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-2d7834ba7b2287ce",
+        "paths": [
+          "Bridges/Docker database.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-29cbf606392cc748",
+        "paths": [
+          "Database/Guide.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-91e19f3663720996",
+        "paths": [
+          "Database/Indexes.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-985db38cc3ef1cc2",
+        "paths": [
+          "Docker/Volumes.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-5bcb9d13cbc606c4",
+        "paths": [
+          "Journal/Walk.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-e156ae604c4b0016",
+        "paths": [
+          "ML/Critique.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-0cf73e968c04a6f5",
+        "paths": [
+          "ML/Training.md"
+        ],
+        "primary": false
+      }
+    ],
+    "connectors": [],
+    "broken": [
+      {
+        "id": "target-d7001f98c09fe96a",
+        "target": "Missing source",
+        "sources": [
+          {
+            "path": "Architecture/Unresolved.md",
+            "occurrences": 1
+          }
+        ],
+        "occurrences": 1
+      }
+    ]
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r06-map-native.mjs:197:9",
+  "failureState": {
+    "markdown": 12,
+    "cacheKnown": 12,
+    "io": {
+      "reads": 6,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"root":"/tmp/veynrel-map-native-r062b-5000","status":"FAIL","checks":14,"error":"AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r06-map-native.mjs:199:69"}

@@ -199,6 +199,8 @@ R06.1 implementation candidate: [foundation audit](../r06/part1-audit.md) and [b
 
 R06.2a review candidate: [dependency audit](../r06/part2-audit.md) and [verification](../r06/part2-verification.md). Adds tentative overlapping semantic cores and bounded second-note search. Existing visual routes remain available until their unique topology facts, all-document focus and ownership-safe cancellation are transferred in the dependent R06.2b. This increment does not complete R06 or authorize a release.
 
+R06.2b integration candidate: [parity/ownership audit](../r06/part2b-audit.md) and [verification with open gates](../r06/part2b-verification.md). Workbench hosts the existing structural, global-focus, neighborhood and opportunity inspectors; normal legacy visual entries redirect after their scope acknowledgement. Review remains independent. This does not declare R06 complete or authorize a release.
+
 ### R07 — Портрет текстов: облако слов, темы и возможные речевые повторы
 
 **User outcome:** Отдельное представление в существующем Workspace показывает словарь и темы базы с переходом к исходным местам.

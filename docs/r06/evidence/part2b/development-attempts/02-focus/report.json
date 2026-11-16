@@ -1,0 +1,283 @@
+{
+  "scenario": "R06.2-family-journey",
+  "unifiedMode": true,
+  "familiesMode": true,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "ac9a6a9ebe17e5f6c6f8b4421d5d86868d71b4c8",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Topology uses the shared plugin owner and no independent graph",
+    "Exact unresolved target and structural counts remain visible",
+    "Structural inspection is read-only and leaves semantic geometry untouched",
+    "Legacy global visual route migrates into the same Workbench owner",
+    "Explicit all-document focus covers all 12 documents, not top-K",
+    "Global focus scores exactly equal the legacy controller",
+    "Global focus retains central map coordinates and camera",
+    "Neighborhood entry preserves the exact source without passive computation",
+    "Neighborhood preserves saved fragment evidence without a radial graph",
+    "Neighborhood neighbors and fragments equal the legacy owner",
+    "Global opportunities preserve candidates, aligned and explicit-only relations",
+    "Global inspectors never change folder participation or geometry",
+    "All read-only inspector work preserves Markdown and makes no network call",
+    "Pair Inspector retains separate consent and no implicit write",
+    "Pair Back preserves family, pair, filters, scope and camera",
+    "Leave as is uses the existing persistent store and returns to map",
+    "Same saved decision is accessible in Review list",
+    "Explicit restore uses the same owner without Markdown mutation",
+    "en/light: inspector fits 390px without covering the map",
+    "en/dark: inspector fits 390px without covering the map",
+    "ru/light: inspector fits 390px without covering the map",
+    "ru/dark: inspector fits 390px without covering the map",
+    "Real split retains the source document ownership",
+    "Real Workbench popout has native frame and receives focus",
+    "Concurrent Workbenches share topology, never global/focus/neighborhood ownership",
+    "Cancelling this window cannot invalidate another window’s global result",
+    "Legacy topology route stays in one graph with its structural inspector",
+    "Folder to global handoff still requires explicit one-shot acknowledgement",
+    "Global inspector leaves the selected folder intact",
+    "Folder-scoped map still has true all-document focus through a separate owner"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "unified-structural.png",
+    "unified-all-document-focus.png",
+    "unified-neighborhood.png",
+    "unified-opportunities.png",
+    "unified-pair.png",
+    "unified-persisted-decision.png",
+    "unified-en-light-390.png",
+    "unified-en-dark-390.png",
+    "unified-ru-light-390.png",
+    "unified-ru-dark-390.png",
+    "unified-split.png",
+    "unified-popout.png",
+    "unified-final.png",
+    "unified-folder-global-focus.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "886bddbc008f023c0262b2481933ae2a22554ab8ddededde37c3033f0b6f648d",
+    "styles.css": "da6c1c69d553b30f2d97ebabe71475dc07b1f93254a2e8dd68985465835428b8",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 130,
+    "seconds": 7.281787872314453,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 11.314465000000382,
+    "refreshWallMs": 199.68864399999984,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 220,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.3999999910593033,
+      "displayGroupingMs": 0,
+      "semanticMs": 33.8999999910593,
+      "physicsMs": 4.200000017881393,
+      "ticks": 115,
+      "frames": {
+        "frames": 10,
+        "renderMs": 32.099999979138374,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 18.799999997019768,
+        "derivationMs": 43.5
+      },
+      "heap": 55887336
+    },
+    "fourLayerTogglesMs": 237.61349599999994,
+    "interactionFrameIntervals": [
+      16.699999999999818,
+      16.700000000000273,
+      16.699999999999818,
+      16.59999999999991,
+      16.600000000000364,
+      16.699999999999818,
+      16.699999999999818,
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.700000000000273
+    ]
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "inspectors-before-pair",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "pair-and-decisions",
+      "reads": 6,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "7fad181c354898869b6d6547a5854a8e45633ba26e9a3f0c9193ca3313c6b213",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "35f99119129b61b40bf85cbedbfa4c9a7867b5c10102cb7d0760ca1197b3dfe2",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "structural": {
+    "counts": 12,
+    "complete": true,
+    "components": [
+      {
+        "id": "component-40f49bf0a43d7367",
+        "paths": [
+          "Architecture/Boundaries.md",
+          "Docker/Guide.md"
+        ],
+        "primary": true
+      },
+      {
+        "id": "component-77c9b4d47dd1e616",
+        "paths": [
+          "Architecture/Lifecycle.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-e9c10c444d2a3c1d",
+        "paths": [
+          "Architecture/Ports.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-64916c8396fcfd99",
+        "paths": [
+          "Architecture/Unresolved.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-2d7834ba7b2287ce",
+        "paths": [
+          "Bridges/Docker database.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-29cbf606392cc748",
+        "paths": [
+          "Database/Guide.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-91e19f3663720996",
+        "paths": [
+          "Database/Indexes.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-985db38cc3ef1cc2",
+        "paths": [
+          "Docker/Volumes.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-5bcb9d13cbc606c4",
+        "paths": [
+          "Journal/Walk.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-e156ae604c4b0016",
+        "paths": [
+          "ML/Critique.md"
+        ],
+        "primary": false
+      },
+      {
+        "id": "component-0cf73e968c04a6f5",
+        "paths": [
+          "ML/Training.md"
+        ],
+        "primary": false
+      }
+    ],
+    "connectors": [],
+    "broken": [
+      {
+        "id": "target-d7001f98c09fe96a",
+        "target": "Missing source",
+        "sources": [
+          {
+            "path": "Architecture/Unresolved.md",
+            "occurrences": 1
+          }
+        ],
+        "occurrences": 1
+      }
+    ]
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Escape returns focus to the same central map\n    at pass (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r06-map-native.mjs:61:51)\n    at async runUnifiedJourney (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r06-unified-journey.mjs:107:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116/scripts/r06-map-native.mjs:132:23",
+  "failureState": {
+    "markdown": 12,
+    "cacheKnown": 12,
+    "io": {
+      "reads": 10,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}
