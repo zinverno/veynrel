@@ -10,7 +10,7 @@ class Element {
   ownerDocument:{activeElement?:Element}; listeners=new Map<string,(event:TestEvent)=>void>();
   constructor(document:{activeElement?:Element}={}){this.ownerDocument=document;}
   createEl(tag:string,options:{text?:string;attr?:Record<string,string>}={}){const e=new Element(this.ownerDocument);e.tag=tag;e.text=options.text??"";e.attrs=options.attr??{};this.children.push(e);return e;}
-  createDiv(options:{text?:string;attr?:Record<string,string>}={}){return this.createEl("div",options);} empty(){this.children=[];} setText(text:string){this.text=text;}
+  createDiv(options:{text?:string;attr?:Record<string,string>}={}){const e=new Element(this.ownerDocument);e.text=options.text??"";e.attrs=options.attr??{};this.children.push(e);return e;} empty(){this.children=[];} setText(text:string){this.text=text;}
   setAttribute(key:string,value:string){this.attrs[key]=value;}
   addEventListener(name:string,listener:(event:TestEvent)=>void){this.listeners.set(name,listener);}
   all():Element[]{return [this,...this.children.flatMap(e=>e.all())];}

@@ -1,0 +1,41 @@
+[
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "exit": 1,
+    "seconds": 131.9182984828949
+  },
+  {
+    "name": "mutation",
+    "command": [
+      "npm",
+      "run",
+      "audit:proposals"
+    ],
+    "exit": 0,
+    "seconds": 11.836497068405151
+  },
+  {
+    "name": "session",
+    "command": [
+      "node",
+      "--test",
+      "scripts/native/session-check.mjs"
+    ],
+    "exit": 0,
+    "seconds": 0.11943793296813965
+  },
+  {
+    "name": "runner",
+    "command": [
+      "python",
+      "scripts/native/test_runner.py"
+    ],
+    "exit": 0,
+    "seconds": 4.17341423034668
+  }
+]

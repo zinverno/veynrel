@@ -1,0 +1,11 @@
+{
+  "name": "lint-final",
+  "command": [
+    "npm",
+    "run",
+    "lint"
+  ],
+  "exit": 0,
+  "seconds": 135.3911111354828,
+  "change": "Test Element.createDiv implements the fixture operation directly; no production or assertion change."
+}

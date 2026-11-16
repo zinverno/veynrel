@@ -1,0 +1,191 @@
+{
+  "scenario": "R06.2-family-journey",
+  "familiesMode": true,
+  "baseline": false,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "cf81374fca7d865b17f03a447a29692ce9e303a5",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Real validated top-K publishes tentative cores",
+    "Docker/database bridge belongs to two distinct cores",
+    "Different-purpose ML pair and untagged diary do not create families",
+    "Family focuses existing coordinates without layout work",
+    "Selected note retains both memberships and exact path",
+    "Duplicate basenames remain exact paths in bounded search",
+    "Existing Pair Inspector opens without model consent or Markdown mutation",
+    "Pair Back retains family, camera and coordinates",
+    "Family Back restores overview camera exactly",
+    "en/light: bounded family controls fit 390px",
+    "en/dark: bounded family controls fit 390px",
+    "ru/light: bounded family controls fit 390px",
+    "ru/dark: bounded family controls fit 390px",
+    "Synthetic owner invalidation withdraws stale family evidence",
+    "Explicit refresh restores current family projection",
+    "List alternative retains both duplicate basenames",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "families-overview.png",
+    "family-members.png",
+    "note-context.png",
+    "pair-selection.png",
+    "pair-inspector.png",
+    "families-en-light-390.png",
+    "families-en-dark-390.png",
+    "families-ru-light-390.png",
+    "families-ru-dark-390.png",
+    "list-alternative.png"
+  ],
+  "assets": {
+    "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+    "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 101,
+    "seconds": 3.7091410160064697,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 6.438441999999668,
+    "refreshWallMs": 193.23160800000005,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 219,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.29999999701976776,
+      "displayGroupingMs": 0,
+      "semanticMs": 31.299999997019768,
+      "physicsMs": 3.9000000059604645,
+      "ticks": 115,
+      "frames": {
+        "frames": 11,
+        "renderMs": 29.700000002980232,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 17.200000002980232,
+        "derivationMs": 38
+      },
+      "heap": 56085910
+    },
+    "fourLayerTogglesMs": 239.9387429999997,
+    "interactionFrameIntervals": [
+      16.699999999999818,
+      16.600000000000364,
+      16.699999999999818,
+      16.59999999999991,
+      16.800000000000182,
+      16.59999999999991,
+      16.699999999999818,
+      16.600000000000364,
+      16.799999999999727,
+      16.5,
+      16.700000000000273,
+      16.699999999999818,
+      16.699999999999818,
+      16.600000000000364
+    ],
+    "final": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 2,
+      "displayGroups": 0,
+      "dom": 106,
+      "svg": 25,
+      "layoutCount": 2,
+      "layoutMs": 0.29999999701976776,
+      "displayGroupingMs": 0,
+      "semanticMs": 33.70000000298023,
+      "physicsMs": 3.9000000059604645,
+      "ticks": 115,
+      "frames": {
+        "frames": 79,
+        "renderMs": 172.2999999821186,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 23.299999997019768,
+        "derivationMs": 3
+      },
+      "heap": 51208322
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 2,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "89ef90291b7e4ba655d4161e63711f72cc3fa0e728cc728d532b2382ef2b8f0a",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "90477e27aa55e10cd405b199b85dad3e6354cd702176973477e053a831c7e743",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "familyEvidence": {
+    "families": [
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Architecture/Boundaries.md\\\",\\\"Architecture/Lifecycle.md\\\",\\\"Architecture/Ports.md\\\"]\"]",
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Bridges/Docker database.md\\\",\\\"Database/Guide.md\\\",\\\"Database/Indexes.md\\\"]\"]",
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Bridges/Docker database.md\\\",\\\"Docker/Guide.md\\\",\\\"Docker/Volumes.md\\\"]\"]"
+    ],
+    "revision": {
+      "vectorGeneration": 2,
+      "vectorCount": 12,
+      "dimensions": 32,
+      "provider": "ollama",
+      "model": "global-map-synthetic",
+      "configurationRevision": 0,
+      "runtimeRevision": 1
+    }
+  },
+  "markdownManifestSha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+  "status": "PASS"
+}

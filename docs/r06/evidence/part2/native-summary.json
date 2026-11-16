@@ -1,0 +1,3847 @@
+[
+  {
+    "label": "actions",
+    "receipt": "native/actions/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 23,
+    "exceptions": 0,
+    "source": null,
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": {
+      "reads": [
+        {
+          "path": "Broken.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Other.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "prepare-and-review"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "prepare-and-review"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "restore-explicit-editor-test"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "Other.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "dismiss-and-rescan"
+        }
+      ],
+      "writes": [
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "restore-explicit-editor-test"
+        }
+      ],
+      "creates": [],
+      "metadata": 88,
+      "enumerations": 6,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "finding-and-pair"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "finding-and-pair"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/676c6a3ddee02a70cf7a12d38364fd972199fefbcf318c4d475571a308cca023",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/676c6a3ddee02a70cf7a12d38364fd972199fefbcf318c4d475571a308cca023/record.json",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "copy",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/676c6a3ddee02a70cf7a12d38364fd972199fefbcf318c4d475571a308cca023/record.json",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/676c6a3ddee02a70cf7a12d38364fd972199fefbcf318c4d475571a308cca023/applied.json",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/676c6a3ddee02a70cf7a12d38364fd972199fefbcf318c4d475571a308cca023/undo_pending.json",
+          "phase": "explicit-undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/676c6a3ddee02a70cf7a12d38364fd972199fefbcf318c4d475571a308cca023/undone.json",
+          "phase": "explicit-undo"
+        },
+        {
+          "method": "write",
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "method": "write",
+          "path": "two/Same.md",
+          "phase": "restore-explicit-editor-test"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+          "phase": "dismiss-and-rescan"
+        }
+      ],
+      "phase": "dismiss-and-rescan"
+    }
+  },
+  {
+    "label": "after-cold-10000",
+    "receipt": "native/after-cold-10000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 2,
+    "exceptions": 0,
+    "source": "d3ae4a8e231374a450142c4701bb067ce2ce3834",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:92:39",
+    "metrics": {},
+    "failureState": {
+      "markdown": 10000,
+      "cacheKnown": 3442,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "after-warm-1000",
+    "receipt": "native/after-warm-1000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 0,
+    "exceptions": 0,
+    "source": "d3ae4a8e231374a450142c4701bb067ce2ce3834",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "Error: Readiness: document.hasFocus() && window.electronWindow.isFocused()\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async focus (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:61:121)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:85:2",
+    "metrics": {},
+    "failureState": {
+      "markdown": 1000,
+      "cacheKnown": 1000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": []
+  },
+  {
+    "label": "after-warm-10000",
+    "receipt": "native/after-warm-10000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 13,
+    "exceptions": 1,
+    "source": "d3ae4a8e231374a450142c4701bb067ce2ce3834",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9",
+    "metrics": {
+      "hostCacheBeforeOpenMs": 28409.209727,
+      "cacheReadyMs": 1112.6774089999963,
+      "refreshWallMs": 12914.688771999994,
+      "loaded": {
+        "notes": 10000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 10000,
+        "mapped": 10000,
+        "displayedNodes": 0,
+        "displayGroups": 64,
+        "dom": 266,
+        "svg": 146,
+        "layoutCount": 1,
+        "layoutMs": 134.70000000298023,
+        "displayGroupingMs": 32.1000000089407,
+        "semanticMs": 6991.9000000059605,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 13,
+          "renderMs": 286.2000000178814,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 7028.79999999702,
+          "derivationMs": 1691.3999999910593
+        },
+        "heap": 161527969
+      },
+      "fourLayerTogglesMs": 1320.9047849999988,
+      "interactionFrameIntervals": [
+        16.60000000000582,
+        16.69999999999709,
+        16.599999999998545,
+        16.700000000004366,
+        216.59999999999854,
+        16.69999999999709,
+        16.700000000004366,
+        16.69999999999709,
+        233.3000000000029,
+        33.299999999995634,
+        16.700000000004366,
+        16.69999999999709,
+        16.599999999998545,
+        283.3000000000029,
+        16.69999999999709,
+        16.599999999998545,
+        16.700000000004366,
+        300,
+        16.69999999999709,
+        16.700000000004366
+      ],
+      "searchMs": 148.54374100000132,
+      "selectionMs": 580.1306939999995,
+      "selected-large-note": {
+        "notes": 10000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 10000,
+        "mapped": 10000,
+        "displayedNodes": 157,
+        "displayGroups": 0,
+        "dom": 635,
+        "svg": 350,
+        "layoutCount": 1,
+        "layoutMs": 134.70000000298023,
+        "displayGroupingMs": 4.899999991059303,
+        "semanticMs": 6991.9000000059605,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 51,
+          "renderMs": 601.9999998956919,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 7028.79999999702,
+          "derivationMs": 1691.3999999910593
+        },
+        "heap": 158013902
+      },
+      "secondPicker": {
+        "dom": 68,
+        "options": 0,
+        "results": 20,
+        "heap": 158017076,
+        "searchMs": 19.05166399999871
+      },
+      "final": {
+        "notes": 10000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 10000,
+        "mapped": 10000,
+        "displayedNodes": 0,
+        "displayGroups": 64,
+        "dom": 260,
+        "svg": 141,
+        "layoutCount": 1,
+        "layoutMs": 134.70000000298023,
+        "displayGroupingMs": 39.099999994039536,
+        "semanticMs": 6991.9000000059605,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 57,
+          "renderMs": 640.5999999046326,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 7028.79999999702,
+          "derivationMs": 1691.3999999910593
+        },
+        "heap": 152332554
+      }
+    },
+    "failureState": {
+      "markdown": 10000,
+      "cacheKnown": 10000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "after-warm-5000",
+    "receipt": "native/after-warm-5000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 13,
+    "exceptions": 1,
+    "source": "d3ae4a8e231374a450142c4701bb067ce2ce3834",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9",
+    "metrics": {
+      "hostCacheBeforeOpenMs": 11054.815881,
+      "cacheReadyMs": 24.136696000001393,
+      "refreshWallMs": 4949.123055,
+      "loaded": {
+        "notes": 5000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 5000,
+        "mapped": 5000,
+        "displayedNodes": 0,
+        "displayGroups": 50,
+        "dom": 224,
+        "svg": 118,
+        "layoutCount": 1,
+        "layoutMs": 41.5,
+        "displayGroupingMs": 8.299999997019768,
+        "semanticMs": 2040.2000000029802,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 13,
+          "renderMs": 51.19999997317791,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2783.2000000029802,
+          "derivationMs": 784.2000000029802
+        },
+        "heap": 83943032
+      },
+      "fourLayerTogglesMs": 607.5668740000001,
+      "interactionFrameIntervals": [
+        16.700000000000728,
+        16.700000000000728,
+        66.59999999999854,
+        16.700000000000728,
+        16.700000000000728,
+        16.599999999998545,
+        66.70000000000073,
+        33.39999999999782,
+        16.600000000002183,
+        16.700000000000728,
+        16.69999999999709,
+        83.30000000000291,
+        33.29999999999927,
+        16.599999999998545,
+        16.700000000000728,
+        16.700000000000728,
+        16.700000000000728,
+        16.599999999998545,
+        66.70000000000073,
+        16.700000000000728,
+        16.69999999999709,
+        16.600000000002183
+      ],
+      "searchMs": 50.63611200000014,
+      "selectionMs": 156.93903399999908,
+      "selected-large-note": {
+        "notes": 5000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 5000,
+        "mapped": 5000,
+        "displayedNodes": 100,
+        "displayGroups": 0,
+        "dom": 459,
+        "svg": 231,
+        "layoutCount": 1,
+        "layoutMs": 41.5,
+        "displayGroupingMs": 2.2000000029802322,
+        "semanticMs": 2040.2000000029802,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 50,
+          "renderMs": 215.8999999910593,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2783.2000000029802,
+          "derivationMs": 784.2000000029802
+        },
+        "heap": 105210750
+      },
+      "secondPicker": {
+        "dom": 68,
+        "options": 0,
+        "results": 20,
+        "heap": 105396684,
+        "searchMs": 5.079689000001963
+      },
+      "final": {
+        "notes": 5000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 5000,
+        "mapped": 5000,
+        "displayedNodes": 0,
+        "displayGroups": 50,
+        "dom": 218,
+        "svg": 113,
+        "layoutCount": 1,
+        "layoutMs": 41.5,
+        "displayGroupingMs": 6.0999999940395355,
+        "semanticMs": 2040.2000000029802,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 57,
+          "renderMs": 240.7999999821186,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2783.2000000029802,
+          "derivationMs": 784.2000000029802
+        },
+        "heap": 93260471
+      }
+    },
+    "failureState": {
+      "markdown": 5000,
+      "cacheKnown": 5000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "before-cold-10000",
+    "receipt": "native/before-cold-10000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 1,
+    "exceptions": 0,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:92:39",
+    "metrics": {},
+    "failureState": {
+      "markdown": 10000,
+      "cacheKnown": 3323,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "before-warm-1000",
+    "receipt": "native/before-warm-1000/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 11,
+    "exceptions": 0,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "hostCacheBeforeOpenMs": 3985.760052999999,
+      "cacheReadyMs": 12.975694000000658,
+      "refreshWallMs": 559.4710049999994,
+      "loaded": {
+        "notes": 1000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 1000,
+        "mapped": 1000,
+        "displayedNodes": 0,
+        "displayGroups": 10,
+        "dom": 101,
+        "svg": 38,
+        "layoutCount": 1,
+        "layoutMs": 12.5,
+        "displayGroupingMs": 1.8999999910593033,
+        "semanticMs": 132.30000001192093,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 13,
+          "renderMs": 28.000000029802322,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 152.59999999403954,
+          "derivationMs": 165.09999999403954
+        },
+        "heap": 79678677
+      },
+      "fourLayerTogglesMs": 246.3230650000005,
+      "interactionFrameIntervals": [
+        16.599999999998545,
+        16.700000000000728,
+        16.700000000000728,
+        16.69999999999891,
+        16.600000000000364,
+        16.700000000000728,
+        16.69999999999891,
+        16.700000000000728,
+        16.600000000000364,
+        16.69999999999891,
+        16.700000000000728,
+        16.600000000000364,
+        16.599999999998545,
+        16.700000000000728,
+        16.700000000000728
+      ],
+      "searchMs": 17.182408000000578,
+      "selectionMs": 170.74637299999995,
+      "selected-large-note": {
+        "notes": 1000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 1000,
+        "mapped": 1000,
+        "displayedNodes": 100,
+        "displayGroups": 0,
+        "dom": 1419,
+        "svg": 246,
+        "layoutCount": 1,
+        "layoutMs": 12.5,
+        "displayGroupingMs": 0.4000000059604645,
+        "semanticMs": 132.30000001192093,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 49,
+          "renderMs": 116.99999998509884,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 152.59999999403954,
+          "derivationMs": 165.09999999403954
+        },
+        "heap": 44954789
+      },
+      "secondPicker": {
+        "dom": 1016,
+        "options": 1000,
+        "results": 0,
+        "heap": 44969995
+      },
+      "final": {
+        "notes": 1000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 1000,
+        "mapped": 1000,
+        "displayedNodes": 0,
+        "displayGroups": 10,
+        "dom": 95,
+        "svg": 33,
+        "layoutCount": 1,
+        "layoutMs": 12.5,
+        "displayGroupingMs": 1.2000000029802322,
+        "semanticMs": 132.30000001192093,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 55,
+          "renderMs": 136.5999999642372,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 152.59999999403954,
+          "derivationMs": 165.09999999403954
+        },
+        "heap": 47715388
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "before-warm-10000",
+    "receipt": "native/before-warm-10000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 1,
+    "exceptions": 3,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "Error: Readiness: !wb.data.busy\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:97:68",
+    "metrics": {
+      "hostCacheBeforeOpenMs": 44166.695623,
+      "cacheReadyMs": 179.44810100000177
+    },
+    "failureState": {
+      "markdown": 10000,
+      "cacheKnown": 10000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "before-warm-5000",
+    "receipt": "native/before-warm-5000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 10,
+    "exceptions": 2,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n2 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9",
+    "metrics": {
+      "hostCacheBeforeOpenMs": 17111.720792,
+      "cacheReadyMs": 10.782993000000715,
+      "refreshWallMs": 5310.719707,
+      "loaded": {
+        "notes": 5000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 5000,
+        "mapped": 5000,
+        "displayedNodes": 0,
+        "displayGroups": 50,
+        "dom": 221,
+        "svg": 118,
+        "layoutCount": 1,
+        "layoutMs": 52,
+        "displayGroupingMs": 22,
+        "semanticMs": 1830.5999999940395,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 13,
+          "renderMs": 57,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2719.0999999940395,
+          "derivationMs": 856.6000000089407
+        },
+        "heap": 73040857
+      },
+      "fourLayerTogglesMs": 402.6343330000018,
+      "interactionFrameIntervals": [
+        16.700000000000728,
+        16.599999999998545,
+        33.400000000001455,
+        16.599999999998545,
+        16.80000000000291,
+        16.599999999998545,
+        50,
+        16.700000000000728,
+        16.599999999998545,
+        16.799999999999272,
+        33.20000000000073,
+        16.700000000000728,
+        16.700000000000728,
+        16.599999999998545,
+        16.700000000000728,
+        66.59999999999854,
+        16.700000000000728,
+        16.700000000000728
+      ],
+      "searchMs": 52.90022300000055,
+      "selectionMs": 318.70869200000016,
+      "selected-large-note": {
+        "notes": 5000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 5000,
+        "mapped": 5000,
+        "displayedNodes": 100,
+        "displayGroups": 0,
+        "dom": 5404,
+        "svg": 231,
+        "layoutCount": 1,
+        "layoutMs": 52,
+        "displayGroupingMs": 1.4000000059604645,
+        "semanticMs": 1830.5999999940395,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 51,
+          "renderMs": 182.10000003874302,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2719.0999999940395,
+          "derivationMs": 856.6000000089407
+        },
+        "heap": 93961775
+      },
+      "secondPicker": {
+        "dom": 5016,
+        "options": 5000,
+        "results": 0,
+        "heap": 93964937
+      },
+      "final": {
+        "notes": 5000,
+        "semantic": "unavailable",
+        "reason": "too-large",
+        "indexed": 5000,
+        "mapped": 5000,
+        "displayedNodes": 0,
+        "displayGroups": 50,
+        "dom": 215,
+        "svg": 113,
+        "layoutCount": 1,
+        "layoutMs": 52,
+        "displayGroupingMs": 10,
+        "semanticMs": 1830.5999999940395,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 57,
+          "renderMs": 210.50000001490116,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2719.0999999940395,
+          "derivationMs": 856.6000000089407
+        },
+        "heap": 82731513
+      }
+    },
+    "failureState": {
+      "markdown": 5000,
+      "cacheKnown": 5000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "community",
+    "receipt": "native/community/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 47,
+    "exceptions": 0,
+    "source": null,
+    "assets": null,
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": null
+  },
+  {
+    "label": "families-a1",
+    "receipt": "native/families-a1/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 10,
+    "exceptions": 0,
+    "source": "72376d260b937cb250d8467d2c9a0914f9d38937",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":71,\"scriptId\":\"210\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"SyntaxError\",\"description\":\"SyntaxError: missing ) after argument list\",\"objectId\":\"8176864235542765526.1.2\"}}\n    at Object.ev (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:53:5)\n    at async pass (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:59:58)\n    at async runFamilyJourney (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-families-journey.mjs:7:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:110:19",
+    "metrics": {
+      "cacheReadyMs": 8.131001000000197,
+      "refreshWallMs": 194.414624,
+      "loaded": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 219,
+        "svg": 140,
+        "layoutCount": 2,
+        "layoutMs": 0.4000000059604645,
+        "displayGroupingMs": 0,
+        "semanticMs": 32.099999994039536,
+        "physicsMs": 6.4000000059604645,
+        "ticks": 115,
+        "frames": {
+          "frames": 11,
+          "renderMs": 33.39999997615814,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 17.700000002980232,
+          "derivationMs": 41.099999994039536
+        },
+        "heap": 49849026
+      },
+      "fourLayerTogglesMs": 228.1879859999999,
+      "interactionFrameIntervals": [
+        16.700000000000273,
+        16.59999999999991,
+        16.699999999999818,
+        16.59999999999991,
+        16.700000000000273,
+        16.699999999999818,
+        16.700000000000273,
+        16.59999999999991,
+        16.699999999999818,
+        16.59999999999991,
+        16.800000000000182,
+        16.59999999999991,
+        16.59999999999991,
+        16.800000000000182
+      ]
+    },
+    "failureState": {
+      "markdown": 12,
+      "cacheKnown": 12,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "families-a2",
+    "receipt": "native/families-a2/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 25,
+    "exceptions": 0,
+    "source": "cf81374fca7d865b17f03a447a29692ce9e303a5",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "cacheReadyMs": 6.438441999999668,
+      "refreshWallMs": 193.23160800000005,
+      "loaded": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 219,
+        "svg": 140,
+        "layoutCount": 2,
+        "layoutMs": 0.29999999701976776,
+        "displayGroupingMs": 0,
+        "semanticMs": 31.299999997019768,
+        "physicsMs": 3.9000000059604645,
+        "ticks": 115,
+        "frames": {
+          "frames": 11,
+          "renderMs": 29.700000002980232,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 17.200000002980232,
+          "derivationMs": 38
+        },
+        "heap": 56085910
+      },
+      "fourLayerTogglesMs": 239.9387429999997,
+      "interactionFrameIntervals": [
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.59999999999991,
+        16.800000000000182,
+        16.59999999999991,
+        16.699999999999818,
+        16.600000000000364,
+        16.799999999999727,
+        16.5,
+        16.700000000000273,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364
+      ],
+      "final": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 2,
+        "displayGroups": 0,
+        "dom": 106,
+        "svg": 25,
+        "layoutCount": 2,
+        "layoutMs": 0.29999999701976776,
+        "displayGroupingMs": 0,
+        "semanticMs": 33.70000000298023,
+        "physicsMs": 3.9000000059604645,
+        "ticks": 115,
+        "frames": {
+          "frames": 79,
+          "renderMs": 172.2999999821186,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 23.299999997019768,
+          "derivationMs": 3
+        },
+        "heap": 51208322
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 2,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "families-before",
+    "receipt": "native/families-before/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 7,
+    "exceptions": 1,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9",
+    "metrics": {
+      "cacheReadyMs": 7.158498000000236,
+      "refreshWallMs": 221.973301,
+      "loaded": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 203,
+        "svg": 140,
+        "layoutCount": 2,
+        "layoutMs": 0.4000000059604645,
+        "displayGroupingMs": 0,
+        "semanticMs": 41.20000000298023,
+        "physicsMs": 5.5999999940395355,
+        "ticks": 115,
+        "frames": {
+          "frames": 10,
+          "renderMs": 34.89999997615814,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 23,
+          "derivationMs": 46.79999999701977
+        },
+        "heap": 56999067
+      },
+      "fourLayerTogglesMs": 337.84857699999975,
+      "interactionFrameIntervals": [
+        16.59999999999991,
+        33.40000000000009,
+        16.59999999999991,
+        16.700000000000273,
+        33.399999999999636,
+        33.20000000000027,
+        16.699999999999818,
+        16.700000000000273,
+        16.699999999999818,
+        16.699999999999818,
+        33.30000000000018,
+        16.699999999999818,
+        16.5,
+        16.700000000000273,
+        33.40000000000009
+      ],
+      "final": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 167,
+        "svg": 67,
+        "layoutCount": 2,
+        "layoutMs": 0.4000000059604645,
+        "displayGroupingMs": 0,
+        "semanticMs": 41.20000000298023,
+        "physicsMs": 5.5999999940395355,
+        "ticks": 115,
+        "frames": {
+          "frames": 35,
+          "renderMs": 98.49999997019768,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 23,
+          "derivationMs": 46.79999999701977
+        },
+        "heap": 59558227
+      }
+    },
+    "failureState": {
+      "markdown": 12,
+      "cacheKnown": 12,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "families-final",
+    "receipt": "native/families-final/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 27,
+    "exceptions": 0,
+    "source": "d3ae4a8e231374a450142c4701bb067ce2ce3834",
+    "assets": {
+      "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "cacheReadyMs": 6.919407999999748,
+      "refreshWallMs": 220.39368600000034,
+      "loaded": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 219,
+        "svg": 140,
+        "layoutCount": 2,
+        "layoutMs": 0.4000000059604645,
+        "displayGroupingMs": 0,
+        "semanticMs": 35.900000005960464,
+        "physicsMs": 4.199999988079071,
+        "ticks": 115,
+        "frames": {
+          "frames": 12,
+          "renderMs": 37.70000001788139,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 19.700000002980232,
+          "derivationMs": 41.1000000089407
+        },
+        "heap": 49402283
+      },
+      "fourLayerTogglesMs": 264.5595030000004,
+      "interactionFrameIntervals": [
+        16.59999999999991,
+        16.700000000000273,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818
+      ],
+      "final": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 2,
+        "displayGroups": 0,
+        "dom": 106,
+        "svg": 25,
+        "layoutCount": 2,
+        "layoutMs": 0.4000000059604645,
+        "displayGroupingMs": 0,
+        "semanticMs": 37.70000000298023,
+        "physicsMs": 4.199999988079071,
+        "ticks": 115,
+        "frames": {
+          "frames": 84,
+          "renderMs": 226.10000003874302,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 27.100000008940697,
+          "derivationMs": 2.5
+        },
+        "heap": 48060902
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 2,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "family-delivery",
+    "receipt": "native/family-delivery/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 27,
+    "exceptions": 0,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "cacheReadyMs": 16.759139000000687,
+      "refreshWallMs": 272.5979750000006,
+      "loaded": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 219,
+        "svg": 140,
+        "layoutCount": 2,
+        "layoutMs": 0.5999999940395355,
+        "displayGroupingMs": 0,
+        "semanticMs": 57.8999999910593,
+        "physicsMs": 5.999999985098839,
+        "ticks": 115,
+        "frames": {
+          "frames": 12,
+          "renderMs": 45.79999998211861,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 32.400000005960464,
+          "derivationMs": 59.8999999910593
+        },
+        "heap": 49609320
+      },
+      "fourLayerTogglesMs": 317.8498070000005,
+      "interactionFrameIntervals": [
+        16.639999999999873,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.700000000000273,
+        33.29999999999973,
+        16.600000000000364,
+        16.699999999999818,
+        16.59999999999991,
+        16.800000000000182,
+        16.59999999999991,
+        33.40000000000009,
+        16.59999999999991,
+        16.699999999999818,
+        33.30000000000018
+      ],
+      "final": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 2,
+        "displayGroups": 0,
+        "dom": 106,
+        "svg": 25,
+        "layoutCount": 2,
+        "layoutMs": 0.5999999940395355,
+        "displayGroupingMs": 0,
+        "semanticMs": 53.900000005960464,
+        "physicsMs": 5.999999985098839,
+        "ticks": 115,
+        "frames": {
+          "frames": 84,
+          "renderMs": 240.3999999165535,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 39.5,
+          "derivationMs": 3.8999999910593033
+        },
+        "heap": 56851625
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 2,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "family-final-ui",
+    "receipt": "native/family-final-ui/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 26,
+    "exceptions": 1,
+    "source": "cdc305dd4365770b958f6c85d1de4e85783e6318",
+    "assets": {
+      "main.js": "555b0b23555a12b077775e8340144d93d141bfa379fd1b1d507c01c3fc1aa147",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9",
+    "metrics": {
+      "cacheReadyMs": 23.81698499999993,
+      "refreshWallMs": 319.1509390000001,
+      "loaded": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 12,
+        "displayGroups": 0,
+        "dom": 219,
+        "svg": 140,
+        "layoutCount": 2,
+        "layoutMs": 0.5,
+        "displayGroupingMs": 0,
+        "semanticMs": 55.099999994039536,
+        "physicsMs": 12.400000005960464,
+        "ticks": 115,
+        "frames": {
+          "frames": 13,
+          "renderMs": 66.1000000089407,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 33.900000005960464,
+          "derivationMs": 67.5
+        },
+        "heap": 50727533
+      },
+      "fourLayerTogglesMs": 416.5549629999996,
+      "interactionFrameIntervals": [
+        16.699999999999818,
+        16.59999999999991,
+        33.30000000000018,
+        16.699999999999818,
+        33.30000000000018,
+        16.699999999999818,
+        16.700000000000273,
+        33.29999999999973,
+        33.30000000000018,
+        16.699999999999818,
+        16.700000000000273,
+        16.59999999999991,
+        33.40000000000009,
+        16.699999999999818,
+        33.30000000000018,
+        16.59999999999991,
+        16.699999999999818,
+        33.40000000000009
+      ],
+      "final": {
+        "notes": 12,
+        "semantic": "ready",
+        "indexed": 12,
+        "mapped": 12,
+        "displayedNodes": 2,
+        "displayGroups": 0,
+        "dom": 106,
+        "svg": 25,
+        "layoutCount": 2,
+        "layoutMs": 0.5,
+        "displayGroupingMs": 0,
+        "semanticMs": 59.5,
+        "physicsMs": 12.400000005960464,
+        "ticks": 115,
+        "frames": {
+          "frames": 82,
+          "renderMs": 288.80000001192093,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 41.19999998807907,
+          "derivationMs": 2.7000000029802322
+        },
+        "heap": 54616935
+      }
+    },
+    "failureState": {
+      "markdown": 12,
+      "cacheKnown": 12,
+      "io": {
+        "reads": 2,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 2,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "local-notes",
+    "receipt": "native/local-notes/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 67,
+    "exceptions": 0,
+    "source": null,
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": {
+      "reads": [
+        {
+          "path": "Broken.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Editor.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Other/Target.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "scan"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-selection"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-review"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-review"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-apply"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-apply"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-apply"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-apply"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-apply"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "finding"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "repair-review"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-review"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "repair-review"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-review"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "repair-review"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Folder/Target.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "path": "Editor.md",
+          "phase": "split-refusal"
+        },
+        {
+          "path": "Editor.md",
+          "phase": "split-refusal"
+        },
+        {
+          "path": "Editor.md",
+          "phase": "split-refusal"
+        },
+        {
+          "path": "Editor.md",
+          "phase": "split-refusal"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "popout"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "bom"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "bom"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "bom"
+        }
+      ],
+      "writes": [
+        {
+          "path": "Taggable.md",
+          "phase": "tag-apply"
+        },
+        {
+          "path": "Taggable.md",
+          "phase": "tag-undo"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-apply"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "repair-undo"
+        }
+      ],
+      "creates": [],
+      "metadata": 157,
+      "enumerations": 28,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "scan"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health",
+          "phase": "scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+          "phase": "scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "tag-selection"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "tag-selection"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations",
+          "phase": "tag-apply"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/8b9f5919299cf70b562d45b9b363c7387c1c447368cd5bac2eaacba694bba9b9",
+          "phase": "tag-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/8b9f5919299cf70b562d45b9b363c7387c1c447368cd5bac2eaacba694bba9b9/record.json",
+          "phase": "tag-apply"
+        },
+        {
+          "method": "copy",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/8b9f5919299cf70b562d45b9b363c7387c1c447368cd5bac2eaacba694bba9b9/record.json",
+          "phase": "tag-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/8b9f5919299cf70b562d45b9b363c7387c1c447368cd5bac2eaacba694bba9b9/mark-5e1615c3-2375-4161-8870-5ed977ad2ef0.json",
+          "phase": "tag-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/8b9f5919299cf70b562d45b9b363c7387c1c447368cd5bac2eaacba694bba9b9/mark-89c4db60-1c9b-4190-a1b7-f48ef2564573.json",
+          "phase": "tag-undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/8b9f5919299cf70b562d45b9b363c7387c1c447368cd5bac2eaacba694bba9b9/mark-5d17a934-8b30-4d98-bf57-8406f50e9efb.json",
+          "phase": "tag-undo"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/78dfc1f8b8f6137e4a425fa8a65afceed10364b46516c0c0a220ef8d8296b39b",
+          "phase": "repair-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/78dfc1f8b8f6137e4a425fa8a65afceed10364b46516c0c0a220ef8d8296b39b/record.json",
+          "phase": "repair-apply"
+        },
+        {
+          "method": "copy",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/78dfc1f8b8f6137e4a425fa8a65afceed10364b46516c0c0a220ef8d8296b39b/record.json",
+          "phase": "repair-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/78dfc1f8b8f6137e4a425fa8a65afceed10364b46516c0c0a220ef8d8296b39b/mark-af271fee-90e5-4faf-82d8-bda965f9d348.json",
+          "phase": "repair-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/78dfc1f8b8f6137e4a425fa8a65afceed10364b46516c0c0a220ef8d8296b39b/mark-2aaff796-095d-46cf-92a0-df7fe1a65205.json",
+          "phase": "repair-undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-local-note-operations/78dfc1f8b8f6137e4a425fa8a65afceed10364b46516c0c0a220ef8d8296b39b/mark-c2f6cbaa-e9df-4671-b821-f53f383aa578.json",
+          "phase": "repair-undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "ru-en-theme-keyboard"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "popout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "popout"
+        }
+      ],
+      "phase": "bom"
+    }
+  },
+  {
+    "label": "map120",
+    "receipt": "native/map120/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 22,
+    "exceptions": 1,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9",
+    "metrics": {
+      "cacheReadyMs": 1751.3583440000002,
+      "refreshWallMs": 591.0913610000007,
+      "loaded": {
+        "notes": 120,
+        "semantic": "ready",
+        "indexed": 120,
+        "mapped": 120,
+        "displayedNodes": 120,
+        "displayGroups": 0,
+        "dom": 740,
+        "svg": 562,
+        "layoutCount": 2,
+        "layoutMs": 2.4000000059604645,
+        "displayGroupingMs": 0,
+        "semanticMs": 209.40000000596046,
+        "physicsMs": 37.599999994039536,
+        "ticks": 115,
+        "frames": {
+          "frames": 61,
+          "renderMs": 471.49999994039536,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 52.5,
+          "derivationMs": 263.1000000089407
+        },
+        "heap": 62965395
+      },
+      "fourLayerTogglesMs": 514.955704,
+      "interactionFrameIntervals": [
+        16.599999999999454,
+        16.800000000000182,
+        33.19999999999982,
+        33.400000000000546,
+        33.29999999999927,
+        16.700000000000728,
+        16.699999999999818,
+        50,
+        16.599999999999454,
+        16.700000000000728,
+        16.699999999999818,
+        66.59999999999945,
+        33.400000000000546,
+        33.30000000000018,
+        16.699999999999818,
+        50,
+        33.30000000000018,
+        16.699999999999818
+      ],
+      "searchMs": 44.76266899999973,
+      "final": {
+        "notes": 120,
+        "semantic": "stale",
+        "reason": "changed",
+        "indexed": 120,
+        "mapped": 120,
+        "displayedNodes": 25,
+        "displayGroups": 0,
+        "dom": 312,
+        "svg": 184,
+        "layoutCount": 3,
+        "layoutMs": 2.5,
+        "displayGroupingMs": 0,
+        "semanticMs": 144.59999999403954,
+        "physicsMs": 17.19999998807907,
+        "ticks": 115,
+        "frames": {
+          "frames": 162,
+          "renderMs": 920.8999999463558,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 3.8999999910593033,
+          "derivationMs": 29.700000002980232
+        },
+        "heap": 58344294
+      }
+    },
+    "failureState": {
+      "markdown": 120,
+      "cacheKnown": 120,
+      "io": {
+        "reads": 132,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 132,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "map120-empty",
+    "receipt": "native/map120-empty/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 21,
+    "exceptions": 0,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "cacheReadyMs": 1918.021619,
+      "refreshWallMs": 218.38991400000032,
+      "loaded": {
+        "notes": 120,
+        "semantic": "unavailable",
+        "reason": "unavailable",
+        "displayedNodes": 120,
+        "displayGroups": 0,
+        "dom": 488,
+        "svg": 312,
+        "layoutCount": 1,
+        "layoutMs": 4.199999988079071,
+        "displayGroupingMs": 0.20000000298023224,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 57,
+          "renderMs": 439.4000000208616,
+          "frameTimes": []
+        },
+        "heap": 55275250
+      },
+      "fourLayerTogglesMs": 522.7397249999995,
+      "interactionFrameIntervals": [
+        16.599999999999454,
+        16.700000000000728,
+        33.29999999999927,
+        33.400000000000546,
+        16.599999999999454,
+        50,
+        50,
+        33.30000000000018,
+        33.400000000000546,
+        33.29999999999927,
+        50,
+        16.600000000000364,
+        16.800000000000182,
+        50,
+        33.30000000000018,
+        16.599999999999454,
+        16.699999999999818
+      ],
+      "searchMs": 17.445224000000053,
+      "final": {
+        "notes": 120,
+        "semantic": "stale",
+        "reason": "changed",
+        "displayedNodes": 25,
+        "displayGroups": 0,
+        "dom": 195,
+        "svg": 68,
+        "layoutCount": 1,
+        "layoutMs": 4.199999988079071,
+        "displayGroupingMs": 0.20000000298023224,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 144,
+          "renderMs": 779.2000000327826,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 2.9000000059604645,
+          "derivationMs": 34.20000000298023
+        },
+        "heap": 51652748
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 12,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "map120-partial",
+    "receipt": "native/map120-partial/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 22,
+    "exceptions": 1,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9",
+    "metrics": {
+      "cacheReadyMs": 1628.9264490000005,
+      "refreshWallMs": 575.7090860000008,
+      "loaded": {
+        "notes": 120,
+        "semantic": "ready",
+        "indexed": 60,
+        "mapped": 60,
+        "displayedNodes": 120,
+        "displayGroups": 0,
+        "dom": 683,
+        "svg": 504,
+        "layoutCount": 2,
+        "layoutMs": 2.2000000029802322,
+        "displayGroupingMs": 0,
+        "semanticMs": 86,
+        "physicsMs": 15.000000014901161,
+        "ticks": 115,
+        "frames": {
+          "frames": 62,
+          "renderMs": 433.20000003278255,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 54.20000000298023,
+          "derivationMs": 123
+        },
+        "heap": 47458043
+      },
+      "fourLayerTogglesMs": 420.3913730000004,
+      "interactionFrameIntervals": [
+        16.699999999999818,
+        33.30000000000018,
+        33.30000000000018,
+        16.800000000000182,
+        16.5,
+        50.099999999999454,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        33.399999999999636,
+        33.30000000000018,
+        16.699999999999818,
+        16.600000000000364,
+        33.399999999999636,
+        33.30000000000018,
+        16.699999999999818
+      ],
+      "searchMs": 20.159807,
+      "final": {
+        "notes": 120,
+        "semantic": "stale",
+        "reason": "changed",
+        "indexed": 60,
+        "mapped": 60,
+        "displayedNodes": 25,
+        "displayGroups": 0,
+        "dom": 313,
+        "svg": 184,
+        "layoutCount": 3,
+        "layoutMs": 1.7999999970197678,
+        "displayGroupingMs": 0,
+        "semanticMs": 67.90000000596046,
+        "physicsMs": 2.7999999970197678,
+        "ticks": 115,
+        "frames": {
+          "frames": 160,
+          "renderMs": 857.7000000476837,
+          "frameTimes": []
+        },
+        "topology": {
+          "captureMs": 11.700000002980232,
+          "derivationMs": 46.19999998807907
+        },
+        "heap": 58399321
+      }
+    },
+    "failureState": {
+      "markdown": 120,
+      "cacheKnown": 120,
+      "io": {
+        "reads": 132,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "explicit-refresh",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 132,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "picker-after-1000",
+    "receipt": "native/picker-after-1000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 0,
+    "exceptions": 0,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "Error: Readiness: document.hasFocus() && window.electronWindow.isFocused()\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async focus (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:61:121)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:85:2",
+    "metrics": {},
+    "failureState": {
+      "markdown": 1000,
+      "cacheKnown": 1000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": []
+  },
+  {
+    "label": "picker-after-10000",
+    "receipt": "native/picker-after-10000/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 7,
+    "exceptions": 0,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "hostCacheBeforeOpenMs": 24547.980819,
+      "cacheReadyMs": 107.03389299999981,
+      "selectionMs": 164.237380999999,
+      "selected-picker": {
+        "notes": 10000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 129,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 87.1000000089407,
+        "displayGroupingMs": 17.599999994039536,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 15,
+          "renderMs": 57.900000020861626,
+          "frameTimes": []
+        },
+        "heap": 96264945
+      },
+      "secondPicker": {
+        "dom": 65,
+        "options": 0,
+        "results": 20,
+        "heap": 96264945,
+        "searchMs": 4.37206100000185
+      },
+      "final": {
+        "notes": 10000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 100,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 87.1000000089407,
+        "displayGroupingMs": 17.599999994039536,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 18,
+          "renderMs": 61.50000001490116,
+          "frameTimes": []
+        },
+        "heap": 99653364
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "picker-after-5000",
+    "receipt": "native/picker-after-5000/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 7,
+    "exceptions": 0,
+    "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "hostCacheBeforeOpenMs": 12386.806735999999,
+      "cacheReadyMs": 22.757219000002806,
+      "selectionMs": 210.13311299999987,
+      "selected-picker": {
+        "notes": 5000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 129,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 55.29999999701977,
+        "displayGroupingMs": 11.799999997019768,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 16,
+          "renderMs": 48.6000000089407,
+          "frameTimes": []
+        },
+        "heap": 58886698
+      },
+      "secondPicker": {
+        "dom": 65,
+        "options": 0,
+        "results": 20,
+        "heap": 58886698,
+        "searchMs": 3.881575999999768
+      },
+      "final": {
+        "notes": 5000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 100,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 55.29999999701977,
+        "displayGroupingMs": 11.799999997019768,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 19,
+          "renderMs": 51.80000001192093,
+          "frameTimes": []
+        },
+        "heap": 60728902
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "picker-before-1000",
+    "receipt": "native/picker-before-1000/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 3,
+    "exceptions": 0,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "hostCacheBeforeOpenMs": 3379.6105989999996,
+      "cacheReadyMs": 16.892832999999882,
+      "selectionMs": 119.10338100000081,
+      "selected-picker": {
+        "notes": 1000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 1076,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 12.099999994039536,
+        "displayGroupingMs": 2.2000000029802322,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 14,
+          "renderMs": 28.900000005960464,
+          "frameTimes": []
+        },
+        "heap": 73165814
+      },
+      "secondPicker": {
+        "dom": 1015,
+        "options": 1000,
+        "results": 0,
+        "heap": 73165814
+      },
+      "final": {
+        "notes": 1000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 1076,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 12.099999994039536,
+        "displayGroupingMs": 2.2000000029802322,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 14,
+          "renderMs": 28.900000005960464,
+          "frameTimes": []
+        },
+        "heap": 73172948
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "picker-before-10000",
+    "receipt": "native/picker-before-10000/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 3,
+    "exceptions": 0,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": {
+      "hostCacheBeforeOpenMs": 32881.148614,
+      "cacheReadyMs": 56.34488099999726,
+      "selectionMs": 907.5368400000007,
+      "selected-picker": {
+        "notes": 10000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 10076,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 88.29999999701977,
+        "displayGroupingMs": 19.799999997019768,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 15,
+          "renderMs": 63.80000004172325,
+          "frameTimes": []
+        },
+        "heap": 109783321
+      },
+      "secondPicker": {
+        "dom": 10015,
+        "options": 10000,
+        "results": 0,
+        "heap": 109783321
+      },
+      "final": {
+        "notes": 10000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 10076,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 88.29999999701977,
+        "displayGroupingMs": 19.799999997019768,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 15,
+          "renderMs": 63.80000004172325,
+          "frameTimes": []
+        },
+        "heap": 71925165
+      }
+    },
+    "failureState": null,
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "picker-before-5000",
+    "receipt": "native/picker-before-5000/report.json",
+    "status": "FAIL",
+    "exit": 1,
+    "checks": 2,
+    "exceptions": 1,
+    "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+    "assets": {
+      "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+      "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9",
+    "metrics": {
+      "hostCacheBeforeOpenMs": 14708.381378000002,
+      "cacheReadyMs": 52.32523600000059,
+      "selectionMs": 514.0427950000012,
+      "selected-picker": {
+        "notes": 5000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 5076,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 91.1000000089407,
+        "displayGroupingMs": 8.5,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 15,
+          "renderMs": 98.90000000596046,
+          "frameTimes": []
+        },
+        "heap": 63258599
+      },
+      "secondPicker": {
+        "dom": 5015,
+        "options": 5000,
+        "results": 0,
+        "heap": 63258599
+      },
+      "final": {
+        "notes": 5000,
+        "semantic": "idle",
+        "displayedNodes": 0,
+        "displayGroups": 1,
+        "dom": 5076,
+        "svg": 5,
+        "layoutCount": 1,
+        "layoutMs": 91.1000000089407,
+        "displayGroupingMs": 8.5,
+        "semanticMs": null,
+        "physicsMs": 0,
+        "ticks": 0,
+        "frames": {
+          "frames": 15,
+          "renderMs": 98.90000000596046,
+          "frameTimes": []
+        },
+        "heap": 63266169
+      }
+    },
+    "failureState": {
+      "markdown": 5000,
+      "cacheKnown": 5000,
+      "io": {
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    },
+    "io": [
+      {
+        "stage": "passive",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      },
+      {
+        "stage": "final",
+        "reads": 0,
+        "writes": 0,
+        "network": 0
+      }
+    ]
+  },
+  {
+    "label": "recall",
+    "receipt": "native/recall/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 45,
+    "exceptions": 0,
+    "source": null,
+    "assets": null,
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": null
+  },
+  {
+    "label": "registry",
+    "receipt": "native/registry/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 32,
+    "exceptions": 0,
+    "source": null,
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": {
+      "reads": [
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "popout"
+        }
+      ],
+      "writes": [
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        }
+      ],
+      "creates": [
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        }
+      ],
+      "metadata": 16,
+      "metadataCalls": [
+        {
+          "path": "Rules.md",
+          "phase": "undo",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at e.onFileOpen (app://obsidian.md/app.js:1:3443861)\n    at t.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at t.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.activeLeafEvents (app://obsidian.md/app.js:1:2875347)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)"
+        }
+      ],
+      "enumerations": 4,
+      "enumerationCalls": [
+        {
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at eval (plugin:ai-knowledge-hub:483:3687)"
+        },
+        {
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "popout",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2936)\n    at so.onOpen (plugin:ai-knowledge-hub:620:41253)\n    at so.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/core-plugins.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/community-plugins.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/9c9f6078a3e6c4448f7d37e431db1aae34867c772b2d2426a8da0fe2df201379/mark-2f64fdac-fa90-49cd-9fbd-d5a53d9a92d0.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/9c9f6078a3e6c4448f7d37e431db1aae34867c772b2d2426a8da0fe2df201379/mark-88e1758a-3500-4570-9dad-89afdf0228b5.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-audit"
+        },
+        {
+          "method": "write",
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "popout"
+        }
+      ],
+      "phase": "popout"
+    }
+  },
+  {
+    "label": "smoke",
+    "receipt": "native/smoke/report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 21,
+    "exceptions": 0,
+    "source": null,
+    "assets": {
+      "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+      "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": null
+  },
+  {
+    "label": "studio",
+    "receipt": "native/studio/native-report.json",
+    "status": "PASS",
+    "exit": 0,
+    "checks": 66,
+    "exceptions": 0,
+    "source": null,
+    "assets": null,
+    "error": null,
+    "metrics": null,
+    "failureState": null,
+    "io": {
+      "reads": [
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md",
+        "Batch/a/same \u2014 Studio.md",
+        "Saved draft.md",
+        "Batch/b/same \u2014 Studio.md",
+        "Properties.md",
+        "Properties.md"
+      ],
+      "writes": [],
+      "browserRequests": 0,
+      "creates": [],
+      "journals": [
+        ".obsidian/core-plugins.json",
+        ".obsidian/app.json",
+        ".obsidian/appearance.json",
+        ".obsidian/community-plugins.json",
+        ".obsidian/workspace.json",
+        ".obsidian/plugins/ai-knowledge-hub/studio/markdown-create/100037cb-9af9-498c-8e0d-9319ebfe4414/0-created.json",
+        ".obsidian/plugins/ai-knowledge-hub/data.json",
+        ".obsidian/workspace.json",
+        ".obsidian/plugins/ai-knowledge-hub/studio/runs/9a8efb25-72ce-4555-b680-22df80805807/start.json",
+        ".obsidian/plugins/ai-knowledge-hub/studio/runs/9a8efb25-72ce-4555-b680-22df80805807/finish.json",
+        ".obsidian/app.json",
+        ".obsidian/appearance.json",
+        ".obsidian/app.json",
+        ".obsidian/appearance.json",
+        ".obsidian/plugins/ai-knowledge-hub/data.json",
+        ".obsidian/workspace.json",
+        ".obsidian/plugins/ai-knowledge-hub/studio/runs/82910cbb-7d44-4cab-b756-a6dd6d2451b5/start.json",
+        ".obsidian/plugins/ai-knowledge-hub/studio/runs/82910cbb-7d44-4cab-b756-a6dd6d2451b5/finish.json",
+        ".obsidian/app.json",
+        ".obsidian/appearance.json",
+        ".obsidian/app.json",
+        ".obsidian/appearance.json"
+      ],
+      "archiveReads": []
+    }
+  }
+]

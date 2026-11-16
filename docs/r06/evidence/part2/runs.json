@@ -1,0 +1,239 @@
+[
+  {
+    "label": "families-final",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-families-final"
+    ],
+    "environment": {
+      "R06_FAMILIES": "1"
+    },
+    "exit": 0,
+    "seconds": 16.75124192237854,
+    "originalRoot": "/tmp/veynrel-map-native-r062-families-final",
+    "status": "PASS",
+    "checks": 27,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "families-before",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-families-before"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_FAMILIES": "1"
+    },
+    "exit": 1,
+    "seconds": 7.159412145614624,
+    "originalRoot": "/tmp/veynrel-map-native-r062-families-before",
+    "status": "FAIL",
+    "checks": 7,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9"
+  },
+  {
+    "label": "before-warm-1000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "1000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-before-warm-1000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_WARM_CACHE": "1"
+    },
+    "exit": 0,
+    "seconds": 13.53256106376648,
+    "originalRoot": "/tmp/veynrel-map-native-r062-before-warm-1000",
+    "status": "PASS",
+    "checks": 11,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "before-warm-5000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "5000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-before-warm-5000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_WARM_CACHE": "1"
+    },
+    "exit": 1,
+    "seconds": 36.607850551605225,
+    "originalRoot": "/tmp/veynrel-map-native-r062-before-warm-5000",
+    "status": "FAIL",
+    "checks": 10,
+    "exceptions": 2,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n2 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9"
+  },
+  {
+    "label": "before-warm-10000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "10000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-before-warm-10000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_WARM_CACHE": "1"
+    },
+    "exit": 1,
+    "seconds": 77.02158427238464,
+    "originalRoot": "/tmp/veynrel-map-native-r062-before-warm-10000",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 3,
+    "error": "Error: Readiness: !wb.data.busy\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:97:68"
+  },
+  {
+    "label": "before-cold-10000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "10000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-before-cold-10000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1"
+    },
+    "exit": 1,
+    "seconds": 106.07892060279846,
+    "originalRoot": "/tmp/veynrel-map-native-r062-before-cold-10000",
+    "status": "FAIL",
+    "checks": 1,
+    "exceptions": 0,
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:92:39"
+  },
+  {
+    "label": "after-warm-1000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "1000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-after-warm-1000"
+    ],
+    "environment": {
+      "R06_WARM_CACHE": "1"
+    },
+    "exit": 1,
+    "seconds": 25.535915851593018,
+    "originalRoot": "/tmp/veynrel-map-native-r062-after-warm-1000",
+    "status": "FAIL",
+    "checks": 0,
+    "exceptions": 0,
+    "error": "Error: Readiness: document.hasFocus() && window.electronWindow.isFocused()\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async focus (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:61:121)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:85:2"
+  },
+  {
+    "label": "after-warm-5000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "5000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-after-warm-5000"
+    ],
+    "environment": {
+      "R06_WARM_CACHE": "1"
+    },
+    "exit": 1,
+    "seconds": 27.18434762954712,
+    "originalRoot": "/tmp/veynrel-map-native-r062-after-warm-5000",
+    "status": "FAIL",
+    "checks": 13,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9"
+  },
+  {
+    "label": "after-warm-10000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "10000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-after-warm-10000"
+    ],
+    "environment": {
+      "R06_WARM_CACHE": "1"
+    },
+    "exit": 1,
+    "seconds": 61.80946969985962,
+    "originalRoot": "/tmp/veynrel-map-native-r062-after-warm-10000",
+    "status": "FAIL",
+    "checks": 13,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:177:9"
+  },
+  {
+    "label": "after-cold-10000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "10000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-after-cold-10000"
+    ],
+    "environment": {},
+    "exit": 1,
+    "seconds": 101.42134308815002,
+    "originalRoot": "/tmp/veynrel-map-native-r062-after-cold-10000",
+    "status": "FAIL",
+    "checks": 2,
+    "exceptions": 0,
+    "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:92:39"
+  }
+]

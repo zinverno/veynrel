@@ -1,0 +1,54 @@
+{
+  "before": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\r\nОколо 37 кг к четвергу. [[#Facts]] [relative](./sibling.md).\r\n```js\r\nconst n = 37;\r\n```\r\n",
+  "raw": "---\nid: model-999\naliases: [Model]\n---\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+  "document": {
+    "policyVersion": 1,
+    "sourcePrefix": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n",
+    "proposedPrefix": "---\nid: model-999\naliases: [Model]\n---\n",
+    "properties": true,
+    "body": "# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+    "separateBody": "# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n",
+    "after": "﻿---\r\n# source comment\r\nid: \"source-007\"\r\naliases: [Stable]\r\n---\r\n# Facts\n37 кг. [[#Facts]] [relative](./sibling.md).\n```js\nconst n = 38;\n```\n"
+  },
+  "checks": {
+    "version": 1,
+    "coverage": "supported-patterns",
+    "findings": [
+      {
+        "kind": "qualifier",
+        "before": {
+          "start": 9,
+          "end": 14,
+          "line": 2,
+          "text": "Около"
+        },
+        "after": null
+      },
+      {
+        "kind": "time",
+        "before": {
+          "start": 21,
+          "end": 31,
+          "line": 2,
+          "text": "к четвергу"
+        },
+        "after": null
+      },
+      {
+        "kind": "code",
+        "before": {
+          "start": 71,
+          "end": 98,
+          "line": 3,
+          "text": "```js\r\nconst n = 37;\r\n```\r\n"
+        },
+        "after": {
+          "start": 52,
+          "end": 76,
+          "line": 3,
+          "text": "```js\nconst n = 38;\n```\n"
+        }
+      }
+    ]
+  }
+}

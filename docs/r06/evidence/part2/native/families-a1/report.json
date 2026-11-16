@@ -1,0 +1,144 @@
+{
+  "scenario": "R06.2-family-journey",
+  "familiesMode": true,
+  "baseline": false,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "72376d260b937cb250d8467d2c9a0914f9d38937",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Real validated top-K publishes tentative cores",
+    "Docker/database bridge belongs to two distinct cores"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "3ced080f35280f44f8c65ec1090d66aed751a87071d49afc0f449fab36503f70",
+    "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 35,
+    "seconds": 0.8183691501617432,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 8.131001000000197,
+    "refreshWallMs": 194.414624,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 219,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.4000000059604645,
+      "displayGroupingMs": 0,
+      "semanticMs": 32.099999994039536,
+      "physicsMs": 6.4000000059604645,
+      "ticks": 115,
+      "frames": {
+        "frames": 11,
+        "renderMs": 33.39999997615814,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 17.700000002980232,
+        "derivationMs": 41.099999994039536
+      },
+      "heap": 49849026
+    },
+    "fourLayerTogglesMs": 228.1879859999999,
+    "interactionFrameIntervals": [
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.59999999999991,
+      16.700000000000273,
+      16.699999999999818,
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.59999999999991,
+      16.800000000000182,
+      16.59999999999991,
+      16.59999999999991,
+      16.800000000000182
+    ]
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "89ef90291b7e4ba655d4161e63711f72cc3fa0e728cc728d532b2382ef2b8f0a",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "d545b0b0af0c537bdd98a3d32fe45983329800686ebb268e499d980281a747ec",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "familyEvidence": {
+    "families": [
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Architecture/Boundaries.md\\\",\\\"Architecture/Lifecycle.md\\\",\\\"Architecture/Ports.md\\\"]\"]",
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Bridges/Docker database.md\\\",\\\"Database/Guide.md\\\",\\\"Database/Indexes.md\\\"]\"]",
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Bridges/Docker database.md\\\",\\\"Docker/Guide.md\\\",\\\"Docker/Volumes.md\\\"]\"]"
+    ],
+    "revision": {
+      "vectorGeneration": 2,
+      "vectorCount": 12,
+      "dimensions": 32,
+      "provider": "ollama",
+      "model": "global-map-synthetic",
+      "configurationRevision": 0,
+      "runtimeRevision": 1
+    }
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":71,\"scriptId\":\"210\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"SyntaxError\",\"description\":\"SyntaxError: missing ) after argument list\",\"objectId\":\"8176864235542765526.1.2\"}}\n    at Object.ev (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:53:5)\n    at async pass (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:59:58)\n    at async runFamilyJourney (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-families-journey.mjs:7:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:110:19",
+  "failureState": {
+    "markdown": 12,
+    "cacheKnown": 12,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

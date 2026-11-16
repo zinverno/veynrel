@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r05-3-registry-native.mjs",
+    "/tmp/veynrel-registry-native-r062-registry"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794807641.190854,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    35289,
+    38231
+  ],
+  "cdpClosed": true,
+  "seconds": 38.094
+}

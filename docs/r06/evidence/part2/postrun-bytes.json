@@ -1,0 +1,212 @@
+{
+  "method": "Recreate the exact synthetic fixture from each archived fixture.cjs; compare UTF-8 bytes against each saved Markdown file after process cleanup. Separate post-run check; failed receipts remain FAIL.",
+  "rows": [
+    {
+      "label": "after-cold-10000",
+      "count": 10000,
+      "mismatch": [],
+      "expectedInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "actualInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "after-warm-1000",
+      "count": 1000,
+      "mismatch": [],
+      "expectedInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "actualInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "after-warm-10000",
+      "count": 10000,
+      "mismatch": [],
+      "expectedInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "actualInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "after-warm-5000",
+      "count": 5000,
+      "mismatch": [],
+      "expectedInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "actualInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "before-cold-10000",
+      "count": 10000,
+      "mismatch": [],
+      "expectedInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "actualInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "before-warm-1000",
+      "count": 1000,
+      "mismatch": [],
+      "expectedInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "actualInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "before-warm-10000",
+      "count": 10000,
+      "mismatch": [],
+      "expectedInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "actualInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "before-warm-5000",
+      "count": 5000,
+      "mismatch": [],
+      "expectedInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "actualInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "families-a1",
+      "count": 12,
+      "mismatch": [],
+      "expectedInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "actualInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "families-a2",
+      "count": 12,
+      "mismatch": [],
+      "expectedInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "actualInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "families-before",
+      "count": 12,
+      "mismatch": [],
+      "expectedInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "actualInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "families-final",
+      "count": 12,
+      "mismatch": [],
+      "expectedInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "actualInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "family-delivery",
+      "count": 12,
+      "mismatch": [],
+      "expectedInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "actualInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "family-final-ui",
+      "count": 12,
+      "mismatch": [],
+      "expectedInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "actualInventorySha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "map120",
+      "count": 120,
+      "mismatch": [],
+      "expectedInventorySha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "actualInventorySha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "map120-empty",
+      "count": 120,
+      "mismatch": [],
+      "expectedInventorySha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "actualInventorySha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "map120-partial",
+      "count": 120,
+      "mismatch": [],
+      "expectedInventorySha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "actualInventorySha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "picker-after-1000",
+      "count": 1000,
+      "mismatch": [],
+      "expectedInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "actualInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    },
+    {
+      "label": "picker-after-10000",
+      "count": 10000,
+      "mismatch": [],
+      "expectedInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "actualInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "picker-after-5000",
+      "count": 5000,
+      "mismatch": [],
+      "expectedInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "actualInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "picker-before-1000",
+      "count": 1000,
+      "mismatch": [],
+      "expectedInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "actualInventorySha256": "615254973f6a439174d91bb0065e380765a16ceed396ead0a35949478f2ee8f8",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "picker-before-10000",
+      "count": 10000,
+      "mismatch": [],
+      "expectedInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "actualInventorySha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+      "equal": true,
+      "receiptStatus": "PASS"
+    },
+    {
+      "label": "picker-before-5000",
+      "count": 5000,
+      "mismatch": [],
+      "expectedInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "actualInventorySha256": "74343690519da52beb88c6a1bbd2a3b3329a6f6530d0e20864216d38db42e4de",
+      "equal": true,
+      "receiptStatus": "FAIL"
+    }
+  ]
+}

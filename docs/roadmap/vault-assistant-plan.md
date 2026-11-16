@@ -197,6 +197,8 @@ R05 implementation candidate and remaining gates: [combined R05.1–R05.3 accept
 
 R06.1 implementation candidate: [foundation audit](../r06/part1-audit.md) and [bounded contract](../r06/part1-contract.md). This first substage does not complete R06; family membership and canonical-route migration require the dependent R06.2 acceptance.
 
+R06.2a review candidate: [dependency audit](../r06/part2-audit.md) and [verification](../r06/part2-verification.md). Adds tentative overlapping semantic cores and bounded second-note search. Existing visual routes remain available until their unique topology facts, all-document focus and ownership-safe cancellation are transferred in the dependent R06.2b. This increment does not complete R06 or authorize a release.
+
 ### R07 — Портрет текстов: облако слов, темы и возможные речевые повторы
 
 **User outcome:** Отдельное представление в существующем Workspace показывает словарь и темы базы с переходом к исходным местам.

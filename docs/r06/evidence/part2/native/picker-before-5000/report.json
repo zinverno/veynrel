@@ -1,0 +1,177 @@
+{
+  "scenario": "R06.2-isolated-picker",
+  "familiesMode": false,
+  "pickerOnly": true,
+  "baseline": true,
+  "warmCache": true,
+  "count": 5000,
+  "indexed": 5000,
+  "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Manual picker does not require semantic or topology computation"
+  ],
+  "exceptions": [
+    {
+      "target": "8C8FE69A88B81E7085E9D795993977CC",
+      "timestamp": 1794807345580.578,
+      "exceptionDetails": {
+        "exceptionId": 1,
+        "text": "Uncaught",
+        "lineNumber": 0,
+        "columnNumber": 1055197,
+        "scriptId": "142",
+        "url": "app://obsidian.md/app.js",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "Xg",
+              "scriptId": "142",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1055197
+            },
+            {
+              "functionName": "",
+              "scriptId": "142",
+              "url": "app://obsidian.md/app.js",
+              "lineNumber": 0,
+              "columnNumber": 1055176
+            }
+          ]
+        },
+        "exception": {
+          "type": "object",
+          "subtype": "error",
+          "className": "TypeError",
+          "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+          "objectId": "6177630516986099000.1.1",
+          "preview": {
+            "type": "object",
+            "subtype": "error",
+            "description": "TypeError: e.isShown is not a function\n    at Xg (app://obsidian.md/app.js:1:1055198)\n    at app://obsidian.md/app.js:1:1055177",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: e.isShown is not a function\n    at Xg (…055198)\n    at app://obsidian.md/app.js:1:1055177"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "e.isShown is not a function"
+              }
+            ]
+          }
+        },
+        "executionContextId": 1
+      }
+    }
+  ],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "picker.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+    "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {
+    "hostCacheBeforeOpenMs": 14708.381378000002,
+    "cacheReadyMs": 52.32523600000059,
+    "selectionMs": 514.0427950000012,
+    "selected-picker": {
+      "notes": 5000,
+      "semantic": "idle",
+      "displayedNodes": 0,
+      "displayGroups": 1,
+      "dom": 5076,
+      "svg": 5,
+      "layoutCount": 1,
+      "layoutMs": 91.1000000089407,
+      "displayGroupingMs": 8.5,
+      "semanticMs": null,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 15,
+        "renderMs": 98.90000000596046,
+        "frameTimes": []
+      },
+      "heap": 63258599
+    },
+    "secondPicker": {
+      "dom": 5015,
+      "options": 5000,
+      "results": 0,
+      "heap": 63258599
+    },
+    "final": {
+      "notes": 5000,
+      "semantic": "idle",
+      "displayedNodes": 0,
+      "displayGroups": 1,
+      "dom": 5076,
+      "svg": 5,
+      "layoutCount": 1,
+      "layoutMs": 91.1000000089407,
+      "displayGroupingMs": 8.5,
+      "semanticMs": null,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 15,
+        "renderMs": 98.90000000596046,
+        "frameTimes": []
+      },
+      "heap": 63266169
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "d4539112ea93b48994aceff59eb14a8e3b1a562deacdb82e998c02e4b2c9162e",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9",
+  "failureState": {
+    "markdown": 5000,
+    "cacheKnown": 5000,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}
