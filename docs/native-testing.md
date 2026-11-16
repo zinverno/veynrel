@@ -244,3 +244,7 @@ records the known lost context/topology relayout/rule-bypass observations instea
 of asserting the new behavior; it retains the common byte, UI and exception
 assertions. See [R06.1 boundaries](r06/part1-contract.md). This is not the complete
 R06 family/legacy-route acceptance.
+
+`R06_WARM_CACHE=1` is a separate warm-cache control: it waits for actual host
+metadata readiness **before** opening Workspace. It does not pass or replace a
+failed cold-open gate. Receipts identify the mode; compare only matching modes.

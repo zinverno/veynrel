@@ -10,7 +10,7 @@ import {assertNativeRoot,launchObsidian,nativeEndpoint} from './native/session.m
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
 const [root,rawCount='120',build=ROOT]=process.argv.slice(2),count=Number(rawCount),indexed=Number(process.env.R06_INDEX_COUNT??count);
 assertNativeRoot(root);assert(!fs.existsSync(root));assert([120,1000,5000,10000].includes(count));assert(indexed>=0&&indexed<=count);
-const baseline=process.env.R06_BASELINE==='1';
+const baseline=process.env.R06_BASELINE==='1',warmCache=process.env.R06_WARM_CACHE==='1';
 const vault=`${root}/vault`,pluginDir=`${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(pluginDir,{recursive:true});fs.mkdirSync(`${root}/profile`);fs.mkdirSync(`${root}/frames`);
 await bundle({absWorkingDir:ROOT,entryPoints:['scripts/r06-map-fixture.ts'],bundle:true,platform:'node',format:'cjs',outfile:`${root}/fixture.cjs`,plugins:[{name:'fixture-host',setup(b){b.onResolve({filter:/^obsidian$/},()=>({path:'obsidian',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export const getLanguage=()=>"en";'}));}}]});
@@ -22,7 +22,7 @@ fs.writeFileSync(`${vault}/.obsidian/app.json`,'{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`,JSON.stringify({updateDisabled:true,vaults:{map:{path:vault,open:true,ts:Date.now()}}}));
 fs.writeFileSync(`${pluginDir}/data.json`,JSON.stringify({language:'en',apiKey:'',semanticAutoSyncSuspended:true,semantic:{enabled:!!indexed,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 const sha=v=>createHash('sha256').update(v).digest('hex');
-const report={scenario:'R06.1-map-foundation',baseline,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
+const report={scenario:'R06.1-map-foundation',baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
 for(const name of ['main.js','styles.css','manifest.json']){const bytes=fs.readFileSync(`${build}/${name}`);fs.writeFileSync(`${pluginDir}/${name}`,bytes);report.assets[name]=sha(bytes);}
 report.harness=Object.fromEntries(['r06-map-native.mjs','r06-map-fixture.ts','native/session.mjs','native/run.py'].map(p=>[p,sha(fs.readFileSync(`${ROOT}/scripts/${p}`))]));
 const original=Object.fromEntries(fixture.notes.map(n=>[n.path,sha(fs.readFileSync(`${vault}/${n.path}`))]));
@@ -81,6 +81,7 @@ try{
  await ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.io={reads:0,writes:0,network:0};for(const k of ['read','cachedRead']){const f=app.vault[k].bind(app.vault);app.vault[k]=(...a)=>{io.reads++;return f(...a)}}for(const k of ['create','modify','append','process','delete','rename']){const f=app.vault[k].bind(app.vault);app.vault[k]=(...a)=>{io.writes++;return f(...a)}}window.fetch=()=>{io.network++;throw Error('Network disabled in R06')};XMLHttpRequest.prototype.send=function(){io.network++;throw Error('Network disabled in R06')};app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0");
  await focus();await ev('window.electronWindow.setContentSize(1300,900);void 0');
  report.runtime=await ev("({obsidian:require('@electron/remote').app.getVersion(),electron:process.versions.electron,chromium:process.versions.chrome,frame:window.titlebarStyle,display:process.env.DISPLAY})");
+ if(warmCache){const started=performance.now();await wait(`app.vault.getMarkdownFiles().length===${count}&&app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))`,main,90000);report.metrics.hostCacheBeforeOpenMs=performance.now()-started;}
  await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");await wait("!!document.querySelector('[data-health-action=nav-discover]')");
  await activate('nav-discover');await activate('review-map');
  await ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;window.wb=hv.workbench.map;void 0");
