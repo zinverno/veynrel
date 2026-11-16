@@ -3376,7 +3376,7 @@
 .veynrel-workbench-grid .veynrel-workbench-selection { position: static; width: auto; max-width: 100%; max-height: none; order: 1; box-shadow: none; }
 .veynrel-workbench-grid.is-list-open .veynrel-workbench-selection { display: block; }
 .veynrel-workbench-grid.is-detail-pinned[data-detail-visible="true"] .veynrel-workbench-map-pane { width: 100%; }
-.veynrel-workbench-inspector { min-width: 0; padding-block: 12px; border-top: 1px solid var(--background-modifier-border); overflow-wrap: anywhere; }
+.veynrel-workbench-inspector { scroll-margin-block-start: 100px; min-width: 0; padding-block: 12px; border-top: 1px solid var(--background-modifier-border); overflow-wrap: anywhere; }
 .veynrel-workbench-inspector button { white-space: normal; height: auto; max-width: 100%; }
 .veynrel-workbench-inspector .veynrel-topology-columns,
 .veynrel-workbench-inspector .veynrel-global-map-composition,

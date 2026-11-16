@@ -55,6 +55,13 @@ export function t(key: string, vars?: Record<string, string | number>, language 
 
 const RU: Record<string, string> = {
   "@r062b.prior-decision": "Эта пара уже рассматривалась. Проверка сохранённого решения и его актуальности доступна в списке Review; выбор пары вручную не отменяет решение.",
+  "@r062b.semantic-title": "Сходство со всем индексом",
+  "@r062b.compute-global": "Рассчитать по текущему индексу",
+  "@r062b.focus-selected": "Сходство с: {note}",
+  "@r062b.focus-reset": "Сбросить сравнение с заметкой",
+  "@r062b.focus-action": "Сравнить со всем индексом",
+  "@r062b.focus-similarity": "Сходство с выбранной заметкой",
+  "@r062b.focus-error": "Не удалось рассчитать сходство с выбранной заметкой.",
   "@r062b.close": "Вернуться к карте",
   "@r062b.global-scope": "Охват этих сведений — всё хранилище и существующий индекс, включая заметки вне выбранной папки. Это не меняет область основной карты.",
   "@r062b.focus-contract": "Focus сравнивает выбранную заметку со всеми допустимыми документами индекса (до 500), а не только с top-K соседями. Расчёт выполняется по отдельному нажатию и не перемещает узлы карты.",
@@ -2392,6 +2399,13 @@ const RU: Record<string, string> = {
 
 const EN: Record<string, string> = {
   "@r062b.prior-decision": "This pair was reviewed before. Check the saved decision and source freshness in the Review list; manual selection does not restore the candidate.",
+  "@r062b.semantic-title": "Whole-index similarity",
+  "@r062b.compute-global": "Compute from current index",
+  "@r062b.focus-selected": "Similarity to: {note}",
+  "@r062b.focus-reset": "Clear note comparison",
+  "@r062b.focus-action": "Compare with entire index",
+  "@r062b.focus-similarity": "Similarity to selected note",
+  "@r062b.focus-error": "Could not calculate similarity to the selected note.",
   "@r062b.close": "Return to map",
   "@r062b.global-scope": "These details cover the whole vault and existing index, including notes outside the selected folder. They do not change the main map scope.",
   "@r062b.focus-contract": "Focus compares the selected note with every eligible indexed document (up to 500), not just top-K neighbors. It runs only on request and does not move map nodes.",

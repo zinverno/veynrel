@@ -1,5 +1,6 @@
 // Runs within the common map harness; no second launcher, event fallback or host patch.
 export async function runUnifiedJourney({ev,pass,shot,activate,field,key,wait,focus,main,report,connection,endpoint,io}) {
+  if(process.env.R06_UNIFIED==='labels')return runFocusLabels({ev,pass,shot,activate,field,wait,focus,main});
   await ev('window.unifiedPoints=JSON.stringify(wb.points);window.unifiedLayouts=wb.layoutCount;window.unifiedCamera=JSON.stringify(wb.graph.viewport);void 0');
   await activate('workbench-advanced');
   await activate('workbench-advanced-topology');
@@ -107,4 +108,25 @@ export async function runUnifiedJourney({ev,pass,shot,activate,field,key,wait,fo
   report.focusAfterEscape=await ev("({panel:wb.inspectors.panel??null,activeTag:document.activeElement.tagName,activeClass:document.activeElement.getAttribute('class'),focused:document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')})");
   await pass('Escape returns focus to the same central map',"!wb.inspectors.panel&&document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')");
   await io('final-global-folder');
+}
+
+async function runFocusLabels({ev,pass,shot,activate,field,wait,focus,main}) {
+  for(const language of ['en','ru']) {
+    await ev('app.setting.open();app.setting.openTabById("ai-knowledge-hub");void 0');
+    await ev(`{const e=[...app.setting.modalEl.querySelectorAll('select')].find(e=>[...e.options].some(o=>o.value==='ru'));e.value='${language}';e.dispatchEvent(new Event('change'));}void 0`);
+    await ev('plugin.settingsSave');await ev('app.setting.close();hv.render();void 0');await focus();
+    await ev("hv.navigate({page:'semantic-map'});window.wb=hv.workbench.map;void 0");
+    await activate('global-map-refresh');await wait("wb.data.globalSemantic.getSnapshot().state==='ready'&&!wb.data.globalSemantic.getSnapshot().busy&&!wb.pendingRender");
+    await field('global-map-search','Docker/Guide.md');await activate('global-map-result-0');await activate('global-map-focus');await wait('!!wb.data.globalSemantic.getSnapshot().focus&&!wb.data.globalSemantic.getSnapshot().busy&&!wb.pendingRender');
+    await pass(`${language}: explicit focus describes comparison rather than moving coordinates`, `document.querySelector('[data-health-action=global-map-focus]').textContent===${JSON.stringify(language==='en'?'Compare with entire index':'Сравнить со всем индексом')}&&wb.data.globalSemantic.getSnapshot().focus.scores.length===12`);
+    for(const theme of ['light','dark']) {
+      await ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await wait(`document.body.classList.contains('theme-${theme}')`);
+      await shot(`focus-${language}-${theme}`);
+      await main.send('Emulation.setDeviceMetricsOverride',{width:390,height:850,deviceScaleFactor:1,mobile:false});
+      await ev("document.querySelector('[data-workbench-inspector]').scrollIntoView({block:'start'});void 0");
+      await pass(`${language}/${theme}: inspector header is clear of sticky navigation`,"(()=>{const button=document.querySelector('[data-health-action=workbench-inspector-close]').getBoundingClientRect(),bar=document.querySelector('.veynrel-topbar').getBoundingClientRect();return button.top>=bar.bottom&&hv.contentEl.scrollWidth<=hv.contentEl.clientWidth+1;})()");
+      await shot(`focus-${language}-${theme}-390`);await main.send('Emulation.clearDeviceMetricsOverride');
+    }
+  }
+  await pass('Label and theme changes add no Markdown read/write or model request','io.reads===0&&io.writes===0&&io.network===0');
 }

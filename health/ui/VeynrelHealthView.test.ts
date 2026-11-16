@@ -2115,6 +2115,8 @@ describe("R06.2b embedded semantic parity",()=>{
     const state={...newSemanticGlobalMapViewState(),selected:"A.md"};
     const cleanup=renderSemanticGlobalMap(parent as unknown as HTMLElement,port,state,{back:vi.fn(),openNote,explore:vi.fn()},true);
     expect(parent.all().some(e=>e.tag==="svg")).toBe(false);expect(focus).not.toHaveBeenCalled();
+    expect(parent.action("global-map-focus").texts()).toContain(t("@r062b.focus-action"));
+    expect(parent.texts()).not.toContain(t("@global-map.focus"));
     parent.action("global-map-focus").click();expect(focus).toHaveBeenCalledWith("A.md");
     parent.action("global-map-neighbor-0").click();expect(state.selected).toBe(map.nodes[0].neighbors[0].path);
     parent.action("global-map-open-note").click();expect(openNote).toHaveBeenCalledWith(state.selected);
