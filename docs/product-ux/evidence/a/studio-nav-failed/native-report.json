@@ -1,0 +1,43 @@
+{
+  "originalSha256": "98d15fbd44c66cc905c141757896fd04c0aa05b73ac602b5db236c6f70714318",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "checks": [],
+    "artifacts": {
+      "main.js": "2b43fb5a1f97da6371d8d78d99eb785c5ca9f3c70604317be1fdbf603f998bba",
+      "styles.css": "c0db587e4a7710f11e7b3ca7a94a647442ec0f9cbf0161b1768dfaf5665e906e",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "screenshots": [
+      "failure.png"
+    ],
+    "modelQuality": "NOT RE-EVALUATED",
+    "remoteInferenceRequests": 0,
+    "fixture": "Synthetic Markdown fixtures; existing callOpenRouter -> requestUrl -> loopback HTTP. Actual ItemView, registry, runner, journal and Vault.process.",
+    "beforeApply": [],
+    "exceptions": [],
+    "themeTransitions": [],
+    "themeCaptures": [],
+    "mode": "source-preservation",
+    "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+    "lastPointer": {
+      "action": "library",
+      "point": {
+        "x": 391.1875,
+        "y": 143.9375
+      },
+      "hit": "<button type=\"button\" data-studio-action=\"library\" data-studio-key=\"library:Library\" aria-current=\"true\">Library</button>"
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "excalidrawInstalled": false
+    },
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: Studio has no diagram owner, route, command or capability UI\n    at pass (file://<checkout>/scripts/studio-source-preservation-native.mjs:82:38)\n    at async file://<checkout>/scripts/studio-source-preservation-native.mjs:272:3",
+    "diagnostic": {
+      "state": "idle",
+      "text": "vault\nBatch\nFormatting\nNutrition\nProperties\nTraining\nUntouched\nVeynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nHistory\nWhat would you like to do with a note?\nManage my recipes\nSearch recipes\nCategory\nAll recipes\nBuilt-in\nMy recipes\nInstalled\nBuilt-in\nSmart formatting\n\nOrganize Markdown headings, paragraphs, lists and tables while preserving meaning.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nHeading\nResult illustration \u00b7 not model output\nView recipe\nBuilt-in\nTraining journal\n\nOrganize performed exercises, sets, reps, duration and weight separately.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nExercise\nSets\nSquat\n\u2026\n\u2026\nResult illustration \u00b7 not model output\nView recipe\nBuilt-in\nNutrition journal\n\nOrganize meals and quantities; unknown nutritional values stay unknown.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nFood\nQty\nRice\n\u2026\n\u2026\nResult illustration \u00b7 not model output\nView recipe"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "fixtureMarkdown": 10000,
+  "byteIdentical": true,
+  "method": "Independent post-failure check against the deterministic original generator; does not change the native failure status."
+}

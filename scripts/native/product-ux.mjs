@@ -24,6 +24,13 @@ const source = { commit: spawnSync('git',['rev-parse','HEAD'],{cwd:build,encodin
 const report = { source, scenario: 'product-ux-'+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
 report.harnessHashes = Object.fromEntries(['product-ux.mjs','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); }
+if(process.env.UX_THEME_DIR){
+  const theme=JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/manifest.json`,'utf8'));assert.equal(theme.name,'Minimal');
+  const dir=`${vault}/.obsidian/themes/Minimal`;fs.mkdirSync(dir,{recursive:true});
+  for(const name of ['manifest.json','theme.css'])fs.copyFileSync(`${process.env.UX_THEME_DIR}/${name}`,`${dir}/${name}`);
+  fs.writeFileSync(`${vault}/.obsidian/appearance.json`,JSON.stringify({cssTheme:'Minimal'}));
+  report.communityTheme={name:'Minimal',cssSha256:sha(fs.readFileSync(`${dir}/theme.css`)),source:JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/source.json`,'utf8'))};
+}
 const pause = ms => new Promise(r => setTimeout(r, ms));
 const child = launchObsidian(root), connections = [], frames = [];
 let main, endpoint, recording = false;
@@ -75,6 +82,7 @@ try {
   await wait("!!app.commands.commands['ai-knowledge-hub:veynrel-open-studio']");
   await main.ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];window.resizeTrace=[];window.addEventListener('resize',()=>resizeTrace.push({at:Date.now(),width:innerWidth,height:innerHeight}));void 0");
   report.versions = await main.ev('({obsidian:plugin.app.getVersion?.()??document.title.match(/Obsidian ([0-9.]+)/)?.[1],electron:process.versions.electron,chrome:process.versions.chrome,plugin:plugin.manifest.version})');
+  if(report.communityTheme)await pass('Actual installed Minimal theme is active',"app.customCss.theme==='Minimal'");
   await pass('Native frame applies only to the disposable host', "window.titlebarStyle==='native' && !window.frameDom");
   await main.ev("app.workspace.getLeaf(false).openFile(app.vault.getFileByPath('Source.md'),{state:{mode:'preview'}})");
   await focus(); await main.ev('window.electronWindow.setContentSize(1100,800);void 0'); await wait('innerWidth===1100&&innerHeight===800');

@@ -1,0 +1,178 @@
+{
+  "originalSha256": "70626be0c39d3e46ce4c8f58d7938dc949536745bbb88e9faafe987ffdc6ba24",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "scenario": "r05-local-link-native-v1",
+    "checks": [
+      "Passive Workspace and Findings navigation does not scan, read Markdown or write",
+      "Check exposes bounded evidence-backed findings"
+    ],
+    "exceptions": [],
+    "consoleErrors": [],
+    "actions": [
+      {
+        "selector": "[data-health-action=nav-health]",
+        "active": "<button type=\"button\" data-health-action=\"nav-health\" aria-pressed=\"true\" aria-current=\"page\">Check</button>"
+      },
+      {
+        "selector": "[data-health-action=scan]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Check vault</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+      }
+    ],
+    "screenshots": [
+      "failure.png"
+    ],
+    "assets": {
+      "main.js": "2b43fb5a1f97da6371d8d78d99eb785c5ca9f3c70604317be1fdbf603f998bba",
+      "styles.css": "c0db587e4a7710f11e7b3ca7a94a647442ec0f9cbf0161b1768dfaf5665e906e",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "externalRequests": [],
+    "recording": null,
+    "harnessHashes": {
+      "r05-actions-native.mjs": "0a9f93c5d957880b4373ffe07ffe68a3912d0ef8930f110426d4ad971e50e4d9",
+      "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+      "native/run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.3.1"
+    },
+    "settingsBefore": "{\"provider\":\"ollama\",\"apiKey\":\"\",\"model\":\"unused\",\"baseUrl\":\"http://127.0.0.1:44519/v1\",\"temperature\":0.65,\"topK\":12,\"defaultInsertion\":\"end\",\"newNoteFolder\":\"\",\"filenameTemplate\":\"AI-{{date}}-{{topic}}\",\"mocFolder\":\"MOCs/\",\"atomsLocation\":\"same\",\"atomsFolder\":\"Atoms/\",\"showContextMenu\":true,\"notifyOnCopy\":true,\"language\":null,\"deepAudit\":{\"batchSize\":5,\"maxConcurrent\":3,\"delayMs\":1000},\"semantic\":{\"enabled\":false,\"embeddingProvider\":\"openrouter\",\"embeddingModel\":\"openai/text-embedding-3-small\",\"embeddingBaseUrl\":\"https://openrouter.ai/api/v1\",\"openRouterApiKey\":\"\",\"openAICompatibleApiKey\":\"\"},\"rerank\":{\"enabled\":false,\"triggerMode\":\"manual\",\"provider\":\"openrouter\",\"model\":\"voyageai/rerank-3-lite\",\"apiKey\":\"\"},\"decisions\":{\"enabled\":false,\"provider\":\"openrouter\",\"model\":\"typesafe/jev-1.13\",\"apiKey\":\"\"},\"semanticAutoSyncSuspended\":true,\"companion\":{\"enabled\":false,\"endpoint\":\"http://127.0.0.1:27124\",\"token\":\"\",\"timeoutMs\":5000,\"vaultId\":\"3cb4611f-bc56-453f-8007-8d32ffd7d18b\"},\"health\":{\"profile\":\"mixed\",\"profileChosen\":false,\"onboardingCompleted\":true,\"onboardingVersion\":1}}",
+    "passive": {
+      "before": {
+        "reads": [],
+        "writes": [],
+        "creates": [],
+        "metadata": 1,
+        "enumerations": 1,
+        "models": 0,
+        "adapterWrites": [],
+        "phase": "passive-navigation"
+      },
+      "after": {
+        "reads": [],
+        "writes": [],
+        "creates": [],
+        "metadata": 1,
+        "enumerations": 1,
+        "models": 0,
+        "adapterWrites": [],
+        "phase": "passive-navigation"
+      }
+    },
+    "scan": {
+      "scan": {
+        "id": "local-4f585fe7-5218-4080-b700-c0bc823732cb",
+        "type": "local",
+        "startedAt": 1794840024402,
+        "notesSeen": 7,
+        "findingsCreated": 14,
+        "findingsUpdated": 0,
+        "findingsResolved": 0,
+        "analyzerVersions": {
+          "broken-links": "1",
+          "duplicate-titles": "1",
+          "exact-duplicates": "1",
+          "graph-components": "1",
+          "no-incoming-links": "1",
+          "no-outgoing-links": "1",
+          "note-shape": "1",
+          "orphans": "1"
+        },
+        "reconciliationReceipts": {
+          "local:broken-links": 1794840024482,
+          "local:duplicate-titles": 1794840024482,
+          "local:exact-duplicates": 1794840024482,
+          "local:graph-components": 1794840024482,
+          "local:no-incoming-links": 1794840024482,
+          "local:no-outgoing-links": 1794840024482,
+          "local:note-shape": 1794840024482,
+          "local:orphans": 1794840024482
+        },
+        "status": "completed",
+        "completedAt": 1794840024482
+      },
+      "freshness": "verified",
+      "findingsCommitted": true,
+      "historyRecorded": true,
+      "diagnostics": [],
+      "coverage": {
+        "listed": 7,
+        "fullyAvailable": 7,
+        "contentUnavailable": 0,
+        "linksUnavailable": 0,
+        "noteListComplete": true,
+        "diagnostics": [],
+        "diagnosticsTruncated": 0
+      }
+    },
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: Selected Workspace folder is one; the explicitly shown pair may include an external target\n    at pass (file://<checkout>/scripts/r05-actions-native.mjs:64:51)\n    at async file://<checkout>/scripts/r05-actions-native.mjs:147:262",
+    "diagnostic": {
+      "io": {
+        "reads": [
+          {
+            "path": "Broken.md",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "path": "Diary.md",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "path": "Encoding.md",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "path": "Other.md",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "path": "encoding/Encoding.md",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "path": "one/Same.md",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "path": "two/Same.md",
+            "phase": "explicit-local-scan"
+          }
+        ],
+        "writes": [],
+        "creates": [],
+        "metadata": 8,
+        "enumerations": 3,
+        "models": 0,
+        "adapterWrites": [
+          {
+            "method": "mkdir",
+            "path": ".obsidian/plugins/ai-knowledge-hub/health",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+            "phase": "explicit-local-scan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+            "phase": "explicit-local-scan"
+          }
+        ],
+        "phase": "explicit-local-scan"
+      },
+      "active": "<div class=\"veynrel-workspace\" data-page=\"home\" aria-busy=\"undefined\" tabindex=\"-1\"><div class=\"veynrel-shell\" data-menu-open=\"false\"><div class=\"veynrel-shell-content\"><header class=\"veynrel-topbar\"><nav class=\"veynrel-tabs\" aria-label=\"Veynrel navigation\"><button type=\"button\" data-health-action=\"nav-health\" aria-pressed=\"true\" aria-current=\"page\">Check</button><button type=\"button\" data-health-action=\"nav-discover\" aria-pressed=\"false\">Notes</button><button type=\"button\" data-health-action=\"nav-recall\" aria-pressed=\"false\">Review</button></nav><details class=\"veynrel-workspace-more\" data-health-disclosure=\"workspace-more\"><summary aria-label=\"More actions\" data-health-action=\"workspace-menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-ellipsis\"><circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"19\" cy=\"12\" r=\"1\"></circle><circle cx=\"5\" cy=\"12\" r=\"1\"></circle></svg></summary><div class=\"veynrel-workspace-menu\"><button type=\"button\" data-health-action=\"nav-history\">History</button><button type=\"button\" data-health-action=\"nav-tools\">All tools</button><button type=\"button\" data-health-action=\"nav-process\">Process</button><button type=\"button\" data-health-action=\"nav-settings\">Settings</button><button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button></div></details></header><label class=\"veynrel-scope-picker\"><span>Scope</span><select aria-label=\"All folders\" data-health-action=\"scope-picker\"><option value=\"\">Whole vault</option><option value=\"encoding\">encoding (1)</option><option value=\"one\">one (1)</option><option value=\"two\">two (1)</option></select></label><div class=\"veynrel-shell-main\"><div class=\"veynrel-workspace-message\" data-workspace-message=\"true\"></div><div><p class=\"veynrel-scope-handoff\">Tools below use the whole vault or their own selection.</p><section class=\"veynrel-check-status\" aria-label=\"Check\"><div class=\"veynrel-check-headline\"><h1 tabindex=\"-1\" data-health-heading=\"true\">Open findings: 14</h1><p data-workspace-check-receipt=\"true\">Data available: 7 / 7</p><time datetime=\"2026-11-16T14:40:24.482Z\">11/16/26, 5:40 PM</time></div><details class=\"veynrel-details\" data-health-disclosure=\"check-coverage\"><summary data-health-action=\"check-coverage\">Coverage and limitations</summary><p>Check: whole vault</p><p>The number of excluded files was not recorded in this result.</p></details><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Scan again</button><p class=\"veynrel-health-muted\">Local \u00b7 Notes unchanged</p><p role=\"status\">Vault check complete</p></section><div class=\"veynrel-findings-inbox\"><div class=\"veynrel-findings-workspace\"><section class=\"veynrel-findings-list-pane\" aria-label=\"Findings\"><div class=\"veynrel-findings-filters\" role=\"group\" aria-label=\"Finding state\"><button type=\"button\" data-health-action=\"state-open\" aria-pressed=\"true\">Open 14</button><button type=\"button\" data-health-action=\"state-snoozed\" aria-pressed=\"false\">Snoozed 0</button><button type=\"button\" data-health-action=\"state-dismissed\" aria-pressed=\"false\">Dismissed 0</button><button type=\"button\" data-health-action=\"state-resolved\" aria-pressed=\"false\">Resolved 0</button></div><div class=\"veynrel-findings-filters\" role=\"group\" aria-label=\"Dimension\"><button type=\"button\" data-health-action=\"category-all\" aria-pressed=\"true\">All</button><button type=\"button\" data-health-action=\"category-links\" aria-pressed=\"false\">Links</button><button type=\"button\" data-health-action=\"category-duplicates\" aria-pressed=\"false\">Duplicates</button><button type=\"button\" data-health-action=\"category-organization\" aria-pressed=\"false\">Organization</button><button type=\"button\" data-health-action=\"category-other\" aria-pressed=\"false\">Other</button></div><details data-health-disclosure=\"finding-dimensions\"><summary>Dimension</summary><button type=\"button\" data-health-action=\"filter-all\" aria-pressed=\"true\">All</button><button type=\"button\" data-health-action=\"filter-structure\" aria-pressed=\"false\">Structure</button><button type=\"button\" data-health-action=\"filter-connections\" aria-pressed=\"false\">Connections</button><button type=\"button\" data-health-action=\"filter-recall\" aria-pressed=\"false\">Recall</button><button type=\"button\" data-health-action=\"filter-knowledge\" aria-pressed=\"false\">Knowledge</button></details><input type=\"search\" placeholder=\"Search findings\" aria-label=\"Search findings\" data-health-action=\"finding-search\"><details data-health-disclosure=\"finding-group-broken-link\" open=\"\"><summary>Broken internal link \u00b7 1</summary><ul class=\"veynrel-findings-list\"><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-c8011c2547ad2cf4-Broken.md\" class=\"veynrel-finding-source\">Broken.md</button><p>Missing target: Missing note</p><p>Occurrences: 1</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"repair-finding-c8011c2547ad2cf4\">Review a repair</button><button type=\"button\" data-health-action=\"finding-finding-c8011c2547ad2cf4\" aria-pressed=\"false\">Details</button></div></li></ul></details><details data-health-disclosure=\"finding-group-no-outgoing-links\" open=\"\"><summary>Note with no outgoing links \u00b7 1</summary><ul class=\"veynrel-findings-list\"><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-0f60d10422e69bea-Other.md\" class=\"veynrel-finding-source\">Other.md</button><p>Incoming links: 1</p><p>Outgoing links: 0</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-0f60d10422e69bea\" aria-pressed=\"false\">Details</button></div></li></ul></details><details data-health-disclosure=\"finding-group-orphan-note\" open=\"\"><summary>Note without connections \u00b7 5</summary><ul class=\"veynrel-findings-list\"><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-5ecb2ee16a1d7f13-encoding/Encoding.md\" class=\"veynrel-finding-source\">encoding/Encoding.md</button><p>Incoming links: 0</p><p>Outgoing links: 0</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-5ecb2ee16a1d7f13\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-87e6c6035d64a987-two/Same.md\" class=\"veynrel-finding-source\">two/Same.md</button><p>Incoming links: 0</p><p>Outgoing links: 0</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-87e6c6035d64a987\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-981ed12301f6108f-Encoding.md\" class=\"veynrel-finding-source\">Encoding.md</button><p>Incoming links: 0</p><p>Outgoing links: 0</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-981ed12301f6108f\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-9df25273fb1033cf-Broken.md\" class=\"veynrel-finding-source\">Broken.md</button><p>Incoming links: 0</p><p>Outgoing links: 0</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-9df25273fb1033cf\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-c46365e592320f4b-Diary.md\" class=\"veynrel-finding-source\">Diary.md</button><p>Incoming links: 0</p><p>Outgoing links: 0</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-c46365e592320f4b\" aria-pressed=\"false\">Details</button></div></li></ul></details><details data-health-disclosure=\"finding-group-duplicate-title-group\" open=\"\"><summary>Notes with the same title \u00b7 2</summary><ul class=\"veynrel-findings-list\"><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-928ea9c07844f06a-Encoding.md\" class=\"veynrel-finding-source\">Encoding.md</button><button type=\"button\" data-health-action=\"source-finding-928ea9c07844f06a-encoding/Encoding.md\" class=\"veynrel-finding-source\">encoding/Encoding.md</button><small>2 notes</small><p>2 notes share the same filename without its extension.</p><p>Name: Encoding</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"compare-finding-928ea9c07844f06a\">Compare this pair</button><button type=\"button\" data-health-action=\"finding-finding-928ea9c07844f06a\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-f028619b29aa7a30-one/Same.md\" class=\"veynrel-finding-source\">one/Same.md</button><button type=\"button\" data-health-action=\"source-finding-f028619b29aa7a30-two/Same.md\" class=\"veynrel-finding-source\">two/Same.md</button><small>2 notes</small><p>2 notes share the same filename without its extension.</p><p>Name: Same</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"compare-finding-f028619b29aa7a30\">Compare this pair</button><button type=\"button\" data-health-action=\"finding-finding-f028619b29aa7a30\" aria-pressed=\"false\">Details</button></div></li></ul></details><details data-health-disclosure=\"finding-group-no-incoming-links\" open=\"\"><summary>Note with no incoming links \u00b7 1</summary><ul class=\"veynrel-findings-list\"><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-c153dd231ba5e451-one/Same.md\" class=\"veynrel-finding-source\">one/Same.md</button><p>Incoming links: 0</p><p>Outgoing links: 1</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-c153dd231ba5e451\" aria-pressed=\"false\">Details</button></div></li></ul></details><details data-health-disclosure=\"finding-group-near-empty-note\" open=\"\"><summary>Very short note \u00b7 4</summary><ul class=\"veynrel-findings-list\"><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-1ac7439d19d8e854-Other.md\" class=\"veynrel-finding-source\">Other.md</button><p>Letters and numbers in the note body: 28</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-1ac7439d19d8e854\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-2e92f1aab649526f-encoding/Encoding.md\" class=\"veynrel-finding-source\">encoding/Encoding.md</button><p>Letters and numbers in the note body: 25</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-2e92f1aab649526f\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-a4adf6e688acdf5b-Diary.md\" class=\"veynrel-finding-source\">Diary.md</button><p>Letters and numbers in the note body: 30</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-a4adf6e688acdf5b\" aria-pressed=\"false\">Details</button></div></li><li class=\"veynrel-finding-item\"><button type=\"button\" data-health-action=\"source-finding-d3b84b12654e1e5b-Encoding.md\" class=\"veynrel-finding-source\">Encoding.md</button><p>Letters and numbers in the note body: 12</p><div class=\"veynrel-health-actions\"><button type=\"button\" data-health-action=\"finding-finding-d3b84b12654e1e5b\" aria-pressed=\"false\">Details</button></div></li></ul></details><div class=\"veynrel-health-actions\"><span>1\u201314 of 14</span></div></section></div></div><details class=\"veynrel-details\" data-health-disclosure=\"check-saved\"><summary data-health-action=\"check-saved\">Saved findings and review</summary><article class=\"veynrel-health-card\" data-dimension=\"structure\" data-state=\"needs-attention\" data-complete=\"true\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-network\"><rect x=\"16\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\"></rect><rect x=\"2\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\"></rect><rect x=\"9\" y=\"2\" width=\"6\" height=\"6\" rx=\"1\"></rect><path d=\"M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3\"></path><path d=\"M12 12V8\"></path></svg></span><button type=\"button\" data-health-action=\"dimension-structure\">Structure</button></h3><p class=\"veynrel-health-state\">Needs attention</p><div class=\"veynrel-dashboard-metric\"><span class=\"veynrel-dashboard-number\">12</span><span class=\"veynrel-health-muted\">Findings</span></div><p class=\"veynrel-health-muted\">Basic analysis</p></article><article class=\"veynrel-health-card\" data-dimension=\"connections\" data-state=\"review-recommended\" data-complete=\"true\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon link\"><path d=\"M13.1404 10C13.6728 10.3955 14.1134 10.9001 14.4322 11.4796C14.7511 12.0591 14.9407 12.6999 14.9882 13.3586C15.0357 14.0172 14.94 14.6783 14.7076 15.297C14.4751 15.9157 14.1115 16.4775 13.6412 16.9443L10.8588 19.7073C9.98423 20.5462 8.81284 21.0103 7.59697 20.9998C6.38109 20.9893 5.21801 20.505 4.35822 19.6512C3.49844 18.7974 3.01074 17.6424 3.00018 16.435C2.98961 15.2276 3.45702 14.0644 4.30173 13.1959L5.88768 11.6117\"></path><path d=\"M10.8596 14C10.3272 13.6045 9.88658 13.0999 9.56776 12.5204C9.24894 11.9409 9.05935 11.3001 9.01185 10.6414C8.96435 9.98279 9.06004 9.32171 9.29245 8.70302C9.52486 8.08433 9.88853 7.52251 10.3588 7.05567L13.1412 4.29268C14.0158 3.45384 15.1872 2.98968 16.403 3.00017C17.6189 3.01067 18.782 3.49497 19.6418 4.34877C20.5016 5.20257 20.9893 6.35756 20.9998 7.56498C21.0104 8.77239 20.543 9.93562 19.6983 10.8041L18.1123 12.379\"></path></svg></span><button type=\"button\" data-health-action=\"dimension-connections\">Connections</button></h3><p class=\"veynrel-health-state\">Review recommended</p><div class=\"veynrel-dashboard-metric\"><span class=\"veynrel-dashboard-number\">2</span><span class=\"veynrel-health-muted\">Findings</span></div><p class=\"veynrel-health-muted\">Basic analysis</p></article><article class=\"veynrel-health-card\" data-dimension=\"recall\" data-state=\"unknown\" data-complete=\"false\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><button type=\"button\" data-health-action=\"dimension-recall\">Recall</button></h3><p class=\"veynrel-health-state\">Not enabled</p></article><article class=\"veynrel-health-card\" data-dimension=\"knowledge\" data-state=\"unknown\" data-complete=\"false\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-book-open\"><path d=\"M12 7v14\"></path><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"></path></svg></span><span>Knowledge</span></h3><p class=\"veynrel-health-state\">Not enabled</p></article></details><details class=\"veynrel-details\" data-health-disclosure=\"check-deep\"><summary data-health-action=\"check-deep\">Full / single-note audit</summary><section class=\"veynrel-health-home veynrel-deep\" aria-label=\"Deep Intelligence\" aria-busy=\"false\"><h2>Knowledge check</h2><p class=\"veynrel-health-state\">Find underdeveloped notes with a model. Content sharing and possible charges require confirmation.</p><div class=\"veynrel-deep-actions\"><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"deep-knowledge\">Check Knowledge</button></div><button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button></section></details><details class=\"veynrel-details\" data-health-disclosure=\"check-recall\" data-insight=\"recall\"><summary data-health-action=\"check-recall\">Review</summary></details></div></div></div></div></div>",
+      "modals": []
+    }
+  }
+}

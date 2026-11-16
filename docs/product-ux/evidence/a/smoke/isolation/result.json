@@ -1,0 +1,20 @@
+{
+  "originalSha256": "a21fd9fb595247eb9066c34a9994f84dc9e006399567e5a0b84decf48ffb3e61",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "command": [
+      "node",
+      "<checkout>/scripts/native/smoke.mjs",
+      "<native-root>"
+    ],
+    "timeoutSeconds": 180,
+    "startedAt": 1794840010.7312331,
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpPorts": [
+      34571
+    ],
+    "cdpClosed": true,
+    "seconds": 11.353
+  }
+}

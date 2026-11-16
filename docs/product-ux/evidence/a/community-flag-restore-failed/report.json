@@ -1,0 +1,68 @@
+{
+  "originalSha256": "b890b2b75b02cc88fe84e9f2d16dbf8473fc962da4bf7b4422085e56ae6b1711",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "checks": [
+      "Opening Studio and Community tab is passive",
+      "Explicit online catalog loads eight real entries",
+      "Client search finds Russian tags",
+      "Category filter selects two work recipes",
+      "Verified card shows full prompt, constraints, examples, source and SHA-256",
+      "Install is local user recipe, no notes/model/writes",
+      "Installed recipe and origin survive a real process restart",
+      "Same version is Installed; repeat install does not add duplicates",
+      "Prepared exact request awaits explicit consent",
+      "Installed Community recipe runs via existing Runner and immutable Review",
+      "Community Apply/Undo restores exact original hashes",
+      "Numeric update and locally modified status are visible",
+      "Update compares instruction, constraints, format and operations",
+      "Untrusted instruction remains literal with no element execution",
+      "Explicit update keeps modified local copy and installs exact new version"
+    ],
+    "artifacts": {
+      "main.js": "db3f4b7932e37466ab36f07f8231092ddc3dd1a70feba1b42d2e2512b7c7e0df",
+      "styles.css": "c0db587e4a7710f11e7b3ca7a94a647442ec0f9cbf0161b1768dfaf5665e906e",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "screenshots": [
+      "inspect-en-dark.png",
+      "community-review.png",
+      "update-local-edits.png",
+      "failure.png"
+    ],
+    "fixture": "Isolated synthetic vault; test HTTP catalog injected via CommunityTransport, actual RecipeRegistry/Runner/Review/Apply/Undo; no personal notes or provider keys.",
+    "beforeApply": [],
+    "exceptions": [],
+    "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+    "lastPointer": {
+      "action": "community:install-copy",
+      "point": {
+        "x": 489.1171875,
+        "y": 680.421875
+      },
+      "hit": "<button type=\"button\" data-community-action=\"install-copy\">Keep local copy &amp; install this version</button>"
+    },
+    "lastApplySelection": [
+      {
+        "route": "workflow",
+        "selected": [
+          "Formatting.md"
+        ],
+        "review": "b9c388fa-609f-41ff-9e1b-4c2e71c8a87e",
+        "dialogs": 0
+      }
+    ],
+    "status": "FAIL",
+    "error": "Error: Timeout: !!document.querySelector(\".veynrel-studio [data-studio-action=\\\"community\\\"]\"); vault\nBatch\nFormatting\nNutrition\nTraining\nUntouched\nVeynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nHistory\nWhat would you like to do with a note?\nManage my recipes\nSearch recipes\nCategory\nAll recipes\nBuilt-in\nMy recipes\nInstalled\nBuilt-in\nSmart formatting\n\nOrganize Markdown headings, paragraphs, lists and tables while preserving meaning.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nHeading\nResult illustration \u00b7 not model output\nView recipe\nBuilt-in\nTraining journal\n\nOrganize performed exercises, sets, reps, duration and weight separately.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nExercise\nSets\nSquat\n\u2026\n\u2026\nResult illustration \u00b7 not model output\nView recipe\nBuilt-in\nNutrition journal\n\nOrganize meals and quantities; unknown nutritional values stay unknown.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nFood\nQty\nRice\n\u2026\n\u2026\nResult illustration \u00b7 not model output\nView recipe\nInstalled\nLecture outline\n\nTurn rough lecture notes into an outline with definitions and open questions.\n\nSave separately after Review \u00b7 changing the source is optional\nView recipe\nMy recipe\nLecture outline\n\nTurn rough lecture notes into an outline with definitions and open questions.\n\nSave separately after Review \u00b7 changing the source is optional\nView recipe\nSmart formatting \u00b7 Built-in",
+    "diagnostic": {
+      "io": {
+        "reads": [],
+        "writes": [],
+        "browserRequests": 0
+      },
+      "text": "vault\nBatch\nFormatting\nNutrition\nTraining\nUntouched\nVeynrel Studio\nVeynrel Studio\nVeynrel Studio\n\nTransform notes with reusable recipes\n\nLibrary\nHistory\nWhat would you like to do with a note?\nManage my recipes\nSearch recipes\nCategory\nAll recipes\nBuilt-in\nMy recipes\nInstalled\nBuilt-in\nSmart formatting\n\nOrganize Markdown headings, paragraphs, lists and tables while preserving meaning.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nHeading\nResult illustration \u00b7 not model output\nView recipe\nBuilt-in\nTraining journal\n\nOrganize performed exercises, sets, reps, duration and weight separately.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nExercise\nSets\nSquat\n\u2026\n\u2026\nResult illustration \u00b7 not model output\nView recipe\nBuilt-in\nNutrition journal\n\nOrganize meals and quantities; unknown nutritional values stay unknown.\n\nSave separately after Review \u00b7 changing the source is optional\nNote\nFood\nQty\nRice\n\u2026\n\u2026\nResult illustration \u00b7 not model output\nView recipe\nInstalled\nLecture outline\n\nTurn rough lecture notes into an outline with definitions and open questions.\n\nSave separately after Review \u00b7 changing the source is optional\nView recipe\nMy recipe\nLecture outline\n\nTurn rough lecture notes into an outline with definitions and open questions.\n\nSave separately after Review \u00b7 changing the source is optional\nView recipe\nSmart formatting \u00b7 Built-in",
+      "community": "idle",
+      "origins": "ready"
+    }
+  }
+}

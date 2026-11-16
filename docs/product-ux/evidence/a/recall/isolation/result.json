@@ -1,0 +1,21 @@
+{
+  "originalSha256": "2fd244a4c9985e4da5804b233f510ffbeded39252a193e037ef391254c7ecbe2",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "command": [
+      "node",
+      "<checkout>/scripts/recall-topics-native.mjs",
+      "<native-root>"
+    ],
+    "timeoutSeconds": 180,
+    "startedAt": 1794840250.6169143,
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpPorts": [
+      41315,
+      40059
+    ],
+    "cdpClosed": true,
+    "seconds": 43.935
+  }
+}

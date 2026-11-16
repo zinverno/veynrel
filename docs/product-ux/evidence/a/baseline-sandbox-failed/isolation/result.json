@@ -1,0 +1,19 @@
+{
+  "originalSha256": "4b1a823baa1372882a22914cf987aa53e476709a1b522b80f7b75e87fb117031",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "command": [
+      "node",
+      "<checkout>/scripts/native/product-ux.mjs",
+      "<native-root>",
+      "baseline"
+    ],
+    "timeoutSeconds": 180,
+    "startedAt": 1794838027.7479932,
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpPorts": [],
+    "cdpClosed": true,
+    "seconds": 2.823
+  }
+}
