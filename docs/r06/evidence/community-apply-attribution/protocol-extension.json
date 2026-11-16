@@ -1,0 +1,15 @@
+{
+  "registeredBeforeRuns": true,
+  "order": [
+    "A3",
+    "B3"
+  ],
+  "reason": "A2 reproduced the missing main-document confirmation even though the actual handler, reviewWrite, Modal.open call and onOpen completed. Modal active/connected but ownerDocument differs. Distinguish live separate window from stale/closed document.",
+  "maximumTotalPerConfiguration": 3,
+  "changes": "Read-only owner window closed/focus/URL/size/confirmation diagnostics and CDP Target.getTargets; original click sequence unchanged.",
+  "noRetriesAfter": "A3/B3 complete the capped diagnostic experiment.",
+  "instrumentHashes": {
+    "scripts/native/community-apply-trace.mjs": "3ae5ac88f5616fafcd4950efdc1269035dc3f048e174a76f27347714be492acd",
+    "scripts/studio-community-native.mjs": "81fc73def05a3e72a972dd32f4df2352867888ac1bbf1a39a1f73318380f136a"
+  }
+}

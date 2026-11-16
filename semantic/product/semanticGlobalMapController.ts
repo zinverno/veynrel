@@ -26,7 +26,7 @@ export class SemanticGlobalMapController implements SemanticGlobalMapPort {
   private disposed = false;
 
   constructor(private readonly engine: SemanticGlobalMapEngine, private readonly scope?: SemanticMapScope, private readonly selection?: ConnectionSelectionSource) {
-    this.removeSelection = selection?.subscribe(() => { if (!this.disposed) this.invalidate(); });
+    this.removeSelection = selection?.subscribe(() => { if (!this.disposed && this.snapshot.state !== "idle") this.invalidate(); });
     this.unsubscribe = engine.subscribeStatus(() => {
       if (!this.disposed && this.revision && !sameSemanticIndexRevision(this.revision, semanticIndexRevision(engine.getCachedIndexState()))) this.invalidate();
     });

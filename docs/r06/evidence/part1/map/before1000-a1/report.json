@@ -1,0 +1,48 @@
+{
+  "scenario": "R06.1-map-foundation",
+  "baseline": true,
+  "count": 1000,
+  "indexed": 1000,
+  "source": "ad817a3c0e91dcf8a94067d852a22e28226810b5",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "faf6dcb763aeb654406ba48bee23f6ee8064e9ee7988b8ced62b7d5466224a34",
+    "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {},
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "1eae40977888463ce5a9900fbb4a61177cafbba0b24eb9046740049e15ad30bf",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: app.vault.getMarkdownFiles().length===1000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:55:138)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs:88:2"
+}

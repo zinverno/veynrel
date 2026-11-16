@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2 health/workbench semantic/product/semanticGlobalMapController.test.ts
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116
+
+
+ Test Files  7 passed (7)
+      Tests  134 passed (134)
+   Start at  04:26:17
+   Duration  1.85s (transform 819ms, setup 0ms, import 1.11s, tests 1.40s, environment 1ms)
+

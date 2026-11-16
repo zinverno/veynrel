@@ -5,6 +5,12 @@ installed Obsidian/Electron, not a DOM mock or browser recreation of the plugin.
 It never starts Openbox on the working display. A visible comparison requires
 the explicit `--desktop` option.
 
+The [post-#149 R06.1 integration report](r06/part1-integration-149.md) records the
+current release policy and fresh isolated checks. The
+[post-#148 report](r06/part1-integration-148.md) and
+[Community diagnosis](r06/community-apply-attribution.md) remain historical evidence;
+the Community confirmation/document-ownership gate is still open.
+
 ## Commands
 
 Until separately authorized publication of 2.4.0, the public manifest remains **2.3.1** while package/lock-root development metadata remains **2.4.0**. A current-checkout native build therefore reports 2.3.1 in Obsidian and manifest-based diagnostics; it is still unpublished development code. Record the source commit, package version and SHA-256 of all three installed assets, and label the run as development. Test the actual stable release using its separate downloaded asset directory. Never identify a build or claim an upgrade solely from the displayed version. See the [version policy](community-version-policy.md).
@@ -228,3 +234,25 @@ The old R04 harness now checks a persisted v2 decision instead of expecting new
 IDs in the legacy list; all previous behavior assertions remain. See
 [R05.3 contracts](r05/registry-editing-and-decisions.md) and
 [combined verification](r05/part3-verification.md).
+
+
+## R06.1 map foundation
+
+`python scripts/native/run.py map 120` runs the real Workbench → Pair Inspector →
+Back flow with deterministic synthetic vectors. `map 1000`, `map 5000` and
+`map 10000` exercise truthful semantic-cap refusal and the complete path list.
+`R06_INDEX_COUNT=0` and `R06_INDEX_COUNT=60` with `map 120` exercise missing and
+partial index coverage. Only the common Xvfb/Openbox launcher may start this
+harness. No desktop or live embedding provider is used.
+
+For an unchanged frozen baseline, use `R06_BASELINE=1 python scripts/native/run.py
+map 120 /path/to/frozen-assets` (write the command on one shell line). The directory
+must contain main.js, styles.css, manifest.json and SOURCE_COMMIT. Baseline mode
+records the known lost context/topology relayout/rule-bypass observations instead
+of asserting the new behavior; it retains the common byte, UI and exception
+assertions. See [R06.1 boundaries](r06/part1-contract.md). This is not the complete
+R06 family/legacy-route acceptance.
+
+`R06_WARM_CACHE=1` is a separate warm-cache control: it waits for actual host
+metadata readiness **before** opening Workspace. It does not pass or replace a
+failed cold-open gate. Receipts identify the mode; compare only matching modes.

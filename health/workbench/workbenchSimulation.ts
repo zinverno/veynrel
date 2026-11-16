@@ -10,6 +10,7 @@ export function pathSeed(path: string): number {
 /** UI-owned coordinates only. Cooling is finite; the renderer owns scheduling/visibility. */
 export class WorkbenchSimulation {
   points: Particle[] = [];
+  private active: Particle[] = [];
   private springs: { a: Particle; b: Particle; length: number; strength: number }[] = [];
   alpha = 0;
   ticks = 0;
@@ -18,35 +19,40 @@ export class WorkbenchSimulation {
   milliseconds = 0;
   update(nodes: readonly WorkbenchNode[], edges: readonly WorkbenchEdge[]): void {
     const previous = new Map(this.points.map(point => [point.path, point]));
-    const ordered = [...nodes].sort((a,b) => pathSeed(a.path)-pathSeed(b.path) || a.path.localeCompare(b.path));
+    const ordered = [...nodes].sort((a,b) => Number(b.semantic)-Number(a.semantic) || pathSeed(a.path)-pathSeed(b.path) || a.path.localeCompare(b.path));
     this.points = ordered.map((node, i) => {
       const old = previous.get(node.path);
       if (old) return old;
       const angle = i * Math.PI * (3-Math.sqrt(5)), radius = 22 * Math.sqrt(i+1);
       return { path:node.path, x:500+Math.cos(angle)*radius, y:320+Math.sin(angle)*radius, vx:0, vy:0 };
     });
+    const indexed = new Set(nodes.filter(node => node.semantic).map(node => node.path));
+    this.active = this.points.filter(point => indexed.has(point.path));
+    this.points.filter(point => !indexed.has(point.path)).forEach((point, i) => {
+      point.x = 100 + (i % 20) * 40; point.y = 1000 + Math.floor(i / 20) * 40; point.vx = 0; point.vy = 0;
+    });
     const byPath = new Map(this.points.map(point => [point.path, point]));
     this.springs = [];
     const seen = new Set<string>();
     if (nodes.length <= 500) for (const edge of edges) {
       const id = `${edge.kind}:${pairId(edge.source,edge.target)}`, a=byPath.get(edge.source), b=byPath.get(edge.target);
-      if (!a || !b || a===b || seen.has(id)) continue;
-      if (edge.kind === "semantic" && (edge.score === undefined || !Number.isFinite(edge.score))) continue;
+      if (!a || !b || a===b || !indexed.has(a.path) || !indexed.has(b.path) || seen.has(id)) continue;
+      if (edge.kind !== "semantic" || edge.score === undefined || !Number.isFinite(edge.score)) continue;
       seen.add(id); this.springs.push({ a,b,...edgeAttraction(edge) });
     }
-    this.alpha = nodes.length > 1 && nodes.length <= 500 ? .65 : 0;
+    this.alpha = this.active.length > 1 && nodes.length <= 500 ? .65 : 0;
     this.revisions++;
   }
   pin(path: string, x: number, y: number): void {
     const point = this.points.find(point => point.path === path);
     if (!point || !Number.isFinite(x) || !Number.isFinite(y)) return;
     point.fixed = {x,y}; point.x=x;point.y=y;point.vx=0;point.vy=0;
-    if (!this.paused && this.points.length<=500) this.alpha=Math.max(this.alpha,.22);
+    if (!this.paused && this.points.length<=500 && this.active.includes(point)) this.alpha=Math.max(this.alpha,.22);
   }
   release(path: string): void { const point=this.points.find(point=>point.path===path);if(point)point.fixed=undefined; }
   tick(): boolean {
     if (this.paused || this.alpha < .006 || this.points.length > 500) return false;
-    const started=performance.now(), alpha=this.alpha, points=this.points;
+    const started=performance.now(), alpha=this.alpha, points=this.active;
     for (let i=0;i<points.length;i++) for (let j=i+1;j<points.length;j++) {
       const a=points[i], b=points[j];let dx=b.x-a.x,dy=b.y-a.y;
       if (Math.abs(dx)+Math.abs(dy)<.001) { dx=.1;dy=.1; }

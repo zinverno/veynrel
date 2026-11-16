@@ -1,0 +1,18 @@
+{
+  "previousHead": "3b48b3cd348ea87b0ced2124e7a7fb531f5ee64a",
+  "base": "45ff65e040b309b875be318f66fe2f8558b7bdfa",
+  "integrationSource": "99f7ae128c7b71dab6e76f6112bf0621d40bada4",
+  "parents": [
+    "3b48b3cd348ea87b0ced2124e7a7fb531f5ee64a",
+    "45ff65e040b309b875be318f66fe2f8558b7bdfa"
+  ],
+  "textConflicts": [],
+  "manuallyReviewedOverlaps": [
+    "docs/native-testing.md",
+    "docs/roadmap/vault-assistant-plan.md"
+  ],
+  "oldEvidenceFilesBytePreserved": 372,
+  "oldEvidenceManifestSha256": "1502c7171c96f86d04346d3c0cc7e5d082d3e450cc094f24a920951f718c0a6f",
+  "unchangedRuntime": true,
+  "versionAssertionsUnchanged": "Only the test description changed in #149; metadata pin, version hook, hook test and CI workflow bytes remain unchanged."
+}

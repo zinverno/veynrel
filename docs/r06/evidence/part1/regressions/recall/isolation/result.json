@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/recall-topics-native.mjs",
+    "/tmp/veynrel-recall-native-r06-regression"
+  ],
+  "timeoutSeconds": 300,
+  "startedAt": 1794793238.4803014,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    39643,
+    40563
+  ],
+  "cdpClosed": true,
+  "seconds": 26.498
+}

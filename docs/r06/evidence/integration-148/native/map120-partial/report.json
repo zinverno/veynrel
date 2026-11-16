@@ -1,0 +1,180 @@
+{
+  "scenario": "R06.1-map-foundation",
+  "baseline": false,
+  "warmCache": false,
+  "count": 120,
+  "indexed": 60,
+  "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Exact file search works without recomputation",
+    "Pair Inspector does not call a model or write",
+    "Pair back keeps exact camera, selection and coordinates",
+    "Map back/reopen retains owner/camera/selection",
+    "Topology refresh never changes semantic coordinates",
+    "Map honors the shared exclusion policy",
+    "List and map capture identical exclusion counts",
+    "en/light 390px has no horizontal overflow",
+    "en/dark 390px has no horizontal overflow",
+    "ru/light 390px has no horizontal overflow",
+    "ru/dark 390px has no horizontal overflow",
+    "Real split uses the main ownerDocument",
+    "Real Native-frame popout receives focus",
+    "Focus returns to main",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "list-search.png",
+    "pair.png",
+    "pair-inspector.png",
+    "map-en-light-390.png",
+    "map-en-dark-390.png",
+    "map-ru-light-390.png",
+    "map-ru-dark-390.png",
+    "split.png",
+    "popout.png"
+  ],
+  "assets": {
+    "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+    "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 139,
+    "seconds": 5.670108079910278,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 1210.789848,
+    "refreshWallMs": 485.4498990000002,
+    "loaded": {
+      "notes": 120,
+      "semantic": "ready",
+      "indexed": 60,
+      "mapped": 60,
+      "displayedNodes": 120,
+      "displayGroups": 0,
+      "dom": 676,
+      "svg": 504,
+      "layoutCount": 2,
+      "layoutMs": 1.800000011920929,
+      "displayGroupingMs": 0,
+      "semanticMs": 86.5,
+      "physicsMs": 16.400000005960464,
+      "ticks": 115,
+      "frames": {
+        "frames": 50,
+        "renderMs": 333.69999998807907,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 53.20000000298023,
+        "derivationMs": 111.20000000298023
+      },
+      "heap": 39752985
+    },
+    "fourLayerTogglesMs": 389.9003469999998,
+    "interactionFrameIntervals": [
+      16.700000000000273,
+      33.29999999999927,
+      33.30000000000018,
+      16.699999999999818,
+      16.700000000000728,
+      33.29999999999927,
+      16.600000000000364,
+      16.699999999999818,
+      16.699999999999818,
+      33.400000000000546,
+      16.599999999999454,
+      16.600000000000364,
+      16.699999999999818,
+      16.699999999999818,
+      33.400000000000546,
+      33.19999999999982,
+      16.699999999999818
+    ],
+    "searchMs": 16.834098999999696,
+    "final": {
+      "notes": 120,
+      "semantic": "stale",
+      "reason": "changed",
+      "indexed": 60,
+      "mapped": 60,
+      "displayedNodes": 25,
+      "displayGroups": 0,
+      "dom": 292,
+      "svg": 184,
+      "layoutCount": 3,
+      "layoutMs": 0.9000000059604645,
+      "displayGroupingMs": 0,
+      "semanticMs": 52.70000000298023,
+      "physicsMs": 2.5999999940395355,
+      "ticks": 115,
+      "frames": {
+        "frames": 147,
+        "renderMs": 667.5999999791384,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 3.5,
+        "derivationMs": 20.600000008940697
+      },
+      "heap": 55905396
+    }
+  },
+  "observations": {
+    "hiddenTicks": 0,
+    "contextRetained": true,
+    "topologyChangedCoordinates": false,
+    "topologyLayouts": 0,
+    "graphicalRules": true
+  },
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 132,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "6c07fd6dfae2e0e2e05707161745df5bfa561fc83d0e523e2fa1e241b9c7b5c6",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "markdownManifestSha256": "485eacb3d3784789d02abc3ba053ac6e63d55c4e23b1bca84cb60f7ac7de48da",
+  "status": "PASS"
+}

@@ -1,0 +1,1887 @@
+{
+  "checks": [
+    "Opening Studio and Community tab is passive",
+    "Explicit online catalog loads eight real entries",
+    "Client search finds Russian tags",
+    "Category filter selects two work recipes",
+    "Verified card shows full prompt, constraints, examples, source and SHA-256",
+    "Install is local user recipe, no notes/model/writes",
+    "Installed recipe and origin survive a real process restart",
+    "Same version is Installed; repeat install does not add duplicates",
+    "Prepared exact request awaits explicit consent",
+    "Installed Community recipe runs via existing Runner and immutable Review"
+  ],
+  "artifacts": {
+    "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+    "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "screenshots": [
+    "inspect-en-dark.png",
+    "community-review.png",
+    "apply-pointer.png"
+  ],
+  "fixture": "Isolated synthetic vault; test HTTP catalog injected via CommunityTransport, actual RecipeRegistry/Runner/Review/Apply/Undo; no personal notes or provider keys.",
+  "beforeApply": [],
+  "exceptions": [],
+  "limits": "Linux desktop, built-in themes. Synthetic responses verify transport and workflow, not model quality. No paid/live provider, personal vault, physical mobile, screen reader or external cross-process races.",
+  "lastPointer": {
+    "action": "review-apply",
+    "point": {
+      "x": 431.0703125,
+      "y": 438.53125
+    },
+    "hit": "<button type=\"button\" data-studio-action=\"review-apply\" data-studio-key=\"review-apply:\" class=\"mod-cta\">Change sources: 1</button>"
+  },
+  "lastApplySelection": [
+    {
+      "route": "workflow",
+      "selected": [
+        "Formatting.md"
+      ],
+      "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+      "dialogs": 0
+    }
+  ],
+  "pointer": {
+    "before": {
+      "state": "review",
+      "canApply": true,
+      "busy": false,
+      "activeLeaf": "7c3844f027bd1eea",
+      "focus": {
+        "id": 1,
+        "tag": "BODY",
+        "connected": true,
+        "ownerDocument": true,
+        "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 800
+        }
+      },
+      "documentFocus": true,
+      "views": [
+        {
+          "id": "7c3844f027bd1eea",
+          "route": "workflow",
+          "alive": true,
+          "selected": [
+            "Formatting.md"
+          ],
+          "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+          "error": "",
+          "dialogs": []
+        }
+      ],
+      "modalCount": 0,
+      "io": {
+        "reads": [
+          "Formatting.md",
+          "Formatting.md"
+        ],
+        "writes": [],
+        "browserRequests": 0
+      }
+    },
+    "after": {
+      "state": "review",
+      "canApply": true,
+      "busy": false,
+      "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+      "activeLeaf": "7c3844f027bd1eea",
+      "focus": {
+        "id": 1,
+        "tag": "BODY",
+        "connected": true,
+        "ownerDocument": true,
+        "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 800
+        }
+      },
+      "documentFocus": true,
+      "views": [
+        {
+          "id": "7c3844f027bd1eea",
+          "route": "workflow",
+          "alive": true,
+          "selected": [
+            "Formatting.md"
+          ],
+          "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+          "error": "",
+          "dialogs": [
+            {
+              "active": true,
+              "modalConnected": true,
+              "contentConnected": true,
+              "sameDocument": true,
+              "owner": {
+                "url": "app://obsidian.md/index.html",
+                "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+                "closed": false,
+                "focus": true,
+                "frameElement": false,
+                "width": 1024,
+                "height": 800,
+                "confirmPresent": true,
+                "modalCount": 1
+              }
+            }
+          ]
+        }
+      ],
+      "modalCount": 1,
+      "io": {
+        "reads": [
+          "Formatting.md",
+          "Formatting.md",
+          "Formatting.md"
+        ],
+        "writes": [],
+        "browserRequests": 0
+      }
+    },
+    "events": [
+      {
+        "t": 1891.7000000029802,
+        "phase": "pointer",
+        "kind": "installed",
+        "button": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 1,
+            "tag": "BODY",
+            "connected": true,
+            "ownerDocument": true,
+            "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 800
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2226,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "pointerdown",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "x": 431.0703125,
+        "y": 438.53125,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2226.1000000089407,
+        "phase": "pointer",
+        "kind": "button-event",
+        "name": "pointerdown",
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2226.1000000089407,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "pointerdown",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "x": 431.0703125,
+        "y": 438.53125,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2226.4000000059605,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "mousedown",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "x": 431,
+        "y": 438,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2226.4000000059605,
+        "phase": "pointer",
+        "kind": "button-event",
+        "name": "mousedown",
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2226.4000000059605,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "mousedown",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "x": 431,
+        "y": 438,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2226.5,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusin",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2226.5,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusin",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2228.2000000029802,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "pointerup",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "x": 431.0703125,
+        "y": 438.53125,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2228.2000000029802,
+        "phase": "pointer",
+        "kind": "button-event",
+        "name": "pointerup",
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2228.2999999970198,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "pointerup",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "x": 431.0703125,
+        "y": 438.53125,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2228.2999999970198,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "mouseup",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "x": 431,
+        "y": 438,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2228.2999999970198,
+        "phase": "pointer",
+        "kind": "button-event",
+        "name": "mouseup",
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2228.4000000059605,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "mouseup",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "x": 431,
+        "y": 438,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2228.5,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "click",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "x": 431,
+        "y": 438,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2287.1000000089407,
+        "phase": "pointer",
+        "kind": "actual-button-handler",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 2,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2349.4000000059605,
+        "phase": "pointer",
+        "kind": "StudioView.run",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 2,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2412,
+        "phase": "pointer",
+        "kind": "runner.reviewWrite",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 2,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2416.4000000059605,
+        "phase": "pointer",
+        "kind": "button-event",
+        "name": "click",
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2416.6000000089407,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "click",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "x": 431,
+        "y": 438,
+        "hit": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        }
+      },
+      {
+        "t": 2480.9000000059605,
+        "phase": "pointer",
+        "kind": "StudioView.render",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 2,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2485.4000000059605,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusout",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2485.4000000059605,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusout",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2490.5,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusin",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2490.6000000089407,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusin",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 519.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2491.6000000089407,
+        "phase": "pointer",
+        "kind": "dom-change",
+        "button": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": false,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "current": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 3,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2550.6000000089407,
+        "phase": "pointer",
+        "kind": "StudioView.writeDialog",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 3,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2614.7999999970198,
+        "phase": "pointer",
+        "kind": "StudioView.dialog",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 3,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": []
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2618.7999999970198,
+        "phase": "pointer",
+        "kind": "Modal.open call site",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 3,
+            "tag": "BUTTON",
+            "action": "review-apply",
+            "connected": true,
+            "disabled": false,
+            "ownerDocument": true,
+            "text": "Change sources: 1",
+            "rect": {
+              "x": 356,
+              "y": 420.53125,
+              "width": 150.140625,
+              "height": 36
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": [
+                {
+                  "active": false,
+                  "modalConnected": false,
+                  "contentConnected": false,
+                  "sameDocument": true,
+                  "owner": {
+                    "url": "app://obsidian.md/index.html",
+                    "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+                    "closed": false,
+                    "focus": true,
+                    "frameElement": false,
+                    "width": 1024,
+                    "height": 800,
+                    "confirmPresent": false,
+                    "modalCount": 0
+                  }
+                }
+              ]
+            }
+          ],
+          "modalCount": 0,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2619.1000000089407,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusout",
+        "capture": true,
+        "trusted": true,
+        "target": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2619.1000000089407,
+        "phase": "pointer",
+        "kind": "event",
+        "name": "focusout",
+        "capture": false,
+        "trusted": true,
+        "target": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "active": {
+          "id": 1,
+          "tag": "BODY",
+          "connected": true,
+          "ownerDocument": true,
+          "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 800
+          }
+        },
+        "hit": null
+      },
+      {
+        "t": 2679.4000000059605,
+        "phase": "pointer",
+        "kind": "StudioDialog.onOpen",
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 1,
+            "tag": "BODY",
+            "connected": true,
+            "ownerDocument": true,
+            "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 800
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": [
+                {
+                  "active": false,
+                  "modalConnected": true,
+                  "contentConnected": true,
+                  "sameDocument": true,
+                  "owner": {
+                    "url": "app://obsidian.md/index.html",
+                    "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+                    "closed": false,
+                    "focus": true,
+                    "frameElement": false,
+                    "width": 1024,
+                    "height": 800,
+                    "confirmPresent": false,
+                    "modalCount": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "modalCount": 1,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      },
+      {
+        "t": 2685.7000000029802,
+        "phase": "pointer",
+        "kind": "dom-change",
+        "button": {
+          "id": 2,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": false,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "current": {
+          "id": 3,
+          "tag": "BUTTON",
+          "action": "review-apply",
+          "connected": true,
+          "disabled": false,
+          "ownerDocument": true,
+          "text": "Change sources: 1",
+          "rect": {
+            "x": 356,
+            "y": 420.53125,
+            "width": 150.140625,
+            "height": 36
+          }
+        },
+        "state": {
+          "state": "review",
+          "canApply": true,
+          "busy": false,
+          "writePlan": "99037355-7af9-42b3-b77b-928f8edf125a",
+          "activeLeaf": "7c3844f027bd1eea",
+          "focus": {
+            "id": 1,
+            "tag": "BODY",
+            "connected": true,
+            "ownerDocument": true,
+            "text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvaultThe sidebar is empty, try dragging a tab here.FilesSearchBookmarksBatchFormatt",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 800
+            }
+          },
+          "documentFocus": true,
+          "views": [
+            {
+              "id": "7c3844f027bd1eea",
+              "route": "workflow",
+              "alive": true,
+              "selected": [
+                "Formatting.md"
+              ],
+              "review": "6898d9f7-d7ad-45d8-8f05-270b3dad248f",
+              "error": "",
+              "dialogs": [
+                {
+                  "active": true,
+                  "modalConnected": true,
+                  "contentConnected": true,
+                  "sameDocument": true,
+                  "owner": {
+                    "url": "app://obsidian.md/index.html",
+                    "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+                    "closed": false,
+                    "focus": true,
+                    "frameElement": false,
+                    "width": 1024,
+                    "height": 800,
+                    "confirmPresent": true,
+                    "modalCount": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "modalCount": 1,
+          "io": {
+            "reads": [
+              "Formatting.md",
+              "Formatting.md",
+              "Formatting.md"
+            ],
+            "writes": [],
+            "browserRequests": 0
+          }
+        }
+      }
+    ],
+    "confirmation": true,
+    "outcome": "PASS"
+  },
+  "targets": [
+    {
+      "id": "9E99941381B5B32DD745DF2203AF7BD8",
+      "type": "worker",
+      "url": "",
+      "title": "",
+      "attached": false
+    },
+    {
+      "id": "86BA572AF55736A35369011A53AD54C9",
+      "type": "worker",
+      "url": "",
+      "title": "",
+      "attached": false
+    },
+    {
+      "id": "D0E1A153EBE131E563EBCB3198FC0A9D",
+      "type": "page",
+      "url": "about:blank",
+      "title": "Settings - vault - Obsidian 1.13.7",
+      "attached": false
+    },
+    {
+      "id": "F92C597850416B6F8284D9F8F162B700",
+      "type": "page",
+      "url": "app://obsidian.md/index.html",
+      "title": "Veynrel Studio - vault - Obsidian 1.13.7",
+      "attached": true
+    }
+  ],
+  "dialogOwners": [
+    {
+      "active": true,
+      "containerConnected": true,
+      "modalConnected": true,
+      "contentConnected": true,
+      "sameDocument": true,
+      "url": "app://obsidian.md/index.html",
+      "closed": false,
+      "confirmPresent": true,
+      "frameKeys": [],
+      "windowKeys": [
+        "window",
+        "closed",
+        "frames",
+        "frameElement",
+        "onclose",
+        "onpopstate",
+        "cancelAnimationFrame",
+        "close",
+        "requestAnimationFrame",
+        "webkitCancelAnimationFrame",
+        "webkitRequestAnimationFrame",
+        "nextFrame",
+        "activeWindow",
+        "electronWindow"
+      ]
+    }
+  ],
+  "before": {
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "after": {
+    "Formatting.md": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+    "Training.md": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+    "Nutrition.md": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+    "Batch/a/same.md": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+    "Batch/b/same.md": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+    "Untouched.md": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb"
+  },
+  "providerRequests": 1,
+  "catalogRequests": [
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/recipes/lecture-outline/1.0.0.json",
+      "method": "GET",
+      "body": ""
+    },
+    {
+      "url": "/index.json",
+      "method": "GET",
+      "body": ""
+    }
+  ],
+  "version": {
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "obsidian": "1.13.7"
+  },
+  "status": "DIAGNOSTIC"
+}

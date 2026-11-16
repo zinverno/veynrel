@@ -1,0 +1,549 @@
+{
+  "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+  "classification": "unpublished R06.1 development code; displayed manifest version is not a release identity",
+  "runs": [
+    {
+      "label": "smoke",
+      "suite": "smoke",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "smoke",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-smoke-native-r06-integrated-smoke"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-smoke-native-r06-integrated-smoke",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/smoke",
+      "seconds": 9.331918954849243,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/smoke/report.json",
+      "status": "PASS",
+      "checks": 21,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/native/smoke.mjs",
+          "/tmp/veynrel-smoke-native-r06-integrated-smoke"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799603.569232,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          37337
+        ],
+        "cdpClosed": true,
+        "seconds": 9.236
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "map120",
+      "suite": "map",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "map",
+        "120",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-map-native-r06-integrated-map120"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-map-native-r06-integrated-map120",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/map120",
+      "seconds": 11.501524448394775,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/map120/report.json",
+      "status": "PASS",
+      "checks": 23,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+          "/tmp/veynrel-map-native-r06-integrated-map120",
+          "120"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799613.0428834,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          45215
+        ],
+        "cdpClosed": true,
+        "seconds": 11.342
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "map120-partial",
+      "suite": "map",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "map",
+        "120",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-map-native-r06-integrated-map120-partial"
+      ],
+      "environmentOverrides": {
+        "R06_INDEX_COUNT": "60"
+      },
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-map-native-r06-integrated-map120-partial",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/map120-partial",
+      "seconds": 13.372575759887695,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/map120-partial/report.json",
+      "status": "PASS",
+      "checks": 23,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+          "/tmp/veynrel-map-native-r06-integrated-map120-partial",
+          "120"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799624.6228645,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          36355
+        ],
+        "cdpClosed": true,
+        "seconds": 13.074
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "map120-noindex",
+      "suite": "map",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "map",
+        "120",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-map-native-r06-integrated-map120-noindex"
+      ],
+      "environmentOverrides": {
+        "R06_INDEX_COUNT": "0"
+      },
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-map-native-r06-integrated-map120-noindex",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/map120-noindex",
+      "seconds": 10.314590215682983,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/map120-noindex/report.json",
+      "status": "PASS",
+      "checks": 21,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+          "/tmp/veynrel-map-native-r06-integrated-map120-noindex",
+          "120"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799638.0710595,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          40199
+        ],
+        "cdpClosed": true,
+        "seconds": 10.188
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "map1000",
+      "suite": "map",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "map",
+        "1000",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-map-native-r06-integrated-map1000"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-map-native-r06-integrated-map1000",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/map1000",
+      "seconds": 11.180726289749146,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/map1000/report.json",
+      "status": "PASS",
+      "checks": 12,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+          "/tmp/veynrel-map-native-r06-integrated-map1000",
+          "1000"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799648.4637156,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          40405
+        ],
+        "cdpClosed": true,
+        "seconds": 11.042
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "actions",
+      "suite": "actions",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "actions",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-actions-native-r06-integrated-actions"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-actions-native-r06-integrated-actions",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/actions",
+      "seconds": 22.885716676712036,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/actions/report.json",
+      "status": "PASS",
+      "checks": 23,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r05-actions-native.mjs",
+          "/tmp/veynrel-actions-native-r06-integrated-actions"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799659.796444,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          40637
+        ],
+        "cdpClosed": true,
+        "seconds": 22.681
+      },
+      "modelRequests": [],
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "local-notes",
+      "suite": "local-notes",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "local-notes",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-local-notes-native-r06-integrated-local-notes"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-local-notes-native-r06-integrated-local-notes",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/local-notes",
+      "seconds": 33.80624222755432,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/local-notes/report.json",
+      "status": "PASS",
+      "checks": 67,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r05-2-local-notes-native.mjs",
+          "/tmp/veynrel-local-notes-native-r06-integrated-local-notes"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799682.8656676,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          35591,
+          36909
+        ],
+        "cdpClosed": true,
+        "seconds": 33.489
+      },
+      "modelRequests": [],
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "registry",
+      "suite": "registry",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "registry",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-registry-native-r06-integrated-registry"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-registry-native-r06-integrated-registry",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/registry",
+      "seconds": 36.56976580619812,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/registry/report.json",
+      "status": "PASS",
+      "checks": 32,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r05-3-registry-native.mjs",
+          "/tmp/veynrel-registry-native-r06-integrated-registry"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799716.8325944,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          35531,
+          32891
+        ],
+        "cdpClosed": true,
+        "seconds": 36.414
+      },
+      "modelRequests": [],
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "studio",
+      "suite": "studio",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "studio",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-studio-native-r06-integrated-studio"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-studio-native-r06-integrated-studio",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/studio",
+      "seconds": 170.0721971988678,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/studio/native-report.json",
+      "status": "PASS",
+      "checks": 66,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-source-preservation-native.mjs",
+          "/tmp/veynrel-studio-native-r06-integrated-studio"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799753.5287488,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          38541,
+          42935,
+          33863,
+          42397
+        ],
+        "cdpClosed": true,
+        "seconds": 169.664
+      },
+      "modelRequests": 0,
+      "syntheticProviderRequests": 12,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "recall",
+      "suite": "recall",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "recall",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-recall-native-r06-integrated-recall"
+      ],
+      "environmentOverrides": {},
+      "exit": 0,
+      "originalRoot": "/tmp/veynrel-recall-native-r06-integrated-recall",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/recall",
+      "seconds": 29.928895235061646,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/recall/report.json",
+      "status": "PASS",
+      "checks": 45,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/recall-topics-native.mjs",
+          "/tmp/veynrel-recall-native-r06-integrated-recall"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799923.7457013,
+        "exitCode": 0,
+        "processGroupClean": true,
+        "cdpPorts": [
+          44023,
+          42887
+        ],
+        "cdpClosed": true,
+        "seconds": 29.677
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": 8,
+      "observedExternalRequests": []
+    },
+    {
+      "label": "community",
+      "suite": "community",
+      "command": [
+        "python",
+        "scripts/native/run.py",
+        "community",
+        "/tmp/veynrel-native-catalog-20261115",
+        "--timeout",
+        "300",
+        "--output",
+        "/tmp/veynrel-community-native-r06-integrated-community"
+      ],
+      "environmentOverrides": {},
+      "exit": 1,
+      "originalRoot": "/tmp/veynrel-community-native-r06-integrated-community",
+      "archive": "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r06-integration-native-20261116/community",
+      "seconds": 22.870044946670532,
+      "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+      "receipt": "native/community/report.json",
+      "status": "FAIL",
+      "checks": 10,
+      "exceptions": 0,
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      },
+      "isolation": {
+        "command": [
+          "node",
+          "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/studio-community-native.mjs",
+          "/tmp/veynrel-community-native-r06-integrated-community",
+          "/tmp/veynrel-native-catalog-20261115"
+        ],
+        "timeoutSeconds": 300,
+        "startedAt": 1794799953.8344512,
+        "exitCode": 1,
+        "processGroupClean": true,
+        "cdpPorts": [
+          34647,
+          41105
+        ],
+        "cdpClosed": true,
+        "seconds": 22.67
+      },
+      "modelRequests": null,
+      "syntheticProviderRequests": null,
+      "observedExternalRequests": []
+    }
+  ],
+  "distinctPorts": 18,
+  "portCount": 18,
+  "allProcessGroupsClean": true,
+  "allCdpClosed": true,
+  "allPrivateXvfb": true
+}

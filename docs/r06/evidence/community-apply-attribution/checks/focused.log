@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run studio/workflow.test.ts studio/community/community.test.ts studio/community/transport.test.ts --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116
+
+
+ Test Files  3 passed (3)
+      Tests  142 passed (142)
+   Start at  06:56:09
+   Duration  1.71s (transform 1.51s, setup 0ms, import 1.78s, tests 452ms, environment 0ms)
+

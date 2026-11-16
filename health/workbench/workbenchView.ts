@@ -2,7 +2,7 @@ import { t, currentLanguage } from "../../i18n";
 import type { Finding } from "../domain/finding";
 import { healthButton, healthDetails } from "../ui/renderHealthHome";
 import type { WorkbenchData, PairReviewPort } from "./workbenchData";
-import { linkFact, pairId, reconcileWorkbenchSelection, workbenchModel } from "./workbenchModel";
+import { linkFact, pairId, reconcileWorkbenchSelection, workbenchModel, workbenchGeometryKey } from "./workbenchModel";
 import { WorkbenchSimulation } from "./workbenchSimulation";
 import type { MapPoint, WorkbenchPair } from "./workbenchModel";
 import { focusWorkbench, newWorkbenchGraphState, overviewWorkbench, renderWorkbenchGraph } from "./workbenchGraph";
@@ -26,6 +26,9 @@ export class WorkbenchView {
   private remove: () => void;
   private removeMigration: () => void;
   private disposed = false;
+  private suspended = false;
+  private closeRules?: () => void;
+  private pendingRender?: { win: Window; id: number };
   private generation = 0;
   private mode: "repeats" | "connections" | "notes" = "repeats";
   private query = "";
@@ -49,6 +52,7 @@ export class WorkbenchView {
   private representationKey = "";
   private layoutCount = 0;
   private layoutMilliseconds = 0;
+  private representationMilliseconds = 0;
   private listScroll = 0;
   private pageScroll = 0;
   private language = currentLanguage();
@@ -59,17 +63,30 @@ export class WorkbenchView {
     this.element=parent.createDiv({cls:"veynrel-workbench"});
     this.browser=this.element.createDiv({cls:"veynrel-workbench-browser"});this.review=this.element.createDiv({cls:"veynrel-workbench-review"});this.review.hidden=true;
     this.element.addEventListener("keydown",this.escape);
-    this.removeMigration=this.element.onWindowMigrated(()=>this.render());
-    this.remove=data.subscribe(()=>this.render());this.render();
+    this.removeMigration=this.element.onWindowMigrated(()=>{this.cancelRender();this.render();});
+    this.remove=data.subscribe(()=>this.requestRender());this.render();
+  }
+  private cancelRender(): void {
+    if(this.pendingRender)this.pendingRender.win.cancelAnimationFrame(this.pendingRender.id);
+    this.pendingRender=undefined;
+  }
+  private requestRender(): void {
+    if(this.disposed||this.suspended||this.pendingRender)return;
+    const win=this.element.ownerDocument.defaultView;
+    if(!win)return;
+    // Metadata arrives per file; rebuilding the whole graph per event stalls cold large vaults.
+    this.pendingRender={win,id:win.requestAnimationFrame(()=>{this.pendingRender=undefined;this.render();})};
   }
   update(findings: readonly Finding[]): void {
     if(this.disposed)return;
-    this.syncLayout(true);
     this.findings=findings;
     if(this.language!==currentLanguage()){this.language=currentLanguage();this.suspend();}
-    this.render();
+    this.suspended=false; this.syncLayout(true); this.render();
   }
   suspend(): void {
+    this.cancelRender();
+    this.element.closest(".veynrel-shell")?.classList.remove("is-map-expanded");
+    this.suspended=true; this.closeRules?.(); this.closeRules=undefined;
     this.syncLayout(false);
     this.generation++;this.stopGraph?.();this.stopGraph=undefined;
     this.stopReview?.();this.stopReview=undefined;this.review.empty();this.review.hidden=true;this.browser.hidden=false;
@@ -99,7 +116,8 @@ export class WorkbenchView {
     event.preventDefault();event.stopPropagation();this.render();this.browser.querySelector<SVGSVGElement>("svg[tabindex]")?.focus();
   };
   private render(): void {
-    if(this.disposed||this.stopReview)return;
+    if(this.disposed||this.suspended||this.stopReview)return;
+    this.cancelRender();
     this.syncLayout(true);
     const generation=++this.generation,current=():boolean=>!this.disposed&&generation===this.generation;
     const active=this.element.ownerDocument.activeElement as HTMLInputElement|null;
@@ -114,16 +132,17 @@ export class WorkbenchView {
     const model=workbenchModel(this.data,this.findings.filter(finding=>finding.state==="open"));
     const paths=new Set(model.nodes.map(node=>node.path));
     this.selected=reconcileWorkbenchSelection(model,this.selected);if(this.note&&!paths.has(this.note))this.note=undefined;
-    const geometryKey=JSON.stringify([model.nodes.map(node=>node.path),model.edges,model.linksCurrent,model.semanticCurrent]);
+    const geometryKey=workbenchGeometryKey(model);
     if(geometryKey!==this.geometryKey){
-      this.geometryKey=geometryKey;const started=performance.now();this.simulation.update(model.nodes,model.edges.filter(edge=>edge.kind==="link"?model.linksCurrent:model.semanticCurrent));this.points=this.simulation.points;
+      this.geometryKey=geometryKey;this.graph.fitted=false;const started=performance.now(),paused=this.simulation.paused;this.simulation=new WorkbenchSimulation();this.simulation.paused=paused;this.simulation.update(model.nodes,model.edges);this.points=this.simulation.points;
       this.layoutMilliseconds=performance.now()-started;this.layoutCount++;
     }
     const representationKey=JSON.stringify([geometryKey,this.groupPaths]);
     if(representationKey!==this.representationKey){
-      this.representationKey=representationKey;this.items=mapItems(this.groupPaths?this.points.filter(point=>this.groupPaths!.includes(point.path)):this.points);
+      const started=performance.now();this.representationKey=representationKey;this.items=mapItems(this.groupPaths?this.points.filter(point=>this.groupPaths!.includes(point.path)):this.points);this.representationMilliseconds=performance.now()-started;
     }
-    const metadata=this.data.dependencies.tags?.getSnapshot(),zones=tagZones(metadata);
+    const semantic=this.data.semantic?.getSnapshot();
+    const metadata=semantic?.state==="idle"&&!this.data.busy?undefined:this.data.dependencies.tags?.getSnapshot(),zones=tagZones(metadata);
     if(!this.zonesInitialized&&zones.length){this.zones.active=initialZones(zones);this.zonesInitialized=true;}
     const selectedPaths:readonly string[]=this.selected?.paths??(this.note?[this.note]:[]);
     const heading=this.browser.createDiv({cls:"veynrel-workbench-heading"});
@@ -136,12 +155,16 @@ export class WorkbenchView {
     button(toolbar,t(this.showList?"@mapnav.hide-list":"@mapnav.show-list"),()=>{this.showList=!this.showList;this.render();},"workbench-map-toggle").setAttribute("aria-pressed",String(this.showList));
     renderZoneControls(toolbar,zones,this.zones,current,()=>this.render());
     button(toolbar,t("@mapnav.load"),()=>{void this.data.refresh();},"workbench-refresh",this.data.busy);
+    if(this.data.dependencies.editRules)button(toolbar,t("@rules.title"),()=>{this.closeRules=this.data.dependencies.editRules!();},"workbench-rules");
     if(selectedPaths.length)button(toolbar,t("@mapnav.selection"),()=>{this.showDetail=!this.showDetail;this.render();},"workbench-selection-toggle");
     const status=this.browser.createDiv({cls:"veynrel-workbench-status",attr:{role:"status","aria-live":"polite"}});
-    const semantic=this.data.semantic?.getSnapshot();
     status.createSpan({text:semantic?.state==="ready"?t("@mapnav.ready",{count:semantic.mappedNoteCount??semantic.map?.nodes.length??0,total:model.nodes.length}):t(`@workbench.map-state.${semantic?.state??"idle"}`)});
     if(semantic?.reason==="too-large")status.createSpan({text:t("@workbench.cap",{count:semantic.mappedNoteCount??0,cap:semantic.supportedNoteCount})});
     if(metadata){const unknown=metadata.notes.filter(note=>note.state!=="known").length;if(unknown)status.createSpan({text:t("@mapnav.tags-unknown",{count:unknown})});}
+    if(this.data.dependencies.rules?.state==="error")status.createSpan({text:t("@rules.loadError")});
+    if(semantic?.selection){const s=semantic.selection;status.createSpan({text:t("@rules.coverage",{eligible:s.eligibleNoteCount,excluded:s.excludedNoteCount,pairs:s.excludedPairCount,unknown:s.unknownNoteCount,pending:s.unknownPairCount}),attr:{"data-rules-coverage":""}});}
+    const unmapped=model.nodes.filter(node=>!node.semantic).length;
+    if(unmapped)status.createSpan({text:t("@r06.unmapped",{count:unmapped})});
     if(!model.linksCurrent)status.createSpan({text:t("@mapnav.links-stale")});
     const context=this.browser.createDiv({cls:"veynrel-map-context"});
     if(this.graph.focus){
@@ -163,7 +186,7 @@ export class WorkbenchView {
     const visibleItems=this.items.filter(item=>(item.members??[item.path]).some(path=>visiblePaths.has(path))).map(item=>item.members?{...item,members:item.members.filter(path=>visiblePaths.has(path))}:item);
     this.stopGraph=renderWorkbenchGraph(map,model,selectedPaths,this.graph,{items:visibleItems,simulation:this.simulation,query:this.query,zones,activeZones:this.zones.active,zone:this.zones.selected,
       selectZone:tag=>{if(current()){this.zones.selected=tag;this.render();}},group:members=>{if(current()){
-        overviewWorkbench(this.graph);this.groupCamera={...this.graph.viewport};this.groupPaths=members;this.graph.viewport={x:0,y:0,zoom:1};this.render();
+        overviewWorkbench(this.graph);this.groupCamera={...this.graph.viewport};this.groupPaths=members;this.graph.viewport={x:0,y:0,zoom:1};this.graph.fitted=false;this.render();
       }}},path=>{if(current())this.selectNote(path);},()=>{if(current())this.render();});
     if(this.zones.selected){
       const zone=zones.find(zone=>zone.tag===this.zones.selected);
@@ -178,7 +201,7 @@ export class WorkbenchView {
       const pairs=(this.mode==="connections"?model.connections:model.repeats).filter(pair=>pair.paths.every(path=>matchesTagFilter(path,zones,this.zones.filter,this.zones.mode))&&pair.paths.some(path=>included(path)));
       const notes=model.nodes.filter(node=>included(node.path)),total=this.mode==="notes"?notes.length:pairs.length;
       listPane.createEl("h2",{text:`${t(`@workbench.${this.mode}`)} · ${total}`});
-      if(this.mode!=="notes")listPane.createEl("small",{text:t(`@workbench.state.${this.data.duplicateState}`)});
+      if(this.mode!=="notes")listPane.createEl("small",{text:t(`@workbench.state.${this.mode==="connections"?(this.data.connectionError?"error":this.data.comparison?.getSnapshot().state??"idle"):this.data.duplicateState}`)});
       const list=listPane.createEl("ul",{cls:"veynrel-workbench-list",attr:{"aria-label":t(`@workbench.${this.mode}`)}});
       if(this.mode==="notes")for(const node of notes.slice(0,this.limit)){
         const row=list.createEl("li"),control=button(row,node.path,()=>this.selectNote(node.path),`workbench-note-${encodeURIComponent(node.path)}`);
@@ -265,7 +288,7 @@ export class WorkbenchView {
     this.browser.hidden=true;this.review.hidden=false;this.review.empty();const generation=++this.generation;
     const back=healthButton(this.review,t("@workbench.back"),()=>{
       if(!this.stopReview||generation!==this.generation)return;
-      this.suspend();this.render();this.scrollOwner.scrollTop=this.pageScroll;
+      this.suspend();this.suspended=false;this.render();this.scrollOwner.scrollTop=this.pageScroll;
       this.browser.querySelector<HTMLElement>('[data-health-action="workbench-compare"]')?.focus({preventScroll:true});
     },"workbench-back");
     const content=this.review.createDiv();this.stopReview=this.pair.mount(content,this.selected.paths);back.focus();this.scrollOwner.scrollTop=0;

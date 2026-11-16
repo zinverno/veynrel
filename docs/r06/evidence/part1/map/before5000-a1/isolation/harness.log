@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/native/run.py", line 194, in <module>
+    sys.exit(worker(sys.argv[2]))
+             ~~~~~~^^^^^^^^^^^^^
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/native/run.py", line 65, in worker
+    assert wm.poll() is None, 'Openbox exited before readiness'
+           ^^^^^^^^^^^^^^^^^
+AssertionError: Openbox exited before readiness

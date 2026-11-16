@@ -9,6 +9,7 @@ const dom = vi.hoisted(() => {
     children: Element[] = []; text = ""; tag = "div"; attrs: Record<string, string> = {}; cls = "";
     value = ""; disabled = false; checked = false; open = false; parentElement?: Element; ownerDocument = document;
     listeners = new Map<string, () => void>();
+    appendChild(el: Element) { el.parentElement = this; this.children.push(el); return el; }
     empty() { this.children = []; this.text = ""; }
     addClass(...names: string[]) { this.cls += ` ${names.join(" ")}`; }
     setText(text: string) { this.text = text; }
@@ -85,7 +86,7 @@ function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairRe
     createSemantic: forbidden, createComparison: forbidden,
   }, false);
   const close = vi.fn(), mount = vi.fn((_container: HTMLElement, _paths: readonly [string, string], _completed?: (decision: ReviewDecision) => void) => close), history = vi.fn();
-  const map = vi.fn(() => ({ update: vi.fn(), dispose: vi.fn() }));
+  const map = vi.fn(() => ({ update: vi.fn(), suspend: vi.fn(), dispose: vi.fn() }));
   const view = new ReviewListView(root as unknown as HTMLElement, data, { mount, localFacts, decisions }, { map, history, settings: vi.fn() }, root as unknown as HTMLElement);
   view.update([finding]);
   const action = (key: string) => root.querySelector(`[data-health-action="${key}"]`)!;
@@ -108,10 +109,11 @@ describe("standalone review list", () => {
     f.view.update([finding]); f.action("review-history").click(); expect(f.history).toHaveBeenCalledOnce();
     await f.data.refresh("repeats"); expect(f.forbidden).not.toHaveBeenCalled(); expect(f.map).not.toHaveBeenCalled(); f.view.dispose();
   });
-  it("separates ItemViews and creates/disposes a map only after its explicit action", () => {
+  it("separates ItemViews and retains a suspended map until owner disposal", () => {
     const a = setup(), b = setup(); a.action("review-map").click(); expect(a.map).toHaveBeenCalledOnce(); expect(b.map).not.toHaveBeenCalled();
-    const graphical = a.map.mock.results[0].value as { dispose: ReturnType<typeof vi.fn> }; a.action("review-back").click(); expect(graphical.dispose).toHaveBeenCalledOnce();
-    expect(b.mount).not.toHaveBeenCalled(); a.view.dispose(); b.view.dispose();
+    const graphical = a.map.mock.results[0].value as { dispose: ReturnType<typeof vi.fn>; suspend: ReturnType<typeof vi.fn> }; a.action("review-back").click(); expect(graphical.suspend).toHaveBeenCalledOnce(); expect(graphical.dispose).not.toHaveBeenCalled();
+    a.action("review-map").click(); expect(a.map).toHaveBeenCalledOnce();
+    expect(b.mount).not.toHaveBeenCalled(); a.view.dispose(); b.view.dispose(); expect(graphical.dispose).toHaveBeenCalledOnce();
   });
   it("owns map layout only while mounted, including reparenting, return and disposal", () => {
     const f = setup(), element = f.root.children[0], replacement = new dom.Element();

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/r06-map-native.mjs",
+    "/tmp/veynrel-map-native-warm5000",
+    "5000",
+    "/tmp/veynrel-r06-delivery2"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794792816.9895825,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [
+    33083
+  ],
+  "cdpClosed": true,
+  "seconds": 17.41
+}

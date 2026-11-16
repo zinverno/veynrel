@@ -1,0 +1,27 @@
+from pathlib import Path
+import subprocess,os,json,shutil,time
+repo=Path('/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116')
+archive=repo.parent.parent/'.research-worktrees/r06-integration-native-20261116'
+archive.mkdir(parents=True,exist_ok=False)
+catalog=Path('/tmp/veynrel-native-catalog-20261115')
+assert (catalog/'catalog/v1/index.json').is_file()
+cases=[('smoke','smoke',[],{}),('map120','map',['120'],{}),('map120-partial','map',['120'],{'R06_INDEX_COUNT':'60'}),('map120-noindex','map',['120'],{'R06_INDEX_COUNT':'0'}),('map1000','map',['1000'],{}),('actions','actions',[],{}),('local-notes','local-notes',[],{}),('registry','registry',[],{}),('studio','studio',[],{}),('recall','recall',[],{}),('community','community',[str(catalog)],{})]
+results=[]
+for label,suite,extra,flags in cases:
+ prefix='veynrel-'+suite+'-native-' if suite!='local-notes' else 'veynrel-local-notes-native-'
+ root=Path('/tmp')/(prefix+'r06-integrated-'+label)
+ assert not root.exists()
+ if shutil.disk_usage('/tmp').free<300*1024*1024:raise RuntimeError('Insufficient scratch capacity; do not delete earlier evidence')
+ env=os.environ.copy()
+ for k in ['R06_BASELINE','R06_WARM_CACHE','R06_INDEX_COUNT','VEYNREL_R03_REVIEW_LABELS','COMMUNITY_PUBLIC','VEYNREL_NATIVE_EXCALIDRAW']:env.pop(k,None)
+ env.update(flags)
+ cmd=['python','scripts/native/run.py',suite,*extra,'--timeout','300','--output',str(root)]
+ start=time.time();r=subprocess.run(cmd,cwd=repo,env=env)
+ row={'label':label,'suite':suite,'command':cmd,'environmentOverrides':flags,'exit':r.returncode,'originalRoot':str(root),'archive':str(archive/label),'seconds':time.time()-start}
+ if root.exists():
+  isolation=json.loads((root/'isolation/result.json').read_text())
+  assert isolation['processGroupClean'] and isolation['cdpClosed'], 'Preserve root in place: cleanup gate failed'
+  shutil.move(str(root),str(archive/label))
+ results.append(row)
+ (archive/'runs.json').write_text(json.dumps(results,indent=2)+'\n')
+ print(json.dumps(row),flush=True)

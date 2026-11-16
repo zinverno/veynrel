@@ -6,9 +6,12 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
+import { traceCommunityApply } from './native/community-apply-trace.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const BUILD = process.env.VEYNREL_NATIVE_BUILD ?? ROOT;
+const traceApply = process.env.VEYNREL_COMMUNITY_APPLY_TRACE === '1';
+const diagnosticDone = Symbol('Apply boundary diagnostic complete');
 const root = process.argv[2];
 assertNativeRoot(root);
 assert(root?.startsWith('/tmp/veynrel-community-native-') && !root.includes('..') && !fs.existsSync(root));
@@ -110,6 +113,33 @@ async function sourceMode() {
   await ev("{const e=document.querySelector('[data-studio-destination]');e.value='source';e.dispatchEvent(new Event('change'));}void 0");
 }
 async function confirmSourceWrite() {
+  if (traceApply) {
+    const collect = await traceCommunityApply(cdp, ev);
+    assert(await ev("communityApplyTrace.button.isConnected&&!communityApplyTrace.button.disabled"));
+    await click('review-apply');
+    try { await wait("!studio.operations.busy&&(!!document.querySelector('.veynrel-studio-dialog')||!!app.workspace.getLeavesOfType('veynrel-studio').find(l=>l.view.route==='workflow')?.view.errorEl.textContent)"); }
+    catch (error) { report.pointerWaitError = String(error); }
+    report.pointer = await collect();
+    report.pointer.confirmation = await ev("!!document.querySelector('.veynrel-studio-dialog [data-studio-action=confirm-apply]')");
+    report.pointer.outcome = report.pointer.confirmation ? 'PASS' : 'FAIL';
+    report.targets = (await cdp('Target.getTargets')).targetInfos.map(t=>({id:t.targetId,type:t.type,url:t.url,title:t.title,attached:t.attached}));
+    report.dialogOwners = await ev("app.workspace.getLeavesOfType('veynrel-studio').flatMap(l=>[...l.view.dialogs].map(d=>({active:d.active,containerConnected:d.containerEl?.isConnected,modalConnected:d.modalEl.isConnected,contentConnected:d.contentEl.isConnected,sameDocument:d.contentEl.ownerDocument===document,url:d.contentEl.ownerDocument.URL,closed:d.contentEl.ownerDocument.defaultView?.closed,confirmPresent:!!d.contentEl.querySelector('[data-studio-action=confirm-apply]'),frameKeys:Object.keys(d.contentEl.ownerDocument.defaultView?.frameDom??{}),windowKeys:Object.keys(d.contentEl.ownerDocument.defaultView??{}).filter(k=>/win|pop|frame|close/i.test(k))})))");
+    await shot('apply-pointer');
+    if (!report.pointer.events.some(e => e.kind === 'actual-button-handler')) {
+      await ev("communityApplyTrace.phase='keyboard-control';document.querySelector('[data-studio-action=review-apply]').focus();void 0");
+      assert(await ev("document.activeElement===document.querySelector('[data-studio-action=review-apply]')"));
+      for (const type of ['keyDown','keyUp']) await cdp('Input.dispatchKeyEvent', {type,key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});
+      try { await wait("!studio.operations.busy&&(!!document.querySelector('.veynrel-studio-dialog')||!!app.workspace.getLeavesOfType('veynrel-studio').find(l=>l.view.route==='workflow')?.view.errorEl.textContent)"); }
+      catch (error) { report.keyboardWaitError = String(error); }
+      report.keyboardControl = await collect();
+      report.keyboardControl.confirmation = await ev("!!document.querySelector('.veynrel-studio-dialog [data-studio-action=confirm-apply]')");
+      await shot('apply-keyboard-control');
+    }
+    assert.deepEqual(hashes(),initialHashes); assert.equal(await ev('io.writes.length'),0);
+    report.before=initialHashes;report.after=hashes();report.providerRequests=requests.length;report.catalogRequests=catalogRequests;
+    report.version=await ev("({electron:process.versions.electron,chrome:process.versions.chrome,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");
+    throw diagnosticDone;
+  }
   await click('review-apply');
   await wait("!studio.operations.busy&&(!!document.querySelector('.veynrel-studio-dialog')||!!app.workspace.getLeavesOfType('veynrel-studio').find(l=>l.view.route==='workflow')?.view.errorEl.textContent)");
   if (!await ev("!!document.querySelector('.veynrel-studio-dialog')")) return;
@@ -224,5 +254,5 @@ try {
   const origins=fs.readdirSync(`${pluginDir}/studio/community-installs`).filter(n=>n.endsWith('.json'));fs.writeFileSync(`${pluginDir}/studio/community-installs/${origins[0]}`,'torn-origin');await restart();await open();await pass('Damaged origin storage blocks new installs without losing local Registry',`studio.installer.state==='damaged'&&studio.registry.state==='ready'&&studio.registry.list().some(r=>r.id==='${localId}')`);
   assert.deepEqual(hashes(),initialHashes);assert(catalogRequests.every(r=>r.method==='GET'&&r.body===''));checks.push('All original note hashes restored and catalog received no private content');
   report.version=await ev("({electron:process.versions.electron,obsidian:document.title.match(/Obsidian ([0-9.]+)/)?.[1]})");report.providerRequests=requests.length;report.catalogRequests=catalogRequests;report.before=initialHashes;report.after=hashes();report.status='PASS';
-}catch(error){report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;try{report.diagnostic=await ev("({io,text:document.body.innerText.slice(-3000),community:studio.community.state,origins:studio.installer.state})");await shot('failure');}catch{}}
+}catch(error){if(error===diagnosticDone){report.status='DIAGNOSTIC';}else{report.status='FAIL';report.error=String(error);console.error(error);process.exitCode=1;try{report.diagnostic=await ev("({io,text:document.body.innerText.slice(-3000),community:studio.community.state,origins:studio.installer.state})");await shot('failure');}catch{}}}
 finally{fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2)+'\n');socket?.close();if(child){const exited=new Promise(r=>child.once('exit',r));child.kill('SIGTERM');await Promise.race([exited,pause(3000)]);if(child.exitCode===null)child.kill('SIGKILL');}server.close();catalogServer.close();}

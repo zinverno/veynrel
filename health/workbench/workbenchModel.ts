@@ -72,3 +72,13 @@ export function edgeAttraction(edge: WorkbenchEdge): { length: number; strength:
   }
   return { length: 110, strength: .025 };
 }
+
+/** Topology freshness, link overlays and UI filters never own semantic coordinates. */
+export function workbenchGeometryKey(model: WorkbenchModel): string {
+  return JSON.stringify([
+    [...model.nodes].sort((a, b) => a.path.localeCompare(b.path)).map(node => [node.path, node.semantic]),
+    model.edges.filter(edge => edge.kind === "semantic").sort((a, b) =>
+      a.source.localeCompare(b.source) || a.target.localeCompare(b.target)).map(edge =>
+      [edge.source, edge.target, edge.score, edge.mutual, edge.revision]),
+  ]);
+}

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { WorkbenchSimulation } from "./workbenchSimulation";
 import { assignTagHues, haloSpots, paletteFor, tagColor } from "./workbenchPalette";
 import { overlaps, placeLabels } from "./workbenchLabels";
-const notes=(count:number)=>Array.from({length:count},(_,i)=>Object.freeze({path:`Area/${i}.md`,semantic:false,linksAvailable:true}));
+const notes=(count:number)=>Array.from({length:count},(_,i)=>Object.freeze({path:`Area/${i}.md`,semantic:true,linksAvailable:true}));
 describe("finite UI physics",()=>{
   it("cools, never mutates immutable inputs and does no further work after settling",()=>{
     const nodes=Object.freeze(notes(154)),edges=Object.freeze([{source:"Area/0.md",target:"Area/1.md",kind:"link" as const}]);
@@ -13,7 +13,7 @@ describe("finite UI physics",()=>{
   });
   it("retains unchanged paths on data update; duplicate basenames are different files",()=>{
     const sim=new WorkbenchSimulation();sim.update(notes(3),[]);sim.settle();const old=sim.points.find(p=>p.path==="Area/0.md")!;
-    const position={x:old.x,y:old.y};sim.update([...notes(2),{path:"Other/0.md",semantic:false,linksAvailable:true}],[]);
+    const position={x:old.x,y:old.y};sim.update([...notes(2),{path:"Other/0.md",semantic:true,linksAvailable:true}],[]);
     expect(sim.points.find(p=>p.path===old.path)).toMatchObject(position);expect(sim.points.some(p=>p.path==="Area/2.md")).toBe(false);expect(sim.points).toHaveLength(3);
   });
   it("pins the grabbed node, releases it and honors a separate pause",()=>{
@@ -53,5 +53,22 @@ describe("screen text and tag orientation",()=>{
   it("disconnected members get local soft spots, never a long hull or inferred foreign membership",()=>{
     const points=[{path:"A",x:0,y:0},{path:"X",x:20,y:0},{path:"B",x:900,y:900}],members=new Set(["A","B"]),spots=haloSpots(points,members);
     expect(spots).toHaveLength(2);expect(spots.every(s=>s.r<100)).toBe(true);expect(members.has("X")).toBe(false);
+  });
+});
+
+describe("R06 semantic geometry boundary",()=>{
+  it("real links cannot change coordinates or create attraction",()=>{
+    const nodes=notes(20),semantic={source:nodes[0].path,target:nodes[1].path,kind:"semantic" as const,score:.95};
+    const a=new WorkbenchSimulation(),b=new WorkbenchSimulation();
+    a.update(nodes,[semantic]);b.update(nodes,[{source:nodes[0].path,target:nodes[18].path,kind:"link"},semantic]);
+    a.settle();b.settle();expect(a.points).toEqual(b.points);
+  });
+  it("unindexed notes never perturb indexed coordinates or start passive physics",()=>{
+    const nodes=notes(20),extra={path:"Unknown.md",semantic:false,linksAvailable:true};
+    const a=new WorkbenchSimulation(),b=new WorkbenchSimulation();
+    a.update(nodes,[]);b.update([...nodes,extra],[]);a.settle();b.settle();
+    expect(b.points.filter(p=>p.path!==extra.path)).toEqual(a.points);
+    const c=new WorkbenchSimulation();c.update([extra,{...extra,path:"Other.md"}],[]);
+    expect(c.alpha).toBe(0);expect(c.tick()).toBe(false);
   });
 });

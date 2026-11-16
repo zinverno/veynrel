@@ -3347,3 +3347,10 @@
 
 .ai-taxonomy-modal .modal-title { flex-shrink: 0; }
 .ai-taxonomy { min-height: 0; overflow-y: auto; }
+
+/* Non-semantic placements remain navigable; the label explains the hollow marker. */
+.veynrel-workbench-node.is-unmapped {
+  fill: var(--background-primary);
+  stroke: var(--text-muted);
+  stroke-dasharray: 2 2;
+}

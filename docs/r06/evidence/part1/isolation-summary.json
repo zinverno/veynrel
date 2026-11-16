@@ -1,0 +1,325 @@
+{
+  "runs": [
+    {
+      "receipt": "map/after120-a1/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45889
+      ],
+      "cdpClosed": true,
+      "seconds": 23.949,
+      "error": null
+    },
+    {
+      "receipt": "map/before1000-a1/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        33373
+      ],
+      "cdpClosed": true,
+      "seconds": 17.736,
+      "error": null
+    },
+    {
+      "receipt": "map/before1000-a2/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        43787
+      ],
+      "cdpClosed": true,
+      "seconds": 37.98,
+      "error": null
+    },
+    {
+      "receipt": "map/before10000-a1/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45147
+      ],
+      "cdpClosed": true,
+      "seconds": 99.483,
+      "error": null
+    },
+    {
+      "receipt": "map/before120-a1/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        40515
+      ],
+      "cdpClosed": true,
+      "seconds": 21.267,
+      "error": null
+    },
+    {
+      "receipt": "map/before5000-a1/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [],
+      "cdpClosed": true,
+      "seconds": 0.767,
+      "error": null
+    },
+    {
+      "receipt": "map/before5000-a2/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37193
+      ],
+      "cdpClosed": true,
+      "seconds": 101.574,
+      "error": null
+    },
+    {
+      "receipt": "map/beforewarm10000/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        36873
+      ],
+      "cdpClosed": true,
+      "seconds": 33.916,
+      "error": null
+    },
+    {
+      "receipt": "map/beforewarm5000/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38941
+      ],
+      "cdpClosed": true,
+      "seconds": 16.312,
+      "error": null
+    },
+    {
+      "receipt": "map/delivery1000/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44549
+      ],
+      "cdpClosed": true,
+      "seconds": 10.444,
+      "error": null
+    },
+    {
+      "receipt": "map/delivery10000/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        39147
+      ],
+      "cdpClosed": true,
+      "seconds": 94.69,
+      "error": null
+    },
+    {
+      "receipt": "map/delivery120/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        34993
+      ],
+      "cdpClosed": true,
+      "seconds": 14.654,
+      "error": null
+    },
+    {
+      "receipt": "map/delivery5000/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38651
+      ],
+      "cdpClosed": true,
+      "seconds": 58.308,
+      "error": null
+    },
+    {
+      "receipt": "map/final5000-a1/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38669
+      ],
+      "cdpClosed": true,
+      "seconds": 22.941,
+      "error": null
+    },
+    {
+      "receipt": "map/final5000-a2/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        41229
+      ],
+      "cdpClosed": true,
+      "seconds": 98.398,
+      "error": null
+    },
+    {
+      "receipt": "map/final5000-a3/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        38471
+      ],
+      "cdpClosed": true,
+      "seconds": 4.025,
+      "error": null
+    },
+    {
+      "receipt": "map/noindex120/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        41709
+      ],
+      "cdpClosed": true,
+      "seconds": 10.904,
+      "error": null
+    },
+    {
+      "receipt": "map/partial120/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46549
+      ],
+      "cdpClosed": true,
+      "seconds": 12.911,
+      "error": null
+    },
+    {
+      "receipt": "map/warm10000/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46789
+      ],
+      "cdpClosed": true,
+      "seconds": 31.771,
+      "error": null
+    },
+    {
+      "receipt": "map/warm5000/isolation/result.json",
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        33083
+      ],
+      "cdpClosed": true,
+      "seconds": 17.41,
+      "error": null
+    },
+    {
+      "receipt": "regressions/actions/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        36969
+      ],
+      "cdpClosed": true,
+      "seconds": 23.136,
+      "error": null
+    },
+    {
+      "receipt": "regressions/community/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44673,
+        38875,
+        39449,
+        38011,
+        36419
+      ],
+      "cdpClosed": true,
+      "seconds": 16.458,
+      "error": null
+    },
+    {
+      "receipt": "regressions/local-notes/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44043,
+        35955
+      ],
+      "cdpClosed": true,
+      "seconds": 34.575,
+      "error": null
+    },
+    {
+      "receipt": "regressions/organization/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45193,
+        43753
+      ],
+      "cdpClosed": true,
+      "seconds": 47.797,
+      "error": null
+    },
+    {
+      "receipt": "regressions/recall/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        39643,
+        40563
+      ],
+      "cdpClosed": true,
+      "seconds": 26.498,
+      "error": null
+    },
+    {
+      "receipt": "regressions/registry/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46765,
+        36977
+      ],
+      "cdpClosed": true,
+      "seconds": 37.32,
+      "error": null
+    },
+    {
+      "receipt": "regressions/smoke/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        41173
+      ],
+      "cdpClosed": true,
+      "seconds": 12.01,
+      "error": null
+    },
+    {
+      "receipt": "regressions/studio/isolation/result.json",
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37781,
+        40569,
+        38221,
+        34571
+      ],
+      "cdpClosed": true,
+      "seconds": 168.08,
+      "error": null
+    }
+  ],
+  "portCount": 38,
+  "distinctPorts": 38,
+  "reusedSequentialPorts": {},
+  "note": "Ephemeral ports may be reused after the prior process group closes. Each run owns its DevToolsActivePort; no fixed port or shared profile."
+}

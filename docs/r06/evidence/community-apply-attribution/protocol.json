@@ -1,0 +1,39 @@
+{
+  "registeredBeforeRuns": true,
+  "order": [
+    "A1",
+    "B1",
+    "A2",
+    "B2"
+  ],
+  "attemptsPerConfiguration": 2,
+  "maximumPerConfiguration": 3,
+  "unusedThirdAttempt": "Not an automatic retry. Requires a new explicitly recorded hypothesis.",
+  "configurations": {
+    "A": {
+      "source": "90815b044b5351588f5cd21fecd3024501b45b6b",
+      "assets": {
+        "main.js": "fb0fd503b54f375d24d0bd95af3187d1dc3b635aabb83e8917af1c60d07291e3",
+        "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      }
+    },
+    "B": {
+      "source": "9ab5e0ca15e234510c82286eaa9db044ec95d30d",
+      "assets": {
+        "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+        "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+        "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+      }
+    }
+  },
+  "catalogCommit": "2c9de8caede80fc91b46f49f18548c7f38b24fd4",
+  "sequence": "Unchanged Community setup/install/restart/prepare/generate; trace first review-apply only; no final write confirmation. Separate Enter only when pointer did not reach handler. Stop at this boundary.",
+  "environment": "Shared scripts/native/run.py; private Xvfb/Openbox, Native frame; new profile each attempt; no desktop; six unchanged synthetic Markdown fixtures; loopback catalog/model only.",
+  "instrumentation": "Test-only DOM event listeners, MutationObserver, conditional CDP breakpoints; no replacement of product or host methods; existing IO spies retained. Instrumentation may affect timing.",
+  "successDefinition": "Pointer must reach actual handler, run, reviewWrite and separate confirmation. Enter cannot change pointer outcome. A successful rerun alone is not a fix.",
+  "instrumentHashes": {
+    "scripts/native/community-apply-trace.mjs": "e908f87c01d6b48e2f2474aa052ee85e5fd4483b539a23603d0bc688cf08b07a",
+    "scripts/studio-community-native.mjs": "0c1218d5c2b361ff08c6d8ccb0a0a35585f3dc99120895f16544b7a43efcff0a"
+  }
+}
