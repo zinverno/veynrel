@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/recall-topics-native.mjs",
+    "/tmp/veynrel-recall-native-a62ae862e544"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794750463.718745,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    43147,
+    44583
+  ],
+  "cdpClosed": true,
+  "seconds": 28.32
+}

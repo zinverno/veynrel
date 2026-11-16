@@ -1,0 +1,196 @@
+{
+  "scenario": "r05-3-registry-native-v1",
+  "checks": [
+    "Passive Audit open does not scan, read notes, write or request a model"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+    }
+  ],
+  "screenshots": [
+    "connected-registry.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "57c12f0345d01b5429a882661ed7bccbf57e0c7f7596ce565fc823d3de308d4b",
+    "styles.css": "323c2af2dd5595edd093adeb63852299ed5581d16cc82144f03011a7bad0d382",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 4.6,
+    "frames": 26,
+    "seconds": 4.13468599319458,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "entry": "Workspace Organization Audit / Rules",
+  "sourceSha": "c75642e0b9eb0bf63b3128a9286304009a2011d2",
+  "sourceDiffSha256": "7d6de6845597f49a37c98afedc142f964909e606a1eedfff0752c8b982885055",
+  "harnessHashes": {
+    "r05-3-registry-native.mjs": "905967829cc5600bb44ccb01a2526e816ca90bb6eca5d51357c9aa165bfb9ba7",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "a3d3ac4d281001f7492e5169a95125ddf261b4eb752458c7a68562aab81dc961"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "passive": {
+    "reads": [],
+    "writes": [],
+    "creates": [],
+    "metadata": 0,
+    "metadataCalls": [],
+    "enumerations": 1,
+    "enumerationCalls": [
+      {
+        "phase": "passive",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2936)\n    at no.onOpen (plugin:ai-knowledge-hub:620:41249)\n    at no.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+      }
+    ],
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "passive"
+      }
+    ],
+    "phase": "passive"
+  },
+  "settingsBefore": "null",
+  "layouts": [
+    {
+      "name": "en dark editor",
+      "overflow": true,
+      "controls": [
+        {
+          "left": 548,
+          "right": 946.75,
+          "top": 239.5,
+          "bottom": 269.5
+        },
+        {
+          "left": 548,
+          "right": 946.75,
+          "top": 277.5,
+          "bottom": 307.5
+        },
+        {
+          "left": 548,
+          "right": 946.75,
+          "top": 315.5,
+          "bottom": 345.5
+        },
+        {
+          "left": 548,
+          "right": 946.75,
+          "top": 353.5,
+          "bottom": 383.5
+        },
+        {
+          "left": 548,
+          "right": 946.75,
+          "top": 391.5,
+          "bottom": 452.171875
+        },
+        {
+          "left": 147.25,
+          "right": 274.6875,
+          "top": 1241.171875,
+          "bottom": 1265.171875
+        }
+      ],
+      "left": 127,
+      "right": 973
+    }
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: en dark editor\n    at layout (file://<checkout>/scripts/r05-3-registry-native.mjs:146:50)\n    at async file://<checkout>/scripts/r05-3-registry-native.mjs:156:261",
+  "diagnostic": {
+    "io": {
+      "reads": [
+        {
+          "path": "Rules.md",
+          "phase": "connect"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "connect"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "connect"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "definition-draft"
+        }
+      ],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "metadataCalls": [],
+      "enumerations": 1,
+      "enumerationCalls": [
+        {
+          "phase": "passive",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2936)\n    at no.onOpen (plugin:ai-knowledge-hub:620:41249)\n    at no.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "passive"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "connect"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "connect"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "connect"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "connect"
+        }
+      ],
+      "phase": "definition-draft"
+    },
+    "active": "<textarea rows=\"3\" data-registry-field=\"description\"></textarea>",
+    "modals": [
+      "<div class=\"modal ai-taxonomy-modal\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\">Organization audit</div></div><div class=\"modal-content ai-taxonomy\"><p>Explore local organization without a model or API key. Nothing changes in your notes. Rules are optional.</p><div role=\"status\" aria-live=\"polite\" data-taxonomy-stage=\"editing\"></div><fieldset><legend>Area and local audit</legend><label>Folder including subfolders; empty = whole vault<input data-org-field=\"scope\" data-taxonomy-focus=\"org-scope\" type=\"text\"></label><p>Only this area and its descendants; existing Health scans remain global.</p><details><summary>Which files are excluded?</summary><p>Hidden/config, template, backup and node_modules folders, linked registries and explicitly marked service files are excluded. List other instruction/prompt paths below.</p></details><p>Registry excluded: Rules.md</p><div class=\"ai-taxonomy-field\"><label for=\"taxonomy-1-exclusions\">Exclude paths (one per line, this audit only)</label><textarea rows=\"2\" id=\"taxonomy-1-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea></div><button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button></fieldset><section class=\"ai-tag-recommendations\"><p>AI tag recommendations v1 require the confirmed settings profile and a whole-vault tag inventory. This local audit works independently; registry extensions are not silently sent through the older model contract.</p></section><details data-org-rules=\"true\" open=\"\"><summary>Optional confirmed rules</summary><details open=\"\"><summary>Optional Markdown registry</summary><p>Active source: Rules.md. The settings profile is retained but dormant. A missing or changed file never silently falls back to it.</p><p role=\"status\" data-org-registry=\"ready\">Registry state: validated</p><label>Vault-relative Markdown path<input data-org-field=\"registry-path\" data-taxonomy-focus=\"org-path\" type=\"text\"></label><button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button><button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button><button type=\"button\" data-org-action=\"registry-disconnect\" data-taxonomy-focus=\"org-registry-disconnect\">Review disconnection</button><details><summary>Create a new registry</summary><label>Complete new document (editable)<textarea rows=\"12\" data-org-field=\"registry-content\" data-taxonomy-focus=\"org-content\"></textarea></label><button type=\"button\" data-org-action=\"registry-create\" data-taxonomy-focus=\"org-registry-create\">Preview creation</button></details></details><fieldset disabled=\"\"><p>Definitions come from the selected file. Editing the settings copy is disabled. Use the registry editor above, or edit the file yourself and read/review it again; disconnection is separate.</p><legend>Category rules</legend><p>Confirmed profile loaded. Edits below remain a draft until saved.</p><p>Categories are independent dimensions, not a single tag chain. One primary value is a preference allowing exceptions. Document structure (moc, atom) is separate from content role.</p><button type=\"button\" data-taxonomy-action=\"add\" data-taxonomy-focus=\"add\">Add category</button><p role=\"status\" aria-live=\"polite\">Rules match the saved profile; there are no new changes.</p><button type=\"button\" data-taxonomy-action=\"review\" data-taxonomy-focus=\"review\" disabled=\"\">Review changes</button><button type=\"button\" data-taxonomy-action=\"reload\" data-taxonomy-focus=\"reload\">Discard draft and reload saved rules</button></fieldset></details></div></div>",
+      "<div class=\"modal ai-taxonomy-modal\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\">Edit registry definitions</div></div><div class=\"modal-content ai-taxonomy ai-registry-editor\"><p class=\"ai-pair-path\">Rules.md</p><p>Edit one definition. The full Markdown and diff follow before a separate confirmation. Notes and the settings profile are unchanged; existing unused and flashcards tags are preserved.</p><fieldset><label class=\"ai-taxonomy-field\">Definition<select data-registry-field=\"kind\"><option value=\"tag\">Tag</option><option value=\"convention\">Convention</option><option value=\"category\">Profile category</option></select></label><label class=\"ai-taxonomy-field\">Select an existing entry or add one<select data-registry-field=\"entry\"><option value=\"\">New definition</option><option value=\"unused/Ё\">unused/Ё</option><option value=\"flashcards/Study\">flashcards/Study</option></select></label><label class=\"ai-taxonomy-field\">Literal tag (without #)<input data-registry-field=\"tag\" type=\"text\"></label><label class=\"ai-taxonomy-field\">Status<select data-registry-field=\"state\"><option value=\"allowed\">Allowed (including unused)</option><option value=\"excluded\">Excluded</option><option value=\"deprecated\">Deprecated</option></select></label><label class=\"ai-taxonomy-field\">Description<textarea rows=\"3\" data-registry-field=\"description\"></textarea></label><label class=\"ai-planner-confirm\"><input data-registry-field=\"remove\" type=\"checkbox\"><span>Remove this selected definition instead of editing it</span></label><p>Removal changes rules only. It does not remove usages from notes or other category assignments. The full definitions diff shows what remains; no vault-wide usage check is implied.</p><button type=\"button\" data-registry-action=\"review\">Check and apply</button></fieldset><p role=\"alert\" tabindex=\"-1\"></p></div></div>"
+    ]
+  }
+}

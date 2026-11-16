@@ -1,0 +1,10 @@
+{
+  "backend": "xvfb-openbox",
+  "display": ":3",
+  "privateDisplay": true,
+  "waylandDisplayRemoved": true,
+  "privateDbus": "dbus-run-session per harness",
+  "wmPid": 432563,
+  "gpu": "disabled",
+  "frame": "native"
+}

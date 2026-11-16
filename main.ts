@@ -1,3 +1,6 @@
+import { orgText } from "./consolidation/organizationView";
+import { RegistryEditModal } from "./consolidation/registryEditModal";
+import { ObsidianRegistry } from "./consolidation/obsidianRegistry";
 import { LocalNoteModal, LocalNotePicker } from "./consolidation/localNoteModal";
 import { ObsidianLocalNote } from "./consolidation/obsidianLocalNote";
 import { obsidianSafeApplyPort } from "./consolidation/obsidianSafeApply";
@@ -174,7 +177,7 @@ export default class AIHubPlugin extends Plugin {
       openTagTaxonomy: (scope = { kind: "all" }, findings = []) => {
         const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); }, inventory =>
           new TagRecommendationSession({
-            allowed: () => !this.settings.organizationAudit?.registryPath,
+            allowed: () => !this.getOrganizationRegistry().invalidPreferences && !this.getOrganizationRegistry().path,
             settings: this.getLanguageModelSettingsPort(), profile: this.getTaxonomyProfilePort(), inventory,
             read: async path => {
               if (!isCanonicalMarkdownPath(path)) throw new TagRecommendationError("source");
@@ -186,7 +189,11 @@ export default class AIHubPlugin extends Plugin {
               return note;
             },
             complete: (settings, system, user, signal) => callOpenRouter(settings, system, user, { ...TAG_OPTIONS, signal }),
-          }), { scope, registry: this.getOrganizationRegistry(), findings, tagNote: (inventory, exclusions) => this.openLocalTag(inventory, exclusions) });
+          }), { scope, registry: this.getOrganizationRegistry(), findings, tagNote: (inventory, exclusions) => this.openLocalTag(inventory, exclusions),
+            editRegistry: () => {
+              if (this.safeApply) new RegistryEditModal(this.app, new ObsidianRegistry(this.app, obsidianSafeApplyPort(this.app), () => this.getOrganizationRegistry()),
+                this.safeApply, () => { if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open(); }).open();
+            } });
         this.taxonomyModals.add(modal); modal.open();
       },
     };
@@ -214,7 +221,7 @@ export default class AIHubPlugin extends Plugin {
       const { registerStudio } = await import("./studio/registerStudio");
       this.studio = registerStudio(this, this.getLanguageModelSettingsPort());
       this.safeApply = createSafeApplyService(this.app, this.manifest.id, () =>
-        this.settings.organizationAudit?.registryPath ? [this.settings.organizationAudit.registryPath] : [], () => ({ profile: this.settings.tagTaxonomyProfile, registryPath: this.settings.organizationAudit?.registryPath ?? null }));
+        organizationPreferences(this.settings.organizationAudit).registryPath ? [organizationPreferences(this.settings.organizationAudit).registryPath!] : [], () => ({ profile: this.settings.tagTaxonomyProfile, registryPath: organizationPreferences(this.settings.organizationAudit).registryPath }), () => this.getOrganizationRegistry());
       this.register(() => this.safeApply?.dispose());
       this.addCommand({ id: "consolidation-operation-history", name: tr("@ux.historyCommand"), callback: () => {
         if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open();
@@ -388,7 +395,7 @@ export default class AIHubPlugin extends Plugin {
       health: mergeHealthPreferences(data?.health),
     });
     if (data?.organizationAudit !== undefined) {
-      try { this.settings.organizationAudit = organizationPreferences(data.organizationAudit); } catch { delete this.settings.organizationAudit; }
+      try { this.settings.organizationAudit = organizationPreferences(data.organizationAudit); } catch { /* Preserve the raw value; rules-dependent consumers fail closed until manual recovery. */ }
     }
     const taxonomy = parseTaxonomyProfile(data?.tagTaxonomyProfile);
     if (taxonomy) this.settings.tagTaxonomyProfile = taxonomy;
@@ -439,15 +446,18 @@ export default class AIHubPlugin extends Plugin {
   }
 
   private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = []): void {
+    if (this.getOrganizationRegistry().invalidPreferences) {
+      new Notice(orgText("Organization settings are invalid. Open Organization audit for recovery information; no rules were reset.", "Настройки организации повреждены. Откройте аудит организации для сведений о восстановлении; правила не сброшены.")); return;
+    }
     new LocalNotePicker(this.app, path => this.openLocalNoteAction(path, "add_inline_tag", inventory),
-      [...exclusions, ...(this.settings.organizationAudit?.registryPath ? [this.settings.organizationAudit.registryPath] : [])]).open();
+      [...exclusions, ...(organizationPreferences(this.settings.organizationAudit).registryPath ? [organizationPreferences(this.settings.organizationAudit).registryPath!] : [])]).open();
   }
 
   private openLocalNoteAction(path: string, kind: "add_inline_tag" | "repair_wikilink", inventory?: TaxonomyInventory): void {
     if (!this.safeApply?.localNote) return;
     const service = this.safeApply;
     const native = new ObsidianLocalNote(this.app, obsidianSafeApplyPort(this.app), () => ({
-      profile: this.settings.tagTaxonomyProfile, registryPath: this.settings.organizationAudit?.registryPath ?? null,
+      profile: this.settings.tagTaxonomyProfile, registryPath: organizationPreferences(this.settings.organizationAudit).registryPath,
     }));
     new LocalNoteModal(this.app, path, kind, native, service, () => new OperationHistoryModal(this.app, service).open(), inventory).open();
   }
@@ -461,7 +471,7 @@ export default class AIHubPlugin extends Plugin {
 
   getTaxonomyProfilePort(): TaxonomyProfilePort {
     return {
-      get: () => this.settings.organizationAudit?.registryPath ? this.getOrganizationRegistry().profile : parseTaxonomyProfile(this.settings.tagTaxonomyProfile),
+      get: () => this.getOrganizationRegistry().profile,
       subscribe: listener => {
         this.taxonomyProfileListeners.add(listener);
         return () => { this.taxonomyProfileListeners.delete(listener); };
@@ -551,7 +561,7 @@ export default class AIHubPlugin extends Plugin {
       const organizationStamp = () => JSON.stringify(organizationPreferences(this.settings.organizationAudit));
       if (organization?.signal.aborted) throw new OrganizationError("cancelled");
       if (organization && (organizationStamp() !== expectedOrganization || organization.expectedProfile !== undefined && taxonomyStamp() !== organization.expectedProfile)) throw new OrganizationError("conflict");
-      if (taxonomy && this.settings.organizationAudit?.registryPath) throw new TaxonomyError("registry");
+      if (taxonomy && (this.getOrganizationRegistry().invalidPreferences || this.getOrganizationRegistry().path)) throw new TaxonomyError("registry");
       if (taxonomy?.signal.aborted) throw new TaxonomyError("cancelled");
       if (taxonomy && expectedTaxonomy !== taxonomyStamp()) throw new TaxonomyError("conflict");
       const previousTaxonomy = taxonomyStamp();

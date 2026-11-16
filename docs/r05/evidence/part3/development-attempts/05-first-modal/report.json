@@ -1,0 +1,96 @@
+{
+  "scenario": "r05-3-registry-native-v1",
+  "checks": [],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    }
+  ],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "c555503e50157ea6af4b50787c040507ecb5a04eb8d1bc6cbd38e24dd145edd9",
+    "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "entry": "Workspace Organization Audit / Rules",
+  "sourceSha": "c75642e0b9eb0bf63b3128a9286304009a2011d2",
+  "sourceDiffSha256": "f61b225bfd1a8610ab3adc0bc6dd165e87e342a35b7c7595c1af714ed08f4982",
+  "harnessHashes": {
+    "r05-3-registry-native.mjs": "bc0c95b5bb6ccb40cd9c96ecefe46d88bbfa7e9b85a950e3b1e9e835fb17efac",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "a3d3ac4d281001f7492e5169a95125ddf261b4eb752458c7a68562aab81dc961"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: !!document.querySelector('.ai-taxonomy')\n    at wait (file://<checkout>/scripts/r05-3-registry-native.mjs:60:159)\n    at async openAudit (file://<checkout>/scripts/r05-3-registry-native.mjs:145:3)\n    at async file://<checkout>/scripts/r05-3-registry-native.mjs:162:41",
+  "diagnostic": {
+    "io": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 1,
+      "metadataCalls": [
+        {
+          "path": "Notes/C.md",
+          "phase": "startup",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        }
+      ],
+      "enumerations": 1,
+      "enumerationCalls": [
+        {
+          "phase": "passive",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2936)\n    at no.onOpen (plugin:ai-knowledge-hub:620:41249)\n    at no.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "passive"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "passive"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "passive"
+        }
+      ],
+      "phase": "passive"
+    },
+    "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>",
+    "modals": []
+  }
+}

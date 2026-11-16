@@ -155,7 +155,8 @@ try {
   await pass('C: exact recursive folder scope, literal observations and at most three suggestions', "audit.session.inventory.organization.types[0].value==='idea'&&document.querySelectorAll('[data-org-suggestion]').length>0&&document.querySelectorAll('[data-org-suggestion]').length<=3");await shot('organized-en-dark');
   await main.ev("io.phase='explicit-example';void 0");await activate('[data-org-action=source]');await wait("app.workspace.getActiveFile()?.path.startsWith('Knowledge/')");report.checks.push('Explicit example action opens a real source note without modifying it');
   await main.ev("io.phase='rules';void 0");
-  const firstId=await main.ev("document.querySelector('[data-org-suggestion]').dataset.orgSuggestion");await activate('[data-org-action=dismiss]');await wait(`plugin.settings.organizationAudit?.dismissed.includes(${JSON.stringify(firstId)})`);
+  const firstId=await main.ev("document.querySelector('[data-org-suggestion]').dataset.orgSuggestion");await activate('[data-org-action=dismiss]');await wait("plugin.settings.organizationAudit?.version===2&&plugin.settings.organizationAudit.decisions.length===1&&plugin.settings.organizationAudit.decisions[0].state==='dismissed'");
+  assert.equal(await main.ev('plugin.settings.organizationAudit.dismissed.length'),0);
   await scan('Knowledge');await pass('Leave as is persists across unchanged rescans without changing rules', `!document.querySelector('[data-org-suggestion="${firstId}"]')&&!plugin.settings.tagTaxonomyProfile`);
   await activate('[data-org-action=draft-rule]');await activate('[data-taxonomy-action=review]');
   await pass('Draft rule needs separate review/save, with no prior settings profile', '!plugin.settings.tagTaxonomyProfile');await shot('rule-review');await activate('[data-taxonomy-action=save]');await wait("audit.session.stage==='saved'");

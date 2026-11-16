@@ -1,0 +1,21 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/studio-community-native.mjs",
+    "/tmp/veynrel-community-native-f8b446b3d27c",
+    "/tmp/veynrel-native-catalog-20261115"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794750492.3070707,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36161,
+    33293,
+    35345,
+    39411,
+    42379
+  ],
+  "cdpClosed": true,
+  "seconds": 17.106
+}

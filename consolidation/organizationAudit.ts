@@ -1,3 +1,5 @@
+import { organizationAuthority, organizationId } from "./organizationIdentity";
+import type { OrganizationAuthority } from "./organizationIdentity";
 import type { CachedMetadata, TFile } from "obsidian";
 import type { WorkspaceScope } from "../health/workspace/vaultScope";
 import { stableHash } from "../utils/stableHash";
@@ -64,11 +66,11 @@ export class OrganizationCollector {
   }
 }
 export interface OrganizationSuggestion {
-  id: string; kind: "prefix" | "type"; value: string; notes: number; denominator: number; examples: string[];
+  id: string; legacyId: string; authority: OrganizationAuthority; kind: "prefix" | "type"; value: string; notes: number; denominator: number; examples: string[];
   origin: "hypothesis" | "rule";
 }
 /** Bounded reuse suggestions, never new names, semantic equivalence or an organization score. */
-export function organizationSuggestions(inventory: TaxonomyInventory, profile: TagTaxonomyProfile | null, definitions: OrganizationDefinitions | null, dismissed: readonly string[]): OrganizationSuggestion[] {
+export function organizationSuggestionCatalog(inventory: TaxonomyInventory, profile: TagTaxonomyProfile | null, definitions: OrganizationDefinitions | null): OrganizationSuggestion[] {
   const snapshot = inventory.organization;
   if (!snapshot || snapshot.state !== "complete" || inventory.processed < 3) return [];
   const suggestions: OrganizationSuggestion[] = [];
@@ -78,10 +80,15 @@ export function organizationSuggestions(inventory: TaxonomyInventory, profile: T
       if (kind === "prefix" && definitions?.tags.some(tag => tag.tag.startsWith(fact.value + "/") && tag.state !== "allowed")) continue;
       const rule = kind === "prefix" ? profile?.categories.some(category => category.prefixes.includes(fact.value))
         : definitions?.conventions.some(convention => convention.subject === "type" && convention.value === fact.value);
-      const id = "org:" + stableHash(JSON.stringify([snapshot.scope, snapshot.exclusions, kind, fact, inventory.processed, rule]));
-      if (!dismissed.includes(id)) suggestions.push({ id, kind, value: fact.value, notes: fact.notes, denominator: inventory.processed - inventory.unavailable, examples: fact.examples, origin: rule ? "rule" : "hypothesis" });
-      if (suggestions.length === 3) return suggestions;
+      const legacyId = "org:" + stableHash(JSON.stringify([snapshot.scope, snapshot.exclusions, kind, fact, inventory.processed, rule]));
+      const authority = organizationAuthority(kind, fact.value, snapshot.scope, snapshot.exclusions, profile, definitions);
+      suggestions.push({ id: organizationId(authority), legacyId, authority, kind, value: fact.value, notes: fact.notes, denominator: inventory.processed - inventory.unavailable, examples: fact.examples, origin: rule ? "rule" : "hypothesis" });
     }
   }
   return suggestions;
+}
+
+/** Legacy bounded view; new persisted decisions compare full authority via OrganizationRegistry. */
+export function organizationSuggestions(inventory: TaxonomyInventory, profile: TagTaxonomyProfile | null, definitions: OrganizationDefinitions | null, dismissed: readonly string[]): OrganizationSuggestion[] {
+  return organizationSuggestionCatalog(inventory, profile, definitions).filter(s => !dismissed.includes(s.legacyId) && !dismissed.includes(s.id)).slice(0, 3);
 }

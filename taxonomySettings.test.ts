@@ -1,10 +1,12 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { App, PluginManifest } from "obsidian";
 import { DEFAULT_SETTINGS } from "./settings";
+import { setLanguage } from "./i18n";
 import type { AIHubSettings } from "./settings";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
+const notices = vi.hoisted(() => [] as string[]);
 vi.mock("obsidian", () => ({ Plugin: class { constructor(public app: App, public manifest: PluginManifest) {} },
-  FuzzySuggestModal: class {}, Modal: class {}, Notice: class {}, PluginSettingTab: class {}, Component: class {}, TFile: class {}, TFolder: class {}, getLanguage: () => "en" }));
+  FuzzySuggestModal: class {}, Modal: class {}, Notice: class { constructor(message: string) { notices.push(message); } }, PluginSettingTab: class {}, Component: class {}, TFile: class {}, TFolder: class {}, getLanguage: () => "en" }));
 let Plugin: typeof import("./main").default;
 beforeAll(async () => { Plugin = (await vi.importActual<typeof import("./main")>("./main.ts")).default; });
 const profile = (name = "Роль"): TagTaxonomyProfile => ({ version: 1, categories: [{ id: "role", name, purpose: "role", multiplicity: "one_primary", interpretation: "global", prefixes: ["role", "тип"], tags: ["Практика"] }] });
@@ -91,5 +93,22 @@ describe("R04 organization preferences share the serialized settings owner", () 
     const connect = port.save({ ...before, registryPath: "Rules.md" }, before, new AbortController().signal, expectedProfile);
     await save; await expect(connect).rejects.toMatchObject({ reason: "conflict" });
     expect(f.port.get()).toEqual(profile("newer")); expect(port.get().registryPath).toBeNull();
+  });
+});
+
+describe("R05.3 corrupt preference preservation", () => {
+  it.each([{ version: 99, registryPath: "Rules.md", dismissed: ["opaque"] }, { version: 1, registryPath: "Rules.md", dismissed: "broken" }])("keeps raw damaged data across unrelated saves without fallback or rule writes", async raw => {
+    const f = await fixture(profile(), raw);
+    expect(f.plugin.settings.organizationAudit).toEqual(raw); expect(f.port.get()).toBeNull(); expect(f.plugin.getOrganizationRegistry().invalidPreferences).toBe(true);
+    expect(f.save).not.toHaveBeenCalled(); expect(f.app.vault.read).not.toHaveBeenCalled();
+    for (const language of ["en", "ru"] as const) {
+      setLanguage(language); expect(() => f.plugin.getToolsPort().openLocalTag!()).not.toThrow();
+      expect(notices.at(-1)).toContain(language === "en" ? "Organization settings are invalid" : "Настройки организации повреждены");
+    }
+    expect(f.app.vault.getMarkdownFiles).not.toHaveBeenCalled();
+    await expect(f.persist(profile(), null)).rejects.toMatchObject({ reason: "registry" });
+    f.plugin.settings.notifyOnCopy = false; await f.plugin.saveSettings();
+    expect(f.disk().organizationAudit).toEqual(raw); expect(f.disk().tagTaxonomyProfile).toEqual(profile());
+    await f.plugin.loadSettings(); expect(f.port.get()).toBeNull();
   });
 });

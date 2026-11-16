@@ -1,3 +1,4 @@
+import { RegistryApplyModal, renderRegistryHistory } from "./registryApplyModal";
 import { LocalNoteApplyModal, renderLocalNoteHistory } from "./localNoteApplyModal";
 import { refreshReviewFacts, checkedReviewHistory } from "./reviewRefresh";
 import { StructuralArchiveApplyModal, renderStructuralArchiveHistory } from "./structuralArchiveApplyModal";
@@ -224,16 +225,20 @@ export class OperationHistoryModal extends Modal {
       if (!current()) return;
       const emptyAtom = await this.service.emptyAtom?.history() ?? [];
       if (!current()) return;
+      const registry = await this.service.registry?.history() ?? [];
+      if (!current()) return;
       const localNote = await this.service.localNote?.history() ?? [];
       if (!current()) return;
       checkedReviewHistory(this.app, [...rows, ...multi, ...merge, ...bundle, ...group, ...emptyAtom]);
       this.contentEl.empty(); this.contentEl.createEl("p", { text: tr("@safeApply.historyScope") });
       button(this.contentEl, "refresh", () => { void this.refresh(); });
-      if (!rows.length && !multi.length && !merge.length && !archive.length && !bundle.length && !group.length && !emptyAtom.length && !structuralArchive.length && !localNote.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
+      if (!rows.length && !multi.length && !merge.length && !archive.length && !bundle.length && !group.length && !emptyAtom.length && !structuralArchive.length && !localNote.length && !registry.length) this.contentEl.createEl("p", { text: tr("@safeApply.empty") });
       const items: HistoryPresentation[] = [];
       const released = () => { if (this.active) void this.refresh(); };
       // Returning from a child closes it and refreshes this existing history once.
       const history = () => {};
+      for (const row of registry) items.push({ family: "registry", row, render: root => renderRegistryHistory(root, row,
+        () => new RegistryApplyModal(this.app, this.service, current => this.service.registry!.reviewUndo(row.id, current), history, released).open()) });
       for (const row of localNote) items.push({ family: "localNote", row, render: root => renderLocalNoteHistory(root, row,
         () => new LocalNoteApplyModal(this.app, this.service, current => this.service.localNote!.reviewUndo(row.id, current), history, released).open()) });
       for (const row of emptyAtom) items.push({ family: "emptyAtom", row, render: root => renderEmptyAtomHistory(root, row,

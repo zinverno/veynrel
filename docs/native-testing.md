@@ -212,3 +212,17 @@ popout, reduced motion and Obsidian restart. It has no model transport replay.
 See [the bounded contracts](r05/local-note-actions.md) and R05.2 verification.
 Real compositor/GPU/IME, custom frames and live model quality remain outside this
 virtual-display evidence. The old `actions` suite remains the R05.1 regression.
+
+## R05.3 registry and decisions
+
+After production build: `python scripts/native/run.py registry --timeout 300`.
+The same isolated launcher runs a real registry edit, separate Review/Save, host
+restart, explicit reload and byte-exact Undo, then leave/later/restore across an
+unrelated-note rescan. It records full private-Xvfb videos through restart, client
+screenshots, per-stage IO, original failures and no paid/model requests.
+RU/EN, native themes, 390px, keyboard, split-editor refusal, real popout and reduced
+motion are included. A failed entry stays failed; there is no automatic reopen.
+The old R04 harness now checks a persisted v2 decision instead of expecting new
+IDs in the legacy list; all previous behavior assertions remain. See
+[R05.3 contracts](r05/registry-editing-and-decisions.md) and
+[combined verification](r05/part3-verification.md).

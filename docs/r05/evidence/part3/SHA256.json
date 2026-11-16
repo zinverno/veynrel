@@ -1,0 +1,470 @@
+{
+  "note": "Original receipts remain untouched at the listed task-owned paths. Public text copies normalize checkout prefixes only. Historical evidence outside this directory is unchanged.",
+  "files": {
+    "development-attempts/01-passive-counter/report.json": {
+      "source": "/tmp/veynrel-registry-native-70809b622288/report.json",
+      "originalSha256": "d9a046283e3d8acb736ec4891dbfa06a061e280519f12c7cb26cb06b873a7020",
+      "publishedSha256": "6caf47668a7e3edc471e8dc4da66304f2c5f2692fe966b7c41985d6a8e77d2f9"
+    },
+    "development-attempts/01-passive-counter/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-70809b622288/isolation/result.json",
+      "originalSha256": "fc3a9daa563a80c40b1da50fbb4ffa78ff8fabf7ccec8d27a7c6eb5475fcc8ed",
+      "publishedSha256": "bda6fb1b8c646258e7024d4b45f99fc1c917a4d009fef9082ae7e511467dd2a1"
+    },
+    "development-attempts/01-passive-counter/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-70809b622288/isolation/environment.json",
+      "originalSha256": "a4cfb5440ef2edcd533aac42a86d0aa5413482b40c037c1b7f5d008642342234",
+      "publishedSha256": "a4cfb5440ef2edcd533aac42a86d0aa5413482b40c037c1b7f5d008642342234"
+    },
+    "development-attempts/01-passive-counter/failure.png": {
+      "source": "/tmp/veynrel-registry-native-70809b622288/failure.png",
+      "originalSha256": "d98d531da5c18df0d0be57ccc451098e3abbc257ff181d5dc3567ae55cc2c6a9",
+      "publishedSha256": "d98d531da5c18df0d0be57ccc451098e3abbc257ff181d5dc3567ae55cc2c6a9"
+    },
+    "development-attempts/02-checkbox-overflow/report.json": {
+      "source": "/tmp/veynrel-registry-native-4efc6b216772/report.json",
+      "originalSha256": "c602a973530fcef99afc2d39499d3b1e36cec72bd11b802b10dbf60c7d91cf5c",
+      "publishedSha256": "cb65a417c5dac85efa1a96684d7880c439168c04cdef15a5bdb7339ae3ec6758"
+    },
+    "development-attempts/02-checkbox-overflow/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-4efc6b216772/isolation/result.json",
+      "originalSha256": "27ffdc3282f954f4c45b1922904d37c103864ff7a11ede65a7494d4e188d3593",
+      "publishedSha256": "d3ccd4f1d5496fa037ef9fb3fbec68ad373be98e9aeae48ef6fa9f7a9bb569c0"
+    },
+    "development-attempts/02-checkbox-overflow/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-4efc6b216772/isolation/environment.json",
+      "originalSha256": "fbde1fa07e892b2914a8902f82020b3d8f50d9869fb29f0072ce0068880d3b74",
+      "publishedSha256": "fbde1fa07e892b2914a8902f82020b3d8f50d9869fb29f0072ce0068880d3b74"
+    },
+    "development-attempts/02-checkbox-overflow/failure.png": {
+      "source": "/tmp/veynrel-registry-native-4efc6b216772/failure.png",
+      "originalSha256": "52f5d521144008118139c9933cdddb5e215a9a35472dbeb335b34a485a1ea46a",
+      "publishedSha256": "52f5d521144008118139c9933cdddb5e215a9a35472dbeb335b34a485a1ea46a"
+    },
+    "development-attempts/03-history-overlay/report.json": {
+      "source": "/tmp/veynrel-registry-native-6f6e2e110c78/report.json",
+      "originalSha256": "d20bc6fbc84cbb4c9dd5e00520abf34544e02dcbf909eb7eac262b4a174dfa67",
+      "publishedSha256": "d2ffc715c81af44c6250e16a094b42e235017d8b73bf19e74f8d2da5f14c2312"
+    },
+    "development-attempts/03-history-overlay/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-6f6e2e110c78/isolation/result.json",
+      "originalSha256": "48dfd49fcd02d8b6c13a481761009117c745f8f2548802963b6a25b44296e13d",
+      "publishedSha256": "ff925a8c8a61c03fb694d1f764c4fc0bdaa1d9f51581e007493ac25cb9e1a74e"
+    },
+    "development-attempts/03-history-overlay/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-6f6e2e110c78/isolation/environment.json",
+      "originalSha256": "49afde286449cef1d58458f39773e67fa4217b5aebc81d9e51083eea2496dfc0",
+      "publishedSha256": "49afde286449cef1d58458f39773e67fa4217b5aebc81d9e51083eea2496dfc0"
+    },
+    "development-attempts/03-history-overlay/failure.png": {
+      "source": "/tmp/veynrel-registry-native-6f6e2e110c78/failure.png",
+      "originalSha256": "b2f3e376fb514b3e01eb77c04bfce0e2c79a6b3314d56118b45866af968cd0ae",
+      "publishedSha256": "b2f3e376fb514b3e01eb77c04bfce0e2c79a6b3314d56118b45866af968cd0ae"
+    },
+    "development-attempts/04-cdp-tfile/report.json": {
+      "source": "/tmp/veynrel-registry-native-d09eede28127/report.json",
+      "originalSha256": "ff9ef653328107bb178f7f362b35bf1dc400b8c6a3e7d14003b527e517f7c9cb",
+      "publishedSha256": "1111a28eb327abc0a77be1387ad0e8ecb86b12628e1c645451f02b51c798f696"
+    },
+    "development-attempts/04-cdp-tfile/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-d09eede28127/isolation/result.json",
+      "originalSha256": "733fd30220adc98659824a6258e95ee33564bc00a745ec807befdcfb46ccca49",
+      "publishedSha256": "e040e1181abab88552e8523b681352dcd10996f92fa99a7d0e8ebb9edebbe6bf"
+    },
+    "development-attempts/04-cdp-tfile/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-d09eede28127/isolation/environment.json",
+      "originalSha256": "fd66838673b6ba3515d4d8956827507f311cf8725f4f19b94ebeffaa3ea5b88f",
+      "publishedSha256": "fd66838673b6ba3515d4d8956827507f311cf8725f4f19b94ebeffaa3ea5b88f"
+    },
+    "development-attempts/04-cdp-tfile/failure.png": {
+      "source": "/tmp/veynrel-registry-native-d09eede28127/failure.png",
+      "originalSha256": "611159cc6a6568da849bfa2ea6e09c4f61f1c032e0b03625dfef2262e9835701",
+      "publishedSha256": "611159cc6a6568da849bfa2ea6e09c4f61f1c032e0b03625dfef2262e9835701"
+    },
+    "development-attempts/05-first-modal/report.json": {
+      "source": "/tmp/veynrel-registry-native-1ca63b922d9f/report.json",
+      "originalSha256": "1f482338651d3fa42be8fdb39472eaec73bd59f4dad110d8a291a1c61336d9bb",
+      "publishedSha256": "634c1ee2f48cbeb47f2673d76e508531c757535b8c25cac713eb1dbe1413ad8f"
+    },
+    "development-attempts/05-first-modal/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-1ca63b922d9f/isolation/result.json",
+      "originalSha256": "8e7b59098de791247bab694e7f9af0d817855b47229fb14041a38dac3bde0fda",
+      "publishedSha256": "0fa56bb370817da4b23a8f9a1c2955ee62f3d9e1a3da1331e766c8c1d8630b7e"
+    },
+    "development-attempts/05-first-modal/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-1ca63b922d9f/isolation/environment.json",
+      "originalSha256": "4017f2d42a4792d2f153d937389fd92b287f33a655d76c2f76502431337985c5",
+      "publishedSha256": "4017f2d42a4792d2f153d937389fd92b287f33a655d76c2f76502431337985c5"
+    },
+    "development-attempts/05-first-modal/failure.png": {
+      "source": "/tmp/veynrel-registry-native-1ca63b922d9f/failure.png",
+      "originalSha256": "77c69c6d1b5c592c21c89146160ffc16faa2ce47e16b6118415d6f832642d0ff",
+      "publishedSha256": "77c69c6d1b5c592c21c89146160ffc16faa2ce47e16b6118415d6f832642d0ff"
+    },
+    "development-attempts/06-startup-focus/report.json": {
+      "source": "/tmp/veynrel-registry-native-9d679e4aee96/report.json",
+      "originalSha256": "856febd427ac3955b201ce7bf122e7d20c070dc86f86955bc0779e11345635f8",
+      "publishedSha256": "9ad2e4a8925282343116210eedb7362e3baeff4f97c267caca492bd83ded1cd4"
+    },
+    "development-attempts/06-startup-focus/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-9d679e4aee96/isolation/result.json",
+      "originalSha256": "684beae7226e8468207149d11a878df54517a4c90123c478ebfe399fc6efcb45",
+      "publishedSha256": "f728a014de7ba63437efcccfee9dab677dc9d7e727630c7a6a52e462a33edfc5"
+    },
+    "development-attempts/06-startup-focus/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-9d679e4aee96/isolation/environment.json",
+      "originalSha256": "c7097df37426c291f65574381999a4cee5dc96c945867ca6a8b69ad005807b91",
+      "publishedSha256": "c7097df37426c291f65574381999a4cee5dc96c945867ca6a8b69ad005807b91"
+    },
+    "development-attempts/06-startup-focus/failure.png": {
+      "source": "/tmp/veynrel-registry-native-9d679e4aee96/failure.png",
+      "originalSha256": "caafb7002eff782fb95954d9566fc6f3e9b6abab969fb7b67e515a67b5918d1b",
+      "publishedSha256": "caafb7002eff782fb95954d9566fc6f3e9b6abab969fb7b67e515a67b5918d1b"
+    },
+    "development-attempts/07-host-crlf-normalization/report.json": {
+      "source": "/tmp/veynrel-registry-native-6834117f7d5d/report.json",
+      "originalSha256": "03f78a3b52f9c8a12daa8364bae4ed7a0a8c3395cd86a5d200e8f3d1e364779d",
+      "publishedSha256": "f9e6c09023bdd7a130c44467b06bb58b8f64b2e0158383eb4cab08c88c0b78be"
+    },
+    "development-attempts/07-host-crlf-normalization/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-6834117f7d5d/isolation/result.json",
+      "originalSha256": "7691bea6fc61eb015751053b1112934a05812068d7bd59b61d2eef99b79717b4",
+      "publishedSha256": "38791db4cba55012307e129432a5ac6d8f05fadb3a2a64853e5626a76b550b05"
+    },
+    "development-attempts/07-host-crlf-normalization/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-6834117f7d5d/isolation/environment.json",
+      "originalSha256": "fdc02edb2a92fb5eb4a8c8637bc5857afbd0fa3251370872d7d5120fe17d0ec6",
+      "publishedSha256": "fdc02edb2a92fb5eb4a8c8637bc5857afbd0fa3251370872d7d5120fe17d0ec6"
+    },
+    "development-attempts/07-host-crlf-normalization/failure.png": {
+      "source": "/tmp/veynrel-registry-native-6834117f7d5d/failure.png",
+      "originalSha256": "f84d32d29b5987a741f2f4678a8fc514cc81f7b3cc1930627f2491a6f737c256",
+      "publishedSha256": "f84d32d29b5987a741f2f4678a8fc514cc81f7b3cc1930627f2491a6f737c256"
+    },
+    "development-attempts/08-community-pointer/report.json": {
+      "source": "/tmp/veynrel-community-native-b7ab4ec25606/report.json",
+      "originalSha256": "3d60a51895d9ff8c478a74994b908d39fdd9a658efafd0704698b47c7e351f6b",
+      "publishedSha256": "3d60a51895d9ff8c478a74994b908d39fdd9a658efafd0704698b47c7e351f6b"
+    },
+    "development-attempts/08-community-pointer/isolation/result.json": {
+      "source": "/tmp/veynrel-community-native-b7ab4ec25606/isolation/result.json",
+      "originalSha256": "0cad06df8c743d3906f11c60d939019bb2b7d6f1b2fb3873c56f4c2107b7d0dc",
+      "publishedSha256": "585a85e43fd0bf60869d226c398fba92724fcfe3007b713029086a01fe1b38c9"
+    },
+    "development-attempts/08-community-pointer/isolation/environment.json": {
+      "source": "/tmp/veynrel-community-native-b7ab4ec25606/isolation/environment.json",
+      "originalSha256": "45bdfd70c6354abdfa9afe16b4039f6c3479a75172315253ff4d1c6a79509623",
+      "publishedSha256": "45bdfd70c6354abdfa9afe16b4039f6c3479a75172315253ff4d1c6a79509623"
+    },
+    "development-attempts/08-community-pointer/failure.png": {
+      "source": "/tmp/veynrel-community-native-b7ab4ec25606/failure.png",
+      "originalSha256": "22ab9f3372ac5c824389a837ea5e5beced1084f5ba248ac87b3e5a399ecc6772",
+      "publishedSha256": "22ab9f3372ac5c824389a837ea5e5beced1084f5ba248ac87b3e5a399ecc6772"
+    },
+    "pre-final/community-control/report.json": {
+      "source": "/tmp/veynrel-community-native-cc3f21b18f77/report.json",
+      "originalSha256": "1acfd30a44f1af85a45ba50e3bb6bda5f2d72f8aa3f602029314defecf0ed510",
+      "publishedSha256": "1acfd30a44f1af85a45ba50e3bb6bda5f2d72f8aa3f602029314defecf0ed510"
+    },
+    "pre-final/community-control/isolation/result.json": {
+      "source": "/tmp/veynrel-community-native-cc3f21b18f77/isolation/result.json",
+      "originalSha256": "f86eab01965e02526acfcebff66ccff654987e01d77095c0702af251283751bd",
+      "publishedSha256": "0befd006fc86c82bf5db48df3f4c40db29201f64b0163e72a84534d578cf638c"
+    },
+    "pre-final/community-control/isolation/environment.json": {
+      "source": "/tmp/veynrel-community-native-cc3f21b18f77/isolation/environment.json",
+      "originalSha256": "8ae64d632dd2164ef531d08a1fc7296a8389533f9c7f9d00d73095271422a551",
+      "publishedSha256": "8ae64d632dd2164ef531d08a1fc7296a8389533f9c7f9d00d73095271422a551"
+    },
+    "pre-final/registry/report.json": {
+      "source": "/tmp/veynrel-registry-native-902d14b8789a/report.json",
+      "originalSha256": "c43a3d2145971d5ea02175e5764ed11a33a7ce7ddfa09b99b34115fac0945e8b",
+      "publishedSha256": "c43a3d2145971d5ea02175e5764ed11a33a7ce7ddfa09b99b34115fac0945e8b"
+    },
+    "pre-final/registry/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-902d14b8789a/isolation/result.json",
+      "originalSha256": "0d05a5223f7bfbdf2d1050cc11544d04f17b1c55ceb7cdcb90b720e6028f0abc",
+      "publishedSha256": "cf5f62812746595fc579003bdad62c77f4add630bdddb8812f3c7b08246f658d"
+    },
+    "pre-final/registry/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-902d14b8789a/isolation/environment.json",
+      "originalSha256": "84024aef57b40bd58fd38058c2141802b3531ff8914a22d80c5aed9c56ccf736",
+      "publishedSha256": "84024aef57b40bd58fd38058c2141802b3531ff8914a22d80c5aed9c56ccf736"
+    },
+    "delivery/smoke/report.json": {
+      "source": "/tmp/veynrel-smoke-native-f6b8482056a8/report.json",
+      "originalSha256": "162b8f2070574acd933137e137a33acbff9a5238fc2d9205cd3b5a665fe6a4d2",
+      "publishedSha256": "162b8f2070574acd933137e137a33acbff9a5238fc2d9205cd3b5a665fe6a4d2"
+    },
+    "delivery/smoke/isolation/result.json": {
+      "source": "/tmp/veynrel-smoke-native-f6b8482056a8/isolation/result.json",
+      "originalSha256": "23909e0897984dcef5a1a1c7f30b948c92333369ced639698b7482c869faf82a",
+      "publishedSha256": "38c49fce4e21fddd1be06dedc8292ec36eccc2a7d0c041c36ddafa5619105331"
+    },
+    "delivery/smoke/isolation/environment.json": {
+      "source": "/tmp/veynrel-smoke-native-f6b8482056a8/isolation/environment.json",
+      "originalSha256": "3cf3dd50e48fc23e3a41f22e1a6b919c0f249babee2013376fac9b9f5b4690c3",
+      "publishedSha256": "3cf3dd50e48fc23e3a41f22e1a6b919c0f249babee2013376fac9b9f5b4690c3"
+    },
+    "delivery/organization/report.json": {
+      "source": "/tmp/veynrel-organization-native-3a5d1d24b918/report.json",
+      "originalSha256": "ed5c095fd367a4cc296e527b3bbfbc5c308ffd71477639630c8e6a565f4ba5da",
+      "publishedSha256": "ed5c095fd367a4cc296e527b3bbfbc5c308ffd71477639630c8e6a565f4ba5da"
+    },
+    "delivery/organization/isolation/result.json": {
+      "source": "/tmp/veynrel-organization-native-3a5d1d24b918/isolation/result.json",
+      "originalSha256": "63b719c3704a862a3337ca594d7be4b1e80047ac1313bf8335b60b35a5e78b2c",
+      "publishedSha256": "ba4b79158f67cbdf2947710e8fdc44baed18de13b0749080c80451cf800eb1f0"
+    },
+    "delivery/organization/isolation/environment.json": {
+      "source": "/tmp/veynrel-organization-native-3a5d1d24b918/isolation/environment.json",
+      "originalSha256": "f48c606bea1f9478ff5251951476abf67202cfb7a565ab1f9162dfbf48cdbd86",
+      "publishedSha256": "f48c606bea1f9478ff5251951476abf67202cfb7a565ab1f9162dfbf48cdbd86"
+    },
+    "delivery/actions/report.json": {
+      "source": "/tmp/veynrel-actions-native-b2fa79413c0e/report.json",
+      "originalSha256": "c3860aaea65c96cf9dfc3321a24a86b65279b9d69065cb29d875da0df50aa1b5",
+      "publishedSha256": "c3860aaea65c96cf9dfc3321a24a86b65279b9d69065cb29d875da0df50aa1b5"
+    },
+    "delivery/actions/isolation/result.json": {
+      "source": "/tmp/veynrel-actions-native-b2fa79413c0e/isolation/result.json",
+      "originalSha256": "51f5d9199bb0ab8f865e6f7415467bc734cafadd2b17e0ce896df10c1735f26b",
+      "publishedSha256": "73cc495d97d63f92c307256dde4683f6c04f22921285eb8537e0d7360f381223"
+    },
+    "delivery/actions/isolation/environment.json": {
+      "source": "/tmp/veynrel-actions-native-b2fa79413c0e/isolation/environment.json",
+      "originalSha256": "a5f8c5a3ec7bbfceffc94375df3c7e2075c896fad2608933e4e3837c4706ffd2",
+      "publishedSha256": "a5f8c5a3ec7bbfceffc94375df3c7e2075c896fad2608933e4e3837c4706ffd2"
+    },
+    "delivery/local-notes/report.json": {
+      "source": "/tmp/veynrel-local-notes-native-011dbea72e9b/report.json",
+      "originalSha256": "f423e7d2d74c11574c61aa3b7850233177e18e8933d0c89187f2384d8f65aae9",
+      "publishedSha256": "f423e7d2d74c11574c61aa3b7850233177e18e8933d0c89187f2384d8f65aae9"
+    },
+    "delivery/local-notes/isolation/result.json": {
+      "source": "/tmp/veynrel-local-notes-native-011dbea72e9b/isolation/result.json",
+      "originalSha256": "d0c06e6c98763c754766db2ff5a76c1419cd7d2af58835c669023fc743df09e2",
+      "publishedSha256": "458500b7cdffed74627afe07348e09758dd036a839b99e2e72f096cc6437adb9"
+    },
+    "delivery/local-notes/isolation/environment.json": {
+      "source": "/tmp/veynrel-local-notes-native-011dbea72e9b/isolation/environment.json",
+      "originalSha256": "3558f48d5c493c1f5fcad93231eb874c1cbad9e7a7c443c078bd98d02743ea69",
+      "publishedSha256": "3558f48d5c493c1f5fcad93231eb874c1cbad9e7a7c443c078bd98d02743ea69"
+    },
+    "delivery/studio/native-report.json": {
+      "source": "/tmp/veynrel-studio-native-d7cb9edb51a2/native-report.json",
+      "originalSha256": "6137bd47281ea6aa240341efa2e135b9d8e5bba6edfb3171c7d083427ab8e662",
+      "publishedSha256": "6137bd47281ea6aa240341efa2e135b9d8e5bba6edfb3171c7d083427ab8e662"
+    },
+    "delivery/studio/isolation/result.json": {
+      "source": "/tmp/veynrel-studio-native-d7cb9edb51a2/isolation/result.json",
+      "originalSha256": "86be93628b106c805620599b5a086ef83a7f908ee711e9564bb7be6c46a9ef5f",
+      "publishedSha256": "c9c57d0f54e63c493bc61e542e0e1adb5d4ce389d58dbc7bfdca83481b434578"
+    },
+    "delivery/studio/isolation/environment.json": {
+      "source": "/tmp/veynrel-studio-native-d7cb9edb51a2/isolation/environment.json",
+      "originalSha256": "c7ef2d964ccf175fd9f936f622684efe430a6c228492cf972e085b657a2e8991",
+      "publishedSha256": "c7ef2d964ccf175fd9f936f622684efe430a6c228492cf972e085b657a2e8991"
+    },
+    "delivery/recall/report.json": {
+      "source": "/tmp/veynrel-recall-native-a62ae862e544/report.json",
+      "originalSha256": "522a6840f1318ffc3008e5ba43fe07cd3664b4aaeadf5d961ecb87db62fa5d25",
+      "publishedSha256": "522a6840f1318ffc3008e5ba43fe07cd3664b4aaeadf5d961ecb87db62fa5d25"
+    },
+    "delivery/recall/isolation/result.json": {
+      "source": "/tmp/veynrel-recall-native-a62ae862e544/isolation/result.json",
+      "originalSha256": "cde8cc8fe27091f7f06ed16fbecc2a4cf0ae2ecbf0a7bce0a3e38fbe9815d000",
+      "publishedSha256": "c173f8c681f2ee6cc943bbeee7fdb32524fabf14581f1bf6dd2001902326f221"
+    },
+    "delivery/recall/isolation/environment.json": {
+      "source": "/tmp/veynrel-recall-native-a62ae862e544/isolation/environment.json",
+      "originalSha256": "0a1d67b33c1a9e8d582cdb22fbf678c8bf97baa6f47d7bdf0da93ae2616b394e",
+      "publishedSha256": "0a1d67b33c1a9e8d582cdb22fbf678c8bf97baa6f47d7bdf0da93ae2616b394e"
+    },
+    "delivery/community/report.json": {
+      "source": "/tmp/veynrel-community-native-f8b446b3d27c/report.json",
+      "originalSha256": "f0e0f2d12ddd9c39eefa1cd15252b42bedaafbd77387822df92ddee135d88889",
+      "publishedSha256": "f0e0f2d12ddd9c39eefa1cd15252b42bedaafbd77387822df92ddee135d88889"
+    },
+    "delivery/community/isolation/result.json": {
+      "source": "/tmp/veynrel-community-native-f8b446b3d27c/isolation/result.json",
+      "originalSha256": "1c566d2cd001d011aca569d5b579e7fef54123be7e50349e933c39e825a07dbd",
+      "publishedSha256": "b02269897c09fdbf75a8c59aa47935f434a68a7fd0491d1c617bbc4e48e7b37f"
+    },
+    "delivery/community/isolation/environment.json": {
+      "source": "/tmp/veynrel-community-native-f8b446b3d27c/isolation/environment.json",
+      "originalSha256": "0f8b34782902f2af4fd9a1a36f700dcae2f63374ca61263caadb80b788fbba21",
+      "publishedSha256": "0f8b34782902f2af4fd9a1a36f700dcae2f63374ca61263caadb80b788fbba21"
+    },
+    "delivery/registry/report.json": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/report.json",
+      "originalSha256": "460cb3376c6a3abbf781d1fe0393927efab376fa37979f77d7406063084bce00",
+      "publishedSha256": "460cb3376c6a3abbf781d1fe0393927efab376fa37979f77d7406063084bce00"
+    },
+    "delivery/registry/isolation/result.json": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/isolation/result.json",
+      "originalSha256": "091952b726cc01817f6ca234cf69d0e2b5ae1c0023ab7175979d3a7cd03f6e24",
+      "publishedSha256": "75744c836212b6a9d22961059dfedece13eb50be50fc3dceb9a69a0bfdc83fd5"
+    },
+    "delivery/registry/isolation/environment.json": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/isolation/environment.json",
+      "originalSha256": "9b036d5beeec18feca26b56b3c88b766697a20cfa10243a8fc9f9635533b81df",
+      "publishedSha256": "9b036d5beeec18feca26b56b3c88b766697a20cfa10243a8fc9f9635533b81df"
+    },
+    "delivery/registry/connected-registry.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/connected-registry.png",
+      "originalSha256": "e2114e8f7396f568d74f6675a7676a2e7abf7a0a142294b7826915976503ae1f",
+      "publishedSha256": "e2114e8f7396f568d74f6675a7676a2e7abf7a0a142294b7826915976503ae1f"
+    },
+    "delivery/registry/corrupt-preferences-refusal.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/corrupt-preferences-refusal.png",
+      "originalSha256": "56600e6e97f6d6013e8c81c9cf5868f0560f55dc2c12ad268d93facfac388dd7",
+      "publishedSha256": "56600e6e97f6d6013e8c81c9cf5868f0560f55dc2c12ad268d93facfac388dd7"
+    },
+    "delivery/registry/deferred.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/deferred.png",
+      "originalSha256": "da386e0f71b72e7e3dfa95dfe705746ecdfb0a5d9b4269332f54b8ba36385f22",
+      "publishedSha256": "da386e0f71b72e7e3dfa95dfe705746ecdfb0a5d9b4269332f54b8ba36385f22"
+    },
+    "delivery/registry/definition-draft.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/definition-draft.png",
+      "originalSha256": "85a5068de05898d6ae2b4738dbda49f129cc59235ff2956839e95b1fee0d9bc4",
+      "publishedSha256": "85a5068de05898d6ae2b4738dbda49f129cc59235ff2956839e95b1fee0d9bc4"
+    },
+    "delivery/registry/en-dark-390-editor.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/en-dark-390-editor.png",
+      "originalSha256": "77060105849e9008b06a37b86e23b94f7e3aa5bff41d052ad72fd90f427062fb",
+      "publishedSha256": "77060105849e9008b06a37b86e23b94f7e3aa5bff41d052ad72fd90f427062fb"
+    },
+    "delivery/registry/en-dark-390-review.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/en-dark-390-review.png",
+      "originalSha256": "76acbdc1cb8f726a9f7422ae2226a1f6ff02e0b260ba52a7302f4739f6ad5087",
+      "publishedSha256": "76acbdc1cb8f726a9f7422ae2226a1f6ff02e0b260ba52a7302f4739f6ad5087"
+    },
+    "delivery/registry/en-light-390-editor.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/en-light-390-editor.png",
+      "originalSha256": "2030541ca0ce14d466ac70ce2fe73e28353b1c974556b33a56e84b9f0ea0d703",
+      "publishedSha256": "2030541ca0ce14d466ac70ce2fe73e28353b1c974556b33a56e84b9f0ea0d703"
+    },
+    "delivery/registry/en-light-390-review.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/en-light-390-review.png",
+      "originalSha256": "31e448adf06cd58209a7ebf8357c5a058b3252c3122e138448eaf120c7482719",
+      "publishedSha256": "31e448adf06cd58209a7ebf8357c5a058b3252c3122e138448eaf120c7482719"
+    },
+    "delivery/registry/popout-registry.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/popout-registry.png",
+      "originalSha256": "e2c3c50b078d15229662a2492de5a5283c3f66bb26782e3487ad02387055074d",
+      "publishedSha256": "e2c3c50b078d15229662a2492de5a5283c3f66bb26782e3487ad02387055074d"
+    },
+    "delivery/registry/proposal.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/proposal.png",
+      "originalSha256": "510917e6145e223940a7c0218378ccb868033b9faad30b46d0f40277a263a590",
+      "publishedSha256": "510917e6145e223940a7c0218378ccb868033b9faad30b46d0f40277a263a590"
+    },
+    "delivery/registry/registry-diff-confirm.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-diff-confirm.png",
+      "originalSha256": "7f9a2fb80a05d884e985dc0ac07b7a390cccd0dbe71088c2042b6f7a4689f086",
+      "publishedSha256": "7f9a2fb80a05d884e985dc0ac07b7a390cccd0dbe71088c2042b6f7a4689f086"
+    },
+    "delivery/registry/registry-full-after.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-full-after.png",
+      "originalSha256": "0084435a84eaf74826d8d77b5295a33b6d4e27f18c1727f64fa4d1a2bccec0fe",
+      "publishedSha256": "0084435a84eaf74826d8d77b5295a33b6d4e27f18c1727f64fa4d1a2bccec0fe"
+    },
+    "delivery/registry/registry-full-before.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-full-before.png",
+      "originalSha256": "1712697219be808ff0330fff06adfb24277186e597345abb8175a467fc89bb8b",
+      "publishedSha256": "1712697219be808ff0330fff06adfb24277186e597345abb8175a467fc89bb8b"
+    },
+    "delivery/registry/registry-history-restart.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-history-restart.png",
+      "originalSha256": "cead77402593a61f1a4b7d90f0def21178fea7484c6f3228c251f2cecb437eb1",
+      "publishedSha256": "cead77402593a61f1a4b7d90f0def21178fea7484c6f3228c251f2cecb437eb1"
+    },
+    "delivery/registry/registry-saved.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-saved.png",
+      "originalSha256": "a3176b1ddb55df073a536bcdda00f910dbd75de41a965c8102c55f1410bad75b",
+      "publishedSha256": "a3176b1ddb55df073a536bcdda00f910dbd75de41a965c8102c55f1410bad75b"
+    },
+    "delivery/registry/registry-undo-review.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-undo-review.png",
+      "originalSha256": "2690d70d82cf1ad28dca3ecb2c7619fe69ad9b13d875a2bc1147e386cb19ac25",
+      "publishedSha256": "2690d70d82cf1ad28dca3ecb2c7619fe69ad9b13d875a2bc1147e386cb19ac25"
+    },
+    "delivery/registry/registry-undone.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-undone.png",
+      "originalSha256": "f198dfef100498ba7acdad8c096aae892de2a04d6072dc44d44984ea4c2c9556",
+      "publishedSha256": "f198dfef100498ba7acdad8c096aae892de2a04d6072dc44d44984ea4c2c9556"
+    },
+    "delivery/registry/ru-dark-390-editor.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/ru-dark-390-editor.png",
+      "originalSha256": "283f9e89f248e53799ac55e45aa759f5bb6172457aa3c765aa52250f4d4b47d9",
+      "publishedSha256": "283f9e89f248e53799ac55e45aa759f5bb6172457aa3c765aa52250f4d4b47d9"
+    },
+    "delivery/registry/ru-dark-390-review.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/ru-dark-390-review.png",
+      "originalSha256": "b9b0467b937e59018c75fa4736517af4a4e97518bdf48572c32179381686d5d4",
+      "publishedSha256": "b9b0467b937e59018c75fa4736517af4a4e97518bdf48572c32179381686d5d4"
+    },
+    "delivery/registry/ru-light-390-editor.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/ru-light-390-editor.png",
+      "originalSha256": "c50a5264960bc9468eb1906a731883d8fb34ad5ccf38d81ebc1d3474e17f4d43",
+      "publishedSha256": "c50a5264960bc9468eb1906a731883d8fb34ad5ccf38d81ebc1d3474e17f4d43"
+    },
+    "delivery/registry/ru-light-390-review.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/ru-light-390-review.png",
+      "originalSha256": "dc9e82367c248c8d6b7ade9233982e269609448e80990d0a6ddcae0770b65939",
+      "publishedSha256": "dc9e82367c248c8d6b7ade9233982e269609448e80990d0a6ddcae0770b65939"
+    },
+    "delivery/registry/still-dismissed.png": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/still-dismissed.png",
+      "originalSha256": "bbbe3281bcea3502bc8ba68471cd54ea7b32b1e7906b2166297ae3a805f938cc",
+      "publishedSha256": "bbbe3281bcea3502bc8ba68471cd54ea7b32b1e7906b2166297ae3a805f938cc"
+    },
+    "delivery/registry/decisions-journey.mp4": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/decisions-journey.mp4",
+      "originalSha256": "392e39085797c27da3e67f74087e8c7718e9dcd02575c0aaa841452f347b8576",
+      "publishedSha256": "392e39085797c27da3e67f74087e8c7718e9dcd02575c0aaa841452f347b8576"
+    },
+    "delivery/registry/registry-journey.mp4": {
+      "source": "/tmp/veynrel-registry-native-114b076e28e8/registry-journey.mp4",
+      "originalSha256": "5ff3f2c1de4a9351af3aefbdf4ca57f42cd980520bab5ab3531d88b36b2a8c76",
+      "publishedSha256": "5ff3f2c1de4a9351af3aefbdf4ca57f42cd980520bab5ab3531d88b36b2a8c76"
+    },
+    "checks/suite.log": {
+      "source": "/tmp/r053-suite-delivery.log",
+      "originalSha256": "90f72df6f02d0a876bb653f337a3b8f828d1b750bfd500712e68102f9f003f2f",
+      "publishedSha256": "a2294cc35a43bbf747a2b5dc3ff6d9a3ac89bb391a599ade0ba6ad5c7deef515"
+    },
+    "checks/lint.log": {
+      "source": "/tmp/r053-lint-delivery.log",
+      "originalSha256": "19630c9b1c309c3dd26c9be4427af4da9e388387079d2096178fadbdd2d06f8d",
+      "publishedSha256": "3630285a2b6aea1938cae37af58395f619fb91c5eca1eaf6ddc6a6a3ae4f5385"
+    },
+    "checks/mutation.log": {
+      "source": "/tmp/r053-audit-delivery.log",
+      "originalSha256": "51031ae5c721676b9520f5c89faf1068b7366c927ffa31578e52b826b83a207e",
+      "publishedSha256": "51031ae5c721676b9520f5c89faf1068b7366c927ffa31578e52b826b83a207e"
+    },
+    "checks/native-session.log": {
+      "source": "/tmp/r053-session.log",
+      "originalSha256": "0020a423a40fbd4eb51d16acb5af5ca89f8f7f4c8eb15cce40a833dca48243bf",
+      "publishedSha256": "0020a423a40fbd4eb51d16acb5af5ca89f8f7f4c8eb15cce40a833dca48243bf"
+    },
+    "checks/native-runner.log": {
+      "source": "/tmp/r053-runner.log",
+      "originalSha256": "505ffb2674d5cc26b636d9d02984e4c86bdfd485a050e3ced6ba8b4b15c26c1b",
+      "publishedSha256": "505ffb2674d5cc26b636d9d02984e4c86bdfd485a050e3ced6ba8b4b15c26c1b"
+    },
+    "checks/invalid-picker-red.log": {
+      "source": "/tmp/r053-invalid-picker-red.log",
+      "originalSha256": "d61fa795679fac3210a95298c627a7ae2cfd4da5e8236a9abaee501783ce3560",
+      "publishedSha256": "4df9e704d13a30ac8b15abbae1864f22582d8449935a45fe6df70229e7b01e7d"
+    },
+    "build.json": {
+      "source": "/tmp/r053-build-manifest.json",
+      "originalSha256": "de0718383ca484149c1e01e7068fcbead05ebb3225058829542d3b66940165a6",
+      "publishedSha256": "de0718383ca484149c1e01e7068fcbead05ebb3225058829542d3b66940165a6"
+    }
+  }
+}

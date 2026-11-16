@@ -63,7 +63,7 @@ Observed tags are evidence of use, not required classifications. The connected
 Markdown registry is the only active definitions source: its full saved contents
 are parsed and pinned, with no fallback to a dormant settings profile on error.
 A registry/settings change invalidates a prepared plan. Neither action edits
-rules or dismissals. Registry editing and stable R04 dismissal IDs remain R05.3.
+rules or dismissals. Registry editing and durable R04 decisions use the separate [R05.3 contract](registry-editing-and-decisions.md); these note operations do not edit rules.
 
 Each source is bounded to 200,000 characters / 800,000 UTF-8 bytes. The native
 adapter checks `TFile` identity, path, ctime/mtime/size, full saved contents,

@@ -1,0 +1,541 @@
+{
+  "scenario": "r05-3-registry-native-v1",
+  "checks": [
+    "Passive Audit open does not start an audit, read notes or write Markdown",
+    "en dark editor: controls fit, no horizontal overflow",
+    "Separate Review has no Markdown writes or model requests",
+    "Save reports verified success and refreshes active definitions",
+    "Disk: one selected definition changed; surrounding CRLF/YAML/prose/Unicode and all knowledge notes preserved",
+    "Restart retains connection without fallback or automatic source reads",
+    "After explicit reload the changed rule is active",
+    "Undo restores original bytes and active definitions",
+    "Leave as is persists full authority, not accepted or applied"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+    },
+    {
+      "selector": "[data-registry-action=review]",
+      "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-registry-review details:nth-of-type(1) summary",
+      "active": "<summary>Before: complete original Markdown</summary>"
+    },
+    {
+      "selector": ".ai-registry-review details:nth-of-type(2) summary",
+      "active": "<summary>After: complete proposed Markdown</summary>"
+    },
+    {
+      "selector": ".ai-registry-review [data-registry=confirm]",
+      "active": "<button type=\"button\" data-registry=\"confirm\">Apply this change</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+    },
+    {
+      "selector": "[data-registry=undo]",
+      "active": "<button type=\"button\" data-registry=\"undo\">Review undo</button>"
+    },
+    {
+      "selector": ".ai-registry-review [data-registry=confirm]",
+      "active": "<button type=\"button\" data-registry=\"confirm\">Undo this change</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-taxonomy-action=analyze]",
+      "active": "<button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button>"
+    },
+    {
+      "selector": "[data-org-action=dismiss]",
+      "active": "<button type=\"button\" data-org-action=\"dismiss\" data-taxonomy-focus=\"org-dismiss\">Leave as is</button>"
+    }
+  ],
+  "screenshots": [
+    "connected-registry.png",
+    "definition-draft.png",
+    "registry-full-before.png",
+    "registry-full-after.png",
+    "registry-diff-confirm.png",
+    "registry-saved.png",
+    "registry-history-restart.png",
+    "registry-undo-review.png",
+    "registry-undone.png",
+    "proposal.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "c555503e50157ea6af4b50787c040507ecb5a04eb8d1bc6cbd38e24dd145edd9",
+    "styles.css": "d71204f8c1f63bee141c383047ec10752254285936181b77efbaee9386babc87",
+    "manifest.json": "245ce6bb637085a8582da5f2fce09e239969ea83db68262f67a0edef03ebecfe"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 11.266667,
+    "frames": 64,
+    "seconds": 10.887674808502197,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "entry": "Workspace Organization Audit / Rules",
+  "sourceSha": "c75642e0b9eb0bf63b3128a9286304009a2011d2",
+  "sourceDiffSha256": "f61b225bfd1a8610ab3adc0bc6dd165e87e342a35b7c7595c1af714ed08f4982",
+  "harnessHashes": {
+    "r05-3-registry-native.mjs": "d4a6bd5133ec7e2a629d2a97d1b679b3ec6fb474b6404bbda60ac701c9228c80",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "a3d3ac4d281001f7492e5169a95125ddf261b4eb752458c7a68562aab81dc961"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.4.0"
+  },
+  "passive": {
+    "reads": [],
+    "writes": [],
+    "creates": [],
+    "metadata": 1,
+    "metadataCalls": [
+      {
+        "path": "Notes/C.md",
+        "phase": "startup",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      }
+    ],
+    "enumerations": 1,
+    "enumerationCalls": [
+      {
+        "phase": "passive",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2936)\n    at no.onOpen (plugin:ai-knowledge-hub:620:41249)\n    at no.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+      }
+    ],
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "startup"
+      }
+    ],
+    "phase": "passive"
+  },
+  "settingsBefore": "null",
+  "layouts": [
+    {
+      "name": "en dark editor",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 340.21875,
+          "bottom": 370.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 378.21875,
+          "bottom": 408.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 416.21875,
+          "bottom": 446.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 454.21875,
+          "bottom": 484.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 492.21875,
+          "bottom": 552.890625
+        },
+        {
+          "left": 147.25,
+          "right": 274.6875,
+          "top": 659.390625,
+          "bottom": 683.390625
+        }
+      ],
+      "left": 127,
+      "right": 973
+    }
+  ],
+  "beforeRestartIO": {
+    "reads": [
+      {
+        "path": "Rules.md",
+        "phase": "connect"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "connect"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "connect"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "definition-draft"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "review"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "review"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      }
+    ],
+    "writes": [
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      }
+    ],
+    "creates": [],
+    "metadata": 2,
+    "metadataCalls": [
+      {
+        "path": "Notes/C.md",
+        "phase": "startup",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      }
+    ],
+    "enumerations": 1,
+    "enumerationCalls": [
+      {
+        "phase": "passive",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2936)\n    at no.onOpen (plugin:ai-knowledge-hub:620:41249)\n    at no.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+      }
+    ],
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "connect"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "connect"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "connect"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "connect"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations",
+        "phase": "apply"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/bf13cb02e84b891dad15c1acf47902e802e77795a0331f62f59f6b768dd3efd2",
+        "phase": "apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/bf13cb02e84b891dad15c1acf47902e802e77795a0331f62f59f6b768dd3efd2/record.json",
+        "phase": "apply"
+      },
+      {
+        "method": "copy",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/bf13cb02e84b891dad15c1acf47902e802e77795a0331f62f59f6b768dd3efd2/record.json",
+        "phase": "apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/bf13cb02e84b891dad15c1acf47902e802e77795a0331f62f59f6b768dd3efd2/mark-8a22545b-f60c-4174-a678-1f68062a8d18.json",
+        "phase": "apply"
+      }
+    ],
+    "phase": "apply"
+  },
+  "continuousRecordings": [
+    {
+      "file": "registry-journey.mp4",
+      "seconds": 19.583333,
+      "source": "Uncut private Xvfb 1600x1000 recording, including host restart; no user desktop"
+    },
+    {
+      "file": "decisions-journey.mp4",
+      "seconds": 0.583333,
+      "source": "Uncut private Xvfb 1600x1000 recording, including host restart; no user desktop"
+    }
+  ],
+  "status": "FAIL",
+  "error": "Error: {\"code\":-32000,\"message\":\"Object reference chain is too long\"}\n    at Object.reject (file://<checkout>/scripts/r05-3-registry-native.mjs:40:118)\n    at socket.onmessage (file://<checkout>/scripts/r05-3-registry-native.mjs:44:87)\n    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)\n    at WebSocket.dispatchEvent (node:internal/event_target:776:26)\n    at fireEvent (node:internal/deps/undici/undici:14147:14)\n    at #onMessage (node:internal/deps/undici/undici:15425:9)\n    at Object.onMessage (node:internal/deps/undici/undici:15138:76)\n    at websocketMessageReceived (node:internal/deps/undici/undici:14151:15)\n    at node:internal/deps/undici/undici:14857:19\n    at node:internal/deps/undici/undici:14671:11",
+  "diagnostic": {
+    "io": {
+      "reads": [
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        }
+      ],
+      "writes": [
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        }
+      ],
+      "creates": [
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        }
+      ],
+      "metadata": 5,
+      "metadataCalls": [
+        {
+          "path": "Rules.md",
+          "phase": "undo",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        }
+      ],
+      "enumerations": 2,
+      "enumerationCalls": [
+        {
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:3378)\n    at eval (plugin:ai-knowledge-hub:483:3687)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/community-plugins.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/bf13cb02e84b891dad15c1acf47902e802e77795a0331f62f59f6b768dd3efd2/mark-8f59f0aa-424a-4453-baca-534e12a5e867.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/bf13cb02e84b891dad15c1acf47902e802e77795a0331f62f59f6b768dd3efd2/mark-fd32d20d-36a6-476a-a7ff-c6c1b99ebcca.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-audit"
+        },
+        {
+          "method": "write",
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        }
+      ],
+      "phase": "fixture-add-unrelated"
+    },
+    "active": "<body class=\"theme-dark mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header is-focused\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/overlay.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/markdown.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/cm-addons.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/vim.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/meta.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/moment.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/pixi.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/i18next.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/scrypt.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/turndown.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"enhance.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"i18n.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"app.js\"></script>\n\n\n<div class=\"app-container\"><div class=\"horizontal-main-container\"><div class=\"workspace is-left-sidedock-open\"><div class=\"workspace-ribbon side-dock-ribbon mod-left\"><div class=\"sidebar-toggle-button mod-left\" aria-label=\"\" data-tooltip-position=\"right\"><div class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon sidebar-toggle-button-icon\"><rect x=\"1\" y=\"2\" width=\"22\" height=\"20\" rx=\"4\"></rect><rect x=\"4\" y=\"5\" width=\"2\" height=\"14\" rx=\"2\" fill=\"currentColor\" class=\"sidebar-toggle-icon-inner\"></rect></svg></div></div><div class=\"side-dock-actions\"><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open quick switcher\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-file-search\"><path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"></path><path d=\"M14 2v5a1 1 0 0 0 1 1h5\"></path><circle cx=\"11.5\" cy=\"14.5\" r=\"2.5\"></circle><path d=\"M13.3 16.3 15 18\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open graph view\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-git-fork\"><circle cx=\"12\" cy=\"18\" r=\"3\"></circle><circle cx=\"6\" cy=\"6\" r=\"3\"></circle><circle cx=\"18\" cy=\"6\" r=\"3\"></circle><path d=\"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9\"></path><path d=\"M12 12v3\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Create new canvas\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-layout-dashboard\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" rx=\"1\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" rx=\"1\"></rect><rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" rx=\"1\"></rect><rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" rx=\"1\"></rect></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open today's daily note\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-calendar\"><path d=\"M8 2v4\"></path><path d=\"M16 2v4\"></path><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"></rect><path d=\"M3 10h18\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Insert template\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-files\"><path d=\"M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8\"></path><path d=\"M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z\"></path><path d=\"M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open command palette\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-terminal\"><path d=\"M12 19h8\"></path><path d=\"m4 17 6-6-6-6\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Create new base\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-layout-list\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect><path d=\"M14 4h7\"></path><path d=\"M14 9h7\"></path><path d=\"M14 15h7\"></path><path d=\"M14 20h7\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Veynrel Studio\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-wand-sparkles\"><path d=\"m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72\"></path><path d=\"m14 7 3 3\"></path><path d=\"M5 6v4\"></path><path d=\"M19 14v4\"></path><path d=\"M10 2v2\"></path><path d=\"M7 8H3\"></path><path d=\"M21 16h-4\"></path><path d=\"M11 3H9\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Veynrel\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-activity\"><path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path></svg></div></div><div class=\"side-dock-settings\"></div></div><div class=\"workspace-split mod-horizontal mod-sidedock mod-left-split\" style=\"width: 300px;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-sidedock-vault-profile\"><div class=\"workspace-drawer-vault-switcher\" aria-label=\"\" data-tooltip-position=\"top\" data-tooltip-delay=\"1000\"><div class=\"workspace-drawer-vault-switcher-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevrons-up-down\"><path d=\"m7 15 5 5 5-5\"></path><path d=\"m7 9 5-5 5 5\"></path></svg></div><div class=\"workspace-drawer-vault-name\">vault</div></div><div class=\"workspace-drawer-vault-actions\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon help\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z\"></path><path d=\"M9.09009 9.00003C9.32519 8.33169 9.78924 7.76813 10.4 7.40916C11.0108 7.05019 12.079 6.94542 12.7773 7.06519C13.9093 7.25935 14.9767 8.25497 14.9748 9.49073C14.9748 11.9908 12 11.2974 12 14\"></path><path d=\"M12 17H12.01\"></path></svg></span><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-settings\"><path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"></path><circle cx=\"12\" cy=\"12\" r=\"3\"></circle></svg></span></div></div><div class=\"workspace-sidedock-empty-state\" style=\"display: none;\"><p class=\"u-muted\">The sidebar is empty, try dragging a tab here.</p></div><div class=\"workspace-tabs mod-top mod-top-left-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active\" draggable=\"true\" aria-label=\"Files\" data-tooltip-delay=\"300\" data-type=\"file-explorer\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-closed\"><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path><path d=\"M2 10h20\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Files</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Search\" data-tooltip-delay=\"300\" data-type=\"search\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-search\"><path d=\"m21 21-4.34-4.34\"></path><circle cx=\"11\" cy=\"11\" r=\"8\"></circle></svg></div><div class=\"workspace-tab-header-inner-title\">Search</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Bookmarks\" data-tooltip-delay=\"300\" data-type=\"bookmarks\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-bookmark\"><path d=\"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Bookmarks</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content\" data-type=\"file-explorer\"><div class=\"nav-header\"><div class=\"nav-buttons-container\"><div class=\"clickable-icon nav-action-button\" aria-label=\"New note\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-edit\"><path d=\"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\"></path><path d=\"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"New folder\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-plus\"><path d=\"M12 10v6\"></path><path d=\"M9 13h6\"></path><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Change sort order\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-sort-asc\"><path d=\"m3 8 4-4 4 4\"></path><path d=\"M7 4v16\"></path><path d=\"M11 12h4\"></path><path d=\"M11 16h7\"></path><path d=\"M11 20h10\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Auto-reveal current file\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-gallery-vertical\"><path d=\"M3 2h18\"></path><rect x=\"3\" y=\"6\" width=\"18\" height=\"12\" rx=\"2\"></rect><path d=\"M3 22h18\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Expand all\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevrons-up-down\"><path d=\"m7 15 5 5 5-5\"></path><path d=\"m7 9 5-5 5 5\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Show search filter\" style=\"display: none;\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-search\"><path d=\"m21 21-4.34-4.34\"></path><circle cx=\"11\" cy=\"11\" r=\"8\"></circle></svg></div></div><div class=\"search-input-container\" style=\"display: none;\"><input enterkeyhint=\"search\" type=\"search\" spellcheck=\"false\" placeholder=\"Search...\"><div class=\"search-input-clear-button\" aria-label=\"Clear search\"></div></div></div><div class=\"nav-files-container node-insert-event\" style=\"position: relative;\"><div style=\"\"><div style=\"width: 276px; height: 0.1px; margin-bottom: 0px;\"></div><div class=\"tree-item nav-folder is-collapsed\"><div class=\"tree-item-self nav-folder-title is-clickable mod-collapsible\" data-path=\"Notes\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-icon collapse-icon is-collapsed\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon right-triangle\"><path d=\"M3 8L12 17L21 8\"></path></svg></div><div class=\"tree-item-inner nav-folder-title-content\">Notes</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Diary.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Diary</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Rules.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Rules</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Unrelated.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Unrelated</div></div></div></div></div></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div></div></div></div><div class=\"workspace-split mod-vertical mod-root\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tabs mod-active mod-top mod-top-right-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active mod-active\" draggable=\"true\" aria-label=\"Veynrel\" data-tooltip-delay=\"300\" data-type=\"veynrel-health\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-activity\"><path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Veynrel</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div><div class=\"sidebar-toggle-button mod-right\" aria-label=\"\" data-tooltip-position=\"left\"><div class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon sidebar-toggle-button-icon\"><rect x=\"1\" y=\"2\" width=\"22\" height=\"20\" rx=\"4\"></rect><rect x=\"4\" y=\"5\" width=\"2\" height=\"14\" rx=\"2\" fill=\"currentColor\" class=\"sidebar-toggle-icon-inner\"></rect></svg></div></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf mod-active\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content\" data-type=\"veynrel-health\"><div class=\"view-header\"><div class=\"view-header-left\"><div class=\"view-header-nav-buttons\"><button class=\"clickable-icon\" aria-disabled=\"true\" aria-label=\"Navigate back\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-arrow-left\"><path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path></svg></button><button class=\"clickable-icon\" aria-disabled=\"true\" aria-label=\"Navigate forward\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-arrow-right\"><path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path></svg></button></div></div><div class=\"view-header-title-container mod-at-start mod-fade mod-at-end\"><div class=\"view-header-title-parent\"></div><div class=\"view-header-title\">Veynrel</div></div><div class=\"view-actions\"><button class=\"clickable-icon view-action mod-bookmark\" aria-label=\"Bookmark\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-bookmark\"><path d=\"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z\"></path></svg></button><button class=\"clickable-icon view-action\" aria-label=\"More options\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-more-vertical\"><circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"12\" cy=\"5\" r=\"1\"></circle><circle cx=\"12\" cy=\"19\" r=\"1\"></circle></svg></button></div></div><div class=\"view-content veynrel-health-view\" data-document-hidden=\"false\" data-scene-visible=\"true\"><div class=\"veynrel-health-status\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\"></div><div class=\"veynrel-workspace\" data-page=\"home\" aria-busy=\"undefined\"><div class=\"veynrel-shell\" data-menu-open=\"false\"><aside class=\"veynrel-sidebar\"><div class=\"veynrel-brand\">Veynrel</div><div class=\"veynrel-vault-name\"><strong>Knowledge workspace</strong><p>vault</p></div><nav aria-label=\"Veynrel navigation\"><button type=\"button\" data-health-action=\"nav-home\" aria-pressed=\"true\" aria-current=\"page\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-house\"><path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"></path><path d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"></path></svg></span><span>Home</span></button><button type=\"button\" data-health-action=\"nav-discover\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-map\"><path d=\"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z\"></path><path d=\"M15 5.764v15\"></path><path d=\"M9 3.236v15\"></path></svg></span><span>Review vault</span></button><button type=\"button\" data-health-action=\"nav-health\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-clipboard-check\"><rect x=\"8\" y=\"2\" width=\"8\" height=\"4\" rx=\"1\" ry=\"1\"></rect><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"></path><path d=\"m9 14 2 2 4-4\"></path></svg></span><span>Check</span></button><button type=\"button\" data-health-action=\"nav-process\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-sliders-horizontal\"><path d=\"M10 5H3\"></path><path d=\"M12 19H3\"></path><path d=\"M14 3v4\"></path><path d=\"M16 17v4\"></path><path d=\"M21 12h-9\"></path><path d=\"M21 19h-5\"></path><path d=\"M21 5h-7\"></path><path d=\"M8 10v4\"></path><path d=\"M8 12H3\"></path></svg></span><span>Process</span></button><button type=\"button\" data-health-action=\"nav-recall\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><span>Review</span></button><button type=\"button\" data-health-action=\"nav-tools\" aria-pressed=\"false\" class=\"veynrel-nav-secondary\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-layout-grid\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect></svg></span><span>All tools</span></button><button type=\"button\" data-health-action=\"nav-history\" aria-pressed=\"false\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><span>History</span></button><button type=\"button\" data-health-action=\"nav-settings\" aria-pressed=\"false\" class=\"veynrel-nav-settings\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-settings\"><path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"></path><circle cx=\"12\" cy=\"12\" r=\"3\"></circle></svg></span><span>Settings</span></button></nav></aside><div class=\"veynrel-shell-content\"><header class=\"veynrel-topbar\"><button type=\"button\" data-health-action=\"workspace-menu\" class=\"veynrel-menu-toggle\" aria-expanded=\"false\">Menu</button><span class=\"veynrel-crumb\">Home</span><label class=\"veynrel-scope-picker\"><span>Scope</span><select aria-label=\"All folders\" data-health-action=\"scope-picker\"><option value=\"\">Whole vault</option><option value=\"Notes\">Notes (3)</option></select></label></header><div class=\"veynrel-shell-main\"><div class=\"veynrel-workspace-message\" data-workspace-message=\"true\"></div><div><section class=\"veynrel-native-home\"><div class=\"veynrel-page-heading\"><h1 tabindex=\"-1\" data-health-heading=\"true\">What needs a closer look?</h1><p>Choose an area to browse notes. The local check covers the whole vault.</p></div><div class=\"veynrel-home-grid\"><section class=\"veynrel-scope-card\"><p class=\"veynrel-eyebrow\">In focus</p><h2>Whole vault</h2><p class=\"veynrel-scope-source\" title=\"All Markdown notes, including the root\">Notes: 6 · vault</p><p>Local: links, duplicates and note structure across the whole vault. No API key, data transmission or note changes. The selected folder does not limit this check.</p><p data-workspace-check-receipt=\"true\">No completed check yet</p><div class=\"veynrel-health-actions\"><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"home-check\">Go to local check</button><button type=\"button\" data-health-action=\"home-findings\">Findings</button></div><details class=\"veynrel-details\" data-health-disclosure=\"home-saved\"><summary data-health-action=\"home-saved\">Saved findings and review</summary><div class=\"veynrel-scope-metrics\"><div><strong>—</strong><small>due · whole vault</small></div><div><strong>—</strong><small>stored findings</small></div></div><p class=\"veynrel-data-note\">Data unavailable</p></details><div class=\"veynrel-scope-actions\"><button type=\"button\" data-health-action=\"open-scope\">Open area</button><button type=\"button\" data-health-action=\"home-recall\">Open review</button><small>Vault-wide queue</small><button type=\"button\" data-health-action=\"home-process\">Process</button></div></section></div><details class=\"veynrel-details\" data-health-disclosure=\"home-folders\"><summary data-health-action=\"home-folders\">Top-level folders and your selection</summary><section class=\"veynrel-core-panel\" aria-label=\"Scope\"><div class=\"veynrel-core-caption\"><h2 class=\"veynrel-eyebrow\">Your vault</h2><p>Notes: 6 · Folders: 1</p></div><div class=\"veynrel-universe\" data-motion=\"true\"><button type=\"button\" data-health-action=\"scope-0\" class=\"veynrel-topic-node veynrel-topic-0\" aria-pressed=\"false\" title=\"Notes\" aria-label=\"Notes · Notes: 3\"><span class=\"veynrel-topic-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-open\"><path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\"></path></svg></span><span class=\"veynrel-topic-name\"><strong>Notes</strong><small>Notes: 3</small></span></button><button type=\"button\" data-health-action=\"scope-all\" class=\"veynrel-core-all\" aria-pressed=\"true\"><span class=\"veynrel-core-geometry\" aria-hidden=\"true\"></span><strong>Whole vault</strong><small>Notes: 6</small></button></div><div class=\"veynrel-core-foot\"><span>Top-level folders and your selection</span><button type=\"button\" data-health-action=\"workspace-motion\" aria-pressed=\"true\">Core animation</button></div></section></details></section><button type=\"button\" data-health-action=\"tag-note\">Tag a selected note</button><button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button></div></div></div></div></div></div></div></div></div></div></div><div class=\"workspace-split mod-horizontal mod-sidedock mod-right-split is-sidedock-collapsed\" style=\"width: 0px; display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\" style=\"opacity: 0;\"><div class=\"workspace-sidedock-empty-state\" style=\"display: none;\"><p class=\"u-muted\">The sidebar is empty, try dragging a tab here.</p></div><div class=\"workspace-tabs mod-top mod-top-right-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active\" draggable=\"true\" aria-label=\"Backlinks\" data-tooltip-delay=\"300\" data-type=\"backlink\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon links-coming-in\"><path d=\"M8.70467 12C8.21657 11.6404 7.81269 11.1817 7.52044 10.6549C7.22819 10.1281 7.0544 9.54553 7.01086 8.94677C6.96732 8.348 7.05504 7.74701 7.26808 7.18456C7.48112 6.62212 7.81449 6.11138 8.24558 5.68697L10.7961 3.17516C11.5978 2.41258 12.6716 1.99062 13.7861 2.00016C14.9007 2.0097 15.9668 2.44997 16.755 3.22615C17.5431 4.00234 17.9902 5.05233 17.9998 6.14998C18.0095 7.24763 17.5811 8.30511 16.8067 9.09467L15.9014 10\"></path><path d=\"M11.2953 8C11.7834 8.35957 12.1873 8.81831 12.4796 9.34512C12.7718 9.87192 12.9456 10.4545 12.9891 11.0532C13.0327 11.652 12.945 12.253 12.7319 12.8154C12.5189 13.3779 12.1855 13.8886 11.7544 14.313L9.20392 16.8248C8.40221 17.5874 7.32844 18.0094 6.21389 17.9998C5.09933 17.9903 4.03318 17.55 3.24504 16.7738C2.4569 15.9977 2.00985 14.9477 2.00016 13.85C1.99047 12.7524 2.41893 11.6949 3.19326 10.9053L4.09859 10\"></path><path d=\"M17 21L14 18L17 15\"></path><path d=\"M21 18H14\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Backlinks</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Outgoing links\" data-tooltip-delay=\"300\" data-type=\"outgoing-link\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon links-going-out\"><path d=\"M8.70467 12C8.21657 11.6404 7.81269 11.1817 7.52044 10.6549C7.22819 10.1281 7.0544 9.54553 7.01086 8.94677C6.96732 8.348 7.05504 7.74701 7.26808 7.18456C7.48112 6.62212 7.81449 6.11138 8.24558 5.68697L10.7961 3.17516C11.5978 2.41258 12.6716 1.99062 13.7861 2.00016C14.9007 2.0097 15.9668 2.44997 16.755 3.22615C17.5431 4.00234 17.9902 5.05233 17.9998 6.14998C18.0095 7.24763 17.5811 8.30511 16.8067 9.09467L15.9014 10\"></path><path d=\"M11.2953 8C11.7834 8.35957 12.1873 8.81831 12.4796 9.34512C12.7718 9.87192 12.9456 10.4545 12.9891 11.0532C13.0327 11.652 12.945 12.253 12.7319 12.8154C12.5189 13.3779 12.1855 13.8886 11.7544 14.313L9.20392 16.8248C8.40221 17.5874 7.32844 18.0094 6.21389 17.9998C5.09933 17.9903 4.03318 17.55 3.24504 16.7738C2.4569 15.9977 2.00985 14.9477 2.00016 13.85C1.99047 12.7524 2.41893 11.6949 3.19326 10.9053L4.09859 10\"></path><path d=\"M18 21L21 18L18 15\"></path><path d=\"M14 18H21\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Outgoing links</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Tags\" data-tooltip-delay=\"300\" data-type=\"tag\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-tags\"><path d=\"M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z\"></path><path d=\"M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193\"></path><circle cx=\"10.5\" cy=\"6.5\" r=\"0.5\" fill=\"currentColor\"></circle></svg></div><div class=\"workspace-tab-header-inner-title\">Tags</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"All properties\" data-tooltip-delay=\"300\" data-type=\"all-properties\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-archive\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"5\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">All properties</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Outline\" data-tooltip-delay=\"300\" data-type=\"outline\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-list\"><path d=\"M3 5h.01\"></path><path d=\"M3 12h.01\"></path><path d=\"M3 19h.01\"></path><path d=\"M8 5h13\"></path><path d=\"M8 12h13\"></path><path d=\"M8 19h13\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Outline</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div></div></div></div><div class=\"workspace-ribbon side-dock-ribbon mod-right is-collapsed\"></div></div></div><div class=\"status-bar\"><div class=\"status-bar-item plugin-backlink mod-clickable\" style=\"display: none;\"></div><div class=\"status-bar-item plugin-properties mod-clickable\"></div><div class=\"status-bar-item plugin-editor-status mod-clickable\" style=\"display: none;\"><span class=\"status-bar-item-icon\"></span></div><div class=\"status-bar-item plugin-word-count\" style=\"display: none;\"><span class=\"status-bar-item-segment\"></span><span class=\"status-bar-item-segment\"></span></div><div class=\"status-bar-item plugin-sync\" aria-label=\"Uninitialized\" data-tooltip-position=\"top\"><div class=\"status-bar-item-segment\"><span class=\"status-bar-item-icon sync-status-icon mod-error\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon refresh-cw-off\"><path d=\"M21 8L18.74 5.74A9.75 9.75 0 0 0 12 3C11 3 10.03 3.16 9.13 3.47\"></path><path d=\"M8 16H3v5\"></path><path d=\"M3 12C3 9.51 4 7.26 5.64 5.64\"></path><path d=\"m3 16 2.26 2.26A9.75 9.75 0 0 0 12 21c2.49 0 4.74-1 6.36-2.64\"></path><path d=\"M21 12c0 1-.16 1.97-.47 2.87\"></path><path d=\"M21 3v5h-5\"></path><path d=\"M22 22 2 2\"></path></svg></span></div></div></div></div><div class=\"modal-container mod-dim\"><div class=\"modal-bg\" style=\"opacity: 0.85;\"></div><div class=\"modal ai-taxonomy-modal\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\">Organization audit</div></div><div class=\"modal-content ai-taxonomy\"><p>Explore local organization without a model or API key. Nothing changes in your notes. Rules are optional.</p><div role=\"status\" aria-live=\"polite\" data-taxonomy-stage=\"editing\"></div><fieldset><legend>Area and local audit</legend><label>Folder including subfolders; empty = whole vault<input data-org-field=\"scope\" data-taxonomy-focus=\"org-scope\" type=\"text\"></label><p>Only this area and its descendants; existing Health scans remain global.</p><details><summary>Which files are excluded?</summary><p>Hidden/config, template, backup and node_modules folders, linked registries and explicitly marked service files are excluded. List other instruction/prompt paths below.</p></details><p>Registry excluded: Rules.md</p><div class=\"ai-taxonomy-field\"><label for=\"taxonomy-2-exclusions\">Exclude paths (one per line, this audit only)</label><textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea></div><button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button></fieldset><section><h3 data-org-state=\"stale\">Sources changed — scan again</h3><p>Area: whole vault</p><p>Examined / in scope: 4 / 5 · excluded: 1 · metadata unavailable: 0 · not examined: 0</p><p>Local cached observations, not a reading of saved note contents. Cache freshness is not verifiable through this API; absence in the cache is not proof of absence in the note.</p><p data-org-decision-counts=\"true\">Current suggestions — active: 0 · left as is: 0 · later: 0</p><section><h4>Consider, if useful</h4><p>Not enough evidence to suggest a structure yet, or unchanged suggestions were left as they are. Keeping the current organization is valid.</p></section><details data-org-decisions=\"true\"><summary>Saved decisions (1/200)</summary><p>Later is not acceptance or rejection. Incomplete scans do not resolve a decision. Restore explicitly to reconsider; no Markdown changes.</p><article data-org-decision=\"dismissed\"><p>Left as is · prefix: topic · whole vault</p><p>Not confirmed in this snapshot; the saved decision is retained.</p><details><summary>Decision basis</summary><pre>{\n  \"version\": 2,\n  \"kind\": \"prefix\",\n  \"value\": \"topic\",\n  \"scope\": {\n    \"kind\": \"all\"\n  },\n  \"exclusions\": [\n    \"Rules.md\"\n  ],\n  \"categories\": [],\n  \"conventions\": []\n}</pre></details><button type=\"button\" data-org-action=\"restore\" data-taxonomy-focus=\"org-restore\">Return to consideration</button></article></details><details><summary>Observations and note examples</summary><details><summary>Folders (direct children) (2)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button><p>Notes: 3 / 4<button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/A.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/B.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/C.md</button></p><p>/: 1 / 4<button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Diary.md</button></p></details><details><summary>Literal tag prefixes (1)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button><p>topic: 3 / 4<button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/A.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/B.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/C.md</button></p></details><details><summary>Cached YAML properties (0)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button></details><details><summary>Observed type values (0)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button></details><p>Cached without tags / properties / type: 1 / 4 / 4; denominator for each: 4. These are not problems by themselves.</p><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Diary.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/A.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/B.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/C.md</button></details><details><summary>Snapshot details and limitations</summary><p>2026-11-15T13:22:15.156Z · f10f6a9582bd09a6</p><pre>{\n  \"scope\": {\n    \"kind\": \"all\"\n  },\n  \"exclusions\": [\n    \"Rules.md\"\n  ],\n  \"reasons\": [\n    \"cache-freshness-unverified\"\n  ],\n  \"sourceCount\": 4\n}</pre></details><details><summary>Declared tags (including unused)</summary><button type=\"button\" data-org-action=\"more-rules\" data-taxonomy-focus=\"org-more-rules\" hidden=\"\">Show next 50</button><p>#unused/Ё · allowed; not observed in this snapshot</p><p>#flashcards/Study · allowed; not observed in this snapshot</p></details><button type=\"button\" data-org-action=\"tag-note\">Tag a selected note</button><details><summary>Tag hierarchy — expand prefixes</summary></details><details><summary>Flat tags (assign manually in the rules) (0)</summary><ul></ul><button type=\"button\" data-taxonomy-action=\"more\" data-taxonomy-focus=\"more\" hidden=\"\">Show next 100</button></details><details><summary>Tags without a category (3)</summary><ul><li>#topic/one — 1</li><li>#topic/three — 1</li><li>#topic/two — 1</li></ul><button type=\"button\" data-taxonomy-action=\"more\" data-taxonomy-focus=\"more\" hidden=\"\">Show next 100</button></details></section><section class=\"ai-tag-recommendations\"><p>AI tag recommendations v1 require the confirmed settings profile and a whole-vault tag inventory. This local audit works independently; registry extensions are not silently sent through the older model contract.</p></section><details data-org-rules=\"true\"><summary>Optional confirmed rules</summary><details><summary>Optional Markdown registry</summary><p>Active source: Rules.md. The settings profile is retained but dormant. A missing or changed file never silently falls back to it.</p><p role=\"status\" data-org-registry=\"ready\">Registry state: validated</p><label>Vault-relative Markdown path<input data-org-field=\"registry-path\" data-taxonomy-focus=\"org-path\" type=\"text\"></label><button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button><button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button><button type=\"button\" data-org-action=\"registry-disconnect\" data-taxonomy-focus=\"org-registry-disconnect\">Review disconnection</button><details><summary>Create a new registry</summary><label>Complete new document (editable)<textarea rows=\"12\" data-org-field=\"registry-content\" data-taxonomy-focus=\"org-content\"></textarea></label><button type=\"button\" data-org-action=\"registry-create\" data-taxonomy-focus=\"org-registry-create\">Preview creation</button></details></details><fieldset disabled=\"\"><p>Definitions come from the selected file. Editing the settings copy is disabled. Use the registry editor above, or edit the file yourself and read/review it again; disconnection is separate.</p><legend>Category rules</legend><p>Confirmed profile loaded. Edits below remain a draft until saved.</p><p>Categories are independent dimensions, not a single tag chain. One primary value is a preference allowing exceptions. Document structure (moc, atom) is separate from content role.</p><button type=\"button\" data-taxonomy-action=\"add\" data-taxonomy-focus=\"add\">Add category</button><p role=\"status\" aria-live=\"polite\">Rules match the saved profile; there are no new changes.</p><button type=\"button\" data-taxonomy-action=\"review\" data-taxonomy-focus=\"review\" disabled=\"\">Review changes</button><button type=\"button\" data-taxonomy-action=\"reload\" data-taxonomy-focus=\"reload\">Discard draft and reload saved rules</button></fieldset></details></div></div></div></body>",
+    "modals": [
+      "<div class=\"modal ai-taxonomy-modal\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\">Organization audit</div></div><div class=\"modal-content ai-taxonomy\"><p>Explore local organization without a model or API key. Nothing changes in your notes. Rules are optional.</p><div role=\"status\" aria-live=\"polite\" data-taxonomy-stage=\"editing\"></div><fieldset><legend>Area and local audit</legend><label>Folder including subfolders; empty = whole vault<input data-org-field=\"scope\" data-taxonomy-focus=\"org-scope\" type=\"text\"></label><p>Only this area and its descendants; existing Health scans remain global.</p><details><summary>Which files are excluded?</summary><p>Hidden/config, template, backup and node_modules folders, linked registries and explicitly marked service files are excluded. List other instruction/prompt paths below.</p></details><p>Registry excluded: Rules.md</p><div class=\"ai-taxonomy-field\"><label for=\"taxonomy-2-exclusions\">Exclude paths (one per line, this audit only)</label><textarea rows=\"2\" id=\"taxonomy-2-exclusions\" data-taxonomy-focus=\"exclusions\"></textarea></div><button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button></fieldset><section><h3 data-org-state=\"stale\">Sources changed — scan again</h3><p>Area: whole vault</p><p>Examined / in scope: 4 / 5 · excluded: 1 · metadata unavailable: 0 · not examined: 0</p><p>Local cached observations, not a reading of saved note contents. Cache freshness is not verifiable through this API; absence in the cache is not proof of absence in the note.</p><p data-org-decision-counts=\"true\">Current suggestions — active: 0 · left as is: 0 · later: 0</p><section><h4>Consider, if useful</h4><p>Not enough evidence to suggest a structure yet, or unchanged suggestions were left as they are. Keeping the current organization is valid.</p></section><details data-org-decisions=\"true\"><summary>Saved decisions (1/200)</summary><p>Later is not acceptance or rejection. Incomplete scans do not resolve a decision. Restore explicitly to reconsider; no Markdown changes.</p><article data-org-decision=\"dismissed\"><p>Left as is · prefix: topic · whole vault</p><p>Not confirmed in this snapshot; the saved decision is retained.</p><details><summary>Decision basis</summary><pre>{\n  \"version\": 2,\n  \"kind\": \"prefix\",\n  \"value\": \"topic\",\n  \"scope\": {\n    \"kind\": \"all\"\n  },\n  \"exclusions\": [\n    \"Rules.md\"\n  ],\n  \"categories\": [],\n  \"conventions\": []\n}</pre></details><button type=\"button\" data-org-action=\"restore\" data-taxonomy-focus=\"org-restore\">Return to consideration</button></article></details><details><summary>Observations and note examples</summary><details><summary>Folders (direct children) (2)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button><p>Notes: 3 / 4<button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/A.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/B.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/C.md</button></p><p>/: 1 / 4<button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Diary.md</button></p></details><details><summary>Literal tag prefixes (1)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button><p>topic: 3 / 4<button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/A.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/B.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/C.md</button></p></details><details><summary>Cached YAML properties (0)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button></details><details><summary>Observed type values (0)</summary><button type=\"button\" data-org-action=\"more-facts\" data-taxonomy-focus=\"org-more-facts\" hidden=\"\">Show next 50</button></details><p>Cached without tags / properties / type: 1 / 4 / 4; denominator for each: 4. These are not problems by themselves.</p><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Diary.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/A.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/B.md</button><button type=\"button\" data-org-action=\"source\" data-taxonomy-focus=\"org-source\">Notes/C.md</button></details><details><summary>Snapshot details and limitations</summary><p>2026-11-15T13:22:15.156Z · f10f6a9582bd09a6</p><pre>{\n  \"scope\": {\n    \"kind\": \"all\"\n  },\n  \"exclusions\": [\n    \"Rules.md\"\n  ],\n  \"reasons\": [\n    \"cache-freshness-unverified\"\n  ],\n  \"sourceCount\": 4\n}</pre></details><details><summary>Declared tags (including unused)</summary><button type=\"button\" data-org-action=\"more-rules\" data-taxonomy-focus=\"org-more-rules\" hidden=\"\">Show next 50</button><p>#unused/Ё · allowed; not observed in this snapshot</p><p>#flashcards/Study · allowed; not observed in this snapshot</p></details><button type=\"button\" data-org-action=\"tag-note\">Tag a selected note</button><details><summary>Tag hierarchy — expand prefixes</summary></details><details><summary>Flat tags (assign manually in the rules) (0)</summary><ul></ul><button type=\"button\" data-taxonomy-action=\"more\" data-taxonomy-focus=\"more\" hidden=\"\">Show next 100</button></details><details><summary>Tags without a category (3)</summary><ul><li>#topic/one — 1</li><li>#topic/three — 1</li><li>#topic/two — 1</li></ul><button type=\"button\" data-taxonomy-action=\"more\" data-taxonomy-focus=\"more\" hidden=\"\">Show next 100</button></details></section><section class=\"ai-tag-recommendations\"><p>AI tag recommendations v1 require the confirmed settings profile and a whole-vault tag inventory. This local audit works independently; registry extensions are not silently sent through the older model contract.</p></section><details data-org-rules=\"true\"><summary>Optional confirmed rules</summary><details><summary>Optional Markdown registry</summary><p>Active source: Rules.md. The settings profile is retained but dormant. A missing or changed file never silently falls back to it.</p><p role=\"status\" data-org-registry=\"ready\">Registry state: validated</p><label>Vault-relative Markdown path<input data-org-field=\"registry-path\" data-taxonomy-focus=\"org-path\" type=\"text\"></label><button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button><button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button><button type=\"button\" data-org-action=\"registry-disconnect\" data-taxonomy-focus=\"org-registry-disconnect\">Review disconnection</button><details><summary>Create a new registry</summary><label>Complete new document (editable)<textarea rows=\"12\" data-org-field=\"registry-content\" data-taxonomy-focus=\"org-content\"></textarea></label><button type=\"button\" data-org-action=\"registry-create\" data-taxonomy-focus=\"org-registry-create\">Preview creation</button></details></details><fieldset disabled=\"\"><p>Definitions come from the selected file. Editing the settings copy is disabled. Use the registry editor above, or edit the file yourself and read/review it again; disconnection is separate.</p><legend>Category rules</legend><p>Confirmed profile loaded. Edits below remain a draft until saved.</p><p>Categories are independent dimensions, not a single tag chain. One primary value is a preference allowing exceptions. Document structure (moc, atom) is separate from content role.</p><button type=\"button\" data-taxonomy-action=\"add\" data-taxonomy-focus=\"add\">Add category</button><p role=\"status\" aria-live=\"polite\">Rules match the saved profile; there are no new changes.</p><button type=\"button\" data-taxonomy-action=\"review\" data-taxonomy-focus=\"review\" disabled=\"\">Review changes</button><button type=\"button\" data-taxonomy-action=\"reload\" data-taxonomy-focus=\"reload\">Discard draft and reload saved rules</button></fieldset></details></div></div>"
+    ]
+  }
+}
