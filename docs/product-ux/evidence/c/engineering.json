@@ -1,0 +1,25 @@
+{
+  "runtimeCommit": "e69c2f2982394c869d85f5fe99d59f74127bf341",
+  "assets": {
+    "main.js": "5177cbdba2c0640afaab39eb539a47eac4e455795677b39f117976b0c08b3eea",
+    "styles.css": "526a0905038529c191d3036babf901117431c07c8aebfd207dd8adf6daa18ca1",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "protectedFilesUnchangedFrom151": [
+    "manifest.json",
+    "versions.json",
+    "package.json",
+    "package-lock.json",
+    "version-bump.mjs",
+    "releaseCompatibility.test.ts",
+    "version-bump.test.ts",
+    "docs/roadmap/resume-batch.md"
+  ],
+  "tests": {
+    "passed": 5428,
+    "files": 213
+  },
+  "mutation": "5/5",
+  "nativeSession": "2/2",
+  "nativeRunner": "3/3"
+}

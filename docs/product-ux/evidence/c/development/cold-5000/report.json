@@ -1,0 +1,66 @@
+{
+  "source": {
+    "commit": "79fe425bdeeaf5a97282dbf53cb2add53042d718",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scenario": "product-ux-structure-benchmark",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "10k-capable list keeps exact existing selection without IO"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "first-light.png",
+    "first-dark.png",
+    "notes-benchmark.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "2549d7b52dadeb161a47578ed11464ec515496320481dc5e56d7adc446dd1003",
+    "styles.css": "526a0905038529c191d3036babf901117431c07c8aebfd207dd8adf6daa18ca1",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 476,
+    "seconds": 13.159650087356567,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "product-ux.mjs": "84bbe19accc4a04b111d3de16b8224b4ee947b64b083a67f51b9cbc5d381c11f",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "passive": {
+    "read": 6,
+    "write": 0,
+    "process": 0,
+    "pluginRead": 0,
+    "pluginWrite": 0
+  },
+  "notesReadyMs": 68.42613100000017,
+  "notes": {
+    "scope": 5000,
+    "files": 5000,
+    "cached": 36,
+    "rows": 60,
+    "elements": 317,
+    "heapUsed": 75974253
+  },
+  "notesSearchMs": 61.98939900000005,
+  "semantic": {
+    "indexed": 0,
+    "computed": 0,
+    "reason": "disabled; file list uses metadata only"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: wb.data.dependencies.topology.getSnapshot().state==='ready'&&!wb.pendingRender\n    at wait (file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux.mjs:62:138)\n    at async file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux.mjs:113:7"
+}

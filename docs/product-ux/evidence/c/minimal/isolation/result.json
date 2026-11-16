@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux.mjs",
+    "<disposable-session>",
+    "after-c"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846252.6090777,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    43405
+  ],
+  "cdpClosed": true,
+  "seconds": 20.284
+}

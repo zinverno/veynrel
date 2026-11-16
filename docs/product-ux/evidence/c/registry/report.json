@@ -1,0 +1,1757 @@
+{
+  "scenario": "r05-3-registry-native-v1",
+  "checks": [
+    "Passive Audit open does not start an audit, read notes or write Markdown",
+    "en dark editor: controls fit, no horizontal overflow",
+    "Separate Review has no Markdown writes or model requests",
+    "Save reports verified success and refreshes active definitions",
+    "Disk: one selected definition changed; surrounding CRLF/YAML/prose/Unicode and all knowledge notes preserved",
+    "Restart retains connection without fallback or automatic source reads",
+    "After explicit reload the changed rule is active",
+    "Undo restores original bytes and active definitions",
+    "Leave as is persists full authority, not accepted or applied",
+    "Unrelated note and counts do not reopen dismissed authority",
+    "Explicit restore returns the same suggestion",
+    "Later is a distinct persisted state",
+    "en/dark/390 editor: controls fit, no horizontal overflow",
+    "en/dark/390 Review: controls fit, no horizontal overflow",
+    "en/dark localized separate confirmation",
+    "en/dark Tab stays in Review",
+    "en/light/390 editor: controls fit, no horizontal overflow",
+    "en/light/390 Review: controls fit, no horizontal overflow",
+    "en/light localized separate confirmation",
+    "en/light Tab stays in Review",
+    "ru/dark/390 editor: controls fit, no horizontal overflow",
+    "ru/dark/390 Review: controls fit, no horizontal overflow",
+    "ru/dark localized separate confirmation",
+    "ru/dark Tab stays in Review",
+    "ru/light/390 editor: controls fit, no horizontal overflow",
+    "ru/light/390 Review: controls fit, no horizontal overflow",
+    "ru/light localized separate confirmation",
+    "ru/light Tab stays in Review",
+    "Affected real split editor blocks registry preparation",
+    "Real popout owns registry editor and focus",
+    "Focus returns with reduced motion",
+    "Corrupt organization settings refuse tagging visibly without fallback or a picker"
+  ],
+  "exceptions": [],
+  "consoleErrors": [],
+  "actions": [
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+    },
+    {
+      "selector": "[data-registry-action=review]",
+      "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": ".ai-registry-review details:nth-of-type(1) summary",
+      "active": "<summary>Before: complete original Markdown</summary>"
+    },
+    {
+      "selector": ".ai-registry-review details:nth-of-type(2) summary",
+      "active": "<summary>After: complete proposed Markdown</summary>"
+    },
+    {
+      "selector": ".ai-registry-review [data-registry=confirm]",
+      "active": "<button type=\"button\" data-registry=\"confirm\">Apply this change</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+    },
+    {
+      "selector": "[data-registry=undo]",
+      "active": "<button type=\"button\" data-registry=\"undo\">Review undo</button>"
+    },
+    {
+      "selector": ".ai-registry-review [data-registry=confirm]",
+      "active": "<button type=\"button\" data-registry=\"confirm\">Undo this change</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-taxonomy-action=analyze]",
+      "active": "<button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button>"
+    },
+    {
+      "selector": "[data-org-action=dismiss]",
+      "active": "<button type=\"button\" data-org-action=\"dismiss\" data-taxonomy-focus=\"org-dismiss\">Leave as is</button>"
+    },
+    {
+      "selector": "[data-taxonomy-action=analyze]",
+      "active": "<button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button>"
+    },
+    {
+      "selector": "[data-org-action=restore]",
+      "active": "<button type=\"button\" data-org-action=\"restore\" data-taxonomy-focus=\"org-restore\">Return to consideration</button>"
+    },
+    {
+      "selector": "[data-org-action=defer]",
+      "active": "<button type=\"button\" data-org-action=\"defer\" data-taxonomy-focus=\"org-defer\">Later</button>"
+    },
+    {
+      "selector": "[data-org-action=restore]",
+      "active": "<button type=\"button\" data-org-action=\"restore\" data-taxonomy-focus=\"org-restore\">Return to consideration</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+    },
+    {
+      "selector": "[data-registry-action=review]",
+      "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+    },
+    {
+      "selector": "[data-registry-action=review]",
+      "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Изменить определения с проверкой</button>"
+    },
+    {
+      "selector": "[data-registry-action=review]",
+      "active": "<button type=\"button\" data-registry-action=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Изменить определения с проверкой</button>"
+    },
+    {
+      "selector": "[data-registry-action=review]",
+      "active": "<button type=\"button\" data-registry-action=\"review\">Проверить и применить</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Прочитать и проверить файл</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Подтвердить</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Изменить определения с проверкой</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-connect]",
+      "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Прочитать и проверить файл</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-confirm]",
+      "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Подтвердить</button>"
+    },
+    {
+      "selector": "[data-health-action=organization-audit]",
+      "active": "<button type=\"button\" data-health-action=\"organization-audit\">Изучить организацию</button>"
+    },
+    {
+      "selector": "[data-org-action=registry-edit]",
+      "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Изменить определения с проверкой</button>"
+    },
+    {
+      "selector": "[data-health-action=tag-note]",
+      "active": "<button type=\"button\" data-health-action=\"tag-note\">Разметить заметку тегом</button>"
+    }
+  ],
+  "screenshots": [
+    "connected-registry.png",
+    "definition-draft.png",
+    "registry-full-before.png",
+    "registry-full-after.png",
+    "registry-diff-confirm.png",
+    "registry-saved.png",
+    "registry-history-restart.png",
+    "registry-undo-review.png",
+    "registry-undone.png",
+    "proposal.png",
+    "still-dismissed.png",
+    "deferred.png",
+    "en-dark-390-editor.png",
+    "en-dark-390-review.png",
+    "en-light-390-editor.png",
+    "en-light-390-review.png",
+    "ru-dark-390-editor.png",
+    "ru-dark-390-review.png",
+    "ru-light-390-editor.png",
+    "ru-light-390-review.png",
+    "popout-registry.png",
+    "corrupt-preferences-refusal.png"
+  ],
+  "assets": {
+    "main.js": "4491c4eed159f52a77694a44249266acd19227aa78524d5dece1b8bdddef7d2b",
+    "styles.css": "526a0905038529c191d3036babf901117431c07c8aebfd207dd8adf6daa18ca1",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "encodedSeconds": 10.466016,
+    "frames": 53,
+    "seconds": 10.078471899032593,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "entry": "Workspace Organization Audit / Rules",
+  "sourceSha": "9a0d6de8f1cffe2f6aaa594c51fd9ce834e2fc0b",
+  "sourceDiffSha256": "19db8b19bb8415caba40234c67aad086666e1e0d5294ff2c9332a85b96b54ac7",
+  "harnessHashes": {
+    "r05-3-registry-native.mjs": "01830168392065f3d5c8b059c4ed24f229f07b4b76bb524bf8a2d43253c30453",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "passive": {
+    "reads": [],
+    "writes": [],
+    "creates": [],
+    "metadata": 2,
+    "metadataCalls": [
+      {
+        "path": "Notes/B.md",
+        "phase": "startup",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      },
+      {
+        "path": "Notes/C.md",
+        "phase": "startup",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      }
+    ],
+    "enumerations": 1,
+    "enumerationCalls": [
+      {
+        "phase": "passive",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at po.onOpen (plugin:ai-knowledge-hub:620:22390)\n    at po.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+      }
+    ],
+    "models": 0,
+    "adapterWrites": [],
+    "phase": "passive"
+  },
+  "layouts": [
+    {
+      "name": "en dark editor",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 340.21875,
+          "bottom": 370.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 378.21875,
+          "bottom": 408.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 416.21875,
+          "bottom": 446.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 454.21875,
+          "bottom": 484.21875
+        },
+        {
+          "left": 554,
+          "right": 958.75,
+          "top": 492.21875,
+          "bottom": 552.890625
+        },
+        {
+          "left": 147.25,
+          "right": 274.6875,
+          "top": 659.390625,
+          "bottom": 683.390625
+        }
+      ],
+      "left": 127,
+      "right": 973
+    },
+    {
+      "name": "en/dark/390 editor",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 345,
+          "bottom": 375
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 430,
+          "bottom": 460
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 495.5,
+          "bottom": 525.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 561,
+          "bottom": 591
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 626.5,
+          "bottom": 687.171875
+        },
+        {
+          "left": 76.25,
+          "right": 203.6875,
+          "top": 910.671875,
+          "bottom": 934.671875
+        }
+      ],
+      "left": 56,
+      "right": 334
+    },
+    {
+      "name": "en/dark/390 Review",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 69,
+          "right": 181.8125,
+          "top": 891.03125,
+          "bottom": 931.03125
+        },
+        {
+          "left": 220.609375,
+          "right": 309,
+          "top": 891.03125,
+          "bottom": 931.03125
+        },
+        {
+          "left": 56,
+          "right": 193.625,
+          "top": 1157.53125,
+          "bottom": 1197.53125
+        },
+        {
+          "left": 201.625,
+          "right": 271.875,
+          "top": 1157.53125,
+          "bottom": 1197.53125
+        }
+      ],
+      "left": 56,
+      "right": 322
+    },
+    {
+      "name": "en/light/390 editor",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 345,
+          "bottom": 375
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 430,
+          "bottom": 460
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 495.5,
+          "bottom": 525.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 561,
+          "bottom": 591
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 626.5,
+          "bottom": 687.171875
+        },
+        {
+          "left": 76.25,
+          "right": 203.6875,
+          "top": 910.671875,
+          "bottom": 934.671875
+        }
+      ],
+      "left": 56,
+      "right": 334
+    },
+    {
+      "name": "en/light/390 Review",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 69,
+          "right": 181.8125,
+          "top": 891.03125,
+          "bottom": 931.03125
+        },
+        {
+          "left": 220.609375,
+          "right": 309,
+          "top": 891.03125,
+          "bottom": 931.03125
+        },
+        {
+          "left": 56,
+          "right": 193.625,
+          "top": 1157.53125,
+          "bottom": 1197.53125
+        },
+        {
+          "left": 201.625,
+          "right": 271.875,
+          "top": 1157.53125,
+          "bottom": 1197.53125
+        }
+      ],
+      "left": 56,
+      "right": 322
+    },
+    {
+      "name": "ru/dark/390 editor",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 390.5,
+          "bottom": 420.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 475.5,
+          "bottom": 505.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 541,
+          "bottom": 571
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 606.5,
+          "bottom": 636.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 672,
+          "bottom": 732.671875
+        },
+        {
+          "left": 76.25,
+          "right": 254.5,
+          "top": 995.171875,
+          "bottom": 1019.171875
+        }
+      ],
+      "left": 56,
+      "right": 334
+    },
+    {
+      "name": "ru/dark/390 Review",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 69,
+          "right": 227.9375,
+          "top": 930.03125,
+          "bottom": 970.03125
+        },
+        {
+          "left": 69,
+          "right": 220.703125,
+          "top": 980.03125,
+          "bottom": 1020.03125
+        },
+        {
+          "left": 56,
+          "right": 253.171875,
+          "top": 1246.53125,
+          "bottom": 1286.53125
+        },
+        {
+          "left": 56,
+          "right": 131.9375,
+          "top": 1302.53125,
+          "bottom": 1342.53125
+        }
+      ],
+      "left": 56,
+      "right": 322
+    },
+    {
+      "name": "ru/light/390 editor",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 390.5,
+          "bottom": 420.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 475.5,
+          "bottom": 505.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 541,
+          "bottom": 571
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 606.5,
+          "bottom": 636.5
+        },
+        {
+          "left": 70.25,
+          "right": 307.75,
+          "top": 672,
+          "bottom": 732.671875
+        },
+        {
+          "left": 76.25,
+          "right": 254.5,
+          "top": 995.171875,
+          "bottom": 1019.171875
+        }
+      ],
+      "left": 56,
+      "right": 334
+    },
+    {
+      "name": "ru/light/390 Review",
+      "overflow": false,
+      "controls": [
+        {
+          "left": 69,
+          "right": 227.9375,
+          "top": 930.03125,
+          "bottom": 970.03125
+        },
+        {
+          "left": 69,
+          "right": 220.703125,
+          "top": 980.03125,
+          "bottom": 1020.03125
+        },
+        {
+          "left": 56,
+          "right": 253.171875,
+          "top": 1246.53125,
+          "bottom": 1286.53125
+        },
+        {
+          "left": 56,
+          "right": 131.9375,
+          "top": 1302.53125,
+          "bottom": 1342.53125
+        }
+      ],
+      "left": 56,
+      "right": 322
+    }
+  ],
+  "beforeRestartIO": {
+    "reads": [
+      {
+        "path": "Rules.md",
+        "phase": "connect"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "connect"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "connect"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "definition-draft"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "review"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "review"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      }
+    ],
+    "writes": [
+      {
+        "path": "Rules.md",
+        "phase": "apply"
+      }
+    ],
+    "creates": [],
+    "metadata": 3,
+    "metadataCalls": [
+      {
+        "path": "Notes/B.md",
+        "phase": "startup",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      },
+      {
+        "path": "Notes/C.md",
+        "phase": "startup",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "apply",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      }
+    ],
+    "enumerations": 1,
+    "enumerationCalls": [
+      {
+        "phase": "passive",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at po.onOpen (plugin:ai-knowledge-hub:620:22390)\n    at po.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+      }
+    ],
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "connect"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "connect"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "connect"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "connect"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations",
+        "phase": "apply"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0",
+        "phase": "apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/record.json",
+        "phase": "apply"
+      },
+      {
+        "method": "copy",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/record.json",
+        "phase": "apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/mark-186f929d-da62-47df-8619-9108471bfbd4.json",
+        "phase": "apply"
+      }
+    ],
+    "phase": "apply"
+  },
+  "continuousRecordings": [
+    {
+      "file": "registry-journey.mp4",
+      "seconds": 21.083333,
+      "source": "Uncut private Xvfb 1600x1000 recording, including host restart; no user desktop"
+    },
+    {
+      "file": "decisions-journey.mp4",
+      "seconds": 7.583333,
+      "source": "Uncut private Xvfb 1600x1000 recording, including host restart; no user desktop"
+    }
+  ],
+  "io": {
+    "reads": [
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "startup"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "decision-rescan"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "split"
+      },
+      {
+        "path": "Rules.md",
+        "phase": "popout"
+      }
+    ],
+    "writes": [
+      {
+        "path": "Rules.md",
+        "phase": "undo"
+      }
+    ],
+    "creates": [
+      {
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated"
+      }
+    ],
+    "metadata": 16,
+    "metadataCalls": [
+      {
+        "path": "Rules.md",
+        "phase": "undo",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      },
+      {
+        "path": "Diary.md",
+        "phase": "decision-audit",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "decision-audit",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Notes/A.md",
+        "phase": "decision-audit",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Notes/B.md",
+        "phase": "decision-audit",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Notes/C.md",
+        "phase": "decision-audit",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+      },
+      {
+        "path": "Diary.md",
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Notes/A.md",
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Notes/B.md",
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Notes/C.md",
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Unrelated.md",
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "path": "Editor rules.md",
+        "phase": "split",
+        "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at e.onFileOpen (app://obsidian.md/app.js:1:3443861)\n    at t.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at t.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.activeLeafEvents (app://obsidian.md/app.js:1:2875347)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)"
+      }
+    ],
+    "enumerations": 4,
+    "enumerationCalls": [
+      {
+        "phase": "decision-audit",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "phase": "fixture-add-unrelated",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at eval (plugin:ai-knowledge-hub:483:3226)"
+      },
+      {
+        "phase": "decision-rescan",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+      },
+      {
+        "phase": "popout",
+        "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at po.onOpen (plugin:ai-knowledge-hub:620:22390)\n    at po.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+      }
+    ],
+    "models": 0,
+    "adapterWrites": [
+      {
+        "method": "write",
+        "path": ".obsidian/core-plugins.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/community-plugins.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "startup"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/mark-2ae903bc-52e1-4062-be8f-9c0366549023.json",
+        "phase": "undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/mark-22e9bc1e-dc37-4a10-8507-5e6c9449da0d.json",
+        "phase": "undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "decision-audit"
+      },
+      {
+        "method": "write",
+        "path": "Unrelated.md",
+        "phase": "fixture-add-unrelated"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "decision-rescan"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "split"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/app.json",
+        "phase": "split"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/appearance.json",
+        "phase": "split"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+        "phase": "split"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/workspace.json",
+        "phase": "popout"
+      }
+    ],
+    "phase": "popout"
+  },
+  "history": [
+    {
+      "id": "f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0",
+      "damaged": false,
+      "scope": "none",
+      "receipts": [
+        {
+          "state": "applied",
+          "modified": 1794846476885,
+          "bytes": 511,
+          "hash": "bdd087b8daf6f5ffaea0612d1df6ece83ab78434137ad21cd29b4ecdfa2a5f2c"
+        },
+        {
+          "state": "undo_intent",
+          "modified": 1794846476885,
+          "bytes": 511,
+          "hash": "bdd087b8daf6f5ffaea0612d1df6ece83ab78434137ad21cd29b4ecdfa2a5f2c"
+        },
+        {
+          "state": "undone",
+          "modified": 1794846487822,
+          "bytes": 498,
+          "hash": "e70e5500d910134b57f56220d438189f9eb91f983effe9dd2467d5f90afce51e"
+        }
+      ],
+      "issues": [],
+      "record": {
+        "version": 1,
+        "operation": "edit_organization_registry",
+        "state": "prepared",
+        "id": "f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0",
+        "createdAt": 1794846472183,
+        "plan": {
+          "version": 1,
+          "source": {
+            "path": "Rules.md",
+            "created": 1794846466168,
+            "modified": 1794846466168,
+            "bytes": 498,
+            "content": "---\r\ntitle: Owner instructions\r\n---\r\n# User prose preserved\r\n<!-- keep -->\r\n\r\n```veynrel-organization\r\n{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/Ё\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"An explicitly unused tag\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n```\r\n\r\nAfter: [[A]] and Ё.\r\n"
+          },
+          "choice": {
+            "kind": "tag",
+            "key": "unused/Ё",
+            "value": {
+              "tag": "unused/Ё",
+              "state": "deprecated",
+              "description": "Owner explicitly retired this tag."
+            }
+          },
+          "after": "---\r\ntitle: Owner instructions\r\n---\r\n# User prose preserved\r\n<!-- keep -->\r\n\r\n```veynrel-organization\r\n{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/Ё\",\r\n      \"state\": \"deprecated\",\r\n      \"description\": \"Owner explicitly retired this tag.\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n```\r\n\r\nAfter: [[A]] and Ё.\r\n",
+          "edit": {
+            "start": 103,
+            "end": 468,
+            "removed": "{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/Ё\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"An explicitly unused tag\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n",
+            "inserted": "{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/Ё\",\r\n      \"state\": \"deprecated\",\r\n      \"description\": \"Owner explicitly retired this tag.\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n"
+          }
+        },
+        "hashes": {
+          "before": "e70e5500d910134b57f56220d438189f9eb91f983effe9dd2467d5f90afce51e",
+          "after": "bdd087b8daf6f5ffaea0612d1df6ece83ab78434137ad21cd29b4ecdfa2a5f2c"
+        }
+      },
+      "state": "undone",
+      "canUndo": false,
+      "recovered": false,
+      "blocking": false
+    }
+  ],
+  "finalHashes": {
+    "Rules.md": "e70e5500d910134b57f56220d438189f9eb91f983effe9dd2467d5f90afce51e",
+    "Editor rules.md": "3be42a5590c9cd671fdbe856940ea5d432f22591b526f7cacc4221e797dd179f",
+    "Notes/A.md": "06d976dfa1eed3a87a8b675836af3c347e9f0fedb2f50847c03976c32605a56b",
+    "Notes/B.md": "1b1ad346740f37323ec8754fc61182a8605b5a3e61f69c56aaa75614bb9ade02",
+    "Notes/C.md": "4dc0e8869432a752bb553e66045c01118f7a2640ddafdf0ccdaa879eb7cb8b5d",
+    "Diary.md": "7581a3b2f3f71719127d479bc37165116f5e59b2662d5ffe570334881281d759"
+  },
+  "corruptPreferences": {
+    "preserved": {
+      "version": 99,
+      "registryPath": "Rules.md",
+      "dismissed": [
+        "opaque-preserved"
+      ]
+    },
+    "io": {
+      "reads": [
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "popout"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "popout"
+        }
+      ],
+      "writes": [
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        }
+      ],
+      "creates": [
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        }
+      ],
+      "metadata": 16,
+      "metadataCalls": [
+        {
+          "path": "Rules.md",
+          "phase": "undo",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at e.onFileOpen (app://obsidian.md/app.js:1:3443861)\n    at t.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at t.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.activeLeafEvents (app://obsidian.md/app.js:1:2875347)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)"
+        }
+      ],
+      "enumerations": 5,
+      "enumerationCalls": [
+        {
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at eval (plugin:ai-knowledge-hub:483:3226)"
+        },
+        {
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "popout",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at po.onOpen (plugin:ai-knowledge-hub:620:22390)\n    at po.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        },
+        {
+          "phase": "corrupt-preferences-fixture",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at po.onOpen (plugin:ai-knowledge-hub:620:22390)\n    at po.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/core-plugins.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/community-plugins.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/mark-2ae903bc-52e1-4062-be8f-9c0366549023.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/f4a86abd18d2cf71782fb4b39f9393bcf03518d3efe15072d74c0170c5cbebd0/mark-22e9bc1e-dc37-4a10-8507-5e6c9449da0d.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-audit"
+        },
+        {
+          "method": "write",
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "popout"
+        }
+      ],
+      "phase": "corrupt-preferences-entry"
+    }
+  },
+  "modelRequests": [],
+  "status": "PASS"
+}

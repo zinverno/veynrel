@@ -1,0 +1,110 @@
+{
+  "scenario": "R06-map-foundation",
+  "unifiedMode": false,
+  "familiesMode": false,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 120,
+  "indexed": 0,
+  "source": "79fe425bdeeaf5a97282dbf53cb2add53042d718",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Unavailable semantic computation draws no technical grid",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "semantic-refusal.png",
+    "loaded.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "2549d7b52dadeb161a47578ed11464ec515496320481dc5e56d7adc446dd1003",
+    "styles.css": "526a0905038529c191d3036babf901117431c07c8aebfd207dd8adf6daa18ca1",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 18,
+    "seconds": 0.5984830856323242,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 170.03016900000011,
+    "refreshWallMs": 61.92644999999993,
+    "loaded": {
+      "notes": 120,
+      "semantic": "stale",
+      "reason": "changed",
+      "displayedNodes": 120,
+      "displayGroups": 0,
+      "dom": 609,
+      "svg": 435,
+      "layoutCount": 2,
+      "layoutMs": 1.2999999998137355,
+      "displayGroupingMs": 0,
+      "semanticMs": null,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 8,
+        "renderMs": 52.8000000002794,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 57.5,
+        "derivationMs": 12.400000000372529
+      },
+      "heap": 56627391
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "9349baf59adee6a89e52900042cd77ef3bd67983768d3c61f3749af9e32f50d9",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "63aad02d119235e1be722ad72b1a4e854b26b2dcbed9172f2e78db15496676ea",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: No index never becomes semantic ready\n    at pass (file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/r06-map-native.mjs:61:51)\n    at async file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/r06-map-native.mjs:128:7",
+  "failureState": {
+    "markdown": 120,
+    "cacheKnown": 120,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

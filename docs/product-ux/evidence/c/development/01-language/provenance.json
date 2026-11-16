@@ -1,0 +1,4 @@
+{
+  "originalReportSha256": "5ae093bcdb99881d418fad04ce4338134541db1518ccf0031386dcdb178ded2b",
+  "redaction": "checkout and disposable-session absolute paths only; original retained locally unchanged"
+}
