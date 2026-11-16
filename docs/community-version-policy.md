@@ -8,7 +8,7 @@ The [official submission requirements](https://docs.obsidian.md/plugins/releasin
 
 Remove only the future 2.4.0 entry from `versions.json`. It is not the direct cause of the reported error, but this compatibility index must not offer an unavailable download. The [official versions reference](https://docs.obsidian.md/Reference/Versions) describes fallback selection for older Obsidian versions; it is not a roadmap. All earlier entries remain intact.
 
-## R06–R15 contract
+## Development metadata before 2.4.0 publication authorization
 
 | Metadata | Meaning during development |
 | --- | --- |
@@ -17,11 +17,32 @@ Remove only the future 2.4.0 entry from `versions.json`. It is not the direct ca
 | `package.json`, both lockfile root versions | Unpublished development target 2.4.0 |
 | `main.js` built from a feature branch or `main` | Development code identified by source SHA and asset hashes |
 
-Do not synchronize these versions in R06–R15 feature PRs, including branches created before this correction. Update those branches from corrected `main` before review and retain the public version pin in `releaseCompatibility.test.ts`. Existing CI runs that test and `version-bump.test.ts` on every PR; accidental restoration of 2.4.0 to the manifest or compatibility index fails the check. Do not update the assertions merely to make CI pass. CI detects mistakes; it does not prevent someone from bypassing checks or deliberately changing this policy.
+Until the owner separately authorizes publication of 2.4.0, do not synchronize these versions in feature PRs, including branches created before this correction. Update those branches from corrected `main` before review and retain the public version pin in `releaseCompatibility.test.ts`. Existing CI runs that test and `version-bump.test.ts` on every PR; accidental restoration of 2.4.0 to the manifest or compatibility index fails the check. Do not update the assertions merely to make CI pass. CI detects mistakes; it does not prevent someone from bypassing checks or deliberately changing this policy.
 
 The normal npm `version` hook leaves public metadata unchanged and stages nothing. `npm version` itself can create a commit/tag unless `--no-git-tag-version` is used; it is not needed for ordinary roadmap PRs. `npm run build` keeps the tracked manifest unchanged and builds the current source.
 
-Only after R15 acceptance **and separate owner authorization**, release preparation may use `node version-bump.mjs --release` to copy the chosen package version into public metadata. The script accepts only Obsidian's `x.y.z` format and does not stage, commit, tag or publish. That future preparation must also review the public description, compatibility minimum, lockfile, CI pin, source commit and assets. Coordinate the public pointer with an available matching release; do not merge a future pointer in advance. The explicit flag is an accidental-write guard, not release authorization.
+Only after the relevant scope and release gates below are accepted **and the owner separately authorizes that release**, release preparation may use `node version-bump.mjs --release` to copy the chosen package version into public metadata. The script accepts only Obsidian's `x.y.z` format and does not stage, commit, tag or publish. That future preparation must also review the public description, compatibility minimum, lockfile, CI pin, source commit and assets. Coordinate the public pointer with an available matching release; do not merge a future pointer in advance. The explicit flag is an accidental-write guard, not release authorization.
+
+## Public release milestones
+
+The [owner policy updated on 2026-11-16](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) replaces the single release after R15: **2.4.0** is a full public release after completion and acceptance of R06 and R07 plus a separate release review; **2.5.0** follows R08–R15 and separate acceptance. Each needs its own explicit publication permission. No feature PR, internal candidate or policy update authorizes a public stable/beta/prerelease or Marketplace update. Per-PR tests, documentation, backups and migration checks continue.
+
+After an authorized release, public metadata must describe that actually published version; later feature branches must retain that public pin until the next separately authorized release. This document does not change today's 2.3.1 public / 2.4.0 development values or relax their CI assertions.
+
+## Release acceptance for 2.4.0
+
+These are required evidence and approval gates, **not checks completed by this policy PR**. Repeat the applicable release checks for 2.5.0 against its own final source and scope.
+
+- Complete and accept all of R06 and R07, retaining accepted R01–R05 behavior. A partial R06.1 result or green CI alone is insufficient. **Community write-confirmation/document ownership remains open**: see the [pinned #147 investigation](https://github.com/zinverno/veynrel/blob/3b48b3cd348ea87b0ced2124e7a7fb531f5ee64a/docs/r06/community-apply-attribution.md). Release readiness cannot be claimed while that gate is open; the policy does not fix or waive it.
+- Implement and accept [Resume Batch](roadmap/resume-batch.md) before public 2.4.0 unless the owner explicitly authorizes deferral. It is not implicitly assigned to 2.5.0; its implementation requires a separate task.
+- Prepare an up-to-date README, user/update guides and Community listing that describe the actual 2.4.0 scope, removed features and remaining limits. Distinguish current stable from unreleased capabilities; do not publish the listing changes early.
+- Capture real native screenshots and short end-to-end demonstration videos of the final candidate. Identify source SHA and asset hashes, use synthetic or explicitly permitted data, disclose synthetic model responses, and keep private notes/keys out. Historical media is not evidence for a changed release build.
+- Write release notes covering changes from the published stable, compatibility, known limitations, migration, recovery and supported Undo boundaries. Retain failed receipts and unresolved gates; do not present synthetic results as live-model quality or measured user benefit.
+- Rebuild from the exact source and committed lockfile in a clean environment. Record tool versions, source SHA and SHA-256 for `main.js`, `styles.css` and `manifest.json`; compare the candidate with the reproduced files. Run the full suite, typecheck/build/lint, mutation audit, exact-head CI and applicable native/performance checks. Keep plugin identity, compatibility and existing safety contracts intact.
+- Verify backups and migration of existing notes, Recall cards/schedules, settings and journals; test supported Apply/Undo, restart, conflicts and recovery on disposable vaults. Require exact restoration where Undo promises it. Document migration-aware rollback: replacing `main.js` alone is not a safe downgrade of a migrated Recall database.
+- In real Obsidian, test a clean candidate installation and an upgrade from the actually published stable assets, checking persisted data and supported recovery. Use the isolated launcher; retain platform-specific gates that Xvfb cannot establish. A manual candidate install or unchanged displayed version does not prove the public Community updater works. After separately authorized publication, verify the actual Community listing, install and upgrade to the matching published assets before reporting delivery as verified. The production delivery check cannot be claimed from a pre-publication candidate test.
+
+Acceptance of this evidence and permission to publish are separate owner decisions. Keep auto-merge off; every merge also needs its own authorization.
 
 ## Native tests and review artifacts
 

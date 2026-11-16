@@ -10,7 +10,7 @@ new development-build receipts from historical runs and records any merge blocke
 
 ## Commands
 
-During R06–R15 the public manifest remains **2.3.1** while package/lock-root development metadata remains **2.4.0**. A current-checkout native build therefore reports 2.3.1 in Obsidian and manifest-based diagnostics; it is still unpublished development code. Record the source commit, package version and SHA-256 of all three installed assets, and label the run as development. Test the actual stable release using its separate downloaded asset directory. Never identify a build or claim an upgrade solely from the displayed version. See the [version policy](community-version-policy.md).
+Until separately authorized publication of 2.4.0, the public manifest remains **2.3.1** while package/lock-root development metadata remains **2.4.0**. A current-checkout native build therefore reports 2.3.1 in Obsidian and manifest-based diagnostics; it is still unpublished development code. Record the source commit, package version and SHA-256 of all three installed assets, and label the run as development. Test the actual stable release using its separate downloaded asset directory. Never identify a build or claim an upgrade solely from the displayed version. See the [version policy](community-version-policy.md).
 
 Build the current checkout first, using its committed dependencies:
 

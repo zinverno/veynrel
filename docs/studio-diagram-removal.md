@@ -1,8 +1,8 @@
 # R02: diagram generation removed from development
 
-Public stable **2.3.1** still contains the optional Excalidraw generation workflow. R02 removes it from the **unpublished development branch**, whose intermediate manifest remains **2.4.0**. Installing or enabling Excalidraw no longer adds a Veynrel capability there. This change has not been published to the Marketplace.
+Public stable **2.3.1** still contains the optional Excalidraw generation workflow. R02 removes it from the **unpublished development branch**, whose package development target is **2.4.0** while the public manifest stays at **2.3.1**. Installing or enabling Excalidraw no longer adds a Veynrel capability there. This change has not been published to the Marketplace.
 
-The owner has selected [one public release after acceptance of R01–R15](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work). Internal candidates and disposable-vault checks continue after each PR. Decide the final version at R15; every merge and any eventual publication need separate owner decisions, with auto-merge off.
+The owner has selected [public 2.4.0 after R06/R07 acceptance and a separate release review, then 2.5.0 after R08–R15 and separate acceptance](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work). Internal candidates and disposable-vault checks continue after each PR. Every merge and each release publication need separate owner permission; auto-merge stays off. The [release checklist and open gates](community-version-policy.md#release-acceptance-for-240) still apply.
 
 ## What is removed and retained
 

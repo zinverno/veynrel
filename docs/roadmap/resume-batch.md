@@ -1,9 +1,10 @@
 # Resume Batch — deferred owner requirement
 
-Status: **not implemented by R05.2**. This requirement must be considered and
-implemented before the single public release after R15; acceptance and any
-publication still require the owner's separate decision. It is not permission
-to start another stage or make paid calls now.
+Status: **not implemented by R05.2**. This requirement must be implemented and
+accepted before the next public release, **2.4.0**, unless the owner explicitly
+authorizes deferral. The [2.4.0 / 2.5.0 release strategy](vault-assistant-plan.md#release-policy-and-acquisition-work)
+does not automatically move it to 2.5.0. Publication still requires the owner's
+separate permission. This document does not authorize implementation or paid calls.
 
 ## Current boundary
 

@@ -2,7 +2,7 @@
 
 Start with the [2.3.1 stable user guide](wiki/Home.md), [release notes](releases/2.3.1.md), [contributor guide](../CONTRIBUTING.md) or [support](../SUPPORT.md).
 
-Development remains unpublished at intermediate version 2.4.0. [R02 removes diagram generation while preserving drawings and legacy records](studio-diagram-removal.md). [One public release follows acceptance of R01–R15](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work); Marketplace still serves the published version.
+Development target 2.4.0 remains unpublished; the public manifest stays at 2.3.1. [R02 removes diagram generation while preserving drawings and legacy records](studio-diagram-removal.md). [Public 2.4.0 follows R06/R07 acceptance and a separate release review; 2.5.0 follows R08–R15 and separate acceptance](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work). Each needs independent owner permission to publish. Marketplace still serves 2.3.1; the [release checklist and open gates](community-version-policy.md#release-acceptance-for-240) remain mandatory.
 
 [R02 verification and native limitations](r02-excalidraw-removal-verification.md) records the exact tested source and file hashes.
 
