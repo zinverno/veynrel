@@ -409,7 +409,8 @@ export class WorkbenchView {
     detail?.scrollIntoView({block:"start"});detail?.focus({preventScroll:true});
   }
   private focusMap():void {
-    const graph=this.browser.querySelector<SVGSVGElement>(".veynrel-workbench-map > svg");
+    const graph=this.browser.querySelector<SVGSVGElement>(".veynrel-workbench-map > svg")??
+      this.browser.querySelector<HTMLElement>('[data-health-action="workbench-setup"]')??this.browser.querySelector<HTMLElement>('[data-health-action="workbench-refresh"]');
     graph?.scrollIntoView({block:"center"});graph?.focus({preventScroll:true});
   }
   private openReview():void {

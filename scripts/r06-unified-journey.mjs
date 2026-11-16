@@ -106,7 +106,7 @@ export async function runUnifiedJourney({ev,pass,shot,activate,field,key,wait,fo
   await shot('unified-folder-global-focus');
   await ev("document.querySelector('[data-workbench-inspector]').focus();void 0");await key('Escape','Escape',27);
   report.focusAfterEscape=await ev("({panel:wb.inspectors.panel??null,activeTag:document.activeElement.tagName,activeClass:document.activeElement.getAttribute('class'),focused:document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')})");
-  await pass('Escape returns focus to the same central map',"!wb.inspectors.panel&&document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')");
+  await pass('Escape returns focus to the canvas or its explicit empty-state action',"!wb.inspectors.panel&&(wb.element.querySelector('.veynrel-workbench-map > svg')?document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg'):wb.data.semantic.getSnapshot().state==='idle'&&document.activeElement===wb.element.querySelector('[data-health-action=workbench-setup]'))");
   await io('final-global-folder');
 }
 
