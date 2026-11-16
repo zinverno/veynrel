@@ -134,6 +134,12 @@ async function pick(path) {
 async function openTag(name = 'Taggable') {
   if(process.env.VEYNREL_LOCAL_NOTE_REVIEW_ONLY === '1') {
     await main.ev(`app.plugins.plugins['ai-knowledge-hub'].openLocalNoteAction(${JSON.stringify(name+'.md')},'add_inline_tag');void 0`);
+  } else if (process.env.UX_CONTEXTUAL === '1') {
+    await main.ev("hv.navigate({page:'discover'});void 0");
+    await main.ev("for(const b of [...document.querySelectorAll('[data-health-action^=unselect-]')])b.click();void 0");
+    const selector='[data-health-action="note-select-'+encodeURIComponent(name+'.md')+'"]';
+    await focus();await main.ev(`document.querySelector(${JSON.stringify(selector)}).focus();void 0`);await key(' ','Space',32,' ');
+    await activate('[data-health-action=note-tag]');
   } else {
     await main.ev("hv.navigate({page:'home'});void 0"); await activate('[data-health-action=tag-note]'); await pick(name);
   }

@@ -1,3 +1,5 @@
+import { renderNoteActions, type NoteActions } from "./noteActions";
+import { pairId } from "./workbenchModel";
 import type { ReviewDecision } from "./reviewDecisionsPort";
 import { currentLanguage, t } from "../../i18n";
 import type { Finding } from "../domain/finding";
@@ -6,8 +8,9 @@ import type { PairReviewPort, WorkbenchData } from "./workbenchData";
 import { workbenchModel } from "./workbenchModel";
 import type { WorkbenchPair } from "./workbenchModel";
 
-interface OptionalMap { inspect?(panel: import("./workbenchInspectors").WorkbenchInspector): void; update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
+interface OptionalMap { selectPaths?(paths: readonly string[]): void; inspect?(panel: import("./workbenchInspectors").WorkbenchInspector): void; update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
 interface ReviewActions {
+  notes?: NoteActions;
   history(): void; settings(): void;
   map(parent: HTMLElement, reviewed: () => void): OptionalMap;
 }
@@ -29,8 +32,11 @@ export class ReviewListView {
   private map?: OptionalMap;
   private mapHost?: HTMLElement;
   private mapOpen = false;
+  private mapSelection = "";
   private findings: readonly Finding[] = [];
-  private mode: "repeats" | "connections" = "repeats";
+  private mode: "notes" | "repeats" | "connections" = "repeats";
+  private chosen: string[] = [];
+  private notePage = 0;
   private query = "";
   private limit = 60;
   private selected?: WorkbenchPair;
@@ -43,6 +49,7 @@ export class ReviewListView {
   private layoutHost?: HTMLElement | null;
   constructor(parent: HTMLElement, readonly data: WorkbenchData, private readonly pair: PairReviewPort,
     private readonly actions: ReviewActions, private readonly scrollOwner: HTMLElement) {
+    if (actions.notes) this.mode = "notes";
     this.element = parent.createDiv({ cls: "veynrel-review" });
     this.browser = this.element.createDiv({ cls: "veynrel-review-list" });
     this.detail = this.element.createDiv({ cls: "veynrel-review-detail" });
@@ -64,6 +71,8 @@ export class ReviewListView {
   }
   inheritNavigation(previous?: ReviewListView): void {
     if (!previous) return;
+    this.chosen = previous.chosen.filter(path => this.data.scope.paths.includes(path));
+    this.notePage = previous.notePage;
     this.mode = previous.mode; this.query = previous.query; this.limit = previous.limit; this.queue = previous.queue;
     this.selected = previous.selected?.paths.every(path => this.data.scope.paths.includes(path)) ? previous.selected : undefined;
     this.render();
@@ -88,6 +97,8 @@ export class ReviewListView {
       if(!this.map){this.mapHost=this.detail.createDiv({cls:"veynrel-review-map-host"});this.map=this.actions.map(this.mapHost,()=>{this.queue="reviewed";this.back();});}
       else this.detail.appendChild(this.mapHost!);
       this.mapOpen=true;this.map.update(this.findings);
+      const selection = JSON.stringify(this.chosen);
+      if (this.mode === "notes" && this.chosen.length && selection !== this.mapSelection) { this.map.selectPaths?.(this.chosen); this.mapSelection = selection; }
       this.scrollOwner.scrollTop = 0;
     if(panel)this.map?.inspect?.(panel);
   }
@@ -103,7 +114,7 @@ export class ReviewListView {
   private back(): void {
     this.suspend(); this.suspended = false; this.facts?.refresh(); this.render();
     this.scrollOwner.scrollTop = this.scroll;
-    const target = this.queue === "reviewed" ? this.browser.querySelector<HTMLElement>('[data-health-action="review-reviewed"]')
+    const target = this.mode === "notes" ? this.browser.querySelector<HTMLElement>('[data-health-action="notes-compare"], [data-health-action="review-map"]') : this.queue === "reviewed" ? this.browser.querySelector<HTMLElement>('[data-health-action="review-reviewed"]')
       : Array.from(this.browser.querySelectorAll<HTMLElement>("[data-pair-id]")).find(el => el.getAttribute("data-pair-id") === this.selected?.id);
     (target ?? this.browser.querySelector<HTMLElement>("[data-decision-undo], [data-review-heading]"))?.focus({ preventScroll: true });
   }
@@ -133,6 +144,39 @@ export class ReviewListView {
     } catch { this.decisionError = true; }
     finally { this.restoring = undefined; this.render(); }
   }
+  private renderNotes(current: () => boolean): void {
+    const actions = this.actions.notes!;
+    this.chosen = this.chosen.filter(path => this.data.scope.paths.includes(path));
+    const matches = this.data.scope.paths.filter(path => path.toLocaleLowerCase().includes(this.query.trim().toLocaleLowerCase()));
+    this.notePage = Math.max(0, Math.min(this.notePage, Math.ceil(matches.length / 60) - 1));
+    const start = this.notePage * 60;
+    const status = this.browser.createDiv({ cls: "veynrel-note-selection", attr: { role: "status" } });
+    status.createEl("p", { text: t("@uxb.selected", { n: this.chosen.length }) });
+    for (const path of this.chosen) healthButton(status, `× ${path}`, () => { if (current()) { this.chosen = this.chosen.filter(p => p !== path); this.render(); } }, `unselect-${encodeURIComponent(path)}`);
+    renderNoteActions(this.browser, this.chosen, actions, current);
+    if (this.chosen.length === 2) {
+      const paths = [...this.chosen].sort() as [string, string];
+      const allowed = () => { try { const p = this.data.captureParticipation(); return !p || paths.every(path => p.document(path) === "allow") && p.pair(...paths) === "allow"; } catch { return false; } };
+      healthButton(this.browser, t("@review.compare"), () => { if (current() && allowed()) this.openPair({ id: pairId(...paths), paths, basis: "selected" }); }, "notes-compare", !allowed());
+      if (!allowed()) this.browser.createEl("p", { text: t("@r062.search-unavailable") });
+    }
+    if (this.chosen.length) this.browser.createEl("small", { text: t("@uxb.review-first") });
+    this.browser.createEl("p", { text: t("@uxb.count", { shown: Math.min(60, matches.length - start), total: matches.length, all: this.data.scope.paths.length }) });
+    const list = this.browser.createEl("ul", { cls: "veynrel-note-list", attr: { "aria-label": t("@uxb.files") } });
+    for (const path of matches.slice(start, start + 60)) {
+      const row = list.createEl("li", { attr: { "data-note-row": "" } });
+      const label = row.createEl("label");
+      const input = label.createEl("input", { type: "checkbox", attr: { "aria-label": path, "data-health-action": `note-select-${encodeURIComponent(path)}` } });
+      input.checked = this.chosen.includes(path); input.disabled = !input.checked && this.chosen.length === 2;
+      label.createSpan({ text: path });
+      input.addEventListener("change", () => { if (!current()) return; if (input.checked && this.chosen.length < 2) this.chosen.push(path); else this.chosen = this.chosen.filter(p => p !== path); this.render(); });
+      healthButton(row, t("@uxb.open"), () => { if (current()) actions.open(path); }, `note-open-${encodeURIComponent(path)}`);
+    }
+    if (!matches.length) this.browser.createEl("p", { text: t("@workbench.no-search") });
+    const paging = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
+    healthButton(paging, t("@uxb.previous"), () => { if (current()) { this.notePage--; this.render(); } }, "notes-previous", start === 0);
+    healthButton(paging, t("@uxb.next"), () => { if (current()) { this.notePage++; this.render(); } }, "notes-next", start + 60 >= matches.length);
+  }
   private basis(pair: WorkbenchPair): string {
     return t(pair.basis === "duplicate" && this.data.duplicateState !== "ready" ? "@review.old-result" : `@review.basis.${pair.basis}`);
   }
@@ -148,8 +192,8 @@ export class ReviewListView {
     this.browser.empty();
     const button = (parent: HTMLElement, label: string, action: () => void, id: string, disabled = false, primary = false) =>
       healthButton(parent, label, () => { if (current()) action(); }, id, disabled, primary);
-    this.browser.createEl("h1", { text: t("@review.title"), attr: { tabindex: "-1", "data-review-heading": "true" } });
-    this.browser.createEl("p", { text: t("@review.description") });
+    this.browser.createEl("h1", { text: t(this.actions.notes ? "@ux.notes" : "@review.title"), attr: { tabindex: "-1", "data-review-heading": "true" } });
+    if (!this.actions.notes) this.browser.createEl("p", { text: t("@review.description") });
     if (this.decision && this.pair.decisions?.list().some(r => r.id === this.decision!.id)) {
       const notice = this.browser.createDiv({ cls: "veynrel-review-status veynrel-review-toolbar", attr: { role: "status", "data-review-decision-saved": "" } });
       notice.createSpan({ text: t("@decision.saved") });
@@ -160,21 +204,28 @@ export class ReviewListView {
     if (this.pair.decisions?.state === "error") this.browser.createEl("p", { text: t("@decision.loadError"), attr: { role: "status" } });
     const toolbar = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
     const modes = toolbar.createDiv({ cls: "veynrel-review-modes", attr: { "aria-label": t("@workbench.scenarios") } });
-    for (const mode of ["repeats", "connections"] as const) {
-      const control = button(modes, t(`@workbench.${mode}`), () => { this.mode = mode; this.limit = 60; this.render(); }, `review-${mode}`);
+    for (const mode of this.actions.notes ? ["notes", "repeats", "connections"] as const : ["repeats", "connections"] as const) {
+      const control = button(modes, t(mode === "notes" ? "@uxb.files" : `@workbench.${mode}`), () => { this.mode = mode; this.limit = 60; this.render(); }, `review-${mode}`);
       control.setAttribute("aria-pressed", String(this.mode === mode));
     }
     if (this.mode === "connections" && this.data.dependencies.editRules) {
       const count = this.data.dependencies.rules?.list().filter(r => r.enabled).length ?? 0;
       button(toolbar, `${t("@rules.title")} (${count})`, () => { this.closeRules = this.data.dependencies.editRules!(); }, "review-rules");
     }
-    button(toolbar, t("@safeApply.history"), () => this.actions.history(), "review-history");
+    if (this.mode !== "notes") button(toolbar, t("@safeApply.history"), () => this.actions.history(), "review-history");
     button(toolbar, t("@review.map"), () => this.openMap(), "review-map");
     const searchRow = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
     const search = searchRow.createEl("input", { type: "search", attr: { placeholder: t("@workbench.search"), "aria-label": t("@workbench.search"), "data-health-action": "review-search" } });
     search.value = this.query;
-    search.addEventListener("input", () => { if (current()) { this.query = search.value; this.limit = 60; this.render(); } });
-    button(searchRow, t("@review.refresh"), () => { void this.data.refresh(this.mode); }, "review-refresh", this.data.busy, true);
+    search.addEventListener("input", () => { if (current()) { this.query = search.value; this.limit = 60; this.notePage = 0; this.render(); } });
+    if (this.mode === "notes" && this.actions.notes) {
+      this.renderNotes(current);
+      if (searching) { search.focus({ preventScroll: true }); search.setSelectionRange(caret?.[0] ?? null, caret?.[1] ?? null); }
+      else if (focusKey) Array.from(this.browser.querySelectorAll<HTMLElement>("[data-health-action]")).find(el => el.getAttribute("data-health-action") === focusKey)?.focus({ preventScroll: true });
+      this.scrollOwner.scrollTop = scroll;
+      return;
+    }
+    button(searchRow, t("@review.refresh"), () => { if (this.mode !== "notes") void this.data.refresh(this.mode); }, "review-refresh", this.data.busy, true);
     const model = workbenchModel(this.data, this.findings.filter(f => f.state === "open"));
     if (model.comparisonCurrent) this.previousConnections = model.connections;
     const staleConnections = ["stale", "loading"].includes(this.data.comparison?.getSnapshot().state ?? "");

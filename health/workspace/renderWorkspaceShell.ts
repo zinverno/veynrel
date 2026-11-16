@@ -11,7 +11,7 @@ export function workspaceSection(page: VeynrelHealthRoute["page"]): string {
 }
 
 export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRoute, scope: VaultScopeIndex, _vaultName: string,
-  navigate: (route: VeynrelHealthRoute) => void, select: (path?: string) => void, state: { menuOpen: boolean }, audit?: () => void, tag?: () => void): HTMLElement {
+  navigate: (route: VeynrelHealthRoute) => void, select: (path?: string) => void, state: { menuOpen: boolean }, audit?: () => void, tag?: () => void, settings?: () => void, history?: () => void): HTMLElement {
   const shell = parent.createDiv({ cls: "veynrel-shell", attr: { "data-menu-open": String(state.menuOpen) } });
   const content = shell.createDiv({ cls: "veynrel-shell-content" });
   const top = content.createEl("header", { cls: "veynrel-topbar" });
@@ -26,7 +26,7 @@ export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRo
   setIcon(summary, "ellipsis");
   const menu = extra.createDiv({ cls: "veynrel-workspace-menu" });
   for (const page of ["history", "tools", "process", "settings"] as const) {
-    const button = healthButton(menu, t(`@workspace.${page}`), () => { extra.open = false; navigate({ page }); }, `nav-${page}`);
+    const button = healthButton(menu, t(`@workspace.${page}`), () => { extra.open = false; if (page === "settings" && settings) settings(); else if (page === "history" && history) history(); else navigate({ page }); }, `nav-${page}`);
     if (workspaceSection(route.page) === page) button.setAttribute("aria-current", "page");
   }
   if (audit) healthButton(menu, t("@workspace.organization-audit"), audit, "organization-audit");

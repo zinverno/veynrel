@@ -1,5 +1,5 @@
 import { studioFeatures } from "./features";
-import { Notice, TFolder } from "obsidian";
+import { ItemView, Notice, TFolder } from "obsidian";
 import type { Plugin } from "obsidian";
 import { callStudioMarkdown } from "../api";
 import type { LanguageModelSettingsPort } from "../deep/product/languageModelSettingsPort";
@@ -19,7 +19,7 @@ import { StudioMarkdownCreate } from "./markdownCreate";
 import { MarkdownCreateJournal } from "./markdownCreateJournal";
 import { markdownTargetPort } from "./markdownTarget";
 
-export interface StudioWorkspace { features?: typeof studioFeatures; registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; creator: StudioMarkdownCreate; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
+export interface StudioWorkspace { openNote?(path: string): Promise<void>; features?: typeof studioFeatures; registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; creator: StudioMarkdownCreate; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
 const studioTitle = "Veynrel Studio";
 export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPort): StudioWorkspace {
   const storage = new StudioStorage(plugin.app.vault.adapter, plugin.app.vault.configDir, plugin.manifest.id);
@@ -37,6 +37,18 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
     const leaf = plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)[0] ?? plugin.app.workspace.getLeaf("tab");
     await leaf.setViewState({ type: STUDIO_VIEW_TYPE, active: true }); await plugin.app.workspace.revealLeaf(leaf);
   })().catch(() => { new Notice(l("Could not open Veynrel Studio", "Не удалось открыть Veynrel Studio")); }).finally(() => { opening = undefined; });
+  owner.openNote = async path => {
+    if (!owner.inventory().includes(path)) { new Notice(l("Note is no longer available to Studio", "Заметка больше недоступна Studio")); return; }
+    const previous = plugin.app.workspace.getActiveViewOfType(ItemView)?.leaf;
+    await open();
+    const view = plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)[0]?.view;
+    if (view instanceof VeynrelStudioView) view.suggestSource(path, () => {
+      const exists = () => previous && plugin.app.workspace.getLeavesOfType(previous.view.getViewType()).includes(previous);
+      if (previous && exists()) void plugin.app.workspace.revealLeaf(previous).then(() => {
+        if (exists()) plugin.app.workspace.setActiveLeaf(previous, { focus: true });
+      });
+    });
+  };
   plugin.addCommand({ id: "veynrel-open-studio", name: l("Open Veynrel Studio", "Открыть Veynrel Studio"), callback: open });
   plugin.addRibbonIcon("wand-sparkles", studioTitle, open);
   plugin.register(() => { owner.runner.dispose(); operations.dispose(); for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach(); });

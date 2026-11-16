@@ -1,3 +1,4 @@
+import { renderNoteActions, type NoteActions } from "./noteActions";
 import { WorkbenchInspectors } from "./workbenchInspectors";
 import type { WorkbenchInspector } from "./workbenchInspectors";
 import { semanticFamilies } from "./workbenchFamilies";
@@ -18,6 +19,7 @@ import { matchesTagFilter, MAX_ACTIVE_ZONES, tagZones } from "./workbenchTags";
 import { initialZones, newZoneState, renderZoneControls } from "./workbenchZones";
 
 export interface WorkbenchActions {
+  notes?: NoteActions;
   openNote(path: string): void; search(): void; settings(): void; history(): void;
   advanced(page: "topology" | "semantic-map" | "connection-opportunities" | "semantic-neighborhood"): void;
   similar(): void;
@@ -83,6 +85,14 @@ export class WorkbenchView {
     this.removeDecisions=pair.decisions?.subscribe(()=>this.requestRender());
     void pair.decisions?.load().catch(()=>{});
     this.remove=data.subscribe(()=>this.requestRender());this.render();
+  }
+  selectPaths(paths: readonly string[]): void {
+    if (this.disposed || this.stopReview || !paths.every(path => this.data.scope.paths.includes(path))) return;
+    if (paths.length === 1) this.selectNote(paths[0]);
+    else if (paths.length === 2 && paths[0] !== paths[1]) {
+      try { const p = this.data.captureParticipation(); if (p && (!paths.every(path => p.document(path) === "allow") || p.pair(paths[0], paths[1]) !== "allow")) return; } catch { return; }
+      const pair = [...paths].sort() as [string, string]; this.selectPair({ id: pairId(...pair), paths: pair, basis: "selected" });
+    }
   }
   inspect(panel: WorkbenchInspector): void { this.inspectors.open(panel,this.note??this.selected?.paths[0]); }
   private cancelRender(): void {
@@ -283,6 +293,7 @@ export class WorkbenchView {
         for(const panel of ["topology","semantic-map","semantic-neighborhood"] as const)if(this.inspectors.supports(panel))button(detail,t(`@workbench.advanced.${panel}`),()=>{if(this.data.scope.id==="all")this.inspectors.open(panel,path);else this.actions.advanced(panel);},`workbench-inspect-${panel}-${encodeURIComponent(path)}`);
         button(detail,t("@consolidation.open"),()=>this.actions.openNote(path),`workbench-open-${encodeURIComponent(path)}`);
       }
+      if(this.actions.notes)renderNoteActions(detail,selectedPaths,this.actions.notes,current);
       if(selectedPaths.some(path=>!visiblePaths.has(path)))detail.createEl("small",{text:t("@mapnav.outside-filter")});
       if(this.selected){
         if(decisions?.hasPaths(this.selected.paths))detail.createEl("p",{text:t("@r062b.prior-decision")});

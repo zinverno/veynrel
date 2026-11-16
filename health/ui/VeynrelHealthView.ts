@@ -285,7 +285,7 @@ export class VeynrelHealthView extends ItemView {
     if (!normal || enteringPage || !this.shellMain || this.shellRevision !== this.scopeRevision || this.shellLanguage !== currentLanguage()) {
       this.body.empty();
       this.shellMain = normal ? renderWorkspaceShell(this.body, this.route, scope, this.app.vault.getName(),
-        route => this.navigate(route), path => this.selectScope(path), this.shellState, () => this.tools.openTagTaxonomy(structuredClone(scope.selection), this.controller.listFindings()), this.tools.openLocalTag ? () => { if (!this.controller.getState().busy) this.tools.openLocalTag!(); } : undefined) : undefined;
+        route => this.navigate(route), path => this.selectScope(path), this.shellState, () => this.tools.openTagTaxonomy(structuredClone(scope.selection), this.controller.listFindings()), this.tools.openLocalTag ? () => { if (!this.controller.getState().busy) this.tools.openLocalTag!(); } : undefined, this.tools.openSettings ? () => this.tools.openSettings!() : undefined, () => this.tools.openOperationHistory()) : undefined;
       this.shellRevision = this.scopeRevision; this.shellLanguage = currentLanguage();
     }
     const main = this.shellMain ?? this.body;
@@ -428,10 +428,18 @@ export class VeynrelHealthView extends ItemView {
         const selection = scope.selection;
         const data = this.workbenchHost.create({ id: selection.kind === "all" ? "all" : `folder:${selection.path}`,
           revision: this.scopeRevision, paths: scope.snapshot.paths.filter(path => includesScope(selection, path)) }, false);
+        const notes = {
+          open: (path: string) => { void this.openNote(path); },
+          tag: this.tools.openLocalTag ? (path: string) => this.tools.openLocalTag!(path) : undefined,
+          link: this.tools.openLocalLink ? (paths: readonly [string, string]) => this.tools.openLocalLink!(paths) : undefined,
+          studio: this.tools.openStudioNote ? (path: string) => this.tools.openStudioNote!(path) : undefined,
+          atomize: (path: string) => this.tools.openAtomization(path),
+          history: () => this.tools.openOperationHistory(),
+        };
         this.workbench = new ReviewListView(surface, data, this.workbenchHost.pair, {
-          history: () => this.tools.openOperationHistory(), settings: () => this.navigate({ page: "settings" }),
+          notes, history: () => this.tools.openOperationHistory(), settings: () => this.navigate({ page: "settings" }),
           map: (parent, reviewed) => new WorkbenchView(parent, this.workbenchHost!.create(data.scope, true), this.workbenchHost!.pair, {
-          openNote: path => { void this.openNote(path); }, search: () => this.semantic?.openSearch(),
+          notes, openNote: path => { void this.openNote(path); }, search: () => this.semantic?.openSearch(),
           settings: () => this.navigate({ page: "settings" }), history: () => this.tools.openOperationHistory(),
           decisions: reviewed, similar: () => this.semantic?.openSimilarNotes(), advanced: page => this.navigate({ page }),
         }, this.contentEl),

@@ -76,7 +76,7 @@ it('keeps choice-card state equal to native radio state on initial render, chang
   radios[0].change(); expect(change).not.toHaveBeenCalled();
   expect(parent.querySelectorAll('label').map(c => c.attrs['data-selected'])).toEqual(['true', 'false']);
 });
-function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairReviewPort["localFacts"], decisions?: ReviewDecisionsPort) {
+function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairReviewPort["localFacts"], decisions?: ReviewDecisionsPort, notes?: import("./noteActions").NoteActions) {
   setLanguage("en");
   dom.document.activeElement = undefined;
   const root = new dom.Element();
@@ -86,8 +86,8 @@ function setup(scopePaths = paths, localFacts?: import("./workbenchData").PairRe
     createSemantic: forbidden, createComparison: forbidden,
   }, false);
   const close = vi.fn(), mount = vi.fn((_container: HTMLElement, _paths: readonly [string, string], _completed?: (decision: ReviewDecision) => void) => close), history = vi.fn();
-  const map = vi.fn(() => ({ update: vi.fn(), suspend: vi.fn(), dispose: vi.fn() }));
-  const view = new ReviewListView(root as unknown as HTMLElement, data, { mount, localFacts, decisions }, { map, history, settings: vi.fn() }, root as unknown as HTMLElement);
+  const map = vi.fn(() => ({ selectPaths: vi.fn(), update: vi.fn(), suspend: vi.fn(), dispose: vi.fn() }));
+  const view = new ReviewListView(root as unknown as HTMLElement, data, { mount, localFacts, decisions }, { map, history, settings: vi.fn(), notes }, root as unknown as HTMLElement);
   view.update([finding]);
   const action = (key: string) => root.querySelector(`[data-health-action="${key}"]`)!;
   return { root, data, view, mount, close, map, history, forbidden, action };
@@ -242,4 +242,43 @@ it("does not describe policy-excluded or unverified coverage as absence of possi
   f.action("review-connections").click();
   expect(f.root.all().map(e => e.text).join(" ")).toContain("No suggestions are available under the current rules");
   f.view.dispose();
+});
+
+
+describe.each(["ru", "en"] as const)("contextual Notes in %s", language => {
+  it("bounds 10k paths, keeps selection across search and hands exact files to existing launchers", () => {
+    const files = ["First/Same.md", "Second/Same.md", ...Array.from({ length: 9998 }, (_, i) => `Topic/${i}.md`)];
+    const actions = { open: vi.fn(), tag: vi.fn(), link: vi.fn(), atomize: vi.fn(), studio: vi.fn(), history: vi.fn() };
+    const f = setup(files, undefined, undefined, actions); setLanguage(language); f.view.update([]);
+    expect(f.root.querySelectorAll('[data-note-row]')).toHaveLength(60);
+    const choose = (p: string) => { const el = f.action(`note-select-${encodeURIComponent(p)}`); el.checked = true; el.change(); };
+    choose(files[0]); expect(actions.tag).not.toHaveBeenCalled(); expect(f.forbidden).not.toHaveBeenCalled();
+    f.action('note-tag').click(); expect(actions.tag).toHaveBeenCalledWith(files[0]);
+    f.action('note-studio').click(); expect(actions.studio).toHaveBeenCalledWith(files[0]);
+    const search = f.action('review-search'); search.value = files[1]; search.listeners.get('input')!();
+    expect(f.root.querySelectorAll('[data-note-row]')).toHaveLength(1);
+    choose(files[1]); f.action('note-link').click(); expect(actions.link).toHaveBeenCalledWith(files.slice(0,2));
+    f.root.scrollTop = 123; f.action('notes-compare').click(); expect(f.mount).toHaveBeenCalledOnce();
+    expect(f.mount.mock.calls[0][1]).toEqual(files.slice(0,2));
+    f.action('review-back').click(); expect(f.action('review-search').value).toBe(files[1]); expect(f.root.scrollTop).toBe(123);
+    f.action('note-link').click(); expect(actions.link).toHaveBeenCalledTimes(2);
+    f.action('review-map').click(); const graph = f.map.mock.results[0].value as { selectPaths: ReturnType<typeof vi.fn> };
+    expect(graph.selectPaths).toHaveBeenCalledWith(files.slice(0,2));
+    f.action('review-back').click(); f.action('review-map').click(); expect(graph.selectPaths).toHaveBeenCalledOnce();
+    f.action('review-back').click();
+    const stale = f.action('note-link'); f.view.suspend(); stale.click(); expect(actions.link).toHaveBeenCalledTimes(2);
+    f.view.dispose();
+  });
+  it("keeps every file reachable without growing DOM, drops out-of-scope selection", () => {
+    const actions = { open: vi.fn(), tag: vi.fn(), history: vi.fn() };
+    const files = Array.from({ length: 154 }, (_, i) => `A/${i}.md`), f = setup(files, undefined, undefined, actions);
+    setLanguage(language); f.view.update([]);
+    const seen: string[] = [];
+    for (let n=0;n<3;n++) { seen.push(...f.root.querySelectorAll('[data-note-row]').map(row=>row.children[0].children[1].text)); f.action('notes-next').click(); }
+    expect(seen).toEqual(files); expect(f.root.querySelectorAll('[data-note-row]')).toHaveLength(34);
+    const control = f.action(`note-select-${encodeURIComponent(files[153])}`); control.checked = true; control.change();
+    const next = setup(["Other.md"], undefined, undefined, actions); next.view.inheritNavigation(f.view);
+    expect(next.root.querySelectorAll('[data-note-row]')).toHaveLength(1); expect(next.action('note-tag')).toBeUndefined();
+    f.view.dispose(); next.view.dispose();
+  });
 });

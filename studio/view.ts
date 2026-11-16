@@ -53,6 +53,12 @@ class StudioDialog extends Modal {
 }
 
 export class VeynrelStudioView extends ItemView {
+  private suggestedSource?: string;
+  private returnToNotes?: () => void;
+  suggestSource(path: string, back?: () => void): void {
+    if (!this.alive || !this.owner.inventory().includes(path)) return;
+    this.suggestedSource = path; this.returnToNotes = back; this.render();
+  }
   private route: "library" | "community" | "details" | "setup" | "workflow" | "history" = "library";
   private community?: CommunityPanel;
   private selected?: Recipe;
@@ -148,6 +154,13 @@ export class VeynrelStudioView extends ItemView {
     this.renderedRoute = this.route;
     this.contentEl.querySelectorAll<HTMLElement>("nav button").forEach(b => b.setAttribute("aria-current", String(b.dataset.studioAction === (this.route === "details" || this.route === "setup" ? "library" : this.route))));
     this.historyEpoch++; this.body.empty(); this.body.removeClass("veynrel-community"); this.errorEl.empty(); this.updateStatus();
+    if (this.returnToNotes) button(this.body, l("← Notes", "← Заметки"), "back-notes", this.returnToNotes);
+    if (this.suggestedSource) {
+      const hint = this.body.createDiv({ cls: "veynrel-studio-source-handoff", attr: { role: "status" } });
+      hint.createEl("p", { text: l("From Notes: ", "Из раздела «Заметки»: ") + this.suggestedSource });
+      hint.createEl("small", { text: l("Choose a recipe, then use this note in its setup. Nothing has been read or sent by this handoff.", "Выберите сценарий, затем укажите эту заметку в подготовке. Этот переход ничего не читает и не отправляет.") });
+      button(hint, l("Dismiss suggestion", "Убрать предложение"), "dismiss-source", () => { this.suggestedSource = undefined; this.render(); });
+    }
     if (this.route === "library") this.library();
     if (this.route === "community" && studioFeatures.onlineCommunity) this.community?.render(this.body);
     if (this.route === "details") this.details();
@@ -332,6 +345,13 @@ export class VeynrelStudioView extends ItemView {
     model.open = !this.owner.connection().model;
     model.createEl("p", { text: l("Change the model in Obsidian Settings → Veynrel. You can browse and select notes without a provider. Save edits before preparation; close source editors only before changing the source.", "Изменить модель: настройки Obsidian → Veynrel. Для выбора сценария и заметок провайдер не нужен. Сохраните правки перед подготовкой; закрывать редактор исходника нужно только перед его изменением.") });
     const state = draft, paths = this.owner.inventory(), chosen = state.chosen;
+    if (this.suggestedSource) {
+      const source = this.suggestedSource;
+      button(this.body, l("Use this note only", "Выбрать только эту заметку"), "use-source", () => {
+        if (!this.owner.inventory().includes(source)) { this.errorEl.setText(l("Source changed; select a current note", "Исходник изменился; выберите актуальную заметку")); return; }
+        state.chosen = new Set([source]); state.mode = "files"; state.query = ""; this.suggestedSource = undefined; this.render();
+      });
+    }
     const mode = select(this.body, l("Selection", "Выбор"), [["files", l("Choose individual notes", "Выбрать отдельные заметки")], ["folder", l("Choose a folder including subfolders", "Выбрать папку с подпапками")]], state.mode);
     const picker = this.body.createDiv();
     notePicker(picker, paths, state, 20);

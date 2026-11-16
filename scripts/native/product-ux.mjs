@@ -95,6 +95,17 @@ try {
   report.passive=await main.ev('({...uxIO})');
   assert.equal(report.passive.pluginRead,0,'Passive Veynrel Markdown reads');assert.equal(report.passive.pluginWrite,0,'Passive Veynrel Markdown writes');
   for(const theme of ['light','dark']){await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await shot('first-'+theme);}
+  if (phase === 'notes-benchmark') {
+    const started=performance.now();await main.ev("hv.navigate({page:'discover'});void 0");await wait("!!document.querySelector('[data-note-row]')");
+    report.notesReadyMs=performance.now()-started;
+    report.notes=await main.ev('({scope:hv.workbench.data.scope.paths.length,files:app.vault.getMarkdownFiles().length,cached:app.vault.getMarkdownFiles().filter(f=>app.metadataCache.getFileCache(f)).length,rows:document.querySelectorAll("[data-note-row]").length,elements:document.querySelectorAll(".veynrel-review-list *").length,heapUsed:performance.memory?.usedJSHeapSize??null})');
+    assert.equal(report.notes.files,noteCount);assert.equal(report.notes.scope,noteCount);assert(report.notes.rows<=60);
+    const searchStart=performance.now();await main.ev("document.querySelector('[data-health-action=review-search]').focus();void 0");await main.send('Input.insertText',{text:'Note-'+(noteCount-1)});await wait("document.querySelectorAll('[data-note-row]').length===1");
+    report.notesSearchMs=performance.now()-searchStart;
+    await main.ev("document.querySelector('[data-note-row] input').focus();void 0");await key(' ','Space',32,' ');
+    await pass('10k-capable list keeps exact existing selection without IO',`hv.workbench.chosen[0]==='Note-${noteCount-1}.md'&&uxIO.pluginRead===0&&uxIO.pluginWrite===0`);
+    await shot('notes-benchmark');report.semantic={indexed:0,computed:0,reason:'disabled; file list uses metadata only'};
+  } else {
   const start=Date.now();
   await main.ev("document.querySelector('[data-health-action=start-local], [data-health-action=scan]').focus();void 0");await key('Enter','Enter',13,'\r');
   await wait('!!hv.controller.getState().outcome&&!hv.controller.getState().busy');
@@ -142,7 +153,57 @@ try {
       const start=Date.now();await main.ev(`hv.navigate({page:'${page}'});void 0`);report.actions.push({transition:page,ms:Date.now()-start});
       for(const theme of ['light','dark']){await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await shot(name+'-'+theme);}
     }
-    await main.ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-studio');void 0");await wait("!!document.querySelector('[data-studio-field=search]')");
+    if (phase === 'after-b') {
+      const activate = async (selector, checkbox=false) => {
+        await focus();await main.ev(`{const e=document.querySelector(${JSON.stringify(selector)});if(!e||e.disabled)throw Error('Control unavailable');e.scrollIntoView({block:'center'});e.focus();}void 0`);
+        await key(checkbox?' ':'Enter',checkbox?'Space':'Enter',checkbox?32:13,checkbox?' ':'\r');
+      };
+      await main.ev("hv.navigate({page:'discover'});window.notesBefore={...uxIO};void 0");
+      await activate('[data-health-action=review-search]');await main.send('Input.insertText',{text:'Source.md'});
+      await activate('[data-health-action="note-select-Source.md"]',true);
+      await pass('Notes selection is exact and passive',"hv.workbench.chosen.length===1&&hv.workbench.chosen[0]==='Source.md'&&uxIO.pluginRead===notesBefore.pluginRead&&uxIO.pluginWrite===notesBefore.pluginWrite");
+      report.noteList=await main.ev('({rows:document.querySelectorAll("[data-note-row]").length,elements:document.querySelectorAll(".veynrel-review-list *").length,selected:hv.workbench.chosen.length})');
+      for(const language of ['en','ru']) {
+        await main.ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");
+        await main.ev(`{const s=[...app.setting.modalEl.querySelectorAll('select')].find(e=>[...e.options].some(o=>o.value==='ru'));s.value='${language}';s.dispatchEvent(new Event('change'));}void 0`);
+        await main.ev('plugin.settingsSave');await main.ev('app.setting.close();hv.render();void 0');
+        for(const theme of ['light','dark'])for(const width of [1100,390]) {
+          await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await main.send('Emulation.setDeviceMetricsOverride',{width,height:850,deviceScaleFactor:1,mobile:false});
+          await pass(`Notes ${language}/${theme}/${width}: no overflow`,"hv.contentEl.scrollWidth<=hv.contentEl.clientWidth+1");await shot(`notes-selected-${language}-${theme}-${width}`);
+        }
+      }
+      await main.send('Emulation.clearDeviceMetricsOverride');
+      await activate('[data-health-action=note-tag]');await wait("!!document.querySelector('.ai-local-note [role=alert]')");
+      await pass('Existing R05 guard refuses the still-open synthetic source',"/Close|Закройте/.test(document.querySelector('.ai-local-note [role=alert]').textContent)");await shot('context-open-editor-refusal');
+      await key('Escape','Escape',27);await wait("!document.querySelector('.ai-local-note')");
+      await main.ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('markdown').find(l=>l.view.file?.path==='Source.md'),{focus:true});void 0");
+      await wait("app.workspace.getActiveFile()?.path==='Source.md'");await focus();
+      await key('w','KeyW',87,undefined,2);
+      await wait("!app.workspace.getLeavesOfType('markdown').some(l=>l.view.file?.path==='Source.md')");
+      report.sourceClose='Explicit keyboard Ctrl+W on verified synthetic source; independent of failed pointer attempt 03';
+      await main.ev('app.workspace.setActiveLeaf(hv.leaf,{focus:true});void 0');await focus();
+      await activate('[data-health-action=note-tag]');await wait("!!document.querySelector('[data-local-note=tag-choice]')");await shot('context-tag-plan');
+      await key('Escape','Escape',27);await wait("!document.querySelector('.ai-local-note')");
+      await main.ev("document.querySelector('[data-health-action=review-search]').focus();void 0");await key('a','KeyA',65,undefined,2);await main.send('Input.insertText',{text:'Other.md'});
+      await activate('[data-health-action="note-select-Other.md"]',true);
+      await activate('[data-health-action=note-link]');await wait("!!document.querySelector('[data-local-link=direction]')");await shot('context-link-plan');await key('Escape','Escape',27);await wait("!document.querySelector('.ai-local-link')");
+      await main.ev('window.savedNotesQuery=hv.workbench.query;window.savedNotesScroll=hv.contentEl.scrollTop;void 0');
+      await activate('[data-health-action=notes-compare]');await wait("!!document.querySelector('[data-pair-heading]')");await shot('context-pair');await activate('[data-health-action=review-back]');
+      await pass('Back retains exact paths and search',"hv.workbench.query===savedNotesQuery&&JSON.stringify(hv.workbench.chosen)===JSON.stringify(['Source.md','Other.md'])");
+      await activate('[data-health-action="unselect-Other.md"]');
+      await activate('[data-health-action=note-more]');
+      await activate('[data-health-action=note-studio]');await wait("!!document.querySelector('[data-studio-action=back-notes]')");
+      await pass('Studio receives suggestion, not preparation or consent',"plugin.studio.runner.state==='idle'&&!!document.querySelector('.veynrel-studio-source-handoff')");await shot('studio-source-handoff');
+      await activate('[data-studio-action^=recipe-]');await activate('[data-studio-action=choose-notes]');
+      await main.ev('window.handoffIO={...uxIO};void 0');await activate('[data-studio-action=use-source]');
+      await pass('Studio source choice is local setup, not a run',"(()=>{const v=app.workspace.getLeavesOfType('veynrel-studio')[0].view,d=v.setupDrafts.get(v.selected.id);return d.mode==='files'&&[...d.chosen].join()==='Source.md'&&plugin.studio.runner.state==='idle'&&uxIO.pluginRead===handoffIO.pluginRead&&uxIO.pluginWrite===handoffIO.pluginWrite})()");await shot('studio-source-selected');
+      await activate('[data-studio-action=back-notes]');
+      report.studioBackImmediate=await main.ev("({active:app.workspace.activeLeaf===hv.leaf,chosen:hv.workbench.chosen,connected:hv.contentEl.isConnected})");
+      await wait('app.workspace.activeLeaf===hv.leaf');
+      await pass('Studio Back returns to selected Notes context',"app.workspace.activeLeaf===hv.leaf&&hv.workbench.chosen[0]==='Source.md'");
+    }
+    await main.ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-studio');void 0");await wait("!!document.querySelector('[data-studio-action=library]')");
+    await main.ev("document.querySelector('[data-studio-action=library]').focus();void 0");await key('Enter','Enter',13,'\r');await wait("!!document.querySelector('[data-studio-field=search]')");
     await pass('Only online Community is hidden; Studio Library remains',"!document.querySelector('[data-studio-action=community],[data-studio-action=publish]')&&!!document.querySelector('[data-studio-field=search]')&&plugin.studio.features.onlineCommunity===false&&plugin.studio.community.state==='idle'");
     await shot('studio-community-off');
     await main.ev("window.uxSplit=app.workspace.getLeaf('split');uxSplit.setViewState({type:'veynrel-health',active:true})");
@@ -156,6 +217,7 @@ try {
     await main.ev('uxPop.detach();void 0');await focus();
     await pass('Focus returns to main window','document.hasFocus()');
     assert.equal(report.externalRequests.length,0,'No HTTP requests during the walkthrough');
+  }
   }
   report.dom=await main.ev('({elements:document.querySelectorAll(".veynrel-health-view *").length,findings:hv.controller.listFindings().length})');
   await stopVideo();

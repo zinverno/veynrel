@@ -10,17 +10,16 @@ export function renderProcessing(parent: HTMLElement, clusters: ProcessingCluste
 }): void {
   const page = parent.createEl("section", { cls: "veynrel-processing" });
   workspaceHeading(page, t("@workspace.process"), t("@processing.intro"));
-  const cards = page.createDiv({ cls: "veynrel-processing-cards" });
-  const card = (key: string, icon: string, primary = false): HTMLElement => {
-    const item = cards.createEl("article", { cls: `veynrel-processing-card${primary ? " is-primary" : ""}` });
+  const cards = page.createDiv({ cls: "veynrel-processing-rows" });
+  const card = (key: string, icon: string): HTMLElement => {
+    const item = cards.createEl("article", { cls: "veynrel-processing-row" });
     const heading = item.createDiv({ cls: "veynrel-processing-heading" });
     setIcon(heading.createSpan({ attr: { "aria-hidden": "true" } }), icon);
     heading.createEl("h2", { text: t(`@processing.${key}`) });
-    item.createEl("p", { text: t(`@processing.${key}-description`) });
     item.createEl("p", { cls: "veynrel-processing-effect", text: t(`@processing.${key}-effect`) });
     return item;
   };
-  healthButton(card("atomization", "git-fork", true), t("@processing.atomization-action"), actions.atomization, "process-atomization", false, true);
+  healthButton(card("atomization", "git-fork"), t("@processing.atomization-action"), actions.atomization, "process-atomization", false, true);
   healthButton(card("batch", "layers"), t("@processing.batch-action"), actions.batch, "tool-openBatchProcessing");
   const moc = card("moc", "network");
   const status = moc.createDiv({ cls: "veynrel-processing-status" });

@@ -1839,10 +1839,10 @@ describe("safe pair opening", () => {
 });
 
 describe("Processing entry", () => {
-  it("shows three cards, opens the Markdown picker, and launches batch without scope arguments", async () => {
+  it("shows three compact tool rows, opens the Markdown picker, and launches batch without scope arguments", async () => {
     const f = fixture(); Object.assign(f.tools, { savedMocClusterCount: vi.fn(async () => 3) });
     await f.view.onOpen(); f.content.action("nav-process").click(); await flush();
-    expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-card"))).toHaveLength(3);
+    expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-row"))).toHaveLength(3);
     expect(f.content.action("process-recall")).toBeUndefined();
     expect(f.content.texts()).toContain("Saved clusters: 3");
     f.content.action("tool-openBatchProcessing").click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledWith();

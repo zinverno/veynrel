@@ -42,6 +42,7 @@ import {
   InsertionType,
 } from "./settings";
 import { validateSettings, callOpenRouter, streamOpenRouter, testConnection } from "./api";
+import { LocalLinkModal } from "./consolidation/localLinkModal";
 import type { StudioWorkspace } from "./studio/registerStudio";
 import {
   SELECTION_INSERTION_OPTIONS,
@@ -161,7 +162,14 @@ export default class AIHubPlugin extends Plugin {
   getToolsPort(): VeynrelToolsPort {
     return {
       openAskVault: () => this.semanticController.openAskVault(),
-      openAtomization: () => {
+      openSettings: () => {
+        const settings = (this.app as typeof this.app & { setting?: { open(): void; openTabById(id: string): void } }).setting;
+        if (settings) { settings.open(); settings.openTabById(this.manifest.id); }
+      },
+      openStudioNote: path => { void this.studio?.openNote?.(path); },
+      openLocalLink: paths => { if (this.safeApply) new LocalLinkModal(this.app, paths, this.safeApply).open(); },
+      openAtomization: path => {
+        if (path !== undefined) { const file = this.app.vault.getFileByPath(path); if (file?.extension === "md") void this.atomizeNote(file); return; }
         this.atomizationPicker?.close();
         this.atomizationPicker = new AtomizationPicker(this.app, file => { void this.atomizeNote(file); });
         this.atomizationPicker.open();
@@ -172,7 +180,7 @@ export default class AIHubPlugin extends Plugin {
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
       openOperationHistory: () => { if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open(); },
-      openLocalTag: () => this.openLocalTag(),
+      openLocalTag: path => this.openLocalTag(undefined, [], path),
       openLocalNoteRepair: path => this.openLocalNoteAction(path, "repair_wikilink"),
       openTagTaxonomy: (scope = { kind: "all" }, findings = []) => {
         const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); }, inventory =>
@@ -445,10 +453,11 @@ export default class AIHubPlugin extends Plugin {
     };
   }
 
-  private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = []): void {
+  private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = [], path?: string): void {
     if (this.getOrganizationRegistry().invalidPreferences) {
       new Notice(orgText("Organization settings are invalid. Open Organization audit for recovery information; no rules were reset.", "Настройки организации повреждены. Откройте аудит организации для сведений о восстановлении; правила не сброшены.")); return;
     }
+    if (path !== undefined) { this.openLocalNoteAction(path, "add_inline_tag", inventory); return; }
     new LocalNotePicker(this.app, path => this.openLocalNoteAction(path, "add_inline_tag", inventory),
       [...exclusions, ...(organizationPreferences(this.settings.organizationAudit).registryPath ? [organizationPreferences(this.settings.organizationAudit).registryPath!] : [])]).open();
   }
