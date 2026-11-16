@@ -9,7 +9,7 @@ import {build as bundle} from 'esbuild';
 import {assertNativeRoot,launchObsidian,nativeEndpoint} from './native/session.mjs';
 import {runFamilyJourney} from './r06-families-journey.mjs';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
-const familiesMode=process.env.R06_FAMILIES==='1';
+const familiesMode=process.env.R06_FAMILIES==='1',pickerOnly=process.env.R06_PICKER_ONLY==='1';
 const [root,rawCount='120',build=ROOT]=process.argv.slice(2),count=familiesMode?12:Number(rawCount),indexed=Number(process.env.R06_INDEX_COUNT??count);
 assertNativeRoot(root);assert(!fs.existsSync(root));assert([12,120,1000,5000,10000].includes(count));assert(indexed>=0&&indexed<=count);
 const baseline=process.env.R06_BASELINE==='1',warmCache=process.env.R06_WARM_CACHE==='1';
@@ -25,7 +25,7 @@ fs.writeFileSync(`${vault}/.obsidian/app.json`,'{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`,JSON.stringify({updateDisabled:true,vaults:{map:{path:vault,open:true,ts:Date.now()}}}));
 fs.writeFileSync(`${pluginDir}/data.json`,JSON.stringify({language:'en',apiKey:'',semanticAutoSyncSuspended:true,semantic:{enabled:!!indexed,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 const sha=v=>createHash('sha256').update(v).digest('hex');
-const report={scenario:familiesMode?'R06.2-family-journey':'R06-map-foundation',familiesMode,baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
+const report={scenario:familiesMode?'R06.2-family-journey':pickerOnly?'R06.2-isolated-picker':'R06-map-foundation',familiesMode,pickerOnly,baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
 for(const name of ['main.js','styles.css','manifest.json']){const bytes=fs.readFileSync(`${build}/${name}`);fs.writeFileSync(`${pluginDir}/${name}`,bytes);report.assets[name]=sha(bytes);}
 report.harness=Object.fromEntries(['r06-map-native.mjs','r06-map-fixture.ts','r06-families-journey.mjs','r06-families-fixture.ts','native/session.mjs','native/run.py'].map(p=>[p,sha(fs.readFileSync(`${ROOT}/scripts/${p}`))]));
 const original=Object.fromEntries(fixture.notes.map(n=>[n.path,sha(fs.readFileSync(`${vault}/${n.path}`))]));
@@ -94,6 +94,22 @@ try{
  if(count===120||familiesMode){await main.send('Page.startScreencast',{format:'jpeg',quality:75,maxWidth:1600,maxHeight:1000,everyNthFrame:1});recording=true;}
  await ev("{let started;wb.data.semantic?.subscribe(()=>{const s=wb.data.semantic.getSnapshot();if(s.state==='loading')started??=performance.now();else if(started!==undefined&&!s.busy){window.semanticMs=performance.now()-started;started=undefined;}});}void 0");
  report.metrics.cacheReadyMs=performance.now()-cacheStarted;
+ if(pickerOnly){
+  await activate('workbench-map-toggle');await activate('workbench-mode-notes');await field('workbench-search','Databases/Note 00000.md');
+  const selectedAt=performance.now();await activate('workbench-note-'+encodeURIComponent('Databases/Note 00000.md'));
+  if(!baseline&&await ev("!!document.querySelector('[data-health-action=workbench-load-choices]')")){await activate('workbench-load-choices');await wait("wb.data.dependencies.rules.state==='ready'&&!wb.pendingRender");}
+  report.metrics.selectionMs=performance.now()-selectedAt;await metric('selected-picker');
+  report.metrics.secondPicker=await ev("(()=>{const p=wb.element.querySelector('.veynrel-workbench-selection');return {dom:p.querySelectorAll('*').length,options:p.querySelectorAll('option').length,results:p.querySelectorAll('[data-note-choice]').length,heap:performance.memory?.usedJSHeapSize}})()");
+  await pass('Manual picker does not require semantic or topology computation',"wb.data.semantic.getSnapshot().state==='idle'&&hv.topology.getSnapshot().state==='idle'&&io.reads===0&&io.writes===0&&io.network===0");
+  if(!baseline){
+   await pass('Picker DOM bound and full inventory count',`document.querySelectorAll('[data-note-choice]').length===20&&wb.element.querySelector('.veynrel-pair-search').textContent.includes('${count-1}')`);
+   const target=fixture.notes.at(-1).path,started=performance.now();await field('workbench-second',target);report.metrics.secondPicker.searchMs=performance.now()-started;
+   await pass('Final exact path remains selectable',`document.querySelector('[data-note-choice]').getAttribute('data-note-choice')===${JSON.stringify(target)}`);
+   await ev("document.querySelector('[data-health-action=workbench-second]').focus();void 0");await key('ArrowDown','ArrowDown',40);await key('Enter','Enter',13,'\r');
+   await pass('Keyboard pair selection preserves exact source',`wb.selected.paths.includes('Databases/Note 00000.md')&&wb.selected.paths.includes(${JSON.stringify(target)})`);
+  }
+  await shot('picker');
+ }else {
  const start=performance.now();await activate('workbench-refresh');await wait('!wb.data.busy');report.metrics.refreshWallMs=performance.now()-start;
  await wait('!wb.pendingRender&&wb.simulation.alpha===0');await metric('loaded');await pass('Rendered nodes intersect the actual canvas viewport',"(()=>{const svg=wb.element.querySelector('svg[data-camera]'),box=svg.getBoundingClientRect();return [...svg.querySelectorAll('[data-path],[data-group]')].some(e=>{const r=e.getBoundingClientRect();return r.right>box.left&&r.left<box.right&&r.bottom>box.top&&r.top<box.bottom;});})()");await io('explicit-refresh');await shot('loaded');
  await pass('Explicit map refresh does not read/write Markdown or request a model','io.reads===0&&io.writes===0&&io.network===0');
@@ -171,6 +187,7 @@ try{
   let popTarget;for(let i=0;i<100;i++){popTarget=(await(await fetch(`${endpoint}/json/list`)).json()).find(t=>t.type==='page'&&t.id!==main.id);if(popTarget)break;await pause(50);}assert(popTarget);
   const pop=await connection(popTarget);await focus(pop);await pass('Real Native-frame popout receives focus',"document.hasFocus()&&!window.frameDom&&window.titlebarStyle==='native'",pop);await shot('popout',pop);await focus();await pass('Focus returns to main','document.hasFocus()');await ev('pop.detach();void 0');
   await stopVideo();
+ }
  }
  }
  await metric('final');await io('final');

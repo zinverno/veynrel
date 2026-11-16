@@ -276,6 +276,8 @@ export class WorkbenchView {
         const candidates=[...new Map([...model.connections,...model.repeats].filter(pair=>pair.paths.includes(this.note!)).map(pair=>[pair.id,pair])).values()];
         if(candidates.length){detail.createEl("h3",{text:t("@mapnav.candidates")});for(const pair of candidates.slice(0,5))button(detail,`${t("@visual.review")} · ${pair.paths.find(path=>path!==this.note)!}`,()=>this.selectPair(pair),`workbench-related-${encodeURIComponent(pair.id)}`);}
         const source=this.note;
+        const rules=this.data.dependencies.rules;
+        if(rules?.state==="loading")button(detail,t("@r062.load-choices"),()=>{void rules.load().catch(()=>{});},"workbench-load-choices");
         const search=(query:string):ReturnType<typeof searchPairNotes>|undefined=>{
           try{return searchPairNotes(this.data.scope.paths,source,query,this.data.captureParticipation());}catch{return;}
         };

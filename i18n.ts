@@ -54,6 +54,7 @@ export function t(key: string, vars?: Record<string, string | number>, language 
 }
 
 const RU: Record<string, string> = {
+  "@r062.load-choices": "Загрузить варианты без смыслового расчёта",
   "@r062.families": "Предполагаемые смысловые семьи: {count}",
   "@r062.family-name": "Семья из {count} заметок",
   "@r062.family-limits": "Предполагаемые группы по взаимным смысловым соседям. Это не доказательство общей темы или дублирования. Заметка может входить в несколько семей. Названия нейтральные; теги не определяют членство.",
@@ -65,7 +66,7 @@ const RU: Record<string, string> = {
   "@r062.family-count": "Показано {shown} из {total} семей. Уточните поиск для остальных.",
   "@r062.family-empty": "Недостаточно различимых данных для семей или нет совпадений. Это нормальный результат.",
   "@r062.search-count": "Показано {shown} из {total} совпадений; недоступно по правилам: {blocked}. Уточните путь для остальных.",
-  "@r062.search-unavailable": "Правила участия ещё недоступны. Загрузите локальный индекс или проверьте правила; выбор сейчас недоступен.",
+  "@r062.search-unavailable": "Правила участия ещё недоступны. Загрузите варианты или проверьте правила; выбор сейчас недоступен.",
   "@r062.relations": "Соседи и реальные ссылки",
   "@r062.neighbor-basis": "Наблюдаемые top-K соседи; оценка относится к текущему индексу, не к расстоянию на экране. Сравнение не означает дублирование или согласие на модель.",
   "@r062.neighbor-unknown": "Нет актуальных смысловых соседей. Неизвестность не означает отсутствие отношений.",
@@ -2382,6 +2383,7 @@ const RU: Record<string, string> = {
 };
 
 const EN: Record<string, string> = {
+  "@r062.load-choices": "Load choices without semantic computation",
   "@r062.families": "Tentative semantic families: {count}",
   "@r062.family-name": "Family of {count} notes",
   "@r062.family-limits": "Tentative groups from mutual semantic neighbors. This does not prove a shared topic or duplication. A note may belong to several families. Names are neutral; tags do not determine membership.",
@@ -2393,7 +2395,7 @@ const EN: Record<string, string> = {
   "@r062.family-count": "Showing {shown} of {total} families. Refine the search for others.",
   "@r062.family-empty": "Not enough distinct evidence for families, or no matches. This is a normal result.",
   "@r062.search-count": "Showing {shown} of {total} matches; unavailable under rules: {blocked}. Refine the path for others.",
-  "@r062.search-unavailable": "Participation rules are not available yet. Load the local index or check the rules; selection is unavailable now.",
+  "@r062.search-unavailable": "Participation rules are not available yet. Load choices or check the rules; selection is unavailable now.",
   "@r062.relations": "Neighbors and real links",
   "@r062.neighbor-basis": "Observed top-K neighbors; scores belong to the current index, not screen distance. Comparing does not establish duplication or consent to a model.",
   "@r062.neighbor-unknown": "No current semantic neighbors. Unknown does not mean unrelated.",

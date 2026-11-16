@@ -1,0 +1,18 @@
+{
+  "reason": "The fixed full-map protocol yielded incomplete before/after picker comparisons: baseline 10k remained busy after full host cache, candidate 1k failed initial focus. Isolate the requested picker cost from semantic/duplicates computation; do not relabel prior failures.",
+  "cases": [
+    "picker-before-1000",
+    "picker-before-5000",
+    "picker-before-10000",
+    "picker-after-1000",
+    "picker-after-5000",
+    "picker-after-10000"
+  ],
+  "attemptsPerCase": 1,
+  "readinessMs": 90000,
+  "sequence": "Warm host cache -> passive map -> list search exact source -> select note -> existing policy load only on candidate if needed -> measure picker DOM/heap/selection -> bounded exact target search and keyboard on candidate. No map refresh.",
+  "baseline": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+  "sameFixtures": true,
+  "noRetryUntilPass": true,
+  "scope": "Selector measurement only; does not close cold-start, full refresh or host exception gates."
+}
