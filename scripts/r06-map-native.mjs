@@ -84,7 +84,7 @@ try{
  await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");await wait("!!document.querySelector('[data-health-action=nav-discover]')");
  await activate('nav-discover');await activate('review-map');
  await ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;window.wb=hv.workbench.map;void 0");
- await pass('Passive map opens with zero Markdown reads/writes and network','io.reads===0&&io.writes===0&&io.network===0');await io('passive');await shot('before-load');
+ await pass('Passive map opens with zero Markdown reads/writes and network','io.reads===0&&io.writes===0&&io.network===0');await io('passive');if(!baseline)await pass('Idle map defers full tag projection until explicit load',"wb.zones.active.length===0");await shot('before-load');
  const cacheStarted=performance.now();await wait(`app.vault.getMarkdownFiles().length===${count} && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))`,main,90000);
  await main.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
  if(count===120){await main.send('Page.startScreencast',{format:'jpeg',quality:75,maxWidth:1600,maxHeight:1000,everyNthFrame:1});recording=true;}

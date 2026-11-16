@@ -141,7 +141,8 @@ export class WorkbenchView {
     if(representationKey!==this.representationKey){
       const started=performance.now();this.representationKey=representationKey;this.items=mapItems(this.groupPaths?this.points.filter(point=>this.groupPaths!.includes(point.path)):this.points);this.representationMilliseconds=performance.now()-started;
     }
-    const metadata=this.data.dependencies.tags?.getSnapshot(),zones=tagZones(metadata);
+    const semantic=this.data.semantic?.getSnapshot();
+    const metadata=semantic?.state==="idle"&&!this.data.busy?undefined:this.data.dependencies.tags?.getSnapshot(),zones=tagZones(metadata);
     if(!this.zonesInitialized&&zones.length){this.zones.active=initialZones(zones);this.zonesInitialized=true;}
     const selectedPaths:readonly string[]=this.selected?.paths??(this.note?[this.note]:[]);
     const heading=this.browser.createDiv({cls:"veynrel-workbench-heading"});
@@ -157,7 +158,6 @@ export class WorkbenchView {
     if(this.data.dependencies.editRules)button(toolbar,t("@rules.title"),()=>{this.closeRules=this.data.dependencies.editRules!();},"workbench-rules");
     if(selectedPaths.length)button(toolbar,t("@mapnav.selection"),()=>{this.showDetail=!this.showDetail;this.render();},"workbench-selection-toggle");
     const status=this.browser.createDiv({cls:"veynrel-workbench-status",attr:{role:"status","aria-live":"polite"}});
-    const semantic=this.data.semantic?.getSnapshot();
     status.createSpan({text:semantic?.state==="ready"?t("@mapnav.ready",{count:semantic.mappedNoteCount??semantic.map?.nodes.length??0,total:model.nodes.length}):t(`@workbench.map-state.${semantic?.state??"idle"}`)});
     if(semantic?.reason==="too-large")status.createSpan({text:t("@workbench.cap",{count:semantic.mappedNoteCount??0,cap:semantic.supportedNoteCount})});
     if(metadata){const unknown=metadata.notes.filter(note=>note.state!=="known").length;if(unknown)status.createSpan({text:t("@mapnav.tags-unknown",{count:unknown})});}

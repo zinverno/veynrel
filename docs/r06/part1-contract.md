@@ -37,7 +37,10 @@ Reopening within the same list/scope owner retains coordinates, selection, query
 filters, camera and view-local metadata. Hidden views do not render from source
 notifications. Visible metadata notifications are coalesced to one animation frame
 to avoid rebuilding the entire map for every cold-cache file event; owner teardown
-and window migration cancel pending frames. Scope replacement and ItemView disposal still dispose all map
+and window migration cancel pending frames. The initial idle map does not project
+the full tag inventory: that projection starts with explicit Load, independently
+of background host cache population. A cold-cache 5k control after coalescing alone
+still timed out (4,668/5,000 caches); that failed receipt is retained. Scope replacement and ItemView disposal still dispose all map
 owners. Pair Inspector consent and write tickets are never retained.
 
 ## Next dependent R06 substage (not implemented)
