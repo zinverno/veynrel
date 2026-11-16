@@ -1,0 +1,45 @@
+{
+  "scenario": "R06.2-isolated-picker",
+  "familiesMode": false,
+  "pickerOnly": true,
+  "baseline": false,
+  "warmCache": true,
+  "count": 1000,
+  "indexed": 1000,
+  "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+  "checks": [],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+    "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {},
+  "observations": {},
+  "io": [],
+  "harness": {
+    "r06-map-native.mjs": "d4539112ea93b48994aceff59eb14a8e3b1a562deacdb82e998c02e4b2c9162e",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: document.hasFocus() && window.electronWindow.isFocused()\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async focus (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:61:121)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:85:2",
+  "failureState": {
+    "markdown": 1000,
+    "cacheKnown": 1000,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

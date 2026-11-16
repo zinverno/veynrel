@@ -1,0 +1,152 @@
+[
+  {
+    "label": "picker-before-1000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "1000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-picker-before-1000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_WARM_CACHE": "1",
+      "R06_PICKER_ONLY": "1"
+    },
+    "exit": 0,
+    "seconds": 14.034687519073486,
+    "originalRoot": "/tmp/veynrel-map-native-r062-picker-before-1000",
+    "status": "PASS",
+    "checks": 3,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "picker-before-5000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "5000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-picker-before-5000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_WARM_CACHE": "1",
+      "R06_PICKER_ONLY": "1"
+    },
+    "exit": 1,
+    "seconds": 25.964152812957764,
+    "originalRoot": "/tmp/veynrel-map-native-r062-picker-before-5000",
+    "status": "FAIL",
+    "checks": 2,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9"
+  },
+  {
+    "label": "picker-before-10000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "10000",
+      "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-picker-before-10000"
+    ],
+    "environment": {
+      "R06_BASELINE": "1",
+      "R06_WARM_CACHE": "1",
+      "R06_PICKER_ONLY": "1"
+    },
+    "exit": 0,
+    "seconds": 45.05003070831299,
+    "originalRoot": "/tmp/veynrel-map-native-r062-picker-before-10000",
+    "status": "PASS",
+    "checks": 3,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "picker-after-1000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "1000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-picker-after-1000"
+    ],
+    "environment": {
+      "R06_WARM_CACHE": "1",
+      "R06_PICKER_ONLY": "1"
+    },
+    "exit": 1,
+    "seconds": 20.236076593399048,
+    "originalRoot": "/tmp/veynrel-map-native-r062-picker-after-1000",
+    "status": "FAIL",
+    "checks": 0,
+    "exceptions": 0,
+    "error": "Error: Readiness: document.hasFocus() && window.electronWindow.isFocused()\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async focus (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:61:121)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:85:2"
+  },
+  {
+    "label": "picker-after-5000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "5000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-picker-after-5000"
+    ],
+    "environment": {
+      "R06_WARM_CACHE": "1",
+      "R06_PICKER_ONLY": "1"
+    },
+    "exit": 0,
+    "seconds": 19.46678876876831,
+    "originalRoot": "/tmp/veynrel-map-native-r062-picker-after-5000",
+    "status": "PASS",
+    "checks": 7,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "picker-after-10000",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "10000",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-picker-after-10000"
+    ],
+    "environment": {
+      "R06_WARM_CACHE": "1",
+      "R06_PICKER_ONLY": "1"
+    },
+    "exit": 0,
+    "seconds": 34.44933605194092,
+    "originalRoot": "/tmp/veynrel-map-native-r062-picker-after-10000",
+    "status": "PASS",
+    "checks": 7,
+    "exceptions": 0,
+    "error": null
+  }
+]

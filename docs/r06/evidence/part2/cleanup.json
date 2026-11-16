@@ -1,0 +1,602 @@
+{
+  "allProcessGroupsClean": true,
+  "allCdpClosed": true,
+  "sessionsSequential": true,
+  "ports": [
+    40099,
+    45245,
+    43641,
+    39255,
+    34341,
+    35599,
+    43063,
+    42791,
+    36887,
+    44023,
+    45545,
+    40539,
+    38251,
+    42051,
+    37571,
+    37719,
+    34519,
+    44011,
+    32881,
+    41623,
+    43637,
+    35983,
+    46069,
+    37551,
+    36273,
+    45765,
+    37841,
+    44335,
+    43371,
+    37021,
+    45127,
+    46257,
+    38753,
+    35289,
+    38231,
+    34717,
+    44571,
+    34563,
+    34261,
+    33883
+  ],
+  "uniquePortCount": 40,
+  "sessionResults": [
+    {
+      "label": "actions",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r05-actions-native.mjs",
+        "/tmp/veynrel-actions-native-r062-actions"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807581.4669156,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        40099
+      ],
+      "cdpClosed": true,
+      "seconds": 25.273
+    },
+    {
+      "label": "after-cold-10000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-after-cold-10000",
+        "10000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806928.659841,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45245
+      ],
+      "cdpClosed": true,
+      "seconds": 100.797
+    },
+    {
+      "label": "after-warm-1000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-after-warm-1000",
+        "1000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806806.801128,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        43641
+      ],
+      "cdpClosed": true,
+      "seconds": 25.207
+    },
+    {
+      "label": "after-warm-10000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-after-warm-10000",
+        "10000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806863.1202953,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        39255
+      ],
+      "cdpClosed": true,
+      "seconds": 61.325
+    },
+    {
+      "label": "after-warm-5000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-after-warm-5000",
+        "5000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806832.7829394,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        34341
+      ],
+      "cdpClosed": true,
+      "seconds": 26.877
+    },
+    {
+      "label": "before-cold-10000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-before-cold-10000",
+        "10000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806693.7323642,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        35599
+      ],
+      "cdpClosed": true,
+      "seconds": 105.648
+    },
+    {
+      "label": "before-warm-1000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-before-warm-1000",
+        "1000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806555.418485,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        43063
+      ],
+      "cdpClosed": true,
+      "seconds": 12.744
+    },
+    {
+      "label": "before-warm-10000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-before-warm-10000",
+        "10000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806609.63987,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        42791
+      ],
+      "cdpClosed": true,
+      "seconds": 76.189
+    },
+    {
+      "label": "before-warm-5000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-before-warm-5000",
+        "5000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806569.6456432,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        36887
+      ],
+      "cdpClosed": true,
+      "seconds": 35.206
+    },
+    {
+      "label": "community",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/studio-community-native.mjs",
+        "/tmp/veynrel-community-native-r062-community",
+        "/tmp/veynrel-native-catalog-20261115"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807880.1253066,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44023,
+        45545,
+        40539,
+        38251,
+        42051
+      ],
+      "cdpClosed": true,
+      "seconds": 25.246
+    },
+    {
+      "label": "families-a1",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-families-a1",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806355.2230325,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37571
+      ],
+      "cdpClosed": true,
+      "seconds": 6.079
+    },
+    {
+      "label": "families-a2",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-families-a2",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806408.660973,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37719
+      ],
+      "cdpClosed": true,
+      "seconds": 13.296
+    },
+    {
+      "label": "families-before",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-families-before",
+        "120",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806548.156014,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        34519
+      ],
+      "cdpClosed": true,
+      "seconds": 6.955
+    },
+    {
+      "label": "families-final",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-families-final",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794806531.1344206,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44011
+      ],
+      "cdpClosed": true,
+      "seconds": 16.462
+    },
+    {
+      "label": "family-delivery",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-family-delivery",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807490.89361,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        32881
+      ],
+      "cdpClosed": true,
+      "seconds": 17.718
+    },
+    {
+      "label": "family-final-ui",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-family-final-ui",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807959.6703913,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        41623
+      ],
+      "cdpClosed": true,
+      "seconds": 15.116
+    },
+    {
+      "label": "local-notes",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r05-2-local-notes-native.mjs",
+        "/tmp/veynrel-local-notes-native-r062-local-notes"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807607.2170289,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        43637,
+        35983
+      ],
+      "cdpClosed": true,
+      "seconds": 33.635
+    },
+    {
+      "label": "map120",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-map120",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807509.241046,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46069
+      ],
+      "cdpClosed": true,
+      "seconds": 21.183
+    },
+    {
+      "label": "map120-empty",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-map120-empty",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807551.2833395,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37551
+      ],
+      "cdpClosed": true,
+      "seconds": 17.627
+    },
+    {
+      "label": "map120-partial",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-map120-partial",
+        "120"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807531.0143225,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        36273
+      ],
+      "cdpClosed": true,
+      "seconds": 19.666
+    },
+    {
+      "label": "picker-after-1000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-picker-after-1000",
+        "1000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807398.7700455,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45765
+      ],
+      "cdpClosed": true,
+      "seconds": 19.812
+    },
+    {
+      "label": "picker-after-10000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-picker-after-10000",
+        "10000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807439.6918714,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37841
+      ],
+      "cdpClosed": true,
+      "seconds": 34.115
+    },
+    {
+      "label": "picker-after-5000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-picker-after-5000",
+        "5000"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807419.3263419,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44335
+      ],
+      "cdpClosed": true,
+      "seconds": 19.195
+    },
+    {
+      "label": "picker-before-1000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-picker-before-1000",
+        "1000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807309.064554,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        43371
+      ],
+      "cdpClosed": true,
+      "seconds": 13.742
+    },
+    {
+      "label": "picker-before-10000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-picker-before-10000",
+        "10000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807351.5332475,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        37021
+      ],
+      "cdpClosed": true,
+      "seconds": 44.707
+    },
+    {
+      "label": "picker-before-5000",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs",
+        "/tmp/veynrel-map-native-r062-picker-before-5000",
+        "5000",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.research-worktrees/r062-baseline-build"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807323.6058104,
+      "exitCode": 1,
+      "processGroupClean": true,
+      "cdpPorts": [
+        45127
+      ],
+      "cdpClosed": true,
+      "seconds": 25.592
+    },
+    {
+      "label": "recall",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/recall-topics-native.mjs",
+        "/tmp/veynrel-recall-native-r062-recall"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807848.3564737,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        46257,
+        38753
+      ],
+      "cdpClosed": true,
+      "seconds": 31.294
+    },
+    {
+      "label": "registry",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r05-3-registry-native.mjs",
+        "/tmp/veynrel-registry-native-r062-registry"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807641.190854,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        35289,
+        38231
+      ],
+      "cdpClosed": true,
+      "seconds": 38.094
+    },
+    {
+      "label": "smoke",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/native/smoke.mjs",
+        "/tmp/veynrel-smoke-native-r062-smoke"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807569.5500054,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        34717
+      ],
+      "cdpClosed": true,
+      "seconds": 11.603
+    },
+    {
+      "label": "studio",
+      "command": [
+        "node",
+        "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/studio-source-preservation-native.mjs",
+        "/tmp/veynrel-studio-native-r062-studio"
+      ],
+      "timeoutSeconds": 300,
+      "startedAt": 1794807679.7928634,
+      "exitCode": 0,
+      "processGroupClean": true,
+      "cdpPorts": [
+        44571,
+        34563,
+        34261,
+        33883
+      ],
+      "cdpClosed": true,
+      "seconds": 168.226
+    }
+  ]
+}

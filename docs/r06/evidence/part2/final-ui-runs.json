@@ -1,0 +1,25 @@
+[
+  {
+    "label": "family-final-ui",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-family-final-ui"
+    ],
+    "environment": {
+      "R06_FAMILIES": "1"
+    },
+    "exit": 1,
+    "seconds": 15.502173662185669,
+    "originalRoot": "/tmp/veynrel-map-native-r062-family-final-ui",
+    "status": "FAIL",
+    "checks": 26,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9"
+  }
+]

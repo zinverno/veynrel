@@ -1,0 +1,196 @@
+{
+  "scenario": "R06.2-family-journey",
+  "familiesMode": true,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "87026ebcb2b134f4bb8b59153204353e6251ec07",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Real validated top-K publishes tentative cores",
+    "Docker/database bridge belongs to two distinct cores",
+    "Different-purpose ML pair and untagged diary do not create families",
+    "Family focuses existing coordinates without layout work",
+    "Selected note retains both memberships and exact path",
+    "Duplicate basenames remain exact paths in bounded search",
+    "Existing Pair Inspector opens without model consent or Markdown mutation",
+    "Pair Back retains family, camera and coordinates",
+    "Family Back restores overview camera exactly",
+    "en: current families available after explicit refresh",
+    "en/light: bounded family controls fit 390px",
+    "en/dark: bounded family controls fit 390px",
+    "ru: current families available after explicit refresh",
+    "ru/light: bounded family controls fit 390px",
+    "ru/dark: bounded family controls fit 390px",
+    "Synthetic owner invalidation withdraws stale family evidence",
+    "Explicit refresh restores current family projection",
+    "List alternative retains both duplicate basenames",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "families-overview.png",
+    "family-members.png",
+    "note-context.png",
+    "pair-selection.png",
+    "pair-inspector.png",
+    "families-en-light-390.png",
+    "families-en-dark-390.png",
+    "families-ru-light-390.png",
+    "families-ru-dark-390.png",
+    "list-alternative.png"
+  ],
+  "assets": {
+    "main.js": "55d29d1f630a80c1b0d34a4a7a739f949c2ebe4cf3313090e33d8650035ab427",
+    "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 110,
+    "seconds": 5.312600135803223,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 16.759139000000687,
+    "refreshWallMs": 272.5979750000006,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 219,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.5999999940395355,
+      "displayGroupingMs": 0,
+      "semanticMs": 57.8999999910593,
+      "physicsMs": 5.999999985098839,
+      "ticks": 115,
+      "frames": {
+        "frames": 12,
+        "renderMs": 45.79999998211861,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 32.400000005960464,
+        "derivationMs": 59.8999999910593
+      },
+      "heap": 49609320
+    },
+    "fourLayerTogglesMs": 317.8498070000005,
+    "interactionFrameIntervals": [
+      16.639999999999873,
+      16.699999999999818,
+      16.600000000000364,
+      16.699999999999818,
+      16.699999999999818,
+      16.700000000000273,
+      33.29999999999973,
+      16.600000000000364,
+      16.699999999999818,
+      16.59999999999991,
+      16.800000000000182,
+      16.59999999999991,
+      33.40000000000009,
+      16.59999999999991,
+      16.699999999999818,
+      33.30000000000018
+    ],
+    "final": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 2,
+      "displayGroups": 0,
+      "dom": 106,
+      "svg": 25,
+      "layoutCount": 2,
+      "layoutMs": 0.5999999940395355,
+      "displayGroupingMs": 0,
+      "semanticMs": 53.900000005960464,
+      "physicsMs": 5.999999985098839,
+      "ticks": 115,
+      "frames": {
+        "frames": 84,
+        "renderMs": 240.3999999165535,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 39.5,
+        "derivationMs": 3.8999999910593033
+      },
+      "heap": 56851625
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 2,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "d4539112ea93b48994aceff59eb14a8e3b1a562deacdb82e998c02e4b2c9162e",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "familyEvidence": {
+    "families": [
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Architecture/Boundaries.md\\\",\\\"Architecture/Lifecycle.md\\\",\\\"Architecture/Ports.md\\\"]\"]",
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Bridges/Docker database.md\\\",\\\"Database/Guide.md\\\",\\\"Database/Indexes.md\\\"]\"]",
+      "[\"mutual-core-v1\",\"all\",\"[\\\"Bridges/Docker database.md\\\",\\\"Docker/Guide.md\\\",\\\"Docker/Volumes.md\\\"]\"]"
+    ],
+    "revision": {
+      "vectorGeneration": 2,
+      "vectorCount": 12,
+      "dimensions": 32,
+      "provider": "ollama",
+      "model": "global-map-synthetic",
+      "configurationRevision": 0,
+      "runtimeRevision": 1
+    }
+  },
+  "markdownManifestSha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+  "status": "PASS"
+}

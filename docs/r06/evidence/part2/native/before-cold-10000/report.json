@@ -1,0 +1,61 @@
+{
+  "scenario": "R06-map-foundation",
+  "familiesMode": false,
+  "baseline": true,
+  "warmCache": false,
+  "count": 10000,
+  "indexed": 10000,
+  "source": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+    "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {},
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "3c969b9777bf72459cdb3be2520bdab5231180971f886ef2a23b4937a4fdc87f",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "status": "FAIL",
+  "error": "Error: Readiness: app.vault.getMarkdownFiles().length===10000 && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))\n    at wait (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:58:199)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:92:39",
+  "failureState": {
+    "markdown": 10000,
+    "cacheKnown": 3323,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

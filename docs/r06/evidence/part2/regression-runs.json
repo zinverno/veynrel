@@ -1,0 +1,229 @@
+[
+  {
+    "label": "family-delivery",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-family-delivery"
+    ],
+    "environment": {
+      "R06_FAMILIES": "1"
+    },
+    "exit": 0,
+    "seconds": 18.009931564331055,
+    "originalRoot": "/tmp/veynrel-map-native-r062-family-delivery",
+    "status": "PASS",
+    "checks": 27,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "map120",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-map120"
+    ],
+    "environment": {},
+    "exit": 1,
+    "seconds": 21.52245855331421,
+    "originalRoot": "/tmp/veynrel-map-native-r062-map120",
+    "status": "FAIL",
+    "checks": 22,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9"
+  },
+  {
+    "label": "map120-partial",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-map120-partial"
+    ],
+    "environment": {
+      "R06_INDEX_COUNT": "60"
+    },
+    "exit": 1,
+    "seconds": 19.993130922317505,
+    "originalRoot": "/tmp/veynrel-map-native-r062-map120-partial",
+    "status": "FAIL",
+    "checks": 22,
+    "exceptions": 1,
+    "error": "AssertionError [ERR_ASSERTION]: Unfiltered exceptions\n\n1 !== 0\n\n    at file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2-families-20261116/scripts/r06-map-native.mjs:194:9"
+  },
+  {
+    "label": "map120-empty",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "map",
+      "120",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-map-native-r062-map120-empty"
+    ],
+    "environment": {
+      "R06_INDEX_COUNT": "0"
+    },
+    "exit": 0,
+    "seconds": 17.93004870414734,
+    "originalRoot": "/tmp/veynrel-map-native-r062-map120-empty",
+    "status": "PASS",
+    "checks": 21,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "smoke",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "smoke",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-smoke-native-r062-smoke"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 11.816685199737549,
+    "originalRoot": "/tmp/veynrel-smoke-native-r062-smoke",
+    "status": "PASS",
+    "checks": 21,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "actions",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "actions",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-actions-native-r062-actions"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 25.648393154144287,
+    "originalRoot": "/tmp/veynrel-actions-native-r062-actions",
+    "status": "PASS",
+    "checks": 23,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "local-notes",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "local-notes",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-local-notes-native-r062-local-notes"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 33.85359191894531,
+    "originalRoot": "/tmp/veynrel-local-notes-native-r062-local-notes",
+    "status": "PASS",
+    "checks": 67,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "registry",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "registry",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-registry-native-r062-registry"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 38.40435028076172,
+    "originalRoot": "/tmp/veynrel-registry-native-r062-registry",
+    "status": "PASS",
+    "checks": 32,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "studio",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "studio",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-studio-native-r062-studio"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 168.46700763702393,
+    "originalRoot": "/tmp/veynrel-studio-native-r062-studio"
+  },
+  {
+    "label": "recall",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "recall",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-recall-native-r062-recall"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 31.589229345321655,
+    "originalRoot": "/tmp/veynrel-recall-native-r062-recall",
+    "status": null,
+    "checks": 45,
+    "exceptions": 0,
+    "error": null
+  },
+  {
+    "label": "community",
+    "command": [
+      "python",
+      "scripts/native/run.py",
+      "community",
+      "/tmp/veynrel-native-catalog-20261115",
+      "--timeout",
+      "300",
+      "--output",
+      "/tmp/veynrel-community-native-r062-community"
+    ],
+    "environment": {},
+    "exit": 0,
+    "seconds": 25.551488399505615,
+    "originalRoot": "/tmp/veynrel-community-native-r062-community",
+    "status": "PASS",
+    "checks": 47,
+    "exceptions": 0,
+    "error": null
+  }
+]

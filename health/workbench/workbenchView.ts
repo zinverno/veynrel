@@ -1,3 +1,7 @@
+import { semanticFamilies } from "./workbenchFamilies";
+import type { SemanticFamily } from "./workbenchFamilies";
+import { renderFamilies, type FamilyBrowserState } from "./renderFamilies";
+import { renderPairNoteSearch, searchPairNotes } from "./workbenchNoteSearch";
 import { t, currentLanguage } from "../../i18n";
 import type { Finding } from "../domain/finding";
 import { healthButton, healthDetails } from "../ui/renderHealthHome";
@@ -39,6 +43,9 @@ export class WorkbenchView {
   private expanded = false;
   private selected?: WorkbenchPair;
   private note?: string;
+  private secondQuery = "";
+  private families: FamilyBrowserState = { open: false, query: "" };
+  private familyMap?: object;
   private findings: readonly Finding[] = [];
   private graph = newWorkbenchGraphState();
   private zones = newZoneState();
@@ -110,6 +117,7 @@ export class WorkbenchView {
     if(help){help.open=false;event.preventDefault();event.stopPropagation();return;}
     if(this.zones.open)this.zones.open=false;
     else if(this.expanded)this.expanded=false;
+    else if(this.families.selected){this.families.selected=undefined;overviewWorkbench(this.graph);}
     else if(this.graph.focus)overviewWorkbench(this.graph);
     else if(this.selected||this.note){this.selected=undefined;this.note=undefined;}
     else return;
@@ -142,6 +150,11 @@ export class WorkbenchView {
       const started=performance.now();this.representationKey=representationKey;this.items=mapItems(this.groupPaths?this.points.filter(point=>this.groupPaths!.includes(point.path)):this.points);this.representationMilliseconds=performance.now()-started;
     }
     const semantic=this.data.semantic?.getSnapshot();
+    const families=semanticFamilies(semantic);
+    if(this.families.selected&&(!families||this.familyMap!==families.map)){
+      this.families.selected=undefined;overviewWorkbench(this.graph);
+    }
+    this.familyMap=families?.map;
     const metadata=semantic?.state==="idle"&&!this.data.busy?undefined:this.data.dependencies.tags?.getSnapshot(),zones=tagZones(metadata);
     if(!this.zonesInitialized&&zones.length){this.zones.active=initialZones(zones);this.zonesInitialized=true;}
     const selectedPaths:readonly string[]=this.selected?.paths??(this.note?[this.note]:[]);
@@ -166,10 +179,13 @@ export class WorkbenchView {
     const unmapped=model.nodes.filter(node=>!node.semantic).length;
     if(unmapped)status.createSpan({text:t("@r06.unmapped",{count:unmapped})});
     if(!model.linksCurrent)status.createSpan({text:t("@mapnav.links-stale")});
+    renderFamilies(this.browser,families,this.families,{current,select:family=>this.selectFamily(family),note:path=>this.selectNote(path),back:()=>{
+      this.families.selected=undefined;overviewWorkbench(this.graph);this.render();this.browser.querySelector<HTMLElement>('[data-health-action="workbench-families"]')?.focus();
+    }});
     const context=this.browser.createDiv({cls:"veynrel-map-context"});
     if(this.graph.focus){
       context.createEl("strong",{text:t("@mapnav.focus",{count:this.graph.focus.length})});
-      button(context,t(this.data.scope.id==="all"?"@mapnav.all-map":"@mapnav.overview"),()=>{overviewWorkbench(this.graph);this.render();},"workbench-overview");
+      button(context,t(this.data.scope.id==="all"?"@mapnav.all-map":"@mapnav.overview"),()=>{this.families.selected=undefined;overviewWorkbench(this.graph);this.render();},"workbench-overview");
     }
     if(this.groupPaths){context.createSpan({text:t("@mapnav.group",{count:this.groupPaths.length})});button(context,t("@mapnav.groups-back"),()=>{
       this.groupPaths=undefined;overviewWorkbench(this.graph);if(this.groupCamera)this.graph.viewport=this.groupCamera;this.groupCamera=undefined;this.render();
@@ -224,6 +240,22 @@ export class WorkbenchView {
       button(detailTools,t("@mapnav.close"),()=>{this.showDetail=false;this.render();},"workbench-detail-close");
       for(const path of selectedPaths){
         detail.createEl("h2",{text:path.split("/").pop()!.replace(/\.md$/u,"")});
+        detail.createEl("p",{text:path,cls:"veynrel-workbench-path"});
+        for(const family of families?.families.filter(f=>f.paths.includes(path))??[])button(detail,t("@r062.family-name",{count:family.paths.length}),()=>this.selectFamily(family),`membership-${encodeURIComponent(family.id)}`);
+        const neighbors=semantic?.state==="ready"?semantic.map?.nodes.find(n=>n.path===path)?.neighbors:undefined;
+        const relations=healthDetails(detail,t("@r062.relations"),`relations-${encodeURIComponent(path)}`);
+        relations.createEl("p",{text:t(neighbors?"@r062.neighbor-basis":"@r062.neighbor-unknown")});
+        for(const neighbor of neighbors??[])button(relations,`${neighbor.path} · ${neighbor.score.toFixed(4)}`,()=>this.selectPair({id:pairId(path,neighbor.path),paths:[path,neighbor.path].sort() as [string,string],basis:"selected"}),`neighbor-${encodeURIComponent(neighbor.path)}`);
+        relations.createEl("p",{text:t(model.linksCurrent?"@r062.links-observed":"@mapnav.links-stale")});
+        for(const direction of ["incoming","outgoing"] as const){
+          const links=[...model.edges.filter(e=>e.kind==="link"),...model.external].filter(e=>direction==="incoming"?e.target===path:e.source===path);
+          relations.createEl("p",{text:t(`@topology.${direction}-notes`,{n:links.length})});
+          for(const edge of links.slice(0,10)){
+            const other=direction==="incoming"?edge.source:edge.target;
+            button(relations,`${direction==="incoming"?"←":"→"} ${other}${paths.has(other)?"":` · ${t("@r062.external")}`}`,()=>this.actions.openNote(other),`linked-${direction}-${encodeURIComponent(other)}`);
+          }
+          if(links.length>10)relations.createEl("small",{text:t("@topology.showing-items",{shown:10,total:links.length})});
+        }
         const memberships=zones.filter(zone=>zone.members.has(path)&&zone.direct.includes(path)),chips=detail.createDiv({cls:"veynrel-memberships"});
         for(const zone of memberships){const visible=this.zones.active.includes(zone.tag);button(chips,`${visible?"":"+ "}#${zone.tag}`,()=>{
           if(!visible&&this.zones.active.length<MAX_ACTIVE_ZONES)this.zones.active.push(zone.tag);else if(!visible)this.zones.open=true;
@@ -243,12 +275,17 @@ export class WorkbenchView {
       }else if(this.note){
         const candidates=[...new Map([...model.connections,...model.repeats].filter(pair=>pair.paths.includes(this.note!)).map(pair=>[pair.id,pair])).values()];
         if(candidates.length){detail.createEl("h3",{text:t("@mapnav.candidates")});for(const pair of candidates.slice(0,5))button(detail,`${t("@visual.review")} · ${pair.paths.find(path=>path!==this.note)!}`,()=>this.selectPair(pair),`workbench-related-${encodeURIComponent(pair.id)}`);}
-        const label=detail.createEl("label",{text:t("@workbench.second-note")});
-        const picker=label.createEl("select",{attr:{"data-health-action":"workbench-second","aria-label":t("@workbench.second-note")}});
-        picker.createEl("option",{text:t("@workbench.choose"),value:""});
-        for(const node of model.nodes)if(node.path!==this.note)picker.createEl("option",{text:node.path,value:node.path});
-        picker.addEventListener("change",()=>{if(!current()||!this.note||!paths.has(picker.value)||picker.value===this.note)return;
-          const a=this.note,b=picker.value;this.selectPair(model.repeats.find(pair=>pair.id===pairId(a,b))??model.connections.find(pair=>pair.id===pairId(a,b))??{id:pairId(a,b),paths:[a,b].sort() as [string,string],basis:"selected"});});
+        const source=this.note;
+        const rules=this.data.dependencies.rules;
+        if(rules?.state==="loading")button(detail,t("@r062.load-choices"),()=>{void rules.load().catch(()=>{});},"workbench-load-choices");
+        const search=(query:string):ReturnType<typeof searchPairNotes>|undefined=>{
+          try{return searchPairNotes(this.data.scope.paths,source,query,this.data.captureParticipation());}catch{return;}
+        };
+        renderPairNoteSearch(detail,{query:this.secondQuery,changed:query=>{this.secondQuery=query;},current,search,select:path=>{
+          if(this.note!==source||!this.data.scope.paths.includes(path)||path===source)return;
+          try{const policy=this.data.captureParticipation();if(policy&&(policy.document(source)!=="allow"||policy.document(path)!=="allow"||policy.pair(source,path)!=="allow"))return;}catch{return;}
+          const id=pairId(source,path);this.selectPair(model.repeats.find(p=>p.id===id)??model.connections.find(p=>p.id===id)??{id,paths:[source,path].sort() as [string,string],basis:"selected"});
+        }});
       }
       button(detail,t("@mapnav.focus-action"),()=>{
         const box=this.browser.querySelector<SVGSVGElement>("svg[data-camera]")?.viewBox.baseVal;
@@ -279,7 +316,16 @@ export class WorkbenchView {
       target?.focus({preventScroll:true});if(selection&&target?.tagName==="INPUT"&&(target as HTMLInputElement).type==="search")(target as HTMLInputElement).setSelectionRange(selection[0],selection[1]);}
     this.scrollOwner.scrollTop=scroll;
   }
-  private selectNote(path:string):void {this.selected=undefined;this.note=path;this.showDetail=true;this.showList=false;this.render();this.focusSelection();}
+  private selectNote(path:string):void {if(!this.data.scope.paths.includes(path))return;if(this.note!==path)this.secondQuery="";this.selected=undefined;this.note=path;this.showDetail=true;this.showList=false;this.render();this.focusSelection();}
+  private selectFamily(family:SemanticFamily):void {
+    const current=semanticFamilies(this.data.semantic?.getSnapshot());
+    if(!current?.families.includes(family))return;
+    this.families.selected=family.id;this.families.open=true;this.note=undefined;this.selected=undefined;
+    this.graph.overview??={...this.graph.viewport};this.graph.focus=family.paths;
+    const box=this.browser.querySelector<SVGSVGElement>("svg[data-camera]")?.viewBox.baseVal;
+    this.graph.viewport=fitPoints(this.points.filter(point=>family.paths.includes(point.path)),box?canvasWorldWidth(box.width,box.height):undefined);
+    this.render();this.browser.querySelector<HTMLElement>('[data-family-selected] button')?.focus();
+  }
   private selectPair(pair:WorkbenchPair):void {this.selected=pair;this.note=undefined;this.showDetail=true;this.showList=false;this.render();this.focusSelection();}
   private focusSelection():void {this.browser.querySelector<HTMLElement>("[data-workbench-selection]")?.focus({preventScroll:true});}
   private openReview():void {

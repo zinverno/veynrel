@@ -1,0 +1,11 @@
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+health/workbench/workbenchFamilies.test.ts(26,37): error TS2540: Cannot assign to 'map' because it is a read-only property.
+health/workbench/workbenchFamilies.test.ts(41,25): error TS2540: Cannot assign to 'map' because it is a read-only property.
+health/workbench/workbenchFamilies.test.ts(45,25): error TS2540: Cannot assign to 'map' because it is a read-only property.
+health/workbench/workbenchFamilies.test.ts(47,29): error TS2540: Cannot assign to 'map' because it is a read-only property.
+health/workbench/workbenchFamilies.test.ts(51,27): error TS2540: Cannot assign to 'map' because it is a read-only property.
+health/workbench/workbenchFamilies.test.ts(56,25): error TS2540: Cannot assign to 'map' because it is a read-only property.
+health/workbench/workbenchFamilies.test.ts(60,37): error TS2540: Cannot assign to 'map' because it is a read-only property.

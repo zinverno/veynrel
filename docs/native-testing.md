@@ -256,3 +256,33 @@ R06 family/legacy-route acceptance.
 `R06_WARM_CACHE=1` is a separate warm-cache control: it waits for actual host
 metadata readiness **before** opening Workspace. It does not pass or replace a
 failed cold-open gate. Receipts identify the mode; compare only matching modes.
+
+
+## R06.2a families and bounded selection
+
+The existing map harness and common launcher support:
+
+```bash
+R06_FAMILIES=1 python scripts/native/run.py map 120
+R06_PICKER_ONLY=1 R06_WARM_CACHE=1 python scripts/native/run.py map 10000
+```
+
+Family mode uses a distinct 12-note Docker/database/architecture/ML/diary fixture,
+persists deterministic synthetic vectors through the existing store and uses real
+published top-K. It checks overlapping membership, the existing Pair Inspector,
+return camera/coordinates, explicit freshness invalidation, RU/EN, both themes and
+390px. Synthetic vectors do not establish embedding quality or thematic accuracy.
+Full uncropped frames and the continuous capture are saved by the existing harness.
+
+Picker-only mode isolates source selection and bounded path search from full map
+Refresh. It waits for host metadata (90 seconds, unchanged), opens the passive map,
+selects the same source, explicitly loads the existing participation rules if needed
+and measures the picker. Semantic/topology owners must remain idle; Markdown IO and
+network must remain zero. It does not close the separate cold-start/Refresh gate.
+Use counts 1000/5000/10000 and `R06_BASELINE=1` plus frozen assets for comparisons.
+
+[Part 2 audit](r06/part2-audit.md) explains the bounded scope;
+[verification](r06/part2-verification.md) separates before/after, failed attempts,
+measured results and unresolved native gates. Legacy visual route migration is
+not covered by this increment. No exception filtering, automatic retry, timeout
+increase, desktop launch or live provider is introduced.

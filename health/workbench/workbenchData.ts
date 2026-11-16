@@ -59,11 +59,15 @@ export class WorkbenchData {
     if (this.semantic) return;
     const { rules, tags } = this.dependencies;
     const selection: ConnectionSelectionSource | undefined = rules ? {
-      capture: () => compileConnectionRules(rules, tags?.getSnapshot() ?? { revision: 0, categories: [], notes: this.scope.paths.map(path => ({ path, state: "unknown", tags: [] })) }),
+      capture: () => this.captureParticipation(),
       subscribe: listener => { const a = rules.subscribe(listener), b = tags?.subscribe(listener); return () => { a(); b?.(); }; },
     } : undefined;
     this.semantic = this.dependencies.createSemantic?.(this.scope, selection);
     this.comparison = this.semantic && this.dependencies.createComparison(this.semantic);
+  }
+  captureParticipation(): import("../connections/connectionSelection").ConnectionSelection | undefined {
+    const { rules, tags } = this.dependencies;
+    return rules ? compileConnectionRules(rules, tags?.getSnapshot() ?? { revision: 0, categories: [], notes: this.scope.paths.map(path => ({ path, state: "unknown", tags: [] })) }) : undefined;
   }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
   async refresh(task: "map" | "repeats" | "connections" = "map"): Promise<void> {
