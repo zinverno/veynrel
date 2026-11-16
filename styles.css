@@ -1978,45 +1978,6 @@
   font-weight: var(--font-medium);
   letter-spacing: 0.04em;
 }
-.veynrel-vault-pulse {
-  padding: var(--size-4-4);
-  text-align: center;
-  border-radius: var(--radius-l);
-  background: var(--background-secondary);
-}
-.veynrel-vault-pulse-wave {
-  display: block;
-  width: 100%;
-  height: 64px;
-  margin: var(--size-4-1) auto;
-  fill: none;
-  stroke: var(--interactive-accent);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.veynrel-vault-pulse-base { opacity: 0.55; }
-.veynrel-vault-pulse-accent { stroke: var(--interactive-accent-hover); }
-.veynrel-vault-pulse[data-pulse-state="unknown"] .veynrel-vault-pulse-wave { stroke: var(--text-muted); }
-.veynrel-vault-pulse[data-pulse-state="unknown"] .veynrel-vault-pulse-accent { display: none; animation: none; }
-/* Shared presentation cadence, independent of Health counts or severity. */
-.veynrel-vault-pulse:is([data-pulse-state="good"], [data-pulse-state="review"], [data-pulse-state="attention"]) .veynrel-vault-pulse-accent {
-  opacity: 0.65;
-  stroke-dasharray: 10 90;
-  animation: veynrel-vault-pulse-sweep 7s linear infinite;
-}
-.veynrel-vault-pulse[data-pulse-state="scanning"] .veynrel-vault-pulse-accent {
-  stroke-dasharray: 16 84;
-  animation: veynrel-vault-pulse-sweep 4s linear infinite;
-}
-@keyframes veynrel-vault-pulse-sweep { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
-.veynrel-health-home .veynrel-vault-pulse-state {
-  margin: 4px 0 12px;
-  font-size: var(--h2-size);
-  font-weight: var(--font-semibold);
-  line-height: 1.2;
-}
-.veynrel-vault-pulse-facts { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 16px; }
 .veynrel-dashboard-badge {
   padding: 3px 8px;
   border: 1px solid var(--background-modifier-border);
@@ -2024,7 +1985,6 @@
   color: var(--text-muted);
   font-size: var(--font-ui-small);
 }
-.veynrel-health-home .veynrel-vault-pulse > .veynrel-health-muted { margin: 10px 0; }
 .veynrel-health-home .veynrel-dashboard-note { font-size: var(--font-ui-small); }
 .veynrel-health-home .veynrel-health-recommendation {
   margin-block: 20px;
@@ -2104,16 +2064,9 @@
 }
 @container (max-width: 520px) {
   .veynrel-dashboard-insights-grid { grid-template-columns: minmax(0, 1fr); }
-  .veynrel-vault-pulse { padding-inline: 12px; }
-  .veynrel-vault-pulse-wave { height: 72px; }
   .veynrel-dashboard-insight { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .veynrel-vault-pulse[data-pulse-state] .veynrel-vault-pulse-accent {
-    animation: none;
-    stroke-dasharray: none;
-    opacity: 1;
-  }
   .veynrel-health-home .veynrel-health-card { transition: none; }
 }
 
@@ -2630,19 +2583,7 @@
   padding: 0;
   background: var(--vx-bg);
 }
-.veynrel-health-view .veynrel-shell { display: grid; grid-template-columns: 208px minmax(0, 1fr); min-height: 100%; }
-.veynrel-health-view .veynrel-sidebar { padding: 28px 16px 20px; border-right: 1px solid var(--background-modifier-border); background: var(--background-secondary); }
-.veynrel-health-view .veynrel-brand { font-size: 21px; font-weight: 650; letter-spacing: -.5px; padding-inline: 12px; }
-.veynrel-health-view .veynrel-brand::before { content: "♢"; color: var(--text-accent); padding-right: 12px; }
-.veynrel-health-view .veynrel-vault-name { margin: 26px 10px; font-size: 12px; }
-.veynrel-health-view .veynrel-vault-name strong { font-weight: 500; }
-.veynrel-health-view .veynrel-vault-name p { color: var(--text-muted); font-size: 11px; margin-block: 6px; }
-.veynrel-health-view .veynrel-sidebar nav { display: flex; flex-direction: column; gap: 5px; min-height: 600px; }
-.veynrel-health-view .veynrel-sidebar button { display: flex; justify-content: flex-start; gap: 11px; text-align: left; min-height: 44px; height: auto; padding: 11px 13px; border: 1px solid transparent; border-radius: 8px; box-shadow: none; color: var(--text-muted); background: transparent; }
-.veynrel-health-view .veynrel-sidebar button svg { width: 18px; height: 18px; vertical-align: middle; }
-.veynrel-health-view .veynrel-sidebar button[aria-current="page"] { color: var(--text-accent); background: var(--vx-selected); border-left-color: var(--text-accent); font-weight: 600; }
-.veynrel-health-view .veynrel-sidebar .veynrel-nav-secondary { margin-top: 28px; }
-.veynrel-health-view .veynrel-sidebar .veynrel-nav-settings { margin-top: auto; }
+.veynrel-health-view .veynrel-shell { display: block; min-height: 100%; }
 .veynrel-health-view .veynrel-shell-content { min-width: 0; }
 .veynrel-health-view .veynrel-topbar { min-height: 74px; padding: 16px 32px; border-bottom: 1px solid var(--background-modifier-border); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .veynrel-health-view .veynrel-crumb { font-size: 12px; color: var(--text-muted); }
@@ -2715,9 +2656,6 @@
 }
 @container (max-width: 760px) {
   .veynrel-health-view .veynrel-shell { display: block; }
-  .veynrel-health-view .veynrel-sidebar { display: none; border-right: 0; border-bottom: 1px solid var(--background-modifier-border); }
-  .veynrel-health-view [data-menu-open="true"] .veynrel-sidebar { display: block; }
-  .veynrel-health-view .veynrel-sidebar nav { min-height: 0; }
   .veynrel-health-view .veynrel-topbar { padding: 12px 18px; gap: 12px; }
   .veynrel-health-view .veynrel-menu-toggle { display: block; }
   .veynrel-health-view .veynrel-crumb, .veynrel-health-view .veynrel-scope-picker > span { display: none; }
@@ -2736,7 +2674,6 @@
 }
 
 
-.veynrel-health-view .veynrel-sidebar { background: var(--vx-bg); }
 .veynrel-health-view .veynrel-topic-node { background: var(--background-primary-alt, var(--background-secondary)); }
 .veynrel-health-view .veynrel-scope-metrics { margin-top: 16px; }
 .veynrel-health-view .veynrel-tool-entry { margin-block: 24px; }
@@ -2744,12 +2681,7 @@
 .veynrel-health-view .veynrel-page-index { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; margin: 0 0 9px; }
 
 .veynrel-health-view .veynrel-shell-content { background: var(--vx-bg); }
-.veynrel-health-view .veynrel-sidebar { display: flex; flex-direction: column; }
-.veynrel-health-view .veynrel-sidebar nav { flex: 1; }
-.veynrel-health-view .veynrel-sidebar .veynrel-nav-caption { margin: 24px 12px 10px; }
 @container (max-width: 760px) {
-  .veynrel-health-view .veynrel-sidebar { display: none; }
-  .veynrel-health-view [data-menu-open="true"] .veynrel-sidebar { display: flex; }
 }
 
 /* Task entries keep controls and consequences visible; optional context is disclosed. */
@@ -2786,8 +2718,6 @@
 /* The ItemView is the scroll owner; its own size contains split/popout sidebar height. */
 .view-content.veynrel-health-view { container-type: size; }
 .veynrel-health-view > .veynrel-workspace { height: 100%; }
-.veynrel-health-view .veynrel-sidebar { position: sticky; top: 0; height: 100cqh; overflow-y: auto; align-self: start; }
-.veynrel-health-view .veynrel-sidebar nav { min-height: 0; }
 .veynrel-health-view .veynrel-catalog-groups { display: block; }
 .veynrel-health-view .veynrel-tools-group { margin-bottom: 24px; }
 .veynrel-health-view .veynrel-catalog-row { padding-block: 12px; }
@@ -2834,7 +2764,6 @@
   .veynrel-workbench-grid.with-map .veynrel-workbench-selection { grid-column: 1 / -1; }
 }
 @container (max-width: 760px) {
-  .veynrel-health-view .veynrel-sidebar { position: static; height: auto; }
   .veynrel-health-view .veynrel-topbar { position: sticky; top: 0; z-index: 5; background: var(--vx-bg); }
   .veynrel-workbench-grid, .veynrel-workbench-grid.with-map { display: flex; flex-direction: column; }
   .veynrel-workbench-grid > section { width: 100%; }
@@ -3388,3 +3317,45 @@
 }
 
 .veynrel-workbench-grid .veynrel-workbench-selection { scroll-margin-block-start: 100px; }
+
+/* Product UX-A: native compact Workspace, no alternate theme or decorative dashboard. */
+.veynrel-health-view .veynrel-topbar { min-height: 0; padding: var(--size-4-2) var(--size-4-3); gap: var(--size-4-2); position: relative; }
+.veynrel-tabs { display: flex; flex-wrap: wrap; gap: var(--size-4-1); }
+.veynrel-tabs button { background: transparent; box-shadow: none; border: 0; color: var(--text-muted); padding: var(--size-4-2); }
+.veynrel-tabs button[aria-current="page"] { color: var(--text-normal); background: var(--background-modifier-active-hover); }
+.veynrel-workspace-more { margin-left: auto; position: relative; }
+.veynrel-workspace-more > summary { display: flex; padding: var(--size-4-1); cursor: pointer; border-radius: var(--radius-s); }
+.veynrel-workspace-more svg { width: 18px; height: 18px; }
+.veynrel-workspace-menu { position: absolute; z-index: 6; right: 0; min-width: 180px; padding: var(--size-4-2); border: 1px solid var(--background-modifier-border); background: var(--background-primary); border-radius: var(--radius-m); display: grid; gap: var(--size-4-1); }
+.veynrel-health-view .veynrel-shell-main { padding: var(--size-4-3); }
+.veynrel-health-view .veynrel-scope-picker { padding: var(--size-4-2) var(--size-4-3); font-size: var(--font-ui-small); }
+.veynrel-health-view .veynrel-scope-picker select { min-height: 0; flex: 1; max-width: 24em; }
+.veynrel-check-status { margin-bottom: var(--size-4-3); }
+.veynrel-check-status h1 { margin-block: var(--size-4-2); font-size: var(--font-ui-large); }
+.veynrel-check-status p { margin-block: var(--size-4-2); }
+.veynrel-check-status time { color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-findings-inbox { max-width: none; }
+.veynrel-findings-list-pane > input { width: 100%; margin-block: var(--size-4-2); }
+.veynrel-findings-list-pane > details > summary { padding-block: var(--size-4-2); font-weight: var(--font-semibold); }
+.veynrel-finding-item { border-bottom: 1px solid var(--background-modifier-border); padding-block: var(--size-4-2); }
+.veynrel-finding-item p { margin-block: var(--size-4-1); font-size: var(--font-ui-small); overflow-wrap: anywhere; }
+.veynrel-finding-source { display: block; text-align: left; max-width: 100%; height: auto; white-space: normal; overflow-wrap: anywhere; background: none; box-shadow: none; border: 0; padding: var(--size-2-1) 0; }
+.veynrel-health-actions { flex-wrap: wrap; }
+.veynrel-health-view :is(button, summary, input, select):focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+@container (max-width: 520px) {
+  .veynrel-health-view .veynrel-topbar { padding: var(--size-4-2); gap: var(--size-2-1); }
+  .veynrel-health-view .veynrel-shell-main { padding: var(--size-4-2); }
+  .veynrel-tabs button { padding: var(--size-4-1); }
+  .veynrel-findings-workspace { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .veynrel-health-view .veynrel-health-page-enter { animation: none; }
+}
+
+.veynrel-check-headline { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--size-4-2); }
+.veynrel-check-headline h1 { font-size: var(--font-ui-medium); }
+.veynrel-check-headline p, .veynrel-check-headline time { font-size: var(--font-ui-small); }
+.veynrel-check-status > .veynrel-health-details { margin-block: var(--size-4-1); }
+.veynrel-health-view .veynrel-findings-workspace { margin-top: var(--size-4-2); }
+.veynrel-health-view .veynrel-findings-filters { gap: var(--size-4-1); margin-bottom: var(--size-4-1); }
+.veynrel-health-view .veynrel-findings-filters button { padding: var(--size-4-1); min-height: 30px; }

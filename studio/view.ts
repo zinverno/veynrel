@@ -1,3 +1,4 @@
+import { studioFeatures } from "./features";
 import { ItemView, Modal, Notice, setIcon } from "obsidian";
 import type { App, WorkspaceLeaf } from "obsidian";
 import { currentLanguage } from "../i18n";
@@ -84,7 +85,7 @@ export class VeynrelStudioView extends ItemView {
     header.createEl("p", { text: l("Transform notes with reusable recipes", "Преобразуйте заметки с помощью сценариев") });
     const nav = this.contentEl.createEl("nav", { cls: "veynrel-studio-actions", attr: { "aria-label": title } });
     for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", l("Community", "Сообщество")], ["history", l("History", "История")]] as const) {
-      button(nav, name, route, () => { this.navigate(route); });
+      if (route !== "community" || studioFeatures.onlineCommunity) button(nav, name, route, () => { this.navigate(route); });
     }
     const operation = toolbar(this.contentEl); operation.addClass("veynrel-studio-operation");
     button(operation, l("Run & review", "Запуск и проверка"), "workflow", () => this.navigate("workflow"));
@@ -93,7 +94,7 @@ export class VeynrelStudioView extends ItemView {
     this.stop.push(this.owner.operations.subscribe(() => this.updateStatus()));
     this.stop.push(this.owner.runner.subscribe(() => { this.updateStatus(); if (this.route === "workflow") this.render(); }));
     this.stop.push(this.owner.registry.subscribe(() => { if (this.route === "library" || this.route === "details") this.render(); }));
-    this.community = new CommunityPanel(this.owner.community, this.owner.installer, () => { if (this.alive && this.route === "community") this.render(); }, r => {
+    if (studioFeatures.onlineCommunity) this.community = new CommunityPanel(this.owner.community, this.owner.installer, () => { if (this.alive && this.route === "community") this.render(); }, r => {
       if (!this.alive) return; this.selected = r; this.navigate("details");
     });
     this.stop.push(this.owner.community.subscribe(() => { if (this.route === "community") this.render(); }));
@@ -118,6 +119,7 @@ export class VeynrelStudioView extends ItemView {
     const d = new StudioDialog(this.app, build, () => { this.dialogs.delete(d); closed?.(); }); this.dialogs.add(d); d.open();
   }
   private navigate(route: typeof this.route): void {
+    if (route === "community" && !studioFeatures.onlineCommunity) return;
     this.routeScroll.set(this.route, this.contentEl.scrollTop);
     const focused = this.body.ownerDocument.activeElement as HTMLElement | null;
     if (focused && this.body.contains(focused) && focused.dataset.studioKey) this.routeFocus.set(this.route, focused.dataset.studioKey);
@@ -147,7 +149,7 @@ export class VeynrelStudioView extends ItemView {
     this.contentEl.querySelectorAll<HTMLElement>("nav button").forEach(b => b.setAttribute("aria-current", String(b.dataset.studioAction === (this.route === "details" || this.route === "setup" ? "library" : this.route))));
     this.historyEpoch++; this.body.empty(); this.body.removeClass("veynrel-community"); this.errorEl.empty(); this.updateStatus();
     if (this.route === "library") this.library();
-    if (this.route === "community") this.community?.render(this.body);
+    if (this.route === "community" && studioFeatures.onlineCommunity) this.community?.render(this.body);
     if (this.route === "details") this.details();
     if (this.route === "setup") this.setup();
     if (this.route === "workflow") this.workflow();
@@ -213,7 +215,7 @@ export class VeynrelStudioView extends ItemView {
       button(root, l("Select JSON", "Выделить JSON"), "select-json", () => { input.focus(); input.select(); });
     }));
     if (r.source === "user") {
-      button(actions, l("Prepare community submission", "Подготовить публикацию в Community"), "publish", () => this.publishRecipe(r));
+      if (studioFeatures.onlineCommunity) button(actions, l("Prepare community submission", "Подготовить публикацию в Community"), "publish", () => this.publishRecipe(r));
       button(actions, l("Edit", "Изменить"), "edit", () => this.edit(r, r));
       button(actions, l("Delete", "Удалить"), "delete", () => this.dialog((d, root) => {
         root.createEl("p", { text: `${l("Delete local recipe", "Удалить локальный сценарий")}: ${r.name[currentLanguage()]}?` });

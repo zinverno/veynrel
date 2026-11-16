@@ -266,6 +266,7 @@ export class HealthService {
 
   private async reconcileAnalysis(analysis: LocalScanAnalysis, outcome: LocalHealthScanOutcome, signal: AbortSignal): Promise<void> {
     const { scan } = outcome;
+    outcome.coverage = analysis.coverage ? structuredClone(analysis.coverage) : undefined;
     scan.notesSeen = analysis.notesSeen;
     scan.analyzerVersions = { ...analysis.analyzerVersions };
     const successful = analysis.results.filter((result) => result.successful);

@@ -21,9 +21,6 @@ interface FindingsInboxActions {
 export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxViewModel, actions: FindingsInboxActions,
   expandedPaths: boolean, expandedSnooze: boolean): void {
   const inbox = parent.createDiv({ cls: "veynrel-findings-inbox" });
-  const header = inbox.createEl("header", { cls: "veynrel-health-header" });
-  header.createEl("h1", { text: t("@findings.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
-  healthButton(header, t("@health.tools"), actions.tools, "tools").addClass("veynrel-quiet");
   const workspace = inbox.createDiv({ cls: `veynrel-findings-workspace${model.selected ? " veynrel-findings-has-detail" : ""}` });
   const listPane = workspace.createEl("section", { cls: "veynrel-findings-list-pane", attr: { "aria-label": t("@findings.title") } });
   const states = listPane.createDiv({ cls: "veynrel-findings-filters", attr: { role: "group", "aria-label": t("@findings.states") } });
@@ -32,24 +29,40 @@ export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxVie
       .setAttribute("aria-pressed", String(filter.selected));
   }
   const dimensions = listPane.createDiv({ cls: "veynrel-findings-filters", attr: { role: "group", "aria-label": t("@findings.dimension") } });
-  for (const filter of model.dimensionFilters) {
-    healthButton(dimensions, filter.label, () => actions.filter({ dimension: filter.value }), `filter-${filter.value}`)
-      .setAttribute("aria-pressed", String(filter.selected));
+  for (const value of ["all", "links", "duplicates", "organization", "other"] as const) {
+    healthButton(dimensions, t(`@ux.${value}`), () => actions.filter({ category: value, offset: 0 }), `category-${value}`)
+      .setAttribute("aria-pressed", String(model.category === value));
   }
-  if (!model.rows.length) {
-    const empty = listPane.createDiv({ cls: "veynrel-findings-empty" });
-    empty.createEl("h2", { text: model.empty.title });
-    empty.createEl("p", { text: model.empty.description });
-  }
-  const list = listPane.createEl("ul", { cls: "veynrel-findings-list" });
+  const sources = listPane.createEl("details", { attr: { "data-health-disclosure": "finding-dimensions" } });
+  sources.createEl("summary", { text: t("@findings.dimension") });
+  for (const filter of model.dimensionFilters) healthButton(sources, filter.label, () => actions.filter({ dimension: filter.value, offset: 0 }), `filter-${filter.value}`)
+    .setAttribute("aria-pressed", String(filter.selected));
+  const search = listPane.createEl("input", { attr: { type: "search", placeholder: t("@ux.search"), "aria-label": t("@ux.search"), "data-health-action": "finding-search" } });
+  search.value = model.query; search.addEventListener("input", () => actions.filter({ query: search.value, offset: 0 }));
+  if (!model.rows.length) listPane.createEl("p", { text: model.query || model.category !== "all" ? t("@ux.empty") : model.empty.title });
+  const groups = new Map<string, HTMLElement>();
   for (const row of model.rows) {
-    const item = list.createEl("li");
-    const button = healthButton(item, "", () => actions.select(row.id), `finding-${row.id}`);
-    button.addClass("veynrel-findings-row");
-    button.setAttribute("aria-pressed", String(row.selected));
-    button.createSpan({ text: row.title, cls: "veynrel-findings-row-title" });
-    button.createSpan({ text: `${row.dimension} · ${row.impact} · ${row.noteSummary}`, cls: "veynrel-findings-row-meta" });
-    if (row.selected) button.createSpan({ text: `✓ ${t("@findings.selected")}`, cls: "veynrel-findings-selected" });
+    let list = groups.get(row.type);
+    if (!list) {
+      const group = listPane.createEl("details", { attr: { "data-health-disclosure": `finding-group-${row.type}` } }); group.open = true;
+      group.createEl("summary", { text: `${row.title} · ${model.groupCounts[row.type]}` });
+      list = group.createEl("ul", { cls: "veynrel-findings-list" }); groups.set(row.type, list);
+    }
+    const item = list.createEl("li", { cls: "veynrel-finding-item" });
+    for (const path of row.paths) healthButton(item, path, () => actions.openNote(path), `source-${row.id}-${path}`).addClass("veynrel-finding-source");
+    if (row.paths.length > 1) item.createEl("small", { text: row.noteSummary });
+    for (const fact of row.facts.slice(0, 3)) item.createEl("p", { text: fact });
+    if (!row.facts.length) item.createEl("p", { text: row.explanation });
+    const buttons = item.createDiv({ cls: "veynrel-health-actions" });
+    if (row.repairSource && actions.repair) healthButton(buttons, t("@localNote.repair"), () => actions.repair!(row.repairSource!), `repair-${row.id}`);
+    else if (row.pair && actions.compare) healthButton(buttons, t("@actions.compare"), () => actions.compare!(row.id), `compare-${row.id}`);
+    healthButton(buttons, t("@ux.details"), () => actions.select(row.id), `finding-${row.id}`).setAttribute("aria-pressed", String(row.selected));
+  }
+  if (model.total) {
+    const pages = listPane.createDiv({ cls: "veynrel-health-actions" });
+    pages.createSpan({ text: t("@ux.page", { from: model.offset + 1, to: model.offset + model.rows.length, total: model.total }) });
+    if (model.offset) healthButton(pages, t("@ux.previous"), () => actions.filter({ offset: model.offset - 60 }), "findings-previous");
+    if (model.offset + model.rows.length < model.total) healthButton(pages, t("@ux.next"), () => actions.filter({ offset: model.offset + 60 }), "findings-next");
   }
   if (model.selected) renderDetail(workspace, model.selected, actions, expandedPaths, expandedSnooze);
 }

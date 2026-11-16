@@ -96,7 +96,7 @@ export class ObsidianLocalVaultSource implements LocalVaultSource, LocalVaultFre
         if (entry.file.path !== entry.path || entry.file.stat.mtime !== entry.mtime) {
           content = undefined;
           contentAvailable = false;
-          links = { resolvedOutgoing: [], unresolvedLinks: [], linksAvailable: false };
+          links = { resolvedOutgoing: [], unresolvedLinks: [], linksAvailable: false, linkLimitation: "source-changed" };
           diagnostics.push(diagnostic("note-changed", entry.path));
         }
         notes[index] = { path: entry.path, basename: entry.basename, mtime: entry.mtime, content, contentAvailable, ...links };
@@ -121,10 +121,10 @@ export class ObsidianLocalVaultSource implements LocalVaultSource, LocalVaultFre
     };
   }
 
-  private captureLinks(file: TFile, sourcePath: string, paths: ReadonlySet<string>, signal: AbortSignal): Pick<LocalNoteSnapshot, "resolvedOutgoing" | "unresolvedLinks" | "linksAvailable"> {
+  private captureLinks(file: TFile, sourcePath: string, paths: ReadonlySet<string>, signal: AbortSignal): Pick<LocalNoteSnapshot, "resolvedOutgoing" | "unresolvedLinks" | "linksAvailable" | "linkLimitation"> {
     try {
       const cache = this.app.metadataCache.getFileCache(file);
-      if (!cache) return { resolvedOutgoing: [], unresolvedLinks: [], linksAvailable: false };
+      if (!cache) return { resolvedOutgoing: [], unresolvedLinks: [], linksAvailable: false, linkLimitation: "metadata-missing" };
       const outgoing = new Set<string>();
       const unresolved = new Map<string, number>();
       const references = [...(cache.links ?? []), ...(cache.embeds ?? []), ...(cache.frontmatterLinks ?? []), ...(cache.referenceLinks ?? [])];
@@ -133,7 +133,7 @@ export class ObsidianLocalVaultSource implements LocalVaultSource, LocalVaultFre
         const target = reference.link.trim();
         // URI schemes and protocol-relative URLs are external, never vault graph edges.
         if (/^[a-z][a-z0-9+.-]*:/iu.test(target) || target.startsWith("//")) continue;
-        if (!isText(target, 4096)) throw new Error("Invalid internal link target");
+        if (!isText(target, 4096)) return { resolvedOutgoing: [], unresolvedLinks: [], linksAvailable: false, linkLimitation: "unsupported-target" };
         const linkpath = parseLinktext(target).path;
         // A subpath-only link addresses this existing note. Anchor validation is not in v1.
         if (!linkpath) continue;

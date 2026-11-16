@@ -116,7 +116,7 @@ describe("native Health view lifecycle", () => {
   it("opening only initializes storage; a click scans once and notifications update the dashboard", async () => {
     const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    expect(f.content.texts()).toContain("Coverage not established");
+    expect(f.content.texts()).toContain("Notes: 1");
     let release!: (body: string) => void; f.vault.read.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
     const oldButton = f.content.action("scan"); oldButton.click(); oldButton.click(); await flush();
     expect(f.vault.read).toHaveBeenCalledTimes(1); expect(f.content.action("scan").disabled).toBe(true);
@@ -125,7 +125,7 @@ describe("native Health view lifecycle", () => {
     expect(f.content.all().find((e) => e.attrs.role === "status")?.attrs["aria-live"]).toBe("polite");
     const pending = f.controller.runLocalScan(); release("Meaningful content longer than thirty two characters for the scan."); await pending;
     expect(f.content.texts()).toContain("Vault check complete"); expect(f.content.texts()).toContain("Review recommended");
-    expect(f.content.action("scan").disabled).toBe(false); expect(f.content.action("open-note")).toBeDefined();
+    expect(f.content.action("scan").disabled).toBe(false); expect(f.content.all().some(e => e.attrs["data-health-action"]?.startsWith("source-"))).toBe(true);
     f.content.action("nav-tools").click(); expect(f.content.action("nav-tools").attrs["aria-current"]).toBe("page");
     expect(f.content.action("tools")).toBeUndefined();
     expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
@@ -163,7 +163,7 @@ describe("native Health view lifecycle", () => {
     const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     const service = await f.controller.getHealthService(); const before = service.listFindings();
     f.vault.getAbstractFileByPath.mockReturnValue(null);
-    f.content.action("open-note").click(); await flush();
+    f.content.all().find(e => e.attrs["data-health-action"]?.startsWith("source-"))!.click(); await flush();
     expect(f.content.texts()).toContain("This note is no longer available"); expect(f.openFile).not.toHaveBeenCalled();
     expect(f.content.querySelector("[data-workspace-message]")?.texts()).toContain("This note is no longer available");
     expect(service.listFindings()).toEqual(before); expect(f.content.action("open-note")).toBeUndefined();
@@ -175,8 +175,8 @@ describe("native Health view lifecycle", () => {
     modal.contentEl.all().find((e) => e.text === "Cancel")!.click(); expect(f.adapter.rename).not.toHaveBeenCalled();
     f.content.action("recover").click(); const confirmation = mocks.Modal.opened[1];
     confirmation.contentEl.all().find((e) => e.text === "Back up and reset")!.click();
-    await vi.waitFor(() => expect(f.content.action("nav-home")).toBeDefined()); f.content.action("nav-health").click();
-    expect(f.content.texts()).toContain("Coverage not established"); expect(f.vault.read).not.toHaveBeenCalled();
+    await vi.waitFor(() => expect(f.content.action("nav-health")).toBeDefined()); f.content.action("nav-health").click();
+    expect(f.content.texts()).toContain("Notes: 1"); expect(f.vault.read).not.toHaveBeenCalled();
   });
 });
 
@@ -234,7 +234,7 @@ describe("inline Deep Intelligence boundaries", () => {
     noWork(f); expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled();
     const staleStart = f.content.action("knowledge-start");
     f.content.action("knowledge-back").click(); staleStart.click(); noWork(f);
-    f.content.action("deep-knowledge").click(); f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("nav-health").click();
+    f.content.action("deep-knowledge").click(); f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action("nav-health").click();
     expect(f.content.action("knowledge-start")).toBeUndefined(); staleStart.click(); noWork(f);
     await f.view.onClose(); expect(f.analysis.analyzeKnowledge).not.toHaveBeenCalled();
   });
@@ -314,7 +314,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(publicValues.includes("synthetic-DO-NOT-EXPOSE-key")).toBe(false);
     f.content.action("nav-health").click();
     expect(f.content.all().find((element) => element.attrs["data-dimension"] === "knowledge")?.texts()).toContain("Not enabled");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("nav-discover").click(); f.content.action("nav-health").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action("nav-discover").click(); f.content.action("nav-health").click();
     expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
   });
   it.each(["en", "ru"] as const)("localizes chooser/forms/errors and keeps all inputs labelled in %s", async (language) => {
@@ -367,7 +367,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.content.texts()).toContain("Checking…"); expect(f.secondContent.texts()).toContain("Checking…");
     expect(f.secondContent.action("deep-check").disabled).toBe(true); expect(f.secondContent.action("deep-change").disabled).toBe(true);
     f.secondContent.action("nav-health").click();
-    expect(f.secondContent.action("scan").disabled).toBe(false); expect(f.secondContent.action("nav-findings").disabled).toBe(false);
+    expect(f.secondContent.action("scan").disabled).toBe(false); expect(f.secondContent.action("nav-health").disabled).toBe(false);
     f.secondContent.action("nav-settings").click();
     release(); await flush(); expect(f.secondContent.texts()).toContain("Connected"); expect(f.settings.update).not.toHaveBeenCalled();
     f.connection.test.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
@@ -384,13 +384,13 @@ describe("inline Deep Intelligence boundaries", () => {
     f.content.action("deep-setup").click(); f.content.action("deep-provider-ollama").click();
     f.content.action("deep-field-model").input("chosen-model"); f.content.action("deep-connect").click();
     expect(f.content.action("deep-connect").disabled).toBe(true); expect(f.secondContent.texts()).toContain("Connecting…");
-    if (action === "navigate") { f.content.action("nav-health").click(); f.content.action("nav-findings").click(); }
+    if (action === "navigate") { f.content.action("nav-health").click(); f.content.action("nav-health").click(); }
     else if (action === "close") await f.view.onClose();
     else f.content.action("deep-back").click();
     release(); await flush(); expect(f.settings.get().model).toBe("chosen-model"); expect(f.settings.update).toHaveBeenCalledTimes(1);
     expect(f.content.action("deep-field-model")).toBeUndefined(); expect(f.secondContent.texts()).toContain("Connected");
     if (action === "close") expect(f.content.children).toHaveLength(0);
-    if (action === "navigate") expect(f.content.action("nav-findings").attrs["aria-current"]).toBe("page");
+    if (action === "navigate") expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
     noWork(f, 2);
   });
   it.each(["connection", "save"] as const)("failed %s keeps the form and committed configuration with safe feedback", async (failure) => {
@@ -447,13 +447,13 @@ describe("inline Semantic Intelligence boundaries", () => {
   ] as const)("Discover navigation is passive (enabled %s, %s, %s vectors)", async (enabled, kind, count) => {
     const f = semanticFixture(enabled, kind, count); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.attrs["data-health-action"]))
-      .toEqual(["nav-home", "nav-discover", "nav-health", "nav-process", "nav-recall", "nav-tools", "nav-history", "nav-settings", "nav-findings"]);
+      .toEqual(["nav-health", "nav-discover", "nav-recall", "nav-history", "nav-tools", "nav-process", "nav-settings"]);
     f.content.action("nav-discover").click();
     expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
     expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Review vault");
     expect(f.content.ownerDocument.activeElement?.text).toBe("Review vault");
     expect(f.content.all().find((e) => e.tag === "nav")?.attrs["aria-label"]).toBe("Veynrel navigation");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); expect(f.content.action("state-open")).toBeDefined();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
     f.content.action("nav-discover").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
     f.content.action("nav-discover").click(); await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
@@ -484,7 +484,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     f.content.action("nav-health").click();
     expect(f.content.texts()).toContain(language === "en" ? "Review recommended" : "Рекомендуется проверить");
     expect(f.content.texts()).toContain(language === "en" ? "Possible semantic duplicate" : "Возможный смысловой дубликат");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click();
     expect(f.content.texts()).toContain(language === "en" ? "2 notes" : "Заметок: 2");
     f.content.action(`finding-${finding.id}`).click();
     expect(f.content.texts()).toContain(language === "en" ? "Semantic analysis" : "Семантический анализ");
@@ -549,7 +549,7 @@ describe("inline Semantic Intelligence boundaries", () => {
       expect(f.engine[method]).toHaveBeenCalledExactlyOnceWith();
     }
     for (const delegate of delegates) expect(delegate).toHaveBeenCalledExactlyOnceWith();
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("state-dismissed").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action("state-dismissed").click();
     expect(f.content.action(`finding-${item.id}`)).toBeDefined();
     expect(f.files.get(`${root}/findings.json`)).toBe(bytes); expect(f.controller.listFindings()).toEqual(findings);
     expect(f.controller.getState().snapshot).toEqual(health); expect(f.adapter.write).not.toHaveBeenCalled();
@@ -607,7 +607,7 @@ describe("inline Semantic Intelligence boundaries", () => {
 
   it("Russian Discover localizes navigation/workflows and preserves provider/model identifiers", async () => {
     setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
-    expect(f.content.action("nav-discover").texts()).toContain("Разбор хранилища"); expect(f.content.texts()).toContain("Связанные заметки");
+    expect(f.content.action("nav-discover").texts()).toContain("Заметки"); expect(f.content.texts()).toContain("Связанные заметки");
     expect(f.content.texts()).toContain("Возможные дубликаты");
     f.content.action("nav-settings").click(); expect(f.content.texts()).toContain(f.settings.get().embeddingModel);
     expect(f.content.texts()).not.toMatch(/@discover|@semantic/u); await f.view.onClose();
@@ -670,7 +670,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     f.content.action("semantic-change").click(); f.content.action("semantic-mode-cloud").click(); f.content.action("semantic-back").click();
     expect(f.content.action("semantic-search")).toBeDefined(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
     await f.settings.update({ ...f.settings.get(), embeddingModel: "advanced-model" });
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("nav-settings").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action("nav-settings").click();
     expect(f.content.texts()).toContain("advanced-model"); expect(f.scan).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
     await f.view.onClose();
   });
@@ -715,69 +715,49 @@ describe("inline Semantic Intelligence boundaries", () => {
 });
 
 describe("integrated Health onboarding", () => {
-  it("asks one question, resumes after reopen without reading notes, scans only on click and keeps one live region", async () => {
-    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click();
-    expect(f.content.texts()).toContain("Welcome to Veynrel");
-    expect(f.content.action("nav-findings")).toBeUndefined();
-    expect(f.content.action("nav-discover")).toBeUndefined();
-    expect(f.content.all().filter((e) => e.tag === "button" && e.attrs["data-health-action"]?.startsWith("profile-"))).toHaveLength(5);
-    expect(f.content.action("scan")).toBeUndefined(); expect(f.vault.read).not.toHaveBeenCalled();
-    const live = f.content.all().find((e) => e.attrs.role === "status");
-    const choice = f.content.action("profile-research"); choice.focus(); choice.click();
-    await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
-    expect(f.preferences.get()).toMatchObject({ profile: "research", profileChosen: true, onboardingCompleted: false });
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1);
-    expect(f.content.all().find((e) => e.attrs.role === "status")).toBe(live);
-    expect(f.content.ownerDocument.activeElement?.tag).toBe("h1");
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
-    expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("scan")).toBeDefined(); expect(f.vault.read).not.toHaveBeenCalled();
-    f.content.action("scan").click(); const pending = f.controller.runLocalScan();
-    expect(f.preferences.get().onboardingCompleted).toBe(false); await pending;
-    expect(f.content.texts()).toContain("Veynrel found something"); expect(f.content.texts()).toContain("Note without connections");
-    expect(f.content.action("continue")).toBeDefined(); expect(f.content.action("nav-tools")).toBeUndefined();
-    expect(f.content.action("nav-findings")).toBeUndefined();
-    expect(f.preferences.get().onboardingCompleted).toBe(false);
-    f.content.action("continue").click(); await vi.waitFor(() => expect(f.content.action("nav-tools")).toBeDefined());
-    expect(f.preferences.get().onboardingCompleted).toBe(true); f.content.action("nav-health").click(); expect(f.vault.read).toHaveBeenCalledTimes(1);
-    expect(f.content.action("nav-findings")).toBeDefined();
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("nav-tools")).toBeDefined();
-    expect(f.content.all().filter((e) => e.attrs.role === "status")).toHaveLength(1);
-    expect(f.vault.read).toHaveBeenCalledTimes(1);
+  it.each(["ru", "en"] as const)("manual tagging remains reachable before the first scan in %s", async language => {
+    setLanguage(language);
+    const f = fixture({}); const tag = vi.fn(); Object.assign(f.tools, { openLocalTag: tag });
+    await f.view.onOpen();
+    const action = f.content.action("tag-note"); expect(action).toBeDefined(); expect(action.text).toBe(t("@localNote.tag"));
+    action.click(); expect(tag).toHaveBeenCalledOnce(); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.controller.getState().outcome).toBeUndefined(); expect(f.save).not.toHaveBeenCalled();
+    await f.view.onClose();
   });
-  it("Skip saves Mixed, permanently exits onboarding and never scans", async () => {
-    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("skip").click();
-    await vi.waitFor(() => expect(f.content.action("nav-tools")).toBeDefined());
-    expect(f.preferences.get()).toEqual({ profile: "mixed", profileChosen: true, onboardingCompleted: true, onboardingVersion: 1 });
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("skip")).toBeUndefined();
-    expect(f.vault.read).not.toHaveBeenCalled();
+  it("offers one explicit first action without saving preferences or reading notes", async () => {
+    const f = fixture({}); await f.view.onOpen();
+    expect(f.content.action("scan").cls).toContain("mod-cta");
+    expect(f.content.all().filter(e => e.tag === "button" && e.cls.includes("mod-cta"))).toHaveLength(1);
+    expect(f.content.action("profile-research")).toBeUndefined(); expect(f.content.action("continue")).toBeUndefined();
+    expect(f.content.action("nav-discover")).toBeDefined(); expect(f.content.action("nav-recall")).toBeDefined();
+    expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    const live = f.content.all().find(e => e.attrs["aria-live"] === "polite");
+    f.content.action("scan").click(); await vi.waitFor(() => expect(f.controller.getState().outcome).toBeDefined());
+    expect(f.preferences.get()).toMatchObject({ profile: "mixed", profileChosen: false, onboardingCompleted: true });
+    expect(f.content.all().find(e => e.attrs["aria-live"] === "polite")).toBe(live);
+    expect(f.content.texts()).toContain("Note without connections"); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.content.action("continue")).toBeUndefined();
+    await f.view.onClose(); await f.view.onOpen(); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    expect(f.content.texts()).toContain("Data available:"); await f.view.onClose();
   });
-  it("migrating an existing scan uses it immediately after profile selection and derives Result after restart", async () => {
-    const f = fixture({}); await f.controller.runLocalScan(); f.controller.dispose(); f.vault.read.mockClear();
-    const controller = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
-    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click();
-    const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    expect(content.texts()).toContain("Welcome"); content.action("profile-work").click();
-    await vi.waitFor(() => expect(content.action("continue")).toBeDefined());
-    expect(content.action("scan")).toBeUndefined(); expect(f.vault.read).not.toHaveBeenCalled();
-    await view.onClose(); controller.dispose();
-    const restarted = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
-    const reopened = new VeynrelHealthView({ app: f.app } as never, restarted, f.tools); await reopened.onOpen();
-    expect((reopened.contentEl as unknown as InstanceType<typeof mocks.Element>).action("continue")).toBeDefined();
-    expect(f.vault.read).not.toHaveBeenCalled();
+  it("leaves preferences and notes unchanged when browsing before the first check", async () => {
+    const f = fixture({ profile: "research" }); await f.view.onOpen(); const before = f.preferences.get();
+    f.content.action("nav-discover").click(); f.content.action("nav-health").click();
+    expect(f.preferences.get()).toEqual(before); expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
+    expect(f.content.action("skip")).toBeUndefined(); await f.view.onClose();
   });
-  it("safe errors retain Profile or Result when choice, Skip or completion fails", async () => {
-    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.save.mockRejectedValue(new Error("private details"));
-    f.content.action("profile-work").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Health preferences"));
-    expect(f.content.querySelector("[data-workspace-message]")?.texts()).toContain("Couldn't save Health preferences");
-    expect(f.content.action("profile-work")).toBeDefined(); expect(f.preferences.get().profileChosen).toBe(false);
-    f.content.action("skip").click(); await flush(); expect(f.preferences.get().onboardingCompleted).toBe(false);
+  it("retains a legacy saved scan without a forced profile choice or rescan", async () => {
+    const f = fixture({ profile: "research" }); await f.controller.runLocalScan(); const before = f.preferences.get(); f.vault.read.mockClear();
+    await f.view.onOpen(); expect(f.content.texts()).toContain("Note without connections");
+    expect(f.preferences.get()).toEqual(before); expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
+  });
+  it("does not begin a scan after the first-action preference save fails", async () => {
+    const f = fixture({}); await f.view.onOpen(); f.save.mockRejectedValueOnce(new Error("private details"));
+    f.content.action("scan").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Health preferences"));
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.preferences.get().onboardingCompleted).toBe(false);
     expect(f.content.texts()).not.toContain("private details");
-    const result = fixture({ profileChosen: true }); await result.view.onOpen(); await result.controller.runLocalScan();
-    result.save.mockRejectedValueOnce(new Error("private details")); result.content.action("continue").click();
-    await vi.waitFor(() => expect(result.content.texts()).toContain("Couldn't save Health preferences"));
-    expect(result.content.action("continue")).toBeDefined(); expect(result.content.action("nav-tools")).toBeUndefined();
-    expect(result.preferences.get().onboardingCompleted).toBe(false); expect(result.content.texts()).not.toContain("private details");
-    result.content.action("continue").click(); await vi.waitFor(() => expect(result.content.action("nav-tools")).toBeDefined());
+    f.content.action("scan").click(); await vi.waitFor(() => expect(f.controller.getState().outcome).toBeDefined());
+    expect(f.vault.read).toHaveBeenCalledTimes(1); await f.view.onClose();
   });
   it("Change profile is secondary, shows a non-color selected marker, has no Skip and never scans", async () => {
     const f = fixture({ profile: "work", profileChosen: true, onboardingCompleted: true }); await f.view.onOpen(); f.content.action("nav-health")?.click();
@@ -800,14 +780,14 @@ describe("integrated Health onboarding", () => {
     expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("profile-research")).toBeUndefined();
     const preferences = f.preferences.get(); f.content.action("recover").click();
     mocks.Modal.opened[0].contentEl.all().find((e) => e.text === "Back up and reset")!.click();
-    await vi.waitFor(() => expect(f.content.texts()).toContain("Welcome"));
+    await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
     expect(f.preferences.get()).toEqual(preferences); expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
   });
   it("Russian first-result copy localizes the selected Finding while retaining its stored text", async () => {
     setLanguage("ru"); const f = fixture({ profileChosen: true }); await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     expect(f.content.texts()).toContain("Заметка без связей"); expect(f.content.texts()).not.toContain("Note has no");
     const finding = f.controller.getState().recommendationFinding!;
-    expect(finding.title).not.toMatch(/[А-Яа-яЁё]/u); expect(f.content.action("continue").text).toBe("Перейти к состоянию");
+    expect(finding.title).not.toMatch(/[А-Яа-яЁё]/u); expect(f.content.action("continue")).toBeUndefined();
   });
 });
 
@@ -865,8 +845,8 @@ describe("Findings navigation and lifecycle integration", () => {
   }
   it("Health summary/top navigation, card filters, recommendation detail and Back never scan", async () => {
     const f = await scanned(); const id = f.controller.getState().recommendationFinding!.id;
-    f.content.action("view-findings").click();
-    expect(f.content.action("nav-findings").attrs["aria-current"]).toBe("page");
+    f.content.action("nav-health").click();
+    expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
     expect(f.content.action("state-open").attrs["aria-pressed"]).toBe("true");
     expect(f.content.action("filter-all").attrs["aria-pressed"]).toBe("true");
     f.content.action("nav-health").click(); f.content.action("dimension-structure").click();
@@ -876,7 +856,8 @@ describe("Findings navigation and lifecycle integration", () => {
     expect(f.content.texts()).toContain("No open findings");
     f.content.action("nav-health").click();
     expect(f.content.action("dimension-recall")).toBeUndefined(); expect(f.content.action("dimension-knowledge")).toBeUndefined();
-    expect(f.content.action("open-note")).toBeDefined(); f.content.action("review-finding").click();
+    f.content.action("filter-all").click();
+    expect(f.content.all().some(e => e.attrs["data-health-action"]?.startsWith("source-"))).toBe(true); f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click();
     expect(f.content.texts()).toContain("Why Veynrel found this"); expect(f.content.action(`finding-${id}`).attrs["aria-pressed"]).toBe("true");
     expect(f.content.ownerDocument.activeElement?.attrs["data-findings-heading"]).toBe("true");
     f.content.action("findings-back").click(); expect(f.content.action("finding-dismiss")).toBeUndefined();
@@ -884,7 +865,7 @@ describe("Findings navigation and lifecycle integration", () => {
     for (const dimension of ["recall", "knowledge", "all"]) f.content.action(`filter-${dimension}`).click();
     const row = f.content.action(`finding-${id}`); row.focus(); row.click();
     expect(f.content.ownerDocument.activeElement?.tag).toBe("h2");
-    f.content.action("tools").click(); expect(f.content.action("nav-tools").attrs["aria-current"]).toBe("page");
+    f.content.action("nav-tools").click(); expect(f.content.action("nav-tools").attrs["aria-current"]).toBe("page");
     expect(f.content.action("tools")).toBeUndefined();
     expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
     f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
@@ -893,13 +874,13 @@ describe("Findings navigation and lifecycle integration", () => {
   });
   it("Dismiss -> Dismissed -> Reopen -> Snooze -> Snoozed -> Reopen updates Home immediately without scans or preference/history writes", async () => {
     const f = await scanned(); const id = f.controller.listFindings()[0].id;
-    f.content.action("review-finding").click(); f.content.action("finding-dismiss").click();
+    f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click(); f.content.action("finding-dismiss").click();
     await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("dismissed"));
     expect(f.content.action("finding-dismiss")).toBeUndefined(); expect(f.content.action(`finding-${id}`)).toBeUndefined();
     expect(f.content.texts()).toContain("Finding updated");
     f.content.action("nav-health").click();
-    expect(f.content.texts()).toContain("No open findings"); expect(f.content.action("review-finding")).toBeUndefined();
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action("state-dismissed").click(); f.content.action(`finding-${id}`).click();
+    expect(f.content.texts()).toContain("No open findings"); expect(f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`)).toBeUndefined();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action("state-dismissed").click(); f.content.action(`finding-${id}`).click();
     f.content.action("finding-reopen").click(); await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("open"));
     expect(f.content.action("finding-reopen")).toBeUndefined();
     f.content.action("state-open").click(); f.content.action(`finding-${id}`).click(); f.content.action("finding-snooze").click();
@@ -911,14 +892,14 @@ describe("Findings navigation and lifecycle integration", () => {
     f.content.action("state-snoozed").click(); f.content.action(`finding-${id}`).click();
     expect(f.content.texts()).toContain("Snoozed until"); f.content.action("finding-reopen").click();
     await vi.waitFor(() => expect(f.controller.getFinding(id)?.state).toBe("open"));
-    f.content.action("nav-health").click(); expect(f.content.action("review-finding")).toBeDefined();
+    f.content.action("nav-health").click(); f.content.action("state-open").click(); expect(f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`)).toBeDefined();
     expect(f.content.texts()).toContain("Open findings: 1");
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.vault.getMarkdownFiles).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
     expect(f.adapter.write.mock.calls.map(([path]) => path)).toEqual(Array(4).fill(`${root}/findings.json`));
   });
   it("keeps detail and row until persistence succeeds, disables stale/double clicks and reports safe failure", async () => {
     const f = await scanned(); const id = f.controller.listFindings()[0].id;
-    f.content.action("review-finding").click();
+    f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click();
     let reject!: (error: Error) => void; f.adapter.write.mockReturnValueOnce(new Promise((_, rejectWrite) => { reject = rejectWrite; }));
     const dismiss = f.content.action("finding-dismiss"); dismiss.focus(); dismiss.click(); dismiss.click(); await flush();
     expect(f.content.action(`finding-${id}`)).toBeDefined(); expect(f.content.action("finding-dismiss").disabled).toBe(true);
@@ -932,7 +913,7 @@ describe("Findings navigation and lifecycle integration", () => {
   async function failedDismiss() {
     const f = await scanned(); const id = f.controller.listFindings()[0].id;
     const bytes = f.files.get(`${root}/findings.json`);
-    f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
+    f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
     f.content.action("finding-dismiss").click();
     await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
     expect(f.content.querySelector("[data-workspace-message]")?.texts()).toContain("Couldn't update this finding.");
@@ -944,7 +925,7 @@ describe("Findings navigation and lifecycle integration", () => {
     const f = await failedDismiss(); f.content.action("nav-health").click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
     expect(f.content.texts()).toContain("Vault check complete");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
     f.content.action(`finding-${f.id}`).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
@@ -955,11 +936,11 @@ describe("Findings navigation and lifecycle integration", () => {
     await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();
     const id = f.controller.getState().recommendationFinding!.id;
     const other = f.controller.listFindings().find((finding) => finding.id !== id)!;
-    f.content.action("review-finding").click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
+    f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click(); f.adapter.write.mockRejectedValueOnce(new Error("PRIVATE STORAGE ERROR"));
     f.content.action("finding-dismiss").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't update this finding."));
     f.content.action(destination === "another-finding" ? `finding-${other.id}` : destination).click();
     expect(f.content.texts()).not.toContain("Couldn't update this finding.");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click();
     if (destination === "state-dismissed") {
       expect(f.content.action("state-dismissed").attrs["aria-pressed"]).toBe("true");
       f.content.action("state-open").click();
@@ -987,19 +968,19 @@ describe("Findings navigation and lifecycle integration", () => {
     expect(f.content.texts()).not.toContain("Couldn't update this finding."); expect(f.content.texts()).toContain("Finding updated");
   });
   it.each(["navigation", "close"])("a pending failure cannot restore an abandoned interaction after %s and return", async (leave) => {
-    const f = await scanned(); const id = f.controller.listFindings()[0].id; f.content.action("review-finding").click();
+    const f = await scanned(); const id = f.controller.listFindings()[0].id; f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click();
     let reject!: (error: Error) => void; f.adapter.write.mockReturnValueOnce(new Promise((_, rejectWrite) => { reject = rejectWrite; }));
     f.content.action("finding-dismiss").click(); await flush();
     if (leave === "navigation") f.content.action("nav-health").click();
     else { await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); }
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${id}`).click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action(`finding-${id}`).click();
     reject(new Error("PRIVATE LATE FAILURE")); await vi.waitFor(() => expect(f.controller.getState().mutatingFindingId).toBeUndefined()); await flush();
     expect(f.controller.getFinding(id)?.state).toBe("open"); expect(f.content.texts()).not.toContain("Couldn't update this finding.");
     expect(f.content.texts()).not.toContain("PRIVATE"); expect(JSON.stringify(f.controller.getState())).not.toContain("PRIVATE");
   });
   it("reacts to external scan resolution and recurrence, announces it and offers no manual Reopen for history", async () => {
     const f = await scanned(); const item = f.controller.listFindings()[0];
-    f.content.action("review-finding").click(); f.vault.getMarkdownFiles.mockReturnValue([]); await f.controller.runLocalScan();
+    f.content.action(`finding-${f.controller.getState().recommendationFinding?.id}`).click(); f.vault.getMarkdownFiles.mockReturnValue([]); await f.controller.runLocalScan();
     expect(f.content.texts()).toContain("Finding was resolved by the latest scan"); expect(f.content.action("findings-back")).toBeUndefined();
     f.content.action("state-resolved").click(); f.content.action(`finding-${item.id}`).click();
     expect(f.content.action("finding-reopen")).toBeUndefined(); expect(f.content.action("finding-dismiss")).toBeUndefined(); expect(f.content.action("finding-snooze")).toBeUndefined();
@@ -1011,7 +992,7 @@ describe("Findings navigation and lifecycle integration", () => {
     const f = fixture(); const item = inboxFinding({ notePaths: ["A.md", "Private/Config/Secret.md"],
       actions: [{ kind: "delete", path: "A.md" }, { kind: "fix-link", path: "A.md" }] });
     f.files.set(`${root}/findings.json`, serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } }));
-    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action(`finding-${item.id}`).click();
     const before = f.controller.listFindings(); f.content.action("finding-note-0").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
     f.content.action("finding-note-1").click(); await flush(); expect(f.openFile).toHaveBeenCalledTimes(1);
     f.vault.getAbstractFileByPath.mockReturnValue(null); f.content.action("finding-note-0").click(); await flush();
@@ -1023,17 +1004,17 @@ describe("Findings navigation and lifecycle integration", () => {
     const f = fixture(); const item = inboxFinding({ type: "exact-duplicate-group", notePaths: Array.from({ length: 100 }, (_, i) => `Note${i}.md`),
       evidence: [{ kind: "member-count", value: 105 }, { kind: "represented-path-count", value: 100 }] });
     f.files.set(`${root}/findings.json`, serializeHealth({ version: 1, updatedAt: 10, findings: { [item.id]: item } }));
-    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-health").click(); f.content.action("nav-findings").click(); f.content.action(`finding-${item.id}`).click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action(`finding-${item.id}`).click();
     expect(f.content.texts()).toContain("105 notes affected"); expect(f.content.texts()).toContain("Showing 100 representative paths");
     expect(f.content.action("finding-note-9")).toBeDefined(); expect(f.content.action("finding-note-10")).toBeUndefined();
     f.content.action("finding-paths").click(); expect(f.content.action("finding-note-99")).toBeDefined();
     f.content.action("finding-paths").click(); expect(f.content.action("finding-note-10")).toBeUndefined();
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("view-findings")).toBeDefined(); expect(f.content.action("finding-dismiss")).toBeUndefined();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.action("scan")).toBeDefined(); expect(f.content.action("finding-dismiss")).toBeUndefined();
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
   });
   it.each(["findings.json", "scan-runs.json"])("%s recovery dominates completed onboarding and prevents Inbox navigation", async (file) => {
     const f = fixture(); f.files.set(`${root}/${file}`, "invalid"); await f.view.onOpen(); f.content.action("nav-health")?.click();
-    expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-findings")).toBeUndefined();
+    expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-health")).toBeUndefined();
     expect(f.content.action("nav-discover")).toBeUndefined();
     expect(f.content.action("view-findings")).toBeUndefined(); expect(f.content.action("dimension-structure")).toBeUndefined();
   });
@@ -1093,7 +1074,7 @@ describe("Connect view boundaries", () => {
       expect(f.content.texts()).toContain(text);
     const stale = f.content.action("connect-sync-confirm"); f.content.action("connect-sync-cancel").click(); stale.click(); passive(f);
     f.content.action("connect-sync").click(); const detached = f.content.action("connect-sync-confirm");
-    f.content.action("nav-health").click(); f.content.action("nav-findings").click(); detached.click(); passive(f);
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); detached.click(); passive(f);
     f.content.action("nav-settings").click(); f.content.action("settings-connect").click(); expect(f.content.action("connect-sync-confirm")).toBeUndefined();
     f.content.action("connect-sync").click(); const confirm = f.content.action("connect-sync-confirm"); confirm.click(); confirm.click(); await flush();
     expect(f.engine.syncCurrent).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
@@ -1178,7 +1159,7 @@ describe("final Tools and Settings IA", () => {
   it.each(["en", "ru"] as const)("renders final navigation, passive Tools and safe Settings in %s", async (language) => {
     setLanguage(language); mocks.requestUrl.mockClear(); const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.attrs["data-health-action"]))
-      .toEqual(["nav-home", "nav-discover", "nav-health", "nav-process", "nav-recall", "nav-tools", "nav-history", "nav-settings", "nav-findings"]);
+      .toEqual(["nav-health", "nav-discover", "nav-recall", "nav-history", "nav-tools", "nav-process", "nav-settings"]);
     for (const page of ["tools", "settings"] as const) {
       f.content.action(`nav-${page}`).click(); passive(f);
       expect(f.content.action(`nav-${page}`).attrs["aria-current"]).toBe("page");
@@ -1238,33 +1219,26 @@ describe("final Tools and Settings IA", () => {
     expect(f.tools.openAskVault).toHaveBeenCalledTimes(2); expect(content.texts()).not.toContain("Could not open this tool");
     await second.onClose(); await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
-  it.each(["onboarding", "findings.json", "scan-runs.json"])("%s hides Tools/Settings and rejects stale launch actions", async (boundary) => {
-    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
-    const stale = f.content.action("tool-openBatchProcessing"); await f.view.onClose();
-    if (boundary === "onboarding") await f.preferences.update({ onboardingCompleted: false, profileChosen: false });
-    else f.files.set(`${root}/${boundary}`, "invalid");
-    // A fresh controller models recovery discovered on reopen.
-    const controller = new HealthPluginController(f.app, "ai-knowledge-hub", f.preferences);
-    const view = new VeynrelHealthView({ app: f.app } as never, controller, f.tools); await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click();
-    const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    expect(content.action("nav-tools")).toBeUndefined(); expect(content.action("nav-settings")).toBeUndefined(); expect(content.action("tools")).toBeUndefined();
-    stale.click(); expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
-    await view.onClose(); controller.dispose(); f.controller.dispose(); f.recall.dispose();
-  });
-  it("onboarding taking over a mounted Tools view invalidates actions and cannot resurrect its route", async () => {
-    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
+  it.each(["findings.json", "scan-runs.json"])("%s recovery rejects old tool actions", async file => {
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
     const stale = f.content.action("tool-openAskVault");
-    await f.controller.updatePreferences({ onboardingCompleted: false, profileChosen: false });
-    stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled(); expect(f.content.action("nav-tools")).toBeUndefined();
-    await f.controller.updatePreferences({ onboardingCompleted: true, profileChosen: true });
-    expect(f.content.action("nav-home").attrs["aria-current"]).toBe("page");
-    stale.click(); expect(f.tools.openAskVault).not.toHaveBeenCalled();
+    vi.spyOn(f.controller, "getState").mockReturnValue({ ...f.controller.getState(), snapshot: { ...f.controller.getState().snapshot!, initialization: { status: "unavailable", storage: { findings: "invalid", scanRuns: "invalid" }, findingsWritable: false, historyWritable: false } } });
+    (f.view as unknown as { render(): void }).render(); stale.click();
+    expect(f.tools.openAskVault).not.toHaveBeenCalled(); expect(f.content.action("nav-tools")).toBeUndefined();
+    expect(f.content.action("recover")).toBeDefined(); expect(file).toMatch(/json$/u);
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
+  });
+  it("an old onboarding preference no longer traps navigation or changes the stored profile", async () => {
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
+    await f.controller.updatePreferences({ onboardingCompleted: false, profileChosen: false });
+    const prefs = f.preferences.get(); f.content.action("nav-health").click();
+    expect(f.content.action("nav-discover")).toBeDefined(); expect(f.preferences.get()).toEqual(prefs);
+    expect(f.tools.openAskVault).not.toHaveBeenCalled(); await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
 });
 
 describe("visual Health dashboard", () => {
-  it.each(["en", "ru"] as const)("renders exact current metrics and decorative SVG in %s with passive repeated entry", async (language) => {
+  it.each(["en", "ru"] as const)("renders exact current metrics without decorative SVG in %s with passive repeated entry", async (language) => {
     setLanguage(language); const f = fixture(); await f.controller.getHealthService();
     const state = f.controller.getState(), snapshot = state.snapshot!;
     Object.assign(snapshot.dimensions.structure, { state: "needs-attention", openFindings: 78, attentionFindings: 50, reviewFindings: 20 });
@@ -1283,18 +1257,13 @@ describe("visual Health dashboard", () => {
     const metrics = (id: string) => f.content.all().find((e) => e.attrs["data-insight"] === id)!.all()
       .filter((e) => e.cls === "veynrel-dashboard-number").map((e) => e.text);
     expect(metrics("recall")).toEqual(["12", "143", "4"]);
-    expect(metrics("knowledge")).toEqual(["148", "7"]);
-    expect(metrics("local")).toEqual(["312", "8", "14", "3"]);
-    const rows = f.content.all().filter((e) => e.attrs["data-area"]);
-    expect(rows.map((e) => e.all().find((c) => c.cls === "veynrel-dashboard-area-total")?.text)).toEqual(["78", "1", "0", "7"]);
-    expect(rows[2].all().filter((e) => e.cls === "veynrel-dashboard-bar-segment").every((e) => e.attrs.style === "width: 0%")).toBe(true);
-    const svg = f.content.all().find((e) => e.tag === "svg")!;
-    expect(svg.attrs["aria-hidden"]).toBe("true"); expect(svg.children.map((e) => e.tag)).toEqual(["path", "path"]);
-    expect(f.content.texts()).toContain(language === "en" ? "Partial · limited coverage" : "Частичная · ограниченный охват");
+    expect(f.content.texts()).toContain("312");
+    expect(f.content.all().some(e => e.tag === "svg" || e.attrs["data-pulse-state"])).toBe(false);
+    expect(f.content.texts()).toContain(t("@ux.unknown-coverage"));
     expect(f.content.texts()).not.toMatch(/@dashboard\.|retention|workload|polished|developed/iu);
-    f.content.action("area-structure").focus();
+    f.content.action("dimension-structure").focus();
     (f.view as unknown as { render(): void }).render();
-    expect(f.content.ownerDocument.activeElement?.attrs["data-health-action"]).toBe("area-structure");
+    expect(f.content.ownerDocument.activeElement?.attrs["data-health-action"]).toBe("dimension-structure");
     const readCount = f.adapter.read.mock.calls.length;
     await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.adapter.read).toHaveBeenCalledTimes(readCount);
@@ -1304,9 +1273,9 @@ describe("visual Health dashboard", () => {
     expect(recallInit).toHaveBeenCalled();
     await f.view.onClose();
   });
-  it.each(["structure", "connections", "knowledge"])("area %s opens the existing Findings filter", async (id) => {
+  it.each(["structure", "connections"])("area %s opens the existing Findings filter", async (id) => {
     const f = fixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
-    expect(f.content.action(`area-${id}`).tag).toBe("button"); f.content.action(`area-${id}`).click();
+    await f.controller.runLocalScan(); expect(f.content.action(`dimension-${id}`).tag).toBe("button"); f.content.action(`dimension-${id}`).click();
     expect(f.content.action(`filter-${id}`).attrs["aria-pressed"]).toBe("true");
     expect(f.content.ownerDocument.activeElement?.attrs["data-health-heading"]).toBe("true");
   });
@@ -1317,8 +1286,8 @@ describe("visual Health dashboard", () => {
     expect(broken.content.action("recover")).toBeDefined(); expect(broken.content.all().some((e) => e.attrs["data-area"])).toBe(false);
     const history = fixture(); history.files.set(`${root}/scan-runs.json`, "{broken"); await history.view.onOpen(); history.content.action("nav-health")?.click();
     expect(history.content.action("recover")).toBeDefined();
-    expect(history.content.all().find((e) => e.attrs["data-pulse-state"])?.attrs["data-pulse-state"]).toBe("unknown");
-    expect(history.content.texts()).toContain("Coverage not established");
+    expect(history.content.all().some(e => e.attrs["data-pulse-state"])).toBe(false);
+    expect(history.content.texts()).toContain("No completed check yet");
   });
 });
 
@@ -1329,7 +1298,7 @@ describe("real topology child route", () => {
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
     await view.onOpen(); (view.contentEl as unknown as InstanceType<typeof mocks.Element>).action("nav-health")?.click(); await f.controller.runLocalScan();
     const elements = content.all();
-    const order = ["veynrel-vault-pulse", "veynrel-health-recommendation", "veynrel-health-dimensions", "veynrel-dashboard-insights"]
+    const order = ["veynrel-check-status", "veynrel-findings-inbox", "veynrel-health-card"]
       .map((cls) => elements.findIndex((e) => e.cls.split(" ").includes(cls)));
     expect(order.every((position) => position >= 0)).toBe(true);
     expect(order).toEqual([...order].sort((a, b) => a - b));
@@ -1507,7 +1476,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
   it("requires scope consent before map work and rejects a stale map launcher", async () => {
     const f = await neighborhoodFixture(true);
     f.vault.getAllFolders.mockReturnValue([{ path: "Folder" }]);
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("scope-0").click();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("scope-picker").input("Folder");
     f.content.action("nav-discover").click();
     for (const key of ["discover-search", "global-map-open", "connections-open", "topology-open"]) {
       expect(f.content.action(key).disabled).toBe(true); f.content.action(key).click();
@@ -1892,7 +1861,7 @@ describe("Processing entry", () => {
     expect(f.content.action("tool-generateMocs")).toBeUndefined();
     expect(f.content.texts()).toContain("Run a deep audit first");
     f.content.action("tool-openDeepAudit").click(); expect(f.tools.openDeepAudit).toHaveBeenCalledOnce();
-    f.content.action("process-refresh").click(); f.content.action("nav-home").click(); resolve(9); await flush();
+    f.content.action("process-refresh").click(); f.content.action("nav-health").click(); resolve(9); await flush();
     expect(f.content.texts()).not.toContain("Saved clusters: 9");
     await f.view.onClose();
   });
@@ -1910,181 +1879,61 @@ describe("Processing entry", () => {
   });
 });
 
-describe("Stage 1 native home and scope boundaries", () => {
-  it("offers an explicit no-key local check without requiring a profile, and never scans after a failed preference save", async () => {
-    const failed = fixture({}); await failed.view.onOpen();
-    failed.save.mockRejectedValueOnce(new Error("private"));
-    failed.content.action("start-local").click();
-    await vi.waitFor(() => expect(failed.content.texts()).toContain("Couldn't save Health preferences"));
-    expect(failed.vault.read).not.toHaveBeenCalled(); expect(failed.preferences.get().profileChosen).toBe(false);
-    await failed.view.onClose();
-    const f = fixture({}); await f.view.onOpen();
-    const profile = f.content.all().find(e => e.attrs["data-health-disclosure"] === "onboarding-profile");
-    expect(profile?.open).toBe(false); expect(f.vault.read).not.toHaveBeenCalled();
-    f.content.action("start-local").click();
-    await vi.waitFor(() => expect(f.content.action("continue")).toBeDefined());
-    expect(f.preferences.get()).toMatchObject({ profile: "mixed", profileChosen: true, onboardingCompleted: false });
-    expect(f.vault.read).toHaveBeenCalledTimes(1); expect(mocks.requestUrl).not.toHaveBeenCalled();
-    await f.view.onClose();
+describe("compact Workspace scope and navigation", () => {
+  it("does not scan after a failed first-action save", async () => {
+    const f=fixture({}); await f.view.onOpen(); f.save.mockRejectedValueOnce(new Error("private")); f.content.action("scan").click();
+    await vi.waitFor(()=>expect(f.content.texts()).toContain("Couldn't save Health preferences"));
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.preferences.get().profileChosen).toBe(false); await f.view.onClose();
   });
-  it("shows a recorded local check on Home without claiming current freshness or rescanning", async () => {
-    const f = fixture(); await f.view.onOpen();
-    expect(f.content.action("home-check").cls).toContain("mod-cta");
-    expect(f.content.texts()).toContain("selected folder does not limit");
-    await f.controller.runLocalScan(); f.vault.read.mockClear();
-    f.content.action("nav-home").click();
-    expect(f.content.querySelector("[data-workspace-check-receipt]")?.texts()).toContain("Completed");
-    expect(f.content.texts()).toContain("Later note changes require a new check");
-    expect(f.content.texts()).not.toContain("Freshness and coverage not established");
-    expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
+  it("preserves profile choice while directly showing real findings after the first scan", async () => {
+    const f=fixture({profile:"research"}); await f.view.onOpen();f.content.action("scan").click();
+    await vi.waitFor(()=>expect(f.controller.getState().outcome).toBeDefined());
+    expect(f.preferences.get().profile).toBe("research"); expect(f.content.action("continue")).toBeUndefined();
+    expect(f.content.all().some(e=>e.attrs["data-health-action"]?.startsWith("finding-"))).toBe(true);
+    expect(f.vault.read).toHaveBeenCalledTimes(1); expect(mocks.requestUrl).not.toHaveBeenCalled(); await f.view.onClose();
   });
-  it("restores inbox filters, selected evidence, list position and focus without extending a scope confirmation to a new tool", async () => {
-    const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]);
-    await f.view.onOpen(); await f.controller.runLocalScan();
-    f.content.action("scope-0").click(); f.content.action("home-findings").click(); f.content.action("scope-continue").click();
-    f.content.action("filter-structure").click();
-    expect(f.content.action("scope-continue")).toBeUndefined();
-    const row = f.content.all().find(e => e.attrs["data-health-action"]?.startsWith("finding-finding-"))!;
-    expect(row).toBeDefined(); row.focus(); f.content.scrollTop = 640; row.click();
-    expect(f.content.action("finding-dismiss")).toBeDefined(); expect(f.content.action("scope-continue")).toBeUndefined();
-    f.content.action("findings-back").click();
-    expect(f.content.scrollTop).toBe(640);
-    expect(f.content.ownerDocument.activeElement).toBe(f.content.action(row.attrs["data-health-action"]));
-    f.content.action(row.attrs["data-health-action"]).click();
-    f.content.action("nav-home").click(); f.content.action("home-findings").click();
-    expect(f.content.action("scope-continue")).toBeDefined(); f.content.action("scope-continue").click();
-    expect(f.content.action("filter-structure").attrs["aria-pressed"]).toBe("true");
-    expect(f.content.action("finding-dismiss")).toBeDefined();
-    f.content.action("nav-health").click(); expect(f.content.action("scope-continue")).toBeDefined();
-    const old = f.content.action("scope-continue"); f.content.action("scope-picker").input(""); old.click();
-    expect(mocks.requestUrl).not.toHaveBeenCalled(); await f.view.onClose();
+  it("distinguishes a live receipt from a restarted saved check without reading sources", async () => {
+    const f=fixture();await f.view.onOpen(); await f.controller.runLocalScan();f.vault.read.mockClear();
+    expect(f.content.querySelector("[data-workspace-check-receipt]")?.texts()).toContain("Data available");
+    const state=f.controller.getState();vi.spyOn(f.controller,"getState").mockReturnValue({...state,outcome:undefined});
+    (f.view as unknown as {render():void}).render();expect(f.content.texts()).toContain(t("@ux.not-current"));
+    expect(f.vault.read).not.toHaveBeenCalled();await f.view.onClose();
   });
-  it("opens the approved home with real metadata and preserves selection independently in two views", async () => {
-    const f = fixture();
-    f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }, { path: "SQL/nested" }, { path: "SQL-old" }]);
-    f.vault.getMarkdownFiles.mockReturnValue(["Root.md", "SQL/A.md", "SQL/nested/B.md", "SQL-old/C.md"].map(path => ({ ...f.note, path })));
-    const other = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools);
-    await f.view.onOpen(); await other.onOpen();
-    const second = other.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    expect(f.content.action("nav-home").attrs["aria-current"]).toBe("page");
-    expect(f.content.action("scope-all").texts()).toContain("Notes: 4");
-    f.content.action("scope-0").click();
-    expect(f.content.action("scope-0").attrs["aria-pressed"]).toBe("true");
-    expect(second.action("scope-all").attrs["aria-pressed"]).toBe("true");
-    f.content.action("open-scope").click();
-    expect(f.content.action("scope-note-0").text).toBe("SQL/A.md");
-    expect(f.content.action("scope-note-1").text).toBe("SQL/nested/B.md");
-    expect(f.content.action("scope-note-2")).toBeUndefined();
-    expect(f.content.action("discover-search").disabled).toBe(true);
-    f.content.action("nav-home").click(); expect(f.content.action("scope-0").attrs["aria-pressed"]).toBe("true");
-    expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(2);
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
-    await f.view.onClose(); await other.onClose(); expect(f.vault.offref).toHaveBeenCalledTimes(6);
+  it("preserves every folder through the actual scope picker and independent views", async () => {
+    const f=fixture();f.vault.getAllFolders.mockReturnValue(Array.from({length:11},(_,i)=>({path:`Area ${i}`})));
+    await f.view.onOpen();expect(f.content.action("scope-picker").children).toHaveLength(12);
+    f.content.action("scope-picker").input("Area 10");expect(f.content.action("scope-picker").value).toBe("Area 10");
+    const other=new VeynrelHealthView({app:f.app} as never,f.controller,f.tools);await other.onOpen();
+    expect((other.contentEl as unknown as InstanceType<typeof mocks.Element>).action("scope-picker").value).toBe("");
+    expect(f.vault.read).not.toHaveBeenCalled();expect(f.save).not.toHaveBeenCalled();await other.onClose();await f.view.onClose();
   });
-  it("requires an explicit scope handoff, rejects detached confirmation and keeps late failures out of the new scope", async () => {
-    const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }, { path: "Other" }]);
-    await f.view.onOpen(); f.content.action("scope-1").click(); f.content.action("nav-process").click();
-    f.content.action("tool-openBatchProcessing").click(); const old = f.content.action("scope-continue");
-    expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
-    f.content.action("scope-picker").input("Other"); old.click(); expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
-    f.content.action("tool-openBatchProcessing").click(); const confirm = f.content.action("scope-continue"); confirm.click(); confirm.click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledTimes(1);
-    f.content.action("nav-tools").click(); let reject!: (error: Error) => void;
-    f.tools.openDeepAudit.mockImplementationOnce(() => new Promise((_resolve, fail) => { reject = fail; }));
-    f.content.action("tool-openDeepAudit").click(); f.content.action("scope-continue").click();
-    f.content.action("scope-picker").input("SQL"); reject(new Error("private response")); await flush();
-    expect(f.content.texts()).not.toContain(t("@tools.launch-failed"));
-    await f.view.onClose();
+  it("requires global scan acknowledgement and rejects a detached scope confirmation", async () => {
+    const f=fixture();f.vault.getAllFolders.mockReturnValue([{path:"SQL"},{path:"Other"}]);await f.view.onOpen();
+    f.content.action("scope-picker").input("SQL");expect(f.content.action("scan")).toBeUndefined();
+    const stale=f.content.action("scope-continue");f.content.action("scope-picker").input("Other");stale.click();
+    expect(f.content.action("scan")).toBeUndefined();f.content.action("scope-continue").click();
+    expect(f.content.action("scan")).toBeDefined();expect(f.content.texts()).toContain(t("@workspace.actual-scope"));
+    expect(f.vault.read).not.toHaveBeenCalled();await f.view.onClose();
   });
-  it("keeps unavailable storage/due state honest and supports missing folders without an All fallback", async () => {
-    const f = fixture(); const handlers = new Map<string, (file: { path: string }, oldPath?: string) => void>();
-    f.vault.on.mockImplementation((...args: unknown[]) => { handlers.set(args[0] as string, args[1] as never); });
-    f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]); await f.view.onOpen();
-    expect(f.content.texts()).toContain("Data unavailable");
-    f.content.action("scope-0").click();
-    expect(f.content.texts()).toContain("Folder queue not available yet");
-    f.vault.getAllFolders.mockReturnValue([]); handlers.get("delete")!({ path: "SQL" }); await flush();
-    expect(f.content.texts()).toContain("The selected folder was deleted or renamed");
-    expect(f.content.action("open-scope").disabled).toBe(true);
-    expect(f.content.action("scope-all").attrs["aria-pressed"]).toBe("false");
-    f.content.action("scope-all").click(); expect(f.content.action("open-scope").disabled).toBe(false);
-    await f.view.onClose();
+  it("a missing folder stays missing until explicitly changed", async () => {
+    const f=fixture();f.vault.getAllFolders.mockReturnValue([{path:"SQL"}]);await f.view.onOpen();
+    f.content.action("scope-picker").input("missing");expect(f.content.texts()).toContain(t("@workspace.missing"));
+    expect(f.content.action("scan")).toBeUndefined();expect(f.content.action("scope-picker").value).toBe("missing");
+    f.content.action("scope-picker").input("");expect(f.content.action("scan")).toBeDefined();await f.view.onClose();
   });
-  it("exposes every omitted root folder through an explicit count and keeps the selected folder visible", async () => {
-    const f = fixture();
-    f.vault.getAllFolders.mockReturnValue(Array.from({ length: 11 }, (_, i) => ({ path: `Area ${String(i).padStart(2, "0")}` })));
-    await f.view.onOpen();
-    const more = f.content.action("home-more-folders");
-    expect(more.text).toBe("5 more folders"); expect(more.attrs["aria-expanded"]).toBe("false");
-    expect(f.content.all().filter(e => e.attrs["data-home-folder"])).toHaveLength(5);
-    more.click(); expect(more.attrs["aria-expanded"]).toBe("true");
-    f.content.action("home-folder-Area%2010").click();
-    expect(f.content.action("scope-5").attrs["title"]).toBe("Area 10");
-    expect(f.content.action("scope-5").attrs["aria-pressed"]).toBe("true");
-    expect(f.content.all().filter(e => e.attrs["data-home-folder"])).toHaveLength(5);
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    await f.view.onClose();
+  it("retains Tools and every existing operation without selecting an editor", async () => {
+    const f=fixture();await f.view.onOpen();f.content.action("nav-tools").click();
+    for(const action of Object.keys(f.tools).filter(k=>k!=="openAtomization"))expect(f.content.action(`tool-${action}`)).toBeDefined();
+    for(const work of Object.values(f.tools))expect(work).not.toHaveBeenCalled();
+    expect(f.vault.read).not.toHaveBeenCalled();expect(f.adapter.write).not.toHaveBeenCalled();await f.view.onClose();
   });
-  it("keeps catalog details closed and preserves every launcher without choosing an editor", async () => {
-    const f = fixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
-    const details = f.content.all().filter(e => e.tag === "details");
-    expect(details.length).toBeGreaterThan(10); expect(details.every(e => !e.open)).toBe(true);
-    for (const action of Object.keys(f.tools).filter(key => key !== "openAtomization")) expect(f.content.action(`tool-${action}`)).toBeDefined();
-    expect(f.content.action("editor-selection").parentElement!.texts()).toContain("Select text in the intended note");
-    expect(f.content.all().filter(e => e.attrs["data-health-action"] === "tool-openOperationHistory")).toHaveLength(1);
-    for (const work of Object.values(f.tools)) expect(work).not.toHaveBeenCalled();
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    await f.view.onClose();
+  it("opens R04 from the compact menu with exact scope and no passive scan", async () => {
+    const f=fixture({});f.vault.getAllFolders.mockReturnValue([{path:"SQL"}]);await f.view.onOpen();
+    f.content.action("organization-audit").click();expect(f.tools.openTagTaxonomy).toHaveBeenCalledWith({kind:"all"},[]);
+    f.content.action("scope-picker").input("SQL");f.content.action("organization-audit").click();
+    expect(f.tools.openTagTaxonomy).toHaveBeenLastCalledWith({kind:"folder",path:"SQL"},[]);
+    expect(f.vault.read).not.toHaveBeenCalled();expect(mocks.requestUrl).not.toHaveBeenCalled();await f.view.onClose();
   });
-  it("uses the owning document for motion lifecycle, including hidden documents and cleanup", async () => {
-    const f = fixture(); const listeners = new Map<string, () => void>();
-    let intersect!: (entries: { isIntersecting: boolean }[]) => void;
-    const disconnect = vi.fn(), observe = vi.fn();
-    const owner = Object.assign(f.content.ownerDocument, {
-      hidden: true, addEventListener: vi.fn((key: string, listener: () => void) => listeners.set(key, listener)),
-      removeEventListener: vi.fn((key: string) => listeners.delete(key)),
-      defaultView: { IntersectionObserver: class {
-        constructor(callback: typeof intersect) { intersect = callback; } observe = observe; disconnect = disconnect;
-      } },
-    });
-    await f.view.onOpen();
-    expect(observe).toHaveBeenCalledWith(f.content);
-    expect(f.content.attrs["data-document-hidden"]).toBe("true");
-    owner.hidden = false; listeners.get("visibilitychange")!();
-    expect(f.content.attrs["data-document-hidden"]).toBe("false");
-    intersect([{ isIntersecting: false }]); expect(f.content.attrs["data-scene-visible"]).toBe("false");
-    intersect([{ isIntersecting: true }]); expect(f.content.attrs["data-scene-visible"]).toBe("true");
-    f.content.action("workspace-motion").click(); expect(f.content.action("workspace-motion").attrs["aria-pressed"]).toBe("false");
-    expect(f.content.action("scope-all").all().some(e => e.cls === "veynrel-core-geometry" && e.attrs["aria-hidden"] === "true")).toBe(true);
-    await f.view.onClose(); expect(disconnect).toHaveBeenCalledTimes(1); expect(listeners.size).toBe(0);
-  });
-  it("keeps all map entrances above notes, with explicit scope and inert blocked actions", async () => {
-    const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]);
-    await f.view.onOpen(); f.content.action("scope-0").click(); f.content.action("nav-discover").click();
-    const all = f.content.all();
-    for (const key of ["discover-search", "topology-open", "global-map-open", "connections-open"]) {
-      expect(f.content.action(key).disabled).toBe(true);
-      expect(f.content.action(key).attrs["aria-label"]).toMatch(/^Open: .+/u);
-      expect(all.indexOf(f.content.action(key))).toBeLessThan(all.indexOf(f.content.action("scope-search")));
-      f.content.action(key).click();
-    }
-    expect(f.content.texts()).toContain("Whole index");
-    const stale = f.content.action("scope-continue"); f.content.action("nav-home").click(); stale.click();
-    expect(f.content.action("scope-all")).toBeDefined();
-    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
-    await f.view.onClose();
-  });
-
-});
-
-it("R04 launches the existing taxonomy surface without onboarding or scan and passes the actual selected folder", async () => {
-  const fresh = fixture({}); await fresh.view.onOpen();
-  fresh.content.action("organization-audit").click();
-  expect(fresh.tools.openTagTaxonomy).toHaveBeenCalledWith({ kind: "all" }, []);
-  expect(fresh.vault.read).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled(); await fresh.view.onClose();
-  const f = fixture(); f.vault.getAllFolders.mockReturnValue([{ path: "SQL" }]); await f.view.onOpen();
-  f.content.action("scope-0").click(); f.content.action("organization-audit").click();
-  expect(f.tools.openTagTaxonomy).toHaveBeenCalledWith({ kind: "folder", path: "SQL" }, []);
-  expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
 });
 
 describe("R06.2b embedded structural parity",()=>{

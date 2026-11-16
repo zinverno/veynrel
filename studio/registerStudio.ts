@@ -1,3 +1,4 @@
+import { studioFeatures } from "./features";
 import { Notice, TFolder } from "obsidian";
 import type { Plugin } from "obsidian";
 import { callStudioMarkdown } from "../api";
@@ -18,7 +19,7 @@ import { StudioMarkdownCreate } from "./markdownCreate";
 import { MarkdownCreateJournal } from "./markdownCreateJournal";
 import { markdownTargetPort } from "./markdownTarget";
 
-export interface StudioWorkspace { registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; creator: StudioMarkdownCreate; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
+export interface StudioWorkspace { features?: typeof studioFeatures; registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; creator: StudioMarkdownCreate; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
 const studioTitle = "Veynrel Studio";
 export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPort): StudioWorkspace {
   const storage = new StudioStorage(plugin.app.vault.adapter, plugin.app.vault.configDir, plugin.manifest.id);
@@ -26,7 +27,7 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
   const creator = new StudioMarkdownCreate(new MarkdownCreateJournal(storage), markdownTargetPort(plugin.app), notes, operations);
   const port = { notes, inventory: () => studioInventory(plugin.app), settings };
   const registry = new RecipeRegistry(storage);
-  const owner: StudioWorkspace = { registry, writer, creator, operations,
+  const owner: StudioWorkspace = { features: studioFeatures, registry, writer, creator, operations,
     community: new CommunityCatalog(storage, communityTransport), installer: new CommunityInstaller(storage, registry), inventory: port.inventory, folders: () => plugin.app.vault.getAllLoadedFiles().filter((f): f is TFolder => f instanceof TFolder && !f.path.split("/").some(p => p.startsWith("."))).map(f => f.path),
     connection: () => { const { provider, model, baseUrl } = settings.get(); return { provider, model, baseUrl }; },
     runner: new RecipeRunner({ ...port, complete: callStudioMarkdown }, writer, creator) };

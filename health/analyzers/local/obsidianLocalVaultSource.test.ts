@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import type { CachedMetadata, TFile } from "obsidian";
 import { parseLinktext } from "obsidian";
 import { LOCAL_READ_CONCURRENCY, ObsidianLocalVaultSource } from "./obsidianLocalVaultSource";
+import { LocalScanCoordinator } from "./localScanCoordinator";
 import { createLocalAnalysisContext } from "./localNoteGraph";
 
 vi.mock("obsidian", () => ({ parseLinktext: vi.fn((link: string) => ({ path: link.split("#")[0], subpath: link.includes("#") ? link.slice(link.indexOf("#")) : "" })) }));
@@ -24,6 +25,16 @@ function fixture(paths = ["B.md", "A.md"]) {
 }
 
 describe("Obsidian local vault source", () => {
+  it("explains empty targets separately from missing metadata without admitting their graph edges", async () => {
+    const f = fixture(["Empty.md", "Loading.md", "Ready.md"]);
+    f.caches.set("Empty.md", cache(["Ready", " "])); f.caches.delete("Loading.md");
+    const result = await new LocalScanCoordinator(f.source).analyze(f.signal);
+    expect(result.coverage).toMatchObject({listed:3, fullyAvailable:1, linksUnavailable:2, linkLimitations:{missing:1,unsupported:1,changed:0,unknown:0}});
+    expect(result.coverage?.diagnostics.map(d=>d.code)).toEqual(["unsupported-target","metadata-missing"]);
+    expect(result.results.find(r=>r.analyzerId==="orphans")?.complete).toBe(false);
+    const metadata = await f.source.captureMetadata(f.signal);
+    expect(metadata.notes[0]).toMatchObject({linksAvailable:false,resolvedOutgoing:[],unresolvedLinks:[]});
+  });
   it("captures deterministic plain snapshots and reads each Markdown note once", async () => {
     const f = fixture();
     const result = await f.source.capture(f.signal);

@@ -84,7 +84,7 @@ describe("view-local metadata scopes", () => {
   });
   it("keeps existing child routes under the correct single navigation entry", () => {
     expect(["health", "findings"].map(page => workspaceSection(page as "health"))).toEqual(["check", "check"]);
-    expect(["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities"].map(page => workspaceSection(page as "discover"))).toEqual(["map", "map", "map", "map", "map"]);
+    expect(["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities"].map(page => workspaceSection(page as "discover"))).toEqual(["notes", "notes", "notes", "notes", "notes"]);
     expect(workspaceSection("connect")).toBe("settings");
   });
 });

@@ -3,14 +3,13 @@ import { describe, expect, it } from "vitest";
 
 const css = readFileSync("styles.css", "utf8");
 const rule = (selector: string): string => css.slice(css.indexOf(`\n${selector} {`)).split("}")[0];
-const nav = ".veynrel-health-view .veynrel-findings-navigation";
 
 describe("workspace presentation contract", () => {
   it("shares one wide responsive shell, with bounded prose and an out-of-layout live region", () => {
     const shell = rule(".veynrel-health-view .veynrel-workspace");
     expect(shell).toContain("width: 100%;");
     expect(shell).toContain("padding: 0;");
-    expect(rule(".veynrel-health-view .veynrel-shell")).toContain("grid-template-columns: 208px minmax(0, 1fr)");
+    expect(rule(".veynrel-health-view .veynrel-shell")).toContain("display: block");
     expect(rule(".veynrel-health-view .veynrel-shell-main")).toContain("max-width: 1536px");
     expect(css).toContain("max-width: 80ch;");
     expect(css).not.toMatch(/max-width: (?:880|1120)px/u);
@@ -20,15 +19,14 @@ describe("workspace presentation contract", () => {
     expect(live).not.toMatch(/display:\s*none|visibility:\s*hidden/u);
     expect(css).not.toContain(".veynrel-health-status:empty");
   });
-  it("replaces the rail with one sidebar, a narrow pane menu and an explicit selected marker", () => {
-    expect(css).not.toContain(nav);
-    expect(rule(".veynrel-health-view .veynrel-sidebar nav")).toContain("flex-direction: column");
-    expect(rule('.veynrel-health-view .veynrel-sidebar button[aria-current="page"]')).toContain("border-left-color:");
-    expect(css).toContain("@container (max-width: 760px)");
-    expect(css).toContain('[data-menu-open="true"] .veynrel-sidebar { display: block; }');
-    expect(rule(".veynrel-health-view .veynrel-home-grid")).toContain("grid-template-columns: minmax(0, 1fr)");
-    expect(css).toContain("@container (max-width: 600px)");
-    expect(css).toContain(".veynrel-topic-node { position: relative; left: auto; top: auto; transform: none;");
+  it("uses three horizontal destinations and a compact native disclosure", () => {
+    const shell = readFileSync("health/workspace/renderWorkspaceShell.ts", "utf8");
+    expect(shell).not.toMatch(/veynrel-brand|veynrel-sidebar|createEl\("aside"/u);
+    expect(shell).toContain('[["health", "check"], ["discover", "notes"], ["recall", "recall"]]');
+    expect(rule(".veynrel-tabs")).toContain("display: flex");
+    expect(css).toContain('.veynrel-tabs button[aria-current="page"]');
+    expect(shell).toContain('setIcon(summary, "ellipsis")');
+    expect(css).toContain("@container (max-width: 520px)");
   });
 
   it("integrates the preview section while retaining the neutral map surface", () => {
