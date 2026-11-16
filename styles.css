@@ -3354,3 +3354,14 @@
   stroke: var(--text-muted);
   stroke-dasharray: 2 2;
 }
+
+/* R06.2: bounded native controls and evidence, independent of map geometry. */
+.veynrel-pair-search, .veynrel-families { min-width: 0; overflow-wrap: anywhere; }
+.veynrel-pair-search label, .veynrel-pair-search input { display: block; width: 100%; }
+.veynrel-pair-search input { box-sizing: border-box; margin-block: 8px; }
+.veynrel-pair-search ul, .veynrel-families ul { padding-inline-start: 18px; }
+.veynrel-pair-search button, .veynrel-families button { height: auto; max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: start; }
+.veynrel-pair-search li, .veynrel-families li { margin-block: 6px; }
+.veynrel-families { margin-block: 10px; }
+.veynrel-families small { display: block; color: var(--text-muted); }
+.veynrel-families pre { white-space: pre-wrap; }

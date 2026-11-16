@@ -7,14 +7,17 @@ import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import {build as bundle} from 'esbuild';
 import {assertNativeRoot,launchObsidian,nativeEndpoint} from './native/session.mjs';
+import {runFamilyJourney} from './r06-families-journey.mjs';
 const ROOT=fileURLToPath(new URL('../',import.meta.url));
-const [root,rawCount='120',build=ROOT]=process.argv.slice(2),count=Number(rawCount),indexed=Number(process.env.R06_INDEX_COUNT??count);
-assertNativeRoot(root);assert(!fs.existsSync(root));assert([120,1000,5000,10000].includes(count));assert(indexed>=0&&indexed<=count);
+const familiesMode=process.env.R06_FAMILIES==='1';
+const [root,rawCount='120',build=ROOT]=process.argv.slice(2),count=familiesMode?12:Number(rawCount),indexed=Number(process.env.R06_INDEX_COUNT??count);
+assertNativeRoot(root);assert(!fs.existsSync(root));assert([12,120,1000,5000,10000].includes(count));assert(indexed>=0&&indexed<=count);
 const baseline=process.env.R06_BASELINE==='1',warmCache=process.env.R06_WARM_CACHE==='1';
 const vault=`${root}/vault`,pluginDir=`${vault}/.obsidian/plugins/ai-knowledge-hub`;
 fs.mkdirSync(pluginDir,{recursive:true});fs.mkdirSync(`${root}/profile`);fs.mkdirSync(`${root}/frames`);
-await bundle({absWorkingDir:ROOT,entryPoints:['scripts/r06-map-fixture.ts'],bundle:true,platform:'node',format:'cjs',outfile:`${root}/fixture.cjs`,plugins:[{name:'fixture-host',setup(b){b.onResolve({filter:/^obsidian$/},()=>({path:'obsidian',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export const getLanguage=()=>"en";'}));}}]});
-const fixture=await createRequire(import.meta.url)(`${root}/fixture.cjs`).r06Fixture(count,indexed);
+await bundle({absWorkingDir:ROOT,entryPoints:[familiesMode?'scripts/r06-families-fixture.ts':'scripts/r06-map-fixture.ts'],bundle:true,platform:'node',format:'cjs',outfile:`${root}/fixture.cjs`,plugins:[{name:'fixture-host',setup(b){b.onResolve({filter:/^obsidian$/},()=>({path:'obsidian',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export const getLanguage=()=>"en";'}));}}]});
+const fixtureModule=createRequire(import.meta.url)(`${root}/fixture.cjs`);
+const fixture=familiesMode?await fixtureModule.r06FamiliesFixture():await fixtureModule.r06Fixture(count,indexed);
 for(const note of fixture.notes){fs.mkdirSync(`${vault}/${note.path.split('/')[0]}`,{recursive:true});fs.writeFileSync(`${vault}/${note.path}`,note.text);}
 if(indexed){fs.mkdirSync(`${pluginDir}/semantic-index`);for(const [p,v]of fixture.files)fs.writeFileSync(`${pluginDir}/semantic-index/${p.split('/').pop()}`,typeof v==='string'?v:Buffer.from(v));}
 fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`,'["ai-knowledge-hub"]');
@@ -22,9 +25,9 @@ fs.writeFileSync(`${vault}/.obsidian/app.json`,'{"checkForUpdates":false}');
 fs.writeFileSync(`${root}/profile/obsidian.json`,JSON.stringify({updateDisabled:true,vaults:{map:{path:vault,open:true,ts:Date.now()}}}));
 fs.writeFileSync(`${pluginDir}/data.json`,JSON.stringify({language:'en',apiKey:'',semanticAutoSyncSuspended:true,semantic:{enabled:!!indexed,embeddingProvider:'ollama',embeddingModel:'global-map-synthetic',embeddingBaseUrl:'http://127.0.0.1:11434',openRouterApiKey:'',openAICompatibleApiKey:''},decisions:{enabled:false,apiKey:''},companion:{enabled:false},health:{profile:'mixed',profileChosen:true,onboardingCompleted:true}}));
 const sha=v=>createHash('sha256').update(v).digest('hex');
-const report={scenario:'R06.1-map-foundation',baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
+const report={scenario:familiesMode?'R06.2-family-journey':'R06-map-foundation',familiesMode,baseline,warmCache,count,indexed,source:fs.existsSync(`${build}/SOURCE_COMMIT`)?fs.readFileSync(`${build}/SOURCE_COMMIT`,'utf8').trim():execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),checks:[],exceptions:[],actions:[],screenshots:[],assets:{},externalRequests:[],recording:null,metrics:{},observations:{},io:[]};
 for(const name of ['main.js','styles.css','manifest.json']){const bytes=fs.readFileSync(`${build}/${name}`);fs.writeFileSync(`${pluginDir}/${name}`,bytes);report.assets[name]=sha(bytes);}
-report.harness=Object.fromEntries(['r06-map-native.mjs','r06-map-fixture.ts','native/session.mjs','native/run.py'].map(p=>[p,sha(fs.readFileSync(`${ROOT}/scripts/${p}`))]));
+report.harness=Object.fromEntries(['r06-map-native.mjs','r06-map-fixture.ts','r06-families-journey.mjs','r06-families-fixture.ts','native/session.mjs','native/run.py'].map(p=>[p,sha(fs.readFileSync(`${ROOT}/scripts/${p}`))]));
 const original=Object.fromEntries(fixture.notes.map(n=>[n.path,sha(fs.readFileSync(`${vault}/${n.path}`))]));
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 const child=launchObsidian(root),connections=[],frames=[];let main,endpoint,recording=false;
@@ -88,7 +91,7 @@ try{
  await pass('Passive map opens with zero Markdown reads/writes and network','io.reads===0&&io.writes===0&&io.network===0');await io('passive');if(!baseline)await pass('Idle map defers full tag projection until explicit load',"wb.zones.active.length===0");await shot('before-load');
  const cacheStarted=performance.now();await wait(`app.vault.getMarkdownFiles().length===${count} && app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))`,main,90000);
  await main.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
- if(count===120){await main.send('Page.startScreencast',{format:'jpeg',quality:75,maxWidth:1600,maxHeight:1000,everyNthFrame:1});recording=true;}
+ if(count===120||familiesMode){await main.send('Page.startScreencast',{format:'jpeg',quality:75,maxWidth:1600,maxHeight:1000,everyNthFrame:1});recording=true;}
  await ev("{let started;wb.data.semantic?.subscribe(()=>{const s=wb.data.semantic.getSnapshot();if(s.state==='loading')started??=performance.now();else if(started!==undefined&&!s.busy){window.semanticMs=performance.now()-started;started=undefined;}});}void 0");
  report.metrics.cacheReadyMs=performance.now()-cacheStarted;
  const start=performance.now();await activate('workbench-refresh');await wait('!wb.data.busy');report.metrics.refreshWallMs=performance.now()-start;
@@ -104,6 +107,8 @@ try{
  report.metrics.interactionFrameIntervals=await ev('cancelAnimationFrame(frameProbe);frameTrace');
  await pass('Link overlay toggles retain exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
  await activate('workbench-zones');const visibleTag=await ev('wb.zones.active[0]');if(visibleTag)await activate('zone-toggle-'+encodeURIComponent(visibleTag));await activate('workbench-zones-close');await pass('Tag overlay toggle retains exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
+ if(familiesMode){await runFamilyJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
+ else {
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;
  await pass('Exact file search works without recomputation',"!!document.querySelector('[data-workbench-path=\"Databases/Note 00000.md\"]')&&JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts");await shot('list-search');
  await field('workbench-search','');
@@ -113,13 +118,20 @@ try{
   await pass('Display group opens actual note nodes in the viewport',"(()=>{const svg=wb.element.querySelector('svg[data-camera]'),box=svg.getBoundingClientRect();return [...svg.querySelectorAll('[data-path]')].some(e=>{const r=e.getBoundingClientRect();return r.right>box.left&&r.left<box.right&&r.bottom>box.top&&r.top<box.bottom;});})()");
   const selectedAt=performance.now();await ev('wb.element.querySelector("[data-path]").focus();void 0');await key('Enter','Enter',13,'\r');await wait('!!wb.note');report.metrics.selectionMs=performance.now()-selectedAt;
   await metric('selected-large-note');await shot('selected-large-note');
+  report.metrics.secondPicker=await ev("(()=>{const p=wb.element.querySelector('.veynrel-workbench-selection');return {dom:p.querySelectorAll('*').length,options:p.querySelectorAll('option').length,results:p.querySelectorAll('[data-note-choice]').length,heap:performance.memory?.usedJSHeapSize}})()");
+  if(!baseline){await pass('Second-note results are bounded without dropping total matches',"wb.element.querySelectorAll('[data-note-choice]').length<=20&&!wb.element.querySelector('select[data-health-action=workbench-second]')");
+    const lookup=performance.now();const source=await ev('wb.note');const target=fixture.notes.findLast(n=>n.path!==source).path;
+    await field('workbench-second',target);report.metrics.secondPicker.searchMs=performance.now()-lookup;
+    await pass('Full path search reaches the final inventory entry',`[...wb.element.querySelectorAll('[data-note-choice]')].some(e=>e.getAttribute('data-note-choice')===${JSON.stringify(target)})`);
+  }
   await activate('workbench-clear-selection');await activate('workbench-groups-back');
   await pass('Display group back restores exact overview camera','JSON.stringify(wb.graph.viewport)===groupOverview');
  }
  if(count===120){
   await field('workbench-search','Databases');await activate('workbench-zones');await ev("document.querySelector('[data-health-action=\"filter-topic%2Fdatabases\"]').focus();void 0");await key(' ','Space',32,' ');await activate('workbench-zones-close');
   await activate('workbench-note-Databases%2FNote%2000000.md');
-  await ev("{const e=document.querySelector('[data-health-action=workbench-second]');e.value='Databases/Note 00001.md';e.dispatchEvent(new Event('change'));}void 0");
+  if(baseline)await ev("{const e=document.querySelector('[data-health-action=workbench-second]');e.value='Databases/Note 00001.md';e.dispatchEvent(new Event('change'));}void 0");
+  else {await field('workbench-second','Databases/Note 00001.md');await activate('workbench-second-'+encodeURIComponent('Databases/Note 00001.md'));}
   await activate('workbench-zoom-in');await ev('window.camera=JSON.stringify(wb.graph.viewport);window.selection=JSON.stringify(wb.selected);window.queryContext=JSON.stringify([wb.query,wb.zones.filter]);void 0');
   await shot('pair');await activate('workbench-compare');await wait("!!document.querySelector('[data-pair-heading]')");await shot('pair-inspector');await pass('Pair Inspector does not call a model or write','io.network===0&&io.writes===0');
   await activate('workbench-back');await pass('Pair back keeps exact camera, selection and coordinates','JSON.stringify(wb.graph.viewport)===camera&&JSON.stringify(wb.selected)===selection&&JSON.stringify(wb.points)===coords');
@@ -155,6 +167,7 @@ try{
   let popTarget;for(let i=0;i<100;i++){popTarget=(await(await fetch(`${endpoint}/json/list`)).json()).find(t=>t.type==='page'&&t.id!==main.id);if(popTarget)break;await pause(50);}assert(popTarget);
   const pop=await connection(popTarget);await focus(pop);await pass('Real Native-frame popout receives focus',"document.hasFocus()&&!window.frameDom&&window.titlebarStyle==='native'",pop);await shot('popout',pop);await focus();await pass('Focus returns to main','document.hasFocus()');await ev('pop.detach();void 0');
   await stopVideo();
+ }
  }
  await metric('final');await io('final');
  assert.equal(report.exceptions.length,0,'Unfiltered exceptions');assert.equal(await ev('io.network'),0);assert.equal(await ev('io.writes'),0);
