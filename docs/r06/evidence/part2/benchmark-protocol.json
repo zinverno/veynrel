@@ -1,0 +1,21 @@
+{
+  "base": "0b834cf84b145b336ecaa275f638ad19f5fffae4",
+  "candidate": "cf81374fca7d865b17f03a447a29692ce9e303a5",
+  "attemptsPerCase": 1,
+  "readinessMs": 90000,
+  "backend": "Xvfb/Openbox; Native frame; no desktop",
+  "cases": [
+    "before-warm-1000",
+    "before-warm-5000",
+    "before-warm-10000",
+    "before-cold-10000",
+    "after-warm-1000",
+    "after-warm-5000",
+    "after-warm-10000",
+    "after-cold-10000"
+  ],
+  "purpose": "Compare the same second-note picker workload and distinguish host cache readiness from UI, semantic and layout work. No retry-until-PASS. Retain all failures; no higher readiness timeout.",
+  "memoryLimit": "Report renderer usedJSHeapSize snapshot, not an asserted process peak.",
+  "hostExceptions": "Unfiltered; e.isShown does not become PASS.",
+  "partialScope": "R06.2a families and picker; canonical-route integration deferred."
+}

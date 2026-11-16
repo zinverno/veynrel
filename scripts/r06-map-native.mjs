@@ -107,7 +107,11 @@ try{
  report.metrics.interactionFrameIntervals=await ev('cancelAnimationFrame(frameProbe);frameTrace');
  await pass('Link overlay toggles retain exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
  await activate('workbench-zones');const visibleTag=await ev('wb.zones.active[0]');if(visibleTag)await activate('zone-toggle-'+encodeURIComponent(visibleTag));await activate('workbench-zones-close');await pass('Tag overlay toggle retains exact coordinates','JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts');
- if(familiesMode){await runFamilyJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
+ if(familiesMode&&baseline){
+  await shot('baseline-overview');await ev(`wb.element.querySelector('[data-path="Bridges/Docker database.md"]').focus();void 0`);await key('Enter','Enter',13,'\r');
+  await wait('!!wb.note');await shot('baseline-note');await stopVideo();
+ }
+ else if(familiesMode){await runFamilyJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
  else {
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;
  await pass('Exact file search works without recomputation',"!!document.querySelector('[data-workbench-path=\"Databases/Note 00000.md\"]')&&JSON.stringify(wb.points)===coords&&wb.layoutCount===layouts");await shot('list-search');

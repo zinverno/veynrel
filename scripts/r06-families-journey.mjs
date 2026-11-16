@@ -32,6 +32,10 @@ export async function runFamilyJourney({ev,pass,shot,activate,field,key,wait,foc
     await ev('plugin.settingsSave');await ev('app.setting.close();hv.render();void 0');await focus();
     if(!await ev("!!document.querySelector('[data-health-action=workbench-refresh]')"))await activate('review-map');
     await ev('window.wb=hv.workbench.map;void 0');
+    // Saving host/plugin language settings invalidates the existing semantic owner.
+    // Use its explicit refresh, then verify translated family UI rather than only an unavailable message.
+    await activate('workbench-refresh');await wait('!wb.data.busy&&!wb.pendingRender&&wb.simulation.alpha===0');
+    await pass(`${language}: current families available after explicit refresh`,"document.querySelectorAll('[data-semantic-family]').length>=3");
     for(const theme of ['light','dark']) {
       await ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await wait(`document.body.classList.contains('theme-${theme}')`);
       await main.send('Emulation.setDeviceMetricsOverride',{width:390,height:850,deviceScaleFactor:1,mobile:false});
