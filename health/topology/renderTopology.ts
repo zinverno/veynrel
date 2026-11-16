@@ -1,5 +1,5 @@
 import { t } from "../../i18n";
-import { healthButton } from "../ui/renderHealthHome";
+import { healthButton, healthDetails } from "../ui/renderHealthHome";
 import { renderTopologyMap } from "./renderTopologyMap";
 import type { TopologyViewState } from "./renderTopologyMap";
 import { searchTopology, topologyMetrics, topologyStatus, TOPOLOGY_LIST_LIMIT } from "./topologyPresentation";
@@ -117,6 +117,20 @@ export function renderTopology(parent: HTMLElement, port: VaultTopologyPort, sta
     const list = unresolved.createEl("ul");
     for (const target of broken.slice(0, TOPOLOGY_LIST_LIMIT)) list.createEl("li", { text: `${target.target} (${target.count})` });
     if (broken.length > TOPOLOGY_LIST_LIMIT) unresolved.createEl("p", { text: t("@topology.showing-items", { shown: TOPOLOGY_LIST_LIMIT, total: broken.length }) });
+    if (embedded) {
+      const component = map.components.find(item => item.id === node.componentId)!;
+      const members = healthDetails(details, t(map.complete ? "@topology.component-size" : "@topology.observed-size") + ` (${component.paths.length})`, "topology-component-members");
+      const label = members.createEl("label"); label.createSpan({text:t("@topology.search")});
+      const search = label.createEl("input", {type:"search",attr:{"data-health-action":"topology-component-search"}});
+      const results = members.createDiv();
+      const paths = new Set(component.paths), nodes = map.nodes.filter(item => paths.has(item.path));
+      const show = (): void => {
+        results.empty(); const found = searchTopology(nodes, search.value);
+        results.createEl("p", {text:t("@topology.showing-items", {shown:found.nodes.length,total:found.total}),attr:{role:"status"}});
+        found.nodes.forEach((member,index) => healthButton(results,member.path,()=>renderer.select(member.path,true),`topology-member-${index}`));
+      };
+      search.addEventListener("input",show); show();
+    }
     if (hadFocus) heading.focus({ preventScroll: true });
   };
   const renderer = embedded ? { select: (path: string, _focus?: boolean): void => { select(path); actions.selectNote?.(path); }, fit: (): void => {}, dispose: (): void => {} } : renderTopologyMap(mapPanel, map, state, select);

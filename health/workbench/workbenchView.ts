@@ -76,6 +76,7 @@ export class WorkbenchView {
     this.browser=this.element.createDiv({cls:"veynrel-workbench-browser"});this.review=this.element.createDiv({cls:"veynrel-workbench-review"});this.review.hidden=true;
     this.inspectors=new WorkbenchInspectors(data,()=>this.render(),{
       openNote:path=>actions.openNote(path),selectNote:path=>{if(this.data.scope.paths.includes(path))this.selectNote(path);},
+      returnToMap:()=>{const graph=this.browser.querySelector<SVGSVGElement>("svg[data-camera]");graph?.scrollIntoView({block:"center"});graph?.focus({preventScroll:true});},
       openPair:(left,right)=>{this.actions.openNote(left);this.actions.openNote(right);},
     });
     this.element.addEventListener("keydown",this.escape);
@@ -103,7 +104,7 @@ export class WorkbenchView {
     this.suspended=false; this.syncLayout(true); this.render();
   }
   suspend(): void {
-    this.cancelRender(); this.inspectors.unmount(); this.data.cancel();
+    this.suspended=true; this.cancelRender(); this.inspectors.unmount(); this.data.cancel();
     this.element.closest(".veynrel-shell")?.classList.remove("is-map-expanded");
     this.suspended=true; this.closeRules?.(); this.closeRules=undefined;
     this.syncLayout(false);
@@ -125,6 +126,7 @@ export class WorkbenchView {
     const target=event.target as HTMLElement;
     if(event.key!=="Escape"||event.defaultPrevented||this.stopReview||target.closest('input,textarea,select,[contenteditable="true"]')||
       this.element.ownerDocument.querySelector(".modal-container, .menu")||this.element.closest('[data-menu-open="true"]'))return;
+    if(this.inspectors.panel){this.inspectors.close();event.preventDefault();event.stopPropagation();return;}
     const help=this.browser.querySelector<HTMLDetailsElement>(".veynrel-map-help[open]");
     if(help){help.open=false;event.preventDefault();event.stopPropagation();return;}
     if(this.zones.open)this.zones.open=false;
@@ -195,7 +197,7 @@ export class WorkbenchView {
     if(semantic?.selection){const s=semantic.selection;status.createSpan({text:t("@rules.coverage",{eligible:s.eligibleNoteCount,excluded:s.excludedNoteCount,pairs:s.excludedPairCount,unknown:s.unknownNoteCount,pending:s.unknownPairCount}),attr:{"data-rules-coverage":""}});}
     const unmapped=model.nodes.filter(node=>!node.semantic).length;
     if(unmapped)status.createSpan({text:t("@r06.unmapped",{count:unmapped})});
-    if(decisions?.state!==undefined&&decisions.state!=="ready")status.createSpan({text:t("@decision.loadError")});
+    if(decisions?.state!==undefined&&decisions.state!=="ready")status.createSpan({text:t(decisions.state==="loading"?"@decision.loading":"@decision.loadError")});
     if(!model.linksCurrent)status.createSpan({text:t("@mapnav.links-stale")});
     const context=this.browser.createDiv({cls:"veynrel-map-context"});
     if(this.graph.focus){

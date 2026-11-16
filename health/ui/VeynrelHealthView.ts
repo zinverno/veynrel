@@ -328,12 +328,12 @@ export class VeynrelHealthView extends ItemView {
       this.route.page === "semantic-map" && this.globalMap?.createSession ||
       this.route.page === "semantic-neighborhood" && this.neighborhood?.createSession ||
       this.route.page === "connection-opportunities" && this.globalMap?.createSession)) {
-      const panel = this.route.page as import("../workbench/workbenchInspectors").WorkbenchInspector;
+      const panel = this.route.page;
       // The existing global scope acknowledgement above remains authoritative.
       this.route = { page: "discover" }; this.render(); this.workbench?.openMap(panel); return;
     } else if (normal && this.route.page === "home") {
       renderWorkspaceHome(surface, scope, this.app.vault.getName(), state, this.controller.listFindings(), this.motion, {
-        select: path => this.selectScope(path), open: () => this.navigate({ page: "discover" }),
+        select: path => this.selectScope(path), open: () => { this.navigate({ page: "discover" }); this.workbench?.openMap(); },
         recall: () => this.navigate({ page: "recall" }), check: () => this.navigate({ page: "health" }),
         findings: () => this.navigate({ ...this.lastFindingsRoute }),
         reviewFinding: selectedFindingId => this.navigate(findingsRoute({ selectedFindingId })),

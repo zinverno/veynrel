@@ -30,7 +30,7 @@ export interface WorkbenchDependencies {
 export class WorkbenchData {
   semantic?: SemanticGlobalMapPort;
   comparison?: ConnectionComparisonPort;
-  global?: SemanticGlobalMapPort;
+  globalSemantic?: SemanticGlobalMapPort;
   neighborhood?: import("../semanticNeighborhoodPort").SemanticNeighborhoodPort;
   globalComparison?: ConnectionComparisonPort;
   duplicates?: SemanticDuplicateAnalysis;
@@ -45,9 +45,9 @@ export class WorkbenchData {
   constructor(readonly scope: SemanticMapScope, readonly dependencies: WorkbenchDependencies, graphical = true) {
     if (graphical) {
       this.ensureComparison();
-      this.global = dependencies.createGlobal?.();
+      this.globalSemantic = dependencies.createGlobal?.();
       this.neighborhood = dependencies.createNeighborhood?.();
-      this.globalComparison = this.global && dependencies.createComparison(this.global);
+      this.globalComparison = this.globalSemantic && dependencies.createComparison(this.globalSemantic);
     }
     const changed = (): void => {
       if (this.duplicates && (dependencies.topology.getSnapshot().state === "stale" ||
@@ -56,7 +56,7 @@ export class WorkbenchData {
       this.emit();
     };
     this.removers = [dependencies.topology.subscribe(changed)];
-    for (const source of [this.global, this.neighborhood, this.globalComparison]) if (source) this.removers.push(source.subscribe(changed));
+    for (const source of [this.globalSemantic, this.neighborhood, this.globalComparison]) if (source) this.removers.push(source.subscribe(changed));
     if (dependencies.rules) this.removers.push(dependencies.rules.subscribe(changed));
     if (dependencies.tags) this.removers.push(dependencies.tags.subscribe(changed));
     if (this.semantic) this.removers.push(this.semantic.subscribe(changed));
@@ -123,12 +123,12 @@ export class WorkbenchData {
     this.epoch++; this.abort?.abort(); this.abort = undefined; this.busy = false;
     if (this.duplicateState === "loading") this.duplicateState = this.duplicates ? "stale" : "idle";
     this.comparison?.cancel?.(); this.semantic?.cancel?.();
-    this.globalComparison?.cancel?.(); this.global?.cancel?.(); this.neighborhood?.cancel?.(); this.emit();
+    this.globalComparison?.cancel?.(); this.globalSemantic?.cancel?.(); this.neighborhood?.cancel?.(); this.emit();
   }
   dispose(): void {
     this.disposed = true; this.epoch++; this.abort?.abort();
     this.removers.forEach(remove => remove()); this.removers = [];
-    this.globalComparison?.dispose(); this.global?.dispose(); this.neighborhood?.dispose();
+    this.globalComparison?.dispose(); this.globalSemantic?.dispose(); this.neighborhood?.dispose();
     this.comparison?.dispose(); this.semantic?.dispose(); this.listeners.clear();
     this.dependencies.tags?.dispose();
   }

@@ -2104,3 +2104,20 @@ describe("R06.2b embedded structural parity",()=>{
     expect(port.refresh).not.toHaveBeenCalled();expect(embedded.texts()).not.toMatch(/@topology\./u);a();b();
   });
 });
+
+describe("R06.2b embedded semantic parity",()=>{
+  it.each(["en","ru"] as const)("retains global scores, exact-path selection and explicit focus without radial geometry (%s)",async lang=>{
+    setLanguage(lang);
+    const {renderSemanticGlobalMap}=await import("./renderSemanticGlobalMap");
+    const {newSemanticGlobalMapViewState}=await import("./renderSemanticGlobalMapGraph");
+    const map=comparisonSemanticMap(),parent=new mocks.Element(),focus=vi.fn(async()=>{}),openNote=vi.fn();
+    const port={getSnapshot:()=>({state:"ready" as const,map,busy:false,supportedNoteCount:500}),focus,load:vi.fn(async()=>{}),refresh:vi.fn(async()=>{}),resetFocus:vi.fn(),subscribe:()=>()=>{},dispose:vi.fn(),search:()=>({nodes:map.nodes,total:map.nodes.length})};
+    const state={...newSemanticGlobalMapViewState(),selected:"A.md"};
+    const cleanup=renderSemanticGlobalMap(parent as unknown as HTMLElement,port,state,{back:vi.fn(),openNote,explore:vi.fn()},true);
+    expect(parent.all().some(e=>e.tag==="svg")).toBe(false);expect(focus).not.toHaveBeenCalled();
+    parent.action("global-map-focus").click();expect(focus).toHaveBeenCalledWith("A.md");
+    parent.action("global-map-neighbor-0").click();expect(state.selected).toBe(map.nodes[0].neighbors[0].path);
+    parent.action("global-map-open-note").click();expect(openNote).toHaveBeenCalledWith(state.selected);
+    expect(parent.texts()).not.toMatch(/@global-map\./u);expect(port.refresh).not.toHaveBeenCalled();cleanup();
+  });
+});

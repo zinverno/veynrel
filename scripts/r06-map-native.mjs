@@ -129,7 +129,7 @@ try{
   await shot('baseline-overview');await ev(`wb.element.querySelector('[data-path="Bridges/Docker database.md"]').focus();void 0`);await key('Enter','Enter',13,'\r');
   await wait('!!wb.note');await shot('baseline-note');await stopVideo();
  }
- else if(unifiedMode){await runUnifiedJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
+ else if(unifiedMode){await runUnifiedJourney({ev,pass,shot,activate,field,key,wait,focus,main,report,connection,endpoint,io});await stopVideo();}
  else if(familiesMode){await runFamilyJourney({ev,pass,shot,activate,field,key,wait,focus,main,report});await stopVideo();}
  else {
  await activate('workbench-map-toggle');await activate('workbench-mode-notes');const searchStart=performance.now();await field('workbench-search','Note 00000');report.metrics.searchMs=performance.now()-searchStart;
@@ -194,8 +194,8 @@ try{
  }
  }
  await metric('final');await io('final');
- assert.equal(report.exceptions.length,0,'Unfiltered exceptions');assert.equal(await ev('io.network'),0);assert.equal(await ev('io.writes'),0);
+ assert.equal(await ev('io.network'),0);assert.equal(await ev('io.writes'),0);
  assert.deepEqual(Object.fromEntries(fixture.notes.map(n=>[n.path,sha(fs.readFileSync(`${vault}/${n.path}`))])),original);report.checks.push('Every synthetic Markdown file byte-identical');
- report.markdownManifestSha256=sha(JSON.stringify(original));report.status='PASS';
+ report.markdownManifestSha256=sha(JSON.stringify(original));assert.equal(report.exceptions.length,0,'Unfiltered exceptions');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=String(error.stack??error);process.exitCode=1;try{if(main){report.failureState=await ev('({markdown:app.vault.getMarkdownFiles().length,cacheKnown:app.vault.getMarkdownFiles().filter(f=>!!app.metadataCache.getFileCache(f)).length,io})');await shot('failure');}await stopVideo();}catch(e){report.captureError=String(e);}}
 finally{fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2)+'\n');for(const c of connections)c.socket.close();if(child.exitCode===null&&child.signalCode===null){const exited=new Promise(r=>child.once('exit',r));child.kill('SIGTERM');const timer=setTimeout(()=>child.kill('SIGKILL'),3000);await exited;clearTimeout(timer);}console.log(JSON.stringify({root,status:report.status,checks:report.checks.length,error:report.error}));}
