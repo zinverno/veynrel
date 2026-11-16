@@ -282,3 +282,16 @@ describe.each(["ru", "en"] as const)("contextual Notes in %s", language => {
     f.view.dispose(); next.view.dispose();
   });
 });
+
+it("keeps an open map when switching interface language without rebuilding its owner", () => {
+  const f = setup(); f.action("review-map").click();
+  const graph = f.map.mock.results[0].value as { update: ReturnType<typeof vi.fn> };
+  for (const language of ["ru", "en"] as const) {
+    setLanguage(language); f.view.update([finding]);
+    expect(f.map).toHaveBeenCalledOnce();
+    expect(f.root.querySelector('[data-review-surface="map"]')?.hidden).toBe(false);
+    expect(graph.update).toHaveBeenLastCalledWith([finding]);
+    expect(f.forbidden).not.toHaveBeenCalled();
+  }
+  f.view.dispose();
+});

@@ -440,7 +440,7 @@ export class VeynrelHealthView extends ItemView {
           notes, history: () => this.tools.openOperationHistory(), settings: () => this.navigate({ page: "settings" }),
           map: (parent, reviewed) => new WorkbenchView(parent, this.workbenchHost!.create(data.scope, true), this.workbenchHost!.pair, {
           notes, openNote: path => { void this.openNote(path); }, search: () => this.semantic?.openSearch(),
-          settings: () => this.navigate({ page: "settings" }), history: () => this.tools.openOperationHistory(),
+          settings: () => this.settingsAction("semantic"), history: () => this.tools.openOperationHistory(),
           decisions: reviewed, similar: () => this.semantic?.openSimilarNotes(), advanced: page => this.navigate({ page }),
         }, this.contentEl),
         }, this.contentEl);

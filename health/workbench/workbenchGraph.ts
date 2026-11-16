@@ -28,6 +28,7 @@ export function overviewWorkbench(state:WorkbenchGraphState):void {
   state.focus=undefined;state.overview=undefined;
 }
 export interface GraphOptions {
+  structural?:boolean;
   items:readonly MapItem[]; simulation:WorkbenchSimulation; query:string; zones:readonly TagZone[]; activeZones:readonly string[];
   zone?:string; selectZone(tag?:string):void; group(paths:readonly string[]):void;
 }
@@ -51,12 +52,12 @@ export function renderWorkbenchGraph(parent:HTMLElement,model:WorkbenchModel,sel
   const byPath=new Map(items.map(item=>[item.path,item]));
   const zones=options.activeZones.map(tag=>options.zones.find(zone=>zone.tag===tag)).filter((zone):zone is TagZone=>Boolean(zone));
   assignTagHues(zones.map(zone=>zone.tag),state.hues);
-  const toolbar=scene.createDiv({cls:"veynrel-workbench-map-tools"});
+  const toolbar=parent.createDiv({cls:"veynrel-workbench-map-tools"});
   const control=(label:string,action:()=>void,id:string):HTMLButtonElement=>{
     const button=healthButton(toolbar,label,()=>{if(live)action();},id);button.setAttribute("aria-label",label);button.title=label;return button;
   };
-  for(const key of ["links","semantic"]as const)control(t(key==="links"?"@workbench.links":"@workbench.meaning"),()=>{state[key]=!state[key];redraw();},`workbench-layer-${key}`).setAttribute("aria-pressed",String(state[key]));
-  const zoneKeys=scene.createDiv({cls:"veynrel-zone-keys"});
+  for(const key of (options.structural?["links"] as const:["links","semantic"] as const))control(t(key==="links"?"@workbench.links":"@workbench.meaning"),()=>{state[key]=!state[key];redraw();},`workbench-layer-${key}`).setAttribute("aria-pressed",String(state[key]));
+  const zoneKeys=parent.createDiv({cls:"veynrel-zone-keys"});
   const zoneNodes=new Map<string,{field:SVGElement;gradient:SVGElement;stops:SVGElement[];chip:HTMLButtonElement}>();
   for(const [index,zone]of zones.entries()){
     const gradient=element("radialGradient",{id:`veynrel-soft-${rendererId}-${index}`},defs);
@@ -83,8 +84,8 @@ export function renderWorkbenchGraph(parent:HTMLElement,model:WorkbenchModel,sel
   const nodes=items.map(point=>{
     const chosen=(point.members??[point.path]).some(path=>selected.includes(path));
     const node=element(point.members?"rect":"circle",{class:`veynrel-workbench-node${chosen?" is-selected":""}${point.members?" is-group":""}`,role:"button",tabindex:0,[point.members?"data-group":"data-path"]:point.path},world);
-    node.classList.toggle("is-unmapped",!point.members&&!model.nodes.find(node=>node.path===point.path)?.semantic);
-    node.setAttribute("aria-label",point.members?t("@r06.display-group",{count:point.members.length})+` · ${point.label}`:point.path+(model.nodes.find(node=>node.path===point.path)?.semantic?"":` · ${t("@r06.unmapped-node")}`));
+    node.classList.toggle("is-unmapped",!options.structural&&!point.members&&!model.nodes.find(node=>node.path===point.path)?.semantic);
+    node.setAttribute("aria-label",point.members?t("@r06.display-group",{count:point.members.length})+` · ${point.label}`:point.path+(options.structural||model.nodes.find(node=>node.path===point.path)?.semantic?"":` · ${t("@r06.unmapped-node")}`));
     element("title",{},node).textContent=node.getAttribute("aria-label");
     const label=labelLayer.createDiv({cls:"veynrel-workbench-label",text:point.members?`${point.members.length} · ${point.label}`:point.path.split("/").pop()!.replace(/\.md$/u,"")});
     label.dataset.labelPath=point.path;
@@ -98,14 +99,14 @@ export function renderWorkbenchGraph(parent:HTMLElement,model:WorkbenchModel,sel
     node.addEventListener("focus",()=>{focused=point.path;measured=false;schedule();});node.addEventListener("blur",()=>{focused=undefined;measured=false;schedule();});
     return {point,node,label,rim,segments,chosen,labelWidth:0,labelHeight:0};
   });
-  const help=scene.createEl("details",{cls:"veynrel-map-help"});
+  const help=parent.createEl("details",{cls:"veynrel-map-help"});
   help.createEl("summary",{text:t("@visual.help"),attr:{"aria-label":t("@visual.help")}});
-  help.createEl("p",{text:t("@visual.grammar")});
+  help.createEl("p",{text:t(options.structural?"@uxc.structure-grammar":"@visual.grammar")});
   help.createEl("p",{text:t("@visual.suggested")});
   help.createEl("p",{text:t("@mapnav.map-count",{shown:items.reduce((n,item)=>n+(item.members?.length??1),0),total:model.nodes.length,groups:items.filter(item=>item.members).length,edges:shown.length,hidden:eligible.length-shown.length})});
   help.addEventListener("toggle",()=>schedule());
-  const motion=control(t(simulation.paused?"@visual.resume":"@visual.pause"),()=>{simulation.paused=!simulation.paused;motion.textContent=t(simulation.paused?"@visual.resume":"@visual.pause");motion.setAttribute("aria-pressed",String(simulation.paused));motion.setAttribute("aria-label",motion.textContent??"");motion.title=motion.textContent??"";schedule();},"workbench-motion");
-  motion.setAttribute("aria-pressed",String(simulation.paused));
+  if(!options.structural){const motion=control(t(simulation.paused?"@visual.resume":"@visual.pause"),()=>{simulation.paused=!simulation.paused;motion.textContent=t(simulation.paused?"@visual.resume":"@visual.pause");motion.setAttribute("aria-pressed",String(simulation.paused));motion.setAttribute("aria-label",motion.textContent??"");motion.title=motion.textContent??"";schedule();},"workbench-motion");
+  motion.setAttribute("aria-pressed",String(simulation.paused));}
   const camera=():void=>{state.fitted=true;schedule();};
   for(const [id,factor,label]of [["in",1.2,"+"],["out",1/1.2,"−"]]as const){const button=control(t(`@workbench.zoom-${id}`),()=>{state.viewport=zoomGraph(state.viewport,factor,500,320,12,.05);camera();},`workbench-zoom-${id}`);button.textContent=label;}
   control(t("@workbench.fit"),()=>{state.viewport=fitPoints(items,canvasWorldWidth(width,height));camera();},"workbench-fit");
@@ -168,7 +169,7 @@ export function renderWorkbenchGraph(parent:HTMLElement,model:WorkbenchModel,sel
       const dim=Boolean(active&&!active.members.has(point.path))||Boolean(attention&&!neighbors.has(point.path)&&!chosen);
       node.classList.toggle("is-dimmed",dim);
       if(point.members){for(const [key,value]of Object.entries({x:point.x-25/scale,y:point.y-17/scale,width:50/scale,height:34/scale,rx:9/scale}))node.setAttribute(key,String(value));}
-      else {node.setAttribute("cx",String(point.x));node.setAttribute("cy",String(point.y));node.setAttribute("r",String((hot?5.5:3.4)/scale));}
+      else {node.setAttribute("cx",String(point.x));node.setAttribute("cy",String(point.y));node.setAttribute("r",String((options.structural?Math.min(8,3.4+Math.sqrt(degree.get(point.path)??0))+(hot?2:0):hot?5.5:3.4)/scale));}
       if(rim){rim.setAttribute("cx",String(point.x));rim.setAttribute("cy",String(point.y));rim.setAttribute("r",String((hot?8:5.9)/scale));rim.classList.toggle("is-dimmed",dim);}
       segments.forEach(({zone,arc},i)=>{
         const show=hot||active?.members.has(point.path);arc.setAttribute("opacity",show?"1":"0");if(!show)return;

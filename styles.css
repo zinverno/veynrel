@@ -3362,3 +3362,19 @@
 .veynrel-processing-row h2 { font-size:var(--font-ui-medium); margin:0; }
 .veynrel-processing-row p { margin-block:var(--size-4-2); }
 .veynrel-processing-row button { height:auto; white-space:normal; }
+
+/* UX-C modes use the same native canvas and separate camera state. */
+.veynrel-workbench-heading button[aria-pressed="true"] { border-color: var(--interactive-accent); font-weight: var(--font-semibold); }
+.veynrel-workbench-map-pane:has(> p) { height: auto; min-height: 120px; padding-block: var(--size-4-3); }
+.veynrel-workbench-heading { flex-wrap: wrap; gap: var(--size-4-2); }
+
+.veynrel-workbench-heading > button { margin-left: 0; }
+.veynrel-workbench-heading > button:last-child { margin-left: auto; }
+.veynrel-workbench-grid .veynrel-workbench-map-pane { height: auto; }
+.veynrel-workbench-map-pane > .veynrel-workbench-map { flex: none; height: 440px; }
+.veynrel-workbench-map-pane > .veynrel-workbench-map-tools { margin-block: var(--size-4-2); }
+.veynrel-workbench-map-pane > .veynrel-map-help,
+.veynrel-workbench-map-pane > .veynrel-map-help[open] { position: static; width: auto; max-height: none; padding: 0; border: none; box-shadow: none; }
+@container (max-width: 600px) {
+  .veynrel-workbench-map-pane > .veynrel-workbench-map { height: 360px; }
+}

@@ -63,7 +63,11 @@ export class ReviewListView {
   }
   update(findings: readonly Finding[]): void {
     if (this.disposed) return;
-    if (this.language !== currentLanguage()) { this.suspend(); this.language = currentLanguage(); }
+    if (this.language !== currentLanguage()) {
+      const restoreMap = this.mapOpen;
+      this.suspend(); this.language = currentLanguage(); this.findings = findings;
+      if (restoreMap) { this.openMap(); return; }
+    }
     this.suspended = false;
     this.syncLayout();
     this.findings = findings;

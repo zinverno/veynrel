@@ -1,3 +1,4 @@
+import { runMapUX } from './product-ux-map.mjs';
 // Real Obsidian/Electron smoke. No DOM mocks, provider calls or personal vault.
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
@@ -95,7 +96,7 @@ try {
   report.passive=await main.ev('({...uxIO})');
   assert.equal(report.passive.pluginRead,0,'Passive Veynrel Markdown reads');assert.equal(report.passive.pluginWrite,0,'Passive Veynrel Markdown writes');
   for(const theme of ['light','dark']){await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await shot('first-'+theme);}
-  if (phase === 'notes-benchmark') {
+  if (phase === 'notes-benchmark' || phase === 'structure-benchmark') {
     const started=performance.now();await main.ev("hv.navigate({page:'discover'});void 0");await wait("!!document.querySelector('[data-note-row]')");
     report.notesReadyMs=performance.now()-started;
     report.notes=await main.ev('({scope:hv.workbench.data.scope.paths.length,files:app.vault.getMarkdownFiles().length,cached:app.vault.getMarkdownFiles().filter(f=>app.metadataCache.getFileCache(f)).length,rows:document.querySelectorAll("[data-note-row]").length,elements:document.querySelectorAll(".veynrel-review-list *").length,heapUsed:performance.memory?.usedJSHeapSize??null})');
@@ -105,6 +106,18 @@ try {
     await main.ev("document.querySelector('[data-note-row] input').focus();void 0");await key(' ','Space',32,' ');
     await pass('10k-capable list keeps exact existing selection without IO',`hv.workbench.chosen[0]==='Note-${noteCount-1}.md'&&uxIO.pluginRead===0&&uxIO.pluginWrite===0`);
     await shot('notes-benchmark');report.semantic={indexed:0,computed:0,reason:'disabled; file list uses metadata only'};
+    if(phase==='structure-benchmark') {
+      await main.ev("document.querySelector('[data-health-action=review-map]').focus();void 0");await key('Enter','Enter',13,'\r');
+      await main.ev('window.wb=hv.workbench.map;window.beforeMapIO={...uxIO};void 0');
+      const started=performance.now();await main.ev("document.querySelector('[data-health-action=workbench-refresh]').focus();void 0");await key('Enter','Enter',13,'\r');
+      await wait("wb.data.dependencies.topology.getSnapshot().state==='ready'&&!wb.pendingRender");
+      report.structureWallMs=performance.now()-started;
+      report.structure=await main.ev("(()=>{const s=wb.data.dependencies.topology.getSnapshot();return {scope:wb.data.scope.paths.length,cached:app.vault.getMarkdownFiles().filter(f=>app.metadataCache.getFileCache(f)).length,represented:s.map.noteCount,unknown:s.map.nodes.filter(n=>!n.linksAvailable).length,complete:s.map.complete,topology:s.timing,layoutMs:wb.layoutMilliseconds,representationMs:wb.representationMilliseconds,items:wb.items.length,rendered:wb.element.querySelectorAll('[data-path],[data-group]').length,svgElements:wb.element.querySelectorAll('svg *').length,dom:wb.element.querySelectorAll('*').length,heapUsed:performance.memory?.usedJSHeapSize,render:wb.graph.metrics}})()");
+      await pass('Every path represented; only bounded technical groups rendered',`wb.items.flatMap(i=>i.members??[i.path]).length===${noteCount}&&wb.items.length<=500&&wb.data.semantic.getSnapshot().state==='idle'`);
+      await pass('Structure does not read or modify Markdown',"uxIO.pluginRead===beforeMapIO.pluginRead&&uxIO.pluginWrite===beforeMapIO.pluginWrite");
+      await shot('structure-benchmark');
+    }
+
   } else {
   const start=Date.now();
   await main.ev("document.querySelector('[data-health-action=start-local], [data-health-action=scan]').focus();void 0");await key('Enter','Enter',13,'\r');
@@ -153,6 +166,7 @@ try {
       const start=Date.now();await main.ev(`hv.navigate({page:'${page}'});void 0`);report.actions.push({transition:page,ms:Date.now()-start});
       for(const theme of ['light','dark']){await main.ev(`app.changeTheme('${theme==='light'?'moonstone':'obsidian'}');void 0`);await shot(name+'-'+theme);}
     }
+    if (phase === 'after-c') await runMapUX({main,wait,pass,shot,focus,key,report});
     if (phase === 'after-b') {
       const activate = async (selector, checkbox=false) => {
         await focus();await main.ev(`{const e=document.querySelector(${JSON.stringify(selector)});if(!e||e.disabled)throw Error('Control unavailable');e.scrollIntoView({block:'center'});e.focus();}void 0`);
@@ -227,6 +241,14 @@ try {
       await pass('Popout selects an exact note using its own keyboard document',"popNotes.workbench.chosen[0]==='Source.md'",pop);await shot('popout-notes',pop);
     }
 
+    if(phase==='after-c') {
+      await pop.ev("window.popMapView=app.workspace.getLeavesOfType('veynrel-health').find(l=>l.view.containerEl.ownerDocument===document).view;popMapView.navigate({page:'discover'});popMapView.contentEl.querySelector('[data-health-action=review-map]').focus();void 0");
+      for(const type of ['keyDown','keyUp'])await pop.send('Input.dispatchKeyEvent',{type,key:'Enter',code:'Enter',windowsVirtualKeyCode:13,...(type==='keyDown'?{text:'\r'}: {})});
+      await wait("!!document.querySelector('svg[data-camera]')",pop);
+      await pop.ev("document.querySelector('[data-path=\"Source.md\"]').focus();void 0");
+      for(const type of ['keyDown','keyUp'])await pop.send('Input.dispatchKeyEvent',{type,key:'Enter',code:'Enter',windowsVirtualKeyCode:13,...(type==='keyDown'?{text:'\r'}: {})});
+      await pass('Structural map selection uses the popout document',"popMapView.workbench.map.note==='Source.md'&&popMapView.workbench.map.element.ownerDocument===document",pop);await shot('popout-structure',pop);
+    }
     await main.ev('uxPop.detach();void 0');await focus();
     await pass('Focus returns to main window','document.hasFocus()');
     assert.equal(report.externalRequests.length,0,'No HTTP requests during the walkthrough');
