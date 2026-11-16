@@ -1,0 +1,35 @@
+{"root": "/tmp/veynrel-infra-test-456d8f4bbcfa", "command": ["/usr/bin/python", "-c", "import subprocess,sys; subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(60)\"]);sys.exit(7)"], "timeoutSeconds": 15, "startedAt": 1794799490.5788825, "exitCode": 1, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 2.069}
+F{"root": "/tmp/veynrel-infra-test-3ab9a0f0ed5a", "command": ["/usr/bin/python", "-c", "import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/'ready').touch();time.sleep(60)", "/tmp/veynrel-infra-test-3ab9a0f0ed5a"], "timeoutSeconds": 30, "startedAt": 1794799492.708435, "exitCode": 1, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 2.269}
+F{"root": "/tmp/veynrel-infra-test-88cd2dbd02a2", "command": ["/usr/bin/python", "-c", "import time;time.sleep(60)"], "timeoutSeconds": 3, "startedAt": 1794799495.0272117, "exitCode": 1, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 2.219}
+F
+======================================================================
+FAIL: test_failure_cleans_descendants_and_keeps_exit_status (__main__.RunnerTests.test_failure_cleans_descendants_and_keeps_exit_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/native/test_runner.py", line 33, in test_failure_cleans_descendants_and_keeps_exit_status
+    self.assertEqual(runner.run(command, root, timeout=15), 7)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 7
+
+======================================================================
+FAIL: test_sigterm_cleans_process_group (__main__.RunnerTests.test_sigterm_cleans_process_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/native/test_runner.py", line 50, in test_sigterm_cleans_process_group
+    self.assertIsNone(proc.poll()); time.sleep(.05)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+AssertionError: 1 is not None
+
+======================================================================
+FAIL: test_timeout_cleans_process_group (__main__.RunnerTests.test_timeout_cleans_process_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-one-map-20261116/scripts/native/test_runner.py", line 38, in test_timeout_cleans_process_group
+    self.assertEqual(runner.run([sys.executable, '-c', 'import time;time.sleep(60)'], root, timeout=3), 124)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 124
+
+----------------------------------------------------------------------
+Ran 3 tests in 6.687s
+
+FAILED (failures=3)

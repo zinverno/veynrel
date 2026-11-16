@@ -1,0 +1,26 @@
+{
+  "source": "0ef05ab9217d95b331eecc3c39b9c3f70239dac5",
+  "base": "90815b044b5351588f5cd21fecd3024501b45b6b",
+  "priorHead": "f3e6877c502be7fcca17fcc4ceab6a9b83b60c3e",
+  "classification": "unpublished R06.1 development code; displayed manifest version is not a release identity",
+  "packageVersion": "2.4.0",
+  "manifestVersion": "2.3.1",
+  "assets": {
+    "main.js": "d62638ffcdb2d0bfb724d0cd11e2f231de8096fca257077f162389541c7a167a",
+    "styles.css": "8bd2ef4e334931500132dd7a61dc56b304b25989cdac2266cc2eaabb4f820be4",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "protectedFiles": {
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1",
+    "versions.json": "4d4a44b2ba23c7fe4c38dd228ba7e9bd4d7e469ed9f72b5073f874a92971f07d",
+    "package.json": "be6ea65063a19f133126241e0ee2b512f8d05d3189b95902a19d109ce9a08d0b",
+    "package-lock.json": "f8302565624c1b926dbbab4687c3a2a51cdc180281934555dc37b0ac5c5346d8",
+    "releaseCompatibility.test.ts": "04ee43715b91743a4aeb7d7274b460803d080cc17775c177efa8382729f655d9",
+    "version-bump.mjs": "59eb0fb22cd25a2493ff912e65fb9975fca2a94b529bb2411fc85a06d49202b7",
+    "version-bump.test.ts": "0d342068043db3394be35663837a6bb9b4cbe871c961ec16630537cee68ac15c"
+  },
+  "manifestMatchesDownloadedPublishedBytes": true,
+  "mainJsDeltaFromPriorR06": "exactly two bundled manifest string changes: version and public description",
+  "stylesIdenticalToPriorR06": true,
+  "catalogFixtureCommit": "2c9de8caede80fc91b46f49f18548c7f38b24fd4"
+}

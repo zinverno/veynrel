@@ -1,0 +1,41 @@
+{
+  "purpose": "Independent read-only disk check after failed confirmation gate; not a successful Apply/Undo or retroactive PASS",
+  "files": [
+    {
+      "path": "Formatting.md",
+      "expectedSha256": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "actualSha256": "24afc9d847e429e01abbc7bc4368eeb3e5e3e33c09aa1823ad28d885803a18aa",
+      "equal": true
+    },
+    {
+      "path": "Training.md",
+      "expectedSha256": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "actualSha256": "a9d1e5ce2295528ff759d7b4c88cca008d7540ab672679886f4c43ade1262c43",
+      "equal": true
+    },
+    {
+      "path": "Nutrition.md",
+      "expectedSha256": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "actualSha256": "fc717db351ac652092e8253f7a729ae10681a40ed2cffba39a8b10036b9565f4",
+      "equal": true
+    },
+    {
+      "path": "Batch/a/same.md",
+      "expectedSha256": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "actualSha256": "03ce08260fa9c1726be7acb4d21dfc59d39743829aff75dd252bf7a9fc97c1d9",
+      "equal": true
+    },
+    {
+      "path": "Batch/b/same.md",
+      "expectedSha256": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "actualSha256": "fa29f526d28db7e8e3bb296ec4e764c74b517e99195b5f4d52812587f4ef6a25",
+      "equal": true
+    },
+    {
+      "path": "Untouched.md",
+      "expectedSha256": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb",
+      "actualSha256": "2d19d25846e985b9a99b5911134236a28a5e06a52d51dd7975af5131fe6710cb",
+      "equal": true
+    }
+  ]
+}

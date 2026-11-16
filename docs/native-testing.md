@@ -5,6 +5,9 @@ installed Obsidian/Electron, not a DOM mock or browser recreation of the plugin.
 It never starts Openbox on the working display. A visible comparison requires
 the explicit `--desktop` option.
 
+The [post-#148 R06.1 integration report](r06/part1-integration-148.md) separates the
+new development-build receipts from historical runs and records any merge blocker.
+
 ## Commands
 
 During R06–R15 the public manifest remains **2.3.1** while package/lock-root development metadata remains **2.4.0**. A current-checkout native build therefore reports 2.3.1 in Obsidian and manifest-based diagnostics; it is still unpublished development code. Record the source commit, package version and SHA-256 of all three installed assets, and label the run as development. Test the actual stable release using its separate downloaded asset directory. Never identify a build or claim an upgrade solely from the displayed version. See the [version policy](community-version-policy.md).
