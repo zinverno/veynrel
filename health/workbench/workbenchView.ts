@@ -44,7 +44,6 @@ export class WorkbenchView {
   private limit = 60;
   private showList = false;
   private showDetail = true;
-  private pinned = false;
   private expanded = false;
   private selected?: WorkbenchPair;
   private note?: string;
@@ -76,7 +75,7 @@ export class WorkbenchView {
     this.browser=this.element.createDiv({cls:"veynrel-workbench-browser"});this.review=this.element.createDiv({cls:"veynrel-workbench-review"});this.review.hidden=true;
     this.inspectors=new WorkbenchInspectors(data,()=>this.render(),{
       openNote:path=>actions.openNote(path),selectNote:path=>{if(this.data.scope.paths.includes(path))this.selectNote(path);},
-      returnToMap:()=>{const graph=this.browser.querySelector<SVGSVGElement>(".veynrel-workbench-map > svg");graph?.scrollIntoView({block:"center"});graph?.focus({preventScroll:true});},
+      returnToMap:()=>this.focusMap(),
       openPair:(left,right)=>{this.actions.openNote(left);this.actions.openNote(right);},
     });
     this.element.addEventListener("keydown",this.escape);
@@ -135,7 +134,7 @@ export class WorkbenchView {
     else if(this.graph.focus)overviewWorkbench(this.graph);
     else if(this.selected||this.note){this.selected=undefined;this.note=undefined;}
     else return;
-    event.preventDefault();event.stopPropagation();this.render();this.browser.querySelector<SVGSVGElement>("svg[tabindex]")?.focus();
+    event.preventDefault();event.stopPropagation();this.render();this.focusMap();
   };
   private render(): void {
     if(this.disposed||this.suspended||this.stopReview)return;
@@ -214,7 +213,7 @@ export class WorkbenchView {
     const needle=this.query.trim().toLocaleLowerCase();
     const included=(path:string):boolean=>path.toLocaleLowerCase().includes(needle)&&matchesTagFilter(path,zones,this.zones.filter,this.zones.mode)&&(!this.groupPaths||this.groupPaths.includes(path));
     const visiblePaths=new Set(model.nodes.filter(node=>included(node.path)).map(node=>node.path));
-    const work=this.browser.createDiv({cls:`veynrel-workbench-grid${this.showList?" is-list-open":""}${this.pinned?" is-detail-pinned":""}`});
+    const work=this.browser.createDiv({cls:`veynrel-workbench-grid${this.showList?" is-list-open":""}`});
     const map=work.createEl("section",{cls:"veynrel-workbench-map-pane"});
     const visibleItems=this.items.filter(item=>(item.members??[item.path]).some(path=>visiblePaths.has(path))).map(item=>item.members?{...item,members:item.members.filter(path=>visiblePaths.has(path))}:item);
     this.stopGraph=renderWorkbenchGraph(map,model,selectedPaths,this.graph,{items:visibleItems,simulation:this.simulation,query:this.query,zones,activeZones:this.zones.active,zone:this.zones.selected,
@@ -253,8 +252,7 @@ export class WorkbenchView {
       work.setAttribute("data-detail-visible","true");
       const detail=work.createEl("section",{cls:"veynrel-workbench-selection",attr:{tabindex:"-1","data-workbench-selection":"true"}});
       const detailTools=detail.createDiv({cls:"veynrel-detail-tools"});
-      button(detailTools,t(this.pinned?"@mapnav.unpin":"@mapnav.pin"),()=>{this.pinned=!this.pinned;this.render();},"workbench-pin");
-      button(detailTools,t("@mapnav.close"),()=>{this.showDetail=false;this.render();},"workbench-detail-close");
+      button(detailTools,t("@mapnav.close"),()=>{this.showDetail=false;this.render();this.focusMap();},"workbench-detail-close");
       for(const path of selectedPaths){
         detail.createEl("h2",{text:path.split("/").pop()!.replace(/\.md$/u,"")});
         detail.createEl("p",{text:path,cls:"veynrel-workbench-path"});
@@ -311,7 +309,7 @@ export class WorkbenchView {
         const width=box?canvasWorldWidth(box.width,box.height):undefined;
         focusWorkbench(this.graph,selectedPaths,model);this.graph.viewport=fitPoints(this.items.filter(item=>this.graph.focus!.includes(item.path)),width);this.render();
       },"workbench-focus");
-      button(detail,t("@mapnav.clear-selection"),()=>{this.note=undefined;this.selected=undefined;this.render();},"workbench-clear-selection");
+      button(detail,t("@mapnav.clear-selection"),()=>{this.note=undefined;this.selected=undefined;this.render();this.focusMap();},"workbench-clear-selection");
       const diagnostics=healthDetails(detail,t("@mapnav.details"),"workbench-selection-details");
       selectedPaths.forEach(path=>diagnostics.createEl("p",{text:path,cls:"veynrel-workbench-path"}));
       diagnostics.createEl("p",{text:t("@workbench.candidate-disclaimer")});
@@ -348,10 +346,17 @@ export class WorkbenchView {
     this.graph.overview??={...this.graph.viewport};this.graph.focus=family.paths;
     const box=this.browser.querySelector<SVGSVGElement>("svg[data-camera]")?.viewBox.baseVal;
     this.graph.viewport=fitPoints(this.points.filter(point=>family.paths.includes(point.path)),box?canvasWorldWidth(box.width,box.height):undefined);
-    this.render();this.browser.querySelector<HTMLElement>('[data-family-selected] button')?.focus();
+    this.render();this.focusMap();
   }
   private selectPair(pair:WorkbenchPair):void {this.selected=pair;this.note=undefined;this.showDetail=true;this.showList=false;this.render();this.focusSelection();}
-  private focusSelection():void {this.browser.querySelector<HTMLElement>("[data-workbench-selection]")?.focus({preventScroll:true});}
+  private focusSelection():void {
+    const detail=this.browser.querySelector<HTMLElement>("[data-workbench-selection]");
+    detail?.scrollIntoView({block:"start"});detail?.focus({preventScroll:true});
+  }
+  private focusMap():void {
+    const graph=this.browser.querySelector<SVGSVGElement>(".veynrel-workbench-map > svg");
+    graph?.scrollIntoView({block:"center"});graph?.focus({preventScroll:true});
+  }
   private openReview():void {
     if(!this.selected||this.stopReview||this.disposed)return;
     this.pageScroll=this.scrollOwner.scrollTop;this.stopGraph?.();this.stopGraph=undefined;

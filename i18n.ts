@@ -55,6 +55,7 @@ export function t(key: string, vars?: Record<string, string | number>, language 
 
 const RU: Record<string, string> = {
   "@r062b.prior-decision": "Эта пара уже рассматривалась. Проверка сохранённого решения и его актуальности доступна в списке Review; выбор пары вручную не отменяет решение.",
+  "@r062b.computed": "Рассмотрено в расчёте",
   "@r062b.semantic-title": "Сходство со всем индексом",
   "@r062b.compute-global": "Рассчитать по текущему индексу",
   "@r062b.focus-selected": "Сходство с: {note}",
@@ -2399,6 +2400,7 @@ const RU: Record<string, string> = {
 
 const EN: Record<string, string> = {
   "@r062b.prior-decision": "This pair was reviewed before. Check the saved decision and source freshness in the Review list; manual selection does not restore the candidate.",
+  "@r062b.computed": "Computed documents",
   "@r062b.semantic-title": "Whole-index similarity",
   "@r062b.compute-global": "Compute from current index",
   "@r062b.focus-selected": "Similarity to: {note}",

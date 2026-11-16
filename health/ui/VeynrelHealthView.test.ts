@@ -2115,11 +2115,26 @@ describe("R06.2b embedded semantic parity",()=>{
     const state={...newSemanticGlobalMapViewState(),selected:"A.md"};
     const cleanup=renderSemanticGlobalMap(parent as unknown as HTMLElement,port,state,{back:vi.fn(),openNote,explore:vi.fn()},true);
     expect(parent.all().some(e=>e.tag==="svg")).toBe(false);expect(focus).not.toHaveBeenCalled();
+    expect(parent.texts()).toContain(t("@r062b.computed"));
     expect(parent.action("global-map-focus").texts()).toContain(t("@r062b.focus-action"));
     expect(parent.texts()).not.toContain(t("@global-map.focus"));
     parent.action("global-map-focus").click();expect(focus).toHaveBeenCalledWith("A.md");
     parent.action("global-map-neighbor-0").click();expect(state.selected).toBe(map.nodes[0].neighbors[0].path);
     parent.action("global-map-open-note").click();expect(openNote).toHaveBeenCalledWith(state.selected);
     expect(parent.texts()).not.toMatch(/@global-map\./u);expect(port.refresh).not.toHaveBeenCalled();cleanup();
+  });
+});
+
+
+describe("embedded global computed coverage",()=>{
+  it.each(["en","ru"] as const)("does not call refused eligible documents computed (%s)",async lang=>{
+    setLanguage(lang);const {renderSemanticGlobalMap}=await import("./renderSemanticGlobalMap");
+    const {newSemanticGlobalMapViewState}=await import("./renderSemanticGlobalMapGraph");
+    const parent=new mocks.Element();
+    const port={getSnapshot:()=>({state:"unavailable" as const,reason:"too-large" as const,indexedNoteCount:1000,mappedNoteCount:1000,busy:false,supportedNoteCount:500}),focus:vi.fn(async()=>{}),load:vi.fn(async()=>{}),refresh:vi.fn(async()=>{}),resetFocus:vi.fn(),subscribe:()=>()=>{},dispose:vi.fn(),search:()=>({nodes:[],total:0})};
+    renderSemanticGlobalMap(parent as unknown as HTMLElement,port,newSemanticGlobalMapViewState(),{back:vi.fn(),openNote:vi.fn(),explore:vi.fn()},true)();
+    const metrics=parent.all().find(e=>e.cls==="veynrel-global-map-metrics")!;
+    expect(metrics.all().filter(e=>e.tag==="dd").map(e=>e.text)).toEqual(["1000","0"]);
+    expect(metrics.texts()).toContain(t("@r062b.computed"));expect(port.refresh).not.toHaveBeenCalled();
   });
 });

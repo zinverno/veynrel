@@ -29,9 +29,9 @@ export function renderSemanticGlobalMap(parent: HTMLElement, port: SemanticGloba
   const focus = snapshot.focus;
   const focusScores = new Map(focus?.scores.map((item) => [item.path, item.score]));
   const metrics = section.createEl("dl", { cls: "veynrel-global-map-metrics" });
-  for (const [label, value] of [["indexed", map?.indexedNoteCount ?? snapshot.indexedNoteCount], ["mapped", map?.mappedNoteCount ?? snapshot.mappedNoteCount]] as const) {
+  for (const [label, value] of [["indexed", map?.indexedNoteCount ?? snapshot.indexedNoteCount], ["mapped", embedded ? map?.mappedNoteCount ?? (snapshot.state === "idle" ? undefined : 0) : map?.mappedNoteCount ?? snapshot.mappedNoteCount]] as const) {
     if (value === undefined) continue;
-    const item = metrics.createDiv(); item.createEl("dt", { text: t(`@global-map.${label}`) }); item.createEl("dd", { text: String(value) });
+    const item = metrics.createDiv(); item.createEl("dt", { text: t(embedded && label === "mapped" ? "@r062b.computed" : `@global-map.${label}`) }); item.createEl("dd", { text: String(value) });
   }
   if (map) for (const [key, scores] of [[focus ? "selected-similarity" : "similarity", focus ? focus.scores.filter((item) => item.path !== focus.path).map((item) => item.score) : map.nodes.map((node) => node.coreSimilarity)], ["connectedness", map.nodes.map((node) => node.semanticConnectedness)]] as const) {
     const summary = semanticScoreSummary(scores);

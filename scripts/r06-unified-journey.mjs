@@ -128,5 +128,13 @@ async function runFocusLabels({ev,pass,shot,activate,field,wait,focus,main}) {
       await shot(`focus-${language}-${theme}-390`);await main.send('Emulation.clearDeviceMetricsOverride');
     }
   }
-  await pass('Label and theme changes add no Markdown read/write or model request','io.reads===0&&io.writes===0&&io.network===0');
+  await activate('workbench-inspector-close');await activate('workbench-refresh');await wait('!wb.data.busy&&!wb.pendingRender&&wb.simulation.alpha===0');
+  await activate('workbench-families');
+  const family=await ev("[...document.querySelectorAll('[data-semantic-family]')][0].getAttribute('data-health-action')");await activate(family);
+  await pass('Choosing a family returns keyboard focus to the central map',"document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')");
+  const member=await ev("document.querySelector('[data-family-selected] [data-health-action^=family-note-]').getAttribute('data-health-action')");await activate(member);
+  await pass('Note context scrolls into view instead of opening an invisible drawer',"(()=>{const detail=wb.element.querySelector('[data-workbench-selection]'),r=detail.getBoundingClientRect();return document.activeElement===detail&&r.top>=0&&r.top<innerHeight;})()");
+  await shot('context-navigation');await activate('workbench-detail-close');
+  await pass('Closing note context returns focus to the original canvas',"document.activeElement===wb.element.querySelector('.veynrel-workbench-map > svg')");
+  await pass('Label and theme changes add no Markdown read/write or model request' ,'io.reads===0&&io.writes===0&&io.network===0');
 }
