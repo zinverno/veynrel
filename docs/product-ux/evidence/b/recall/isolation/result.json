@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/recall-topics-native.mjs",
+    "<disposable>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794844631.1477697,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36975,
+    46217
+  ],
+  "cdpClosed": true,
+  "seconds": 29.705,
+  "originalReceiptSha256": "e29bef6f19ee39cf448b1111c78f1674e9cf4f39aa1a2207436a61d8ac7403d4"
+}

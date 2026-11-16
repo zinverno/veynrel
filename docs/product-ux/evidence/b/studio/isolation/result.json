@@ -1,0 +1,20 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/studio-source-preservation-native.mjs",
+    "<disposable>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794844459.6009672,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    39871,
+    41761,
+    36917,
+    46609
+  ],
+  "cdpClosed": true,
+  "seconds": 171.188,
+  "originalReceiptSha256": "dfd70b1e3acbb3221f6196d2534343bb930f24acba1e5249df2bcd032c0d9477"
+}

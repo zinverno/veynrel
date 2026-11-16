@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/r05-2-local-notes-native.mjs",
+    "<disposable>"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794844133.390113,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    34805,
+    34287
+  ],
+  "cdpClosed": true,
+  "seconds": 30.345,
+  "originalReceiptSha256": "c5fc63ce3fa5bc34c59aad585352af1b6ebc56135f8419bf5eff772382cf8ab5"
+}

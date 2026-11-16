@@ -208,12 +208,25 @@ try {
     await shot('studio-community-off');
     await main.ev("window.uxSplit=app.workspace.getLeaf('split');uxSplit.setViewState({type:'veynrel-health',active:true})");
     await pass('Real Workspace split mounts independently',"app.workspace.getLeavesOfType('veynrel-health').length===2");await shot('split');
+    if(phase==='after-b') {
+      await main.ev("uxSplit.view.navigate({page:'discover'});uxSplit.view.contentEl.querySelector('[data-health-action=review-search]').focus();void 0");await main.send('Input.insertText',{text:'Other.md'});
+      await main.ev("uxSplit.view.contentEl.querySelector('[data-note-row] input').focus();void 0");await key(' ','Space',32,' ');
+      await pass('Split keeps independent note selections',"uxSplit.view.workbench.chosen[0]==='Other.md'&&hv.workbench.chosen[0]==='Source.md'");await shot('split-notes');
+    }
+
     await main.ev('uxSplit.detach();void 0');
     await main.ev("window.uxPop=app.workspace.getLeaf('window');uxPop.setViewState({type:'veynrel-health',active:true})");
     await wait('uxPop.view.containerEl.ownerDocument!==document');
     let popTarget;for(let i=0;i<100;i++){popTarget=(await(await fetch(`${endpoint}/json/list`)).json()).find(t=>t.type==='page'&&t.id!==main.id);if(popTarget)break;await pause(50);}assert(popTarget);
     const pop=await connection(popTarget);await focus(pop);
     await pass('Popout has actual three-tab UI',"document.querySelectorAll('.veynrel-tabs button').length===3",pop);await shot('popout',pop);
+    if(phase==='after-b') {
+      await pop.ev("window.popNotes=app.workspace.getLeavesOfType('veynrel-health').find(l=>l.view.containerEl.ownerDocument===document).view;popNotes.navigate({page:'discover'});popNotes.contentEl.querySelector('[data-health-action=review-search]').focus();void 0");await pop.send('Input.insertText',{text:'Source.md'});
+      await pop.ev("popNotes.contentEl.querySelector('[data-note-row] input').focus();void 0");
+      for(const type of ['keyDown','keyUp'])await pop.send('Input.dispatchKeyEvent',{type,key:' ',code:'Space',windowsVirtualKeyCode:32,...(type==='keyDown'?{text:' '}: {})});
+      await pass('Popout selects an exact note using its own keyboard document',"popNotes.workbench.chosen[0]==='Source.md'",pop);await shot('popout-notes',pop);
+    }
+
     await main.ev('uxPop.detach();void 0');await focus();
     await pass('Focus returns to main window','document.hasFocus()');
     assert.equal(report.externalRequests.length,0,'No HTTP requests during the walkthrough');
