@@ -120,7 +120,7 @@ it.each(["1.8.0", "1.9.0"])("loads the actual published %s fixture without rewri
   expect(files).toEqual(unchanged); expect(mutate).not.toHaveBeenCalled();
 });
 
-it("keeps public 2.3.1 metadata separate from unpublished 2.4.0 development through R15", () => {
+it("keeps public 2.3.1 metadata separate until separately authorized publication of 2.4.0", () => {
   const pkg = JSON.parse(readFileSync(new URL("package.json", import.meta.url), "utf8")) as { version: string };
   const lock = JSON.parse(readFileSync(new URL("package-lock.json", import.meta.url), "utf8")) as { version: string; packages: { "": { version: string } } };
   const versions = JSON.parse(readFileSync(new URL("versions.json", import.meta.url), "utf8")) as Record<string, string>;
