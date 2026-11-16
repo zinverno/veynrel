@@ -21,7 +21,7 @@ export function semanticFamilies(snapshot?: SemanticGlobalMapProductSnapshot): F
   const paths = new Set(map.nodes.map(node => node.path));
   const retained = new Map<string, Set<string>>();
   for (const node of map.nodes) {
-    // Published top-K is five. Refuse unknown/unbounded input instead of a general clique search.
+    // shortcut: bounded to published top-K=5; revisit the projection contract before accepting larger neighborhoods.
     if (node.neighbors.length > 5) continue;
     const row = [...node.neighbors].filter(n => paths.has(n.path) && n.path !== node.path && Number.isFinite(n.score))
       .sort((a, b) => b.score - a.score || order(a.path, b.path));

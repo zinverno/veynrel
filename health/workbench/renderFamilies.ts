@@ -23,6 +23,7 @@ export function renderFamilies(parent: HTMLElement, projection: FamilyProjection
     basis.createEl("p", { text: t("@r062.family-method") });
     for (const edge of selected.relationships) basis.createEl("p", { text: `${edge.left} ↔ ${edge.right} · ${edge.score.toFixed(4)}` });
     basis.createEl("pre", { text: JSON.stringify({ revision: projection.map.revision, scope: projection.map.scope && { id: projection.map.scope.id, revision: projection.map.scope.revision } }, null, 2) });
+    return;
   }
   const input = details.createEl("input", { type: "search", attr: { "aria-label": t("@r062.family-search"), placeholder: t("@r062.family-search"), "data-health-action": "workbench-family-search" } });
   input.value = state.query;
