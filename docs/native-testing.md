@@ -5,8 +5,11 @@ installed Obsidian/Electron, not a DOM mock or browser recreation of the plugin.
 It never starts Openbox on the working display. A visible comparison requires
 the explicit `--desktop` option.
 
-The [post-#148 R06.1 integration report](r06/part1-integration-148.md) separates the
-new development-build receipts from historical runs and records any merge blocker.
+The [post-#149 R06.1 integration report](r06/part1-integration-149.md) records the
+current release policy and fresh isolated checks. The
+[post-#148 report](r06/part1-integration-148.md) and
+[Community diagnosis](r06/community-apply-attribution.md) remain historical evidence;
+the Community confirmation/document-ownership gate is still open.
 
 ## Commands
 

@@ -1,0 +1,38 @@
+{
+  "source": "99f7ae128c7b71dab6e76f6112bf0621d40bada4",
+  "fullSuite": {
+    "tests": 5376,
+    "files": 209,
+    "exit": 0
+  },
+  "typecheck": {
+    "exit": 0
+  },
+  "lint": {
+    "exit": 0,
+    "errors": 0,
+    "warnings": 2
+  },
+  "build": {
+    "exit": 0
+  },
+  "mutation": {
+    "exit": 0,
+    "killed": 5,
+    "total": 5,
+    "restoredChecks": "PASS"
+  },
+  "nativeSession": {
+    "exit": 0,
+    "tests": 2
+  },
+  "nativeRunner": {
+    "exit": 0,
+    "tests": 3
+  },
+  "historicalCommunityTraceValidator": {
+    "exit": 0,
+    "tests": 3,
+    "newCommunityNativeRun": false
+  }
+}
