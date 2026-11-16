@@ -370,6 +370,8 @@ Internal release candidates, test builds, updates of disposable vaults and regre
 
 The current 2.4.0 from R01 is an unpublished intermediate version, not a public release commitment. Determine the final version at R15; individual stages do not automatically bump it. This release-policy decision changes none of the product constraints, acceptance criteria or R01–R15 dependencies above.
 
+Community recovery correction: **2.4.0 belongs to package/lock-root development metadata only**. Keep the default-branch public manifest at published **2.3.1** and exclude the future 2.4.0 entry from `versions.json` throughout R06–R15. Do not restore the R01 metadata synchronization in later PRs or weaken its CI guard. See the [version policy and native-test consequences](../community-version-policy.md). Restoring the pointer to the existing release does not publish roadmap work.
+
 Use a focused first screen, a complete demonstrable scenario and a readable no-key path. Existing README content may be reused, but removed diagram features and future cloud claims must not remain current promises. Show normal outcomes, not only unavailable/stale-index screens. Label scripted demonstrations as such.
 
 Before interpreting a reported download drop, identify the counter, time window and freshness. A release-asset download count is not a unique new-user or active-user count. Track public totals consistently and gather first-use/return feedback voluntarily; do not add hidden plugin telemetry. Separate visibility, installation, first useful action and later reuse. Better engineering cannot guarantee traffic or growth.
