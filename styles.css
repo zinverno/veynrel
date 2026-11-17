@@ -3669,3 +3669,31 @@
 @container veynrel-workspace (max-width: 600px) {
   .veynrel-semantic-scenario [data-focus-path] { grid-template-columns: minmax(0, 1fr) auto; }
 }
+/* Floating actions live only in the owning Obsidian document. */
+.veynrel-floating { position: fixed; z-index: var(--layer-popover); display: flex; align-items: center; gap: 2px; max-width: calc(100vw - 16px); padding: 4px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-l); background: var(--background-primary); color: var(--text-normal); box-shadow: var(--shadow-s); }
+.veynrel-floating.is-modal-blocked { visibility: hidden; pointer-events: none; }
+.veynrel-floating button { flex: 0 0 auto; min-width: 38px; min-height: 38px; box-shadow: none; }
+.veynrel-floating [data-floating="toggle"] { min-width: 44px; min-height: 44px; }
+.veynrel-floating [data-floating="grip"] { cursor: grab; touch-action: none; width: 24px; min-width: 24px; }
+.veynrel-floating.is-dragging { user-select: none; }
+.veynrel-floating.is-dragging [data-floating="grip"] { cursor: grabbing; }
+.veynrel-floating .veynrel-floating-body { min-width: 0; animation: veynrel-floating-open 160ms ease-out; }
+.veynrel-floating [hidden] { display: none; }
+.veynrel-floating-actions { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; }
+.veynrel-floating .veynrel-floating-label { display: none; }
+.veynrel-floating .veynrel-floating-menu .veynrel-floating-label { display: inline; margin-left: 6px; }
+.veynrel-floating .veynrel-floating-context { max-width: 330px; font-size: var(--font-ui-smaller); color: var(--text-muted); overflow-wrap: anywhere; padding: 3px 6px; }
+.veynrel-floating-menu { display: flex; flex-wrap: wrap; border-top: 1px solid var(--background-modifier-border); margin-top: 4px; padding-top: 4px; }
+.veynrel-floating :focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.veynrel-floating-style { width: min(900px, calc(100vw - 32px)); }
+.veynrel-floating-preview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.veynrel-floating-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 40vh; overflow: auto; padding: 12px; border: 1px solid var(--background-modifier-border); }
+.veynrel-floating-consent { display: flex; align-items: center; gap: 8px; }
+@keyframes veynrel-floating-open { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
+@media (max-width: 600px) { .veynrel-floating-preview { grid-template-columns: minmax(0, 1fr); } .veynrel-floating .veynrel-floating-context { max-width: 290px; } }
+@media (prefers-reduced-motion: reduce) { .veynrel-floating .veynrel-floating-body { animation: none; } }
+.veynrel-floating { overflow-y: auto; }
+.veynrel-floating { width: max-content; }
+.veynrel-floating-recall .veynrel-recall-authoring > h2, .veynrel-floating-recall .veynrel-recall-authoring > .veynrel-recall-source { display: none; }
+.veynrel-floating-style details pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 30vh; overflow: auto; }
+.veynrel-semantic-scenario > .veynrel-connections > h2 { display: none; }

@@ -359,12 +359,14 @@ export class VeynrelHealthView extends ItemView {
     } else if (normal && this.route.page === "semantic-scenario" && this.workbenchHost) {
       const entry = this.route.entry;
       if (!this.scenario || this.scenarioEntry !== entry || this.scenarioRevision !== this.scopeRevision) {
+        const navigation = this.scenarioEntry === entry ? this.scenario?.captureNavigation() : undefined;
         this.scenario?.dispose();
         const actual = this.semanticScope();
         this.scenario = new SemanticScenarioView(this.app, surface, this.workbenchHost.create(actual, true), this.workbenchHost.pair,
           this.semantic, { ...entry, scope: actual }, { back: () => this.navigate({ page: "semantic" }),
             settings: () => { if (this.route.page === "semantic-scenario") this.semanticReturn = this.route; this.scenario?.suspend(); this.openSemanticSetup(); },
             openNote: path => { void this.openNote(path); }, history: () => this.tools.openOperationHistory() }, this.contentEl);
+        if (navigation) this.scenario.restoreNavigation(navigation);
         this.scenarioEntry = entry; this.scenarioRevision = this.scopeRevision;
       } else { surface.appendChild(this.scenario.element); this.scenario.update(); }
     } else if (normal && this.route.page === "semantic") {

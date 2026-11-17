@@ -23,6 +23,11 @@ export function resolveFlashcardNote(app: App, path: unknown): TFile | undefined
   return file instanceof TFile && file.path === path && file.extension.toLowerCase() === "md" ? file : undefined;
 }
 
+export interface RecallSourceHandoff {
+  readonly file: TFile; readonly path: string; readonly view: MarkdownView; readonly selection: string;
+  current(): boolean;
+}
+
 /** Host bridge only. Generation is injected from the existing plugin producer. */
 export class RecallAuthoringAdapter implements RecallAuthoringPort {
   private optionsPath?: string;
@@ -31,6 +36,7 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
   private result?: RecallAuthoringResult;
   private confirmation?: { file: TFile; path: string; view?: MarkdownView; settings: LanguageModelSettingsSnapshot };
   private operationPath?: string;
+  private captured?: RecallSourceHandoff;
   private disposed = false;
   private readonly listeners = new Set<() => void>();
   private readonly cleanup: (() => void)[];
@@ -41,7 +47,7 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
     private readonly prompts?: { get(): string; save(prompt?: string): Promise<void> }) {
     this.cleanup = [settings.subscribe(() => { this.cancelConfirmation(); this.notify(); })];
     const changed = () => {
-      if (this.confirmation && this.currentNote() !== this.confirmation.file) this.cancelConfirmation();
+      if (this.confirmation && !this.captured && this.currentNote() !== this.confirmation.file) this.cancelConfirmation();
       this.notify();
     };
     const refs = [app.workspace.on("active-leaf-change", changed), app.workspace.on("file-open", changed), app.workspace.on("layout-change", changed)];
@@ -71,14 +77,14 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
 
   getSnapshot(): RecallAuthoringSnapshot {
     const provider = this.confirmation?.settings.provider ?? this.settings.get().provider;
-    const sourcePath = this.confirmation?.path ?? (this.busy ? this.operationPath : this.currentNote()?.path);
+    const sourcePath = this.captured?.path ?? this.confirmation?.path ?? (this.busy ? this.operationPath : this.currentNote()?.path);
     // A completed result belongs to its source, including when the user switched notes while it was pending.
     const result = sourcePath === this.operationPath ? this.result : undefined;
     return { state: this.result && !result ? "idle" : this.state, configured: this.configured(), sourcePath,
       local: provider === "ollama", providerLabel: PROVIDER_PROFILES[provider]?.label ?? "",
       inputLimit: MAX_FLASHCARD_INPUT_LENGTH, options: { ...this.options }, prompt: this.prompts?.get(),
       tags: this.recall.getSnapshot().facets?.tags,
-      selectionLength: this.currentEditor()?.editor?.getSelection().length ?? 0,
+      selectionLength: this.captured ? this.captured.selection.length : this.currentEditor()?.editor?.getSelection().length ?? 0,
       result: result ? { ...result } : undefined };
   }
 
@@ -93,19 +99,27 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
   configure(options: Partial<RecallGenerationOptions>): void { if (!this.busy) this.options = { ...this.options, ...options }; }
   async savePrompt(prompt?: string): Promise<void> { if (this.busy) return; await this.prompts?.save(prompt); }
 
-  requestGeneration(): void {
+  requestCapturedGeneration(source: RecallSourceHandoff): void {
+    if (this.disposed || this.busy || !source.current()) return;
+    this.captured = source; this.prepareGeneration();
+  }
+
+  requestGeneration(): void { this.captured = undefined; this.prepareGeneration(); }
+
+  private prepareGeneration(): void {
     if (this.disposed || this.busy || this.recall.getSnapshot().session) return;
-    const file = this.currentNote();
+    const file = this.captured?.file ?? this.currentNote();
     if (!this.configured() || !file) return;
     const tags = this.app.metadataCache?.getFileCache(file)?.frontmatter?.tags as unknown;
     const contextTags = Array.isArray(tags) ? tags : typeof tags === "string" ? tags.split(/[ ,]+/u) : [];
     this.optionsPath = file.path;
     this.options = { ...DEFAULT_GENERATION_OPTIONS, tag: contextTags.find(isStudyTag) ?? "" };
-    this.confirmation = { file, view: this.currentEditor(file), path: file.path, settings: { ...this.settings.get() } };
+    this.confirmation = { file, view: this.captured?.view ?? this.currentEditor(file), path: file.path, settings: { ...this.settings.get() } };
     this.state = "confirming"; this.result = undefined; this.notify();
   }
 
   cancelConfirmation(): void {
+    this.captured = undefined;
     if (this.state !== "confirming") return;
     this.confirmation = undefined; this.state = "idle"; this.notify();
   }
@@ -115,11 +129,11 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
     if (this.disposed || this.state !== "confirming" || !consent) return;
     this.confirmation = undefined;
     this.operationPath = consent.path;
-    if (this.currentNote() !== consent.file || this.resolve(consent.path) !== consent.file) {
+    if ((this.captured ? !this.captured.current() : this.currentNote() !== consent.file) || this.resolve(consent.path) !== consent.file) {
       return this.finish({ status: "error", reason: "source-unavailable" });
     }
     if (!sameLanguageModelConnection(consent.settings, this.settings.get())) return this.finish({ status: "error", reason: "unconfigured" });
-    return this.generateForNote(consent.file, consent.view);
+    return this.generateForNote(consent.file, consent.view, undefined, this.captured);
   }
 
   closedWriteGuard(file: TFile): () => void {
@@ -135,7 +149,7 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
   }
 
   /** Existing command/context actions already express generation intent. They share this exact write/ingest path. */
-  async generateForNote(file: TFile, capturedView?: MarkdownView, promptOverride?: string): Promise<RecallAuthoringResult | undefined> {
+  async generateForNote(file: TFile, capturedView?: MarkdownView, promptOverride?: string, handoff?: RecallSourceHandoff): Promise<RecallAuthoringResult | undefined> {
     if (this.disposed || this.busy) return;
     this.confirmation = undefined;
     this.operationPath = file.path;
@@ -151,7 +165,8 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
       .filter((view): view is MarkdownView => view instanceof MarkdownView && view.file === file);
     const view = capturedView?.editor ? capturedView : this.currentEditor(file)?.editor ? this.currentEditor(file) : undefined;
     if ((!view && views.some(view => view.editor)) || (view && !views.includes(view))) return this.finish({ status: "error", reason: "conflict" });
-    const selection = view?.editor.getSelection();
+    if (handoff && (!handoff.current() || handoff.file !== file || handoff.view !== view || handoff.path !== path)) return this.finish({ status: "error", reason: "conflict" });
+    const selection = handoff ? handoff.selection : view?.editor.getSelection();
     const options = { ...this.options, ...(selection ? { selection } : {}) };
     this.state = "generating"; this.result = undefined; this.operationPath = path; this.notify();
     let content: string;
@@ -159,13 +174,14 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
     catch { return this.finish({ status: "error", reason: "source-unavailable" }); }
     if (this.disposed || this.resolve(path) !== file || content.length > MAX_NOTE_LENGTH) return this.finish({ status: "error", reason: "source-unavailable" });
     if (views.some(view => view.editor && view.editor.getValue() !== content)) return this.finish({ status: "error", reason: "source-unsaved" });
+    if (handoff && !handoff.current()) return this.finish({ status: "error", reason: "conflict" });
     let generated: { newContent: string; cardCount: number };
     try { generated = await this.build(content, settings, options, prompt); }
     catch (error) { return this.finish({ status: "error", reason: error instanceof RecallGenerationError ? error.reason : "generation-failed" }); }
     if (this.disposed) return this.finish({ status: "error", reason: "source-unavailable" });
     let editorInserted = false;
     try {
-      if (!sameLanguageModelConnection(settings, this.settings.get()) || this.prompts?.get() !== promptSnapshot || this.resolve(path) !== file) throw new NoteWriteConflictError();
+      if (handoff && !handoff.current() || !sameLanguageModelConnection(settings, this.settings.get()) || this.prompts?.get() !== promptSnapshot || this.resolve(path) !== file) throw new NoteWriteConflictError();
       if (view?.getMode() === "preview") {
         if (view.file !== file || view.editor.getValue() !== content ||
             !this.app.workspace.getLeavesOfType("markdown").some(leaf => leaf.view === view)) throw new NoteWriteConflictError();
@@ -173,7 +189,7 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
         await view.setState({ ...view.getState(), mode: "source" }, { history: false });
       }
       const current = await this.app.vault.read(file);
-      if (this.disposed || !sameLanguageModelConnection(settings, this.settings.get()) || this.prompts?.get() !== promptSnapshot || this.resolve(path) !== file) throw new NoteWriteConflictError();
+      if (this.disposed || handoff && !handoff.current() || !sameLanguageModelConnection(settings, this.settings.get()) || this.prompts?.get() !== promptSnapshot || this.resolve(path) !== file) throw new NoteWriteConflictError();
       const open = this.app.workspace.getLeavesOfType("markdown").map(leaf => leaf.view)
         .filter((leaf): leaf is MarkdownView => leaf instanceof MarkdownView && leaf.file === file);
       if (open.some(leaf => leaf.editor && leaf.editor.getValue() !== content) || current !== content) throw new NoteWriteConflictError();

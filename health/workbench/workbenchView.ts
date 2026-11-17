@@ -108,6 +108,11 @@ export class WorkbenchView {
       const pair = [...paths].sort() as [string, string]; this.selectPair({ id: pairId(...pair), paths: pair, basis: "selected" });
     }
   }
+  captureNavigation() {
+    return structuredClone({ surface: this.surface, graphs: this.graphs, query: this.query, mode: this.mode, zones: this.zones,
+      showList: this.showList, expanded: this.expanded, selected: this.selected, note: this.note, families: this.families, listScroll: this.listScroll });
+  }
+  restoreNavigation(state: ReturnType<WorkbenchView["captureNavigation"]>): void { Object.assign(this, state); this.render(); }
   showFamily(id: string): void {
     const family = semanticFamilies(this.data.semantic?.getSnapshot())?.families.find(f => f.id === id);
     if (family) this.selectFamily(family);

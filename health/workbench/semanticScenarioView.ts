@@ -16,9 +16,9 @@ import type { PairReviewPort, WorkbenchData } from "./workbenchData";
 
 interface Context {
   entry: SemanticEntry; query: string; limit: number; scroll: number; focus?: string;
-  neighborhood?: SemanticNeighborhoodMap; focusSnapshot?: SemanticGlobalMapProductSnapshot;
+  stale?: boolean; neighborhood?: SemanticNeighborhoodMap; focusSnapshot?: SemanticGlobalMapProductSnapshot;
 }
-interface Actions { back(): void; settings(): void; openNote(path: string): void; history(): void }
+interface Actions { back: () => void; settings: () => void; openNote: (path: string) => void; history: () => void }
 
 /** Seven entry surfaces over existing view-owned projections. Opening never computes or selects a recent editor. */
 export class SemanticScenarioView {
@@ -38,6 +38,7 @@ export class SemanticScenarioView {
   private error = false;
   private reviewOpen = false;
   private mapEntry?: SemanticEntry;
+  private mapNavigation?: ReturnType<WorkbenchView["captureNavigation"]>;
   constructor(private readonly app: App, parent: HTMLElement, readonly data: WorkbenchData,
     private readonly pair: PairReviewPort, private readonly semantic: SemanticIntelligencePort | undefined,
     entry: SemanticEntry, private readonly actions: Actions, private readonly scrollOwner: HTMLElement) {
@@ -55,6 +56,19 @@ export class SemanticScenarioView {
   }
   private valid(path?: string): path is string {
     return !!path && this.sources.has(path) && this.app.vault.getFileByPath(path) === this.sources.get(path);
+  }
+  captureNavigation() {
+    this.saveContext();
+    return { context: this.context, history: [...this.history], sources: new Map(this.sources), comparison: this.comparison,
+      map: this.map?.captureNavigation() ?? this.mapNavigation };
+  }
+  restoreNavigation(state: ReturnType<SemanticScenarioView["captureNavigation"]>): void {
+    const restore = (context: Context): Context => ({ ...context, stale: true, entry: { ...context.entry, scope: this.data.scope },
+      focusSnapshot: context.focusSnapshot && { ...context.focusSnapshot, state: "stale" } });
+    this.context = restore(state.context); this.history.splice(0, this.history.length, ...state.history.map(restore));
+    this.sources.clear(); state.sources.forEach((file, path) => this.sources.set(path, file)); Object.assign(this.comparison, state.comparison);
+    this.mapNavigation = state.map; if (this.map && state.map) this.map.restoreNavigation(state.map);
+    this.render(); this.scrollOwner.scrollTop = this.context.scroll;
   }
   update(): void { this.suspended = false; this.render(); }
   suspend(): void {
@@ -135,7 +149,7 @@ export class SemanticScenarioView {
         if (current()) context.neighborhood = this.data.neighborhood?.getSnapshot().map;
       }
     } catch { if (current()) this.error = true; }
-    if (current()) this.render();
+    if (current()) { context.stale = false; this.render(); }
   }
   private source(parent: HTMLElement): void {
     const path = this.context.entry.sourcePath;
@@ -196,7 +210,7 @@ export class SemanticScenarioView {
         search: () => this.semantic?.openSearch(), similar: () => this.go("similar"),
         advanced: page => this.go(page === "semantic-map" ? "focus" : page === "connection-opportunities" ? "opportunities" : page === "semantic-neighborhood" ? "neighborhood" : "map"),
       }, this.scrollOwner);
-      this.map.showSemantic(false);
+      if (this.mapNavigation) this.map.restoreNavigation(this.mapNavigation); else this.map.showSemantic(false);
     } else { this.element.appendChild(this.mapHost!); this.map.update([]); }
     if (this.mapEntry !== this.context.entry) {
       if (this.context.entry.familyId) this.map.showFamily(this.context.entry.familyId);
@@ -259,7 +273,7 @@ export class SemanticScenarioView {
     this.button(this.element, t("@review.refresh"), () => { void this.compute(); }, "semantic-compute", snapshot?.busy);
     const cached = this.context.neighborhood;
     const map = snapshot?.map?.source.path === source ? snapshot.map : cached;
-    const stale = !!map && (snapshot?.state === "stale" || snapshot?.map && !sameSemanticIndexRevision(map.revision, snapshot.map.revision));
+    const stale = !!map && (this.context.stale || snapshot?.state === "stale" || snapshot?.map && !sameSemanticIndexRevision(map.revision, snapshot.map.revision));
     const status = snapshot && neighborhoodStatus(snapshot);
     if (status || stale) this.state(this.element, stale ? "stale" : snapshot?.state ?? "idle", status ?? t("@routes.stale"));
     if (!map) { if (!status) this.state(this.element, "idle", t("@routes.uncomputed")); return; }
@@ -314,6 +328,10 @@ export class SemanticScenarioView {
     const port = this.data.globalComparison;
     if (!port) { this.state(this.element, "no-index", t("@routes.no-index")); return; }
     if (port.getSnapshot().state === "idle") this.state(this.element, "idle", t("@routes.uncomputed"));
+    const coverage = port.getSnapshot().comparison;
+    if (coverage && (coverage.unclassifiedSemanticPairCount || coverage.unclassifiedExplicitPairCount || coverage.semanticNotesMissingTopologyCount || coverage.semanticNotesUnavailableLinksCount)) {
+      this.state(this.element, "partial", t("@connections.coverage-notice"));
+    }
     renderConnectionComparison(this.element, port, this.comparison, { back: () => this.back(), openNote: this.actions.openNote,
       openPair: (left, right) => this.compare(left, right), explore: sourcePath => this.go("neighborhood", { sourcePath }), refresh: () => { void this.compute(); } }, true);
   }

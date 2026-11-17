@@ -1,3 +1,6 @@
+import { FloatingActions, floatingPreferences, type FloatingPreferences } from "./floating/floatingPanel";
+import { FloatingRecallModal, StyleModal } from "./floating/actionModals";
+import { ToolExplanationModal } from "./health/ui/toolExplanationModal";
 import { orgText } from "./consolidation/organizationView";
 import { RegistryEditModal } from "./consolidation/registryEditModal";
 import { ObsidianRegistry } from "./consolidation/obsidianRegistry";
@@ -139,6 +142,8 @@ export default class AIHubPlugin extends Plugin {
   private atomizationModals = new Set<GenerativeAtomizationModal>();
   private atomizationPicker?: AtomizationPicker;
   private recallAuthoring?: RecallAuthoringAdapter;
+  private floating?: FloatingActions;
+  private semanticIntelligence?: SemanticIntelligenceController;
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
   private safeApply?: SafeApplyService;
@@ -269,9 +274,10 @@ export default class AIHubPlugin extends Plugin {
         openProposalReview: () => this.openProposalReview(),
       });
       this.register(() => connect.dispose());
+      this.semanticIntelligence = new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController);
       registerHealth(this, this.getToolsPort(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
-        new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
+        this.semanticIntelligence,
         new SemanticHealthAnalysisAdapter(this.semanticController), deep,
         new DeepHealthAnalysisAdapter(this.app, () => this.getDeepKnowledgeConfiguration()), (recall) => {
           const authoring = new RecallAuthoringAdapter(this.app, this.getLanguageModelSettingsPort(), recall,
@@ -382,11 +388,49 @@ export default class AIHubPlugin extends Plugin {
         );
       }
 
+      this.addCommand({ id: "veynrel-floating-actions", name: tr("@floating.command"), callback: () => { void this.setFloatingPreferences({ enabled: !this.settings.floatingActions?.enabled }); } });
+      let floatingAlive = true;
+      this.app.workspace.onLayoutReady(() => {
+        if (!floatingAlive) return;
+        this.floating = new FloatingActions(this.app, {
+          preferences: () => floatingPreferences(this.settings.floatingActions),
+          save: value => this.setFloatingPreferences(value),
+          launch: (action, source, origin) => {
+            if (!source.current()) return;
+            let modal: Modal | undefined;
+            const tools = this.getToolsPort();
+            if (action === "style") modal = new StyleModal(this.app, source, this.getLanguageModelSettingsPort(), origin, () => tools.openSettings?.());
+            else if (action === "recall" && this.recallAuthoring) modal = new FloatingRecallModal(this.app, source, this.recallAuthoring, this.getLanguageModelSettingsPort(), origin, () => tools.openSettings?.());
+            else if (action === "search") {
+              // Existing initialQuery submits immediately; the toolbar opens an editable, passive search.
+              if (this.semanticIntelligence?.getSnapshot().state === "ready") this.semanticIntelligence.openSearch();
+              else tools.openSettings?.();
+            } else if (action === "tag" || action === "atomize") {
+              modal = new ToolExplanationModal(this.app, {
+                title: tr(action === "tag" ? "@floating.tag" : "@floating.atomize"), icon: action === "tag" ? "tag" : "split",
+                description: tr(action === "tag" ? "@floating.tag-description" : "@floating.atomize-description"),
+                material: `${source.path} · ${tr("@floating.whole")}`, effect: tr("@floating.owner-guarantees"),
+              }, origin, () => { if (source.current()) { if (action === "tag") tools.openLocalTag?.(source.path); else tools.openAtomization(source.path); } });
+            }
+            if (modal) { modal.open(); if (modal.contentEl.ownerDocument !== source.document) modal.close(); }
+            return modal;
+          },
+        });
+      });
+      this.register(() => { floatingAlive = false; this.floating?.dispose(); this.floating = undefined; });
       this.addSettingTab(new AIHubSettingTab(this.app, this));
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       new Notice(tr("❌ Ошибка загрузки Veynrel: {msg}", { msg }));
     }
+  }
+  async setFloatingPreferences(value: Partial<FloatingPreferences>): Promise<void> {
+    this.settings.floatingActions = floatingPreferences({ ...this.settings.floatingActions, ...value });
+    this.floating?.refresh();
+    try { await this.saveSettings(); } catch { this.floating?.refresh(); new Notice(tr("@floating.save-failed")); }
+  }
+  async resetFloatingPosition(): Promise<void> {
+    await this.setFloatingPreferences({ x: 1, y: 1 }); this.floating?.reset();
   }
   async loadSettings() {
     type StoredAIHubSettings = Omit<Partial<AIHubSettings>, "semantic" | "companion" | "health"> & {
@@ -627,6 +671,7 @@ export default class AIHubPlugin extends Plugin {
       if (nextOrganization) this.settings.organizationAudit = nextOrganization;
       this.notifyCompanionSettingsChanged();
       this.notifyLanguageModelSettingsChanged();
+      this.floating?.refresh();
     });
     this.settingsSave = save.catch(() => undefined);
     return save;

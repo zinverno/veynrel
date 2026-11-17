@@ -35,3 +35,36 @@ consent and Apply/Undo remain under the existing owner.
 no-index/source replacement, late A→B preparation, indexed fragments/back, complete
 focus pagination, unknown links, and non-ready/cap states. Native receipts and
 remaining limitations are recorded separately; these tests do not accept the UX.
+
+## Captured editor actions
+
+`runAIStream` is not the new Style launcher: it writes directly while streaming and
+can obtain the selection after asynchronous UI. `floating/editorSource.ts` instead
+captures the originating document/window/leaf/view/editor, TFile identity/path,
+mode, ranges, full buffer, exact range and file revision before focus leaves it.
+The transient context is never saved to settings or logs. Source identity, open
+view, buffer, mode, settings and lifecycle are checked before request and Apply.
+
+| Action | Material / mode | Owner and consent | Write / Undo |
+|---|---|---|---|
+| Style | One captured selection, otherwise explicitly whole note; editing mode | Narrow StyleSession, existing buffered `callOpenRouter`, existing style prompt/limits; checkbox + Create draft | Preview first; exact buffer/range guard; one native CM6 transaction, double-Apply fence; native Undo/Redo |
+| Recall | Exact captured selection or explicitly whole note; editing mode; existing saved-buffer guards | RecallAuthoringAdapter captured handoff, existing options/prompts and generate+append consent | Existing insertion + queue refresh; native Undo/Redo; no new mandatory preview |
+| Tag | Exact saved TFile, whole file; reading/editing entry allowed | Existing R05 LocalNoteModal; open-editor refusal remains | Existing Review/Apply/Undo; toolbar never closes or saves the editor |
+| Atomization | Exact saved TFile, whole file regardless of selection | Existing GenerativeAtomizationModal and consent | Its existing proposal/write guarantees, no invented common Undo |
+| Search | Existing full-index query, reading/editing entry allowed | Existing consent-aware search; empty editable field; no index goes to existing settings | No source writes; initial selection is deliberately not submitted |
+
+Style uses existing pure Markdown preservation guards (Studio stays disabled),
+checks YAML/link/code preservation, and does not claim semantic equivalence.
+The complete selected material is sent only on Create draft, never truncated.
+A saved-format read at that explicit stage rejects CRLF and normalized BOM:
+Obsidian 1.13.7 normalizes CRLF on native editor save. This is an explicit unsupported
+format, not a byte-preservation claim; the original failing native check is retained.
+LF Unicode selection/whole-note Apply uses native Undo and preserves the surrounding
+buffer. Host autosave is separate from plugin writes; Style never forces a save.
+
+Panel enablement and normalized x/y position use the existing settings queue only
+after movement ends. One DOM root belongs to each Obsidian document, including
+popouts. Grip-only pointer capture and keyboard movement keep selection; the panel
+clamps to the central workspace below tabs and above the status bar. Modal presence
+makes it inert/hidden. Dispose cancels owned drafts and removes listeners/observers;
+it does not cancel shared semantic topology. No default hotkey is assigned.
