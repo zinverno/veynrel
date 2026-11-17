@@ -1,0 +1,71 @@
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference
+
+ ❯ health/ui/VeynrelHealthView.test.ts (167 tests | 9 failed) 5036ms
+     × blocking recovery requires modal confirmation and Cancel leaves files untouched 1013ms
+     × two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription 4ms
+     × Discover navigation is passive (enabled false, not-initialized, 0 vectors) 10ms
+     × Discover navigation is passive (enabled true, not-initialized, 0 vectors) 3ms
+     × Discover navigation is passive (enabled true, ready, 4 vectors) 3ms
+     × Discover navigation is passive (enabled true, incompatible, 4 vectors) 2ms
+     × Discover navigation is passive (enabled true, error, 0 vectors) 4ms
+     × Discover navigation is passive (enabled true, ready, 0 vectors) 3ms
+     × Discover navigation is passive (enabled true, indexing, 4 vectors) 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > native Health view lifecycle > blocking recovery requires modal confirmation and Cancel leaves files untouched
+AssertionError: expected undefined to be defined
+ ❯ health/ui/VeynrelHealthView.test.ts:212:65
+    210|     f.content.action("recover").click(); const confirmation = mocks.Mo…
+    211|     confirmation.contentEl.all().find((e) => e.text === "Back up and r…
+    212|     await vi.waitFor(() => expect(f.content.action("nav-home")).toBeDe…
+       |                                                                 ^
+    213|     expect(f.content.texts()).toContain("Notes: 1"); expect(f.vault.re…
+    214|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Deep Intelligence boundaries > two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription
+TypeError: Cannot read properties of undefined (reading 'disabled')
+ ❯ health/ui/VeynrelHealthView.test.ts:404:109
+    402|     expect(f.secondContent.action("deep-check").disabled).toBe(true); …
+    403|     go(f.secondContent, "health");
+    404|     expect(f.secondContent.action("scan").disabled).toBe(false); expec…
+       |                                                                                                             ^
+    405|     f.secondContent.action("nav-settings").click();
+    406|     release(); await flush(); expect(f.secondContent.texts()).toContai…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled false, not-initialized, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, not-initialized, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, ready, 4 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, incompatible, 4 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, error, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, ready, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, indexing, 4 vectors)
+AssertionError: expected undefined to be 'Veynrel navigation' // Object.is equality
+
+- Expected:
+"Veynrel navigation"
+
++ Received:
+undefined
+
+ ❯ health/ui/VeynrelHealthView.test.ts:489:79
+    487|     expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Re…
+    488|     expect(f.content.ownerDocument.activeElement?.text).toBe("Review v…
+    489|     expect(f.content.all().find((e) => e.tag === "nav")?.attrs["aria-l…
+       |                                                                               ^
+    490|     go(f.content, "health"); go(f.content, "health"); expect(f.content…
+    491|     openDiscover(f.content); go(f.content, "health"); expect(f.content…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  9 failed | 220 passed (229)
+   Start at  07:32:49
+   Duration  6.67s (transform 2.45s, setup 0ms, import 3.24s, tests 8.60s, environment 0ms)
+

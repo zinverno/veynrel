@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "Panel opens check",
+    "Panel opens bulk",
+    "Panel opens semantics",
+    "Panel opens tools",
+    "Panel opens recall",
+    "Query retained"
+  ],
+  "exceptions": [],
+  "requests": [
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/index.html",
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/preview.css",
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/ui.css",
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/interactions.js"
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":9,\"scriptId\":\"19\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"19\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":9}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"DOMException\",\"description\":\"SyntaxError: Failed to execute 'querySelector' on 'Document': '[data-index=0]' is not a valid selector.\\n    at <anonymous>:1:10\",\"objectId\":\"-744634145068798888.2.2\",\"preview\":{\"type\":\"object\",\"subtype\":\"error\",\"description\":\"SyntaxError: Failed to execute 'querySelector' on 'Document': '[data-index=0]' is not a valid selector.\\n    at <anonymous>:1:10\",\"overflow\":false,\"properties\":[{\"name\":\"stack\",\"type\":\"string\",\"value\":\"SyntaxError: Failed to execute 'querySelector' on … is not a valid selector.\\n    at <anonymous>:1:10\"},{\"name\":\"code\",\"type\":\"number\",\"value\":\"12\"},{\"name\":\"name\",\"type\":\"string\",\"value\":\"SyntaxError\"},{\"name\":\"message\",\"type\":\"string\",\"value\":\"Failed to execute 'querySelector' on 'Document': '[data-index=0]' is not a valid selector.\"}]}}}\n    at ev (file:///tmp/veynrel-reference-prototype.mjs:14:119)\n    at async file:///tmp/veynrel-reference-prototype.mjs:26:2"
+}

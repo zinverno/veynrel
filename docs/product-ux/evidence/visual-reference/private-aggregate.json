@@ -1,0 +1,22 @@
+{
+  "classification": "Aggregate only. All source paths, names, screenshots and logs remain outside Git.",
+  "status": "PASS",
+  "checks": 15,
+  "exceptions": 0,
+  "providerRequests": 0,
+  "markdownCount": 154,
+  "markdownByteIdentical": true,
+  "sourceFilesVerifiedUnchanged": 157,
+  "originalVaultAccessed": false,
+  "sourcePathVerifiedByRealpath": true,
+  "assets": {
+    "main.js": "0170b4cbc08c4d061e99be7403ff93e2c6f81f0970183385976fe1773e92970a",
+    "styles.css": "da863b3651a9f2856e7d4b8b70d5c27c7e25100ef96dbc27f1a874dda8e92869",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "limitation": "Passive walkthrough of a disposable derivative of the pre-existing isolated notes copy; no scan, embeddings or Apply.",
+  "runtimeSource": {
+    "commit": "ad26ba06e57187547ea3d71ae02ed4d04b94504f",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

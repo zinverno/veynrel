@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference/scripts/native/visual.mjs",
+    "/tmp/veynrel-visual-native-5978193aef8e",
+    "before",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-recovery-v2"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794891075.7822201,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    37703
+  ],
+  "cdpClosed": true,
+  "seconds": 22.188
+}

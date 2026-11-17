@@ -1,0 +1,9 @@
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference
+
+
+ Test Files  3 passed (3)
+      Tests  229 passed (229)
+   Start at  07:34:41
+   Duration  5.89s (transform 2.76s, setup 0ms, import 3.34s, tests 7.74s, environment 0ms)
+

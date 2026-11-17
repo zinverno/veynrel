@@ -1,0 +1,431 @@
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference
+
+ ❯ health/ui/recallView.test.ts (58 tests | 6 failed) 3544ms
+     × keeps construction/onboarding dormant, then makes first-run Recall actionable without IO beyond metadata 13ms
+     × isolates {broken, keeps Health scan/Findings/Discover usable, and resets to Not enabled 62ms
+     × isolates {"version":99}, keeps Health scan/Findings/Discover usable, and resets to Not enabled 49ms
+     × registers without Recall IO, loads metadata on normal Health entry and reuses it across routes 12ms
+     × onboarding preserves the correct navigation boundary and causes no Recall IO 3ms
+     × closing another workspace tab preserves the session; entering Recall transfers surface ownership 119ms
+ ❯ health/ui/VeynrelHealthView.test.ts (167 tests | 32 failed) 4962ms
+     × opening only initializes storage; a click scans once and notifications update the dashboard 105ms
+     × blocking recovery requires modal confirmation and Cancel leaves files untouched 1004ms
+     × two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription 4ms
+     × Discover navigation is passive (enabled false, not-initialized, 0 vectors) 3ms
+     × Discover navigation is passive (enabled true, not-initialized, 0 vectors) 3ms
+     × Discover navigation is passive (enabled true, ready, 4 vectors) 3ms
+     × Discover navigation is passive (enabled true, incompatible, 4 vectors) 3ms
+     × Discover navigation is passive (enabled true, error, 0 vectors) 3ms
+     × Discover navigation is passive (enabled true, ready, 0 vectors) 4ms
+     × Discover navigation is passive (enabled true, indexing, 4 vectors) 3ms
+     × Russian Discover localizes navigation/workflows and preserves provider/model identifiers 4ms
+     × offers one explicit first action without saving preferences or reading notes 2ms
+     × Change profile is secondary, shows a non-color selected marker, has no Skip and never scans 107ms
+     × Health summary/top navigation, card filters, recommendation detail and Back never scan 30ms
+     × renders final navigation, passive Tools and safe Settings in en 6ms
+     × renders final navigation, passive Tools and safe Settings in ru 5ms
+     × an old onboarding preference no longer traps navigation or changes the stored profile 4ms
+     × keeps Health focused and moves profile controls to Settings without losing tools 32ms
+     × preserves inline scroll and nearby focus through held loads, refreshes and stale updates 31ms
+     × Health stays passive, explicit loading reads metadata only, navigation retains map and Open note reuses safe navigation 8ms
+     × keeps passive Discover free of catalog/similarity/body/network/write work, and preserves existing launchers 5ms
+     × renders map scale/summary and preserves local selection and Neighborhood integration in en 4ms
+     × renders map scale/summary and preserves local selection and Neighborhood integration in ru 4ms
+     × preserves child-route origin and global map, selection, query and viewport across local exploration in en 11ms
+     × preserves child-route origin and global map, selection, query and viewport across local exploration in ru 9ms
+     × shows four compact tool rows, opens the Markdown picker, and launches batch without scope arguments 3ms
+     × disables MOC while loading, offers audit for no clusters and ignores a detached response 2ms
+     × preserves every folder through the actual scope picker and independent views 2ms
+     × a missing folder stays missing until explicitly changed 2ms
+     × retains Tools and every existing operation without selecting an editor 2ms
+     × opens six panels and five explicit destinations without analysis in en 1ms
+     × opens six panels and five explicit destinations without analysis in ru 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 38 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > native Health view lifecycle > opening only initializes storage; a click scans once and notifications update the dashboard
+AssertionError: expected 'tools' to be 'health' // Object.is equality
+
+Expected: "health"
+Received: "tools"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:163:60
+    161|     expect(f.content.texts()).toContain("Vault check complete"); expec…
+    162|     expect(f.content.action("scan").disabled).toBe(false); expect(f.co…
+    163|     go(f.content, "tools"); expect(currentPage(f.content)).toBe("healt…
+       |                                                            ^
+    164|     expect(f.content.action("tools")).toBeUndefined();
+    165|     expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > native Health view lifecycle > blocking recovery requires modal confirmation and Cancel leaves files untouched
+AssertionError: expected undefined to be defined
+ ❯ health/ui/VeynrelHealthView.test.ts:212:67
+    210|     f.content.action("recover").click(); const confirmation = mocks.Mo…
+    211|     confirmation.contentEl.all().find((e) => e.text === "Back up and r…
+    212|     await vi.waitFor(() => expect(f.content.action("nav-health")).toBe…
+       |                                                                   ^
+    213|     expect(f.content.texts()).toContain("Notes: 1"); expect(f.vault.re…
+    214|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Deep Intelligence boundaries > two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription
+TypeError: Cannot read properties of undefined (reading 'disabled')
+ ❯ health/ui/VeynrelHealthView.test.ts:404:109
+    402|     expect(f.secondContent.action("deep-check").disabled).toBe(true); …
+    403|     go(f.secondContent, "health");
+    404|     expect(f.secondContent.action("scan").disabled).toBe(false); expec…
+       |                                                                                                             ^
+    405|     f.secondContent.action("nav-settings").click();
+    406|     release(); await flush(); expect(f.secondContent.texts()).toContai…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled false, not-initialized, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, not-initialized, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, ready, 4 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, incompatible, 4 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, error, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, ready, 0 vectors)
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Discover navigation is passive (enabled true, indexing, 4 vectors)
+AssertionError: expected 'semantic' to be 'health' // Object.is equality
+
+Expected: "health"
+Received: "semantic"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:486:36
+    484|       .toEqual(["nav-history", "nav-settings", "nav-home"]);
+    485|     openDiscover(f.content);
+    486|     expect(currentPage(f.content)).toBe("health");
+       |                                    ^
+    487|     expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Re…
+    488|     expect(f.content.ownerDocument.activeElement?.text).toBe("Review v…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > Russian Discover localizes navigation/workflows and preserves provider/model identifiers
+TypeError: Cannot read properties of undefined (reading 'texts')
+ ❯ health/ui/VeynrelHealthView.test.ts:644:44
+    642|   it("Russian Discover localizes navigation/workflows and preserves pr…
+    643|     setLanguage("ru"); const f = semanticFixture(true, "ready", 8); aw…
+    644|     expect(f.content.action("nav-semantic").texts()).toContain("Семант…
+       |                                            ^
+    645|     expect(f.content.texts()).toContain("Возможные дубликаты");
+    646|     f.content.action("nav-settings").click(); expect(f.content.texts()…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > integrated Health onboarding > offers one explicit first action without saving preferences or reading notes
+AssertionError: expected undefined to be defined
+ ❯ health/ui/VeynrelHealthView.test.ts:766:46
+    764|     expect(f.content.all().filter(e => e.tag === "button" && e.cls.inc…
+    765|     expect(f.content.action("profile-research")).toBeUndefined(); expe…
+    766|     expect(f.content.action("nav-semantic")).toBeDefined(); expect(f.c…
+       |                                              ^
+    767|     expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.to…
+    768|     const live = f.content.all().find(e => e.attrs["aria-live"] === "p…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > integrated Health onboarding > Change profile is secondary, shows a non-color selected marker, has no Skip and never scans
+AssertionError: expected 'tools' to be 'semantic' // Object.is equality
+
+Expected: "semantic"
+Received: "tools"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:809:60
+    807|     expect(f.content.texts()).toContain("Profile: Research & writing");
+    808|     expect(f.preferences.get().onboardingCompleted).toBe(true); go(f.c…
+    809|     go(f.content, "tools"); expect(currentPage(f.content)).toBe("seman…
+       |                                                            ^
+    810|     expect(f.tools.openBatchProcessing).not.toHaveBeenCalled();
+    811|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Findings navigation and lifecycle integration > Health summary/top navigation, card filters, recommendation detail and Back never scan
+AssertionError: expected 'health' to be 'semantic' // Object.is equality
+
+Expected: "semantic"
+Received: "health"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:884:36
+    882|     const f = await scanned(); const id = f.controller.getState().reco…
+    883|     go(f.content, "health");
+    884|     expect(currentPage(f.content)).toBe("semantic");
+       |                                    ^
+    885|     expect(f.content.action("state-open").attrs["aria-pressed"]).toBe(…
+    886|     expect(f.content.action("filter-all").attrs["aria-pressed"]).toBe(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > final Tools and Settings IA > renders final navigation, passive Tools and safe Settings in en
+ FAIL  health/ui/VeynrelHealthView.test.ts > final Tools and Settings IA > renders final navigation, passive Tools and safe Settings in ru
+AssertionError: expected 'health' to be 'semantic' // Object.is equality
+
+Expected: "semantic"
+Received: "health"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:1210:114
+    1208|     expect(f.content.texts()).toContain(language === "en" ? "Settings …
+    1209|     expect(f.content.all().some((e) => e.tag === "input")).toBe(false);
+    1210|     await f.view.onClose(); await f.view.onOpen(); go(f.content, "heal…
+       |                                                                                                                  ^
+    1211|     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
+    1212|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > final Tools and Settings IA > an old onboarding preference no longer traps navigation or changes the stored profile
+AssertionError: expected undefined to be defined
+ ❯ health/ui/VeynrelHealthView.test.ts:1270:46
+    1268|     await f.controller.updatePreferences({ onboardingCompleted: false,…
+    1269|     const prefs = f.preferences.get(); go(f.content, "health");
+    1270|     expect(f.content.action("nav-semantic")).toBeDefined(); expect(f.p…
+       |                                              ^
+    1271|     expect(f.tools.openAskVault).not.toHaveBeenCalled(); await f.view.…
+    1272|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > real topology child route > keeps Health focused and moves profile controls to Settings without losing tools
+AssertionError: expected 'tools' to be 'semantic' // Object.is equality
+
+Expected: "semantic"
+Received: "tools"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:1345:34
+    1343|     expect(content.action("tools")).toBeUndefined();
+    1344|     go(content, "tools");
+    1345|     expect(currentPage(content)).toBe("semantic");
+       |                                  ^
+    1346|     expect(content.all().filter((e) => e.attrs["data-health-action"]?.…
+    1347|     await view.onClose(); topology.dispose(); f.controller.dispose();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > real topology child route > preserves inline scroll and nearby focus through held loads, refreshes and stale updates
+TypeError: Cannot read properties of undefined (reading 'click')
+ ❯ health/ui/VeynrelHealthView.test.ts:1390:29
+    1388|     // Deliberate navigation still focuses the destination heading.
+    1389|     for (const action of ["nav-health", "nav-semantic", "topology-open…
+    1390|       content.action(action).click();
+       |                             ^
+    1391|       expect(content.ownerDocument.activeElement?.attrs["data-health-h…
+    1392|       expect(content.ownerDocument.activeElement?.focusOptions).toBeUn…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > real topology child route > Health stays passive, explicit loading reads metadata only, navigation retains map and Open note reuses safe navigation
+AssertionError: expected 'semantic' to be 'tools' // Object.is equality
+
+Expected: "tools"
+Received: "semantic"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:1412:34
+    1410|     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.writ…
+    1411|     expect(mocks.requestUrl).not.toHaveBeenCalled();
+    1412|     expect(currentPage(content)).toBe("tools");
+       |                                  ^
+    1413|     expect(content.action("nav-topology")).toBeUndefined();
+    1414|     expect(content.all().find((e) => e.attrs["aria-live"] === "polite"…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Semantic Neighborhood Discover child surface > keeps passive Discover free of catalog/similarity/body/network/write work, and preserves existing launchers
+AssertionError: expected undefined to be defined
+ ❯ health/ui/VeynrelHealthView.test.ts:1580:114
+    1578|     f.content.action("neighborhood-open").click(); await f.neighborhoo…
+    1579|     expect(currentPage(f.content)).toBe("semantic");
+    1580|     expect(f.content.action("nav-semantic-neighborhood")).toBeUndefine…
+       |                                                                                                                  ^
+    1581|     expect(f.content.action("neighborhood-search")).toBeDefined();
+    1582|     expect(f.engine.listIndexedPaths).toHaveBeenCalledOnce(); expect(f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Semantic Neighborhood Discover child surface > renders map scale/summary and preserves local selection and Neighborhood integration in en
+ FAIL  health/ui/VeynrelHealthView.test.ts > Semantic Neighborhood Discover child surface > renders map scale/summary and preserves local selection and Neighborhood integration in ru
+AssertionError: expected 'semantic' to be 'tools' // Object.is equality
+
+Expected: "tools"
+Received: "semantic"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:1590:98
+    1588|     f.vault.read.mockClear(); f.cachedRead.mockClear(); f.adapter.writ…
+    1589|     f.content.action("global-map-open").click(); await f.globalMap.loa…
+    1590|     expect(f.content.action("nav-semantic-map")).toBeUndefined(); expe…
+       |                                                                                                  ^
+    1591|     expect(f.engine.analyzeGlobalSemanticMap).toHaveBeenCalledOnce();
+    1592|     expect(f.content.all().filter(e => e.attrs["tabindex"] === "0")).t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Semantic Neighborhood Discover child surface > preserves child-route origin and global map, selection, query and viewport across local exploration in en
+ FAIL  health/ui/VeynrelHealthView.test.ts > Semantic Neighborhood Discover child surface > preserves child-route origin and global map, selection, query and viewport across local exploration in ru
+AssertionError: expected 'semantic' to be 'tools' // Object.is equality
+
+Expected: "tools"
+Received: "semantic"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:1645:36
+    1643|     expect(f.content.action("global-map-search").value).toBe("A.md");
+    1644|     expect(f.content.texts()).toContain(t("@global-map.stale"));
+    1645|     expect(currentPage(f.content)).toBe("tools");
+       |                                    ^
+    1646|     expect(loads).not.toHaveBeenCalled(); expect(f.engine.analyzeGloba…
+    1647|     for (const spy of [f.vault.read, f.cachedRead, f.adapter.write, mo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Processing entry > shows four compact tool rows, opens the Markdown picker, and launches batch without scope arguments
+TypeError: Cannot read properties of undefined (reading 'click')
+ ❯ health/ui/VeynrelHealthView.test.ts:1884:43
+    1882|     expect(f.content.texts()).toContain("Saved clusters: 3");
+    1883|     f.content.action("tool-openBatchProcessing").click(); expect(f.too…
+    1884|     f.content.action("tool-open-selected").click(); expect(f.tools.gen…
+       |                                           ^
+    1885|     f.content.action("process-atomization").click(); expect(f.tools.op…
+    1886|     expect(f.content.action("process-workbench")).toBeUndefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Processing entry > disables MOC while loading, offers audit for no clusters and ignores a detached response
+TypeError: Cannot read properties of undefined (reading 'disabled')
+ ❯ health/ui/VeynrelHealthView.test.ts:1894:72
+    1892|     Object.assign(f.tools, { savedMocClusterCount: vi.fn(() => new Pro…
+    1893|     await f.view.onOpen(); go(f.content, "health", true); openBatch(f.…
+    1894|     const stale = f.content.action("tool-open-selected"); expect(stale…
+       |                                                                        ^
+    1895|     expect(f.tools.generateMocs).not.toHaveBeenCalled(); resolve(0); a…
+    1896|     expect(f.content.action("tool-open-selected")).toBeUndefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > compact Workspace scope and navigation > preserves every folder through the actual scope picker and independent views
+TypeError: Cannot read properties of undefined (reading 'children')
+ ❯ health/ui/VeynrelHealthView.test.ts:1939:97
+    1937|   it("preserves every folder through the actual scope picker and indep…
+    1938|     const f=fixture();f.vault.getAllFolders.mockReturnValue(Array.from…
+    1939|     await f.view.onOpen(); go(f.content, "health", true);expect(f.cont…
+       |                                                                                                 ^
+    1940|     selectScope(f.content, "Area 10");expect(f.content.action("scope-p…
+    1941|     const other=new VeynrelHealthView({app:f.app} as never,f.controlle…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > compact Workspace scope and navigation > a missing folder stays missing until explicitly changed
+Error: Missing folder choice: missing
+ ❯ selectScope health/ui/VeynrelHealthView.test.ts:119:20
+    117|   const modal = mocks.Modal.opened.at(-1) as InstanceType<typeof mocks…
+    118|   const item = modal.getItems().find(item => (item as { path: string }…
+    119|   if (!item) throw new Error(`Missing folder choice: ${path}`);
+       |                    ^
+    120|   modal.onChooseItem(item);
+    121|   if (route !== "semantic") go(content, route);
+ ❯ health/ui/VeynrelHealthView.test.ts:1955:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > compact Workspace scope and navigation > retains Tools and every existing operation without selecting an editor
+AssertionError: expected undefined to be defined
+ ❯ health/ui/VeynrelHealthView.test.ts:1961:158
+    1959|   it("retains Tools and every existing operation without selecting an …
+    1960|     const f=fixture();await f.view.onOpen(); go(f.content, "health", t…
+    1961|     for(const action of Object.keys(f.tools))expect(f.content.action(a…
+       |                                                                                                                                                              ^
+    1962|     for(const work of Object.values(f.tools))expect(work).not.toHaveBe…
+    1963|     expect(f.vault.read).not.toHaveBeenCalled();expect(f.adapter.write…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/38]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Overview-first entry > opens six panels and five explicit destinations without analysis in en
+ FAIL  health/ui/VeynrelHealthView.test.ts > Overview-first entry > opens six panels and five explicit destinations without analysis in ru
+AssertionError: expected 'home' to be 'tools' // Object.is equality
+
+Expected: "tools"
+Received: "home"
+
+ ❯ health/ui/VeynrelHealthView.test.ts:2029:36
+    2027|   it.each(["en", "ru"] as const)("opens six panels and five explicit d…
+    2028|     setLanguage(language); const f = fixture({}); await f.view.onOpen(…
+    2029|     expect(currentPage(f.content)).toBe("tools");
+       |                                    ^
+    2030|     for (const panel of ["check", "batch", "semantic", "recall", "tool…
+    2031|     expect(f.content.action("overview-query")).toBeDefined(); expect(f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/38]⎯
+
+ FAIL  health/ui/recallView.test.ts > Recall Health integration > keeps construction/onboarding dormant, then makes first-run Recall actionable without IO beyond metadata
+AssertionError: expected 'recall' to be 'health' // Object.is equality
+
+Expected: "health"
+Received: "recall"
+
+ ❯ health/ui/recallView.test.ts:194:36
+    192|     const reads = f.adapter.read.mock.calls.length, exists = f.adapter…
+    193|     expect(f.action("dimension-recall").tag).toBe("button"); f.action(…
+    194|     expect(currentPage(f.content)).toBe("health"); expect(f.content.te…
+       |                                    ^
+    195|     go(f.content, "health"); go(f.content, "health"); go(f.content, "s…
+    196|     expect(f.adapter.read).toHaveBeenCalledTimes(reads); expect(f.adap…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/38]⎯
+
+ FAIL  health/ui/recallView.test.ts > Recall Health integration > isolates {broken, keeps Health scan/Findings/Discover usable, and resets to Not enabled
+ FAIL  health/ui/recallView.test.ts > Recall Health integration > isolates {"version":99}, keeps Health scan/Findings/Discover usable, and resets to Not enabled
+AssertionError: expected undefined to be defined
+ ❯ health/ui/recallView.test.ts:297:73
+    295|     await f.health.runLocalScan(); expect(f.health.getState().outcome?…
+    296|     go(f.content, "health"); go(f.content, "health"); expect(f.content…
+    297|     go(f.content, "semantic"); expect(f.content.action("nav-semantic")…
+       |                                                                         ^
+    298|     const bytes = healthBytes(f), reads = f.vault.read.mock.calls.leng…
+    299|     f.action("dimension-recall").click(); expect(f.content.action("rec…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/38]⎯
+
+ FAIL  health/ui/recallView.test.ts > Recall workspace route and lazy composition > registers without Recall IO, loads metadata on normal Health entry and reuses it across routes
+AssertionError: expected undefined to be defined
+ ❯ health/ui/recallView.test.ts:342:115
+    340|     await flush(); expect(f.factory).toHaveBeenCalledTimes(1);
+    341|     expect(f.adapter.exists.mock.calls.filter(([path]) => path === car…
+    342|     for (const page of ["home", "health", "semantic", "tools", "recall…
+       |                                                                                                                   ^
+    343|     go(f.content, "recall"); await flush();
+    344|     expect(currentPage(f.content)).toBe("recall"); expect(f.factory).t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/38]⎯
+
+ FAIL  health/ui/recallView.test.ts > Recall workspace route and lazy composition > onboarding preserves the correct navigation boundary and causes no Recall IO
+AssertionError: expected undefined to be defined
+ ❯ health/ui/recallView.test.ts:353:190
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/38]⎯
+
+ FAIL  health/ui/recallView.test.ts > Recall workspace route and lazy composition > closing another workspace tab preserves the session; entering Recall transfers surface ownership
+AssertionError: expected 'health' to be 'recall' // Object.is equality
+
+Expected: "recall"
+Received: "health"
+
+ ❯ health/ui/recallView.test.ts:363:36
+    361|     expect(f.product.getSnapshot().session?.revealed).toBe(true); expe…
+    362|     await other.onOpen(); go(content, "recall");
+    363|     expect(currentPage(f.content)).toBe("recall"); expect(f.content.te…
+       |                                    ^
+    364|     expect(f.product.getSnapshot().session).toBeUndefined(); content.a…
+    365|     await f.view.onClose(); expect(f.product.getSnapshot().session?.ca…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/38]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  38 failed | 191 passed (229)
+   Start at  07:32:03
+   Duration  6.69s (transform 2.76s, setup 0ms, import 3.38s, tests 8.51s, environment 0ms)
+

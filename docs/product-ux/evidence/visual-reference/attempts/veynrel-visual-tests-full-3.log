@@ -1,0 +1,47 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference
+
+ ❯ deepSettings.test.ts (23 tests | 1 failed) 8473ms
+     × failed cloud-to-local Advanced save restores durable settings and invalidates existing consent 5014ms
+ ❯ consolidation/archiveApply.test.ts (51 tests | 1 failed) 20873ms
+     × canonical 0: literal YAML, Unicode/CRLF and full restart rollback chain 5012ms
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":281.80109300000015,"layoutMs":46.997114999999894}}
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  deepSettings.test.ts > shared language-model settings transactions > failed cloud-to-local Advanced save restores durable settings and invalidates existing consent
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ deepSettings.test.ts:36:3
+     34|
+     35| describe("shared language-model settings transactions", () => {
+     36|   it("failed cloud-to-local Advanced save restores durable settings an…
+       |   ^
+     37|     const f = await fixture(); const getMarkdownFiles = vi.fn();
+     38|     const adapter = new DeepHealthAnalysisAdapter({ vault: { getMarkdo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  consolidation/archiveApply.test.ts > Archive Apply and proven sequential Undo > canonical 0: literal YAML, Unicode/CRLF and full restart rollback chain
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ consolidation/archiveApply.test.ts:27:27
+     25| async function applied(f: Awaited<ReturnType<typeof setup>>) { const r…
+     26| describe("Archive Apply and proven sequential Undo", () => {
+     27|   it.each([0, 1] as const)("canonical %s: literal YAML, Unicode/CRLF a…
+       |                           ^
+     28|     for (const prefix of ["", '---\n# user comment\ntags: [one, two]\n…
+     29|       const f = await setup(side, prefix, crlf), parent = [...f.disk];…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 211 passed (213)
+      Tests  2 failed | 5430 passed (5432)
+   Start at  07:40:35
+   Duration  61.72s (transform 64.64s, setup 0ms, import 154.87s, tests 252.06s, environment 67ms)
+

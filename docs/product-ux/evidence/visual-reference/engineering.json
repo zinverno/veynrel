@@ -1,0 +1,45 @@
+{
+  "runtimeHead": "c2593f41299ebfc78dff1b5eb9f7febb88eec3dd",
+  "uiImplementationHead": "9f5a900544658adb8cc3b42f4215c3ed3e906352",
+  "finalCSSHead": "ad26ba06e57187547ea3d71ae02ed4d04b94504f",
+  "baselineHead": "2b0273cf3c9f444e11d9f4dec19ebc859cd12791",
+  "assets": {
+    "main.js": "0170b4cbc08c4d061e99be7403ff93e2c6f81f0970183385976fe1773e92970a",
+    "styles.css": "da863b3651a9f2856e7d4b8b70d5c27c7e25100ef96dbc27f1a874dda8e92869",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "sourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "checks": {
+    "tests": {
+      "passed": 5432,
+      "files": 213,
+      "workers": 2
+    },
+    "typecheck": "PASS",
+    "build": "PASS",
+    "lint": "PASS; two pre-existing fetch warnings",
+    "mutation": "5/5 killed; restored tests pass",
+    "session": "2/2",
+    "runner": "3/3",
+    "native": {
+      "passed": 124,
+      "exceptions": 0,
+      "providerRequests": [
+        {
+          "path": "/api/embed",
+          "model": "overview-synthetic"
+        }
+      ],
+      "markdownByteIdentical": 154
+    },
+    "cssFollowup": "4/4 presentation tests; native matrix rerun after one CSS-variable change"
+  },
+  "limits": [
+    "Physical touch",
+    "Screen reader",
+    "Historical Community document ownership",
+    "Historical cold10k",
+    "Other historical e.isShown triggers"
+  ],
+  "visualAcceptance": "Owner review pending; inspected comparisons are implementation evidence, not owner acceptance."
+}

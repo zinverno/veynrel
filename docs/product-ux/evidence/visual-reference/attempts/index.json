@@ -1,0 +1,57 @@
+{
+  "policy": "Original local run folders remain immutable. Public attempts contain only synthetic receipts and engineering logs; no private screenshots or note logs.",
+  "attempts": [
+    {
+      "path": "prototype-selector-fail.json",
+      "outcome": "Harness selector syntax error; fixed selector, repeated with real CDP hover/keyboard events."
+    },
+    {
+      "path": "stage1-svg-tooltip-fail/report.json",
+      "outcome": "Four native e.isShown exceptions on SVG aria-label hover; no exception filtering."
+    },
+    {
+      "path": "stage1-svg-title-pass/report.json",
+      "outcome": "SVG title/aria-labelledby removes this reproducible trigger; delayed hover passes."
+    },
+    {
+      "path": "veynrel-visual-focused-1.log",
+      "outcome": "Old navigation tests failed after removal of global tabs; updated tests to exercise Overview links, not fake nav controls."
+    },
+    {
+      "path": "veynrel-visual-tests-full-1.log",
+      "outcome": "Two failures: multi-source note count omitted; restored that information without repeating source paths."
+    },
+    {
+      "path": "veynrel-visual-tests-full-2.log",
+      "outcome": "Sandbox returned exit 0 without a final Vitest report; inconclusive, not counted as PASS."
+    },
+    {
+      "path": "veynrel-visual-tests-full-3.log",
+      "outcome": "Two unchanged 5s tests timed out under parallel lint contention. Entire suite subsequently passed with maxWorkers=2; timeouts/assertions unchanged."
+    },
+    {
+      "path": "veynrel-visual-lint-1.log",
+      "outcome": "Unnecessary assertions flagged; removed unnecessary assertions, retained the required MouseEvent-to-PointerEvent cast."
+    },
+    {
+      "path": "veynrel-visual-mutation.log",
+      "outcome": "Sandbox run returned no Vitest summary. Sequential unsandboxed run killed all 5 mutations with restored tests passing."
+    },
+    {
+      "path": "veynrel-visual-runner.log",
+      "outcome": "Sandbox Xvfb startup failed. Unsandboxed isolated runner tests passed 3/3."
+    },
+    {
+      "path": "viewport-rounded-after-pass/report.json",
+      "outcome": "Behavior PASS, but fractional CDP crop truncated some PNGs by 1px. Later capture rounds bounds and asserts actual PNG dimensions."
+    },
+    {
+      "path": "exact-crop-after/report.json",
+      "outcome": "123 checks PASS. Visual inspection found insufficient light-theme ring contrast; changed theme variable and matched taxonomy hover state for final comparison."
+    },
+    {
+      "path": "scrollbar-baseline/report.json",
+      "outcome": "Native PASS, comparison packaging caught 12px scrollbar-width mismatch on secondary baseline screens. Viewport sizing now uses rounded outer panel bounds; final before/after share exact sizes and harness hashes."
+    }
+  ]
+}

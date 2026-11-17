@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 lint
+> npm run lint:obsidian
+
+
+> obsidian-ai-hub@2.4.0 lint:obsidian
+> npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+
+
+> obsidian-ai-hub@2.4.0 typecheck
+> tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+
+health/ui/renderTools.ts(55,65): error TS2339: Property 'pointerType' does not exist on type 'MouseEvent'.

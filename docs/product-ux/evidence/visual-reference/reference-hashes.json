@@ -1,0 +1,22 @@
+{
+  "01_visual/01_overview_dark.png": "c999f1f1327053afef32f6197a9ec439a05fb832cd5121414489e3ba0bdb579b",
+  "01_visual/02_overview_light.png": "eb5c94481ceae116046599ad12820f1fe42c7dcf699ac03bd07a771d695a8ae6",
+  "01_visual/03_overview_390.png": "0f0cec6fb93065946c543cb8e4574bf4122c33ea979f266a07e79bb45e4cba00",
+  "01_visual/04_tools_idle_dark.png": "bfc741c16fcc706d9901d033fdb3cff522e12b12ccf1bfe7ebc20ca472b825b5",
+  "01_visual/05_tools_hover_dark.png": "1e2d6bc0ca889dba1df662a10f7f7f0353ed67d37ec67d1efaabf1c710b96331",
+  "01_visual/06_tools_idle_light.png": "a9b90b397b1d6ca57f2021fc90a25d09acc44ba73521db63be66c14fc95a2d7a",
+  "01_visual/07_tools_hover_light.png": "cc87d20a41b5edef644e94e1079b87d8df22b59d1589075808165aee23b469ac",
+  "01_visual/08_tools_390.png": "3717147ebe8ca3b982722e623f7fc60f9ae1c3339522747b597e6fe53dc4f154",
+  "01_visual/09_check_dark.png": "b41584c3dcfafc4b98b52691e3bf49d27676c483829f9b736740587bc38f6446",
+  "01_visual/10_semantics_dark.png": "1b801c1b289e8d42d3416b30ac0e6c70fc3c2b0a5d6c303338282bc0492768a9",
+  "01_visual/11_bulk_dark.png": "fe703a46533ec3753c712806aac13db30164c6b2080e662433dfcc173752dc2b",
+  "01_visual/12_recall_dark.png": "6b9652c398f44794db4a2f8d0b0aad1964b327fc52acb50ad77d2eb47485111c",
+  "01_visual/13_check_light.png": "b8deec2c8c03106a72128c57fc8a813c2ed166ecdc0025254793596dcd6b312e",
+  "01_visual/14_semantics_light.png": "2a9ea4f426482a22a08667cb10b4c098b44f30e286dd16734b01b269e536491e",
+  "05_specs/acceptance.md": "c991c81d7b6d7548e0f00c610f2591c8ad0482c83f55efe0b2002e287f66caf0",
+  "05_specs/data_contract.md": "4c974a9fc64aeb776a2fa33e5ebc6cda5a696c07e4e91b68b86e438c61a8f215",
+  "05_specs/layout.md": "1013082bfa23490a593a91cb829f325ba0bb0d7940c5807a6c7de8bcc03cb4a8",
+  "02_prototype/index.html": "58b691d34ca5af536d549838c8ae85d5b06d792d559358031fa6ea50f1f5bc05",
+  "02_prototype/ui.css": "e349ce80f28c590b0bf50020b46005994c0351c1acdde13c5fdc6d826bb9bff3",
+  "02_prototype/preview.css": "53c3d7e04ed3171b6005d0afdd468a016b25627c0ea102fb7430983085fc6ae3"
+}

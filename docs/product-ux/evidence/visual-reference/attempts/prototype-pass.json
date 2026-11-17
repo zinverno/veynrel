@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "Panel opens check",
+    "Panel opens bulk",
+    "Panel opens semantics",
+    "Panel opens tools",
+    "Panel opens recall",
+    "Query retained",
+    "Hover explains tool",
+    "Arrow focuses next item",
+    "Enter opens tool explanation",
+    "Escape closes popup",
+    "Chooser only opens on request",
+    "390 no overflow"
+  ],
+  "exceptions": [],
+  "requests": [
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/index.html",
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/preview.css",
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/ui.css",
+    "file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/Veynrel_UI_refs/02_prototype/interactions.js"
+  ],
+  "status": "PASS"
+}

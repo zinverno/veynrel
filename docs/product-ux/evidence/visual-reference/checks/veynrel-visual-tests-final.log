@@ -1,0 +1,14 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":132.58611199999996,"layoutMs":10.512164000000041}}
+
+ Test Files  213 passed (213)
+      Tests  5432 passed (5432)
+   Start at  07:42:01
+   Duration  80.32s (transform 9.68s, setup 0ms, import 28.37s, tests 92.72s, environment 28ms)
+
