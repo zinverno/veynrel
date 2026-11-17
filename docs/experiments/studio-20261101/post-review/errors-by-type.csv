@@ -1,0 +1,7 @@
+﻿task,model,complete,omission,omission_uncertain_only,units,units_uncertain_only,added,added_uncertain_only
+B,qwen,60,56,0,0,0,0,0
+B,flash,60,7,1,0,0,0,2
+B,oss,60,49,0,0,0,0,0
+C,qwen,59,26,2,1,6,9,5
+C,flash,60,0,0,0,0,20,0
+C,oss,60,38,2,22,1,1,11

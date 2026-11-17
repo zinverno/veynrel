@@ -1,0 +1,146 @@
+{
+  "source_tag": "2.3.0",
+  "source_sha": "a82148c225ee9585290a117d5ec36250bb2a6fdd",
+  "models": [
+    {
+      "alias": "qwen",
+      "model": "qwen/qwen3-14b",
+      "canonical_slug": "qwen/qwen3-14b-04-28",
+      "provider": "deepinfra/fp8",
+      "provider_name": "DeepInfra",
+      "supported_parameters": [
+        "reasoning",
+        "include_reasoning",
+        "response_format",
+        "max_tokens",
+        "temperature",
+        "top_p",
+        "stop",
+        "frequency_penalty",
+        "presence_penalty",
+        "repetition_penalty",
+        "top_k",
+        "seed",
+        "min_p",
+        "tools",
+        "tool_choice",
+        "structured_outputs",
+        "logit_bias"
+      ],
+      "pricing": {
+        "prompt": "0.00000012",
+        "completion": "0.00000024",
+        "discount": 0
+      },
+      "reasoning": {
+        "enabled": false
+      },
+      "removed_parameters": []
+    },
+    {
+      "alias": "flash",
+      "model": "qwen/qwen3.7-flash",
+      "canonical_slug": "qwen/qwen3.7-flash-20260727",
+      "provider": "alibaba",
+      "provider_name": "Alibaba",
+      "supported_parameters": [
+        "reasoning",
+        "include_reasoning",
+        "max_tokens",
+        "temperature",
+        "top_p",
+        "seed",
+        "presence_penalty",
+        "response_format",
+        "logprobs",
+        "top_logprobs",
+        "tools",
+        "tool_choice"
+      ],
+      "pricing": {
+        "prompt": "0.00000003",
+        "completion": "0.00000013",
+        "input_cache_read": "0.000000006",
+        "input_cache_write": "0.000000038",
+        "discount": 0,
+        "overrides": [
+          {
+            "min_prompt_tokens": 32000,
+            "prompt": "0.0000001",
+            "completion": "0.0000004",
+            "input_cache_read": "0.00000002",
+            "input_cache_write": "0.000000125"
+          },
+          {
+            "min_prompt_tokens": 256000,
+            "prompt": "0.0000002",
+            "completion": "0.0000008",
+            "input_cache_read": "0.00000004",
+            "input_cache_write": "0.00000025"
+          }
+        ]
+      },
+      "reasoning": {
+        "enabled": false
+      },
+      "removed_parameters": [
+        "repetition_penalty",
+        "frequency_penalty"
+      ]
+    },
+    {
+      "alias": "oss",
+      "model": "openai/gpt-oss-120b",
+      "canonical_slug": "openai/gpt-oss-120b",
+      "provider": "near-ai/fp4",
+      "provider_name": "Near AI",
+      "supported_parameters": [
+        "reasoning",
+        "include_reasoning",
+        "temperature",
+        "top_p",
+        "top_k",
+        "frequency_penalty",
+        "presence_penalty",
+        "repetition_penalty",
+        "max_tokens",
+        "stop",
+        "seed",
+        "response_format",
+        "structured_outputs",
+        "tools",
+        "tool_choice",
+        "logprobs",
+        "top_logprobs",
+        "reasoning_effort"
+      ],
+      "pricing": {
+        "prompt": "0.00000003",
+        "completion": "0.00000015",
+        "input_cache_read": "0.000000015",
+        "discount": 0
+      },
+      "reasoning": {
+        "effort": "low"
+      },
+      "removed_parameters": []
+    }
+  ],
+  "temperature": 0.65,
+  "max_tokens": 2048,
+  "repetitions": 20,
+  "schedule_seed": 20261101,
+  "concurrency": 2,
+  "http_timeout_ms": 180000,
+  "production_timeout_ms": 30000,
+  "transport": "headless RecipeRunner + callOpenRouter; requestUrl replaced by instrumented HTTPS transport; no UI or vault",
+  "capture_scope": "Historical fixed-input API experiment through Studio code without the Obsidian window; not a new live run.",
+  "annotation_provenance": {
+    "tool_recorded": "Codex assistants",
+    "exact_grader_model_id": null,
+    "grader_model_id_status": "NOT_RECORDED_IN_SUPPLIED_ARCHIVE",
+    "blind_to_model": false,
+    "human_review": "NOT_RUN",
+    "target_model_filenames_are_not_grader_model_ids": true
+  }
+}

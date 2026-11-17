@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "scope": "Machine equality, accounting and bounded publication scan; no human semantic validation",
+  "source_zip_sha256": "7d4d283f366ffd6c0b96f2e297c428a063980e603da2ef07872c53c0143e90f9",
+  "source_manifest_entries_verified": 4260,
+  "main_attempts": 360,
+  "complete_api_outputs": 359,
+  "studio_generated": 346,
+  "visible_outputs_equal_original": 360,
+  "requests_equal_original": 360,
+  "labels_equal_original": 360,
+  "main_cost_usd": "0.039284116",
+  "pilot_cost_usd": "0.00061907",
+  "human_review": "HUMAN_REVIEW_PENDING",
+  "publication_changes": [
+    "README publication/provenance/annotation-projection disclosures only; original data JSONL unchanged.",
+    "Original free-text annotation notes supplied in a separate file.",
+    "Actual grader model IDs added from authorized session metadata."
+  ],
+  "private_exclusions": [
+    "credentials and HTTP headers",
+    "account identifiers and balances",
+    "full provider envelopes",
+    "reasoning text",
+    "private filesystem paths",
+    "session messages"
+  ],
+  "exact_active_key_scan": "PASS",
+  "bounded_pattern_scan": "PASS",
+  "temporal_sensitivity": "180 rows;37 quote-only matches;1 unresolved derivative; original labels unchanged"
+}
