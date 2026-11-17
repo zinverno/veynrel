@@ -1,3 +1,4 @@
+import { setIcon } from "obsidian";
 import { t } from "../../i18n";
 import { healthButton } from "./renderHealthHome";
 import { SNOOZE_DAYS } from "./findingsInboxViewModel";
@@ -58,10 +59,14 @@ export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxVie
     problem.createEl("strong", { text: row.title });
     for (const fact of row.facts.slice(0, 3)) problem.createEl("p", { text: fact });
     if (!row.facts.length) problem.createEl("p", { text: row.explanation });
-    const buttons = item.createDiv({ cls: "veynrel-health-actions" });
-    if (row.repairSource && actions.repair) healthButton(buttons, t("@localNote.repair"), () => actions.repair!(row.repairSource!), `repair-${row.id}`);
-    else if (row.pair && actions.compare) healthButton(buttons, t("@actions.compare"), () => actions.compare!(row.id), `compare-${row.id}`);
-    healthButton(buttons, t("@ux.details"), () => actions.select(row.id), `finding-${row.id}`).setAttribute("aria-pressed", String(row.selected));
+    const buttons = item.createDiv({ cls: "veynrel-health-actions veynrel-finding-actions" });
+    const action = (text: string, icon: string, key: string, open: () => void, cls: string) => {
+      const button = healthButton(buttons, "", open, key); button.addClass(cls);
+      setIcon(button.createSpan({ attr: { "aria-hidden": "true" } }), icon); button.createSpan({ text }); return button;
+    };
+    if (row.repairSource && actions.repair) action(t("@followup.fix"), "wrench", `repair-${row.id}`, () => actions.repair!(row.repairSource!), "veynrel-finding-fix");
+    else if (row.pair && actions.compare) action(t("@actions.compare"), "git-compare", `compare-${row.id}`, () => actions.compare!(row.id), "veynrel-finding-fix");
+    action(t("@followup.details"), "info", `finding-${row.id}`, () => actions.select(row.id), "veynrel-finding-details").setAttribute("aria-pressed", String(row.selected));
   }
   if (model.total) {
     const pages = listPane.createDiv({ cls: "veynrel-health-actions" });

@@ -104,13 +104,14 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
   await wait("!!document.querySelector('[data-health-action=recall-reveal]')");await pass('Recall starts real question without revealing answer', "!!document.querySelector('[data-recall-question]')&&!document.querySelector('[data-recall-answer]')");await shot('after-recall-question');await activate('[data-health-action=recall-back]');
   await activate('[data-health-action=nav-home]');await activate('[data-health-action=overview-tools]');
   await main.ev("document.querySelector('[data-tool-segment=tool-openAtomization]').focus();void 0");await key('ArrowRight','ArrowRight',39);await pass('Ring arrows move focus without launching',"document.activeElement.dataset.toolSegment==='tool-generateMocs'&&!document.querySelector('.prompt')");await key('ArrowLeft','ArrowLeft',37);await key('Enter','Enter',13,'\r');
+  await pass('Ring Enter explains before launching',"!!document.querySelector('.veynrel-tool-explanation')&&!document.querySelector('.prompt')");await activate('[data-health-action=tool-info-open]');
   await pass('Ring Enter opens existing Atomization note picker', "!!document.querySelector('.prompt')");await shot('after-ring-enter');await key('Escape','Escape',27);
   await activate('[data-health-action=tool-chooser]');await pass('Optional native name chooser opens',"!!document.querySelector('.prompt-input')");await key('Escape','Escape',27);
   await size(390,1090);await main.send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:1});
   const touchPoint=await main.ev("(()=>{const r=document.querySelector('.veynrel-tool-wheel svg').getBoundingClientRect();return{x:r.x+r.width*(230+126)/460,y:r.y+r.height*(230-126)/460}})()");
   await main.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{...touchPoint,radiusX:2,radiusY:2}]});await main.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await pass('Emulated touch selects without opening',"!document.querySelector('.prompt')&&!document.querySelector('[data-health-action=tool-open-selected]').hidden");await shot('after-touch-selection');
-  await activate('[data-health-action=tool-open-selected]');await pass('Explicit center action opens selected Atomization',"!!document.querySelector('.prompt')");await key('Escape','Escape',27);await main.send('Emulation.setTouchEmulationEnabled',{enabled:false});
+  await activate('[data-health-action=tool-open-selected]');await pass('Touch center explains before launching',"!!document.querySelector('.veynrel-tool-explanation')");await activate('[data-health-action=tool-info-open]');await pass('Explicit center action opens selected Atomization',"!!document.querySelector('.prompt')");await key('Escape','Escape',27);await main.send('Emulation.setTouchEmulationEnabled',{enabled:false});
   await activate('[data-health-action=nav-home]');await activate('[data-health-action=overview-semantic]');await activate('[data-health-action=semantic-mode-notes]');
   for(const theme of ['dark','light']) {
     await main.ev(`app.changeTheme('${theme==='dark'?'obsidian':'moonstone'}');void 0`);

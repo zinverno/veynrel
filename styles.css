@@ -3558,3 +3558,77 @@
 .veynrel-check-status { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
 .veynrel-check-headline { flex-basis: 100%; }
 .veynrel-check-status > p { color: var(--text-muted); font-size: var(--font-ui-small); }
+
+/* Follow-up: native chooser, explanatory modal and two scoped panel grids. */
+.veynrel-tool-choice { display: flex; align-items: center; gap: 12px; }
+.veynrel-tool-choice > span:first-child { display: flex; flex: none; color: var(--text-muted); }
+.veynrel-tool-choice svg { width: 18px; height: 18px; }
+.modal.veynrel-tool-explanation { width: 590px; max-width: calc(100% - 32px); }
+.veynrel-tool-explanation .modal-title { display: flex; align-items: center; gap: 14px; padding-right: 20px; }
+.veynrel-tool-explanation .modal-title > span:first-child { display: flex; flex: none; padding: 10px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); color: var(--text-muted); }
+.veynrel-tool-description { line-height: 1.6; color: var(--text-muted); margin: 20px 0; }
+.veynrel-tool-facts { padding: 4px 16px; background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-l); }
+.veynrel-tool-facts > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 14px 0; font-size: var(--font-ui-small); line-height: 1.5; }
+.veynrel-tool-facts > div + div { border-top: 1px solid var(--background-modifier-border); }
+.veynrel-tool-facts dt { display: flex; align-items: start; gap: 10px; color: var(--text-muted); }
+.veynrel-tool-facts dt > span:first-child { display: flex; padding-top: 2px; }
+.veynrel-tool-facts svg { width: 16px; height: 16px; }
+.veynrel-tool-facts dd { margin: 0; overflow-wrap: anywhere; }
+.veynrel-tool-instructions { color: var(--text-muted); font-size: var(--font-ui-small); line-height: 1.6; }
+.veynrel-tool-explanation .modal-button-container { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--background-modifier-border); gap: 12px; flex-wrap: wrap; }
+.veynrel-tool-explanation [data-health-action="tool-info-cancel"] { background: transparent; border: 0; box-shadow: none; color: var(--text-muted); }
+.veynrel-tool-explanation button:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+.veynrel-health-view .veynrel-processing, .veynrel-health-view .veynrel-semantic-landing { max-width: none; margin: 0; min-height: calc(100cqh - 98px); display: flex; flex-direction: column; }
+.veynrel-health-view .veynrel-processing-grid, .veynrel-health-view .veynrel-semantic-grid { display: grid; gap: 16px; flex: 1; }
+.veynrel-health-view .veynrel-processing-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); grid-template-rows: minmax(260px, 1.25fr) minmax(220px, 1fr); }
+.veynrel-health-view .veynrel-semantic-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(220px, 1fr)); }
+.veynrel-health-view .veynrel-action-panel { display: flex; flex-direction: column; gap: 16px; min-width: 0; padding: 24px; color: var(--text-normal); text-decoration: none; border: 1px solid var(--background-modifier-border); border-radius: calc(var(--radius-l) * 2); background: var(--background-secondary); }
+.veynrel-health-view .veynrel-action-panel:hover { background: var(--background-modifier-hover); border-color: var(--background-modifier-border-hover); }
+.veynrel-health-view .veynrel-action-panel:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+.veynrel-health-view .veynrel-action-panel[aria-disabled="true"] { opacity: .6; cursor: not-allowed; }
+.veynrel-health-view .veynrel-panel-primary { background: var(--background-secondary-alt); }
+.veynrel-health-view .veynrel-semantic-grid > .veynrel-panel-primary { grid-column: span 2; }
+.veynrel-health-view .veynrel-panel-heading { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+.veynrel-health-view .veynrel-panel-heading > span, .veynrel-health-view .veynrel-panel-action > span:last-child { display: flex; flex: none; color: var(--text-muted); }
+.veynrel-health-view .veynrel-panel-heading svg { width: 20px; height: 20px; }
+.veynrel-health-view .veynrel-panel-heading h2 { font-size: 1rem; line-height: 1.35; margin: 0; overflow-wrap: anywhere; }
+.veynrel-health-view .veynrel-processing-grid h2 { font-size: 1.25rem; }
+.veynrel-health-view .veynrel-processing-grid .veynrel-panel-primary h2 { font-size: 1.65rem; }
+.veynrel-health-view .veynrel-action-panel > p { font-size: var(--font-ui-small); line-height: 1.55; color: var(--text-muted); margin: 0; max-width: 48ch; overflow-wrap: anywhere; }
+.veynrel-health-view .veynrel-panel-action { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 18px; font-size: var(--font-ui-smaller); color: var(--text-muted); order: 1; }
+.veynrel-health-view .veynrel-panel-action svg { width: 16px; height: 16px; }
+.veynrel-health-view .veynrel-processing-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding-top: 14px; color: var(--text-muted); }
+.veynrel-health-view .veynrel-processing-footer button { box-shadow: none; border: 0; background: transparent; font-size: var(--font-ui-smaller); color: var(--text-muted); }
+.veynrel-health-view .veynrel-finding-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.veynrel-health-view .veynrel-finding-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: auto; min-height: 35px; padding: 6px 10px; font-size: var(--font-ui-smaller); line-height: 1.4; white-space: normal; box-shadow: none; border-radius: var(--radius-m); }
+.veynrel-health-view .veynrel-finding-actions button > span:first-child { display: flex; flex: none; }
+.veynrel-health-view .veynrel-finding-actions svg { width: 15px; height: 15px; }
+.veynrel-health-view .veynrel-finding-fix { border: 1px solid var(--background-modifier-border); background: var(--background-primary-alt); color: var(--text-normal); }
+.veynrel-health-view .veynrel-finding-details { border: 1px solid transparent; background: transparent; color: var(--text-muted); }
+.veynrel-health-view .veynrel-finding-actions button:hover { background: var(--background-modifier-hover); }
+.veynrel-health-view .veynrel-finding-actions button:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 3px; }
+@container (max-width: 700px) {
+  .veynrel-health-view .veynrel-processing, .veynrel-health-view .veynrel-semantic-landing { min-height: calc(100cqh - 80px); }
+  .veynrel-health-view .veynrel-processing-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: minmax(220px, auto); }
+  .veynrel-health-view .veynrel-processing-grid > .veynrel-panel-primary { min-height: 290px; }
+  .veynrel-health-view .veynrel-semantic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: minmax(230px, auto); }
+  .veynrel-health-view .veynrel-processing-grid, .veynrel-health-view .veynrel-semantic-grid { gap: 12px; }
+  .veynrel-health-view .veynrel-action-panel { padding: 18px 16px; gap: 14px; }
+  .veynrel-health-view .veynrel-semantic-grid h2 { font-size: .9rem; }
+  .veynrel-health-view .veynrel-panel-heading { gap: 8px; }
+  .veynrel-health-view .veynrel-action-panel > p { font-size: .8rem; }
+  .veynrel-health-view .veynrel-panel-action { font-size: .7rem; gap: 8px; }
+  .veynrel-health-view .veynrel-finding-item { flex-direction: column; }
+  .veynrel-health-view .veynrel-finding-actions { width: 100%; }
+  .veynrel-health-view .veynrel-finding-actions button { min-height: 40px; }
+}
+@container (max-width: 350px) {
+  .veynrel-health-view .veynrel-semantic-grid { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-health-view .veynrel-semantic-grid > .veynrel-panel-primary { grid-column: auto; }
+}
+@media (max-width: 500px) {
+  .veynrel-tool-facts > div { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .veynrel-tool-facts dd { padding-left: 26px; }
+}
+
+.veynrel-health-view :is(.veynrel-processing, .veynrel-semantic-landing) .veynrel-page-heading h1 { margin-bottom: 0; }

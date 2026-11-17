@@ -59,6 +59,7 @@ import { connectResultMessage, connectViewModel } from "./connectViewModel";
 import type { VeynrelToolsPort, VeynrelToolAction } from "../toolsPort";
 import { toolsViewModel } from "./toolsViewModel";
 import { renderTools } from "./renderTools";
+import { renderActionPanel } from "./renderActionPanel";
 import { renderProcessing, type ProcessingClusters } from "./renderProcessing";
 import { settingsViewModel } from "./settingsViewModel";
 import type { ProductSettingsAction } from "./settingsViewModel";
@@ -347,18 +348,20 @@ export class VeynrelHealthView extends ItemView {
         setup: () => this.settingsAction("semantic"),
       }, this.searchQuery, scope.snapshot);
     } else if (normal && this.route.page === "semantic") {
-      workspaceHeading(surface, t("@ux.semantic"), t("@overview.semantic-description"));
-      renderSearchEntry(surface, semanticSnapshot, this.searchQuery, query => this.semantic?.openSearch(query), () => this.settingsAction("semantic"));
-      const modes = surface.createDiv({ cls: "veynrel-semantic-modes" });
-      for (const [key, page] of [["notes", "discover"], ["families", "discover"], ["map", "discover"], ["neighborhood", "semantic-neighborhood"], ["opportunities", "connection-opportunities"], ["focus", "semantic-map"]] as const) {
-        const row = modes;
-        healthButton(row, t(`@overview.mode.${key}`), () => {
-          this.navigate({ page });
-          if (key === "map" || key === "families") this.workbench?.openSemanticMap(key === "families");
-        }, `semantic-mode-${key}`);
-
+      const page = surface.createEl("section", { cls: "veynrel-semantic-landing" });
+      workspaceHeading(page, t("@ux.semantic"));
+      renderSearchEntry(page, semanticSnapshot, this.searchQuery, query => this.semantic?.openSearch(query), () => this.settingsAction("semantic"));
+      const modes = page.createDiv({ cls: "veynrel-semantic-grid" });
+      for (const [key, destination, icon] of [["map", "discover", "network"], ["families", "discover", "layers"], ["notes", "discover", "files"], ["neighborhood", "semantic-neighborhood", "circle-dot"], ["opportunities", "connection-opportunities", "link"], ["focus", "semantic-map", "focus"]] as const) {
+        const panel = renderActionPanel(modes, `semantic-mode-${key}`, t(`@followup.semantic.${key}`), icon,
+          t(`@followup.semantic.${key}-description`), t(`@followup.semantic.${key}-action`), () => {
+            this.navigate({ page: destination });
+            if (key === "map" || key === "families") this.workbench?.openSemanticMap(key === "families");
+          });
+        if (key === "map") panel.addClass("veynrel-panel-primary");
       }
-      healthButton(modes, t("@overview.similar"), () => this.semantic?.openSimilarNotes(), "semantic-similar", semanticSnapshot?.state !== "ready");
+      renderActionPanel(modes, "semantic-similar", t("@overview.similar"), "copy", t("@followup.semantic.similar-description"),
+        t("@followup.semantic.similar-action"), () => this.semantic?.openSimilarNotes(), semanticSnapshot?.state !== "ready");
     } else if (normal && this.route.page === "process") {
       const route = this.route;
       renderProcessing(surface, this.processingClusters, {

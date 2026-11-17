@@ -1,8 +1,10 @@
-import { FuzzySuggestModal, Modal, setIcon, type App } from "obsidian";
+import { FuzzySuggestModal, setIcon, type App, type FuzzyMatch } from "obsidian";
 import { t } from "../../i18n";
 import type { VeynrelToolAction } from "../toolsPort";
 import { healthButton } from "./renderHealthHome";
 import type { CatalogPage, toolsViewModel } from "./toolsViewModel";
+
+import { ToolExplanationModal } from "./toolExplanationModal";
 
 let ringSequence = 0;
 
@@ -23,8 +25,13 @@ export function renderTools(parent: HTMLElement, model: ReturnType<typeof toolsV
   const center = wheel.createDiv({ cls: "veynrel-tool-center", attr: { "aria-live": "polite" } });
   const glyph = center.createSpan({ attr: { "aria-hidden": "true" } });
   const title = center.createEl("h2"), description = center.createEl("p");
-  const open = (index: number): void => { const tool = items[index]; if (tool.action) launch(tool.action); else if (tool.page) navigate(tool.page); };
-  const button = healthButton(center, t("@polish.open") + " →", () => { const i = items.findIndex(tool => tool.key === state.selected); if (i >= 0) open(i); }, "tool-open-selected");
+  let explanation: ToolExplanationModal | undefined;
+  const open = (index: number, origin: HTMLElement | SVGElement): void => {
+    const tool = items[index];
+    explanation = new ToolExplanationModal(app, tool, origin, () => { if (tool.action) launch(tool.action); else if (tool.page) navigate(tool.page); });
+    explanation.open();
+  };
+  const button = healthButton(center, t("@followup.details") + " →", () => { const i = items.findIndex(tool => tool.key === state.selected); if (i >= 0) open(i, button); }, "tool-open-selected");
   const point = (angle: number, r: number): string => `${230 + r * Math.cos(angle)},${230 + r * Math.sin(angle)}`;
   const angle = (i: number): number => i * Math.PI * 2 / items.length - Math.PI / 2;
   const arc = (i: number, r: number): string => `M${point(angle(i), r)} A${r},${r} 0 ${items.length === 1 ? 1 : 0} 1 ${point(angle(i + 1), r)}`;
@@ -52,7 +59,7 @@ export function renderTools(parent: HTMLElement, model: ReturnType<typeof toolsV
     hit.addEventListener("pointerenter", event => { if (event.pointerType !== "touch") { touch = false; show(i); } });
     hit.addEventListener("pointerdown", event => { touch = event.pointerType === "touch"; if (touch) show(i); });
     hit.addEventListener("focus", () => show(i, true));
-    hit.addEventListener("click", event => { if (touch || (event as PointerEvent).pointerType === "touch") { show(i); return; } open(i); });
+    hit.addEventListener("click", event => { if (touch || (event as PointerEvent).pointerType === "touch") { show(i); return; } open(i, hit); });
     hit.addEventListener("keydown", event => {
       const key = event;
       let next = i;
@@ -60,27 +67,32 @@ export function renderTools(parent: HTMLElement, model: ReturnType<typeof toolsV
       else if (["ArrowLeft", "ArrowUp"].includes(key.key)) next = (i + items.length - 1) % items.length;
       else if (key.key === "Home") next = 0;
       else if (key.key === "End") next = items.length - 1;
-      else if (key.key === "Enter" || key.key === " ") { key.preventDefault(); open(i); return; }
+      else if (key.key === "Enter" || key.key === " ") { key.preventDefault(); open(i, hit); return; }
       else return;
       key.preventDefault(); hits.forEach((el, j) => el.setAttribute("tabindex", j === next ? "0" : "-1")); hits[next].focus();
     });
   }
   const aux = stage.createDiv({ cls: "veynrel-ring-aux" });
   const chooser = healthButton(aux, t("@visual.choose-name"), () => {
-    const choices = items.map((tool, i) => ({ title: tool.title, open: () => open(i) }));
-    for (const item of model.editor.items) choices.push({ title: item.title, open: () => {
-      const modal = new Modal(app); modal.titleEl.setText(item.title);
-      modal.contentEl.createEl("p", { text: item.description }); modal.contentEl.createEl("p", { text: item.instructions }); modal.open();
-    } });
+    const choices = items.map((tool, i) => ({ title: tool.title, icon: tool.icon, open: () => open(i, chooser) }));
+    for (const item of model.editor.items) choices.push({ title: item.title, icon: item.icon,
+      open: () => new ToolExplanationModal(app, item, chooser).open() });
     new class extends FuzzySuggestModal<typeof choices[number]> {
+      private chosen = false;
       getItems() { return choices; }
       getItemText(item: typeof choices[number]) { return item.title; }
-      onChooseItem(item: typeof choices[number]) { item.open(); }
+      renderSuggestion(match: FuzzyMatch<typeof choices[number]>, el: HTMLElement): void {
+        el.addClass("veynrel-tool-choice");
+        setIcon(el.createSpan({ attr: { "aria-hidden": "true" } }), match.item.icon);
+        super.renderSuggestion(match, el.createSpan());
+      }
+      onChooseItem(item: typeof choices[number]) { this.chosen = true; item.open(); }
+      onClose(): void { super.onClose(); queueMicrotask(() => { if (!this.chosen && chooser.isConnected) chooser.focus(); }); }
     }(app).open();
   }, "tool-chooser");
   const help = stage.createEl("p", { cls: "veynrel-ring-keys", text: t("@visual.ring-keys") }); help.hidden = true;
   healthButton(aux, t("@visual.keyboard"), () => { help.hidden = !help.hidden; }, "tool-keyboard");
-  wheel.addEventListener("pointerleave", () => { if (!touch && !wheel.contains(parent.ownerDocument.activeElement)) show(-1); });
+  wheel.addEventListener("pointerleave", () => { if (!touch && !explanation?.isShowing && !wheel.contains(parent.ownerDocument.activeElement)) show(-1); });
   wheel.addEventListener("keydown", event => { if (event.key === "Escape") { event.preventDefault(); show(-1); chooser.focus(); } });
   show(items.findIndex(tool => tool.key === state.selected));
 }

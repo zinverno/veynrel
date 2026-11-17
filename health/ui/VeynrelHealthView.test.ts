@@ -9,7 +9,7 @@ import type { SemanticIntelligenceSnapshot } from "../semanticIntelligencePort";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   class Element {
-    open = false; style: Record<string, string> = {};
+    isConnected = true; hidden = false; open = false; style: Record<string, string> = {};
     children: Element[] = []; text = ""; cls = ""; tag = "div"; disabled = false; value = "";
     parentElement?: Element; scrollTop = 0; scrollLeft = 0; focusOptions?: FocusOptions;
     attrs: Record<string, string> = {}; listeners = new Map<string, Set<(event: unknown) => void>>();
@@ -56,7 +56,7 @@ const mocks = vi.hoisted(() => {
   }
   class Modal {
     static opened: Modal[] = [];
-    contentEl = new Element(); titleEl = new Element();
+    contentEl = new Element(); titleEl = new Element(); modalEl = new Element();
     onOpen(): void {} onClose(): void {}
     open(): void { Modal.opened.push(this); this.onOpen(); } close(): void { this.onClose(); }
   }
@@ -123,6 +123,7 @@ function selectScope(content: InstanceType<typeof mocks.Element>, path: string):
 function toolDetails(content: InstanceType<typeof mocks.Element>, action: string): void {
   go(content, "tools"); content.all().find(e => e.attrs["data-tool-segment"] === `tool-${action}`)!.focus();
 }
+function confirmTool(): void { mocks.Modal.opened.at(-1)!.contentEl.action("tool-info-open").click(); }
 function currentPage(content: InstanceType<typeof mocks.Element>): string | undefined {
   const page = content.all().find(e => e.attrs["data-page"])?.attrs["data-page"];
   return ["discover", "semantic-map", "semantic-neighborhood", "connection-opportunities", "topology"].includes(page ?? "") ? "semantic" : page === "process" ? "tools" : page;
@@ -1218,9 +1219,43 @@ describe("final Tools and Settings IA", () => {
       if (name === "openBatchProcessing") openBatch(f.content);
       else toolDetails(f.content, name);
       expect(operation).not.toHaveBeenCalled();
-      f.content.action(name === "openBatchProcessing" ? "tool-openBatchProcessing" : "tool-open-selected").click(); await flush(); expect(operation).toHaveBeenCalledTimes(1);
+      f.content.action(name === "openBatchProcessing" ? "tool-openBatchProcessing" : "tool-open-selected").click(); if (name !== "openBatchProcessing") { expect(operation).not.toHaveBeenCalled(); confirmTool(); }
+      await flush(); expect(operation).toHaveBeenCalledTimes(1);
     }
     passive(f); expect(f.controller.listFindings()).toEqual([]);
+    await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
+  });
+  it("tool explanation is passive, cancel restores its origin, and the launcher runs only once", async () => {
+    const f = overviewFixture(); await f.view.onOpen(); toolDetails(f.content, "openAskVault");
+    const origin = f.content.action("tool-open-selected"); origin.focus(); origin.click();
+    const info = mocks.Modal.opened.at(-1)!;
+    expect(info.modalEl.cls).toContain("veynrel-tool-explanation");
+    expect(info.contentEl.texts()).toContain("semantic index");
+    expect(f.tools.openAskVault).not.toHaveBeenCalled(); passive(f);
+    origin.ownerDocument.activeElement = null;
+    f.content.all().find(e => e.cls === "veynrel-tool-wheel")!.emit("pointerleave");
+    expect(origin.hidden).toBe(false);
+    info.contentEl.action("tool-info-cancel").click(); await flush();
+    expect(origin.ownerDocument.activeElement).toBe(origin);
+    info.contentEl.action("tool-info-open").click(); expect(f.tools.openAskVault).not.toHaveBeenCalled();
+    origin.click(); const open = mocks.Modal.opened.at(-1)!.contentEl.action("tool-info-open");
+    open.click(); open.click(); expect(f.tools.openAskVault).toHaveBeenCalledTimes(1);
+    await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
+  });
+  it("name chooser keeps all entries and opens the same passive explanation; editor instructions do not guess selection", async () => {
+    const f = overviewFixture(); await f.view.onOpen(); go(f.content, "tools");
+    const origin = f.content.action("tool-chooser"); origin.click();
+    const chooser = mocks.Modal.opened.at(-1) as InstanceType<typeof mocks.FuzzySuggestModal>;
+    const choices = chooser.getItems() as { title: string; icon: string }[];
+    expect(choices).toHaveLength(17); expect(choices.every(c => c.icon)).toBe(true);
+    chooser.onChooseItem(choices[0]); expect(currentPage(f.content)).toBe("tools"); passive(f);
+    const info = mocks.Modal.opened.at(-1)!; expect(info.contentEl.action("tool-info-open")).toBeDefined();
+    info.close(); await flush(); expect(origin.ownerDocument.activeElement).toBe(origin);
+    for (const editor of choices.slice(12)) {
+      chooser.onChooseItem(editor); const help = mocks.Modal.opened.at(-1)!;
+      expect(help.contentEl.action("tool-info-open")).toBeUndefined();
+      expect(help.contentEl.texts()).toContain("command palette"); passive(f); help.close();
+    }
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it("Settings reuses the existing setup choosers and Connect route without setup or IO on entry", async () => {
@@ -1239,18 +1274,18 @@ describe("final Tools and Settings IA", () => {
     await second.onOpen(); const content = second.contentEl as unknown as InstanceType<typeof mocks.Element>;
     go(f.content, "tools"); content.action("nav-settings").click();
     let fail!: (error: Error) => void; f.tools.generateMocs.mockImplementationOnce(() => new Promise<void>((_resolve, reject) => { fail = reject; }));
-    toolDetails(f.content, "generateMocs"); const stale = f.content.action("tool-open-selected"); stale.click(); f.content.action("nav-settings").click(); stale.click();
+    toolDetails(f.content, "generateMocs"); const stale = f.content.action("tool-open-selected"); stale.click(); confirmTool(); f.content.action("nav-settings").click(); stale.click(); confirmTool();
     expect(f.tools.generateMocs).toHaveBeenCalledTimes(1);
     fail(new Error("PRIVATE_PROVIDER_BODY")); await flush();
     expect(f.content.action("nav-settings").attrs["aria-current"]).toBe("page"); expect(f.content.texts()).not.toContain("PRIVATE_PROVIDER_BODY");
     go(content, "health"); go(content, "tools"); f.tools.openAskVault.mockImplementationOnce(() => { throw new Error("PRIVATE_PROVIDER_BODY"); });
-    toolDetails(content, "openAskVault"); content.action("tool-open-selected").click(); await flush();
+    toolDetails(content, "openAskVault"); content.action("tool-open-selected").click(); confirmTool(); await flush();
     expect(content.texts()).toContain("Could not open this tool"); expect(content.texts()).not.toContain("PRIVATE_PROVIDER_BODY");
     const feedback = content.querySelector("[data-workspace-message]")!;
     expect(feedback.texts()).toContain("Could not open this tool");
     expect(feedback.parentElement!.cls).toBe("veynrel-shell-main");
     expect(feedback.parentElement!.children[0]).toBe(feedback);
-    toolDetails(content, "openAskVault"); content.action("tool-open-selected").click(); await flush();
+    toolDetails(content, "openAskVault"); content.action("tool-open-selected").click(); confirmTool(); await flush();
     expect(f.tools.openAskVault).toHaveBeenCalledTimes(2); expect(content.texts()).not.toContain("Could not open this tool");
     await second.onClose(); await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
@@ -1258,7 +1293,7 @@ describe("final Tools and Settings IA", () => {
     const f = overviewFixture(); await f.view.onOpen(); go(f.content, "health", true); go(f.content, "tools");
     toolDetails(f.content, "openAskVault"); const stale = f.content.action("tool-open-selected");
     vi.spyOn(f.controller, "getState").mockReturnValue({ ...f.controller.getState(), snapshot: { ...f.controller.getState().snapshot!, initialization: { status: "unavailable", storage: { findings: "invalid", scanRuns: "invalid" }, findingsWritable: false, historyWritable: false } } });
-    (f.view as unknown as { render(): void }).render(); stale.click();
+    (f.view as unknown as { render(): void }).render(); stale.click(); confirmTool();
     expect(f.tools.openAskVault).not.toHaveBeenCalled(); expect(f.content.action("nav-tools")).toBeUndefined();
     expect(f.content.action("recover")).toBeDefined(); expect(file).toMatch(/json$/u);
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
@@ -1874,10 +1909,10 @@ describe("safe pair opening", () => {
 });
 
 describe("Processing entry", () => {
-  it("shows four compact tool rows, opens the Markdown picker, and launches batch without scope arguments", async () => {
+  it("shows four whole tool panels, opens the Markdown picker, and launches batch without scope arguments", async () => {
     const f = fixture(); Object.assign(f.tools, { savedMocClusterCount: vi.fn(async () => 3) });
     await f.view.onOpen(); go(f.content, "health", true); openBatch(f.content); await flush();
-    expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-row"))).toHaveLength(4);
+    expect(f.content.all().filter(e => e.tag === "a" && e.cls.includes("veynrel-action-panel"))).toHaveLength(4);
     expect(f.content.action("process-recall")).toBeUndefined();
     expect(f.content.texts()).toContain("Saved clusters: 3");
     f.content.action("tool-openBatchProcessing").click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledWith();
@@ -1891,7 +1926,7 @@ describe("Processing entry", () => {
     const f = fixture(); let resolve!: (value: number) => void;
     Object.assign(f.tools, { savedMocClusterCount: vi.fn(() => new Promise<number>(r => { resolve = r; })) });
     await f.view.onOpen(); go(f.content, "health", true); openBatch(f.content);
-    const stale = f.content.action("tool-generateMocs"); expect(stale.disabled).toBe(true); stale.click();
+    const stale = f.content.action("tool-generateMocs"); expect(stale.attrs["aria-disabled"]).toBe("true"); stale.click();
     expect(f.tools.generateMocs).not.toHaveBeenCalled(); resolve(0); await flush();
     expect(f.content.action("tool-generateMocs")).toBeUndefined();
     expect(f.content.texts()).toContain("Run a deep audit first");

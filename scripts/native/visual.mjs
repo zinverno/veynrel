@@ -1,4 +1,6 @@
 import { runVisualUX } from './visual-journey.mjs';
+import { runFollowupUX } from './followup-journey.mjs';
+const followup = process.argv[5] === 'followup';
 // Real Obsidian/Electron smoke with synthetic loopback embeddings; no personal vault.
 import fs from 'node:fs';
 import {createServer} from 'node:http';
@@ -18,6 +20,7 @@ const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowle
 fs.mkdirSync(pluginDir, { recursive: true }); fs.mkdirSync(`${root}/profile`); fs.mkdirSync(`${root}/frames`);
 const originals = { 'Source.md': '# Synthetic source\n\nTwo facts stay unchanged. Два факта сохранены.\n\n## Flashcards\n\nWhat links notes?::Ideas and references\n', 'Other.md': '# Synthetic second note\n\n[[Source]]\n' };
 for(let i=2;i<noteCount;i++) originals[`Note-${i}.md`]=`# Synthetic material ${i}\n\nDistinct explanation ${i} about ${['containers','databases','architecture','learning'][i%4]}.\n\n[[${i%7===0?'Missing-'+i:'Source'}]]\n`;
+if(followup) originals['Long source — '+ 'material and references '.repeat(6) + '.md'] = '# Long synthetic source\n\n[[Missing target with a deliberately long explanation about relationships and organisation across many different notes]]\n';
 for (const [name, text] of Object.entries(originals)) fs.writeFileSync(`${vault}/${name}`, text);
 fs.writeFileSync(`${vault}/.obsidian/community-plugins.json`, '["ai-knowledge-hub"]');
 fs.writeFileSync(`${vault}/.obsidian/app.json`, '{"checkForUpdates":false}');
@@ -25,8 +28,8 @@ fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisable
 fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', apiKey: '', provider: 'ollama', baseUrl: 'http://127.0.0.1:1/v1', model: 'unused', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: false, profileChosen: false } }));
 const sha = value => createHash('sha256').update(value).digest('hex');
 const source = { commit: spawnSync('git',['rev-parse','HEAD'],{cwd:build,encoding:'utf8'}).stdout.trim(), diffSha256: sha(spawnSync('git',['diff','HEAD','--','*.ts','*.mjs','*.py','styles.css'],{cwd:build,encoding:'utf8'}).stdout) };
-const report = { source, scenario: 'visual-'+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
-report.harnessHashes = Object.fromEntries(['visual.mjs','visual-journey.mjs','overview-fixture.ts','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
+const report = { source, scenario: (followup?'followup-':'visual-')+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
+report.harnessHashes = Object.fromEntries(['visual.mjs','visual-journey.mjs','followup.mjs','followup-journey.mjs','overview-fixture.ts','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); }
 if(process.env.UX_THEME_DIR){
   const theme=JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/manifest.json`,'utf8'));assert.equal(theme.name,'Minimal');
@@ -79,13 +82,13 @@ async function connection(target) {
 }
 async function wait(expression, c = main) { for (let i = 0; i < 200; i++) { if (await c.ev(expression)) return; await pause(50); } throw Error(`Readiness: ${expression}`); }
 async function pass(name, expression, c = main) { assert(await c.ev(expression), name); report.checks.push(name); }
-async function shot(name, c = main) {
+async function shot(name, c = main, fullWindow = false) {
   await c.ev("Promise.all(document.getAnimations().filter(a=>a.effect?.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})))");
-  const rect=await c.ev("(()=>{const r=document.querySelector('.veynrel-health-view').getBoundingClientRect();return{x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height),scale:1}})()");
+  const rect=await c.ev(fullWindow ? "({x:0,y:0,width:innerWidth,height:innerHeight,scale:1})" : "(()=>{const r=document.querySelector('.veynrel-health-view').getBoundingClientRect();return{x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height),scale:1}})()");
   const png=Buffer.from((await c.send('Page.captureScreenshot',{format:'png',clip:rect,captureBeyondViewport:true})).data,'base64');
   assert.equal(png.readUInt32BE(16),rect.width);assert.equal(png.readUInt32BE(20),rect.height);
   fs.writeFileSync(`${root}/${name}.png`,png);
-  report.screenshots.push(name+'.png');
+  report.screenshots.push(name+'.png'); (report.screenshotGeometry??=[]).push({name,rect,fullWindow});
 }
 
 async function focus(c = main) { await c.send('Page.bringToFront'); await c.ev('window.electronWindow.focus();void 0'); await wait('document.hasFocus() && window.electronWindow.isFocused()', c); }
@@ -119,7 +122,7 @@ try {
   await main.ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");
   await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.body");
   await main.ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0");
-  await runVisualUX({main,wait,pass,shot,focus,key,report,phase,connection,endpoint,pause,providerUrl,stopVideo});
+  await (followup ? runFollowupUX : runVisualUX)({main,wait,pass,shot,focus,key,report,phase,connection,endpoint,pause,providerUrl,stopVideo});
   report.dom=await main.ev('({elements:document.querySelectorAll(".veynrel-health-view *").length,findings:hv.controller.listFindings().length})');
   await stopVideo();
   report.markdown=Object.fromEntries(Object.entries(originals).map(([name,text])=>[name,{before:sha(text),after:sha(fs.readFileSync(`${vault}/${name}`))}]));
