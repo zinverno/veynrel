@@ -81,8 +81,10 @@ async function wait(expression, c = main) { for (let i = 0; i < 200; i++) { if (
 async function pass(name, expression, c = main) { assert(await c.ev(expression), name); report.checks.push(name); }
 async function shot(name, c = main) {
   await c.ev("Promise.all(document.getAnimations().filter(a=>a.effect?.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})))");
-  const rect=await c.ev("(()=>{const r=document.querySelector('.veynrel-health-view').getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,scale:1}})()");
-  fs.writeFileSync(`${root}/${name}.png`,Buffer.from((await c.send('Page.captureScreenshot',{format:'png',clip:rect,captureBeyondViewport:true})).data,'base64'));
+  const rect=await c.ev("(()=>{const r=document.querySelector('.veynrel-health-view').getBoundingClientRect();return{x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height),scale:1}})()");
+  const png=Buffer.from((await c.send('Page.captureScreenshot',{format:'png',clip:rect,captureBeyondViewport:true})).data,'base64');
+  assert.equal(png.readUInt32BE(16),rect.width);assert.equal(png.readUInt32BE(20),rect.height);
+  fs.writeFileSync(`${root}/${name}.png`,png);
   report.screenshots.push(name+'.png');
 }
 
