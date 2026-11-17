@@ -3448,7 +3448,7 @@
 .veynrel-tools-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 570px; }
 .veynrel-tool-wheel { position: relative; width: min(460px,100%); aspect-ratio: 1; }
 .veynrel-tool-wheel > svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.veynrel-ring-base { fill: none; stroke: var(--background-secondary-alt); stroke-width: 64; }
+.veynrel-ring-base { fill: none; stroke: var(--background-modifier-border); stroke-width: 64; }
 .veynrel-ring-edge { fill: none; stroke: var(--background-modifier-border); stroke-width: 1; }
 .veynrel-tool-hit { fill: transparent; stroke: none; cursor: pointer; outline: none; }
 .veynrel-ring-highlight { fill: none; stroke: var(--interactive-accent); stroke-width: 64; opacity: .78; pointer-events: none; }

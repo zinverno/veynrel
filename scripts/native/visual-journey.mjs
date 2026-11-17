@@ -51,6 +51,12 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
       await main.send('Input.dispatchMouseEvent',{type:'mouseMoved',...point});await pause(800);
       await pass('Pointer highlights one arc and explains bulk audit',"document.querySelector('.veynrel-ring-highlight').getAttribute('visibility')==='visible'&&document.querySelector('.veynrel-tool-center').textContent.includes('Массовый аудит')");
       await shot(`${phase}-tools-hover-${theme}-${width}`);
+      if(theme==='light'&&width===1280) {
+        const tagPoint=await main.ev("(()=>{const r=document.querySelector('.veynrel-tool-wheel svg').getBoundingClientRect();return{x:r.x+r.width*(230-172)/460,y:r.y+r.height*(230+46)/460}})()");
+        await main.send('Input.dispatchMouseEvent',{type:'mouseMoved',...tagPoint});await pause(800);
+        await pass('Light hover matches reference taxonomy state',"document.querySelector('.veynrel-tool-center').textContent.includes('Таксономия')");
+        await shot('after-tools-taxonomy-light-1280');
+      }
       await main.ev("document.querySelector('[data-tool-segment]').focus();void 0");
       await pass('Ring focus has a visible outline',"document.querySelector('.veynrel-ring-focus').getAttribute('visibility')==='visible'");
       await shot(`${phase}-tools-focus-${theme}-${width}`);
