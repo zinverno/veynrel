@@ -40,6 +40,8 @@ Screenshots are real Obsidian 1.13.7 / Electron 43.6.0 captures. Panel compariso
 
 One isolated `Runtime.evaluate` timeout occurred before the first screenshot. The next run passed at the same timeout; its root cause is **not established or declared fixed**. Prior prototype failures (scrollbar equality and an incorrect panel selector), retained-findings-query automation failures and delayed host theme-save observations are also retained.
 
+The first published CI run [44034445942](https://github.com/zinverno/veynrel/actions/runs/44034445942) passed all tests and typecheck/build but failed lint: the archived prototype checker was added after the local lint run as `prototype/check.mjs`, outside the TypeScript project. Its original contents are now preserved as `prototype/check.mjs.txt` (same SHA-256); no lint rule or runtime code changed. The [original CI log](../evidence/ux-followup/checks/ci-44034445942-fail.log) is retained. The PR records the final CI result separately.
+
 - Semantic route convergence is **deferred**, not repaired by new panels. Search/results and subsequent tool forms remain in their existing owners.
 - Physical touch, screen reader, Obsidian Mobile, third-party themes, custom frame/GPU/IME and real semantic quality were not checked. Touch evidence is emulation.
 - No live paid calls, destructive Batch run, MOC generation, or new Apply/Undo end-to-end operation was performed. Existing pipeline tests remain authoritative for those contracts.
