@@ -42,17 +42,20 @@ export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxVie
   if (!model.rows.length) listPane.createEl("p", { text: model.query || model.category !== "all" ? t("@ux.empty") : model.empty.title });
   const groups = new Map<string, HTMLElement>();
   for (const row of model.rows) {
-    let list = groups.get(row.type);
+    const sourceKey = row.sourceKey;
+    let list = groups.get(sourceKey);
     if (!list) {
-      const group = listPane.createEl("details", { attr: { "data-health-disclosure": `finding-group-${row.type}` } }); group.open = true;
-      group.createEl("summary", { text: `${row.title} · ${model.groupCounts[row.type]}` });
-      list = group.createEl("ul", { cls: "veynrel-findings-list" }); groups.set(row.type, list);
+      const group = listPane.createEl("details", { attr: { "data-health-disclosure": `finding-group-${sourceKey}` } }); group.open = true;
+      const source = group.createEl("summary");
+      source.createSpan({ text: t("@visual.findings-count", { n: model.rows.filter(item => item.sourceKey === sourceKey).length }) });
+      if (row.paths.length > 1) group.createEl("small", { text: row.noteSummary });
+      const files = group.createDiv({ cls: "veynrel-finding-files" });
+      for (const path of row.paths) healthButton(files, path, () => actions.openNote(path), `source-${row.id}-${path}`).addClass("veynrel-finding-source");
+      list = group.createEl("ul", { cls: "veynrel-findings-list" }); groups.set(sourceKey, list);
     }
     const item = list.createEl("li", { cls: "veynrel-finding-item" });
-    const source = item.createDiv({ cls: "veynrel-finding-files" });
-    for (const path of row.paths) healthButton(source, path, () => actions.openNote(path), `source-${row.id}-${path}`).addClass("veynrel-finding-source");
-    if (row.paths.length > 1) item.createEl("small", { text: row.noteSummary });
     const problem = item.createDiv({ cls: "veynrel-finding-problem" });
+    problem.createEl("strong", { text: row.title });
     for (const fact of row.facts.slice(0, 3)) problem.createEl("p", { text: fact });
     if (!row.facts.length) problem.createEl("p", { text: row.explanation });
     const buttons = item.createDiv({ cls: "veynrel-health-actions" });

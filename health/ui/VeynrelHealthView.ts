@@ -290,7 +290,7 @@ export class VeynrelHealthView extends ItemView {
     if (!normal || enteringPage || !this.shellMain || this.shellRevision !== this.scopeRevision || this.shellLanguage !== currentLanguage()) {
       this.body.empty();
       this.shellMain = normal ? renderWorkspaceShell(this.body, this.route, scope, this.app.vault.getName(),
-        route => this.navigate(route), path => this.selectScope(path), this.shellState, () => this.tools.openTagTaxonomy(structuredClone(scope.selection), this.controller.listFindings()), this.tools.openLocalTag ? () => { if (!this.controller.getState().busy) this.tools.openLocalTag!(); } : undefined, this.tools.openSettings ? () => this.tools.openSettings!() : undefined, () => this.tools.openOperationHistory()) : undefined;
+        route => this.navigate(route), path => this.selectScope(path), this.shellState, () => this.tools.openTagTaxonomy(structuredClone(scope.selection), this.controller.listFindings()), this.tools.openLocalTag ? () => { if (!this.controller.getState().busy) this.tools.openLocalTag!(); } : undefined, this.tools.openSettings ? () => this.tools.openSettings!() : undefined, () => this.tools.openOperationHistory(), this.app) : undefined;
       this.shellRevision = this.scopeRevision; this.shellLanguage = currentLanguage();
     }
     const main = this.shellMain ?? this.body;
@@ -329,7 +329,7 @@ export class VeynrelHealthView extends ItemView {
     const recall = recallSnapshot ? recallViewModel(recallSnapshot) : undefined;
     const authoring = recall && !recallSnapshot?.session ? this.authoring?.getSnapshot() : undefined;
     const connectSnapshot = normal && this.route.page === "connect" ? this.connect?.getSnapshot() : undefined;
-    if (scope.selection.kind === "folder" && scope.selection.missing && ["home", "health", "findings", "discover"].includes(this.route.page)) {
+    if (scope.selection.kind === "folder" && scope.selection.missing && ["health", "findings", "discover"].includes(this.route.page)) {
       surface.createEl("p", { text: t("@workspace.missing"), attr: { role: "alert" } });
     } else if (gated) {
       gate(surface, () => { this.scopeAcknowledged = true; this.render(); if (this.route.page === "recall") void this.recall?.initialize(); });
@@ -345,18 +345,18 @@ export class VeynrelHealthView extends ItemView {
       renderOverview(surface, state, this.controller.listFindings(), semanticSnapshot, {
         navigate: route => this.navigate(route), search: query => this.semantic?.openSearch(query),
         setup: () => this.settingsAction("semantic"),
-      }, this.searchQuery);
+      }, this.searchQuery, scope.snapshot);
     } else if (normal && this.route.page === "semantic") {
       workspaceHeading(surface, t("@ux.semantic"), t("@overview.semantic-description"));
       renderSearchEntry(surface, semanticSnapshot, this.searchQuery, query => this.semantic?.openSearch(query), () => this.settingsAction("semantic"));
       const modes = surface.createDiv({ cls: "veynrel-semantic-modes" });
       for (const [key, page] of [["notes", "discover"], ["families", "discover"], ["map", "discover"], ["neighborhood", "semantic-neighborhood"], ["opportunities", "connection-opportunities"], ["focus", "semantic-map"]] as const) {
-        const row = modes.createEl("section");
+        const row = modes;
         healthButton(row, t(`@overview.mode.${key}`), () => {
           this.navigate({ page });
           if (key === "map" || key === "families") this.workbench?.openSemanticMap(key === "families");
         }, `semantic-mode-${key}`);
-        row.createEl("p", { text: t(`@overview.mode.${key}-description`) });
+
       }
       healthButton(modes, t("@overview.similar"), () => this.semantic?.openSimilarNotes(), "semantic-similar", semanticSnapshot?.state !== "ready");
     } else if (normal && this.route.page === "process") {
@@ -399,7 +399,7 @@ export class VeynrelHealthView extends ItemView {
       });
     } else if (normal && this.route.page === "tools") {
       const route = this.route;
-      renderTools(surface, toolsViewModel(), (action) => { void this.launchTool(action, route); }, (page) => this.navigate({ page }), this.toolSelection);
+      renderTools(surface, toolsViewModel(), (action) => { void this.launchTool(action, route); }, (page) => this.navigate({ page }), this.toolSelection, this.app);
     } else if (normal && this.route.page === "settings") {
       const route = this.route;
       if (this.deepSetup) this.renderDeep(surface);

@@ -8,9 +8,9 @@ export function renderCheckSummary(parent: HTMLElement, state: HealthControllerS
   scan: () => void, openNote: (path: string) => void): void {
   const model = healthHomeViewModel(state), outcome = state.outcome;
   const run = outcome?.scan ?? state.snapshot?.lastLocalScan;
+  parent.createEl("h1", { text: t("@ux.check"), attr: { tabindex: "-1", "data-health-heading": "true" } });
   const section = parent.createEl("section", { cls: "veynrel-check-status", attr: { "aria-label": t("@ux.check") } });
   const headline = section.createDiv({ cls: "veynrel-check-headline" });
-  headline.createEl("h1", { text: t("@ux.check"), attr: { tabindex: "-1", "data-health-heading": "true" } });
   headline.createEl("strong", { text: run ? model.count : t("@workspace.notes", { n: noteCount }), cls: "veynrel-check-count" });
   if (run) {
     const receipt = outcome?.coverage;
@@ -39,7 +39,7 @@ export function renderCheckSummary(parent: HTMLElement, state: HealthControllerS
     }
     if (receipt?.diagnosticsTruncated) details.createEl("p", { text: t("@ux.diagnostics-truncated", { n: receipt.diagnosticsTruncated }) });
   }
-  healthButton(section, !run && !state.busy ? t("@ux.start-check") : model.scanLabel, scan, "scan", model.scanDisabled || state.savingPreferences, true);
+  healthButton(headline, !run && !state.busy ? t("@ux.start-check") : model.scanLabel, scan, "scan", model.scanDisabled || state.savingPreferences, true);
   section.createEl("p", { cls: "veynrel-health-muted", text: t("@ux.local") });
   if (model.status) section.createEl("p", { text: model.status, attr: { role: model.statusError ? "alert" : "status" } });
 }

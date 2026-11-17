@@ -19,14 +19,13 @@ describe("workspace presentation contract", () => {
     expect(live).not.toMatch(/display:\s*none|visibility:\s*hidden/u);
     expect(css).not.toContain(".veynrel-health-status:empty");
   });
-  it("uses five horizontal destinations and a compact native disclosure", () => {
+  it("uses Overview links and a return without global tabs or a sidebar", () => {
     const shell = readFileSync("health/workspace/renderWorkspaceShell.ts", "utf8");
-    expect(shell).not.toMatch(/veynrel-brand|veynrel-sidebar|createEl\("aside"/u);
-    expect(shell).toContain('[["home", "home"], ["health", "check"], ["semantic", "semantic"], ["tools", "tools"], ["recall", "recall"]]');
-    expect(rule(".veynrel-tabs")).toContain("display: flex");
-    expect(css).toContain('.veynrel-tabs button[aria-current="page"]');
-    expect(shell).toContain('setIcon(summary, "ellipsis")');
-    expect(css).toContain("@container (max-width: 520px)");
+    expect(shell).not.toMatch(/veynrel-brand|veynrel-sidebar|veynrel-tabs|createEl\("aside"/u);
+    expect(shell).toContain('"← " + t("@workspace.home")');
+    expect(shell).toContain('setIcon(summary, "settings")');
+    expect(css).toContain('"batch check semantic"');
+    expect(css).toContain('"tools check recall"');
   });
 
   it("integrates the preview section while retaining the neutral map surface", () => {

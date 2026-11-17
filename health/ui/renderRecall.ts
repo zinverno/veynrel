@@ -110,8 +110,9 @@ export function renderRecall(parent: HTMLElement, model: RecallViewModel, action
   if (model.mode === "first-run") overview.createEl("p", { text: t("@recall.first-run"), cls: "veynrel-health-muted" });
   if (model.mode !== "first-run" && model.stats.length) {
     const stats = overview.createEl("dl", { cls: "veynrel-recall-stats" });
-    for (const stat of model.stats) {
-      const item = stats.createDiv(); item.createEl("dt", { text: stat.label }); item.createEl("dd", { text: String(stat.value) });
+    for (const [index, stat] of model.stats.entries()) {
+      const item = stats.createDiv({ cls: index === 0 ? "veynrel-recall-due" : "veynrel-recall-secondary" });
+      item.createEl("dt", { text: stat.label }); item.createEl("dd", { text: String(stat.value) });
     }
   }
   if (model.mode === "first-run") {

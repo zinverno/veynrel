@@ -30,24 +30,26 @@ export interface FindingsInboxInput {
   busy?: boolean;
 }
 
+export const findingCategory = (f: Finding): NonNullable<FindingsFilter["category"]> => f.type.includes("duplicate") ? "duplicates"
+    : f.type.includes("link") || f.type === "orphan-note" || f.type === "isolated-graph-component" ? "links"
+    : f.dimension === "structure" ? "organization" : "other";
+
 /** Derived copies only. Counts are scoped to the dimension, before applying the state filter. */
 export function findingsInboxViewModel({ findings, route, mutatingFindingId, busy = false }: FindingsInboxInput) {
   const inDimension = findings.filter((finding) => route.dimension === "all" || finding.dimension === route.dimension);
   const counts: Record<FindingState, number> = { open: 0, snoozed: 0, dismissed: 0, resolved: 0 };
   for (const finding of inDimension) counts[finding.state]++;
   const impact = { attention: 0, review: 1, info: 2 };
-  const category = (f: Finding): NonNullable<FindingsFilter["category"]> => f.type.includes("duplicate") ? "duplicates"
-    : f.type.includes("link") || f.type === "orphan-note" || f.type === "isolated-graph-component" ? "links"
-    : f.dimension === "structure" ? "organization" : "other";
+
   const query = (route.query ?? "").trim().toLocaleLowerCase();
   const visible = inDimension.filter((finding) => finding.state === route.state &&
-    (!route.category || route.category === "all" || category(finding) === route.category) &&
+    (!route.category || route.category === "all" || findingCategory(finding) === route.category) &&
     (!query || [findingPresentation(finding).title, ...finding.notePaths, ...findingEvidencePresentation(finding).facts].join(" ").toLocaleLowerCase().includes(query)))
     .sort((a, b) => impact[a.impact] - impact[b.impact] || b.lastSeenAt - a.lastSeenAt || compareStrings(a.id, b.id));
   const offset = Math.min(Math.max(0, route.offset ?? 0), Math.max(0, Math.floor((visible.length - 1) / 60) * 60));
   const rows = visible.slice(offset, offset + 60).map((finding) => {
     const { affectedCount } = findingEvidencePresentation(finding);
-    return { id: finding.id, type: finding.type, paths: finding.notePaths.slice(0, 3), facts: findingEvidencePresentation(finding).facts, pair: findingPair(finding), repairSource: finding.type === "broken-link" ? finding.notePaths[0] : undefined, ...findingPresentation(finding), dimension: t(`@health.${finding.dimension}`), impact: t(`@dashboard.${finding.impact}`),
+    return { id: finding.id, type: finding.type, paths: finding.notePaths.slice(0, 3), sourceKey: JSON.stringify(finding.notePaths), facts: findingEvidencePresentation(finding).facts, pair: findingPair(finding), repairSource: finding.type === "broken-link" ? finding.notePaths[0] : undefined, ...findingPresentation(finding), dimension: t(`@health.${finding.dimension}`), impact: t(`@dashboard.${finding.impact}`),
       noteSummary: affectedCount === 1 && finding.notePaths.length === 1 ? finding.notePaths[0] : t("@findings.notes", { n: affectedCount }),
       selected: finding.id === route.selectedFindingId };
   });
