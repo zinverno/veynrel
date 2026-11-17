@@ -1,5 +1,5 @@
 import { runOverviewUX } from './overview-journey.mjs';
-// Real Obsidian/Electron smoke. No DOM mocks, provider calls or personal vault.
+// Real Obsidian/Electron smoke with synthetic loopback embeddings; no personal vault.
 import fs from 'node:fs';
 import {createServer} from 'node:http';
 import {createRequire} from 'node:module';
@@ -25,8 +25,8 @@ fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisable
 fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', apiKey: '', provider: 'ollama', baseUrl: 'http://127.0.0.1:1/v1', model: 'unused', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: false, profileChosen: false } }));
 const sha = value => createHash('sha256').update(value).digest('hex');
 const source = { commit: spawnSync('git',['rev-parse','HEAD'],{cwd:build,encoding:'utf8'}).stdout.trim(), diffSha256: sha(spawnSync('git',['diff','HEAD','--','*.ts','*.mjs','*.py','styles.css'],{cwd:build,encoding:'utf8'}).stdout) };
-const report = { source, scenario: 'product-ux-'+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
-report.harnessHashes = Object.fromEntries(['product-ux.mjs','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
+const report = { source, scenario: 'overview-'+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
+report.harnessHashes = Object.fromEntries(['overview.mjs','overview-journey.mjs','overview-fixture.ts','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
 for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); }
 if(process.env.UX_THEME_DIR){
   const theme=JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/manifest.json`,'utf8'));assert.equal(theme.name,'Minimal');
