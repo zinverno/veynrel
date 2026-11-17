@@ -29,7 +29,7 @@ function rankDetails(pair: ConnectionComparisonPair): string[] {
 
 /** Local filters and selection only. Note names/paths always use native text sinks. */
 export function renderConnectionComparison(parent: HTMLElement, port: ConnectionComparisonPort, state: ConnectionComparisonViewState,
-  actions: { back(): void; openNote(path: string): void; openPair?(left: string, right: string): void; explore(path: string): void }, embedded = false): void {
+  actions: { back(): void; openNote(path: string): void; openPair?(left: string, right: string): void; explore(path: string): void; refresh?(): void }, embedded = false): void {
   const snapshot = port.getSnapshot(), comparison = snapshot.comparison;
   syncConnectionComparison(state, comparison);
   const section = parent.createEl("section", { cls: "veynrel-connections", attr: { "aria-label": t("@connections.title"), "aria-busy": String(snapshot.state === "loading") } });
@@ -38,7 +38,7 @@ export function renderConnectionComparison(parent: HTMLElement, port: Connection
   section.createEl("p", { text: t("@connections.description"), cls: "veynrel-connections-lead" });
   const status = connectionComparisonStatus(snapshot);
   if (status) section.createEl("p", { text: status, cls: "veynrel-connections-status" });
-  healthButton(section, t("@connections.refresh"), () => { void port.refresh(); }, "connections-refresh", snapshot.state === "loading").addClass("veynrel-quiet");
+  healthButton(section, t("@connections.refresh"), () => { if (actions.refresh) actions.refresh(); else void port.refresh(); }, "connections-refresh", snapshot.state === "loading").addClass("veynrel-quiet");
   if (!comparison) return;
   const overview = section.createDiv({ cls: "veynrel-connections-overview", attr: { role: "group", "aria-label": t("@connections.categories") } });
   const filterButtons = new Map<ConnectionComparisonCategory, HTMLButtonElement>();

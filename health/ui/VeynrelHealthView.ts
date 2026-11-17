@@ -1,3 +1,5 @@
+import { SemanticScenarioView } from "../workbench/semanticScenarioView";
+import type { SemanticEntry, SemanticIntent } from "../workbench/semanticEntry";
 import { renderOverview } from "./renderOverview";
 import { renderSearchEntry } from "./renderSearchEntry";
 import { renderHealthMetric } from "./renderHealthInsights";
@@ -113,6 +115,10 @@ export class VeynrelHealthView extends ItemView {
   private restoreRouteContext?: string;
   private areaIndex?: VaultScopeIndex;
   private workbench?: ReviewListView;
+  private scenario?: SemanticScenarioView;
+  private scenarioEntry?: SemanticEntry;
+  private scenarioRevision = -1;
+  private semanticReturn?: Extract<VeynrelHealthRoute, { page: "semantic-scenario" }>;
   private workbenchRevision = -1;
   private shellMain?: HTMLElement;
   private shellLanguage = currentLanguage();
@@ -211,6 +217,7 @@ export class VeynrelHealthView extends ItemView {
   }
 
   async onClose(): Promise<void> {
+    this.scenario?.dispose(); this.scenario = undefined; this.scenarioEntry = undefined; this.semanticReturn = undefined;
     this.workbench?.dispose(); this.workbench = undefined; this.shellMain = undefined;
     this.searchQuery.value = ""; this.toolSelection = {};
     this.areaIndex?.dispose(); this.areaIndex = undefined;
@@ -300,6 +307,9 @@ export class VeynrelHealthView extends ItemView {
       main.contains(this.workbench.element)) {
       this.workbench.update(this.controller.listFindings()); return;
     }
+    if (normal && this.route.page === "semantic-scenario" && this.scenarioEntry === this.route.entry && this.scenarioRevision === this.scopeRevision && this.scenario && main.contains(this.scenario.element)) {
+      this.scenario.update(); return;
+    }
     main.empty();
     const feedback = main.createDiv({ cls: "veynrel-workspace-message", attr: { "data-workspace-message": "true" } });
     const surface = main.createDiv({ cls: enteringPage ? "veynrel-health-page-enter" : "" });
@@ -339,29 +349,38 @@ export class VeynrelHealthView extends ItemView {
       this.route.page === "semantic-map" && this.globalMap?.createSession ||
       this.route.page === "semantic-neighborhood" && this.neighborhood?.createSession ||
       this.route.page === "connection-opportunities" && this.globalMap?.createSession)) {
-      const panel = this.route.page;
-      // The existing global scope acknowledgement above remains authoritative.
-      this.route = { page: "discover" }; this.render(); this.workbench?.openMap(panel); return;
+      const page = this.route.page;
+      this.openSemanticEntry(page === "topology" ? "map" : page === "semantic-map" ? "focus" : page === "semantic-neighborhood" ? "neighborhood" : "opportunities"); return;
     } else if (normal && this.route.page === "home") {
       renderOverview(surface, state, this.controller.listFindings(), semanticSnapshot, {
         navigate: route => this.navigate(route), search: query => this.semantic?.openSearch(query),
         setup: () => this.settingsAction("semantic"),
       }, this.searchQuery, scope.snapshot);
+    } else if (normal && this.route.page === "semantic-scenario" && this.workbenchHost) {
+      const entry = this.route.entry;
+      if (!this.scenario || this.scenarioEntry !== entry || this.scenarioRevision !== this.scopeRevision) {
+        this.scenario?.dispose();
+        const actual = this.semanticScope();
+        this.scenario = new SemanticScenarioView(this.app, surface, this.workbenchHost.create(actual, true), this.workbenchHost.pair,
+          this.semantic, { ...entry, scope: actual }, { back: () => this.navigate({ page: "semantic" }),
+            settings: () => { if (this.route.page === "semantic-scenario") this.semanticReturn = this.route; this.scenario?.suspend(); this.openSemanticSetup(); },
+            openNote: path => { void this.openNote(path); }, history: () => this.tools.openOperationHistory() }, this.contentEl);
+        this.scenarioEntry = entry; this.scenarioRevision = this.scopeRevision;
+      } else { surface.appendChild(this.scenario.element); this.scenario.update(); }
     } else if (normal && this.route.page === "semantic") {
       const page = surface.createEl("section", { cls: "veynrel-semantic-landing" });
       workspaceHeading(page, t("@ux.semantic"));
       renderSearchEntry(page, semanticSnapshot, this.searchQuery, query => this.semantic?.openSearch(query), () => this.settingsAction("semantic"));
       const modes = page.createDiv({ cls: "veynrel-semantic-grid" });
-      for (const [key, destination, icon] of [["map", "discover", "network"], ["families", "discover", "layers"], ["notes", "discover", "files"], ["neighborhood", "semantic-neighborhood", "circle-dot"], ["opportunities", "connection-opportunities", "link"], ["focus", "semantic-map", "focus"]] as const) {
+      for (const [key, icon] of [["map", "network"], ["families", "layers"], ["notes", "files"], ["neighborhood", "circle-dot"], ["opportunities", "link"], ["focus", "focus"]] as const) {
         const panel = renderActionPanel(modes, `semantic-mode-${key}`, t(`@followup.semantic.${key}`), icon,
           t(`@followup.semantic.${key}-description`), t(`@followup.semantic.${key}-action`), () => {
-            this.navigate({ page: destination });
-            if (key === "map" || key === "families") this.workbench?.openSemanticMap(key === "families");
+            this.openSemanticEntry(key === "notes" ? "pair" : key);
           });
         if (key === "map") panel.addClass("veynrel-panel-primary");
       }
       renderActionPanel(modes, "semantic-similar", t("@overview.similar"), "copy", t("@followup.semantic.similar-description"),
-        t("@followup.semantic.similar-action"), () => this.semantic?.openSimilarNotes(), semanticSnapshot?.state !== "ready");
+        t("@followup.semantic.similar-action"), () => this.openSemanticEntry("similar"));
     } else if (normal && this.route.page === "process") {
       const route = this.route;
       renderProcessing(surface, this.processingClusters, {
@@ -404,6 +423,7 @@ export class VeynrelHealthView extends ItemView {
       const route = this.route;
       renderTools(surface, toolsViewModel(), (action) => { void this.launchTool(action, route); }, (page) => this.navigate({ page }), this.toolSelection, this.app);
     } else if (normal && this.route.page === "settings") {
+      if (this.semanticReturn) healthButton(surface, "← " + t("@routes.return"), () => { const target = this.semanticReturn; this.semanticReturn = undefined; if (target) this.navigate(target); }, "semantic-setup-return");
       const route = this.route;
       if (this.deepSetup) this.renderDeep(surface);
       else if (this.semanticSetup) this.renderSemantic(surface);
@@ -673,6 +693,20 @@ export class VeynrelHealthView extends ItemView {
   /** Transient product navigation only; never persisted and never starts analysis. */
   openReviewVault(): void { this.navigate({ page: "discover" }); }
 
+  private semanticScope(): SemanticMapScope {
+    const scope = this.areaIndex!, selection = scope.selection;
+    return { id: selection.kind === "all" ? "all" : `folder:${selection.path}`, revision: this.scopeRevision,
+      paths: scope.snapshot.paths.filter(path => includesScope(selection, path)) };
+  }
+  openSemanticEntry(intent: SemanticIntent, sourcePath?: string): void {
+    // Older embedders without a Pair Review host retain their standalone read-only owners.
+    if (!this.workbenchHost) {
+      this.navigate({ page: intent === "neighborhood" || intent === "similar" ? "semantic-neighborhood" : intent === "opportunities" ? "connection-opportunities" : intent === "focus" ? "semantic-map" : "discover" });
+      return;
+    }
+    if (!this.areaIndex) return;
+    this.navigate({ page: "semantic-scenario", entry: { intent, sourcePath, scope: this.semanticScope(), returnTo: "semantic" } });
+  }
   private navigate(route: VeynrelHealthRoute, acknowledgeScope = false): void {
     if (!this.body || Boolean(healthHomeViewModel(this.controller.getState()).recovery)) return;
     if (["home", "findings"].includes(this.route.page) && !this.body.querySelector('[data-health-action="scope-continue"]')) {
@@ -685,6 +719,7 @@ export class VeynrelHealthView extends ItemView {
     if (this.route.page === "findings") this.lastFindingsRoute = { ...this.route };
     this.restoreRouteContext = JSON.stringify(route);
     const context = this.routeContexts.get(this.restoreRouteContext);
+    if (this.route.page === "semantic-scenario") this.scenario?.suspend();
     if (this.route.page === "discover" && route.page !== "discover") this.workbench?.suspend();
     if (this.route.page === "recall") this.leaveRecall();
     if (route.page === "recall" && this.recall) {

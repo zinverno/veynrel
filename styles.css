@@ -3632,3 +3632,40 @@
 }
 
 .veynrel-health-view :is(.veynrel-processing, .veynrel-semantic-landing) .veynrel-page-heading h1 { margin-bottom: 0; }
+
+/* Semantic scenarios share the established owners, but show their promised content first. */
+.veynrel-semantic-scenario { min-width: 0; display: flex; flex-direction: column; gap: var(--size-4-4); }
+.veynrel-semantic-scenario > button { align-self: flex-start; }
+.veynrel-semantic-heading, .veynrel-semantic-source, .veynrel-semantic-row-heading, .veynrel-semantic-row-actions { display: flex; align-items: center; gap: var(--size-4-3); flex-wrap: wrap; }
+.veynrel-semantic-heading h1 { flex: 1; margin: 0; }
+.veynrel-semantic-heading small { color: var(--text-muted); }
+.veynrel-semantic-source { border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); padding: var(--size-4-3); }
+.veynrel-semantic-source strong { flex: 1; overflow-wrap: anywhere; min-width: 0; }
+.veynrel-semantic-source svg { width: var(--icon-size); height: var(--icon-size); }
+.veynrel-semantic-state { padding: var(--size-4-4); color: var(--text-muted); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); }
+.veynrel-semantic-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--size-4-4); }
+.veynrel-semantic-pair .veynrel-semantic-panel { min-height: 240px; }
+.veynrel-semantic-panel { min-width: 0; background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-l); padding: var(--size-4-5); overflow-wrap: anywhere; }
+.veynrel-semantic-panel h2 { margin-top: 0; }
+.veynrel-semantic-families { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 3fr); gap: var(--size-4-4); }
+.veynrel-semantic-families > :first-child { display: flex; flex-direction: column; gap: var(--size-4-2); align-self: start; }
+.veynrel-semantic-families button[aria-pressed="true"] { border-color: var(--interactive-accent); background: var(--background-modifier-hover); }
+.veynrel-semantic-row { padding: var(--size-4-4) 0; border-bottom: 1px solid var(--background-modifier-border); display: flex; flex-direction: column; gap: var(--size-4-3); }
+.veynrel-semantic-row:last-child { border-bottom: none; }
+.veynrel-semantic-row > button { align-self: flex-start; }
+.veynrel-semantic-row-heading strong { flex: 1; }
+.veynrel-semantic-row small { color: var(--text-muted); }
+.veynrel-semantic-row blockquote { margin: 0; padding: var(--size-4-3); border-inline-start: 2px solid var(--text-faint); background: var(--background-primary-alt); }
+.veynrel-semantic-scenario button { white-space: normal; height: auto; min-height: var(--input-height); }
+.veynrel-semantic-scenario button:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.veynrel-semantic-map-host { min-height: 520px; }
+@container (max-width: 600px) {
+  .veynrel-semantic-families, .veynrel-semantic-pair { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-semantic-pair .veynrel-semantic-panel { min-height: 140px; }
+  .veynrel-semantic-panel { padding: var(--size-4-3); }
+  .veynrel-semantic-row-actions button { min-height: 40px; }
+}
+.veynrel-semantic-scenario [data-focus-path] { display: grid; grid-template-columns: minmax(0, 1fr) 5em minmax(8em, 1fr) auto; align-items: center; gap: 12px; }
+@container veynrel-workspace (max-width: 600px) {
+  .veynrel-semantic-scenario [data-focus-path] { grid-template-columns: minmax(0, 1fr) auto; }
+}

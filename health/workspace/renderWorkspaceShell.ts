@@ -7,7 +7,7 @@ import type { VaultScopeIndex } from "./vaultScope";
 export function workspaceSection(page: VeynrelHealthRoute["page"]): string {
   if (page === "home") return "home";
   if (["health", "findings"].includes(page)) return "check";
-  if (page === "semantic") return "semantic";
+  if (page === "semantic" || page === "semantic-scenario") return "semantic";
   if (page === "process") return "tools";
   if (["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities"].includes(page)) return "semantic";
   return page === "connect" ? "settings" : page;
@@ -33,7 +33,7 @@ export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRo
   shell.addEventListener("keydown", event => {
     if (event.key === "Escape" && extra.open) { extra.open = false; state.menuOpen = false; shell.setAttribute("data-menu-open", "false"); summary.focus(); }
   });
-  if (route.page === "discover") {
+  if (route.page === "discover" || route.page === "semantic-scenario" && ["map", "families", "pair"].includes(route.entry.intent)) {
     const label = content.createDiv({ cls: "veynrel-scope-picker" });
     const picker = healthButton(label, scope.selection.kind === "all" ? t("@workspace.all") : scope.selection.path, () => {
       if (!app) return;
