@@ -7,10 +7,10 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
   };
   const size=async(width,height)=>{
     await main.ev(`window.electronWindow.setContentSize(${width+44},${height+80});void 0`);
-    await wait(`Math.abs(hv.contentEl.clientWidth-${width})<60`);
-    const offset=await main.ev(`({w:innerWidth-hv.contentEl.clientWidth,h:innerHeight-hv.contentEl.clientHeight})`);
+    await wait(`Math.abs(hv.contentEl.getBoundingClientRect().width-${width})<60`);
+    const offset=await main.ev(`({w:innerWidth-Math.round(hv.contentEl.getBoundingClientRect().width),h:innerHeight-Math.round(hv.contentEl.getBoundingClientRect().height)})`);
     await main.ev(`window.electronWindow.setContentSize(${width+offset.w},${height+offset.h});void 0`);
-    await wait(`hv.contentEl.clientWidth===${width}&&hv.contentEl.clientHeight===${height}`);
+    await wait(`Math.round(hv.contentEl.getBoundingClientRect().width)===${width}&&Math.round(hv.contentEl.getBoundingClientRect().height)===${height}`);
   };
   await wait('app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))');
   await main.ev('app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0');
