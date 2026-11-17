@@ -1,0 +1,8 @@
+{"root": "<disposable-root>", "command": ["/usr/bin/python3", "-c", "import subprocess,sys; subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(60)\"]);sys.exit(7)"], "timeoutSeconds": 15, "startedAt": 1794884169.6175542, "exitCode": 7, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 0.739}
+.{"root": "<disposable-root>", "command": ["/usr/bin/python3", "-c", "import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/'ready').touch();time.sleep(60)", "<disposable-root>"], "timeoutSeconds": 30, "startedAt": 1794884170.4082396, "exitCode": 143, "failure": "INTERRUPTED", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 0.226}
+.{"root": "<disposable-root>", "command": ["/usr/bin/python3", "-c", "import time;time.sleep(60)"], "timeoutSeconds": 3, "startedAt": 1794884170.6752276, "exitCode": 124, "failure": "TIMEOUT", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.026}
+.
+----------------------------------------------------------------------
+Ran 3 tests in 4.087s
+
+OK

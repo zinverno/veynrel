@@ -1,0 +1,40 @@
+{
+  "source": {
+    "commit": "594ed1ebf62045a83755eb62e5c900ef2f6ee16f",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scenario": "product-ux-before",
+  "checks": [
+    "Native frame applies only to the disposable host"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "5177cbdba2c0640afaab39eb539a47eac4e455795677b39f117976b0c08b3eea",
+    "styles.css": "526a0905038529c191d3036babf901117431c07c8aebfd207dd8adf6daa18ca1",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 27,
+    "seconds": 0.4913949966430664,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "product-ux.mjs": "84bbe19accc4a04b111d3de16b8224b4ee947b64b083a67f51b9cbc5d381c11f",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "d01bbc80f65d72278dec3841c5049f36cf480caff1a7dfb0ca0bcbb5b125faf8"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":30,\"scriptId\":\"191\",\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"SyntaxError\",\"description\":\"SyntaxError: await is only valid in async functions and the top level bodies of modules\",\"objectId\":\"-3269680274898251873.1.2\"}}\n    at Object.ev (file://<checkout>/scripts/native/overview.mjs:57:5)\n    at async runOverviewUX (file://<checkout>/scripts/native/overview-journey.mjs:9:7)\n    at async file://<checkout>/scripts/native/overview.mjs:96:3"
+}

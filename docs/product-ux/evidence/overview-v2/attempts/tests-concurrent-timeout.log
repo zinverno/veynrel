@@ -1,0 +1,50 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --run
+
+
+ RUN  v4.1.10 <checkout>
+
+ ❯ toolsLaunchers.test.ts (3 tests | 2 failed) 8320ms
+     × launches the exact batch and audit modals, existing RAG controller, MOC generator and legacy report once 5018ms
+     × retains the authoritative missing-LLM validation before Deep Audit opens 3274ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  toolsLaunchers.test.ts > Tools host delegates to authoritative legacy workflows > launches the exact batch and audit modals, existing RAG controller, MOC generator and legacy report once
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ toolsLaunchers.test.ts:14:3
+     12|
+     13| describe("Tools host delegates to authoritative legacy workflows", () …
+     14|   it("launches the exact batch and audit modals, existing RAG controll…
+       |   ^
+     15|     const { default: Plugin, BatchProcessModal } = await vi.importActu…
+     16|     const { DEFAULT_SETTINGS } = await import("./settings");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  toolsLaunchers.test.ts > Tools host delegates to authoritative legacy workflows > retains the authoritative missing-LLM validation before Deep Audit opens
+AssertionError: expected [ BatchProcessModal{ …(10) }, …(2) ] to have a length of +0 but got 3
+
+- Expected
++ Received
+
+- 0
++ 3
+
+ ❯ toolsLaunchers.test.ts:43:26
+     41|     const plugin = new Plugin({} as App, {} as PluginManifest); plugin…
+     42|     await plugin.getToolsPort().openDeepAudit();
+     43|     expect(mocks.opened).toHaveLength(0); expect(Notice).toHaveBeenCal…
+       |                          ^
+     44|   });
+     45|   it("keeps existing batch command callbacks and editor ownership; no …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 212 passed (213)
+      Tests  2 failed | 5430 passed (5432)
+   Start at  06:03:11
+   Duration  57.26s (transform 78.03s, setup 0ms, import 165.78s, tests 245.27s, environment 56ms)

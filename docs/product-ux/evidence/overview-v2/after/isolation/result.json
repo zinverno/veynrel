@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/native/overview.mjs",
+    "<disposable-root>",
+    "after"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794884719.052017,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    38395
+  ],
+  "cdpClosed": true,
+  "seconds": 28.284
+}

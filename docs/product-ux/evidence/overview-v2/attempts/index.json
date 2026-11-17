@@ -1,0 +1,56 @@
+[
+  {
+    "id": "ecead959f56f",
+    "reportedStatus": "NO_REPORT",
+    "checks": 0,
+    "interpretation": "Sandbox could not start/connect the isolated display; no product result."
+  },
+  {
+    "id": "24b1ef3dd68e",
+    "reportedStatus": "FAIL",
+    "checks": 1,
+    "interpretation": "Harness expression used await outside async; FAIL retained."
+  },
+  {
+    "id": "cefc5a09122e",
+    "reportedStatus": "PASS",
+    "checks": 3,
+    "interpretation": "Preliminary baseline PASS is excluded: direct language mutation did not change RU labels."
+  },
+  {
+    "id": "d6a197b20105",
+    "reportedStatus": "PASS",
+    "checks": 3,
+    "interpretation": "Preliminary after PASS is excluded: direct language mutation did not change RU labels; atomization translation was also incomplete at this stage."
+  },
+  {
+    "id": "cbf098d5c409",
+    "reportedStatus": "PASS",
+    "checks": 13,
+    "interpretation": "Development baseline with native settings language changes; superseded by final settled screenshots."
+  },
+  {
+    "id": "e8052fe08144",
+    "reportedStatus": "NO_REPORT",
+    "checks": 0,
+    "interpretation": "Fixture bundling lacked the Obsidian stub; launch never started."
+  },
+  {
+    "id": "9d94d5187e5c",
+    "reportedStatus": "PASS",
+    "checks": 146,
+    "interpretation": "Development PASS 146; some screenshots captured entry animation. Final capture waits for finite animations."
+  },
+  {
+    "id": "07181c1cf3c5",
+    "reportedStatus": "PASS",
+    "checks": 45,
+    "interpretation": "Settled baseline PASS 45; superseded by accurate overview harness hash inventory."
+  },
+  {
+    "id": "7c02893bae4e",
+    "reportedStatus": "PASS",
+    "checks": 148,
+    "interpretation": "Settled after PASS 148 on fe3177e; superseded by accurate overview harness hash inventory."
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "base": "594ed1ebf62045a83755eb62e5c900ef2f6ee16f",
+  "runtime": "55fad128493709cd2785ff0d25a9eb3618ec6fe6",
+  "protectedPaths": [
+    "package.json",
+    "package-lock.json",
+    "manifest.json",
+    "versions.json",
+    "embeddings",
+    "recall/scheduler",
+    "proposals",
+    "consolidation",
+    "utils/vectorStore.ts"
+  ],
+  "changedProtectedPaths": [],
+  "nativeAfter": {
+    "checks": 148,
+    "screenshots": 56,
+    "sourceNotesUnchanged": 154,
+    "exceptions": 0
+  },
+  "tests": {
+    "files": 213,
+    "passed": 5432
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 2
+  },
+  "mutation": {
+    "killed": 5,
+    "total": 5
+  },
+  "nativeSession": {
+    "passed": 2
+  },
+  "nativeRunner": {
+    "passed": 3
+  },
+  "video": {
+    "journey.mp4": "Uncut native CDP frames and original timestamps.",
+    "journey-slow.mp4": "Viewing copy slowed to half speed with ffmpeg setpts=2*PTS; no cuts."
+  }
+}

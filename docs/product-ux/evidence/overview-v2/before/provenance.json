@@ -1,0 +1,10 @@
+{
+  "originalReceiptSha256": {
+    "report.json": "2a679bc7ee59bcc31417ec1667fe1db9b6f8e794f87ce7c1a0f6cc3906e45bf0",
+    "isolation/result.json": "3dc9fb91a2ed98206b74f638f255406c9a8bd21a2623b68d8824e1350ea33eba",
+    "isolation/environment.json": "348c5afbc599540d8a42b19dbd74b56252a1b09458be1e5e0c97095b86e591e3",
+    "isolation/harness.log": "f39dc0a7c679f8f0a370530455b1a6bb218bdafb33ccfe2a7a1a95ceac86eda5",
+    "isolation/xvfb.log": "2e28d42e929a0ad0274a8cc0e3508523542362b6b8336601b3a592e6d7519c62"
+  },
+  "redactions": "Checkout and disposable absolute paths only. Trailing log whitespace normalized. Logs above 40 KB publish first/last 16 KB as a labeled excerpt; full original hash retained."
+}

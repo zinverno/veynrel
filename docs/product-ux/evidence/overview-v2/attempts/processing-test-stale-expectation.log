@@ -1,0 +1,32 @@
+
+ RUN  v4.1.10 <checkout>
+
+ ❯ health/ui/VeynrelHealthView.test.ts (167 tests | 1 failed) 4203ms
+     × shows four compact tool rows, opens the Markdown picker, and launches batch without scope arguments 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > Processing entry > shows four compact tool rows, opens the Markdown picker, and launches batch without scope arguments
+AssertionError: expected [ Element{ open: false, …(12) }, …(3) ] to have a length of 3 but got 4
+
+- Expected
++ Received
+
+- 3
++ 4
+
+ ❯ health/ui/VeynrelHealthView.test.ts:1854:106
+    1852|     const f = fixture(); Object.assign(f.tools, { savedMocClusterCount…
+    1853|     await f.view.onOpen(); f.content.action("nav-health")?.click(); op…
+    1854|     expect(f.content.all().filter(e => e.tag === "article" && e.cls.in…
+       |                                                                                                          ^
+    1855|     expect(f.content.action("process-recall")).toBeUndefined();
+    1856|     expect(f.content.texts()).toContain("Saved clusters: 3");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 166 passed (167)
+   Start at  05:58:35
+   Duration  6.34s (transform 1.74s, setup 0ms, import 1.99s, tests 4.20s, environment 0ms)
