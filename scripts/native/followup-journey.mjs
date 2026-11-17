@@ -43,7 +43,8 @@ export async function runFollowupUX({main,wait,pass,shot,phase,key,focus,provide
         await route('check');await activate('[data-health-action=category-links]');await main.ev("{const e=document.querySelector('[data-health-action=finding-search]');e.value='';e.dispatchEvent(new Event('input'));}void 0");
         await shot(`${phase}-findings-${suffix}`);
         await hover('[data-health-action^="repair-"]');await shot(`${phase}-finding-hover-${suffix}`);
-        await main.ev("document.querySelector('[data-health-action^=repair-]').focus();void 0");await key('Tab','Tab',9);await key('Tab','Tab',9,undefined,1); // Shift-Tab returns to primary.
+        await main.ev("document.querySelector('[data-health-action^=repair-]').focus();void 0");await key('Tab','Tab',9);await key('Tab','Tab',9,undefined,8); // CDP modifier bit 8 is Shift; return to primary.
+        await pass(`Primary finding action owns keyboard focus ${suffix}`, "document.activeElement.dataset.healthAction?.startsWith('repair-')&&document.activeElement.matches(':focus-visible')");
         await shot(`${phase}-finding-focus-${suffix}`);
         const search=action('finding-search');await main.ev(`document.querySelector('${search}').focus();void 0`);await main.send('Input.insertText',{text:'Long source'});await shot(`${phase}-finding-long-${suffix}`);
         await route('tools');await main.ev(`window.electronWindow.setContentSize(${width},${height});void 0`);await wait(`innerWidth===${width}&&innerHeight===${height}`);await activate(action('tool-chooser'));await wait("!!document.querySelector('.prompt-input')");await shot(`${phase}-chooser-${suffix}`,main,true);
