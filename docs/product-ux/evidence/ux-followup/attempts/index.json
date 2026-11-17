@@ -1,0 +1,86 @@
+[
+  {
+    "root": "/tmp/veynrel-followup-native-30dbc369b8bc",
+    "originalStatus": "FAIL",
+    "receipt": "30dbc369b8bc/report.json",
+    "interpretation": "Harness: Overview had no return link; initial baseline readiness selector corrected."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-dcdac02323ee",
+    "originalStatus": "FAIL",
+    "receipt": "dcdac02323ee/report.json",
+    "interpretation": "Harness: saved findings query persisted between theme passes; clear query explicitly."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-2706b75468df",
+    "originalStatus": "PASS",
+    "receipt": "2706b75468df/report.json",
+    "interpretation": "First baseline PASS, retained before later full-window dialog captures."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-2d215635dd28",
+    "originalStatus": "PASS",
+    "receipt": "2d215635dd28/report.json",
+    "interpretation": "VISUAL FAIL despite limited automated PASS: missing container name kept four columns at 390 and squeezed finding actions. Fixed scoped container queries; added geometry assertions."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-1c50eb738eee",
+    "originalStatus": "FAIL",
+    "receipt": "1c50eb738eee/report.json",
+    "interpretation": "Harness: asserted Source in limited picker list; existing picker did open. Replaced with owner identity assertion."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-0d58717356a2",
+    "originalStatus": "FAIL",
+    "receipt": "0d58717356a2/report.json",
+    "interpretation": "Same picker assertion failure; narrow presentation fixed in these screenshots."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-ae70a7bea59d",
+    "originalStatus": "FAIL",
+    "receipt": "ae70a7bea59d/report.json",
+    "interpretation": "Passive IO probe observed delayed Obsidian app/appearance configuration saves from prior theme changes. Preserved failure; settled those actions before measuring explanation IO."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-ee9b554c7684",
+    "originalStatus": "FAIL",
+    "receipt": "ee9b554c7684/report.json",
+    "interpretation": "Harness: guessed obsolete native close selector. Passive explanation checks passed."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-07abad57dc45",
+    "originalStatus": "FAIL",
+    "receipt": "07abad57dc45/report.json",
+    "interpretation": "Harness: close selector absent in Obsidian 1.13.7."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-2e70456907b3",
+    "originalStatus": "FAIL",
+    "receipt": "2e70456907b3/report.json",
+    "interpretation": "Captured actual native close DOM: modal-header-button. Original receipt retained."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-16a968153fa9",
+    "originalStatus": "FAIL",
+    "receipt": "16a968153fa9/report.json",
+    "interpretation": "PRODUCT FAIL: modal pointerleave hid central origin, preventing focus restore. Keep selection while explanation is open; added unit regression."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-7f0ddd8bd0fe",
+    "originalStatus": "PASS",
+    "receipt": "7f0ddd8bd0fe/report.json",
+    "interpretation": "Interactions PASS after focus fix; pre-final intermediate receipt."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-3f5dce0ebcdb",
+    "receipt": "3f5dce0ebcdb/report.json",
+    "originalStatus": "FAIL",
+    "interpretation": "Unresolved isolated CDP timeout before first screenshot; same 15s timeout retained. Next run passed; cause not claimed fixed."
+  },
+  {
+    "root": "/tmp/veynrel-followup-native-22b112c029d4",
+    "receipt": "22b112c029d4/report.json",
+    "originalStatus": "PASS",
+    "interpretation": "Full 83-check PASS, original receipt preserved. Manual screenshot review identified wrong Shift modifier in harness: focus screenshot showed secondary action. Final run explicitly asserts primary focus."
+  }
+]

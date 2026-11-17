@@ -1,0 +1,39 @@
+{
+  "checks": [
+    "Gallery links targets and interactive pages",
+    "Ring hover explains bulk",
+    "Arrow focus",
+    "Ring Enter opens explanation",
+    "Escape restores ring origin",
+    "Chooser opens same explanation",
+    "Cancel restores chooser trigger",
+    "Bulk panel explanation",
+    "bulk 390 fits"
+  ],
+  "exceptions": [],
+  "requests": [
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/index.html",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/01_tools_chooser_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/02_tools_chooser_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/03_tool_details_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/04_tool_details_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/05_bulk_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/06_bulk_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/07_semantics_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/08_semantics_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/index.html?page=tools&theme=dark&capture=1",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/preview.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/ui.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/app.js",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/index.html?page=bulk&theme=light&capture=1",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/preview.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/ui.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/app.js",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/index.html?page=semantics&theme=light&capture=1",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/preview.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/ui.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/app.js"
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":64,\"scriptId\":\"22\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"22\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":64},{\"functionName\":\"\",\"scriptId\":\"22\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":174}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Cannot read properties of null (reading 'scrollIntoView')\\n    at <anonymous>:1:65\\n    at <anonymous>:1:175\",\"objectId\":\"-6742247500472293855.5.2\"}}\n    at ev (file:///tmp/veynrel-followup-prototype.mjs:14:119)\n    at async move (file:///tmp/veynrel-followup-prototype.mjs:18:39)\n    at async click (file:///tmp/veynrel-followup-prototype.mjs:19:39)\n    at async file:///tmp/veynrel-followup-prototype.mjs:30:426"
+}

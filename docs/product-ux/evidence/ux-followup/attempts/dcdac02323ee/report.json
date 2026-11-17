@@ -1,0 +1,77 @@
+{
+  "source": {
+    "commit": "8870ffc8171199c971a60646761494cab0244eff",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scenario": "followup-before",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "Overview has no passive plugin note IO",
+    "batch ru-dark-1280 fits",
+    "semantic ru-dark-1280 fits",
+    "Explanation absent at #156 (ru-dark-1280); chooser captured, no invented before dialog",
+    "batch ru-dark-390 fits",
+    "semantic ru-dark-390 fits",
+    "Explanation absent at #156 (ru-dark-390); chooser captured, no invented before dialog",
+    "batch ru-light-1280 fits",
+    "semantic ru-light-1280 fits"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-batch-ru-dark-1280.png",
+    "before-semantic-ru-dark-1280.png",
+    "before-findings-ru-dark-1280.png",
+    "before-finding-hover-ru-dark-1280.png",
+    "before-finding-focus-ru-dark-1280.png",
+    "before-finding-long-ru-dark-1280.png",
+    "before-chooser-ru-dark-1280.png",
+    "before-ring-idle-ru-dark-1280.png",
+    "before-ring-hover-ru-dark-1280.png",
+    "before-overview-ru-dark-1280.png",
+    "before-batch-ru-dark-390.png",
+    "before-semantic-ru-dark-390.png",
+    "before-findings-ru-dark-390.png",
+    "before-finding-hover-ru-dark-390.png",
+    "before-finding-focus-ru-dark-390.png",
+    "before-finding-long-ru-dark-390.png",
+    "before-chooser-ru-dark-390.png",
+    "before-ring-idle-ru-dark-390.png",
+    "before-ring-hover-ru-dark-390.png",
+    "before-overview-ru-dark-390.png",
+    "before-batch-ru-light-1280.png",
+    "before-semantic-ru-light-1280.png",
+    "before-findings-ru-light-1280.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "ac9a526bef0baee09341342febf0f63b87e7be5fb2544dd1eae42c88b6c3635d",
+    "styles.css": "da863b3651a9f2856e7d4b8b70d5c27c7e25100ef96dbc27f1a874dda8e92869",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 244,
+    "seconds": 9.433916091918945,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "visual.mjs": "bd4310af09929f62f52bb3b795bed2b22c037a068d579c856aa0e96bc15c44e7",
+    "visual-journey.mjs": "a60913bfc04210f3e82ffe1c1d3f288c7304e273b1a7460a3241acd2f423bfe0",
+    "followup.mjs": "fb44c6d831d990b5e01345c240da23bfbdc287e6f773228647e3cb58f901235a",
+    "followup-journey.mjs": "6fc4aa3f0b7d9297548da46cc0b83402a5e02a25a205d6837302bf79c7f6b2f9",
+    "overview-fixture.ts": "42080866321092b6be2db8b7c308d807320df994d094a7d696e39663b6d1e734",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "cb34d485be8df31be39cac9a41972a6f53bbd6af83fd0de32640090862af7cf0"
+  },
+  "providerRequests": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":76,\"scriptId\":\"217\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"217\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":76},{\"functionName\":\"\",\"scriptId\":\"217\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":186}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Cannot read properties of null (reading 'scrollIntoView')\\n    at <anonymous>:1:77\\n    at <anonymous>:1:187\",\"objectId\":\"9014809062435884899.1.2\"}}\n    at Object.ev (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/visual.mjs:78:5)\n    at async hover (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/followup-journey.mjs:21:40)\n    at async runFollowupUX (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/followup-journey.mjs:43:9)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/visual.mjs:125:3"
+}

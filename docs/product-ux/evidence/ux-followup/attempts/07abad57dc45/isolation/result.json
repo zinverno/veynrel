@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "/home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/followup.mjs",
+    "/tmp/veynrel-followup-native-07abad57dc45",
+    "interactions",
+    "."
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794896912.4647431,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [
+    39537
+  ],
+  "cdpClosed": true,
+  "seconds": 12.577
+}

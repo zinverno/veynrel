@@ -1,0 +1,34 @@
+{
+  "checks": [
+    "Gallery links targets and interactive pages",
+    "Ring hover explains bulk",
+    "Arrow focus",
+    "Ring Enter opens explanation",
+    "Escape restores ring origin",
+    "Chooser opens same explanation",
+    "Cancel restores chooser trigger",
+    "Bulk panel explanation"
+  ],
+  "exceptions": [],
+  "requests": [
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/index.html",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/01_tools_chooser_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/02_tools_chooser_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/03_tool_details_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/04_tool_details_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/05_bulk_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/06_bulk_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/07_semantics_dark.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/01_targets/08_semantics_light.png",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/index.html?page=tools&theme=dark&capture=1",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/preview.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/ui.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/app.js",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/index.html?page=bulk&theme=light&capture=1",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/preview.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/ui.css",
+    "file:///tmp/veynrel-ux-followup-refs-8gkcvg3z/Veynrel_UX_followup_refs/02_prototype/app.js"
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: bulk 390 fits\n    at pass (file:///tmp/veynrel-followup-prototype.mjs:16:38)\n    at async file:///tmp/veynrel-followup-prototype.mjs:30:853"
+}

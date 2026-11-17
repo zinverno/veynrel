@@ -1,0 +1,109 @@
+{
+  "source": {
+    "commit": "8870ffc8171199c971a60646761494cab0244eff",
+    "diffSha256": "985390fd7738310405de104f090b7a0179cf6ec42898002643ea739aaeb9bfbc"
+  },
+  "scenario": "followup-interactions",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "Overview has no passive plugin note IO",
+    "Chooser keeps 12 catalog entries and 5 editor commands, all with native icons",
+    "Explanation opens with zero note/index/file IO or provider requests",
+    "Chooser selection opens the shared explanation",
+    "Open tool calls the existing Markdown picker",
+    "Explanation opens with zero note/index/file IO or provider requests",
+    "Ring Cancel restores the exact SVG origin",
+    "Explanation opens with zero note/index/file IO or provider requests",
+    "Ring Escape restores the origin"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "after-chooser-explanation.png",
+    "after-existing-atomization-picker.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "abd32d638d63c00394a570880ed852d0aadd867e58915475d24367e91609b724",
+    "styles.css": "ac0b2eab6eff06de4355bd63ee1c56511e782c7e5dcb08f38dc1e3539515d19c",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 93,
+    "seconds": 7.304258108139038,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "visual.mjs": "4f3fdf9078f850519c8e27dcd179ebafc16598ff26538dbea8ea21b3d456525f",
+    "visual-journey.mjs": "a60913bfc04210f3e82ffe1c1d3f288c7304e273b1a7460a3241acd2f423bfe0",
+    "followup.mjs": "fb44c6d831d990b5e01345c240da23bfbdc287e6f773228647e3cb58f901235a",
+    "followup-journey.mjs": "873de65271a6aa7950f8e4ede047ea868b431ae907e409e23e519316841f06db",
+    "overview-fixture.ts": "42080866321092b6be2db8b7c308d807320df994d094a7d696e39663b6d1e734",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "cb34d485be8df31be39cac9a41972a6f53bbd6af83fd0de32640090862af7cf0"
+  },
+  "providerRequests": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "adapterEvents": [
+    {
+      "kind": "write",
+      "path": ".obsidian/workspace.json",
+      "stack": "Error\n    at app.vault.adapter.<computed> [as write] (<anonymous>:1:339)\n    at t.<anonymous> (app://obsidian.md/app.js:1:2861490)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)\n    at t.saveLayout (app://obsidian.md/app.js:1:2861200)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)"
+    },
+    {
+      "kind": "write",
+      "path": ".obsidian/app.json",
+      "stack": "Error\n    at app.vault.adapter.<computed> [as write] (<anonymous>:1:339)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1384352)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)\n    at t.writeJson (app://obsidian.md/app.js:1:1384192)\n    at t.writeConfigJson (app://obsidian.md/app.js:1:1383595)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1382718)"
+    },
+    {
+      "kind": "write",
+      "path": ".obsidian/appearance.json",
+      "stack": "Error\n    at app.vault.adapter.<computed> [as write] (<anonymous>:1:339)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1384352)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)\n    at t.writeJson (app://obsidian.md/app.js:1:1384192)\n    at t.writeConfigJson (app://obsidian.md/app.js:1:1383595)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1382775)"
+    }
+  ],
+  "screenshotGeometry": [
+    {
+      "name": "after-chooser-explanation",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1280,
+        "height": 830,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "after-existing-atomization-picker",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1280,
+        "height": 830,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "failure",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1280,
+        "height": 830,
+        "scale": 1
+      },
+      "fullWindow": false
+    }
+  ],
+  "modalMarkup": "<div class=\"modal-container mod-dim\"><div class=\"modal-bg\" style=\"opacity: 0.85;\"></div><div class=\"modal veynrel-tool-explanation\"><div class=\"modal-header-button mod-raised clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div><div class=\"modal-header\"><div class=\"modal-title\"><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><span>Change history</span></div></div><div class=\"modal-content\"><p class=\"veynrel-tool-description\">Review the local Knowledge Consolidation journal, inspect backups and confirm a safe undo.</p><dl class=\"veynrel-tool-facts\"><div><dt><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-files\"><path d=\"M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8\"></path><path d=\"M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z\"></path><path d=\"M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1\"></path></svg></span><span>Material</span></dt><dd>Local operation journal and backups</dd></div><div><dt><span aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-info\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><path d=\"M12 16v-4\"></path><path d=\"M12 8h.01\"></path></svg></span><span>Operation</span></dt><dd>Local journal · separate Undo confirmation</dd></div></dl><div class=\"modal-button-container\"><button type=\"button\" data-health-action=\"tool-info-cancel\">Cancel</button><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"tool-info-open\">Open tool</button></div></div></div></div>",
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":45,\"scriptId\":\"231\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"231\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":45}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Cannot read properties of null (reading 'click')\\n    at <anonymous>:1:46\",\"objectId\":\"-4671458793782740071.1.2\"}}\n    at Object.ev (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/visual.mjs:78:5)\n    at async runFollowupUX (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/followup-journey.mjs:85:138)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/visual.mjs:125:3"
+}
