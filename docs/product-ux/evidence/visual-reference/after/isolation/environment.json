@@ -4,7 +4,7 @@
   "privateDisplay": true,
   "waylandDisplayRemoved": true,
   "privateDbus": "dbus-run-session per harness",
-  "wmPid": 214132,
+  "wmPid": 215500,
   "gpu": "disabled",
   "frame": "native"
 }

@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "c2593f41299ebfc78dff1b5eb9f7febb88eec3dd",
+    "commit": "45abf92e45cebfa8d081f1b5444a48f2b017f37f",
     "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "scenario": "visual-after",
@@ -198,15 +198,15 @@
     "after-popout-tools.png"
   ],
   "assets": {
-    "main.js": "0170b4cbc08c4d061e99be7403ff93e2c6f81f0970183385976fe1773e92970a",
+    "main.js": "ac9a526bef0baee09341342febf0f63b87e7be5fb2544dd1eae42c88b6c3635d",
     "styles.css": "da863b3651a9f2856e7d4b8b70d5c27c7e25100ef96dbc27f1a874dda8e92869",
     "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
   },
   "externalRequests": [],
   "recording": {
     "file": "journey.mp4",
-    "frames": 656,
-    "seconds": 24.10402798652649,
+    "frames": 657,
+    "seconds": 24.720344066619873,
     "source": "Native CDP frames and timestamps; main client area, no cuts"
   },
   "harnessHashes": {

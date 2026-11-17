@@ -4,7 +4,7 @@ This is a limited implementation of `Veynrel_UI_refs`, dependent on #155. The ow
 
 ## Verified base and scope
 
-At start and before publication, #155 was open, draft and unmerged, HEAD `2b0273cf3c9f444e11d9f4dec19ebc859cd12791`, branch `feat/ux-recovery-v2-overview`. Its ancestor chain #151–#154 was also open/draft, not merged. This branch does not rewrite any of those branches or their evidence. Implementation source: `9f5a900544658adb8cc3b42f4215c3ed3e906352`; final native source/harness HEAD: `c2593f41299ebfc78dff1b5eb9f7febb88eec3dd`. The later evidence commit changes only documentation.
+At start and before publication, #155 was open, draft and unmerged, HEAD `2b0273cf3c9f444e11d9f4dec19ebc859cd12791`, branch `feat/ux-recovery-v2-overview`. Its ancestor chain #151–#154 was also open/draft, not merged. This branch does not rewrite any of those branches or their evidence. Implementation source: `9f5a900544658adb8cc3b42f4215c3ed3e906352`; final native source/harness HEAD: `45abf92e45cebfa8d081f1b5444a48f2b017f37f`. The later evidence commit changes only documentation.
 
 The seven required public PNGs were opened with an image viewer before implementation; the four secondary screen references were also inspected. The actual offline HTML prototype was exercised with Chromium mouse/keyboard events. All three specs were read. `preview.css` colors and font assets were not imported. Private reference screenshots were not opened or published. Reference input hashes are in [reference-hashes.json](evidence/visual-reference/reference-hashes.json).
 
@@ -64,6 +64,7 @@ Use `visual before <built-155-worktree>` for the paired baseline. The native lau
 ## Observed final results
 
 - 5,432 tests / 213 files PASS with two workers; no assertion or timeout was weakened. Typecheck, production build and lint PASS (two existing fetch warnings). Proposal mutations 5/5; native session 2/2; native runner 3/3.
+- Final copy follow-up: 229/229 UI tests and build PASS; removed stale references to the former global folder selector. Final native and private walkthroughs use the updated assets.
 - 124 native checks PASS, zero unfiltered exceptions, 154 synthetic Markdown files byte-identical. One explicit loopback query embedding request; typing itself made no provider request. Paired baseline: 71 checks PASS using the same harness hashes.
 - Native RU/EN, builtin dark/light, wide/narrow, keyboard, pointer, emulated touch, reduced motion, split and popout. Actual map/families/full inspector entry routes exercised.
 - Seven reference/native contact sheets were opened and inspected. Composition, proportions, central panel, continuous ring, center description, absence of the permanent list and narrow order match the supplied direction. Palette, corner radius and font rendering follow the host theme. Live counts and provider text intentionally differ from illustrative reference data. No owner acceptance is inferred.
