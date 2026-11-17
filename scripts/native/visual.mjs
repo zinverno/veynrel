@@ -35,7 +35,7 @@ if(process.env.UX_THEME_DIR){
   fs.writeFileSync(`${vault}/.obsidian/appearance.json`,JSON.stringify({cssTheme:'Minimal'}));
   report.communityTheme={name:'Minimal',cssSha256:sha(fs.readFileSync(`${dir}/theme.css`)),source:JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/source.json`,'utf8'))};
 }
-const requests = [];
+const requests = []; report.providerRequests = requests;
 const server = createServer(async (req,res) => {
   let body='';for await(const part of req)body+=part;
   const data=JSON.parse(body||'{}');requests.push({path:req.url, model:data.model});

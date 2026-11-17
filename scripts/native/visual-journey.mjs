@@ -15,6 +15,10 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
   await wait('app.vault.getMarkdownFiles().every(f=>!!app.metadataCache.getFileCache(f))');
   await main.ev('app.workspace.leftSplit.collapse();app.workspace.rightSplit.collapse();void 0');
   await pass('First Overview has no passive plugin note IO',"hv.route.page==='home'&&uxIO.pluginRead===0&&uxIO.pluginWrite===0");
+  if(phase!=='before') {
+    await pass('Unavailable index has an explicit setup path',"document.querySelector('[data-health-action=overview-search]').disabled&&!!document.querySelector('[data-health-action=overview-setup]')");
+    await shot('after-no-index');
+  }
   await main.ev("hv.navigate({page:'health'});void 0");await activate('[data-health-action=scan]');
   await wait('!!hv.controller.getState().outcome&&!hv.controller.getState().busy');
   await main.ev("hv.navigate({page:'recall'});void 0");await wait("!!document.querySelector('[data-health-action=recall-refresh]')");
@@ -25,7 +29,7 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
   report.geometry=[];
   for(const theme of ['dark','light']) {
     await main.ev(`app.changeTheme('${theme==='dark'?'obsidian':'moonstone'}');void 0`);
-    for(const [width,height] of [[1280,830],[390,1090]]) {
+    for(const [width,height] of [[1280,830],[390,1089]]) {
       await size(width,height);
       await main.ev("hv.navigate({page:'home'});void 0");
       await pass('Overview no horizontal overflow', 'hv.contentEl.scrollWidth<=hv.contentEl.clientWidth+1');
@@ -38,6 +42,7 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
         report.geometry.push(await main.ev(`(()=>{const root=hv.contentEl.getBoundingClientRect();return {theme:'${theme}',width:${width},cards:[...document.querySelectorAll('.veynrel-overview-panel')].map(e=>{const r=e.getBoundingClientRect();return {key:e.dataset.healthAction,x:r.x-root.x,y:r.y-root.y,w:r.width,h:r.height}})}})()`));
         await activate('[data-health-action=overview-tools]');
       } else await main.ev("hv.navigate({page:'tools'});void 0");
+      if(width===390)await size(390,780);
       await main.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:5,y:5});
       await shot(`${phase}-tools-idle-${theme}-${width}`);
       if(phase==='before')continue;
@@ -74,9 +79,12 @@ export async function runVisualUX({main,wait,pass,shot,phase,key,focus,providerU
   if(phase==='before') {await stopVideo();return;}
   await language('en');await size(1280,830);
   await activate('[data-health-action=nav-home]');
+  const passiveRequests=report.providerRequests.length;
   await main.ev('window.passiveIO=JSON.stringify(uxIO);void 0');
   await main.ev("document.querySelector('[data-health-action=overview-query]').focus();void 0");
   await main.send('Input.insertText',{text:'ideas and connections'});await pause(400);
+  if(report.providerRequests.length!==passiveRequests)throw Error('Typing unexpectedly contacted provider');
+  report.checks.push('Typing query does not contact provider');
   await pass('Typing query does not read or write notes', 'JSON.stringify(uxIO)===passiveIO');
   await key('Enter','Enter',13,'\r');
   await wait("!!document.querySelector('.ai-semantic-result-card')||!!document.querySelector('.modal-button-container .mod-cta')");
