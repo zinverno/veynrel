@@ -37,7 +37,7 @@ export interface SemanticIntelligencePort {
   checkCurrentSetup(): Promise<void>;
   buildIndex(): Promise<void>;
   rebuildIndex(): Promise<void>;
-  openSearch(): void;
+  openSearch(query?: string): void;
   openSimilarNotes(): void;
   openPotentialDuplicates(): void;
   subscribe(listener: () => void): () => void;

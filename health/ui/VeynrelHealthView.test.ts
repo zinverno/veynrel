@@ -102,6 +102,15 @@ import type { ConnectPort } from "../connectPort";
 import { productFixture } from "../../recall/product/testSupport";
 import type { RecallProductPort } from "../../recall/product/types";
 
+function openDiscover(content: InstanceType<typeof mocks.Element>): void {
+  content.action("nav-semantic").click(); content.action("semantic-mode-notes").click();
+}
+function openBatch(content: InstanceType<typeof mocks.Element>): void {
+  content.action("nav-home").click(); content.action("overview-batch").click();
+}
+function toolDetails(content: InstanceType<typeof mocks.Element>, action: string): void {
+  content.action("nav-tools").click(); content.action(`catalog-tool-${action}`).click();
+}
 beforeEach(() => { setLanguage("en"); mocks.Modal.opened = []; });
 function fixture(initial: Partial<HealthPreferences> = { profileChosen: true, onboardingCompleted: true }, semantic?: SemanticIntelligencePort,
   semanticAnalysis?: SemanticHealthAnalysisPort, deep?: DeepIntelligencePort, deepAnalysis?: DeepHealthAnalysisPort, connect?: ConnectPort, recall?: RecallProductPort) {
@@ -203,7 +212,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.cachedRead).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
   }
   it("retains a disclosure and its keyboard focus on notification, but resets it on navigation", async () => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click();
     const summary = f.content.action("deep-about");
     summary.parentElement!.open = true; summary.focus(); f.content.scrollTop = 700;
     f.change({ model: "another-model" });
@@ -314,7 +323,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(publicValues.includes("synthetic-DO-NOT-EXPOSE-key")).toBe(false);
     f.content.action("nav-health").click();
     expect(f.content.all().find((element) => element.attrs["data-dimension"] === "knowledge")?.texts()).toContain("Not enabled");
-    f.content.action("nav-health").click(); f.content.action("nav-health").click(); f.content.action("nav-discover").click(); f.content.action("nav-health").click();
+    f.content.action("nav-health").click(); f.content.action("nav-health").click(); openDiscover(f.content); f.content.action("nav-health").click();
     expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
   });
   it.each(["en", "ru"] as const)("localizes chooser/forms/errors and keeps all inputs labelled in %s", async (language) => {
@@ -339,7 +348,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.connection.test).not.toHaveBeenCalled(); noWork(f);
   });
   it("keys appear only in intentional password editing and drafts are discarded on Back", async () => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click(); f.content.action("deep-change").click(); f.content.action("deep-provider-openrouter").click();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); f.content.action("deep-change").click(); f.content.action("deep-provider-openrouter").click();
     const key = f.content.action("deep-field-apiKey"); expect(key.value === f.settings.get().apiKey).toBe(true);
     expect(key.attrs.type).toBe("password"); expect(f.content.texts().includes(key.value)).toBe(false);
     key.input("synthetic-discarded-draft"); f.content.action("deep-back").click();
@@ -348,7 +357,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
   });
   it("an already-open form cannot overwrite a newer Advanced edit", async () => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click(); f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
     f.change({ model: "new-advanced-model" }); f.content.action("deep-connect").click(); await flush();
     expect(f.settings.get().model).toBe("new-advanced-model"); expect(f.content.texts()).toContain("Couldn't save");
     expect(f.connection.test).not.toHaveBeenCalled(); expect(f.settings.update).not.toHaveBeenCalled(); noWork(f);
@@ -361,7 +370,7 @@ describe("inline Deep Intelligence boundaries", () => {
     expect(status).toContain("Vault check complete"); expect(status).toContain(failed ? "Connection failed" : "Connected");
   });
   it("two views share Busy/Ready/Error and Advanced changes; closing one only removes its subscription", async () => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click(); await f.second.onOpen(); f.secondContent.action("nav-settings")?.click(); let release!: () => void;
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); await f.second.onOpen(); f.secondContent.action("nav-settings")?.click(); let release!: () => void;
     f.connection.test.mockImplementationOnce(() => new Promise<void>((resolve) => { release = resolve; }));
     f.content.action("deep-check").click();
     expect(f.content.texts()).toContain("Checking…"); expect(f.secondContent.texts()).toContain("Checking…");
@@ -394,7 +403,7 @@ describe("inline Deep Intelligence boundaries", () => {
     noWork(f, 2);
   });
   it.each(["connection", "save"] as const)("failed %s keeps the form and committed configuration with safe feedback", async (failure) => {
-    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click(); const before = f.settings.get();
+    const f = deepFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); const before = f.settings.get();
     if (failure === "connection") f.connection.test.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
     else f.settings.update.mockRejectedValueOnce(new Error("synthetic-DO-NOT-EXPOSE-key"));
     f.content.action("deep-change").click(); f.content.action("deep-provider-ollama").click();
@@ -432,7 +441,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   it.each(["en", "ru"] as const)("disabled Discover owns its visible status and retains the global live region in %s", async (language) => {
     setLanguage(language); const f = semanticFixture(false, "not-initialized", 0); await f.view.onOpen(); f.content.action("nav-health")?.click();
     const live = f.content.all().find((e) => e.attrs.role === "status")!;
-    f.content.action("nav-discover").click();
+    openDiscover(f.content);
     expect(f.content.all().find((e) => e.attrs.role === "status")).toBe(live);
     expect(live.attrs).toMatchObject({ role: "status", "aria-live": "polite", "aria-atomic": "true" });
     expect(live.text).toContain(t("@discover.required"));
@@ -447,15 +456,15 @@ describe("inline Semantic Intelligence boundaries", () => {
   ] as const)("Discover navigation is passive (enabled %s, %s, %s vectors)", async (enabled, kind, count) => {
     const f = semanticFixture(enabled, kind, count); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.attrs["data-health-action"]))
-      .toEqual(["nav-health", "nav-discover", "nav-recall", "nav-history", "nav-tools", "nav-process", "nav-settings"]);
-    f.content.action("nav-discover").click();
-    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+      .toEqual(["nav-home", "nav-health", "nav-semantic", "nav-tools", "nav-recall", "nav-history", "nav-settings"]);
+    openDiscover(f.content);
+    expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page");
     expect(f.content.all().find((e) => e.tag === "h1")?.text).toBe("Review vault");
     expect(f.content.ownerDocument.activeElement?.text).toBe("Review vault");
     expect(f.content.all().find((e) => e.tag === "nav")?.attrs["aria-label"]).toBe("Veynrel navigation");
     f.content.action("nav-health").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
-    f.content.action("nav-discover").click(); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
-    f.content.action("nav-discover").click(); await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
+    openDiscover(f.content); f.content.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
+    openDiscover(f.content); await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("nav-health").attrs["aria-current"]).toBe("page");
     expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled();
     expect(f.engine.indexVault).not.toHaveBeenCalled(); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
@@ -472,7 +481,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     setLanguage(language); const f = semanticFixture(true, "ready", 8);
     const pair: SemanticDuplicatePair = { leftPath: "B.md", rightPath: "A.md", score: 0.971, leftMatches: [], rightMatches: [] };
     f.engine.findPotentialDuplicates.mockResolvedValue([pair]);
-    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     const section = f.content.all().find((element) => element.cls === "veynrel-discover-health")!;
     expect(section).toBeDefined(); expect(section.action("discover-duplicates")).toBeUndefined();
     expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled();
@@ -494,7 +503,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     f.content.action("finding-dismiss").click();
     await vi.waitFor(() => expect(f.controller.getFinding(finding.id)?.state).toBe("dismissed"));
     expect(f.content.action(`finding-${finding.id}`)).toBeUndefined();
-    f.content.action("nav-discover").click(); f.content.action("semantic-health-scan").click();
+    openDiscover(f.content); f.content.action("semantic-health-scan").click();
     await vi.waitFor(() => expect(f.engine.findPotentialDuplicates).toHaveBeenCalledTimes(2)); await flush();
     expect(f.controller.getFinding(finding.id)?.state).toBe("dismissed");
     expect(f.engine.openPotentialDuplicates).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
@@ -504,7 +513,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("shows semantic busy state across close/reopen, excludes Local scans and leaves exploratory workflows usable", async () => {
-    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     let release!: (pairs: SemanticDuplicatePair[]) => void;
     f.engine.findPotentialDuplicates.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
     const button = f.content.action("semantic-health-scan"); button.click(); button.click(); await flush();
@@ -514,14 +523,14 @@ describe("inline Semantic Intelligence boundaries", () => {
     f.content.action("discover-duplicates").click(); expect(f.engine.openPotentialDuplicates).toHaveBeenCalledTimes(1);
     await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("scan").disabled).toBe(true); expect(f.content.action("scan").text).not.toBe("Checking your vault…");
-    f.content.action("nav-discover").click(); expect(f.content.action("semantic-health-scan").disabled).toBe(true);
+    openDiscover(f.content); expect(f.content.action("semantic-health-scan").disabled).toBe(true);
     release([]); await vi.waitFor(() => expect(f.controller.getState().busy).toBe(false));
     expect(f.engine.findPotentialDuplicates).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.content.action("semantic-health-scan").disabled).toBe(false); await f.view.onClose();
   });
 
   it("reports partial/failure safely and never starts Health analysis after Build", async () => {
-    const f = semanticFixture(true, "not-initialized"); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "not-initialized"); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     expect(f.content.action("semantic-health-scan")).toBeUndefined();
     f.content.action("discover-build").click(); await flush();
     expect(f.content.action("semantic-health-scan")).toBeDefined(); expect(f.engine.findPotentialDuplicates).not.toHaveBeenCalled();
@@ -541,7 +550,7 @@ describe("inline Semantic Intelligence boundaries", () => {
     const findings = f.controller.listFindings(); const health = f.controller.getState().snapshot;
     const actions = [["search", "openSearch"], ["related", "openSimilarNotes"], ["duplicates", "openPotentialDuplicates"]] as const;
     const delegates = actions.map(([, method]) => vi.spyOn(f.semantic, method));
-    f.content.action("nav-discover").click();
+    openDiscover(f.content);
     expect(f.content.all().filter((e) => e.tag === "button" && e.attrs["data-health-action"]?.startsWith("discover-")).map((e) => e.attrs["data-health-action"]))
       .toEqual(["discover-search", "discover-related", "discover-duplicates"]);
     for (const [id, method] of actions) {
@@ -558,13 +567,13 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("disabled Discover reuses Health setup and Back discards edits without network or saves", async () => {
-    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     expect(f.content.texts()).toContain("Local Health continues to work without it");
     f.content.action("discover-enable").click();
     expect(f.content.action("nav-settings").attrs["aria-current"]).toBe("page");
     f.content.action("semantic-mode-cloud").click(); f.content.action("semantic-field-apiKey").input("synthetic-discarded-draft");
     f.content.action("semantic-back").click(); expect(f.content.action("settings-semantic")).toBeDefined();
-    f.content.action("nav-discover").click(); f.content.action("discover-enable").click(); f.content.action("semantic-mode-cloud").click();
+    openDiscover(f.content); f.content.action("discover-enable").click(); f.content.action("semantic-mode-cloud").click();
     expect(f.content.action("semantic-field-apiKey").value === "synthetic-discarded-draft").toBe(false);
     expect(mocks.requestUrl).not.toHaveBeenCalled(); expect(f.settings.update.mock.calls.length).toBe(0);
     expect(f.engine.refreshSemanticStatus).not.toHaveBeenCalled(); expect(f.engine.indexVault).not.toHaveBeenCalled();
@@ -573,25 +582,25 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it.each(["not-initialized", "ready"] as const)("%s without vectors builds only on click and updates Discover to Ready", async (kind) => {
-    const f = semanticFixture(true, kind); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, kind); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     expect(f.content.action("discover-search").disabled).toBe(true); expect(f.engine.indexVault).not.toHaveBeenCalled();
     expect(Boolean(f.content.action("discover-check"))).toBe(kind === "not-initialized");
     f.content.action("discover-build").click(); await flush();
     expect(f.engine.indexVault).toHaveBeenCalledExactlyOnceWith(); expect(f.content.action("discover-search")).toBeDefined();
-    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page"); await f.view.onClose();
+    expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page"); await f.view.onClose();
   });
 
   it("incompatible Discover rebuilds only on click; Change reuses Health setup", async () => {
-    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     expect(f.content.texts()).toContain("Index needs rebuilding"); expect(f.content.action("discover-search").disabled).toBe(true);
     expect(f.engine.rebuildIndex).not.toHaveBeenCalled(); f.content.action("discover-change").click();
     expect(f.content.action("nav-settings").attrs["aria-current"]).toBe("page"); expect(f.content.action("semantic-mode-local")).toBeDefined();
-    f.content.action("semantic-back").click(); f.content.action("nav-discover").click(); f.content.action("discover-rebuild").click();
+    f.content.action("semantic-back").click(); openDiscover(f.content); f.content.action("discover-rebuild").click();
     await flush(); expect(f.engine.rebuildIndex).toHaveBeenCalledExactlyOnceWith(); await f.view.onClose();
   });
 
   it("error and busy Discover show safe status, prevent duplicate checks and leave Local Health browsable", async () => {
-    const f = semanticFixture(true, "error"); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
+    const f = semanticFixture(true, "error"); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
     expect(f.content.texts()).toContain("Semantic Intelligence needs attention");
     expect(f.content.action("discover-change")).toBeDefined(); expect(f.content.action("discover-search").disabled).toBe(true);
     let reject!: (error: Error) => void;
@@ -600,14 +609,14 @@ describe("inline Semantic Intelligence boundaries", () => {
     expect(f.engine.refreshSemanticStatus).toHaveBeenCalledTimes(1); expect(f.content.action("discover-check")).toBeUndefined();
     expect(f.content.all().find((e) => e.attrs.role === "status")?.text).toBe("Checking Semantic Intelligence…");
     f.content.action("nav-health").click(); expect(f.content.action("scan").disabled).toBe(false);
-    f.content.action("nav-discover").click(); reject(new Error("synthetic-private-provider-response")); await flush();
+    openDiscover(f.content); reject(new Error("synthetic-private-provider-response")); await flush();
     expect(f.content.texts()).toContain("Semantic Intelligence needs attention"); expect(f.content.texts()).not.toContain("synthetic-private");
     expect(f.scan).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); await f.view.onClose();
   });
 
   it("Russian Discover localizes navigation/workflows and preserves provider/model identifiers", async () => {
-    setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click();
-    expect(f.content.action("nav-discover").texts()).toContain("Заметки"); expect(f.content.texts()).toContain("Связанные заметки");
+    setLanguage("ru"); const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content);
+    expect(f.content.action("nav-semantic").texts()).toContain("Семантика"); expect(f.content.texts()).toContain("Связанные заметки");
     expect(f.content.texts()).toContain("Возможные дубликаты");
     f.content.action("nav-settings").click(); expect(f.content.texts()).toContain(f.settings.get().embeddingModel);
     expect(f.content.texts()).not.toMatch(/@discover|@semantic/u); await f.view.onClose();
@@ -627,7 +636,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it.each(["local", "cloud", "custom"] as const)("choosing/editing %s is transient; Back discards it without side effects", async (mode) => {
-    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click(); const previous = JSON.stringify(f.settings.get());
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); const previous = JSON.stringify(f.settings.get());
     f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
     const selected = f.content.action(`semantic-mode-${mode}`); expect(selected.tag).toBe("button");
     expect(selected.attrs["aria-pressed"]).toBe("true"); expect(selected.texts()).toContain("✓ Selected");
@@ -647,7 +656,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it.each(["local", "cloud", "custom"] as const)("%s Connect reads no notes, says Index required, and waits for a separate Build action", async (mode) => {
-    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click();
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click();
     f.content.action("semantic-enable").click(); f.content.action(`semantic-mode-${mode}`).click();
     if (mode !== "local") f.content.action("semantic-field-apiKey").input("synthetic-key");
     f.content.action("semantic-connect").click();
@@ -664,7 +673,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("existing Ready users search immediately; Change setup and Back retain Ready; Advanced edits are reread", async () => {
-    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-settings")?.click();
+    const f = semanticFixture(true, "ready", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click();
     expect(f.content.texts()).toContain("Semantic Intelligence ready"); expect(f.content.texts()).toContain("8 vectors");
     expect(f.content.action("semantic-mode-local")).toBeUndefined(); f.content.action("semantic-search").click();
     f.content.action("semantic-change").click(); f.content.action("semantic-mode-cloud").click(); f.content.action("semantic-back").click();
@@ -676,7 +685,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("incompatible status offers only explicit rebuild, without Clear or semantic Findings", async () => {
-    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-settings")?.click();
+    const f = semanticFixture(true, "incompatible", 8); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click();
     expect(f.content.texts()).toContain("Index needs rebuilding"); expect(f.engine.rebuildIndex).not.toHaveBeenCalled();
     expect(f.content.action("semantic-build")).toBeUndefined(); expect(f.content.texts()).not.toContain("Clear index");
     f.content.action("semantic-rebuild").click(); await flush(); expect(f.engine.rebuildIndex).toHaveBeenCalledTimes(1);
@@ -684,7 +693,7 @@ describe("inline Semantic Intelligence boundaries", () => {
   });
 
   it("failed tests and saves retain drafts for retry with fixed safe copy", async () => {
-    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
+    const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
     mocks.requestUrl.mockRejectedValueOnce(new Error("private-provider-response")); f.content.action("semantic-connect").click();
     await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't connect to Ollama"));
     f.settings.update.mockRejectedValueOnce(new Error("private-save-response")); f.content.action("semantic-connect").click();
@@ -698,16 +707,16 @@ describe("inline Semantic Intelligence boundaries", () => {
   it("closing discards the route and subscription; a late Connect cannot reopen it", async () => {
     const f = semanticFixture(); const remove = vi.fn(); const subscribe = f.semantic.subscribe.bind(f.semantic);
     vi.spyOn(f.semantic, "subscribe").mockImplementation((listener) => { const unsubscribe = subscribe(listener); return () => { remove(); unsubscribe(); }; });
-    await f.view.onOpen(); f.content.action("nav-settings")?.click(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click(); f.content.action("semantic-enable").click(); f.content.action("semantic-mode-local").click();
     let release!: (value: unknown) => void; mocks.requestUrl.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
     f.content.action("semantic-connect").click(); await flush(); await f.view.onClose(); expect(remove).toHaveBeenCalledTimes(1);
-    release({ status: 200, text: '{"embeddings":[[1,0,0]]}' }); await flush(); await f.view.onOpen(); f.content.action("nav-settings")?.click();
+    release({ status: 200, text: '{"embeddings":[[1,0,0]]}' }); await flush(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click();
     expect(f.content.action("semantic-mode-local")).toBeUndefined(); expect(f.content.action("semantic-check")).toBeDefined();
     expect(f.content.texts()).not.toContain("Semantic Intelligence connected"); await f.view.onClose();
   });
 
   it("Russian setup uses localized copy while preserving provider/model identifiers", async () => {
-    setLanguage("ru"); const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-settings")?.click();
+    setLanguage("ru"); const f = semanticFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-settings")?.click();
     expect(f.content.texts()).toContain("Семантические возможности"); f.content.action("semantic-enable").click();
     for (const mode of ["local", "cloud", "custom"] as const) { f.content.action(`semantic-mode-${mode}`).click(); expect(f.content.texts()).not.toContain("@semantic"); }
     expect(f.content.texts()).toContain("Базовый URL"); expect(f.content.texts()).toContain("OpenAI"); await f.view.onClose();
@@ -718,18 +727,18 @@ describe("integrated Health onboarding", () => {
   it.each(["ru", "en"] as const)("manual tagging remains reachable before the first scan in %s", async language => {
     setLanguage(language);
     const f = fixture({}); const tag = vi.fn(); Object.assign(f.tools, { openLocalTag: tag });
-    await f.view.onOpen();
+    await f.view.onOpen(); f.content.action("nav-health")?.click();
     const action = f.content.action("tag-note"); expect(action).toBeDefined(); expect(action.text).toBe(t("@localNote.tag"));
     action.click(); expect(tag).toHaveBeenCalledOnce(); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.controller.getState().outcome).toBeUndefined(); expect(f.save).not.toHaveBeenCalled();
     await f.view.onClose();
   });
   it("offers one explicit first action without saving preferences or reading notes", async () => {
-    const f = fixture({}); await f.view.onOpen();
+    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("scan").cls).toContain("mod-cta");
     expect(f.content.all().filter(e => e.tag === "button" && e.cls.includes("mod-cta"))).toHaveLength(1);
     expect(f.content.action("profile-research")).toBeUndefined(); expect(f.content.action("continue")).toBeUndefined();
-    expect(f.content.action("nav-discover")).toBeDefined(); expect(f.content.action("nav-recall")).toBeDefined();
+    expect(f.content.action("nav-semantic")).toBeDefined(); expect(f.content.action("nav-recall")).toBeDefined();
     expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     const live = f.content.all().find(e => e.attrs["aria-live"] === "polite");
     f.content.action("scan").click(); await vi.waitFor(() => expect(f.controller.getState().outcome).toBeDefined());
@@ -737,22 +746,22 @@ describe("integrated Health onboarding", () => {
     expect(f.content.all().find(e => e.attrs["aria-live"] === "polite")).toBe(live);
     expect(f.content.texts()).toContain("Note without connections"); expect(f.vault.read).toHaveBeenCalledTimes(1);
     expect(f.content.action("continue")).toBeUndefined();
-    await f.view.onClose(); await f.view.onOpen(); expect(f.vault.read).toHaveBeenCalledTimes(1);
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.vault.read).toHaveBeenCalledTimes(1);
     expect(f.content.texts()).toContain("Data available:"); await f.view.onClose();
   });
   it("leaves preferences and notes unchanged when browsing before the first check", async () => {
-    const f = fixture({ profile: "research" }); await f.view.onOpen(); const before = f.preferences.get();
-    f.content.action("nav-discover").click(); f.content.action("nav-health").click();
+    const f = fixture({ profile: "research" }); await f.view.onOpen(); f.content.action("nav-health")?.click(); const before = f.preferences.get();
+    openDiscover(f.content); f.content.action("nav-health").click();
     expect(f.preferences.get()).toEqual(before); expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.content.action("skip")).toBeUndefined(); await f.view.onClose();
   });
   it("retains a legacy saved scan without a forced profile choice or rescan", async () => {
     const f = fixture({ profile: "research" }); await f.controller.runLocalScan(); const before = f.preferences.get(); f.vault.read.mockClear();
-    await f.view.onOpen(); expect(f.content.texts()).toContain("Note without connections");
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); expect(f.content.texts()).toContain("Note without connections");
     expect(f.preferences.get()).toEqual(before); expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
   });
   it("does not begin a scan after the first-action preference save fails", async () => {
-    const f = fixture({}); await f.view.onOpen(); f.save.mockRejectedValueOnce(new Error("private details"));
+    const f = fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.save.mockRejectedValueOnce(new Error("private details"));
     f.content.action("scan").click(); await vi.waitFor(() => expect(f.content.texts()).toContain("Couldn't save Health preferences"));
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.preferences.get().onboardingCompleted).toBe(false);
     expect(f.content.texts()).not.toContain("private details");
@@ -780,7 +789,8 @@ describe("integrated Health onboarding", () => {
     expect(f.content.texts()).not.toContain("Welcome"); expect(f.content.action("profile-research")).toBeUndefined();
     const preferences = f.preferences.get(); f.content.action("recover").click();
     mocks.Modal.opened[0].contentEl.all().find((e) => e.text === "Back up and reset")!.click();
-    await vi.waitFor(() => expect(f.content.action("scan")).toBeDefined());
+    await vi.waitFor(() => expect(f.content.action("overview-check")).toBeDefined());
+    f.content.action("overview-check").click();
     expect(f.preferences.get()).toEqual(preferences); expect(f.save).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
   });
   it("Russian first-result copy localizes the selected Finding while retaining its stored text", async () => {
@@ -1015,7 +1025,7 @@ describe("Findings navigation and lifecycle integration", () => {
   it.each(["findings.json", "scan-runs.json"])("%s recovery dominates completed onboarding and prevents Inbox navigation", async (file) => {
     const f = fixture(); f.files.set(`${root}/${file}`, "invalid"); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.action("recover")).toBeDefined(); expect(f.content.action("nav-health")).toBeUndefined();
-    expect(f.content.action("nav-discover")).toBeUndefined();
+    expect(f.content.action("nav-semantic")).toBeUndefined();
     expect(f.content.action("view-findings")).toBeUndefined(); expect(f.content.action("dimension-structure")).toBeUndefined();
   });
 });
@@ -1159,7 +1169,7 @@ describe("final Tools and Settings IA", () => {
   it.each(["en", "ru"] as const)("renders final navigation, passive Tools and safe Settings in %s", async (language) => {
     setLanguage(language); mocks.requestUrl.mockClear(); const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click();
     expect(f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("nav-")).map((e) => e.attrs["data-health-action"]))
-      .toEqual(["nav-health", "nav-discover", "nav-recall", "nav-history", "nav-tools", "nav-process", "nav-settings"]);
+      .toEqual(["nav-home", "nav-health", "nav-semantic", "nav-tools", "nav-recall", "nav-history", "nav-settings"]);
     for (const page of ["tools", "settings"] as const) {
       f.content.action(`nav-${page}`).click(); passive(f);
       expect(f.content.action(`nav-${page}`).attrs["aria-current"]).toBe("page");
@@ -1177,14 +1187,13 @@ describe("final Tools and Settings IA", () => {
   });
   it("each Tools action invokes one host operation and editor entries never guess an editor", async () => {
     const f = overviewFixture(); mocks.requestUrl.mockClear(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
-    expect(f.content.texts()).toContain("command palette"); expect(f.content.texts()).toContain("Single Audit");
-    expect(f.content.texts()).toContain("Knowledge Health"); expect(f.content.texts()).toContain("backups");
-    const actions = f.content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"));
-    expect(actions).toHaveLength(7);
-    for (const [name, operation] of Object.entries(f.tools).filter(([key]) => key !== "openAtomization")) {
+    expect(f.content.texts()).toContain("command palette");
+    for (const [name, operation] of Object.entries(f.tools)) {
+      if (name === "openBatchProcessing") openBatch(f.content);
+      else toolDetails(f.content, name);
+      expect(operation).not.toHaveBeenCalled();
       f.content.action(`tool-${name}`).click(); await flush(); expect(operation).toHaveBeenCalledTimes(1);
     }
-    for (const [name, operation] of Object.entries(f.tools)) expect(operation).toHaveBeenCalledTimes(name === "openAtomization" ? 0 : 1);
     passive(f); expect(f.controller.listFindings()).toEqual([]);
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
@@ -1204,24 +1213,24 @@ describe("final Tools and Settings IA", () => {
     await second.onOpen(); const content = second.contentEl as unknown as InstanceType<typeof mocks.Element>;
     f.content.action("nav-tools").click(); content.action("nav-settings").click();
     let fail!: (error: Error) => void; f.tools.generateMocs.mockImplementationOnce(() => new Promise<void>((_resolve, reject) => { fail = reject; }));
-    const stale = f.content.action("tool-generateMocs"); stale.click(); f.content.action("nav-settings").click(); stale.click();
+    toolDetails(f.content, "generateMocs"); const stale = f.content.action("tool-generateMocs"); stale.click(); f.content.action("nav-settings").click(); stale.click();
     expect(f.tools.generateMocs).toHaveBeenCalledTimes(1);
     fail(new Error("PRIVATE_PROVIDER_BODY")); await flush();
     expect(f.content.action("nav-settings").attrs["aria-current"]).toBe("page"); expect(f.content.texts()).not.toContain("PRIVATE_PROVIDER_BODY");
     content.action("nav-health").click(); content.action("nav-tools").click(); f.tools.openAskVault.mockImplementationOnce(() => { throw new Error("PRIVATE_PROVIDER_BODY"); });
-    content.action("tool-openAskVault").click(); await flush();
+    toolDetails(content, "openAskVault"); content.action("tool-openAskVault").click(); await flush();
     expect(content.texts()).toContain("Could not open this tool"); expect(content.texts()).not.toContain("PRIVATE_PROVIDER_BODY");
     const feedback = content.querySelector("[data-workspace-message]")!;
     expect(feedback.texts()).toContain("Could not open this tool");
     expect(feedback.parentElement!.cls).toBe("veynrel-shell-main");
     expect(feedback.parentElement!.children[0]).toBe(feedback);
-    content.action("tool-openAskVault").click(); await flush();
+    toolDetails(content, "openAskVault"); content.action("tool-openAskVault").click(); await flush();
     expect(f.tools.openAskVault).toHaveBeenCalledTimes(2); expect(content.texts()).not.toContain("Could not open this tool");
     await second.onClose(); await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it.each(["findings.json", "scan-runs.json"])("%s recovery rejects old tool actions", async file => {
-    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
-    const stale = f.content.action("tool-openAskVault");
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
+    toolDetails(f.content, "openAskVault"); const stale = f.content.action("tool-openAskVault");
     vi.spyOn(f.controller, "getState").mockReturnValue({ ...f.controller.getState(), snapshot: { ...f.controller.getState().snapshot!, initialization: { status: "unavailable", storage: { findings: "invalid", scanRuns: "invalid" }, findingsWritable: false, historyWritable: false } } });
     (f.view as unknown as { render(): void }).render(); stale.click();
     expect(f.tools.openAskVault).not.toHaveBeenCalled(); expect(f.content.action("nav-tools")).toBeUndefined();
@@ -1229,10 +1238,10 @@ describe("final Tools and Settings IA", () => {
     await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
   it("an old onboarding preference no longer traps navigation or changes the stored profile", async () => {
-    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-tools").click();
+    const f = overviewFixture(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-tools").click();
     await f.controller.updatePreferences({ onboardingCompleted: false, profileChosen: false });
     const prefs = f.preferences.get(); f.content.action("nav-health").click();
-    expect(f.content.action("nav-discover")).toBeDefined(); expect(f.preferences.get()).toEqual(prefs);
+    expect(f.content.action("nav-semantic")).toBeDefined(); expect(f.preferences.get()).toEqual(prefs);
     expect(f.tools.openAskVault).not.toHaveBeenCalled(); await f.view.onClose(); f.recall.dispose(); f.controller.dispose();
   });
 });
@@ -1308,7 +1317,7 @@ describe("real topology child route", () => {
     expect(content.action("tools")).toBeUndefined();
     content.action("nav-tools").click();
     expect(content.action("nav-tools").attrs["aria-current"]).toBe("page");
-    expect(content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("tool-"))).toHaveLength(7);
+    expect(content.all().filter((e) => e.attrs["data-health-action"]?.startsWith("catalog-tool-"))).toHaveLength(7);
     await view.onClose(); topology.dispose(); f.controller.dispose();
   });
   it("preserves inline scroll and nearby focus through held loads, refreshes and stale updates", async () => {
@@ -1316,7 +1325,7 @@ describe("real topology child route", () => {
     const topology = new VaultTopologyController(source);
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
-    await view.onOpen(); content.action("nav-discover").click(); content.action("topology-open").click();
+    await view.onOpen(); openDiscover(content); content.action("topology-open").click();
     // Model a browser clamping scroll when the view body is replaced. Real layout
     // and keyboard/viewport bounds are also checked by the native regression.
     const body = content.all().find(e => e.cls === "veynrel-workspace")!;
@@ -1351,11 +1360,11 @@ describe("real topology child route", () => {
     release(); await topology.load();
     expect(content.ownerDocument.activeElement).toBe(content.action("topology-back"));
     // Deliberate navigation still focuses the destination heading.
-    for (const action of ["nav-health", "nav-discover", "topology-open"]) {
+    for (const action of ["nav-health", "nav-semantic", "topology-open"]) {
       content.action(action).click();
       expect(content.ownerDocument.activeElement?.attrs["data-health-heading"]).toBe("true");
       expect(content.ownerDocument.activeElement?.focusOptions).toBeUndefined();
-      content.action("nav-discover").click();
+      openDiscover(content);
     }
     await view.onClose(); topology.dispose(); f.controller.dispose();
   });
@@ -1364,7 +1373,7 @@ describe("real topology child route", () => {
     const view = new VeynrelHealthView({ app: f.app } as never, f.controller, f.tools, undefined, undefined, undefined, undefined, undefined, topology);
     const content = view.contentEl as unknown as InstanceType<typeof mocks.Element>;
     const capture = vi.spyOn(f.vault, "getMarkdownFiles");
-    await view.onOpen(); content.action("nav-discover").click(); content.action("topology-open").click(); expect(capture).toHaveBeenCalledTimes(1); capture.mockClear();
+    await view.onOpen(); openDiscover(content); content.action("topology-open").click(); expect(capture).toHaveBeenCalledTimes(1); capture.mockClear();
     expect(content.texts()).toContain("See how your notes connect.");
     expect(content.action("topology-refresh").text).toBe("Load map");
     expect(capture).not.toHaveBeenCalled(); expect(f.vault.read).not.toHaveBeenCalled();
@@ -1374,7 +1383,7 @@ describe("real topology child route", () => {
     expect(f.metadataCache.getFileCache).toHaveBeenCalledTimes(1);
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
     expect(mocks.requestUrl).not.toHaveBeenCalled();
-    expect(content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    expect(content.action("nav-semantic").attrs["aria-current"]).toBe("page");
     expect(content.action("nav-topology")).toBeUndefined();
     expect(content.all().find((e) => e.attrs["aria-live"] === "polite")?.attrs["aria-atomic"]).toBe("true");
     expect(content.all().some((e) => e.cls === "veynrel-health-page-enter")).toBe(false);
@@ -1392,7 +1401,7 @@ describe("real topology child route", () => {
     content.action("topology-open").click();
     topology.markStale(); expect(content.texts()).toContain("Map may be outdated");
     content.action("topology-refresh").click(); await topology.load(); expect(capture).toHaveBeenCalledTimes(4);
-    await view.onClose(); await view.onOpen(); content.action("nav-discover").click(); content.action("topology-open").click(); expect(capture).toHaveBeenCalledTimes(5);
+    await view.onClose(); await view.onOpen(); openDiscover(content); content.action("topology-open").click(); expect(capture).toHaveBeenCalledTimes(5);
     await view.onClose(); topology.dispose(); f.controller.dispose();
   });
   it.each(["en", "ru"] as const)("groups partial coverage, exact metrics and bounded relationships without loading in %s", async (language) => {
@@ -1476,8 +1485,8 @@ describe("Semantic Neighborhood Discover child surface", () => {
   it("requires scope consent before map work and rejects a stale map launcher", async () => {
     const f = await neighborhoodFixture(true);
     f.vault.getAllFolders.mockReturnValue([{ path: "Folder" }]);
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("scope-picker").input("Folder");
-    f.content.action("nav-discover").click();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("scope-picker").input("Folder");
+    openDiscover(f.content);
     for (const key of ["discover-search", "global-map-open", "connections-open", "topology-open"]) {
       expect(f.content.action(key).disabled).toBe(true); f.content.action(key).click();
     }
@@ -1499,14 +1508,14 @@ describe("Semantic Neighborhood Discover child surface", () => {
     const loadSemantic = vi.spyOn(f.globalMap, "load"), loadTopology = vi.spyOn(f.topology, "load"), loadComparison = vi.spyOn(comparison, "load");
     const fetch = vi.fn(), xhr = vi.fn(); vi.stubGlobal("fetch", fetch); vi.stubGlobal("XMLHttpRequest", xhr);
     f.vault.read.mockClear(); f.cachedRead.mockClear(); f.adapter.write.mockClear(); mocks.requestUrl.mockClear();
-    f.content.action("nav-discover").click();
+    openDiscover(f.content);
     expect(f.content.action("connections-open")).toBeDefined();
     for (const spy of [loadSemantic, loadTopology, loadComparison]) expect(spy).not.toHaveBeenCalled();
     await f.globalMap.load(); // Normal usage reuses the Global Map already computed by its owner.
     f.content.action("connections-open").click(); await comparison.load();
     expect(comparison.getSnapshot().state).toBe("ready"); expect(f.engine.analyzeGlobalSemanticMap).toHaveBeenCalledOnce();
     expect(loadSemantic).toHaveBeenCalledOnce(); expect(loadTopology).toHaveBeenCalledOnce();
-    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page"); expect(f.content.action("nav-connection-opportunities")).toBeUndefined();
+    expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page"); expect(f.content.action("nav-connection-opportunities")).toBeUndefined();
     f.content.action("connections-aligned").click(); f.content.action("connections-pair-0").click();
     f.content.action("connections-search").input("join");
     const state = (f.view as unknown as { comparisonView: ReturnType<typeof newConnectionComparisonViewState> }).comparisonView;
@@ -1535,13 +1544,13 @@ describe("Semantic Neighborhood Discover child surface", () => {
     f.vault.read.mockClear(); f.cachedRead.mockClear(); f.adapter.write.mockClear();
     mocks.requestUrl.mockClear();
     const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
-    f.content.action("nav-discover").click();
+    openDiscover(f.content);
     expect(f.engine.analyzeGlobalSemanticMap).not.toHaveBeenCalled();
     expect(f.engine.listIndexedPaths).not.toHaveBeenCalled(); expect(f.engine.findSimilarNotes).not.toHaveBeenCalled();
     for (const spy of [f.vault.read, f.cachedRead, f.adapter.write, mocks.requestUrl, fetch]) expect(spy).not.toHaveBeenCalled();
     for (const action of ["discover-search", "discover-related", "discover-duplicates", "semantic-health-scan"]) expect(f.content.action(action)).toBeDefined();
     f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
-    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page");
     expect(f.content.action("nav-semantic-neighborhood")).toBeUndefined(); expect(f.content.action("nav-tools")).toBeDefined();
     expect(f.content.action("neighborhood-search")).toBeDefined();
     expect(f.engine.listIndexedPaths).toHaveBeenCalledOnce(); expect(f.engine.findSimilarNotes).not.toHaveBeenCalled();
@@ -1549,10 +1558,10 @@ describe("Semantic Neighborhood Discover child surface", () => {
   });
   it.each(["en", "ru"] as const)("renders map scale/summary and preserves local selection and Neighborhood integration in %s", async (lang) => {
     setLanguage(lang); const f = await neighborhoodFixture();
-    f.content.action("nav-discover").click(); expect(f.engine.analyzeGlobalSemanticMap).not.toHaveBeenCalled();
+    openDiscover(f.content); expect(f.engine.analyzeGlobalSemanticMap).not.toHaveBeenCalled();
     f.vault.read.mockClear(); f.cachedRead.mockClear(); f.adapter.write.mockClear(); mocks.requestUrl.mockClear();
     f.content.action("global-map-open").click(); await f.globalMap.load();
-    expect(f.content.action("nav-semantic-map")).toBeUndefined(); expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    expect(f.content.action("nav-semantic-map")).toBeUndefined(); expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page");
     expect(f.engine.analyzeGlobalSemanticMap).toHaveBeenCalledOnce();
     expect(f.content.all().filter(e => e.attrs["tabindex"] === "0")).toEqual([]);
     expect(f.content.action("global-map-open-note")).toBeUndefined();
@@ -1584,7 +1593,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
   });
   it.each(["en", "ru"] as const)("preserves child-route origin and global map, selection, query and viewport across local exploration in %s", async lang => {
     setLanguage(lang); const f = await neighborhoodFixture();
-    f.content.action("nav-discover").click(); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
+    openDiscover(f.content); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
     expect(f.content.action("neighborhood-back").text).toBe(t("@neighborhood.back"));
     f.content.action("neighborhood-back").click(); expect(f.content.action("global-map-open")).toBeDefined();
     f.content.action("global-map-open").click(); await f.globalMap.load();
@@ -1607,7 +1616,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
     expect(f.globalMap.getSnapshot().map).toBe(map); expect(local).toEqual(before);
     expect(f.content.action("global-map-search").value).toBe("A.md");
     expect(f.content.texts()).toContain(t("@global-map.stale"));
-    expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page");
     expect(loads).not.toHaveBeenCalled(); expect(f.engine.analyzeGlobalSemanticMap).toHaveBeenCalledOnce();
     for (const spy of [f.vault.read, f.cachedRead, f.adapter.write, mocks.requestUrl]) expect(spy).not.toHaveBeenCalled();
     // A new Discover entry sets its own origin even after prior Global exploration.
@@ -1618,7 +1627,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
   });
   it.each(["en", "ru"] as const)("focuses explicitly, updates captions/metrics, omits self-score, and resets locally in %s", async lang => {
     setLanguage(lang); const f = await neighborhoodFixture();
-    f.content.action("nav-discover").click(); f.content.action("global-map-open").click(); await f.globalMap.load();
+    openDiscover(f.content); f.content.action("global-map-open").click(); await f.globalMap.load();
     const dots = () => f.content.all().filter(e => e.cls === "veynrel-global-map-dot").map(e => ({ ...e.attrs }));
     const core = dots();
     f.content.action("global-map-search").input("A.md"); f.content.action("global-map-result-0").click();
@@ -1641,7 +1650,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
   });
   it("visible zoom, fit and reset preserve selection, real scores and the captured map without recomputation", async () => {
     const f = await neighborhoodFixture();
-    f.content.action("nav-discover").click(); f.content.action("global-map-open").click(); await f.globalMap.load();
+    openDiscover(f.content); f.content.action("global-map-open").click(); await f.globalMap.load();
     const map = f.globalMap.getSnapshot().map!, before = JSON.stringify(map);
     const state = (f.view as unknown as { globalMapView: { viewport: { x: number; y: number; zoom: number } } }).globalMapView;
     const group = () => f.content.all().find(e => e.attrs["data-global-map-node"] === "A.md")!;
@@ -1661,7 +1670,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
   });
   it.each(["en", "ru"] as const)("selects without querying, recenters explicitly, preserves viewport, and renders literal evidence in %s", async (lang) => {
     setLanguage(lang); const f = await neighborhoodFixture();
-    f.content.action("nav-discover").click(); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
+    openDiscover(f.content); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
     f.content.action("neighborhood-source-0").focus(); f.content.action("neighborhood-source-0").click(); await f.neighborhood.load("A.md");
     expect(f.engine.findSimilarNotes).toHaveBeenCalledTimes(1);
     expect(f.content.ownerDocument.activeElement).toBe(f.content.action("neighborhood-select-0"));
@@ -1683,7 +1692,7 @@ describe("Semantic Neighborhood Discover child surface", () => {
     f.content.action("neighborhood-choose").focus(); f.content.action("neighborhood-choose").click();
     expect(f.content.ownerDocument.activeElement).toBe(f.content.action("neighborhood-search")); expect(f.content.action("neighborhood-search")).toBeDefined();
     expect(f.engine.listIndexedPaths).toHaveBeenCalledTimes(2);
-    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.content.action("nav-discover").click(); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
+    await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); openDiscover(f.content); f.content.action("neighborhood-open").click(); await f.neighborhood.prepare();
     expect(f.engine.listIndexedPaths).toHaveBeenCalledTimes(2);
     await f.view.onClose(); f.neighborhood.dispose(); f.controller.dispose();
   });
@@ -1839,23 +1848,23 @@ describe("safe pair opening", () => {
 });
 
 describe("Processing entry", () => {
-  it("shows three compact tool rows, opens the Markdown picker, and launches batch without scope arguments", async () => {
+  it("shows four compact tool rows, opens the Markdown picker, and launches batch without scope arguments", async () => {
     const f = fixture(); Object.assign(f.tools, { savedMocClusterCount: vi.fn(async () => 3) });
-    await f.view.onOpen(); f.content.action("nav-process").click(); await flush();
-    expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-row"))).toHaveLength(3);
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); openBatch(f.content); await flush();
+    expect(f.content.all().filter(e => e.tag === "article" && e.cls.includes("veynrel-processing-row"))).toHaveLength(4);
     expect(f.content.action("process-recall")).toBeUndefined();
     expect(f.content.texts()).toContain("Saved clusters: 3");
     f.content.action("tool-openBatchProcessing").click(); expect(f.tools.openBatchProcessing).toHaveBeenCalledWith();
     f.content.action("tool-generateMocs").click(); expect(f.tools.generateMocs).toHaveBeenCalledTimes(1);
     f.content.action("process-atomization").click(); expect(f.tools.openAtomization).toHaveBeenCalledWith();
     expect(f.content.action("process-workbench")).toBeUndefined();
-    f.content.action("nav-discover").click(); expect(f.content.action("nav-discover").attrs["aria-current"]).toBe("page");
+    openDiscover(f.content); expect(f.content.action("nav-semantic").attrs["aria-current"]).toBe("page");
     await f.view.onClose();
   });
   it("disables MOC while loading, offers audit for no clusters and ignores a detached response", async () => {
     const f = fixture(); let resolve!: (value: number) => void;
     Object.assign(f.tools, { savedMocClusterCount: vi.fn(() => new Promise<number>(r => { resolve = r; })) });
-    await f.view.onOpen(); f.content.action("nav-process").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); openBatch(f.content);
     const stale = f.content.action("tool-generateMocs"); expect(stale.disabled).toBe(true); stale.click();
     expect(f.tools.generateMocs).not.toHaveBeenCalled(); resolve(0); await flush();
     expect(f.content.action("tool-generateMocs")).toBeUndefined();
@@ -1868,12 +1877,12 @@ describe("Processing entry", () => {
   it("reports read and launcher failures without private errors; retry reloads the saved count", async () => {
     const f = fixture(); const count = vi.fn().mockRejectedValueOnce(new Error("private")).mockResolvedValue(2);
     Object.assign(f.tools, { savedMocClusterCount: count });
-    await f.view.onOpen(); f.content.action("nav-process").click(); await flush();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); openBatch(f.content); await flush();
     expect(f.content.texts()).toContain("Could not read saved clusters");
     expect(f.content.action("tool-generateMocs")).toBeUndefined(); f.content.action("process-refresh").click(); await flush();
     expect(f.content.texts()).toContain("Saved clusters: 2");
     f.tools.openBatchProcessing.mockImplementationOnce(() => { throw new Error("private"); });
-    f.content.action("tool-openBatchProcessing").click(); await flush();
+    openBatch(f.content); f.content.action("tool-openBatchProcessing").click(); await flush();
     expect(f.content.texts()).toContain(t("@tools.launch-failed")); expect(f.content.texts()).not.toContain("private");
     await f.view.onClose();
   });
@@ -1881,19 +1890,19 @@ describe("Processing entry", () => {
 
 describe("compact Workspace scope and navigation", () => {
   it("does not scan after a failed first-action save", async () => {
-    const f=fixture({}); await f.view.onOpen(); f.save.mockRejectedValueOnce(new Error("private")); f.content.action("scan").click();
+    const f=fixture({}); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.save.mockRejectedValueOnce(new Error("private")); f.content.action("scan").click();
     await vi.waitFor(()=>expect(f.content.texts()).toContain("Couldn't save Health preferences"));
     expect(f.vault.read).not.toHaveBeenCalled(); expect(f.preferences.get().profileChosen).toBe(false); await f.view.onClose();
   });
   it("preserves profile choice while directly showing real findings after the first scan", async () => {
-    const f=fixture({profile:"research"}); await f.view.onOpen();f.content.action("scan").click();
+    const f=fixture({profile:"research"}); await f.view.onOpen(); f.content.action("nav-health")?.click();f.content.action("scan").click();
     await vi.waitFor(()=>expect(f.controller.getState().outcome).toBeDefined());
     expect(f.preferences.get().profile).toBe("research"); expect(f.content.action("continue")).toBeUndefined();
     expect(f.content.all().some(e=>e.attrs["data-health-action"]?.startsWith("finding-"))).toBe(true);
     expect(f.vault.read).toHaveBeenCalledTimes(1); expect(mocks.requestUrl).not.toHaveBeenCalled(); await f.view.onClose();
   });
   it("distinguishes a live receipt from a restarted saved check without reading sources", async () => {
-    const f=fixture();await f.view.onOpen(); await f.controller.runLocalScan();f.vault.read.mockClear();
+    const f=fixture();await f.view.onOpen(); f.content.action("nav-health")?.click(); await f.controller.runLocalScan();f.vault.read.mockClear();
     expect(f.content.querySelector("[data-workspace-check-receipt]")?.texts()).toContain("Data available");
     const state=f.controller.getState();vi.spyOn(f.controller,"getState").mockReturnValue({...state,outcome:undefined});
     (f.view as unknown as {render():void}).render();expect(f.content.texts()).toContain(t("@ux.not-current"));
@@ -1901,14 +1910,14 @@ describe("compact Workspace scope and navigation", () => {
   });
   it("preserves every folder through the actual scope picker and independent views", async () => {
     const f=fixture();f.vault.getAllFolders.mockReturnValue(Array.from({length:11},(_,i)=>({path:`Area ${i}`})));
-    await f.view.onOpen();expect(f.content.action("scope-picker").children).toHaveLength(12);
+    await f.view.onOpen(); f.content.action("nav-health")?.click();expect(f.content.action("scope-picker").children).toHaveLength(12);
     f.content.action("scope-picker").input("Area 10");expect(f.content.action("scope-picker").value).toBe("Area 10");
     const other=new VeynrelHealthView({app:f.app} as never,f.controller,f.tools);await other.onOpen();
     expect((other.contentEl as unknown as InstanceType<typeof mocks.Element>).action("scope-picker").value).toBe("");
     expect(f.vault.read).not.toHaveBeenCalled();expect(f.save).not.toHaveBeenCalled();await other.onClose();await f.view.onClose();
   });
   it("requires global scan acknowledgement and rejects a detached scope confirmation", async () => {
-    const f=fixture();f.vault.getAllFolders.mockReturnValue([{path:"SQL"},{path:"Other"}]);await f.view.onOpen();
+    const f=fixture();f.vault.getAllFolders.mockReturnValue([{path:"SQL"},{path:"Other"}]);await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("scope-picker").input("SQL");expect(f.content.action("scan")).toBeUndefined();
     const stale=f.content.action("scope-continue");f.content.action("scope-picker").input("Other");stale.click();
     expect(f.content.action("scan")).toBeUndefined();f.content.action("scope-continue").click();
@@ -1916,19 +1925,19 @@ describe("compact Workspace scope and navigation", () => {
     expect(f.vault.read).not.toHaveBeenCalled();await f.view.onClose();
   });
   it("a missing folder stays missing until explicitly changed", async () => {
-    const f=fixture();f.vault.getAllFolders.mockReturnValue([{path:"SQL"}]);await f.view.onOpen();
+    const f=fixture();f.vault.getAllFolders.mockReturnValue([{path:"SQL"}]);await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("scope-picker").input("missing");expect(f.content.texts()).toContain(t("@workspace.missing"));
     expect(f.content.action("scan")).toBeUndefined();expect(f.content.action("scope-picker").value).toBe("missing");
     f.content.action("scope-picker").input("");expect(f.content.action("scan")).toBeDefined();await f.view.onClose();
   });
   it("retains Tools and every existing operation without selecting an editor", async () => {
-    const f=fixture();await f.view.onOpen();f.content.action("nav-tools").click();
-    for(const action of Object.keys(f.tools).filter(k=>k!=="openAtomization"))expect(f.content.action(`tool-${action}`)).toBeDefined();
+    const f=fixture();await f.view.onOpen(); f.content.action("nav-health")?.click();f.content.action("nav-tools").click();
+    for(const action of Object.keys(f.tools))expect(f.content.action(action === "openBatchProcessing" ? "catalog-tools-process" : `catalog-tool-${action}`)).toBeDefined();
     for(const work of Object.values(f.tools))expect(work).not.toHaveBeenCalled();
     expect(f.vault.read).not.toHaveBeenCalled();expect(f.adapter.write).not.toHaveBeenCalled();await f.view.onClose();
   });
   it("opens R04 from the compact menu with exact scope and no passive scan", async () => {
-    const f=fixture({});f.vault.getAllFolders.mockReturnValue([{path:"SQL"}]);await f.view.onOpen();
+    const f=fixture({});f.vault.getAllFolders.mockReturnValue([{path:"SQL"}]);await f.view.onOpen(); f.content.action("nav-health")?.click();
     f.content.action("organization-audit").click();expect(f.tools.openTagTaxonomy).toHaveBeenCalledWith({kind:"all"},[]);
     f.content.action("scope-picker").input("SQL");f.content.action("organization-audit").click();
     expect(f.tools.openTagTaxonomy).toHaveBeenLastCalledWith({kind:"folder",path:"SQL"},[]);
@@ -1985,5 +1994,20 @@ describe("embedded global computed coverage",()=>{
     const metrics=parent.all().find(e=>e.cls==="veynrel-global-map-metrics")!;
     expect(metrics.all().filter(e=>e.tag==="dd").map(e=>e.text)).toEqual(["1000","0"]);
     expect(metrics.texts()).toContain(t("@r062b.computed"));expect(port.refresh).not.toHaveBeenCalled();
+  });
+});
+
+describe("Overview-first entry", () => {
+  it.each(["en", "ru"] as const)("opens six panels and five explicit destinations without analysis in %s", async language => {
+    setLanguage(language); const f = fixture({}); await f.view.onOpen();
+    expect(f.content.action("nav-home").attrs["aria-current"]).toBe("page");
+    for (const panel of ["check", "batch", "semantic", "recall", "tools"]) expect(f.content.action(`overview-${panel}`)).toBeDefined();
+    expect(f.content.action("overview-query")).toBeDefined(); expect(f.content.action("overview-search").disabled).toBe(true);
+    expect(f.content.texts()).not.toMatch(/@overview\.|Studio/u);
+    expect(f.content.action("nav-tools")).toBeDefined(); expect(f.content.action("nav-semantic")).toBeDefined();
+    expect(f.vault.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled(); expect(f.save).not.toHaveBeenCalled();
+    f.content.action("overview-batch").click(); expect(f.content.action("nav-tools").attrs["aria-current"]).toBe("page");
+    expect(f.tools.openBatchProcessing).not.toHaveBeenCalled(); expect(f.content.action("tool-openBatchProcessing")).toBeDefined();
+    await f.view.onClose();
   });
 });

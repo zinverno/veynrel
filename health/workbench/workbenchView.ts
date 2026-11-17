@@ -108,6 +108,7 @@ export class WorkbenchView {
       const pair = [...paths].sort() as [string, string]; this.selectPair({ id: pairId(...pair), paths: pair, basis: "selected" });
     }
   }
+  showSemantic(families: boolean): void { this.surface = "similarity"; this.families.open = families; this.render(); }
   inspect(panel: WorkbenchInspector): void { this.surface=panel==="topology"?"structure":"similarity";this.inspectors.open(panel,this.note??this.selected?.paths[0]); }
   private cancelRender(): void {
     if(this.pendingRender)this.pendingRender.win.cancelAnimationFrame(this.pendingRender.id);

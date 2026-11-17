@@ -133,6 +133,7 @@ export interface SemanticControllerDependencies {
   openSearchModal?: (
     app: App,
     controller: ObsidianSemanticController,
+    query?: string,
   ) => void;
   openAskVaultModal?: (
     app: App,
@@ -365,8 +366,8 @@ export class ObsidianSemanticController {
       ((message, duration) => new Notice(message, duration));
     this.openSearchModal =
       dependencies.openSearchModal ??
-      ((app, controller) => {
-        new SemanticSearchModal(app, controller).open();
+      ((app, controller, query) => {
+        new SemanticSearchModal(app, controller, query).open();
       });
     this.openAskVaultModal =
       dependencies.openAskVaultModal ??
@@ -670,9 +671,10 @@ export class ObsidianSemanticController {
     }
   }
 
-  openSearch(): void {
+  openSearch(query?: string): void {
     if (!this.ensureEnabled()) return;
-    this.openSearchModal(this.plugin.app, this);
+    if (query === undefined) this.openSearchModal(this.plugin.app, this);
+    else this.openSearchModal(this.plugin.app, this, query);
   }
 
   openAskVault(): void {

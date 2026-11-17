@@ -8,7 +8,7 @@ import type { PairReviewPort, WorkbenchData } from "./workbenchData";
 import { workbenchModel } from "./workbenchModel";
 import type { WorkbenchPair } from "./workbenchModel";
 
-interface OptionalMap { selectPaths?(paths: readonly string[]): void; inspect?(panel: import("./workbenchInspectors").WorkbenchInspector): void; update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
+interface OptionalMap { showSemantic?(families: boolean): void; selectPaths?(paths: readonly string[]): void; inspect?(panel: import("./workbenchInspectors").WorkbenchInspector): void; update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
 interface ReviewActions {
   notes?: NoteActions;
   history(): void; settings(): void;
@@ -106,6 +106,7 @@ export class ReviewListView {
       this.scrollOwner.scrollTop = 0;
     if(panel)this.map?.inspect?.(panel);
   }
+  openSemanticMap(families = false): void { this.openMap(); this.map?.showSemantic?.(families); }
   private syncLayout(): void {
     const host = this.element.parentElement;
     if (this.layoutHost !== host) this.layoutHost?.removeAttribute("data-review-map");

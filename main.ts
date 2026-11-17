@@ -43,6 +43,7 @@ import {
 } from "./settings";
 import { validateSettings, callOpenRouter, streamOpenRouter, testConnection } from "./api";
 import { LocalLinkModal } from "./consolidation/localLinkModal";
+import { studioFeatures } from "./studio/features";
 import type { StudioWorkspace } from "./studio/registerStudio";
 import {
   SELECTION_INSERTION_OPTIONS,
@@ -166,7 +167,7 @@ export default class AIHubPlugin extends Plugin {
         const settings = (this.app as typeof this.app & { setting?: { open(): void; openTabById(id: string): void } }).setting;
         if (settings) { settings.open(); settings.openTabById(this.manifest.id); }
       },
-      openStudioNote: path => { void this.studio?.openNote?.(path); },
+      ...(studioFeatures.enabled ? { openStudioNote: (path: string) => { void this.studio?.openNote?.(path); } } : {}),
       openLocalLink: paths => { if (this.safeApply) new LocalLinkModal(this.app, paths, this.safeApply).open(); },
       openAtomization: path => {
         if (path !== undefined) { const file = this.app.vault.getFileByPath(path); if (file?.extension === "md") void this.atomizeNote(file); return; }
@@ -353,7 +354,7 @@ export default class AIHubPlugin extends Plugin {
 
       this.addCommand({
         id: "ai-batch-process",
-        name: tr("AI: Обработать несколько заметок"),
+        name: tr("AI: Массовый аудит"),
         callback: () => new BatchProcessModal(this.app, this).open(),
       });
 
@@ -2222,7 +2223,7 @@ export class BatchProcessModal extends Modal {
     const titleRow = h2.createDiv({ cls: "ai-hub-title-row" });
     const iconSpan = titleRow.createSpan({ cls: "ai-hub-accent-icon" });
     setIcon(iconSpan, "package");
-    titleRow.createSpan({ text: tr("Массовая обработка") });
+    titleRow.createSpan({ text: tr("Массовый аудит") });
 
     // Живой счётчик прямо в шапке
     this.countElement = h2.createSpan({

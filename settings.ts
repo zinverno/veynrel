@@ -45,6 +45,7 @@ import type { RerankSettings } from "./rerank/types";
 import { RerankError } from "./rerank/openRouterRerank";
 import type { OrganizationPreferences } from "./consolidation/organizationProfile";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
+import { studioFeatures } from "./studio/features";
 import { COMMUNITY_SITE } from "./studio/community/schema";
 import { l as studioLabel } from "./studio/messages";
 
@@ -812,7 +813,7 @@ export class AIHubSettingTab extends PluginSettingTab {
         item.aliases.push("OpenAI", "OpenRouter", "Ollama", "Custom");
       }
     }
-    return sections;
+    return studioFeatures.enabled ? sections : sections.filter(section => section.heading !== "Veynrel Studio");
   }
 
   /** Path B: hosts older than 1.13 use these same rows through the original Setting API. */

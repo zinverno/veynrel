@@ -49,10 +49,12 @@ export function renderFindingsInbox(parent: HTMLElement, model: FindingsInboxVie
       list = group.createEl("ul", { cls: "veynrel-findings-list" }); groups.set(row.type, list);
     }
     const item = list.createEl("li", { cls: "veynrel-finding-item" });
-    for (const path of row.paths) healthButton(item, path, () => actions.openNote(path), `source-${row.id}-${path}`).addClass("veynrel-finding-source");
+    const source = item.createDiv({ cls: "veynrel-finding-files" });
+    for (const path of row.paths) healthButton(source, path, () => actions.openNote(path), `source-${row.id}-${path}`).addClass("veynrel-finding-source");
     if (row.paths.length > 1) item.createEl("small", { text: row.noteSummary });
-    for (const fact of row.facts.slice(0, 3)) item.createEl("p", { text: fact });
-    if (!row.facts.length) item.createEl("p", { text: row.explanation });
+    const problem = item.createDiv({ cls: "veynrel-finding-problem" });
+    for (const fact of row.facts.slice(0, 3)) problem.createEl("p", { text: fact });
+    if (!row.facts.length) problem.createEl("p", { text: row.explanation });
     const buttons = item.createDiv({ cls: "veynrel-health-actions" });
     if (row.repairSource && actions.repair) healthButton(buttons, t("@localNote.repair"), () => actions.repair!(row.repairSource!), `repair-${row.id}`);
     else if (row.pair && actions.compare) healthButton(buttons, t("@actions.compare"), () => actions.compare!(row.id), `compare-${row.id}`);

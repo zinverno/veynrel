@@ -19,10 +19,10 @@ describe("workspace presentation contract", () => {
     expect(live).not.toMatch(/display:\s*none|visibility:\s*hidden/u);
     expect(css).not.toContain(".veynrel-health-status:empty");
   });
-  it("uses three horizontal destinations and a compact native disclosure", () => {
+  it("uses five horizontal destinations and a compact native disclosure", () => {
     const shell = readFileSync("health/workspace/renderWorkspaceShell.ts", "utf8");
     expect(shell).not.toMatch(/veynrel-brand|veynrel-sidebar|createEl\("aside"/u);
-    expect(shell).toContain('[["health", "check"], ["discover", "notes"], ["recall", "recall"]]');
+    expect(shell).toContain('[["home", "home"], ["health", "check"], ["semantic", "semantic"], ["tools", "tools"], ["recall", "recall"]]');
     expect(rule(".veynrel-tabs")).toContain("display: flex");
     expect(css).toContain('.veynrel-tabs button[aria-current="page"]');
     expect(shell).toContain('setIcon(summary, "ellipsis")');

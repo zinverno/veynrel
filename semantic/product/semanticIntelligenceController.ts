@@ -13,7 +13,7 @@ interface SemanticEngine {
   refreshSemanticStatus(): Promise<SemanticStatus>;
   indexVault(): Promise<void>;
   rebuildIndex(): Promise<void>;
-  openSearch(): void;
+  openSearch(query?: string): void;
   openSimilarNotes(): void;
   openPotentialDuplicates(): void;
 }
@@ -91,7 +91,10 @@ export class SemanticIntelligenceController implements SemanticIntelligencePort 
     if (this.getSnapshot().state !== "incompatible") return;
     await this.run("rebuild", () => this.engine.rebuildIndex());
   }
-  openSearch(): void { if (this.getSnapshot().state === "ready") this.engine.openSearch(); }
+  openSearch(query?: string): void {
+    if (this.getSnapshot().state !== "ready") return;
+    if (query === undefined) this.engine.openSearch(); else this.engine.openSearch(query);
+  }
   openSimilarNotes(): void { if (this.getSnapshot().state === "ready") this.engine.openSimilarNotes(); }
   openPotentialDuplicates(): void { if (this.getSnapshot().state === "ready") this.engine.openPotentialDuplicates(); }
 

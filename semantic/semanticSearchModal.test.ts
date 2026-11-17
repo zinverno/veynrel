@@ -236,7 +236,7 @@ function result(preview?: string): SemanticDocumentResult {
   };
 }
 
-function harness(results = [result("safe preview")]) {
+function harness(results = [result("safe preview")], query?: string) {
   const file = new mocks.TFile();
   file.path = "Folder/Alpha.md";
   const getFileByPath = vi.fn<
@@ -263,7 +263,7 @@ function harness(results = [result("safe preview")]) {
     search: vi.fn(async () => results),
     errorMessage: vi.fn((_error: unknown) => "safe error"),
   };
-  const modal = new SemanticSearchModal(app as never, delegate);
+  const modal = new SemanticSearchModal(app as never, delegate, query);
   modal.open();
   const content = modal.contentEl as unknown as InstanceType<
     typeof mocks.FakeElement
@@ -1223,4 +1223,11 @@ describe("read-only Pair Inspector UI", () => {
     expect(f.app.vault.read).toHaveBeenCalledTimes(reads); expect(f.complete).toHaveBeenCalledOnce();
     expect(f.app.vault.modify).not.toHaveBeenCalled(); expect(f.app.vault.create).not.toHaveBeenCalled(); f.modal.close();
   });
+});
+
+it("runs an explicitly submitted Overview query once through preparation and search", async () => {
+  const f = harness(undefined, "  linked ideas  ");
+  await vi.waitFor(() => expect(f.delegate.search).toHaveBeenCalledExactlyOnceWith("linked ideas"));
+  expect(f.delegate.prepareSearch).toHaveBeenCalledOnce();
+  f.modal.close();
 });

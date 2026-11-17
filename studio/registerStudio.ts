@@ -31,6 +31,13 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
     community: new CommunityCatalog(storage, communityTransport), installer: new CommunityInstaller(storage, registry), inventory: port.inventory, folders: () => plugin.app.vault.getAllLoadedFiles().filter((f): f is TFolder => f instanceof TFolder && !f.path.split("/").some(p => p.startsWith("."))).map(f => f.path),
     connection: () => { const { provider, model, baseUrl } = settings.get(); return { provider, model, baseUrl }; },
     runner: new RecipeRunner({ ...port, complete: callStudioMarkdown }, writer, creator) };
+  plugin.register(() => { owner.runner.dispose(); operations.dispose(); });
+  if (!studioFeatures.enabled) {
+    plugin.app.workspace.onLayoutReady(() => {
+      for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach();
+    });
+    return owner;
+  }
   plugin.registerView(STUDIO_VIEW_TYPE, leaf => new VeynrelStudioView(leaf, owner));
   let opening: Promise<void> | undefined;
   const open = () => opening ??= (async () => {
@@ -51,6 +58,6 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
   };
   plugin.addCommand({ id: "veynrel-open-studio", name: l("Open Veynrel Studio", "Открыть Veynrel Studio"), callback: open });
   plugin.addRibbonIcon("wand-sparkles", studioTitle, open);
-  plugin.register(() => { owner.runner.dispose(); operations.dispose(); for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach(); });
+  plugin.register(() => { for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach(); });
   return owner;
 }

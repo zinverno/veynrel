@@ -5,8 +5,11 @@ import type { VeynrelHealthRoute } from "../ui/findingsInboxViewModel";
 import type { VaultScopeIndex } from "./vaultScope";
 
 export function workspaceSection(page: VeynrelHealthRoute["page"]): string {
-  if (["home", "health", "findings"].includes(page)) return "check";
-  if (["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities", "process"].includes(page)) return "notes";
+  if (page === "home") return "home";
+  if (["health", "findings"].includes(page)) return "check";
+  if (page === "semantic") return "semantic";
+  if (page === "process") return "tools";
+  if (["discover", "topology", "semantic-neighborhood", "semantic-map", "connection-opportunities"].includes(page)) return "semantic";
   return page === "connect" ? "settings" : page;
 }
 
@@ -16,8 +19,8 @@ export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRo
   const content = shell.createDiv({ cls: "veynrel-shell-content" });
   const top = content.createEl("header", { cls: "veynrel-topbar" });
   const nav = top.createEl("nav", { cls: "veynrel-tabs", attr: { "aria-label": t("@workspace.navigation") } });
-  for (const [page, section] of [["health", "check"], ["discover", "notes"], ["recall", "recall"]] as const) {
-    const button = healthButton(nav, t(`@ux.${section}`), () => navigate({ page }), `nav-${page}`);
+  for (const [page, section] of [["home", "home"], ["health", "check"], ["semantic", "semantic"], ["tools", "tools"], ["recall", "recall"]] as const) {
+    const button = healthButton(nav, t(section === "home" || section === "tools" ? `@workspace.${section}` : `@ux.${section}`), () => navigate({ page }), `nav-${page}`);
     button.setAttribute("aria-pressed", String(workspaceSection(route.page) === section));
     if (workspaceSection(route.page) === section) button.setAttribute("aria-current", "page");
   }
@@ -25,7 +28,7 @@ export function renderWorkspaceShell(parent: HTMLElement, route: VeynrelHealthRo
   const summary = extra.createEl("summary", { attr: { "aria-label": t("@ux.more"), "data-health-action": "workspace-menu" } });
   setIcon(summary, "ellipsis");
   const menu = extra.createDiv({ cls: "veynrel-workspace-menu" });
-  for (const page of ["history", "tools", "process", "settings"] as const) {
+  for (const page of ["history", "settings"] as const) {
     const button = healthButton(menu, t(`@workspace.${page}`), () => { extra.open = false; if (page === "settings" && settings) settings(); else if (page === "history" && history) history(); else navigate({ page }); }, `nav-${page}`);
     if (workspaceSection(route.page) === page) button.setAttribute("aria-current", "page");
   }

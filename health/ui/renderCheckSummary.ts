@@ -10,7 +10,8 @@ export function renderCheckSummary(parent: HTMLElement, state: HealthControllerS
   const run = outcome?.scan ?? state.snapshot?.lastLocalScan;
   const section = parent.createEl("section", { cls: "veynrel-check-status", attr: { "aria-label": t("@ux.check") } });
   const headline = section.createDiv({ cls: "veynrel-check-headline" });
-  headline.createEl("h1", { text: run ? model.count : t("@workspace.notes", { n: noteCount }), attr: { tabindex: "-1", "data-health-heading": "true" } });
+  headline.createEl("h1", { text: t("@ux.check"), attr: { tabindex: "-1", "data-health-heading": "true" } });
+  headline.createEl("strong", { text: run ? model.count : t("@workspace.notes", { n: noteCount }), cls: "veynrel-check-count" });
   if (run) {
     const receipt = outcome?.coverage;
     headline.createEl("p", { text: receipt ? t("@ux.checked", { n: receipt.fullyAvailable, total: receipt.listed }) : t("@ux.seen", { n: run.notesSeen }), attr: { "data-workspace-check-receipt": "true" } });

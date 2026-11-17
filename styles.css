@@ -3378,3 +3378,74 @@
 @container (max-width: 600px) {
   .veynrel-workbench-map-pane > .veynrel-workbench-map { height: 360px; }
 }
+
+/* Overview-first: native theme surfaces, explicit destinations, no decorative motion. */
+.veynrel-overview-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-4-4); }
+.veynrel-overview-panel { min-width: 0; padding: var(--size-4-4); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); background: var(--background-primary); }
+.veynrel-overview-panel h2 { margin: 0 0 var(--size-4-3); font-size: var(--font-ui-medium); }
+.veynrel-overview-panel p { margin: var(--size-4-3) 0; }
+.veynrel-overview-panel small { color: var(--text-muted); }
+.veynrel-overview-search { grid-column: span 2; background: var(--background-secondary); }
+.veynrel-overview-check { grid-row: span 2; }
+.veynrel-overview-batch { border-inline-start: 3px solid var(--interactive-accent); }
+.veynrel-overview-panel .veynrel-panel-link { padding: 0; height: auto; background: transparent; box-shadow: none; font-weight: var(--font-semibold); color: var(--text-normal); text-align: start; white-space: normal; }
+.veynrel-panel-link::after { content: ' ↗'; color: var(--text-muted); }
+.veynrel-overview-metric { display: flex; flex-direction: column; gap: var(--size-4-1); }
+.veynrel-overview-metric strong { font-size: var(--h1-size); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.veynrel-overview-metric span { color: var(--text-muted); font-size: var(--font-ui-small); }
+.veynrel-overview-counts { display: flex; flex-wrap: wrap; gap: var(--size-4-4); margin-top: var(--size-4-4); }
+.veynrel-overview-counts strong { font-size: var(--h2-size); }
+.veynrel-overview-state { color: var(--text-normal); font-size: var(--font-ui-small); }
+.veynrel-search-entry { display: flex; gap: var(--size-4-2); margin-block: var(--size-4-4); }
+.veynrel-search-entry input { flex: 1; min-width: 0; height: var(--input-height); }
+.veynrel-semantic-modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-4-4); margin-block: var(--size-4-6); }
+.veynrel-semantic-modes section { padding: var(--size-4-3); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); }
+.veynrel-semantic-modes p { font-size: var(--font-ui-small); color: var(--text-muted); margin-bottom: 0; }
+.veynrel-tool-catalog { display: grid; grid-template-columns: minmax(240px, 1fr) minmax(260px, 1fr); gap: var(--size-4-6); align-items: start; }
+.veynrel-tool-wheel { width: 100%; max-width: 420px; position: relative; justify-self: center; }
+.veynrel-tool-wheel svg { width: 100%; height: auto; display: block; }
+.veynrel-tool-wheel [role="button"] { cursor: pointer; }
+.veynrel-tool-wheel path { fill: var(--background-secondary); stroke: var(--background-modifier-border); stroke-width: 1; }
+.veynrel-tool-wheel [role="button"]:is(:hover, :focus) path { fill: var(--background-modifier-hover); stroke: var(--interactive-accent); stroke-width: 3; }
+.veynrel-tool-wheel text { fill: var(--text-normal); font-size: var(--font-ui-medium); text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.veynrel-tool-center { position: absolute; inset: 24%; display: flex; flex-direction: column; justify-content: center; text-align: center; pointer-events: none; }
+.veynrel-tool-center strong { font-size: var(--font-ui-medium); }
+.veynrel-tool-center p, .veynrel-tool-center small { font-size: var(--font-ui-smaller); color: var(--text-muted); margin: var(--size-4-1) 0; }
+.veynrel-tool-list { display: grid; gap: var(--size-4-2); }
+.veynrel-tool-list-row { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 1px solid var(--background-modifier-border); padding-bottom: var(--size-4-2); }
+.veynrel-tool-list-row button { background: transparent; box-shadow: none; padding-inline: 0; text-align: start; white-space: normal; }
+.veynrel-tool-list-row small { color: var(--text-muted); }
+.veynrel-tool-catalog > .veynrel-editor-catalog { grid-column: 1 / -1; }
+.veynrel-tool-catalog[hidden], .veynrel-tool-detail[hidden] { display: none; }
+.veynrel-audit-steps { padding-inline-start: var(--size-4-5); max-width: 80ch; }
+.veynrel-audit-steps li { margin-block: var(--size-4-2); }
+.veynrel-check-count { display: block; font-size: var(--h2-size); font-variant-numeric: tabular-nums; }
+.veynrel-check-status { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); padding: var(--size-4-4); }
+.veynrel-findings-workspace details[data-health-disclosure^="finding-group"] > summary { font-weight: var(--font-semibold); padding-block: var(--size-4-3); }
+.veynrel-finding-item { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(180px, 2fr) auto; gap: var(--size-4-3); align-items: start; }
+.veynrel-finding-files { display: flex; flex-direction: column; align-items: flex-start; }
+.veynrel-finding-item .veynrel-health-actions { margin: 0; }
+.veynrel-finding-source { white-space: normal; overflow-wrap: anywhere; text-align: start; }
+.veynrel-recall .veynrel-recall-overview { margin-top: var(--size-4-3); padding: var(--size-4-4); }
+.veynrel-recall-overview .veynrel-recall-actions { margin-top: 0; }
+.veynrel-recall-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--size-4-4); }
+.veynrel-recall-stats dd { font-size: var(--h1-size); font-variant-numeric: tabular-nums; }
+@container (max-width: 800px) {
+  .veynrel-overview-grid, .veynrel-semantic-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .veynrel-overview-check { grid-row: auto; }
+  .veynrel-finding-item { grid-template-columns: minmax(0, 1fr); gap: var(--size-4-1); }
+}
+@container (max-width: 520px) {
+  .veynrel-tabs { gap: 0; }
+  .veynrel-tabs button { font-size: var(--font-ui-small); padding: var(--size-4-2) var(--size-4-1); }
+  .veynrel-overview-grid, .veynrel-semantic-modes, .veynrel-tool-catalog { grid-template-columns: minmax(0, 1fr); }
+  .veynrel-overview-search { grid-column: auto; }
+  .veynrel-overview-panel { padding: var(--size-4-3); }
+  .veynrel-tool-wheel { display: none; }
+}
+
+.veynrel-overview-panel { position: relative; }
+.veynrel-overview-panel:focus-within { border-color: var(--interactive-accent); }
+.veynrel-panel-link::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius-m); }
+.veynrel-overview-panel > button { position: relative; }
+.veynrel-overview-panel > small { display: block; margin-top: var(--size-4-2); }

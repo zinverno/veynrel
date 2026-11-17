@@ -104,7 +104,10 @@ export function renderRecall(parent: HTMLElement, model: RecallViewModel, action
     return () => {};
   }
   const overview = section.createDiv({ cls: "veynrel-recall-overview" });
-  overview.createEl("p", { text: model.mode === "first-run" ? t("@recall.first-run") : model.introduction, cls: "veynrel-health-muted" });
+  const controls = overview.createDiv({ cls: "veynrel-recall-actions" });
+  if (model.start) healthButton(controls, t("@recall.start"), actions.start, "recall-start", model.busy, true);
+  healthButton(controls, t(model.mode === "first-run" ? "@recall.find" : "@recall.refresh"), actions.refresh, "recall-refresh", model.busy, model.mode === "first-run").addClass("veynrel-quiet");
+  if (model.mode === "first-run") overview.createEl("p", { text: t("@recall.first-run"), cls: "veynrel-health-muted" });
   if (model.mode !== "first-run" && model.stats.length) {
     const stats = overview.createEl("dl", { cls: "veynrel-recall-stats" });
     for (const stat of model.stats) {
@@ -122,10 +125,6 @@ export function renderRecall(parent: HTMLElement, model: RecallViewModel, action
     if (!model.start) overview.createEl("p", { text: t("@recall.no-due") });
     if (model.nextDue) overview.createEl("p", { text: t("@recall.next-at", { date: model.nextDue }) });
   }
-  const controls = overview.createDiv({ cls: "veynrel-recall-actions" });
-  if (model.start) healthButton(controls, t("@recall.start"), actions.start, "recall-start", model.busy, true);
-  healthButton(controls, t(model.mode === "first-run" ? "@recall.find" : "@recall.refresh"), actions.refresh, "recall-refresh", model.busy, model.mode === "first-run").addClass("veynrel-quiet");
-  overview.createEl("p", { text: t("@recall.source-help"), cls: "veynrel-health-muted" });
   if (!model.inventoryEstablished && model.mode !== "first-run") section.createEl("p", { text: t("@recall.inventory-not-established"), cls: "veynrel-health-muted" });
   return () => {};
 }

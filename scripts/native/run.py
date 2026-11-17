@@ -18,6 +18,7 @@ import uuid
 
 REPO = Path(__file__).resolve().parents[2]
 SUITES = {
+    'overview': ('veynrel-overview-native-', 'scripts/native/overview.mjs'),
     'ux': ('veynrel-ux-native-', 'scripts/native/product-ux.mjs'),
     'map': ('veynrel-map-native-', 'scripts/r06-map-native.mjs'),
     'registry': ('veynrel-registry-native-', 'scripts/r05-3-registry-native.mjs'),

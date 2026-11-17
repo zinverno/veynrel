@@ -179,7 +179,7 @@ describe("Recall Health integration", () => {
     const reads = f.adapter.read.mock.calls.length, exists = f.adapter.exists.mock.calls.length;
     expect(f.action("dimension-recall").tag).toBe("button"); f.action("dimension-recall").click(); await flush();
     expect(f.action("nav-recall").attrs["aria-current"]).toBe("page"); expect(f.content.texts()).toContain("Find flashcards");
-    f.action("nav-health").click(); f.action("nav-health").click(); f.action("nav-discover").click(); f.action("nav-health").click();
+    f.action("nav-health").click(); f.action("nav-health").click(); f.action("nav-semantic").click(); f.action("nav-health").click();
     expect(f.adapter.read).toHaveBeenCalledTimes(reads); expect(f.adapter.exists).toHaveBeenCalledTimes(exists);
     expect(f.vault.getMarkdownFiles).toHaveBeenCalledTimes(1); expect(f.vault.read).not.toHaveBeenCalled();
     expect(f.adapter.write).not.toHaveBeenCalled(); expect(mocks.requestUrl).not.toHaveBeenCalled();
@@ -228,7 +228,7 @@ describe("Recall Health integration", () => {
     expect(f.adapter.read).not.toHaveBeenCalled(); expect(f.adapter.write).not.toHaveBeenCalled();
     await f.product.startSession(); f.product.revealAnswer(); await f.product.rate("again"); f.product.endSession();
     const scheduled = mocks.setTimeout.mock.calls.length;
-    f.action("nav-discover").click(); expect(mocks.clearTimeout).toHaveBeenCalledWith(1); expect(mocks.setTimeout).toHaveBeenCalledTimes(scheduled);
+    f.action("nav-semantic").click(); expect(mocks.clearTimeout).toHaveBeenCalledWith(1); expect(mocks.setTimeout).toHaveBeenCalledTimes(scheduled);
     f.action("nav-health").click(); expect(mocks.setTimeout).toHaveBeenCalledTimes(scheduled + 1);
     mocks.clearTimeout.mockClear(); await f.view.onClose(); expect(mocks.clearTimeout).toHaveBeenCalledWith(1);
     mocks.setTimeout.mockClear(); f.product.endSession(); expect(mocks.setTimeout).not.toHaveBeenCalled();
@@ -281,7 +281,7 @@ describe("Recall Health integration", () => {
     expect(f.content.action("recall-recover")).toBeUndefined(); expect(f.adapter.write).not.toHaveBeenCalled();
     await f.health.runLocalScan(); expect(f.health.getState().outcome?.findingsCommitted).toBe(true);
     f.action("nav-health").click(); f.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
-    f.action("nav-discover").click(); expect(f.content.action("nav-discover")).toBeDefined(); f.action("nav-health").click();
+    f.action("nav-semantic").click(); expect(f.content.action("nav-semantic")).toBeDefined(); f.action("nav-health").click();
     const bytes = healthBytes(f), reads = f.vault.read.mock.calls.length; f.adapter.write.mockClear();
     f.action("dimension-recall").click(); expect(f.content.action("recall-recover")).toBeDefined();
     f.product.requestRecovery(); await f.product.recoverStorage(); f.action("nav-health").click();
@@ -323,10 +323,10 @@ describe("Recall workspace route and lazy composition", () => {
     Object.assign(f.workspace, { on: vi.fn(), offref: vi.fn() });
     registerHealth(plugin as never, toolsFixture(), preferencesFixture().preferences);
     expect(plugin.registerView).toHaveBeenCalledTimes(1); expect(f.adapter.exists).not.toHaveBeenCalled();
-    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-health").click(); f.action("nav-health").click(); f.action("nav-discover").click(); f.action("nav-health").click();
+    await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-health").click(); f.action("nav-health").click(); f.action("nav-semantic").click(); f.action("nav-health").click();
     await flush(); expect(f.factory).toHaveBeenCalledTimes(1);
     expect(f.adapter.exists.mock.calls.filter(([path]) => path === cardsPath)).toHaveLength(1);
-    for (const page of ["health", "discover", "recall"]) expect(f.content.action(`nav-${page}`)).toBeDefined();
+    for (const page of ["home", "health", "semantic", "tools", "recall"]) expect(f.content.action(`nav-${page}`)).toBeDefined();
     f.action("nav-recall").click(); await flush();
     expect(f.action("nav-recall").attrs["aria-current"]).toBe("page"); expect(f.factory).toHaveBeenCalledTimes(1);
     expect(f.content.texts()).toContain("Find flashcards"); expect(f.content.texts()).toContain("question::answer");
@@ -420,7 +420,7 @@ describe("Recall question/reveal/rate surface", () => {
     const f = await reviewFixture(); f.action("recall-reveal").click(); const entered = gate(), hold = gate(), write = f.adapter.write;
     f.adapter.write = vi.fn(async (path, raw) => { entered.release(); await hold.promise; await write(path, raw); });
     f.action("recall-easy").click(); await entered.promise;
-    if (leave === "navigate") f.action("nav-discover").click(); else { await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); }
+    if (leave === "navigate") f.action("nav-semantic").click(); else { await f.view.onClose(); await f.view.onOpen(); f.content.action("nav-health")?.click(); }
     hold.release(); await vi.waitFor(() => expect(f.product.getSnapshot().reviewSaving).toBe(false));
     expect(f.content.texts()).not.toContain("SECRET ANSWER"); expect(f.content.action("recall-back")).toBeUndefined();
     f.action("nav-recall").click(); expect(f.content.action("recall-reveal")).toBeUndefined(); expect(f.product.getSnapshot().session).toBeUndefined();
@@ -487,7 +487,7 @@ describe("Recall recovery and presentation", () => {
     const f = fixture(raw); await f.view.onOpen(); f.content.action("nav-health")?.click(); f.action("nav-recall").click(); await flush();
     expect(f.content.texts()).toContain("Recall data needs recovery"); expect(f.content.action("recall-refresh")).toBeUndefined();
     f.action("nav-health").click(); f.action("nav-health").click(); expect(f.content.action("scan")).toBeDefined();
-    f.action("nav-discover").click(); expect(f.content.action("recall-recover")).toBeUndefined();
+    f.action("nav-semantic").click(); expect(f.content.action("recall-recover")).toBeUndefined();
     f.action("nav-recall").click(); f.action("recall-recover").click();
     expect(f.content.texts()).toContain("Learned scheduling state will not automatically transfer"); expect(f.adapter.rename).not.toHaveBeenCalled();
     f.action("recall-cancel-recovery").click(); expect(f.files.get(cardsPath)).toBe(raw);
