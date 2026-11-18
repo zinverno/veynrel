@@ -2086,3 +2086,55 @@ it("R04 launches the existing taxonomy surface without onboarding or scan and pa
   expect(f.tools.openTagTaxonomy).toHaveBeenCalledWith({ kind: "folder", path: "SQL" }, []);
   expect(f.vault.read).not.toHaveBeenCalled(); await f.view.onClose();
 });
+
+describe("R06.2b embedded structural parity",()=>{
+  it.each(["en","ru"] as const)("retains metrics, directed inspector and unknown coverage without a second SVG (%s)",async lang=>{
+    setLanguage(lang);const map=await comparisonTopologyMap();
+    const port={getSnapshot:()=>({state:"ready" as const,map}),load:vi.fn(async()=>{}),refresh:vi.fn(async()=>{}),subscribe:()=>()=>{},dispose:vi.fn()};
+    const legacy=new mocks.Element(),embedded=new mocks.Element(),openNote=vi.fn();
+    const oldState={...newTopologyViewState(),selected:"A.md"},newState={...newTopologyViewState(),selected:"A.md"};
+    const a=renderTopology(legacy as unknown as HTMLElement,port,oldState,{back:vi.fn(),openNote});
+    const b=renderTopology(embedded as unknown as HTMLElement,port,newState,{back:vi.fn(),openNote},true);
+    for(const cls of ["veynrel-topology-metrics","veynrel-topology-facts","veynrel-topology-relationships"]){
+      expect(embedded.all().filter(e=>e.cls===cls).map(e=>e.texts())).toEqual(legacy.all().filter(e=>e.cls===cls).map(e=>e.texts()));
+    }
+    expect(embedded.all().some(e=>e.tag==="svg")).toBe(false);
+    embedded.action("topology-outgoing-0").click();expect(newState.selected).toBe("C.md");
+    embedded.action("topology-open-note").click();expect(openNote).toHaveBeenCalledWith("C.md");
+    expect(port.refresh).not.toHaveBeenCalled();expect(embedded.texts()).not.toMatch(/@topology\./u);a();b();
+  });
+});
+
+describe("R06.2b embedded semantic parity",()=>{
+  it.each(["en","ru"] as const)("retains global scores, exact-path selection and explicit focus without radial geometry (%s)",async lang=>{
+    setLanguage(lang);
+    const {renderSemanticGlobalMap}=await import("./renderSemanticGlobalMap");
+    const {newSemanticGlobalMapViewState}=await import("./renderSemanticGlobalMapGraph");
+    const map=comparisonSemanticMap(),parent=new mocks.Element(),focus=vi.fn(async()=>{}),openNote=vi.fn();
+    const port={getSnapshot:()=>({state:"ready" as const,map,busy:false,supportedNoteCount:500}),focus,load:vi.fn(async()=>{}),refresh:vi.fn(async()=>{}),resetFocus:vi.fn(),subscribe:()=>()=>{},dispose:vi.fn(),search:()=>({nodes:map.nodes,total:map.nodes.length})};
+    const state={...newSemanticGlobalMapViewState(),selected:"A.md"};
+    const cleanup=renderSemanticGlobalMap(parent as unknown as HTMLElement,port,state,{back:vi.fn(),openNote,explore:vi.fn()},true);
+    expect(parent.all().some(e=>e.tag==="svg")).toBe(false);expect(focus).not.toHaveBeenCalled();
+    expect(parent.texts()).toContain(t("@r062b.computed"));
+    expect(parent.action("global-map-focus").texts()).toContain(t("@r062b.focus-action"));
+    expect(parent.texts()).not.toContain(t("@global-map.focus"));
+    parent.action("global-map-focus").click();expect(focus).toHaveBeenCalledWith("A.md");
+    parent.action("global-map-neighbor-0").click();expect(state.selected).toBe(map.nodes[0].neighbors[0].path);
+    parent.action("global-map-open-note").click();expect(openNote).toHaveBeenCalledWith(state.selected);
+    expect(parent.texts()).not.toMatch(/@global-map\./u);expect(port.refresh).not.toHaveBeenCalled();cleanup();
+  });
+});
+
+
+describe("embedded global computed coverage",()=>{
+  it.each(["en","ru"] as const)("does not call refused eligible documents computed (%s)",async lang=>{
+    setLanguage(lang);const {renderSemanticGlobalMap}=await import("./renderSemanticGlobalMap");
+    const {newSemanticGlobalMapViewState}=await import("./renderSemanticGlobalMapGraph");
+    const parent=new mocks.Element();
+    const port={getSnapshot:()=>({state:"unavailable" as const,reason:"too-large" as const,indexedNoteCount:1000,mappedNoteCount:1000,busy:false,supportedNoteCount:500}),focus:vi.fn(async()=>{}),load:vi.fn(async()=>{}),refresh:vi.fn(async()=>{}),resetFocus:vi.fn(),subscribe:()=>()=>{},dispose:vi.fn(),search:()=>({nodes:[],total:0})};
+    renderSemanticGlobalMap(parent as unknown as HTMLElement,port,newSemanticGlobalMapViewState(),{back:vi.fn(),openNote:vi.fn(),explore:vi.fn()},true)();
+    const metrics=parent.all().find(e=>e.cls==="veynrel-global-map-metrics")!;
+    expect(metrics.all().filter(e=>e.tag==="dd").map(e=>e.text)).toEqual(["1000","0"]);
+    expect(metrics.texts()).toContain(t("@r062b.computed"));expect(port.refresh).not.toHaveBeenCalled();
+  });
+});

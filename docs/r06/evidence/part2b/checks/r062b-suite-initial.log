@@ -1,0 +1,39 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116
+
+ ❯ health/obsidian/healthBoundary.test.ts (4 tests | 1 failed) 474ms
+     × keeps one construction site per persistent MVP owner, outside views and actions 56ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  health/obsidian/healthBoundary.test.ts > Health production dependency boundary > keeps one construction site per persistent MVP owner, outside views and actions
+AssertionError: SemanticNeighborhoodController: expected [ 'main.ts', …(1) ] to deeply equal [ 'main.ts' ]
+
+- Expected
++ Received
+
+  [
+    "main.ts",
++   "semantic/product/semanticNeighborhoodController.ts",
+  ]
+
+ ❯ health/obsidian/healthBoundary.test.ts:30:28
+     28|     for (const [owner, expected] of Object.entries(owners)) {
+     29|       const sites = files.flatMap((file) => [...readFileSync(file, "ut…
+     30|       expect(sites, owner).toEqual([expected]);
+       |                            ^
+     31|     }
+     32|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 210 passed (211)
+      Tests  1 failed | 5411 passed (5412)
+   Start at  09:46:01
+   Duration  58.96s (transform 8.10s, setup 0ms, import 22.86s, tests 65.23s, environment 21ms)
+

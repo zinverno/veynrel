@@ -25,6 +25,12 @@ export class SemanticNeighborhoodController implements SemanticNeighborhoodPort 
   constructor(private readonly engine: SemanticNeighborhoodEngine) {
     this.unsubscribe = engine.subscribeStatus(() => this.statusChanged());
   }
+  createSession(): SemanticNeighborhoodPort { return new SemanticNeighborhoodController(this.engine); }
+  cancel(): void {
+    if (this.disposed || !this.pending) return;
+    this.epoch++; this.pending = undefined; this.activeRevision = undefined;
+    this.publish({ ...this.snapshot, state: this.snapshot.map ? "stale" : "idle", busy: false, reason: undefined });
+  }
   getSnapshot(): SemanticNeighborhoodProductSnapshot { return this.snapshot; }
   subscribe(listener: () => void): () => void {
     if (!this.disposed) this.listeners.add(listener);

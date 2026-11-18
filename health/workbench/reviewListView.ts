@@ -6,10 +6,10 @@ import type { PairReviewPort, WorkbenchData } from "./workbenchData";
 import { workbenchModel } from "./workbenchModel";
 import type { WorkbenchPair } from "./workbenchModel";
 
-interface OptionalMap { update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
+interface OptionalMap { inspect?(panel: import("./workbenchInspectors").WorkbenchInspector): void; update(findings: readonly Finding[]): void; suspend(): void; dispose(): void }
 interface ReviewActions {
   history(): void; settings(): void;
-  map(parent: HTMLElement): OptionalMap;
+  map(parent: HTMLElement, reviewed: () => void): OptionalMap;
 }
 
 /** List navigation has no graphical dependencies. Each pair owns fresh consent and tickets. */
@@ -76,6 +76,20 @@ export class ReviewListView {
     this.detail.empty(); this.detail.hidden = true; this.browser.hidden = false;
     this.detail.setAttribute("data-review-surface", "list");
     this.syncLayout();
+  }
+  openMap(panel?: import("./workbenchInspectors").WorkbenchInspector): void {
+    if(this.disposed||this.stopReview)return;
+    this.suspended=false;
+      this.scroll = this.scrollOwner.scrollTop; this.browser.hidden = true; this.detail.hidden = false; this.detail.empty(); this.generation++;
+      this.detail.setAttribute("data-review-surface", "map");
+      this.syncLayout();
+      const mapGeneration = this.generation;
+      healthButton(this.detail, t("@review.back"), () => { if (mapGeneration === this.generation) this.back(); }, "review-back");
+      if(!this.map){this.mapHost=this.detail.createDiv({cls:"veynrel-review-map-host"});this.map=this.actions.map(this.mapHost,()=>{this.queue="reviewed";this.back();});}
+      else this.detail.appendChild(this.mapHost!);
+      this.mapOpen=true;this.map.update(this.findings);
+      this.scrollOwner.scrollTop = 0;
+    if(panel)this.map?.inspect?.(panel);
   }
   private syncLayout(): void {
     const host = this.element.parentElement;
@@ -155,17 +169,7 @@ export class ReviewListView {
       button(toolbar, `${t("@rules.title")} (${count})`, () => { this.closeRules = this.data.dependencies.editRules!(); }, "review-rules");
     }
     button(toolbar, t("@safeApply.history"), () => this.actions.history(), "review-history");
-    button(toolbar, t("@review.map"), () => {
-      this.scroll = this.scrollOwner.scrollTop; this.browser.hidden = true; this.detail.hidden = false; this.detail.empty(); this.generation++;
-      this.detail.setAttribute("data-review-surface", "map");
-      this.syncLayout();
-      const mapGeneration = this.generation;
-      healthButton(this.detail, t("@review.back"), () => { if (mapGeneration === this.generation) this.back(); }, "review-back");
-      if(!this.map){this.mapHost=this.detail.createDiv({cls:"veynrel-review-map-host"});this.map=this.actions.map(this.mapHost);}
-      else this.detail.appendChild(this.mapHost!);
-      this.mapOpen=true;this.map.update(this.findings);
-      this.scrollOwner.scrollTop = 0;
-    }, "review-map");
+    button(toolbar, t("@review.map"), () => this.openMap(), "review-map");
     const searchRow = this.browser.createDiv({ cls: "veynrel-review-toolbar" });
     const search = searchRow.createEl("input", { type: "search", attr: { placeholder: t("@workbench.search"), "aria-label": t("@workbench.search"), "data-health-action": "review-search" } });
     search.value = this.query;

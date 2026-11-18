@@ -1,0 +1,168 @@
+{
+  "scenario": "R06.2b-unified-inspectors",
+  "unifiedMode": true,
+  "familiesMode": true,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "546a51bfa87d35f501d2ea79c493d30988d070b4",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "en: explicit focus describes comparison rather than moving coordinates",
+    "en/light: inspector header is clear of sticky navigation",
+    "en/dark: inspector header is clear of sticky navigation",
+    "ru: explicit focus describes comparison rather than moving coordinates",
+    "ru/light: inspector header is clear of sticky navigation",
+    "ru/dark: inspector header is clear of sticky navigation",
+    "Label and theme changes add no Markdown read/write or model request",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "focus-en-light.png",
+    "focus-en-light-390.png",
+    "focus-en-dark.png",
+    "focus-en-dark-390.png",
+    "focus-ru-light.png",
+    "focus-ru-light-390.png",
+    "focus-ru-dark.png",
+    "focus-ru-dark-390.png"
+  ],
+  "assets": {
+    "main.js": "c1958fabc3e0558c63b6cf458f8927757c922860a6cdb948d2d42bf753bae5c0",
+    "styles.css": "badfcf6d95866c298e6ef72b9c8d07c629db04d10306a1107419bc9933b74081",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 66,
+    "seconds": 2.881953001022339,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 12.353775999999925,
+    "refreshWallMs": 252.23556800000006,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 220,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.29999999701976776,
+      "displayGroupingMs": 0,
+      "semanticMs": 30.600000008940697,
+      "physicsMs": 4.5,
+      "ticks": 115,
+      "frames": {
+        "frames": 11,
+        "renderMs": 31.100000023841858,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 16.299999997019768,
+        "derivationMs": 41.6000000089407
+      },
+      "heap": 49352015
+    },
+    "fourLayerTogglesMs": 221.64432899999974,
+    "interactionFrameIntervals": [
+      16.699999999999818,
+      16.59999999999991,
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.700000000000273,
+      16.59999999999991,
+      16.699999999999818,
+      16.700000000000273,
+      16.699999999999818,
+      16.59999999999991,
+      16.700000000000273,
+      16.699999999999818,
+      16.59999999999991
+    ],
+    "final": {
+      "notes": 12,
+      "semantic": "stale",
+      "reason": "changed",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 256,
+      "svg": 69,
+      "layoutCount": 2,
+      "layoutMs": 0.29999999701976776,
+      "displayGroupingMs": 0,
+      "semanticMs": 30.600000008940697,
+      "physicsMs": 4.5,
+      "ticks": 115,
+      "frames": {
+        "frames": 49,
+        "renderMs": 115.30000005662441,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 16.299999997019768,
+        "derivationMs": 41.6000000089407
+      },
+      "heap": 51507552
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "8d52667b9125f4b3ac826df7bfab7734ad99d5ef9b040c90628c912ed3e663c6",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "702f0e51e97f9d26b54758176e0e92dad0256fec4fc7416261dfe01d472e256e",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "markdownManifestSha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+  "status": "PASS"
+}

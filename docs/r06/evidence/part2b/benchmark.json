@@ -1,0 +1,343 @@
+{
+  "cap": 500,
+  "measurements": [
+    {
+      "directory": "native/1000",
+      "status": "PASS",
+      "count": 1000,
+      "indexed": 1000,
+      "computed": 0,
+      "computationRequested": true,
+      "notes": "mapped in raw unavailable snapshot is refused eligible count, not a computed count. Heap is sampled renderer memory, not process peak. Deterministic synthetic vectors do not validate embedding quality.",
+      "metrics": {
+        "cacheReadyMs": 6933.527653000001,
+        "refreshWallMs": 687.5507770000004,
+        "loaded": {
+          "notes": 1000,
+          "semantic": "unavailable",
+          "reason": "too-large",
+          "indexed": 1000,
+          "mapped": 1000,
+          "displayedNodes": 0,
+          "displayGroups": 10,
+          "dom": 105,
+          "svg": 38,
+          "layoutCount": 1,
+          "layoutMs": 9.700000002980232,
+          "displayGroupingMs": 1.2000000029802322,
+          "semanticMs": 122.79999999701977,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 400,
+            "renderMs": 719.9000001847744,
+            "frameTimes": []
+          },
+          "topology": {
+            "captureMs": 152,
+            "derivationMs": 151.19999998807907
+          },
+          "heap": 62595880
+        },
+        "fourLayerTogglesMs": 320.99160200000006,
+        "interactionFrameIntervals": [
+          16.700000000000728,
+          16.69999999999891,
+          16.600000000000364,
+          16.700000000000728,
+          16.69999999999891,
+          33.20000000000073,
+          16.69999999999891,
+          16.700000000000728,
+          16.700000000000728,
+          16.599999999998545,
+          16.700000000000728,
+          16.700000000000728,
+          16.69999999999891,
+          16.600000000000364,
+          16.700000000000728,
+          16.69999999999891,
+          16.600000000000364,
+          16.600000000000364,
+          16.799999999999272
+        ],
+        "searchMs": 40.08633499999996,
+        "selectionMs": 298.08974300000045,
+        "selected-large-note": {
+          "notes": 1000,
+          "semantic": "unavailable",
+          "reason": "too-large",
+          "indexed": 1000,
+          "mapped": 1000,
+          "displayedNodes": 100,
+          "displayGroups": 0,
+          "dom": 478,
+          "svg": 246,
+          "layoutCount": 1,
+          "layoutMs": 9.700000002980232,
+          "displayGroupingMs": 0.5,
+          "semanticMs": 122.79999999701977,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 438,
+            "renderMs": 817.4000002294779,
+            "frameTimes": []
+          },
+          "topology": {
+            "captureMs": 152,
+            "derivationMs": 151.19999998807907
+          },
+          "heap": 53306679
+        },
+        "secondPicker": {
+          "dom": 71,
+          "options": 0,
+          "results": 20,
+          "heap": 53510544,
+          "searchMs": 5.1852340000004915
+        },
+        "final": {
+          "notes": 1000,
+          "semantic": "unavailable",
+          "reason": "too-large",
+          "indexed": 1000,
+          "mapped": 1000,
+          "displayedNodes": 0,
+          "displayGroups": 10,
+          "dom": 99,
+          "svg": 33,
+          "layoutCount": 1,
+          "layoutMs": 9.700000002980232,
+          "displayGroupingMs": 1,
+          "semanticMs": 122.79999999701977,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 445,
+            "renderMs": 835.400000244379,
+            "frameTimes": []
+          },
+          "topology": {
+            "captureMs": 152,
+            "derivationMs": 151.19999998807907
+          },
+          "heap": 56353261
+        }
+      },
+      "failureState": null
+    },
+    {
+      "directory": "native/5000",
+      "status": "FAIL",
+      "count": 5000,
+      "indexed": 5000,
+      "computed": 0,
+      "computationRequested": true,
+      "notes": "mapped in raw unavailable snapshot is refused eligible count, not a computed count. Heap is sampled renderer memory, not process peak. Deterministic synthetic vectors do not validate embedding quality.",
+      "metrics": {
+        "cacheReadyMs": 46502.932623,
+        "refreshWallMs": 2453.0067469999995,
+        "loaded": {
+          "notes": 5000,
+          "semantic": "unavailable",
+          "reason": "too-large",
+          "indexed": 5000,
+          "mapped": 5000,
+          "displayedNodes": 0,
+          "displayGroups": 50,
+          "dom": 225,
+          "svg": 118,
+          "layoutCount": 1,
+          "layoutMs": 26.600000008940697,
+          "displayGroupingMs": 4.9000000059604645,
+          "semanticMs": 1098.7999999970198,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 1890,
+            "renderMs": 5315.400000095367,
+            "frameTimes": []
+          },
+          "topology": {
+            "captureMs": 1220.2000000029802,
+            "derivationMs": 731.5999999940395
+          },
+          "heap": 113323249
+        },
+        "fourLayerTogglesMs": 280.743650000004,
+        "interactionFrameIntervals": [
+          16.69999999999709,
+          16.69999999999709,
+          33.30000000000291,
+          16.599999999998545,
+          16.700000000004366,
+          16.599999999998545,
+          16.69999999999709,
+          16.700000000004366,
+          16.69999999999709,
+          16.69999999999709,
+          16.60000000000582,
+          16.69999999999709,
+          16.69999999999709,
+          16.60000000000582,
+          16.599999999998545,
+          16.69999999999709
+        ],
+        "searchMs": 36.60126599999785,
+        "selectionMs": 93.73054299999785,
+        "selected-large-note": {
+          "notes": 5000,
+          "semantic": "unavailable",
+          "reason": "too-large",
+          "indexed": 5000,
+          "mapped": 5000,
+          "displayedNodes": 100,
+          "displayGroups": 0,
+          "dom": 463,
+          "svg": 231,
+          "layoutCount": 1,
+          "layoutMs": 26.600000008940697,
+          "displayGroupingMs": 0.9000000059604645,
+          "semanticMs": 1098.7999999970198,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 1925,
+            "renderMs": 5402.2000001221895,
+            "frameTimes": []
+          },
+          "topology": {
+            "captureMs": 1220.2000000029802,
+            "derivationMs": 731.5999999940395
+          },
+          "heap": 134388546
+        },
+        "secondPicker": {
+          "dom": 71,
+          "options": 0,
+          "results": 20,
+          "heap": 134657812,
+          "searchMs": 24.27219199999672
+        },
+        "final": {
+          "notes": 5000,
+          "semantic": "unavailable",
+          "reason": "too-large",
+          "indexed": 5000,
+          "mapped": 5000,
+          "displayedNodes": 0,
+          "displayGroups": 50,
+          "dom": 219,
+          "svg": 113,
+          "layoutCount": 1,
+          "layoutMs": 26.600000008940697,
+          "displayGroupingMs": 4.299999997019768,
+          "semanticMs": 1098.7999999970198,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 1932,
+            "renderMs": 5420.7000001221895,
+            "frameTimes": []
+          },
+          "topology": {
+            "captureMs": 1220.2000000029802,
+            "derivationMs": 731.5999999940395
+          },
+          "heap": 123053637
+        }
+      },
+      "failureState": {
+        "markdown": 5000,
+        "cacheKnown": 5000,
+        "io": {
+          "reads": 0,
+          "writes": 0,
+          "network": 0
+        }
+      }
+    },
+    {
+      "directory": "native/cold10000",
+      "status": "FAIL",
+      "count": 10000,
+      "indexed": 10000,
+      "computed": 0,
+      "computationRequested": false,
+      "notes": "mapped in raw unavailable snapshot is refused eligible count, not a computed count. Heap is sampled renderer memory, not process peak. Deterministic synthetic vectors do not validate embedding quality.",
+      "metrics": {},
+      "failureState": {
+        "markdown": 10000,
+        "cacheKnown": 8486,
+        "io": {
+          "reads": 0,
+          "writes": 0,
+          "network": 0
+        }
+      }
+    },
+    {
+      "directory": "native/warm10000",
+      "status": "PASS",
+      "count": 10000,
+      "indexed": 10000,
+      "computed": 0,
+      "computationRequested": false,
+      "notes": "mapped in raw unavailable snapshot is refused eligible count, not a computed count. Heap is sampled renderer memory, not process peak. Deterministic synthetic vectors do not validate embedding quality.",
+      "metrics": {
+        "hostCacheBeforeOpenMs": 16156.217468,
+        "cacheReadyMs": 16.784123000001273,
+        "selectionMs": 118.37285999999949,
+        "selected-picker": {
+          "notes": 10000,
+          "semantic": "idle",
+          "displayedNodes": 0,
+          "displayGroups": 1,
+          "dom": 133,
+          "svg": 5,
+          "layoutCount": 1,
+          "layoutMs": 44.29999999701977,
+          "displayGroupingMs": 10,
+          "semanticMs": null,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 15,
+            "renderMs": 33.29999999701977,
+            "frameTimes": []
+          },
+          "heap": 105600764
+        },
+        "secondPicker": {
+          "dom": 68,
+          "options": 0,
+          "results": 20,
+          "heap": 105600764,
+          "searchMs": 2.4664359999987937
+        },
+        "final": {
+          "notes": 10000,
+          "semantic": "idle",
+          "displayedNodes": 0,
+          "displayGroups": 1,
+          "dom": 107,
+          "svg": 5,
+          "layoutCount": 1,
+          "layoutMs": 44.29999999701977,
+          "displayGroupingMs": 10,
+          "semanticMs": null,
+          "physicsMs": 0,
+          "ticks": 0,
+          "frames": {
+            "frames": 18,
+            "renderMs": 36.1000000089407,
+            "frameTimes": []
+          },
+          "heap": 109001228
+        }
+      },
+      "failureState": null
+    }
+  ]
+}

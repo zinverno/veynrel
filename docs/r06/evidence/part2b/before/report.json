@@ -1,0 +1,152 @@
+{
+  "scenario": "R06.2-family-journey",
+  "unifiedMode": false,
+  "familiesMode": true,
+  "pickerOnly": false,
+  "baseline": true,
+  "warmCache": false,
+  "count": 12,
+  "indexed": 12,
+  "source": "2d261dafaca539366dfc2e2ecc2e9fff8a9f90d3",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented",
+    "Current validated map has the exact indexed count",
+    "Link overlay toggles retain exact coordinates",
+    "Tag overlay toggle retains exact coordinates",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "loaded.png",
+    "baseline-overview.png",
+    "baseline-note.png"
+  ],
+  "assets": {
+    "main.js": "555b0b23555a12b077775e8340144d93d141bfa379fd1b1d507c01c3fc1aa147",
+    "styles.css": "06f32fb952b72f4c8fb1a30e26ea42a359e694361feefcacf737aff1dd171ca3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 36,
+    "seconds": 0.9544069766998291,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "metrics": {
+    "cacheReadyMs": 11.978529999999864,
+    "refreshWallMs": 182.95760800000016,
+    "loaded": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 219,
+      "svg": 140,
+      "layoutCount": 2,
+      "layoutMs": 0.20000000298023224,
+      "displayGroupingMs": 0.09999999403953552,
+      "semanticMs": 30.799999997019768,
+      "physicsMs": 5.9000000059604645,
+      "ticks": 115,
+      "frames": {
+        "frames": 11,
+        "renderMs": 32.1000000089407,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 16.80000001192093,
+        "derivationMs": 41.79999999701977
+      },
+      "heap": 47154360
+    },
+    "fourLayerTogglesMs": 217.24323699999968,
+    "interactionFrameIntervals": [
+      16.59999999999991,
+      16.799999999999727,
+      16.600000000000364,
+      16.699999999999818,
+      16.59999999999991,
+      16.700000000000273,
+      16.699999999999818,
+      16.699999999999818,
+      16.600000000000364,
+      16.699999999999818,
+      16.59999999999991,
+      16.700000000000273,
+      16.699999999999818
+    ],
+    "final": {
+      "notes": 12,
+      "semantic": "ready",
+      "indexed": 12,
+      "mapped": 12,
+      "displayedNodes": 12,
+      "displayGroups": 0,
+      "dom": 210,
+      "svg": 67,
+      "layoutCount": 2,
+      "layoutMs": 0.20000000298023224,
+      "displayGroupingMs": 0.09999999403953552,
+      "semanticMs": 30.799999997019768,
+      "physicsMs": 5.9000000059604645,
+      "ticks": 115,
+      "frames": {
+        "frames": 34,
+        "renderMs": 80.40000005066395,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 16.80000001192093,
+        "derivationMs": 41.79999999701977
+      },
+      "heap": 49277961
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "7fad181c354898869b6d6547a5854a8e45633ba26e9a3f0c9193ca3313c6b213",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "daee0d50361a65ce2e6003063763464cfd1cdcbefb62e234eabce66a7836d00a",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "markdownManifestSha256": "569105b2d7399b2a7b9dcde6086b6b0eb6b2ade62386f85cdcb2772157b1cba2",
+  "status": "PASS"
+}

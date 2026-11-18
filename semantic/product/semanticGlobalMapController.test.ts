@@ -227,3 +227,38 @@ it("keeps a never-computed scoped map idle through cold metadata events", async 
   changed();expect(port.getSnapshot().state).toBe("stale");
   port.dispose();f.port.dispose();
 });
+
+describe("R06.2b independent global focus sessions", () => {
+  it("creates an unscoped owner with unchanged all-document scores, separate from scoped top-K", async () => {
+    const f=fixture(), scoped=f.port.createScoped({id:"folder:Folder",revision:1,paths:analysis().nodes.map(n=>n.path)});
+    const global=scoped.createSession!();
+    expect(f.engine.analyzeGlobalSemanticMap).not.toHaveBeenCalled();
+    await scoped.refresh(); await scoped.focus(analysis().nodes[0].path);
+    expect(f.engine.analyzeSemanticFocus).not.toHaveBeenCalled();
+    await global.refresh(); await global.focus(analysis().nodes[0].path);
+    expect(f.engine.analyzeGlobalSemanticMap.mock.calls[1][0]?.paths).toBeUndefined();
+    expect(f.engine.analyzeGlobalSemanticMap.mock.calls[1][0]?.selection).toBeUndefined();
+    expect(global.getSnapshot().focus?.scores).toHaveLength(8);
+    expect(global.getSnapshot().map?.scope).toBeUndefined();
+    expect(scoped.getSnapshot().focus).toBeUndefined();
+    global.dispose(); scoped.dispose(); f.port.dispose(); expect(f.listeners.size).toBe(0);
+  });
+  it("cancel rejects late progress/results without cancelling another window or a subsequent request", async () => {
+    const f=fixture(), other=f.port.createSession(), gate=deferred<GlobalSemanticAnalysis>();
+    f.engine.analyzeGlobalSemanticMap.mockReturnValueOnce(gate.promise);
+    const pending=f.port.refresh(); await Promise.resolve(); const options=f.engine.analyzeGlobalSemanticMap.mock.calls[0][0]!;
+    f.port.cancel(); expect(options.signal?.aborted).toBe(true); expect(f.port.getSnapshot()).toMatchObject({state:"idle",busy:false});
+    await other.refresh(); await f.port.refresh(); const current=f.port.getSnapshot();
+    options.onProgress?.({completedPairs:1,totalPairs:28}); gate.resolve(analysis(3)); await pending;
+    expect(f.port.getSnapshot()).toBe(current); expect(other.getSnapshot().state).toBe("ready");
+    f.port.dispose(); other.dispose(); expect(f.listeners.size).toBe(0);
+  });
+  it("cancelled focus cannot publish over a newer focus or resurrect its busy state", async () => {
+    const f=fixture(); await f.port.refresh(); const gate=deferred<SemanticFocusAnalysis|undefined>();
+    f.engine.analyzeSemanticFocus.mockReturnValueOnce(gate.promise);
+    const pending=f.port.focus(analysis().nodes[0].path); await Promise.resolve(); f.port.cancel();
+    expect(f.port.getSnapshot()).toMatchObject({state:"stale",busy:false});
+    await f.port.refresh(); await f.port.focus(analysis().nodes[1].path); const current=f.port.getSnapshot();
+    gate.resolve(undefined); await pending; expect(f.port.getSnapshot()).toBe(current); f.port.dispose();
+  });
+});

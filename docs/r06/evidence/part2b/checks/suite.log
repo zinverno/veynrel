@@ -1,0 +1,13 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/r06-2b-unified-20261116
+
+
+ Test Files  211 passed (211)
+      Tests  5415 passed (5415)
+   Start at  10:06:08
+   Duration  61.60s (transform 8.81s, setup 0ms, import 24.57s, tests 69.56s, environment 21ms)
+

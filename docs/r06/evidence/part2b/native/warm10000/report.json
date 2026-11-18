@@ -1,0 +1,118 @@
+{
+  "scenario": "R06.2-isolated-picker",
+  "unifiedMode": false,
+  "familiesMode": false,
+  "pickerOnly": true,
+  "baseline": false,
+  "warmCache": true,
+  "count": 10000,
+  "indexed": 10000,
+  "source": "9cd320f46758ffdc7b331665790aaf6b3dc6e8c3",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Manual picker does not require semantic or topology computation",
+    "Picker DOM bound and full inventory count",
+    "Final exact path remains selectable",
+    "Keyboard pair selection preserves exact source",
+    "Every synthetic Markdown file byte-identical"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "picker.png"
+  ],
+  "assets": {
+    "main.js": "5164ab04daebd24ac82d03bff8d902979906105d496f43f1157fcf83e4d37d2e",
+    "styles.css": "badfcf6d95866c298e6ef72b9c8d07c629db04d10306a1107419bc9933b74081",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {
+    "hostCacheBeforeOpenMs": 16156.217468,
+    "cacheReadyMs": 16.784123000001273,
+    "selectionMs": 118.37285999999949,
+    "selected-picker": {
+      "notes": 10000,
+      "semantic": "idle",
+      "displayedNodes": 0,
+      "displayGroups": 1,
+      "dom": 133,
+      "svg": 5,
+      "layoutCount": 1,
+      "layoutMs": 44.29999999701977,
+      "displayGroupingMs": 10,
+      "semanticMs": null,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 15,
+        "renderMs": 33.29999999701977,
+        "frameTimes": []
+      },
+      "heap": 105600764
+    },
+    "secondPicker": {
+      "dom": 68,
+      "options": 0,
+      "results": 20,
+      "heap": 105600764,
+      "searchMs": 2.4664359999987937
+    },
+    "final": {
+      "notes": 10000,
+      "semantic": "idle",
+      "displayedNodes": 0,
+      "displayGroups": 1,
+      "dom": 107,
+      "svg": 5,
+      "layoutCount": 1,
+      "layoutMs": 44.29999999701977,
+      "displayGroupingMs": 10,
+      "semanticMs": null,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 18,
+        "renderMs": 36.1000000089407,
+        "frameTimes": []
+      },
+      "heap": 109001228
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "final",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "8d52667b9125f4b3ac826df7bfab7734ad99d5ef9b040c90628c912ed3e663c6",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "702f0e51e97f9d26b54758176e0e92dad0256fec4fc7416261dfe01d472e256e",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7b792ce993f7728204f95291c3ddd15c4b8eb7e61742933add3d912be65fbfb0"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "markdownManifestSha256": "7720bfbec555fea1fb83b0571303a0bf34aeb7bc777556575db7031ac216f38c",
+  "status": "PASS"
+}

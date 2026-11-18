@@ -10,15 +10,15 @@ function productionFiles(directory: string): string[] {
 }
 
 describe("Health production dependency boundary", () => {
-  it("keeps one construction site per persistent MVP owner, outside views and actions", () => {
-    const owners: Record<string, string> = {
+  it("keeps persistent owners and explicit transient-session factories outside views and actions", () => {
+    const owners: Record<string, string | string[]> = {
       HealthPluginController: "health/obsidian/registerHealth.ts",
       ConnectionComparisonController: "health/obsidian/registerHealth.ts",
       HealthService: "health/obsidian/healthPluginController.ts",
       FindingStore: "health/obsidian/healthPluginController.ts",
       ObsidianSemanticController: "main.ts",
       SemanticIntelligenceController: "main.ts",
-      SemanticNeighborhoodController: "main.ts",
+      SemanticNeighborhoodController: ["main.ts", "semantic/product/semanticNeighborhoodController.ts"],
       DeepIntelligenceController: "main.ts",
       RecallProductController: "recall/product/obsidianRecallProduct.ts",
       RecallService: "recall/product/obsidianRecallProduct.ts",
@@ -27,8 +27,24 @@ describe("Health production dependency boundary", () => {
     const files = ["main.ts", ...["health", "semantic", "recall", "deep"].flatMap(productionFiles)];
     for (const [owner, expected] of Object.entries(owners)) {
       const sites = files.flatMap((file) => [...readFileSync(file, "utf8").matchAll(new RegExp(`new ${owner}\\(`, "gu"))].map(() => file));
-      expect(sites, owner).toEqual([expected]);
+      expect(sites, owner).toEqual(Array.isArray(expected) ? expected : [expected]);
     }
+  });
+  it("permits the additional neighborhood owner only inside its same-engine session factory", () => {
+    const text = readFileSync("semantic/product/semanticNeighborhoodController.ts", "utf8");
+    const source = ts.createSourceFile("session.ts", text, ts.ScriptTarget.Latest, true);
+    let count = 0;
+    const visit = (node: ts.Node): void => {
+      if (ts.isNewExpression(node) && node.expression.getText(source) === "SemanticNeighborhoodController") {
+        count++;
+        let owner: ts.Node | undefined = node.parent;
+        while (owner && !ts.isMethodDeclaration(owner)) owner = owner.parent;
+        expect(owner && ts.isMethodDeclaration(owner) && owner.name.getText(source)).toBe("createSession");
+        expect(node.arguments?.map(arg => arg.getText(source))).toEqual(["this.engine"]);
+      }
+      ts.forEachChild(node, visit);
+    };
+    visit(source); expect(count).toBe(1);
   });
   it("has no AI/network/Companion dependencies or Markdown mutations, including transitive imports", () => {
     const queue = productionFiles("health").map((path) => resolve(path)); const visited = new Set<string>();

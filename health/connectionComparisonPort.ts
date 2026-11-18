@@ -49,5 +49,6 @@ export interface ConnectionComparisonPort {
   subscribe(listener: () => void): () => void;
   load(): Promise<void>;
   refresh(): Promise<void>;
+  cancel?(): void;
   dispose(): void;
 }

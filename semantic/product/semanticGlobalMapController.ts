@@ -34,6 +34,13 @@ export class SemanticGlobalMapController implements SemanticGlobalMapPort {
   createScoped(scope: SemanticMapScope, selection?: ConnectionSelectionSource): SemanticGlobalMapPort {
     return new SemanticGlobalMapController(this.engine, Object.freeze({ ...scope, paths: Object.freeze([...scope.paths]) }), selection);
   }
+  createSession(): SemanticGlobalMapPort { return new SemanticGlobalMapController(this.engine); }
+  cancel(): void {
+    if (this.disposed || !this.pending) return;
+    this.epoch++; this.abort?.abort(); this.abort = undefined; this.pending = undefined;
+    this.publish({ ...this.snapshot, state: this.snapshot.map ? "stale" : "idle", busy: false,
+      focusing: undefined, progress: undefined, reason: undefined });
+  }
   async prepareExisting(): Promise<void> {
     if (!this.disposed) await this.engine.refreshSemanticStatus?.();
   }

@@ -138,3 +138,16 @@ describe("immutable semantic projection rejects entire malformed results", () =>
     expect(map.neighbors[0].similarity).toBe(-0.3); expect(map.neighbors[0].evidence[0].headingPath[0]).toBe("Heading");
   });
 });
+
+describe("R06.2b independent neighborhood sessions", () => {
+  it("is passive and cancelling a source request cannot publish over another window", async () => {
+    const f=fixture(), other=f.port.createSession(), gate=deferred<SemanticDocumentSimilarity[]>();
+    expect(f.engine.listIndexedPaths).not.toHaveBeenCalled();
+    await f.port.prepare(); f.engine.findSimilarNotes.mockReturnValueOnce(gate.promise);
+    const pending=f.port.load("A.md"); await Promise.resolve(); f.port.cancel();
+    expect(f.port.getSnapshot()).toMatchObject({state:"idle",busy:false});
+    await other.load("A.md"); const snapshot=other.getSnapshot(); gate.resolve([result()]); await pending;
+    expect(f.port.getSnapshot().map).toBeUndefined(); expect(other.getSnapshot()).toBe(snapshot);
+    f.port.dispose(); other.dispose(); expect(f.listeners.size).toBe(0);
+  });
+});

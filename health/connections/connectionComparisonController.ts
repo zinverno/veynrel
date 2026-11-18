@@ -26,6 +26,11 @@ export class ConnectionComparisonController implements ConnectionComparisonPort 
     return this.run(false);
   }
   refresh(): Promise<void> { return this.pending ?? this.run(true); }
+  cancel(): void {
+    if (this.disposed || !this.pending) return;
+    this.epoch++; this.pending = undefined; this.inputs = undefined;
+    this.publish({ ...this.snapshot, state: this.snapshot.comparison ? "stale" : "idle", reason: undefined });
+  }
   dispose(): void {
     this.disposed = true; this.epoch++; this.pending = undefined; this.inputs = undefined;
     for (const remove of this.unsubscribe) remove();

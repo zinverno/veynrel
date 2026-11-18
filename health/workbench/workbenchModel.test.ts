@@ -153,3 +153,23 @@ describe("list-first data ownership", () => {
     changed(); expect(data.duplicateState).toBe("stale"); expect(data.semantic).toBeUndefined(); data.dispose(); f.data.dispose();
   });
 });
+
+describe("R06.2b shared topology ownership",()=>{
+  it("cancel and dispose never abort shared topology; a second Workbench still publishes it",async()=>{
+    const f=await fixture();f.data.dispose();
+    let finish!:()=>void;
+    f.topology.refresh.mockImplementationOnce(()=>new Promise<void>(resolve=>{finish=resolve;}));
+    const make=()=>new WorkbenchData({id:"all",revision:1,paths:["A.md"]},{topology:f.topology,createComparison:()=>{throw Error("No semantic owner");}},false);
+    const a=make(),b=make(),listener=vi.fn();b.subscribe(listener);
+    const pending=a.refresh("connections");await vi.waitFor(()=>expect(finish).toBeTypeOf("function"));a.cancel();a.dispose();
+    expect(f.topology.dispose).not.toHaveBeenCalled();
+    f.topology.publish({state:"ready",map:await topologyMap()});finish();await pending;
+    expect(listener).toHaveBeenCalled();expect(b.dependencies.topology.getSnapshot().state).toBe("ready");expect(a.busy).toBe(false);
+    b.dispose();expect(f.topology.dispose).not.toHaveBeenCalled();expect(f.topology.listeners.size).toBe(0);
+  });
+  it("does not construct global or neighborhood sessions on a list-only surface",async()=>{
+    const f=await fixture();f.data.dispose();const forbidden=vi.fn(()=>{throw Error("Not owned by list");});
+    const data=new WorkbenchData(f.data.scope,{...f.data.dependencies,createGlobal:forbidden,createNeighborhood:forbidden},false);
+    data.cancel();data.dispose();expect(forbidden).not.toHaveBeenCalled();
+  });
+});

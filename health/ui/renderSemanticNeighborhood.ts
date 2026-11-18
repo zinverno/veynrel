@@ -17,12 +17,12 @@ export function neighborhoodStatus(snapshot: SemanticNeighborhoodProductSnapshot
 
 /** All note text, including stored previews, uses native text sinks. */
 export function renderSemanticNeighborhood(parent: HTMLElement, port: SemanticNeighborhoodPort, state: SemanticNeighborhoodViewState,
-  actions: { returnTo?: "discover" | "semantic-map" | "connection-opportunities"; back(): void; openNote(path: string): void }): void {
+  actions: { returnTo?: "discover" | "semantic-map" | "connection-opportunities"; back(): void; openNote(path: string): void }, embedded = false): void {
   const snapshot = port.getSnapshot();
   const section = parent.createEl("section", { cls: "veynrel-neighborhood", attr: { "aria-label": t("@neighborhood.title"), "aria-busy": String(snapshot.busy) } });
-  healthButton(section, t(actions.returnTo === "connection-opportunities" ? "@connections.back-comparison" : actions.returnTo === "semantic-map" ? "@neighborhood.back-global" : "@neighborhood.back"), () => actions.back(), "neighborhood-back").addClass("veynrel-quiet");
+  if (!embedded) healthButton(section, t(actions.returnTo === "connection-opportunities" ? "@connections.back-comparison" : actions.returnTo === "semantic-map" ? "@neighborhood.back-global" : "@neighborhood.back"), () => actions.back(), "neighborhood-back").addClass("veynrel-quiet");
   const header = section.createDiv({ cls: "veynrel-neighborhood-header" });
-  header.createEl("h1", { text: t("@neighborhood.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
+  header.createEl(embedded ? "h2" : "h1", { text: t("@neighborhood.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
   if (!snapshot.map) header.createEl("p", { text: t("@neighborhood.description") });
   const status = neighborhoodStatus(snapshot);
   if (status) section.createEl("p", { text: status, cls: "veynrel-neighborhood-status" });
@@ -59,7 +59,7 @@ export function renderSemanticNeighborhood(parent: HTMLElement, port: SemanticNe
   const visual = composition.createDiv({ cls: "veynrel-neighborhood-visual" });
   const inspector = composition.createEl("section", { cls: "veynrel-neighborhood-inspector", attr: { "aria-label": t("@neighborhood.selection") } });
   const nodes = [map.source, ...map.neighbors];
-  const positions = semanticNeighborhoodLayout(map.source, map.neighbors);
+  const positions = embedded ? [] : semanticNeighborhoodLayout(map.source, map.neighbors);
   const buttons = new Map<string, HTMLButtonElement>();
   const circles = new Map<string, SVGElement>();
   const select = (node: SemanticNeighborhoodNode): void => {
@@ -87,7 +87,7 @@ export function renderSemanticNeighborhood(parent: HTMLElement, port: SemanticNe
     healthButton(actionsEl, t("@neighborhood.open-note"), () => actions.openNote(node.path), "neighborhood-open-note");
     if (node.role === "neighbor") healthButton(actionsEl, t("@neighborhood.explore"), () => { state.focusAction = "neighborhood-select-0"; void port.load(node.path); }, "neighborhood-explore", snapshot.busy || snapshot.state !== "ready");
   };
-  if (map.neighbors.length) {
+  if (!embedded && map.neighbors.length) {
     const svg = visual.createSvg("svg", { cls: "veynrel-neighborhood-svg", attr: { viewBox: "0 0 1000 1000", "aria-hidden": "true", focusable: "false" } });
     // Fixed reference rings, no thresholds or force physics. Distance alone encodes score.
     for (const score of [1, 0, -1]) svg.createSvg("circle", { cls: "veynrel-neighborhood-guide", attr: { cx: "500", cy: "500", r: String(semanticNeighborhoodRadius(score)) } });
@@ -107,7 +107,7 @@ export function renderSemanticNeighborhood(parent: HTMLElement, port: SemanticNe
       group.addEventListener("click", () => select(node)); circles.set(node.id, group);
     }
     visual.createEl("p", { text: t("@neighborhood.legend"), cls: "veynrel-neighborhood-legend" });
-  } else visual.createEl("p", { text: t("@neighborhood.empty"), cls: "veynrel-neighborhood-empty" });
+  } else if (!map.neighbors.length) visual.createEl("p", { text: t("@neighborhood.empty"), cls: "veynrel-neighborhood-empty" });
   const list = visual.createDiv({ cls: "veynrel-neighborhood-list", attr: { "aria-label": t("@neighborhood.neighbors") } });
   nodes.forEach((node, index) => {
     const button = healthButton(list, "", () => select(node), `neighborhood-select-${index}`);

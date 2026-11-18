@@ -15,6 +15,8 @@ export interface PairReviewPort {
 export interface WorkbenchDependencies {
   topology: VaultTopologyPort;
   createSemantic?: (scope: SemanticMapScope, selection?: ConnectionSelectionSource) => SemanticGlobalMapPort;
+  createGlobal?: () => SemanticGlobalMapPort;
+  createNeighborhood?: () => import("../semanticNeighborhoodPort").SemanticNeighborhoodPort;
   createComparison: (semantic: SemanticGlobalMapPort) => ConnectionComparisonPort;
   duplicates?: SemanticHealthAnalysisPort;
   tags?: WorkbenchTagsPort;
@@ -28,6 +30,9 @@ export interface WorkbenchDependencies {
 export class WorkbenchData {
   semantic?: SemanticGlobalMapPort;
   comparison?: ConnectionComparisonPort;
+  globalSemantic?: SemanticGlobalMapPort;
+  neighborhood?: import("../semanticNeighborhoodPort").SemanticNeighborhoodPort;
+  globalComparison?: ConnectionComparisonPort;
   duplicates?: SemanticDuplicateAnalysis;
   duplicateState: "idle" | "loading" | "ready" | "stale" | "unavailable" | "error" = "idle";
   busy = false;
@@ -38,7 +43,12 @@ export class WorkbenchData {
   private removers: (() => void)[] = [];
   private readonly listeners = new Set<() => void>();
   constructor(readonly scope: SemanticMapScope, readonly dependencies: WorkbenchDependencies, graphical = true) {
-    if (graphical) this.ensureComparison();
+    if (graphical) {
+      this.ensureComparison();
+      this.globalSemantic = dependencies.createGlobal?.();
+      this.neighborhood = dependencies.createNeighborhood?.();
+      this.globalComparison = this.globalSemantic && dependencies.createComparison(this.globalSemantic);
+    }
     const changed = (): void => {
       if (this.duplicates && (dependencies.topology.getSnapshot().state === "stale" ||
         this.semantic?.getSnapshot().state === "stale" || this.semantic?.getSnapshot().map &&
@@ -46,6 +56,7 @@ export class WorkbenchData {
       this.emit();
     };
     this.removers = [dependencies.topology.subscribe(changed)];
+    for (const source of [this.globalSemantic, this.neighborhood, this.globalComparison]) if (source) this.removers.push(source.subscribe(changed));
     if (dependencies.rules) this.removers.push(dependencies.rules.subscribe(changed));
     if (dependencies.tags) this.removers.push(dependencies.tags.subscribe(changed));
     if (this.semantic) this.removers.push(this.semantic.subscribe(changed));
@@ -107,9 +118,17 @@ export class WorkbenchData {
       ]);
     } catch { if (current()) { if (duplicates) this.duplicateState = "error"; else this.connectionError = true; } } finally { if (current()) { this.busy = false; this.abort = undefined; this.emit(); } }
   }
+  /** Only view-owned work; the shared topology refresh remains available to other windows. */
+  cancel(): void {
+    this.epoch++; this.abort?.abort(); this.abort = undefined; this.busy = false;
+    if (this.duplicateState === "loading") this.duplicateState = this.duplicates ? "stale" : "idle";
+    this.comparison?.cancel?.(); this.semantic?.cancel?.();
+    this.globalComparison?.cancel?.(); this.globalSemantic?.cancel?.(); this.neighborhood?.cancel?.(); this.emit();
+  }
   dispose(): void {
     this.disposed = true; this.epoch++; this.abort?.abort();
     this.removers.forEach(remove => remove()); this.removers = [];
+    this.globalComparison?.dispose(); this.globalSemantic?.dispose(); this.neighborhood?.dispose();
     this.comparison?.dispose(); this.semantic?.dispose(); this.listeners.clear();
     this.dependencies.tags?.dispose();
   }

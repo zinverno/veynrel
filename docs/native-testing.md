@@ -286,3 +286,19 @@ Use counts 1000/5000/10000 and `R06_BASELINE=1` plus frozen assets for compariso
 measured results and unresolved native gates. Legacy visual route migration is
 not covered by this increment. No exception filtering, automatic retry, timeout
 increase, desktop launch or live provider is introduced.
+
+
+## R06.2b unified inspectors
+
+```sh
+R06_UNIFIED=1 R06_FAMILIES=1 python scripts/native/run.py map 120
+R06_UNIFIED=labels R06_FAMILIES=1 python scripts/native/run.py map 120
+```
+
+The first is the integrated structural/focus/neighborhood/opportunity, Pair Back,
+Review Decision, folder scope and concurrent-window journey. The second is a bounded
+RU/EN light/dark 390px focus-label and context-navigation check. Both use the existing
+launcher, synthetic family fixture, unfiltered exception gate and byte-preservation
+guards. No automatic retry or desktop fallback. Full maps, partial/absent indices and
+1k/5k/10k retain the existing `map` arguments. A warm-cache picker control is distinct
+from cold-start acceptance. See [parity and exact results](r06/part2b-verification.md).

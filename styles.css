@@ -3365,3 +3365,26 @@
 .veynrel-families { margin-block: 10px; }
 .veynrel-families small { display: block; color: var(--text-muted); }
 .veynrel-families pre { white-space: pre-wrap; }
+
+/* R06.2b: one canvas; facts and lists stay in document flow. */
+.veynrel-shell[data-workbench-mounted="true"] .veynrel-shell-main { height: auto; min-height: calc(100cqh - 75px); }
+.veynrel-shell[data-workbench-mounted="true"] .veynrel-workbench,
+.veynrel-workbench-browser { height: auto; }
+.veynrel-workbench-grid { display: grid; grid-template-columns: minmax(0, 1fr); flex: none; }
+.veynrel-workbench-grid .veynrel-workbench-map-pane { width: 100%; height: 520px; order: 0; }
+.veynrel-workbench-grid .veynrel-workbench-list-pane,
+.veynrel-workbench-grid .veynrel-workbench-selection { position: static; width: auto; max-width: 100%; max-height: none; order: 1; box-shadow: none; }
+.veynrel-workbench-grid.is-list-open .veynrel-workbench-selection { display: block; }
+.veynrel-workbench-inspector { scroll-margin-block-start: 100px; min-width: 0; padding-block: 12px; border-top: 1px solid var(--background-modifier-border); overflow-wrap: anywhere; }
+.veynrel-workbench-inspector button { white-space: normal; height: auto; max-width: 100%; }
+.veynrel-workbench-inspector .veynrel-topology-columns,
+.veynrel-workbench-inspector .veynrel-global-map-composition,
+.veynrel-workbench-inspector .veynrel-neighborhood-composition { display: flex; flex-direction: column; min-height: 0; }
+.veynrel-workbench-inspector .veynrel-topology-inspector,
+.veynrel-workbench-inspector .veynrel-global-map-inspector,
+.veynrel-workbench-inspector .veynrel-neighborhood-inspector { max-height: none; width: auto; }
+@container (max-width: 600px) {
+  .veynrel-workbench-grid .veynrel-workbench-map-pane { height: 400px; }
+}
+
+.veynrel-workbench-grid .veynrel-workbench-selection { scroll-margin-block-start: 100px; }

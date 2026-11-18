@@ -1,0 +1,12 @@
+{
+  "runtimeSource": "6ad4672edb597cd41c9c8a3ff30be7dac8971ba1",
+  "base": "2d261dafaca539366dfc2e2ecc2e9fff8a9f90d3",
+  "assets": {
+    "main.js": "b088b8f56d1212785d985339de89c40ad3ff919ae332dcb9a322953a4f630373",
+    "styles.css": "7cb7600883fd7d84fc6f51e16626432920c777714b8c7635d66ed00355d42d3f",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "publicManifest": "2.3.1",
+  "developmentPackage": "2.4.0",
+  "changesAfterBenchmarkRuntime": "Embedded focus labels, accurate computed coverage and visible context focus; no math, index, rendering bounds or physics changes."
+}

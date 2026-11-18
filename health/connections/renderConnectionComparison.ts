@@ -29,12 +29,12 @@ function rankDetails(pair: ConnectionComparisonPair): string[] {
 
 /** Local filters and selection only. Note names/paths always use native text sinks. */
 export function renderConnectionComparison(parent: HTMLElement, port: ConnectionComparisonPort, state: ConnectionComparisonViewState,
-  actions: { back(): void; openNote(path: string): void; openPair?(left: string, right: string): void; explore(path: string): void }): void {
+  actions: { back(): void; openNote(path: string): void; openPair?(left: string, right: string): void; explore(path: string): void }, embedded = false): void {
   const snapshot = port.getSnapshot(), comparison = snapshot.comparison;
   syncConnectionComparison(state, comparison);
   const section = parent.createEl("section", { cls: "veynrel-connections", attr: { "aria-label": t("@connections.title"), "aria-busy": String(snapshot.state === "loading") } });
-  healthButton(section, t("@global-map.back"), () => actions.back(), "connections-back").addClass("veynrel-quiet");
-  section.createEl("h1", { text: t("@connections.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
+  if (!embedded) healthButton(section, t("@global-map.back"), () => actions.back(), "connections-back").addClass("veynrel-quiet");
+  section.createEl(embedded ? "h2" : "h1", { text: t("@connections.title"), attr: { tabindex: "-1", "data-health-heading": "true" } });
   section.createEl("p", { text: t("@connections.description"), cls: "veynrel-connections-lead" });
   const status = connectionComparisonStatus(snapshot);
   if (status) section.createEl("p", { text: status, cls: "veynrel-connections-status" });
