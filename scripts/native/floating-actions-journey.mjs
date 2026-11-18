@@ -57,6 +57,7 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
   const closedRecall = async () => assert.deepEqual(await listeners(), initialListeners, 'Recall releases both modal subscriptions');
   // Changing model settings before consent disarms Generate even after restoring the original values.
   await model('fixture-recall');await select();await click(control('recall'));
+  await main.ev("window.formerGenerate=document.querySelector('[data-health-action=recall-authoring-generate]');void 0");
   const beforeConsent = report.providerRequests.length;
   assert.deepEqual(await listeners(), {settings:initialListeners.settings+1,author:initialListeners.author+1});
   await main.ev("window.recallTemperature=plugin.settings.temperature;plugin.settings.temperature+=0.1;plugin.notifyLanguageModelSettingsChanged();plugin.settings.temperature=recallTemperature;plugin.notifyLanguageModelSettingsChanged();void 0");
@@ -64,7 +65,9 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
   assert.equal(report.providerRequests.length,beforeConsent);await escape();await closedRecall();
   // Recall uses the same captured range and its existing generate+append consent, without a new preview.
   await model('fixture-recall');await select();await click(control('recall'));await wait(`!!document.querySelector('${action('recall-authoring-generate')}')`);await shotWindow('recall-consent');
-  await main.ev('plugin.notifyLanguageModelSettingsChanged();void 0');
+  await main.ev('formerGenerate.click();plugin.notifyLanguageModelSettingsChanged();void 0');
+  await pass('Closed modal controls cannot submit a new consent', "plugin.recallAuthoring.getSnapshot().state==='confirming'");
+  assert.equal(report.providerRequests.length,beforeConsent);
   await click(action('recall-authoring-generate'));await wait("plugin.recallAuthoring.getSnapshot().result?.status==='success'");
   await pass('Recall inserts and updates its existing queue',"ed.getValue().includes('What protects edits?::Explicit review')&&plugin.recallAuthoring.getSnapshot().result.cardCount===3&&plugin.recallAuthoring.recall.getSnapshot().summary.active===4");await shotWindow('recall-inserted');
   await escape();await main.ev('ed.focus();void 0');await key('z','KeyZ',90,undefined,2);await pass('Recall native Undo restores original','ed.getValue()===originalSource');await main.ev('sourceLeaf.view.save()');await wait('plugin.recallAuthoring.recall.getSnapshot().summary.active===1');await shotWindow('recall-undo');

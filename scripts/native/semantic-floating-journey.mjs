@@ -35,13 +35,14 @@ export async function runSemanticFloating(ctx) {
       await choose('Source.md'); await pass(`${intent} choose does not compute`,"!hv.scenario.data.neighborhood.getSnapshot().map&&!hv.scenario.data.globalSemantic.getSnapshot().map");
       await activate(action('semantic-compute')); await wait('!hv.scenario.data.neighborhood.getSnapshot().busy&&!hv.scenario.data.globalSemantic.getSnapshot().busy');
       if(intent==='focus') await pass('Focus computes every eligible document and displays a page',"hv.scenario.data.globalSemantic.getSnapshot().focus.scores.length===hv.scenario.data.globalSemantic.getSnapshot().map.nodes.length&&document.querySelectorAll('[data-focus-path]').length===40");
-      else await pass(`${intent} exposes actual document results`,"document.querySelectorAll('[data-neighbor-path]').length>0");
+      else if(intent==='neighborhood') await pass('Neighborhood shows indexed fragment text and line evidence', "!!document.querySelector('[data-neighbor-path] blockquote')&&!!document.querySelector('[data-neighbor-path] small')");
+      else await pass('Similar notes shows ranked document rows with a separate fragments action', "!!document.querySelector('[data-neighbor-path] strong')&&!!document.querySelector('[data-health-action=semantic-fragments]')&&!document.querySelector('[data-neighbor-path] blockquote')");
       if(intent==='focus') {while(await main.ev("!!document.querySelector('[data-health-action=semantic-more]')"))await activate(action('semantic-more'));await pass('Full global result is accessible beyond the first page',"document.querySelectorAll('[data-focus-path]').length===hv.scenario.data.globalSemantic.getSnapshot().focus.scores.length-1");}
     } else if(intent==='pair') {
-      await choose('Source.md','semantic-pair-0'); await choose('Other.md','semantic-pair-1'); await shot('routes-pair-select'); await activate(action('semantic-compare'));
+      await choose('Source.md','semantic-pair-0'); await choose('Other.md','semantic-pair-1'); await shot('routes-pair-select-'+lang); await activate(action('semantic-compare'));
       await wait("!!document.querySelector('.veynrel-pair-review')||!!document.querySelector('[data-semantic-intent=pair] .consolidation-review')||hv.scenario.reviewOpen");
       await pass('Pair mounts the existing review without model requests','hv.scenario.reviewOpen');
-      assert.equal(report.providerRequests.length,count); await shot('routes-pair-review'); await activate(action('semantic-pair-back'));
+      assert.equal(report.providerRequests.length,count); await shot('routes-pair-review-'+lang); await activate(action('semantic-pair-back'));
     } else {
       await activate(action(intent==='map'?'workbench-refresh':intent==='opportunities'?'connections-refresh':'semantic-compute'));
       await wait('!hv.scenario.data.busy&&!hv.scenario.data.semantic.getSnapshot().busy&&!hv.scenario.data.globalSemantic.getSnapshot().busy');
