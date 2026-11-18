@@ -112,13 +112,10 @@ export async function runFollowupUX({main,wait,pass,shot,phase,key,focus,provide
   await key('Enter','Enter',13,'\r');await wait("!!document.querySelector('.ai-semantic-result-card')||!!document.querySelector('.modal-button-container .mod-cta')");
   if(await main.ev("!!document.querySelector('.modal-button-container .mod-cta')"))await activate('.modal-button-container .mod-cta');
   await wait("!!document.querySelector('.ai-semantic-result-card')");await shot('after-semantic-search-results');await escape();
-  for(const [mode,panel] of [['focus','semantic-map'],['neighborhood','semantic-neighborhood'],['opportunities','connection-opportunities']]){
-    await route('semantic');await activate(action('semantic-mode-'+mode));
-    await pass(`Existing ${mode} destination preserved`, `!!document.querySelector('[data-workbench-inspector="${panel}"]')`);await shot('after-route-'+mode);
+  for(const [mode,intent] of [['map','map'],['families','families'],['notes','pair'],['neighborhood','neighborhood'],['opportunities','opportunities'],['focus','focus'],['similar','similar']]){
+    await route('semantic');await activate(action(mode==='similar'?'semantic-similar':'semantic-mode-'+mode));
+    await pass(`Semantic ${mode} opens its explicit surface`, `!!document.querySelector('[data-semantic-intent="${intent}"]')`);await shot('after-route-'+mode);
   }
-  for(const mode of ['map','families']){await route('semantic');await activate(action('semantic-mode-'+mode));await pass(`Existing ${mode} shared map preserved`,"hv.workbench.map.surface==='similarity'");if(mode==='families')await pass('Existing families state preserved','hv.workbench.map.families.open');}
-  await route('semantic');await activate(action('semantic-mode-notes'));await pass('Notes and pairs retains review list',"!!document.querySelector('[data-health-action=review-map]')");
-  await route('semantic');await activate(action('semantic-similar'));await pass('Similar notes keeps existing owner',"!!document.querySelector('.modal,.prompt')");await escape();
   await route('check');await main.ev("{const e=document.querySelector('[data-health-action=finding-search]');e.value='';e.dispatchEvent(new Event('input'));}void 0");
   const geometry=await main.ev("(()=>{const e=document.querySelector('[data-health-action^=repair-]');const r=e.getBoundingClientRect();return{w:r.width,h:r.height}})()");
   await hover('[data-health-action^="repair-"]');
@@ -144,6 +141,6 @@ export async function runFollowupUX({main,wait,pass,shot,phase,key,focus,provide
   for(const type of ['keyDown','keyUp'])await pop.send('Input.dispatchKeyEvent',{type,key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await pause(100);
   await pass('Popout Escape restores its exact segment',"document.activeElement.dataset.toolSegment==='tools-process'&&!document.querySelector('.veynrel-tool-explanation')",pop);
   await main.ev('uxPop.detach();void 0');await focus();await pass('Closing popout preserves main controller',"!!hv.controller.getState().snapshot");
-  await stopVideo();report.semanticEvidence='Synthetic stored index and loopback query vectors; existing owners, not semantic quality or repaired routing.';
+  await stopVideo();report.semanticEvidence='Synthetic stored index and loopback query vectors; existing owners; explicit semantic routes are verified separately, not a semantic quality claim.';
   report.unverified=['Physical touch','Screen reader','Historical Community document ownership','Historical cold10k','Other historical e.isShown triggers'];
 }

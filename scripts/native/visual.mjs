@@ -1,3 +1,5 @@
+import { runSemanticFloating } from './semantic-floating-journey.mjs';
+const semanticFloating = process.argv[5] === 'semantic-floating';
 import { runVisualUX } from './visual-journey.mjs';
 import { runFollowupUX } from './followup-journey.mjs';
 const followup = process.argv[5] === 'followup';
@@ -12,8 +14,8 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { assertNativeRoot, launchObsidian, nativeEndpoint } from './session.mjs';
 
-const noteCount = 154;
-assert([154,1000,5000,10000].includes(noteCount));
+const noteCount = semanticFloating && process.argv[3] === "cap" ? 502 : 154;
+assert([154,502,1000,5000,10000].includes(noteCount));
 const root = process.argv[2], phase = process.argv[3] ?? 'baseline', build = process.argv[4] ?? fileURLToPath(new URL('../../', import.meta.url));
 assertNativeRoot(root); assert(!fs.existsSync(root));
 const vault = `${root}/vault`, pluginDir = `${vault}/.obsidian/plugins/ai-knowledge-hub`;
@@ -28,9 +30,10 @@ fs.writeFileSync(`${root}/profile/obsidian.json`, JSON.stringify({ updateDisable
 fs.writeFileSync(`${pluginDir}/data.json`, JSON.stringify({ language: 'en', apiKey: '', provider: 'ollama', baseUrl: 'http://127.0.0.1:1/v1', model: 'unused', semanticAutoSyncSuspended: true, semantic: { enabled: false }, decisions: { enabled: false }, companion: { enabled: false }, health: { onboardingCompleted: false, profileChosen: false } }));
 const sha = value => createHash('sha256').update(value).digest('hex');
 const source = { commit: spawnSync('git',['rev-parse','HEAD'],{cwd:build,encoding:'utf8'}).stdout.trim(), diffSha256: sha(spawnSync('git',['diff','HEAD','--','*.ts','*.mjs','*.py','styles.css'],{cwd:build,encoding:'utf8'}).stdout) };
-const report = { source, scenario: (followup?'followup-':'visual-')+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
-report.harnessHashes = Object.fromEntries(['visual.mjs','visual-journey.mjs','followup.mjs','followup-journey.mjs','overview-fixture.ts','session.mjs','run.py'].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
-for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); }
+const baselineReceipt=fs.existsSync(`${build}/source-receipt.json`)?JSON.parse(fs.readFileSync(`${build}/source-receipt.json`,'utf8')):undefined;
+const report = { source: baselineReceipt ? {...baselineReceipt.source, provenance:'pinned baseline assets', originalReceipt:baselineReceipt.nativeBaseline+'/report.json'} : source, scenario: (semanticFloating?'semantic-floating-':followup?'followup-':'visual-')+phase, checks: [], exceptions: [], actions: [], screenshots: [], assets: {}, externalRequests: [], recording: null };
+report.harnessHashes = Object.fromEntries(['visual.mjs','visual-journey.mjs','followup.mjs','followup-journey.mjs','overview-fixture.ts','session.mjs','run.py',...(semanticFloating?['semantic-floating.mjs','semantic-floating-journey.mjs','floating-actions-journey.mjs','semantic-limits-journey.mjs','semantic-state-journey.mjs','floating-source-journey.mjs']:[])].map(name=>[name,sha(fs.readFileSync(new URL(name,import.meta.url)))]));
+for (const name of ['main.js', 'styles.css', 'manifest.json']) { const bytes = fs.readFileSync(`${build}/${name}`); fs.writeFileSync(`${pluginDir}/${name}`, bytes); report.assets[name] = sha(bytes); if(baselineReceipt)assert.equal(report.assets[name],baselineReceipt.assets[name]); }
 if(process.env.UX_THEME_DIR){
   const theme=JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/manifest.json`,'utf8'));assert.equal(theme.name,'Minimal');
   const dir=`${vault}/.obsidian/themes/Minimal`;fs.mkdirSync(dir,{recursive:true});
@@ -42,6 +45,15 @@ const requests = []; report.providerRequests = requests;
 const server = createServer(async (req,res) => {
   let body='';for await(const part of req)body+=part;
   const data=JSON.parse(body||'{}');requests.push({path:req.url, model:data.model});
+  if(semanticFloating && req.url==='/v1/chat/completions') {
+    const user=data.messages?.at(-1)?.content??'';
+    requests.at(-1).inputSha256=sha(user); requests.at(-1).inputLength=user.length;
+    if(data.model==='fixture-error'){res.writeHead(503);res.end('synthetic failure');return;}
+    if(data.model==='fixture-delay'||data.model==='fixture-recall-delay')await new Promise(r=>setTimeout(r,1000));
+    if(data.model==='fixture-timeout')await new Promise(r=>setTimeout(r,35000));
+    const content=data.model?.startsWith('fixture-recall')?'What connects notes?::Shared ideas\nWhat protects edits?::Explicit review\nWhat restores text?::Editor undo':user.split('\n\n').slice(1).join('\n\n').replace('Two facts stay unchanged.','Two facts remain unchanged.');
+    res.setHeader('content-type','application/json');res.end(JSON.stringify({choices:[{message:{content},finish_reason:'stop'}]}));return;
+  }
   if(!['/api/embed','/api/embeddings'].includes(req.url)){res.writeHead(404);res.end();return;}
   const vector=Array.from({length:32},(_,i)=>i===0?1:0);
   const inputs=Array.isArray(data.input)?data.input:[data.input??data.prompt];
@@ -50,11 +62,12 @@ const server = createServer(async (req,res) => {
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const providerUrl=`http://127.0.0.1:${server.address().port}`;
 await bundle({entryPoints:[fileURLToPath(new URL('./overview-fixture.ts',import.meta.url))],bundle:true,platform:'node',format:'cjs',outfile:`${root}/fixture.cjs`,plugins:[{name:"fixture-host",setup(b){b.onResolve({filter:/^obsidian$/},()=>({path:"obsidian",namespace:"fixture"}));b.onLoad({filter:/.*/,namespace:"fixture"},()=>({contents:'export const getLanguage=()=>"en";'}));}}]});
-const index=await createRequire(import.meta.url)(`${root}/fixture.cjs`).overviewIndex(originals,providerUrl);
+const index=await createRequire(import.meta.url)(`${root}/fixture.cjs`).overviewIndex(originals,providerUrl,semanticFloating);
 fs.mkdirSync(`${pluginDir}/semantic-index`);
 for(const [name,value]of index)fs.writeFileSync(`${pluginDir}/semantic-index/${name.split('/').pop()}`,typeof value==='string'?value:Buffer.from(value));
 const pause = ms => new Promise(r => setTimeout(r, ms));
-const child = launchObsidian(root), connections = [], frames = [];
+let child = launchObsidian(root);
+const connections = [], frames = [];
 let main, endpoint, recording = false;
 async function connection(target) {
   const socket = new WebSocket(target.webSocketDebuggerUrl); await new Promise((r,j) => { socket.onopen = r; socket.onerror = j; });
@@ -88,7 +101,7 @@ async function shot(name, c = main, fullWindow = false) {
   const png=Buffer.from((await c.send('Page.captureScreenshot',{format:'png',clip:rect,captureBeyondViewport:true})).data,'base64');
   assert.equal(png.readUInt32BE(16),rect.width);assert.equal(png.readUInt32BE(20),rect.height);
   fs.writeFileSync(`${root}/${name}.png`,png);
-  report.screenshots.push(name+'.png'); (report.screenshotGeometry??=[]).push({name,rect,fullWindow});
+  report.screenshots.push(name+'.png'); (report.screenshotGeometry??=[]).push({name,rect,fullWindow,...(semanticFloating && recording && frames.length ? {videoSeconds:frames.at(-1).time-frames[0].time}: {})});
 }
 
 async function focus(c = main) { await c.send('Page.bringToFront'); await c.ev('window.electronWindow.focus();void 0'); await wait('document.hasFocus() && window.electronWindow.isFocused()', c); }
@@ -119,16 +132,29 @@ try {
   await main.send('Page.startScreencast', { format:'jpeg',quality:70,maxWidth:1600,maxHeight:1000,everyNthFrame:1 }); recording=true;
 
   await main.ev(`window.uxIO={read:0,write:0,process:0,pluginRead:0,pluginWrite:0};for(const k of ['read','cachedRead','modify','create','process']){const old=app.vault[k].bind(app.vault);app.vault[k]=(...a)=>{if(String(a[0]?.path??a[0]).endsWith('.md')){uxIO[k==='read'||k==='cachedRead'?'read':k==='process'?'process':'write']++;if(new Error().stack.includes('plugin:ai-knowledge-hub'))uxIO[k==='read'||k==='cachedRead'?'pluginRead':'pluginWrite']++;}return old(...a)}};void 0`);
+  if(semanticFloating)await main.ev(`window.stageIO={configWrite:0,semanticRead:0,semanticWrite:0,hostAdapterRead:0,hostAdapterWrite:0};for(const k of ['read','readBinary','write','writeBinary']){const old=app.vault.adapter[k].bind(app.vault.adapter);app.vault.adapter[k]=(...a)=>{const path=String(a[0]),read=k.startsWith('read');if(path.includes('/semantic-index/'))stageIO[read?'semanticRead':'semanticWrite']++;else if(path.endsWith('/ai-knowledge-hub/data.json')&&!read)stageIO.configWrite++;else stageIO[read?'hostAdapterRead':'hostAdapterWrite']++;return old(...a)}};void 0`);
   await main.ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");
   await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.body");
   await main.ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0");
-  await (followup ? runFollowupUX : runVisualUX)({main,wait,pass,shot,focus,key,report,phase,connection,endpoint,pause,providerUrl,stopVideo});
+  await (semanticFloating ? runSemanticFloating : followup ? runFollowupUX : runVisualUX)({main,wait,pass,shot,focus,key,report,phase,connection,endpoint,pause,providerUrl,stopVideo});
   report.dom=await main.ev('({elements:document.querySelectorAll(".veynrel-health-view *").length,findings:hv.controller.listFindings().length})');
   await stopVideo();
+  if(semanticFloating&&['panel','full'].includes(phase)) {
+    await main.ev('plugin.settingsSave');
+    const persisted=JSON.parse(fs.readFileSync(`${pluginDir}/data.json`,'utf8')).floatingActions;
+    assert.deepEqual(Object.keys(persisted).sort(),['enabled','x','y']);
+    const ended=new Promise(r=>child.once('exit',r));child.kill('SIGTERM');await ended;
+    child=launchObsidian(root);endpoint=await nativeEndpoint(root,child);
+    let restarted;for(let i=0;i<200;i++){restarted=(await(await fetch(`${endpoint}/json/list`)).json()).find(t=>t.url.startsWith('app://obsidian.md/'));if(restarted)break;await pause(50);}
+    main=await connection(restarted);await wait("!!window.app?.plugins?.plugins['ai-knowledge-hub']&&document.querySelectorAll('.veynrel-floating').length===1");
+    await main.ev("window.electronWindow.setContentSize(390,800);void 0");await wait('innerWidth===390');await pause(100);
+    await pass('Actual process restart restores bounded position and one root',"(()=>{const r=document.querySelector('.veynrel-floating').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight})()");
+    await shot('panel-after-process-restart',main,true);report.restart={persisted,processRestart:true};
+  }
   report.markdown=Object.fromEntries(Object.entries(originals).map(([name,text])=>[name,{before:sha(text),after:sha(fs.readFileSync(`${vault}/${name}`))}]));
   assert(Object.values(report.markdown).every(h=>h.before===h.after));report.checks.push('All Markdown byte-identical');
   assert.equal(report.exceptions.length,0,'Unfiltered native exceptions');report.status='PASS';
-} catch(error) { report.status='FAIL'; report.error=String(error.stack??error); process.exitCode=1; try { if(main) await shot('failure'); await stopVideo(); } catch(e) {report.captureError=String(e);} }
+} catch(error) { report.status='FAIL'; report.error=String(error.stack??error); process.exitCode=1; try { if(main) { if(semanticFloating)report.failureState=await main.ev('({recall:{state:plugin.recallAuthoring?.getSnapshot().state,result:plugin.recallAuthoring?.getSnapshot().result},style:document.querySelector("[data-style-state]")?.dataset.styleState})'); await shot('failure',main,semanticFloating); } await stopVideo(); } catch(e) {report.captureError=String(e);} }
 finally {
   report.providerRequests=requests;server.close();
   fs.writeFileSync(`${root}/report.json`, JSON.stringify(report,null,2)+'\n'); for(const c of connections)c.socket.close();
