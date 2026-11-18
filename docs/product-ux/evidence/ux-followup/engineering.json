@@ -1,0 +1,78 @@
+{
+  "baseHead": "8870ffc8171199c971a60646761494cab0244eff",
+  "runtimeAndHarnessHead": "f18614e6489aabeb89b09dd1b0f3e73143d1f9a9",
+  "productionCodeCommit": "de6fc9e4df7c9e62ca8fe33320246f721eab8c4b",
+  "note": "f18614e changes only native focus verification; subsequent evidence commits do not change production or native harness.",
+  "assets": {
+    "main.js": "b3171841629e5edd5c53254e4bda2356dea2b3db0171f3839305b017221e2abe",
+    "styles.css": "ac0b2eab6eff06de4355bd63ee1c56511e782c7e5dcb08f38dc1e3539515d19c",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "typecheck": "PASS",
+  "build": "PASS",
+  "lint": {
+    "status": "PASS",
+    "errors": 0,
+    "existingWarnings": [
+      "api.ts:460 fetch",
+      "studio/community/transport.ts:13 fetch"
+    ],
+    "afterEvidence": "PASS: checks/lint-after-evidence.log"
+  },
+  "tests": {
+    "passed": 5434,
+    "files": 213
+  },
+  "mutation": {
+    "killed": 5,
+    "total": 5
+  },
+  "nativeSessionTests": 2,
+  "nativeRunnerTests": 3,
+  "native": {
+    "followupChecks": 91,
+    "followupScreenshots": 98,
+    "beforeChecks": 35,
+    "beforeScreenshots": 77,
+    "existingRegressionChecks": 126,
+    "unfilteredExceptions": 0,
+    "originalMarkdownFiles": 155,
+    "allMarkdownUnchanged": true,
+    "providerRequests": [
+      {
+        "path": "/api/embed",
+        "model": "overview-synthetic"
+      }
+    ],
+    "externalRequests": [],
+    "environment": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.3.1"
+    }
+  },
+  "deferred": "Semantic routing is unchanged; see semantic-routing-deferred.md",
+  "unverified": [
+    "Physical touch",
+    "Screen reader",
+    "Historical Community document ownership",
+    "Historical cold10k",
+    "Other historical e.isShown triggers"
+  ],
+  "receipts": [
+    "before-final/report.json",
+    "after/report.json",
+    "regression/report.json",
+    "attempts/index.json"
+  ],
+  "ciInitial": {
+    "runId": 44034445942,
+    "head": "5cd8089c1bbcbf166fbba1660b592dd80c2d3ff6",
+    "tests": "5434 PASS",
+    "scannerTypechecks": "2/2 PASS",
+    "lint": "FAIL: archived prototype/check.mjs was outside the TypeScript project",
+    "resolution": "Preserved identical bytes as prototype/check.mjs.txt; no lint rule or runtime changes",
+    "receipt": "checks/ci-44034445942-fail.log"
+  }
+}

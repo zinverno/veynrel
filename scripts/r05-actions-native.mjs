@@ -133,20 +133,20 @@ async function toFinding() {
 }
 try {
   await attach();await main.ev("(async()=>{await app.commands.commands['ai-knowledge-hub:veynrel-open-health'].callback();window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0})()");
-  await wait("!!document.querySelector('[data-health-action=home-check]')");
+  await wait("!!document.querySelector('[data-health-action=scan]')");
   report.settingsBefore=await main.ev('JSON.stringify({...plugin.settings,language:null})');await phase('passive-navigation');const passive=await main.ev('structuredClone(io)');
-  await activate('[data-health-action=home-findings]');await main.ev("hv.navigate({page:'home'});void 0");
+  await activate('[data-health-action=nav-health]');await main.ev("hv.navigate({page:'home'});void 0");
   await pass('Passive Workspace and Findings navigation does not scan, read Markdown or write',"!hv.controller.getState().outcome&&!hv.controller.getState().busy");
   const afterPassive=await main.ev('structuredClone(io)');for(const k of ['reads','writes','creates'])assert.equal(afterPassive[k].length,passive[k].length);
   assert.equal(afterPassive.enumerations,passive.enumerations);report.passive={before:passive,after:afterPassive};
-  await phase('explicit-local-scan');await activate('[data-health-action=home-check]');await activate('[data-health-action=scan]');
+  await phase('explicit-local-scan');await activate('[data-health-action=scan]');
   await wait('!!hv.controller.getState().outcome&&!hv.controller.getState().busy');
   report.scan=await main.ev('hv.controller.getState().outcome');assert.equal(report.scan.scan.status,'completed');assert.equal(report.scan.freshness,'verified');
-  await main.ev("hv.navigate({page:'home'});void 0");await pass('Home offers at most three actual evidence-backed actions',"document.querySelectorAll('[data-next-actions] button').length>0&&document.querySelectorAll('[data-next-actions] button').length<=3");
+  await main.ev("hv.navigate({page:'home'});void 0");await pass('Check exposes bounded evidence-backed findings',"document.querySelectorAll('.veynrel-finding-item').length>0&&document.querySelectorAll('.veynrel-finding-item').length<=60");
   await main.ev("window.pairFinding=hv.controller.listFindings().find(f=>f.type==='duplicate-title-group'&&f.notePaths.includes('one/Same.md'));void 0");
-  const id=await main.ev('pairFinding.id');await activate('[title=one]');await pass('Selected Workspace folder is one; the explicitly shown pair may include an external target',"document.querySelector('[title=one]').getAttribute('aria-pressed')==='true'");report.activeScope={workspace:await main.ev('hv.areaIndex.selection'),source:'one/Same.md',target:'two/Same.md',writes:['one/Same.md']};
+  const id=await main.ev('pairFinding.id');await main.ev("document.querySelector('[data-health-action=scope-picker]').focus();void 0");const folderIndex=await main.ev("[...document.querySelector('[data-health-action=scope-picker]').options].findIndex(o=>o.value==='one')");assert(folderIndex>0);await key('Home','Home',36);for(let i=0;i<folderIndex;i++){await main.ev("document.querySelector('[data-health-action=scope-picker]').focus();void 0");await key('ArrowDown','ArrowDown',40);}await key('Enter','Enter',13,'\r');await acknowledgeScope();await pass('Selected Workspace folder is one; the explicitly shown pair may include an external target',"document.querySelector('[data-health-action=scope-picker]').value==='one'");report.activeScope={workspace:await main.ev('hv.areaIndex.selection'),source:'one/Same.md',target:'two/Same.md',writes:['one/Same.md']};
   await main.send('Page.startScreencast',{format:'jpeg',quality:85,everyNthFrame:1});recording=true;
-  await phase('finding-and-pair');await activate(`[data-health-action="next-${id}"]`);await acknowledgeScope();await shot('finding-evidence-en-dark');
+  await phase('finding-and-pair');await activate(`[data-health-action="finding-${id}"]`);await acknowledgeScope();await shot('finding-evidence-en-dark');
   await openPair();await pass('Real pair retains exact homonym paths and saved source context',"document.querySelector('.ai-pair-inspector').textContent.includes('one/Same.md')&&document.querySelector('.ai-pair-inspector').textContent.includes('two/Same.md')");await shot('pair-evidence');
   await openLocal();await shot('local-plan');await phase('prepare-and-review');await prepare();
   assert(await main.ev("!!document.querySelector('.ai-safe-apply [data-safe-action=confirm]')"),'Review is executable');await shot('review-diff');

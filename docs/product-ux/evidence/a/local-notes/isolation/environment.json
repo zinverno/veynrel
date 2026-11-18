@@ -1,0 +1,14 @@
+{
+  "originalSha256": "d440bfb8eb75a97f98e31d1441070b16802dd3cb926238029f70352519c576b1",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "backend": "xvfb-openbox",
+    "display": ":2",
+    "privateDisplay": true,
+    "waylandDisplayRemoved": true,
+    "privateDbus": "dbus-run-session per harness",
+    "wmPid": 732728,
+    "gpu": "disabled",
+    "frame": "native"
+  }
+}

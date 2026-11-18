@@ -59,7 +59,19 @@ export class LocalScanCoordinator {
     }
     throwIfAborted(signal);
     const summary = boundedDiagnostics(snapshot.diagnostics);
-    return { revision: createLocalVaultRevision(context.snapshot.notes, context.snapshot.coverage.noteListComplete),
+    const limitations = new Map(snapshot.notes.filter(n => !n.linksAvailable).map(n => [n.path, n.linkLimitation]));
+    const reasons = [...limitations.values()];
+    return { coverage: {
+      listed: snapshot.notes.length,
+      fullyAvailable: snapshot.notes.filter(n => n.contentAvailable && n.linksAvailable).length,
+      contentUnavailable: snapshot.notes.filter(n => !n.contentAvailable).length,
+      linksUnavailable: snapshot.notes.filter(n => !n.linksAvailable).length,
+      noteListComplete: snapshot.coverage.noteListComplete,
+      linkLimitations: { missing: reasons.filter(r => r === "metadata-missing").length, unsupported: reasons.filter(r => r === "unsupported-target").length,
+        changed: reasons.filter(r => r === "source-changed").length, unknown: reasons.filter(r => !r).length },
+      diagnostics: summary.diagnostics.map(item => ({ ...item, code: item.code === "links-unavailable" && item.path ? limitations.get(item.path) ?? item.code : item.code })),
+      diagnosticsTruncated: snapshot.diagnosticsTruncated + summary.diagnosticsTruncated,
+    }, revision: createLocalVaultRevision(context.snapshot.notes, context.snapshot.coverage.noteListComplete),
       notesSeen: context.snapshot.notes.length, analyzerVersions: Object.fromEntries(this.analyzers.map((analyzer) => [analyzer.id, analyzer.version])),
       results, diagnostics: summary.diagnostics.map((item) => ({ ...item })), diagnosticsTruncated: snapshot.diagnosticsTruncated + summary.diagnosticsTruncated,
     };

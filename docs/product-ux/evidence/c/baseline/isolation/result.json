@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-b-context-actions/scripts/r06-map-native.mjs",
+    "<disposable-session>",
+    "120"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794845144.0792572,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [
+    38519
+  ],
+  "cdpClosed": true,
+  "seconds": 12.704
+}

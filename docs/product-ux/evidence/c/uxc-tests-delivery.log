@@ -1,0 +1,275 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2 --reporter=default --reporter=json --outputFile.json=../ux-evidence-local/uxc-tests-delivery.json
+
+
+ RUN  v4.1.10 <checkout-root>/.worktrees/ux-c-structural-map
+
+ ✓ health/ui/VeynrelHealthView.test.ts (165 tests) 4044ms
+ ✓ health/ui/recallView.test.ts (58 tests) 3539ms
+ ✓ consolidation/groupApply.test.ts (74 tests) 2923ms
+     ✓ copies H1 and undoes after restart, both directions and CRLF  383ms
+ ✓ consolidation/archiveApply.test.ts (51 tests) 3979ms
+     ✓ canonical 0: literal YAML, Unicode/CRLF and full restart rollback chain  953ms
+     ✓ canonical 1: literal YAML, Unicode/CRLF and full restart rollback chain  652ms
+ ✓ chunking/markdownChunker.test.ts (105 tests) 3717ms
+     ✓ enforces maxChars=2 across adversarial constructs and huge breadcrumbs  1594ms
+     ✓ enforces maxChars=4 across adversarial constructs and huge breadcrumbs  818ms
+     ✓ enforces maxChars=9 across adversarial constructs and huge breadcrumbs  598ms
+ ✓ consolidation/archivePlanV2.test.ts (93 tests) 3465ms
+ ✓ consolidation/structuralArchiveApply.test.ts (164 tests) 26624ms
+     ✓ restores both original documents through a receipt-bound secondary mtime exception  597ms
+     ✓ restores both original documents through a receipt-bound secondary mtime exception  332ms
+   ✓ Group H1 exact cycle with Unicode/CRLF and reverse canonical side  478ms
+   ✓ Group H2 exact cycle with Unicode/CRLF and reverse canonical side  390ms
+   ✓ Group H3 exact cycle with Unicode/CRLF and reverse canonical side  380ms
+   ✓ Bundle - Один 🪶
+- Two 中文 restores exact CRLF original  327ms
+     ✓ interruption at undo_after_process preserves evidence and never repairs on restart  301ms
+     ✓ interruption at torn_undone preserves evidence and never repairs on restart  309ms
+   ✓ cancelled review and source changes after copies revoke consent  357ms
+     ✓ incomplete archive blocks even original text AND historical mtime  388ms
+     ✓ chain corruption after parent Undo intent blocks canonical write  499ms
+     ✓ parent Undo keeps operations blockers after archive restoration  442ms
+     ✓ parent Undo keeps multi-operations blockers after archive restoration  436ms
+     ✓ parent Undo keeps merge-operations blockers after archive restoration  462ms
+     ✓ parent Undo keeps archive-operations blockers after archive restoration  509ms
+     ✓ parent Undo keeps bundle-operations blockers after archive restoration  434ms
+     ✓ parent Undo keeps group-operations blockers after archive restoration  513ms
+     ✓ parent Undo keeps empty-atom-operations blockers after archive restoration  454ms
+     ✓ parent Undo keeps structural-archive-operations blockers after archive restoration  437ms
+     ✓ parent Undo keeps archive-operations blockers after archive restoration  355ms
+     ✓ parent Undo keeps bundle-operations blockers after archive restoration  416ms
+   ✓ multiple valid records claiming one parent block its otherwise complete chain  407ms
+     ✓ prepared single blocks parent_review with two valid copies  379ms
+     ✓ prepared single blocks parent_consent with two valid copies  434ms
+     ✓ prepared multi blocks parent_consent with two valid copies  344ms
+ ✓ deepSettings.test.ts (23 tests) 2365ms
+     ✓ failed cloud-to-local Advanced save restores durable settings and invalidates existing consent  1842ms
+ ✓ consolidation/consolidationUx.test.ts (26 tests) 2326ms
+     ✓ group Archive Undo → history → parent Undo uses the existing real services  1037ms
+     ✓ bundle Archive Undo → history → parent Undo uses the existing real services  596ms
+ ✓ healthSettings.test.ts (6 tests) 591ms
+     ✓ loads bounded Health defaults without changing existing settings  453ms
+ ✓ consolidation/bundleApply.test.ts (48 tests) 1733ms
+ ✓ health/ui/semanticGlobalMapLayout.test.ts (11 tests) 1946ms
+     ✓ separates even 500 identical high-similarity nodes at 24x with fixed-size markers, preserving domain values  1915ms
+ ✓ consolidation/emptyAtomApply.test.ts (61 tests) 2004ms
+ ✓ health/ui/compactCheck.test.ts (5 tests) 1804ms
+     ✓ all 10k findings remain reachable with at most 60 rows in en  843ms
+     ✓ all 10k findings remain reachable with at most 60 rows in ru  902ms
+ ✓ consolidation/mergeApply.test.ts (66 tests) 1766ms
+ ✓ releaseSettingsDurability.test.ts (9 tests) 748ms
+     ✓ rolls back triggerMode in place without invalidating the semantic index or changing model/key  499ms
+ ✓ consolidation/multiFileApply.test.ts (46 tests) 714ms
+ ✓ semantic/semanticDiscoveryService.test.ts (45 tests) 500ms
+ ✓ studio/markdownCreate.test.ts (36 tests) 846ms
+     ✓ supports the existing twenty-result limit and rejects twenty-one without generation  576ms
+ ✓ semantic/semanticSearchModal.test.ts (67 tests) 908ms
+ ✓ health/services/healthService.test.ts (39 tests) 943ms
+ ✓ health/obsidian/healthBoundary.test.ts (5 tests) 512ms
+     ✓ has no AI/network/Companion dependencies or Markdown mutations, including transitive imports  415ms
+ ✓ consolidation/recommendationIntent.test.ts (18 tests) 920ms
+ ✓ consolidation/structuralArchiveApplyModal.test.ts (12 tests) 668ms
+ ✓ connectSettings.test.ts (21 tests) 675ms
+ ✓ semanticSettings.test.ts (14 tests) 693ms
+     ✓ upgrades Decisions disabled and rolls failed Decisions saves back without changing other capabilities  368ms
+ ✓ consolidation/emptyAtomIntegration.test.ts (23 tests) 489ms
+ ✓ taxonomySettings.test.ts (15 tests) 514ms
+ ✓ tests/consolidationEvaluation.test.ts (14 tests) 678ms
+ ✓ health/obsidian/healthPluginController.test.ts (25 tests) 793ms
+ ✓ releaseCompatibility.test.ts (7 tests) 662ms
+   ✓ loads retained 1.7.0 settings from data.json without clearing existing values  440ms
+ ✓ health/workbench/reviewFacts.test.ts (5 tests) 724ms
+ ✓ consolidation/safeApply.test.ts (118 tests) 623ms
+ ✓ mocPreparation.test.ts (12 tests) 502ms
+     ✓ cancel performs no folder/file writes or requests  429ms
+ ✓ semantic/semanticConcurrency.integration.test.ts (119 tests) 787ms
+ ✓ toolsLaunchers.test.ts (3 tests) 663ms
+     ✓ launches the exact batch and audit modals, existing RAG controller, MOC generator and legacy report once  650ms
+ ✓ consolidation/archivePlannerModalV2.test.ts (12 tests) 609ms
+ ✓ recall/authoring.test.ts (41 tests) 527ms
+ ✓ mainMenus.test.ts (2 tests) 642ms
+   ✓ keeps all six context actions using only public menu methods  630ms
+ ✓ studio/workflow.test.ts (79 tests) 518ms
+ ✓ recall/source/obsidianRecallSource.test.ts (24 tests) 242ms
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":147.461726,"layoutMs":12.793845000000033}}
+ ✓ health/topology/topology.test.ts (13 tests) 382ms
+ ✓ consolidation/multiFilePlannerView.test.ts (4 tests) 392ms
+ ✓ api.test.ts (51 tests) 359ms
+ ✓ indexing/indexingService.test.ts (151 tests) 223ms
+ ✓ consolidation/contextBundlePlan.test.ts (65 tests) 305ms
+ ✓ consolidation/archivePlan.test.ts (35 tests) 370ms
+ ✓ consolidation/mergePlannerView.test.ts (5 tests) 348ms
+ ✓ semantic/obsidianSemanticController.test.ts (35 tests) 352ms
+ ✓ consolidation/groupPlan.test.ts (51 tests) 314ms
+ ✓ deep/health/deepHealthAnalysisAdapter.test.ts (31 tests) 320ms
+ ✓ deep/health/deepHealthScan.test.ts (16 tests) 342ms
+ ✓ decisions/overlapSession.test.ts (21 tests) 295ms
+ ✓ consolidation/registryApply.test.ts (23 tests) 235ms
+ ✓ rerank/refinedSearch.test.ts (14 tests) 93ms
+ ✓ health/workbench/reviewListView.test.ts (17 tests) 259ms
+ ✓ settings.test.ts (15 tests) 249ms
+ ✓ consolidation/archiveApplyModal.test.ts (4 tests) 314ms
+ ✓ consolidation/atomizationSession.test.ts (18 tests) 238ms
+ ✓ recall/boundary.test.ts (2 tests) 211ms
+ ✓ consolidation/atomizationPlannerView.test.ts (2 tests) 229ms
+ ✓ version-bump.test.ts (4 tests) 225ms
+ ✓ vectorStore/localVectorStore.test.ts (178 tests) 250ms
+ ✓ consolidation/localNoteApply.test.ts (23 tests) 202ms
+ ✓ health/analyzers/local/groupAnalyzers.test.ts (28 tests) 195ms
+ ✓ recall/generatorContract.test.ts (4 tests) 147ms
+ ✓ health/workbench/workbenchNavigation.test.ts (16 tests) 204ms
+ ✓ health/workbench/workbenchModel.test.ts (18 tests) 177ms
+ ✓ health/services/semanticHealthScan.test.ts (27 tests) 143ms
+ ✓ consolidation/organizationAudit.test.ts (14 tests) 150ms
+ ✓ recall/parser/markdownFlashcards.test.ts (46 tests) 177ms
+ ✓ health/analyzers/local/localScanCoordinator.test.ts (11 tests) 186ms
+ ✓ recall/product/noteEvents.test.ts (8 tests) 166ms
+ ✓ health/store/persistence.test.ts (61 tests) 58ms
+ ✓ health/connections/deriveConnectionComparison.test.ts (26 tests) 146ms
+ ✓ studio/community/community.test.ts (50 tests) 142ms
+ ✓ consolidation/groupPlannerView.test.ts (3 tests) 152ms
+ ✓ health/workbench/workbenchVisual.test.ts (17 tests) 178ms
+ ✓ studio/markdownCompletion.test.ts (42 tests) 162ms
+ ✓ proposals/reviewModal.test.ts (21 tests) 77ms
+ ✓ consolidation/contextBundlePlannerView.test.ts (2 tests) 130ms
+ ✓ health/analyzers/local/obsidianLocalVaultSource.test.ts (15 tests) 64ms
+ ✓ health/analyzers/local/structuralAnalyzers.test.ts (18 tests) 105ms
+ ✓ recall/services/recallService.test.ts (31 tests) 86ms
+ ✓ recall/store/migration.test.ts (101 tests) 81ms
+ ✓ consolidation/atomizationPlan.test.ts (67 tests) 57ms
+ ✓ recall/topicsVocabulary.test.ts (26 tests) 65ms
+ ✓ consolidation/desktopExclusiveCreate.test.ts (24 tests) 82ms
+ ✓ health/topology/vaultTopologyController.test.ts (6 tests) 106ms
+ ✓ health/connections/connectionComparisonController.test.ts (19 tests) 105ms
+ ✓ consolidation/relationshipSession.test.ts (84 tests) 106ms
+ ✓ consolidation/groupApplyModal.test.ts (5 tests) 74ms
+ ✓ semantic/product/semanticProductBoundary.test.ts (2 tests) 94ms
+ ✓ recall/product/recallProductController.test.ts (19 tests) 62ms
+ ✓ consolidation/bundleApplyModal.test.ts (5 tests) 74ms
+ ✓ chunking/outboundText.test.ts (39 tests) 86ms
+ ✓ consolidation/mergePlan.test.ts (69 tests) 114ms
+ ✓ consolidation/emptyAtomApplyModal.test.ts (7 tests) 76ms
+ ✓ health/ui/healthDashboardModel.test.ts (20 tests) 53ms
+ ✓ studio/community/transport.test.ts (13 tests) 53ms
+ ✓ atomization/generativeSession.test.ts (27 tests) 42ms
+ ✓ consolidation/archivePlannerModal.test.ts (9 tests) 56ms
+ ✓ consolidation/tagRecommendationSession.test.ts (37 tests) 57ms
+ ✓ recall/store/schemaV3.test.ts (35 tests) 69ms
+ ✓ consolidation/multiFilePlan.test.ts (64 tests) 42ms
+ ✓ consolidation/mergeApplyModal.test.ts (5 tests) 76ms
+ ✓ consolidation/multiFileApplyModal.test.ts (4 tests) 74ms
+ ✓ semantic/product/semanticGlobalMapController.test.ts (65 tests) 67ms
+ ✓ health/services/nextActions.test.ts (6 tests) 27ms
+ ✓ studio/retiredDiagrams.test.ts (5 tests) 16ms
+ ✓ recall/store/sourceOwnership.test.ts (10 tests) 59ms
+ ✓ recall/scheduler/fsrs6.test.ts (94 tests) 74ms
+ ✓ health/workspace/vaultScope.test.ts (15 tests) 48ms
+ ✓ companionSync/service.test.ts (17 tests) 40ms
+ ✓ consolidation/safeApplyModal.test.ts (10 tests) 38ms
+ ✓ connect/connectBoundary.test.ts (2 tests) 45ms
+ ✓ rag/ragModal.test.ts (20 tests) 49ms
+ ✓ health/ui/healthOnboardingViewModel.test.ts (12 tests) 37ms
+ ✓ health/store/migration.test.ts (28 tests) 38ms
+ ✓ health/store/healthStorage.test.ts (14 tests) 19ms
+ ✓ health/connections/connectionComparisonViewState.test.ts (7 tests) 57ms
+ ✓ semantic/product/semanticIntelligenceController.test.ts (33 tests) 29ms
+ ✓ consolidation/obsidianAtomization.test.ts (38 tests) 32ms
+ ✓ health/ui/findingsInboxViewModel.test.ts (21 tests) 44ms
+ ✓ deep/product/deepProductBoundary.test.ts (2 tests) 42ms
+ ✓ consolidation/localNoteModal.test.ts (13 tests) 22ms
+ ✓ health/store/findingStore.test.ts (22 tests) 34ms
+ ✓ health/analyzers/local/localVaultRevision.test.ts (8 tests) 46ms
+ ✓ rerank/openRouterRerank.test.ts (52 tests) 44ms
+ ✓ health/workbench/workbenchFamilies.test.ts (21 tests) 38ms
+ ✓ semantic/semanticRuntime.test.ts (20 tests) 52ms
+ ✓ consolidation/changePlan.test.ts (50 tests) 33ms
+ ✓ consolidation/registryPlan.test.ts (20 tests) 25ms
+ ✓ consolidation/tagRecommendationContract.test.ts (32 tests) 24ms
+ ✓ decisions/openRouterDecisions.test.ts (23 tests) 26ms
+ ✓ health/services/recallHealth.test.ts (10 tests) 32ms
+ ✓ health/store/reconcileBatch.test.ts (13 tests) 36ms
+ ✓ recall/generation.test.ts (26 tests) 26ms
+ ✓ consolidation/relationshipEvidence.test.ts (28 tests) 31ms
+ ✓ proposals/application.test.ts (32 tests) 32ms
+ ✓ studio/registry.test.ts (10 tests) 27ms
+ ✓ consolidation/reviewDecisions.test.ts (7 tests) 40ms
+ ✓ semantic/semanticAutoSync.test.ts (17 tests) 42ms
+ ✓ semantic/product/semanticNeighborhoodController.test.ts (37 tests) 27ms
+ ✓ deep/auditModeViewModel.test.ts (5 tests) 19ms
+ ✓ consolidation/taxonomyScan.test.ts (9 tests) 32ms
+ ✓ health/workbench/workbenchNoteSearch.test.ts (5 tests) 25ms
+ ✓ recall/store/obsidianRecallStorage.test.ts (14 tests) 18ms
+ ✓ recall/store/recallStore.test.ts (11 tests) 30ms
+ ✓ consolidation/organizationDecisions.test.ts (14 tests) 23ms
+ ✓ embeddings/embeddings.test.ts (28 tests) 26ms
+ ✓ recall/store/review.test.ts (12 tests) 34ms
+ ✓ consolidation/relationshipContract.test.ts (40 tests) 27ms
+ ✓ connect/connectController.test.ts (27 tests) 20ms
+ ✓ semantic/health/semanticHealthBoundary.test.ts (1 test) 25ms
+ ✓ consolidation/finalReview.test.ts (8 tests) 21ms
+ ✓ consolidation/localNotePlan.test.ts (36 tests) 23ms
+ ✓ rag/ragContextBuilder.test.ts (20 tests) 23ms
+ ✓ recall/store/codec.test.ts (30 tests) 21ms
+ ✓ studio/documentEnvelope.test.ts (18 tests) 27ms
+ ✓ health/ui/semanticNeighborhoodLayout.test.ts (5 tests) 25ms
+ ✓ rag/ragService.test.ts (15 tests) 15ms
+ ✓ studio/preservationChecks.test.ts (6 tests) 24ms
+ ✓ consolidation/organizationRegistry.test.ts (11 tests) 26ms
+ ✓ semantic/health/semanticHealthAnalysisAdapter.test.ts (42 tests) 24ms
+ ✓ health/workbench/workbenchR06.test.ts (7 tests) 22ms
+ ✓ health/ui/healthHomeViewModel.test.ts (19 tests) 13ms
+ ✓ health/services/healthAggregation.test.ts (36 tests) 22ms
+ ✓ consolidation/localLinkModal.test.ts (3 tests) 24ms
+ ✓ consolidation/registryModal.test.ts (5 tests) 21ms
+ ✓ deep/product/deepIntelligenceController.test.ts (32 tests) 24ms
+ ✓ health/ui/findingEvidencePresentation.test.ts (24 tests) 22ms
+ ✓ health/ui/recallHealthViewModel.test.ts (17 tests) 15ms
+ ✓ rag/ragController.integration.test.ts (9 tests) 199ms
+ ✓ consolidation/pairSnapshot.test.ts (16 tests) 32ms
+ ✓ health/obsidian/healthRecovery.test.ts (8 tests) 18ms
+ ✓ recall/product/recallHealthAdapter.test.ts (3 tests) 31ms
+ ✓ proposals/obsidianVault.test.ts (5 tests) 19ms
+ ✓ companionSync/client.test.ts (9 tests) 27ms
+ ✓ semantic/semanticStoreRegistry.test.ts (10 tests) 23ms
+ ✓ recall/product/recallRecovery.test.ts (8 tests) 26ms
+ ✓ consolidation/organizationProfile.test.ts (10 tests) 26ms
+ ✓ health/ui/findingPresentation.test.ts (12 tests) 20ms
+ ✓ semantic/semanticSearchService.test.ts (30 tests) 25ms
+ ✓ health/connections/connectionRules.test.ts (5 tests) 16ms
+ ✓ vectorStore/localVectorStoreDescriptor.test.ts (6 tests) 20ms
+ ✓ consolidation/recommendationPreflight.test.ts (8 tests) 20ms
+ ✓ health/ui/discoverViewModel.test.ts (10 tests) 17ms
+ ✓ studio/evaluation/offline.test.ts (6 tests) 22ms
+ ✓ health/obsidian/connectionRules.test.ts (2 tests) 18ms
+ ✓ noteWrites.test.ts (8 tests) 18ms
+ ✓ recall/domain/identity.test.ts (15 tests) 25ms
+ ✓ companionSync/protocolContract.test.ts (2 tests) 13ms
+ ✓ health/workbench/workbenchStructure.test.ts (3 tests) 19ms
+ ✓ health/ui/semanticIntelligenceViewModel.test.ts (10 tests) 13ms
+ ✓ consolidation/taxonomyProfile.test.ts (12 tests) 13ms
+ ✓ health/domain/reconciliation.test.ts (35 tests) 18ms
+ ✓ health/store/codec.test.ts (17 tests) 16ms
+ ✓ studio/providerError.test.ts (9 tests) 12ms
+ ✓ consolidation/taxonomySession.test.ts (4 tests) 17ms
+ ✓ health/ui/workspaceNavigation.test.ts (4 tests) 12ms
+ ✓ studio/recipe.test.ts (24 tests) 24ms
+ ✓ health/domain/identity.test.ts (19 tests) 20ms
+ ✓ companionSync/proposalTypes.test.ts (25 tests) 12ms
+ ✓ health/preferences.test.ts (13 tests) 16ms
+ ✓ studio/messages.test.ts (10 tests) 9ms
+ ✓ rag/ragPrompt.test.ts (6 tests) 12ms
+ ✓ semantic/asyncReadWriteBarrier.test.ts (8 tests) 14ms
+ ✓ semantic/semanticSettingsControls.test.ts (5 tests) 12ms
+ ✓ health/ui/bindGraphViewport.test.ts (2 tests) 9ms
+ ✓ consolidation/workbenchMetadata.test.ts (3 tests) 10ms
+ ✓ consolidation/tagRecommendationView.test.ts (3 tests) 8ms
+ ✓ companionSync/settings.test.ts (4 tests) 9ms
+
+ Test Files  213 passed (213)
+      Tests  5428 passed (5428)
+   Start at  19:30:09
+   Duration  83.73s (transform 11.85s, setup 0ms, import 31.91s, tests 93.94s, environment 28ms)
+
+JSON report written to <checkout-root>/.worktrees/ux-evidence-local/uxc-tests-delivery.json

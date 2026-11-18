@@ -1,0 +1,568 @@
+﻿2026-11-17T06:52:38.7386525Z Current runner version: '2.338.2'
+2026-11-17T06:52:38.7423532Z ##[group]Runner Image Provisioner
+2026-11-17T06:52:38.7424590Z Hosted Compute Agent
+2026-11-17T06:52:38.7424987Z Version: 20261103.629
+2026-11-17T06:52:38.7425496Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-17T06:52:38.7425993Z Build Date: 2026-11-03T17:26:59Z
+2026-11-17T06:52:38.7426466Z Worker ID: {b723e0f4-bc0d-402e-80b5-4844fd45d043}
+2026-11-17T06:52:38.7426980Z Region: centralus
+2026-11-17T06:52:38.7427336Z Cloud: Azure
+2026-11-17T06:52:38.7427717Z ##[endgroup]
+2026-11-17T06:52:38.7428700Z ##[group]Operating System
+2026-11-17T06:52:38.7429112Z Ubuntu
+2026-11-17T06:52:38.7429481Z 26.04.1
+2026-11-17T06:52:38.7429987Z LTS
+2026-11-17T06:52:38.7430411Z ##[endgroup]
+2026-11-17T06:52:38.7430775Z ##[group]Runner Image
+2026-11-17T06:52:38.7431324Z Image: ubuntu-26.04
+2026-11-17T06:52:38.7431788Z Version: 20261111.196.1
+2026-11-17T06:52:38.7432680Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-17T06:52:38.7433718Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+2026-11-17T06:52:38.7434607Z ##[endgroup]
+2026-11-17T06:52:38.7435423Z ##[group]GITHUB_TOKEN Permissions
+2026-11-17T06:52:38.7437040Z Contents: read
+2026-11-17T06:52:38.7437523Z Metadata: read
+2026-11-17T06:52:38.7437895Z ##[endgroup]
+2026-11-17T06:52:38.7439798Z Secret source: Actions
+2026-11-17T06:52:38.7440447Z Cache mode: write
+2026-11-17T06:52:38.7441079Z Prepare workflow directory
+2026-11-17T06:52:38.7688287Z Prepare all required actions
+2026-11-17T06:52:38.7723805Z Getting action download info
+2026-11-17T06:52:38.9970344Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-17T06:52:39.1234639Z Download action repository 'actions/setup-node@820762786026740c76f36085b0efc47a31fe5020' (SHA:820762786026740c76f36085b0efc47a31fe5020)
+2026-11-17T06:52:39.2549218Z Download action repository 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a' (SHA:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a)
+2026-11-17T06:52:39.4583568Z Complete job name: verify
+2026-11-17T06:52:39.5297349Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-11-17T06:52:39.5298528Z with:
+2026-11-17T06:52:39.5298935Z   repository: zinverno/veynrel
+2026-11-17T06:52:39.5302303Z   token: ***
+2026-11-17T06:52:39.5302850Z   ssh-strict: true
+2026-11-17T06:52:39.5303275Z   ssh-user: git
+2026-11-17T06:52:39.5303683Z   persist-credentials: true
+2026-11-17T06:52:39.5304466Z   clean: true
+2026-11-17T06:52:39.5304927Z   sparse-checkout-cone-mode: true
+2026-11-17T06:52:39.5305390Z   fetch-depth: 1
+2026-11-17T06:52:39.5305808Z   fetch-tags: false
+2026-11-17T06:52:39.5306254Z   show-progress: true
+2026-11-17T06:52:39.5306656Z   lfs: false
+2026-11-17T06:52:39.5307063Z   submodules: false
+2026-11-17T06:52:39.5307496Z   set-safe-directory: true
+2026-11-17T06:52:39.5307954Z   allow-unsafe-pr-checkout: false
+2026-11-17T06:52:39.5308676Z ##[endgroup]
+2026-11-17T06:52:39.7702061Z Syncing repository: zinverno/veynrel
+2026-11-17T06:52:39.7704564Z ##[group]Getting Git version info
+2026-11-17T06:52:39.7705606Z Working directory is '/home/runner/work/veynrel/veynrel'
+2026-11-17T06:52:39.7706922Z [command]/usr/bin/git version
+2026-11-17T06:52:39.7715234Z git version 2.56.1
+2026-11-17T06:52:39.7725761Z ##[endgroup]
+2026-11-17T06:52:39.7747551Z Temporarily overriding HOME='/home/runner/work/_temp/c421c52a-c0f6-4df8-ac62-691238cd5a56' before making global git config changes
+2026-11-17T06:52:39.7749656Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T06:52:39.7752867Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/veynrel/veynrel
+2026-11-17T06:52:39.7840002Z Deleting the contents of '/home/runner/work/veynrel/veynrel'
+2026-11-17T06:52:39.7841518Z ##[group]Determining repository object format
+2026-11-17T06:52:39.7847039Z ##[endgroup]
+2026-11-17T06:52:39.7849650Z ##[group]Initializing the repository
+2026-11-17T06:52:39.7850795Z [command]/usr/bin/git init /home/runner/work/veynrel/veynrel
+2026-11-17T06:52:39.7926812Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T06:52:39.7928984Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T06:52:39.7930350Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T06:52:39.7931682Z hint: call:
+2026-11-17T06:52:39.7932458Z hint:
+2026-11-17T06:52:39.7933488Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T06:52:39.7937655Z hint:
+2026-11-17T06:52:39.7938836Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T06:52:39.7940056Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T06:52:39.7941115Z hint:
+2026-11-17T06:52:39.7941725Z hint: 	git branch -m <name>
+2026-11-17T06:52:39.7942483Z hint:
+2026-11-17T06:52:39.7943357Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T06:52:39.7945049Z Initialized empty Git repository in /home/runner/work/veynrel/veynrel/.git/
+2026-11-17T06:52:39.7951322Z [command]/usr/bin/git remote add origin https://github.com/zinverno/veynrel
+2026-11-17T06:52:39.8011107Z ##[endgroup]
+2026-11-17T06:52:39.8012383Z ##[group]Disabling automatic garbage collection
+2026-11-17T06:52:39.8015689Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T06:52:39.8057482Z ##[endgroup]
+2026-11-17T06:52:39.8059000Z ##[group]Setting up auth
+2026-11-17T06:52:39.8059837Z Removing SSH command configuration
+2026-11-17T06:52:39.8063006Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T06:52:39.8096230Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T06:52:39.8442200Z Removing HTTP extra header
+2026-11-17T06:52:39.8447279Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T06:52:39.8479828Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T06:52:39.8683025Z Removing includeIf entries pointing to credentials config files
+2026-11-17T06:52:39.8688184Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T06:52:39.8711965Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T06:52:39.8898413Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T06:52:39.8927616Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/veynrel/veynrel/.git.path /home/runner/work/_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:52:39.8952208Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/veynrel/veynrel/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:52:39.8979396Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:52:39.9002841Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:52:39.9024715Z ##[endgroup]
+2026-11-17T06:52:39.9025450Z ##[group]Fetching the repository
+2026-11-17T06:52:39.9029781Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8c59d5e4a68631b60fae720fecf9118339483c84:refs/remotes/pull/157/merge
+2026-11-17T06:52:54.5448195Z From https://github.com/zinverno/veynrel
+2026-11-17T06:52:54.5450234Z  * [new ref]         8c59d5e4a68631b60fae720fecf9118339483c84 -> pull/157/merge
+2026-11-17T06:52:54.5455404Z ##[endgroup]
+2026-11-17T06:52:54.5456686Z ##[group]Determining the checkout info
+2026-11-17T06:52:54.5457905Z ##[endgroup]
+2026-11-17T06:52:54.5458644Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T06:52:54.5504411Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T06:52:54.5530121Z ##[group]Checking out the ref
+2026-11-17T06:52:54.5532387Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/157/merge
+2026-11-17T06:52:55.5621404Z Updating files:  45% (3683/8013)
+2026-11-17T06:52:55.5875202Z Updating files:  46% (3686/8013)
+2026-11-17T06:52:55.6123437Z Updating files:  47% (3767/8013)
+2026-11-17T06:52:55.6219887Z Updating files:  48% (3847/8013)
+2026-11-17T06:52:55.6285191Z Updating files:  49% (3927/8013)
+2026-11-17T06:52:55.6314749Z Updating files:  50% (4007/8013)
+2026-11-17T06:52:55.6522893Z Updating files:  51% (4087/8013)
+2026-11-17T06:52:55.6621869Z Updating files:  52% (4167/8013)
+2026-11-17T06:52:55.6850505Z Updating files:  53% (4247/8013)
+2026-11-17T06:52:55.6973002Z Updating files:  54% (4328/8013)
+2026-11-17T06:52:55.7123709Z Updating files:  55% (4408/8013)
+2026-11-17T06:52:55.7205380Z Updating files:  56% (4488/8013)
+2026-11-17T06:52:55.7328767Z Updating files:  57% (4568/8013)
+2026-11-17T06:52:55.7483533Z Updating files:  58% (4648/8013)
+2026-11-17T06:52:55.7555860Z Updating files:  59% (4728/8013)
+2026-11-17T06:52:55.7609442Z Updating files:  60% (4808/8013)
+2026-11-17T06:52:55.7699496Z Updating files:  61% (4888/8013)
+2026-11-17T06:52:55.7860671Z Updating files:  62% (4969/8013)
+2026-11-17T06:52:55.8077190Z Updating files:  63% (5049/8013)
+2026-11-17T06:52:55.8335887Z Updating files:  64% (5129/8013)
+2026-11-17T06:52:55.8481027Z Updating files:  65% (5209/8013)
+2026-11-17T06:52:55.8810625Z Updating files:  66% (5289/8013)
+2026-11-17T06:52:55.8956296Z Updating files:  67% (5369/8013)
+2026-11-17T06:52:55.9192584Z Updating files:  68% (5449/8013)
+2026-11-17T06:52:55.9383226Z Updating files:  69% (5529/8013)
+2026-11-17T06:52:55.9612129Z Updating files:  70% (5610/8013)
+2026-11-17T06:52:55.9885419Z Updating files:  71% (5690/8013)
+2026-11-17T06:52:56.0124414Z Updating files:  72% (5770/8013)
+2026-11-17T06:52:56.0291160Z Updating files:  73% (5850/8013)
+2026-11-17T06:52:56.0489853Z Updating files:  74% (5930/8013)
+2026-11-17T06:52:56.0804247Z Updating files:  75% (6010/8013)
+2026-11-17T06:52:56.1222527Z Updating files:  76% (6090/8013)
+2026-11-17T06:52:56.1540722Z Updating files:  77% (6171/8013)
+2026-11-17T06:52:56.1735772Z Updating files:  78% (6251/8013)
+2026-11-17T06:52:56.1912594Z Updating files:  79% (6331/8013)
+2026-11-17T06:52:56.2263519Z Updating files:  80% (6411/8013)
+2026-11-17T06:52:56.2551911Z Updating files:  81% (6491/8013)
+2026-11-17T06:52:56.2745830Z Updating files:  82% (6571/8013)
+2026-11-17T06:52:56.2898028Z Updating files:  83% (6651/8013)
+2026-11-17T06:52:56.3010648Z Updating files:  84% (6731/8013)
+2026-11-17T06:52:56.3143531Z Updating files:  85% (6812/8013)
+2026-11-17T06:52:56.3341398Z Updating files:  86% (6892/8013)
+2026-11-17T06:52:56.3621890Z Updating files:  87% (6972/8013)
+2026-11-17T06:52:56.3810678Z Updating files:  88% (7052/8013)
+2026-11-17T06:52:56.4003988Z Updating files:  89% (7132/8013)
+2026-11-17T06:52:56.4069521Z Updating files:  90% (7212/8013)
+2026-11-17T06:52:56.4094440Z Updating files:  91% (7292/8013)
+2026-11-17T06:52:56.4126467Z Updating files:  92% (7372/8013)
+2026-11-17T06:52:56.4185024Z Updating files:  93% (7453/8013)
+2026-11-17T06:52:56.4222898Z Updating files:  94% (7533/8013)
+2026-11-17T06:52:56.4266221Z Updating files:  95% (7613/8013)
+2026-11-17T06:52:56.4307998Z Updating files:  96% (7693/8013)
+2026-11-17T06:52:56.4345102Z Updating files:  97% (7773/8013)
+2026-11-17T06:52:56.4377856Z Updating files:  98% (7853/8013)
+2026-11-17T06:52:56.4398431Z Updating files:  99% (7933/8013)
+2026-11-17T06:52:56.4399063Z Updating files: 100% (8013/8013)
+2026-11-17T06:52:56.4399473Z Updating files: 100% (8013/8013), done.
+2026-11-17T06:52:56.4457774Z Note: switching to 'refs/remotes/pull/157/merge'.
+2026-11-17T06:52:56.4458088Z 
+2026-11-17T06:52:56.4458319Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-17T06:52:56.4458806Z changes and commit them, and you can discard any commits you make in this
+2026-11-17T06:52:56.4459442Z state without impacting any branches by switching back to a branch.
+2026-11-17T06:52:56.4459672Z 
+2026-11-17T06:52:56.4459857Z If you want to create a new branch to retain commits you create, you may
+2026-11-17T06:52:56.4460373Z do so (now or later) by using -c with the switch command. Example:
+2026-11-17T06:52:56.4460652Z 
+2026-11-17T06:52:56.4460757Z   git switch -c <new-branch-name>
+2026-11-17T06:52:56.4460929Z 
+2026-11-17T06:52:56.4461076Z Or undo this operation with:
+2026-11-17T06:52:56.4461321Z 
+2026-11-17T06:52:56.4461405Z   git switch -
+2026-11-17T06:52:56.4461541Z 
+2026-11-17T06:52:56.4461752Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-17T06:52:56.4461999Z 
+2026-11-17T06:52:56.4462327Z HEAD is now at 8c59d5e Merge 5cd8089c1bbcbf166fbba1660b592dd80c2d3ff6 into 8870ffc8171199c971a60646761494cab0244eff
+2026-11-17T06:52:56.4532047Z ##[endgroup]
+2026-11-17T06:52:56.4577364Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T06:52:56.4598850Z 8c59d5e4a68631b60fae720fecf9118339483c84
+2026-11-17T06:52:56.4855746Z ##[group]Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+2026-11-17T06:52:56.4856140Z with:
+2026-11-17T06:52:56.4856384Z   node-version: 24
+2026-11-17T06:52:56.4856610Z   cache: npm
+2026-11-17T06:52:56.4856893Z   check-latest: false
+2026-11-17T06:52:56.4859193Z   token: ***
+2026-11-17T06:52:56.4859479Z   package-manager-cache: true
+2026-11-17T06:52:56.4859751Z ##[endgroup]
+2026-11-17T06:52:56.6238479Z Found in cache @ /opt/hostedtoolcache/node/24.22.2/x64
+2026-11-17T06:52:56.6240813Z ##[group]Environment details
+2026-11-17T06:52:59.6961068Z node: v24.22.2
+2026-11-17T06:52:59.6961483Z npm: 11.19.1
+2026-11-17T06:52:59.6961731Z yarn: 1.22.22
+2026-11-17T06:52:59.6964018Z ##[endgroup]
+2026-11-17T06:52:59.6978765Z [command]/opt/hostedtoolcache/node/24.22.2/x64/bin/npm config get cache
+2026-11-17T06:52:59.9210706Z /home/runner/.npm
+2026-11-17T06:53:00.0650001Z Cache hit for: node-cache-Linux-x64-npm-52b79707b1545bc1a3fd04710426fd8f707b3402d53ea3dd538be7e2e0fcd03e
+2026-11-17T06:53:01.1708217Z Received 75134284 of 75134284 (100.0%), 77.4 MBs/sec
+2026-11-17T06:53:01.1708740Z Cache Size: ~72 MB (75134284 B)
+2026-11-17T06:53:01.1771616Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e4bc3696-ee88-4818-aad7-94dec253a353/cache.tzst -P -C /home/runner/work/veynrel/veynrel --use-compress-program unzstd
+2026-11-17T06:53:01.3881544Z Cache restored successfully
+2026-11-17T06:53:01.3912598Z Cache restored from key: node-cache-Linux-x64-npm-52b79707b1545bc1a3fd04710426fd8f707b3402d53ea3dd538be7e2e0fcd03e
+2026-11-17T06:53:01.4075404Z ##[group]Run npm ci
+2026-11-17T06:53:01.4075816Z [36;1mnpm ci[0m
+2026-11-17T06:53:01.4169789Z shell: /usr/bin/bash -e {0}
+2026-11-17T06:53:01.4170265Z ##[endgroup]
+2026-11-17T06:53:40.6046730Z 
+2026-11-17T06:53:40.6054860Z added 354 packages, and audited 355 packages in 39s
+2026-11-17T06:53:40.6055184Z 
+2026-11-17T06:53:40.6055379Z 159 packages are looking for funding
+2026-11-17T06:53:40.6055746Z   run `npm fund` for details
+2026-11-17T06:53:40.7334770Z 
+2026-11-17T06:53:40.7335777Z 23 vulnerabilities (17 moderate, 6 high)
+2026-11-17T06:53:40.7336034Z 
+2026-11-17T06:53:40.7336539Z To address issues that do not require attention, run:
+2026-11-17T06:53:40.7336897Z   npm audit fix
+2026-11-17T06:53:40.7337055Z 
+2026-11-17T06:53:40.7337270Z To address all issues (including breaking changes), run:
+2026-11-17T06:53:40.7337626Z   npm audit fix --force
+2026-11-17T06:53:40.7337786Z 
+2026-11-17T06:53:40.7337905Z Run `npm audit` for details.
+2026-11-17T06:53:40.7341657Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-11-17T06:53:40.7342248Z npm warn install-scripts   esbuild@0.19.11 (postinstall: node install.js)
+2026-11-17T06:53:40.7342601Z npm warn install-scripts
+2026-11-17T06:53:40.7343082Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-11-17T06:53:40.7808032Z ##[group]Run npm test
+2026-11-17T06:53:40.7808336Z [36;1mnpm test[0m
+2026-11-17T06:53:40.7838397Z shell: /usr/bin/bash -e {0}
+2026-11-17T06:53:40.7838716Z ##[endgroup]
+2026-11-17T06:53:40.8693024Z 
+2026-11-17T06:53:40.8694797Z > obsidian-ai-hub@2.4.0 test
+2026-11-17T06:53:40.8695642Z > vitest run
+2026-11-17T06:53:40.8695956Z 
+2026-11-17T06:53:41.0582849Z 
+2026-11-17T06:53:41.0586424Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/home/runner/work/veynrel/veynrel[39m
+2026-11-17T06:53:41.0586884Z 
+2026-11-17T06:53:41.8522984Z  [32m✓[39m vectorStore/localVectorStore.test.ts [2m([22m[2m178 tests[22m[2m)[22m[32m 143[2mms[22m[39m
+2026-11-17T06:53:42.2899567Z  [32m✓[39m indexing/indexingService.test.ts [2m([22m[2m151 tests[22m[2m)[22m[32m 115[2mms[22m[39m
+2026-11-17T06:53:43.5372210Z  [32m✓[39m semantic/semanticConcurrency.integration.test.ts [2m([22m[2m119 tests[22m[2m)[22m[33m 349[2mms[22m[39m
+2026-11-17T06:53:43.6593622Z  [32m✓[39m semantic/semanticSearchModal.test.ts [2m([22m[2m68 tests[22m[2m)[22m[33m 1109[2mms[22m[39m
+2026-11-17T06:53:43.6595779Z      [33m[2m✓[22m[39m explicit leave saves the shown versions and closes, without any analysis or Markdown write [33m 420[2mms[22m[39m
+2026-11-17T06:53:44.2451012Z  [32m✓[39m consolidation/safeApply.test.ts [2m([22m[2m118 tests[22m[2m)[22m[33m 412[2mms[22m[39m
+2026-11-17T06:53:45.9656788Z  [32m✓[39m chunking/markdownChunker.test.ts [2m([22m[2m105 tests[22m[2m)[22m[33m 1598[2mms[22m[39m
+2026-11-17T06:53:45.9669194Z      [33m[2m✓[22m[39m enforces maxChars=2 across adversarial constructs and huge breadcrumbs [33m 646[2mms[22m[39m
+2026-11-17T06:53:45.9670199Z      [33m[2m✓[22m[39m enforces maxChars=4 across adversarial constructs and huge breadcrumbs [33m 381[2mms[22m[39m
+2026-11-17T06:53:46.4429094Z  [32m✓[39m semantic/semanticDiscoveryService.test.ts [2m([22m[2m45 tests[22m[2m)[22m[33m 331[2mms[22m[39m
+2026-11-17T06:53:46.9273397Z  [32m✓[39m health/ui/VeynrelHealthView.test.ts [2m([22m[2m169 tests[22m[2m)[22m[33m 3850[2mms[22m[39m
+2026-11-17T06:53:47.0031047Z  [32m✓[39m studio/workflow.test.ts [2m([22m[2m79 tests[22m[2m)[22m[32m 273[2mms[22m[39m
+2026-11-17T06:53:47.4369127Z  [32m✓[39m health/ui/recallView.test.ts [2m([22m[2m58 tests[22m[2m)[22m[33m 3438[2mms[22m[39m
+2026-11-17T06:53:48.0412744Z  [32m✓[39m health/services/healthService.test.ts [2m([22m[2m39 tests[22m[2m)[22m[33m 869[2mms[22m[39m
+2026-11-17T06:53:48.3153638Z  [32m✓[39m consolidation/mergeApply.test.ts [2m([22m[2m66 tests[22m[2m)[22m[33m 1130[2mms[22m[39m
+2026-11-17T06:53:48.5261396Z  [32m✓[39m rag/ragModal.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+2026-11-17T06:53:48.7236731Z  [32m✓[39m semantic/obsidianSemanticController.test.ts [2m([22m[2m35 tests[22m[2m)[22m[33m 301[2mms[22m[39m
+2026-11-17T06:53:49.2403178Z  [32m✓[39m api.test.ts [2m([22m[2m51 tests[22m[2m)[22m[33m 318[2mms[22m[39m
+2026-11-17T06:53:49.3626537Z  [32m✓[39m recall/authoring.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 276[2mms[22m[39m
+2026-11-17T06:53:49.6503646Z  [32m✓[39m consolidation/relationshipSession.test.ts [2m([22m[2m84 tests[22m[2m)[22m[32m 81[2mms[22m[39m
+2026-11-17T06:53:49.8547864Z  [32m✓[39m semantic/product/semanticGlobalMapController.test.ts [2m([22m[2m65 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+2026-11-17T06:53:50.2076395Z  [32m✓[39m consolidation/groupApply.test.ts [2m([22m[2m74 tests[22m[2m)[22m[33m 2455[2mms[22m[39m
+2026-11-17T06:53:50.5694293Z  [32m✓[39m health/workbench/reviewListView.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 185[2mms[22m[39m
+2026-11-17T06:53:50.9389641Z  [32m✓[39m studio/markdownCreate.test.ts [2m([22m[2m36 tests[22m[2m)[22m[33m 770[2mms[22m[39m
+2026-11-17T06:53:50.9391621Z      [33m[2m✓[22m[39m supports the existing twenty-result limit and rejects twenty-one without generation [33m 590[2mms[22m[39m
+2026-11-17T06:53:51.1375449Z  [32m✓[39m recall/services/recallService.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+2026-11-17T06:53:51.5859972Z  [32m✓[39m consolidation/multiFileApply.test.ts [2m([22m[2m46 tests[22m[2m)[22m[33m 765[2mms[22m[39m
+2026-11-17T06:53:52.6384796Z  [32m✓[39m consolidation/bundleApply.test.ts [2m([22m[2m48 tests[22m[2m)[22m[33m 1231[2mms[22m[39m
+2026-11-17T06:53:53.5130712Z  [32m✓[39m health/obsidian/healthPluginController.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 675[2mms[22m[39m
+2026-11-17T06:53:54.1686308Z  [32m✓[39m consolidation/archiveApply.test.ts [2m([22m[2m51 tests[22m[2m)[22m[33m 2305[2mms[22m[39m
+2026-11-17T06:53:54.1723137Z      [33m[2m✓[22m[39m canonical 0: literal YAML, Unicode/CRLF and full restart rollback chain [33m 432[2mms[22m[39m
+2026-11-17T06:53:54.1724214Z      [33m[2m✓[22m[39m canonical 1: literal YAML, Unicode/CRLF and full restart rollback chain [33m 448[2mms[22m[39m
+2026-11-17T06:53:55.5481704Z  [32m✓[39m consolidation/consolidationUx.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 1730[2mms[22m[39m
+2026-11-17T06:53:55.5483453Z      [33m[2m✓[22m[39m group Archive Undo → history → parent Undo uses the existing real services [33m 784[2mms[22m[39m
+2026-11-17T06:53:55.5490138Z      [33m[2m✓[22m[39m bundle Archive Undo → history → parent Undo uses the existing real services [33m 462[2mms[22m[39m
+2026-11-17T06:53:55.8135792Z  [32m✓[39m chunking/outboundText.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+2026-11-17T06:53:56.4576375Z  [32m✓[39m consolidation/archivePlanV2.test.ts [2m([22m[2m93 tests[22m[2m)[22m[33m 2046[2mms[22m[39m
+2026-11-17T06:53:56.6445459Z  [32m✓[39m semantic/semanticRuntime.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-11-17T06:53:56.7846597Z  [32m✓[39m companionSync/service.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-11-17T06:53:56.9357927Z  [32m✓[39m consolidation/recommendationIntent.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 884[2mms[22m[39m
+2026-11-17T06:53:57.1255242Z  [32m✓[39m recall/topicsVocabulary.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+2026-11-17T06:53:57.3069760Z  [32m✓[39m deep/health/deepHealthScan.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 260[2mms[22m[39m
+2026-11-17T06:53:57.5528740Z  [32m✓[39m studio/community/community.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+2026-11-17T06:53:57.8265324Z  [32m✓[39m health/services/semanticHealthScan.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 113[2mms[22m[39m
+2026-11-17T06:53:57.9836405Z  [32m✓[39m proposals/reviewModal.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+2026-11-17T06:53:58.1215967Z  [32m✓[39m rag/ragContextBuilder.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:53:58.1872843Z  [32m✓[39m deepSettings.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 878[2mms[22m[39m
+2026-11-17T06:53:58.1874974Z      [33m[2m✓[22m[39m failed cloud-to-local Advanced save restores durable settings and invalidates existing consent [33m 403[2mms[22m[39m
+2026-11-17T06:53:58.4781050Z  [32m✓[39m rag/ragController.integration.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-11-17T06:53:58.6534170Z  [32m✓[39m consolidation/archivePlan.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 225[2mms[22m[39m
+2026-11-17T06:53:58.7816678Z  [32m✓[39m health/workbench/workbenchModel.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 163[2mms[22m[39m
+2026-11-17T06:53:58.8671554Z  [32m✓[39m consolidation/mergePlan.test.ts [2m([22m[2m69 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-11-17T06:53:59.0656621Z  [32m✓[39m health/store/persistence.test.ts [2m([22m[2m61 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+2026-11-17T06:53:59.2871930Z  [32m✓[39m consolidation/changePlan.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-11-17T06:54:00.0223156Z  [32m✓[39m consolidation/emptyAtomApply.test.ts [2m([22m[2m61 tests[22m[2m)[22m[33m 973[2mms[22m[39m
+2026-11-17T06:54:00.1586863Z  [32m✓[39m connectSettings.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 575[2mms[22m[39m
+2026-11-17T06:54:00.2176682Z  [32m✓[39m recall/product/recallProductController.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+2026-11-17T06:54:00.5190267Z  [32m✓[39m atomization/generativeSession.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-11-17T06:54:00.6379497Z  [32m✓[39m deep/health/deepHealthAnalysisAdapter.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 279[2mms[22m[39m
+2026-11-17T06:54:00.8495502Z  [32m✓[39m health/analyzers/local/obsidianLocalVaultSource.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+2026-11-17T06:54:01.1562034Z  [32m✓[39m settings.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 210[2mms[22m[39m
+2026-11-17T06:54:01.3726457Z  [32m✓[39m consolidation/tagRecommendationSession.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+2026-11-17T06:54:01.5934665Z  [32m✓[39m semanticSettings.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 541[2mms[22m[39m
+2026-11-17T06:54:02.0865756Z  [32m✓[39m consolidation/contextBundlePlan.test.ts [2m([22m[2m65 tests[22m[2m)[22m[32m 270[2mms[22m[39m
+2026-11-17T06:54:02.0937454Z  [32m✓[39m tests/consolidationEvaluation.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 547[2mms[22m[39m
+2026-11-17T06:54:02.2836660Z  [32m✓[39m semantic/product/semanticIntelligenceController.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-11-17T06:54:02.3195005Z  [32m✓[39m consolidation/multiFilePlan.test.ts [2m([22m[2m64 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-11-17T06:54:02.4725346Z  [32m✓[39m semantic/product/semanticNeighborhoodController.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-17T06:54:02.6154558Z  [32m✓[39m health/store/findingStore.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-11-17T06:54:02.6927570Z  [32m✓[39m consolidation/localNoteApply.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 130[2mms[22m[39m
+2026-11-17T06:54:02.7944428Z  [32m✓[39m connect/connectController.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-11-17T06:54:02.8409162Z  [32m✓[39m proposals/application.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:03.1197939Z  [32m✓[39m studio/markdownCompletion.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+2026-11-17T06:54:03.2458604Z  [32m✓[39m consolidation/groupPlan.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 265[2mms[22m[39m
+2026-11-17T06:54:03.3081975Z  [32m✓[39m health/ui/healthDashboardModel.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-11-17T06:54:03.5006696Z  [32m✓[39m rerank/refinedSearch.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+2026-11-17T06:54:03.8046827Z  [32m✓[39m health/analyzers/local/groupAnalyzers.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 161[2mms[22m[39m
+2026-11-17T06:54:03.8593230Z  [32m✓[39m releaseSettingsDurability.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 483[2mms[22m[39m
+2026-11-17T06:54:04.0592744Z  [32m✓[39m deep/product/deepIntelligenceController.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-11-17T06:54:04.3359082Z  [32m✓[39m recall/source/obsidianRecallSource.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 142[2mms[22m[39m
+2026-11-17T06:54:04.3478946Z  [32m✓[39m taxonomySettings.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 367[2mms[22m[39m
+2026-11-17T06:54:04.6503670Z  [32m✓[39m health/analyzers/local/localScanCoordinator.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 148[2mms[22m[39m
+2026-11-17T06:54:04.7398245Z  [32m✓[39m mocPreparation.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 234[2mms[22m[39m
+2026-11-17T06:54:04.8883154Z  [32m✓[39m consolidation/relationshipEvidence.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-11-17T06:54:05.0329919Z  [32m✓[39m semantic/semanticSearchService.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-11-17T06:54:05.0991040Z  [32m✓[39m consolidation/registryApply.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 188[2mms[22m[39m
+2026-11-17T06:54:05.2142555Z  [32m✓[39m health/services/healthAggregation.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-17T06:54:05.2772514Z  [32m✓[39m rerank/openRouterRerank.test.ts [2m([22m[2m52 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-11-17T06:54:05.4097626Z  [32m✓[39m consolidation/obsidianAtomization.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-11-17T06:54:05.5018610Z  [32m✓[39m health/store/migration.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-11-17T06:54:05.6804694Z  [32m✓[39m consolidation/organizationDecisions.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-11-17T06:54:05.6972723Z  [32m✓[39m consolidation/organizationAudit.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+2026-11-17T06:54:05.8514116Z  [32m✓[39m semantic/semanticAutoSync.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-11-17T06:54:05.9666002Z  [32m✓[39m health/analyzers/local/structuralAnalyzers.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 94[2mms[22m[39m
+2026-11-17T06:54:06.0395639Z  [32m✓[39m consolidation/localNoteModal.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:06.1839814Z  [32m✓[39m consolidation/safeApplyModal.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-11-17T06:54:06.3677873Z {"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":109.31548000000001,"layoutMs":6.299199999999985}}
+2026-11-17T06:54:06.4203426Z  [32m✓[39m health/connections/deriveConnectionComparison.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 111[2mms[22m[39m
+2026-11-17T06:54:06.4553201Z  [32m✓[39m health/topology/topology.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 254[2mms[22m[39m
+2026-11-17T06:54:06.6577008Z  [32m✓[39m recall/store/schemaV3.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-11-17T06:54:06.8896635Z  [32m✓[39m consolidation/desktopExclusiveCreate.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+2026-11-17T06:54:07.0325652Z  [32m✓[39m decisions/openRouterDecisions.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-11-17T06:54:07.2251461Z  [32m✓[39m health/ui/healthHomeViewModel.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-11-17T06:54:07.2486138Z  [32m✓[39m releaseCompatibility.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 438[2mms[22m[39m
+2026-11-17T06:54:07.3944913Z  [32m✓[39m recall/store/recallStore.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-11-17T06:54:07.5246916Z  [32m✓[39m health/store/reconcileBatch.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:07.7599738Z  [32m✓[39m consolidation/atomizationPlan.test.ts [2m([22m[2m67 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+2026-11-17T06:54:07.8057675Z  [32m✓[39m recall/generatorContract.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 103[2mms[22m[39m
+2026-11-17T06:54:07.9043602Z  [32m✓[39m semantic/semanticStoreRegistry.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:08.0394874Z  [32m✓[39m health/connections/connectionComparisonController.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 103[2mms[22m[39m
+2026-11-17T06:54:08.1962320Z  [32m✓[39m studio/retiredDiagrams.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-11-17T06:54:08.3846561Z  [32m✓[39m consolidation/structuralArchiveApply.test.ts [2m([22m[2m164 tests[22m[2m)[22m[33m 18812[2mms[22m[39m
+2026-11-17T06:54:08.3848329Z      [33m[2m✓[22m[39m restores both original documents through a receipt-bound secondary mtime exception [33m 477[2mms[22m[39m
+2026-11-17T06:54:08.3849206Z    [33m[2m✓[22m[39m Group H1 exact cycle with Unicode/CRLF and reverse canonical side [33m 324[2mms[22m[39m
+2026-11-17T06:54:08.3850053Z    [33m[2m✓[22m[39m Group H2 exact cycle with Unicode/CRLF and reverse canonical side [33m 338[2mms[22m[39m
+2026-11-17T06:54:08.3850957Z    [33m[2m✓[22m[39m Group H3 exact cycle with Unicode/CRLF and reverse canonical side [33m 367[2mms[22m[39m
+2026-11-17T06:54:08.3851531Z    [33m[2m✓[22m[39m Bundle - Один 🪶
+2026-11-17T06:54:08.3852126Z - Two 中文 restores exact CRLF original [33m 332[2mms[22m[39m
+2026-11-17T06:54:08.3852879Z      [33m[2m✓[22m[39m parent Undo keeps merge-operations blockers after archive restoration [33m 329[2mms[22m[39m
+2026-11-17T06:54:08.3853724Z      [33m[2m✓[22m[39m parent Undo keeps group-operations blockers after archive restoration [33m 305[2mms[22m[39m
+2026-11-17T06:54:08.4256937Z  [32m✓[39m recall/parser/markdownFlashcards.test.ts [2m([22m[2m46 tests[22m[2m)[22m[32m 118[2mms[22m[39m
+2026-11-17T06:54:08.4473482Z  [32m✓[39m decisions/overlapSession.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 279[2mms[22m[39m
+2026-11-17T06:54:08.5654185Z  [32m✓[39m rag/ragService.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-11-17T06:54:08.6006221Z  [32m✓[39m recall/store/review.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-11-17T06:54:08.7618636Z  [32m✓[39m recall/store/migration.test.ts [2m([22m[2m101 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+2026-11-17T06:54:08.7917296Z  [32m✓[39m recall/store/sourceOwnership.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-11-17T06:54:08.9453782Z  [32m✓[39m consolidation/archivePlannerModalV2.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 309[2mms[22m[39m
+2026-11-17T06:54:09.1051227Z  [32m✓[39m health/workbench/workbenchNavigation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 135[2mms[22m[39m
+2026-11-17T06:54:09.2671622Z  [32m✓[39m consolidation/organizationRegistry.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:09.4598430Z  [32m✓[39m health/ui/healthOnboardingViewModel.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-11-17T06:54:09.5974439Z  [32m✓[39m consolidation/tagRecommendationContract.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-11-17T06:54:09.6949292Z  [32m✓[39m consolidation/structuralArchiveApplyModal.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 504[2mms[22m[39m
+2026-11-17T06:54:09.7321014Z  [32m✓[39m consolidation/pairSnapshot.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-11-17T06:54:09.8888276Z  [32m✓[39m consolidation/taxonomyScan.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-11-17T06:54:09.9024919Z  [32m✓[39m health/ui/semanticGlobalMapLayout.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 996[2mms[22m[39m
+2026-11-17T06:54:09.9026696Z      [33m[2m✓[22m[39m separates even 500 identical high-similarity nodes at 24x with fixed-size markers, preserving domain values [33m 975[2mms[22m[39m
+2026-11-17T06:54:09.9504623Z  [32m✓[39m health/topology/vaultTopologyController.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 95[2mms[22m[39m
+2026-11-17T06:54:10.0361979Z  [32m✓[39m consolidation/relationshipContract.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-11-17T06:54:10.1557770Z  [32m✓[39m health/workspace/vaultScope.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+2026-11-17T06:54:10.3627474Z  [32m✓[39m health/workbench/workbenchVisual.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 88[2mms[22m[39m
+2026-11-17T06:54:10.5545518Z  [32m✓[39m health/ui/findingsInboxViewModel.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-11-17T06:54:10.5619350Z  [32m✓[39m consolidation/mergePlannerView.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 335[2mms[22m[39m
+2026-11-17T06:54:10.5917369Z  [32m✓[39m consolidation/emptyAtomIntegration.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 422[2mms[22m[39m
+2026-11-17T06:54:10.7806534Z  [32m✓[39m consolidation/registryPlan.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-11-17T06:54:10.8251987Z  [32m✓[39m consolidation/groupApplyModal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+2026-11-17T06:54:10.8479407Z  [32m✓[39m consolidation/bundleApplyModal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 80[2mms[22m[39m
+2026-11-17T06:54:11.0066660Z  [32m✓[39m health/workbench/workbenchFamilies.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-11-17T06:54:11.0305364Z  [32m✓[39m consolidation/reviewDecisions.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+2026-11-17T06:54:11.0620631Z  [32m✓[39m consolidation/mergeApplyModal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+2026-11-17T06:54:11.2289740Z  [32m✓[39m consolidation/localNotePlan.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:11.2392172Z  [32m✓[39m consolidation/registryModal.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-11-17T06:54:11.4167134Z  [32m✓[39m semantic/health/semanticHealthAnalysisAdapter.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-11-17T06:54:11.6106083Z  [32m✓[39m health/ui/findingEvidencePresentation.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-11-17T06:54:11.6445113Z  [32m✓[39m consolidation/archiveApplyModal.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 149[2mms[22m[39m
+2026-11-17T06:54:11.8531230Z  [32m✓[39m health/obsidian/healthBoundary.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 470[2mms[22m[39m
+2026-11-17T06:54:11.8532640Z      [33m[2m✓[22m[39m has no AI/network/Companion dependencies or Markdown mutations, including transitive imports [33m 407[2mms[22m[39m
+2026-11-17T06:54:11.8676867Z  [32m✓[39m consolidation/archivePlannerModal.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+2026-11-17T06:54:12.0987575Z  [32m✓[39m recall/product/noteEvents.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+2026-11-17T06:54:12.1281613Z  [32m✓[39m consolidation/emptyAtomApplyModal.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+2026-11-17T06:54:12.2251960Z  [32m✓[39m health/store/healthStorage.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-11-17T06:54:12.2410324Z  [32m✓[39m consolidation/multiFilePlannerView.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 377[2mms[22m[39m
+2026-11-17T06:54:12.3100219Z  [32m✓[39m consolidation/finalReview.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-11-17T06:54:12.3613407Z  [32m✓[39m vectorStore/localVectorStoreDescriptor.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:12.4032608Z  [32m✓[39m consolidation/recommendationPreflight.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-11-17T06:54:12.4944030Z  [32m✓[39m embeddings/embeddings.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-11-17T06:54:12.5396283Z  [32m✓[39m health/connections/connectionRules.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:12.5494675Z  [32m✓[39m recall/scheduler/fsrs6.test.ts [2m([22m[2m94 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-11-17T06:54:12.6969561Z  [32m✓[39m consolidation/multiFileApplyModal.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-11-17T06:54:12.8375611Z  [32m✓[39m studio/registry.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-11-17T06:54:12.8461656Z  [32m✓[39m consolidation/groupPlannerView.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 130[2mms[22m[39m
+2026-11-17T06:54:13.0108640Z  [32m✓[39m health/connections/connectionComparisonViewState.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-11-17T06:54:13.0846435Z  [32m✓[39m healthSettings.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 406[2mms[22m[39m
+2026-11-17T06:54:13.1948196Z  [32m✓[39m health/obsidian/healthRecovery.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-11-17T06:54:13.3592559Z  [32m✓[39m health/workbench/workbenchNoteSearch.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-17T06:54:13.4032418Z  [32m✓[39m recall/boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 130[2mms[22m[39m
+2026-11-17T06:54:13.6431257Z  [32m✓[39m consolidation/contextBundlePlannerView.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+2026-11-17T06:54:13.6716308Z  [32m✓[39m health/workbench/reviewFacts.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 717[2mms[22m[39m
+2026-11-17T06:54:13.7645133Z  [32m✓[39m consolidation/atomizationSession.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 219[2mms[22m[39m
+2026-11-17T06:54:13.7713410Z  [32m✓[39m recall/store/codec.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-11-17T06:54:13.7957853Z  [32m✓[39m semantic/semanticSettingsControls.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-11-17T06:54:13.9126322Z  [32m✓[39m semantic/asyncReadWriteBarrier.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-11-17T06:54:13.9765591Z  [32m✓[39m deep/auditModeViewModel.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-11-17T06:54:14.0696404Z  [32m✓[39m studio/community/transport.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+2026-11-17T06:54:14.1265073Z  [32m✓[39m consolidation/localLinkModal.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:14.1816699Z  [32m✓[39m consolidation/atomizationPlannerView.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 219[2mms[22m[39m
+2026-11-17T06:54:14.2903308Z  [32m✓[39m health/ui/recallHealthViewModel.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:14.3812642Z  [32m✓[39m health/services/recallHealth.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-11-17T06:54:14.4396177Z  [32m✓[39m semantic/product/semanticProductBoundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+2026-11-17T06:54:14.4526677Z  [32m✓[39m health/workbench/workbenchR06.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-11-17T06:54:14.5497341Z  [32m✓[39m recall/generation.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-11-17T06:54:14.6294577Z  [32m✓[39m noteWrites.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-11-17T06:54:14.6371294Z  [32m✓[39m consolidation/tagRecommendationView.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:14.7200249Z  [32m✓[39m recall/store/obsidianRecallStorage.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-11-17T06:54:14.7789057Z  [32m✓[39m companionSync/client.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-11-17T06:54:14.8006441Z  [32m✓[39m recall/product/recallRecovery.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-17T06:54:14.8825892Z  [32m✓[39m studio/documentEnvelope.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-11-17T06:54:14.9396411Z  [32m✓[39m health/store/codec.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-11-17T06:54:15.0327895Z  [32m✓[39m consolidation/taxonomyProfile.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:15.0955519Z  [32m✓[39m health/ui/workspaceNavigation.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:15.1726414Z  [32m✓[39m studio/preservationChecks.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-11-17T06:54:15.2009123Z  [32m✓[39m toolsLaunchers.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 292[2mms[22m[39m
+2026-11-17T06:54:15.2393962Z  [32m✓[39m health/obsidian/connectionRules.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:15.3166593Z  [32m✓[39m consolidation/organizationProfile.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-11-17T06:54:15.3771354Z  [32m✓[39m companionSync/protocolContract.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-11-17T06:54:15.3871727Z  [32m✓[39m health/analyzers/local/localVaultRevision.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+2026-11-17T06:54:15.5326680Z  [32m✓[39m recall/product/recallHealthAdapter.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-11-17T06:54:15.5433303Z  [32m✓[39m health/ui/discoverViewModel.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:15.6620837Z  [32m✓[39m consolidation/taxonomySession.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-11-17T06:54:15.7435905Z  [32m✓[39m health/services/nextActions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-11-17T06:54:15.7960048Z  [32m✓[39m health/ui/bindGraphViewport.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-11-17T06:54:15.9038457Z  [32m✓[39m proposals/obsidianVault.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-11-17T06:54:15.9566550Z  [32m✓[39m studio/messages.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-11-17T06:54:16.0556696Z  [32m✓[39m consolidation/workbenchMetadata.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-11-17T06:54:16.0848793Z  [32m✓[39m health/preferences.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-11-17T06:54:16.2046455Z  [32m✓[39m health/domain/reconciliation.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-11-17T06:54:16.2713174Z  [32m✓[39m health/ui/compactCheck.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 778[2mms[22m[39m
+2026-11-17T06:54:16.2736095Z      [33m[2m✓[22m[39m all 10k findings remain reachable with at most 60 rows in en [33m 380[2mms[22m[39m
+2026-11-17T06:54:16.2737549Z      [33m[2m✓[22m[39m all 10k findings remain reachable with at most 60 rows in ru [33m 356[2mms[22m[39m
+2026-11-17T06:54:16.3746417Z  [32m✓[39m health/ui/findingPresentation.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-11-17T06:54:16.4166802Z  [32m✓[39m health/ui/semanticIntelligenceViewModel.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-11-17T06:54:16.5093800Z  [32m✓[39m rag/ragPrompt.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-11-17T06:54:16.5181583Z  [32m✓[39m mainMenus.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 298[2mms[22m[39m
+2026-11-17T06:54:16.5552238Z  [32m✓[39m health/domain/identity.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-11-17T06:54:16.6542425Z  [32m✓[39m companionSync/proposalTypes.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-11-17T06:54:16.6902587Z  [32m✓[39m studio/recipe.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:16.8517965Z  [32m✓[39m studio/evaluation/offline.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:16.8791239Z  [32m✓[39m deep/product/deepProductBoundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+2026-11-17T06:54:17.0291918Z  [32m✓[39m health/ui/semanticNeighborhoodLayout.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:17.0340936Z  [32m✓[39m connect/connectBoundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-11-17T06:54:17.0694370Z  [32m✓[39m recall/domain/identity.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-11-17T06:54:17.1725775Z  [32m✓[39m health/workbench/workbenchStructure.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-17T06:54:17.2816170Z  [32m✓[39m version-bump.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 120[2mms[22m[39m
+2026-11-17T06:54:17.3087431Z  [32m✓[39m companionSync/settings.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-11-17T06:54:17.3940196Z  [32m✓[39m semantic/health/semanticHealthBoundary.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-11-17T06:54:17.4180784Z  [32m✓[39m studio/providerError.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-11-17T06:54:17.4250894Z 
+2026-11-17T06:54:17.4260334Z [2m Test Files [22m [1m[32m213 passed[39m[22m[90m (213)[39m
+2026-11-17T06:54:17.4279715Z [2m      Tests [22m [1m[32m5434 passed[39m[22m[90m (5434)[39m
+2026-11-17T06:54:17.4280370Z [2m   Start at [22m 06:53:41
+2026-11-17T06:54:17.4281293Z [2m   Duration [22m 36.31s[2m (transform 7.17s, setup 0ms, import 19.27s, tests 65.86s, environment 16ms)[22m
+2026-11-17T06:54:17.4285074Z 
+2026-11-17T06:54:17.5149468Z ##[group]Run node --test scripts/native/session-check.mjs
+2026-11-17T06:54:17.5149883Z [36;1mnode --test scripts/native/session-check.mjs[0m
+2026-11-17T06:54:17.5177802Z shell: /usr/bin/bash -e {0}
+2026-11-17T06:54:17.5178085Z ##[endgroup]
+2026-11-17T06:54:17.5858079Z ✔ a direct launch fails before touching a profile or opening a window (1.062237ms)
+2026-11-17T06:54:17.5859042Z ✔ the launch boundary rejects redirected profiles and mismatched roots (1.948747ms)
+2026-11-17T06:54:17.5913617Z ℹ tests 2
+2026-11-17T06:54:17.5914369Z ℹ suites 0
+2026-11-17T06:54:17.5914742Z ℹ pass 2
+2026-11-17T06:54:17.5915050Z ℹ fail 0
+2026-11-17T06:54:17.5915363Z ℹ cancelled 0
+2026-11-17T06:54:17.5915662Z ℹ skipped 0
+2026-11-17T06:54:17.5915979Z ℹ todo 0
+2026-11-17T06:54:17.5916358Z ℹ duration_ms 44.298476
+2026-11-17T06:54:17.5988422Z ##[group]Run npm run lint
+2026-11-17T06:54:17.5988731Z [36;1mnpm run lint[0m
+2026-11-17T06:54:17.6015343Z shell: /usr/bin/bash -e {0}
+2026-11-17T06:54:17.6015633Z ##[endgroup]
+2026-11-17T06:54:17.6706853Z 
+2026-11-17T06:54:17.6707530Z > obsidian-ai-hub@2.4.0 lint
+2026-11-17T06:54:17.6707966Z > npm run lint:obsidian
+2026-11-17T06:54:17.6708095Z 
+2026-11-17T06:54:17.7418802Z 
+2026-11-17T06:54:17.7419619Z > obsidian-ai-hub@2.4.0 lint:obsidian
+2026-11-17T06:54:17.7420443Z > npm run typecheck && npm run build && node scripts/lint-obsidian.mjs
+2026-11-17T06:54:17.7420817Z 
+2026-11-17T06:54:17.8119911Z 
+2026-11-17T06:54:17.8120706Z > obsidian-ai-hub@2.4.0 typecheck
+2026-11-17T06:54:17.8121262Z > tsc --noEmit --module ES2020 --ignoreDeprecations 5.0 && tsc --project health/tsconfig.json
+2026-11-17T06:54:17.8121563Z 
+2026-11-17T06:54:29.3919438Z 
+2026-11-17T06:54:29.3920231Z > obsidian-ai-hub@2.4.0 build
+2026-11-17T06:54:29.3920748Z > node esbuild.config.mjs production
+2026-11-17T06:54:29.3921157Z 
+2026-11-17T06:55:05.7104707Z 
+2026-11-17T06:55:05.7135829Z /home/runner/work/veynrel/veynrel/api.ts
+2026-11-17T06:55:05.7214686Z ##[warning]  460:22  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+2026-11-17T06:55:05.7223664Z 
+2026-11-17T06:55:05.7224533Z /home/runner/work/veynrel/veynrel/docs/product-ux/evidence/ux-followup/prototype/check.mjs
+2026-11-17T06:55:05.7226093Z   0:0  error  Parsing error: /home/runner/work/veynrel/veynrel/docs/product-ux/evidence/ux-followup/prototype/check.mjs was not found by the project service. Consider either including it in the tsconfig.json or including it in allowDefaultProject.
+2026-11-17T06:55:05.7227666Z allowDefaultProject is set to ["eslint.config.mjs","manifest.json"], which does not match 'docs/product-ux/evidence/ux-followup/prototype/check.mjs'
+2026-11-17T06:55:05.7228193Z 
+2026-11-17T06:55:05.7228543Z /home/runner/work/veynrel/veynrel/studio/community/transport.ts
+2026-11-17T06:55:05.7230362Z ##[warning]  13:30  warning  Unexpected use of 'fetch'. Use the built-in `requestUrl` function instead of `fetch` for network requests in Obsidian  no-restricted-globals
+2026-11-17T06:55:05.7231618Z 
+2026-11-17T06:55:05.7232156Z ✖ 3 problems (1 error, 2 warnings)
+2026-11-17T06:55:05.7232374Z 
+2026-11-17T06:55:06.0229211Z ##[error]Process completed with exit code 1.
+2026-11-17T06:55:06.0361450Z Post job cleanup.
+2026-11-17T06:55:06.1032539Z [command]/usr/bin/git version
+2026-11-17T06:55:06.1062958Z git version 2.56.1
+2026-11-17T06:55:06.1085780Z Temporarily overriding HOME='/home/runner/work/_temp/bf8b22bc-94f1-4618-a7b5-97aa80e7c422' before making global git config changes
+2026-11-17T06:55:06.1086775Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T06:55:06.1089632Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/veynrel/veynrel
+2026-11-17T06:55:06.1114226Z Removing SSH command configuration
+2026-11-17T06:55:06.1118501Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T06:55:06.1145555Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T06:55:06.1343001Z Removing HTTP extra header
+2026-11-17T06:55:06.1348268Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T06:55:06.1373108Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T06:55:06.1586149Z Removing includeIf entries pointing to credentials config files
+2026-11-17T06:55:06.1587051Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T06:55:06.1604551Z includeif.gitdir:/home/runner/work/veynrel/veynrel/.git.path
+2026-11-17T06:55:06.1605297Z includeif.gitdir:/home/runner/work/veynrel/veynrel/.git/worktrees/*.path
+2026-11-17T06:55:06.1605788Z includeif.gitdir:/github/workspace/.git.path
+2026-11-17T06:55:06.1606275Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-17T06:55:06.1618924Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/veynrel/veynrel/.git.path
+2026-11-17T06:55:06.1629850Z /home/runner/work/_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:55:06.1636941Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/veynrel/veynrel/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-5be9b1d4\-4098\-4b4a\-8090\-4fe7767cb3d6\.config
+2026-11-17T06:55:06.1677094Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/veynrel/veynrel/.git/worktrees/*.path
+2026-11-17T06:55:06.1700304Z /home/runner/work/_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:55:06.1708271Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/veynrel/veynrel/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-5be9b1d4\-4098\-4b4a\-8090\-4fe7767cb3d6\.config
+2026-11-17T06:55:06.1734025Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-17T06:55:06.1749985Z /github/runner_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:55:06.1755988Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-5be9b1d4\-4098\-4b4a\-8090\-4fe7767cb3d6\.config
+2026-11-17T06:55:06.1780604Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-17T06:55:06.1796009Z /github/runner_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config
+2026-11-17T06:55:06.1800820Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-5be9b1d4\-4098\-4b4a\-8090\-4fe7767cb3d6\.config
+2026-11-17T06:55:06.1824120Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T06:55:06.2000899Z Removing credentials config '/home/runner/work/_temp/git-credentials-5be9b1d4-4098-4b4a-8090-4fe7767cb3d6.config'
+2026-11-17T06:55:06.2127215Z Cleaning up orphan processes
+

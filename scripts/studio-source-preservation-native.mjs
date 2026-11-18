@@ -269,7 +269,7 @@ try {
   assert.equal(report.versions.excalidrawInstalled,!!excalidrawAssets);
   if (reviewLabelsOnly) { await reviewLabels(); } else {
   if(excalidrawAssets) report.excalidraw = {version:await ev("app.plugins.plugins['obsidian-excalidraw-plugin'].manifest.version"),artifacts:Object.fromEntries(['main.js','manifest.json','styles.css'].map(n=>[n,sha(fs.readFileSync(`${excalidrawAssets}/${n}`))]))};
-  await pass('Studio has no diagram owner, route, command or capability UI', "!('diagrams' in studio)&&!Object.values(app.commands.commands).some(c=>c.id.startsWith('ai-knowledge-hub:')&&/diagram|excalidraw/i.test(c.id))&&JSON.stringify([...document.querySelectorAll('.veynrel-studio > nav button')].map(e=>e.dataset.studioAction))===JSON.stringify(['library','community','history'])");
+  await pass('Studio has no diagram owner, route, command or capability UI', "!('diagrams' in studio)&&!Object.values(app.commands.commands).some(c=>c.id.startsWith('ai-knowledge-hub:')&&/diagram|excalidraw/i.test(c.id))&&JSON.stringify([...document.querySelectorAll('.veynrel-studio > nav button')].map(e=>e.dataset.studioAction))===JSON.stringify(['library','history'])&&studio.features.onlineCommunity===false&&!document.querySelector('[data-studio-action=publish]')");
   await pass('Passive Studio opens with zero model/note read/write',"io.reads.length===0&&io.writes.length===0&&io.creates.length===0");assert.equal(requests.length,0);
   await ev("app.plugins.disablePlugin('ai-knowledge-hub')");
   const legacyIntent = fs.readFileSync(`${ROOT}/scripts/studio-first-open-legacy/intent.json`,'utf8');

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/smoke.mjs",
+    "<disposable-session>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846455.7426,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    46825
+  ],
+  "cdpClosed": true,
+  "seconds": 9.99
+}

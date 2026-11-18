@@ -1,0 +1,25 @@
+{
+  "originalSha256": "381d33f195ce498bce75b882d8ed92c26215107b4b43f66f789c8ba2892d3ad2",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "command": [
+      "node",
+      "<checkout>/scripts/studio-community-native.mjs",
+      "<native-root>",
+      "<repository>/.worktrees/ux-community-fixture"
+    ],
+    "timeoutSeconds": 180,
+    "startedAt": 1794841103.451836,
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpPorts": [
+      40083,
+      35589,
+      40449,
+      46409,
+      39415
+    ],
+    "cdpClosed": true,
+    "seconds": 16.306
+  }
+}

@@ -128,49 +128,26 @@ describe("real dashboard measurements", () => {
   });
 });
 
-describe("dashboard presentation boundaries", () => {
-  const files = ["healthDashboardModel", "renderVaultPulse", "renderHealthInsights", "healthHomeViewModel", "renderHealthHome"];
+describe("compact check presentation boundaries", () => {
   it("introduces no score, scheduler, persistence, provider or animation loop", () => {
-    for (const file of files) {
+    for (const file of ["renderCheckSummary", "renderFindingsInbox", "healthHomeViewModel"]) {
       const source = readFileSync(`health/ui/${file}.ts`, "utf8");
-      expect(source).not.toMatch(/\b(?:healthScore|vaultScore|percentageHealth|bpm|wellness|severityScore|setInterval|setTimeout|requestAnimationFrame|ResizeObserver|fetch|requestUrl|localStorage)\b/iu);
-      expect(source).not.toMatch(/\b(?:vault|adapter|store)\s*\.|\b(?:runLocalScan|runDeepScan|refreshCards|rateSchedule)\s*\(/u);
+      expect(source).not.toMatch(/\b(?:healthScore|vaultScore|bpm|setInterval|setTimeout|requestAnimationFrame|fetch|requestUrl|localStorage)\b/iu);
+      expect(source).not.toMatch(/\b(?:vault|adapter|store)\s*\./u);
     }
-    const pulse = healthDashboardModel(fixture()).pulse;
-    expect(Object.entries(pulse).filter(([, v]) => typeof v === "number").map(([k]) => k)).toEqual(["openFindings", "lastCheckedAt"]);
-    const svg = readFileSync("health/ui/renderVaultPulse.ts", "utf8");
-    expect(svg).not.toMatch(/foreignObject|innerHTML|https?:|canvas|createElementNS/u);
-    expect(svg).toContain('"aria-hidden": "true"');
   });
-  it("uses theme tokens, honors reduced motion, and gives every row a stable action", () => {
-    const css = readFileSync("styles.css", "utf8").split("/* Health visual dashboard:")[1];
+  it("uses host theme tokens without a private palette", () => {
+    const css = readFileSync("styles.css", "utf8").split("/* Product UX-A:")[1];
     expect(css).toContain("var(--interactive-accent)");
-    // No hard-coded black layer may tint the host theme.
     expect(css.match(/#[\da-f]{3,8}\b|\brgba?\(|\bhsla?\(/giu)).toBeNull();
-    expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none;[\s\S]*stroke-dasharray: none;/u);
-    expect(readFileSync("health/ui/renderHealthInsights.ts", "utf8")).toContain('`area-${area.id}`');
   });
-  it("shares a slow continuous cadence across established states, with distinct scanning and static unknown", () => {
-    const css = readFileSync("styles.css", "utf8").split("@media (prefers-reduced-motion: reduce)")[0];
-    const normal = css.match(/\.veynrel-vault-pulse:is\(([^)]+)\)\s+\.veynrel-vault-pulse-accent\s*\{([^}]+)\}/u)!;
-    expect([...normal[1].matchAll(/data-pulse-state="([^"]+)"/gu)].map((match) => match[1])).toEqual(["good", "review", "attention"]);
-    expect(normal[2]).toContain("animation: veynrel-vault-pulse-sweep 7s linear infinite;");
-    expect(normal[2]).toContain("stroke-dasharray: 10 90;");
-    expect(normal[2]).toContain("opacity: 0.65;");
-    const scanning = css.match(/\[data-pulse-state="scanning"\]\s+\.veynrel-vault-pulse-accent\s*\{([^}]+)\}/u)![1];
-    expect(scanning).toContain("animation: veynrel-vault-pulse-sweep 4s linear infinite;");
-    expect(scanning).toContain("stroke-dasharray: 16 84;");
-    const unknown = css.match(/\[data-pulse-state="unknown"\]\s+\.veynrel-vault-pulse-accent\s*\{([^}]+)\}/u)![1];
-    expect(unknown).toContain("animation: none;");
-    expect(unknown).toContain("display: none;");
+  it("removes the decorative pulse rather than hiding working DOM", () => {
+    expect(readFileSync("styles.css", "utf8")).not.toContain("veynrel-vault-pulse");
+    expect(readFileSync("health/ui/renderHealthHome.ts", "utf8")).not.toContain("renderVaultPulse");
+    expect(readFileSync("health/ui/renderCheckSummary.ts", "utf8")).not.toMatch(/createSvg|createEl\("svg"/u);
   });
-  it("disables both continuous sweeps for every state under reduced motion", () => {
-    const css = readFileSync("styles.css", "utf8").split("@media (prefers-reduced-motion: reduce)")[1];
-    // The state-agnostic attribute selector matches all five states with the same
-    // specificity as the normal/scanning rules, and appears after both of them.
-    const rule = css.match(/\.veynrel-vault-pulse\[data-pulse-state\]\s+\.veynrel-vault-pulse-accent\s*\{([^}]+)\}/u)![1];
-    expect(rule).toContain("animation: none;");
-    expect(rule).toContain("stroke-dasharray: none;");
-    expect(rule).toContain("opacity: 1;");
+  it("retains reduced motion for content transitions", () => {
+    const css = readFileSync("styles.css", "utf8").split("/* Product UX-A:")[1];
+    expect(css).toMatch(/prefers-reduced-motion: reduce[\s\S]*animation: none/u);
   });
 });

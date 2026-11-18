@@ -1,0 +1,40 @@
+{
+  "source": {
+    "commit": "de6fc9e4df7c9e62ca8fe33320246f721eab8c4b",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scenario": "followup-after",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "Overview has no passive plugin note IO"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [],
+  "assets": {
+    "main.js": "b3171841629e5edd5c53254e4bda2356dea2b3db0171f3839305b017221e2abe",
+    "styles.css": "ac0b2eab6eff06de4355bd63ee1c56511e782c7e5dcb08f38dc1e3539515d19c",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "harnessHashes": {
+    "visual.mjs": "4f3fdf9078f850519c8e27dcd179ebafc16598ff26538dbea8ea21b3d456525f",
+    "visual-journey.mjs": "53dea94bb50a384abc96452688643008d5fba4bdc15129721f14c166f13eaa10",
+    "followup.mjs": "fb44c6d831d990b5e01345c240da23bfbdc287e6f773228647e3cb58f901235a",
+    "followup-journey.mjs": "d6665c60bc4df34082aa0ff2c81cd37c5f675ee5a4f3d280089d70eb59b780b6",
+    "overview-fixture.ts": "42080866321092b6be2db8b7c308d807320df994d094a7d696e39663b6d1e734",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "cb34d485be8df31be39cac9a41972a6f53bbd6af83fd0de32640090862af7cf0"
+  },
+  "providerRequests": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "status": "FAIL",
+  "error": "Error: CDP timeout: Runtime.evaluate\n    at Timeout._onTimeout (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/visual.mjs:63:78)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+  "captureError": "Error: CDP timeout: Runtime.evaluate"
+}

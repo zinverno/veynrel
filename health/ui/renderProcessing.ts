@@ -1,7 +1,7 @@
-import { setIcon } from "obsidian";
 import { t } from "../../i18n";
 import { workspaceHeading } from "../workspace/renderWorkspaceHome";
 import { healthButton } from "./renderHealthHome";
+import { renderActionPanel } from "./renderActionPanel";
 
 export type ProcessingClusters = number | "loading" | "error";
 
@@ -9,25 +9,19 @@ export function renderProcessing(parent: HTMLElement, clusters: ProcessingCluste
   atomization: () => void; batch: () => void; mocs: () => void; audit: () => void; refresh: () => void;
 }): void {
   const page = parent.createEl("section", { cls: "veynrel-processing" });
-  workspaceHeading(page, t("@workspace.process"), t("@processing.intro"));
-  const cards = page.createDiv({ cls: "veynrel-processing-cards" });
-  const card = (key: string, icon: string, primary = false): HTMLElement => {
-    const item = cards.createEl("article", { cls: `veynrel-processing-card${primary ? " is-primary" : ""}` });
-    const heading = item.createDiv({ cls: "veynrel-processing-heading" });
-    setIcon(heading.createSpan({ attr: { "aria-hidden": "true" } }), icon);
-    heading.createEl("h2", { text: t(`@processing.${key}`) });
-    item.createEl("p", { text: t(`@processing.${key}-description`) });
-    item.createEl("p", { cls: "veynrel-processing-effect", text: t(`@processing.${key}-effect`) });
-    return item;
-  };
-  healthButton(card("atomization", "git-fork", true), t("@processing.atomization-action"), actions.atomization, "process-atomization", false, true);
-  healthButton(card("batch", "layers"), t("@processing.batch-action"), actions.batch, "tool-openBatchProcessing");
-  const moc = card("moc", "network");
-  const status = moc.createDiv({ cls: "veynrel-processing-status" });
-  status.createEl("p", { attr: { role: "status" }, text: t(typeof clusters === "number"
+  workspaceHeading(page, t("@workspace.process"));
+  const cards = page.createDiv({ cls: "veynrel-processing-grid" });
+  const card = (key: string, icon: string, id: string, label: string, open: () => void, disabled = false) =>
+    renderActionPanel(cards, id, t(`@followup.bulk.${key}`), icon, t(`@followup.bulk.${key}-description`), label, open, disabled);
+  card("batch", "layers", "tool-openBatchProcessing", t("@processing.batch-action"), actions.batch).addClass("veynrel-panel-primary");
+  card("audit", "scan-text", "process-deep-audit", t("@followup.bulk.audit-action"), actions.audit);
+  card("atomization", "git-fork", "process-atomization", t("@processing.atomization-action"), actions.atomization);
+  const moc = card("moc", "network", clusters === 0 ? "tool-openDeepAudit" : clusters === "error" ? "process-refresh" : "tool-generateMocs",
+    t(clusters === 0 ? "@processing.audit-action" : clusters === "error" ? "@processing.retry" : "@processing.moc-action"),
+    clusters === 0 ? actions.audit : clusters === "error" ? actions.refresh : actions.mocs, clusters === "loading");
+  moc.createEl("p", { cls: "veynrel-panel-status", attr: { role: "status" }, text: t(typeof clusters === "number"
     ? clusters ? "@processing.clusters" : "@processing.no-clusters" : `@processing.${clusters}`, { n: clusters }) });
-  if (typeof clusters === "number") healthButton(status, t("@processing.refresh"), actions.refresh, "process-refresh").addClass("veynrel-processing-refresh");
-  if (clusters === 0) healthButton(moc, t("@processing.audit-action"), actions.audit, "tool-openDeepAudit");
-  else if (clusters === "error") healthButton(moc, t("@processing.retry"), actions.refresh, "process-refresh");
-  else healthButton(moc, t("@processing.moc-action"), actions.mocs, "tool-generateMocs", clusters === "loading");
+  const footer = page.createDiv({ cls: "veynrel-processing-footer" });
+  footer.createEl("small", { text: t("@followup.bulk.recovery") });
+  if (typeof clusters === "number") healthButton(footer, t("@processing.refresh"), actions.refresh, "process-refresh").addClass("veynrel-quiet");
 }

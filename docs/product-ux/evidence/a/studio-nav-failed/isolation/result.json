@@ -1,0 +1,20 @@
+{
+  "originalSha256": "89d7bb4f924d4b23a9675afaf1a6b2ac3cc0772797acb24a717204d78fb1fbc0",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "command": [
+      "node",
+      "<checkout>/scripts/studio-source-preservation-native.mjs",
+      "<native-root>"
+    ],
+    "timeoutSeconds": 240,
+    "startedAt": 1794840296.4784229,
+    "exitCode": 1,
+    "processGroupClean": true,
+    "cdpPorts": [
+      33355
+    ],
+    "cdpClosed": true,
+    "seconds": 4.781
+  }
+}

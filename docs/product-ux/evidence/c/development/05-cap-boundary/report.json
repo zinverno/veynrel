@@ -1,0 +1,107 @@
+{
+  "scenario": "R06-map-foundation",
+  "unifiedMode": false,
+  "familiesMode": false,
+  "pickerOnly": false,
+  "baseline": false,
+  "warmCache": false,
+  "count": 1000,
+  "indexed": 1000,
+  "source": "79fe425bdeeaf5a97282dbf53cb2add53042d718",
+  "checks": [
+    "Passive map opens with zero Markdown reads/writes and network",
+    "Idle map defers full tag projection until explicit load",
+    "Unavailable semantic computation draws no technical grid",
+    "Rendered nodes intersect the actual canvas viewport",
+    "Explicit map refresh does not read/write Markdown or request a model",
+    "Every scope path remains represented"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "before-load.png",
+    "semantic-refusal.png",
+    "loaded.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "2549d7b52dadeb161a47578ed11464ec515496320481dc5e56d7adc446dd1003",
+    "styles.css": "526a0905038529c191d3036babf901117431c07c8aebfd207dd8adf6daa18ca1",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": null,
+  "metrics": {
+    "cacheReadyMs": 2597.6180400000003,
+    "refreshWallMs": 386.5136199999997,
+    "loaded": {
+      "notes": 1000,
+      "semantic": "stale",
+      "reason": "changed",
+      "indexed": 1000,
+      "mapped": 1000,
+      "displayedNodes": 0,
+      "displayGroups": 10,
+      "dom": 102,
+      "svg": 38,
+      "layoutCount": 2,
+      "layoutMs": 4.2999999998137355,
+      "displayGroupingMs": 0.6000000000931323,
+      "semanticMs": 111.60000000009313,
+      "physicsMs": 0,
+      "ticks": 0,
+      "frames": {
+        "frames": 8,
+        "renderMs": 16.59999999916181,
+        "frameTimes": []
+      },
+      "topology": {
+        "captureMs": 33.299999999813735,
+        "derivationMs": 145.20000000018626
+      },
+      "heap": 76356136
+    }
+  },
+  "observations": {},
+  "io": [
+    {
+      "stage": "passive",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    },
+    {
+      "stage": "explicit-refresh",
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  ],
+  "harness": {
+    "r06-map-native.mjs": "9349baf59adee6a89e52900042cd77ef3bd67983768d3c61f3749af9e32f50d9",
+    "r06-map-fixture.ts": "5a66b4ec326aa7512a7cd64f46d6eb4fabe6af0a24afadf832e714db77ff6b70",
+    "r06-families-journey.mjs": "e300489340f6a34944408018f2d6c2e484d0c3b857d22ae14387fe20f833b5bc",
+    "r06-unified-journey.mjs": "63aad02d119235e1be722ad72b1a4e854b26b2dcbed9172f2e78db15496676ea",
+    "r06-families-fixture.ts": "e51ca4edab19464b08dd9479041b91cf41dff7c89dd147ad86ce29e9bd984dba",
+    "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "native/run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+  },
+  "runtime": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chromium": "150.0.7871.250",
+    "frame": "native",
+    "display": ":2"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Cap refuses all eligible documents, never silently takes first 500\n    at pass (file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/r06-map-native.mjs:61:51)\n    at async file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/r06-map-native.mjs:126:17",
+  "failureState": {
+    "markdown": 1000,
+    "cacheKnown": 1000,
+    "io": {
+      "reads": 0,
+      "writes": 0,
+      "network": 0
+    }
+  }
+}

@@ -94,22 +94,15 @@ try {
     }
   }
   await main.ev("window.healthLeaf=app.workspace.getLeavesOfType('veynrel-health')[0];window.hv=healthLeaf.view;app.workspace.setActiveLeaf(healthLeaf,{focus:true});void 0"); await focus();
-  await pass('R03 Workspace Home remains unscanned after passive navigation', "!!document.querySelector('[data-health-action=home-check]') && !hv.controller.getState().outcome && !hv.controller.getState().busy && !hv.controller.getState().snapshot?.lastLocalScan");
-  await main.ev("document.querySelector('[data-health-action=home-check]').focus();void 0"); await key('Enter','Enter',13,'\r');
-  await wait("!!document.querySelector('[data-health-action=scan]')");
-  assert(await main.ev('!hv.controller.getState().outcome && !hv.controller.getState().busy'), 'Navigating to Check does not start a scan');
+  await pass('Workspace Check remains unscanned after passive navigation', "!!document.querySelector('[data-health-action=scan]') && !hv.controller.getState().outcome && !hv.controller.getState().busy && !hv.controller.getState().snapshot?.lastLocalScan");
   await main.ev("document.querySelector('[data-health-action=scan]').focus();void 0"); await key('Enter','Enter',13,'\r');
   await wait("!!hv.controller.getState().outcome && !hv.controller.getState().busy");
   report.localCheck = await main.ev('hv.controller.getState().outcome');
   assert.equal(report.localCheck.scan.status, 'completed'); assert.equal(report.localCheck.freshness, 'verified');
   assert(report.localCheck.findingsCommitted && report.localCheck.historyRecorded);
   await shot('workspace-local-check');
-  if (await main.ev("document.querySelector('[data-health-action=nav-home]').getClientRects().length===0")) {
-    await main.ev("document.querySelector('[data-health-action=workspace-menu]').focus();void 0"); await key('Enter','Enter',13,'\r');
-    await wait("document.querySelector('[data-health-action=nav-home]').getClientRects().length>0");
-  }
-  await main.ev("document.querySelector('[data-health-action=nav-home]').focus();void 0"); await key('Enter','Enter',13,'\r');
-  await pass('Explicit local check completes and returns its receipt to Home', "!!document.querySelector('[data-workspace-check-receipt]') && hv.controller.getState().snapshot.lastLocalScan.id===hv.controller.getState().outcome.scan.id");
+  await main.ev("document.querySelector('[data-health-action=nav-health]').focus();void 0"); await key('Enter','Enter',13,'\r');
+  await pass('Explicit local check completes and retains its receipt in Check', "!!document.querySelector('[data-workspace-check-receipt]') && hv.controller.getState().snapshot.lastLocalScan.id===hv.controller.getState().outcome.scan.id");
   await shot('workspace-home-after-check');
   await main.ev("app.workspace.setActiveLeaf(app.workspace.getLeavesOfType('veynrel-studio')[0],{focus:true});void 0"); await focus();
   await main.ev("document.querySelector('[data-studio-field=search]').focus();void 0"); await key('x','KeyX',88,'x');

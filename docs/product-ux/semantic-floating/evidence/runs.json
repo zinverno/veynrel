@@ -1,0 +1,114 @@
+{
+  "before": {
+    "run": "veynrel-semantic-floating-native-resume-before",
+    "source": {
+      "commit": "e097e3e477085f42cee1d058bfe0c90e5bff4265",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "9c32f2b22d8aa1d4fe073d6c1101f0157fc90c7aca74b70321062f2f395e0f49",
+    "isolationReceiptSha256": "8762d58c9327dc2086c3ded6935ce946ad61698703ea72d8649b02496c9aa9ca",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 3,
+    "screenshots": 9,
+    "requests": 0,
+    "frames": 87
+  },
+  "full": {
+    "run": "veynrel-semantic-floating-native-pinned-full",
+    "source": {
+      "commit": "cd061b7f75acc6766930481713e152797d79935b",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "5f31ef346156859e94e4685b748f1adaaaf393e78af986db9d8a222e251058ab",
+    "isolationReceiptSha256": "b61e00808b17874af93aba6eba7eefc1d5479fe98801c20ff3abf3b4e90fb023",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 135,
+    "screenshots": 118,
+    "requests": 28,
+    "frames": 969
+  },
+  "minimal": {
+    "run": "veynrel-semantic-floating-native-pinned-minimal",
+    "source": {
+      "commit": "cd061b7f75acc6766930481713e152797d79935b",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "fee785c1b7524c5ce1320ced06ff9e9583946b17dc85c679b8187a1976dcb5d4",
+    "isolationReceiptSha256": "67d6097270577670c405c7857d521cd6203f266a64199028d3ae15f27ba49caa",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 136,
+    "screenshots": 118,
+    "requests": 28,
+    "frames": 1052
+  },
+  "routes": {
+    "run": "veynrel-semantic-floating-native-final-routes",
+    "source": {
+      "commit": "647cebab6bbab9028ae99713e7436a592df17681",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "78e0273b1d8e8d2c004f4226479a06bda7df458385eb9affc2146a7d27aedb6d",
+    "isolationReceiptSha256": "657c760acdfeff9e2534d3732a0e6cf10705739c2b6dfbe588c8aaf4a9e6766c",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 71,
+    "screenshots": 59,
+    "requests": 0,
+    "frames": 454
+  },
+  "cap": {
+    "run": "veynrel-semantic-floating-native-final-cap",
+    "source": {
+      "commit": "647cebab6bbab9028ae99713e7436a592df17681",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "0bf974e1b3aadf6b33c159d44236d07e338c6f7fc03d20e00520c50879d1283b",
+    "isolationReceiptSha256": "f2db34b1e6fd4a888afb604c40ebb314483350da4b150dac486d59dcd033b167",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 3,
+    "screenshots": 1,
+    "requests": 0,
+    "frames": 28
+  },
+  "edges": {
+    "run": "veynrel-semantic-floating-native-final-edges",
+    "source": {
+      "commit": "647cebab6bbab9028ae99713e7436a592df17681",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "a8574e676487b51fa5616fb15e47d9178fcdb6b0ffe818b0f208f610c55e30cb",
+    "isolationReceiptSha256": "3db959b64740c865e4eb757f6863530083890566afe4cc9a8afbd1f9f527a1a9",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 9,
+    "screenshots": 3,
+    "requests": 3,
+    "frames": 131
+  },
+  "followup": {
+    "run": "veynrel-followup-native-final-reg",
+    "source": {
+      "commit": "647cebab6bbab9028ae99713e7436a592df17681",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sha256": "d92c41d2671293cab3d35bd3132803b0696e1bb158908368f5f8075edbad3c9f",
+    "isolationReceiptSha256": "cb85065388cc91c3ba6d17ec11e821c748963ff72fb1acaeea0f5cfa069bfc4a",
+    "exitCode": 0,
+    "processGroupClean": true,
+    "cdpClosed": true,
+    "checks": 90,
+    "screenshots": 102,
+    "requests": 1,
+    "frames": 858
+  }
+}

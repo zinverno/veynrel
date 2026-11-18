@@ -1,0 +1,1302 @@
+{
+  "source": {
+    "commit": "647cebab6bbab9028ae99713e7436a592df17681",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scenario": "semantic-floating-full",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "No-index retains neighborhood intent and source choice",
+    "Setup returns to the original intent",
+    "map keeps its own first surface",
+    "map narrow has no overflow",
+    "families keeps its own first surface",
+    "Family displays member paths from the stored index",
+    "Family opens its existing map context",
+    "Family Back restores selected membership",
+    "families narrow has no overflow",
+    "pair keeps its own first surface",
+    "Pair mounts the existing review without model requests",
+    "pair narrow has no overflow",
+    "neighborhood keeps its own first surface",
+    "neighborhood requires an explicit source",
+    "neighborhood choose does not compute",
+    "Neighborhood shows indexed fragment text and line evidence",
+    "neighborhood narrow has no overflow",
+    "opportunities keeps its own first surface",
+    "opportunities narrow has no overflow",
+    "focus keeps its own first surface",
+    "focus requires an explicit source",
+    "focus choose does not compute",
+    "Focus computes every eligible document and displays a page",
+    "Full global result is accessible beyond the first page",
+    "focus narrow has no overflow",
+    "similar keeps its own first surface",
+    "similar requires an explicit source",
+    "similar choose does not compute",
+    "Similar notes shows ranked document rows with a separate fragments action",
+    "similar narrow has no overflow",
+    "map keeps its own first surface",
+    "map narrow has no overflow",
+    "families keeps its own first surface",
+    "Family displays member paths from the stored index",
+    "Family opens its existing map context",
+    "Family Back restores selected membership",
+    "families narrow has no overflow",
+    "pair keeps its own first surface",
+    "Pair mounts the existing review without model requests",
+    "pair narrow has no overflow",
+    "neighborhood keeps its own first surface",
+    "neighborhood requires an explicit source",
+    "neighborhood choose does not compute",
+    "Neighborhood shows indexed fragment text and line evidence",
+    "neighborhood narrow has no overflow",
+    "opportunities keeps its own first surface",
+    "opportunities narrow has no overflow",
+    "focus keeps its own first surface",
+    "focus requires an explicit source",
+    "focus choose does not compute",
+    "Focus computes every eligible document and displays a page",
+    "Full global result is accessible beyond the first page",
+    "focus narrow has no overflow",
+    "similar keeps its own first surface",
+    "similar requires an explicit source",
+    "similar choose does not compute",
+    "Similar notes shows ranked document rows with a separate fragments action",
+    "similar narrow has no overflow",
+    "Explore explicitly changes the source",
+    "Back restores indexed fragments and source",
+    "Late A preparation cannot load into selected B",
+    "Rename retains exact old source and intent",
+    "Pair decision returns to selected opportunity and durable owner",
+    "Missing metadata remains unclassified",
+    "Changing scope invalidates late preparation and keeps requested paths",
+    "Split shows its own explicit A/B selector",
+    "Closing a view leaves shared topology ready",
+    "Popout route owns its explicit pair selector",
+    "Popout Back returns to its hub",
+    "Floating is OFF by default",
+    "Expand retains exact selection and sends nothing",
+    "Drag preserves selection and starts no action",
+    "Pointer cancel leaves no drag or action",
+    "Consent is passive and hides the panel",
+    "Real response is previewed without a live write",
+    "Apply changes only the captured selection",
+    "One native Undo restores the entire original",
+    "Style native Redo reapplies the exact range",
+    "Escape closes only modal and restores origin",
+    "Settings change before consent removes Generate",
+    "Closed modal controls cannot submit a new consent",
+    "Recall inserts and updates its existing queue",
+    "Recall native Undo restores original",
+    "Recall native Redo restores generated cards",
+    "Style cancel leaves original recoverable"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "regression-overview.png",
+    "regression-ring.png",
+    "routes-no-index.png",
+    "routes-map-en-dark.png",
+    "routes-map-en-light.png",
+    "routes-map-en-390.png",
+    "routes-families-en-dark.png",
+    "routes-families-en-light.png",
+    "routes-families-en-390.png",
+    "routes-pair-select-en.png",
+    "routes-pair-review-en.png",
+    "routes-pair-en-dark.png",
+    "routes-pair-en-light.png",
+    "routes-pair-en-390.png",
+    "routes-neighborhood-en-dark.png",
+    "routes-neighborhood-en-light.png",
+    "routes-neighborhood-en-390.png",
+    "routes-opportunities-en-dark.png",
+    "routes-opportunities-en-light.png",
+    "routes-opportunities-en-390.png",
+    "routes-focus-en-dark.png",
+    "routes-focus-en-light.png",
+    "routes-focus-en-390.png",
+    "routes-similar-en-dark.png",
+    "routes-similar-en-light.png",
+    "routes-similar-en-390.png",
+    "routes-map-ru-dark.png",
+    "routes-map-ru-light.png",
+    "routes-map-ru-390.png",
+    "routes-families-ru-dark.png",
+    "routes-families-ru-light.png",
+    "routes-families-ru-390.png",
+    "routes-pair-select-ru.png",
+    "routes-pair-review-ru.png",
+    "routes-pair-ru-dark.png",
+    "routes-pair-ru-light.png",
+    "routes-pair-ru-390.png",
+    "routes-neighborhood-ru-dark.png",
+    "routes-neighborhood-ru-light.png",
+    "routes-neighborhood-ru-390.png",
+    "routes-opportunities-ru-dark.png",
+    "routes-opportunities-ru-light.png",
+    "routes-opportunities-ru-390.png",
+    "routes-focus-ru-dark.png",
+    "routes-focus-ru-light.png",
+    "routes-focus-ru-390.png",
+    "routes-similar-ru-dark.png",
+    "routes-similar-ru-light.png",
+    "routes-similar-ru-390.png",
+    "state-late-A-selected-B.png",
+    "state-renamed-source.png",
+    "state-stale-fragments.png",
+    "state-error.png",
+    "state-empty.png",
+    "opportunity-durable-decision.png",
+    "state-partial-metadata.png",
+    "state-changed-scope.png",
+    "routes-split.png",
+    "routes-popout-pair.png",
+    "panel-collapsed-dark.png",
+    "panel-expanded-dark.png",
+    "panel-after-drag.png",
+    "style-consent.png",
+    "style-preview.png",
+    "style-undo.png",
+    "recall-consent.png",
+    "recall-inserted.png",
+    "recall-undo.png",
+    "recall-redo.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "56dff3e53dea596da65d2e04f2e91743737b709ab6f2969618ed48ac63e3042f",
+    "styles.css": "9e472caea184c6e8b5002fce6d540afd32b67e07777c070e0b4667bc55daf4e3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 523,
+    "seconds": 38.92482399940491,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "visual.mjs": "9648fdbebbca1eb7812a0b092dc47546dd12adc8b15d6b2049ec16cc701f65d4",
+    "visual-journey.mjs": "53dea94bb50a384abc96452688643008d5fba4bdc15129721f14c166f13eaa10",
+    "followup.mjs": "fb44c6d831d990b5e01345c240da23bfbdc287e6f773228647e3cb58f901235a",
+    "followup-journey.mjs": "d548e7c12cc117dcaac762890a1fb7a0c87bf47a65002290a03ac9c7c42437df",
+    "overview-fixture.ts": "8345abbe34bad72ff6753478a65de458fe027184bf3f8b30dc7febe983dc3dd7",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "5a7e2e7d44b0d9fb8b166599bf8ba60aa2f27777ee5709eda8df13d23d1d5abe",
+    "semantic-floating.mjs": "cb65fd1bda66f5d65f7643c7cde2211902cfb8b3f8e8612958c2bdac57388264",
+    "semantic-floating-journey.mjs": "56020e7d4696a36ee4881d0acbb9369873a90e80ee469af0342f572f20ddacdd",
+    "floating-actions-journey.mjs": "ba82a7f920a618f2cf9549b965e02a7bd1010bfbda76d3288c348b4d66cd6421",
+    "semantic-limits-journey.mjs": "bd5bfef9cc25c471b884eeafa5831bb88218daae2d19fe417b37a2ee7a190bf1",
+    "semantic-state-journey.mjs": "08f8089b15c911ac8ff9c0de843c124da64ba860bff4d6c96d767b4083439b93",
+    "floating-source-journey.mjs": "ebf287d2dd943880226ee8e61e7d03680a6ef7bc06d59a5d2f96b5ebe49a1459"
+  },
+  "providerRequests": [
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-style",
+      "inputSha256": "4aa4ccf92af433f0d939836b62a969ee11d21547bfa52801649786b1837e49a9",
+      "inputLength": 99
+    },
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-recall",
+      "inputSha256": "20cd8a20987e4e3cec3b921d2db7189ddd82b72a3e8268390aac0ea32daff332",
+      "inputLength": 25
+    },
+    {
+      "path": "/v1/chat/completions",
+      "model": "fixture-delay",
+      "inputSha256": "4aa4ccf92af433f0d939836b62a969ee11d21547bfa52801649786b1837e49a9",
+      "inputLength": 99
+    }
+  ],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "screenshotGeometry": [
+    {
+      "name": "regression-overview",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 1.1332099437713623
+    },
+    {
+      "name": "regression-ring",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 1.5941970348358154
+    },
+    {
+      "name": "routes-no-index",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 2.1024558544158936
+    },
+    {
+      "name": "routes-map-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 2.8823678493499756
+    },
+    {
+      "name": "routes-map-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 3.162600040435791
+    },
+    {
+      "name": "routes-map-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 3.4336419105529785
+    },
+    {
+      "name": "routes-families-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 4.190018892288208
+    },
+    {
+      "name": "routes-families-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 4.369792938232422
+    },
+    {
+      "name": "routes-families-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 4.521260023117065
+    },
+    {
+      "name": "routes-pair-select-en",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 5.051098823547363
+    },
+    {
+      "name": "routes-pair-review-en",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 5.267477989196777
+    },
+    {
+      "name": "routes-pair-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 5.44651198387146
+    },
+    {
+      "name": "routes-pair-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 5.601286888122559
+    },
+    {
+      "name": "routes-pair-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 5.770567893981934
+    },
+    {
+      "name": "routes-neighborhood-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 6.294450044631958
+    },
+    {
+      "name": "routes-neighborhood-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 6.499726057052612
+    },
+    {
+      "name": "routes-neighborhood-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 6.6978678703308105
+    },
+    {
+      "name": "routes-opportunities-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 7.169127941131592
+    },
+    {
+      "name": "routes-opportunities-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 7.392560958862305
+    },
+    {
+      "name": "routes-opportunities-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 7.6171698570251465
+    },
+    {
+      "name": "routes-focus-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 8.3592848777771
+    },
+    {
+      "name": "routes-focus-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 8.705265045166016
+    },
+    {
+      "name": "routes-focus-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 9.076498031616211
+    },
+    {
+      "name": "routes-similar-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 9.684803009033203
+    },
+    {
+      "name": "routes-similar-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 9.887318849563599
+    },
+    {
+      "name": "routes-similar-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 10.084069013595581
+    },
+    {
+      "name": "routes-map-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 11.57369089126587
+    },
+    {
+      "name": "routes-map-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 12.11869502067566
+    },
+    {
+      "name": "routes-map-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 12.599355936050415
+    },
+    {
+      "name": "routes-families-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 13.410043954849243
+    },
+    {
+      "name": "routes-families-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 13.620228052139282
+    },
+    {
+      "name": "routes-families-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 13.824331045150757
+    },
+    {
+      "name": "routes-pair-select-ru",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 14.342780828475952
+    },
+    {
+      "name": "routes-pair-review-ru",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 14.562685012817383
+    },
+    {
+      "name": "routes-pair-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 14.767055988311768
+    },
+    {
+      "name": "routes-pair-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 14.972594976425171
+    },
+    {
+      "name": "routes-pair-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 15.12532901763916
+    },
+    {
+      "name": "routes-neighborhood-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 15.698887825012207
+    },
+    {
+      "name": "routes-neighborhood-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 15.911974906921387
+    },
+    {
+      "name": "routes-neighborhood-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 16.08630895614624
+    },
+    {
+      "name": "routes-opportunities-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 16.671576976776123
+    },
+    {
+      "name": "routes-opportunities-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 16.993226051330566
+    },
+    {
+      "name": "routes-opportunities-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 17.283893823623657
+    },
+    {
+      "name": "routes-focus-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 18.099341869354248
+    },
+    {
+      "name": "routes-focus-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 18.395285844802856
+    },
+    {
+      "name": "routes-focus-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 18.75856304168701
+    },
+    {
+      "name": "routes-similar-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 19.438820838928223
+    },
+    {
+      "name": "routes-similar-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 19.694403886795044
+    },
+    {
+      "name": "routes-similar-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 19.91237497329712
+    },
+    {
+      "name": "state-late-A-selected-B",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 20.747853994369507
+    },
+    {
+      "name": "state-renamed-source",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 21.058486938476562
+    },
+    {
+      "name": "state-stale-fragments",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 21.680635929107666
+    },
+    {
+      "name": "state-error",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 22.188318967819214
+    },
+    {
+      "name": "state-empty",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 22.3777859210968
+    },
+    {
+      "name": "opportunity-durable-decision",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 22.988378047943115
+    },
+    {
+      "name": "state-partial-metadata",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 24.23705005645752
+    },
+    {
+      "name": "state-changed-scope",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 24.939637899398804
+    },
+    {
+      "name": "routes-split",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 658,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 25.59860897064209
+    },
+    {
+      "name": "routes-popout-pair",
+      "rect": {
+        "x": 0,
+        "y": 78,
+        "width": 1024,
+        "height": 722,
+        "scale": 1
+      },
+      "fullWindow": false,
+      "videoSeconds": 26.807065963745117
+    },
+    {
+      "name": "panel-collapsed-dark",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 28.566643953323364
+    },
+    {
+      "name": "panel-expanded-dark",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 29.04627799987793
+    },
+    {
+      "name": "panel-after-drag",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 29.7589008808136
+    },
+    {
+      "name": "style-consent",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 30.35784602165222
+    },
+    {
+      "name": "style-preview",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 30.753105878829956
+    },
+    {
+      "name": "style-undo",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 31.088284015655518
+    },
+    {
+      "name": "recall-consent",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 32.39314889907837
+    },
+    {
+      "name": "recall-inserted",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 33.55905103683472
+    },
+    {
+      "name": "recall-undo",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 34.23112487792969
+    },
+    {
+      "name": "recall-redo",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 35.003746032714844
+    },
+    {
+      "name": "failure",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true,
+      "videoSeconds": 38.92482399940491
+    }
+  ],
+  "ioStages": [
+    {
+      "name": "before-semantic-open",
+      "time": 1794977964.993,
+      "io": {
+        "read": 125,
+        "write": 0,
+        "process": 0,
+        "pluginRead": 0,
+        "pluginWrite": 0,
+        "configWrite": 0,
+        "semanticRead": 0,
+        "semanticWrite": 0,
+        "hostAdapterRead": 144,
+        "hostAdapterWrite": 1
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "semantic-open",
+      "time": 1794977965.091,
+      "io": {
+        "read": 125,
+        "write": 0,
+        "process": 0,
+        "pluginRead": 0,
+        "pluginWrite": 0,
+        "configWrite": 0,
+        "semanticRead": 0,
+        "semanticWrite": 0,
+        "hostAdapterRead": 144,
+        "hostAdapterWrite": 1
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "setup-return",
+      "time": 1794977965.519,
+      "io": {
+        "read": 125,
+        "write": 0,
+        "process": 0,
+        "pluginRead": 0,
+        "pluginWrite": 0,
+        "configWrite": 0,
+        "semanticRead": 0,
+        "semanticWrite": 0,
+        "hostAdapterRead": 144,
+        "hostAdapterWrite": 3
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "before-toggle",
+      "time": 1794977991.767,
+      "io": {
+        "read": 140,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 8,
+        "pluginWrite": 0,
+        "configWrite": 3,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 154,
+        "hostAdapterWrite": 13
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "toggle",
+      "time": 1794977991.797,
+      "io": {
+        "read": 140,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 8,
+        "pluginWrite": 0,
+        "configWrite": 4,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 154,
+        "hostAdapterWrite": 13
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "select",
+      "time": 1794977992.057,
+      "io": {
+        "read": 140,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 8,
+        "pluginWrite": 0,
+        "configWrite": 4,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 154,
+        "hostAdapterWrite": 13
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "expand",
+      "time": 1794977992.083,
+      "io": {
+        "read": 140,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 8,
+        "pluginWrite": 0,
+        "configWrite": 4,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 154,
+        "hostAdapterWrite": 13
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "drag",
+      "time": 1794977992.911,
+      "io": {
+        "read": 140,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 8,
+        "pluginWrite": 0,
+        "configWrite": 5,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 154,
+        "hostAdapterWrite": 14
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "consent",
+      "time": 1794977993.269,
+      "io": {
+        "read": 140,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 8,
+        "pluginWrite": 0,
+        "configWrite": 6,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 154,
+        "hostAdapterWrite": 14
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "generate",
+      "time": 1794977993.857,
+      "io": {
+        "read": 141,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 9,
+        "pluginWrite": 0,
+        "configWrite": 6,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 155,
+        "hostAdapterWrite": 14
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "preview",
+      "time": 1794977993.987,
+      "io": {
+        "read": 141,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 9,
+        "pluginWrite": 0,
+        "configWrite": 6,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 155,
+        "hostAdapterWrite": 14
+      },
+      "providerCalls": 1
+    },
+    {
+      "name": "apply",
+      "time": 1794977994.213,
+      "io": {
+        "read": 141,
+        "write": 1,
+        "process": 0,
+        "pluginRead": 9,
+        "pluginWrite": 0,
+        "configWrite": 6,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 155,
+        "hostAdapterWrite": 14
+      },
+      "providerCalls": 1
+    },
+    {
+      "name": "cancel",
+      "time": 1794977994.707,
+      "io": {
+        "read": 141,
+        "write": 3,
+        "process": 0,
+        "pluginRead": 9,
+        "pluginWrite": 0,
+        "configWrite": 6,
+        "semanticRead": 3,
+        "semanticWrite": 0,
+        "hostAdapterRead": 157,
+        "hostAdapterWrite": 16
+      },
+      "providerCalls": 1
+    }
+  ],
+  "faultInjection": [
+    "Neighborhood error/empty use explicit engine-boundary synthetic injections; screenshots are labelled, not semantic quality results."
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Style source blocks late Apply\n    at pass (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/visual.mjs:97:51)\n    at async runFloatingActions (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/floating-actions-journey.mjs:88:26)\n    at async runSemanticFloating (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/semantic-floating-journey.mjs:69:21)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/visual.mjs:139:3",
+  "failureState": {
+    "recall": {
+      "state": "success",
+      "result": {
+        "status": "success",
+        "cardCount": 3
+      }
+    },
+    "style": "conflict"
+  }
+}

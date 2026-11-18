@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/r05-3-registry-native.mjs",
+    "<disposable-session>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846465.9120073,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    40741,
+    38063
+  ],
+  "cdpClosed": true,
+  "seconds": 37.299
+}

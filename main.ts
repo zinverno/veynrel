@@ -1,3 +1,6 @@
+import { FloatingActions, floatingPreferences, type FloatingPreferences } from "./floating/floatingPanel";
+import { FloatingRecallModal, StyleModal } from "./floating/actionModals";
+import { ToolExplanationModal } from "./health/ui/toolExplanationModal";
 import { orgText } from "./consolidation/organizationView";
 import { RegistryEditModal } from "./consolidation/registryEditModal";
 import { ObsidianRegistry } from "./consolidation/obsidianRegistry";
@@ -42,6 +45,8 @@ import {
   InsertionType,
 } from "./settings";
 import { validateSettings, callOpenRouter, streamOpenRouter, testConnection } from "./api";
+import { LocalLinkModal } from "./consolidation/localLinkModal";
+import { studioFeatures } from "./studio/features";
 import type { StudioWorkspace } from "./studio/registerStudio";
 import {
   SELECTION_INSERTION_OPTIONS,
@@ -137,6 +142,8 @@ export default class AIHubPlugin extends Plugin {
   private atomizationModals = new Set<GenerativeAtomizationModal>();
   private atomizationPicker?: AtomizationPicker;
   private recallAuthoring?: RecallAuthoringAdapter;
+  private floating?: FloatingActions;
+  private semanticIntelligence?: SemanticIntelligenceController;
   private semanticController!: ObsidianSemanticController;
   private proposalApplication: { signature: string; value: ProposalApplication } | null = null;
   private safeApply?: SafeApplyService;
@@ -161,7 +168,14 @@ export default class AIHubPlugin extends Plugin {
   getToolsPort(): VeynrelToolsPort {
     return {
       openAskVault: () => this.semanticController.openAskVault(),
-      openAtomization: () => {
+      openSettings: () => {
+        const settings = (this.app as typeof this.app & { setting?: { open(): void; openTabById(id: string): void } }).setting;
+        if (settings) { settings.open(); settings.openTabById(this.manifest.id); }
+      },
+      ...(studioFeatures.enabled ? { openStudioNote: (path: string) => { void this.studio?.openNote?.(path); } } : {}),
+      openLocalLink: paths => { if (this.safeApply) new LocalLinkModal(this.app, paths, this.safeApply).open(); },
+      openAtomization: path => {
+        if (path !== undefined) { const file = this.app.vault.getFileByPath(path); if (file?.extension === "md") void this.atomizeNote(file); return; }
         this.atomizationPicker?.close();
         this.atomizationPicker = new AtomizationPicker(this.app, file => { void this.atomizeNote(file); });
         this.atomizationPicker.open();
@@ -172,7 +186,7 @@ export default class AIHubPlugin extends Plugin {
       openBatchProcessing: () => new BatchProcessModal(this.app, this).open(),
       runLegacyVaultAudit: () => this.runVaultAudit(),
       openOperationHistory: () => { if (this.safeApply) new OperationHistoryModal(this.app, this.safeApply).open(); },
-      openLocalTag: () => this.openLocalTag(),
+      openLocalTag: path => this.openLocalTag(undefined, [], path),
       openLocalNoteRepair: path => this.openLocalNoteAction(path, "repair_wikilink"),
       openTagTaxonomy: (scope = { kind: "all" }, findings = []) => {
         const modal = new TagTaxonomyModal(this.app, this.getTaxonomyProfilePort(), () => { this.taxonomyModals.delete(modal); }, inventory =>
@@ -260,9 +274,10 @@ export default class AIHubPlugin extends Plugin {
         openProposalReview: () => this.openProposalReview(),
       });
       this.register(() => connect.dispose());
+      this.semanticIntelligence = new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController);
       registerHealth(this, this.getToolsPort(),
         new HealthPreferencesController(() => this.settings.health, (health) => this.saveSettings(health)),
-        new SemanticIntelligenceController(this.getSemanticSettingsPort(), this.semanticController),
+        this.semanticIntelligence,
         new SemanticHealthAnalysisAdapter(this.semanticController), deep,
         new DeepHealthAnalysisAdapter(this.app, () => this.getDeepKnowledgeConfiguration()), (recall) => {
           const authoring = new RecallAuthoringAdapter(this.app, this.getLanguageModelSettingsPort(), recall,
@@ -345,7 +360,7 @@ export default class AIHubPlugin extends Plugin {
 
       this.addCommand({
         id: "ai-batch-process",
-        name: tr("AI: Обработать несколько заметок"),
+        name: tr("AI: Массовый аудит"),
         callback: () => new BatchProcessModal(this.app, this).open(),
       });
 
@@ -373,11 +388,49 @@ export default class AIHubPlugin extends Plugin {
         );
       }
 
+      this.addCommand({ id: "veynrel-floating-actions", name: tr("@floating.command"), callback: () => { void this.setFloatingPreferences({ enabled: !this.settings.floatingActions?.enabled }); } });
+      let floatingAlive = true;
+      this.app.workspace.onLayoutReady(() => {
+        if (!floatingAlive) return;
+        this.floating = new FloatingActions(this.app, {
+          preferences: () => floatingPreferences(this.settings.floatingActions),
+          save: value => this.setFloatingPreferences(value),
+          launch: (action, source, origin) => {
+            if (!source.current()) return;
+            let modal: Modal | undefined;
+            const tools = this.getToolsPort();
+            if (action === "style") modal = new StyleModal(this.app, source, this.getLanguageModelSettingsPort(), origin, () => tools.openSettings?.());
+            else if (action === "recall" && this.recallAuthoring) modal = new FloatingRecallModal(this.app, source, this.recallAuthoring, this.getLanguageModelSettingsPort(), origin, () => tools.openSettings?.());
+            else if (action === "search") {
+              // Existing initialQuery submits immediately; the toolbar opens an editable, passive search.
+              if (this.semanticIntelligence?.getSnapshot().state === "ready") this.semanticIntelligence.openSearch();
+              else tools.openSettings?.();
+            } else if (action === "tag" || action === "atomize") {
+              modal = new ToolExplanationModal(this.app, {
+                title: tr(action === "tag" ? "@floating.tag" : "@floating.atomize"), icon: action === "tag" ? "tag" : "split",
+                description: tr(action === "tag" ? "@floating.tag-description" : "@floating.atomize-description"),
+                material: `${source.path} · ${tr("@floating.whole")}`, effect: tr("@floating.owner-guarantees"),
+              }, origin, () => { if (source.current()) { if (action === "tag") tools.openLocalTag?.(source.path); else tools.openAtomization(source.path); } });
+            }
+            if (modal) { modal.open(); if (modal.contentEl.ownerDocument !== source.document) modal.close(); }
+            return modal;
+          },
+        });
+      });
+      this.register(() => { floatingAlive = false; this.floating?.dispose(); this.floating = undefined; });
       this.addSettingTab(new AIHubSettingTab(this.app, this));
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       new Notice(tr("❌ Ошибка загрузки Veynrel: {msg}", { msg }));
     }
+  }
+  async setFloatingPreferences(value: Partial<FloatingPreferences>): Promise<void> {
+    this.settings.floatingActions = floatingPreferences({ ...this.settings.floatingActions, ...value });
+    this.floating?.refresh();
+    try { await this.saveSettings(); } catch { this.floating?.refresh(); new Notice(tr("@floating.save-failed")); }
+  }
+  async resetFloatingPosition(): Promise<void> {
+    await this.setFloatingPreferences({ x: 1, y: 1 }); this.floating?.reset();
   }
   async loadSettings() {
     type StoredAIHubSettings = Omit<Partial<AIHubSettings>, "semantic" | "companion" | "health"> & {
@@ -445,10 +498,11 @@ export default class AIHubPlugin extends Plugin {
     };
   }
 
-  private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = []): void {
+  private openLocalTag(inventory?: TaxonomyInventory, exclusions: string[] = [], path?: string): void {
     if (this.getOrganizationRegistry().invalidPreferences) {
       new Notice(orgText("Organization settings are invalid. Open Organization audit for recovery information; no rules were reset.", "Настройки организации повреждены. Откройте аудит организации для сведений о восстановлении; правила не сброшены.")); return;
     }
+    if (path !== undefined) { this.openLocalNoteAction(path, "add_inline_tag", inventory); return; }
     new LocalNotePicker(this.app, path => this.openLocalNoteAction(path, "add_inline_tag", inventory),
       [...exclusions, ...(organizationPreferences(this.settings.organizationAudit).registryPath ? [organizationPreferences(this.settings.organizationAudit).registryPath!] : [])]).open();
   }
@@ -617,6 +671,7 @@ export default class AIHubPlugin extends Plugin {
       if (nextOrganization) this.settings.organizationAudit = nextOrganization;
       this.notifyCompanionSettingsChanged();
       this.notifyLanguageModelSettingsChanged();
+      this.floating?.refresh();
     });
     this.settingsSave = save.catch(() => undefined);
     return save;
@@ -2213,7 +2268,7 @@ export class BatchProcessModal extends Modal {
     const titleRow = h2.createDiv({ cls: "ai-hub-title-row" });
     const iconSpan = titleRow.createSpan({ cls: "ai-hub-accent-icon" });
     setIcon(iconSpan, "package");
-    titleRow.createSpan({ text: tr("Массовая обработка") });
+    titleRow.createSpan({ text: tr("Массовый аудит") });
 
     // Живой счётчик прямо в шапке
     this.countElement = h2.createSpan({

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/studio-community-native.mjs",
+    "<disposable-session>",
+    "<checkout-root>/.worktrees/ux-community-fixture"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846503.6277344,
+  "exitCode": 1,
+  "processGroupClean": true,
+  "cdpPorts": [
+    44313,
+    45731
+  ],
+  "cdpClosed": true,
+  "seconds": 22.083
+}

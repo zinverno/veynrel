@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/native/smoke.mjs",
+    "<disposable>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794844661.003906,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    35655
+  ],
+  "cdpClosed": true,
+  "seconds": 10.965,
+  "originalReceiptSha256": "854d1ca660dd223a836565e43ae223ea638aa6c10d39d319a6e0bc9f8defc576"
+}

@@ -1,0 +1,934 @@
+{
+  "originalSha256": "85227b3f7a6c111fb330d52e8edbc4caf85f1bba5d4917e540a1475a98616e0e",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "scenario": "r05-local-link-native-v1",
+    "checks": [
+      "Passive Workspace and Findings navigation does not scan, read Markdown or write",
+      "Check exposes bounded evidence-backed findings",
+      "Selected Workspace folder is one; the explicitly shown pair may include an external target",
+      "Real pair retains exact homonym paths and saved source context",
+      "No note writes before separate Apply confirmation",
+      "Explicit Apply adds only the full-path link; target, diary, YAML, CRLF, Unicode and unrelated notes preserved",
+      "Separate Undo restores every original Markdown byte",
+      "Returning retains originating finding and route",
+      "Native split buffer contains an unsaved test edit",
+      "Affected open split editor refuses write consent",
+      "en/dark/390px local plan uses native theme without horizontal overflow",
+      "en/dark: keyboard focus remains in local plan",
+      "en/light/390px local plan uses native theme without horizontal overflow",
+      "en/light: keyboard focus remains in local plan",
+      "ru/dark/390px local plan uses native theme without horizontal overflow",
+      "ru/dark: keyboard focus remains in local plan",
+      "ru/light/390px local plan uses native theme without horizontal overflow",
+      "ru/light: keyboard focus remains in local plan",
+      "Real popout owns local-plan document and focus",
+      "Focus returns to main after popout close",
+      "BOM stripped by native Vault.read refuses preparation before a new journal or Markdown write",
+      "Finding dismissal survives a repeated local scan without Markdown changes",
+      "Zero model requests and unhandled exceptions; all original files byte-identical at finish"
+    ],
+    "exceptions": [],
+    "consoleErrors": [],
+    "actions": [
+      {
+        "selector": "[data-health-action=nav-health]",
+        "active": "<button type=\"button\" data-health-action=\"nav-health\" aria-pressed=\"true\" aria-current=\"page\">Check</button>"
+      },
+      {
+        "selector": "[data-health-action=scan]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">Check vault</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+      },
+      {
+        "selector": "[data-health-action=\"finding-finding-f028619b29aa7a30\"]",
+        "active": "<button type=\"button\" data-health-action=\"finding-finding-f028619b29aa7a30\" aria-pressed=\"false\">Details</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+      },
+      {
+        "selector": "[data-local-link=review]",
+        "active": "<button class=\"mod-cta\" type=\"button\" data-local-link=\"review\">Check and apply</button>"
+      },
+      {
+        "selector": ".ai-safe-apply [data-safe-action=confirm]",
+        "active": "<button type=\"button\" data-safe-action=\"confirm\" class=\"mod-cta\">Apply this change</button>"
+      },
+      {
+        "selector": ".ai-safe-apply [data-safe-action=undo]",
+        "active": "<button type=\"button\" data-safe-action=\"undo\">Undo</button>"
+      },
+      {
+        "selector": "[data-safe-action=undoConfirm]",
+        "active": "<button type=\"button\" data-safe-action=\"undoConfirm\" class=\"mod-cta\">Undo this change</button>"
+      },
+      {
+        "selector": ".ai-safe-apply [data-safe-action=done]",
+        "active": "<button class=\"mod-cta\" type=\"button\" data-safe-action=\"done\">Done \u2014 back to pair</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+      },
+      {
+        "selector": "[data-local-link=review]",
+        "active": "<button class=\"mod-cta\" type=\"button\" data-local-link=\"review\">Check and apply</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">Continue to tool</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">Compare this pair</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">Prepare a link without a model</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0443</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">\u0421\u0440\u0430\u0432\u043d\u0438\u0442\u044c \u044d\u0442\u0443 \u043f\u0430\u0440\u0443</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443 \u0431\u0435\u0437 \u043c\u043e\u0434\u0435\u043b\u0438</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0443</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">\u0421\u0440\u0430\u0432\u043d\u0438\u0442\u044c \u044d\u0442\u0443 \u043f\u0430\u0440\u0443</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443 \u0431\u0435\u0437 \u043c\u043e\u0434\u0435\u043b\u0438</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">\u0421\u0440\u0430\u0432\u043d\u0438\u0442\u044c \u044d\u0442\u0443 \u043f\u0430\u0440\u0443</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443 \u0431\u0435\u0437 \u043c\u043e\u0434\u0435\u043b\u0438</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0443</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-compare]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"finding-compare\">\u0421\u0440\u0430\u0432\u043d\u0438\u0442\u044c \u044d\u0442\u0443 \u043f\u0430\u0440\u0443</button>"
+      },
+      {
+        "selector": "[data-local-link=open]",
+        "active": "<button type=\"button\" data-local-link=\"open\">\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u0438\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443 \u0431\u0435\u0437 \u043c\u043e\u0434\u0435\u043b\u0438</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0443</button>"
+      },
+      {
+        "selector": "[data-health-action=finding-dismiss]",
+        "active": "<button type=\"button\" data-health-action=\"finding-dismiss\">\u041e\u0442\u043a\u043b\u043e\u043d\u0438\u0442\u044c</button>"
+      },
+      {
+        "selector": "[data-health-action=scope-continue]",
+        "active": "<button type=\"button\" data-health-action=\"scope-continue\">\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0443</button>"
+      },
+      {
+        "selector": "[data-health-action=scan]",
+        "active": "<button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0441\u043d\u043e\u0432\u0430</button>"
+      }
+    ],
+    "screenshots": [
+      "finding-evidence-en-dark.png",
+      "pair-evidence.png",
+      "local-plan.png",
+      "review-diff.png",
+      "applied.png",
+      "undo-review.png",
+      "undone.png",
+      "open-editor-refusal.png",
+      "en-dark-390.png",
+      "en-light-390.png",
+      "ru-dark-390.png",
+      "ru-light-390.png",
+      "popout-plan.png",
+      "bom-refusal.png"
+    ],
+    "assets": {
+      "main.js": "db3f4b7932e37466ab36f07f8231092ddc3dd1a70feba1b42d2e2512b7c7e0df",
+      "styles.css": "c0db587e4a7710f11e7b3ca7a94a647442ec0f9cbf0161b1768dfaf5665e906e",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "externalRequests": [],
+    "recording": {
+      "file": "journey.mp4",
+      "encodedSeconds": 11.233333,
+      "frames": 52,
+      "seconds": 10.849081993103027,
+      "source": "Native CDP frames and timestamps; main client area, no cuts"
+    },
+    "harnessHashes": {
+      "r05-actions-native.mjs": "c208cff24e54f759caff7541b622a23cd886f10bc96aaee7edd05f65cd7a6433",
+      "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+      "native/run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.3.1"
+    },
+    "passive": {
+      "before": {
+        "reads": [],
+        "writes": [],
+        "creates": [],
+        "metadata": 2,
+        "enumerations": 1,
+        "models": 0,
+        "adapterWrites": [],
+        "phase": "passive-navigation"
+      },
+      "after": {
+        "reads": [],
+        "writes": [],
+        "creates": [],
+        "metadata": 2,
+        "enumerations": 1,
+        "models": 0,
+        "adapterWrites": [],
+        "phase": "passive-navigation"
+      }
+    },
+    "scan": {
+      "scan": {
+        "id": "local-3d4626d8-a4cf-4583-b0ef-08dc3e28f024",
+        "type": "local",
+        "startedAt": 1794840622803,
+        "notesSeen": 7,
+        "findingsCreated": 14,
+        "findingsUpdated": 0,
+        "findingsResolved": 0,
+        "analyzerVersions": {
+          "broken-links": "1",
+          "duplicate-titles": "1",
+          "exact-duplicates": "1",
+          "graph-components": "1",
+          "no-incoming-links": "1",
+          "no-outgoing-links": "1",
+          "note-shape": "1",
+          "orphans": "1"
+        },
+        "reconciliationReceipts": {
+          "local:broken-links": 1794840622883,
+          "local:duplicate-titles": 1794840622883,
+          "local:exact-duplicates": 1794840622883,
+          "local:graph-components": 1794840622883,
+          "local:no-incoming-links": 1794840622883,
+          "local:no-outgoing-links": 1794840622883,
+          "local:note-shape": 1794840622883,
+          "local:orphans": 1794840622883
+        },
+        "status": "completed",
+        "completedAt": 1794840622883
+      },
+      "freshness": "verified",
+      "findingsCommitted": true,
+      "historyRecorded": true,
+      "diagnostics": [],
+      "coverage": {
+        "listed": 7,
+        "fullyAvailable": 7,
+        "contentUnavailable": 0,
+        "linksUnavailable": 0,
+        "noteListComplete": true,
+        "diagnostics": [],
+        "diagnosticsTruncated": 0
+      }
+    },
+    "activeScope": {
+      "workspace": {
+        "kind": "folder",
+        "path": "one"
+      },
+      "source": "one/Same.md",
+      "target": "two/Same.md",
+      "writes": [
+        "one/Same.md"
+      ]
+    },
+    "appliedHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+    "history": [
+      {
+        "id": "35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712",
+        "copies": [
+          {
+            "name": "record.json",
+            "record": {
+              "version": 1,
+              "state": "prepared",
+              "id": "35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712",
+              "createdAt": 1794840627859,
+              "operation": "add_link",
+              "sourcePath": "one/Same.md",
+              "targetPath": "two/Same.md",
+              "sourceCreated": 1794840620316,
+              "sourceModified": 1794840620316,
+              "targetCreated": 1794840620316,
+              "targetModified": 1794840620316,
+              "before": "---\r\ntitle: \"\u042e\u043d\u0438\u043a\u043e\u0434: \ud83d\udc08\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+              "after": "---\r\ntitle: \"\u042e\u043d\u0438\u043a\u043e\u0434: \ud83d\udc08\"\r\n---\r\n\r\nA theoretical note with its own purpose. [[two/Same]]\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+              "beforeHash": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+              "afterHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+              "targetHash": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+              "selection": {
+                "start": 33,
+                "end": 73,
+                "text": "A theoretical note with its own purpose."
+              },
+              "edit": {
+                "start": 73,
+                "end": 73,
+                "removed": "",
+                "inserted": " [[two/Same]]"
+              }
+            }
+          },
+          {
+            "name": "backup.json",
+            "record": {
+              "version": 1,
+              "state": "prepared",
+              "id": "35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712",
+              "createdAt": 1794840627859,
+              "operation": "add_link",
+              "sourcePath": "one/Same.md",
+              "targetPath": "two/Same.md",
+              "sourceCreated": 1794840620316,
+              "sourceModified": 1794840620316,
+              "targetCreated": 1794840620316,
+              "targetModified": 1794840620316,
+              "before": "---\r\ntitle: \"\u042e\u043d\u0438\u043a\u043e\u0434: \ud83d\udc08\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+              "after": "---\r\ntitle: \"\u042e\u043d\u0438\u043a\u043e\u0434: \ud83d\udc08\"\r\n---\r\n\r\nA theoretical note with its own purpose. [[two/Same]]\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+              "beforeHash": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+              "afterHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+              "targetHash": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+              "selection": {
+                "start": 33,
+                "end": 73,
+                "text": "A theoretical note with its own purpose."
+              },
+              "edit": {
+                "start": 73,
+                "end": 73,
+                "removed": "",
+                "inserted": " [[two/Same]]"
+              }
+            }
+          }
+        ],
+        "marks": [
+          "applied",
+          "undo_pending",
+          "undone"
+        ],
+        "damaged": false,
+        "issues": [],
+        "evidence": [
+          {
+            "name": "record.json",
+            "status": "valid",
+            "sha256": "f1d8ce8123bdfb758e396024fdb7f0fac85e7f8ce7d9af3440b8e62121a84291"
+          },
+          {
+            "name": "backup.json",
+            "status": "valid",
+            "sha256": "f1d8ce8123bdfb758e396024fdb7f0fac85e7f8ce7d9af3440b8e62121a84291"
+          },
+          {
+            "name": "applied.json",
+            "status": "valid",
+            "sha256": "b71e4b14c3c31fff2d47ff33552d8a031620e12f10009a65f79ee84598f10e9e"
+          },
+          {
+            "name": "undo_pending.json",
+            "status": "valid",
+            "sha256": "f6fac4b6819814adf104d02879633699a24d64e6078499510c9187968ac2fe9b"
+          },
+          {
+            "name": "undone.json",
+            "status": "valid",
+            "sha256": "452a6ba4013a29633508544091367fc47b9def95fe9dd3ef5b5eda818f0fcdb2"
+          }
+        ],
+        "scope": "none",
+        "evidenceHash": "af313a7a491ce6107c60d5960cebcc172b73d30a227c5b4fbe29da8d105f9123",
+        "resolutionAttempts": [],
+        "record": {
+          "version": 1,
+          "state": "prepared",
+          "id": "35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712",
+          "createdAt": 1794840627859,
+          "operation": "add_link",
+          "sourcePath": "one/Same.md",
+          "targetPath": "two/Same.md",
+          "sourceCreated": 1794840620316,
+          "sourceModified": 1794840620316,
+          "targetCreated": 1794840620316,
+          "targetModified": 1794840620316,
+          "before": "---\r\ntitle: \"\u042e\u043d\u0438\u043a\u043e\u0434: \ud83d\udc08\"\r\n---\r\n\r\nA theoretical note with its own purpose.\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+          "after": "---\r\ntitle: \"\u042e\u043d\u0438\u043a\u043e\u0434: \ud83d\udc08\"\r\n---\r\n\r\nA theoretical note with its own purpose. [[two/Same]]\r\n\r\n[Elsewhere](../Other.md#Heading)\r\n",
+          "beforeHash": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+          "afterHash": "1962ad7c3308db3b3b7755268a32b546c227e90da44d261b93b39227ec81001c",
+          "targetHash": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+          "selection": {
+            "start": 33,
+            "end": 73,
+            "text": "A theoretical note with its own purpose."
+          },
+          "edit": {
+            "start": 73,
+            "end": 73,
+            "removed": "",
+            "inserted": " [[two/Same]]"
+          }
+        },
+        "state": "undone",
+        "recovered": false,
+        "canUndo": false,
+        "canResolve": false,
+        "sourceState": "before",
+        "editorBlocked": false
+      }
+    ],
+    "settingsPreserved": "All plugin settings unchanged except the explicitly tested language selector",
+    "finalHashes": {
+      "one/Same.md": "18334f7593aae54306edc4a18bb5c90dbf08494150fe2173a8b5a10557bd0da0",
+      "two/Same.md": "b0fedb6226df5ec2cb64a0d729a2f8a322d0894a1856b3a5dbe18f904a11b709",
+      "Broken.md": "22c7ebe80bb191eec416386b0798b1049e38df7b666b175156bd4ee3d592c0a4",
+      "Other.md": "c83bab09c2e870ce2954efb40363026c5472fd1dfe289088944ccdca9085590e",
+      "Encoding.md": "1587fd84e73f4f8472a1915c274c34db08abb3c4f53ca3d0dbd9890069ed077d",
+      "encoding/Encoding.md": "efff514393c71aada4b15b94dcf286697580a08a86adc6d26897dc09dac7c5e6",
+      "Diary.md": "ac0abccf8b381a29c6670604b2fa0927978063f0f4482d89381fc9010cce8601"
+    },
+    "io": {
+      "reads": [
+        {
+          "path": "Broken.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "Other.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "finding-and-pair"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "prepare-and-review"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "prepare-and-review"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "restore-explicit-editor-test"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "localization-and-layout"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "bom-refusal"
+        },
+        {
+          "path": "Broken.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "Encoding.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "Other.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "encoding/Encoding.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "dismiss-and-rescan"
+        }
+      ],
+      "writes": [
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-apply"
+        },
+        {
+          "path": "one/Same.md",
+          "phase": "explicit-undo"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "path": "two/Same.md",
+          "phase": "restore-explicit-editor-test"
+        }
+      ],
+      "creates": [],
+      "metadata": 88,
+      "enumerations": 6,
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+          "phase": "explicit-local-scan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "finding-and-pair"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "finding-and-pair"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "finding-and-pair"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/record.json",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "copy",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/record.json",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/applied.json",
+          "phase": "explicit-apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/undo_pending.json",
+          "phase": "explicit-undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/undone.json",
+          "phase": "explicit-undo"
+        },
+        {
+          "method": "write",
+          "path": "two/Same.md",
+          "phase": "refusal-unsaved-editor"
+        },
+        {
+          "method": "write",
+          "path": "two/Same.md",
+          "phase": "restore-explicit-editor-test"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "localization-and-layout"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/findings.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/health/scan-runs.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "dismiss-and-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "dismiss-and-rescan"
+        }
+      ],
+      "phase": "dismiss-and-rescan"
+    },
+    "operationJournalWrites": [
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "mkdir",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/record.json",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "copy",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/record.json",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/applied.json",
+        "phase": "explicit-apply"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/undo_pending.json",
+        "phase": "explicit-undo"
+      },
+      {
+        "method": "write",
+        "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-operations/35ea5356914ac745895a77b4e80356e40a5deefd5005a0c0d89694efc69f4712/undone.json",
+        "phase": "explicit-undo"
+      }
+    ],
+    "modelRequests": [],
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,14 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":124.69298499999996,"layoutMs":9.32600500000001}}
+
+ Test Files  213 passed (213)
+      Tests  5434 passed (5434)
+   Start at  09:33:13
+   Duration  63.57s (transform 8.40s, setup 0ms, import 24.63s, tests 71.20s, environment 23ms)
+

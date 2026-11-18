@@ -1,0 +1,5 @@
+{
+  "status": "INCOMPLETE",
+  "reason": "Orchestration exited with SIGTERM (143); no final harness or isolation receipt. Cause unproven. Kept without PASS.",
+  "originalReceiptSha256": "caca33540be7c0785b4422ed4e3d865477f57775a068e94ed0146fe41bcf0057"
+}

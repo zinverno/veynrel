@@ -302,3 +302,7 @@ launcher, synthetic family fixture, unfiltered exception gate and byte-preservat
 guards. No automatic retry or desktop fallback. Full maps, partial/absent indices and
 1k/5k/10k retain the existing `map` arguments. A warm-cache picker control is distinct
 from cold-start acceptance. See [parity and exact results](r06/part2b-verification.md).
+
+## Product UX redesign
+
+The [UX-A verification](product-ux/ux-a-verification.md) separates original and new captures, private notes-only observations and synthetic regression evidence. Run `python scripts/native/run.py ux after-a` for the 154-note compact-check walkthrough. `UX_NOTE_COUNT=1000` selects a larger synthetic fixture; 5000/10000 are supported diagnostics, not a claim that cold host readiness passes. `UX_THEME_DIR` optionally points to the pinned unmodified Minimal fixture (manifest, CSS and source receipt). The Community harness enables the internal test-only flag explicitly; the normal plugin hides online Community. Historical failed receipts and host gates remain valid.

@@ -18,6 +18,11 @@ import uuid
 
 REPO = Path(__file__).resolve().parents[2]
 SUITES = {
+    'semantic-floating': ('veynrel-semantic-floating-native-', 'scripts/native/semantic-floating.mjs'),
+    'followup': ('veynrel-followup-native-', 'scripts/native/followup.mjs'),
+    'visual': ('veynrel-visual-native-', 'scripts/native/visual.mjs'),
+    'overview': ('veynrel-overview-native-', 'scripts/native/overview.mjs'),
+    'ux': ('veynrel-ux-native-', 'scripts/native/product-ux.mjs'),
     'map': ('veynrel-map-native-', 'scripts/r06-map-native.mjs'),
     'registry': ('veynrel-registry-native-', 'scripts/r05-3-registry-native.mjs'),
     'local-notes': ('veynrel-local-notes-native-', 'scripts/r05-2-local-notes-native.mjs'),

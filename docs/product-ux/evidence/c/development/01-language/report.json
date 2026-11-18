@@ -1,0 +1,462 @@
+{
+  "source": {
+    "commit": "db99a71181b4de50675c18160c96fafde2e76cad",
+    "diffSha256": "7394e55dadb7f6bb079bba757d66357d8ff9fa1e2bf8e39841e15339bac15345"
+  },
+  "scenario": "product-ux-after-c",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "Exactly three top destinations; no duplicate plugin branding or Pulse",
+    "No mandatory profile/result wizard",
+    "Coverage matches real metadata-ready source",
+    "Search retains keyboard focus on first route transition",
+    "Findings render bounded real rows",
+    "en/light/1100: no horizontal overflow",
+    "en/light/390: no horizontal overflow",
+    "en/dark/1100: no horizontal overflow",
+    "en/dark/390: no horizontal overflow",
+    "ru/light/1100: no horizontal overflow",
+    "ru/light/390: no horizontal overflow",
+    "ru/dark/1100: no horizontal overflow",
+    "ru/dark/390: no horizontal overflow",
+    "Reduced motion is active",
+    "Structure is default; no passive semantic calculation or Markdown IO",
+    "Real directed links render without any semantic index",
+    "Structural overlay is independent of geometry",
+    "Selected structural note has real incoming links and existing safe tag route",
+    "Map en/light/1100: no horizontal overflow",
+    "Map en/light/390: no horizontal overflow",
+    "Map en/dark/1100: no horizontal overflow",
+    "Map en/dark/390: no horizontal overflow",
+    "Map ru/light/1100: no horizontal overflow",
+    "Map ru/light/390: no horizontal overflow",
+    "Map ru/dark/1100: no horizontal overflow",
+    "Map ru/dark/390: no horizontal overflow"
+  ],
+  "exceptions": [],
+  "actions": [
+    {
+      "transition": "home",
+      "ms": 27
+    },
+    {
+      "transition": "discover",
+      "ms": 30
+    },
+    {
+      "transition": "health",
+      "ms": 23
+    },
+    {
+      "transition": "process",
+      "ms": 34
+    }
+  ],
+  "screenshots": [
+    "first-light.png",
+    "first-dark.png",
+    "first-result-light.png",
+    "first-result-dark.png",
+    "check-en-light-1100.png",
+    "check-en-light-390.png",
+    "check-en-dark-1100.png",
+    "check-en-dark-390.png",
+    "check-ru-light-1100.png",
+    "check-ru-light-390.png",
+    "check-ru-dark-1100.png",
+    "check-ru-dark-390.png",
+    "home-light.png",
+    "home-dark.png",
+    "notes-light.png",
+    "notes-dark.png",
+    "check-light.png",
+    "check-dark.png",
+    "processing-light.png",
+    "processing-dark.png",
+    "structure-selected.png",
+    "structure-en-light-1100.png",
+    "structure-en-light-390.png",
+    "structure-en-dark-1100.png",
+    "structure-en-dark-390.png",
+    "structure-ru-light-1100.png",
+    "structure-ru-light-390.png",
+    "structure-ru-dark-1100.png",
+    "structure-ru-dark-390.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "e6c6678b8cd4dd3b662abf4087bec98038f676a7afcdfed3c4b2cf1c9d85f935",
+    "styles.css": "2e4c662544da989438a966e5f2c9509cbb9757dfeb181e0c53dd01409d29e2f0",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 125,
+    "seconds": 5.620971918106079,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "product-ux.mjs": "7b31eaffc32a248286c03ad878651f812f110a16bcfb99b684d806dde482a8e1",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+  },
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "passive": {
+    "read": 0,
+    "write": 0,
+    "process": 0,
+    "pluginRead": 0,
+    "pluginWrite": 0
+  },
+  "firstCheckMs": 353,
+  "outcome": {
+    "scan": {
+      "id": "local-994f7495-20bb-4fb8-ad67-76840b79613a",
+      "type": "local",
+      "startedAt": 1794845660996,
+      "notesSeen": 154,
+      "findingsCreated": 15,
+      "findingsUpdated": 0,
+      "findingsResolved": 0,
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "reconciliationReceipts": {
+        "local:broken-links": 1794845661195,
+        "local:duplicate-titles": 1794845661195,
+        "local:exact-duplicates": 1794845661195,
+        "local:graph-components": 1794845661195,
+        "local:no-incoming-links": 1794845661195,
+        "local:no-outgoing-links": 1794845661195,
+        "local:note-shape": 1794845661195,
+        "local:orphans": 1794845661195
+      },
+      "status": "partial",
+      "completedAt": 1794845661195
+    },
+    "freshness": "verified",
+    "findingsCommitted": true,
+    "historyRecorded": true,
+    "diagnostics": [
+      "analysis-partial"
+    ],
+    "coverage": {
+      "listed": 154,
+      "fullyAvailable": 110,
+      "contentUnavailable": 0,
+      "linksUnavailable": 44,
+      "noteListComplete": true,
+      "linkLimitations": {
+        "missing": 44,
+        "unsupported": 0,
+        "changed": 0,
+        "unknown": 0
+      },
+      "diagnostics": [
+        {
+          "code": "metadata-missing",
+          "path": "Note-61.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-62.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-63.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-64.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-65.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-66.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-67.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-68.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-69.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-7.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-70.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-71.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-72.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-73.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-74.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-75.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-76.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-77.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-78.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-79.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-8.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-80.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-81.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-82.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-83.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-84.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-85.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-86.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-87.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-88.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-89.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-9.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-90.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-91.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-92.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-93.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-94.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-95.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-96.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-97.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-98.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Note-99.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Other.md",
+          "message": "Note link metadata is unavailable or invalid."
+        },
+        {
+          "code": "metadata-missing",
+          "path": "Source.md",
+          "message": "Note link metadata is unavailable or invalid."
+        }
+      ],
+      "diagnosticsTruncated": 0
+    }
+  },
+  "explicitCheckIO": {
+    "read": 274,
+    "write": 0,
+    "process": 0,
+    "pluginRead": 154,
+    "pluginWrite": 0
+  },
+  "readyCheckMs": 243,
+  "readyOutcome": {
+    "scan": {
+      "id": "local-2faf60ea-26cc-4d01-b7bd-e261091dd416",
+      "type": "local",
+      "startedAt": 1794845661561,
+      "notesSeen": 154,
+      "findingsCreated": 161,
+      "findingsUpdated": 15,
+      "findingsResolved": 0,
+      "analyzerVersions": {
+        "broken-links": "1",
+        "duplicate-titles": "1",
+        "exact-duplicates": "1",
+        "graph-components": "1",
+        "no-incoming-links": "1",
+        "no-outgoing-links": "1",
+        "note-shape": "1",
+        "orphans": "1"
+      },
+      "reconciliationReceipts": {
+        "local:broken-links": 1794845661700,
+        "local:duplicate-titles": 1794845661700,
+        "local:exact-duplicates": 1794845661700,
+        "local:graph-components": 1794845661700,
+        "local:no-incoming-links": 1794845661700,
+        "local:no-outgoing-links": 1794845661700,
+        "local:note-shape": 1794845661700,
+        "local:orphans": 1794845661700
+      },
+      "status": "completed",
+      "completedAt": 1794845661700
+    },
+    "freshness": "verified",
+    "findingsCommitted": true,
+    "historyRecorded": true,
+    "diagnostics": [],
+    "coverage": {
+      "listed": 154,
+      "fullyAvailable": 154,
+      "contentUnavailable": 0,
+      "linksUnavailable": 0,
+      "noteListComplete": true,
+      "linkLimitations": {
+        "missing": 0,
+        "unsupported": 0,
+        "changed": 0,
+        "unknown": 0
+      },
+      "diagnostics": [],
+      "diagnosticsTruncated": 0
+    }
+  },
+  "searchMs": 25,
+  "boundedList": {
+    "rows": 60,
+    "elements": 414,
+    "total": 176
+  },
+  "structureMs": 120.32217799999944,
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught\",\"lineNumber\":0,\"columnNumber\":94,\"scriptId\":\"250\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"250\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":100}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"Error\",\"description\":\"Error: Unavailable: workbench-zoom-in\\n    at <anonymous>:1:101\",\"objectId\":\"-2630151457447963198.1.2\"}}\n    at ev (file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux.mjs:57:5)\n    at async activate (file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux-map.mjs:4:43)\n    at async runMapUX (file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux-map.mjs:31:3)\n    at async file://<checkout-root>/.worktrees/ux-c-structural-map/scripts/native/product-ux.mjs:157:30"
+}

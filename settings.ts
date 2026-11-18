@@ -1,3 +1,4 @@
+import type { FloatingPreferences } from "./floating/floatingPanel";
 import { t as tr, setLanguage, AIHubLang } from "./i18n";
 import {
   App,
@@ -45,6 +46,7 @@ import type { RerankSettings } from "./rerank/types";
 import { RerankError } from "./rerank/openRouterRerank";
 import type { OrganizationPreferences } from "./consolidation/organizationProfile";
 import type { TagTaxonomyProfile } from "./consolidation/taxonomyProfile";
+import { studioFeatures } from "./studio/features";
 import { COMMUNITY_SITE } from "./studio/community/schema";
 import { l as studioLabel } from "./studio/messages";
 
@@ -67,6 +69,7 @@ export interface AIHubSettings {
   /** Папка для атомарных заметок (используется в режиме "folder") */
   atomsFolder: string;
   // ── Интерфейс ─────────────────────────────────────────────────────
+  floatingActions?: FloatingPreferences;
   showContextMenu: boolean;
   notifyOnCopy: boolean;
   language: AIHubLang;
@@ -209,6 +212,14 @@ export class AIHubSettingTab extends PluginSettingTab {
         type: "group", heading: "", icon: "brain", items: [
           { ...row([], "Veynrel", tr("Настройки плагина"), (setting) => this.renderHero(this.customContainer(setting))), searchable: false }
         ]
+      },
+      {
+        type: "group", heading: tr("@floating.title"), icon: "mouse-pointer", items: [
+          row(["floatingActions.enabled"], tr("@floating.enable"), tr("@floating.setting-description"), setting => {
+            setting.addToggle(toggle => toggle.setValue(this.plugin.settings.floatingActions?.enabled === true).onChange(value => this.plugin.setFloatingPreferences({ enabled: value })));
+          }),
+          row([], tr("@floating.reset"), undefined, setting => { setting.addButton(button => button.setButtonText(tr("@floating.reset")).onClick(() => this.plugin.resetFloatingPosition())); }),
+        ],
       },
       {
         type: "group", heading: tr("@settings.group.deep"), icon: "cpu", items: [
@@ -812,7 +823,7 @@ export class AIHubSettingTab extends PluginSettingTab {
         item.aliases.push("OpenAI", "OpenRouter", "Ollama", "Custom");
       }
     }
-    return sections;
+    return studioFeatures.enabled ? sections : sections.filter(section => section.heading !== "Veynrel Studio");
   }
 
   /** Path B: hosts older than 1.13 use these same rows through the original Setting API. */

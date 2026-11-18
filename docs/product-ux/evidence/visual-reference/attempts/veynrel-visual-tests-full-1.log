@@ -1,0 +1,231 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-visual-reference
+
+ ❯ health/ui/VeynrelHealthView.test.ts (167 tests | 2 failed) 6354ms
+     × explicit Semantic Health scan produces localized Inbox Findings in en and preserves dismissal on repeat 112ms
+     × explicit Semantic Health scan produces localized Inbox Findings in ru and preserves dismissal on repeat 101ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > explicit Semantic Health scan produces localized Inbox Findings in en and preserves dismissal on repeat
+AssertionError: expected '\n\n\n\n\n\n\n\n\nHistory\nSettings\n…' to contain '2 notes'
+
+- Expected
++ Received
+
+- 2 notes
++
++
++
++
++
++
++
++
++
++ History
++ Settings
++ Explore organization
++ ← Overview
++
++
++
++ Check
++
++
++ Notes: 1
++ Check vault
++ Local · Notes unchanged
++
++
++
++
++ Open 1
++ Snoozed 0
++ Dismissed 0
++ Resolved 0
++
++ All
++ Links
++ Duplicates
++ Organization
++ Other
++
++ Dimension
++ All
++ Structure
++ Connections
++ Recall
++ Knowledge
++
++
++
++ Находки: 1
++
++ A.md
++ B.md
++
++
++
++ Possible semantic duplicate
++ Semantic similarity: 97%
++
++ Details
++
++ 1–1 of 1
++
++ Saved findings and review
++
++
++
++ Structure
++ Not fully analyzed
++
++ 0
++ Findings
++
++
++
++ Connections
++ Review recommended
++
++ 1
++ Findings
++ Semantic analysis · incomplete
++
++
++
++ Recall
++ Not enabled
++
++
++
++ Knowledge
++ Not enabled
+
+ ❯ health/ui/VeynrelHealthView.test.ts:522:31
+    520|     expect(f.content.texts()).toContain(language === "en" ? "Possible …
+    521|     go(f.content, "health"); go(f.content, "health");
+    522|     expect(f.content.texts()).toContain(language === "en" ? "2 notes" …
+       |                               ^
+    523|     f.content.action(`finding-${finding.id}`).click();
+    524|     expect(f.content.texts()).toContain(language === "en" ? "Semantic …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  health/ui/VeynrelHealthView.test.ts > inline Semantic Intelligence boundaries > explicit Semantic Health scan produces localized Inbox Findings in ru and preserves dismissal on repeat
+AssertionError: expected '\n\n\n\n\n\n\n\n\nИстория\nНастройки\…' to contain 'Заметок: 2'
+
+- Expected
++ Received
+
+- Заметок: 2
++
++
++
++
++
++
++
++
++
++ История
++ Настройки
++ Изучить организацию
++ ← Обзор
++
++
++
++ Проверка
++
++
++ Заметок: 1
++ Проверить хранилище
++ Локально · Без изменения заметок
++
++
++
++
++ Открытые 1
++ Отложенные 0
++ Отклонённые 0
++ Устранённые 0
++
++ Все
++ Ссылки
++ Дубликаты
++ Организация
++ Другие
++
++ Область
++ Все
++ Структура
++ Связи
++ Повторение
++ Знания
++
++
++
++ Findings: 1
++
++ A.md
++ B.md
++
++
++
++ Возможный смысловой дубликат
++ Сходство по смыслу: 97%
++
++ Подробности
++
++ 1–1 из 1
++
++ Сохранённые находки и повторение
++
++
++
++ Структура
++ Не полностью проверено
++
++ 0
++ Находки
++
++
++
++ Связи
++ Рекомендуется проверить
++
++ 1
++ Находки
++ Семантический анализ · неполный
++
++
++
++ Повторение
++ Не включено
++
++
++
++ Знания
++ Не включено
+
+ ❯ health/ui/VeynrelHealthView.test.ts:522:31
+    520|     expect(f.content.texts()).toContain(language === "en" ? "Possible …
+    521|     go(f.content, "health"); go(f.content, "health");
+    522|     expect(f.content.texts()).toContain(language === "en" ? "2 notes" …
+       |                               ^
+    523|     f.content.action(`finding-${finding.id}`).click();
+    524|     expect(f.content.texts()).toContain(language === "en" ? "Semantic …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 212 passed (213)
+      Tests  2 failed | 5430 passed (5432)
+   Start at  07:38:04
+   Duration  39.75s (transform 36.20s, setup 0ms, import 83.02s, tests 155.06s, environment 47ms)
+

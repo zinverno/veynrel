@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/r05-2-local-notes-native.mjs",
+    "<disposable-session>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846665.485639,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    36003,
+    41131
+  ],
+  "cdpClosed": true,
+  "seconds": 35.136
+}

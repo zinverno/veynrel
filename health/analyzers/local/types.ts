@@ -16,6 +16,7 @@ export interface LocalNoteSnapshot {
   readonly resolvedOutgoing: readonly string[];
   readonly unresolvedLinks: readonly LocalUnresolvedLink[];
   readonly linksAvailable: boolean;
+  readonly linkLimitation?: "metadata-missing" | "unsupported-target" | "source-changed";
 }
 
 export interface LocalVaultSnapshot {
@@ -43,10 +44,19 @@ export interface LocalAnalysisContext {
 }
 
 export interface LocalScanAnalysis {
+  coverage?: LocalCoverageReceipt;
   revision: LocalVaultRevision;
   notesSeen: number;
   analyzerVersions: Record<string, string>;
   results: AnalyzerResult[];
   diagnostics: AnalyzerDiagnostic[];
   diagnosticsTruncated: number;
+}
+
+/** Ephemeral facts from the captured source, not a new persisted scan schema. */
+export interface LocalCoverageReceipt {
+  listed: number; fullyAvailable: number; contentUnavailable: number; linksUnavailable: number;
+  noteListComplete: boolean;
+  linkLimitations?: { missing: number; unsupported: number; changed: number; unknown: number };
+  diagnostics: AnalyzerDiagnostic[]; diagnosticsTruncated: number;
 }

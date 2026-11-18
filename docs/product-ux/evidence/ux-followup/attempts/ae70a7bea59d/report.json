@@ -1,0 +1,87 @@
+{
+  "source": {
+    "commit": "8870ffc8171199c971a60646761494cab0244eff",
+    "diffSha256": "985390fd7738310405de104f090b7a0179cf6ec42898002643ea739aaeb9bfbc"
+  },
+  "scenario": "followup-interactions",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "Overview has no passive plugin note IO",
+    "Chooser keeps 12 catalog entries and 5 editor commands, all with native icons",
+    "Explanation opens with zero note/index/file IO or provider requests",
+    "Chooser selection opens the shared explanation",
+    "Open tool calls the existing Markdown picker"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "after-chooser-explanation.png",
+    "after-existing-atomization-picker.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "710b2724e08ba8e084b822149d40125bfea873be575cff5e62c06e987885cda4",
+    "styles.css": "ac0b2eab6eff06de4355bd63ee1c56511e782c7e5dcb08f38dc1e3539515d19c",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 86,
+    "seconds": 2.7502329349517822,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "visual.mjs": "4f3fdf9078f850519c8e27dcd179ebafc16598ff26538dbea8ea21b3d456525f",
+    "visual-journey.mjs": "a60913bfc04210f3e82ffe1c1d3f288c7304e273b1a7460a3241acd2f423bfe0",
+    "followup.mjs": "fb44c6d831d990b5e01345c240da23bfbdc287e6f773228647e3cb58f901235a",
+    "followup-journey.mjs": "fff58342a1b32f633e8ccef26189c40ddf95e817560e6db03b3131afbd1ce30d",
+    "overview-fixture.ts": "42080866321092b6be2db8b7c308d807320df994d094a7d696e39663b6d1e734",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "cb34d485be8df31be39cac9a41972a6f53bbd6af83fd0de32640090862af7cf0"
+  },
+  "providerRequests": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "screenshotGeometry": [
+    {
+      "name": "after-chooser-explanation",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1280,
+        "height": 830,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "after-existing-atomization-picker",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1280,
+        "height": 830,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "failure",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1280,
+        "height": 830,
+        "scale": 1
+      },
+      "fullWindow": false
+    }
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Explanation must not read or write files\n+ actual - expected\n\n+ '{\"uxIO\":{\"read\":436,\"write\":0,\"process\":0,\"pluginRead\":310,\"pluginWrite\":0},\"adapterIO\":{\"read\":0,\"write\":3}}'\n- '{\"uxIO\":{\"read\":436,\"write\":0,\"process\":0,\"pluginRead\":310,\"pluginWrite\":0},\"adapterIO\":{\"read\":0,\"write\":1}}'\n\n    at passive (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/followup-journey.mjs:68:12)\n    at async runFollowupUX (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/followup-journey.mjs:80:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels/scripts/native/visual.mjs:125:3"
+}

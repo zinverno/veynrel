@@ -4,7 +4,6 @@ import type { HealthHomeViewModel, HealthCardModel } from "./healthHomeViewModel
 import type { VaultProfile } from "../domain/profile";
 import { healthProfileName, renderHealthProfileOptions } from "./healthProfileOptions";
 import type { HealthDimension } from "../domain/finding";
-import { renderVaultPulse } from "./renderVaultPulse";
 import { renderHealthInsights, renderHealthMetric } from "./renderHealthInsights";
 
 export interface HealthHomeActions { scan: () => void; recover: () => void; openNote: () => void;
@@ -26,7 +25,7 @@ export function healthDetails(parent: HTMLElement, label: string, key: string): 
   return details;
 }
 
-function renderHealthCard(parent: HTMLElement, card: HealthCardModel, actions: HealthHomeActions): void {
+export function renderHealthCard(parent: HTMLElement, card: HealthCardModel, actions: HealthHomeActions): void {
   const article = parent.createEl("article", { cls: "veynrel-health-card", attr: { "data-dimension": card.id,
     "data-state": card.signal, "data-complete": String(card.complete) } });
   const heading = article.createEl("h3");
@@ -38,7 +37,6 @@ function renderHealthCard(parent: HTMLElement, card: HealthCardModel, actions: H
   article.createEl("p", { text: card.state, cls: "veynrel-health-state" });
   if (card.metric) renderHealthMetric(article, card.metric);
   if (card.depth) article.createEl("p", { text: card.depth, cls: "veynrel-health-muted" });
-  article.createDiv({ cls: "veynrel-health-state-rail", attr: { "aria-hidden": "true" } });
 }
 
 export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel, actions: HealthHomeActions, renderTask?: (parent: HTMLElement) => void): void {
@@ -55,7 +53,8 @@ export function renderHealthHome(parent: HTMLElement, model: HealthHomeViewModel
     healthButton(section, t(model.recovery.scope === "all" ? "@health.recover-all" : "@health.recover-history"), actions.recover, "recover", model.recoveryDisabled);
   }
   if (model.recovery?.blocking) return;
-  const hero = renderVaultPulse(home, model.dashboard.pulse);
+  const hero = home.createDiv({ cls: "veynrel-check-status" });
+  hero.createEl("p", { text: model.dashboard.localScan.detail });
   healthButton(hero, model.scanLabel, actions.scan, "scan", model.scanDisabled, true);
   hero.createEl("p", { text: t("@dashboard.local-private"), cls: "veynrel-dashboard-note veynrel-health-muted" });
   if (model.recommendation) {

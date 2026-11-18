@@ -53,6 +53,7 @@ export class SemanticSearchModal extends Modal {
   constructor(
     app: App,
     private readonly delegate: SemanticSearchModalDelegate,
+    private readonly initialQuery?: string,
   ) {
     super(app);
   }
@@ -105,6 +106,7 @@ export class SemanticSearchModal extends Modal {
       void this.runSearch();
     });
     this.inputEl.focus();
+    if (this.initialQuery?.trim()) { this.inputEl.value = this.initialQuery; void this.runSearch(); }
   }
 
   onClose(): void {

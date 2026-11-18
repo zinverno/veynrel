@@ -1,11 +1,16 @@
 import { existsSync, readFileSync } from "node:fs";
-import { describe, expect, it, vi } from "vitest";
-vi.mock("obsidian", () => ({ TFile: class {}, TFolder: class {}, MarkdownView: class {}, FileView: class {}, EditableFileView: class {}, TextFileView: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
-vi.mock("./view", () => ({ STUDIO_VIEW_TYPE: "veynrel-studio", VeynrelStudioView: class {} }));
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+vi.mock("obsidian", () => ({ ItemView: class {}, TFile: class {}, TFolder: class {}, MarkdownView: class {}, FileView: class {}, EditableFileView: class {}, TextFileView: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
+const studioView = vi.hoisted(() => ({ View: class { suggestSource = vi.fn<(path: string, back: () => void) => void>(); } }));
+vi.mock("./view", () => ({ STUDIO_VIEW_TYPE: "veynrel-studio", VeynrelStudioView: studioView.View }));
 import type { Plugin } from "obsidian";
 import * as transport from "../api";
 import { registerStudio } from "./registerStudio";
 import { testAdapter } from "./testAdapter";
+
+import { studioFeatures } from "./features";
+beforeEach(() => { studioFeatures.enabled = true; });
+afterEach(() => { studioFeatures.enabled = false; });
 
 const settings = { provider: "openrouter" as const, baseUrl: "https://openrouter.ai/api/v1", model: "example/model", apiKey: "", temperature: 0.2, topK: 5 };
 
@@ -54,4 +59,40 @@ describe("retired diagram runtime", () => {
     expect(body).not.toHaveProperty("response_format"); expect(body).not.toHaveProperty("provider");
     expect(body.messages).toEqual([{ role: "system", content: "Markdown only" }, { role: "user", content: "Synthetic source" }]);
   });
+});
+
+
+it("returns to a registered inactive Notes leaf and never resurrects a closed leaf", async () => {
+  const disk = testAdapter(), view = new studioView.View();
+  const previous = { view: { getViewType: () => "veynrel-health", containerEl: { isConnected: false } } };
+  const leaf = { view, setViewState: vi.fn(async () => {}) };
+  let alive = true;
+  const workspace = { getLeavesOfType: (type: string) => type === "veynrel-studio" ? [leaf] : alive ? [previous] : [],
+    getActiveViewOfType: () => ({ leaf: previous }), revealLeaf: vi.fn(async () => {}), setActiveLeaf: vi.fn() };
+  const plugin = { app: { vault: { adapter: disk.adapter, configDir: ".custom" }, workspace }, manifest: { id: "ai-knowledge-hub" },
+    registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: vi.fn() };
+  const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
+  owner.inventory = () => ["Selected.md"];
+  await owner.openNote!("Selected.md");
+  expect(view.suggestSource.mock.calls[0][0]).toBe("Selected.md");
+  expect(owner.runner.state).toBe("idle"); expect(disk.adapter.read).not.toHaveBeenCalled(); expect(disk.adapter.write).not.toHaveBeenCalled();
+  const back = view.suggestSource.mock.calls[0][1]; back(); await Promise.resolve();
+  expect(workspace.setActiveLeaf).toHaveBeenCalledWith(previous, { focus: true });
+  alive = false; workspace.setActiveLeaf.mockClear(); workspace.revealLeaf.mockClear(); back(); await Promise.resolve();
+  expect(workspace.revealLeaf).not.toHaveBeenCalled(); expect(workspace.setActiveLeaf).not.toHaveBeenCalled();
+  owner.runner.dispose(); owner.operations.dispose();
+});
+
+it("hides all Studio entry points and detaches restored views without touching stored data", () => {
+  studioFeatures.enabled = false;
+  const disk = testAdapter(), detach = vi.fn(), callbacks: (() => void)[] = [];
+  const plugin = { app: { vault: { adapter: disk.adapter, configDir: ".custom" }, workspace: {
+    onLayoutReady: (fn: () => void) => callbacks.push(fn), getLeavesOfType: () => [{ detach }],
+  } }, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: vi.fn() };
+  const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
+  expect(plugin.registerView).not.toHaveBeenCalled(); expect(plugin.addCommand).not.toHaveBeenCalled(); expect(plugin.addRibbonIcon).not.toHaveBeenCalled();
+  expect(owner).not.toHaveProperty("openNote"); expect(owner.registry).toBeDefined(); expect(owner.runner).toBeDefined();
+  expect(detach).not.toHaveBeenCalled(); callbacks.forEach(fn => fn()); expect(detach).toHaveBeenCalledOnce();
+  expect(disk.adapter.read).not.toHaveBeenCalled(); expect(disk.adapter.write).not.toHaveBeenCalled(); expect(disk.adapter.rename).not.toHaveBeenCalled();
+  owner.runner.dispose(); owner.operations.dispose();
 });

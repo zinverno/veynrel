@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/r05-actions-native.mjs",
+    "<disposable>"
+  ],
+  "timeoutSeconds": 240,
+  "startedAt": 1794844114.11735,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    42829
+  ],
+  "cdpClosed": true,
+  "seconds": 19.119,
+  "originalReceiptSha256": "af92a7b0c222145546601a698e4d5f407218e9df1d5036e283b71fc9f3d1282b"
+}

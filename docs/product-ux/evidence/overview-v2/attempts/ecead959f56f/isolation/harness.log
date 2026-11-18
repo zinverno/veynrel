@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<checkout>/scripts/native/run.py", line 196, in <module>
+    sys.exit(worker(sys.argv[2]))
+             ~~~~~~^^^^^^^^^^^^^
+  File "<checkout>/scripts/native/run.py", line 53, in worker
+    assert number.isdigit() and xvfb.poll() is None, 'Xvfb did not allocate a display'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Xvfb did not allocate a display

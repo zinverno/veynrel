@@ -1,0 +1,29 @@
+✘ [ERROR] Could not resolve "obsidian"
+
+    i18n.ts:4:28:
+      4 │ import { getLanguage } from "obsidian";
+        ╵                             ~~~~~~~~~~
+
+  You can mark the path "obsidian" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+<checkout>/node_modules/esbuild/lib/main.js:1651
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+i18n.ts:4:28: ERROR: Could not resolve "obsidian"
+    at failureErrorWithLog (<checkout>/node_modules/esbuild/lib/main.js:1651:15)
+    at <checkout>/node_modules/esbuild/lib/main.js:1059:25
+    at <checkout>/node_modules/esbuild/lib/main.js:1004:52
+    at buildResponseToResult (<checkout>/node_modules/esbuild/lib/main.js:1057:7)
+    at <checkout>/node_modules/esbuild/lib/main.js:1086:16
+    at responseCallbacks.<computed> (<checkout>/node_modules/esbuild/lib/main.js:704:9)
+    at handleIncomingPacket (<checkout>/node_modules/esbuild/lib/main.js:764:9)
+    at Socket.readFromStdout (<checkout>/node_modules/esbuild/lib/main.js:680:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v24.14.1

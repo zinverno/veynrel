@@ -1,0 +1,1731 @@
+{
+  "originalSha256": "246a2fae0cd4bb0107aebc87e2cf3e2743062bc5d058b7781d6858b4447dea66",
+  "redaction": "Host checkout and disposable paths only; raw receipt remains unchanged locally.",
+  "receipt": {
+    "scenario": "r05-3-registry-native-v1",
+    "checks": [
+      "Passive Audit open does not start an audit, read notes or write Markdown",
+      "en dark editor: controls fit, no horizontal overflow",
+      "Separate Review has no Markdown writes or model requests",
+      "Save reports verified success and refreshes active definitions",
+      "Disk: one selected definition changed; surrounding CRLF/YAML/prose/Unicode and all knowledge notes preserved",
+      "Restart retains connection without fallback or automatic source reads",
+      "After explicit reload the changed rule is active",
+      "Undo restores original bytes and active definitions",
+      "Leave as is persists full authority, not accepted or applied",
+      "Unrelated note and counts do not reopen dismissed authority",
+      "Explicit restore returns the same suggestion",
+      "Later is a distinct persisted state",
+      "en/dark/390 editor: controls fit, no horizontal overflow",
+      "en/dark/390 Review: controls fit, no horizontal overflow",
+      "en/dark localized separate confirmation",
+      "en/dark Tab stays in Review",
+      "en/light/390 editor: controls fit, no horizontal overflow",
+      "en/light/390 Review: controls fit, no horizontal overflow",
+      "en/light localized separate confirmation",
+      "en/light Tab stays in Review",
+      "ru/dark/390 editor: controls fit, no horizontal overflow",
+      "ru/dark/390 Review: controls fit, no horizontal overflow",
+      "ru/dark localized separate confirmation",
+      "ru/dark Tab stays in Review",
+      "ru/light/390 editor: controls fit, no horizontal overflow",
+      "ru/light/390 Review: controls fit, no horizontal overflow",
+      "ru/light localized separate confirmation",
+      "ru/light Tab stays in Review",
+      "Affected real split editor blocks registry preparation",
+      "Real popout owns registry editor and focus",
+      "Focus returns with reduced motion"
+    ],
+    "exceptions": [],
+    "consoleErrors": [],
+    "actions": [
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-connect]",
+        "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-confirm]",
+        "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+      },
+      {
+        "selector": "[data-registry-action=review]",
+        "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+      },
+      {
+        "selector": ".ai-registry-review details:nth-of-type(1) summary",
+        "active": "<summary>Before: complete original Markdown</summary>"
+      },
+      {
+        "selector": ".ai-registry-review details:nth-of-type(2) summary",
+        "active": "<summary>After: complete proposed Markdown</summary>"
+      },
+      {
+        "selector": ".ai-registry-review [data-registry=confirm]",
+        "active": "<button type=\"button\" data-registry=\"confirm\">Apply this change</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-connect]",
+        "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">Read and review existing file</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-confirm]",
+        "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">Confirm</button>"
+      },
+      {
+        "selector": "[data-registry=undo]",
+        "active": "<button type=\"button\" data-registry=\"undo\">Review undo</button>"
+      },
+      {
+        "selector": ".ai-registry-review [data-registry=confirm]",
+        "active": "<button type=\"button\" data-registry=\"confirm\">Undo this change</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+      },
+      {
+        "selector": "[data-taxonomy-action=analyze]",
+        "active": "<button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button>"
+      },
+      {
+        "selector": "[data-org-action=dismiss]",
+        "active": "<button type=\"button\" data-org-action=\"dismiss\" data-taxonomy-focus=\"org-dismiss\">Leave as is</button>"
+      },
+      {
+        "selector": "[data-taxonomy-action=analyze]",
+        "active": "<button type=\"button\" data-taxonomy-action=\"analyze\" data-taxonomy-focus=\"analyze\">Run local audit</button>"
+      },
+      {
+        "selector": "[data-org-action=restore]",
+        "active": "<button type=\"button\" data-org-action=\"restore\" data-taxonomy-focus=\"org-restore\">Return to consideration</button>"
+      },
+      {
+        "selector": "[data-org-action=defer]",
+        "active": "<button type=\"button\" data-org-action=\"defer\" data-taxonomy-focus=\"org-defer\">Later</button>"
+      },
+      {
+        "selector": "[data-org-action=restore]",
+        "active": "<button type=\"button\" data-org-action=\"restore\" data-taxonomy-focus=\"org-restore\">Return to consideration</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+      },
+      {
+        "selector": "[data-registry-action=review]",
+        "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">Explore organization</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">Edit definitions with Review</button>"
+      },
+      {
+        "selector": "[data-registry-action=review]",
+        "active": "<button type=\"button\" data-registry-action=\"review\">Check and apply</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u044f \u0441 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u043e\u0439</button>"
+      },
+      {
+        "selector": "[data-registry-action=review]",
+        "active": "<button type=\"button\" data-registry-action=\"review\">\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0438 \u043f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u044f \u0441 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u043e\u0439</button>"
+      },
+      {
+        "selector": "[data-registry-action=review]",
+        "active": "<button type=\"button\" data-registry-action=\"review\">\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0438 \u043f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-connect]",
+        "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">\u041f\u0440\u043e\u0447\u0438\u0442\u0430\u0442\u044c \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0444\u0430\u0439\u043b</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-confirm]",
+        "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u044f \u0441 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u043e\u0439</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-connect]",
+        "active": "<button type=\"button\" data-org-action=\"registry-connect\" data-taxonomy-focus=\"org-registry-connect\">\u041f\u0440\u043e\u0447\u0438\u0442\u0430\u0442\u044c \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0444\u0430\u0439\u043b</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-confirm]",
+        "active": "<button type=\"button\" data-org-action=\"registry-confirm\" data-taxonomy-focus=\"org-registry-confirm\">\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c</button>"
+      },
+      {
+        "selector": "[data-health-action=organization-audit]",
+        "active": "<button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button>"
+      },
+      {
+        "selector": "[data-org-action=registry-edit]",
+        "active": "<button type=\"button\" data-org-action=\"registry-edit\" data-taxonomy-focus=\"org-registry-edit\">\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u044f \u0441 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u043e\u0439</button>"
+      }
+    ],
+    "screenshots": [
+      "connected-registry.png",
+      "definition-draft.png",
+      "registry-full-before.png",
+      "registry-full-after.png",
+      "registry-diff-confirm.png",
+      "registry-saved.png",
+      "registry-history-restart.png",
+      "registry-undo-review.png",
+      "registry-undone.png",
+      "proposal.png",
+      "still-dismissed.png",
+      "deferred.png",
+      "en-dark-390-editor.png",
+      "en-dark-390-review.png",
+      "en-light-390-editor.png",
+      "en-light-390-review.png",
+      "ru-dark-390-editor.png",
+      "ru-dark-390-review.png",
+      "ru-light-390-editor.png",
+      "ru-light-390-review.png",
+      "popout-registry.png",
+      "failure.png"
+    ],
+    "assets": {
+      "main.js": "2b43fb5a1f97da6371d8d78d99eb785c5ca9f3c70604317be1fdbf603f998bba",
+      "styles.css": "c0db587e4a7710f11e7b3ca7a94a647442ec0f9cbf0161b1768dfaf5665e906e",
+      "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+    },
+    "externalRequests": [],
+    "recording": {
+      "file": "journey.mp4",
+      "encodedSeconds": 11.833333,
+      "frames": 42,
+      "seconds": 11.44805097579956,
+      "source": "Native CDP frames and timestamps; main client area, no cuts"
+    },
+    "entry": "Workspace Organization Audit / Rules",
+    "sourceSha": "c9907f7603451c17bab70f92e1c1cc004b85d379",
+    "sourceDiffSha256": "6010c5d67902a5fdfeabd5eba0150000eb5c4192e799408703cec15a47342579",
+    "harnessHashes": {
+      "r05-3-registry-native.mjs": "01830168392065f3d5c8b059c4ed24f229f07b4b76bb524bf8a2d43253c30453",
+      "native/session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+      "native/run.py": "7f6aa0cd92e343269b6c2147b3715458074930f6ae2275cc4268f05a5163a5aa"
+    },
+    "versions": {
+      "obsidian": "1.13.7",
+      "electron": "43.6.0",
+      "chrome": "150.0.7871.250",
+      "plugin": "2.3.1"
+    },
+    "passive": {
+      "reads": [],
+      "writes": [],
+      "creates": [],
+      "metadata": 0,
+      "metadataCalls": [],
+      "enumerations": 1,
+      "enumerationCalls": [
+        {
+          "phase": "passive",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at so.onOpen (plugin:ai-knowledge-hub:620:22478)\n    at so.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        }
+      ],
+      "phase": "passive"
+    },
+    "layouts": [
+      {
+        "name": "en dark editor",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 554,
+            "right": 958.75,
+            "top": 340.21875,
+            "bottom": 370.21875
+          },
+          {
+            "left": 554,
+            "right": 958.75,
+            "top": 378.21875,
+            "bottom": 408.21875
+          },
+          {
+            "left": 554,
+            "right": 958.75,
+            "top": 416.21875,
+            "bottom": 446.21875
+          },
+          {
+            "left": 554,
+            "right": 958.75,
+            "top": 454.21875,
+            "bottom": 484.21875
+          },
+          {
+            "left": 554,
+            "right": 958.75,
+            "top": 492.21875,
+            "bottom": 552.890625
+          },
+          {
+            "left": 147.25,
+            "right": 274.6875,
+            "top": 659.390625,
+            "bottom": 683.390625
+          }
+        ],
+        "left": 127,
+        "right": 973
+      },
+      {
+        "name": "en/dark/390 editor",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 345,
+            "bottom": 375
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 430,
+            "bottom": 460
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 495.5,
+            "bottom": 525.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 561,
+            "bottom": 591
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 626.5,
+            "bottom": 687.171875
+          },
+          {
+            "left": 76.25,
+            "right": 203.6875,
+            "top": 910.671875,
+            "bottom": 934.671875
+          }
+        ],
+        "left": 56,
+        "right": 334
+      },
+      {
+        "name": "en/dark/390 Review",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 69,
+            "right": 181.8125,
+            "top": 891.03125,
+            "bottom": 931.03125
+          },
+          {
+            "left": 220.609375,
+            "right": 309,
+            "top": 891.03125,
+            "bottom": 931.03125
+          },
+          {
+            "left": 56,
+            "right": 193.625,
+            "top": 1157.53125,
+            "bottom": 1197.53125
+          },
+          {
+            "left": 201.625,
+            "right": 271.875,
+            "top": 1157.53125,
+            "bottom": 1197.53125
+          }
+        ],
+        "left": 56,
+        "right": 322
+      },
+      {
+        "name": "en/light/390 editor",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 345,
+            "bottom": 375
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 430,
+            "bottom": 460
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 495.5,
+            "bottom": 525.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 561,
+            "bottom": 591
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 626.5,
+            "bottom": 687.171875
+          },
+          {
+            "left": 76.25,
+            "right": 203.6875,
+            "top": 910.671875,
+            "bottom": 934.671875
+          }
+        ],
+        "left": 56,
+        "right": 334
+      },
+      {
+        "name": "en/light/390 Review",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 69,
+            "right": 181.8125,
+            "top": 891.03125,
+            "bottom": 931.03125
+          },
+          {
+            "left": 220.609375,
+            "right": 309,
+            "top": 891.03125,
+            "bottom": 931.03125
+          },
+          {
+            "left": 56,
+            "right": 193.625,
+            "top": 1157.53125,
+            "bottom": 1197.53125
+          },
+          {
+            "left": 201.625,
+            "right": 271.875,
+            "top": 1157.53125,
+            "bottom": 1197.53125
+          }
+        ],
+        "left": 56,
+        "right": 322
+      },
+      {
+        "name": "ru/dark/390 editor",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 390.5,
+            "bottom": 420.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 475.5,
+            "bottom": 505.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 541,
+            "bottom": 571
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 606.5,
+            "bottom": 636.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 672,
+            "bottom": 732.671875
+          },
+          {
+            "left": 76.25,
+            "right": 254.5,
+            "top": 995.171875,
+            "bottom": 1019.171875
+          }
+        ],
+        "left": 56,
+        "right": 334
+      },
+      {
+        "name": "ru/dark/390 Review",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 69,
+            "right": 227.9375,
+            "top": 930.03125,
+            "bottom": 970.03125
+          },
+          {
+            "left": 69,
+            "right": 220.703125,
+            "top": 980.03125,
+            "bottom": 1020.03125
+          },
+          {
+            "left": 56,
+            "right": 253.171875,
+            "top": 1246.53125,
+            "bottom": 1286.53125
+          },
+          {
+            "left": 56,
+            "right": 131.9375,
+            "top": 1302.53125,
+            "bottom": 1342.53125
+          }
+        ],
+        "left": 56,
+        "right": 322
+      },
+      {
+        "name": "ru/light/390 editor",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 390.5,
+            "bottom": 420.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 475.5,
+            "bottom": 505.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 541,
+            "bottom": 571
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 606.5,
+            "bottom": 636.5
+          },
+          {
+            "left": 70.25,
+            "right": 307.75,
+            "top": 672,
+            "bottom": 732.671875
+          },
+          {
+            "left": 76.25,
+            "right": 254.5,
+            "top": 995.171875,
+            "bottom": 1019.171875
+          }
+        ],
+        "left": 56,
+        "right": 334
+      },
+      {
+        "name": "ru/light/390 Review",
+        "overflow": false,
+        "controls": [
+          {
+            "left": 69,
+            "right": 227.9375,
+            "top": 930.03125,
+            "bottom": 970.03125
+          },
+          {
+            "left": 69,
+            "right": 220.703125,
+            "top": 980.03125,
+            "bottom": 1020.03125
+          },
+          {
+            "left": 56,
+            "right": 253.171875,
+            "top": 1246.53125,
+            "bottom": 1286.53125
+          },
+          {
+            "left": 56,
+            "right": 131.9375,
+            "top": 1302.53125,
+            "bottom": 1342.53125
+          }
+        ],
+        "left": 56,
+        "right": 322
+      }
+    ],
+    "beforeRestartIO": {
+      "reads": [
+        {
+          "path": "Rules.md",
+          "phase": "connect"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "connect"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "connect"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "definition-draft"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "review"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "review"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        }
+      ],
+      "writes": [
+        {
+          "path": "Rules.md",
+          "phase": "apply"
+        }
+      ],
+      "creates": [],
+      "metadata": 1,
+      "metadataCalls": [
+        {
+          "path": "Rules.md",
+          "phase": "apply",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        }
+      ],
+      "enumerations": 1,
+      "enumerationCalls": [
+        {
+          "phase": "passive",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at so.onOpen (plugin:ai-knowledge-hub:620:22478)\n    at so.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "connect"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "connect"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "connect"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "connect"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations",
+          "phase": "apply"
+        },
+        {
+          "method": "mkdir",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49",
+          "phase": "apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/record.json",
+          "phase": "apply"
+        },
+        {
+          "method": "copy",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/record.json",
+          "phase": "apply"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/mark-42c80787-51e1-44f9-a23a-4d20e2e0815d.json",
+          "phase": "apply"
+        }
+      ],
+      "phase": "apply"
+    },
+    "continuousRecordings": [
+      {
+        "file": "registry-journey.mp4",
+        "seconds": 32.083333,
+        "source": "Uncut private Xvfb 1600x1000 recording, including host restart; no user desktop"
+      },
+      {
+        "file": "decisions-journey.mp4",
+        "seconds": 8.583333,
+        "source": "Uncut private Xvfb 1600x1000 recording, including host restart; no user desktop"
+      }
+    ],
+    "io": {
+      "reads": [
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "startup"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "decision-rescan"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "split"
+        },
+        {
+          "path": "Rules.md",
+          "phase": "popout"
+        }
+      ],
+      "writes": [
+        {
+          "path": "Rules.md",
+          "phase": "undo"
+        }
+      ],
+      "creates": [
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        }
+      ],
+      "metadata": 17,
+      "metadataCalls": [
+        {
+          "path": "Rules.md",
+          "phase": "undo",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+        },
+        {
+          "path": "Diary.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/A.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/B.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Notes/C.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Unrelated.md",
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "path": "Editor rules.md",
+          "phase": "split",
+          "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at e.onFileOpen (app://obsidian.md/app.js:1:3443861)\n    at t.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at t.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.activeLeafEvents (app://obsidian.md/app.js:1:2875347)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)"
+        }
+      ],
+      "enumerations": 4,
+      "enumerationCalls": [
+        {
+          "phase": "decision-audit",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "fixture-add-unrelated",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at eval (plugin:ai-knowledge-hub:483:3226)"
+        },
+        {
+          "phase": "decision-rescan",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+        },
+        {
+          "phase": "popout",
+          "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at so.onOpen (plugin:ai-knowledge-hub:620:22478)\n    at so.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+        }
+      ],
+      "models": 0,
+      "adapterWrites": [
+        {
+          "method": "write",
+          "path": ".obsidian/community-plugins.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "startup"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/mark-057b386a-594d-43f7-8e4f-0c06f7ceed10.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/mark-b8a7b8b7-0d46-4d94-86b1-02872b5c5017.json",
+          "phase": "undo"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-audit"
+        },
+        {
+          "method": "write",
+          "path": "Unrelated.md",
+          "phase": "fixture-add-unrelated"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "decision-rescan"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/app.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/appearance.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+          "phase": "split"
+        },
+        {
+          "method": "write",
+          "path": ".obsidian/workspace.json",
+          "phase": "popout"
+        }
+      ],
+      "phase": "popout"
+    },
+    "history": [
+      {
+        "id": "06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49",
+        "damaged": false,
+        "scope": "none",
+        "receipts": [
+          {
+            "state": "applied",
+            "modified": 1794840161629,
+            "bytes": 511,
+            "hash": "bdd087b8daf6f5ffaea0612d1df6ece83ab78434137ad21cd29b4ecdfa2a5f2c"
+          },
+          {
+            "state": "undo_intent",
+            "modified": 1794840161629,
+            "bytes": 511,
+            "hash": "bdd087b8daf6f5ffaea0612d1df6ece83ab78434137ad21cd29b4ecdfa2a5f2c"
+          },
+          {
+            "state": "undone",
+            "modified": 1794840183113,
+            "bytes": 498,
+            "hash": "e70e5500d910134b57f56220d438189f9eb91f983effe9dd2467d5f90afce51e"
+          }
+        ],
+        "issues": [],
+        "record": {
+          "version": 1,
+          "operation": "edit_organization_registry",
+          "state": "prepared",
+          "id": "06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49",
+          "createdAt": 1794840155810,
+          "plan": {
+            "version": 1,
+            "source": {
+              "path": "Rules.md",
+              "created": 1794840144602,
+              "modified": 1794840144602,
+              "bytes": 498,
+              "content": "---\r\ntitle: Owner instructions\r\n---\r\n# User prose preserved\r\n<!-- keep -->\r\n\r\n```veynrel-organization\r\n{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/\u0401\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"An explicitly unused tag\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n```\r\n\r\nAfter: [[A]] and \u0401.\r\n"
+            },
+            "choice": {
+              "kind": "tag",
+              "key": "unused/\u0401",
+              "value": {
+                "tag": "unused/\u0401",
+                "state": "deprecated",
+                "description": "Owner explicitly retired this tag."
+              }
+            },
+            "after": "---\r\ntitle: Owner instructions\r\n---\r\n# User prose preserved\r\n<!-- keep -->\r\n\r\n```veynrel-organization\r\n{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/\u0401\",\r\n      \"state\": \"deprecated\",\r\n      \"description\": \"Owner explicitly retired this tag.\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n```\r\n\r\nAfter: [[A]] and \u0401.\r\n",
+            "edit": {
+              "start": 103,
+              "end": 468,
+              "removed": "{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/\u0401\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"An explicitly unused tag\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n",
+              "inserted": "{\r\n  \"version\": 1,\r\n  \"profile\": {\r\n    \"version\": 1,\r\n    \"categories\": []\r\n  },\r\n  \"tags\": [\r\n    {\r\n      \"tag\": \"unused/\u0401\",\r\n      \"state\": \"deprecated\",\r\n      \"description\": \"Owner explicitly retired this tag.\"\r\n    },\r\n    {\r\n      \"tag\": \"flashcards/Study\",\r\n      \"state\": \"allowed\",\r\n      \"description\": \"Separate learning role\"\r\n    }\r\n  ],\r\n  \"conventions\": []\r\n}\r\n"
+            }
+          },
+          "hashes": {
+            "before": "e70e5500d910134b57f56220d438189f9eb91f983effe9dd2467d5f90afce51e",
+            "after": "bdd087b8daf6f5ffaea0612d1df6ece83ab78434137ad21cd29b4ecdfa2a5f2c"
+          }
+        },
+        "state": "undone",
+        "canUndo": false,
+        "recovered": false,
+        "blocking": false
+      }
+    ],
+    "finalHashes": {
+      "Rules.md": "e70e5500d910134b57f56220d438189f9eb91f983effe9dd2467d5f90afce51e",
+      "Editor rules.md": "3be42a5590c9cd671fdbe856940ea5d432f22591b526f7cacc4221e797dd179f",
+      "Notes/A.md": "06d976dfa1eed3a87a8b675836af3c347e9f0fedb2f50847c03976c32605a56b",
+      "Notes/B.md": "1b1ad346740f37323ec8754fc61182a8605b5a3e61f69c56aaa75614bb9ade02",
+      "Notes/C.md": "4dc0e8869432a752bb553e66045c01118f7a2640ddafdf0ccdaa879eb7cb8b5d",
+      "Diary.md": "7581a3b2f3f71719127d479bc37165116f5e59b2662d5ffe570334881281d759"
+    },
+    "status": "FAIL",
+    "error": "Error: Readiness: !!document.querySelector('[data-health-action=tag-note]')\n    at wait (file://<checkout>/scripts/r05-3-registry-native.mjs:60:159)\n    at async file://<checkout>/scripts/r05-3-registry-native.mjs:219:140",
+    "diagnostic": {
+      "io": {
+        "reads": [
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "startup"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "decision-rescan"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "split"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "popout"
+          },
+          {
+            "path": "Rules.md",
+            "phase": "popout"
+          }
+        ],
+        "writes": [
+          {
+            "path": "Rules.md",
+            "phase": "undo"
+          }
+        ],
+        "creates": [
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated"
+          }
+        ],
+        "metadata": 17,
+        "metadataCalls": [
+          {
+            "path": "Rules.md",
+            "phase": "undo",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+          },
+          {
+            "path": "Diary.md",
+            "phase": "decision-audit",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "decision-audit",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Notes/A.md",
+            "phase": "decision-audit",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Notes/B.md",
+            "phase": "decision-audit",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Notes/C.md",
+            "phase": "decision-audit",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at t.iterateRefsForFile (app://obsidian.md/app.js:1:1741897)\n    at t.resolveLinks (app://obsidian.md/app.js:1:1748335)\n    at t.<anonymous> (app://obsidian.md/app.js:1:1747782)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at a (app://obsidian.md/app.js:1:257543)"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at <anonymous>:1:21"
+          },
+          {
+            "path": "Diary.md",
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Notes/A.md",
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Notes/B.md",
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Notes/C.md",
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Unrelated.md",
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1581)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "path": "Editor rules.md",
+            "phase": "split",
+            "stack": "Error\n    at app.metadataCache.getFileCache (<anonymous>:6:183)\n    at e.onFileOpen (app://obsidian.md/app.js:1:3443861)\n    at t.tryTrigger (app://obsidian.md/app.js:1:1377698)\n    at t.trigger (app://obsidian.md/app.js:1:1377631)\n    at t.trigger (app://obsidian.md/app.js:1:2889452)\n    at t.activeLeafEvents (app://obsidian.md/app.js:1:2875347)\n    at c (app://obsidian.md/app.js:1:545776)\n    at u (app://obsidian.md/app.js:1:545888)"
+          }
+        ],
+        "enumerations": 5,
+        "enumerationCalls": [
+          {
+            "phase": "decision-audit",
+            "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "phase": "fixture-add-unrelated",
+            "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at eval (plugin:ai-knowledge-hub:483:3226)"
+          },
+          {
+            "phase": "decision-rescan",
+            "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at scanTaxonomy (plugin:ai-knowledge-hub:484:1130)\n    at TaxonomySession.eval [as scan] (plugin:ai-knowledge-hub:723:16072)\n    at TaxonomySession.analyze (plugin:ai-knowledge-hub:723:10184)\n    at HTMLButtonElement.eval (plugin:ai-knowledge-hub:723:27996)"
+          },
+          {
+            "phase": "popout",
+            "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at so.onOpen (plugin:ai-knowledge-hub:620:22478)\n    at so.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+          },
+          {
+            "phase": "corrupt-preferences-fixture",
+            "stack": "Error\n    at app.vault.getMarkdownFiles (<anonymous>:5:168)\n    at VaultScopeIndex.refresh (plugin:ai-knowledge-hub:483:2917)\n    at new VaultScopeIndex (plugin:ai-knowledge-hub:483:2475)\n    at so.onOpen (plugin:ai-knowledge-hub:620:22478)\n    at so.<anonymous> (app://obsidian.md/app.js:1:1078409)\n    at app://obsidian.md/app.js:1:258720\n    at Object.next (app://obsidian.md/app.js:1:258825)\n    at app://obsidian.md/app.js:1:257741\n    at new Promise (<anonymous>)\n    at y (app://obsidian.md/app.js:1:257486)"
+          }
+        ],
+        "models": 0,
+        "adapterWrites": [
+          {
+            "method": "write",
+            "path": ".obsidian/community-plugins.json",
+            "phase": "startup"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/workspace.json",
+            "phase": "startup"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "startup"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/mark-057b386a-594d-43f7-8e4f-0c06f7ceed10.json",
+            "phase": "undo"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/consolidation-registry-operations/06744c7f9066728ce7d7001dd70516723f5c36fc80427a7ba92c61e59e1deb49/mark-b8a7b8b7-0d46-4d94-86b1-02872b5c5017.json",
+            "phase": "undo"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "decision-audit"
+          },
+          {
+            "method": "write",
+            "path": "Unrelated.md",
+            "phase": "fixture-add-unrelated"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/workspace.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/app.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/appearance.json",
+            "phase": "decision-rescan"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "split"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/app.json",
+            "phase": "split"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/appearance.json",
+            "phase": "split"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/plugins/ai-knowledge-hub/data.json",
+            "phase": "split"
+          },
+          {
+            "method": "write",
+            "path": ".obsidian/workspace.json",
+            "phase": "popout"
+          }
+        ],
+        "phase": "corrupt-preferences-entry"
+      },
+      "active": "<body class=\"mod-linux obsidian-app styled-scrollbars show-inline-title is-floating-nav auto-full-screen show-ribbon show-view-header theme-light is-focused\" style=\"--font-text-size: 16px; --indent-size: 4;\">\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/codemirror.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/overlay.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/markdown.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/cm-addons.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/vim.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/codemirror/meta.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/moment.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/pixi.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/i18next.min.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/scrypt.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"lib/turndown.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"enhance.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"i18n.js\"></script>\n<script type=\"text/javascript\" defer=\"\" src=\"app.js\"></script>\n\n\n<div class=\"app-container\"><div class=\"horizontal-main-container\"><div class=\"workspace is-left-sidedock-open\"><div class=\"workspace-ribbon side-dock-ribbon mod-left\"><div class=\"sidebar-toggle-button mod-left\" aria-label=\"\" data-tooltip-position=\"right\"><div class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon sidebar-toggle-button-icon\"><rect x=\"1\" y=\"2\" width=\"22\" height=\"20\" rx=\"4\"></rect><rect x=\"4\" y=\"5\" width=\"2\" height=\"14\" rx=\"2\" fill=\"currentColor\" class=\"sidebar-toggle-icon-inner\"></rect></svg></div></div><div class=\"side-dock-actions\"><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open quick switcher\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-file-search\"><path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"></path><path d=\"M14 2v5a1 1 0 0 0 1 1h5\"></path><circle cx=\"11.5\" cy=\"14.5\" r=\"2.5\"></circle><path d=\"M13.3 16.3 15 18\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open graph view\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-git-fork\"><circle cx=\"12\" cy=\"18\" r=\"3\"></circle><circle cx=\"6\" cy=\"6\" r=\"3\"></circle><circle cx=\"18\" cy=\"6\" r=\"3\"></circle><path d=\"M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9\"></path><path d=\"M12 12v3\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Create new canvas\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-layout-dashboard\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" rx=\"1\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" rx=\"1\"></rect><rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" rx=\"1\"></rect><rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" rx=\"1\"></rect></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open today's daily note\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-calendar\"><path d=\"M8 2v4\"></path><path d=\"M16 2v4\"></path><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"></rect><path d=\"M3 10h18\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Insert template\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-files\"><path d=\"M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8\"></path><path d=\"M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z\"></path><path d=\"M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Open command palette\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-terminal\"><path d=\"M12 19h8\"></path><path d=\"m4 17 6-6-6-6\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Create new base\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-layout-list\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect><path d=\"M14 4h7\"></path><path d=\"M14 9h7\"></path><path d=\"M14 15h7\"></path><path d=\"M14 20h7\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Veynrel Studio\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-wand-sparkles\"><path d=\"m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72\"></path><path d=\"m14 7 3 3\"></path><path d=\"M5 6v4\"></path><path d=\"M19 14v4\"></path><path d=\"M10 2v2\"></path><path d=\"M7 8H3\"></path><path d=\"M21 16h-4\"></path><path d=\"M11 3H9\"></path></svg></div><div class=\"clickable-icon side-dock-ribbon-action\" aria-label=\"Veynrel\" data-tooltip-position=\"right\" data-tooltip-delay=\"300\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-activity\"><path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path></svg></div></div><div class=\"side-dock-settings\"></div></div><div class=\"workspace-split mod-horizontal mod-sidedock mod-left-split\" style=\"width: 300px;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-sidedock-vault-profile\"><div class=\"workspace-drawer-vault-switcher\" aria-label=\"\" data-tooltip-position=\"top\" data-tooltip-delay=\"1000\"><div class=\"workspace-drawer-vault-switcher-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevrons-up-down\"><path d=\"m7 15 5 5 5-5\"></path><path d=\"m7 9 5-5 5 5\"></path></svg></div><div class=\"workspace-drawer-vault-name\">vault</div></div><div class=\"workspace-drawer-vault-actions\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon help\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z\"></path><path d=\"M9.09009 9.00003C9.32519 8.33169 9.78924 7.76813 10.4 7.40916C11.0108 7.05019 12.079 6.94542 12.7773 7.06519C13.9093 7.25935 14.9767 8.25497 14.9748 9.49073C14.9748 11.9908 12 11.2974 12 14\"></path><path d=\"M12 17H12.01\"></path></svg></span><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-settings\"><path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"></path><circle cx=\"12\" cy=\"12\" r=\"3\"></circle></svg></span></div></div><div class=\"workspace-sidedock-empty-state\" style=\"display: none;\"><p class=\"u-muted\">The sidebar is empty, try dragging a tab here.</p></div><div class=\"workspace-tabs mod-top mod-top-left-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active\" draggable=\"true\" aria-label=\"Files\" data-tooltip-delay=\"300\" data-type=\"file-explorer\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-closed\"><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path><path d=\"M2 10h20\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Files</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Search\" data-tooltip-delay=\"300\" data-type=\"search\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-search\"><path d=\"m21 21-4.34-4.34\"></path><circle cx=\"11\" cy=\"11\" r=\"8\"></circle></svg></div><div class=\"workspace-tab-header-inner-title\">Search</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Bookmarks\" data-tooltip-delay=\"300\" data-type=\"bookmarks\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-bookmark\"><path d=\"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Bookmarks</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content\" data-type=\"file-explorer\"><div class=\"nav-header\"><div class=\"nav-buttons-container\"><div class=\"clickable-icon nav-action-button\" aria-label=\"New note\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-edit\"><path d=\"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\"></path><path d=\"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"New folder\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-folder-plus\"><path d=\"M12 10v6\"></path><path d=\"M9 13h6\"></path><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Change sort order\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-sort-asc\"><path d=\"m3 8 4-4 4 4\"></path><path d=\"M7 4v16\"></path><path d=\"M11 12h4\"></path><path d=\"M11 16h7\"></path><path d=\"M11 20h10\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Auto-reveal current file\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-gallery-vertical\"><path d=\"M3 2h18\"></path><rect x=\"3\" y=\"6\" width=\"18\" height=\"12\" rx=\"2\"></rect><path d=\"M3 22h18\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Expand all\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevrons-up-down\"><path d=\"m7 15 5 5 5-5\"></path><path d=\"m7 9 5-5 5 5\"></path></svg></div><div class=\"clickable-icon nav-action-button\" aria-label=\"Show search filter\" style=\"display: none;\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-search\"><path d=\"m21 21-4.34-4.34\"></path><circle cx=\"11\" cy=\"11\" r=\"8\"></circle></svg></div></div><div class=\"search-input-container\" style=\"display: none;\"><input enterkeyhint=\"search\" type=\"search\" spellcheck=\"false\" placeholder=\"Search...\"><div class=\"search-input-clear-button\" aria-label=\"Clear search\"></div></div></div><div class=\"nav-files-container node-insert-event\" style=\"position: relative;\"><div style=\"\"><div style=\"width: 276px; height: 0.1px; margin-bottom: 0px;\"></div><div class=\"tree-item nav-folder is-collapsed\"><div class=\"tree-item-self nav-folder-title is-clickable mod-collapsible\" data-path=\"Notes\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-icon collapse-icon is-collapsed\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon right-triangle\"><path d=\"M3 8L12 17L21 8\"></path></svg></div><div class=\"tree-item-inner nav-folder-title-content\">Notes</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Diary.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Diary</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Editor rules.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Editor rules</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Rules.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Rules</div></div></div><div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title tappable is-clickable\" data-path=\"Unrelated.md\" draggable=\"true\" style=\"margin-inline-start: 0px !important; padding-inline-start: 24px !important;\"><div class=\"tree-item-inner nav-file-title-content\">Unrelated</div></div></div></div></div></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div></div></div></div><div class=\"workspace-split mod-vertical mod-root\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tabs mod-active mod-top mod-top-right-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active mod-active\" draggable=\"true\" aria-label=\"Veynrel\" data-tooltip-delay=\"300\" data-type=\"veynrel-health\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-activity\"><path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Veynrel</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div><div class=\"sidebar-toggle-button mod-right\" aria-label=\"\" data-tooltip-position=\"left\"><div class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon sidebar-toggle-button-icon\"><rect x=\"1\" y=\"2\" width=\"22\" height=\"20\" rx=\"4\"></rect><rect x=\"4\" y=\"5\" width=\"2\" height=\"14\" rx=\"2\" fill=\"currentColor\" class=\"sidebar-toggle-icon-inner\"></rect></svg></div></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf mod-active\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content\" data-type=\"veynrel-health\"><div class=\"view-header\"><div class=\"view-header-left\"><div class=\"view-header-nav-buttons\"><button class=\"clickable-icon\" aria-disabled=\"true\" aria-label=\"Navigate back\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-arrow-left\"><path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path></svg></button><button class=\"clickable-icon\" aria-disabled=\"true\" aria-label=\"Navigate forward\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-arrow-right\"><path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path></svg></button></div></div><div class=\"view-header-title-container mod-at-start mod-fade mod-at-end\"><div class=\"view-header-title-parent\"></div><div class=\"view-header-title\">Veynrel</div></div><div class=\"view-actions\"><button class=\"clickable-icon view-action mod-bookmark\" aria-label=\"Bookmark\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-bookmark\"><path d=\"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z\"></path></svg></button><button class=\"clickable-icon view-action\" aria-label=\"More options\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-more-vertical\"><circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"12\" cy=\"5\" r=\"1\"></circle><circle cx=\"12\" cy=\"19\" r=\"1\"></circle></svg></button></div></div><div class=\"view-content veynrel-health-view\" data-document-hidden=\"false\" data-scene-visible=\"true\"><div class=\"veynrel-health-status\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\"></div><div class=\"veynrel-workspace\" data-page=\"home\" aria-busy=\"undefined\"><div class=\"veynrel-shell\" data-menu-open=\"false\"><div class=\"veynrel-shell-content\"><header class=\"veynrel-topbar\"><nav class=\"veynrel-tabs\" aria-label=\"\u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044f Veynrel\"><button type=\"button\" data-health-action=\"nav-health\" aria-pressed=\"true\" aria-current=\"page\">\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430</button><button type=\"button\" data-health-action=\"nav-discover\" aria-pressed=\"false\">\u0417\u0430\u043c\u0435\u0442\u043a\u0438</button><button type=\"button\" data-health-action=\"nav-recall\" aria-pressed=\"false\">\u041f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u0435</button></nav><details class=\"veynrel-workspace-more\" data-health-disclosure=\"workspace-more\"><summary aria-label=\"\u0414\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f\" data-health-action=\"workspace-menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-ellipsis\"><circle cx=\"12\" cy=\"12\" r=\"1\"></circle><circle cx=\"19\" cy=\"12\" r=\"1\"></circle><circle cx=\"5\" cy=\"12\" r=\"1\"></circle></svg></summary><div class=\"veynrel-workspace-menu\"><button type=\"button\" data-health-action=\"nav-history\">\u0418\u0441\u0442\u043e\u0440\u0438\u044f</button><button type=\"button\" data-health-action=\"nav-tools\">\u0412\u0441\u0435 \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b</button><button type=\"button\" data-health-action=\"nav-process\">\u041e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430</button><button type=\"button\" data-health-action=\"nav-settings\">\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438</button><button type=\"button\" data-health-action=\"organization-audit\">\u0418\u0437\u0443\u0447\u0438\u0442\u044c \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e</button></div></details></header><label class=\"veynrel-scope-picker\"><span>\u041e\u0431\u043b\u0430\u0441\u0442\u044c</span><select aria-label=\"\u0412\u0441\u0435 \u043f\u0430\u043f\u043a\u0438\" data-health-action=\"scope-picker\"><option value=\"\">\u0412\u0441\u0451 \u0445\u0440\u0430\u043d\u0438\u043b\u0438\u0449\u0435</option><option value=\"Notes\">Notes (3)</option></select></label><div class=\"veynrel-shell-main\"><div class=\"veynrel-workspace-message\" data-workspace-message=\"true\"></div><div><section class=\"veynrel-check-status\" aria-label=\"\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430\"><div class=\"veynrel-check-headline\"><h1 tabindex=\"-1\" data-health-heading=\"true\">\u0417\u0430\u043c\u0435\u0442\u043e\u043a: 7</h1></div><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"scan\">\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0445\u0440\u0430\u043d\u0438\u043b\u0438\u0449\u0435</button><p class=\"veynrel-health-muted\">\u041b\u043e\u043a\u0430\u043b\u044c\u043d\u043e \u00b7 \u0411\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0437\u0430\u043c\u0435\u0442\u043e\u043a</p></section><details class=\"veynrel-details\" data-health-disclosure=\"check-saved\"><summary data-health-action=\"check-saved\">\u0421\u043e\u0445\u0440\u0430\u043d\u0451\u043d\u043d\u044b\u0435 \u043d\u0430\u0445\u043e\u0434\u043a\u0438 \u0438 \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u0435</summary><article class=\"veynrel-health-card\" data-dimension=\"structure\" data-state=\"unknown\" data-complete=\"false\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-network\"><rect x=\"16\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\"></rect><rect x=\"2\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\"></rect><rect x=\"9\" y=\"2\" width=\"6\" height=\"6\" rx=\"1\"></rect><path d=\"M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3\"></path><path d=\"M12 12V8\"></path></svg></span><button type=\"button\" data-health-action=\"dimension-structure\">\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430</button></h3><p class=\"veynrel-health-state\">\u041d\u0435 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e</p><div class=\"veynrel-dashboard-metric\"><span class=\"veynrel-dashboard-number\">0</span><span class=\"veynrel-health-muted\">\u041d\u0430\u0445\u043e\u0434\u043a\u0438</span></div></article><article class=\"veynrel-health-card\" data-dimension=\"connections\" data-state=\"unknown\" data-complete=\"false\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon link\"><path d=\"M13.1404 10C13.6728 10.3955 14.1134 10.9001 14.4322 11.4796C14.7511 12.0591 14.9407 12.6999 14.9882 13.3586C15.0357 14.0172 14.94 14.6783 14.7076 15.297C14.4751 15.9157 14.1115 16.4775 13.6412 16.9443L10.8588 19.7073C9.98423 20.5462 8.81284 21.0103 7.59697 20.9998C6.38109 20.9893 5.21801 20.505 4.35822 19.6512C3.49844 18.7974 3.01074 17.6424 3.00018 16.435C2.98961 15.2276 3.45702 14.0644 4.30173 13.1959L5.88768 11.6117\"></path><path d=\"M10.8596 14C10.3272 13.6045 9.88658 13.0999 9.56776 12.5204C9.24894 11.9409 9.05935 11.3001 9.01185 10.6414C8.96435 9.98279 9.06004 9.32171 9.29245 8.70302C9.52486 8.08433 9.88853 7.52251 10.3588 7.05567L13.1412 4.29268C14.0158 3.45384 15.1872 2.98968 16.403 3.00017C17.6189 3.01067 18.782 3.49497 19.6418 4.34877C20.5016 5.20257 20.9893 6.35756 20.9998 7.56498C21.0104 8.77239 20.543 9.93562 19.6983 10.8041L18.1123 12.379\"></path></svg></span><button type=\"button\" data-health-action=\"dimension-connections\">\u0421\u0432\u044f\u0437\u0438</button></h3><p class=\"veynrel-health-state\">\u041d\u0435 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e</p><div class=\"veynrel-dashboard-metric\"><span class=\"veynrel-dashboard-number\">0</span><span class=\"veynrel-health-muted\">\u041d\u0430\u0445\u043e\u0434\u043a\u0438</span></div></article><article class=\"veynrel-health-card\" data-dimension=\"recall\" data-state=\"unknown\" data-complete=\"false\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-history\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"></path><path d=\"M3 3v5h5\"></path><path d=\"M12 7v5l4 2\"></path></svg></span><button type=\"button\" data-health-action=\"dimension-recall\">\u041f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u0435</button></h3><p class=\"veynrel-health-state\">\u041d\u0435 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e</p></article><article class=\"veynrel-health-card\" data-dimension=\"knowledge\" data-state=\"unknown\" data-complete=\"false\"><h3><span class=\"veynrel-health-icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-book-open\"><path d=\"M12 7v14\"></path><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"></path></svg></span><span>\u0417\u043d\u0430\u043d\u0438\u044f</span></h3><p class=\"veynrel-health-state\">\u041d\u0435 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e</p></article></details><details class=\"veynrel-details\" data-health-disclosure=\"check-deep\"><summary data-health-action=\"check-deep\">\u041f\u043e\u043b\u043d\u044b\u0439 / \u043e\u0434\u0438\u043d\u043e\u0447\u043d\u044b\u0439 \u0430\u0443\u0434\u0438\u0442</summary><section class=\"veynrel-health-home veynrel-deep\" aria-label=\"\u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u0438 \u044f\u0437\u044b\u043a\u043e\u0432\u043e\u0439 \u043c\u043e\u0434\u0435\u043b\u0438\" aria-busy=\"false\"><h2>\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0437\u043d\u0430\u043d\u0438\u0439</h2><p class=\"veynrel-health-state\">\u041d\u0430\u0439\u0442\u0438 \u043d\u0435\u0434\u043e\u0440\u0430\u0431\u043e\u0442\u0430\u043d\u043d\u044b\u0435 \u0437\u0430\u043c\u0435\u0442\u043a\u0438 \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e \u043c\u043e\u0434\u0435\u043b\u0438. \u041e\u0442\u043f\u0440\u0430\u0432\u043a\u0430 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0433\u043e \u0438 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u0430\u044f \u043e\u043f\u043b\u0430\u0442\u0430 \u2014 \u043f\u043e\u0441\u043b\u0435 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u044f.</p><div class=\"veynrel-deep-actions\"><button class=\"mod-cta veynrel-health-primary\" type=\"button\" data-health-action=\"deep-knowledge\">\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0437\u043d\u0430\u043d\u0438\u044f</button></div></section></details><details class=\"veynrel-details\" data-health-disclosure=\"check-recall\" data-insight=\"recall\"><summary data-health-action=\"check-recall\">\u041f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u0435</summary></details></div></div></div></div></div></div></div></div></div></div></div><div class=\"workspace-split mod-horizontal mod-sidedock mod-right-split is-sidedock-collapsed\" style=\"width: 0px; display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\" style=\"opacity: 0;\"><div class=\"workspace-sidedock-empty-state\" style=\"display: none;\"><p class=\"u-muted\">The sidebar is empty, try dragging a tab here.</p></div><div class=\"workspace-tabs mod-top mod-top-right-space\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-tab-header-container\"><div class=\"workspace-tab-header-container-inner\" style=\"--animation-dur: 250ms;\"><div class=\"workspace-tab-header tappable is-active\" draggable=\"true\" aria-label=\"Backlinks\" data-tooltip-delay=\"300\" data-type=\"backlink\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon links-coming-in\"><path d=\"M8.70467 12C8.21657 11.6404 7.81269 11.1817 7.52044 10.6549C7.22819 10.1281 7.0544 9.54553 7.01086 8.94677C6.96732 8.348 7.05504 7.74701 7.26808 7.18456C7.48112 6.62212 7.81449 6.11138 8.24558 5.68697L10.7961 3.17516C11.5978 2.41258 12.6716 1.99062 13.7861 2.00016C14.9007 2.0097 15.9668 2.44997 16.755 3.22615C17.5431 4.00234 17.9902 5.05233 17.9998 6.14998C18.0095 7.24763 17.5811 8.30511 16.8067 9.09467L15.9014 10\"></path><path d=\"M11.2953 8C11.7834 8.35957 12.1873 8.81831 12.4796 9.34512C12.7718 9.87192 12.9456 10.4545 12.9891 11.0532C13.0327 11.652 12.945 12.253 12.7319 12.8154C12.5189 13.3779 12.1855 13.8886 11.7544 14.313L9.20392 16.8248C8.40221 17.5874 7.32844 18.0094 6.21389 17.9998C5.09933 17.9903 4.03318 17.55 3.24504 16.7738C2.4569 15.9977 2.00985 14.9477 2.00016 13.85C1.99047 12.7524 2.41893 11.6949 3.19326 10.9053L4.09859 10\"></path><path d=\"M17 21L14 18L17 15\"></path><path d=\"M21 18H14\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Backlinks</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Outgoing links\" data-tooltip-delay=\"300\" data-type=\"outgoing-link\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon links-going-out\"><path d=\"M8.70467 12C8.21657 11.6404 7.81269 11.1817 7.52044 10.6549C7.22819 10.1281 7.0544 9.54553 7.01086 8.94677C6.96732 8.348 7.05504 7.74701 7.26808 7.18456C7.48112 6.62212 7.81449 6.11138 8.24558 5.68697L10.7961 3.17516C11.5978 2.41258 12.6716 1.99062 13.7861 2.00016C14.9007 2.0097 15.9668 2.44997 16.755 3.22615C17.5431 4.00234 17.9902 5.05233 17.9998 6.14998C18.0095 7.24763 17.5811 8.30511 16.8067 9.09467L15.9014 10\"></path><path d=\"M11.2953 8C11.7834 8.35957 12.1873 8.81831 12.4796 9.34512C12.7718 9.87192 12.9456 10.4545 12.9891 11.0532C13.0327 11.652 12.945 12.253 12.7319 12.8154C12.5189 13.3779 12.1855 13.8886 11.7544 14.313L9.20392 16.8248C8.40221 17.5874 7.32844 18.0094 6.21389 17.9998C5.09933 17.9903 4.03318 17.55 3.24504 16.7738C2.4569 15.9977 2.00985 14.9477 2.00016 13.85C1.99047 12.7524 2.41893 11.6949 3.19326 10.9053L4.09859 10\"></path><path d=\"M18 21L21 18L18 15\"></path><path d=\"M14 18H21\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Outgoing links</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Tags\" data-tooltip-delay=\"300\" data-type=\"tag\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-tags\"><path d=\"M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z\"></path><path d=\"M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193\"></path><circle cx=\"10.5\" cy=\"6.5\" r=\"0.5\" fill=\"currentColor\"></circle></svg></div><div class=\"workspace-tab-header-inner-title\">Tags</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"All properties\" data-tooltip-delay=\"300\" data-type=\"all-properties\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-archive\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"5\" rx=\"1\"></rect><path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\"></path><path d=\"M10 12h4\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">All properties</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div><div class=\"workspace-tab-header tappable\" draggable=\"true\" aria-label=\"Outline\" data-tooltip-delay=\"300\" data-type=\"outline\"><div class=\"workspace-tab-header-inner\"><div class=\"workspace-tab-header-inner-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-list\"><path d=\"M3 5h.01\"></path><path d=\"M3 12h.01\"></path><path d=\"M3 19h.01\"></path><path d=\"M8 5h13\"></path><path d=\"M8 12h13\"></path><path d=\"M8 19h13\"></path></svg></div><div class=\"workspace-tab-header-inner-title\">Outline</div><div class=\"workspace-tab-header-status-container\"></div><div class=\"workspace-tab-header-inner-close-button\" aria-label=\"Close\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></div></div></div></div><div class=\"workspace-tab-header-new-tab\"><span class=\"clickable-icon\" aria-label=\"New tab\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg></span></div><div class=\"workspace-tab-header-spacer\"></div><div class=\"workspace-tab-header-tab-list\"><span class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"></path></svg></span></div></div><div class=\"workspace-tab-container\"><div class=\"workspace-leaf\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div><div class=\"workspace-leaf\" style=\"display: none;\"><hr class=\"workspace-leaf-resize-handle tappable\" data-ignore-swipe=\"true\"><div class=\"workspace-leaf-content node-insert-event\" data-type=\"undefined\"></div></div></div></div></div><div class=\"workspace-ribbon side-dock-ribbon mod-right is-collapsed\"></div></div></div><div class=\"status-bar\"><div class=\"status-bar-item plugin-backlink mod-clickable\" style=\"display: none;\"></div><div class=\"status-bar-item plugin-properties mod-clickable\" style=\"display: none;\">0 properties</div><div class=\"status-bar-item plugin-editor-status mod-clickable\" style=\"display: none;\" aria-label=\"Live Preview\" data-tooltip-position=\"top\"><span class=\"status-bar-item-icon\"></span></div><div class=\"status-bar-item plugin-word-count\" style=\"display: none;\"><span class=\"status-bar-item-segment\">0 words</span><span class=\"status-bar-item-segment\">0 characters</span></div><div class=\"status-bar-item plugin-sync\" aria-label=\"Uninitialized\" data-tooltip-position=\"top\"><div class=\"status-bar-item-segment\"><span class=\"status-bar-item-icon sync-status-icon mod-error\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon refresh-cw-off\"><path d=\"M21 8L18.74 5.74A9.75 9.75 0 0 0 12 3C11 3 10.03 3.16 9.13 3.47\"></path><path d=\"M8 16H3v5\"></path><path d=\"M3 12C3 9.51 4 7.26 5.64 5.64\"></path><path d=\"m3 16 2.26 2.26A9.75 9.75 0 0 0 12 21c2.49 0 4.74-1 6.36-2.64\"></path><path d=\"M21 12c0 1-.16 1.97-.47 2.87\"></path><path d=\"M21 3v5h-5\"></path><path d=\"M22 22 2 2\"></path></svg></span></div></div></div></div><script type=\"text/javascript\" src=\"/lib/codemirror/modes.min.js\"></script></body>",
+      "modals": []
+    }
+  }
+}

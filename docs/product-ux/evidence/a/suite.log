@@ -1,0 +1,14 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.10 <checkout>
+
+{"topologyFixture":{"nodes":1000,"directedEdges":4052,"components":23,"derivationMs":123.37773299999998,"layoutMs":10.115134000000012}}
+
+ Test Files  212 passed (212)
+      Tests  5418 passed (5418)
+   Start at  17:54:48
+   Duration  60.35s (transform 8.39s, setup 0ms, import 23.91s, tests 67.31s, environment 21ms)
+

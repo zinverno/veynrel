@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/recall-topics-native.mjs",
+    "<disposable-session>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846700.9510922,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    37889,
+    45907
+  ],
+  "cdpClosed": true,
+  "seconds": 28.845
+}

@@ -332,3 +332,28 @@ describe("native Recall authoring bridge", () => {
     expect(f.provider).toHaveBeenCalledTimes(1); expect(f.processNote).not.toHaveBeenCalled(); expect(f.factory).not.toHaveBeenCalled();
   });
 });
+
+describe("floating captured Recall handoff", () => {
+  it("uses the consented selection after focus loss and never expands it to the note", async () => {
+    const f = fixture(); const original = f.files.get("A.md")!; let content = original;
+    const editor = { getValue: () => content, getSelection: () => "" };
+    Object.assign(f.view, { editor, save: vi.fn(async () => { f.files.set("A.md", content); f.note.stat.mtime++; }) });
+    editorWrite.mockImplementation((_editor: unknown, _before: string, after: string) => { content = after; });
+    f.author.requestCapturedGeneration({ file: f.note as TFile, path: f.note.path, view: f.view as never, selection: "PRIVATE_SELECTED_BODY", current: () => content === original });
+    f.clearCurrent(); expect(f.author.getSnapshot().selectionLength).toBe(21);
+    expect(await f.author.generate()).toMatchObject({ status: "success" });
+    expect(f.provider.mock.calls[0][2]).toBe("PRIVATE_SELECTED_BODY"); expect(editorWrite).toHaveBeenCalledOnce();
+    f.author.cancelConfirmation(); expect(f.author.getSnapshot().selectionLength).toBe(0);
+  });
+  it.each(["before-request", "pending"])("refuses a cancelled captured lifecycle %s without a late insert", async phase => {
+    const f = fixture(); const content = f.files.get("A.md")!; let live = true;
+    Object.assign(f.view, { editor: { getValue: () => content, getSelection: () => "" } });
+    f.author.requestCapturedGeneration({ file: f.note as TFile, path: f.note.path, view: f.view as never, selection: "PRIVATE_SELECTED_BODY", current: () => live });
+    const hold = gate(); f.provider.mockImplementationOnce(async () => { await hold.promise; return "Question::Answer\nSecond::Answer two"; });
+    if (phase === "before-request") live = false;
+    const pending = f.author.generate();
+    if (phase === "pending") { await vi.waitFor(() => expect(f.provider).toHaveBeenCalledOnce()); live = false; hold.release(); }
+    expect(await pending).toMatchObject({ status: "error" }); expect(editorWrite).not.toHaveBeenCalled(); expect(f.processNote).not.toHaveBeenCalled();
+    if (phase === "before-request") expect(f.provider).not.toHaveBeenCalled();
+  });
+});

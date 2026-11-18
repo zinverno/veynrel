@@ -1,0 +1,19 @@
+{
+  "command": [
+    "node",
+    "<checkout-root>/.worktrees/ux-c-structural-map/scripts/studio-source-preservation-native.mjs",
+    "<disposable-session>"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794846729.9973457,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    41895,
+    36501,
+    39289,
+    35885
+  ],
+  "cdpClosed": true,
+  "seconds": 166.219
+}

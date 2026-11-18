@@ -1,0 +1,8 @@
+{"root": "/tmp/veynrel-infra-test-5f7df6556b99", "command": ["/usr/bin/python", "-c", "import subprocess,sys; subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(60)\"]);sys.exit(7)"], "timeoutSeconds": 15, "startedAt": 1794977169.7082238, "exitCode": 7, "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 0.887}
+.{"root": "/tmp/veynrel-infra-test-535d3060e94a", "command": ["/usr/bin/python", "-c", "import time,sys;from pathlib import Path;p=Path(sys.argv[1]);p.mkdir();(p/'ready').touch();time.sleep(60)", "/tmp/veynrel-infra-test-535d3060e94a"], "timeoutSeconds": 30, "startedAt": 1794977170.691289, "exitCode": 143, "failure": "INTERRUPTED", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 0.583}
+.{"root": "/tmp/veynrel-infra-test-0d2245d4a8c5", "command": ["/usr/bin/python", "-c", "import time;time.sleep(60)"], "timeoutSeconds": 3, "startedAt": 1794977171.3157327, "exitCode": 124, "failure": "TIMEOUT", "processGroupClean": true, "cdpPorts": [], "cdpClosed": true, "seconds": 3.025}
+.
+----------------------------------------------------------------------
+Ran 3 tests in 4.635s
+
+OK

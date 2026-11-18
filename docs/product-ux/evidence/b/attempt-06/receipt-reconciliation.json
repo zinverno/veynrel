@@ -1,0 +1,8 @@
+{
+  "status": "INCOMPLETE_RUNNER",
+  "nativeStatus": "PASS",
+  "nativeChecks": 66,
+  "nativeReportSha256": "e1345a2524b7fde37cd9ffdc9e203ebb2d7d5e632c477da20b1a655d4ef69cfe",
+  "limitation": "Later inspection found completed native report; outer orchestration exited 143 and isolation receipt is absent. Earlier incomplete observation retained. Do not count as a complete isolated PASS.",
+  "originalReceiptSha256": "0c12a2da248c1968921749c016172aec2e92de8ed3324595a59d841c723ffc09"
+}

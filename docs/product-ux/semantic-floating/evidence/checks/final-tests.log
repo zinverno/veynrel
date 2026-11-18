@@ -1,0 +1,12 @@
+
+> obsidian-ai-hub@2.4.0 test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating
+
+
+ Test Files  216 passed (216)
+      Tests  5472 passed (5472)
+   Start at  07:59:19
+   Duration  65.21s (transform 22.55s, setup 0ms, import 58.27s, tests 138.88s, environment 40ms)

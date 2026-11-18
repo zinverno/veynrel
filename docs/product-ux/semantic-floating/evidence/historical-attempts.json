@@ -1,0 +1,235 @@
+{
+  "provenance": "Original launcher JSON printed during the interrupted session. Previous /tmp was a tmpfs. These are historical exit statuses. The separate routes exit 143 was reported by the owner. Its final report was not recovered.",
+  "receipts": [
+    {
+      "run": "veynrel-followup-native-42ec929bafc1",
+      "scenario": "baseline",
+      "exitCode": 0,
+      "seconds": 65.57
+    },
+    {
+      "run": "veynrel-semantic-floating-native-b63fd6533364",
+      "scenario": "routes",
+      "exitCode": 1,
+      "seconds": 11.074
+    },
+    {
+      "run": "veynrel-semantic-floating-native-601d7a0df93f",
+      "scenario": "routes",
+      "exitCode": 1,
+      "seconds": 12.178
+    },
+    {
+      "run": "veynrel-semantic-floating-native-06e3d80eb263",
+      "scenario": "routes",
+      "exitCode": 0,
+      "seconds": 15.291
+    },
+    {
+      "run": "veynrel-semantic-floating-native-da6a5c616117",
+      "scenario": "panel",
+      "exitCode": 1,
+      "seconds": 17.307
+    },
+    {
+      "run": "veynrel-semantic-floating-native-374e5a021063",
+      "scenario": "panel",
+      "exitCode": 0,
+      "seconds": 12.336
+    },
+    {
+      "run": "veynrel-semantic-floating-native-4dd983cb1e46",
+      "scenario": "panel",
+      "exitCode": 1,
+      "seconds": 19.938
+    },
+    {
+      "run": "veynrel-semantic-floating-native-73beb581fb86",
+      "scenario": "panel",
+      "exitCode": 1,
+      "seconds": 16.044
+    },
+    {
+      "run": "veynrel-semantic-floating-native-0c5228913bb2",
+      "scenario": "panel",
+      "exitCode": 1,
+      "seconds": 21.62
+    },
+    {
+      "run": "veynrel-semantic-floating-native-ed52f64be41b",
+      "scenario": "panel",
+      "exitCode": 1,
+      "seconds": 21.352
+    },
+    {
+      "run": "veynrel-semantic-floating-native-4e19fa00ab3f",
+      "scenario": "panel",
+      "exitCode": 0,
+      "seconds": 21.251
+    },
+    {
+      "run": "veynrel-semantic-floating-native-fe6a92858311",
+      "scenario": "routes",
+      "exitCode": 0,
+      "seconds": 24.016
+    },
+    {
+      "run": "veynrel-semantic-floating-native-2840d675a35f",
+      "scenario": "cap",
+      "exitCode": 0,
+      "seconds": 3.573
+    },
+    {
+      "run": "veynrel-semantic-floating-native-fa4a4865e696",
+      "scenario": "panel",
+      "exitCode": 0,
+      "seconds": 35.588
+    },
+    {
+      "run": "veynrel-semantic-floating-native-15dbea3bc306",
+      "scenario": "before",
+      "exitCode": 0,
+      "seconds": 8.886
+    },
+    {
+      "run": "veynrel-semantic-floating-native-e098bef9a7cc",
+      "scenario": "routes",
+      "exitCode": 1,
+      "seconds": 21.299
+    },
+    {
+      "run": "veynrel-semantic-floating-native-0b207de5b61c",
+      "scenario": "panel",
+      "exitCode": 0,
+      "seconds": 96.552
+    },
+    {
+      "run": "veynrel-semantic-floating-native-4591d185bc50",
+      "scenario": "routes",
+      "exitCode": 1,
+      "seconds": 33.836
+    },
+    {
+      "run": "veynrel-semantic-floating-native-0a14b59e272f",
+      "scenario": "routes",
+      "exitCode": 0,
+      "seconds": 24.058
+    },
+    {
+      "run": "veynrel-semantic-floating-native-ebe7df96fe8a",
+      "scenario": "full",
+      "exitCode": 0,
+      "seconds": 95.135
+    },
+    {
+      "run": "veynrel-semantic-floating-native-26c24062e749",
+      "scenario": "edges",
+      "exitCode": 1,
+      "seconds": 30.092
+    },
+    {
+      "run": "veynrel-semantic-floating-native-0c3919fb427c",
+      "scenario": "panel",
+      "exitCode": 1,
+      "seconds": 121.204
+    },
+    {
+      "run": "veynrel-semantic-floating-native-60c16c012781",
+      "scenario": "edges",
+      "exitCode": 1,
+      "seconds": 17.198
+    },
+    {
+      "run": "veynrel-semantic-floating-native-e68439d6944d",
+      "scenario": "edges",
+      "exitCode": 1,
+      "seconds": 12.785
+    },
+    {
+      "run": "veynrel-semantic-floating-native-b17b15607d22",
+      "scenario": "edges",
+      "exitCode": 1,
+      "seconds": 18.975
+    },
+    {
+      "run": "veynrel-semantic-floating-native-408b1d6a5fa9",
+      "scenario": "edges",
+      "exitCode": 1,
+      "seconds": 7.019
+    },
+    {
+      "run": "veynrel-semantic-floating-native-eeb0699d534b",
+      "scenario": "edges",
+      "exitCode": 1,
+      "seconds": 21.075
+    },
+    {
+      "run": "veynrel-semantic-floating-native-00d7355dc773",
+      "scenario": "edges",
+      "exitCode": 0,
+      "seconds": 10.739
+    },
+    {
+      "run": "veynrel-followup-native-08668938bc05",
+      "scenario": "after",
+      "exitCode": 0,
+      "seconds": 48.032
+    },
+    {
+      "run": "veynrel-semantic-floating-native-34858302f686",
+      "scenario": "cap",
+      "exitCode": 0,
+      "seconds": 3.474
+    },
+    {
+      "run": "veynrel-semantic-floating-native-64022cb70986",
+      "scenario": "full",
+      "exitCode": 0,
+      "seconds": 105.299
+    },
+    {
+      "run": "veynrel-semantic-floating-native-fa473d2c892c",
+      "scenario": "before",
+      "exitCode": 0,
+      "seconds": 14.601
+    }
+  ],
+  "buildIdentification": {
+    "cleanCommit": "edc1bcdd82cc0a0c059167262dcf7c4fb60aa4a7",
+    "cleanBundleSha256": "fc6299ca128b2cfdc7ebc2eee7713bf0acabd72e6c4ffad904832dbe8d153a83",
+    "plusRecoveredModalEditSha256": "2133b63a67dddbeaba12dc0e32478087a793bdf779da8726c5001d18d8798800",
+    "fullReadbackSha256": "2133b63a67dddbeaba12dc0e32478087a793bdf779da8726c5001d18d8798800"
+  },
+  "historicalFull": {
+    "id": "64022cb70986",
+    "checks": 127,
+    "screenshotsReported": 117
+  },
+  "viewedReferencePNGs": [
+    "01_map_dark.png",
+    "02_families_dark.png",
+    "03_pair_select_dark.png",
+    "04_pair_review_dark.png",
+    "05_neighborhood_dark.png",
+    "06_opportunities_dark.png",
+    "07_global_focus_dark.png",
+    "08_similar_dark.png",
+    "09_source_required_dark.png",
+    "10_index_missing_dark.png",
+    "11_global_cap_dark.png",
+    "12_float_collapsed_dark.png",
+    "13_float_expanded_dark.png",
+    "14_float_drag_dark.png",
+    "15_style_consent_dark.png",
+    "16_style_preview_dark.png",
+    "17_style_conflict_dark.png",
+    "18_recall_consent_dark.png",
+    "19_float_expanded_light.png",
+    "20_families_light.png",
+    "21_global_focus_light.png",
+    "22_neighborhood_390.png",
+    "23_float_expanded_390.png",
+    "24_style_consent_390.png",
+    "25_float_warm.png"
+  ]
+}

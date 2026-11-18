@@ -1,114 +1,13 @@
-import { setIcon } from "obsidian";
 import { t } from "../../i18n";
-import { healthButton, healthDetails } from "../ui/renderHealthHome";
-import { healthHomeViewModel } from "../ui/healthHomeViewModel";
-import type { HealthControllerState } from "../obsidian/healthPluginController";
-import type { Finding } from "../domain/finding";
-import { includesScope, scopeFindings, sceneFolders } from "./vaultScope";
+import { healthButton } from "../ui/renderHealthHome";
+import { includesScope } from "./vaultScope";
 import type { VaultScopeIndex } from "./vaultScope";
-import { nextActionFindings } from "../services/recommendationService";
-import { findingPresentation } from "../ui/findingPresentation";
 
 export function scopeName(index: VaultScopeIndex): string { return index.selection.kind === "all" ? t("@workspace.all") : index.selection.path; }
 export function workspaceHeading(parent: HTMLElement, title: string, description?: string): void {
   const header = parent.createDiv({ cls: "veynrel-page-heading" });
   header.createEl("h1", { text: title, attr: { tabindex: "-1", "data-health-heading": "true" } });
   if (description) header.createEl("p", { text: description });
-}
-
-export function renderWorkspaceHome(parent: HTMLElement, index: VaultScopeIndex, vaultName: string, state: HealthControllerState,
-  findings: readonly Finding[], motion: boolean, actions: { select: (path?: string) => void; open: () => void; recall: () => void;
-    check: () => void; findings: () => void; process: () => void; motion: () => void; reviewFinding?: (id: string) => void }): void {
-  const home = parent.createEl("section", { cls: "veynrel-native-home" });
-  workspaceHeading(home, t("@workspace.headline"), t("@workspace.intro"));
-  const grid = home.createDiv({ cls: "veynrel-home-grid" });
-  const foldersDetails = healthDetails(home, t("@workspace.order"), "home-folders");
-  const scene = foldersDetails.createEl("section", { cls: "veynrel-core-panel", attr: { "aria-label": t("@workspace.scope") } });
-  const caption = scene.createDiv({ cls: "veynrel-core-caption" });
-  caption.createEl("h2", { text: t("@workspace.your-vault"), cls: "veynrel-eyebrow" });
-  caption.createEl("p", { text: `${t("@workspace.notes", { n: index.snapshot.paths.length })} · ${t("@workspace.areas", { n: index.snapshot.folders.length })}` });
-  const universe = scene.createDiv({ cls: "veynrel-universe", attr: { "data-motion": String(motion) } });
-  const folders = sceneFolders(index.snapshot, index.selection);
-  folders.forEach((folder, i) => {
-    const selected = index.selection.kind === "folder" && !index.selection.missing && index.selection.path === folder.path;
-    const button = healthButton(universe, "", () => actions.select(folder.path), `scope-${i}`);
-    button.addClass("veynrel-topic-node", `veynrel-topic-${i}`); button.setAttribute("aria-pressed", String(selected));
-    button.setAttribute("title", folder.path);
-    button.setAttribute("aria-label", `${folder.path} · ${t("@workspace.notes", { n: folder.count })}`);
-    const icon = button.createSpan({ cls: "veynrel-topic-icon", attr: { "aria-hidden": "true" } });
-    setIcon(icon, selected ? "check" : "folder");
-    const name = button.createSpan({ cls: "veynrel-topic-name" });
-    const slash = folder.path.lastIndexOf("/");
-    name.createEl("strong", { text: folder.path.slice(slash + 1) });
-    if (slash >= 0) name.createSpan({ cls: "veynrel-topic-path", text: folder.path.slice(0, slash) });
-    name.createEl("small", { text: t("@workspace.notes", { n: folder.count }) });
-  });
-  const center = healthButton(universe, "", () => actions.select(), "scope-all"); center.addClass("veynrel-core-all");
-  center.createSpan({ cls: "veynrel-core-geometry", attr: { "aria-hidden": "true" } });
-  center.setAttribute("aria-pressed", String(index.selection.kind === "all"));
-  center.createEl("strong", { text: t("@workspace.all") });
-  center.createEl("small", { text: t("@workspace.notes", { n: index.snapshot.paths.length }) });
-  const foot = scene.createDiv({ cls: "veynrel-core-foot" });
-  foot.createSpan({ text: t("@workspace.order") });
-  const toggle = healthButton(foot, t("@workspace.motion"), actions.motion, "workspace-motion"); toggle.setAttribute("aria-pressed", String(motion));
-  const remaining = index.snapshot.folders.filter(folder => !folder.path.includes("/") && !folders.some(shown => shown.path === folder.path));
-  if (remaining.length) {
-    const more = healthButton(foot, t("@polish.more-folders", { count: remaining.length }), () => {
-      list.hidden = !list.hidden; more.setAttribute("aria-expanded", String(!list.hidden));
-      more.setText(t(list.hidden ? "@polish.more-folders" : "@polish.hide-folders", { count: remaining.length }));
-    }, "home-more-folders");
-    more.setAttribute("aria-expanded", "false");
-    const list = scene.createDiv({ cls: "veynrel-home-folders", attr: { "aria-label": t("@workspace.order") } }); list.hidden = true;
-    for (const folder of remaining) {
-      const item = healthButton(list, "", () => actions.select(folder.path), `home-folder-${encodeURIComponent(folder.path)}`);
-      item.setAttribute("data-home-folder", folder.path);
-      item.createEl("strong", { text: folder.path }); item.createEl("small", { text: t("@workspace.notes", { n: folder.count }) });
-    }
-  }
-  const panel = grid.createEl("section", { cls: "veynrel-scope-card" });
-  panel.createEl("p", { cls: "veynrel-eyebrow", text: t("@workspace.focus") });
-  panel.createEl("h2", { text: scopeName(index) });
-  const missing = index.selection.kind === "folder" && index.selection.missing;
-  const selected = index.selection;
-  const count = selected.kind === "all" ? index.snapshot.paths.length : index.snapshot.folders.find(folder => folder.path === selected.path)?.count ?? 0;
-  panel.createEl("p", { cls: "veynrel-scope-source", text: missing ? t("@workspace.missing")
-    : `${t("@workspace.notes", { n: count })} · ${index.selection.kind === "all" ? vaultName : t("@workspace.folder-source")}`,
-    attr: missing ? { role: "alert" } : { title: t(index.selection.kind === "all" ? "@workspace.all-source" : "@workspace.folder-source") } });
-  const check = healthHomeViewModel(state);
-  panel.createEl("p", { text: t("@workspace.local-coverage") });
-  panel.createEl("p", { text: check.dashboard.localScan.detail, attr: { "data-workspace-check-receipt": "true" } });
-  if (check.status && !(state.outcome?.scan.status === "completed" && state.outcome.freshness === "verified" && state.outcome.historyRecorded && !state.busy && !state.error)) {
-    panel.createEl("p", { text: check.status, attr: { role: check.statusError ? "alert" : "status" } });
-  }
-  if (state.snapshot?.lastLocalScan) panel.createEl("p", { text: t("@workspace.recorded-check"), cls: "veynrel-data-note" });
-  const primary = panel.createDiv({ cls: "veynrel-health-actions" });
-  healthButton(primary, t("@workspace.local-check"), actions.check, "home-check", Boolean(missing), true);
-  healthButton(primary, t("@workspace.findings"), actions.findings, "home-findings");
-  const next = missing ? [] : nextActionFindings(findings.filter(finding => finding.notePaths.some(path => includesScope(index.selection, path))));
-  if (next.length && actions.reviewFinding) {
-    const suggestions = panel.createEl("section", { attr: { "data-next-actions": "" } });
-    suggestions.createEl("h3", { text: t("@actions.shortlist") });
-    for (const finding of next) {
-      const item = suggestions.createDiv();
-      item.createEl("p", { text: findingPresentation(finding).title });
-      healthButton(item, t("@actions.why"), () => actions.reviewFinding!(finding.id), `next-${finding.id}`);
-    }
-  }
-  const saved = healthDetails(panel, t("@workspace.saved-overview"), "home-saved");
-  const metrics = saved.createDiv({ cls: "veynrel-scope-metrics" });
-  const recall = state.snapshot?.recall;
-  const metric = (value: string, label: string): void => { const cell = metrics.createDiv(); cell.createEl("strong", { text: value }); cell.createEl("small", { text: label }); };
-  metric(index.selection.kind === "all" && recall?.loadState === "ready" && !recall.firstRun ? String(recall.due) : "—", t(index.selection.kind === "all" ? "@workspace.due" : "@workspace.folder-recall"));
-  const stored = scopeFindings(findings, index.selection);
-  const available = !missing && (state.snapshot?.initialization.storage.findings === "loaded" || findings.length > 0);
-  metric(available ? String(stored.count) : "—", t("@workspace.observations"));
-  if (!available) saved.createEl("p", { cls: "veynrel-data-note", text: t("@workspace.unavailable") });
-  if (stored.external) saved.createEl("p", { cls: "veynrel-data-note", text: t("@workspace.external", { n: stored.external }) });
-  const bottom = panel.createDiv({ cls: "veynrel-scope-actions" });
-  healthButton(bottom, t("@workspace.open"), actions.open, "open-scope", Boolean(missing));
-  healthButton(bottom, t("@workspace.open-recall"), actions.recall, "home-recall");
-  bottom.createEl("small", { text: t("@workspace.global-queue") });
-  healthButton(bottom, t("@workspace.process"), actions.process, "home-process");
 }
 
 export function renderScopeNotes(parent: HTMLElement, index: VaultScopeIndex, query: string, limit: number,

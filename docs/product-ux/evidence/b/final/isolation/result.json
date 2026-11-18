@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "<checkout>/scripts/native/product-ux.mjs",
+    "<disposable>",
+    "after-b"
+  ],
+  "timeoutSeconds": 180,
+  "startedAt": 1794844741.192296,
+  "exitCode": 0,
+  "processGroupClean": true,
+  "cdpPorts": [
+    42753
+  ],
+  "cdpClosed": true,
+  "seconds": 12.096,
+  "originalReceiptSha256": "b8d57a0a2073582c782e2c8ce4e021e4a0ae14852f8e3a91704ca5b96faeb555"
+}

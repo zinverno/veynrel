@@ -52,6 +52,7 @@ export type HealthScanDiagnosticCode = "analysis-failed" | "analyzers-failed" | 
   "vault-changed-during-scan" | "freshness-unavailable" | "reconciliation-failed" | "history-not-recorded" | SemanticHealthErrorCode | DeepHealthErrorCode;
 
 export interface LocalHealthScanOutcome {
+  coverage?: import("../analyzers/local/types").LocalCoverageReceipt;
   scan: ScanRun;
   freshness: "verified" | "stale" | "unknown" | "not-checked";
   findingsCommitted: boolean;

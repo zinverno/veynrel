@@ -134,6 +134,12 @@ async function pick(path) {
 async function openTag(name = 'Taggable') {
   if(process.env.VEYNREL_LOCAL_NOTE_REVIEW_ONLY === '1') {
     await main.ev(`app.plugins.plugins['ai-knowledge-hub'].openLocalNoteAction(${JSON.stringify(name+'.md')},'add_inline_tag');void 0`);
+  } else if (process.env.UX_CONTEXTUAL === '1') {
+    await main.ev("hv.navigate({page:'discover'});void 0");
+    await main.ev("for(const b of [...document.querySelectorAll('[data-health-action^=unselect-]')])b.click();void 0");
+    const selector='[data-health-action="note-select-'+encodeURIComponent(name+'.md')+'"]';
+    await focus();await main.ev(`document.querySelector(${JSON.stringify(selector)}).focus();void 0`);await key(' ','Space',32,' ');
+    await activate('[data-health-action=note-tag]');
   } else {
     await main.ev("hv.navigate({page:'home'});void 0"); await activate('[data-health-action=tag-note]'); await pick(name);
   }
@@ -175,13 +181,13 @@ async function undoThroughHistory() {
 }
 try {
   await attach(); await main.ev("(async()=>{await app.commands.commands['ai-knowledge-hub:veynrel-open-health'].callback();window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;})()");
-  await wait("!!document.querySelector('[data-health-action=home-check]')");
+  await wait("!!document.querySelector('[data-health-action=scan]')");
   report.settingsBefore=await main.ev('JSON.stringify({...plugin.settings,language:null})');
   await phase('passive'); const passive=await main.ev('structuredClone(io)');
-  await activate('[data-health-action=home-findings]'); await main.ev("hv.navigate({page:'home'});void 0");
+  await activate('[data-health-action=nav-health]'); await main.ev("hv.navigate({page:'home'});void 0");
   const after=await main.ev('structuredClone(io)'); for(const k of ['reads','writes','creates'])assert.equal(after[k].length,passive[k].length);
   assert.equal(after.enumerations,passive.enumerations); report.passive={before:passive,after}; report.checks.push('Passive navigation has no scan/read/write/model activity');
-  await phase('scan'); await activate('[data-health-action=home-check]'); await activate('[data-health-action=scan]');
+  await phase('scan'); await activate('[data-health-action=scan]');
   await wait('!!hv.controller.getState().outcome&&!hv.controller.getState().busy');
   await main.ev("window.brokenFinding=hv.controller.listFindings().find(f=>f.type==='broken-link'&&f.notePaths.includes('Broken.md'));void 0");
   await pass('Native local scan produced the actual broken-link finding','!!brokenFinding');

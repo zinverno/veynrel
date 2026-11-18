@@ -1,0 +1,9 @@
+
+ RUN  v4.1.10 /home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/ux-followup-panels
+
+
+ Test Files  3 passed (3)
+      Tests  231 passed (231)
+   Start at  09:21:09
+   Duration  6.65s (transform 3.37s, setup 0ms, import 4.27s, tests 8.16s, environment 0ms)
+

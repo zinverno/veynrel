@@ -1,3 +1,4 @@
+import { studioFeatures } from "./features";
 import { ItemView, Modal, Notice, setIcon } from "obsidian";
 import type { App, WorkspaceLeaf } from "obsidian";
 import { currentLanguage } from "../i18n";
@@ -52,6 +53,12 @@ class StudioDialog extends Modal {
 }
 
 export class VeynrelStudioView extends ItemView {
+  private suggestedSource?: string;
+  private returnToNotes?: () => void;
+  suggestSource(path: string, back?: () => void): void {
+    if (!this.alive || !this.owner.inventory().includes(path)) return;
+    this.suggestedSource = path; this.returnToNotes = back; this.render();
+  }
   private route: "library" | "community" | "details" | "setup" | "workflow" | "history" = "library";
   private community?: CommunityPanel;
   private selected?: Recipe;
@@ -84,7 +91,7 @@ export class VeynrelStudioView extends ItemView {
     header.createEl("p", { text: l("Transform notes with reusable recipes", "Преобразуйте заметки с помощью сценариев") });
     const nav = this.contentEl.createEl("nav", { cls: "veynrel-studio-actions", attr: { "aria-label": title } });
     for (const [route, name] of [["library", l("Library", "Библиотека")], ["community", l("Community", "Сообщество")], ["history", l("History", "История")]] as const) {
-      button(nav, name, route, () => { this.navigate(route); });
+      if (route !== "community" || studioFeatures.onlineCommunity) button(nav, name, route, () => { this.navigate(route); });
     }
     const operation = toolbar(this.contentEl); operation.addClass("veynrel-studio-operation");
     button(operation, l("Run & review", "Запуск и проверка"), "workflow", () => this.navigate("workflow"));
@@ -93,7 +100,7 @@ export class VeynrelStudioView extends ItemView {
     this.stop.push(this.owner.operations.subscribe(() => this.updateStatus()));
     this.stop.push(this.owner.runner.subscribe(() => { this.updateStatus(); if (this.route === "workflow") this.render(); }));
     this.stop.push(this.owner.registry.subscribe(() => { if (this.route === "library" || this.route === "details") this.render(); }));
-    this.community = new CommunityPanel(this.owner.community, this.owner.installer, () => { if (this.alive && this.route === "community") this.render(); }, r => {
+    if (studioFeatures.onlineCommunity) this.community = new CommunityPanel(this.owner.community, this.owner.installer, () => { if (this.alive && this.route === "community") this.render(); }, r => {
       if (!this.alive) return; this.selected = r; this.navigate("details");
     });
     this.stop.push(this.owner.community.subscribe(() => { if (this.route === "community") this.render(); }));
@@ -118,6 +125,7 @@ export class VeynrelStudioView extends ItemView {
     const d = new StudioDialog(this.app, build, () => { this.dialogs.delete(d); closed?.(); }); this.dialogs.add(d); d.open();
   }
   private navigate(route: typeof this.route): void {
+    if (route === "community" && !studioFeatures.onlineCommunity) return;
     this.routeScroll.set(this.route, this.contentEl.scrollTop);
     const focused = this.body.ownerDocument.activeElement as HTMLElement | null;
     if (focused && this.body.contains(focused) && focused.dataset.studioKey) this.routeFocus.set(this.route, focused.dataset.studioKey);
@@ -146,8 +154,15 @@ export class VeynrelStudioView extends ItemView {
     this.renderedRoute = this.route;
     this.contentEl.querySelectorAll<HTMLElement>("nav button").forEach(b => b.setAttribute("aria-current", String(b.dataset.studioAction === (this.route === "details" || this.route === "setup" ? "library" : this.route))));
     this.historyEpoch++; this.body.empty(); this.body.removeClass("veynrel-community"); this.errorEl.empty(); this.updateStatus();
+    if (this.returnToNotes) button(this.body, l("← Notes", "← Заметки"), "back-notes", this.returnToNotes);
+    if (this.suggestedSource) {
+      const hint = this.body.createDiv({ cls: "veynrel-studio-source-handoff", attr: { role: "status" } });
+      hint.createEl("p", { text: l("From Notes: ", "Из раздела «Заметки»: ") + this.suggestedSource });
+      hint.createEl("small", { text: l("Choose a recipe, then use this note in its setup. Nothing has been read or sent by this handoff.", "Выберите сценарий, затем укажите эту заметку в подготовке. Этот переход ничего не читает и не отправляет.") });
+      button(hint, l("Dismiss suggestion", "Убрать предложение"), "dismiss-source", () => { this.suggestedSource = undefined; this.render(); });
+    }
     if (this.route === "library") this.library();
-    if (this.route === "community") this.community?.render(this.body);
+    if (this.route === "community" && studioFeatures.onlineCommunity) this.community?.render(this.body);
     if (this.route === "details") this.details();
     if (this.route === "setup") this.setup();
     if (this.route === "workflow") this.workflow();
@@ -213,7 +228,7 @@ export class VeynrelStudioView extends ItemView {
       button(root, l("Select JSON", "Выделить JSON"), "select-json", () => { input.focus(); input.select(); });
     }));
     if (r.source === "user") {
-      button(actions, l("Prepare community submission", "Подготовить публикацию в Community"), "publish", () => this.publishRecipe(r));
+      if (studioFeatures.onlineCommunity) button(actions, l("Prepare community submission", "Подготовить публикацию в Community"), "publish", () => this.publishRecipe(r));
       button(actions, l("Edit", "Изменить"), "edit", () => this.edit(r, r));
       button(actions, l("Delete", "Удалить"), "delete", () => this.dialog((d, root) => {
         root.createEl("p", { text: `${l("Delete local recipe", "Удалить локальный сценарий")}: ${r.name[currentLanguage()]}?` });
@@ -330,6 +345,13 @@ export class VeynrelStudioView extends ItemView {
     model.open = !this.owner.connection().model;
     model.createEl("p", { text: l("Change the model in Obsidian Settings → Veynrel. You can browse and select notes without a provider. Save edits before preparation; close source editors only before changing the source.", "Изменить модель: настройки Obsidian → Veynrel. Для выбора сценария и заметок провайдер не нужен. Сохраните правки перед подготовкой; закрывать редактор исходника нужно только перед его изменением.") });
     const state = draft, paths = this.owner.inventory(), chosen = state.chosen;
+    if (this.suggestedSource) {
+      const source = this.suggestedSource;
+      button(this.body, l("Use this note only", "Выбрать только эту заметку"), "use-source", () => {
+        if (!this.owner.inventory().includes(source)) { this.errorEl.setText(l("Source changed; select a current note", "Исходник изменился; выберите актуальную заметку")); return; }
+        state.chosen = new Set([source]); state.mode = "files"; state.query = ""; this.suggestedSource = undefined; this.render();
+      });
+    }
     const mode = select(this.body, l("Selection", "Выбор"), [["files", l("Choose individual notes", "Выбрать отдельные заметки")], ["folder", l("Choose a folder including subfolders", "Выбрать папку с подпапками")]], state.mode);
     const picker = this.body.createDiv();
     notePicker(picker, paths, state, 20);
