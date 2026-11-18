@@ -37,6 +37,7 @@ import {
   setIcon,
   normalizePath,
   CachedMetadata,
+  Component,
 } from "obsidian";
 import {
   AIHubSettingTab,
@@ -985,6 +986,10 @@ export default class AIHubPlugin extends Plugin {
       return;
     }
 
+    const source = this.app.workspace.activeEditor?.file;
+    if (!source) return;
+    const current = () => this.isStreamTarget(editor, source);
+    if (!current()) return;
     const selPreview =
       mode === "selection" ? editor.getSelection()?.slice(0, 200) : undefined;
     const prompt = await promptUser(
@@ -997,11 +1002,11 @@ export default class AIHubPlugin extends Plugin {
         lastPrompt: this.lastPrompt || undefined,
       },
     );
-    if (!prompt) return;
+    if (!prompt || !current()) return;
     this.lastPrompt = prompt;
 
     const target = await this.awaitInsertionMenu(editor, mode);
-    if (!target) return;
+    if (!target || !current()) return;
 
     const loadingNotice = notify("loading", tr("AI думает и пишет..."));
 
@@ -1017,21 +1022,21 @@ export default class AIHubPlugin extends Plugin {
       }
 
       if (target === "new") {
-        await this.streamToNewNote(system, user, prompt);
+        await this.streamToNewNote(system, user, prompt, current);
         loadingNotice.hide();
         notify("success", tr("Новая заметка создана"));
         return;
       }
 
       await this.prepareInsertionPoint(editor, target);
-      await this.streamIntoEditor(editor, target, system, user);
+      await this.streamIntoEditor(editor, target, system, user, source);
 
       loadingNotice.hide();
       notify("success", tr("Готово"));
     } catch (err) {
       loadingNotice.hide();
       const msg = err instanceof Error ? err.message : String(err);
-      new Notice(`❌ Ошибка генерации: ${msg}`);
+      new Notice(err instanceof Error && err.name === "AbortError" ? tr("Генерация отменена.") : `❌ Ошибка генерации: ${msg}`);
     }
   }
 
@@ -1067,7 +1072,7 @@ export default class AIHubPlugin extends Plugin {
     };
   }
 
-  private async streamToNewNote(system: string, user: string, prompt: string) {
+  private async streamToNewNote(system: string, user: string, prompt: string, sourceCurrent: () => boolean) {
     const folder = this.settings.newNoteFolder?.trim() ?? "";
     const now = new Date();
     const dateStr = now.toISOString().slice(0, 10).replace(/-/g, "");
@@ -1097,32 +1102,20 @@ export default class AIHubPlugin extends Plugin {
       });
     }
 
+    if (!sourceCurrent()) throw new DOMException(tr("Генерация отменена."), "AbortError");
     const newFile = await this.app.vault.create(path, "");
+    if (!sourceCurrent()) throw new DOMException(tr("Генерация отменена."), "AbortError");
     await this.app.workspace.getLeaf().openFile(newFile);
 
-    const newEditor = this.app.workspace.activeEditor?.editor;
-    if (!newEditor)
-      throw new Error(tr("Не удалось получить редактор новой заметки"));
+    const destination = this.app.workspace.activeEditor;
+    if (destination?.file !== newFile || !destination.editor)
+      throw new DOMException(tr("Генерация отменена."), "AbortError");
+    await this.streamIntoEditor(destination.editor, "new", system, user, newFile);
+  }
 
-    let line = 0;
-    let ch = 0;
-
-    await streamOpenRouter(
-      this.settings,
-      system,
-      user,
-      (chunk) => {
-        newEditor.replaceRange(chunk, { line, ch });
-        const newlines = chunk.split("\n");
-        if (newlines.length > 1) {
-          line += newlines.length - 1;
-          ch = newlines[newlines.length - 1].length;
-        } else {
-          ch += chunk.length;
-        }
-      },
-      { maxTokens: MAX_TOKENS_STREAM },
-    );
+  private isStreamTarget(editor: Editor, file: TFile): boolean {
+    const active = this.app.workspace.activeEditor;
+    return active?.editor === editor && active.file === file && this.app.vault.getFileByPath(file.path) === file;
   }
 
   private async streamIntoEditor(
@@ -1130,18 +1123,32 @@ export default class AIHubPlugin extends Plugin {
     target: InsertionType,
     system: string,
     user: string,
+    file: TFile,
   ) {
-    const startPos = editor.getCursor("to");
-    let line = startPos.line;
-    let ch = startPos.ch;
-
-    await streamOpenRouter(
-      this.settings,
-      system,
-      user,
-      (chunk) => {
+    const workspace = this.app.workspace;
+    const controller = new AbortController();
+    const lifetime = this.addChild(new Component());
+    const checkSource = () => {
+      if (!this.isStreamTarget(editor, file)) controller.abort();
+    };
+    const requireCurrent = () => {
+      checkSource();
+      if (controller.signal.aborted) throw new DOMException(tr("Генерация отменена."), "AbortError");
+    };
+    lifetime.register(() => controller.abort());
+    try {
+      lifetime.registerEvent(workspace.on("file-open", opened => {
+        if (opened !== file) controller.abort();
+        else checkSource();
+      }));
+      lifetime.registerEvent(workspace.on("active-leaf-change", checkSource));
+      lifetime.registerEvent(workspace.on("layout-change", checkSource));
+      requireCurrent();
+      let { line, ch } = target === "new" ? { line: 0, ch: 0 } : editor.getCursor("to");
+      await streamOpenRouter(this.settings, system, user, chunk => {
+        // Obsidian can reuse the same editor when a different note opens in its leaf.
+        requireCurrent();
         editor.replaceRange(chunk, { line, ch });
-
         const newlines = chunk.split("\n");
         if (newlines.length > 1) {
           line += newlines.length - 1;
@@ -1149,13 +1156,12 @@ export default class AIHubPlugin extends Plugin {
         } else {
           ch += chunk.length;
         }
-
-        if (target !== "replace") {
-          editor.setCursor({ line, ch });
-        }
-      },
-      { maxTokens: MAX_TOKENS_STREAM },
-    );
+        if (target !== "replace" && target !== "new") editor.setCursor({ line, ch });
+      }, { maxTokens: MAX_TOKENS_STREAM, signal: controller.signal });
+      requireCurrent();
+    } finally {
+      this.removeChild(lifetime);
+    }
   }
 
   async awaitInsertionMenu(
