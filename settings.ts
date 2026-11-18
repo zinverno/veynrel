@@ -144,10 +144,6 @@ interface SettingsSection { type: "group"; heading: string; icon: string; items:
 
 // ─────────────────────────────────────────────────────────────────────
 export class AIHubSettingTab extends PluginSettingTab {
-  // The locked SDK predates the 1.13 host renderer. These declarations emit no overrides.
-  declare display: () => void;
-  declare update: () => void;
-
   private decisionsTest: AbortController | null = null;
   private rerankTest: AbortController | null = null;
   plugin: AIHubPlugin;
@@ -316,7 +312,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(0, 1, 0.05)
                     .setValue(this.plugin.settings.temperature)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.temperature = v;
                       await save();
@@ -627,7 +622,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(2, 15, 1)
                     .setValue(this.plugin.settings.deepAudit.batchSize)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.deepAudit.batchSize = v;
                       await save();
@@ -643,7 +637,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(1, 6, 1)
                     .setValue(this.plugin.settings.deepAudit.maxConcurrent)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.deepAudit.maxConcurrent = v;
                       await save();
@@ -659,7 +652,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(0, 5000, 250)
                     .setValue(this.plugin.settings.deepAudit.delayMs)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.deepAudit.delayMs = v;
                       await save();
@@ -1280,7 +1272,7 @@ export class AIHubSettingTab extends PluginSettingTab {
           button
             .setButtonText(tr("Очистить индекс"))
             .setIcon("trash-2")
-            .setWarning(),
+            .setDestructive(),
           () => controller.clearIndex(),
           true,
         ),
@@ -1290,7 +1282,7 @@ export class AIHubSettingTab extends PluginSettingTab {
           button
             .setButtonText(tr("Перестроить индекс"))
             .setIcon("rotate-ccw")
-            .setWarning(),
+            .setDestructive(),
           () => controller.rebuildIndex(),
           true,
         ),

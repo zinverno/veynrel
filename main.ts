@@ -1993,7 +1993,7 @@ class BatchProgressModal extends Modal {
       btn
         .setButtonText(tr("Остановить"))
         .setIcon("square")
-        .setWarning()
+        .setDestructive()
         .onClick(() => {
           this.isCancelled = true;
           this.spinner.addClass("ai-hub-hidden");

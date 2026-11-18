@@ -91,10 +91,13 @@ it("hides all Studio entry points and detaches restored views without touching s
   const disk = testAdapter(), detach = vi.fn(), callbacks: (() => void)[] = [];
   const plugin = { app: { vault: { adapter: disk.adapter, configDir: ".custom" }, workspace: {
     onLayoutReady: (fn: () => void) => callbacks.push(fn), getLeavesOfType: () => [{ detach }],
-  } }, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: vi.fn() };
+  } }, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: vi.fn<(cleanup: () => void) => void>() };
   const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
   expect(plugin.registerView).not.toHaveBeenCalled(); expect(plugin.addCommand).not.toHaveBeenCalled(); expect(plugin.addRibbonIcon).not.toHaveBeenCalled();
   expect(owner).toBeUndefined();
   expect(detach).not.toHaveBeenCalled(); callbacks.forEach(fn => fn()); expect(detach).toHaveBeenCalledOnce();
+  plugin.register.mock.calls[0][0]();
+  callbacks.forEach(fn => fn());
+  expect(detach).toHaveBeenCalledOnce();
   expect(disk.adapter.read).not.toHaveBeenCalled(); expect(disk.adapter.write).not.toHaveBeenCalled(); expect(disk.adapter.rename).not.toHaveBeenCalled();
 });

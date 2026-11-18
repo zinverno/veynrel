@@ -122,8 +122,9 @@ it.each(["en", "ru"] as const)("keeps product and technical search aliases and t
   const visible = groups.flatMap(group => group.items).filter(row => row.visible !== false && (typeof row.visible !== "function" || row.visible()));
   expect(visible.map(row => row.name)).toContain(output.items[0].name);
   expect(visible.filter(row => row.keys.length).every(row => row.render || row.control)).toBe(true);
+  const update = vi.spyOn(f.tab, "update");
   f.tab["refreshSettings"]();
-  expect(f.tab.update).toHaveBeenCalledOnce();
+  expect(update).toHaveBeenCalledOnce();
   expect(f.settings).toEqual(settingsBefore); expect(f.saveSettings).not.toHaveBeenCalled();
   setLanguage("en");
 });
@@ -168,6 +169,12 @@ it("preserves baseline controls except the verified release and native markup fi
     // Optional confirmed taxonomy profile and R04 registry selection/decisions; defaults and controls stay frozen.
     AIHubSettings: "d2e24668e6b8a545c943777229348d367d4745a952b48178cfaaa00a8f5b8870",
     // UI consolidation: native headings/buttons and the existing free-model translation; durable callbacks stay frozen.
+    // Obsidian 1.13 displays slider values inline and uses setDestructive for the existing index actions.
+    "temperature": "f216296bbba91c0b894ab03bfd0f57af817a48a4b0823ff941604855f44b02a7",
+    "deepAudit.batchSize": "2a26fa12598b646bce88f069b483903ed24b9a41645bf0685adef1a2b97ae3f6",
+    "deepAudit.delayMs": "aca538e90617d7199755b70e4d3dcfae3bcb8d8126d5a159707d1b32695b1ab9",
+    "deepAudit.maxConcurrent": "ca8cb2edcb1110b25dc147c6567e2664b0e47d7f0ad8a5b5f61142a64b22013f",
+    "method:renderSemanticIndexControls": "2657e9ccd98a864e350811e7826fa7ac5ad65b4f42e779d18b7838ed1afadc4d",
     "method:refreshSettings": "9747ef5c49468581535ae0437255dbdd9e96a6f113709a602713bd52fba496eb",
     "method:renderModelOptions": "f40d324dcb6ecf783cec2013b750afae4acb38adade1a9a7cffd46ffa1379466",
     "method:renderProviderCards": "3b19426d826726e3317259123552832846115a9e20c38e61418cf8e7a059a0e5",
