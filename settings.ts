@@ -7,7 +7,6 @@ import {
   PluginSettingTab,
   Setting,
   setIcon,
-  requireApiVersion,
 } from "obsidian";
 import AIHubPlugin from "./main";
 import { LLMProvider, PROVIDER_PROFILES } from "./constants";
@@ -140,14 +139,8 @@ type SettingsRow = {
   render?: never;
 } | { control?: never; render: (setting: Setting) => void }
 | { control?: never; render?: never });
-// Plain plugin-owned data: the legacy renderer does not access new Obsidian APIs.
+// Declarative sections supplied to Obsidian for rendering and search.
 interface SettingsSection { type: "group"; heading: string; icon: string; items: SettingsRow[] }
-
-// Keep the existing API dependency for older supported hosts. Only call the
-// documented 1.13 refresh method after checking both version and capability.
-function hasSettingsUpdate(tab: PluginSettingTab): tab is PluginSettingTab & { update: () => void } {
-  return "update" in tab && typeof tab.update === "function";
-}
 
 // ─────────────────────────────────────────────────────────────────────
 export class AIHubSettingTab extends PluginSettingTab {
@@ -173,13 +166,6 @@ export class AIHubSettingTab extends PluginSettingTab {
     const el = setting.nameEl.createSpan({ cls: "ai-setting-icon" });
     setIcon(el, icon);
     setting.nameEl.prepend(el);
-  }
-
-  private addHeading(text: string, icon: string) {
-    const wrapper = this.containerEl.createDiv({ cls: "ai-hub-section-head" });
-    const iconWrap = wrapper.createSpan({ cls: "ai-hub-section-icon" });
-    setIcon(iconWrap, icon);
-    new Setting(wrapper).setName(text).setHeading();
   }
 
   private setEmbeddingTestStatus(text: string, color: string) {
@@ -326,7 +312,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(0, 1, 0.05)
                     .setValue(this.plugin.settings.temperature)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.temperature = v;
                       await save();
@@ -637,7 +622,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(2, 15, 1)
                     .setValue(this.plugin.settings.deepAudit.batchSize)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.deepAudit.batchSize = v;
                       await save();
@@ -653,7 +637,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(1, 6, 1)
                     .setValue(this.plugin.settings.deepAudit.maxConcurrent)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.deepAudit.maxConcurrent = v;
                       await save();
@@ -669,7 +652,6 @@ export class AIHubSettingTab extends PluginSettingTab {
                   s
                     .setLimits(0, 5000, 250)
                     .setValue(this.plugin.settings.deepAudit.delayMs)
-                    .setDynamicTooltip()
                     .onChange(async (v) => {
                       this.plugin.settings.deepAudit.delayMs = v;
                       await save();
@@ -826,33 +808,6 @@ export class AIHubSettingTab extends PluginSettingTab {
     return studioFeatures.enabled ? sections : sections.filter(section => section.heading !== "Veynrel Studio");
   }
 
-  /** Path B: hosts older than 1.13 use these same rows through the original Setting API. */
-  display(): void {
-    this.containerEl.empty();
-    for (const section of this.getSettingDefinitions()) {
-      if (section.heading) this.addHeading(section.heading, section.icon);
-      for (const row of section.items) {
-        if (row.visible === false || (typeof row.visible === "function" && !row.visible())) continue;
-        const setting = new Setting(this.containerEl).setName(row.name);
-        if (row.desc) setting.setDesc(row.desc);
-        if (row.render) row.render(setting);
-        else if (row.control?.type === "text") {
-          const control = row.control;
-          setting.addText((text) => {
-            text.inputEl.setAttribute("aria-label", row.name);
-            return text.setPlaceholder(control.placeholder)
-              .setValue(String(this.getControlValue(control.key) ?? ""))
-              .onChange((value) => { void this.setControlValue(control.key, value); });
-          });
-        } else if (row.control?.type === "toggle") {
-          const control = row.control;
-          setting.addToggle((toggle) => toggle.setValue(Boolean(this.getControlValue(control.key)))
-            .onChange((value) => { void this.setControlValue(control.key, value); }));
-        }
-      }
-    }
-  }
-
   getControlValue(key: string): string | boolean | undefined {
     if (key === "filenameTemplate") return this.plugin.settings.filenameTemplate;
     if (key === "notifyOnCopy") return this.plugin.settings.notifyOnCopy;
@@ -866,8 +821,7 @@ export class AIHubSettingTab extends PluginSettingTab {
   }
 
   private refreshSettings(): void {
-    if (requireApiVersion("1.13.0") && hasSettingsUpdate(this)) this.update();
-    else this.display();
+    this.update();
   }
 
   hide(): void {
@@ -1318,7 +1272,7 @@ export class AIHubSettingTab extends PluginSettingTab {
           button
             .setButtonText(tr("Очистить индекс"))
             .setIcon("trash-2")
-            .setWarning(),
+            .setDestructive(),
           () => controller.clearIndex(),
           true,
         ),
@@ -1328,7 +1282,7 @@ export class AIHubSettingTab extends PluginSettingTab {
           button
             .setButtonText(tr("Перестроить индекс"))
             .setIcon("rotate-ccw")
-            .setWarning(),
+            .setDestructive(),
           () => controller.rebuildIndex(),
           true,
         ),

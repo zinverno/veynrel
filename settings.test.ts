@@ -6,7 +6,7 @@ import type { App } from "obsidian";
 import type AIHubPlugin from "./main";
 
 vi.mock("obsidian", () => ({
-  PluginSettingTab: class {}, Setting: class { setName() { return this; } setDesc() { return this; } setHeading() { return this; } }, Notice: class {},
+  PluginSettingTab: class { update = vi.fn(); }, Setting: class { setName() { return this; } setDesc() { return this; } setHeading() { return this; } }, Notice: class {},
   requireApiVersion: vi.fn(() => false), setIcon: vi.fn(), requestUrl: vi.fn(),
 }));
 vi.mock("./api", () => ({ testConnection: vi.fn(), fetchOllamaModels: vi.fn(), fetchOpenRouterFreeModels: vi.fn() }));
@@ -34,7 +34,7 @@ function fixture() {
   return { tab, ...plugin };
 }
 
-describe("shared legacy and declarative settings inventory", () => {
+describe("declarative settings inventory", () => {
   it("covers every existing durable UI binding without registration-time side effects", () => {
     const f = fixture(); const snapshot = structuredClone(f.settings);
     const rows = f.tab.getSettingDefinitions().flatMap((section) => section.items);
@@ -83,18 +83,12 @@ describe("shared legacy and declarative settings inventory", () => {
     expect(f.saveSettings).toHaveBeenCalledTimes(2);
   });
 
-  it("keeps the legacy path generic and rejects unindexed durable bindings", () => {
+  it("uses the host renderer and rejects unindexed durable bindings", () => {
     const source = readFileSync(new URL("./settings.ts", import.meta.url), "utf8");
     const file = ts.createSourceFile("settings.ts", source, ts.ScriptTarget.Latest, true);
     const classNode = file.statements.find((node): node is ts.ClassDeclaration => ts.isClassDeclaration(node) && node.name?.text === "AIHubSettingTab")!;
-    const display = classNode.members.find((node): node is ts.MethodDeclaration => ts.isMethodDeclaration(node) && node.name.getText(file) === "display")!;
-    let constructors = 0, sharedReads = 0;
+    expect(Object.prototype.hasOwnProperty.call(AIHubSettingTab.prototype, "display")).toBe(false);
     const writes = new Set<string>();
-    const visitDisplay = (node: ts.Node): void => {
-      if (ts.isNewExpression(node) && node.expression.getText(file) === "Setting") constructors++;
-      if (ts.isCallExpression(node) && node.expression.getText(file) === "this.getSettingDefinitions") sharedReads++;
-      ts.forEachChild(node, visitDisplay);
-    };
     const visitWrites = (node: ts.Node): void => {
       if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken) {
         const left = node.left.getText(file);
@@ -103,14 +97,13 @@ describe("shared legacy and declarative settings inventory", () => {
       }
       ts.forEachChild(node, visitWrites);
     };
-    visitDisplay(display); visitWrites(classNode);
-    expect(constructors).toBe(1); expect(sharedReads).toBe(1);
+    visitWrites(classNode);
     expect([...writes].sort()).toEqual(exposedKeys.filter(key => key !== "floatingActions.enabled"));
     expect(source).toContain('this.plugin.setFloatingPreferences({ enabled: value })');
   });
 });
 
-it.each(["en", "ru"] as const)("keeps product and technical search aliases and both renderer inventories in %s", (language) => {
+it.each(["en", "ru"] as const)("keeps product and technical search aliases and the native renderer inventory in %s", (language) => {
   setLanguage(language); const f = fixture(); const groups = f.tab.getSettingDefinitions();
   const aliases = new Map([
     ["cpu", ["Deep Intelligence", "Language model", "LLM"]],
@@ -126,16 +119,12 @@ it.each(["en", "ru"] as const)("keeps product and technical search aliases and b
   expect(output.items.flatMap((row) => row.keys).sort()).toEqual(["atomsFolder", "atomsLocation", "defaultInsertion", "filenameTemplate", "mocFolder", "newNoteFolder"]);
   expect(groups.find((group) => group.icon === "microscope")!.items[0].desc).toContain(language === "en" ? "not Knowledge Health thresholds" : "Не задают пороги");
   const settingsBefore = structuredClone(f.settings);
-  // Run legacy display with recording host controls: it must forward the same visible definitions.
-  const rendered: string[] = [];
-  const visible = groups.flatMap((group) => group.items).filter((row) => row.visible !== false && (typeof row.visible !== "function" || row.visible()));
-  const definitions = groups.map((group) => ({ ...group, items: group.items.map((row) => ({ ...row,
-    control: undefined, render: () => { rendered.push(row.name); } })) }));
-  vi.spyOn(f.tab, "getSettingDefinitions").mockReturnValue(definitions);
-  const element = { createDiv: () => element, createSpan: () => element, createEl: () => element, empty: vi.fn() };
-  Object.assign(f.tab, { containerEl: element });
-  f.tab.display();
-  expect(rendered).toEqual(visible.map((row) => row.name));
+  const visible = groups.flatMap(group => group.items).filter(row => row.visible !== false && (typeof row.visible !== "function" || row.visible()));
+  expect(visible.map(row => row.name)).toContain(output.items[0].name);
+  expect(visible.filter(row => row.keys.length).every(row => row.render || row.control)).toBe(true);
+  const update = vi.spyOn(f.tab, "update");
+  f.tab["refreshSettings"]();
+  expect(update).toHaveBeenCalledOnce();
   expect(f.settings).toEqual(settingsBefore); expect(f.saveSettings).not.toHaveBeenCalled();
   setLanguage("en");
 });
@@ -172,11 +161,21 @@ it("preserves baseline controls except the verified release and native markup fi
     ts.forEachChild(node, visit);
   }
   visit(source);
-  expect(Object.fromEntries(Object.entries(callbacks).filter(([key]) => !key.startsWith("rerank.") && !key.startsWith("decisions.") && !key.startsWith("floatingActions.") && !["method:hide", "method:rerankSettingsChanged", "method:decisionsSettingsChanged"].includes(key)))).toEqual({ ...baseline.controlCallbacks, ...releaseSafety,
+  // The published 2.3.1 fixture retains its legacy renderer; the 1.13.7 host owns these two methods now.
+  const sharedCallbacks: Record<string, string> = { ...baseline.controlCallbacks };
+  delete sharedCallbacks["method:addHeading"];
+  delete sharedCallbacks["method:display"];
+  expect(Object.fromEntries(Object.entries(callbacks).filter(([key]) => !key.startsWith("rerank.") && !key.startsWith("decisions.") && !key.startsWith("floatingActions.") && !["method:hide", "method:rerankSettingsChanged", "method:decisionsSettingsChanged"].includes(key)))).toEqual({ ...sharedCallbacks, ...releaseSafety,
     // Optional confirmed taxonomy profile and R04 registry selection/decisions; defaults and controls stay frozen.
     AIHubSettings: "d2e24668e6b8a545c943777229348d367d4745a952b48178cfaaa00a8f5b8870",
     // UI consolidation: native headings/buttons and the existing free-model translation; durable callbacks stay frozen.
-    "method:addHeading": "df027728a56e192c246af36f41a110d960275b1b72843329a5be90cff14e8e0c",
+    // Obsidian 1.13 displays slider values inline and uses setDestructive for the existing index actions.
+    "temperature": "f216296bbba91c0b894ab03bfd0f57af817a48a4b0823ff941604855f44b02a7",
+    "deepAudit.batchSize": "2a26fa12598b646bce88f069b483903ed24b9a41645bf0685adef1a2b97ae3f6",
+    "deepAudit.delayMs": "aca538e90617d7199755b70e4d3dcfae3bcb8d8126d5a159707d1b32695b1ab9",
+    "deepAudit.maxConcurrent": "ca8cb2edcb1110b25dc147c6567e2664b0e47d7f0ad8a5b5f61142a64b22013f",
+    "method:renderSemanticIndexControls": "2657e9ccd98a864e350811e7826fa7ac5ad65b4f42e779d18b7838ed1afadc4d",
+    "method:refreshSettings": "9747ef5c49468581535ae0437255dbdd9e96a6f113709a602713bd52fba496eb",
     "method:renderModelOptions": "f40d324dcb6ecf783cec2013b750afae4acb38adade1a9a7cffd46ffa1379466",
     "method:renderProviderCards": "3b19426d826726e3317259123552832846115a9e20c38e61418cf8e7a059a0e5",
   });

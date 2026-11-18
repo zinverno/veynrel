@@ -41,7 +41,7 @@ export class SemanticConfirmModal extends Modal {
     const confirmButton = new ButtonComponent(buttons)
       .setButtonText(this.confirmation.confirmText)
       .onClick(() => this.finish(true));
-    if (this.confirmation.danger) confirmButton.setWarning();
+    if (this.confirmation.danger) confirmButton.setDestructive();
     else confirmButton.setCta();
   }
 

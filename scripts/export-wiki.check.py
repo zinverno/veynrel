@@ -8,6 +8,7 @@ ref = 'a' * 40
 assert wiki.render('[Start](Getting-started.md#local-first)', ref) == '[Start](https://github.com/zinverno/veynrel/wiki/Getting-started#local-first)'
 assert wiki.render('[External](https://example.org/x)', ref) == '[External](https://example.org/x)'
 assert '/blob/' + ref + '/CONTRIBUTING.md' in wiki.render('[Contribute](../../CONTRIBUTING.md)', ref)
+assert 'raw.githubusercontent.com' in wiki.render('![Overview](../product-ux/evidence/visual-reference/after/after-overview-dark-1280.png)', ref)
 for path in ['Unknown.md', '../../../outside.md', '../../missing-file.md']:
     try:
         wiki.render('[bad](' + path + ')', ref)

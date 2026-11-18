@@ -1,88 +1,104 @@
+![Veynrel — Your notes. Connected.](assets/showcase/2.3.0/hero.png)
+
 # Veynrel
 
-**Review your vault. Shape a note. Keep the decision yours.**
+**Understand your vault. Find ideas by meaning. Make changes on your terms.**
 
-Veynrel brings vault health, connection review and spaced repetition to Obsidian, alongside a separate Studio for reusable Markdown note recipes.
+Veynrel is an Obsidian plugin for local vault checks, semantic search and exploration, safe note actions, and spaced repetition. Start with the overview, investigate a finding, or open a tool directly from your note.
 
-[Install](#installation-and-updates) · [Quick start](#start-without-an-ai-key) · [User guide](docs/wiki/Home.md) · [Wiki](https://github.com/zinverno/veynrel/wiki) · [Community recipes](https://zinverno.github.io/veynrel-recipes/) · [Release notes](docs/releases/2.3.1.md)
+[**Install in Obsidian**](#install) · [Get started](#get-started) · [Explore the tools](#what-you-can-do) · [Privacy](#privacy-and-control) · [Releases](https://github.com/zinverno/veynrel/releases) · [Report an issue](https://github.com/zinverno/veynrel/issues)
 
-> **Public stable: Veynrel 2.3.1.** [Release notes and downloads](https://github.com/zinverno/veynrel/releases/tag/2.3.1).
-> **Unpublished development:** R02 removes Excalidraw generation from the next version. Existing drawings and journals remain intact. Development packages remain 2.4.0; the public manifest stays at published 2.3.1. Public **2.4.0** is planned after completion and acceptance of R06 and R07 plus a separate release review; **2.5.0** follows R08–R15 and separate acceptance. Each publication requires its own owner permission. Community write-confirmation remains an open release gate; Resume Batch is required before 2.4.0 unless the owner explicitly defers it. [Version policy](docs/community-version-policy.md) · [Release policy](docs/roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) · [Removal and legacy data](docs/studio-diagram-removal.md)
+## At a glance
 
-> **R04 in development:** [Local organization audit and optional rules](docs/r04-organization-audit.md), without a model or automatic note changes. This is not part of public 2.3.1.
+Open **Veynrel → Overview** to see your vault's current findings, semantic index status, Recall queue and the main tools. The figures are observations from your own vault; missing data is shown as missing, not scored as healthy.
 
-> **R05.1 in development:** [Finding review and a user-chosen local link](docs/r05/local-link-actions.md), with separate write confirmation and supported Undo. This is one part of R05; tag actions and broken-link repair are not included. Public 2.3.1 is unchanged.
+![Veynrel overview in Obsidian, using synthetic test notes](docs/product-ux/evidence/visual-reference/after/after-overview-dark-1280.png)
 
-## Workspace and Studio
+*Recorded in Obsidian using synthetic notes. Counts in the screenshot are not benchmarks or results from a user's vault.*
 
-### Review a vault
+## What you can do
 
-Open the **Veynrel workspace** to choose an area, run local Health checks, inspect note pairs and review supported changes. Start with broken links and exact duplicates; add an embedding index for semantic candidates. Similarity suggests a pair to inspect — it does not prove duplication or low note quality.
+| Area | Purpose | Needs an AI provider? |
+| --- | --- | --- |
+| **Overview** | A compact starting point for checks, search, tools and Recall | No |
+| **Vault Check** | Inspect broken wiki-links and supported structural findings; filter, open evidence and prepare fixes | No for local checks |
+| **Semantic search** | Find passages by meaning, even when they use different words | Yes: a configured embedding model (local Ollama or a remote provider) |
+| **Semantic exploration** | Explore the map, overlapping families, note pairs, neighborhoods, possible connections, global focus and similar notes | Requires an existing semantic index for semantic results |
+| **Tools & Bulk Audit** | Choose supported note actions, Deep Audit, atomization and MOC preparation | Depends on the action |
+| **Recall** | Practice existing Markdown flashcards using FSRS-based scheduling | No; generation of *new* cards requires a configured model |
 
-![Native workspace with synthetic folders and local vault facts](assets/showcase/2.3.0/health.png)
+### Review relationships instead of guessing
 
-### Transform a note
+Semantic similarity is an **invitation to inspect** a pair, not proof of a duplicate, topic or error. The semantic area has seven separate entry points: **Map, Families, Notes & Pairs, Neighborhood, Connection Opportunities, Global Focus, and Similar Notes**. Structural Markdown links and semantic proximity are shown as different evidence. Global focus keeps its documented computation limit rather than silently sampling a subset.
 
-Open **Veynrel Studio**, choose a recipe and saved notes, then inspect the recipient and request before generation. Review the result and local preservation observations. The default creates a **separate Markdown note**, linked to its source; source properties are not cloned into the new result.
+![Neighborhood results with evidence excerpts from synthetic notes](docs/product-ux/semantic-floating/evidence/full/routes-neighborhood-en-dark.png)
 
-![Studio library of reusable note transformations](assets/showcase/2.3.0/studio-library.png)
+### Work from the note you are editing
 
-![Review a controlled response before creating a separate result](assets/showcase/2.3.0/studio-review.png)
+Enable the optional **Veynrel floating actions** command to open a movable toolbar inside Obsidian. It includes style suggestions with **preview → apply → native undo**, flashcard generation, tags, atomization and semantic search. The toolbar remembers the originating editor and selection; switching notes does not authorize writing to the new one.
 
-![Native Studio preparation, Review and separate-note creation](assets/showcase/2.3.0/studio.gif)
+![Floating toolbar in Obsidian on a synthetic note](docs/product-ux/semantic-floating/evidence/full/panel-expanded-en-dark-1100.png)
 
-[Static result](assets/showcase/2.3.0/studio-result.png) · [Studio guide](docs/wiki/Studio-recipes.md)
+The ring-shaped **Tools** selector shows an explanation before opening an operation. Bulk Audit, Deep Audit, atomization and MOC retain distinct execution and confirmation flows; they do **not** all share a universal Undo guarantee.
 
-*Workflow demonstration with synthetic notes and controlled responses; not a model-quality benchmark. Captured in real Obsidian for the published 2.3.x workflow; old diagram navigation visible in these captures is removed in development. Timing is edited for readability.*
+## Get started
 
-### Diagrams in public 2.3.1 only
+1. Open Obsidian's **Command palette** and choose **Veynrel: Open Veynrel**, or use the Veynrel ribbon action.
+2. On **Overview**, open **Check** and run a local vault check. A model/API key is not needed.
+3. Select a finding to inspect its source note. Supported changes open a separate preparation/confirmation flow.
+4. To search by meaning, configure an embedding provider in **Settings → Veynrel** and explicitly build the first index. Search queries use the configured provider; indexing may send note chunks to that provider.
+5. To use the floating toolbar, invoke its show/hide command while a Markdown note is active. No shortcut is assigned automatically.
 
-The published 2.3.1 still contains the optional Excalidraw generation workflow. Its [version-specific guide and captures](docs/wiki/Excalidraw-diagrams.md) remain available as history. The next version removes generation, preview, creation and diagram history actions; it does not uninstall Excalidraw or delete drawings. Markdown Studio, Recipe/Community Library and supported Review/Apply/Undo remain.
+### Recall without AI
 
-## Add a recipe, then decide when to run it
-
-Browse Community from Studio. Inspect instructions, author, version and compatibility, then install a local copy. Installation does not process notes. Updates are explicit; a matching SHA-256 checks catalog bytes, not an independent author's signature.
-
-![Community recipe details before explicit installation](assets/showcase/2.3.0/community.png)
-
-[Community guide](docs/wiki/Community-library.md) · [Contribute a recipe](https://github.com/zinverno/veynrel-recipes)
-
-## Start without an AI key
-
-1. Open **Veynrel: Open Veynrel** from the command palette, or use its ribbon icon.
-2. Choose a folder or the whole vault on Home; open **Check** and run local checks.
-3. For Recall, add authored cards under a heading named exactly `Flashcards`:
+Put manually authored cards in a Markdown note under a `Flashcards` heading:
 
 ```markdown
 ## Flashcards
 What does a cache store?::Reusable results.
-When should a cached value expire?::When its source changes.
+When does a cached value expire?::When its source changes.
 ```
 
-4. Open **Review** in the workspace sidebar (Recall), find cards and start a session. Reveal the answer and rate Again / Hard / Good / Easy. FSRS scheduling stays local.
+Then open **Recall** from Overview to practice. The generated-card workflow is optional and asks before calling a model or modifying the note.
 
-For Studio, configure a language model in Veynrel settings, then use **Open Veynrel Studio**. For semantic discovery, configure an embedding provider and explicitly build the first index. These are separate setup paths. [Getting started](docs/wiki/Getting-started.md)
+## Privacy and control
 
-## Data and decisions
+- **Local Health, link structure and Recall** can work without an AI provider. Opening Overview does not automatically scan all notes, build embeddings or issue a model request.
+- **Embeddings** are generated by the endpoint you configure. A remote provider may receive note chunks and queries; a local model can keep inference on your device.
+- **Generative actions** require explicit initiation and have operation-specific preview, confirmation and recovery rules. Source changes are checked before supported edits. AI suggestions are not factual verification.
+- **No built-in telemetry** is used to track your vault activity. An optional Companion connection is a separate opt-in integration.
+- Models or providers may charge for requests even if you cancel locally. Review your provider's privacy and billing terms before sending private notes.
 
-| Task | Data flow | Decision boundary |
-| --- | --- | --- |
-| Local Health, topology and Recall | Local vault and local state | No LLM required |
-| Semantic indexing/search | Note chunks or query to the configured embedding endpoint | Initial index build is explicit; later incremental work may run |
-| Studio Markdown and pair analysis | Disclosed selected text to the configured model endpoint | Confirm request, inspect output, separately confirm writes |
-| Community catalog | Public catalog/recipe GET requests; no note body or provider key | Install and update explicitly, run separately |
-| Optional Companion | Disclosed mirror to the configured server | Separate opt-in integration |
+[Provider and privacy details](docs/wiki/Providers-and-privacy.md) · [Safety, history and recovery](docs/wiki/Safety-history-and-recovery.md)
 
-Local preservation observations are lexical checks, **not factual verification**. Explicit Studio source changes retain supported original YAML literally and have guarded, operation-specific Undo. New notes, historical diagrams, Batch, MOC and generative atomization do not share a universal rollback. Local operation journals can contain plaintext note content; preserve backups. Remote providers may charge even when a local request times out or is cancelled.
+## Install
 
-[Providers and privacy](docs/wiki/Providers-and-privacy.md) · [History and recovery](docs/wiki/Safety-history-and-recovery.md) · [Media provenance and coverage](assets/showcase/2.3.0/README.md)
+This guide describes the 2.4.0 release candidate. Check the [published releases](https://github.com/zinverno/veynrel/releases/latest) for the version currently distributed.
 
-## Installation and updates
+### Obsidian Community directory
 
-For the published stable version, open **Settings → Community plugins → Browse**, search for **Veynrel**, install and enable. For manual installation, use `main.js`, `manifest.json` and `styles.css` from the **same** [stable release](https://github.com/zinverno/veynrel/releases/latest).
+In Obsidian, open **Settings → Community plugins → Browse**, search for **Veynrel**, then install and enable it. If the directory is still processing a new release, check the [GitHub releases](https://github.com/zinverno/veynrel/releases) for its published status.
 
-Place only those runtime files in `<vault>/<configDir>/plugins/ai-knowledge-hub/` (`configDir` is normally `.obsidian`). Keep the existing plugin folder, `data.json`, indexes and journals when updating. Back up first; do not replace the whole directory. [Installation and recovery](docs/wiki/Installation-and-updates.md)
+### Manual installation
 
-The manifest retains Obsidian **1.8.7+** and its existing platform declaration. Current native evidence is Linux desktop / Obsidian 1.13.7 with built-in light and dark themes; it does not establish physical mobile, every OS/theme or screen-reader support.
+Download `main.js`, `manifest.json` and `styles.css` **from the same GitHub release**. Place them in the existing plugin directory:
 
-[Contributing](CONTRIBUTING.md) · [Support](SUPPORT.md) · [Security](SECURITY.md) · [Documentation index](docs/README.md) · [MIT license](LICENSE)
+```text
+<your-vault>/.obsidian/plugins/ai-knowledge-hub/
+```
+
+Keep the existing `data.json`, semantic indexes, Recall data and operation journals. Back up the plugin data and vault before upgrading; do not delete the folder or rename it to `veynrel`. The plugin ID remains `ai-knowledge-hub`.
+
+**Compatibility:** The 2.4.0 candidate requires Obsidian 1.13.7 or newer. The compatibility index retains 2.3.1 for older hosts down to 1.8.7. Mobile remains eligible under the manifest. Current native evidence focuses on Obsidian 1.13.7 on Linux desktop; it does not establish physical mobile, every theme, screen reader or operating system support.
+
+## What's temporarily unavailable
+
+**Studio and its online Community catalog are hidden in this version** while that experience is reconsidered. Existing Studio recipes and stored user data are not intentionally removed. The earlier **Excalidraw diagram generator** is also retired; existing drawings are yours and remain untouched. These features may appear in older screenshots and guides, but they are not current entry points.
+
+The header art is retained from an older release and still mentions *Editable diagrams*; that label is historical and does not describe the current feature set.
+
+## Contribute and support
+
+Found a broken link, unexpected AI behavior or a difficult workflow? [Open a GitHub issue](https://github.com/zinverno/veynrel/issues) with steps to reproduce, Obsidian version and a sanitized screenshot. Please don't upload private notes, credentials, API keys or personal vault indexes.
+
+[Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Support](SUPPORT.md) · [License (MIT)](LICENSE) · [Release history](https://github.com/zinverno/veynrel/releases)

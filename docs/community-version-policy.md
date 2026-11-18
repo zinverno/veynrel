@@ -1,5 +1,11 @@
 # Public release metadata and development builds
 
+## Owner scope decision · 2026-11-18
+
+The owner requested an early stable 2.4.0 from main at `65887cc9c1170de2d450d878b612b5c6e3a8f1ac` after #152–#158 and #160. This supersedes the earlier R07 milestone below. The next planned owner of the text portrait is a dedicated R07 PR for the 2.5.0 roadmap. Its number and implementation are open. Resume Batch is deferred to a separate, unscheduled PR. An interrupted batch cannot resume automatically.
+
+The release branch may prepare public metadata. Main must continue to point at an available release. [Release checklist](../RELEASE_CHECKLIST.md) governs this candidate. The Community writer investigation remains open for a future reactivation. Studio registration returns before constructing the registry, installer, transport, runner, journal, views or callbacks. Layout cleanup only detaches old leaves. An exposed entry point or write blocks publication. The owner must explicitly accept the remaining dormant-code risk and the exact final candidate after preview and review. Enabling either feature requires a separate fix and native confirmation with the initiating document.
+
 ## Recovery of published 2.3.1
 
 Verified on 2026-11-16: default branch `main` at `ad817a3` advertised 2.4.0, while the latest stable [GitHub release](https://github.com/zinverno/veynrel/releases/tag/2.3.1) was 2.3.1, with source commit `cd9e8fc4048b4a17d0dc68993bd8b340d9da4720`. There was no corresponding public 2.4.0 release. This explains the reported Community Dashboard error `No release matches your manifest version`.
@@ -8,7 +14,7 @@ The [official submission requirements](https://docs.obsidian.md/plugins/releasin
 
 Remove only the future 2.4.0 entry from `versions.json`. It is not the direct cause of the reported error, but this compatibility index must not offer an unavailable download. The [official versions reference](https://docs.obsidian.md/Reference/Versions) describes fallback selection for older Obsidian versions; it is not a roadmap. All earlier entries remain intact.
 
-## Development metadata before 2.4.0 publication authorization
+## Historical development metadata before release preparation
 
 | Metadata | Meaning during development |
 | --- | --- |
@@ -23,7 +29,7 @@ The normal npm `version` hook leaves public metadata unchanged and stages nothin
 
 Only after the relevant scope and release gates below are accepted **and the owner separately authorizes that release**, release preparation may use `node version-bump.mjs --release` to copy the chosen package version into public metadata. The script accepts only Obsidian's `x.y.z` format and does not stage, commit, tag or publish. That future preparation must also review the public description, compatibility minimum, lockfile, CI pin, source commit and assets. Coordinate the public pointer with an available matching release; do not merge a future pointer in advance. The explicit flag is an accidental-write guard, not release authorization.
 
-## Public release milestones
+## Historical milestone decision · 2026-11-16
 
 The [owner policy updated on 2026-11-16](roadmap/vault-assistant-plan.md#release-policy-and-acquisition-work) replaces the single release after R15: **2.4.0** is a full public release after completion and acceptance of R06 and R07 plus a separate release review; **2.5.0** follows R08–R15 and separate acceptance. Each needs its own explicit publication permission. No feature PR, internal candidate or policy update authorizes a public stable/beta/prerelease or Marketplace update. Per-PR tests, documentation, backups and migration checks continue.
 
@@ -33,8 +39,8 @@ After an authorized release, public metadata must describe that actually publish
 
 These are required evidence and approval gates, **not checks completed by this policy PR**. Repeat the applicable release checks for 2.5.0 against its own final source and scope.
 
-- Complete and accept all of R06 and R07, retaining accepted R01–R05 behavior. A partial R06.1 result or green CI alone is insufficient. **Community write-confirmation/document ownership remains open**: see the [pinned #147 investigation](https://github.com/zinverno/veynrel/blob/3b48b3cd348ea87b0ced2124e7a7fb531f5ee64a/docs/r06/community-apply-attribution.md). Release readiness cannot be claimed while that gate is open; the policy does not fix or waive it.
-- Implement and accept [Resume Batch](roadmap/resume-batch.md) before public 2.4.0 unless the owner explicitly authorizes deferral. It is not implicitly assigned to 2.5.0; its implementation requires a separate task.
+- Verify the shipped R01–R06 behaviors against the release build. R07 and Resume Batch follow the revised scope above.
+- Verify dormant Studio and Community cannot register any write path or restore a live legacy leaf. Preserve the [original #147 investigation](https://github.com/zinverno/veynrel/blob/3b48b3cd348ea87b0ced2124e7a7fb531f5ee64a/docs/r06/community-apply-attribution.md) and obtain explicit owner acceptance for the residual risk.
 - Prepare an up-to-date README, user/update guides and Community listing that describe the actual 2.4.0 scope, removed features and remaining limits. Distinguish current stable from unreleased capabilities; do not publish the listing changes early.
 - Capture real native screenshots and short end-to-end demonstration videos of the final candidate. Identify source SHA and asset hashes, use synthetic or explicitly permitted data, disclose synthetic model responses, and keep private notes/keys out. Historical media is not evidence for a changed release build.
 - Write release notes covering changes from the published stable, compatibility, known limitations, migration, recovery and supported Undo boundaries. Retain failed receipts and unresolved gates; do not present synthetic results as live-model quality or measured user benefit.

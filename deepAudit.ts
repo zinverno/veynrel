@@ -788,7 +788,7 @@ export class DeepAuditProgressModal extends Modal {
     btnRow.addButton((btn) => {
       this.cancelBtn = btn
         .setButtonText(tr("Отменить"))
-        .setWarning()
+        .setDestructive()
         .onClick(() => {
           this.isCancelled = true;
           this.engine?.abort();
@@ -1140,7 +1140,7 @@ export class SingleAuditProgressModal extends Modal {
       btn
         .setButtonText(tr("Остановить"))
         .setIcon("square")
-        .setWarning()
+        .setDestructive()
         .onClick(() => {
           this.isCancelled = true;
           this.engine?.abort();
