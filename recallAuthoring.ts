@@ -45,7 +45,10 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
     private readonly recall: RecallProductPort,
     private readonly build: (content: string, settings: LanguageModelSettingsSnapshot, options?: RecallGenerationOptions, prompt?: string) => Promise<{ newContent: string; cardCount: number }>,
     private readonly prompts?: { get(): string; save(prompt?: string): Promise<void> }) {
-    this.cleanup = [settings.subscribe(() => { this.cancelConfirmation(); this.notify(); })];
+    this.cleanup = [settings.subscribe(() => {
+      if (!this.captured || this.confirmation && !this.captured.current()) this.cancelConfirmation();
+      this.notify();
+    })];
     const changed = () => {
       if (this.confirmation && !this.captured && this.currentNote() !== this.confirmation.file) this.cancelConfirmation();
       this.notify();
@@ -98,6 +101,8 @@ export class RecallAuthoringAdapter implements RecallAuthoringPort {
 
   configure(options: Partial<RecallGenerationOptions>): void { if (!this.busy) this.options = { ...this.options, ...options }; }
   async savePrompt(prompt?: string): Promise<void> { if (this.busy) return; await this.prompts?.save(prompt); }
+
+  ownsCapturedSource(source: RecallSourceHandoff): boolean { return this.captured === source; }
 
   requestCapturedGeneration(source: RecallSourceHandoff): void {
     if (this.disposed || this.busy || !source.current()) return;

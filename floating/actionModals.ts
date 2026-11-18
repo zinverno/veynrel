@@ -2,11 +2,11 @@ import { Modal, setIcon, type App } from "obsidian";
 import { t } from "../i18n";
 import { healthButton } from "../health/ui/renderHealthHome";
 import { renderRecallAuthoring, recallAuthoringStatus } from "../health/ui/renderRecallAuthoring";
-import type { RecallAuthoringAdapter } from "../recallAuthoring";
+import type { RecallAuthoringAdapter, RecallSourceHandoff } from "../recallAuthoring";
 import type { EditorSource } from "./editorSource";
 import { validateLanguageModelSettings } from "../deep/product/validateLanguageModelSettings";
 import { StyleSession } from "./styleSession";
-import type { LanguageModelSettingsPort } from "../deep/product/languageModelSettingsPort";
+import { sameLanguageModelConnection, type LanguageModelSettingsPort } from "../deep/product/languageModelSettingsPort";
 
 export class StyleModal extends Modal {
   private live = false;
@@ -62,27 +62,50 @@ export class StyleModal extends Modal {
 
 export class FloatingRecallModal extends Modal {
   private live = false;
-  private remove?: () => void;
+  private unsubscribe?: () => void;
+  private unsubscribeSettings?: () => void;
+  private handoff?: RecallSourceHandoff;
   constructor(app: App, private readonly source: EditorSource, private readonly author: RecallAuthoringAdapter,
     private readonly settings: LanguageModelSettingsPort, private readonly origin: HTMLElement, private readonly setup: () => void) { super(app); }
   onOpen(): void {
     this.live = true; this.modalEl.addClass("veynrel-floating-recall");
-    const settings = JSON.stringify(this.settings.get());
-    this.author.requestCapturedGeneration({ ...this.source, current: () => this.live && this.source.current() && settings === JSON.stringify(this.settings.get()) });
-    this.remove = this.author.subscribe(() => this.render()); this.render();
+    const initial = this.settings.get();
+    const matchesSettings = () => {
+      const current = this.settings.get();
+      return sameLanguageModelConnection(initial, current) &&
+        initial.temperature === current.temperature && initial.topK === current.topK;
+    };
+    let settingsCurrent = true;
+    this.unsubscribeSettings = this.settings.subscribe(() => {
+      // A change and subsequent restoration still invalidates this consent.
+      if (!matchesSettings()) settingsCurrent = false;
+    });
+    this.handoff = { ...this.source, current: () => this.live && settingsCurrent && matchesSettings() && this.source.current() };
+    this.author.requestCapturedGeneration(this.handoff);
+    this.unsubscribe = this.author.subscribe(() => this.render());
+    this.render();
   }
   private render(): void {
     if (!this.live) return;
     this.contentEl.empty(); this.titleEl.setText(t("@recall.authoring.title"));
     this.contentEl.createEl("p", { text: `${this.source.path} · ${t(this.source.selection ? "@floating.selection" : "@floating.whole")}` });
     const snapshot = this.author.getSnapshot();
-    if (["confirming", "generating", "ingesting"].includes(snapshot.state) || !snapshot.configured) renderRecallAuthoring(this.contentEl, snapshot, {
+    const ownsSource = this.handoff && this.author.ownsCapturedSource(this.handoff);
+    if (snapshot.state === "confirming" ? ownsSource : !snapshot.configured) renderRecallAuthoring(this.contentEl, snapshot, {
       configureOptions: options => this.author.configure(options), savePrompt: prompt => { void this.author.savePrompt(prompt); },
       request: () => {}, generate: () => { void this.author.generate(); }, cancel: () => this.close(), configure: () => { this.close(); this.setup(); },
     });
     if (snapshot.state === "idle") this.contentEl.createEl("p", { text: t(this.source.current() ? "@floating.error.settings" : "@floating.error.source"), attr: { role: "status" } });
-    if (snapshot.result || snapshot.state === "idle") healthButton(this.contentEl, t("@floating.close"), () => this.close(), "float-close");
-    const status = recallAuthoringStatus(snapshot); if (status) this.contentEl.createEl("p", { text: status, attr: { role: "status" } });
+    if (snapshot.state === "generating" && ownsSource) healthButton(this.contentEl, t("@health.cancel"), () => this.close(), "float-cancel");
+    else if (snapshot.state !== "confirming" || !ownsSource) healthButton(this.contentEl, t("@floating.close"), () => this.close(), "float-close");
+    const status = (ownsSource || snapshot.state === "generating" || snapshot.state === "ingesting") && recallAuthoringStatus(snapshot); if (status) this.contentEl.createEl("p", { text: status, attr: { role: "status" } });
   }
-  onClose(): void { this.live = false; this.remove?.(); this.author.cancelConfirmation(); queueMicrotask(() => { if (this.origin.isConnected) this.origin.focus(); }); }
+  onClose(): void {
+    this.live = false;
+    this.unsubscribe?.();
+    this.unsubscribeSettings?.();
+    if (this.handoff && this.author.ownsCapturedSource(this.handoff)) this.author.cancelConfirmation();
+    this.handoff = undefined;
+    queueMicrotask(() => { if (this.origin.isConnected) this.origin.focus(); });
+  }
 }
