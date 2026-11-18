@@ -120,14 +120,14 @@ it.each(["1.8.0", "1.9.0"])("loads the actual published %s fixture without rewri
   expect(files).toEqual(unchanged); expect(mutate).not.toHaveBeenCalled();
 });
 
-it("keeps public 2.3.1 metadata separate until separately authorized publication of 2.4.0", () => {
+it("pins the 2.4.0 release metadata and preserves the published 2.3.1 fallback", () => {
   const pkg = JSON.parse(readFileSync(new URL("package.json", import.meta.url), "utf8")) as { version: string };
   const lock = JSON.parse(readFileSync(new URL("package-lock.json", import.meta.url), "utf8")) as { version: string; packages: { "": { version: string } } };
   const versions = JSON.parse(readFileSync(new URL("versions.json", import.meta.url), "utf8")) as Record<string, string>;
   // Change this public pin only in a separately authorized release preparation.
-  expect(pkg.version).toBe("2.4.0"); expect(currentManifest.version).toBe("2.3.1");
+  expect(pkg.version).toBe("2.4.0"); expect(currentManifest.version).toBe(pkg.version);
   expect(lock.version).toBe(pkg.version); expect(lock.packages[""].version).toBe(pkg.version);
-  expect(versions).not.toHaveProperty(pkg.version);
-  expect(versions[currentManifest.version]).toBe("1.8.7"); expect(currentManifest.minAppVersion).toBe("1.8.7");
+  expect(versions["2.3.1"]).toBe("1.8.7");
+  expect(versions[currentManifest.version]).toBe(currentManifest.minAppVersion); expect(currentManifest.minAppVersion).toBe("1.13.7");
   expect(currentManifest).toMatchObject({ id: "ai-knowledge-hub", name: "Veynrel", isDesktopOnly: false });
 });

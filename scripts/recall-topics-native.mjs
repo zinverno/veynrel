@@ -76,11 +76,15 @@ async function key(key, modifiers = 2) {
 }
 async function openRecall(loadState = 'ready') {
   await ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");
-  await wait("!!document.querySelector('[data-health-action=nav-recall]')");
-  await ev("document.querySelector('[data-health-action=nav-recall]').click();void 0");
+  await wait("!!document.querySelector('[data-health-action=nav-home], [data-health-action=overview-recall]')");
+  if (!(await ev("!!document.querySelector('[data-health-action=overview-recall]')"))) await click("nav-home");
+  await click("overview-recall");
   await wait(`recall.getSnapshot().loadState===${JSON.stringify(loadState)}`);
 }
 async function click(action) { await wait(`!!document.querySelector('[data-health-action=${action}]')`); await ev(`document.querySelector('[data-health-action=${action}]').click();void 0`); }
+function retainedBytes() {
+  return Object.fromEntries(['Native.excalidraw.md', '.obsidian/hotkeys.json', ...['semantic-index/vector-index.bin', 'semantic-index/vector-manifest.json', 'studio/recipes.json', 'studio/diagrams/synthetic/intent.json', 'studio/diagrams/synthetic/receipt.json'].map(p => '.obsidian/plugins/ai-knowledge-hub/' + p)].map(p => [p, createHash('sha256').update(fs.readFileSync(vault + '/' + p)).digest('hex')]));
+}
 async function shot(name) { fs.writeFileSync(`${root}/${name}.png`, Buffer.from((await cdp('Page.captureScreenshot', { format: 'png' })).data, 'base64')); report.screenshots.push(`${name}.png`); }
 try {
   child = start(); await connect();
@@ -88,30 +92,49 @@ try {
   if(!stableAssets) {
     assert(!fs.existsSync(`${pluginDir}/recall/cards.json`));
     await pass('Fresh install loads default settings without keys or a Recall store', "!author.getSnapshot().configured && recall.getSnapshot().loadState==='uninitialized'");
-    await ev(`Object.assign(plugin.settings,${JSON.stringify(testSettings)});plugin.saveSettings()`);
+    const { health, semantic, companion, decisions, ...general } = testSettings;
+    await ev(`Object.assign(plugin.settings,${JSON.stringify(general)});plugin.saveSettings()`);
+    for (const [key, patch] of Object.entries({ health, semantic, companion, decisions })) {
+      await ev(`Object.assign(plugin.settings[${JSON.stringify(key)}],${JSON.stringify(patch)});plugin.saveSettings()`);
+    }
   }
   if (stableAssets) {
     assert.equal(await ev('plugin.manifest.version'), '2.3.1');
+    await ev('plugin.studio.registry.add(plugin.studio.registry.duplicate(plugin.studio.registry.list()[0]))');
+    await ev("app.workspace.getLeaf('tab').setViewState({type:'veynrel-studio',active:true})");
+    await wait("app.workspace.getLeavesOfType('veynrel-studio').length===1");
+    await ev("app.workspace.saveLayout()");
     await ev('recall.initialize()'); await ev('recall.refreshCards()');
     await ev('recall.startSession()'); await ev("recall.revealAnswer();recall.rate('good')"); await ev('recall.endSession();void 0');
     await ev("app.vault.process(app.vault.getFileByPath('Legacy.md'),s=>s.replace('What does atomicity preserve?::All or none of a transaction.\\n',''))");
     await ev('recall.refreshCards()'); await ev('plugin.saveSettings()');
     await pass('Published 2.3.1 creates real v3 data with reviewed and retired cards', "recall.service.listCards().length===2 && recall.service.listCards().some(c=>c.state==='retired') && recall.service.listCards().some(c=>c.schedule.reviewCount===1)");
     await stop();
+    fs.cpSync(ROOT + 'tests/fixtures/upgrade-1.9.0/semantic-index', pluginDir + '/semantic-index', { recursive: true });
+    const legacy = ROOT + 'scripts/studio-first-open-legacy/';
+    fs.mkdirSync(pluginDir + '/studio/diagrams/synthetic', { recursive: true });
+    for (const file of ['receipt.json', 'intent.json']) fs.copyFileSync(legacy + file, pluginDir + '/studio/diagrams/synthetic/' + file);
+    fs.copyFileSync(legacy + 'Native.excalidraw.md', vault + '/Native.excalidraw.md');
     fs.cpSync(vault, `${root}/pre-upgrade-vault`, { recursive: true });
     const oldRaw=fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'), oldSettings=fs.readFileSync(`${pluginDir}/data.json`,'utf8');
     const oldCards=JSON.parse(oldRaw).cards; assert.equal(JSON.parse(oldRaw).version,3);
     report.upgrade={ stableVersion:'2.3.1', stableSource:fs.readFileSync(`${stableAssets}/SOURCE_COMMIT`,'utf8').trim(), stableArtifacts:Object.fromEntries(['main.js','manifest.json','styles.css'].map(n=>[n,createHash('sha256').update(fs.readFileSync(`${stableAssets}/${n}`)).digest('hex')])), originalStoreSha256:createHash('sha256').update(oldRaw).digest('hex'), originalCardCount:Object.keys(oldCards).length };
+    report.upgrade.retained = { stable: retainedBytes() };
+    assert(fs.readFileSync(vault + '/.obsidian/workspace.json', 'utf8').includes('veynrel-studio'));
     for (const name of ['main.js','manifest.json','styles.css']) fs.copyFileSync(`${assets}/${name}`,`${pluginDir}/${name}`);
     child=start(); await connect(); await ev('recall.initialize()');
     assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),oldRaw);
     assert.equal(fs.readFileSync(`${pluginDir}/data.json`,'utf8'),oldSettings);
     assert.equal(fs.readFileSync(`${vault}/.obsidian/hotkeys.json`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/.obsidian/hotkeys.json`,'utf8'));
     assert.equal(fs.readFileSync(`${vault}/Legacy.md`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/Legacy.md`,'utf8'));
+    await pass('Restored Studio leaves have no view, command or runtime owner', "plugin.studio===undefined && !app.workspace.getLeavesOfType('veynrel-studio').length && !Object.keys(app.commands.commands).some(k=>k.startsWith('ai-knowledge-hub:') && /studio|community/i.test(k))");
+    report.upgrade.retained.upgrade = retainedBytes();
+    assert.deepEqual(report.upgrade.retained.upgrade, report.upgrade.retained.stable);
     const loaded=await ev('recall.service.listCards()');
     for(const old of Object.values(oldCards)) for(const [key,value] of Object.entries(old)) assert.deepEqual(loaded.find(c=>c.id===old.id)[key],value);
     await pass('Upgrade loads legacy cards without writing settings/store or losing preferences', "plugin.settings.temperature===0.23 && plugin.settings.notifyOnCopy===false && plugin.settings.recallPrompt==='Synthetic upgrade custom instruction.'");
     await ev("window.originalWrite=app.vault.adapter.write;app.vault.adapter.write=async function(path,...args){if(path.includes('/cards.pre-v4-'))throw Error('synthetic backup failure');return originalWrite.call(this,path,...args)};void 0");
+    await ev("app.vault.process(app.vault.getFileByPath('Legacy.md'),s=>'---\\ntags: [flashcards/import]\\n---\\n'+s)");
     await ev('recall.refreshCards()');
     assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),oldRaw);
     await pass('Migration backup failure blocks the store and preserves stable bytes', "recall.getSnapshot().loadState==='unavailable'");
@@ -247,6 +270,10 @@ try {
   await stop();
   child = start(); await connect(); await ev('recall.initialize()');
   assert.deepEqual(await ev("recall.service.listCards({path:'Moved Words.md'}).map(c=>[c.id,c.schedule])"), JSON.parse(fs.readFileSync(`${root}/word-history.json`)));
+  if (stableAssets) {
+    report.upgrade.retained.restart = retainedBytes();
+    assert.deepEqual(report.upgrade.retained.restart, report.upgrade.retained.stable);
+  }
   await pass('Full Obsidian process restart preserves vocabulary history and prompt', "plugin.settings.recallPrompt==='CUSTOM RECALL INSTRUCTION'");
   assert.deepEqual(await ev("recall.service.listCards({path:'Reused Words.md'}).map(c=>[c.id,c.schedule])"), JSON.parse(fs.readFileSync(`${root}/reused-word-history.json`)));
   await pass('Reused-path dictionary history survives full process restart independently', "recall.service.listCards({path:'Reused Words.md',state:'active'}).length===4");
@@ -278,6 +305,8 @@ try {
     assert.equal(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/.obsidian/plugins/ai-knowledge-hub/recall/cards.json`,'utf8'));
     assert.deepEqual(Object.fromEntries((await ev('recall.service.listCards()')).map(c=>[c.id,c])),JSON.parse(fs.readFileSync(`${pluginDir}/recall/cards.json`,'utf8')).cards);
     assert.equal(fs.readFileSync(`${pluginDir}/data.json`,'utf8'),fs.readFileSync(`${root}/pre-upgrade-vault/.obsidian/plugins/ai-knowledge-hub/data.json`,'utf8'));
+    report.upgrade.retained.rollback = retainedBytes();
+    assert.deepEqual(report.upgrade.retained.rollback, report.upgrade.retained.stable);
     await pass('Restoring the complete stable snapshot recovers reviewed and retired histories', "plugin.manifest.version==='2.3.1' && recall.getSnapshot().loadState==='ready' && recall.service.listCards().length===2 && recall.service.listCards().some(c=>c.schedule.reviewCount===1)");
   }
   report.providerRequests = requests.length; report.passed = true;

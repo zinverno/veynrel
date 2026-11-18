@@ -1,6 +1,6 @@
 # Studio recipes
 
-> **Public stable: 2.3.1.** These Markdown workflows remain in unpublished development. Diagram controls visible in older captures are removed by R02; [drawings and journals are preserved](../studio-diagram-removal.md).
+> **Archived 2.3.1 instructions.** In 2.4.0 Studio and the online catalog are hidden and the diagram generator has been removed. Existing drawings, local recipes and journals are retained. [Upgrade and recovery](Installation-and-updates.md).
 
 ## Turn a saved note into a useful structure
 

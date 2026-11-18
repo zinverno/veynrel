@@ -21,7 +21,16 @@ import { markdownTargetPort } from "./markdownTarget";
 
 export interface StudioWorkspace { openNote?(path: string): Promise<void>; features?: typeof studioFeatures; registry: RecipeRegistry; runner: RecipeRunner; writer: StudioApply; creator: StudioMarkdownCreate; operations: StudioOperations; community: CommunityCatalog; installer: CommunityInstaller; inventory(): readonly string[]; folders(): readonly string[]; connection(): { provider: string; model: string; baseUrl: string } }
 const studioTitle = "Veynrel Studio";
-export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPort): StudioWorkspace {
+export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPort): StudioWorkspace | undefined {
+  if (!studioFeatures.enabled) {
+    let active = true;
+    plugin.register(() => { active = false; });
+    plugin.app.workspace.onLayoutReady(() => {
+      if (!active) return;
+      for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach();
+    });
+    return;
+  }
   const storage = new StudioStorage(plugin.app.vault.adapter, plugin.app.vault.configDir, plugin.manifest.id);
   const operations = new StudioOperations(), notes = studioNotePort(plugin.app), writer = new StudioApply(new StudioJournal(storage), notes, operations);
   const creator = new StudioMarkdownCreate(new MarkdownCreateJournal(storage), markdownTargetPort(plugin.app), notes, operations);
@@ -32,12 +41,6 @@ export function registerStudio(plugin: Plugin, settings: LanguageModelSettingsPo
     connection: () => { const { provider, model, baseUrl } = settings.get(); return { provider, model, baseUrl }; },
     runner: new RecipeRunner({ ...port, complete: callStudioMarkdown }, writer, creator) };
   plugin.register(() => { owner.runner.dispose(); operations.dispose(); });
-  if (!studioFeatures.enabled) {
-    plugin.app.workspace.onLayoutReady(() => {
-      for (const leaf of plugin.app.workspace.getLeavesOfType(STUDIO_VIEW_TYPE)) leaf.detach();
-    });
-    return owner;
-  }
   plugin.registerView(STUDIO_VIEW_TYPE, leaf => new VeynrelStudioView(leaf, owner));
   let opening: Promise<void> | undefined;
   const open = () => opening ??= (async () => {

@@ -1,10 +1,10 @@
 # Troubleshooting
 
-> **Public stable: 2.3.1.** Missing diagram controls in development are intentional after R02; installing Excalidraw does not restore them. [Preserved drawings and journals](../studio-diagram-removal.md).
+> **2.4.0 release candidate.** Check the [published releases](https://github.com/zinverno/veynrel/releases/latest) for the stable download. The [2.3.1 guide](https://github.com/zinverno/veynrel/tree/2.3.1/docs/wiki) covers the earlier interface.
 
 | Symptom | Check and next action |
 | --- | --- |
-| Local checks unavailable | Confirm Veynrel is enabled, open Health and select an area; no model key is required |
+| Local checks unavailable | Confirm Veynrel is enabled, open Overview → Check and select an area; no model key is required |
 | No semantic candidates | Configure embeddings and explicitly build the index; inspect coverage, stale state and scope limits |
 | Public 2.3.1 only: unsupported diagram endpoint | Use public OpenRouter with verified required capabilities; do not treat Markdown connectivity as diagram support |
 | Public 2.3.1 only: Excalidraw missing/wrong version | Enable the pinned 2.29.0; refresh capabilities; do not bypass the version gate |
@@ -15,7 +15,7 @@
 | Local preservation observations | Compare source and result yourself; a warning is lexical, and no warning is not a semantic PASS |
 | History changed/unavailable | Later edits can invalidate exact recovery checks; preserve the edited file and journal |
 | Damaged journal/unconfirmed write | Stop mutation attempts, preserve evidence and backups; do not delete data to bypass the guard |
-| Community offline | Explicitly refresh later; verified cached entries may remain available but stale |
+| 2.3.1 Community offline | Explicitly refresh later; verified cached entries may remain available but stale |
 
 Native evidence is Linux desktop with built-in themes. Narrow desktop captures are not mobile tests. Historical unreproduced host/zoom exceptions and intermittent CDP stalls are not proof of a fixed host issue; include exact steps and a synthetic reproduction when reporting them.
 

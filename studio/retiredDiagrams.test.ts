@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, assert, beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("obsidian", () => ({ ItemView: class {}, TFile: class {}, TFolder: class {}, MarkdownView: class {}, FileView: class {}, EditableFileView: class {}, TextFileView: class {}, getLanguage: () => "en", requestUrl: vi.fn() }));
 const studioView = vi.hoisted(() => ({ View: class { suggestSource = vi.fn<(path: string, back: () => void) => void>(); } }));
 vi.mock("./view", () => ({ STUDIO_VIEW_TYPE: "veynrel-studio", VeynrelStudioView: studioView.View }));
@@ -21,6 +21,7 @@ describe("retired diagram runtime", () => {
     const plugin = { app: { plugins, vault: { adapter: disk.adapter, configDir: ".custom" }, workspace: { getLeavesOfType: () => [] } }, manifest: { id: "ai-knowledge-hub" },
       registerView: vi.fn(), addCommand: (command: { id: string }) => commands.push(command), addRibbonIcon: vi.fn(), register: (fn: () => void) => cleanup.push(fn) };
     const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
+    expect(owner).toBeDefined();
     expect(owner).not.toHaveProperty("diagrams");
     expect(commands.map(c => c.id)).toEqual(["veynrel-open-studio"]);
     expect(disk.adapter.read).not.toHaveBeenCalled(); expect(disk.adapter.write).not.toHaveBeenCalled();
@@ -39,6 +40,7 @@ describe("retired diagram runtime", () => {
     const plugin = { app: { vault: { adapter: disk.adapter, configDir: ".custom" }, workspace: { getLeavesOfType: () => [] } }, manifest: { id: "ai-knowledge-hub" },
       registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: (fn: () => void) => cleanup.push(fn) };
     const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
+    assert.isDefined(owner);
     expect(await owner.writer.history()).toEqual([]); expect(await owner.writer.journal.runs()).toEqual([]); expect(await owner.creator.history()).toEqual([]);
     expect(disk.files).toEqual(before); expect(disk.adapter.write).not.toHaveBeenCalled(); expect(disk.adapter.rename).not.toHaveBeenCalled();
     expect(vi.mocked(disk.adapter.read).mock.calls).toEqual([]);
@@ -72,6 +74,7 @@ it("returns to a registered inactive Notes leaf and never resurrects a closed le
   const plugin = { app: { vault: { adapter: disk.adapter, configDir: ".custom" }, workspace }, manifest: { id: "ai-knowledge-hub" },
     registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: vi.fn() };
   const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
+  assert.isDefined(owner);
   owner.inventory = () => ["Selected.md"];
   await owner.openNote!("Selected.md");
   expect(view.suggestSource.mock.calls[0][0]).toBe("Selected.md");
@@ -91,8 +94,7 @@ it("hides all Studio entry points and detaches restored views without touching s
   } }, manifest: { id: "ai-knowledge-hub" }, registerView: vi.fn(), addCommand: vi.fn(), addRibbonIcon: vi.fn(), register: vi.fn() };
   const owner = registerStudio(plugin as unknown as Plugin, { get: () => settings, update: async s => s, subscribe: () => () => {} });
   expect(plugin.registerView).not.toHaveBeenCalled(); expect(plugin.addCommand).not.toHaveBeenCalled(); expect(plugin.addRibbonIcon).not.toHaveBeenCalled();
-  expect(owner).not.toHaveProperty("openNote"); expect(owner.registry).toBeDefined(); expect(owner.runner).toBeDefined();
+  expect(owner).toBeUndefined();
   expect(detach).not.toHaveBeenCalled(); callbacks.forEach(fn => fn()); expect(detach).toHaveBeenCalledOnce();
   expect(disk.adapter.read).not.toHaveBeenCalled(); expect(disk.adapter.write).not.toHaveBeenCalled(); expect(disk.adapter.rename).not.toHaveBeenCalled();
-  owner.runner.dispose(); owner.operations.dispose();
 });

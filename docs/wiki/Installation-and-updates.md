@@ -1,6 +1,6 @@
 # Installation and updates
 
-> **Veynrel 2.3.1 Stable.**
+> **2.4.0 release candidate.** Check the [published releases](https://github.com/zinverno/veynrel/releases/latest) for the stable download. The [2.3.1 guide](https://github.com/zinverno/veynrel/tree/2.3.1/docs/wiki) covers the earlier interface.
 
 ## Stable installation
 
@@ -15,10 +15,6 @@ For manual installation download `main.js`, `manifest.json`, `styles.css` from t
 3. Preserve `data.json`, semantic indexes, Recall state, decisions, `studio/` and other journals. Do not delete or replace the plugin directory.
 4. Restart Obsidian, enable the plugin if necessary, and verify settings and existing local state before starting new work.
 
-![Native Studio library captured during 2.3.0 release preparation](../../assets/showcase/2.3.0/studio-library.png)
-
-Screenshot captured with synthetic data during 2.3.0 release preparation. No automatic installation is performed by this guide.
-
-The manifest remains 1.8.7+, with existing platform declarations. Current native checks use Linux desktop 1.13.7, not every declared platform/minimum version. A code rollback alone is not a data rollback: retain a full matching backup and stop if stored data is incompatible. Do not transplant private settings into a bug reproduction.
+2.4.0 requires Obsidian 1.13.7. Older compatible clients retain the 2.3.1 fallback (1.8.7). Both manifests permit mobile installations. Native verification used Linux desktop. Before a downgrade, archive any new edits and restore the complete pre-upgrade snapshot. [Migration details](../releases/2.4.0.md).
 
 [First tasks](Getting-started.md) · [Recovery](Safety-history-and-recovery.md)

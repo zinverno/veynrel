@@ -1,6 +1,6 @@
 # Community library
 
-> **Veynrel 2.3.1 Stable.**
+> **Archived 2.3.1 instructions.** In 2.4.0 Studio and the online catalog are hidden and the diagram generator has been removed. Existing drawings, local recipes and journals are retained. [Upgrade and recovery](Installation-and-updates.md).
 
 Open **Veynrel Studio → Community**. The local library works independently of online catalog access.
 

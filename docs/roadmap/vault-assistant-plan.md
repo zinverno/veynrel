@@ -93,7 +93,7 @@ This planning session adds only this document, opens one draft PR with auto-merg
 | R14 | Демо в плагине для всех сохраняемых возможностей | R13, R05, R08 |
 | R15 | Итоговая приёмка, производительность и понятная поставка | R01, R02, R03, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14 |
 
-The suggested review order is R01–R15. R08 and the server contract R13 may be prepared independently after their dependencies, but enabling a complete demo requires the retained workflow matrix. Public milestones are 2.4.0 after acceptance of R06 and R07, and 2.5.0 after R08–R15; each also needs separate release acceptance and publication permission under the policy below. R01 prepares a deliverable from already accepted Recall work; R02–R05 provide the first focused vault-assistant increment. R06–R07 add useful exploration. R08–R12 complete material handling. R13–R14 add sponsored onboarding. R15 is the final integrated check, not the first testing step.
+The suggested review order is R01–R15. R08 and the server contract R13 may be prepared independently after their dependencies, but enabling a complete demo requires the retained workflow matrix. The revised early 2.4.0 milestone excludes R07. A dedicated R07 PR joins the planned 2.5.0 scope alongside R08–R15; each also needs separate release acceptance and publication permission under the policy below. R01 prepares a deliverable from already accepted Recall work; R02–R05 provide the first focused vault-assistant increment. R06–R07 add useful exploration. R08–R12 complete material handling. R13–R14 add sponsored onboarding. R15 is the final integrated check, not the first testing step.
 
 ### R01 — Recall: завершить путь до поставляемого релиза
 
@@ -374,7 +374,7 @@ Owner decision, updated 2026-11-16: the following two public milestones supersed
 
 | Public version | Required scope and acceptance |
 | --- | --- |
-| **2.4.0** | Complete and accept R06 and R07 on top of R01–R05, then conduct a separate release review. R06.1 alone is not completion of R06. |
+| **2.4.0** | Early release of the shipped R01–R06 workflows under the [2026-11-18 owner decision](../community-version-policy.md). R07 moves to a dedicated PR for 2.5.0. |
 | **2.5.0** | Complete R08–R15 and conduct separate integrated acceptance and release review. |
 
 Each is a full public release and requires its own explicit owner authorization to publish. Stage acceptance or a merged PR does not authorize publication. No public stable/beta/prerelease or Marketplace update is allowed before the corresponding release gates and that authorization.
@@ -383,9 +383,9 @@ Internal release candidates, test builds, updates of disposable vaults and regre
 
 The current development target is **2.4.0**, still unpublished. Individual stages do not automatically bump versions. R15 remains the final integrated acceptance for the 2.5.0 scope, not the first release check. This change preserves all product constraints, acceptance criteria and R01–R15 dependencies above.
 
-The [2.4.0 release acceptance checklist](../community-version-policy.md#release-acceptance-for-240) requires current README/Community listing, real screenshots and demo videos, release notes, a reproducible build, migration/Undo/recovery verification and real Obsidian installation/upgrade checks. **Community write-confirmation/document ownership remains an open release gate**; this policy neither fixes nor waives it. See the [bounded investigation in PR #147](https://github.com/zinverno/veynrel/blob/3b48b3cd348ea87b0ced2124e7a7fb531f5ee64a/docs/r06/community-apply-attribution.md). [Resume Batch](resume-batch.md) is also required before public 2.4.0 unless the owner explicitly authorizes deferral; the two-release strategy does not transfer it to 2.5.0.
+The [2.4.0 release acceptance checklist](../community-version-policy.md#release-acceptance-for-240) requires current README/Community listing, real screenshots and demo videos, release notes, a reproducible build, migration/Undo/recovery verification and real Obsidian installation/upgrade checks. The Community confirmation gate requires verified unreachability and explicit residual-risk acceptance for this candidate. Re-enabling it requires a fix. Resume Batch is deferred to a separate unscheduled PR.
 
-Community recovery correction: **2.4.0 belongs to package/lock-root development metadata only**. Keep the default-branch public manifest at published **2.3.1** and exclude the future 2.4.0 entry from `versions.json` until separately authorized publication of 2.4.0. Do not restore the R01 metadata synchronization in later PRs or weaken its CI guard. See the [version policy and native-test consequences](../community-version-policy.md). Restoring the pointer to the existing release does not publish roadmap work.
+Historical 2.3.1 recovery instruction (before release preparation): **2.4.0 belongs to package/lock-root development metadata only**. Keep the default-branch public manifest at published **2.3.1** and exclude the future 2.4.0 entry from `versions.json` until separately authorized publication of 2.4.0. Do not restore the R01 metadata synchronization in later PRs or weaken its CI guard. See the [version policy and native-test consequences](../community-version-policy.md). Restoring the pointer to the existing release does not publish roadmap work.
 
 Use a focused first screen, a complete demonstrable scenario and a readable no-key path. Existing README content may be reused, but removed diagram features and future cloud claims must not remain current promises. Show normal outcomes, not only unavailable/stale-index screens. Label scripted demonstrations as such.
 
@@ -418,4 +418,4 @@ This plan is distilled from the owner's product requirements; personal vault con
 
 ## Deferred owner requirement before public release
 
-[Resume Batch](resume-batch.md) must be implemented and accepted before the next public release, **2.4.0**, unless the owner explicitly authorizes a deferral. It is not automatically moved to 2.5.0. R05.2 records this requirement only; neither it nor this policy update implements resumption or authorizes another work unit.
+[Resume Batch](resume-batch.md) remains a separate, unscheduled implementation and acceptance task under the revised 2.4.0 scope.

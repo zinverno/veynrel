@@ -1,6 +1,6 @@
 # Recall
 
-Recall schedules study questions and vocabulary locally using the same FSRS scheduler. Reviewing existing material needs no model, embeddings or API key. This guide describes the **2.4.0 release candidate**, not a published stable release. Read the [upgrade and recovery instructions](../release-2.4.0-candidate.md) before migrating an existing Recall database.
+Recall schedules study questions and vocabulary locally using the same FSRS scheduler. Reviewing existing material needs no model, embeddings or API key. This guide describes the **2.4.0 release candidate**, not a published stable release. Read the [upgrade and recovery instructions](../releases/2.4.0.md) before migrating an existing Recall database.
 
 ## Study topics
 

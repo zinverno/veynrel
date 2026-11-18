@@ -133,7 +133,7 @@ export async function runFollowupUX({main,wait,pass,shot,phase,key,focus,provide
   await pass('Long names and 390 actions fit below the problem',"(()=>{const e=document.querySelector('.veynrel-finding-actions');return e.getBoundingClientRect().y>=e.previousElementSibling.getBoundingClientRect().bottom&&hv.contentEl.scrollWidth<=hv.contentEl.clientWidth+1})()");
   await main.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await route('semantic');await pass('Reduced motion remains respected',"getComputedStyle(document.querySelector('.veynrel-health-page-enter')).animationName==='none'");await shot('after-reduced-motion');
   await size(1280,830);await home();
-  await pass('Studio hidden in commands and view registry',"!Object.keys(app.commands.commands).some(k=>k.includes('studio'))&&!app.viewRegistry.viewByType['veynrel-studio']");
+  await pass('Disabled Studio exposes no write owner, command or view',"plugin.studio===undefined&&plugin.getToolsPort().openStudioNote===undefined&&!Object.keys(app.commands.commands).some(k=>k.includes('studio'))&&!app.viewRegistry.viewByType['veynrel-studio']");
   await main.ev("app.setting.open();app.setting.openTabById('ai-knowledge-hub');void 0");await pass('Studio hidden in settings',"!app.setting.modalEl.textContent.includes('Studio')");await main.ev('app.setting.close();void 0');await focus();
   await main.ev("window.uxSplit=app.workspace.getLeaf('split');uxSplit.setViewState({type:'veynrel-health',active:true})");
   await main.ev("uxSplit.view.contentEl.querySelector('[data-health-action=overview-semantic]').click();void 0");

@@ -1,15 +1,15 @@
 # Providers and privacy
 
-> **Public stable: 2.3.1; unpublished development removes diagram requests.** The version-specific rows below describe only 2.3.1. [R02 scope](../studio-diagram-removal.md).
+> **2.4.0 release candidate.** Check the [published releases](https://github.com/zinverno/veynrel/releases/latest) for the stable download. The [2.3.1 guide](https://github.com/zinverno/veynrel/tree/2.3.1/docs/wiki) covers the earlier interface.
 
 | Feature | What leaves the device |
 | --- | --- |
 | Local Health, topology, Recall, existing-index views | No LLM request for these operations |
 | Semantic index and text search | Note chunks or query to the selected embedding endpoint; Ollama may be local |
-| Markdown recipes, pair analysis, other generative tools | Disclosed selected inputs and instructions to the configured model endpoint |
+| Style, Recall generation, pair analysis and other generative tools | Disclosed selected inputs and instructions to the configured model endpoint |
 | 2.3.1 only: diagram capability discovery | Model/endpoint metadata request to public OpenRouter; no note body or authorization in discovery |
 | 2.3.1 only: diagram generation | Selected source and structured request after consent |
-| Community | Public catalog and recipe GETs; no note bodies or provider keys |
+| 2.3.1 only: online Community | Public catalog and recipe GETs; no note bodies or provider keys |
 | Optional Companion | Configured mirror to the selected server, under its own opt-in contract |
 
 Local Health and Recall need no API key. An installed recipe is data, not a model execution. The first semantic index build is explicit, but configured incremental indexing can subsequently run on changes. Review your settings before using a sensitive vault.

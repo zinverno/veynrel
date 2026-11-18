@@ -1,10 +1,6 @@
 # Resume Batch — deferred owner requirement
 
-Status: **not implemented by R05.2**. This requirement must be implemented and
-accepted before the next public release, **2.4.0**, unless the owner explicitly
-authorizes deferral. The [2.4.0 / 2.5.0 release strategy](vault-assistant-plan.md#release-policy-and-acquisition-work)
-does not automatically move it to 2.5.0. Publication still requires the owner's
-separate permission. This document does not authorize implementation or paid calls.
+The owner deferred Resume Batch from early 2.4.0 on 2026-11-18. It requires a separately commissioned PR. No implementation or later release date is confirmed. [Current scope decision](../community-version-policy.md).
 
 ## Current boundary
 

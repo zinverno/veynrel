@@ -32,7 +32,7 @@ def render(raw, ref):
             if not resolved.is_file() or resolved.is_symlink():
                 raise ValueError('Missing or unsafe source: ' + path)
             dest = ('https://raw.githubusercontent.com/zinverno/veynrel/' + ref + '/' + rel
-                    if rel.startswith('assets/') else REPO + '/blob/' + ref + '/' + rel)
+                    if rel.startswith('assets/') or resolved.suffix.lower() in {'.png', '.jpg', '.gif'} else REPO + '/blob/' + ref + '/' + rel)
         return '](' + dest + ('#' + anchor if anchor else '') + ')'
     return re.sub(r'\]\(([^)]+)\)', link, raw)
 
