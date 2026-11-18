@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-export async function runFloatingActions({main,wait,pass,shot,key,focus,providerUrl,report,pause,connection,endpoint}) {
+export async function runFloatingActions({main,wait,pass,shot,key,focus,providerUrl,report,pause,connection,endpoint,pendingReply}) {
   const click = async selector => {
     const point=await main.ev(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e)throw Error('Missing native action: '+${JSON.stringify(selector)});e.scrollIntoView({block:'nearest'});const r=e.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2}})()`);
     await main.send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...point});
@@ -80,11 +80,13 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
   };
   for(const change of ['cancel','source','provider','switch']) {
     await draft('fixture-delay');
+    const reply = await pendingReply();
     if(change==='cancel')await escape();
     if(change==='source')await main.ev("ed.replaceRange('Owner edit ',{line:2,ch:0});void 0");
     if(change==='provider')await model('fixture-style');
     if(change==='switch')await main.ev("sourceLeaf.openFile(app.vault.getFileByPath('Other.md'),{state:{mode:'source'}})");
-    await pause(1200);
+    await reply();
+    if(change!=='cancel')await wait("!!document.querySelector('[data-style-state=conflict]')");
     if(change!=='cancel')await pass('Style '+change+' blocks late Apply',"!!document.querySelector('[data-style-state=conflict]')&&!document.querySelector('[data-health-action=float-apply]')");
     if(change!=='cancel')await shotWindow('style-conflict-'+change);
     if(change==='switch')await pass('Switch never writes old response into B',`sourceLeaf.view.editor.getValue()===${JSON.stringify("# Synthetic second note\n\n[[Source]]\n")}`);
@@ -96,14 +98,11 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
   await draft('fixture-timeout');
   for(let i=0;i<80;i++){if(await main.ev("!!document.querySelector('[data-style-state=error]')"))break;await pause(500);}
   await pass('Actual buffered timeout leaves source untouched',"!!document.querySelector('[data-style-state=error]')&&ed.getValue()===originalSource");await shotWindow('style-timeout');await escape();
-  const waitForRequest = async count => {
-    for (let i=0;i<100 && report.providerRequests.length===count;i++) await pause(20);
-    assert.equal(report.providerRequests.length,count+1,'One loopback request is actually pending');
-  };
   for (const change of ['cancel','provider','provider-cycle','tuning-cycle','source']) {
     await model('fixture-recall-delay');await select();await click(control('recall'));
     const count = report.providerRequests.length;
-    await click(action('recall-authoring-generate'));await waitForRequest(count);
+    await click(action('recall-authoring-generate'));
+    const reply=await pendingReply();assert.equal(report.providerRequests.length,count+1);
     if (change === 'cancel') await click(action('float-cancel'));
     if (change.startsWith('provider')) {
       const changeProvider = provider => main.ev(`plugin.getLanguageModelSettingsPort().update({...plugin.getLanguageModelSettingsPort().get(),provider:'${provider}'})`);
@@ -112,6 +111,7 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
     }
     if (change === 'tuning-cycle') await main.ev("plugin.settings.temperature+=0.1;plugin.notifyLanguageModelSettingsChanged();plugin.settings.temperature=recallTemperature;plugin.notifyLanguageModelSettingsChanged();void 0");
     if (change === 'source') await main.ev("ed.replaceRange('Owner edit ',{line:2,ch:0});void 0");
+    await reply();
     await wait("plugin.recallAuthoring.getSnapshot().result?.reason==='conflict'");
     await pass('Recall '+change+' refuses the late response and preserves the queue',
       "!ed.getValue().includes('What protects edits?::Explicit review')&&plugin.recallAuthoring.recall.getSnapshot().summary.active===1");
@@ -158,15 +158,15 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
   await model('fixture-delay');
   const stylePopCount=report.providerRequests.length;
   await pop.ev("document.querySelector('[data-floating=style]').click();document.querySelector('.veynrel-floating-consent input').click();document.querySelector('[data-health-action=float-generate]').click();void 0");
-  await waitForRequest(stylePopCount);await main.ev('panelPop.detach();void 0');await pause(1200);
+  const styleReply=await pendingReply();assert.equal(report.providerRequests.length,stylePopCount+1);await main.ev('panelPop.detach();void 0');await styleReply();
   await pass('Closing pending Style popout preserves main source','ed.getValue()===originalSource');
   pop=await openPopout();await pop.ev("document.querySelector('[data-floating=toggle]').click();void 0");
   await model('fixture-recall-delay');
   const popCount = report.providerRequests.length;
   await pop.ev("document.querySelector('[data-floating=recall]').click();void 0");
   await pass('Recall consent belongs to the popout source', "document.querySelector('.veynrel-floating-recall .veynrel-recall-source')?.textContent==='Other.md'",pop);
-  await pop.ev("document.querySelector('[data-health-action=recall-authoring-generate]').click();void 0");await waitForRequest(popCount);
-  await main.ev('panelPop.detach();void 0');
+  await pop.ev("document.querySelector('[data-health-action=recall-authoring-generate]').click();void 0");const recallReply=await pendingReply();assert.equal(report.providerRequests.length,popCount+1);
+  await main.ev('panelPop.detach();void 0');await recallReply();
   await wait("!['generating','ingesting'].includes(plugin.recallAuthoring.getSnapshot().state)");
   await closedRecall();
   await pass('Closing pending Recall popout preserves main and original popout note',
@@ -198,8 +198,8 @@ export async function runFloatingActions({main,wait,pass,shot,key,focus,provider
     }
   }
   await main.ev('sourceLeaf.view.save();void 0');await pause(150);
-  await language('en');await draft('fixture-delay');
-  await main.ev("app.plugins.disablePlugin('ai-knowledge-hub')");await pause(1200);
+  await language('en');await draft('fixture-delay');const unloadReply=await pendingReply();
+  await main.ev("app.plugins.disablePlugin('ai-knowledge-hub')");await unloadReply();
   await pass('Unload removes roots and blocks late pending writes',"!document.querySelector('.veynrel-floating')&&!document.querySelector('.veynrel-floating-style')&&ed.getValue()===originalSource");
   await main.ev("app.plugins.enablePlugin('ai-knowledge-hub')");await wait("!!app.plugins.plugins['ai-knowledge-hub']&&document.querySelectorAll('.veynrel-floating').length===1");await main.ev("window.plugin=app.plugins.plugins['ai-knowledge-hub'];void 0");
   await pass('Reload restores only bounded position and enabled flag',"(()=>{const p=plugin.settings.floatingActions,r=document.querySelector('.veynrel-floating').getBoundingClientRect();return Object.keys(p).sort().join(',')==='enabled,x,y'&&p.enabled&&p.x>=0&&p.x<=1&&p.y>=0&&p.y<=1&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight})()");await shotWindow('panel-after-plugin-reload');

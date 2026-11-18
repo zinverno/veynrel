@@ -42,6 +42,14 @@ if(process.env.UX_THEME_DIR){
   report.communityTheme={name:'Minimal',cssSha256:sha(fs.readFileSync(`${dir}/theme.css`)),source:JSON.parse(fs.readFileSync(`${process.env.UX_THEME_DIR}/source.json`,'utf8'))};
 }
 const requests = []; report.providerRequests = requests;
+let releasePending;
+async function pendingReply() {
+  for (let i = 0; i < 200 && !releasePending; i++) await pause(50);
+  assert(releasePending, 'The delayed loopback request reached the server');
+  const release = releasePending;
+  releasePending = undefined;
+  return release;
+}
 const server = createServer(async (req,res) => {
   let body='';for await(const part of req)body+=part;
   const data=JSON.parse(body||'{}');requests.push({path:req.url, model:data.model});
@@ -49,7 +57,15 @@ const server = createServer(async (req,res) => {
     const user=data.messages?.at(-1)?.content??'';
     requests.at(-1).inputSha256=sha(user); requests.at(-1).inputLength=user.length;
     if(data.model==='fixture-error'){res.writeHead(503);res.end('synthetic failure');return;}
-    if(data.model==='fixture-delay'||data.model==='fixture-recall-delay')await new Promise(r=>setTimeout(r,1000));
+    if (data.model==='fixture-delay' || data.model==='fixture-recall-delay') {
+      await new Promise(resolve => {
+        releasePending = () => {
+          const sent = new Promise(done => { res.once('finish', done); res.once('close', done); if (res.destroyed) done(); });
+          resolve();
+          return sent;
+        };
+      });
+    }
     if(data.model==='fixture-timeout')await new Promise(r=>setTimeout(r,35000));
     const content=data.model?.startsWith('fixture-recall')?'What connects notes?::Shared ideas\nWhat protects edits?::Explicit review\nWhat restores text?::Editor undo':user.split('\n\n').slice(1).join('\n\n').replace('Two facts stay unchanged.','Two facts remain unchanged.');
     res.setHeader('content-type','application/json');res.end(JSON.stringify({choices:[{message:{content},finish_reason:'stop'}]}));return;
@@ -136,7 +152,7 @@ try {
   await main.ev("app.commands.executeCommandById('ai-knowledge-hub:veynrel-open-health');void 0");
   await wait("!!app.workspace.getLeavesOfType('veynrel-health')[0]?.view.body");
   await main.ev("window.hv=app.workspace.getLeavesOfType('veynrel-health')[0].view;void 0");
-  await (semanticFloating ? runSemanticFloating : followup ? runFollowupUX : runVisualUX)({main,wait,pass,shot,focus,key,report,phase,connection,endpoint,pause,providerUrl,stopVideo});
+  await (semanticFloating ? runSemanticFloating : followup ? runFollowupUX : runVisualUX)({main,wait,pass,shot,focus,key,report,phase,connection,endpoint,pause,providerUrl,stopVideo,pendingReply});
   report.dom=await main.ev('({elements:document.querySelectorAll(".veynrel-health-view *").length,findings:hv.controller.listFindings().length})');
   await stopVideo();
   if(semanticFloating&&['panel','full'].includes(phase)) {
