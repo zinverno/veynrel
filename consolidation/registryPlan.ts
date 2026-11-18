@@ -7,7 +7,7 @@ import type { OrganizationDefinitions } from "./organizationProfile";
 
 export class RegistryUnchangedError extends Error { constructor() { super("unchanged"); } }
 function canonical(value: unknown): string {
-  return JSON.stringify(value, (_key, item: unknown) => Array.isArray(item) && item.every(x => typeof x === "string") ? [...(item as string[])].sort() : isRecord(item) ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
+  return JSON.stringify(value, (_key, item: unknown) => Array.isArray(item) && item.every((x): x is string => typeof x === "string") ? [...item].sort() : isRecord(item) ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
 }
 export type RegistryKind = "tag" | "convention" | "category";
 export type RegistryChoice =

@@ -44,9 +44,11 @@ export async function runSemanticFloating(ctx) {
       await pass('Pair mounts the existing review without model requests','hv.scenario.reviewOpen');
       assert.equal(report.providerRequests.length,count); await shot('routes-pair-review-'+lang); await activate(action('semantic-pair-back'));
     } else {
+      if (intent === 'map' && lang === 'en') await pass('Unloaded map shows its compact empty state', "(()=>{const pane=document.querySelector('.veynrel-workbench-map-pane.is-empty');return !!pane?.querySelector(':scope > p')&&getComputedStyle(pane).minHeight==='120px'})()");
       await activate(action(intent==='map'?'workbench-refresh':intent==='opportunities'?'connections-refresh':'semantic-compute'));
       await wait('!hv.scenario.data.busy&&!hv.scenario.data.semantic.getSnapshot().busy&&!hv.scenario.data.globalSemantic.getSnapshot().busy');
     }
+    if (intent === 'map') await pass('Loaded map restores its graph layout', "(()=>{const pane=document.querySelector('.veynrel-workbench-map-pane');return !!pane?.querySelector(':scope > .veynrel-workbench-map')&&!pane.classList.contains('is-empty')&&getComputedStyle(pane).minHeight==='0px'})()");
     if(intent==='families') {
       await wait("!!document.querySelector('[data-health-action=semantic-family-0]')");
       await activate(action('semantic-family-0'));await main.ev('window.selectedFamily=hv.scenario.context.entry.familyId;void 0');

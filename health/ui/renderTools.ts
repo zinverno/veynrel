@@ -59,7 +59,7 @@ export function renderTools(parent: HTMLElement, model: ReturnType<typeof toolsV
     hit.addEventListener("pointerenter", event => { if (event.pointerType !== "touch") { touch = false; show(i); } });
     hit.addEventListener("pointerdown", event => { touch = event.pointerType === "touch"; if (touch) show(i); });
     hit.addEventListener("focus", () => show(i, true));
-    hit.addEventListener("click", event => { if (touch || (event as PointerEvent).pointerType === "touch") { show(i); return; } open(i, hit); });
+    hit.addEventListener("click", event => { if (touch || ("pointerType" in event && event.pointerType === "touch")) { show(i); return; } open(i, hit); });
     hit.addEventListener("keydown", event => {
       const key = event;
       let next = i;

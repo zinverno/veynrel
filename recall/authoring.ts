@@ -23,7 +23,8 @@ export function flashcardSections(content: string) {
   let frontmatter = /^\uFEFF?---[ \t]*(?:\r\n|\r|\n)/u.test(content), comment = false;
   let fence: { char: string; length: number } | undefined, section: typeof sections[number] | undefined;
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i][0].replace(/[\r\n]+$/u, ""), offset = lines[i].index!;
+    const line = lines[i][0].replace(/[\r\n]+$/u, ""), offset = lines[i].index;
+    if (offset === undefined) throw new RecallGenerationError("invalid-output");
     if (frontmatter) { if (i > 0 && /^(?:---|\.\.\.)[ \t]*$/u.test(line)) frontmatter = false; continue; }
     const marker = /^ {0,3}(`{3,}|~{3,})(.*)$/u.exec(line);
     if (fence) { if (marker && marker[1][0] === fence.char && marker[1].length >= fence.length && !marker[2].trim()) fence = undefined; continue; }

@@ -65,6 +65,12 @@ export async function runFollowupUX({main,wait,pass,shot,phase,key,focus,provide
   if(!after){await stopVideo();return;}
   await language('en');await size(1280,830);await main.ev("app.changeTheme('obsidian');void 0");
   await route('tools');
+  const ringPoint = await main.ev("(()=>{const r=document.querySelector('.veynrel-tool-wheel svg').getBoundingClientRect();return{x:r.x+r.width*276/460,y:r.y+r.height*58/460}})()");
+  await main.send('Input.dispatchMouseEvent', {type:'mouseMoved', ...ringPoint});
+  await pass('Mouse hover selects a ring segment', "!document.querySelector('[data-health-action=tool-open-selected]').hidden&&!document.querySelector('.veynrel-tool-explanation')");
+  for (const type of ['mousePressed','mouseReleased']) await main.send('Input.dispatchMouseEvent', {type, button:'left', clickCount:1, ...ringPoint});
+  await pass('Mouse click opens the segment explanation', "!!document.querySelector('.veynrel-tool-explanation')");
+  await escape();
   await main.ev(`window.adapterIO={read:0,write:0};window.adapterEvents=[];for(const k of ['read','readBinary','write','writeBinary','append','mkdir','remove','rename']){const old=app.vault.adapter[k]?.bind(app.vault.adapter);if(old)app.vault.adapter[k]=(...a)=>{adapterIO[k.startsWith('read')?'read':'write']++;adapterEvents.push({kind:k,path:a[0],stack:new Error().stack});return old(...a)}};void 0`);
   const passive=async open=>{
     await pause(1500);report.adapterEvents=await main.ev('adapterEvents');const before=await main.ev('JSON.stringify({uxIO,adapterIO})'),requests=report.providerRequests.length,external=report.externalRequests.length;
