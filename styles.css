@@ -3365,7 +3365,7 @@
 
 /* UX-C modes use the same native canvas and separate camera state. */
 .veynrel-workbench-heading button[aria-pressed="true"] { border-color: var(--interactive-accent); font-weight: var(--font-semibold); }
-.veynrel-workbench-map-pane:has(> p) { height: auto; min-height: 120px; padding-block: var(--size-4-3); }
+.veynrel-workbench-map-pane.is-empty { height: auto; min-height: 120px; padding-block: var(--size-4-3); }
 .veynrel-workbench-heading { flex-wrap: wrap; gap: var(--size-4-2); }
 
 .veynrel-workbench-heading > button { margin-left: 0; }

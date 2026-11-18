@@ -280,6 +280,7 @@ export class WorkbenchView {
         overviewWorkbench(this.graph);this.groupCamera={...this.graph.viewport};this.groupPaths=members;this.graph.viewport={x:0,y:0,zoom:1};this.graph.fitted=false;this.render();
       }}},path=>{if(current())this.selectNote(path);},()=>{if(current())this.render();});
     if(!available){
+      map.addClass("is-empty");
       map.createEl("p",{text:t(structural?"@uxc.structure-empty":"@uxc.similarity-empty")});
       if(!structural)button(map,t("@uxc.setup"),()=>this.actions.settings(),"workbench-setup");
     }
