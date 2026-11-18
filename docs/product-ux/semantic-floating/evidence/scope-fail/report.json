@@ -1,0 +1,874 @@
+{
+  "source": {
+    "commit": "edc1bcdd82cc0a0c059167262dcf7c4fb60aa4a7",
+    "diffSha256": "0bf86b3e1878f18d5b0e350065b4b0faadcb8632f8238e5f7f02791ec5df8144"
+  },
+  "scenario": "semantic-floating-full",
+  "checks": [
+    "Native frame applies only to the disposable host",
+    "No-index retains neighborhood intent and source choice",
+    "Setup returns to the original intent",
+    "map keeps its own first surface",
+    "map narrow has no overflow",
+    "families keeps its own first surface",
+    "Family displays member paths from the stored index",
+    "Family opens its existing map context",
+    "Family Back restores selected membership",
+    "families narrow has no overflow",
+    "pair keeps its own first surface",
+    "Pair mounts the existing review without model requests",
+    "pair narrow has no overflow",
+    "neighborhood keeps its own first surface",
+    "neighborhood requires an explicit source",
+    "neighborhood choose does not compute",
+    "neighborhood exposes actual document results",
+    "neighborhood narrow has no overflow",
+    "opportunities keeps its own first surface",
+    "opportunities narrow has no overflow",
+    "focus keeps its own first surface",
+    "focus requires an explicit source",
+    "focus choose does not compute",
+    "Focus computes every eligible document and displays a page",
+    "Full global result is accessible beyond the first page",
+    "focus narrow has no overflow",
+    "similar keeps its own first surface",
+    "similar requires an explicit source",
+    "similar choose does not compute",
+    "similar exposes actual document results",
+    "similar narrow has no overflow",
+    "map keeps its own first surface",
+    "map narrow has no overflow",
+    "families keeps its own first surface",
+    "Family displays member paths from the stored index",
+    "Family opens its existing map context",
+    "Family Back restores selected membership",
+    "families narrow has no overflow",
+    "pair keeps its own first surface",
+    "Pair mounts the existing review without model requests",
+    "pair narrow has no overflow",
+    "neighborhood keeps its own first surface",
+    "neighborhood requires an explicit source",
+    "neighborhood choose does not compute",
+    "neighborhood exposes actual document results",
+    "neighborhood narrow has no overflow",
+    "opportunities keeps its own first surface",
+    "opportunities narrow has no overflow",
+    "focus keeps its own first surface",
+    "focus requires an explicit source",
+    "focus choose does not compute",
+    "Focus computes every eligible document and displays a page",
+    "Full global result is accessible beyond the first page",
+    "focus narrow has no overflow",
+    "similar keeps its own first surface",
+    "similar requires an explicit source",
+    "similar choose does not compute",
+    "similar exposes actual document results",
+    "similar narrow has no overflow",
+    "Explore explicitly changes the source",
+    "Back restores indexed fragments and source",
+    "Late A preparation cannot load into selected B",
+    "Rename retains exact old source and intent",
+    "Pair decision returns to selected opportunity and durable owner",
+    "Missing metadata remains unclassified",
+    "Changing scope invalidates late preparation and keeps requested paths"
+  ],
+  "exceptions": [],
+  "actions": [],
+  "screenshots": [
+    "regression-overview.png",
+    "regression-ring.png",
+    "routes-no-index.png",
+    "routes-map-en-dark.png",
+    "routes-map-en-light.png",
+    "routes-map-en-390.png",
+    "routes-families-en-dark.png",
+    "routes-families-en-light.png",
+    "routes-families-en-390.png",
+    "routes-pair-select.png",
+    "routes-pair-review.png",
+    "routes-pair-en-dark.png",
+    "routes-pair-en-light.png",
+    "routes-pair-en-390.png",
+    "routes-neighborhood-en-dark.png",
+    "routes-neighborhood-en-light.png",
+    "routes-neighborhood-en-390.png",
+    "routes-opportunities-en-dark.png",
+    "routes-opportunities-en-light.png",
+    "routes-opportunities-en-390.png",
+    "routes-focus-en-dark.png",
+    "routes-focus-en-light.png",
+    "routes-focus-en-390.png",
+    "routes-similar-en-dark.png",
+    "routes-similar-en-light.png",
+    "routes-similar-en-390.png",
+    "routes-map-ru-dark.png",
+    "routes-map-ru-light.png",
+    "routes-map-ru-390.png",
+    "routes-families-ru-dark.png",
+    "routes-families-ru-light.png",
+    "routes-families-ru-390.png",
+    "routes-pair-select.png",
+    "routes-pair-review.png",
+    "routes-pair-ru-dark.png",
+    "routes-pair-ru-light.png",
+    "routes-pair-ru-390.png",
+    "routes-neighborhood-ru-dark.png",
+    "routes-neighborhood-ru-light.png",
+    "routes-neighborhood-ru-390.png",
+    "routes-opportunities-ru-dark.png",
+    "routes-opportunities-ru-light.png",
+    "routes-opportunities-ru-390.png",
+    "routes-focus-ru-dark.png",
+    "routes-focus-ru-light.png",
+    "routes-focus-ru-390.png",
+    "routes-similar-ru-dark.png",
+    "routes-similar-ru-light.png",
+    "routes-similar-ru-390.png",
+    "state-late-A-selected-B.png",
+    "state-renamed-source.png",
+    "state-stale-fragments.png",
+    "state-error.png",
+    "state-empty.png",
+    "opportunity-durable-decision.png",
+    "state-partial-metadata.png",
+    "state-changed-scope.png",
+    "failure.png"
+  ],
+  "assets": {
+    "main.js": "bddcd4e277e494a652065507b823bb6cc03bcb1ac7b771d26b51259ae4a9d9e7",
+    "styles.css": "9e472caea184c6e8b5002fce6d540afd32b67e07777c070e0b4667bc55daf4e3",
+    "manifest.json": "a1c0f8f03004a3d19141ae0bae00f33dcc2a4e6c0e66135d99c0ab419e13a6a1"
+  },
+  "externalRequests": [],
+  "recording": {
+    "file": "journey.mp4",
+    "frames": 404,
+    "seconds": 15.754964828491211,
+    "source": "Native CDP frames and timestamps; main client area, no cuts"
+  },
+  "harnessHashes": {
+    "visual.mjs": "f3ce8a10c096349f66557aa8ae64672fde04c02dabe0ee05d82e0faef78570f6",
+    "visual-journey.mjs": "53dea94bb50a384abc96452688643008d5fba4bdc15129721f14c166f13eaa10",
+    "followup.mjs": "fb44c6d831d990b5e01345c240da23bfbdc287e6f773228647e3cb58f901235a",
+    "followup-journey.mjs": "d548e7c12cc117dcaac762890a1fb7a0c87bf47a65002290a03ac9c7c42437df",
+    "overview-fixture.ts": "8345abbe34bad72ff6753478a65de458fe027184bf3f8b30dc7febe983dc3dd7",
+    "session.mjs": "87bc91f3a1040e8025e69a701dd832a346bbb711738eadc41effa19acd7d9ad4",
+    "run.py": "5a7e2e7d44b0d9fb8b166599bf8ba60aa2f27777ee5709eda8df13d23d1d5abe",
+    "semantic-floating.mjs": "cb65fd1bda66f5d65f7643c7cde2211902cfb8b3f8e8612958c2bdac57388264",
+    "semantic-floating-journey.mjs": "35726dced3326aae165710f77c82d373dcbbe93da7903edcbea08f911bb228ed",
+    "floating-actions-journey.mjs": "6afcbb97ce4698041555480ec3a38152a7229d5feada8c8d6d66ea6fc07411d2",
+    "semantic-limits-journey.mjs": "bd5bfef9cc25c471b884eeafa5831bb88218daae2d19fe417b37a2ee7a190bf1",
+    "semantic-state-journey.mjs": "329678259147c7f4cf32750a632074282d454c2c491d8cd16dcf05766ae8a0d1",
+    "floating-source-journey.mjs": "ebf287d2dd943880226ee8e61e7d03680a6ef7bc06d59a5d2f96b5ebe49a1459"
+  },
+  "providerRequests": [],
+  "versions": {
+    "obsidian": "1.13.7",
+    "electron": "43.6.0",
+    "chrome": "150.0.7871.250",
+    "plugin": "2.3.1"
+  },
+  "screenshotGeometry": [
+    {
+      "name": "regression-overview",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "regression-ring",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-no-index",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-map-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-map-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-map-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-families-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-families-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-families-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-select",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-review",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-neighborhood-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-neighborhood-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-neighborhood-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-opportunities-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-opportunities-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-opportunities-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-focus-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-focus-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-focus-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-similar-en-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-similar-en-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-similar-en-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-map-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-map-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-map-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-families-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-families-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-families-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-select",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-review",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-pair-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-neighborhood-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-neighborhood-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-neighborhood-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-opportunities-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-opportunities-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-opportunities-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-focus-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-focus-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-focus-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-similar-ru-dark",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-similar-ru-light",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "routes-similar-ru-390",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 346,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-late-A-selected-B",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-renamed-source",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-stale-fragments",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-error",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-empty",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "opportunity-durable-decision",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-partial-metadata",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "state-changed-scope",
+      "rect": {
+        "x": 44,
+        "y": 78,
+        "width": 1316,
+        "height": 872,
+        "scale": 1
+      },
+      "fullWindow": false
+    },
+    {
+      "name": "failure",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1360,
+        "height": 950,
+        "scale": 1
+      },
+      "fullWindow": true
+    }
+  ],
+  "ioStages": [
+    {
+      "name": "before-semantic-open",
+      "time": 1794976707.121,
+      "io": {
+        "read": 126,
+        "write": 0,
+        "process": 0,
+        "pluginRead": 0,
+        "pluginWrite": 0,
+        "configWrite": 0,
+        "semanticRead": 0,
+        "semanticWrite": 0,
+        "hostAdapterRead": 146,
+        "hostAdapterWrite": 3
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "semantic-open",
+      "time": 1794976707.163,
+      "io": {
+        "read": 126,
+        "write": 0,
+        "process": 0,
+        "pluginRead": 0,
+        "pluginWrite": 0,
+        "configWrite": 0,
+        "semanticRead": 0,
+        "semanticWrite": 0,
+        "hostAdapterRead": 146,
+        "hostAdapterWrite": 3
+      },
+      "providerCalls": 0
+    },
+    {
+      "name": "setup-return",
+      "time": 1794976707.458,
+      "io": {
+        "read": 126,
+        "write": 0,
+        "process": 0,
+        "pluginRead": 0,
+        "pluginWrite": 0,
+        "configWrite": 0,
+        "semanticRead": 0,
+        "semanticWrite": 0,
+        "hostAdapterRead": 146,
+        "hostAdapterWrite": 3
+      },
+      "providerCalls": 0
+    }
+  ],
+  "faultInjection": [
+    "Neighborhood error/empty use explicit engine-boundary synthetic injections; screenshots are labelled, not semantic quality results."
+  ],
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"exceptionId\":1,\"text\":\"Uncaught (in promise) SystemError: Path is a directory: rm returned EISDIR (is a directory) /tmp/veynrel-semantic-floating-native-resume-pilot/vault/Scope fixture\",\"lineNumber\":827,\"columnNumber\":19,\"scriptId\":\"146\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"146\",\"url\":\"node:internal/original-fs/utils\",\"lineNumber\":826,\"columnNumber\":18},{\"functionName\":\"\",\"scriptId\":\"145\",\"url\":\"node:original-fs\",\"lineNumber\":199,\"columnNumber\":4}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"NodeError\",\"description\":\"SystemError: Path is a directory: rm returned EISDIR (is a directory) /tmp/veynrel-semantic-floating-native-resume-pilot/vault/Scope fixture\",\"objectId\":\"-2381588513906320311.1.1\"}}\n    at Object.ev (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/visual.mjs:91:5)\n    at async runSemanticStates (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/semantic-state-journey.mjs:34:69)\n    at async runSemanticFloating (file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/semantic-floating-journey.mjs:67:3)\n    at async file:///home/zinvernix/projects/obsidian_ai_hub/plagin_CLAUD/.worktrees/semantic-routes-floating/scripts/native/visual.mjs:139:3",
+  "failureState": {
+    "recall": {
+      "state": "idle"
+    }
+  }
+}

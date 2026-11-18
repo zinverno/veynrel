@@ -17,3 +17,5 @@ This follow-up changes presentation only. The owner reports that different entri
 Trace: `health/ui/VeynrelHealthView.ts` semantic branch and route redirects; `health/workbench/reviewListView.ts` `openMap`/`openSemanticMap`; `health/workbench/workbenchView.ts` `showSemantic`/inspector dispatch.
 
 Follow-up issue: define intended entry state and selection for each panel, especially Map versus Families and shared inspector routes; reproduce in ready/unavailable index, missing selection, folder scope and popout. Decide intended destinations with the owner before changing callbacks. Verify actual all-document focus, never substitute top-K; preserve families, Pair Inspector, computation limits and session ownership. This PR makes no routing-fix claim.
+
+The dependent implementation records the seven [entry contracts](../semantic-floating/contract.md) and their [native verification](../semantic-floating/verification.md).
